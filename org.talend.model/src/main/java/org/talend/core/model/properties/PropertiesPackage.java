@@ -2541,13 +2541,31 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = 24;
 
     /**
+     * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__GENERATED_PROJECT_NAME = 25;
+
+    /**
+     * The feature id for the '<em><b>Generated Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__GENERATED_JOB_NAME = 26;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 25;
+    int EXECUTION_TASK_FEATURE_COUNT = 27;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -3594,6 +3612,24 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>WSDL Schema Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>WSDL Schema Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>WSDL Schema Connection Item</em>' class.
@@ -5626,6 +5662,28 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_MaxConcurrentExecutions();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName <em>Generated Project Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Generated Project Name</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_GeneratedProjectName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName <em>Generated Job Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Generated Job Name</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getGeneratedJobName()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_GeneratedJobName();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6120,6 +6178,26 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getJobletDocumentationItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>WSDL Schema Connection Item</em>'.
+     * @see org.talend.core.model.properties.WSDLSchemaConnectionItem
+     * @generated
+     */
+    EClass getWSDLSchemaConnectionItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>WSDL Schema Connection Item</em>'.
+     * @see org.talend.core.model.properties.WSDLSchemaConnectionItem
+     * @generated
+     */
+    EClass getWSDLSchemaConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
@@ -7799,6 +7877,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = eINSTANCE.getExecutionTask_MaxConcurrentExecutions();
+
+        /**
+         * The meta object literal for the '<em><b>Generated Project Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__GENERATED_PROJECT_NAME = eINSTANCE.getExecutionTask_GeneratedProjectName();
+
+        /**
+         * The meta object literal for the '<em><b>Generated Job Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__GENERATED_JOB_NAME = eINSTANCE.getExecutionTask_GeneratedJobName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

@@ -243,6 +243,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/virtualServer"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/concurrentExecution"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/maxConcurrentExecutions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/generatedProjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/generatedJobName"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//TalendTrigger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/id"/>

@@ -61,6 +61,8 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getVirtualServer <em>Virtual Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedProjectName <em>Generated Project Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedJobName <em>Generated Job Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -526,6 +528,46 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected int maxConcurrentExecutions = MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getGeneratedProjectName() <em>Generated Project Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedProjectName()
+     * @generated
+     * @ordered
+     */
+    protected static final String GENERATED_PROJECT_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getGeneratedProjectName() <em>Generated Project Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedProjectName()
+     * @generated
+     * @ordered
+     */
+    protected String generatedProjectName = GENERATED_PROJECT_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getGeneratedJobName() <em>Generated Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedJobName()
+     * @generated
+     * @ordered
+     */
+    protected static final String GENERATED_JOB_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getGeneratedJobName() <em>Generated Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedJobName()
+     * @generated
+     * @ordered
+     */
+    protected String generatedJobName = GENERATED_JOB_NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1117,6 +1159,48 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getGeneratedProjectName() {
+        return generatedProjectName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setGeneratedProjectName(String newGeneratedProjectName) {
+        String oldGeneratedProjectName = generatedProjectName;
+        generatedProjectName = newGeneratedProjectName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME, oldGeneratedProjectName, generatedProjectName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getGeneratedJobName() {
+        return generatedJobName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setGeneratedJobName(String newGeneratedJobName) {
+        String oldGeneratedJobName = generatedJobName;
+        generatedJobName = newGeneratedJobName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME, oldGeneratedJobName, generatedJobName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -1198,6 +1282,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 return new Integer(getMaxConcurrentExecutions());
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+                return getGeneratedProjectName();
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+                return getGeneratedJobName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1285,6 +1373,12 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 setMaxConcurrentExecutions(((Integer)newValue).intValue());
                 return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+                setGeneratedProjectName((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+                setGeneratedJobName((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1371,6 +1465,12 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 setMaxConcurrentExecutions(MAX_CONCURRENT_EXECUTIONS_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+                setGeneratedProjectName(GENERATED_PROJECT_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+                setGeneratedJobName(GENERATED_JOB_NAME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1432,6 +1532,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 return maxConcurrentExecutions != MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+                return GENERATED_PROJECT_NAME_EDEFAULT == null ? generatedProjectName != null : !GENERATED_PROJECT_NAME_EDEFAULT.equals(generatedProjectName);
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+                return GENERATED_JOB_NAME_EDEFAULT == null ? generatedJobName != null : !GENERATED_JOB_NAME_EDEFAULT.equals(generatedJobName);
         }
         return super.eIsSet(featureID);
     }
@@ -1487,6 +1591,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(concurrentExecution);
         result.append(", maxConcurrentExecutions: ");
         result.append(maxConcurrentExecutions);
+        result.append(", generatedProjectName: ");
+        result.append(generatedProjectName);
+        result.append(", generatedJobName: ");
+        result.append(generatedJobName);
         result.append(')');
         return result.toString();
     }

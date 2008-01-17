@@ -670,4 +670,56 @@ public interface ExecutionTask extends EObject {
      */
     void setMaxConcurrentExecutions(int value);
 
+    /**
+     * Returns the value of the '<em><b>Generated Project Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Generated Project Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Generated Project Name</em>' attribute.
+     * @see #setGeneratedProjectName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_GeneratedProjectName()
+     * @model
+     * @generated
+     */
+    String getGeneratedProjectName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName <em>Generated Project Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Generated Project Name</em>' attribute.
+     * @see #getGeneratedProjectName()
+     * @generated
+     */
+    void setGeneratedProjectName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Generated Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Generated Job Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Generated Job Name</em>' attribute.
+     * @see #setGeneratedJobName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_GeneratedJobName()
+     * @model
+     * @generated
+     */
+    String getGeneratedJobName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName <em>Generated Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Generated Job Name</em>' attribute.
+     * @see #getGeneratedJobName()
+     * @generated
+     */
+    void setGeneratedJobName(String value);
+
 } // ExecutionTask

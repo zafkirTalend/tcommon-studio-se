@@ -372,6 +372,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass wsdlSchemaConnectionItemEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass wsdlSchemaConnectionItemEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2005,6 +2012,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_GeneratedProjectName() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(25);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_GeneratedJobName() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(26);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2386,6 +2411,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getWSDLSchemaConnectionItem() {
+        return wsdlSchemaConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getWSDLSchemaConnectionItem() {
+        return wsdlSchemaConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2698,6 +2741,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(executionTaskEClass, EXECUTION_TASK__VIRTUAL_SERVER);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__CONCURRENT_EXECUTION);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__GENERATED_PROJECT_NAME);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__GENERATED_JOB_NAME);
 
         talendTriggerEClass = createEClass(TALEND_TRIGGER);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ID);
@@ -2754,6 +2799,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         jobDocumentationItemEClass = createEClass(JOB_DOCUMENTATION_ITEM);
 
         jobletDocumentationItemEClass = createEClass(JOBLET_DOCUMENTATION_ITEM);
+
+        wsdlSchemaConnectionItemEClass = createEClass(WSDL_SCHEMA_CONNECTION_ITEM);
 
         wsdlSchemaConnectionItemEClass = createEClass(WSDL_SCHEMA_CONNECTION_ITEM);
 
@@ -3055,6 +3102,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getExecutionTask_VirtualServer(), this.getExecutionVirtualServer(), null, "virtualServer", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_ConcurrentExecution(), theEcorePackage.getEBoolean(), "concurrentExecution", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_MaxConcurrentExecutions(), ecorePackage.getEInt(), "maxConcurrentExecutions", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_GeneratedProjectName(), theEcorePackage.getEString(), "generatedProjectName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_GeneratedJobName(), theEcorePackage.getEString(), "generatedJobName", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(talendTriggerEClass, TalendTrigger.class, "TalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTalendTrigger_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
