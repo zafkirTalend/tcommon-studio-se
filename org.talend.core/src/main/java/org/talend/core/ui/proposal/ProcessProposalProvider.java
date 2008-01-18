@@ -71,10 +71,16 @@ public class ProcessProposalProvider implements IContentProposalProvider {
         }
 
         // Proposals based on global variables(only perl ).
+        // add proposals on global variables in java (bugtracker 2554)
         switch (LanguageManager.getCurrentLanguage()) {
         case JAVA:
-            // do nothing
+            // add variables in java
+            IContentProposal[] javavars = JavaGlobalUtils.getProposals();
+            for (int i = 0; i < javavars.length; i++) {
+                proposals.add(javavars[i]);
+            }
             break;
+
         case PERL:
         default:
             IContentProposal[] vars = PerlGlobalUtils.getProposals();
@@ -82,7 +88,6 @@ public class ProcessProposalProvider implements IContentProposalProvider {
                 proposals.add(vars[i]);
             }
         }
-
         // Proposals based on routines
         FunctionManager functionManager = new FunctionManager();
 
@@ -111,5 +116,4 @@ public class ProcessProposalProvider implements IContentProposalProvider {
         res = proposals.toArray(res);
         return res;
     }
-
 }

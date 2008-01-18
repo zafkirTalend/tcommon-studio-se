@@ -40,6 +40,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.proposal.IExternalProposals;
+import org.talend.core.ui.proposal.JavaGlobalUtils;
 import org.talend.core.ui.proposal.PerlGlobalUtils;
 import org.talend.core.ui.proposal.ProposalFactory;
 import org.talend.designer.rowgenerator.data.Function;
@@ -169,9 +170,23 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         }
 
         // Proposals based on global variables(only perl ).
+        // add proposals on global variables in java (bugtracker 2554)
         switch (LanguageManager.getCurrentLanguage()) {
         case JAVA:
-            // do nothing
+            // add variables in java
+            IContentProposal[] javavars = JavaGlobalUtils.getProposals();
+            for (int i = 0; i < javavars.length; i++) {
+                String display = javavars[i].getLabel();
+
+                if (prefix.equals("") || display.startsWith(prefix)) {
+                    String code = javavars[i].getContent();
+                    String description = getPerlGlobalVarDescription(javavars[i], display);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                            .length(), code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                    proposal.setType(TalendCompletionProposal.VARIABLE);
+                    proposals.add(proposal);
+                }
+            }
             break;
         case PERL:
         default:
