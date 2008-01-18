@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.derby.iapi.services.io.FileUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -200,9 +201,13 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         targetPath = targetPath + "_" + version;
 
         File file = new File(targetPath);
-        if (!file.exists()) {
-            file.mkdirs();
+
+        // Delete if folde is existing.
+        if (file.exists()) {
+            FileUtil.removeDirectory(file);
         }
+
+        file.mkdirs();
 
         handleXMLFile(resource, targetPath, version);
 
@@ -352,8 +357,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-                                         * ,
-                                         */);
+             * ,
+             */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
