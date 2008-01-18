@@ -17,12 +17,8 @@ import java.util.List;
 
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
-import orgomg.cwm.foundation.softwaredeployment.impl.SoftwaredeploymentFactoryImpl;
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
-import orgomg.cwm.foundation.typemapping.impl.TypemappingFactoryImpl;
 import orgomg.cwm.objectmodel.core.CorePackage;
-import orgomg.cwm.objectmodel.core.impl.CoreFactoryImpl;
-import orgomg.cwm.resource.relational.impl.RelationalFactoryImpl;
 
 /**
  * @author scorreia
@@ -36,13 +32,20 @@ public class FactoriesUtil {
      */
     public static void initializeAllFactories() {
         // --- talend extension packages
-        SoftwaredeploymentFactoryImpl.init();
-        RelationalFactoryImpl.init();
+        org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentFactoryImpl.init();
+        org.talend.cwm.relational.impl.RelationalFactoryImpl.init();
 
         // CWM generated packages
         // TODO scorreia add other factories
-        CoreFactoryImpl.init();
-        TypemappingFactoryImpl.init();
+        orgomg.cwm.foundation.softwaredeployment.impl.SoftwaredeploymentFactoryImpl.init();
+        orgomg.cwm.resource.relational.impl.RelationalFactoryImpl.init();
+
+        orgomg.cwmmip.impl.CwmmipFactoryImpl.init();
+        orgomg.mof.model.impl.ModelFactoryImpl.init();
+        orgomg.cwm.foundation.datatypes.impl.DatatypesFactoryImpl.init();
+        orgomg.cwm.objectmodel.core.impl.CoreFactoryImpl.init();
+        orgomg.cwm.objectmodel.relationships.impl.RelationshipsFactoryImpl.init();
+        orgomg.cwm.foundation.typemapping.impl.TypemappingFactoryImpl.init();
     }
 
     /**
