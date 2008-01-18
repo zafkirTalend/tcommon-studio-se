@@ -34,6 +34,8 @@ public class ItemRecord {
 
     private List<String> migrationTasksToApply = new ArrayList<String>();
 
+    private boolean resolved = false;
+
     public ItemRecord(IPath path, Property property) {
         this.path = path;
         this.property = property;
@@ -87,6 +89,14 @@ public class ItemRecord {
      */
     public void setMigrationTasksToApply(List<String> migrationTasksToApply) {
         this.migrationTasksToApply = migrationTasksToApply;
+    }
+
+    public boolean isResolved() {
+        return resolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
     }
 
 }
