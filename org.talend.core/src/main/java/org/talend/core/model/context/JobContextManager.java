@@ -173,9 +173,9 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {
-                        String id = getContexIdFromName(contextParam.getSource());
-                        if (id != null) {
-                            contextParamType.setRepositoryContextId(id);
+                        ContextItem item = getContextItemByName(contextParam.getSource());
+                        if (item != null) {
+                            contextParamType.setRepositoryContextId(item.getProperty().getId());
                         }
                     }
                     contextTypeParamList.add(contextParamType);
@@ -234,11 +234,12 @@ public class JobContextManager implements IContextManager {
                 contextParam.setValue(contextParamType.getValue());
                 contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
                 contextParam.setComment(contextParamType.getComment());
-                String name = getContextNameFromId(contextParamType.getRepositoryContextId());
-                if (name == null) {
-                    name = IContextParameter.BUILT_IN;
-                } else {
-                    if (!isFound(name, contextParamType.getName())) {
+
+                ContextItem item = getContextItemFromId(contextParamType.getRepositoryContextId());
+                String name = IContextParameter.BUILT_IN;
+                if (item != null) {
+                    name = item.getProperty().getLabel();
+                    if (!updateParameterFromRepository(item, contextParam, context.getName())) {
                         name = IContextParameter.BUILT_IN;
                     }
                 }
@@ -271,31 +272,7 @@ public class JobContextManager implements IContextManager {
         return true;
     }
 
-    public String getContexIdFromName(String contextName) {
-        if (contextName == null || "".equals(contextName)) {
-            return null;
-        }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ContextItem> contextItemList = null;
-        try {
-            contextItemList = factory.getContextItem();
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
-        }
-        if (contextItemList != null) {
-            for (ContextItem item : contextItemList) {
-                if (factory.getStatus(item) != ERepositoryStatus.DELETED) {
-                    String name = item.getProperty().getLabel();
-                    if (name.equals(contextName)) {
-                        return item.getProperty().getId();
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public String getContextNameFromId(String contextId) {
+    public ContextItem getContextItemFromId(String contextId) {
         if (contextId == null || "".equals(contextId)) {
             return null;
         }
@@ -311,7 +288,7 @@ public class JobContextManager implements IContextManager {
                 if (factory.getStatus(item) != ERepositoryStatus.DELETED) {
                     String id = item.getProperty().getId();
                     if (id.equals(contextId)) {
-                        return item.getProperty().getLabel();
+                        return item;
                     }
                 }
             }
@@ -341,20 +318,51 @@ public class JobContextManager implements IContextManager {
 
     }
 
-    public boolean isFound(String itemName, String paramName) {
-        if (paramName == null || itemName == null) {
+    /**
+     * 
+     * ggu Comment method "updateParameterFromRepository".
+     * 
+     */
+    public boolean updateParameterFromRepository(ContextItem item, IContextParameter contextParam, String contextName) {
+        if (item == null || contextParam == null) {
             return false;
         }
-        ContextItem item = getContextItemByName(itemName);
-        if (item != null) {
-            for (Object obj : ((ContextType) item.getContext().get(0)).getContextParameter()) {
-                ContextParameterType paramType = (ContextParameterType) obj;
-                if (paramType.getName().equals(paramName)) {
-                    return true;
-                }
+        if (contextName == null) {
+            contextName = item.getDefaultContext();
+        }
+        ContextType contextType = null;
+        ContextType defaultContextType = null;
+        for (ContextType type : (List<ContextType>) item.getContext()) {
+            if (type.getName().equals(contextName)) {
+                contextType = type;
+            } else if (type.getName().equals(item.getDefaultContext())) {
+                defaultContextType = type;
             }
         }
+        // not found the name of context, get the default context.
+        if (contextType == null && defaultContextType != null) {
+            contextType = defaultContextType;
+        }
 
+        if (contextType != null) {
+            ContextParameterType parameterType = null;
+            for (ContextParameterType param : (List<ContextParameterType>) contextType.getContextParameter()) {
+                if (param.getName().equals(contextParam.getName())) {
+                    parameterType = param;
+                    break;
+                }
+            }
+
+            // found parameter, update it.
+            if (parameterType != null) {
+                contextParam.setComment(parameterType.getComment());
+                contextParam.setPrompt(parameterType.getPrompt());
+                contextParam.setPromptNeeded(parameterType.isPromptNeeded());
+                contextParam.setType(parameterType.getType());
+                contextParam.setValue(parameterType.getValue());
+                return true;
+            }
+        }
         return false;
     }
 
