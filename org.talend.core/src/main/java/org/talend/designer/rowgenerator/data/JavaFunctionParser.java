@@ -151,6 +151,9 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         String string2 = super.parseFunctionType(string);
         if (string2 != null && !string2.trim().equals("")) {
             JavaType type = JavaTypesManager.getJavaTypeFromLabel(string2);
+            if (type == null) {
+                type = JavaTypesManager.getJavaTypeFromName(string2);
+            }
             if (type != null) {
                 return type.getId();
             }
