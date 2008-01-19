@@ -13,6 +13,8 @@
 package routines.system;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,12 +156,20 @@ public class ParserUtils {
             return null;
         }
         java.util.Date date = null;
-        try {
-            date = FastDateParser.getInstance(pattern).parse(s);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-            System.err.println("Current string to parse '" + s + "'");
+        // try {
+        // date = FastDateParser.getInstance(pattern).parse(s);
+        // } catch (java.text.ParseException e) {
+        // e.printStackTrace();
+        // System.err.println("Current string to parse '" + s + "'");
+        // }
+        DateFormat format = FastDateParser.getInstance(pattern);
+        ParsePosition pp = new ParsePosition(0);
+        pp.setIndex(0);
+        date = format.parse(s, pp);
+        if (pp.getIndex() != s.length() || date == null) {
+            throw new RuntimeException("Unparseable date: \"" + s + "\"");
         }
+
         return date;
     }
 
