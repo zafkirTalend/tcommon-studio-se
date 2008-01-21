@@ -591,7 +591,7 @@ public abstract class AbstractNode implements INode {
     public INode getDesignSubjobStartNode() {
         if (designSubjobStartNode == null) {
             // used for process without design.
-            getSubProcessStartNode(false);
+            return getSubProcessStartNode(false);
         }
         return designSubjobStartNode;
     }
