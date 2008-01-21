@@ -1346,8 +1346,9 @@ public class ConextTemplateComposite extends Composite {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return getContextManager().getDefaultContext().getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getName();
+                                        return "context."
+                                                + getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).builtContextParameter.getName()).getName();
                                     } else {
                                         break;
                                     }
@@ -1391,8 +1392,9 @@ public class ConextTemplateComposite extends Composite {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return getContextManager().getDefaultContext().getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getName();
+                                        return "context."
+                                                + getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).builtContextParameter.getName()).getName();
                                     } else {
                                         break;
                                     }
@@ -1542,8 +1544,9 @@ public class ConextTemplateComposite extends Composite {
                     if (codeLanguage == ECodeLanguage.JAVA) {
                         if (son.parameter != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                        .getName();
+                                return "context."
+                                        + getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
+                                                .getName();
                             } else {
                                 break;
                             }
@@ -1858,8 +1861,9 @@ public class ConextTemplateComposite extends Composite {
                             if (((Parent) element).parameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).parameter.getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).parameter.getName()).getName();
+                                    return "context."
+                                            + getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).getName();
                                 } else {
                                     break;
                                 }
@@ -1887,8 +1891,9 @@ public class ConextTemplateComposite extends Composite {
                             if (((Parent) element).parameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).parameter.getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).parameter.getName()).getName();
+                                    return "context."
+                                            + getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).getName();
                                 } else {
                                     break;
                                 }
