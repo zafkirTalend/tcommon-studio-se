@@ -33,7 +33,6 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
@@ -195,6 +194,8 @@ public class JobContextManager implements IContextManager {
 
         listContext.clear();
 
+        List<ContextItem> contextItemList = getAllContextItem();
+
         for (int i = 0; i < contextTypeList.size(); i++) {
             contextType = (ContextType) contextTypeList.get(i);
             context = new JobContext(contextType.getName());
@@ -235,13 +236,10 @@ public class JobContextManager implements IContextManager {
                 contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
                 contextParam.setComment(contextParamType.getComment());
 
-                ContextItem item = getContextItemFromId(contextParamType.getRepositoryContextId());
+                ContextItem item = getContextItemFromId(contextItemList, contextParamType.getRepositoryContextId());
                 String name = IContextParameter.BUILT_IN;
-                if (item != null) {
+                if (item != null && updateParameterFromRepository(item, contextParam, context.getName())) {
                     name = item.getProperty().getLabel();
-                    if (!updateParameterFromRepository(item, contextParam, context.getName())) {
-                        name = IContextParameter.BUILT_IN;
-                    }
                 }
                 contextParam.setSource(name);
                 contextParamList.add(contextParam);
@@ -272,25 +270,17 @@ public class JobContextManager implements IContextManager {
         return true;
     }
 
-    public ContextItem getContextItemFromId(String contextId) {
+    public ContextItem getContextItemFromId(List<ContextItem> contextItemList, String contextId) {
         if (contextId == null || "".equals(contextId)) {
             return null;
         }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ContextItem> contextItemList = null;
-        try {
-            contextItemList = factory.getContextItem();
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
-        }
         if (contextItemList != null) {
             for (ContextItem item : contextItemList) {
-                if (factory.getStatus(item) != ERepositoryStatus.DELETED) {
-                    String id = item.getProperty().getId();
-                    if (id.equals(contextId)) {
-                        return item;
-                    }
+                String id = item.getProperty().getId();
+                if (id.equals(contextId)) {
+                    return item;
                 }
+
             }
         }
         return null;
@@ -300,13 +290,8 @@ public class JobContextManager implements IContextManager {
         if (name == null) {
             return null;
         }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ContextItem> contextItemList = null;
-        try {
-            contextItemList = factory.getContextItem();
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
-        }
+        List<ContextItem> contextItemList = getAllContextItem();
+
         if (contextItemList != null) {
             for (ContextItem item : contextItemList) {
                 if (item.getProperty().getLabel().equals(name)) {
@@ -316,6 +301,17 @@ public class JobContextManager implements IContextManager {
         }
         return null;
 
+    }
+
+    private List<ContextItem> getAllContextItem() {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<ContextItem> contextItemList = null;
+        try {
+            contextItemList = factory.getContextItem();
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        return contextItemList;
     }
 
     /**
