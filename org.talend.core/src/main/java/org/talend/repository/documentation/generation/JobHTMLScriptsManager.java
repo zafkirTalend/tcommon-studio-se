@@ -22,6 +22,9 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.documentation.ExportFileResource;
 
@@ -64,6 +67,15 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
      */
     public boolean isNeedGenerate() {
         return this.needGenerate;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.documentation.generation.IDocumentationManager#getDocGenerator()
+     */
+    public void setNeedGenerate(boolean needGenerate) {
+        this.needGenerate = needGenerate;
     }
 
     /**
@@ -113,9 +125,26 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
     private void collectGeneratedDocumentation(ExportFileResource exportFileResource, String targetPath, String[] jobVersion)
             throws MalformedURLException {
 
-        String jobName = exportFileResource.getItem().getProperty().getLabel();
+        Item item = exportFileResource.getItem();
 
-        String jobPath = exportFileResource.getItem().getProperty().getItem().getState().getPath();
+        String jobName = item.getProperty().getLabel();
+
+        String jobPath = item.getProperty().getItem().getState().getPath();
+
+        String subFolder = null;
+
+        if (targetPath.endsWith(ERepositoryObjectType.GENERATED.toString().toLowerCase())) {
+
+            if (item instanceof JobDocumentationItem) {
+                subFolder = ERepositoryObjectType.JOBS.toString().toLowerCase();
+            } else if (item instanceof JobletDocumentationItem) {
+                subFolder = ERepositoryObjectType.JOBLETS.toString().toLowerCase();
+            } else {
+                subFolder = "";
+            }
+
+            targetPath = targetPath + IPath.SEPARATOR + subFolder;
+        }
 
         // Used for generating/updating all jobs' documentaiton only.
         if (targetPath.endsWith(ERepositoryObjectType.JOBS.toString().toLowerCase())
@@ -128,7 +157,7 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
         if (jobVersion != null && jobVersion.length == 1) {
             version = jobVersion[0];
         } else {
-            version = exportFileResource.getItem().getProperty().getVersion();
+            version = item.getProperty().getVersion();
         }
         targetPath = targetPath + "_" + version;
 

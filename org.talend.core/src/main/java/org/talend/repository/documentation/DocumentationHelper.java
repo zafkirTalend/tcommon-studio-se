@@ -192,7 +192,7 @@ public class DocumentationHelper {
      * 
      * @return an instance of <code>Project</code>
      */
-    private static Project getProject() {
+    public static Project getProject() {
         return ((org.talend.core.context.RepositoryContext) CorePlugin.getContext().getProperty(
                 org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject();
     }

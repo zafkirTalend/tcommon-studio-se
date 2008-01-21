@@ -71,10 +71,12 @@ public interface IHTMLDocConstants {
     public static final String MAPPER_TABLE_VAR = "var"; //$NON-NLS-1$
 
     public static final String EXTERNAL_FOLDER_NAME = "externalDoc/"; //$NON-NLS-1$
-    
+
     public static final String JOB_NODE_DOCUMENTATION_ROOT_PATH = "documentations/generated/jobs";
-    
+
     public static final String JOBLET_NODE_DOCUMENTATION_ROOT_PATH = "documentations/generated/joblets";
-    
+
+    public static final String GENERATED_NODE_DOCUMENTATION_ROOT_PATH = "documentations/generated";
+
     public static final String REPOSITORY_PLUG_IN_ID = "org.talend.repository";
 }
