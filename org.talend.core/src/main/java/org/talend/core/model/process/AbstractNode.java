@@ -77,6 +77,8 @@ public abstract class AbstractNode implements INode {
 
     protected List<? extends INodeConnector> listConnector;
 
+    private INode designSubjobStartNode;
+
     public String getComponentName() {
         return componentName;
     }
@@ -579,5 +581,23 @@ public abstract class AbstractNode implements INode {
     public void reloadComponent(IComponent component, Map<String, Object> parameters) {
         // TODO Auto-generated method stub
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#getDesignSubjobStart()
+     */
+    public INode getDesignSubjobStartNode() {
+        return designSubjobStartNode;
+    }
+
+    /**
+     * Sets the designSubjobStart.
+     * 
+     * @param designSubjobStart the designSubjobStart to set
+     */
+    public void setDesignSubjobStartNode(INode designSubjobStartNode) {
+        this.designSubjobStartNode = designSubjobStartNode;
     }
 }
