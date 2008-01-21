@@ -303,7 +303,7 @@ public class JobContextManager implements IContextManager {
 
     }
 
-    private List<ContextItem> getAllContextItem() {
+    public List<ContextItem> getAllContextItem() {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         List<ContextItem> contextItemList = null;
         try {
