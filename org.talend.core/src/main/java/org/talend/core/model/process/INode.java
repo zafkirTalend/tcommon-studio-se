@@ -187,4 +187,6 @@ public interface INode extends IElement {
     public void reloadComponent(IComponent component, Map<String, Object> parameters);
 
     public INode getDesignSubjobStartNode();
+
+    public boolean isDesignSubjobStartNode();
 }

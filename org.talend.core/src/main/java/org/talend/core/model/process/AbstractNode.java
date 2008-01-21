@@ -600,4 +600,13 @@ public abstract class AbstractNode implements INode {
     public void setDesignSubjobStartNode(INode designSubjobStartNode) {
         this.designSubjobStartNode = designSubjobStartNode;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#isDesignSubjobStartNode()
+     */
+    public boolean isDesignSubjobStartNode() {
+        return this.equals(designSubjobStartNode);
+    }
 }
