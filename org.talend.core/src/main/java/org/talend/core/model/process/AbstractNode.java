@@ -589,6 +589,10 @@ public abstract class AbstractNode implements INode {
      * @see org.talend.core.model.process.INode#getDesignSubjobStart()
      */
     public INode getDesignSubjobStartNode() {
+        if (designSubjobStartNode == null) {
+            // used for process without design.
+            getSubProcessStartNode(false);
+        }
         return designSubjobStartNode;
     }
 
