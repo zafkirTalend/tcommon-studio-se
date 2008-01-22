@@ -19,7 +19,6 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -385,7 +384,7 @@ public class RepositoryToComponentProperty {
     }
 
     private static Object getXmlFileValue(XmlFileConnection connection, String value) {
-        EObjectContainmentWithInverseEList list = (EObjectContainmentWithInverseEList) connection.getSchema();
+        EList list = connection.getSchema();
         XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             Path p = new Path(connection.getXmlFilePath());
@@ -427,7 +426,7 @@ public class RepositoryToComponentProperty {
             IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection.getSchema();
+            EList objectList = xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
             List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
             tableInfo.clear();
@@ -449,7 +448,7 @@ public class RepositoryToComponentProperty {
             List<Map<String, Object>> tableInfo, IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection.getSchema();
+            EList objectList = xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
             if (value.equals("XML_MAPPING")) { //$NON-NLS-1$
                 if (xmlDesc == null) {
@@ -568,7 +567,7 @@ public class RepositoryToComponentProperty {
     public static List<Map<String, Object>> getXMLMappingValue(Connection connection, IMetadataTable metadataTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection.getSchema();
+            EList objectList = xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
             if (metadataTable != null) {
                 if (xmlDesc != null) {
