@@ -51,14 +51,14 @@ public class DemoRoutines {
     
     
     /**
-     * getRandomDay : Return a randomly Open Day
+     * getRandomWorkDay : Return a random work day
      * 
      * {Category} String
      * {talendTypes} String
      * 
-     * {example} getRandomDay() # Monday
+     * {example} getRandomWorkDay() # Monday
      */
-    public static String getRandomOpenDay() {
+    public static String getRandomWorkDay() {
     	String day[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
         int i = ((Long)Math.round(Math.random() * (4))).intValue();
         return day[i];

@@ -65,7 +65,7 @@
     <elementParameter field="TEXT" name="NB_ROWS" value="100"/>
     <elementParameter field="TABLE" name="VALUES">
       <elementValue elementRef="SCHEMA_COLUMN" value="day"/>
-      <elementValue elementRef="ARRAY" value="DemoRoutines.getRandomOpenDay()"/>
+      <elementValue elementRef="ARRAY" value="DemoRoutines.getRandomWorkDay()"/>
     </elementParameter>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
@@ -85,5 +85,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="32" posY="128" sizeHeight="129" sizeWidth="417" text="This job generate 100 rows with one value: day&#xD;&#xA;&#xD;&#xA;The method getRandomOpenDay used to generated a date is&#xD;&#xA;on the node Code/Routines/DemoRoutines"/>
+  <note opaque="true" posX="32" posY="128" sizeHeight="129" sizeWidth="417" text="This job generate 100 rows with one value: day&#xD;&#xA;&#xD;&#xA;The method getRandomWorkDay used to generated a date is&#xD;&#xA;on the node Code/Routines/DemoRoutines"/>
 </talendfile:ProcessType>
