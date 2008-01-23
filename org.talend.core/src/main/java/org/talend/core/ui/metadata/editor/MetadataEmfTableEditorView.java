@@ -144,6 +144,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
                 // Replaces all single quote mark and double quotes.
                 value = handleDefaultValue(bean, value);
+                bean.setDefaultValue(value);
                 return value;
             }
 

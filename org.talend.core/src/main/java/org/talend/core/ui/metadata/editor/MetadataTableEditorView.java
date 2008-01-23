@@ -181,6 +181,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             public String get(IMetadataColumn bean) {
                 String value = bean.getDefault();
                 value = handleDefaultValue(bean, value);
+                bean.setDefault(value);
                 return value;
             }
 
