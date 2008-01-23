@@ -17,6 +17,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gef.palette.PaletteEntry;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -26,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -45,7 +50,32 @@ public class ComponentUtilities {
 
     private static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
 
-    public static boolean isComponentPaletteNeedRefresh;
+    private static PaletteRoot paletteRoot;
+
+    public static PaletteRoot getPaletteRoot() {
+        if (paletteRoot == null) {
+            updatePalette();
+        }
+        return paletteRoot;
+    }
+
+    public static void updatePalette() {
+
+        IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        if (paletteRoot != null) {
+            List oldRoots = new ArrayList(paletteRoot.getChildren());
+            for (Object obj : oldRoots) {
+                if (obj instanceof PaletteGroup) {
+                    continue;
+                }
+                paletteRoot.remove((PaletteEntry) obj);
+            }
+            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot);
+
+        } else {
+            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components);
+        }
+    }
 
     public static String getNodePropertyValue(NodeType node, String property) {
         ElementParameterType prop = getNodeProperty(node, property);

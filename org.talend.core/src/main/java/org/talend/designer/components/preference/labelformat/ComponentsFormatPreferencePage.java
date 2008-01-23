@@ -57,7 +57,6 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.components.ComponentUtilities;
 import org.talend.designer.components.IComponentsLocalProviderService;
-import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * yzhang class global comment. Detail led comment <br/>
@@ -91,19 +90,25 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * yzhang Comment method "getPaletteRoot".
      */
     public PaletteRoot getPaletteRoot() {
-        if (paletteRoot == null || ComponentUtilities.isComponentPaletteNeedRefresh) {
-            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(ComponentsFactoryProvider.getInstance());
-            PaletteEntry entry = null;
-            for (Object element : paletteRoot.getChildren()) {
-                if (((PaletteContainer) element).getLabel().equals("Tools")) {
-                    entry = (PaletteEntry) element;
-                    break;
-                }
-            }
-            if (entry != null) {
-                paletteRoot.remove(entry);
-            }
-        }
+
+        paletteRoot = ComponentUtilities.getPaletteRoot();
+
+        // TODO:need to remove the tool group.
+
+        // if (paletteRoot == null || ComponentUtilities.isComponentPaletteNeedRefresh) {
+        // paletteRoot =
+        // CorePlugin.getDefault().getDesignerCoreService().createPalette(ComponentsFactoryProvider.getInstance());
+        // PaletteEntry entry = null;
+        // for (Object element : paletteRoot.getChildren()) {
+        // if (((PaletteContainer) element).getLabel().equals("Tools")) {
+        // entry = (PaletteEntry) element;
+        // break;
+        // }
+        // }
+        // if (entry != null) {
+        // paletteRoot.remove(entry);
+        // }
+        // }
         return paletteRoot;
 
     }

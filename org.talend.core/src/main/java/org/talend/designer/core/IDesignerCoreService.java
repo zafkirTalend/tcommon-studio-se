@@ -62,13 +62,15 @@ public interface IDesignerCoreService extends IService {
 
     public IProcess getCurrentProcess();
 
-    public void refreshDesignerPalette();
+    public void synchronizeDesignerUI();
 
     public IPartListener getActiveProcessTracker();
 
     public String getPreferenceStore(String key);
 
     public PaletteRoot createPalette(IComponentsFactory factory);
+
+    public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root);
 
     public IAction getCreateProcessAction(boolean isToolbar);
 
