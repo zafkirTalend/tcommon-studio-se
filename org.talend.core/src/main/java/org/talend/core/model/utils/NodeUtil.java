@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.INode;
 
 /**
@@ -107,7 +108,7 @@ public class NodeUtil {
         return conns;
     }
 
-    public static List<? extends IConnection> getIncomingConnections(INode node, EConnectionType connectionType) {
+    public static List<? extends IConnection> getIncomingConnections(INode node, EConnectionType oconnectionTypennectionType) {
         List<IConnection> conns = null;
 
         List<? extends IConnection> incomingConnections = node.getIncomingConnections();
@@ -116,7 +117,7 @@ public class NodeUtil {
 
             for (int i = 0; i < incomingConnections.size(); i++) {
                 IConnection connection = incomingConnections.get(i);
-                if (connection.getLineStyle() == connectionType) {
+                if (connection.getLineStyle() == oconnectionTypennectionType) {
                     conns.add(connection);
                 }
             }
@@ -176,5 +177,19 @@ public class NodeUtil {
             result = true;
         }
         return result;
+    }
+
+    public static List<IConnection> getSameTargetConnectionsList(INode node, IConnection connection) {
+        List<IConnection> connectionList = new ArrayList<IConnection>();
+        INode targetNode = connection.getTarget();
+        for (IConnection inConnection : targetNode.getIncomingConnections()) {
+            //only for the connection of DATA type.
+            if (inConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                if (inConnection.getSource().equals(node)) {
+                    connectionList.add(inConnection);
+                }
+            }
+        }
+        return connectionList;
     }
 }
