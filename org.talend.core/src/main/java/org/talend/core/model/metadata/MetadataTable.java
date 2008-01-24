@@ -15,9 +15,9 @@ package org.talend.core.model.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 
 /**
  * Meta Data Table. Contains all the columns. <br/> $Id: MetadataTable.java,v 1.24.4.1 2006/09/05 13:38:25 mhelleboid
@@ -183,7 +183,8 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     }
 
     public boolean sameMetadataAs(IMetadataTable other) {
-        return sameMetadataAs(other, IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME);
+        return sameMetadataAs(other, IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME | IMetadataColumn.OPTIONS_IGNORE_DEFAULT
+                | IMetadataColumn.OPTIONS_IGNORE_COMMENT);
     }
 
     /**
