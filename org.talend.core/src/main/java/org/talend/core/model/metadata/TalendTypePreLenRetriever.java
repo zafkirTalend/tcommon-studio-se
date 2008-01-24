@@ -37,9 +37,9 @@ public class TalendTypePreLenRetriever {
         this.dbPrecion = dbPrecion;
         this.talendTypeNew = mappingType.getTalendType();
         List<TalendTypePrecisionLength> list = new ArrayList();
-        TalendTypePrecisionLength talendTypeFloat = new TalendTypePrecisionLength("id_Float", 32, 0, 16, 1);
+        TalendTypePrecisionLength talendTypeFloat = new TalendTypePrecisionLength("id_Float", 32, 0, 32, 1);
         TalendTypePrecisionLength talendTypeInt = new TalendTypePrecisionLength("id_Integer", 16, 0, 0, 0);
-        TalendTypePrecisionLength talendTypeLong = new TalendTypePrecisionLength("id_Long", 64, 0, 32, 17);
+        TalendTypePrecisionLength talendTypeLong = new TalendTypePrecisionLength("id_Long", 64, 17, 0, 0);
         TalendTypePrecisionLength talendTypeDouble = new TalendTypePrecisionLength("id_Double", 64, 0, 64, 33);
         list.add(talendTypeFloat);
         list.add(talendTypeInt);
