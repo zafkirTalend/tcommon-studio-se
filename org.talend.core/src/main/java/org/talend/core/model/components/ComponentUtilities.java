@@ -50,6 +50,10 @@ public class ComponentUtilities {
 
     private static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
 
+    public static final String NORMAL = "normal";
+
+    public static final String JOBLET_NAME_CHANGED = "joblet name changed";
+
     private static PaletteRoot paletteRoot;
 
     public static PaletteRoot getPaletteRoot() {

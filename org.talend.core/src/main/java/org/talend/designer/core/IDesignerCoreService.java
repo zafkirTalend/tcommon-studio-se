@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.core;
 
+import java.beans.PropertyChangeEvent;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public interface IDesignerCoreService extends IService {
 
     public IProcess getCurrentProcess();
 
-    public void synchronizeDesignerUI();
+    public void synchronizeDesignerUI(PropertyChangeEvent evt);
 
     public IPartListener getActiveProcessTracker();
 
