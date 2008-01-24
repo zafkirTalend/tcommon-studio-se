@@ -64,6 +64,9 @@ public enum EImage implements IImage {
 
     PROPERTIES_WIZ("/icons/editpref_wiz.gif"),
 
+    TRACES_EXPAND("/icons/traces_expand.gif"),
+    TRACES_COLLAPSE("/icons/traces_collapse.gif"),
+
     ;
 
     private String path;
