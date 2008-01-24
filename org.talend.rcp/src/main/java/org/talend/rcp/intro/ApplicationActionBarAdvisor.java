@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -191,6 +192,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         editMenu.appendToGroup(GROUP_COPY, ActionFactory.PASTE.create(window));
         editMenu.appendToGroup(GROUP_DELETE, ActionFactory.DELETE.create(window));
         editMenu.appendToGroup(GROUP_DELETE, ActionFactory.SELECT_ALL.create(window));
+        editMenu.add(new GroupMarker(IWorkbenchActionConstants.FIND_EXT));
 
         MenuManager perspMenu = new PerspectiveMenuManager();
 
