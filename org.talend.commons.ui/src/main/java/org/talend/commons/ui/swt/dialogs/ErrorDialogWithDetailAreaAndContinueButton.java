@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the agreement
+// You should have received a copy of the  agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //
@@ -15,31 +15,13 @@ package org.talend.commons.ui.swt.dialogs;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.i18n.Messages;
 
 /**
- * Open an Error dialog with a details area (title = "Error Message"). This
- * dialog box show a Details button that shows or hides an extra area with more
- * information. This functionality is provided by the JFace ErrorDialog. The
- * naming of this class is a bit unfortunate as it doesn�t fully express all the
- * things it can be used for. A better name might have been StatusDialog as it
- * is used to display any IStatus object, which can represent information,
- * warnings, or errors. The dialog looks at the severity of the supplied status
- * and uses an appropriate icon: an exclamation mark for errors, a yield sign
- * for warnings, and an i character for information.
- * 
- * If you want to provide more information in the details area, you need to
- * supply a MultiStatus object. The dialog will obtain the message string from
- * the MultiStatus parent, and one line in the details area will be for the
- * message from each child status.
- * 
- * $Id: ErrorDialogWidthDetailArea.java 7038 2007-11-15 14:05:48Z plegall $
- * 
+ * DOC yexiaowei class global comment. Detailled comment
  */
-public class ErrorDialogWidthDetailArea {
-
+public class ErrorDialogWithDetailAreaAndContinueButton {
 	private int codeOfButton;
 
 	/**
@@ -52,7 +34,7 @@ public class ErrorDialogWidthDetailArea {
 	 * @param detailMessage
 	 *            (\n an \t are interpreted ; \r are deleted)
 	 */
-	public ErrorDialogWidthDetailArea(Shell shell, String pid,
+	public ErrorDialogWithDetailAreaAndContinueButton(Shell shell, String pid,
 			String mainMessage, String detailMessage) {
 		MultiStatus info = new MultiStatus(pid, 1, mainMessage, null);
 		if (detailMessage != null) {
@@ -62,9 +44,12 @@ public class ErrorDialogWidthDetailArea {
 						"\t", "    ").replaceAll("\r", ""), null));
 			}
 		}
-		codeOfButton = ErrorDialog.openError(shell, Messages
-				.getString("ErrorDialogWidthDetailArea.ErrorMessage.Text"),
-				null, info); //$NON-NLS-1$
+		codeOfButton = ErrorDialogWithContinue
+				.openErrorWithContinueButton(
+						shell,
+						Messages
+								.getString("ErrorDialogWidthDetailArea.ErrorMessage.Text"),
+						null, info); //$NON-NLS-1$
 	}
 
 	public int getCodeOfButton() {
