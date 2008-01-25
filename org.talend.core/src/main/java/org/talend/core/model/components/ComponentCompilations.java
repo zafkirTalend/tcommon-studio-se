@@ -26,14 +26,14 @@ public class ComponentCompilations {
 
     public static void deleteMarkers() {
         initFile();
-        if ((f != null) && (f.exists())) {
+        if (fileExists()) {
             f.delete();
         }
     }
 
     public static void addMarkers() {
         initFile();
-        if ((f != null) && (!f.exists())) {
+        if (fileNotExists()) {
             try {
                 f.createNewFile();
             } catch (IOException e) {
@@ -44,18 +44,22 @@ public class ComponentCompilations {
 
     public static boolean getMarkers() {
         initFile();
-        if ((f != null) && (f.exists())) {
-            return true;
-        } else {
-            return false;
-        }
+        return fileExists();
+    }
+
+    private static boolean fileExists() {
+        return f != null && f.exists();
+    }
+
+    private static boolean fileNotExists() {
+        return f != null && !f.exists();
     }
 
     private static void initFile() {
         try {
             if (f == null) {
                 String filePath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
-                f = new File(filePath + File.pathSeparator + ".JetEmitters" + File.pathSeparator + "FirstCompilationMarker");
+                f = new File(filePath + File.separator + ".JETEmitters" + File.separator + "FirstCompilationMarker");
             }
         } catch (Exception e) {
             // do nothing
