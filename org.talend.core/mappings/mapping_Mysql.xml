@@ -68,8 +68,8 @@
 					<dbType type="VARCHAR"/>
 				</talendType>
 				<talendType type="id_Date">
-					<dbType type="DATE" default="true" />
-					<dbType type="DATETIME" />	
+					<dbType type="DATE" />
+					<dbType type="DATETIME" default="true" />	
 					<dbType type="TIME" />
 					<dbType type="YEAR" />
 					<dbType type="TIMESTAMP" />				
