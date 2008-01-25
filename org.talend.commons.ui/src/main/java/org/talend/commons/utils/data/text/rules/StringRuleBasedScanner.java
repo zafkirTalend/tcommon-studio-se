@@ -119,6 +119,9 @@ public class StringRuleBasedScanner implements ICharacterScanner, IStringTokenSc
      * @see org.eclipse.jface.text.rules.ICharacterScanner#read()
      */
     public int read() {
+        if (fOffset < 0) {
+            return EOF;
+        }
         try {
 
             if (fOffset < fRangeEnd) {

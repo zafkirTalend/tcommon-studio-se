@@ -14,8 +14,7 @@ package org.talend.commons.ui.swt.colorstyledtext;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Priority;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ExtendedModifyEvent;
@@ -30,27 +29,27 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.ui.swt.colorstyledtext.rules.CToken;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
-import org.talend.commons.utils.time.TimeMeasure;
+import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * This component is an adaptation of a Color Editor for a StyledText.
  * 
  * The original editor can be found on http://www.gstaff.org/colorEditor/ <br/>
  * 
- * <b>How to use it, example :</b> <br/> <i> ColorManager colorManager = new
- * ColorManager(CoreActivator.getDefault().getPreferenceStore());<br/> ColorStyledText text = new
- * ColorStyledText(parent, SWT.H_SCROLL | SWT.V_SCROLL, colorManager, ECodeLanguage.PERL.getName());</i> <br/><br/>
+ * <b>How to use it, example :</b> <br/> ColorStyledText text = new ColorStyledText(parent, SWT.H_SCROLL |
+ * SWT.V_SCROLL, CorePlugin.getDefault().getPreferenceStore(), ECodeLanguage.PERL.getName());</i> <br/><br/>
  * 
  * $Id: ColorStyledText.java 7183 2007-11-23 11:03:36Z amaumont $
  * 
  */
 public class ColorStyledText extends StyledText {
+
+    private final static int MAXIMUM_CHARACTERS_BEFORE_USE_TIMER = 1000;
 
     private final ColorManager colorManager;
 
@@ -62,10 +61,10 @@ public class ColorStyledText extends StyledText {
 
     private boolean coloring = true;
 
-    public ColorStyledText(Composite parent, int style, ColorManager colorManager, String languageMode) {
+    public ColorStyledText(Composite parent, int style, IPreferenceStore store, String languageMode) {
         super(parent, style);
         this.languageMode = languageMode;
-        this.colorManager = colorManager;
+        this.colorManager = new ColorManager(store);
 
         ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
         Image image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY).createImage();
@@ -120,18 +119,14 @@ public class ColorStyledText extends StyledText {
         addExtendedModifyListener(modifyListener);
     }
 
-    @Override
-    public void setText(String text) {
-        super.setText(text);
-
-        colorize(scanner);
-    }
-
-    protected void colorize(ColoringScanner scanner) {
-        ArrayList<StyleRange> styles = new ArrayList<StyleRange>();
+    protected void colorize(final ColoringScanner scanner) {
+        final ArrayList<StyleRange> styles = new ArrayList<StyleRange>();
         if (this.coloring) {
-            scanner.parse(this.getText());
             IToken token;
+            if (this.isDisposed()) {
+                return;
+            }
+            scanner.parse(this.getText());
 
             do {
                 token = scanner.nextToken();
@@ -153,54 +148,49 @@ public class ColorStyledText extends StyledText {
                     }
                 }
             } while (!token.isEOF());
-
+            setStyles(styles);
         } else {
             StyleRange styleRange = new StyleRange();
             styles.add(styleRange);
             styleRange.start = 0;
             styleRange.length = this.getText().getBytes().length;
             styleRange.foreground = null;
+            setStyles(styles);
         }
-        setStyles(styles);
     }
 
     public void setStyles(final ArrayList<StyleRange> styles) {
-        getDisplay().syncExec(new Runnable() {
+        if (ColorStyledText.this.isDisposed()) {
+            return;
+        }
+        int countChars = getCharCount();
 
-            public void run() {
-                if (ColorStyledText.this.isDisposed()) {
-                    return;
-                }
-                try {
-                    //TimeMeasure.begin(ColorStyledText.this.toString());
-                    int countChars = getCharCount();
-                    
-                    if(countChars > 100) {
-                        throw new UnsupportedOperationException("Unsupported coloring operation for too many characters (temporary message)");
-                    }
-                    
-                    for (int i = 0; i < styles.size(); i++) {
-                        StyleRange styleRange = styles.get(i);
-                        // System.out.println("styleRange.start="+styleRange.start);
-                        // System.out.println("styleRange.length="+styleRange.length);
-                        if (!(0 <= styleRange.start && styleRange.start + styleRange.length <= countChars)) {
-                            continue;
-                        }
-                        setStyleRange(styleRange);
-                    }
-                    //TimeMeasure.end(ColorStyledText.this.toString());
-                } catch (RuntimeException t) {
-                    // System.out.println(t);
-                    ExceptionHandler.process(t, Level.WARN);
-                }
+        for (int i = 0; i < styles.size(); i++) {
+            StyleRange styleRange = styles.get(i);
+            // System.out.println("styleRange.start="+styleRange.start);
+            // System.out.println("styleRange.length="+styleRange.length);
+            if (!(0 <= styleRange.start && styleRange.start + styleRange.length <= countChars)) {
+                continue;
             }
-        });
+            setStyleRange(styleRange);
+        }
     }
 
     ExtendedModifyListener modifyListener = new ExtendedModifyListener() {
 
         public void modifyText(ExtendedModifyEvent event) {
-            colorize(scanner);
+            if (ColorStyledText.this.getCharCount() > MAXIMUM_CHARACTERS_BEFORE_USE_TIMER) {
+                colorizeLimiter.resetTimer();
+                colorizeLimiter.startIfExecutable(true);
+            } else {
+                getDisplay().asyncExec(new Runnable() {
+
+                    public void run() {
+                        colorize(scanner);
+                    }
+
+                });
+            }
         }
     };
 
@@ -244,9 +234,40 @@ public class ColorStyledText extends StyledText {
     public void setColoring(boolean coloring) {
         boolean wasDifferent = this.coloring != coloring;
         this.coloring = coloring;
-        if (wasDifferent) {
-            colorize(getScanner());
+        if (!coloring) {
+            removeExtendedModifyListener(modifyListener);
+        } else if (wasDifferent) {
+            colorizeLimiter.resetTimer();
+            colorizeLimiter.startIfExecutable(true);
+            addExtendedModifyListener(modifyListener);
         }
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.swt.widgets.Widget#dispose()
+     */
+    @Override
+    public void dispose() {
+        super.dispose();
+        colorManager.dispose();
+    }
+
+    private final ExecutionLimiter colorizeLimiter = new ExecutionLimiter(1000, true) {
+
+        @Override
+        public void execute(final boolean isFinalExecution) {
+            if (!isDisposed()) {
+                getDisplay().asyncExec(new Runnable() {
+
+                    public void run() {
+                        colorize(scanner);
+                    }
+
+                });
+            }
+        }
+    };
 
 }

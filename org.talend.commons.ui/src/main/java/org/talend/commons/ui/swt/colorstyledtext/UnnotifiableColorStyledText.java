@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.colorstyledtext;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
@@ -24,8 +25,8 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class UnnotifiableColorStyledText extends ColorStyledText {
 
-    public UnnotifiableColorStyledText(Composite parent, int style, ColorManager colorManager, String languageMode) {
-        super(parent, style, colorManager, languageMode);
+    public UnnotifiableColorStyledText(Composite parent, int style, IPreferenceStore store, String languageMode) {
+        super(parent, style, store, languageMode);
     }
 
     /**
