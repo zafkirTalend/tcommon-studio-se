@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
-import org.talend.commons.exception.PersistenceException;
-import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -33,7 +31,6 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -172,7 +169,7 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {
-                        ContextItem item = getContextItemByName(contextParam.getSource());
+                        ContextItem item = ContextUtils.getContextItemByName(contextParam.getSource());
                         if (item != null) {
                             contextParamType.setRepositoryContextId(item.getProperty().getId());
                         }
@@ -194,7 +191,7 @@ public class JobContextManager implements IContextManager {
 
         listContext.clear();
 
-        List<ContextItem> contextItemList = getAllContextItem();
+        List<ContextItem> contextItemList = ContextUtils.getAllContextItem();
 
         for (int i = 0; i < contextTypeList.size(); i++) {
             contextType = (ContextType) contextTypeList.get(i);
@@ -236,9 +233,9 @@ public class JobContextManager implements IContextManager {
                 contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
                 contextParam.setComment(contextParamType.getComment());
 
-                ContextItem item = getContextItemFromId(contextItemList, contextParamType.getRepositoryContextId());
+                ContextItem item = ContextUtils.getContextItemById(contextItemList, contextParamType.getRepositoryContextId());
                 String name = IContextParameter.BUILT_IN;
-                if (item != null && updateParameterFromRepository(item, contextParam, context.getName())) {
+                if (item != null && ContextUtils.updateParameterFromRepository(item, contextParam, context.getName())) {
                     name = item.getProperty().getLabel();
                 }
                 contextParam.setSource(name);
@@ -268,98 +265,6 @@ public class JobContextManager implements IContextManager {
             }
         }
         return true;
-    }
-
-    public ContextItem getContextItemFromId(List<ContextItem> contextItemList, String contextId) {
-        if (contextId == null || "".equals(contextId)) {
-            return null;
-        }
-        if (contextItemList != null) {
-            for (ContextItem item : contextItemList) {
-                String id = item.getProperty().getId();
-                if (id.equals(contextId)) {
-                    return item;
-                }
-
-            }
-        }
-        return null;
-    }
-
-    public ContextItem getContextItemByName(String name) {
-        if (name == null) {
-            return null;
-        }
-        List<ContextItem> contextItemList = getAllContextItem();
-
-        if (contextItemList != null) {
-            for (ContextItem item : contextItemList) {
-                if (item.getProperty().getLabel().equals(name)) {
-                    return item;
-                }
-            }
-        }
-        return null;
-
-    }
-
-    public List<ContextItem> getAllContextItem() {
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ContextItem> contextItemList = null;
-        try {
-            contextItemList = factory.getContextItem();
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
-        }
-        return contextItemList;
-    }
-
-    /**
-     * 
-     * ggu Comment method "updateParameterFromRepository".
-     * 
-     */
-    public boolean updateParameterFromRepository(ContextItem item, IContextParameter contextParam, String contextName) {
-        if (item == null || contextParam == null) {
-            return false;
-        }
-        if (contextName == null) {
-            contextName = item.getDefaultContext();
-        }
-        ContextType contextType = null;
-        ContextType defaultContextType = null;
-        for (ContextType type : (List<ContextType>) item.getContext()) {
-            if (type.getName().equals(contextName)) {
-                contextType = type;
-            } else if (type.getName().equals(item.getDefaultContext())) {
-                defaultContextType = type;
-            }
-        }
-        // not found the name of context, get the default context.
-        if (contextType == null && defaultContextType != null) {
-            contextType = defaultContextType;
-        }
-
-        if (contextType != null) {
-            ContextParameterType parameterType = null;
-            for (ContextParameterType param : (List<ContextParameterType>) contextType.getContextParameter()) {
-                if (param.getName().equals(contextParam.getName())) {
-                    parameterType = param;
-                    break;
-                }
-            }
-
-            // found parameter, update it.
-            if (parameterType != null) {
-                contextParam.setComment(parameterType.getComment());
-                contextParam.setPrompt(parameterType.getPrompt());
-                contextParam.setPromptNeeded(parameterType.isPromptNeeded());
-                contextParam.setType(parameterType.getType());
-                contextParam.setValue(parameterType.getValue());
-                return true;
-            }
-        }
-        return false;
     }
 
     public void addNewName(String newName, String oldName) {
