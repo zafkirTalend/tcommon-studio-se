@@ -15,7 +15,6 @@ package org.talend.repository.documentation.generation;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
@@ -73,7 +72,7 @@ public class DocumentationPathProvider {
     public static IPath getPathFileName(String folderName, String fileName) {
         IPath pathProjectFolder = getPathProjectFolder(folderName);
         if (pathProjectFolder == null) {
-            ExceptionHandler.process(new RuntimeException("Gets the path of file " + fileName + " failed."));
+            // ExceptionHandler.process(new RuntimeException("Gets the path of file " + fileName + " failed."));
             return null;
         }
         return pathProjectFolder.append(fileName);

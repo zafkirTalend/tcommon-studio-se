@@ -595,7 +595,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @param document <code>Document</code>
      * @return an instance of <code>Element</code>
      */
-    private Element generateProjectInfo(Document document) {
+    protected Element generateProjectInfo(Document document) {
         Element projectElement = document.addElement("project");
         projectElement.addAttribute("name", getProject().getLabel());
         projectElement.addAttribute("logo", IHTMLDocConstants.PICTUREFOLDERPATH + IHTMLDocConstants.TALEND_LOGO_FILE_NAME);
@@ -624,7 +624,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * 
      * @return an instance of <code>Project</code>
      */
-    private Project getProject() {
+    protected Project getProject() {
         return ((org.talend.core.context.RepositoryContext) CorePlugin.getContext().getProperty(
                 org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject();
     }
@@ -734,7 +734,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         return brandingService.getShortProductName() + IHTMLDocConstants.VERSION;
     }
 
-    private void saveLogoImage(int type, File file) throws IOException {
+    protected void saveLogoImage(int type, File file) throws IOException {
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
         ImageData imageData = brandingService.getLoginHImage().getImageData();

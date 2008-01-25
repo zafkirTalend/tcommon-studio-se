@@ -43,8 +43,8 @@ public class HTMLHandler {
      * @param htmlFileMap
      * @param xslFileName a string
      */
-    public static void generateHTMLFile(String tempFolderPath, String xslFilePath, String xmlFilePath,
-            String htmlFilePath, Map<String, URL> htmlFileMap) {
+    public static void generateHTMLFile(String tempFolderPath, String xslFilePath, String xmlFilePath, String htmlFilePath,
+            Map<String, URL> htmlFileMap) {
 
         Map<String, URL> nodeHTMLMap = htmlFileMap;
         generateHTMLFile(tempFolderPath, xslFilePath, xmlFilePath, htmlFilePath);
@@ -123,8 +123,7 @@ public class HTMLHandler {
      * @param externalNodeHTMLList
      * @param xslFileName a string
      */
-    public static void generateHTMLFile(String tempFolderPath, String xslFilePath, String xmlFilePath,
-            String htmlFilePath) {
+    public static void generateHTMLFile(String tempFolderPath, String xslFilePath, String xmlFilePath, String htmlFilePath) {
         FileOutputStream output = null;
         Writer writer = null;
         try {

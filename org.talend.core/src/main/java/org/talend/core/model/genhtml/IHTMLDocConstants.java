@@ -79,4 +79,20 @@ public interface IHTMLDocConstants {
     public static final String GENERATED_NODE_DOCUMENTATION_ROOT_PATH = "documentations/generated";
 
     public static final String REPOSITORY_PLUG_IN_ID = "org.talend.repository";
+
+    public static final String JOB_DOC_LIST_HTML_NAME = "jobsdoclist.html";
+
+    public static final String JOBLET_DOC_LIST_HTML_NAME = "jobletsdoclist.html";
+
+    public static final String PROJECT_DOC_LIST_HTML_NAME = "projectsdoclist.html";
+
+    public static final String JOB_DOC_LIST_XML_NAME = "jobsdoclist.xml";
+
+    public static final String JOBLET_DOC_LIST_XML_NAME = "jobletsdoclist.xml";
+
+    public static final String PROJECT_DOC_LIST_XML_NAME = "projectsdoclist.xml";
+
+    public static final String TIDY_PROPERTIES_FILE = "resources/tidy.properties";
+
+    public static final String GENERATE_ALL_DOC_LIST_XSL = "resources/generate_doc_list.xsl";
 }

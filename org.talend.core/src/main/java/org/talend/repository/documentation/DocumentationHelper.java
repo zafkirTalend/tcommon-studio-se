@@ -81,10 +81,20 @@ public class DocumentationHelper {
     public static ExportFileResource[] getExportFileResources(RepositoryNode node) {
 
         List<ExportFileResource> list = new ArrayList<ExportFileResource>();
-        if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER) {
+        if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER
+                || node.getType() == ENodeType.STABLE_SYSTEM_FOLDER) {
             String folderName = "";
-            if (!node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.PROCESS.toString())
-                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBLET.toString())) {
+            boolean isNotProcess = !node.getProperties(EProperties.LABEL).toString().equals(
+                    ERepositoryObjectType.PROCESS.toString());
+            boolean isNotJoblet = !node.getProperties(EProperties.LABEL).toString().equals(
+                    ERepositoryObjectType.JOBLET.toString());
+            boolean isNotGenerated = !node.getProperties(EProperties.LABEL).toString().equals(
+                    ERepositoryObjectType.GENERATED.toString());
+            boolean isNotJobs = !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBS.toString());
+            boolean isNotJoblets = !node.getProperties(EProperties.LABEL).toString().equals(
+                    ERepositoryObjectType.JOBLETS.toString());
+
+            if (isNotProcess && isNotJoblet && isNotGenerated && isNotJobs && isNotJoblets) {
                 folderName = node.getProperties(EProperties.LABEL).toString();
             }
             addTreeNode(node, folderName, list);
@@ -175,17 +185,18 @@ public class DocumentationHelper {
         return jobNodeDocRootPath;
     }
 
-    /**
-     * ftang Comment method "getJobletNodeDocumentationRoot".
-     * 
-     * @return
-     */
-    public static String getJobletNodeDocumentationRoot() {
-        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
-        java.io.File file = project.getLocation().toFile();
-        String jobletNodeDocRootPath = file.toString() + IPath.SEPARATOR + IHTMLDocConstants.JOBLET_NODE_DOCUMENTATION_ROOT_PATH;
-        return jobletNodeDocRootPath;
-    }
+    // /**
+    // * ftang Comment method "getJobletNodeDocumentationRoot".
+    // *
+    // * @return
+    // */
+    // public static String getJobletNodeDocumentationRoot() {
+    // IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
+    // java.io.File file = project.getLocation().toFile();
+    // String jobletNodeDocRootPath = file.toString() + IPath.SEPARATOR +
+    // IHTMLDocConstants.JOBLET_NODE_DOCUMENTATION_ROOT_PATH;
+    // return jobletNodeDocRootPath;
+    // }
 
     /**
      * Get the current project.
@@ -386,5 +397,4 @@ public class DocumentationHelper {
             }
         }
     }
-
 }

@@ -55,7 +55,9 @@ public class ExportFileResource {
      * ftang ExportFileResource constructor comment.
      */
     public ExportFileResource() {
-
+        // super();
+        // this.item = null;
+        // this.directoryName = "";
     }
 
     public void setDirectoryName(String directoryName) {

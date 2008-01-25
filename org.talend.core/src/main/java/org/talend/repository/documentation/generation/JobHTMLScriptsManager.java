@@ -97,20 +97,23 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
      * @see org.talend.repository.documentation.generation.IDocumentationManager#getExportResources(org.talend.repository.documentation.ExportFileResource[],
      * java.lang.String, java.lang.String[])
      */
-    public List<ExportFileResource> getExportResources(ExportFileResource[] process, String targetPath, String... jobVersion)
-            throws Exception {
+    public List<ExportFileResource> getExportResources(ExportFileResource[] exportFileResources, String targetPath,
+            String... jobVersion) throws Exception {
 
         if (this.needGenerate) {
-            for (int i = 0; i < process.length; i++) {
-                docGenerator.generateDocumentation(process[i], targetPath, jobVersion);
+            for (int i = 0; i < exportFileResources.length; i++) {
+                docGenerator.generateDocumentation(exportFileResources[i], targetPath, jobVersion);
             }
         } else {
-            for (int i = 0; i < process.length; i++) {
-                collectGeneratedDocumentation(process[i], targetPath, jobVersion);
+            for (int i = 0; i < exportFileResources.length; i++) {
+                collectGeneratedDocumentation(exportFileResources[i], targetPath, jobVersion);
             }
         }
-
-        return Arrays.asList(process);
+        List<ExportFileResource> resourceList = new ArrayList<ExportFileResource>();
+        for (ExportFileResource resource : exportFileResources) {
+            resourceList.add(resource);
+        }
+        return resourceList;
 
     }
 
