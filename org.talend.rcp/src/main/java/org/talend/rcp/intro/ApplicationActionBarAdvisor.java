@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
@@ -38,6 +38,7 @@ import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.i18n.Messages;
+import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -136,7 +137,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
         IActionSetDescriptor[] actionSets = reg.getActionSets();
-        List list = Arrays.asList(ACTIONSETID);
+
+        List<String> list = new ArrayList<String>();
+        for (String item : ACTIONSETID) {
+            list.add(item);
+        }
+        if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
+            list.add("org.talend.repository.CreateactionSet");
+        }
         for (int i = 0; i < actionSets.length; i++) {
             if (list.contains(actionSets[i].getId())) {
                 removeAction(reg, actionSets[i]);
