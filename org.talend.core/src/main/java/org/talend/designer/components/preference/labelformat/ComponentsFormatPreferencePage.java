@@ -54,6 +54,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.components.ComponentUtilities;
 import org.talend.designer.components.IComponentsLocalProviderService;
@@ -248,17 +249,6 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
 
         v.setLabelProvider(new ILabelProvider() {
 
-            private final Map imageCache = new HashMap();
-
-            private Image getCachedImage(ImageDescriptor descriptor) {
-                Image image = (Image) imageCache.get(descriptor);
-                if (image == null) {
-                    image = descriptor.createImage();
-                    imageCache.put(descriptor, image);
-                }
-                return image;
-            }
-
             public Image getImage(Object element) {
                 PaletteEntry entry = (PaletteEntry) element;
                 ImageDescriptor descriptor = entry.getSmallIcon();
@@ -271,7 +261,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
                         return null;
                     }
                 }
-                return getCachedImage(descriptor);
+                return ImageProvider.getImage(descriptor);
             }
 
             public String getText(Object element) {

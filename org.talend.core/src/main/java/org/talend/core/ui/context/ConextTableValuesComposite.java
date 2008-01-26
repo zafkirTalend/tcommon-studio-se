@@ -49,6 +49,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
@@ -327,7 +328,7 @@ public class ConextTableValuesComposite extends Composite {
         configContext = new ConfigureContextAction(modelManager, this.getShell());
         contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
 
-        contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
+        contextConfigButton.setImage(ImageProvider.getImage(configContext.getImageDescriptor()));
         contextConfigButton.setToolTipText(configContext.getText());
         contextConfigButton.addSelectionListener(new SelectionAdapter() {
 

@@ -95,7 +95,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     protected SelectRepositoryContextDialog(IContextModelManager modelManager, Shell parentShell, ContextManagerHelper helper) {
         super(parentShell);
         setBlockOnOpen(true);
-        setDefaultImage(ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage());
+        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setTitle(TITILE);
         setMessage(DEFAULTMESAGE);
         setHelpAvailable(false);

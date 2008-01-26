@@ -69,6 +69,7 @@ import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.epic.core.model.SourceFile;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
@@ -312,7 +313,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
      */
     private void addMenu() {
         ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
-        Image image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY).createImage();
+        Image image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
         Menu popupMenu = new Menu(this.getTextWidget());
         MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
         copyItem.setText("Copy");
@@ -324,7 +325,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
             }
         });
 
-        image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE).createImage();
+        image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE));
         MenuItem pasteItem = new MenuItem(popupMenu, SWT.PUSH);
         pasteItem.setText("Paste");
         pasteItem.setData(this);

@@ -82,7 +82,7 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
             List<ContextItem> selectedContextItems) {
         super(parentShell);
         setBlockOnOpen(true);
-        setDefaultImage(ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage());
+        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setTitle(TITILE);
         setHelpAvailable(false);
         setMessage(DEFAULTMESAGE);

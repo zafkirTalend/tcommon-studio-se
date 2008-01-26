@@ -23,6 +23,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
+import org.talend.commons.ui.image.ImageProvider;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -31,23 +32,6 @@ import org.eclipse.swt.graphics.Image;
  * 
  */
 public class TalendPaletteLabelProvider implements ILabelProvider {
-
-    private final Map imageCache = new HashMap();
-
-    /**
-     * yzhang Comment method "getCachedImage".
-     * 
-     * @param descriptor
-     * @return
-     */
-    private Image getCachedImage(ImageDescriptor descriptor) {
-        Image image = (Image) imageCache.get(descriptor);
-        if (image == null) {
-            image = descriptor.createImage();
-            imageCache.put(descriptor, image);
-        }
-        return image;
-    }
 
     /*
      * (non-Javadoc)
@@ -66,7 +50,7 @@ public class TalendPaletteLabelProvider implements ILabelProvider {
                 return null;
             }
         }
-        return getCachedImage(descriptor);
+        return ImageProvider.getImage(descriptor);
     }
 
     /*

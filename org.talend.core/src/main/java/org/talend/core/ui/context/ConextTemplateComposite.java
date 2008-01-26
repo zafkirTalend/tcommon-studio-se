@@ -792,7 +792,7 @@ public class ConextTemplateComposite extends Composite {
 
     private Button createSelectContextVariablesPushButton(final Composite parent) {
         Button selectContextVariablesPushButton = new Button(parent, SWT.PUSH);
-        Image image = ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage();
+        Image image = ImageProvider.getImage(ECoreImage.CONTEXT_ICON);
         selectContextVariablesPushButton.addSelectionListener(new SelectionListener() {
 
             /*

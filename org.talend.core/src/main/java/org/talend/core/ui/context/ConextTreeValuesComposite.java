@@ -356,7 +356,7 @@ public class ConextTreeValuesComposite extends Composite {
         configContext = new ConfigureContextAction(modelManager, this.getShell());
         contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
         // contextConfigButton.setDisabledImage();
-        contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
+        contextConfigButton.setImage(ImageProvider.getImage(configContext.getImageDescriptor()));
         contextConfigButton.setToolTipText(configContext.getText());
         contextConfigButton.addSelectionListener(new SelectionAdapter() {
 

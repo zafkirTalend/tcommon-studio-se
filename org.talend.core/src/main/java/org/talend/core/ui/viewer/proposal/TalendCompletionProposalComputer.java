@@ -162,7 +162,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                     String description = getNodeReturnDescription(nodeReturn, node, display);
 
                     TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), node.getComponent().getIcon16().createImage(), display, null, description);
+                            .length(), code.length(), ImageProvider.getImage(node.getComponent().getIcon16()), display, null,
+                            description);
                     proposal.setType(TalendCompletionProposal.NODE_RETURN);
                     proposals.add(proposal);
                 }

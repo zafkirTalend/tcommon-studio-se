@@ -43,7 +43,7 @@ public class ShowSelectedContextDialog extends Dialog {
      */
     protected ShowSelectedContextDialog(ContextItem contextItem, Shell parentShell) {
         super(parentShell);
-        setDefaultImage(ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage());
+        setDefaultImage(ImageProvider.getImage(ECoreImage.CONTEXT_ICON));
         setShellStyle(getShellStyle() | SWT.RESIZE);
         this.contextItem = contextItem;
         this.contextManager = new JobContextManager(contextItem.getContext(), contextItem.getDefaultContext());

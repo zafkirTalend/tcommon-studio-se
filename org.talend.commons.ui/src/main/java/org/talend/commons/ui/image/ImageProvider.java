@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.commons.ui.image;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -24,8 +27,15 @@ import org.eclipse.swt.graphics.Image;
  */
 public class ImageProvider {
 
-    public static Image getImage(ImageDescriptor desc) {
-        return desc.createImage();
+    private static Map<ImageDescriptor, Image> cachedImages = new HashMap<ImageDescriptor, Image>();
+
+    public static Image getImage(ImageDescriptor imageDescriptor) {
+        Image image = cachedImages.get(imageDescriptor);
+        if (image == null) {
+            image = imageDescriptor.createImage();
+            cachedImages.put(imageDescriptor, image);
+        }
+        return image;
     }
 
     private static MultiKeyMap cacheDescriptors = new MultiKeyMap();
@@ -36,7 +46,7 @@ public class ImageProvider {
         Image toReturn = (Image) cacheImages.get(image.getLocation(), image.getPath());
         if (toReturn == null) {
             ImageDescriptor desc = getImageDesc(image);
-            toReturn = desc.createImage();
+            toReturn = getImage(desc);
             cacheImages.put(image.getLocation(), image.getPath(), toReturn);
         }
         return toReturn;

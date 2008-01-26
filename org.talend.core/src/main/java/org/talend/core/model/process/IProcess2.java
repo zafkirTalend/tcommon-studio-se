@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
@@ -28,7 +27,7 @@ public interface IProcess2 extends IProcess {
 
     boolean checkReadOnly();
 
-    ProcessType saveXmlFile(IFile file) throws IOException;
+    ProcessType saveXmlFile() throws IOException;
 
     void setPropertyValue(String id, Object value);
 
@@ -41,7 +40,7 @@ public interface IProcess2 extends IProcess {
      * 
      * @param process
      */
-    void loadXmlFile(ProcessType process);
+    void loadXmlFile();
 
     /**
      * DOC qzhang Comment method "checkLoadNodes".

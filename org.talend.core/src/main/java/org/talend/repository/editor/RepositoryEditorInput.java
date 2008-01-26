@@ -15,8 +15,6 @@ package org.talend.repository.editor;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.part.FileEditorInput;
@@ -116,13 +114,7 @@ public class RepositoryEditorInput extends FileEditorInput {
     }
 
     protected void loadProcess() throws PersistenceException {
-        ProcessType process = null;
-        if (getProcessItem() instanceof JobletProcessItem) {
-            process = ((JobletProcessItem) getProcessItem()).getJobletProcess();
-        } else {
-            process = ((ProcessItem) getProcessItem()).getProcess();
-        }
-        loadedProcess.loadXmlFile(process);
+        loadedProcess.loadXmlFile();
         loadedProcess.checkLoadNodes();
     }
 
@@ -132,14 +124,14 @@ public class RepositoryEditorInput extends FileEditorInput {
             if (monitor != null) {
                 monitor.beginTask("save process", 100);
             }
-            ProcessType processType = loadedProcess.saveXmlFile(getFile());
+            ProcessType processType = loadedProcess.saveXmlFile();
             if (monitor != null) {
                 monitor.worked(40);
             }
 
-            getFile().refreshLocal(IResource.DEPTH_ONE, monitor);
+            // getFile().refreshLocal(IResource.DEPTH_ONE, monitor);
 
-            loadedProcess.setXmlStream(getFile().getContents());
+            // loadedProcess.setXmlStream(getFile().getContents());
 
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
@@ -172,13 +164,6 @@ public class RepositoryEditorInput extends FileEditorInput {
             return false;
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);
-            if (monitor != null) {
-                monitor.setCanceled(true);
-            }
-            return false;
-        } catch (CoreException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             if (monitor != null) {
                 monitor.setCanceled(true);
             }
