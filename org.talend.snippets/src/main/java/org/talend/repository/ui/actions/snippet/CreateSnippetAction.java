@@ -92,6 +92,14 @@ public class CreateSnippetAction extends AContextualAction {
     public void run() {
         RepositoryNode snippetNode = getCurrentRepositoryNode();
 
+        if (isToolbar()) {
+            if (snippetNode != null && snippetNode.getContentType() != ERepositoryObjectType.SNIPPETS) {
+                snippetNode = null;
+            }
+            if (snippetNode == null) {
+                snippetNode = getRepositoryNodeForDefault(ERepositoryObjectType.SNIPPETS);
+            }
+        }
         SnippetWizard contextWizard;
         if (isToolbar()) {
             contextWizard = new SnippetWizard(PlatformUI.getWorkbench(), true, snippetNode, false);
