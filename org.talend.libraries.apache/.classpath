@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/jakarta-oro-2.0.8.jar" sourcepath="libs_src/jakarta-oro-2.0.8/src/java"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-beanutils.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-cli-2.0-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-cli-2.0-SNAPSHOT.jar" sourcepath="libs_src/commons-cli-2.0-SNAPSHOT"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-1.3.2.jar"/>
