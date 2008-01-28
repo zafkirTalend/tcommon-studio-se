@@ -121,9 +121,12 @@ public class PerlFunctionParser extends AbstractFunctionParser {
     private void parseToFunctions(String[] strGroups, boolean isSystem) {
         for (int i = 0; i < strGroups.length; i++) {
             String string = strGroups[i];
-
+            boolean setUserDefined = false;
             String des = parseDescription(string);
             String category = parseCategoryType(string);
+            if (category.equals(EMPTY_STRING)) {
+                setUserDefined = true;
+            }
             String functionType = parseFunctionType(string);
 
             String[] parameter = parseFunctionParameters(string);
@@ -136,7 +139,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
             function.setDescription(des);
             function.setParameters(Arrays.asList(paras));
             function.setCategory(category);
-            function.setUserDefined(!isSystem);
+            function.setUserDefined(!isSystem || setUserDefined);
 
             TalendType talendType = getTalendType(functionType);
             talendType.addFunctions(function);
