@@ -606,7 +606,17 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         projectElement.addAttribute("generatedDate", DateFormat.getDateTimeInstance().format(new Date()));
         projectElement.addAttribute("versionName", getProductVersionName());
         projectElement.addAttribute("version", getCurrentTOSVersion());
+        projectElement.addAttribute("docType", getDocTypeAttribute());
         return projectElement;
+    }
+
+    /**
+     * ftang Comment method "addDocTypeAttribute".
+     * 
+     * @param projectElement
+     */
+    protected String getDocTypeAttribute() {
+        return ERepositoryObjectType.JOB_DOC.toString();
     }
 
     /**
