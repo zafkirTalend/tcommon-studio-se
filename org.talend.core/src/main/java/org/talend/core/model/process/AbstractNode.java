@@ -79,6 +79,8 @@ public abstract class AbstractNode implements INode {
 
     private INode designSubjobStartNode;
 
+    private boolean isVirtualGenerateNode;
+
     public String getComponentName() {
         return componentName;
     }
@@ -615,5 +617,13 @@ public abstract class AbstractNode implements INode {
             return this.equals(getSubProcessStartNode(false));
         }
         return this.equals(designSubjobStartNode);
+    }
+
+    public boolean isVirtualGenerateNode() {
+        return this.isVirtualGenerateNode;
+    }
+
+    public boolean setVirtualGenerateNode(boolean isVirtualGenerateNode) {
+        return this.isVirtualGenerateNode = isVirtualGenerateNode;
     }
 }

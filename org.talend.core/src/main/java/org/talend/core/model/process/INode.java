@@ -189,4 +189,7 @@ public interface INode extends IElement {
     public INode getDesignSubjobStartNode();
 
     public boolean isDesignSubjobStartNode();
+
+    // if the node is generated from the virtual component, there return true
+    public boolean isVirtualGenerateNode();
 }
