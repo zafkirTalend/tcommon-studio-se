@@ -15,8 +15,12 @@ package routines.system;
 public class FormatterUtils {
 
     public static String format_Date(java.util.Date date, String pattern) {
-        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
-        return simpleDateFormat.format(date);
+        if (date != null) {
+            java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
+            return simpleDateFormat.format(date);
+        } else {
+            return null;
+        }
     }
 
     /**
