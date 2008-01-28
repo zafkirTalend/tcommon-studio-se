@@ -24,6 +24,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -227,6 +228,42 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         StructuredSelection selection = (StructuredSelection) getSelection();
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileDelimitedNode = metadataNode.getChildren().get(1);
+        if (selection == null) {
+            return null;
+        }
         return (RepositoryNode) selection.getFirstElement();
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "getRepositoryNodeByDefault".
+     * 
+     * get the type of repository node for default.
+     */
+    public RepositoryNode getRepositoryNodeForDefault(ERepositoryObjectType type) {
+        IRepositoryView repositoryView = getViewPart();
+        if (repositoryView == null) {
+            return null;
+        }
+        return searchRepositoryNode(repositoryView.getRoot(), type);
+    }
+
+    private RepositoryNode searchRepositoryNode(RepositoryNode root, ERepositoryObjectType type) {
+        if (root == null || type == null) {
+            return null;
+        }
+        RepositoryNode foundNode = null;
+        List<RepositoryNode> chindren = root.getChildren();
+        for (RepositoryNode repositoryNode : chindren) {
+            if (repositoryNode.getContentType() == type) {
+                foundNode = repositoryNode;
+            } else {
+                foundNode = searchRepositoryNode(repositoryNode, type);
+            }
+            if (foundNode != null) {
+                return foundNode;
+            }
+        }
+        return null;
     }
 }
