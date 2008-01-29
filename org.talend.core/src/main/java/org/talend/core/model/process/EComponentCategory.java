@@ -21,15 +21,14 @@ package org.talend.core.model.process;
 public enum EComponentCategory {
     MAIN("Main", 1),
     VIEW("View", 3),
-    PROPERTY("Properties", 2),
     DOC("Documentation", 4),
     CONTEXT("Context", 5),
     VERSIONS("Version", 9),
     LOGS("Logs", 6),
     STATSANDLOGS("Stats & Logs", 7),
     TECHNICAL("Technical", 8), // for non displayed parameters
-    ADVANCED("Advanced", 9),
-    BASIC("Basic", PROPERTY, 10),
+    ADVANCED("Advanced settings", 9),
+    BASIC("Basic settings", 10),
     ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED),
     EXTRA("Extra", 12);
 
