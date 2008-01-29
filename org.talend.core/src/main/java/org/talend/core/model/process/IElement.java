@@ -21,16 +21,16 @@ import java.util.List;
  * 
  */
 public interface IElement {
-    
+
     public IElementParameter getElementParameter(String name);
-    
-//    public IElementParameter getElementParameterFromField(EParameterFieldType fieldType);
+
+    // public IElementParameter getElementParameterFromField(EParameterFieldType fieldType);
 
     public List<? extends IElementParameter> getElementParameters();
 
     public void setElementParameters(List<? extends IElementParameter> elementsParameters);
 
     public boolean isReadOnly();
-    
+
     public void setReadOnly(boolean readOnly);
 }

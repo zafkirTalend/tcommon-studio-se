@@ -164,8 +164,7 @@ public class ProcessorUtilities {
         }
     }
 
-    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties,
-            int option) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
@@ -292,15 +291,13 @@ public class ProcessorUtilities {
         return result;
     }
 
-    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace,
-            int option) {
+    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace, int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
         return generateCode(jobInfo, statistics, trace, true, option);
     }
 
-    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
-            boolean properties) {
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
@@ -308,8 +305,8 @@ public class ProcessorUtilities {
         return generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
     }
 
-    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
-            boolean properties, int option) {
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
+            int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
@@ -328,8 +325,8 @@ public class ProcessorUtilities {
      * @return
      * @throws ProcessorException
      */
-    public static String[] getCommandLine(boolean externalUse, String processName, String contextName,
-            int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+    public static String[] getCommandLine(boolean externalUse, String processName, String contextName, int statisticPort,
+            int tracePort, String... codeOptions) throws ProcessorException {
         return getCommandLine(null, externalUse, processName, contextName, statisticPort, tracePort, codeOptions);
     }
 
@@ -346,8 +343,8 @@ public class ProcessorUtilities {
      * @return
      * @throws ProcessorException
      */
-    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processName,
-            String contextName, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processName, String contextName,
+            int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = getProcessItem(processName);
         if (selectedProcessItem != null) {
