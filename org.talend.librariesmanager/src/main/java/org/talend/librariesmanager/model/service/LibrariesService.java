@@ -50,12 +50,28 @@ public class LibrariesService implements ILibrariesService {
         }
     }
 
+    private ILibrariesService getJavaLibrariesService() {
+        return javaService;
+    }
+
+    private ILibrariesService getPerlLibrariesService() {
+        return perlService;
+    }
+
     public void deployLibrary(URL source) throws IOException {
         this.getLibrariesService().deployLibrary(source);
     }
 
     public String getLibrariesPath() {
         return this.getLibrariesService().getLibrariesPath();
+    }
+
+    public String getJavaLibrariesPath() {
+        return this.getJavaLibrariesService().getLibrariesPath();
+    }
+
+    public String getPerlLibrariesPath() {
+        return this.getPerlLibrariesService().getLibrariesPath();
     }
 
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException {

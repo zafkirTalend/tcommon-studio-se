@@ -200,4 +200,24 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#getJavaLibrariesPath()
+     */
+    public String getJavaLibrariesPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#getPerlLibrariesPath()
+     */
+    public String getPerlLibrariesPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
