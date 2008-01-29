@@ -166,6 +166,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
         }
         if (getActivePage().getActiveEditor() == null) {
+            workbenchPart = getActivePage().getActivePart();
+            if (workbenchPart instanceof IRepositoryView) {
+                IRepositoryView view = (IRepositoryView) workbenchPart;
+                return view.getViewer().getSelection();
+            }
             return null;
         }
         IWorkbenchPartSite site = getActivePage().getActiveEditor().getSite();
