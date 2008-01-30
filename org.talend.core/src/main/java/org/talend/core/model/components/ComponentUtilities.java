@@ -56,6 +56,8 @@ public class ComponentUtilities {
 
     private static PaletteRoot paletteRoot;
 
+    private static List<PaletteEntry> extraPaletteEntry;
+
     public static PaletteRoot getPaletteRoot() {
         if (paletteRoot == null) {
             updatePalette();
@@ -63,22 +65,37 @@ public class ComponentUtilities {
         return paletteRoot;
     }
 
+    public static void setExtraEntryVisible(boolean visible) {
+        if (extraPaletteEntry != null) {
+            for (PaletteEntry entry : extraPaletteEntry) {
+                entry.setVisible(visible);
+            }
+        }
+    }
+
     public static void updatePalette() {
 
         IComponentsFactory components = ComponentsFactoryProvider.getInstance();
         if (paletteRoot != null) {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
+
             for (Object obj : oldRoots) {
                 if (obj instanceof PaletteGroup) {
                     continue;
                 }
                 paletteRoot.remove((PaletteEntry) obj);
             }
+
             paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot);
 
         } else {
             paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components);
         }
+
+        if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
+            extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
+        }
+
     }
 
     public static String getNodePropertyValue(NodeType node, String property) {

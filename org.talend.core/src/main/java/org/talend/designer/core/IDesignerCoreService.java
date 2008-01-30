@@ -16,6 +16,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -73,11 +74,16 @@ public interface IDesignerCoreService extends IService {
     public IAction getCreateProcessAction(boolean isToolbar);
 
     /**
-     * DOC tang Comment method "getProcessFromJobletProcessItem".
+     * tang Comment method "getProcessFromJobletProcessItem".
      * 
      * @param item
      * @return
      */
     public IProcess getProcessFromJobletProcessItem(JobletProcessItem item);
+
+    /**
+     * yzhang Comment method "createJobletEtnry".
+     */
+    public List<PaletteEntry> createJobletEtnry();
 
 }
