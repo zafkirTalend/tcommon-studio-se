@@ -509,6 +509,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         } else if (isKeywords(nameText.getText())) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
         } else if (!isValid(nameText.getText()) && nameModifiedByUser) {
+            String str = Messages.getString("PropertiesWizardPage.ItemExistsError");
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
         } else {
             nameStatus = createOkStatus();
