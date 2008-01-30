@@ -269,7 +269,9 @@ public class ProcessorUtilities {
     public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        return generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean genCode = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        jobList.clear();
+        return genCode;
     }
 
     private static boolean generateAllContexts = false;
@@ -288,13 +290,16 @@ public class ProcessorUtilities {
         generateAllContexts = true;
         boolean result = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
         generateAllContexts = false;
+        jobList.clear();
         return result;
     }
 
     public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace, int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        return generateCode(jobInfo, statistics, trace, true, option);
+        boolean genCode = generateCode(jobInfo, statistics, trace, true, option);
+        jobList.clear();
+        return genCode;
     }
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties) {
@@ -302,7 +307,9 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
         jobInfo.setContext(context);
-        return generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
+        boolean genCode = generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
+        jobList.clear();
+        return genCode;
     }
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
@@ -311,7 +318,9 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
         jobInfo.setContext(context);
-        return generateCode(jobInfo, statistics, trace, properties, option);
+        boolean genCode = generateCode(jobInfo, statistics, trace, properties, option);
+        jobList.clear();
+        return genCode;
     }
 
     /**

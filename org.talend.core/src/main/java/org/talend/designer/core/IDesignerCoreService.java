@@ -20,7 +20,6 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
@@ -64,8 +63,6 @@ public interface IDesignerCoreService extends IService {
     public IProcess getCurrentProcess();
 
     public void synchronizeDesignerUI(PropertyChangeEvent evt);
-
-    public IPartListener getActiveProcessTracker();
 
     public String getPreferenceStore(String key);
 
