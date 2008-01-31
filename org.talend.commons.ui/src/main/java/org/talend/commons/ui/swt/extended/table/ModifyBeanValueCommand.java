@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.utils.TableUtils;
 
 /**
@@ -58,8 +59,16 @@ public class ModifyBeanValueCommand<B> extends Command {
     @Override
     public void redo() {
         TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
-        Object bean = getBean(tableViewerCreator);
-        tableViewerCreator.setBeanValue(event.column, bean, event.newValue, false);
+        Table table = tableViewerCreator.getTable();
+        if (table.isDisposed()) {
+            // return;
+            AccessorUtils.set(event.column, event.bean, event.newValue);
+        } else {
+            Object bean = getBean(tableViewerCreator);
+            if (bean != null) {
+                tableViewerCreator.setBeanValue(event.column, bean, event.newValue, false);
+            }
+        }
     }
 
     /**
@@ -91,8 +100,16 @@ public class ModifyBeanValueCommand<B> extends Command {
     @Override
     public void undo() {
         TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
-        Object bean = getBean(tableViewerCreator);
-        tableViewerCreator.setBeanValue(event.column, bean, event.previousValue, false);
+        Table table = tableViewerCreator.getTable();
+        if (table.isDisposed()) {
+            // return;
+            AccessorUtils.set(event.column, event.bean, event.previousValue);
+        } else {
+            Object bean = getBean(tableViewerCreator);
+            if (bean != null) {
+                tableViewerCreator.setBeanValue(event.column, bean, event.previousValue, false);
+            }
+        }
     }
 
     /*
