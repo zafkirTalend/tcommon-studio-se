@@ -84,7 +84,7 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
                         toRemove.add(proposal);
                     }
                 }
-                if (proposal.getDisplayString().contains(TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
+                if (proposal.getDisplayString().startsWith(TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
                     toRemove.add(proposal);
                 }
             }

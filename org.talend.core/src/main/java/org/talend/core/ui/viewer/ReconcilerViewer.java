@@ -509,6 +509,9 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     @Override
     public void setVisibleRegion(int start, int length) {
         viewerStartRegion = new Region(0, start);
+        if (getDocument() == null) {
+            return;
+        }
         if (getDocument().getLength() > start) {
             viewerEndRegion = new Region(start + 1, getDocument().getLength() - start);
         } else {
