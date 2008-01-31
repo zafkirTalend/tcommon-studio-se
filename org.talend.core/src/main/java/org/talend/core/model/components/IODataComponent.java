@@ -30,6 +30,8 @@ import org.talend.core.model.process.INode;
  */
 public class IODataComponent {
 
+    private int columnOption = IMetadataColumn.OPTIONS_NONE;
+
     private IConnection connection;
 
     private IMetadataTable newMetadataTable;
@@ -96,7 +98,7 @@ public class IODataComponent {
     }
 
     public boolean hasChanged() {
-        return !newMetadataTable.sameMetadataAs(connection.getMetadataTable());
+        return !newMetadataTable.sameMetadataAs(connection.getMetadataTable(), getColumnOption());
     }
 
     public List<ColumnNameChanged> getColumnNameChanged() {
@@ -124,8 +126,25 @@ public class IODataComponent {
         return removeMetadataColumns;
     }
 
-    
     public void setColumnNameChanged(List<ColumnNameChanged> columnNameChanged) {
         this.columnNameChanged = columnNameChanged;
+    }
+
+    /**
+     * Getter for columnOption.
+     * 
+     * @return the columnOption
+     */
+    public int getColumnOption() {
+        return this.columnOption;
+    }
+
+    /**
+     * Sets the columnOption.
+     * 
+     * @param columnOption the columnOption to set
+     */
+    public void setColumnOption(int columnOption) {
+        this.columnOption = columnOption;
     }
 }
