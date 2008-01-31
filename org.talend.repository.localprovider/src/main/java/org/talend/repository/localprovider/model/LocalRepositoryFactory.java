@@ -148,6 +148,24 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return toReturn;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#getRoutineFromProject(org.talend.core.model.general.Project)
+     */
+    public RootContainer<String, IRepositoryObject> getRoutineFromProject(Project project) throws PersistenceException {
+        RootContainer<String, IRepositoryObject> toReturn = new RootContainer<String, IRepositoryObject>();
+        ERepositoryObjectType type = ERepositoryObjectType.ROUTINES;
+
+        IProject fsProject = ResourceModelUtils.getProject(project);
+
+        IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType
+                .getFolderName(ERepositoryObjectType.ROUTINES), true);
+
+        addFolderMembers(type, toReturn, objectFolder, true);
+        return toReturn;
+    }
+
     /**
      * 
      * DOC smallet Comment method "addFolderMembers".
