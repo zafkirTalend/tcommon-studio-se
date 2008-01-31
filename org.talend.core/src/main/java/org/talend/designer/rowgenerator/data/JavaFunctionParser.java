@@ -175,12 +175,14 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             String[] parameter = parseFunctionParameters(string);
             if (!functionType.equals(EMPTY_STRING)) {
                 Parameter[] paras = convertToParameter(parameter);
-                Function function = new Function();
+                Function function = new Function("*User Defined");
                 function.setClassName(className);
                 function.setName(funcName);
                 function.setDescription(des);
                 function.setParameters(Arrays.asList(paras));
-                function.setCategory(category);
+                if (!category.equals(EMPTY_STRING)) {
+                    function.setCategory(category);
+                }
                 function.setUserDefined(!isSystem || category.equals(EMPTY_STRING));
                 TalendType talendType = getTalendType(functionType);
                 talendType.addFunctions(function);
