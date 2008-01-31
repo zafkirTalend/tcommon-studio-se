@@ -378,7 +378,13 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         }
         if ((options & OPTIONS_IGNORE_LENGTH) == 0) {
             if (!sameIntegerValue(this.length, other.getLength())) {
-                return false;
+                if (((options & OPTIONS_IGNORE_BIGGER_SIZE) == 0)) {
+                    return false;
+
+                }
+                if (!largeValue(this.length, other.getLength())) {
+                    return false;
+                }
             }
         }
         if ((options & OPTIONS_IGNORE_NULLABLE) == 0) {
@@ -388,7 +394,14 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         }
         if ((options & OPTIONS_IGNORE_PRECISION) == 0) {
             if (!sameIntegerValue(this.precision, other.getPrecision())) {
-                return false;
+                if (((options & OPTIONS_IGNORE_BIGGER_SIZE) == 0)) {
+                    return false;
+
+                }
+                if (!largeValue(this.precision, other.getPrecision())) {
+                    return false;
+                }
+
             }
         }
         if ((options & OPTIONS_IGNORE_DEFAULT) == 0) {
@@ -446,6 +459,22 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return true;
             } else {
                 return (value1 <= 0 && value2 <= 0) || value1.equals(value2);
+            }
+        }
+    }
+
+    private boolean largeValue(Integer value1, Integer value2) {
+        if (value1 == null) {
+            if (value2 == null) {
+                return false;
+            } else {
+                return value2 > 0;
+            }
+        } else {
+            if (value2 == null) {
+                return value1 < 0;
+            } else {
+                return value1 < value2;
             }
         }
     }
