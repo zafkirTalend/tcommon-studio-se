@@ -31,6 +31,20 @@ public class Function implements Cloneable {
     private boolean isUserDefined;
 
     /**
+     * yzhang Function constructor comment.
+     */
+    public Function(String category) {
+        this.category = category;
+    }
+
+    /**
+     * yzhang Function constructor comment.
+     */
+    public Function() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
      * Getter for category.
      * 
      * @return the category
