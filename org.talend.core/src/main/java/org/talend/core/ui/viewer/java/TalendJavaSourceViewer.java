@@ -213,6 +213,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
                 boolean globalFieldsDone = false;
                 globalFields = "";
+                String className = editor.getPartName().substring(0, editor.getPartName().indexOf('.') + 1);
 
                 ICompletionProposal[] proposals = processor.computeCompletionProposals(editor.getViewer(), documentOffset);
                 for (ICompletionProposal curProposal : proposals) {
@@ -231,8 +232,11 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                             for (int i = str.length - 1; i >= 0; i--) {
                                 variable += str[i].length() == 0 ? " " : str[i];
                             }
+                            if (variable.contains(className)) {
+                                continue;
+                            }
                             variable += ";";
-                            localFields = "\t\t" + variable + "\n";
+                            localFields += "\t\t" + variable + "\n";
                             // System.out.println(variable);
                         }
                     }
@@ -363,6 +367,9 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     @Override
     public void updateContents() {
         IPath filePath = new Path("src/internal/" + filename);
+        if (getDocument() == null) {
+            return;
+        }
         InputStream codeStream = new ByteArrayInputStream(getDocument().get().getBytes());
         try {
             if (file == null) {

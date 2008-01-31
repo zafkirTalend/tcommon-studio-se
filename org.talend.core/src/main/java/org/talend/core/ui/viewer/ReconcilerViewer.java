@@ -488,7 +488,9 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                 // do nothing as the delete is not important.
             }
         }
-        super.handleDispose();
+        if (!getControl().isDisposed()) {
+            super.handleDispose();
+        }
     }
 
     public IRegion getViewerRegion() {
