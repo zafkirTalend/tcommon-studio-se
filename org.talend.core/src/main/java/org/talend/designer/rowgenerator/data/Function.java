@@ -33,13 +33,6 @@ public class Function implements Cloneable {
     /**
      * yzhang Function constructor comment.
      */
-    public Function(String category) {
-        this.category = category;
-    }
-
-    /**
-     * yzhang Function constructor comment.
-     */
     public Function() {
         // TODO Auto-generated constructor stub
     }
