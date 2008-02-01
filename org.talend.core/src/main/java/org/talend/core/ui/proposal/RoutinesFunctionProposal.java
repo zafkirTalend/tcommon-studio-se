@@ -85,7 +85,9 @@ public class RoutinesFunctionProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
-
+        if ("".equals(function.getCategory())) {
+            return function.getName();
+        }
         return function.getCategory() + "." + function.getName();
     }
 
