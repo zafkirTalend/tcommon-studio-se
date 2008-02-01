@@ -96,6 +96,9 @@ public abstract class Element implements Cloneable, IElement {
      * @param value
      */
     public void setPropertyValue(final String id, final Object value) {
+        if (listParam == null) {
+            return;
+        }
         for (int i = 0; i < listParam.size(); i++) {
             if (listParam.get(i).getName().equals(id)) {
                 listParam.get(i).setValue(value);

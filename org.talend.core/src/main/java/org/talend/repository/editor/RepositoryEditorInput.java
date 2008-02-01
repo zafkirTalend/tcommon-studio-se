@@ -260,4 +260,13 @@ public class RepositoryEditorInput extends FileEditorInput {
         }
     }
 
+    /**
+     * Sets the loadedProcess.
+     * 
+     * @param loadedProcess the loadedProcess to set
+     */
+    public void setLoadedProcess(IProcess2 loadedProcess) {
+        this.loadedProcess = loadedProcess;
+    }
+
 }
