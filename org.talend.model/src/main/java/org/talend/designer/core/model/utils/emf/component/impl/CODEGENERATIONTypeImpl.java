@@ -6,12 +6,16 @@
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.IMPORTSType;
@@ -33,14 +37,14 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATESType;
  */
 public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIONType {
     /**
-     * The cached value of the '{@link #getTEMPLATES() <em>TEMPLATES</em>}' containment reference.
+     * The cached value of the '{@link #getTEMPLATES() <em>TEMPLATES</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getTEMPLATES()
      * @generated
      * @ordered
      */
-    protected TEMPLATESType tEMPLATES;
+    protected EList tEMPLATES;
 
     /**
      * The cached value of the '{@link #getIMPORTS() <em>IMPORTS</em>}' containment reference.
@@ -75,42 +79,11 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
      * <!-- end-user-doc -->
      * @generated
      */
-    public TEMPLATESType getTEMPLATES() {
+    public EList getTEMPLATES() {
+        if (tEMPLATES == null) {
+            tEMPLATES = new EObjectContainmentEList(TEMPLATESType.class, this, ComponentPackage.CODEGENERATION_TYPE__TEMPLATES);
+        }
         return tEMPLATES;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetTEMPLATES(TEMPLATESType newTEMPLATES, NotificationChain msgs) {
-        TEMPLATESType oldTEMPLATES = tEMPLATES;
-        tEMPLATES = newTEMPLATES;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.CODEGENERATION_TYPE__TEMPLATES, oldTEMPLATES, newTEMPLATES);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setTEMPLATES(TEMPLATESType newTEMPLATES) {
-        if (newTEMPLATES != tEMPLATES) {
-            NotificationChain msgs = null;
-            if (tEMPLATES != null)
-                msgs = ((InternalEObject)tEMPLATES).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.CODEGENERATION_TYPE__TEMPLATES, null, msgs);
-            if (newTEMPLATES != null)
-                msgs = ((InternalEObject)newTEMPLATES).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.CODEGENERATION_TYPE__TEMPLATES, null, msgs);
-            msgs = basicSetTEMPLATES(newTEMPLATES, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CODEGENERATION_TYPE__TEMPLATES, newTEMPLATES, newTEMPLATES));
     }
 
     /**
@@ -164,7 +137,7 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-                return basicSetTEMPLATES(null, msgs);
+                return ((InternalEList)getTEMPLATES()).basicRemove(otherEnd, msgs);
             case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
                 return basicSetIMPORTS(null, msgs);
         }
@@ -194,7 +167,8 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-                setTEMPLATES((TEMPLATESType)newValue);
+                getTEMPLATES().clear();
+                getTEMPLATES().addAll((Collection)newValue);
                 return;
             case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
                 setIMPORTS((IMPORTSType)newValue);
@@ -211,7 +185,7 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-                setTEMPLATES((TEMPLATESType)null);
+                getTEMPLATES().clear();
                 return;
             case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
                 setIMPORTS((IMPORTSType)null);
@@ -228,7 +202,7 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-                return tEMPLATES != null;
+                return tEMPLATES != null && !tEMPLATES.isEmpty();
             case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
                 return iMPORTS != null;
         }

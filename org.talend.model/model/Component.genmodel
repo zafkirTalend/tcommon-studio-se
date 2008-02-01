@@ -189,6 +189,7 @@
     <genClasses ecoreClass="Component.ecore#//TEMPLATESType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATESType/tEMPLATE"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATESType/tEMPLATEPARAM"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/cONNECTOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/iNPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/oUTPUT"/>
     </genClasses>

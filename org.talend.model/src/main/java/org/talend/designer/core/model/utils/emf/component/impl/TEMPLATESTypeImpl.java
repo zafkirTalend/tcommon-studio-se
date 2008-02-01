@@ -31,6 +31,7 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getTEMPLATE <em>TEMPLATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getTEMPLATEPARAM <em>TEMPLATEPARAM</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getCONNECTOR <em>CONNECTOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getINPUT <em>INPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getOUTPUT <em>OUTPUT</em>}</li>
  * </ul>
@@ -58,6 +59,26 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * @ordered
      */
     protected EList tEMPLATEPARAM;
+
+    /**
+     * The default value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCONNECTOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONNECTOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCONNECTOR()
+     * @generated
+     * @ordered
+     */
+    protected String cONNECTOR = CONNECTOR_EDEFAULT;
 
     /**
      * The default value of the '{@link #getINPUT() <em>INPUT</em>}' attribute.
@@ -146,6 +167,27 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getCONNECTOR() {
+        return cONNECTOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCONNECTOR(String newCONNECTOR) {
+        String oldCONNECTOR = cONNECTOR;
+        cONNECTOR = newCONNECTOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__CONNECTOR, oldCONNECTOR, cONNECTOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getINPUT() {
         return iNPUT;
     }
@@ -209,6 +251,8 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
                 return getTEMPLATE();
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
                 return getTEMPLATEPARAM();
+            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+                return getCONNECTOR();
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 return getINPUT();
             case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
@@ -233,6 +277,9 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
                 getTEMPLATEPARAM().clear();
                 getTEMPLATEPARAM().addAll((Collection)newValue);
                 return;
+            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+                setCONNECTOR((String)newValue);
+                return;
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 setINPUT((String)newValue);
                 return;
@@ -256,6 +303,9 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
                 getTEMPLATEPARAM().clear();
                 return;
+            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+                setCONNECTOR(CONNECTOR_EDEFAULT);
+                return;
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 setINPUT(INPUT_EDEFAULT);
                 return;
@@ -277,6 +327,8 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
                 return tEMPLATE != null && !tEMPLATE.isEmpty();
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
                 return tEMPLATEPARAM != null && !tEMPLATEPARAM.isEmpty();
+            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+                return CONNECTOR_EDEFAULT == null ? cONNECTOR != null : !CONNECTOR_EDEFAULT.equals(cONNECTOR);
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 return INPUT_EDEFAULT == null ? iNPUT != null : !INPUT_EDEFAULT.equals(iNPUT);
             case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
@@ -294,7 +346,9 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (iNPUT: ");
+        result.append(" (cONNECTOR: ");
+        result.append(cONNECTOR);
+        result.append(", iNPUT: ");
         result.append(iNPUT);
         result.append(", oUTPUT: ");
         result.append(oUTPUT);

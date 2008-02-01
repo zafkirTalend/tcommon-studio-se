@@ -99,7 +99,7 @@ public interface ComponentPackage extends EPackage {
     int CODEGENERATION_TYPE = 1;
 
     /**
-     * The feature id for the '<em><b>TEMPLATES</b></em>' containment reference.
+     * The feature id for the '<em><b>TEMPLATES</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1707,13 +1707,22 @@ public interface ComponentPackage extends EPackage {
     int TEMPLATES_TYPE__TEMPLATEPARAM = 1;
 
     /**
+     * The feature id for the '<em><b>CONNECTOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATES_TYPE__CONNECTOR = 2;
+
+    /**
      * The feature id for the '<em><b>INPUT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATES_TYPE__INPUT = 2;
+    int TEMPLATES_TYPE__INPUT = 3;
 
     /**
      * The feature id for the '<em><b>OUTPUT</b></em>' attribute.
@@ -1722,7 +1731,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATES_TYPE__OUTPUT = 3;
+    int TEMPLATES_TYPE__OUTPUT = 4;
 
     /**
      * The number of structural features of the '<em>TEMPLATES Type</em>' class.
@@ -1731,7 +1740,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATES_TYPE_FEATURE_COUNT = 4;
+    int TEMPLATES_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl <em>TEMPLATE Type</em>}' class.
@@ -1812,10 +1821,10 @@ public interface ComponentPackage extends EPackage {
     EClass getCODEGENERATIONType();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType#getTEMPLATES <em>TEMPLATES</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType#getTEMPLATES <em>TEMPLATES</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>TEMPLATES</em>'.
+     * @return the meta object for the containment reference list '<em>TEMPLATES</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType#getTEMPLATES()
      * @see #getCODEGENERATIONType()
      * @generated
@@ -3460,6 +3469,17 @@ public interface ComponentPackage extends EPackage {
     EReference getTEMPLATESType_TEMPLATEPARAM();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getCONNECTOR <em>CONNECTOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CONNECTOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getCONNECTOR()
+     * @see #getTEMPLATESType()
+     * @generated
+     */
+    EAttribute getTEMPLATESType_CONNECTOR();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getINPUT <em>INPUT</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3575,7 +3595,7 @@ public interface ComponentPackage extends EPackage {
         EClass CODEGENERATION_TYPE = eINSTANCE.getCODEGENERATIONType();
 
         /**
-         * The meta object literal for the '<em><b>TEMPLATES</b></em>' containment reference feature.
+         * The meta object literal for the '<em><b>TEMPLATES</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -4837,6 +4857,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference TEMPLATES_TYPE__TEMPLATEPARAM = eINSTANCE.getTEMPLATESType_TEMPLATEPARAM();
+
+        /**
+         * The meta object literal for the '<em><b>CONNECTOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATES_TYPE__CONNECTOR = eINSTANCE.getTEMPLATESType_CONNECTOR();
 
         /**
          * The meta object literal for the '<em><b>INPUT</b></em>' attribute feature.

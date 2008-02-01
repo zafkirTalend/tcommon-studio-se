@@ -1709,7 +1709,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATESType_INPUT() {
+    public EAttribute getTEMPLATESType_CONNECTOR() {
         return (EAttribute)templatesTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -1718,8 +1718,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATESType_OUTPUT() {
+    public EAttribute getTEMPLATESType_INPUT() {
         return (EAttribute)templatesTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATESType_OUTPUT() {
+        return (EAttribute)templatesTypeEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1966,6 +1975,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         templatesTypeEClass = createEClass(TEMPLATES_TYPE);
         createEReference(templatesTypeEClass, TEMPLATES_TYPE__TEMPLATE);
         createEReference(templatesTypeEClass, TEMPLATES_TYPE__TEMPLATEPARAM);
+        createEAttribute(templatesTypeEClass, TEMPLATES_TYPE__CONNECTOR);
         createEAttribute(templatesTypeEClass, TEMPLATES_TYPE__INPUT);
         createEAttribute(templatesTypeEClass, TEMPLATES_TYPE__OUTPUT);
 
@@ -2008,7 +2018,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getADVANCEDPARAMETERSType_PARAMETER(), this.getPARAMETERType(), null, "pARAMETER", null, 1, -1, ADVANCEDPARAMETERSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(codegenerationTypeEClass, CODEGENERATIONType.class, "CODEGENERATIONType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCODEGENERATIONType_TEMPLATES(), this.getTEMPLATESType(), null, "tEMPLATES", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCODEGENERATIONType_TEMPLATES(), this.getTEMPLATESType(), null, "tEMPLATES", null, 0, -1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCODEGENERATIONType_IMPORTS(), this.getIMPORTSType(), null, "iMPORTS", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(columnTypeEClass, COLUMNType.class, "COLUMNType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2184,6 +2194,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEClass(templatesTypeEClass, TEMPLATESType.class, "TEMPLATESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getTEMPLATESType_TEMPLATE(), this.getTEMPLATEType(), null, "tEMPLATE", null, 1, -1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getTEMPLATESType_TEMPLATEPARAM(), this.getTEMPLATEPARAMType(), null, "tEMPLATEPARAM", null, 0, -1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTEMPLATESType_CONNECTOR(), theXMLTypePackage.getString(), "cONNECTOR", null, 0, 1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATESType_INPUT(), theXMLTypePackage.getString(), "iNPUT", null, 0, 1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATESType_OUTPUT(), theXMLTypePackage.getString(), "oUTPUT", null, 0, 1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3422,6 +3433,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "TEMPLATE_PARAM",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTEMPLATESType_CONNECTOR(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "CONNECTOR",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

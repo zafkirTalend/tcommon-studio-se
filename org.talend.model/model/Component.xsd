@@ -99,36 +99,51 @@
 	<xs:element name="CODEGENERATION">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="TEMPLATES" minOccurs="0">
+				<xs:element name="TEMPLATES" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Used only for virtual components</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="TEMPLATE" maxOccurs="unbounded">
+							<xs:element name="TEMPLATE"
+								maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="LINK_TO" minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="LINK_TO"
+											minOccurs="0" maxOccurs="unbounded">
 											<xs:complexType>
-												<xs:attribute name="NAME" type="xs:string"/>
-												<xs:attribute name="CTYPE" type="xs:string"/>
+												<xs:attribute
+													name="NAME" type="xs:string" />
+												<xs:attribute
+													name="CTYPE" type="xs:string" />
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
-									<xs:attribute name="NAME" type="xs:string" use="optional"/>
-									<xs:attribute name="COMPONENT" type="xs:string" use="optional"/>
+									<xs:attribute name="NAME"
+										type="xs:string" use="optional" />
+									<xs:attribute name="COMPONENT"
+										type="xs:string" use="optional" />
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="TEMPLATE_PARAM"
+								minOccurs="0" maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:attribute name="SOURCE" type="xs:string" use="optional"/>
-									<xs:attribute name="TARGET" type="xs:string"/>
-									<xs:attribute name="VALUE" type="xs:string" use="optional"/>
+									<xs:attribute name="SOURCE"
+										type="xs:string" use="optional" />
+									<xs:attribute name="TARGET"
+										type="xs:string" />
+									<xs:attribute name="VALUE"
+										type="xs:string" use="optional" />
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
-						<xs:attribute name="INPUT" type="xs:string" use="optional"/>
-						<xs:attribute name="OUTPUT" type="xs:string" use="optional"/>
+						<xs:attribute name="INPUT" type="xs:string"
+							use="optional" />
+						<xs:attribute name="OUTPUT" type="xs:string"
+							use="optional" />
+						<xs:attribute name="CONNECTOR"
+							type="xs:string">
+						</xs:attribute>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="IMPORTS" minOccurs="0">

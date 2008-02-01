@@ -6,6 +6,7 @@
  */
 package org.talend.designer.core.model.utils.emf.component;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -27,7 +28,8 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface CODEGENERATIONType extends EObject {
     /**
-     * Returns the value of the '<em><b>TEMPLATES</b></em>' containment reference.
+     * Returns the value of the '<em><b>TEMPLATES</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType}.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>TEMPLATES</em>' containment reference isn't clear,
@@ -37,24 +39,13 @@ public interface CODEGENERATIONType extends EObject {
      * <!-- begin-model-doc -->
      * Used only for virtual components
      * <!-- end-model-doc -->
-     * @return the value of the '<em>TEMPLATES</em>' containment reference.
-     * @see #setTEMPLATES(TEMPLATESType)
+     * @return the value of the '<em>TEMPLATES</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCODEGENERATIONType_TEMPLATES()
-     * @model containment="true"
+     * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATESType" containment="true"
      *        extendedMetaData="kind='element' name='TEMPLATES' namespace='##targetNamespace'"
      * @generated
      */
-    TEMPLATESType getTEMPLATES();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType#getTEMPLATES <em>TEMPLATES</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>TEMPLATES</em>' containment reference.
-     * @see #getTEMPLATES()
-     * @generated
-     */
-    void setTEMPLATES(TEMPLATESType value);
+    EList getTEMPLATES();
 
     /**
      * Returns the value of the '<em><b>IMPORTS</b></em>' containment reference.
