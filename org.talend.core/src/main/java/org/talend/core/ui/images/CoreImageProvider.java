@@ -20,7 +20,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
+ * amaumont class global comment. Detailled comment <br/>
  * 
  * $Id$
  * 
@@ -40,6 +40,7 @@ public class CoreImageProvider {
         case BUSINESS_PROCESS:
             return ECoreImage.BUSINESS_PROCESS_ICON;
         case PROCESS:
+        case JOBLET:
             return ECoreImage.PROCESS_ICON;
         case CONTEXT:
             return ECoreImage.CONTEXT_ICON;
@@ -49,6 +50,7 @@ public class CoreImageProvider {
             return ECoreImage.SNIPPETS_ICON;
         case DOCUMENTATION:
         case JOB_DOC:
+        case JOBLET_DOC:
             return ECoreImage.DOCUMENTATION_ICON;
         case METADATA:
             return ECoreImage.METADATA_ICON;
