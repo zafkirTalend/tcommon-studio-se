@@ -49,8 +49,10 @@ public class ParameterFactory {
 
     public static final String PARAMETER_TYPE_CHAR = "char";
 
+    public static final String PARAMETER_TYPE_SHORT = "short";
+
     /**
-     * qzhang Comment method "getParameter". <br/>.
+     * s qzhang Comment method "getParameter". <br/>.
      * 
      * format is: {param} <type/>[(<default value or closed list values/>)] <name/>[ : <comment/>]
      * 
@@ -128,7 +130,7 @@ public class ParameterFactory {
 
     private Parameter createParameter(String type) {
         Parameter parameter = null;
-        if (type.startsWith(PARAMETER_TYPE_STRING)) {
+        if (type.toLowerCase().startsWith(PARAMETER_TYPE_STRING)) {
             parameter = new StringParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_INT)) {
             parameter = new IntParameter();
@@ -146,6 +148,8 @@ public class ParameterFactory {
             parameter = new DateParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_CHAR)) {
             parameter = new CharParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_SHORT)) {
+            parameter = new ShortParameter();
         }
         if (parameter != null) {
             parameter.setType(type);

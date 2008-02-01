@@ -158,6 +158,15 @@ public class Function implements Cloneable {
                     p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
+                if (para instanceof ShortParameter) {
+                    ShortParameter p0 = (ShortParameter) para;
+                    ShortParameter p1 = new ShortParameter();
+                    p1.setComment(p0.getComment());
+                    p1.setName(p0.getName());
+                    p1.setType(p0.getType());
+                    p1.setValue(p0.getValue());
+                    parameters1.add(p1);
+                }
             }
             fun.setParameters(parameters1);
         } catch (Exception e) {

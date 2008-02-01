@@ -173,7 +173,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             String category = parseCategoryType(string);
             String functionType = parseFunctionType(string);
             String[] parameter = parseFunctionParameters(string);
-            if (!functionType.equals(EMPTY_STRING)) {
+            if (functionType != null && category.trim().length() > 0) {
                 Parameter[] paras = convertToParameter(parameter);
                 Function function = new Function();
                 function.setClassName(className);
