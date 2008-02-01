@@ -626,4 +626,13 @@ public abstract class AbstractNode implements INode {
     public boolean setVirtualGenerateNode(boolean isVirtualGenerateNode) {
         return this.isVirtualGenerateNode = isVirtualGenerateNode;
     }
+
+    /**
+     * Sets the listConnector.
+     * 
+     * @param listConnector the listConnector to set
+     */
+    public void setListConnector(List<? extends INodeConnector> listConnector) {
+        this.listConnector = listConnector;
+    }
 }
