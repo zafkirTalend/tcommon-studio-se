@@ -85,7 +85,7 @@ public interface IComponent {
 
     public String getVersion();
 
-    public IMultipleComponentManager getMultipleComponentManager();
+    public List<IMultipleComponentManager> getMultipleComponentManagers();
 
     public boolean isLoaded();
 

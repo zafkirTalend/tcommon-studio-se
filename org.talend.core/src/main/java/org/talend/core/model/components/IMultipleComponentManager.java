@@ -14,13 +14,11 @@ package org.talend.core.model.components;
 
 import java.util.List;
 
-
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IMultipleComponentManager {
 
@@ -35,8 +33,16 @@ public interface IMultipleComponentManager {
     public List<IMultipleComponentItem> getItemList();
 
     public void addParam(String source, String target);
-    
+
     public void addValue(String target, String value);
-    
+
     public List<IMultipleComponentParameter> getParamList();
+
+    public boolean isSetConnector();
+
+    public String getConnector();
+    
+    public boolean existsROWSENDLinkTo();
+    
+    public void setExistsROWSENDLinkTo(boolean flag);
 }
