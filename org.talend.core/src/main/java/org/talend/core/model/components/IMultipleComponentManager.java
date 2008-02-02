@@ -29,6 +29,8 @@ public interface IMultipleComponentManager {
     public IMultipleComponentItem getInput();
 
     public IMultipleComponentItem getOutput();
+    
+    public String getOutputName();
 
     public List<IMultipleComponentItem> getItemList();
 
@@ -45,4 +47,5 @@ public interface IMultipleComponentManager {
     public boolean existsROWSENDLinkTo();
     
     public void setExistsROWSENDLinkTo(boolean flag);
+    
 }
