@@ -44,8 +44,8 @@ public interface IMultipleComponentManager {
 
     public String getConnector();
     
-    public boolean existsROWSENDLinkTo();
+    public boolean existsLinkTo();
     
-    public void setExistsROWSENDLinkTo(boolean flag);
+    public void setExistsLinkTo(boolean flag);
     
 }
