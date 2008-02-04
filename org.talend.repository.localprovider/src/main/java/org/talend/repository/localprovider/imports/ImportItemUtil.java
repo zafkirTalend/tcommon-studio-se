@@ -16,7 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -44,6 +46,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
@@ -115,8 +118,9 @@ public class ImportItemUtil {
             IPath path = new Path(itemRecord.getItem().getState().getPath());
 
             List<String> folders = null;
+            ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
             try {
-                folders = ProxyRepositoryFactory.getInstance().getFolders(itemType);
+                folders = repFactory.getFolders(itemType);
             } catch (Exception e) {
                 logError(e);
             }
@@ -130,7 +134,7 @@ public class ImportItemUtil {
 
                     String folderName = parentPath.append(folderLabel).toString();
                     if (!folders.contains(folderName)) {
-                        ProxyRepositoryFactory.getInstance().createFolder(itemType, parentPath, folderLabel);
+                        repFactory.createFolder(itemType, parentPath, folderLabel);
                     }
                 }
             } catch (Exception e) {
@@ -144,10 +148,18 @@ public class ImportItemUtil {
 
             try {
                 Item tmpItem = itemRecord.getItem();
-                ProxyRepositoryFactory.getInstance().create(tmpItem, path, true);
+                IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
+                if (lastVersion == null) {
+                    repFactory.create(tmpItem, path, true);
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
+                        .getVersion()) < 0) {
+                    repFactory.forceCreate(tmpItem, path);
+                } else {
+                    throw new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist.");
+                }
 
-                Item newItem = ProxyRepositoryFactory.getInstance().getLastVersion(tmpItem.getProperty().getId())
-                        .getProperty().getItem();
+                lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
+                Item newItem = lastVersion.getProperty().getItem();
 
                 Context ctx = CorePlugin.getContext();
                 RepositoryContext repositoryContext = (RepositoryContext) ctx
@@ -183,7 +195,10 @@ public class ImportItemUtil {
         RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
     }
 
-    public Collection<ItemRecord> populateItems(ResourcesManager collector) {
+    /**
+     * need to returns sorted items by version to correctly import them later.
+     */
+    public List<ItemRecord> populateItems(ResourcesManager collector) {
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
         for (IPath path : collector.getPaths()) {
@@ -217,6 +232,13 @@ public class ImportItemUtil {
                 }
             }
         }
+
+        Collections.sort(items, new Comparator<ItemRecord>() {
+
+            public int compare(ItemRecord o1, ItemRecord o2) {
+                return VersionUtils.compareTo(o1.getProperty().getVersion(), o2.getProperty().getVersion());
+            }
+        });
 
         return items;
     }
