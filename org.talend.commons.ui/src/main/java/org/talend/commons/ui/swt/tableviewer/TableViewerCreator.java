@@ -1872,10 +1872,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
         if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
 
-            if (value instanceof String) {
-                value = ((String) value).trim();
-            }
-
             AccessorUtils.set(column, currentRowObject, value);
 
             // System.out.println("Set : " + "currentRowObject=" + currentRowObject + " value="+ value );
