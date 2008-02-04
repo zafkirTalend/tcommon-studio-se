@@ -31,7 +31,7 @@ import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
  */
 public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
 
-    private final ExtendedTextCellEditor extendedTextCellEditor;
+    private ExtendedTextCellEditor extendedTextCellEditor;
 
     private ICellEditorDialog cellEditorDialog;
 
@@ -47,11 +47,21 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
     /**
      * yzhang CellEditorDialogBehavior constructor comment.
      */
-    public CellEditorDialogBehavior(ExtendedTextCellEditor extendedTextCellEditor) {
-        this.extendedTextCellEditor = extendedTextCellEditor;
+    public CellEditorDialogBehavior() {
+        super();
+    }
+    
+    private Composite panel;
+
+    
+    public ExtendedTextCellEditor getExtendedTextCellEditor() {
+        return extendedTextCellEditor;
     }
 
-    private Composite panel;
+    
+    public void setExtendedTextCellEditor(ExtendedTextCellEditor extendedTextCellEditor) {
+        this.extendedTextCellEditor = extendedTextCellEditor;
+    }
 
     /*
      * (non-Javadoc)

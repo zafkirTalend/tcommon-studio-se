@@ -65,10 +65,15 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
 
     /**
      * yzhang ExtendedTextCellEditor constructor comment.
+     * @param behavior 
      */
-    public ExtendedTextCellEditor(Composite parent) {
+    public ExtendedTextCellEditor(Composite parent, CellEditorDialogBehavior cellEditorBehavior) {
+        super(parent);
+        this.cellEditorBehavior = cellEditorBehavior;
         this.parent = parent;
         setStyle(SWT.SINGLE);
+        cellEditorBehavior.setExtendedTextCellEditor(this);
+        differedCreate(parent);
     }
 
     private void initFocusListener(Composite composite) {
@@ -106,20 +111,15 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     }
 
     /**
-     * Sets the cellEditorBehavior.
-     * 
-     * @param cellEditorBehavior the cellEditorBehavior to set
+     * Warning: this method must not be implemented, see differedCreate(..) which is called by the constructor
      */
-    public void setCellEditorBehavior(IExtendedCellEditorBehavior cellEditorBehavior) {
-        this.cellEditorBehavior = cellEditorBehavior;
+    @Override
+    public final void create(Composite parent) {
     }
 
-    /**
-     * yzhang Comment method "init".
-     */
-    public void init() {
-        initFocusListener(parent);
-        create(parent);
+    protected void differedCreate(Composite parent) {
+        super.create(parent);
+//        initFocusListener(parent);
     }
 
     /*

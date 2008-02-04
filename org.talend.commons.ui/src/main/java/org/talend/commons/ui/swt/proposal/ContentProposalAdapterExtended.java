@@ -134,7 +134,7 @@ public class ContentProposalAdapterExtended {
 
                 if (e.type == SWT.FocusOut && e.widget == control) {
 
-                    new AsynchronousThreading(5, false, control.getDisplay(), new Runnable() {
+                    new AsynchronousThreading(100, false, control.getDisplay(), new Runnable() {
 
                         /*
                          * (non-Javadoc)
@@ -154,11 +154,27 @@ public class ContentProposalAdapterExtended {
 
                 }
 
-                // System.out.println(e + " " +hasFocus() + " " + control.isFocusControl());
+                // System.out.println(e + " " + hasFocus() + " " + control.isFocusControl());
                 // System.out.println("hasJustAccepetd="+hasJustAccepetd);
 
+                if (e.type == SWT.MouseDown && e.widget == proposalTable) {
+                    // System.out.println("Mouse down");
+                    return;
+                }
+
+                if (e.type == SWT.MouseDoubleClick) {
+                    // System.out.println("Mouse double click");
+                    acceptCurrentProposal();
+                    return;
+                }
+                
+                if (e.type == SWT.Deactivate) {
+                    // System.out.println("Deactivate");
+                    return;
+                }
+
                 if (e.type == SWT.FocusOut && e.widget == control && control.isFocusControl() && !hasJustAccepted) {
-                    // System.out.println(1);
+                    // System.out.println("1");
                     return;
                 }
                 //                
@@ -197,7 +213,7 @@ public class ContentProposalAdapterExtended {
                                 if (activeShell == getShell() || (infoPopup != null && infoPopup.getShell() == activeShell)) {
                                     return;
                                 }
-                                // System.out.println("close focusout");
+                                System.out.println("close focusout");
                                 /*
                                  * System.out.println(e); System.out.println(e.display.getFocusControl());
                                  * System.out.println(e.display.getActiveShell());
@@ -216,7 +232,7 @@ public class ContentProposalAdapterExtended {
                     return;
                 }
 
-                // System.out.println("close");
+                System.out.println("close");
 
                 // For all other events, merely getting them dictates closure.
                 authorizedClose();
@@ -226,6 +242,8 @@ public class ContentProposalAdapterExtended {
             // popup closure.
             void installListeners() {
                 // Listeners on this popup's table and scroll bar
+                proposalTable.addListener(SWT.MouseDoubleClick, this);
+                proposalTable.addListener(SWT.MouseDown, this);
                 proposalTable.addListener(SWT.FocusOut, this);
                 ScrollBar scrollbar = proposalTable.getVerticalBar();
                 if (scrollbar != null) {
@@ -253,6 +271,8 @@ public class ContentProposalAdapterExtended {
             void removeListeners() {
                 if (isValid()) {
                     proposalTable.removeListener(SWT.FocusOut, this);
+                    proposalTable.removeListener(SWT.MouseDown, this);
+                    proposalTable.removeListener(SWT.MouseDoubleClick, this);
                     ScrollBar scrollbar = proposalTable.getVerticalBar();
                     if (scrollbar != null) {
                         scrollbar.removeListener(SWT.Selection, this);
@@ -1928,7 +1948,15 @@ public class ContentProposalAdapterExtended {
     }
 
     public boolean close() {
-        return this.popup.authorizedClose();
+        if (this.popup != null) {
+            return this.popup.authorizedClose();
+        } else {
+            return true;
+        }
+    }
+
+    public boolean hasFocus() {
+        return popup.hasFocus();
     }
 
 }
