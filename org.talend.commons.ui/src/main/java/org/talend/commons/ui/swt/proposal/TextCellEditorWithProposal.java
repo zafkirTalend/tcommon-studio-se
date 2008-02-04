@@ -12,16 +12,11 @@
 // ============================================================================
 package org.talend.commons.ui.swt.proposal;
 
-import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**
@@ -30,7 +25,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
  * $Id: TextCellEditorWithProposal.java 7038 2007-11-15 14:05:48Z plegall $
  * 
  */
-public class TextCellEditorWithProposal extends TextCellEditor {
+public class TextCellEditorWithProposal extends TextCellEditor implements IShowInvisibleCellEditorMethods {
 
     private CommonTextCellEditorWithProposal commonTextEditor;
     private TableViewerCreatorColumn tableViewerCreatorColumn;
