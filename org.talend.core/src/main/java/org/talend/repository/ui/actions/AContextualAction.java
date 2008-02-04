@@ -22,6 +22,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.views.properties.PropertySheet;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -159,6 +160,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @return the selection
      */
     public final ISelection getSelection() {
+        // useful for version property tab
+        if (getActivePage().getActivePart() instanceof PropertySheet) {
+            return getActivePage().getSelection();
+        }
+
         if (workbenchPart != null) {
             if (workbenchPart instanceof IRepositoryView) {
                 IRepositoryView view = (IRepositoryView) workbenchPart;
