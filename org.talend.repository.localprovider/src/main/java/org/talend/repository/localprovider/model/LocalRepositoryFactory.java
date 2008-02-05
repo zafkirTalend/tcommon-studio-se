@@ -281,7 +281,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             } else if (current instanceof IFolder) { // && (!current.getName().equals("bin"))) {
                 if (searchInChildren) {
-                    toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true, withDeleted));
+                    toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true,
+                            withDeleted));
                 }
             }
         }
@@ -387,7 +388,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @param project
      * @throws PersistenceException
      */
-    private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject) throws PersistenceException {
+    private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject)
+            throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(emfProject);
 
         // Folder creation :
@@ -537,9 +539,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
-        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
-                + label;
-        FolderItem folderItem = getFolderHelper(getRepositoryContext().getProject().getEmfProject()).createFolder(completePath);
+        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString()
+                + IPath.SEPARATOR + label;
+        FolderItem folderItem = getFolderHelper(getRepositoryContext().getProject().getEmfProject()).createFolder(
+                completePath);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -584,7 +587,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
         // If the "System", "Generated", "Jobs" folder is created in the root, it can't be deleted .
-        if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
+        if (RepositoryConstants.isSystemFolder(path.toString())
+                || RepositoryConstants.isGeneratedFolder(path.toString())
                 || RepositoryConstants.isJobsFolder(path.toString())) {
             return;
         }
@@ -623,8 +627,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
         for (int i = 0; i < childrens.length; i++) {
             FolderItem children = (FolderItem) childrens[i];
-            moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
-                    .getLabel()));
+            moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder
+                    .getProperty().getLabel()));
         }
 
         List<IRepositoryObject> serializableFromFolder = getSerializableFromFolder(folder, null, type, true, true, true);
@@ -669,7 +673,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryObject> toReturn = new VersionList(false);
 
         FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), ERepositoryObjectType.PROCESS);
+        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(),
+                ERepositoryObjectType.PROCESS);
 
         for (IResource current : ResourceUtils.getMembers(folder)) {
             if (current instanceof IFile) {
@@ -730,8 +735,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore.getType()),
-                true);
+        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore
+                .getType()), true);
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
@@ -897,7 +902,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(JobDocumentationItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
+    private Resource create(JobDocumentationItem item, IPath path, ERepositoryObjectType type)
+            throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, true);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getContent());
@@ -943,8 +949,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource create(ProcessItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.PROCESS,
-                false);
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
+                ERepositoryObjectType.PROCESS, false);
         itemResource.getContents().add(item.getProcess());
 
         return itemResource;
@@ -957,8 +963,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource create(ContextItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.CONTEXT,
-                false);
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
+                ERepositoryObjectType.CONTEXT, false);
         itemResource.getContents().addAll(item.getContext());
 
         return itemResource;
@@ -974,8 +980,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource create(SnippetItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.SNIPPETS,
-                false);
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
+                ERepositoryObjectType.SNIPPETS, false);
         itemResource.getContents().addAll(item.getVariables());
 
         return itemResource;
@@ -1212,7 +1218,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
-        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
+        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE
+                .getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
 
