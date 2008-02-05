@@ -40,10 +40,11 @@ public class TableUtils {
             int widthColumn = column.getWidth();
             if (pointCursor.x >= width
                     && pointCursor.x <= width + widthColumn
-                    && ((!WindowSystem.isGTK() && pointCursor.y > table.getHeaderHeight() && pointCursor.y < table.getHeaderHeight()
+                    && ((!WindowSystem.isGTK() && pointCursor.y > table.getHeaderHeight() && pointCursor.y < table
+                            .getHeaderHeight()
                             + table.getItemCount() * table.getItemHeight()) || (WindowSystem.isGTK() && pointCursor.y > 0 && pointCursor.y < table
                             .getItemCount()
-                            * table.getItemHeight()))) {
+                            * table.getItemHeight() + table.getItemHeight()))) {
                 currentColumnIndex = i;
                 break;
             }
@@ -129,7 +130,7 @@ public class TableUtils {
      */
     public static int getItemIndexWhereInsertFromPosition(Table table, Point cursorPositionPrm) {
         Point cursorPosition = new Point(cursorPositionPrm.x, cursorPositionPrm.y);
-        cursorPosition.y -= (WindowSystem.isGTK() ? table.getHeaderHeight()/2 : 0);
+        cursorPosition.y -= (WindowSystem.isGTK() ? table.getHeaderHeight() / 2 : 0);
         int startInsertAtThisIndex = 0;
         Point pointCursor = table.toControl(cursorPosition.x, cursorPosition.y);
         TableItem[] tableItems = table.getItems();
@@ -139,7 +140,7 @@ public class TableUtils {
                 if (tableItems[i] == tableItemBehindCursor) {
                     Rectangle boundsItem = tableItemBehindCursor.getBounds();
                     startInsertAtThisIndex = i;
-                    if (pointCursor.y > boundsItem.y + table.getItemHeight() / 2 ) {
+                    if (pointCursor.y > boundsItem.y + table.getItemHeight() / 2) {
                         startInsertAtThisIndex = i + 1;
                     }
                     break;
