@@ -155,7 +155,8 @@ public class ImportItemUtil {
                         .getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
                 } else {
-                    throw new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist.");
+                    logError(new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist."));
+                    return;
                 }
 
                 lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
