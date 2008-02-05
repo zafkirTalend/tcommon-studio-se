@@ -1304,4 +1304,24 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public Boolean hasChildren(Object parent) {
         return null;
     }
+
+    public void updateItemsPath(ERepositoryObjectType type, IPath targetPath) throws PersistenceException {
+        IProject project = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        String folderPathString = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString();
+        IFolder folder = ResourceUtils.getFolder(project, folderPathString, false);
+
+        List<IRepositoryObject> serializableFromFolder = getSerializableFromFolder(folder, null, type, true, false,
+                false);
+        for (IRepositoryObject repositoryObject : serializableFromFolder) {
+            ItemState state = repositoryObject.getProperty().getItem().getState();
+            state.setPath(targetPath.toString());
+            xmiResourceManager.saveResource(state.eResource());
+        }
+
+        for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
+            if (current instanceof IFolder) {
+                updateItemsPath(type, targetPath.append(current.getName()));
+            }
+        }
+    }
 }
