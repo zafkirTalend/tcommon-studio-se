@@ -41,6 +41,8 @@ public class CoreImageProvider {
             return ECoreImage.BUSINESS_PROCESS_ICON;
         case PROCESS:
             return ECoreImage.PROCESS_ICON;
+        case JOBLET:
+            return ECoreImage.JOBLET_ICON;
         case CONTEXT:
             return ECoreImage.CONTEXT_ICON;
         case ROUTINES:
@@ -77,9 +79,14 @@ public class CoreImageProvider {
             return ECoreImage.FOLDER_OPEN_ICON;
         case REFERENCED_PROJECTS:
             return ECoreImage.REFERENCED_ICON;
+        case METADATA_GENERIC_SCHEMA:
+            return ECoreImage.METADATA_GENERIC_ICON;
+        case METADATA_LDAP_SCHEMA:
+            return ECoreImage.METADATA_LDAP_SCHEMA_ICON;
+        case METADATA_WSDL_SCHEMA:
+            return ECoreImage.METADATA_WSDL_SCHEMA_ICON;
         default:
             return EImage.DEFAULT_IMAGE;
         }
     }
-
 }

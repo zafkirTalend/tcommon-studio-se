@@ -26,6 +26,8 @@ public enum ECoreImage implements IImage {
 
     TALEND_PICTO("/icons/talend-picto-small.gif"), //$NON-NLS-1$
 
+    DEFAULT_WIZ("/icons/defaultWizard.png"), //$NON-NLS-1$
+
     PROJECT_WIZ("/icons/project_wiz.png"), //$NON-NLS-1$
 
     RECYCLE_BIN_EMPTY_ICON("/icons/recyclebinempty.png"), //$NON-NLS-1$
@@ -38,6 +40,7 @@ public enum ECoreImage implements IImage {
     BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"), //$NON-NLS-1$
     PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
+    JOBLET_ICON("/icons/joblet_icon.png"), //$NON-NLS-1$
     CONTEXT_ICON("/icons/context_icon.gif"), //$NON-NLS-1$
     CONTEXT_CONF_ICON("/icons/context_conf_icon.gif"), //$NON-NLS-1$
     CONTEXT_WIZ("/icons/context_wiz.png"), //$NON-NLS-1$
@@ -68,7 +71,9 @@ public enum ECoreImage implements IImage {
     METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"), //$NON-NLS-1$
     METADATA_FILE_LDIF_ICON("/icons/fileldif.gif"), //$NON-NLS-1$
     METADATA_FILE_LDIF_WIZ("/icons/ldif_wiz.png"), //$NON-NLS-1$
-    METADATA_GENERIC_ICON("/icons/filexml.gif"), //$NON-NLS-1$
+    METADATA_GENERIC_ICON("/icons/genericSchema_icon.png"), //$NON-NLS-1$
+    METADATA_LDAP_SCHEMA_ICON("/icons/ldap_icon.png"), //$NON-NLS-1$
+    METADATA_WSDL_SCHEMA_ICON("/icons/wsdl_icon.png"), //$NON-NLS-1$
 
     MODULE_INSTALLED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
