@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.cwm.helper;
 
+import java.util.Collection;
+
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
@@ -37,5 +39,28 @@ public final class TaggedValueHelper {
         taggedValue.setTag(tag);
         taggedValue.setValue(value);
         return taggedValue;
+    }
+
+    /**
+     * Method "getValue" retrieves the value corresponding to the first matching tag.
+     * 
+     * @param tag the tag to match
+     * @param taggedValues the tagged values in which to search for the given tag
+     * @return the value (if found) or null
+     */
+    public static String getValue(String tag, Collection<TaggedValue> taggedValues) {
+        if (tag == null) {
+            return null;
+        }
+        String value = null;
+        for (TaggedValue taggedValue : taggedValues) {
+            if (taggedValue == null) {
+                continue;
+            }
+            if (tag.compareTo(taggedValue.getTag()) == 0) {
+                value = taggedValue.getValue();
+            }
+        }
+        return value;
     }
 }
