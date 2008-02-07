@@ -51,7 +51,8 @@ public class CatalogBuilder extends CwmBuilder {
     private boolean schemaInitialized = false;
 
     /**
-     * CatalogBuilder constructor.
+     * CatalogBuilder constructor. Catalogs and/or schemata are initialized, but not the lower structure such as the
+     * table, trigger, procedures...
      * 
      * @param connection2 the sql connection
      * @throws SQLException
@@ -66,7 +67,6 @@ public class CatalogBuilder extends CwmBuilder {
 
         initializeCatalog();
         initializeSchema();
-        initializeTables();
     }
 
     /**
@@ -74,7 +74,7 @@ public class CatalogBuilder extends CwmBuilder {
      * 
      * @throws SQLException
      */
-    private void initializeTables() throws SQLException {
+    public void initializeTables() throws SQLException {
         if (!catalogsInitialized) {
             initializeCatalog();
         }
@@ -294,7 +294,23 @@ public class CatalogBuilder extends CwmBuilder {
             // debug
             // if (log.isDebugEnabled()) {
             // ResultSetUtils.printResultSet(schemas, 40);
+            // }
 
+            // initialize the catalog if not already done
+            if (!catalogsInitialized) {
+                initializeCatalog();
+            }
+
+            // --- check whether the result set has two columns (Oracle and Sybase only return 1 column)
+            int columnCount = schemas.getMetaData().getColumnCount();
+
+            // TODO scorreia MODSCA20080118 do we need to create a default catalog when there is none?
+            // String defaultCatName = "My Default Catalog";
+            // if (columnCount == 1) {
+            // // TODO scorreia create a default catalog
+            // if (name2catalog.isEmpty()) {
+            // createCatalog(defaultCatName);
+            // }
             // }
 
             while (schemas.next()) {
@@ -302,23 +318,28 @@ public class CatalogBuilder extends CwmBuilder {
                 String schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
                 TdSchema schema = createSchema(schemaName);
 
-                // set link Catalog -> Schema
-                // TODO scorreia handle sybase case: no catalog name, only one column in this result set.
-                try {
+                // set link Catalog -> Schema if exists
+                if (columnCount > 1) {
+                    // TODO scorreia handle sybase case: no catalog name, only one column in this result set.
+                    // try {
                     String catName = schemas.getString(MetaDataConstants.TABLE_CATALOG.name());
                     if (catName != null) {
-                        // initialize the catalog if not already done
-                        if (!catalogsInitialized) {
-                            initializeCatalog();
-                        }
                         // get the catalog and add the schema
                         TdCatalog catalog = name2catalog.get(catName);
                         catalog.getOwnedElement().add(schema);
                     }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    // } catch (Exception e) {
+                    // // TODO Auto-generated catch block
+                    // e.printStackTrace();
+                    // }
                 }
+
+                // TODO scorreia MODSCA20080118 do we need to create a default catalog when there is none?
+                // else {
+                // TdCatalog cat = name2catalog.get(defaultCatName);
+                // cat.getOwnedElement().add(schema);
+                // }
+
             }
 
             // release JDBC resources
