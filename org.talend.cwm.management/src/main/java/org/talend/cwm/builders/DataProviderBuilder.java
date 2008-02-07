@@ -48,10 +48,12 @@ public class DataProviderBuilder extends CwmBuilder {
         this.dataProvider = initializeDataProvider(driver, databaseUrl, driverProperties);
     }
 
+    // TODO scorreia ctor with TdProviderConnection
+
     private TdDataProvider initializeDataProvider(Driver driver, String databaseUrl, Properties driverProperties)
             throws SQLException {
         TdDataProvider provider = SoftwaredeploymentFactory.eINSTANCE.createTdDataProvider();
-        provider.setName(driver.getClass().getName());
+        provider.setName(driver.getClass().getName()); // TODO scorreia should data provider name be something else?
 
         // print driver properties
         // TODO scorreia adapt this code in order to store information in CWM ????
@@ -60,17 +62,17 @@ public class DataProviderBuilder extends CwmBuilder {
             DriverPropertyInfo prop = driverProps[i];
 
             if (log.isDebugEnabled()) { // TODO use logger here
-                System.out.println("Prop description = " + prop.description);
-                System.out.println(prop.name + "=" + prop.value);
+                log.debug("Prop description = " + prop.description);
+                log.debug(prop.name + "=" + prop.value);
             }
 
             TaggedValue taggedValue = TaggedValueHelper.createTaggedValue(prop.name, prop.value);
             provider.getTaggedValue().add(taggedValue);
 
-            if (log.isDebugEnabled()) {// TODO use logger here
+            if (log.isDebugEnabled()) {
                 if (prop.choices != null) {
                     for (int j = 0; j < prop.choices.length; j++) {
-                        System.out.println("prop choice " + j + " = " + prop.choices[j]);
+                        log.debug("prop choice " + j + " = " + prop.choices[j]);
                     }
                 }
             }
