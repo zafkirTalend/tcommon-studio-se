@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
@@ -48,6 +49,8 @@ public class ConnectionProviderBuilder extends CwmBuilder {
     private TdProviderConnection initializeProviderConnection(String dbUrl, String driverClassName, Properties props)
             throws SQLException {
         TdProviderConnection prov = SoftwaredeploymentFactory.eINSTANCE.createTdProviderConnection();
+        prov.setName(driverClassName + EcoreUtil.generateUUID()); // TODO scorreia change default name of provider
+                                                                    // connection
         prov.setDriverClassName(driverClassName);
         prov.setConnectionString(dbUrl);
         prov.setIsReadOnly(connection.isReadOnly());
