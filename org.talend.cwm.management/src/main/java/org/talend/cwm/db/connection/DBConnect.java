@@ -34,12 +34,15 @@ import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
+import org.talend.utils.collections.ReturnCode;
+import org.talend.utils.sql.ConnectionUtils;
+
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 
 /**
  * @author scorreia
  * 
- * This class builds CWM classes from a database connection.
+ * This class builds CWM classes from a database connection and offers facilities for serializing data.
  */
 public class DBConnect {
 
@@ -68,6 +71,15 @@ public class DBConnect {
     private DataProviderBuilder dataProvBuilder;
 
     // TODO scorreia errorMessage;
+
+    public DBConnect(ConnectionParameters connParams) {
+        this(connParams.getJdbcUrl(), connParams.getDriverClassName(), connParams.getParameters());
+    }
+
+    // public DBConnect(TdDataProvider dataprovider) {
+    // // TODO scorreia
+    // }
+
     /**
      * DBConnect constructor.
      * 
@@ -75,7 +87,7 @@ public class DBConnect {
      * @param driverClassName the driver class name (must not be null)
      * @param props properties passed to the connection
      */
-    public DBConnect(final String dbUrl, final String driverClassName, final Properties props) {
+    protected DBConnect(final String dbUrl, final String driverClassName, final Properties props) {
         assert dbUrl != null && driverClassName != null;
 
         this.databaseUrl = dbUrl;
@@ -207,6 +219,10 @@ public class DBConnect {
         return ok;
     }
 
+    public boolean isConnected() {
+        return ConnectionUtils.isValid(connection).isOk();
+    }
+
     /**
      * Method "connectAndRetrieveInformations". Opens a connection by using the DriverManager class. It is of the
      * responsability of the caller to close it correctly. This method retrieve all available informations of the
@@ -260,12 +276,18 @@ public class DBConnect {
      */
     public boolean retrieveDatabaseStructure() throws SQLException {
         boolean ok = checkConnection("Cannot retrieve database structure. ");
-        if (ok) {
+        if (ok && catalogBuilder == null) {
             catalogBuilder = new CatalogBuilder(connection);
         }
         return ok;
     }
 
+    /**
+     * Method "retrieveDriverInformations".
+     * 
+     * @return ok if no problem
+     * @throws SQLException
+     */
     public boolean retrieveDriverInformations() throws SQLException {
         boolean ok = checkConnection("Cannot connect to database. "); // TODO scorreia verify if needed
         if (ok) {
@@ -282,15 +304,12 @@ public class DBConnect {
      * @throws SQLException
      */
     private boolean checkConnection(String message) throws SQLException {
-        boolean ok = true;
-        if (connection == null) {
-            log.error(message + " Cause: connection is null." + this);
-            ok = false;
-        } else if (connection.isClosed()) {
-            log.error(message + " Cause: connection is closed." + this);
-            ok = false;
+        ReturnCode valid = ConnectionUtils.isValid(connection);
+        boolean isOk = valid.isOk();
+        if (!isOk) {
+            log.error(message + "\n" + valid.getMessage());
         }
-        return ok;
+        return isOk;
     }
 
     /**
@@ -325,10 +344,25 @@ public class DBConnect {
         return ok;
     }
 
+    /**
+     * Method "getDataProvider" should be called after {@link #retrieveDriverInformations()}. Note that the
+     * ProviderConnection is already linked to the data provider when calling this method.
+     * 
+     * @return the data provider or null.
+     */
     public TdDataProvider getDataProvider() {
         if (dataProvBuilder == null) {
             return null;
         }
         return this.dataProvBuilder.getDataProvider();
+    }
+
+    /**
+     * Getter for databaseUrl.
+     * 
+     * @return the databaseUrl
+     */
+    public String getDatabaseUrl() {
+        return this.databaseUrl;
     }
 }
