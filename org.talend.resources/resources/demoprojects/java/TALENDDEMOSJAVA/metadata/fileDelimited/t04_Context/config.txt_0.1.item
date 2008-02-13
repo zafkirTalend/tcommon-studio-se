@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<TalendMetadata:DelimitedFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" Server="Localhost 127.0.0.1" FilePath="C:/Documents and Settings/ocarbone.TALEND/Bureau/config.txt" Format="WINDOWS" Encoding="US-ASCII" FieldSeparatorValue="&quot;;&quot;" RowSeparatorValue="&quot;\n&quot;">
+  <tables id="_btK0QGLZEdyr_sd8lC29WQ" label="metadata">
+    <columns label="key" talendType="id_String" nullable="false" length="255" precision="0"/>
+    <columns label="value" talendType="id_String" nullable="false" length="255" precision="0"/>
+  </tables>
+</TalendMetadata:DelimitedFileConnection>

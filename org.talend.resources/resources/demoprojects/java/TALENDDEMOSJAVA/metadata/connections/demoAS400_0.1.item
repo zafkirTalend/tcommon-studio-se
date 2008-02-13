@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="ASCII"?>
+<TalendMetadata:DatabaseConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" DatabaseType="AS400" URL="jdbc:as400://localhost/TRAINING;prompt=false;libraries=TRAINING" Port="" Username="root" Password="password" ServerName="localhost" DatasourceName="" FileFieldName="" Schema="" SID="TRAINING" SqlSynthax="SQL Syntax" DbmsId="as400_id" ProductId="AS400" DBRootPath="" AdditionalParams=""/>
