@@ -79,4 +79,6 @@ public interface IRepositoryService extends IService {
     public boolean isRCPMode();
 
     public void setRCPMode();
+
+    public boolean isFromRecycleBin(RepositoryNode node);
 }
