@@ -150,7 +150,9 @@ public class JobContextManager implements IContextManager {
         EList contextTypeParamList;
         ContextParameterType contextParamType;
         IContextParameter contextParam;
-
+        if (listContext.isEmpty()) {
+            retrieveDefaultContext();
+        }
         for (int i = 0; i < listContext.size(); i++) {
             contextType = TalendFileFactory.eINSTANCE.createContextType();
             context = listContext.get(i);
@@ -190,7 +192,11 @@ public class JobContextManager implements IContextManager {
         JobContextParameter contextParam;
 
         listContext.clear();
-
+        if (contextTypeList == null || contextTypeList.isEmpty()) {
+            // set default context
+            retrieveDefaultContext();
+            return;
+        }
         List<ContextItem> contextItemList = ContextUtils.getAllContextItem();
 
         for (int i = 0; i < contextTypeList.size(); i++) {
@@ -289,4 +295,16 @@ public class JobContextManager implements IContextManager {
         return modified;
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "retrieveDefaultContext".
+     */
+    private void retrieveDefaultContext() {
+        listContext.clear();
+        // set default context
+        IContext context = new JobContext(IContext.DEFAULT);
+        listContext.add(context);
+        setDefaultContext(context);
+
+    }
 }
