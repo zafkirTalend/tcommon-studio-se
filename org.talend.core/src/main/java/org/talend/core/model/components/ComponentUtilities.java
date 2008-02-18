@@ -54,6 +54,8 @@ public class ComponentUtilities {
 
     public static final String JOBLET_NAME_CHANGED = "joblet name changed";
 
+    public static final String JOBLET_SCHEMA_CHANGED = "joblet schema changed";
+
     private static PaletteRoot paletteRoot;
 
     private static List<PaletteEntry> extraPaletteEntry;
