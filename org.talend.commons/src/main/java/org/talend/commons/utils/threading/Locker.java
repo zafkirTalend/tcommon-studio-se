@@ -321,7 +321,7 @@ public class Locker<B, KP> {
                 List<Thread> list = (List<Thread>) object;
                 for (Thread thread : list) {
                     try {
-                        ((Thread) object).interrupt();
+                        ((Thread) thread).interrupt();
                     } catch (SecurityException e) {
                         log.warn(e.getMessage(), e);
                     }
