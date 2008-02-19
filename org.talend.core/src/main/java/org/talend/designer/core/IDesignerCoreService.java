@@ -86,4 +86,6 @@ public interface IDesignerCoreService extends IService {
      */
     public List<PaletteEntry> createJobletEtnry();
 
+    public Boolean isRoutineCompilePass(String routineName);
+
 }
