@@ -13,6 +13,9 @@
 package routines.system;
 
 public class RunStat implements Runnable {
+    public static int BEGIN=0;
+    public static int RUNNING=1;
+    public static int END=2;
 
     private class StatBean {
 
@@ -21,9 +24,14 @@ public class RunStat implements Runnable {
         private int nbLine;
 
         private int state;
+        
+        private long startTime = 0;
+        
+        private long endTime = 0;
 
         public StatBean(String connectionId) {
             this.connectionId = connectionId;
+            this.startTime = System.currentTimeMillis();
         }
 
         public String getConnectionId() {
@@ -49,6 +57,22 @@ public class RunStat implements Runnable {
         public void setState(int state) {
             this.state = state;
         }
+        
+        public long getStartTime() {
+            return startTime;
+        }
+        
+        public void setStartTime(long startTime) {
+            this.startTime = startTime;
+        }
+        
+        public long getEndTime() {
+            return endTime;
+        }
+        
+        public void setEndTime(long endTime) {
+            this.endTime = endTime;
+        }
     }
 
     private java.util.concurrent.ConcurrentHashMap<String, StatBean> processStats = new java.util.concurrent.ConcurrentHashMap<String, StatBean>();
@@ -61,15 +85,10 @@ public class RunStat implements Runnable {
 
     private String str = "";
 
-    private long startTime = 0;
-
-    private long currentTime = 0;
-
     public void startThreadStat(String clientHost, int portStats) throws java.io.IOException,
             java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
-        startTime = System.currentTimeMillis();
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
                 true);
         System.out.println("[statistics] connected");
@@ -104,25 +123,25 @@ public class RunStat implements Runnable {
 
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
-            currentTime = System.currentTimeMillis();
-            str = sb.getConnectionId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
-            if (sb.getState() != 1) {
-                str += "|" + ((sb.getState() == 0) ? "start" : "stop");
+            str = sb.getConnectionId() + "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
+            if (sb.getState() != RUNNING) {
+                str += "|" + ((sb.getState() == BEGIN) ? "start" : "stop");
                 processStats.remove(sb.getConnectionId());
             }
             pred.println(str); // envoi d'un message
         }
+        
     }
-
 
     public void updateStatOnConnection(String connectionId, int mode, int nbLine) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
         } else {
-            bean = new StatBean(connectionId);
+            bean = new StatBean(connectionId);            
         }
         bean.setState(mode);
+        bean.setEndTime(System.currentTimeMillis());
         bean.setNbLine(bean.getNbLine() + nbLine);
         processStats.put(connectionId, bean);
     }
