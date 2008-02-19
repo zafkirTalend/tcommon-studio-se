@@ -171,9 +171,18 @@ public class ConnectionBean implements Cloneable {
     }
 
     public String readToString() {
-        StringBuffer fields = new StringBuffer(getRepositoryId() + FIELDS_SEPARATOR + getName() + FIELDS_SEPARATOR
-                + getDescription() + FIELDS_SEPARATOR + getUser() + FIELDS_SEPARATOR + getPassword() + FIELDS_SEPARATOR
-                + isComplete());
+        StringBuffer fields = new StringBuffer(256);
+        fields.append(assertValue(getRepositoryId()));
+        fields.append(FIELDS_SEPARATOR);
+        fields.append(assertValue(getName()));
+        fields.append(FIELDS_SEPARATOR);
+        fields.append(assertValue(getDescription()));
+        fields.append(FIELDS_SEPARATOR);
+        fields.append(assertValue(getUser()));
+        fields.append(FIELDS_SEPARATOR);
+        fields.append(assertValue(getPassword()));
+        fields.append(FIELDS_SEPARATOR);
+        fields.append(isComplete());
 
         if (dynamicFields.size() > 0) {
             for (String current : dynamicFields.keySet()) {
@@ -219,4 +228,17 @@ public class ConnectionBean implements Cloneable {
     // ConnectionBean bean2 = writeFromString(test2);
     // System.out.println(bean2 + " (" + test2 + ")");
     // }
+
+    /**
+     * 
+     * DOC ggu Comment method "assertValue".
+     */
+    private String assertValue(final String value) {
+        if (value == null) {
+            return ""; //$NON-NLS-1$
+        }
+        return value;
+
+    }
+
 }

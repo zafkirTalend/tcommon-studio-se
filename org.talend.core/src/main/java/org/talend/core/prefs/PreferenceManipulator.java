@@ -12,13 +12,14 @@
 // ============================================================================
 package org.talend.core.prefs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.ConnectionBean;
 
 /**
@@ -85,6 +86,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
             }
         }
         store.setValue(prefName, prefs.toString());
+        save();
     }
 
     /**
@@ -156,6 +158,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
     public void setLastConnection(String connection) {
         store.setValue(LAST_USED_CONNECTION, connection);
+        save();
     }
 
     public String getLastProject() {
@@ -164,6 +167,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
     public void setLastProject(String project) {
         store.setValue(LAST_USED_PROJECT, project);
+        save();
     }
 
     public String getLastUser() {
@@ -172,6 +176,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
     public void setLastUser(String user) {
         store.setValue(LAST_USED_USER, user);
+        save();
     }
 
     public List<String> readWorkspaceTasksDone() {
@@ -180,5 +185,19 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
     public void addWorkspaceTaskDone(String task) {
         addStringToArray(task, WORKSPACE_TASKS_DONE);
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "save".
+     */
+    public void save() {
+        if (store != null && store instanceof IPersistentPreferenceStore && store.needsSaving()) {
+            try {
+                ((IPersistentPreferenceStore) store).save();
+            } catch (IOException e) {
+                //
+            }
+        }
     }
 }
