@@ -83,7 +83,7 @@ public class ProcessorUtilities {
                 if (processName.equals(process.getLabel())) {
                     if (process.getProperty().getItem() instanceof ProcessItem) {
                         selectedProcessItem = (ProcessItem) process.getProperty().getItem();
-                        break;
+                        // break;
                     }
                 }
             }
@@ -91,6 +91,29 @@ public class ProcessorUtilities {
             ExceptionHandler.process(e);
         }
         return selectedProcessItem;
+    }
+
+    private static ProcessItem getProcessItem(String processName, String version) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
+            for (IRepositoryObject process : list) {
+                if (processName.equals(process.getLabel())) {
+                    if (process.getProperty().getItem() instanceof ProcessItem) {
+                        List<IRepositoryObject> allVersions = factory.getAllVersion(process.getId());
+                        for (IRepositoryObject ro : allVersions) {
+                            if (ro.getVersion().equals(version)) {
+                                System.out.println(ro.getLabel() + "  " + ro.getVersion());
+                                return (ProcessItem) ro.getProperty().getItem();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     /**
@@ -167,7 +190,7 @@ public class ProcessorUtilities {
     private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
-        ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
+        ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
         if (selectedProcessItem == null) {
             return false;
         }
@@ -181,7 +204,6 @@ public class ProcessorUtilities {
             }
         } else {
             currentProcess = jobInfo.getProcess();
-
         }
 
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess);
