@@ -64,7 +64,8 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
                         && node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.JOBLET_DOC
                         && node.getContentType() != ERepositoryObjectType.GENERATED
                         && node.getContentType() != ERepositoryObjectType.JOBS
-                        && node.getContentType() != ERepositoryObjectType.JOBLETS) {
+                        && node.getContentType() != ERepositoryObjectType.JOBLETS
+                        && node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.METADATA_CON_TABLE) {
                     visible = true;
                 }
             }
