@@ -33,6 +33,8 @@ import org.talend.core.ui.images.CoreImageProvider;
  */
 public class RepositoryNode {
 
+    public static final String NO_ID = "-1";
+
     /**
      * Represents differents type of node.<br/>
      * 
@@ -52,8 +54,8 @@ public class RepositoryNode {
         REFERENCED_PROJECT,
         // Represents a referenced project;
         RELATED_FOLDER;
-      //Represents a folder related with others;
-        
+        // Represents a folder related with others;
+
     }
 
     /**
@@ -81,35 +83,33 @@ public class RepositoryNode {
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
 
     private boolean initialized = false;
-    
+
     // This field is only used to retreive the process back from repositryNode. (StatsAndLogsTabPropertySection.java)
     // See issue 973.
-//    IProcess process = null;
-//
-//    /**
-//     * Getter for process.
-//     * 
-//     * @return the process
-//     */
-//    public IProcess getProcess() {
-//        return this.process;
-//    }
-//
-//    /**
-//     * Sets the process.
-//     * 
-//     * @param process the process to set
-//     */
-//    public void setProcess(IProcess process) {
-//        this.process = process;
-//    }
+    // IProcess process = null;
+    //
+    // /**
+    // * Getter for process.
+    // *
+    // * @return the process
+    // */
+    // public IProcess getProcess() {
+    // return this.process;
+    // }
+    //
+    // /**
+    // * Sets the process.
+    // *
+    // * @param process the process to set
+    // */
+    // public void setProcess(IProcess process) {
+    // this.process = process;
+    // }
 
-    
     public boolean isInitialized() {
         return initialized;
     }
 
-    
     public void setInitialized(boolean initialized) {
         this.initialized = initialized;
     }
@@ -126,7 +126,7 @@ public class RepositoryNode {
      */
     public RepositoryNode(IRepositoryObject object, RepositoryNode parent, ENodeType type) {
         super();
-        this.id = (object == null ? "-1" : object.getId()); //$NON-NLS-1$
+        this.id = (object == null ? NO_ID : object.getId()); //$NON-NLS-1$
         this.object = object;
         this.parent = parent;
         this.type = type;
