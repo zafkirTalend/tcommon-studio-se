@@ -103,7 +103,6 @@ public class ProcessorUtilities {
                         List<IRepositoryObject> allVersions = factory.getAllVersion(process.getId());
                         for (IRepositoryObject ro : allVersions) {
                             if (ro.getVersion().equals(version)) {
-                                System.out.println(ro.getLabel() + "  " + ro.getVersion());
                                 return (ProcessItem) ro.getProperty().getItem();
                             }
                         }
