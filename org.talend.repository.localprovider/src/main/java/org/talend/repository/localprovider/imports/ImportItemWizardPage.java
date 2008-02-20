@@ -59,6 +59,12 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.i18n.Messages;
 
 /**
@@ -643,8 +649,19 @@ class ImportItemWizardPage extends WizardPage {
                             monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
 
                             try {
-                                repositoryUtil.importItemRecord(manager, itemRecord);
-                            } catch (PersistenceException e) {
+                                Item importItem = repositoryUtil.importItemRecord(manager, itemRecord);
+
+                                // Generated documentaiton for imported item.
+                                if (importItem != null && PluginChecker.isDocumentationPluginLoaded()) {
+                                    IDocumentationService service = (IDocumentationService) GlobalServiceRegister.getDefault()
+                                            .getService(IDocumentationService.class);
+                                    if (importItem instanceof ProcessItem) {
+                                        service.saveDocumentNode(importItem);
+                                    } else if (importItem instanceof JobletProcessItem && PluginChecker.isJobLetPluginLoaded()) {
+                                        service.saveDocumentNode(importItem);
+                                    }
+                                }
+                            } catch (Exception e) {
                                 throw new InvocationTargetException(e);
                             }
 
