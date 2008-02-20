@@ -90,4 +90,12 @@ public class OverlayImageProvider {
         OverlayImage overlayImage = new OverlayImage(source, img, position);
         return overlayImage;
     }
+
+    public static ImageDescriptor getImageWithError(Image source) {
+        IImage statusOverlay = ECoreImage.ERROR_OVERLAY;
+        ImageDescriptor img = ImageProvider.getImageDesc(statusOverlay);
+        EPosition position = EPosition.BOTTOM_LEFT;
+        OverlayImage overlayImage = new OverlayImage(source, img, position);
+        return overlayImage;
+    }
 }
