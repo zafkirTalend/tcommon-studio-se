@@ -20,6 +20,7 @@ import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
@@ -87,5 +88,7 @@ public interface IDesignerCoreService extends IService {
     public List<PaletteEntry> createJobletEtnry();
 
     public Boolean isRoutineCompilePass(String routineName);
+    
+    public boolean isTalendEditor(IEditorPart activeEditor);
 
 }
