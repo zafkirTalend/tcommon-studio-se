@@ -16,4 +16,4 @@ Export-Package:
  org.talend.utils.thread,
  org.talend.utils.time
 Bundle-ClassPath: .
-Require-Bundle: org.talend.libraries.apache;visibility:=reexport
+Require-Bundle: org.talend.libraries.logging, org.talend.libraries.apache;visibility:=reexport

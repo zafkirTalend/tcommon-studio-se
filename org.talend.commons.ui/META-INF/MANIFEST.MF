@@ -4,7 +4,7 @@ Bundle-Name: Common UI Plug-in
 Bundle-SymbolicName: org.talend.commons.ui
 Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.commons.ui.CommonUIPlugin
-Require-Bundle: org.eclipse.jface,
+Require-Bundle: org.talend.libraries.logging, org.eclipse.jface,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface.text,

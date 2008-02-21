@@ -6,7 +6,6 @@ Bundle-Version: 2.2.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/mysql-connector-java-5.1.0-bin.jar,
  .
-Eclipse-BuddyPolicy: registered, dependent
 Export-Package: com.mysql.jdbc,
  com.mysql.jdbc.configs,
  com.mysql.jdbc.exceptions,

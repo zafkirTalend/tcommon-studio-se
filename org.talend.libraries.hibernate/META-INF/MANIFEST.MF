@@ -14,7 +14,6 @@ Bundle-ClassPath: .,
  lib/jta.jar,
  lib/xerces-2.6.2.jar,
  lib/xml-apis.jar
-Eclipse-BuddyPolicy: registered, dependent
 Require-Bundle: org.talend.libraries.apache;visibility:=reexport,
  org.talend.libraries.jdbc.jtds;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.mysql;resolution:=optional;visibility:=reexport
@@ -220,3 +219,4 @@ Export-Package: antlr,
  org.xml.sax,
  org.xml.sax.ext,
  org.xml.sax.helpers
+Eclipse-BuddyPolicy: dependent

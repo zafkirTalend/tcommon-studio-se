@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.talend.helpers;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.talend.helpers.HelpersPlugin
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui,
+Require-Bundle: org.talend.libraries.logging, org.eclipse.ui,
  org.eclipse.core.runtime,
  org.talend.rcp,
  org.talend.core,
