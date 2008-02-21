@@ -8,6 +8,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-1.3.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jakarta-oro-2.0.8.jar" sourcepath="libs_src/jakarta-oro-2.0.8/src/java"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
