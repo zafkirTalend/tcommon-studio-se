@@ -83,7 +83,7 @@ public class ProcessorUtilities {
                 if (processName.equals(process.getLabel())) {
                     if (process.getProperty().getItem() instanceof ProcessItem) {
                         selectedProcessItem = (ProcessItem) process.getProperty().getItem();
-                         break;
+                        break;
                     }
                 }
             }
@@ -189,7 +189,15 @@ public class ProcessorUtilities {
     private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
-        ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
+        ProcessItem selectedProcessItem;
+        if (jobInfo.getProcess() != null) {
+            // main job
+            selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
+        } else {
+            // child job
+            selectedProcessItem = getProcessItem(jobInfo.getJobName());
+        }
+
         if (selectedProcessItem == null) {
             return false;
         }
