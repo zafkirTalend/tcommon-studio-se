@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Utils Plug-in
+Bundle-SymbolicName: org.talend.utils
+Bundle-Version: 2.1.0.qualifier
+Bundle-Vendor: .Talend SA.
+Export-Package: 
+ org.talend.utils.collections,
+ org.talend.utils.dates,
+ org.talend.utils.format,
+ org.talend.utils.properties,
+ org.talend.utils.sql,
+ org.talend.utils.sql.metadata.constants,
+ org.talend.utils.string,
+ org.talend.utils.sugars,
+ org.talend.utils.thread,
+ org.talend.utils.time
+Bundle-ClassPath: .
+Require-Bundle: org.talend.libraries.apache;visibility:=reexport
