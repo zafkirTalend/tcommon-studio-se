@@ -32,7 +32,6 @@
 
 package org.talend.commons.ui.geometry;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -49,11 +48,7 @@ public abstract class PointList {
 
     boolean visible = true;
 
-    Point current;
-
-    Color colorBG = Color.black;
-
-    Color colorSel = Color.red;
+    Point2D current;
 
     // constructor
     public PointList() {
@@ -66,20 +61,18 @@ public abstract class PointList {
     }
 
     // add
-    public void add(Point p) {
-        p.setColor(colorBG);
+    public void add(Point2D p) {
         list.add(p);
         setCurrent(p);
     }
 
-    public void add(int i, Point p) {
-        p.setColor(colorBG);
+    public void add(int i, Point2D p) {
         list.add(i, p);
         setCurrent(p);
     }
 
     // remove
-    public int remove(Point p) {
+    public int remove(Point2D p) {
         boolean cr = false;
         int i = getCurrentIndex();
 
@@ -117,8 +110,8 @@ public abstract class PointList {
     }
 
     // get
-    public Point get(int i) {
-        return (Point) list.get(i);
+    public Point2D get(int i) {
+        return (Point2D) list.get(i);
     }
 
     // size
@@ -127,7 +120,7 @@ public abstract class PointList {
     }
 
     // getCurrent
-    public Point getCurrent() {
+    public Point2D getCurrent() {
         return current;
     }
 
@@ -139,14 +132,12 @@ public abstract class PointList {
     }
 
     // setCurrent
-    public void setCurrent(Point p) {
+    public void setCurrent(Point2D p) {
         current = p;
-        refreshColor();
     }
 
     public void setCurrent(int i) {
-        current = (Point) list.get(i);
-        refreshColor();
+        current = (Point2D) list.get(i);
     }
 
     // isVisible
@@ -156,42 +147,13 @@ public abstract class PointList {
 
     // setVisible
     public void setVisible(boolean b) {
-        Point point;
+        Point2D point;
 
         for (ListIterator li = list.listIterator(); li.hasNext();) {
-            point = (Point) li.next();
+            point = (Point2D) li.next();
             point.setVisible(b);
         }
         visible = b;
-    }
-
-    // getColorBG
-    public Color getColorBG() {
-        return colorBG;
-    }
-
-    // getColorSel
-    public Color getColorSel() {
-        return colorSel;
-    }
-
-    // setColor
-    public void setColor(Color bg, Color sel) {
-        colorBG = bg;
-        colorSel = sel;
-    }
-
-    // refreshColor
-    public void refreshColor() {
-        Point point;
-
-        for (ListIterator li = list.listIterator(); li.hasNext();) {
-            point = (Point) li.next();
-            if (point == current)
-                point.setColor(colorSel);
-            else
-                point.setColor(colorBG);
-        }
     }
 
 }

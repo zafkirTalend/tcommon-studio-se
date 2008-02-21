@@ -32,9 +32,7 @@
 
 package org.talend.commons.ui.geometry;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import org.eclipse.swt.graphics.Rectangle;
 
 /**
  * 
@@ -43,32 +41,32 @@ import java.awt.Rectangle;
  * $Id: Point2D.java 7048 2007-11-16 02:36:17Z nrousseau $
  * 
  */
-public class Point2D extends Point {
+public class Point2D {
 
     public static final int WIDTH = 8;
 
     public static final int HEIGHT = 8;
 
-    java.awt.geom.Point2D.Double coord;
+    PointDouble coord;
 
     Rectangle rect;
 
+    private boolean visible;
+
     // constructor
     public Point2D() {
-        coord = new java.awt.geom.Point2D.Double();
+        coord = new PointDouble();
         rect = new Rectangle(0, 0, WIDTH, HEIGHT);
     }
 
     public Point2D(Point2D p) {
-        coord = new java.awt.geom.Point2D.Double(p.getX(), p.getY());
-        rect = new Rectangle(0, 0, WIDTH, HEIGHT);
-        rect.setLocation((int) p.getX() - 4, (int) p.getY() - 4);
+        coord = new PointDouble(p.getX(), p.getY());
+        rect = new Rectangle((int) p.getX() - 4, (int) p.getY() - 4, WIDTH, HEIGHT);
     }
 
     public Point2D(double x, double y) {
-        coord = new java.awt.geom.Point2D.Double(x, y);
-        rect = new Rectangle(0, 0, WIDTH, HEIGHT);
-        rect.setLocation((int) x - 4, (int) y - 4);
+        coord = new PointDouble(x, y);
+        rect = new Rectangle((int) x - 4, (int) y - 4, WIDTH, HEIGHT);
     }
 
     // getX
@@ -92,34 +90,12 @@ public class Point2D extends Point {
     // setLocation
     public void setLocation(double x, double y) {
         coord.setLocation(x, y);
-        rect.setLocation((int) x - 4, (int) y - 4);
+        rect.x = (int) x - 4;
+        rect.y = (int) y - 4;
     }
 
-    public void setLocation(double x, double y, Dimension dim) {
-        if (x < WIDTH / 2)
-            x = WIDTH / 2;
-        else if (x > dim.width - WIDTH / 2)
-            x = dim.width - WIDTH / 2;
-        if (y < HEIGHT / 2)
-            y = HEIGHT / 2;
-        else if (y > dim.height - HEIGHT / 2)
-            y = dim.height - HEIGHT / 2;
-        setLocation(x, y);
-    }
-
-    // draw
-    public void draw(Graphics2D g) {
-        if (!visible)
-            return;
-        g.setPaint(color);
-        g.fill(this.rect);
-    }
-
-    // toAwt
-    public java.awt.geom.Point2D.Double toAwt() {
-        java.awt.geom.Point2D.Double point = new java.awt.geom.Point2D.Double(getX(), getY());
-
-        return point;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
 }

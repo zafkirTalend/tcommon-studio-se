@@ -76,7 +76,7 @@ public class Curve2DBezierFixed extends Curve2D {
         for (int i = 0; i <= size; i++)
             tmp[i] = (double) i / size;
 
-        java.awt.geom.Point2D.Double p;
+        PointDouble p;
         double x, y, bt;
 
         for (int j = 0; j < pl.size() - 1; j += n) {
@@ -90,7 +90,7 @@ public class Curve2DBezierFixed extends Curve2D {
                     x += ((Point2D) pl.get(i + j)).getX() * bt;
                     y += ((Point2D) pl.get(i + j)).getY() * bt;
                 }
-                p = new java.awt.geom.Point2D.Double(x, y);
+                p = new PointDouble(x, y);
                 list.add(p);
             }
         }

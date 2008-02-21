@@ -94,13 +94,13 @@ public abstract class Curve2D extends Curve {
         }
 
         ListIterator li = list.listIterator();
-        java.awt.geom.Point2D.Double p1, p2;
+        PointDouble p1, p2;
 
-        p2 = (java.awt.geom.Point2D.Double) li.next();
+        p2 = (PointDouble) li.next();
 
         while (li.hasNext()) {
             p1 = p2;
-            p2 = (java.awt.geom.Point2D.Double) li.next();
+            p2 = (PointDouble) li.next();
             if (p1 != null && p2 != null) {
                 // gc.setForeground(gc.getDevice().getSystemColor(SWT.COLOR_WHITE));
                 gc.drawLine((int) java.lang.Math.round(p1.x), (int) java.lang.Math.round(p1.y), (int) java.lang.Math.round(p2.x),

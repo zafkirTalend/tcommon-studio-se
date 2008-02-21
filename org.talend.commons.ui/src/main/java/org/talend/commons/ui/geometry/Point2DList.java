@@ -32,8 +32,6 @@
 
 package org.talend.commons.ui.geometry;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.util.ListIterator;
 
 /**
@@ -44,30 +42,6 @@ import java.util.ListIterator;
  * 
  */
 public class Point2DList extends PointList {
-
-    // setLocation
-    public void setLocation(double x, double y, Dimension dim) {
-        double dx = x - ((Point2D) current).getX();
-        double dy = y - ((Point2D) current).getY();
-        Point2D point;
-
-        int lstSize = list.size();
-        for (int i = 0; i < lstSize; i++) {
-            point = (Point2D) list.get(i);
-            if (point.getX() + dx < Point2D.WIDTH / 2)
-                dx = Point2D.WIDTH / 2 - point.getX();
-            else if (point.getX() + dx > dim.width - Point2D.WIDTH / 2)
-                dx = dim.width - Point2D.WIDTH / 2 - point.getX();
-            if (point.getY() + dy < Point2D.HEIGHT / 2)
-                dy = Point2D.HEIGHT / 2 - point.getY();
-            else if (point.getY() + dy > dim.height - Point2D.HEIGHT / 2)
-                dy = dim.height - Point2D.HEIGHT / 2 - point.getY();
-        }
-        for (int i = 0; i < lstSize; i++) {
-            point = (Point2D) list.get(i);
-            point.setLocation(point.getX() + dx, point.getY() + dy);
-        }
-    }
 
     // contains
     public int contains(double x, double y) {
@@ -82,16 +56,4 @@ public class Point2DList extends PointList {
         return -1;
     }
 
-    // draw
-    public void draw(Graphics2D g) {
-        if (!visible)
-            return;
-        Point2D point;
-        for (ListIterator li = list.listIterator(); li.hasNext();) {
-            point = (Point2D) li.next();
-            point.draw(g);
-        }
-        if (current != null)
-            ((Point2D) current).draw(g);
-    }
 }
