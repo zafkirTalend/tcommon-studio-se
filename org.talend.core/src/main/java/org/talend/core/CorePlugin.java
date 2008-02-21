@@ -30,6 +30,7 @@ import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryLocalProviderService;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.resource.IResourceService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -155,5 +156,9 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public IDiagramModelService getDiagramModelService() {
         return (IDiagramModelService) GlobalServiceRegister.getDefault().getService(IDiagramModelService.class);
+    }
+
+    public IResourceService getResourceService() {
+        return (IResourceService) GlobalServiceRegister.getDefault().getService(IResourceService.class);
     }
 }
