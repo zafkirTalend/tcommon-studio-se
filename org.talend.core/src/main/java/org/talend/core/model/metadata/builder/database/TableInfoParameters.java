@@ -27,6 +27,8 @@ public class TableInfoParameters {
 
     public static final String DEFAULT_FILTER = "%";
 
+    public static final String ORACLE_10G_RECBIN_SQL = "select object_name from recyclebin;";
+
     private boolean usedName = true;
 
     private final Set<String> nameFiters;

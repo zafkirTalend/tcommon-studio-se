@@ -605,9 +605,28 @@ public class ExtractMetaDataFromDataBase {
             log.error(e.toString());
             throw new RuntimeException(e);
         }
+        // filter tables or viewer from the recyclebin in the Oracle 10g.
+        if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())) {
+            filterTablesFromRecycleBin(itemTablesName);
+        }
         ExtractMetaDataUtils.closeConnection();
 
         return itemTablesName;
+    }
+
+    /**
+     * DOC qzhang Comment method "filterTablesFromRecycleBin".
+     * 
+     * @param itemTablesName
+     */
+    private static void filterTablesFromRecycleBin(List<String> itemTablesName) {
+        try {
+            Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+            ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
+            itemTablesName.removeAll(getTableNamesFromQuery(rsTables));
+        } catch (SQLException e) {
+            // do nothing.
+        }
     }
 
     /**
