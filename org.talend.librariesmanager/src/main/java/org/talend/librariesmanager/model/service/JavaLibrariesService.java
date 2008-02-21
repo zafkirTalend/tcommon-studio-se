@@ -43,6 +43,7 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.resource.IResourceService;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -154,6 +155,12 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
             FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
+                    .getAcceptJARFilesFilter(), false);
+
+            // 3.Add resource libraires.
+            IResourceService resourceService = CorePlugin.getDefault().getResourceService();
+            File resourceLibraries = new File(resourceService.getJavaLibraryPath());
+            FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false);
 
             log.debug("Java libraries synchronization done");
