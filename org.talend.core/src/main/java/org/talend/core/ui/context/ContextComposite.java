@@ -73,6 +73,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         // themselvies.
         tableValues.setEnabled(enable);
         treeValues.setEnabled(enable);
+        contextCombo.setEnabled(enable);
 
     }
 
