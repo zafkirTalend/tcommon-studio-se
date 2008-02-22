@@ -82,7 +82,8 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String javaPath = System.getProperty("java.home"); // NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             String perlPath;
-            perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+            perlPath = Platform.getInstallLocation().getURL().getFile().substring(1)
+                    + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
             File perlEmbeddedExecFile = new File(perlPath);
             if (!perlEmbeddedExecFile.exists()) {
                 perlPath = PERL_WIN32_INTERPRETER_PATH;
@@ -124,7 +125,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         // As default, sets the choice which automatic generate corresponding documentation files if job is saved to
         // true:
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_GENERATION, true);
+        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_GENERATION, false);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, true);
     }
 
