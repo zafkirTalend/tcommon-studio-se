@@ -24,6 +24,9 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
+import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -99,8 +102,7 @@ public class MetadataTool {
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
                 columnsTAdd.add(newTargetColumn);
-                newTargetColumn
-                        .setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
+                newTargetColumn.setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
             } else {
                 if (!targetColumn.isReadOnly()) {
                     target.getListColumns().remove(targetColumn);
@@ -279,5 +281,44 @@ public class MetadataTool {
             }
         }
         return null;
+    }
+
+    /**
+     * DOC qzhang Comment method "copyTable".
+     * 
+     * @param source
+     * @param target
+     */
+    public static void copyTable(IMetadataTable source, MetadataType target) {
+        List<ColumnType> colTypes = (List<ColumnType>) target.getColumn();
+        colTypes.clear();
+        for (IMetadataColumn column : source.getListColumns()) {
+            ColumnType createColumnType = TalendFileFactory.eINSTANCE.createColumnType();
+            createColumnType.setComment(column.getComment());
+            createColumnType.setDefaultValue(column.getDefault());
+            createColumnType.setKey(column.isKey());
+            if (column.getLength() == null) {
+                // colType.setLength(-1);
+                createColumnType.unsetLength();
+            } else {
+                createColumnType.setLength(column.getLength());
+            }
+            if (column.getPrecision() == null) {
+                // colType.setPrecision(-1);
+                createColumnType.unsetPrecision();
+            } else {
+                createColumnType.setPrecision(column.getPrecision());
+            }
+            if (!column.getLabel().equals(column.getOriginalDbColumnName())) {
+                createColumnType.setOriginalDbColumnName(column.getOriginalDbColumnName());
+            }
+            createColumnType.setName(column.getLabel());
+            createColumnType.setNullable(column.isNullable());
+            createColumnType.setPattern(column.getPattern());
+
+            createColumnType.setSourceType(column.getType());
+            createColumnType.setType(column.getTalendType());
+            colTypes.add(createColumnType);
+        }
     }
 }
