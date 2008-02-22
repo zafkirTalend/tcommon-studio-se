@@ -12,9 +12,13 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Control;
@@ -30,6 +34,12 @@ import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
  * amaumont Exp $
  */
 public class TableEditorManager {
+
+    private static final String METHOD_NAME = "getOriginalDbColumnName";
+
+    private boolean isSecond = false;
+
+    private boolean isThird = false;
 
     /**
      * 
@@ -111,24 +121,180 @@ public class TableEditorManager {
             }
         }
 
-        if (columnsWithEditorContent.size() == 2 && items.length != 0 && !tableEditorList.isEmpty()) {
-            for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
-                TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
+        if (columnsWithEditorContent.size() == 2 && items.length > 1 && !tableEditorList.isEmpty()) {
+            boolean copy = false;
+            boolean add = false;
+            boolean remove = false;
 
-                TableEditorContent tableEditorContent = column.getTableEditorContent();
-                tableEditorContent.setLayoutEnabled(false);
+            List<String> dbNameList = new ArrayList<String>();
+            Set<String> lastDBNameSet = new HashSet<String>();
+            List<String> itemsNameList = new ArrayList<String>();
+            List<String> lastItemsNameList = new ArrayList<String>();
+            Set<String> tableEditorNameSet = new HashSet<String>();
+            Set<String> tableEditorDBNameSet = new HashSet<String>();
+            List<String> tableEditorDBNameList = new ArrayList<String>();
+            Set<String> lastTableEditorNameSet = new HashSet<String>();
+            List<String> needAddItemsNameList = new ArrayList<String>();
+            List<String> copyTableItemList = new ArrayList<String>();
+            List<TableItem> disposeTableItemList = new ArrayList<TableItem>();
+            List<TableEditor> disposeTableEditorList = new ArrayList<TableEditor>();
+            itemsNameList.clear();
+            copyTableItemList.clear();
+            disposeTableEditorList.clear();
+            needAddItemsNameList.clear();
+            tableEditorNameSet.clear();
+            lastTableEditorNameSet.clear();
+            lastItemsNameList.clear();
+            dbNameList.clear();
+            lastDBNameSet.clear();
+            disposeTableItemList.clear();
+            tableEditorDBNameList.clear();
+            tableEditorDBNameSet.clear();
 
-                String idProperty = column.getId();
+            Method[] methods = items[0].getData().getClass().getDeclaredMethods();
 
-                TableEditor tableEditor = tableEditorContent.createTableEditor(table);
-                TableItem tableItem = items[items.length - 1];
-                tableEditorList.add(tableEditor);
-                Object currentRowObject = tableItem.getData();
-                Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
-                if (tableItem != null && !tableItem.isDisposed()) {
-                    tableEditor.setEditor(control, tableItem, column.getIndex());
-                    fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
+            for (TableEditor tableEditor : tableEditorList) {
+                if (!tableEditor.getItem().isDisposed()) {
+                    tableEditorNameSet.add(tableEditor.getItem().getData().toString().trim());
+                    for (Method method : methods) {
+                        if (TableEditorManager.METHOD_NAME.equals(method.getName())) {
+                            try {
+                                String dbName = (String) method.invoke(tableEditor.getItem().getData(), null);
+                                tableEditorDBNameSet.add(dbName);
+                                break;
+                            } catch (IllegalArgumentException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                } else {
+                    remove = true;
+                    break;
+                }
+            }
+            lastTableEditorNameSet.addAll(tableEditorNameSet);
+
+            if (remove) {
+                for (int i = 0; i < tableEditorList.size(); i++) {
+                    if (tableEditorList.get(i).getItem().isDisposed()) {
+                        disposeTableEditorList.add(tableEditorList.get(i));
+                        tableEditorList.get(i).getEditor().dispose();
+                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditorList.get(i)));
+                    }
+                }
+                tableEditorList.removeAll(disposeTableEditorList);
+            } else {
+                for (TableItem tableItem : items) {
+                    itemsNameList.add(tableItem.getData().toString().trim());
+                    for (Method method : methods) {
+                        if (TableEditorManager.METHOD_NAME.equals(method.getName())) {
+                            try {
+                                String dbName = (String) method.invoke(tableItem.getData(), null);
+                                lastDBNameSet.add(dbName);
+                                break;
+                            } catch (IllegalArgumentException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                itemsNameList.removeAll(lastDBNameSet);
+
+                copy = false;
+                add = false;
+                if (lastDBNameSet.size() - tableEditorDBNameSet.size() == 1) {
+                    add = true;
+                } else if (lastDBNameSet.size() - tableEditorDBNameSet.size() == 0) {
+                    if (isSecond) {
+                        add = true;
+                        isThird = true;
+                    } else {
+                        copy = true;
+                    }
+                } else {
+                    copy = true;
+                }
+
+                if (add) {
+                    for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+                        TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
+
+                        TableEditorContent tableEditorContent = column.getTableEditorContent();
+                        tableEditorContent.setLayoutEnabled(false);
+
+                        String idProperty = column.getId();
+
+                        lastDBNameSet.removeAll(tableEditorDBNameSet);
+
+                        for (String itemName : lastDBNameSet) {
+                            for (TableItem tableItem : items) {
+                                if (itemName.trim().equals(tableItem.getData().toString().trim())) {
+                                    TableEditor tableEditor = tableEditorContent.createTableEditor(table);
+                                    tableEditorList.add(tableEditor);
+                                    Object currentRowObject = tableItem.getData();
+                                    Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+                                    Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject,
+                                            value);
+                                    if (tableItem != null && !tableItem.isDisposed()) {
+                                        tableEditor.setEditor(control, tableItem, column.getIndex());
+                                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (isThird) {
+                        isSecond = false;
+                        isThird = false;
+                    } else {
+                        isSecond = true;
+                    }
+                } else if (copy) {
+                    for (int i = 0; i < tableEditorList.size(); i++) {
+                        TableEditor tableEditor = tableEditorList.get(i);
+                        tableEditor.getEditor().dispose();
+                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditor));
+                    }
+
+                    tableEditorList.clear();
+
+                    for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+
+                        TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
+
+                        TableEditorContent tableEditorContent = column.getTableEditorContent();
+                        tableEditorContent.setLayoutEnabled(false);
+
+                        String idProperty = column.getId();
+
+                        for (int i = 0; i < items.length; i++) {
+                            TableEditor tableEditor = tableEditorContent.createTableEditor(table);
+                            TableItem tableItem = items[i];
+                            tableEditorList.add(tableEditor);
+                            Object currentRowObject = tableItem.getData();
+                            Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+                            Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
+                            if (tableItem != null && !tableItem.isDisposed()) {
+                                tableEditor.setEditor(control, tableItem, column.getIndex());
+                                fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
+                            }
+                        }
+                    }
                 }
             }
         } else {
