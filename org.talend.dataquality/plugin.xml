@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.analysis" 
+       class = "org.talend.dataquality.analysis.AnalysisPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.reports" 
+       class = "org.talend.dataquality.reports.ReportsPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://.dataquality.indicators" 
+       class = "org.talend.dataquality.indicators.IndicatorsPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.expressions" 
+       class = "org.talend.dataquality.expressions.ExpressionsPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.domain" 
+       class = "org.talend.dataquality.domain.DomainPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+</plugin>

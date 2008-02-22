@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dataquality"
+    nsURI="http://dataquality" nsPrefix="dataquality">
+  <eSubpackages name="analysis" nsURI="http://dataquality.analysis" nsPrefix="dataquality.analysis">
+    <eClassifiers xsi:type="ecore:EClass" name="Analysis" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/ReportGroup">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//analysis/AnalysisContext"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="results" eType="#//analysis/AnalysisResult"
+          containment="true" eOpposite="#//analysis/AnalysisResult/analysis"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" eType="#//analysis/AnalysisParameters"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnalysisContext" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/ReportGroup">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/softwaredeployment/DataManager"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="analysedElement" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="the analysed object (could be a Catalog, a Schema, a Table, a ColumnSet, a Column, ...)"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pathToElement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The path to the analysed object. &#xA;e.g. for a Column, the string will be &quot;Schema/Table&quot;"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnalysisParameters" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/ReportGroup">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataFilter" upperBound="-1"
+          eType="#//domain/Domain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Data filtered from the analysis. Data outside this domain are not taken into account for the analysis."/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorValidationDomains"
+          upperBound="-1" eType="#//domain/Domain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Thresholds (or patterns) on indicators. Indicator that do not respect these thresholds are used to compute a quality indicator."/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataValidationDomains"
+          upperBound="-1" eType="#//domain/Domain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The domain that defines the valid data. It can be patterns or thresholds, or more complex validation function. &#xA;This is not a filter. Data that do not respect these domain are counted in the analysis but are used to compute a quality indicator."/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/ReportGroup">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="analysis" eType="#//analysis/Analysis"
+          eOpposite="#//analysis/Analysis/results"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resultMetadata" eType="#//analysis/ExecutionInformations"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorValues" upperBound="-1"
+          eType="#//domain/LiteralValue" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ExecutionInformations">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="reports" nsURI="http://dataquality.reports" nsPrefix="dataquality.reports">
+    <eClassifiers xsi:type="ecore:EClass" name="TdReport" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/Report">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="presentationParams" upperBound="-1"
+          eType="#//reports/PresentationParameter" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PresentationParameter">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="plotType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="A string indicating the type of the plot that is used to display the indicator."/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicator" eType="#//indicators/Indicator"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="indicators" nsURI="http://.dataquality.indicators" nsPrefix="dataquality.indicators">
+    <eClassifiers xsi:type="ecore:EClass" name="Indicator">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//domain/LiteralValue"
+          eOpposite="#//domain/LiteralValue/indicator">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="value of the indicator"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RowCountIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MeanIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SumIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CompositeIndicator" eSuperTypes="#//indicators/Indicator">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
+          eType="#//indicators/Indicator"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RangeIndicator" eSuperTypes="#//indicators/CompositeIndicator">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//indicators/Indicator"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BoxIndicator" eSuperTypes="#//indicators/CompositeIndicator">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="min" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="max" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="firstQuartile" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="thirdQuartile" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="IQR" eType="#//indicators/Indicator"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IndicatorType" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Classifier"/>
+  </eSubpackages>
+  <eSubpackages name="expressions" nsURI="http://dataquality.expressions" nsPrefix="dataquality.expressions">
+    <eClassifiers xsi:type="ecore:EClass" name="BooleanExpressionNode" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/expressions/ExpressionNode">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="See http://portal.acm.org/citation.cfm?id=1274453.1274459"/>
+      </eAnnotations>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="domain" nsURI="http://dataquality.domain" nsPrefix="dataquality.domain">
+    <eClassifiers xsi:type="ecore:EClass" name="Domain">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataType" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/DataType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lengthRestriction" upperBound="-1"
+          eType="#//domain/LengthRestriction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ranges" upperBound="-1"
+          eType="#//domain/RangeRestriction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="patterns" upperBound="-1"
+          eType="#//domain/pattern/Pattern"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EnumerationRule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Association class."/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="domain" upperBound="-1"
+          eType="#//domain/Domain"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="enumeration" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/datatypes/Enumeration"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RangeRestriction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//domain/LiteralValue"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//domain/LiteralValue"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" eType="#//expressions/BooleanExpressionNode"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralValue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="encodeValueMeaning" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicator" eType="#//indicators/Indicator"
+          eOpposite="#//indicators/Indicator/value"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LengthRestriction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NumericValue" eSuperTypes="#//domain/LiteralValue"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TextValue" eSuperTypes="#//domain/LiteralValue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//domain/NumericValue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RealNumberValue" eSuperTypes="#//domain/NumericValue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DateValue" eSuperTypes="#//domain/NumericValue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eClassifiers>
+    <eSubpackages name="pattern" nsURI="http://dataquality.domain.pattern" nsPrefix="dataquality.domain.pattern">
+      <eClassifiers xsi:type="ecore:EClass" name="Pattern">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
+            eType="#//domain/pattern/PatternComponent" containment="true"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="PatternComponent"/>
+      <eClassifiers xsi:type="ecore:EClass" name="RegularExpression" eSuperTypes="#//domain/pattern/PatternComponent">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"
+            containment="true"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="AttributeReference" eSuperTypes="#//domain/pattern/PatternComponent">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="referencedAttribute"
+            eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Attribute"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="ComponentReference" eSuperTypes="#//domain/pattern/PatternComponent">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="referencedComponent"
+            eType="#//domain/pattern/PatternComponent"/>
+      </eClassifiers>
+    </eSubpackages>
+  </eSubpackages>
+</ecore:EPackage>
