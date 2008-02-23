@@ -60,3 +60,4 @@ Export-Package: org.apache.commons.beanutils,
  org.apache.oro.text.regex,
  org.apache.oro.util
 Bundle-Vendor: .Talend SA.
+Eclipse-BuddyPolicy: dependent
