@@ -436,4 +436,6 @@ public interface IProxyRepositoryFactory {
     public List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException;
 
     public void forceCreate(Item item, IPath path) throws PersistenceException;
+
+    public void createParentFoldersRecursively(Item item, IPath path) throws PersistenceException;
 }

@@ -117,34 +117,13 @@ public class ImportItemUtil {
         if (itemRecord.getItem() != null) {
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
             IPath path = new Path(itemRecord.getItem().getState().getPath());
-
-            List<String> folders = null;
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-            try {
-                folders = repFactory.getFolders(itemType);
-            } catch (Exception e) {
-                logError(e);
-            }
-
-            boolean foldersCreated = true;
 
             try {
-                for (int i = 0; i < path.segmentCount(); i++) {
-                    IPath parentPath = path.removeLastSegments(path.segmentCount() - i);
-                    String folderLabel = path.segment(i);
-
-                    String folderName = parentPath.append(folderLabel).toString();
-                    if (!folders.contains(folderName)) {
-                        repFactory.createFolder(itemType, parentPath, folderLabel);
-                    }
-                }
-            } catch (Exception e) {
-                foldersCreated = false;
-                logError(e);
-            }
-
-            if (!foldersCreated) {
+                repFactory.createParentFoldersRecursively(itemRecord.getItem(), path);
+            } catch (PersistenceException e) {
                 path = new Path(""); //$NON-NLS-1$
+                logError(e);
             }
 
             try {
@@ -152,7 +131,8 @@ public class ImportItemUtil {
                 IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
-                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
+                        .getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
                 } else {
                     logError(new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist."));
@@ -162,7 +142,8 @@ public class ImportItemUtil {
                 newItem = lastVersion.getProperty().getItem();
 
                 Context ctx = CorePlugin.getContext();
-                RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+                RepositoryContext repositoryContext = (RepositoryContext) ctx
+                        .getProperty(Context.REPOSITORY_CONTEXT_KEY);
                 for (String taskId : itemRecord.getMigrationTasksToApply()) {
                     IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
                     if (task == null) {
@@ -170,8 +151,8 @@ public class ImportItemUtil {
                     } else {
                         ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
                         if (executionResult == ExecutionResult.FAILURE) {
-                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
-                                    + " failed)");
+                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task "
+                                    + task.getName() + " failed)");
                             // TODO smallet add a warning/error to the job using model
                         }
                     }
@@ -255,8 +236,9 @@ public class ImportItemUtil {
                     checkProject = true;
                 }
             } else {
-                itemRecord.addError(Messages.getString("RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
-                        .getLanguage()));
+                itemRecord.addError(Messages.getString(
+                        "RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
+                                .getLanguage()));
             }
         } else {
             itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
@@ -335,7 +317,8 @@ public class ImportItemUtil {
             stream = manager.getStream(path);
             Resource resource = createResource(resourceSet, path, false);
             resource.load(stream, null);
-            return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
+            return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
+                    .getProperty());
         } catch (IOException e) {
             // ignore
         } finally {
@@ -389,7 +372,8 @@ public class ImportItemUtil {
             stream = manager.getStream(path);
             Resource resource = createResource(resourceSet, path, false);
             resource.load(stream, null);
-            return (Project) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
+            return (Project) EcoreUtil
+                    .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
         } catch (IOException e) {
             // ignore
         } finally {
@@ -404,7 +388,8 @@ public class ImportItemUtil {
         return null;
     }
 
-    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource) throws FileNotFoundException {
+    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource)
+            throws FileNotFoundException {
         Resource resource;
         if (byteArrayResource) {
             resource = new ByteArrayResource(getURI(path));
