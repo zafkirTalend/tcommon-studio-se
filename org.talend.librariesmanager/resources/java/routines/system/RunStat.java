@@ -124,8 +124,8 @@ public class RunStat implements Runnable {
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
             str = sb.getConnectionId() + "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
-            if (sb.getState() != RUNNING) {
-                str += "|" + ((sb.getState() == BEGIN) ? "start" : "stop");
+            if (sb.getState() != RunStat.RUNNING) {
+                str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop");
                 processStats.remove(sb.getConnectionId());
             }
             pred.println(str); // envoi d'un message
