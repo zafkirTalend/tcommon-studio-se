@@ -93,7 +93,7 @@ public class ProcessorUtilities {
         return selectedProcessItem;
     }
 
-    private static ProcessItem getProcessItem(String processName, String version) {
+    public static ProcessItem getProcessItem(String processName, String version) {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
