@@ -120,7 +120,7 @@ public class ImportItemUtil {
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
 
             try {
-                repFactory.createParentFoldersRecursively(itemRecord.getItem(), path);
+                repFactory.createParentFoldersRecursively(itemType, path);
             } catch (PersistenceException e) {
                 path = new Path(""); //$NON-NLS-1$
                 logError(e);

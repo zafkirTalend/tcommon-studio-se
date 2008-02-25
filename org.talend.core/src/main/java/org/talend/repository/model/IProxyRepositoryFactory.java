@@ -437,7 +437,7 @@ public interface IProxyRepositoryFactory {
 
     public void forceCreate(Item item, IPath path) throws PersistenceException;
 
-    public void createParentFoldersRecursively(Item item, IPath path) throws PersistenceException;
+    public void createParentFoldersRecursively(ERepositoryObjectType itemType, IPath path) throws PersistenceException;
 
     public void forceDeleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
 }
