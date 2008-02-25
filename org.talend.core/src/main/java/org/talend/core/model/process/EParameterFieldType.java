@@ -23,6 +23,7 @@ public enum EParameterFieldType {
     MEMO_SQL,
     MEMO_PERL,
     MEMO_JAVA,
+    MEMO_IMPORT,
     CLOSED_LIST,
     CHECK,
     MEMO,

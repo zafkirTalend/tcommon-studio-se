@@ -101,4 +101,6 @@ public interface IComponent {
 
     public boolean isMultipleOutput();
 
+    public boolean useImport();
+
 }
