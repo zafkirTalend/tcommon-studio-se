@@ -19,8 +19,11 @@ import java.util.StringTokenizer;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternCompiler;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
+import org.apache.oro.text.regex.Perl5Substitution;
+import org.apache.oro.text.regex.Util;
 import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -438,7 +441,11 @@ public abstract class AbstractNode implements INode {
             if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
                 String value = (String) param.getValue();
                 if (value.contains(oldName)) {
-                    param.setValue(value.replaceAll(oldName, newName));
+                    // param.setValue(value.replaceAll(oldName, newName));
+                    String newValue = renameValues(value, oldName, newName);
+                    if (!value.equals(newValue)) {
+                        param.setValue(newValue);
+                    }
                 }
             } else if (param.getValue() instanceof List) { // for TABLE
                 List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
@@ -450,7 +457,11 @@ public abstract class AbstractNode implements INode {
                             // needed
                             String value = (String) cellValue;
                             if (value.contains(oldName)) {
-                                line.put(key, value.replaceAll(oldName, newName));
+                                // line.put(key, value.replaceAll(oldName, newName));
+                                String newValue = renameValues(value, oldName, newName);
+                                if (!value.equals(newValue)) {
+                                    line.put(key, newValue);
+                                }
                             }
                         }
                     }
@@ -634,5 +645,37 @@ public abstract class AbstractNode implements INode {
      */
     public void setListConnector(List<? extends INodeConnector> listConnector) {
         this.listConnector = listConnector;
+    }
+
+    /**
+     * 
+     * ggu Comment method "renameValues".
+     * 
+     */
+    protected String renameValues(final String value, final String oldName, final String newName) {
+        if (value == null || oldName == null || newName == null) {
+            return value; // keep original value
+        }
+
+        PatternCompiler compiler = new Perl5Compiler();
+        Perl5Matcher matcher = new Perl5Matcher();
+        matcher.setMultiline(true);
+        Perl5Substitution substitution = new Perl5Substitution(newName + "$2", Perl5Substitution.INTERPOLATE_ALL);
+
+        Pattern pattern;
+        try {
+            pattern = compiler.compile("\\b(" + oldName + ")(\\b|\\_)");
+        } catch (MalformedPatternException e) {
+            return value; // keep original value
+        }
+
+        if (matcher.contains(value, pattern)) {
+            // replace
+            String returnValue = Util.substitute(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
+            return returnValue;
+
+        }
+        return value; // keep original value
+
     }
 }
