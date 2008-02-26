@@ -50,7 +50,9 @@ public enum EDatabaseTypeName {
     JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"),
     JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB"),
 
-    VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA");
+    VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA"),
+
+    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB");
 
     // displayName is used in Java code.
     private String displayName;

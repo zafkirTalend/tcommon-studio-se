@@ -182,6 +182,8 @@ public class ExtractMetaDataUtils {
 
             hashTable.put("HSQLDB In-Process", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
+            hashTable.put("MaxDB", "com.sap.dbtech.jdbc.DriverSapDB"); //$NON-NLS-1$ //$NON-NLS-2$
+
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {
@@ -200,8 +202,7 @@ public class ExtractMetaDataUtils {
      * @param String pwd
      * @param String schemaBase
      */
-    public static void getConnection(String dbType, String url, String username, String pwd, String dataBase,
-            String schemaBase) {
+    public static void getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase) {
         boolean isColsed = false;
         try {
             if (conn != null) {

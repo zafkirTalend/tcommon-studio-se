@@ -82,6 +82,8 @@ public class RepositoryToComponentProperty {
 
     public static final String JAVADB = "JAVADB"; //$NON-NLS-1$
 
+    public static final String MAXDB = "MAXDB"; //$NON-NLS-1$
+
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
             return getFileValue((FileConnection) connection, value);
@@ -153,6 +155,9 @@ public class RepositoryToComponentProperty {
     private static String getStandardDbTypeFromConnection(String dbType) {
         if (dbType.equals(EDatabaseTypeName.MYSQL.getDisplayName())) {
             return MYSQL;
+        }
+        if (dbType.equals(EDatabaseTypeName.MAXDB.getDisplayName())) {
+            return MAXDB;
         }
         if (dbType.equals(EDatabaseTypeName.PSQL.getDisplayName())) {
             return POSTGRESQL;
