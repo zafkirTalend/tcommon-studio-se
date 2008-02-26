@@ -72,4 +72,6 @@ public interface IProcess extends IRepositoryObject, IElement {
     public boolean isThereLinkWithHash(final INode node);
 
     boolean disableRunJobView();
+
+    public List<INode> getNodesWithImport();
 }
