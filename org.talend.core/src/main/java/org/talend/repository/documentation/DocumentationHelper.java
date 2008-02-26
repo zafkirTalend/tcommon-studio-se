@@ -27,6 +27,10 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobletDocumentationItem;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -72,6 +76,33 @@ public class DocumentationHelper {
         }
     }
 
+    private static Item getBaseItemFromDocItem(Item docItem) throws PersistenceException {
+        // if it's not a doc, cancel
+        if (((docItem instanceof ProcessItem)) || (docItem instanceof JobletProcessItem)) {
+            return docItem;
+        }
+        IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        List<IRepositoryObject> itemsList;
+        if (docItem instanceof JobDocumentationItem) {
+            itemsList = proxyFactory.getAll(ERepositoryObjectType.PROCESS);
+        } else if (docItem instanceof JobletDocumentationItem) {
+            itemsList = proxyFactory.getAll(ERepositoryObjectType.JOBLET);
+        } else {
+            return null;
+        }
+
+        for (IRepositoryObject repositoryObject : itemsList) {
+            String label = repositoryObject.getProperty().getLabel();
+            String version = repositoryObject.getProperty().getVersion();
+
+            if (label.equals(docItem.getProperty().getLabel()) && version.equals(docItem.getProperty().getVersion())) {
+                return repositoryObject.getProperty().getItem();
+            }
+        }
+
+        return null;
+    }
+
     /**
      * ftang Comment method "getExportFileResources".
      * 
@@ -102,9 +133,19 @@ public class DocumentationHelper {
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
             if ((repositoryObject.getProperty().getItem() instanceof Item)) {
-                Item processItem = (Item) repositoryObject.getProperty().getItem();
-                ExportFileResource resource = new ExportFileResource(processItem, processItem.getProperty().getLabel());
-                list.add(resource);
+                Item baseItem = (Item) repositoryObject.getProperty().getItem();
+                Item jobOrJobletItem = null;
+                try {
+                    jobOrJobletItem = getBaseItemFromDocItem(baseItem);
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
+
+                if (jobOrJobletItem != null) {
+                    ExportFileResource resource = new ExportFileResource(jobOrJobletItem, jobOrJobletItem.getProperty()
+                            .getLabel());
+                    list.add(resource);
+                }
             }
         }
 
@@ -191,7 +232,8 @@ public class DocumentationHelper {
     // * @return
     // */
     // public static String getJobletNodeDocumentationRoot() {
-    // IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
+    // IProject project =
+    // ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
     // java.io.File file = project.getLocation().toFile();
     // String jobletNodeDocRootPath = file.toString() + IPath.SEPARATOR +
     // IHTMLDocConstants.JOBLET_NODE_DOCUMENTATION_ROOT_PATH;
