@@ -59,6 +59,8 @@ public interface IDesignerCoreService extends IService {
 
     public void switchToCurComponentSettingsView();
 
+    public void switchToCurJobSettingsView();
+
     // add for feature 840
     public void saveJobBeforeRun(IProcess activeProcess);
 
@@ -88,7 +90,7 @@ public interface IDesignerCoreService extends IService {
     public List<PaletteEntry> createJobletEtnry();
 
     public Boolean isRoutineCompilePass(String routineName);
-    
+
     public boolean isTalendEditor(IEditorPart activeEditor);
 
 }
