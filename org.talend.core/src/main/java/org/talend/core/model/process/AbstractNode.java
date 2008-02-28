@@ -477,7 +477,7 @@ public abstract class AbstractNode implements INode {
             Pattern pattern;
 
             try {
-                pattern = compiler.compile("(.*" + toTest + "[^0-9]+.*)"); //$NON-NLS-1$
+                pattern = compiler.compile("\\b(" + toTest + ")(\\b|\\_)"); //$NON-NLS-1$
                 if (matcher.contains(value, pattern)) {
                     return true;
                 }
