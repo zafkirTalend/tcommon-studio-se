@@ -26,6 +26,8 @@ public enum EParameterFieldType {
     MEMO_IMPORT,
     CLOSED_LIST,
     CHECK,
+    RADIO,
+    GROUP,
     MEMO,
     SCHEMA_TYPE,
     QUERYSTORE_TYPE,
