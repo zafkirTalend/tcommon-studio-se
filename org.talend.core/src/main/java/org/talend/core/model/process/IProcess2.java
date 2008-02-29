@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.gef.commands.CommandStack;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
@@ -79,4 +80,6 @@ public interface IProcess2 extends IProcess {
      * @param processModified
      */
     void setProcessModified(boolean processModified);
+
+    public CommandStack getCommandStack();
 }

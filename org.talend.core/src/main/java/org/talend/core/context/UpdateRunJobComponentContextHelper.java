@@ -17,10 +17,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -55,6 +58,7 @@ public final class UpdateRunJobComponentContextHelper {
                 // ignore self
                 continue;
             }
+            boolean changed = false;
             for (INode node : foundRunJobNode(process)) {
                 IElementParameter eleParam = node.getElementParameter(PROCESS_TYPE_PROCESS);
                 // found type
@@ -72,6 +76,7 @@ public final class UpdateRunJobComponentContextHelper {
                                 // found renamed parameter
                                 if (newName != null) {
                                     valueMap.put(PARAM_NAME_COLUMN, newName);
+                                    changed = true;
                                 } else {
                                     // deleted parameter update, not existed in reference job context
                                     if (varNameSet != null && !varNameSet.contains(oldName)) {
@@ -83,9 +88,18 @@ public final class UpdateRunJobComponentContextHelper {
                         if (!removedMap.isEmpty()) {
                             for (Map valueMap : removedMap) {
                                 valuesList.remove(valueMap);
+                                changed = true;
                             }
                         }
                     }
+                }
+            }
+            // update the job state
+            if (changed && process instanceof IProcess2) {
+                CommandStack commandStack = ((IProcess2) process).getCommandStack();
+                if (commandStack != null) {
+                    commandStack.execute(new Command() {
+                    });
                 }
             }
         }
