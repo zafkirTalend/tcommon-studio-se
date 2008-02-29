@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.intro,
  org.eclipse.ui.forms,
  org.eclipse.swt,
+ org.talend.dataprofiler.core,
  org.talend.dataprofiler.libraries
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
