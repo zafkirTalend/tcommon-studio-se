@@ -56,9 +56,23 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/value"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/indicatorType"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/count"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/nullCount"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/parameters"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/analyzedElement"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/handle">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/handle/data"/>
+        </genOperations>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/reset"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RowCountIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/MeanIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/MeanIndicator">
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/MeanIndicator/getMean"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/MeanIndicator/getMeanWithNulls">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/MeanIndicator/getMeanWithNulls/valueForNull"/>
+        </genOperations>
+      </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/SumIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/CompositeIndicator">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -85,6 +99,38 @@
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/BoxIndicator/IQR"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IndicatorType"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/IntegerSumIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/IntegerSumIndicator/sum"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/DoubleSumIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/DoubleSumIndicator/sum"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/BigDecimalIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/BigDecimalIndicator/sum"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/FrequencyIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/mode"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getCount">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/FrequencyIndicator/getCount/dataValue"/>
+        </genOperations>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getFrequency"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/IntegerMeanIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/DoubleMeanIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/BigDecimalMeanIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/BlankCountIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/BlankCountIndicator/blankCount"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/IndicatorParameters">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/indicatorValidDomain"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/dataValidDomain"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/MedianIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/median"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/MedianIndicator/computeMedian"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Expressions" basePackage="org.talend.dataquality" disposableProviderFactory="true"
         ecorePackage="dataquality.ecore#//expressions">
