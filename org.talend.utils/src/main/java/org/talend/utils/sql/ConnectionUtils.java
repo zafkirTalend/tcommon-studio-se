@@ -13,8 +13,11 @@
 package org.talend.utils.sql;
 
 import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import org.talend.utils.sugars.ReturnCode;
 
@@ -31,6 +34,27 @@ public final class ConnectionUtils {
      * private constructor.
      */
     private ConnectionUtils() {
+    }
+
+    /**
+     * Method "createConnection".
+     * 
+     * @param url the database url
+     * @param driverClassName the Driver classname
+     * @param props properties passed to the driver manager for getting the connection (normally at least a "user" and
+     * "password" property should be included)
+     * @return the connection
+     * @throws SQLException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     */
+    public static Connection createConnection(String url, String driverClassName, Properties props)
+            throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Driver driver = (Driver) Class.forName(driverClassName).newInstance();
+        DriverManager.registerDriver(driver);
+        Connection connection = DriverManager.getConnection(url, props);
+        return connection;
     }
 
     /**
