@@ -363,6 +363,8 @@ public interface IProxyRepositoryFactory {
 
     public abstract Item copy(Item item, IPath path) throws PersistenceException, BusinessException;
 
+    public abstract Item copy(Item item, IPath path, String newName) throws PersistenceException, BusinessException;
+
     public abstract Property reload(Property property) throws PersistenceException;
 
     /*
