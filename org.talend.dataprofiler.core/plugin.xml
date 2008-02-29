@@ -1,40 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-
-   <extension
+   <extension-point id="dataprofilerperspectives" name="Dataprofiler Perspectives" schema="schema/Dataprofilerperspectives.exsd"/>
+     
+     <extension
          point="org.eclipse.ui.views">
-      <category
-            name="Sample Category"
-            id="org.talend.dataprofiler.core">
-      </category>
+         <category
+            id="org.talend.dataprofiler.view.category"
+            name="Dataprofiler"/>         
       <view
-            name="Sample View"
-            icon="icons/sample.gif"
-            category="org.talend.dataprofiler.core"
-            class="org.talend.dataprofiler.core.views.SampleView"
-            id="org.talend.dataprofiler.core.views.SampleView">
+            allowMultiple="false"
+            category="org.talend.dataprofiler.view.category"
+            class="org.talend.dataprofiler.core.ui.views.CheatSheetView"
+            id="org.talend.dataprofiler.core.ui.views.CheatSheetView"
+            name="Cheat Sheet">
       </view>
-   </extension>   
-   <extension
+      <view
+            allowMultiple="false"
+            category="org.talend.dataprofiler.view.category"
+            class="org.talend.dataprofiler.core.ui.views.DQResponsitoryView"
+            id="org.talend.dataprofiler.core.ui.views.DQResponsitoryView"
+            name="DQ Responsitory">
+      </view>
+      <view
+            category="org.talend.dataprofiler.view.category"
+            class="org.talend.dataprofiler.core.ui.views.GraphsView"
+            id="org.talend.dataprofiler.core.ui.views.GraphsView"
+            name="Graphs"/>
+      <view
+            allowMultiple="false"
+            category="org.talend.dataprofiler.view.category"
+            class="org.talend.dataprofiler.core.ui.views.QuanlityView"
+            id="org.talend.dataprofiler.core.ui.views.QuanlityView"
+            name="QuanlityView">
+      </view>
+      
+    </extension>   
+     
+     
+  <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="DataProfiler Perspective"
-            class="org.talend.dataprofiler.core.ui.Perspective"
-            id="org.talend.dataprofiler.core.perspective">
+            class="org.talend.dataprofiler.core.ui.perspective.DataProfilingPerspective"
+            id="org.talend.dataprofiler.DataProfilingPerspective"
+            name="Data Profiling">
       </perspective>
-   </extension>
+   </extension>   
+   
+ <extension point="org.eclipse.ui.perspectiveExtensions">
+  <perspectiveExtension
+	targetID="org.talend.dataprofiler.DataProfilingPerspective">
+    	<view id="org.talend.dataprofiler.core.ui.views.DQResponsitoryView"
+        	relative="org.eclipse.ui.editorss"
+    		relationship="left"
+    		ratio="0.45"
+    		/>	
+        <view id="org.talend.dataprofiler.core.ui.views.GraphsView"
+             relative="org.eclipse.ui.editorss"
+             relationship="bottom"
+             ratio="0.4"
+             />
+        <view id="org.talend.dataprofiler.core.ui.views.CheatSheetView"
+              relative="org.eclipse.ui.editorss"
+              relationship="right"
+              ratio="0.5"
+              />
+        <view id="org.talend.dataprofiler.core.ui.views.QuanlityView"
+              relative="org.talend.dataprofiler.core.ui.views.CheatSheetView"
+              relationship="bottom"
+              closeable="false"
+              />
+  </perspectiveExtension>  
+</extension>
+  
+   
    <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="org.talend.dataprofiler.core.perspective">
-         <view
-               ratio="0.5"
-               relative="org.eclipse.ui.editorss"
-               relationship="left"
-               id="org.talend.dataprofiler.core.views.SampleView">
-         </view>
-      </perspectiveExtension>
+      point="org.talend.dataprofiler.core.dataprofilerperspectives">
+        <DataprofilerPerspective
+         refPerspectiveId="net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective"
+         dataprofilerPerspectiveName="Data Discovery"/>
+        <DataprofilerPerspective
+         refPerspectiveId="org.talend.dataprofiler.DataProfilingPerspective"
+         dataprofilerPerspectiveName="Data Profiling"/>
    </extension>
 
 </plugin>

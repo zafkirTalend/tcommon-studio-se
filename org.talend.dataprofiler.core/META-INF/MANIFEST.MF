@@ -7,5 +7,10 @@ Bundle-Activator: org.talend.dataprofiler.core.CorePlugin
 Bundle-Vendor: .Talend SA.
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.talend.dataprofiler.libraries
+ org.talend.dataprofiler.libraries,
+ net.sourceforge.sqlexplorer
 Eclipse-LazyStart: true
+Export-Package: org.talend.dataprofiler.core.i18n,
+ org.talend.dataprofiler.core.ui,
+ org.talend.dataprofiler.core.ui.perspective,
+ org.talend.dataprofiler.core.views
