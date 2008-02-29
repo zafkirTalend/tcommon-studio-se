@@ -1097,6 +1097,24 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return null;
     }
 
+    public Item copy(Item originalItem, IPath path, String newName) throws PersistenceException, BusinessException {
+        Resource resource = originalItem.eResource();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            resource.save(out, null);
+            Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            createResource.load(in, null);
+            Item newItem = copyFromResource(createResource, newName);
+            create(newItem, path);
+            return newItem;
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        }
+
+        return null;
+    }
+
     private void propagateFileName(Property property) throws PersistenceException {
         List<IRepositoryObject> allVersionToMove = getAllVersion(property.getId());
         for (IRepositoryObject object : allVersionToMove) {
