@@ -53,6 +53,8 @@ public interface AnalysisParameters extends ReportGroup {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
+     * @deprecated (is now on indicator) 
+     * FIXME scorreia remove this method in model.
      * Thresholds (or patterns) on indicators. Indicator that do not respect these thresholds are used to compute a quality indicator.
      * <!-- end-model-doc -->
      * @return the value of the '<em>Indicator Validation Domains</em>' reference list.
@@ -68,6 +70,8 @@ public interface AnalysisParameters extends ReportGroup {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
+     * @deprecated (is now on indicator) 
+     * FIXME scorreia remove this method in model.
      * The domain that defines the valid data. It can be patterns or thresholds, or more complex validation function. 
      * This is not a filter. Data that do not respect these domain are counted in the analysis but are used to compute a quality indicator.
      * <!-- end-model-doc -->

@@ -44,24 +44,6 @@ public interface IndicatorsFactory extends EFactory {
     RowCountIndicator createRowCountIndicator();
 
     /**
-     * Returns a new object of class '<em>Mean Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Mean Indicator</em>'.
-     * @generated
-     */
-    MeanIndicator createMeanIndicator();
-
-    /**
-     * Returns a new object of class '<em>Sum Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Sum Indicator</em>'.
-     * @generated
-     */
-    SumIndicator createSumIndicator();
-
-    /**
      * Returns a new object of class '<em>Composite Indicator</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -96,6 +78,96 @@ public interface IndicatorsFactory extends EFactory {
      * @generated
      */
     IndicatorType createIndicatorType();
+
+    /**
+     * Returns a new object of class '<em>Integer Sum Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Integer Sum Indicator</em>'.
+     * @generated
+     */
+    IntegerSumIndicator createIntegerSumIndicator();
+
+    /**
+     * Returns a new object of class '<em>Double Sum Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Double Sum Indicator</em>'.
+     * @generated
+     */
+    DoubleSumIndicator createDoubleSumIndicator();
+
+    /**
+     * Returns a new object of class '<em>Big Decimal Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Big Decimal Indicator</em>'.
+     * @generated
+     */
+    BigDecimalIndicator createBigDecimalIndicator();
+
+    /**
+     * Returns a new object of class '<em>Frequency Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Frequency Indicator</em>'.
+     * @generated
+     */
+    FrequencyIndicator createFrequencyIndicator();
+
+    /**
+     * Returns a new object of class '<em>Integer Mean Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Integer Mean Indicator</em>'.
+     * @generated
+     */
+    IntegerMeanIndicator createIntegerMeanIndicator();
+
+    /**
+     * Returns a new object of class '<em>Double Mean Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Double Mean Indicator</em>'.
+     * @generated
+     */
+    DoubleMeanIndicator createDoubleMeanIndicator();
+
+    /**
+     * Returns a new object of class '<em>Big Decimal Mean Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Big Decimal Mean Indicator</em>'.
+     * @generated
+     */
+    BigDecimalMeanIndicator createBigDecimalMeanIndicator();
+
+    /**
+     * Returns a new object of class '<em>Blank Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Blank Count Indicator</em>'.
+     * @generated
+     */
+    BlankCountIndicator createBlankCountIndicator();
+
+    /**
+     * Returns a new object of class '<em>Indicator Parameters</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Indicator Parameters</em>'.
+     * @generated
+     */
+    IndicatorParameters createIndicatorParameters();
+
+    /**
+     * Returns a new object of class '<em>Median Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Median Indicator</em>'.
+     * @generated
+     */
+    MedianIndicator createMedianIndicator();
 
     /**
      * Returns the package supported by this factory.

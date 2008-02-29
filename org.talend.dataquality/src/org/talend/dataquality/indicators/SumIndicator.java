@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  *
  * @see org.talend.dataquality.indicators.IndicatorsPackage#getSumIndicator()
- * @model
+ * @model abstract="true"
  * @generated
  */
-public interface SumIndicator extends EObject {
+public interface SumIndicator extends Indicator {
 } // SumIndicator

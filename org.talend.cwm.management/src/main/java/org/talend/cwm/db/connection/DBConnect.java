@@ -34,9 +34,8 @@ import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
-import org.talend.utils.collections.ReturnCode;
 import org.talend.utils.sql.ConnectionUtils;
-
+import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 
 /**
@@ -360,7 +359,7 @@ public class DBConnect {
     /**
      * Getter for databaseUrl.
      * 
-     * @return the databaseUrl
+     * @return the databaseUrl (not null)
      */
     public String getDatabaseUrl() {
         return this.databaseUrl;

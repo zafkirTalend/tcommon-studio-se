@@ -105,6 +105,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.ROW_COUNT_INDICATOR: {
                 RowCountIndicator rowCountIndicator = (RowCountIndicator)theEObject;
                 T result = caseRowCountIndicator(rowCountIndicator);
+                if (result == null) result = caseIndicator(rowCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -117,6 +118,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.SUM_INDICATOR: {
                 SumIndicator sumIndicator = (SumIndicator)theEObject;
                 T result = caseSumIndicator(sumIndicator);
+                if (result == null) result = caseIndicator(sumIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -150,6 +152,87 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseNamespace(indicatorType);
                 if (result == null) result = caseModelElement(indicatorType);
                 if (result == null) result = caseElement(indicatorType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.INTEGER_SUM_INDICATOR: {
+                IntegerSumIndicator integerSumIndicator = (IntegerSumIndicator)theEObject;
+                T result = caseIntegerSumIndicator(integerSumIndicator);
+                if (result == null) result = caseSumIndicator(integerSumIndicator);
+                if (result == null) result = caseIndicator(integerSumIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.DOUBLE_SUM_INDICATOR: {
+                DoubleSumIndicator doubleSumIndicator = (DoubleSumIndicator)theEObject;
+                T result = caseDoubleSumIndicator(doubleSumIndicator);
+                if (result == null) result = caseSumIndicator(doubleSumIndicator);
+                if (result == null) result = caseIndicator(doubleSumIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.BIG_DECIMAL_INDICATOR: {
+                BigDecimalIndicator bigDecimalIndicator = (BigDecimalIndicator)theEObject;
+                T result = caseBigDecimalIndicator(bigDecimalIndicator);
+                if (result == null) result = caseSumIndicator(bigDecimalIndicator);
+                if (result == null) result = caseIndicator(bigDecimalIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.FREQUENCY_INDICATOR: {
+                FrequencyIndicator frequencyIndicator = (FrequencyIndicator)theEObject;
+                T result = caseFrequencyIndicator(frequencyIndicator);
+                if (result == null) result = caseIndicator(frequencyIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.INTEGER_MEAN_INDICATOR: {
+                IntegerMeanIndicator integerMeanIndicator = (IntegerMeanIndicator)theEObject;
+                T result = caseIntegerMeanIndicator(integerMeanIndicator);
+                if (result == null) result = caseIntegerSumIndicator(integerMeanIndicator);
+                if (result == null) result = caseMeanIndicator(integerMeanIndicator);
+                if (result == null) result = caseSumIndicator(integerMeanIndicator);
+                if (result == null) result = caseIndicator(integerMeanIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.DOUBLE_MEAN_INDICATOR: {
+                DoubleMeanIndicator doubleMeanIndicator = (DoubleMeanIndicator)theEObject;
+                T result = caseDoubleMeanIndicator(doubleMeanIndicator);
+                if (result == null) result = caseDoubleSumIndicator(doubleMeanIndicator);
+                if (result == null) result = caseMeanIndicator(doubleMeanIndicator);
+                if (result == null) result = caseSumIndicator(doubleMeanIndicator);
+                if (result == null) result = caseIndicator(doubleMeanIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.BIG_DECIMAL_MEAN_INDICATOR: {
+                BigDecimalMeanIndicator bigDecimalMeanIndicator = (BigDecimalMeanIndicator)theEObject;
+                T result = caseBigDecimalMeanIndicator(bigDecimalMeanIndicator);
+                if (result == null) result = caseBigDecimalIndicator(bigDecimalMeanIndicator);
+                if (result == null) result = caseMeanIndicator(bigDecimalMeanIndicator);
+                if (result == null) result = caseSumIndicator(bigDecimalMeanIndicator);
+                if (result == null) result = caseIndicator(bigDecimalMeanIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.BLANK_COUNT_INDICATOR: {
+                BlankCountIndicator blankCountIndicator = (BlankCountIndicator)theEObject;
+                T result = caseBlankCountIndicator(blankCountIndicator);
+                if (result == null) result = caseIndicator(blankCountIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.INDICATOR_PARAMETERS: {
+                IndicatorParameters indicatorParameters = (IndicatorParameters)theEObject;
+                T result = caseIndicatorParameters(indicatorParameters);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.MEDIAN_INDICATOR: {
+                MedianIndicator medianIndicator = (MedianIndicator)theEObject;
+                T result = caseMedianIndicator(medianIndicator);
+                if (result == null) result = caseIndicator(medianIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -274,6 +357,156 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseIndicatorType(IndicatorType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Integer Sum Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Integer Sum Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseIntegerSumIndicator(IntegerSumIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Double Sum Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Double Sum Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDoubleSumIndicator(DoubleSumIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Big Decimal Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Big Decimal Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseBigDecimalIndicator(BigDecimalIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Frequency Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Frequency Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseFrequencyIndicator(FrequencyIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Integer Mean Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Integer Mean Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseIntegerMeanIndicator(IntegerMeanIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Double Mean Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Double Mean Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDoubleMeanIndicator(DoubleMeanIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Big Decimal Mean Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Big Decimal Mean Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseBigDecimalMeanIndicator(BigDecimalMeanIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Blank Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Blank Count Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseBlankCountIndicator(BlankCountIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Indicator Parameters</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Indicator Parameters</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseIndicatorParameters(IndicatorParameters object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Median Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Median Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMedianIndicator(MedianIndicator object) {
         return null;
     }
 

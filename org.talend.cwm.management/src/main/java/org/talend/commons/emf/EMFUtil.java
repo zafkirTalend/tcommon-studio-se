@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.talend.cwm.util.FactoriesUtil;
 
 /**
  * @author scorreia This class creates the EMF resources and save them.
@@ -38,10 +37,10 @@ public final class EMFUtil {
     private static Logger log = Logger.getLogger(EMFUtil.class);
 
     /** the encoding for xml files. */
-    private static String encoding = "UTF-8";
+    private final static String ENCODING = "UTF-8";
 
     /** the options needed for saving the resources. */
-    private Map<String, Object> options;
+    private final Map<String, Object> options;
 
     private ResourceSet resourceSet;
 
@@ -68,10 +67,11 @@ public final class EMFUtil {
         // set the options
         options = new HashMap<String, Object>();
         options.put(XMIResource.OPTION_DECLARE_XML, Boolean.TRUE);
-        options.put(XMIResource.OPTION_ENCODING, encoding);
+        options.put(XMIResource.OPTION_ENCODING, ENCODING);
 
         // Obtain a new resource set
         resourceSet = new ResourceSetImpl();
+
     }
 
     /**

@@ -205,11 +205,17 @@ public final class TalendCwmFactory {
         }
     }
 
+    /**
+     * Method "checkConnection" checks whether the connection is open. If not, tries to connect.
+     * 
+     * @param connector
+     * @throws SQLException
+     */
     private static void checkConnection(DBConnect connector) throws SQLException {
         if (!connector.isConnected()) {
             boolean connected = connector.connect();
             if (!connected) {
-                throw new SQLException("Not connected");
+                throw new SQLException("Connection failed for " + connector.getDatabaseUrl());
             }
         }
     }

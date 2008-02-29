@@ -10,13 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.cwm.util;
+package org.talend.commons.emf;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
+import org.talend.dataquality.domain.impl.DomainFactoryImpl;
+import org.talend.dataquality.domain.pattern.impl.PatternFactoryImpl;
+import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.impl.IndicatorsFactoryImpl;
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
 import orgomg.cwm.objectmodel.core.CorePackage;
 
@@ -34,6 +38,12 @@ public class FactoriesUtil {
         // --- talend extension packages
         org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentFactoryImpl.init();
         org.talend.cwm.relational.impl.RelationalFactoryImpl.init();
+
+        // --- talend DQ factories
+        DomainFactoryImpl.init();
+        IndicatorsFactoryImpl.init();
+        PatternFactoryImpl.init();
+        org.talend.dataquality.expressions.impl.ExpressionsFactoryImpl.init();
 
         // CWM generated packages
         // TODO scorreia add other factories
@@ -58,6 +68,9 @@ public class FactoriesUtil {
         // --- Talend extension packages
         extensions.add(SoftwaredeploymentPackage.eNAME);
         extensions.add(RelationalPackage.eNAME);
+
+        // --- Talend DQ extension packages
+        extensions.add(IndicatorsPackage.eNAME);
 
         // --- CWM generated packages
         extensions.add(CorePackage.eNAME);

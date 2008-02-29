@@ -28,5 +28,7 @@ Export-Package: org.talend.dataquality.analysis,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.talend.cwm.mip;visibility:=reexport,
- org.talend.cwm.ext
+ org.talend.cwm.ext,
+ org.talend.utils,
+ org.talend.libraries.logging
 Eclipse-LazyStart: true

@@ -1,31 +1,26 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.SumIndicator;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Sum Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Sum Indicator</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
-public class SumIndicatorImpl extends EObjectImpl implements SumIndicator {
+public abstract class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SumIndicatorImpl() {
@@ -33,8 +28,7 @@ public class SumIndicatorImpl extends EObjectImpl implements SumIndicator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -42,4 +36,4 @@ public class SumIndicatorImpl extends EObjectImpl implements SumIndicator {
         return IndicatorsPackage.Literals.SUM_INDICATOR;
     }
 
-} //SumIndicatorImpl
+} // SumIndicatorImpl

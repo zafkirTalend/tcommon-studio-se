@@ -52,6 +52,9 @@
     </nestedGenPackages>
     <nestedGenPackages prefix="Indicators" basePackage="org.talend.dataquality" disposableProviderFactory="true"
         ecorePackage="dataquality.ecore#//indicators">
+      <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaSet"/>
+      <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaHashMap"/>
+      <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaTreeMap"/>
       <genClasses image="false" ecoreClass="dataquality.ecore#//indicators/Indicator">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/value"/>
@@ -110,10 +113,18 @@
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/FrequencyIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/mode"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/uniqueValues"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/distinctValueCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/uniqueValueCount"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/dupplicateValueCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/valueToFreq"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getCount">
           <genParameters ecoreParameter="dataquality.ecore#//indicators/FrequencyIndicator/getCount/dataValue"/>
         </genOperations>
-        <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getFrequency"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getFrequency">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/FrequencyIndicator/getFrequency/dataValue"/>
+        </genOperations>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getDistinctValues"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IntegerMeanIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/DoubleMeanIndicator"/>
@@ -129,6 +140,7 @@
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MedianIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/median"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/frequenceTable"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/MedianIndicator/computeMedian"/>
       </genClasses>
     </nestedGenPackages>

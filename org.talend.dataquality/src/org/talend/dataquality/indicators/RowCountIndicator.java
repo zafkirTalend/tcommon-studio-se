@@ -18,5 +18,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface RowCountIndicator extends EObject {
+public interface RowCountIndicator extends Indicator {
 } // RowCountIndicator
