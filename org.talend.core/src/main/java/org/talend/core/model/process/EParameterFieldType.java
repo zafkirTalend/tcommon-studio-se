@@ -27,7 +27,6 @@ public enum EParameterFieldType {
     CLOSED_LIST,
     CHECK,
     RADIO,
-    GROUP,
     MEMO,
     SCHEMA_TYPE,
     QUERYSTORE_TYPE,

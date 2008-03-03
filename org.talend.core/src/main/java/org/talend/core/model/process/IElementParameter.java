@@ -140,6 +140,14 @@ public interface IElementParameter extends Cloneable {
 
     public void setContext(String context);
 
+    public String getGroup();
+
+    public void setGroup(String groupName);
+
+    public void setGroupDisplayName(String groupDisplayName);
+
+    public String getGroupDisplayName();
+
     public Map<String, IElementParameter> getChildParameters();
 
     public IElementParameter getParentParameter();
