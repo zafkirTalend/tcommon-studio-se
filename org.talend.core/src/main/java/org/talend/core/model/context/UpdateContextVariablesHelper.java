@@ -90,7 +90,7 @@ public final class UpdateContextVariablesHelper {
         for (INode node : (List<INode>) process.getGraphicalNodes()) {
             for (String oldScriptCode : varScriptCodeMap.keySet()) {
                 String newScriptCode = varScriptCodeMap.get(oldScriptCode);
-                if (newScriptCode != null && node.useData(oldScriptCode)) {
+                if (newScriptCode != null) {
                     node.renameData(oldScriptCode, newScriptCode);
                     changed = true;
                 }
@@ -301,7 +301,7 @@ public final class UpdateContextVariablesHelper {
 
     }
 
-    private static String replaceSpecialChar(String expression) {
+    public static String replaceSpecialChar(String expression) {
         if (expression == null) {
             return null;
         }

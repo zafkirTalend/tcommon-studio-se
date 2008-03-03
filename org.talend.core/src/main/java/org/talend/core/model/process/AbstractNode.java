@@ -26,6 +26,7 @@ import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
 import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.context.UpdateContextVariablesHelper;
 import org.talend.core.model.metadata.IMetadataTable;
 
 /**
@@ -477,7 +478,7 @@ public abstract class AbstractNode implements INode {
             Pattern pattern;
 
             try {
-                pattern = compiler.compile("\\b(" + toTest + ")(\\b|\\_)"); //$NON-NLS-1$
+                pattern = compiler.compile("\\b(" + UpdateContextVariablesHelper.replaceSpecialChar(toTest) + ")(\\b|\\_)"); //$NON-NLS-1$
                 if (matcher.contains(value, pattern)) {
                     return true;
                 }
@@ -664,7 +665,7 @@ public abstract class AbstractNode implements INode {
 
         Pattern pattern;
         try {
-            pattern = compiler.compile("\\b(" + oldName + ")(\\b|\\_)");
+            pattern = compiler.compile("\\b(" + UpdateContextVariablesHelper.replaceSpecialChar(oldName) + ")(\\b|\\_)");
         } catch (MalformedPatternException e) {
             return value; // keep original value
         }
