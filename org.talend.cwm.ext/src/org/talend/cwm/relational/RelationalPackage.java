@@ -2209,6 +2209,558 @@ public interface RelationalPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link org.talend.cwm.relational.impl.TdTriggerImpl <em>Td Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.cwm.relational.impl.TdTriggerImpl
+     * @see org.talend.cwm.relational.impl.RelationalPackageImpl#getTdTrigger()
+     * @generated
+     */
+    int TD_TRIGGER = 6;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__NAME = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__VISIBILITY = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__CLIENT_DEPENDENCY = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__SUPPLIER_DEPENDENCY = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__CONSTRAINT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__NAMESPACE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__IMPORTER = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__STEREOTYPE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__TAGGED_VALUE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__DOCUMENT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__DESCRIPTION = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__RESPONSIBLE_PARTY = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__ELEMENT_NODE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__SET = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__RENDERED_OBJECT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__VOCABULARY_ELEMENT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__MEASUREMENT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__CHANGE_REQUEST = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__DASDL_PROPERTY = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Event Manipulation</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__EVENT_MANIPULATION = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__EVENT_MANIPULATION;
+
+    /**
+     * The feature id for the '<em><b>Action Condition</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__ACTION_CONDITION = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__ACTION_CONDITION;
+
+    /**
+     * The feature id for the '<em><b>Action Statement</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__ACTION_STATEMENT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__ACTION_STATEMENT;
+
+    /**
+     * The feature id for the '<em><b>Action Orientation</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__ACTION_ORIENTATION = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__ACTION_ORIENTATION;
+
+    /**
+     * The feature id for the '<em><b>Condition Timing</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__CONDITION_TIMING = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__CONDITION_TIMING;
+
+    /**
+     * The feature id for the '<em><b>Condition Reference New Table</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__CONDITION_REFERENCE_NEW_TABLE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__CONDITION_REFERENCE_NEW_TABLE;
+
+    /**
+     * The feature id for the '<em><b>Condition Reference Old Table</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__CONDITION_REFERENCE_OLD_TABLE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__CONDITION_REFERENCE_OLD_TABLE;
+
+    /**
+     * The feature id for the '<em><b>Used Column Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__USED_COLUMN_SET = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__USED_COLUMN_SET;
+
+    /**
+     * The feature id for the '<em><b>Table</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER__TABLE = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER__TABLE;
+
+    /**
+     * The number of structural features of the '<em>Td Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_TRIGGER_FEATURE_COUNT = orgomg.cwm.resource.relational.RelationalPackage.TRIGGER_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.cwm.relational.impl.TdProcedureImpl <em>Td Procedure</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.cwm.relational.impl.TdProcedureImpl
+     * @see org.talend.cwm.relational.impl.RelationalPackageImpl#getTdProcedure()
+     * @generated
+     */
+    int TD_PROCEDURE = 7;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__NAME = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__VISIBILITY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__CLIENT_DEPENDENCY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__SUPPLIER_DEPENDENCY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__CONSTRAINT = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__NAMESPACE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__IMPORTER = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__STEREOTYPE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__TAGGED_VALUE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__DOCUMENT = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__DESCRIPTION = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__RESPONSIBLE_PARTY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__ELEMENT_NODE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__SET = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__RENDERED_OBJECT = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__VOCABULARY_ELEMENT = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__MEASUREMENT = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__CHANGE_REQUEST = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__DASDL_PROPERTY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__OWNER_SCOPE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__OWNER_SCOPE;
+
+    /**
+     * The feature id for the '<em><b>Owner</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__OWNER = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__OWNER;
+
+    /**
+     * The feature id for the '<em><b>Feature Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__FEATURE_NODE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__FEATURE_NODE;
+
+    /**
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__FEATURE_MAP = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__FEATURE_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__CF_MAP = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Is Query</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__IS_QUERY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__IS_QUERY;
+
+    /**
+     * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__PARAMETER = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__PARAMETER;
+
+    /**
+     * The feature id for the '<em><b>Body</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__BODY = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__BODY;
+
+    /**
+     * The feature id for the '<em><b>Specification</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__SPECIFICATION = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__SPECIFICATION;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE__TYPE = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE__TYPE;
+
+    /**
+     * The number of structural features of the '<em>Td Procedure</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_PROCEDURE_FEATURE_COUNT = orgomg.cwm.resource.relational.RelationalPackage.PROCEDURE_FEATURE_COUNT + 0;
+
+
+    /**
      * Returns the meta object for class '{@link org.talend.cwm.relational.TdTable <em>Td Table</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2344,6 +2896,26 @@ public interface RelationalPackage extends EPackage {
      * @generated
      */
     EAttribute getTdSqlDataType_Searchable();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.cwm.relational.TdTrigger <em>Td Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Td Trigger</em>'.
+     * @see org.talend.cwm.relational.TdTrigger
+     * @generated
+     */
+    EClass getTdTrigger();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.cwm.relational.TdProcedure <em>Td Procedure</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Td Procedure</em>'.
+     * @see org.talend.cwm.relational.TdProcedure
+     * @generated
+     */
+    EClass getTdProcedure();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -2482,6 +3054,26 @@ public interface RelationalPackage extends EPackage {
          * @generated
          */
         EAttribute TD_SQL_DATA_TYPE__SEARCHABLE = eINSTANCE.getTdSqlDataType_Searchable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.cwm.relational.impl.TdTriggerImpl <em>Td Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.cwm.relational.impl.TdTriggerImpl
+         * @see org.talend.cwm.relational.impl.RelationalPackageImpl#getTdTrigger()
+         * @generated
+         */
+        EClass TD_TRIGGER = eINSTANCE.getTdTrigger();
+
+        /**
+         * The meta object literal for the '{@link org.talend.cwm.relational.impl.TdProcedureImpl <em>Td Procedure</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.cwm.relational.impl.TdProcedureImpl
+         * @see org.talend.cwm.relational.impl.RelationalPackageImpl#getTdProcedure()
+         * @generated
+         */
+        EClass TD_PROCEDURE = eINSTANCE.getTdProcedure();
 
     }
 

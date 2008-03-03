@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.talend.cwm.relational.*;
 
+import orgomg.cwm.objectmodel.behavioral.BehavioralFeature;
+import orgomg.cwm.objectmodel.behavioral.Method;
 import orgomg.cwm.objectmodel.core.Attribute;
 import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.DataType;
@@ -28,10 +30,12 @@ import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.NamedColumnSet;
+import orgomg.cwm.resource.relational.Procedure;
 import orgomg.cwm.resource.relational.SQLDataType;
 import orgomg.cwm.resource.relational.SQLSimpleType;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.Table;
+import orgomg.cwm.resource.relational.Trigger;
 import orgomg.cwm.resource.relational.View;
 
 /**
@@ -115,6 +119,14 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
                 return createTdSqlDataTypeAdapter();
             }
             @Override
+            public Adapter caseTdTrigger(TdTrigger object) {
+                return createTdTriggerAdapter();
+            }
+            @Override
+            public Adapter caseTdProcedure(TdProcedure object) {
+                return createTdProcedureAdapter();
+            }
+            @Override
             public Adapter caseElement(Element object) {
                 return createElementAdapter();
             }
@@ -189,6 +201,22 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
             @Override
             public Adapter caseSQLSimpleType(SQLSimpleType object) {
                 return createSQLSimpleTypeAdapter();
+            }
+            @Override
+            public Adapter caseTrigger(Trigger object) {
+                return createTriggerAdapter();
+            }
+            @Override
+            public Adapter caseBehavioralFeature(BehavioralFeature object) {
+                return createBehavioralFeatureAdapter();
+            }
+            @Override
+            public Adapter caseMethod(Method object) {
+                return createMethodAdapter();
+            }
+            @Override
+            public Adapter caseProcedure(Procedure object) {
+                return createProcedureAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -291,6 +319,34 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTdSqlDataTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.relational.TdTrigger <em>Td Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.cwm.relational.TdTrigger
+     * @generated
+     */
+    public Adapter createTdTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.relational.TdProcedure <em>Td Procedure</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.cwm.relational.TdProcedure
+     * @generated
+     */
+    public Adapter createTdProcedureAdapter() {
         return null;
     }
 
@@ -557,6 +613,62 @@ public class RelationalAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSQLSimpleTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.Trigger <em>Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.relational.Trigger
+     * @generated
+     */
+    public Adapter createTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.behavioral.BehavioralFeature <em>Feature</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.behavioral.BehavioralFeature
+     * @generated
+     */
+    public Adapter createBehavioralFeatureAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.behavioral.Method <em>Method</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.behavioral.Method
+     * @generated
+     */
+    public Adapter createMethodAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.Procedure <em>Procedure</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.relational.Procedure
+     * @generated
+     */
+    public Adapter createProcedureAdapter() {
         return null;
     }
 

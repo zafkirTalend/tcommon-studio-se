@@ -80,6 +80,24 @@ public interface RelationalFactory extends EFactory {
     TdSqlDataType createTdSqlDataType();
 
     /**
+     * Returns a new object of class '<em>Td Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Td Trigger</em>'.
+     * @generated
+     */
+    TdTrigger createTdTrigger();
+
+    /**
+     * Returns a new object of class '<em>Td Procedure</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Td Procedure</em>'.
+     * @generated
+     */
+    TdProcedure createTdProcedure();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

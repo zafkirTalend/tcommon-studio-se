@@ -27,6 +27,8 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.talend.cwm.ext.ecore#//relational/TdSqlDataType/localTypeName"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.talend.cwm.ext.ecore#//relational/TdSqlDataType/searchable"/>
       </genClasses>
+      <genClasses ecoreClass="org.talend.cwm.ext.ecore#//relational/TdTrigger"/>
+      <genClasses ecoreClass="org.talend.cwm.ext.ecore#//relational/TdProcedure"/>
     </nestedGenPackages>
     <nestedGenPackages prefix="Softwaredeployment" basePackage="org.talend.cwm" disposableProviderFactory="true"
         ecorePackage="org.talend.cwm.ext.ecore#//softwaredeployment">

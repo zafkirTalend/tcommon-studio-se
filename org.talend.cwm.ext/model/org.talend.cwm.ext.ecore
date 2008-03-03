@@ -47,6 +47,8 @@
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TdTrigger" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/relational/Trigger"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TdProcedure" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/relational/Procedure"/>
   </eSubpackages>
   <eSubpackages name="softwaredeployment" nsURI="http:///org.talend/cwm/foundation.softwaredeployment"
       nsPrefix="softwaredeployment">

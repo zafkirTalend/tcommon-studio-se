@@ -66,6 +66,8 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
             case RelationalPackage.TD_SCHEMA: return createTdSchema();
             case RelationalPackage.TD_COLUMN: return createTdColumn();
             case RelationalPackage.TD_SQL_DATA_TYPE: return createTdSqlDataType();
+            case RelationalPackage.TD_TRIGGER: return createTdTrigger();
+            case RelationalPackage.TD_PROCEDURE: return createTdProcedure();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -129,6 +131,26 @@ public class RelationalFactoryImpl extends EFactoryImpl implements RelationalFac
     public TdSqlDataType createTdSqlDataType() {
         TdSqlDataTypeImpl tdSqlDataType = new TdSqlDataTypeImpl();
         return tdSqlDataType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TdTrigger createTdTrigger() {
+        TdTriggerImpl tdTrigger = new TdTriggerImpl();
+        return tdTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TdProcedure createTdProcedure() {
+        TdProcedureImpl tdProcedure = new TdProcedureImpl();
+        return tdProcedure;
     }
 
     /**

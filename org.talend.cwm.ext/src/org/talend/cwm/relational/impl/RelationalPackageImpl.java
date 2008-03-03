@@ -17,9 +17,11 @@ import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdProcedure;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdTrigger;
 import org.talend.cwm.relational.TdView;
 
 import org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentPackageImpl;
@@ -132,6 +134,20 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * @generated
      */
     private EClass tdSqlDataTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdTriggerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdProcedureEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -361,6 +377,24 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getTdTrigger() {
+        return tdTriggerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTdProcedure() {
+        return tdProcedureEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public RelationalFactory getRelationalFactory() {
         return (RelationalFactory)getEFactoryInstance();
     }
@@ -402,6 +436,10 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         createEAttribute(tdSqlDataTypeEClass, TD_SQL_DATA_TYPE__AUTO_INCREMENT);
         createEAttribute(tdSqlDataTypeEClass, TD_SQL_DATA_TYPE__LOCAL_TYPE_NAME);
         createEAttribute(tdSqlDataTypeEClass, TD_SQL_DATA_TYPE__SEARCHABLE);
+
+        tdTriggerEClass = createEClass(TD_TRIGGER);
+
+        tdProcedureEClass = createEClass(TD_PROCEDURE);
     }
 
     /**
@@ -442,6 +480,8 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         tdSchemaEClass.getESuperTypes().add(theRelationalPackage_1.getSchema());
         tdColumnEClass.getESuperTypes().add(theRelationalPackage_1.getColumn());
         tdSqlDataTypeEClass.getESuperTypes().add(theRelationalPackage_1.getSQLSimpleType());
+        tdTriggerEClass.getESuperTypes().add(theRelationalPackage_1.getTrigger());
+        tdProcedureEClass.getESuperTypes().add(theRelationalPackage_1.getProcedure());
 
         // Initialize classes and features; add operations and parameters
         initEClass(tdTableEClass, TdTable.class, "TdTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -465,6 +505,10 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
         initEAttribute(getTdSqlDataType_AutoIncrement(), theCorePackage.getBoolean(), "autoIncrement", null, 0, 1, TdSqlDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTdSqlDataType_LocalTypeName(), theCorePackage.getString(), "localTypeName", null, 0, 1, TdSqlDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTdSqlDataType_Searchable(), ecorePackage.getEShort(), "searchable", null, 0, 1, TdSqlDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(tdTriggerEClass, TdTrigger.class, "TdTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdProcedureEClass, TdProcedure.class, "TdProcedure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

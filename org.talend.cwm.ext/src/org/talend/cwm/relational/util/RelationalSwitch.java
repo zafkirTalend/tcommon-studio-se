@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.talend.cwm.relational.*;
 
+import orgomg.cwm.objectmodel.behavioral.BehavioralFeature;
+import orgomg.cwm.objectmodel.behavioral.Method;
 import orgomg.cwm.objectmodel.core.Attribute;
 import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.DataType;
@@ -26,10 +28,12 @@ import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.NamedColumnSet;
+import orgomg.cwm.resource.relational.Procedure;
 import orgomg.cwm.resource.relational.SQLDataType;
 import orgomg.cwm.resource.relational.SQLSimpleType;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.Table;
+import orgomg.cwm.resource.relational.Trigger;
 import orgomg.cwm.resource.relational.View;
 
 /**
@@ -181,6 +185,27 @@ public class RelationalSwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case RelationalPackage.TD_TRIGGER: {
+                TdTrigger tdTrigger = (TdTrigger)theEObject;
+                T result = caseTdTrigger(tdTrigger);
+                if (result == null) result = caseTrigger(tdTrigger);
+                if (result == null) result = caseModelElement(tdTrigger);
+                if (result == null) result = caseElement(tdTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case RelationalPackage.TD_PROCEDURE: {
+                TdProcedure tdProcedure = (TdProcedure)theEObject;
+                T result = caseTdProcedure(tdProcedure);
+                if (result == null) result = caseProcedure(tdProcedure);
+                if (result == null) result = caseMethod(tdProcedure);
+                if (result == null) result = caseBehavioralFeature(tdProcedure);
+                if (result == null) result = caseFeature(tdProcedure);
+                if (result == null) result = caseModelElement(tdProcedure);
+                if (result == null) result = caseElement(tdProcedure);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -272,6 +297,36 @@ public class RelationalSwitch<T> {
      * @generated
      */
     public T caseTdSqlDataType(TdSqlDataType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Td Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Td Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTdTrigger(TdTrigger object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Td Procedure</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Td Procedure</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTdProcedure(TdProcedure object) {
         return null;
     }
 
@@ -557,6 +612,66 @@ public class RelationalSwitch<T> {
      * @generated
      */
     public T caseSQLSimpleType(SQLSimpleType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTrigger(Trigger object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseBehavioralFeature(BehavioralFeature object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Method</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Method</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMethod(Method object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Procedure</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Procedure</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseProcedure(Procedure object) {
         return null;
     }
 
