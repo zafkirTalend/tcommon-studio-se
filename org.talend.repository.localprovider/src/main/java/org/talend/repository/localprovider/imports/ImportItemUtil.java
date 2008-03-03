@@ -66,6 +66,8 @@ public class ImportItemUtil {
 
     private boolean hasErrors = false;
 
+    private int importedItems = 0;
+
     public void setErrors(boolean errors) {
         this.hasErrors = errors;
     }
@@ -129,6 +131,11 @@ public class ImportItemUtil {
             try {
                 Item tmpItem = itemRecord.getItem();
                 IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
+                if (importedItems++ > 10) {
+                    importedItems = 0;
+                    repFactory.initialize();
+                }
+
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
                 } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
