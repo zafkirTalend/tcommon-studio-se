@@ -17,10 +17,12 @@ import java.util.Properties;
 /**
  * @author scorreia
  * 
- * Simple container for connection parameters.
+ * Simple container for connection parameters used in the wizard.
  */
 public class ConnectionParameters {
 
+    // TODO scorreia add path to folder
+    // TODO scorreia add user, version, status?
     private String connectionId;
 
     private String jdbcUrl;
@@ -28,6 +30,17 @@ public class ConnectionParameters {
     private String driverClassName;
 
     private Properties parameters;
+
+    private String connectionName;
+
+    private String connectionPurpose;
+
+    private String connectionDescription;
+
+    /**
+     * The path where to store the connection.
+     */
+    private FolderProvider folderProvider;
 
     /**
      * Getter for connectionId.
@@ -99,5 +112,37 @@ public class ConnectionParameters {
      */
     public void setDriverClassName(String driverClassName) {
         this.driverClassName = driverClassName;
+    }
+
+    public String getConnectionName() {
+        return this.connectionName;
+    }
+
+    public void setConnectionName(String connectionName) {
+        this.connectionName = connectionName;
+    }
+
+    public String getConnectionPurpose() {
+        return this.connectionPurpose;
+    }
+
+    public void setConnectionPurpose(String connectionPurpose) {
+        this.connectionPurpose = connectionPurpose;
+    }
+
+    public String getConnectionDescription() {
+        return this.connectionDescription;
+    }
+
+    public void setConnectionDescription(String connectionDescription) {
+        this.connectionDescription = connectionDescription;
+    }
+
+    public FolderProvider getFolderProvider() {
+        return this.folderProvider;
+    }
+
+    public void setFolderProvider(FolderProvider folderProvider) {
+        this.folderProvider = folderProvider;
     }
 }
