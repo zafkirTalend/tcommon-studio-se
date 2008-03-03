@@ -208,6 +208,8 @@ public class IndicatorEvaluator {
                 ResultSetUtils.printResultSet(resultSet, 60);
             }
 
+            // --- release resultset
+            resultSet.close();
             // --- close
             connection.close();
 
