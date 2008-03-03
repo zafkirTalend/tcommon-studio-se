@@ -15,8 +15,7 @@ Export-Package: org.talend.cwm.constants,
  org.talend.cwm.relational.util,
  org.talend.cwm.softwaredeployment,
  org.talend.cwm.softwaredeployment.impl,
- org.talend.cwm.softwaredeployment.util,
- org.talend.cwm.util
+ org.talend.cwm.softwaredeployment.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.talend.cwm.mip;visibility:=reexport

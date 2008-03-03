@@ -10,10 +10,11 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.cwm.util;
+package org.talend.cwm.helper;
 
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.util.RelationalSwitch;
 
 /**
@@ -35,6 +36,15 @@ public class SwitchHelpers {
 
         @Override
         public TdSchema caseTdSchema(TdSchema object) {
+            return object;
+        }
+
+    };
+
+    public static final RelationalSwitch<TdTable> TABLE_SWITCH = new RelationalSwitch<TdTable>() {
+
+        @Override
+        public TdTable caseTdTable(TdTable object) {
             return object;
         }
 
