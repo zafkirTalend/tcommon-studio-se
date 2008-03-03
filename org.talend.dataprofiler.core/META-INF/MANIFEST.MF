@@ -8,9 +8,13 @@ Bundle-Vendor: .Talend SA.
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.talend.dataprofiler.libraries,
- net.sourceforge.sqlexplorer
+ net.sourceforge.sqlexplorer,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.talend.libraries.logging,
+ org.eclipse.ui.navigator
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core.i18n,
- org.talend.dataprofiler.core.ui,
  org.talend.dataprofiler.core.ui.perspective,
+ org.talend.dataprofiler.core.ui.views,
  org.talend.dataprofiler.core.views

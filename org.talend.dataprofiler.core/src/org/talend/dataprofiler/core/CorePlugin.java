@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -67,5 +68,21 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+    
+    public void setUsed(boolean isUsed) {
+        this.getPreferenceStore().setValue(PluginConstant.PROJECTCREATED_FLAG, isUsed);
+         
+     }
+
+     public boolean isUsed() {
+         return this.getPreferenceStore().getBoolean(PluginConstant.PROJECTCREATED_FLAG);
+     }
+    
+    public void checkDQStructure() {
+        if (!getDefault().isUsed()) {
+            DQStructureManager manager = DQStructureManager.getInstance();
+            getDefault().setUsed(manager.createDQStructure());
+        }
     }
 }

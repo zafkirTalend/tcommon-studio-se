@@ -15,12 +15,11 @@ package org.talend.dataprofiler.core.ui.views;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-
 /**
  * @author rli
- *
+ * 
  */
-public class CheatSheetView extends ViewPart{
+public class CheatSheetView extends ViewPart {
 
     /**
      * 
@@ -32,13 +31,13 @@ public class CheatSheetView extends ViewPart{
     @Override
     public void createPartControl(Composite parent) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void setFocus() {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

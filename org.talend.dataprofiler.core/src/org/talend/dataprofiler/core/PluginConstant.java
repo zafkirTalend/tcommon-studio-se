@@ -10,20 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.perspective;
+package org.talend.dataprofiler.core;
 
-import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IPerspectiveFactory;
 
 /**
- * DOC rli  class global comment. Detailled comment
- * <br/>
+ * This class store all the constant of current plugin.
  *
  */
-public class DataProfilingPerspective implements IPerspectiveFactory {
+public final class PluginConstant {
 
-    public void createInitialLayout(IPageLayout layout) {
-        
-        System.out.println("gogogo,alaala");
-    }
+    public static final String EMPTY_STRING = "";
+    public static final String PROJECTCREATED_FLAG = "PROJECTCREATED_FLAG";
+    
 }

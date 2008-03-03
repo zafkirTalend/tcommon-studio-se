@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.views;
 
-import java.util.logging.Logger;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;

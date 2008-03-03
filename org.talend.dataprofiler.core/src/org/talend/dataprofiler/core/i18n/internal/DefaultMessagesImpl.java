@@ -52,7 +52,7 @@ public class DefaultMessagesImpl extends MessagesCore {
      * @return the string for the given key in the given resource bundle
      * @see MessagesCore#getString(String, ResourceBundle, Object[])
      */
-    public static String getString(String key, Object[] args) {
+    public static String getString(String key, Object... args) {
         return getString(key, resourceBundle, args);
     }
 }
