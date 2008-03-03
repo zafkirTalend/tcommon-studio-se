@@ -14,15 +14,15 @@ package org.talend.dataprofiler.rcp.intro;
 
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
-import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 
 /**
  * DOC rli  class global comment. Detailled comment
  * <br/>
  *
  */
-public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
     private static final String PERSPECTIVE_ID = "net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective";
 
