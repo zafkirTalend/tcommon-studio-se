@@ -1358,13 +1358,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__FILTER = 5;
 
     /**
+     * The feature id for the '<em><b>GROUP</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__GROUP = 6;
+
+    /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NAME = 6;
+    int PARAMETER_TYPE__NAME = 7;
 
     /**
      * The feature id for the '<em><b>NBLINES</b></em>' attribute.
@@ -1373,7 +1382,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NBLINES = 7;
+    int PARAMETER_TYPE__NBLINES = 8;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -1382,7 +1391,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NOTSHOWIF = 8;
+    int PARAMETER_TYPE__NOTSHOWIF = 9;
 
     /**
      * The feature id for the '<em><b>NUMROW</b></em>' attribute.
@@ -1391,7 +1400,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NUMROW = 9;
+    int PARAMETER_TYPE__NUMROW = 10;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1400,7 +1409,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__READONLY = 10;
+    int PARAMETER_TYPE__READONLY = 11;
 
     /**
      * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
@@ -1409,7 +1418,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REPOSITORYVALUE = 11;
+    int PARAMETER_TYPE__REPOSITORYVALUE = 12;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -1418,7 +1427,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REQUIRED = 12;
+    int PARAMETER_TYPE__REQUIRED = 13;
 
     /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
@@ -1427,7 +1436,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOW = 13;
+    int PARAMETER_TYPE__SHOW = 14;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1436,7 +1445,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOWIF = 14;
+    int PARAMETER_TYPE__SHOWIF = 15;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1445,7 +1454,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 15;
+    int PARAMETER_TYPE_FEATURE_COUNT = 16;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -3135,6 +3144,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_FILTER();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>GROUP</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_GROUP();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4595,6 +4615,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__FILTER = eINSTANCE.getPARAMETERType_FILTER();
+
+        /**
+         * The meta object literal for the '<em><b>GROUP</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__GROUP = eINSTANCE.getPARAMETERType_GROUP();
 
         /**
          * The meta object literal for the '<em><b>NAME</b></em>' attribute feature.

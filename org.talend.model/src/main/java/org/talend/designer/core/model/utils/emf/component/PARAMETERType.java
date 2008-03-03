@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFILTER <em>FILTER</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
@@ -50,7 +51,9 @@ public interface PARAMETERType extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Used for TEXT or CHECK field
+     * 
+     * 							Used for TEXT or CHECK field
+     * 						
      * <!-- end-model-doc -->
      * @return the value of the '<em>DEFAULT</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_DEFAULT()
@@ -69,7 +72,9 @@ public interface PARAMETERType extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Used for CLOSED_LIST or TABLE field
+     * 
+     * 							Used for CLOSED_LIST or TABLE field
+     * 						
      * <!-- end-model-doc -->
      * @return the value of the '<em>ITEMS</em>' containment reference.
      * @see #setITEMS(ITEMSType)
@@ -96,7 +101,9 @@ public interface PARAMETERType extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Used only for SCHEMA_TYPE field 
+     * 
+     * 							Used only for SCHEMA_TYPE field
+     * 						
      * <!-- end-model-doc -->
      * @return the value of the '<em>TABLE</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_TABLE()
@@ -186,6 +193,33 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     void setFILTER(String value);
+
+    /**
+     * Returns the value of the '<em><b>GROUP</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>GROUP</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>GROUP</em>' attribute.
+     * @see #setGROUP(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_GROUP()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='GROUP' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getGROUP();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>GROUP</em>' attribute.
+     * @see #getGROUP()
+     * @generated
+     */
+    void setGROUP(String value);
 
     /**
      * Returns the value of the '<em><b>NAME</b></em>' attribute.

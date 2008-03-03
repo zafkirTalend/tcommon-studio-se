@@ -37,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFILTER <em>FILTER</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getGROUP <em>GROUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNBLINES <em>NBLINES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
@@ -141,6 +142,26 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected String fILTER = FILTER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getGROUP() <em>GROUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGROUP()
+     * @generated
+     * @ordered
+     */
+    protected static final String GROUP_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getGROUP() <em>GROUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGROUP()
+     * @generated
+     * @ordered
+     */
+    protected String gROUP = GROUP_EDEFAULT;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -520,6 +541,27 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getGROUP() {
+        return gROUP;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setGROUP(String newGROUP) {
+        String oldGROUP = gROUP;
+        gROUP = newGROUP;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__GROUP, oldGROUP, gROUP));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getNAME() {
         return nAME;
     }
@@ -865,6 +907,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getFIELD();
             case ComponentPackage.PARAMETER_TYPE__FILTER:
                 return getFILTER();
+            case ComponentPackage.PARAMETER_TYPE__GROUP:
+                return getGROUP();
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 return getNAME();
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
@@ -914,6 +958,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__FILTER:
                 setFILTER((String)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__GROUP:
+                setGROUP((String)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 setNAME((String)newValue);
@@ -971,6 +1018,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__FILTER:
                 setFILTER(FILTER_EDEFAULT);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__GROUP:
+                setGROUP(GROUP_EDEFAULT);
+                return;
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
@@ -1021,6 +1071,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.PARAMETER_TYPE__FILTER:
                 return FILTER_EDEFAULT == null ? fILTER != null : !FILTER_EDEFAULT.equals(fILTER);
+            case ComponentPackage.PARAMETER_TYPE__GROUP:
+                return GROUP_EDEFAULT == null ? gROUP != null : !GROUP_EDEFAULT.equals(gROUP);
             case ComponentPackage.PARAMETER_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
@@ -1058,6 +1110,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(fIELD);
         result.append(", fILTER: ");
         result.append(fILTER);
+        result.append(", gROUP: ");
+        result.append(gROUP);
         result.append(", nAME: ");
         result.append(nAME);
         result.append(", nBLINES: ");
