@@ -23,7 +23,6 @@ package org.talend.commons.ui.swt.advanced.composite;
 
 import java.io.File;
 
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -233,7 +232,7 @@ public class ArchiveDirectoryChooser {
         }
 
         if (dirName.length() == 0) {
-            dialog.setFilterPath(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+            dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
         } else {
             File path = new File(dirName);
             if (path.exists()) {
@@ -265,7 +264,7 @@ public class ArchiveDirectoryChooser {
         }
 
         if (fileName.length() == 0) {
-            dialog.setFilterPath(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+            dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
         } else {
             File path = new File(fileName);
             if (path.exists()) {
