@@ -227,6 +227,12 @@ public class ExtractMetaDataFromDataBase {
         return null;
     }
 
+    private static String filterTableNameWithDBRule(final String tablename, final String escape) {
+        String table = tablename;
+        return table;
+        // return table.replaceAll("_", "/_");
+    }
+
     /**
      * DOC cantoine. Method to return a Collection of Column description(metadata) for a DB connection.
      * 
@@ -258,74 +264,78 @@ public class ExtractMetaDataFromDataBase {
 
             // PTODO ftang: should to support all kinds of databases not only for Mysql.
             Connection connection = dbMetaData.getConnection();
-
             checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
-
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
+            String tableName = medataTable.getTableName();
+            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, tableName, null);
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
-                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME");
+                if (fetchTableName.equals(tableName)) {
+                    MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                    metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
+                    metadataColumn.setOriginalField(metadataColumn.getLabel());
 
-                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
-                metadataColumn.setOriginalField(metadataColumn.getLabel());
-
-                // Validate the column if it contains space or illegal
-                // characters.
-                if (repositoryService != null) {
-                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
-                    metadataColumn.setLabel(repositoryService.validateColumnName(metadataColumn.getLabel(), columnIndex));
-                }
-                columnIndex++;
-
-                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
-                    metadataColumn.setKey(true);
-                } else {
-                    metadataColumn.setKey(false);
-                }
-
-                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
-                metadataColumn.setSourceType(dbType); //$NON-NLS-1$
-
-                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
-                // Convert dbmsType to TalendType
-
-                String talendType = null;
-
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
-                        .getMapping());
-                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils.getIntMetaDataInfo(
-                        columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
-                if (talendType == null) {
-                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                        talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    } else {
-                        talendType = "";
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+                    // Validate the column if it contains space or illegal
+                    // characters.
+                    if (repositoryService != null) {
+                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
+                        metadataColumn.setLabel(repositoryService.validateColumnName(metadataColumn.getLabel(), columnIndex));
                     }
-                } else {
-                    // to remove when the new perl type will be added in talend.
-                    // talendType = TypesManager.getTalendTypeFromXmlType(talendType);
+                    columnIndex++;
+
+                    if (primaryKeys != null && !primaryKeys.isEmpty()
+                            && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
+                        metadataColumn.setKey(true);
+                    } else {
+                        metadataColumn.setKey(false);
+                    }
+
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
+                    metadataColumn.setSourceType(dbType); //$NON-NLS-1$
+
+                    metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
+                    // Convert dbmsType to TalendType
+
+                    String talendType = null;
+
+                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
+                            .getMapping());
+                    talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils
+                            .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns,
+                            "DECIMAL_DIGITS"));
+                    if (talendType == null) {
+                        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                            talendType = JavaTypesManager.getDefaultJavaType().getId();
+                            log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+                        } else {
+                            talendType = "";
+                            log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+                        }
+                    } else {
+                        // to remove when the new perl type will be added in talend.
+                        // talendType = TypesManager.getTalendTypeFromXmlType(talendType);
+                    }
+
+                    metadataColumn.setTalendType(talendType);
+                    metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+
+                    boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
+                    metadataColumn.setNullable(isNullable);
+
+                    metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+                    metadataColumns.add(metadataColumn);
+
+                    // cantoine : patch to fix 0x0 pb cause by Bad Schema
+                    // description
+                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
+                    if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
+                        stringMetaDataInfo = "\\0"; //$NON-NLS-1$
+                    }
+                    metadataColumn.setDefaultValue(stringMetaDataInfo);
+
                 }
-
-                metadataColumn.setTalendType(talendType);
-                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
-
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
-                metadataColumn.setNullable(isNullable);
-
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
-                metadataColumns.add(metadataColumn);
-
-                // cantoine : patch to fix 0x0 pb cause by Bad Schema
-                // description
-                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
-                }
-                metadataColumn.setDefaultValue(stringMetaDataInfo);
-
             }
+
             columns.close();
         } catch (SQLException e) {
             log.error(e.toString());
