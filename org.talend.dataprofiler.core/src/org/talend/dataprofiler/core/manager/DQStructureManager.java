@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -158,6 +159,9 @@ public final class DQStructureManager {
    
     private void createNewFoler(IProject project, String folderName) throws CoreException {
         IFolder desFolder = project.getFolder(folderName);
+//        ResourceAttributes attr = new ResourceAttributes();
+//        attr.setReadOnly(true);
+//        desFolder.setResourceAttributes(attr);
         if (!desFolder.exists()) {
             desFolder.create(false, true, null);
         }

@@ -19,9 +19,9 @@ import org.talend.dataprofiler.core.CorePlugin;
  * @author rli
  * 
  */
-public class DQResponsitoryView extends CommonNavigator {
+public class DQRespositoryView extends CommonNavigator {
 
-    public DQResponsitoryView() {
+    public DQRespositoryView() {
         super();
         CorePlugin.getDefault().checkDQStructure();
     }

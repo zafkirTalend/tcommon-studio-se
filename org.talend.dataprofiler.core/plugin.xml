@@ -18,9 +18,9 @@
       <view
             allowMultiple="false"
             category="org.talend.dataprofiler.view.category"
-            class="org.talend.dataprofiler.core.ui.views.DQResponsitoryView"
-            id="org.talend.dataprofiler.core.ui.views.DQResponsitoryView"
-            name="DQ Responsitory">
+            class="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
+            id="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
+            name="DQ Repository">
       </view>
       <view
             category="org.talend.dataprofiler.view.category"
@@ -32,7 +32,7 @@
             category="org.talend.dataprofiler.view.category"
             class="org.talend.dataprofiler.core.ui.views.QuanlityView"
             id="org.talend.dataprofiler.core.ui.views.QuanlityView"
-            name="QuanlityView">
+            name="Quality Indicator">
       </view>
       
     </extension> 
@@ -40,44 +40,65 @@
     <extension
          point="org.eclipse.ui.navigator.viewer">
        <viewer
-             viewerId="org.talend.dataprofiler.core.ui.views.DQResponsitoryView">        
+             viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">        
        </viewer>
        <viewerContentBinding 
-             viewerId="org.talend.dataprofiler.core.ui.views.DQResponsitoryView">
+             viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
           <includes>
        	      <contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />		       	      
 	          <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
           </includes>
        </viewerContentBinding>
        <viewerActionBinding
-            viewerId="org.talend.dataprofiler.core.ui.views.DQResponsitoryView">
+            viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
          <includes>
-             <actionExtension pattern="org.eclipse.ui.navigator.resources.*" />
+             <actionExtension pattern="org.talend.dataprofiler.core.ui.action.provider.*" />
          </includes>
-       </viewerActionBinding>       
+       </viewerActionBinding>     
    </extension>
-    
-   <!-- <extension  
+<!-- Resource Content--> 
+   <extension  
          point="org.eclipse.ui.navigator.navigatorContent">
-      <navigatorContent
+     <!-- <navigatorContent
             name="%resource.extension.name"
             priority="low"
             icon="$nl$/icons/sample.gif"
             activeByDefault="true"
-			            contentProvider="org.talend.dataprofiler.core.ui.resources.ResourceExtensionContentProvider"
-            			labelProvider="org.talend.dataprofiler.core.ui.resources.ResourceExtensionLabelProvider"			
-            id="org.talend.dataprofiler.core.ui.views.DQResponsitoryView">         
-         <enablement>
+			            contentProvider="org.talend.componentdesigner.resources.ResourceExtensionContentProvider"
+            			labelProvider="org.talend.componentdesigner.resources.ResourceExtensionLabelProvider"			
+            id="org.talend.dataprofiler.core.ui.views.DQRespositoryView">         
+        <enablement>
 		         <or>         
 		            <adapt type="org.eclipse.core.resources.IProject" /> 
 		            <instanceof 
 		                  	value="org.eclipse.core.resources.IResource" /> 
 		         </or>
-         </enablement>		
-	 
-      </navigatorContent>
-      
-   </extension>-->
+         </enablement>
+         
+        <actionProvider 
+      			id="org.talend.componentdesigner.ui.action.CopyComponentActionProvider"
+				class="org.talend.componentdesigner.ui.action.provider.CopyComponentActionProvider">
+			<enablement>
+				<or>
+					<adapt type="org.eclipse.core.resources.IFolder" /> 	
+				</or>
+			</enablement>
+		</actionProvider> 
+             
+      </navigatorContent> --> 
+      <actionProvider
+            	class="org.talend.dataprofiler.core.ui.action.provider.NewConnectionActionProvider"
+            	id="org.talend.dataprofiler.core.ui.action.provider.NewConnectionActionProvider"> 
+        	<enablement> 
+        			<or>
+						<adapt type="org.eclipse.core.resources.IResource" />	 
+						<adapt type="java.util.Collection"> 
+							<count value="0" />
+						</adapt>
+					</or>
+	         </enablement>
+		</actionProvider>      
+   </extension>
     
       
      
@@ -94,7 +115,7 @@
  <extension point="org.eclipse.ui.perspectiveExtensions">
   <perspectiveExtension
 	targetID="org.talend.dataprofiler.DataProfilingPerspective">
-    	<view id="org.talend.dataprofiler.core.ui.views.DQResponsitoryView"
+    	<view id="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
         	relative="org.eclipse.ui.editorss"
     		relationship="left"
     		ratio="0.45"
@@ -112,7 +133,6 @@
         <view id="org.talend.dataprofiler.core.ui.views.QuanlityView"
               relative="org.talend.dataprofiler.core.ui.views.CheatSheetView"
               relationship="bottom"
-              closeable="false"
               />
   </perspectiveExtension>  
 </extension>
