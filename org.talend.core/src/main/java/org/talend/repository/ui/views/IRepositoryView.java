@@ -12,9 +12,12 @@
 // ============================================================================
 package org.talend.repository.ui.views;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.IViewPart;
-import org.talend.core.i18n.Messages;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -41,5 +44,7 @@ public interface IRepositoryView extends IViewPart {
     public boolean getExpandedState(Object object);
 
     public RepositoryNode getRoot();
+    
+    public List<IRepositoryObject> getAll(ERepositoryObjectType type);
 
 }
