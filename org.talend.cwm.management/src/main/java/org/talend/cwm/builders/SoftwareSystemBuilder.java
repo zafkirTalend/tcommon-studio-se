@@ -13,18 +13,11 @@
 package org.talend.cwm.builders;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.talend.cwm.constants.SoftwareSystemConstants;
-import org.talend.cwm.relational.RelationalFactory;
-import org.talend.cwm.relational.TdSqlDataType;
-import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
-import org.talend.utils.sql.metadata.constants.TypeInfoColumns;
-
 import orgomg.cwm.foundation.typemapping.TypeSystem;
-import orgomg.cwm.foundation.typemapping.TypemappingFactory;
 
 /**
  * @author scorreia
@@ -42,85 +35,9 @@ public class SoftwareSystemBuilder extends CwmBuilder {
         softwareSystem = initializeSoftwareSystem();
     }
 
-    private static final int DB_MINOR_VERSION_DEFAULT = 0;
-
     private TdSoftwareSystem initializeSoftwareSystem() throws SQLException {
-        // --- get informations
-        String databaseProductName = databaseMetadata.getDatabaseProductName();
-        String databaseProductVersion = databaseMetadata.getDatabaseProductVersion();
-        try {
-            int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
-            int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
-            String version = Integer.toString(databaseMajorVersion) + "." + databaseMinorVersion;
-            print("Database=", databaseProductName + " | " + databaseProductVersion + " " + version);
-            // TODO scorreia see if store in CWM structure is done elsewhere
-        } catch (RuntimeException e) {
-            // happens for Sybase ASE for example
-        }
-
-        // --- create and fill the software system
-        TdSoftwareSystem system = SoftwaredeploymentFactory.eINSTANCE.createTdSoftwareSystem();
-        system.setName(databaseProductName); // TODO scorreia find the name!
-        system.setType(SoftwareSystemConstants.DBMS.toString());
-        system.setSubtype(databaseProductName);
-        system.setVersion(databaseProductVersion);
-
-        // --- get the types supported by the system
-        ResultSet typeInfo = databaseMetadata.getTypeInfo();
-        int columnCount = typeInfo.getMetaData().getColumnCount();
-
-        typeSystem = TypemappingFactory.eINSTANCE.createTypeSystem();
-        typeSystem.setName(databaseProductName); // TODO scorreia put another name?
-        while (typeInfo.next()) {
-            // --- get the informations form the DB
-            String name = typeInfo.getString(TypeInfoColumns.TYPE_NAME.name());
-            int datatype = typeInfo.getInt(TypeInfoColumns.DATA_TYPE.name());
-            int precision;
-            try {
-                precision = typeInfo.getInt(TypeInfoColumns.PRECISION.name());
-            } catch (Exception e) {
-
-            }
-            String literalPrefix = typeInfo.getString(TypeInfoColumns.LITERAL_PREFIX.name());
-            String literalsuffix = typeInfo.getString(TypeInfoColumns.LITERAL_SUFFIX.name());
-            String createparams = typeInfo.getString(TypeInfoColumns.CREATE_PARAMS.name());
-            short nullable = typeInfo.getShort(TypeInfoColumns.NULLABLE.name());
-            boolean casesensitive = typeInfo.getBoolean(TypeInfoColumns.CASE_SENSITIVE.name());
-            short searchable = typeInfo.getShort(TypeInfoColumns.SEARCHABLE.name());
-            boolean unsignedattribute = typeInfo.getBoolean(TypeInfoColumns.UNSIGNED_ATTRIBUTE.name());
-            boolean fixedprecscale = typeInfo.getBoolean(TypeInfoColumns.FIXED_PREC_SCALE.name());
-            boolean autoincrement = typeInfo.getBoolean(TypeInfoColumns.AUTO_INCREMENT.name());
-            String localtypename = typeInfo.getString(TypeInfoColumns.LOCAL_TYPE_NAME.name());
-            short minimumscale = typeInfo.getShort(TypeInfoColumns.MINIMUM_SCALE.name());
-            short maximumscale = typeInfo.getShort(TypeInfoColumns.MAXIMUM_SCALE.name());
-            int sqldatatype = typeInfo.getInt(TypeInfoColumns.SQL_DATA_TYPE.name());
-            int sqldatetimesub = typeInfo.getInt(TypeInfoColumns.SQL_DATETIME_SUB.name());
-            int numprecradix = typeInfo.getInt(TypeInfoColumns.NUM_PREC_RADIX.name());
-
-            // System.out.println(ResultSetUtils.formatRow(typeInfo, columnCount, 10));
-
-            // --- store the information in CWM structure
-            // TODO scorreia change to SQLSimpleType ?
-            TdSqlDataType dataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
-            dataType.setName(name);
-            dataType.setJavaDataType(datatype);
-            // dataType.setNumericPrecision(precision);
-            dataType.setNullable(nullable);
-            dataType.setCaseSensitive(casesensitive);
-            dataType.setSearchable(searchable);
-            dataType.setUnsignedAttribute(unsignedattribute);
-            dataType.setAutoIncrement(autoincrement);
-            dataType.setLocalTypeName(localtypename);
-            dataType.setNumericPrecisionRadix(numprecradix);
-
-            // --- add the element to the list
-            typeSystem.getOwnedElement().add(dataType);
-
-            // --- create the mapping with the java language
-            // TODO scorreia TypeMapping typeMapping = TypemappingFactory.eINSTANCE.createTypeMapping();
-            // typeMapping.
-
-        } // end of loop on typeinfo rows
+        TdSoftwareSystem system = DatabaseContentRetriever.getSoftwareSystem(connection);
+        this.typeSystem = DatabaseContentRetriever.getTypeSystem(connection);
 
         // --- add type systems: softwareSystem.getTypespace()
         system.getTypespace().add(typeSystem);

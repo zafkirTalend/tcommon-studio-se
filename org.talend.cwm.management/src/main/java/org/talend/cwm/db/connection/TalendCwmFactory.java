@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.apache.log4j.Logger;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;

@@ -14,14 +14,10 @@ package org.talend.cwm.builders;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.Properties;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
-import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -33,7 +29,8 @@ public class ConnectionProviderBuilder extends CwmBuilder {
     public ConnectionProviderBuilder(Connection conn, String dbUrl, String driverClassName, Properties props)
             throws SQLException {
         super(conn);
-        this.providerConnection = initializeProviderConnection(dbUrl, driverClassName, props);
+        this.providerConnection = DatabaseContentRetriever.getProviderConnection(dbUrl, driverClassName, props,
+                connection);
     }
 
     /**
@@ -46,28 +43,6 @@ public class ConnectionProviderBuilder extends CwmBuilder {
      * @return
      * @throws SQLException
      */
-    private TdProviderConnection initializeProviderConnection(String dbUrl, String driverClassName, Properties props)
-            throws SQLException {
-        TdProviderConnection prov = SoftwaredeploymentFactory.eINSTANCE.createTdProviderConnection();
-        prov.setName(driverClassName + EcoreUtil.generateUUID()); // TODO scorreia change default name of provider
-                                                                    // connection
-        prov.setDriverClassName(driverClassName);
-        prov.setConnectionString(dbUrl);
-        prov.setIsReadOnly(connection.isReadOnly());
-
-        // ---add properties as tagged value of the provider connection.
-        Enumeration<?> propertyNames = props.propertyNames();
-        while (propertyNames.hasMoreElements()) {
-            String key = propertyNames.nextElement().toString();
-            String property = props.getProperty(key);
-            TaggedValue taggedValue = TaggedValueHelper.createTaggedValue(key, property);
-            prov.getTaggedValue().add(taggedValue);
-        }
-
-        // TODO scorreia set name? or let it be set outside of this class?
-
-        return prov;
-    }
 
     public TdProviderConnection getProviderConnection() {
         return this.providerConnection;

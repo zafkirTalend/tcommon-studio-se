@@ -16,9 +16,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.talend.cwm.db.connection.ConnectionParameters;
 import org.talend.cwm.db.connection.DBConnect;
 import org.talend.cwm.db.connection.TalendCwmFactory;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -33,43 +33,40 @@ public final class ConnectionService {
 
     public static ReturnCode checkConnection(String url, String driverClassName, Properties props) {
         ReturnCode rc = new ReturnCode();
-        rc.setOk(true); // everything is ok at the beginning.
+
         Connection connection = null;
         try {
             connection = ConnectionUtils.createConnection(url, driverClassName, props);
+            rc = (ConnectionUtils.isValid(connection));
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            rc.setReturnCode(e.getMessage(), false);
         } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            rc.setReturnCode(e.getMessage(), false);
         } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            rc.setReturnCode(e.getMessage(), false);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            rc.setReturnCode(e.getMessage(), false);
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    rc.setReturnCode(e.getMessage(), false);
                 }
             }
         }
-        if (!rc.isOk()) {
-            return rc;
-        }
-        rc = ConnectionUtils.isValid(connection);
+
         return rc;
     }
 
     public static TdDataProvider createConnection(ConnectionParameters connectionParameters) {
         DBConnect connector = new DBConnect(connectionParameters);
         try {
-            return TalendCwmFactory.createDataProvider(connector, connectionParameters.getFolderProvider());
+            TdDataProvider dataProvider = TalendCwmFactory.createDataProvider(connector, connectionParameters
+                    .getFolderProvider());
+            // TODO scorreia set other parameters here
+            dataProvider.setName(connectionParameters.getConnectionName());
+            return dataProvider;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -78,4 +75,5 @@ public final class ConnectionService {
         }
         return null;
     }
+
 }

@@ -13,6 +13,7 @@
 package org.talend.cwm.helper;
 
 import java.util.Collection;
+import java.util.Properties;
 
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.TaggedValue;
@@ -62,5 +63,22 @@ public final class TaggedValueHelper {
             }
         }
         return value;
+    }
+
+    /**
+     * Method "createProperties".
+     * 
+     * @param taggedValues a list of pairs (key,value).
+     * @return a properties from the given tag-value collection
+     */
+    public static Properties createProperties(Collection<TaggedValue> taggedValues) {
+        Properties properties = new Properties();
+        for (TaggedValue taggedValue : taggedValues) {
+            if (taggedValue == null) {
+                continue;
+            }
+            properties.put(taggedValue.getTag(), taggedValue.getValue());
+        }
+        return properties;
     }
 }

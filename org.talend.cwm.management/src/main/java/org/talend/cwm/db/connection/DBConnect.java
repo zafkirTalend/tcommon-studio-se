@@ -29,6 +29,7 @@ import org.talend.cwm.builders.CatalogBuilder;
 import org.talend.cwm.builders.ConnectionProviderBuilder;
 import org.talend.cwm.builders.DataProviderBuilder;
 import org.talend.cwm.builders.SoftwareSystemBuilder;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.TdDataProvider;

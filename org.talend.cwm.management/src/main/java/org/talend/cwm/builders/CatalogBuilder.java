@@ -13,25 +13,18 @@
 package org.talend.cwm.builders;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.talend.cwm.relational.RelationalFactory;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.relational.TdCatalog;
-import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
-import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
-import org.talend.utils.sql.metadata.constants.GetColumn;
-import org.talend.utils.sql.metadata.constants.GetTable;
-import org.talend.utils.sql.metadata.constants.MetaDataConstants;
-import org.talend.utils.sql.metadata.constants.TableType;
-
-import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
  * @author scorreia
@@ -74,7 +67,7 @@ public class CatalogBuilder extends CwmBuilder {
      * 
      * @throws SQLException
      */
-    public void initializeTables() throws SQLException {
+    protected void initializeTables() throws SQLException {
         if (!catalogsInitialized) {
             initializeCatalog();
         }
@@ -101,103 +94,22 @@ public class CatalogBuilder extends CwmBuilder {
     } // eom initializeTables
 
     private void setTablesIntoStructure(String catName, String schemaName) throws SQLException {
-        ResultSet tablesSet = databaseMetadata.getTables(catName, schemaName, null, new String[] { TableType.TABLE
-                .toString() });
-
-        // ResultSetUtils.printResultSet(tablesSet, 20);
-
-        while (tablesSet.next()) {
-            String tableName = tablesSet.getString(GetTable.TABLE_NAME.name());
-            // --- create a table
-            TdTable table = createTable(tableName);
-            fillAndStoreTable(table, catName, schemaName);
-        }
-        // release JDBC resources
-        tablesSet.close();
-    }
-
-    /**
-     * DOC scorreia Comment method "storeTable".
-     * 
-     * @param table
-     * @param catName
-     * @param schemaName
-     * @throws SQLException
-     */
-    private void fillAndStoreTable(TdTable table, String catName, String schemaName) throws SQLException {
-        // --- add columns to table
-        ResultSet columns = databaseMetadata.getColumns(catName, schemaName, table.getName(), null);
-        while (columns.next()) {
-            TdColumn column = RelationalFactory.eINSTANCE.createTdColumn();
-            column.setName(columns.getString(GetColumn.COLUMN_NAME.name()));
-            column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
-            column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
-            // TODO columns.getString(GetColumn.TYPE_NAME.name());
-
-            // TODO get column description (comment)
-
-            // TODO scorreia other informations for columns can be retrieved here
-
-            // --- create and set type of column
-            TdSqlDataType sqlDataType = createDataType(columns);
-            column.setType(sqlDataType);
-
-            table.getOwnedElement().add(column);
-        }
-
-        // release JDBC resources
-        columns.close();
-
+        List<TdTable> tablesWithColumns = DatabaseContentRetriever.getTablesWithAllColumns(catName, schemaName,
+                connection);
         // --- store table in Catalog or in Schema.
         if (schemaName != null) {
             TdSchema schema = name2schema.get(schemaName);
-            schema.getOwnedElement().add(table);
+            schema.getOwnedElement().addAll(tablesWithColumns);
         } else {
             // store table in catalog
             // TODO scorreia what do we do when there is no schema
             TdCatalog cat = name2catalog.get(catName);
             if (cat != null) {
-                cat.getOwnedElement().add(table);
+                cat.getOwnedElement().addAll(tablesWithColumns);
             } else {
                 log.error("No schema nor catalog found for " + catName);
             }
         }
-    }
-
-    private TdSqlDataType createDataType(ResultSet columns) throws SQLException {
-        if (true)
-            return null; // FIXME scorreia remove this patch
-        TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
-        sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
-        sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
-        sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
-        return sqlDataType;
-    }
-
-    /**
-     * DOC scorreia Comment method "createColumn".
-     * 
-     * @param name
-     * @param length
-     * @return
-     */
-    private TdColumn createColumn(String name, int length) {
-        TdColumn column = RelationalFactory.eINSTANCE.createTdColumn();
-        column.setName(name);
-        column.setLength(length);
-        return column;
-    }
-
-    /**
-     * DOC scorreia Comment method "createTable".
-     * 
-     * @param tableName
-     * @return
-     */
-    private TdTable createTable(String tableName) {
-        TdTable table = RelationalFactory.eINSTANCE.createTdTable();
-        table.setName(tableName);
-        return table;
     }
 
     /**
@@ -269,125 +181,28 @@ public class CatalogBuilder extends CwmBuilder {
     }
 
     private void initializeCatalog() throws SQLException {
-
-        ResultSet catalogs = databaseMetadata.getCatalogs();
-        if (catalogs == null) {
-            String currentCatalog = connection.getCatalog();
-            // got the current catalog name, create a Catalog
-            createCatalog(currentCatalog);
-        } else {
-            // else DB support getCatalogs() method
-            while (catalogs.next()) {
-                String catName = catalogs.getString(MetaDataConstants.TABLE_CAT.name());
-                createCatalog(catName);
-            }
-        }
-        catalogsInitialized = true;
-
-        catalogs.close();
+        name2catalog.putAll(DatabaseContentRetriever.getCatalogs(connection));
     }
 
     private void initializeSchema() throws SQLException {
 
-        ResultSet schemas = databaseMetadata.getSchemas();
-        if (schemas != null) {
-            // debug
-            // if (log.isDebugEnabled()) {
-            // ResultSetUtils.printResultSet(schemas, 40);
-            // }
-
-            // initialize the catalog if not already done
-            if (!catalogsInitialized) {
-                initializeCatalog();
-            }
-
-            // --- check whether the result set has two columns (Oracle and Sybase only return 1 column)
-            int columnCount = schemas.getMetaData().getColumnCount();
-
-            // TODO scorreia MODSCA20080118 do we need to create a default catalog when there is none?
-            // String defaultCatName = "My Default Catalog";
-            // if (columnCount == 1) {
-            // // TODO scorreia create a default catalog
-            // if (name2catalog.isEmpty()) {
-            // createCatalog(defaultCatName);
-            // }
-            // }
-
-            while (schemas.next()) {
-                // create the schemata
-                String schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
-                TdSchema schema = createSchema(schemaName);
-
-                // set link Catalog -> Schema if exists
-                if (columnCount > 1) {
-                    // TODO scorreia handle sybase case: no catalog name, only one column in this result set.
-                    // try {
-                    String catName = schemas.getString(MetaDataConstants.TABLE_CATALOG.name());
-                    if (catName != null) {
-                        // get the catalog and add the schema
-                        TdCatalog catalog = name2catalog.get(catName);
-                        catalog.getOwnedElement().add(schema);
-                    }
-                    // } catch (Exception e) {
-                    // // TODO Auto-generated catch block
-                    // e.printStackTrace();
-                    // }
-                }
-
-                // TODO scorreia MODSCA20080118 do we need to create a default catalog when there is none?
-                // else {
-                // TdCatalog cat = name2catalog.get(defaultCatName);
-                // cat.getOwnedElement().add(schema);
-                // }
-
-            }
-
-            // release JDBC resources
-            schemas.close();
+        // initialize the catalog if not already done
+        if (!catalogsInitialized) {
+            initializeCatalog();
         }
 
-        // if no schema exist in catalog, do not create a default one.
-        // The tables will be added directly to the catalog.
+        Map<String, List<TdSchema>> catalog2schemas = DatabaseContentRetriever.getSchemas(connection);
+
+        // store schemas in catalogs
+        Set<String> catNames = catalog2schemas.keySet();
+        for (String catName : catNames) {
+            TdCatalog catalog = name2catalog.get(catName);
+            catalog.getOwnedElement().addAll(catalog2schemas.get(catName));
+        }
 
         // set the flag to initialized and return the created catalog
         schemaInitialized = true;
 
-    }
-
-    /**
-     * Method "createCatalog" creates a Catalog with the given name.
-     * 
-     * @param name the name of the catalog
-     * @return the newly created catalog
-     */
-    private TdCatalog createCatalog(String name) {
-        if (name == null) {
-            return null;
-        }
-        TdCatalog cat = RelationalFactory.eINSTANCE.createTdCatalog();
-        cat.setName(name);
-        name2catalog.put(name, cat);
-
-        // --- TODO set attributes of catalog
-        return cat;
-    }
-
-    // utility
-
-    /**
-     * Method "createSchema" creates a schema if the given name is not null.
-     * 
-     * @param name a schema name (or null)
-     * @return the created schema or null
-     */
-    private TdSchema createSchema(String name) {
-        if (name == null) {
-            return null;
-        }
-        TdSchema schema = RelationalFactory.eINSTANCE.createTdSchema();
-        schema.setName(name);
-        name2schema.put(name, schema);
-        return schema;
     }
 
 }

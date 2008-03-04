@@ -10,9 +10,11 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.cwm.db.connection;
+package org.talend.cwm.management.connection;
 
 import java.util.Properties;
+
+import org.talend.cwm.db.connection.FolderProvider;
 
 /**
  * @author scorreia
@@ -21,7 +23,6 @@ import java.util.Properties;
  */
 public class ConnectionParameters {
 
-    // TODO scorreia add path to folder
     // TODO scorreia add user, version, status?
     private String connectionId;
 
