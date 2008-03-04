@@ -213,7 +213,8 @@ public final class ElementParameterParser {
             return (String) value;
         }
 
-        if (param.getField() == EParameterFieldType.CHECK || param.getField() == EParameterFieldType.AS400_CHECK) {
+        if (param.getField() == EParameterFieldType.RADIO || param.getField() == EParameterFieldType.CHECK
+                || param.getField() == EParameterFieldType.AS400_CHECK) {
             return ((Boolean) param.getValue()).toString();
         }
 
