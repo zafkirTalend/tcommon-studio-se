@@ -1,7 +1,6 @@
 package routines;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class Numeric {
 
@@ -53,18 +52,21 @@ public class Numeric {
      * 
      */
     public static Float convertImpliedDecimalFormat(String format, String toConvert) {
-        int decimalPlace = 0;
-        boolean isV = false;
-        for (int i = 0; i < format.length(); i++) {
-            char charAt = format.charAt(i);
-            if (charAt == '9' && isV) {
-                decimalPlace++;
-            } else if (charAt == 'V') {
-                isV = true;
+        long decimalPlace = 1;
+        int indexOf = format.indexOf('V');
+        if (indexOf > -1) {
+            boolean isV = false;
+            for (int i = 0; i < format.length(); i++) {
+                char charAt = format.charAt(i);
+                if (charAt == '9' && isV) {
+                    decimalPlace = 10 * decimalPlace;
+                } else if (charAt == 'V') {
+                    isV = true;
+                }
             }
         }
-        BigDecimal decimal = new BigDecimal(new BigInteger(toConvert));
-        decimal = decimal.setScale(decimalPlace, BigDecimal.ROUND_DOWN);
+        BigDecimal decimal = new BigDecimal(toConvert);
+        decimal = decimal.divide(new BigDecimal(decimalPlace));
         return new Float(decimal.doubleValue());
     }
 }
