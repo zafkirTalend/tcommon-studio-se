@@ -43,6 +43,16 @@ public class ReturnCode {
     }
 
     /**
+     * ReturnCode constructor. Message is set to null.
+     * 
+     * @param isOk the return boolean by default.
+     */
+    public ReturnCode(boolean isOk) {
+        this.message = null;
+        this.ok = isOk;
+    }
+
+    /**
      * Method "setReturnCode" set the message and return code in one call.
      * 
      * @param mess
