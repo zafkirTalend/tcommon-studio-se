@@ -74,6 +74,15 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
     }
 
     /**
+     * Getter for regEx.
+     * 
+     * @return the regEx
+     */
+    public String getRegEx() {
+        return this.regEx;
+    }
+
+    /**
      * Create an instance of this class. Use this constructor if you wish to recursively export a single resource.
      * 
      * @param res org.eclipse.core.resources.IResource;
