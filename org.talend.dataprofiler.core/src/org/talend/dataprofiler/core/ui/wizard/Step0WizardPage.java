@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.cwm.db.connection.ConnectionParameters;
+import org.talend.cwm.management.connection.ConnectionParameters;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

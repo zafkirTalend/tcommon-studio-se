@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.talend.cwm.db.connection.ConnectionParameters;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ImageLib;
 
 /**
@@ -44,14 +44,13 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
      * @param selection
      * @param existingNames
      */
-    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection, String[] existingNames) {
+    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
+            String[] existingNames) {
         super();
         this.init(workbench, selection);
         this.creation = creation;
 
     }
-    
-
 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         this.workbench = workbench;
@@ -66,7 +65,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
 
         propertiesWizardPage = new Step0WizardPage(connectionProperty, null, false, creation);
-//        databaseWizardPage = new DatabaseWizardPage(connectionItem, isRepositoryObjectEditable(), existingNames);
+        // databaseWizardPage = new DatabaseWizardPage(connectionItem, isRepositoryObjectEditable(), existingNames);
 
         if (creation) {
             propertiesWizardPage.setTitle("New Database Connection on repository - Step 1/2");
@@ -88,7 +87,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
             // databaseWizardPage.setPageComplete(isRepositoryObjectEditable());
         }
         addPage(propertiesWizardPage);
-//        addPage(databaseWizardPage);
+        // addPage(databaseWizardPage);
     }
 
     /**

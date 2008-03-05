@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
-import org.talend.cwm.db.connection.ConnectionParameters;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
 import org.talend.dataprofiler.core.ui.dialog.TypedViewerFilter;
@@ -106,8 +106,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this(pageName, property, destinationPath, false, true);
     }
 
-    protected PropertiesWizardPage(String pageName, ConnectionParameters property, IPath destinationPath, boolean readOnly,
-            boolean editPath) {
+    protected PropertiesWizardPage(String pageName, ConnectionParameters property, IPath destinationPath,
+            boolean readOnly, boolean editPath) {
         super(pageName);
         // IRepositoryService service = (IRepositoryService)
         // GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
@@ -279,7 +279,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         if (editPath) {
             Button button = new Button(pathContainer, SWT.PUSH);
-            button.setText("Select.."); 
+            button.setText("Select..");
 
             button.addSelectionListener(new SelectionAdapter() {
 
@@ -303,8 +303,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             }
         }
         ViewerFilter filter = new TypedViewerFilter(acceptedClasses, rejectedElements.toArray());
-        
-        
+
         ILabelProvider lp = new WorkbenchLabelProvider();
         ITreeContentProvider cp = new WorkbenchContentProvider();
 
