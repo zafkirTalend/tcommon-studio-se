@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
@@ -48,6 +49,8 @@ import org.talend.librariesmanager.prefs.PreferencesUtilities;
 public class PerlLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(PerlLibrariesService.class);
+
+    private static final String START_T = "t";
 
     private static boolean isLibSynchronized;
 
@@ -181,10 +184,20 @@ public class PerlLibrariesService extends AbstractLibrariesService {
     private void analyzeResponse(StringBuffer buff, Map<String, List<ModuleNeeded>> componentsByModules) {
 
         String[] lines = buff.toString().split("\n");
-        for (String line : lines) {
-            if (line != null && line.length() > 0) {
+        for (int i = 0; i < lines.length; i++) {
+            if (lines[i] != null && lines[i].length() > 0) {
+                String path = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
+                if (lines[i].indexOf(PerlLibrariesService.START_T) == 0) {
+                    File file = new File(path + File.separatorChar + lines[i].split("::")[0] + File.separatorChar
+                            + lines[i].split("::")[1].substring(0, lines[i].split("::")[1].indexOf(RESULT_SEPARATOR)) + ".pm");
+                    if (file.exists()) {
+                        lines[i] = lines[i].substring(0, lines[i].indexOf(RESULT_SEPARATOR) + 4) + RESULT_KEY_OK
+                                + lines[i].substring(lines[i].indexOf(RESULT_SEPARATOR) + 6, lines[i].length());
+                    }
+                }
+
                 // Treat a perl response line :
-                String[] elts = line.split(RESULT_SEPARATOR);
+                String[] elts = lines[i].split(RESULT_SEPARATOR);
 
                 List<ModuleNeeded> componentsToTreat = componentsByModules.get(elts[0]);
 
