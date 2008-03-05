@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
@@ -93,23 +95,26 @@ public class CatalogBuilder extends CwmBuilder {
         }
     } // eom initializeTables
 
-    private void setTablesIntoStructure(String catName, String schemaName) throws SQLException {
+    private boolean setTablesIntoStructure(String catName, String schemaName) throws SQLException {
+        boolean ok = true;
         List<TdTable> tablesWithColumns = DatabaseContentRetriever.getTablesWithAllColumns(catName, schemaName,
                 connection);
         // --- store table in Catalog or in Schema.
         if (schemaName != null) {
             TdSchema schema = name2schema.get(schemaName);
-            schema.getOwnedElement().addAll(tablesWithColumns);
+            SchemaHelper.addTables(tablesWithColumns, schema);
         } else {
             // store table in catalog
             // TODO scorreia what do we do when there is no schema
             TdCatalog cat = name2catalog.get(catName);
             if (cat != null) {
-                cat.getOwnedElement().addAll(tablesWithColumns);
+                CatalogHelper.addTables(tablesWithColumns, cat);
             } else {
+                ok = false;
                 log.error("No schema nor catalog found for " + catName);
             }
         }
+        return ok;
     }
 
     /**
@@ -197,12 +202,11 @@ public class CatalogBuilder extends CwmBuilder {
         Set<String> catNames = catalog2schemas.keySet();
         for (String catName : catNames) {
             TdCatalog catalog = name2catalog.get(catName);
-            catalog.getOwnedElement().addAll(catalog2schemas.get(catName));
+            CatalogHelper.addSchemas(catalog2schemas.get(catName), catalog);
         }
 
         // set the flag to initialized and return the created catalog
         schemaInitialized = true;
 
     }
-
 }

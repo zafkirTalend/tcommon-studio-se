@@ -171,7 +171,8 @@ public class DBConnect {
     }
 
     /**
-     * Method "storeInResourceSet".
+     * Method "storeInResourceSet" prepares the given object to be saved in the given file. Then the method
+     * {@link #saveInFiles()} must be called to write the files.
      * 
      * @param eObject the object to be saved
      * @param filename the file name to which the object must be saved
@@ -269,7 +270,8 @@ public class DBConnect {
     }
 
     /**
-     * Method "retrieveDatabaseStructure".
+     * Method "retrieveDatabaseStructure" retrieves the catalog and schemas list from the database. If it has already
+     * been done once, then the structure is not requested again from the database.
      * 
      * @return ok if no problem
      * @throws SQLException
@@ -295,6 +297,23 @@ public class DBConnect {
         }
         return ok;
     }
+
+    // /**
+    // * Method "retrieveTables".
+    // *
+    // * @param catalogName the name of the catalog
+    // * @param schemaName the name of the schema
+    // * @return true if tables and columns have been loaded and stored into the corresponding catalog and/or schema.
+    // * @throws SQLException
+    // */
+    // public boolean retrieveTables(String catalogName, String schemaName) throws SQLException {
+    // boolean ok = checkConnection("Cannot connect to database. ");
+    // if (catalogBuilder == null || !ok) {
+    // return false;
+    // }
+    // // else
+    // return catalogBuilder.setTablesIntoStructure(catalogName, schemaName);
+    // }
 
     /**
      * Method "checkConnection" checks that the connection is not null and not closed.

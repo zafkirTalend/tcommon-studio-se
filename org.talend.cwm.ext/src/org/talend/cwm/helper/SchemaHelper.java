@@ -12,20 +12,41 @@
 // ============================================================================
 package org.talend.cwm.helper;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
- * DOC scorreia class global comment. Detailled comment
+ * @author scorreia
+ * 
+ * Utility for handling Schema.
  */
 public final class SchemaHelper {
 
     private SchemaHelper() {
     }
 
+    public static List<TdSchema> getSchemas(Collection<? extends EObject> elements) {
+        List<TdSchema> schemas = new ArrayList<TdSchema>();
+        for (EObject modelElement : elements) {
+            TdSchema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(modelElement);
+            if (schema != null) {
+                schemas.add(schema);
+            }
+        }
+        return schemas;
+    }
+
     public static List<TdTable> getTables(Schema schema) {
         return TableHelper.getTables(schema.getOwnedElement());
+    }
+
+    public static boolean addTables(Collection<TdTable> tables, Schema schema) {
+        return schema.getOwnedElement().addAll(tables);
     }
 }

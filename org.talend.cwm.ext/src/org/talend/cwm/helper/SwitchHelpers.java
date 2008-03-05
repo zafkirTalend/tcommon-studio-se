@@ -17,6 +17,8 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.util.RelationalSwitch;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.cwm.softwaredeployment.util.SoftwaredeploymentSwitch;
 
 /**
  * @author scorreia
@@ -55,6 +57,15 @@ public class SwitchHelpers {
 
         @Override
         public TdColumn caseTdColumn(TdColumn object) {
+            return object;
+        }
+
+    };
+
+    public static final SoftwaredeploymentSwitch<TdDataProvider> TDDATAPROVIDER_SWITCH = new SoftwaredeploymentSwitch<TdDataProvider>() {
+
+        @Override
+        public TdDataProvider caseTdDataProvider(TdDataProvider object) {
             return object;
         }
 

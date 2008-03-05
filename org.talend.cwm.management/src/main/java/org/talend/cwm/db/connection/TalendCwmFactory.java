@@ -13,20 +13,29 @@
 package org.talend.cwm.db.connection;
 
 import java.io.File;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.talend.commons.emf.FactoriesUtil;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.DataProviderHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
+import org.talend.cwm.management.connection.JavaSqlFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
-import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
+import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
+import org.talend.utils.sugars.TypedReturnCode;
 import org.talend.utils.time.TimeTracer;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -60,11 +69,13 @@ public final class TalendCwmFactory {
     }
 
     /**
-     * Method "createDataProvider" create the data provider, the catalogs and the schemas.
+     * Method "createDataProvider" create the data provider, the catalogs and the schemas. The created data provider and
+     * its related Catalog and Schemas are stored in the DBConnect class. In order to finally serialize them in a file,
+     * the method {@link DBConnect#saveInFiles()} must be called.
      * 
-     * @param connector
-     * @param folderProvider
-     * @return
+     * @param connector the helper for building CWM objects from a connection
+     * @param folderProvider contains the path where the file will be stored.
+     * @return the data provider
      * @throws SQLException
      */
     public static TdDataProvider createDataProvider(DBConnect connector, FolderProvider folderProvider)
@@ -82,19 +93,19 @@ public final class TalendCwmFactory {
         Collection<TdSchema> schemata = getSchemata(connector);
 
         // --- link everything
-        if ((dataProvider != null) && (providerConnection != null)) {
-            // this relation is a reference to a contained object.
-            dataProvider.getResourceConnection().add(providerConnection);
-            // this relation is a reference to a non contained object.
-            // dataProvider.getClientConnection().add(providerConnection);
-        }
-        boolean allAdded = dataProvider.getDataPackage().addAll(schemata);
-        if (log.isInfoEnabled()) {
-            log.info("all " + schemata.size() + " schemata added: " + allAdded);
-        }
-        allAdded = dataProvider.getDataPackage().addAll(catalogs);
-        if (log.isInfoEnabled()) {
-            log.info("all " + catalogs.size() + " catalogs added: " + allAdded);
+        DataProviderHelper.addProviderConnection(providerConnection, dataProvider);
+        boolean allAdded = false;
+        // TODO scorreia probably add only when catalogs is empty.
+        if (catalogs.isEmpty()) {
+            allAdded = DataProviderHelper.addSchemas(schemata, dataProvider);
+            if (log.isInfoEnabled()) {
+                log.info("all " + schemata.size() + " schemata added: " + allAdded);
+            }
+        } else {
+            allAdded = DataProviderHelper.addCatalogs(catalogs, dataProvider);
+            if (log.isInfoEnabled()) {
+                log.info("all " + catalogs.size() + " catalogs added: " + allAdded);
+            }
         }
 
         // --- print some informations
@@ -118,8 +129,9 @@ public final class TalendCwmFactory {
     }
 
     /**
-     * Method "getTdDataProvider". the connector should have already open its connection. If not, this method tries to
-     * open a connection. The caller should close the connection.
+     * Method "getTdDataProvider" simply tries to instantiate a data provider from the given connection. The connector
+     * should have already open its connection. If not, this method tries to open a connection. The caller should close
+     * the connection.
      * 
      * @param connector the database connector
      * @return the DataProvider
@@ -196,7 +208,8 @@ public final class TalendCwmFactory {
     }
 
     private static void addInSoftwareSystemResourceSet(String folder, DBConnect connector, ModelElement elt) {
-        addInResourceSet(folder, connector, elt, SoftwaredeploymentPackage.eNAME);
+        addInResourceSet(folder, connector, elt, FactoriesUtil.PROV);
+        // ORIG addInResourceSet(folder, connector, elt, SoftwaredeploymentPackage.eNAME);
     }
 
     private static void addInResourceSet(String folder, DBConnect connector, ModelElement pack, String extension) {
@@ -264,6 +277,49 @@ public final class TalendCwmFactory {
             folderProvider.setFolder(new File("out"));
             initializeConnection(connector, folderProvider);
             tt.end("Everything saved.");
+
+            // --- now create the lower structure
+            // recreate a connection
+            TdProviderConnection providerConnection = connector.getProviderConnection();
+            TypedReturnCode<Connection> rc = JavaSqlFactory.createConnection(providerConnection);
+            if (!rc.isOk()) {
+                log.error(rc.getMessage());
+                return;
+            }
+            boolean ok = false;
+            Collection<TdCatalog> catalogs = connector.getCatalogs();
+            Connection connection = rc.getObject();
+            for (TdCatalog tdCatalog : catalogs) {
+                List<TdSchema> schemas = CatalogHelper.getSchemas(tdCatalog);
+                for (TdSchema tdSchema : schemas) {
+                    List<TdTable> tables = SchemaHelper.getTables(tdSchema);
+                    if (tables.isEmpty()) {
+                        // TODO try to load them from DB.
+                        List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
+                                .getName(), tdSchema.getName(), connection);
+                        ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
+                    }
+                }
+                // first try to get the columns
+                List<TdTable> tables = CatalogHelper.getTables(tdCatalog);
+                if (tables.isEmpty()) {
+                    // TODO try to load them from DB.
+                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
+                            .getName(), null, connection);
+                    ok = CatalogHelper.addTables(tablesWithAllColumns, tdCatalog);
+                }
+            }
+            if (!ok) {
+                log.error("Tables not retrieved.");
+            } else {
+                log.info("table retrieved.");
+
+            }
+
+            connection.close();
+
+            // --- save on disk
+            connector.saveInFiles();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

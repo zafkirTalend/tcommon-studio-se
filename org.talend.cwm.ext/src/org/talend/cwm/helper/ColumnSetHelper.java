@@ -14,14 +14,33 @@ package org.talend.cwm.helper;
 
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.QueryColumnSet;
 
 /**
- * DOC scorreia class global comment. Detailled comment
+ * @author scorreia
+ * 
+ * Utility class for handling ColumnSets.
  */
 public class ColumnSetHelper {
 
+    /**
+     * Method "addColumn" adds the given column to the given column set.
+     * 
+     * @param column the column to add
+     * @param columnSet the column set
+     * @return true if the column set has changed.
+     */
     public static boolean addColumn(Column column, ColumnSet columnSet) {
         return columnSet.getFeature().add(column);
+    }
+
+    /**
+     * Method "createQueryColumnSet".
+     * 
+     * @return a Query column set
+     */
+    public static QueryColumnSet createQueryColumnSet() {
+        return orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.createQueryColumnSet();
     }
 
 }

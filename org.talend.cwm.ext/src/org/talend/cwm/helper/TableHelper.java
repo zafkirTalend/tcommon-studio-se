@@ -16,11 +16,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
-import orgomg.cwm.objectmodel.core.Feature;
-import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * @author scorreia
@@ -38,15 +36,13 @@ public final class TableHelper {
      * @param elements any elements that could contain TdTables
      * @return the list of TdTables found in the given list (never null, but can be empty).
      */
-    public static List<TdTable> getTables(EList<ModelElement> elements) {
+    public static List<TdTable> getTables(Collection<? extends EObject> elements) {
         List<TdTable> tables = new ArrayList<TdTable>();
-        for (ModelElement modelElement : elements) {
-            TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(modelElement);
-            if (table == null) {
-                continue;
+        for (EObject elt : elements) {
+            TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(elt);
+            if (table != null) {
+                tables.add(table);
             }
-            // else
-            tables.add(table);
         }
         return tables;
     }
@@ -58,16 +54,7 @@ public final class TableHelper {
      * @return the list of TdColumn contained in the table
      */
     public static List<TdColumn> getColumns(TdTable table) {
-        List<TdColumn> columns = new ArrayList<TdColumn>();
-        EList<Feature> features = table.getFeature();
-        for (Feature feature : features) {
-            if (feature == null) {
-                continue;
-            }
-            // else
-            columns.add(SwitchHelpers.COLUMN_SWITCH.doSwitch(feature));
-        }
-        return columns;
+        return ColumnHelper.getColumns(table.getFeature());
     }
 
     /**

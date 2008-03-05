@@ -13,21 +13,42 @@
 package org.talend.cwm.helper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
-
-import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 
 /**
- * DOC scorreia class global comment. Detailled comment
+ * @author scorreia
+ * 
+ * Utility class for handling Catalog and its children.
  */
 public final class CatalogHelper {
 
     private CatalogHelper() {
+    }
+
+    public static List<TdCatalog> getTdCatalogs(Collection<? extends EObject> elements) {
+        List<TdCatalog> catalogs = new ArrayList<TdCatalog>();
+        for (EObject pack : elements) {
+            TdCatalog cat = SwitchHelpers.CATALOG_SWITCH.doSwitch(pack);
+            if (cat != null) {
+                catalogs.add(cat);
+            }
+        }
+        return catalogs;
+    }
+
+    public static boolean addSchemas(Collection<TdSchema> schemas, Catalog catalog) {
+        return catalog.getOwnedElement().addAll(schemas);
+    }
+
+    public static boolean addTables(Collection<TdTable> tables, Catalog catalog) {
+        return catalog.getOwnedElement().addAll(tables);
     }
 
     public static List<TdTable> getTables(Catalog catalog) {
@@ -35,16 +56,6 @@ public final class CatalogHelper {
     }
 
     public static List<TdSchema> getSchemas(Catalog catalog) {
-        List<TdSchema> schemas = new ArrayList<TdSchema>();
-        EList<ModelElement> ownedElements = catalog.getOwnedElement();
-        for (ModelElement modelElement : ownedElements) {
-            TdSchema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(modelElement);
-            if (schema == null) {
-                continue;
-            }
-            // else
-            schemas.add(schema);
-        }
-        return schemas;
+        return SchemaHelper.getSchemas(catalog.getOwnedElement());
     }
 }

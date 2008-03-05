@@ -37,7 +37,7 @@ public final class EMFUtil {
     private static Logger log = Logger.getLogger(EMFUtil.class);
 
     /** the encoding for xml files. */
-    private final static String ENCODING = "UTF-8";
+    private static final String ENCODING = "UTF-8";
 
     /** the options needed for saving the resources. */
     private final Map<String, Object> options;
@@ -52,8 +52,11 @@ public final class EMFUtil {
      * @param fileExtensions the list of extensions (without the dot).
      */
     public EMFUtil() {
-        // Initialize the enterprise packages
+        // Initialize the enterprise factories
         FactoriesUtil.initializeAllFactories();
+
+        // Initialize the enterprise packages
+        FactoriesUtil.initializeAllPackages();
 
         // Register the XMI resource factory for the .enterprise extension
         Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;

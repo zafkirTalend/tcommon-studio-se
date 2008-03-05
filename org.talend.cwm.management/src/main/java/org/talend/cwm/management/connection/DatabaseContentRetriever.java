@@ -17,6 +17,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.DriverPropertyInfo;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -28,6 +29,9 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.cwm.constants.SoftwareSystemConstants;
+import org.talend.cwm.helper.ColumnHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.helper.ViewHelper;
@@ -51,6 +55,8 @@ import org.talend.utils.sql.metadata.constants.TypeInfoColumns;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 import orgomg.cwm.foundation.typemapping.TypemappingFactory;
 import orgomg.cwm.objectmodel.core.TaggedValue;
+import orgomg.cwm.resource.relational.Column;
+import orgomg.cwm.resource.relational.QueryColumnSet;
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
@@ -65,6 +71,8 @@ public final class DatabaseContentRetriever {
     private static final String[] TABLETYPE = new String[] { TableType.TABLE.toString() };
 
     private static final String[] VIEWTYPE = new String[] { TableType.VIEW.toString() };
+
+    private static final String NO_COLUMN_PATTERN = "apeorjfldsnfmlskdfjaerjfdlksnfmdslkfgjpareoijf";
 
     private DatabaseContentRetriever() {
     }
@@ -103,6 +111,20 @@ public final class DatabaseContentRetriever {
         // --- release the result set.
         catalogNames.close();
         return name2catalog;
+    }
+
+    public static QueryColumnSet getQueryColumnSet(ResultSetMetaData metaData) throws SQLException {
+        QueryColumnSet columnSet = ColumnSetHelper.createQueryColumnSet();
+        int columnCount = metaData.getColumnCount();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = metaData.getColumnName(i);
+            String columnClassName = metaData.getColumnClassName(i);
+            // TODO add other informations
+            Column column = ColumnHelper.createColumn(columnName);
+            ColumnSetHelper.addColumn(column, columnSet);
+        }
+
+        return columnSet;
     }
 
     /**
@@ -189,8 +211,6 @@ public final class DatabaseContentRetriever {
         return getTables(catalogName, schemaPattern, tablePattern, NO_COLUMN_PATTERN, connection);
     }
 
-    private static final String NO_COLUMN_PATTERN = "apeorjfldsnfmlskdfjaerjfdlksnfmdslkfgjpareoijf";
-
     public static List<TdView> getViewsWithColumns(String catalogName, String schemaPattern, String viewPattern,
             Connection connection) throws SQLException {
         return getViews(catalogName, schemaPattern, viewPattern, null, connection);
@@ -198,8 +218,10 @@ public final class DatabaseContentRetriever {
 
     public static TdDataProvider getDataProvider(Driver driver, String databaseUrl, Properties driverProperties)
             throws SQLException {
-        TdDataProvider provider = SoftwaredeploymentFactory.eINSTANCE.createTdDataProvider();
-        provider.setName(driver.getClass().getName()); // TODO scorreia should data provider name be something else?
+        TdDataProvider provider = DataProviderHelper.createTdDataProvider(driver.getClass().getName()); // TODO scorreia
+        // should data
+        // provider
+        // name be something else?
 
         // print driver properties
         // TODO scorreia adapt this code in order to store information in CWM ????
@@ -333,6 +355,47 @@ public final class DatabaseContentRetriever {
     }
 
     /**
+     * Method "storeTable".
+     * 
+     * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
+     * those without a catalog; null means that the catalog name should not be used to narrow the search
+     * @param schemaPattern a schema name pattern; must match the schema name as it is stored in the database; ""
+     * retrieves those without a schema; null means that the schema name should not be used to narrow the search
+     * @param tablePattern a table name pattern; must match the table name as it is stored in the database
+     * @param columnPattern a column name pattern; must match the column name as it is stored in the database
+     * @throws SQLException
+     * @see DatabaseMetaData#getColumns(String, String, String, String)
+     */
+    public static List<TdColumn> getColumns(String catalogName, String schemaPattern, String tablePattern,
+            String columnPattern, Connection connection) throws SQLException {
+        List<TdColumn> tableColumns = new ArrayList<TdColumn>();
+
+        // --- add columns to table
+        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
+                columnPattern);
+        while (columns.next()) {
+            TdColumn column = ColumnHelper.createTdColumn(columns.getString(GetColumn.COLUMN_NAME.name()));
+            column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
+            column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
+            // TODO columns.getString(GetColumn.TYPE_NAME.name());
+
+            // TODO get column description (comment)
+
+            // TODO scorreia other informations for columns can be retrieved here
+
+            // --- create and set type of column
+            TdSqlDataType sqlDataType = createDataType(columns);
+            column.setType(sqlDataType);
+            tableColumns.add(column);
+        }
+
+        // release JDBC resources
+        columns.close();
+
+        return tableColumns;
+    }
+
+    /**
      * Method "getTables".
      * 
      * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
@@ -429,51 +492,10 @@ public final class DatabaseContentRetriever {
         return connection.getMetaData();
     }
 
-    /**
-     * Method "storeTable".
-     * 
-     * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
-     * those without a catalog; null means that the catalog name should not be used to narrow the search
-     * @param schemaPattern a schema name pattern; must match the schema name as it is stored in the database; ""
-     * retrieves those without a schema; null means that the schema name should not be used to narrow the search
-     * @param tablePattern a table name pattern; must match the table name as it is stored in the database
-     * @param columnPattern a column name pattern; must match the column name as it is stored in the database
-     * @throws SQLException
-     * @see DatabaseMetaData#getColumns(String, String, String, String)
-     */
-    public static List<TdColumn> getColumns(String catalogName, String schemaPattern, String tablePattern,
-            String columnPattern, Connection connection) throws SQLException {
-        List<TdColumn> tableColumns = new ArrayList<TdColumn>();
-
-        // --- add columns to table
-        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
-                columnPattern);
-        while (columns.next()) {
-            TdColumn column = RelationalFactory.eINSTANCE.createTdColumn();
-            column.setName(columns.getString(GetColumn.COLUMN_NAME.name()));
-            column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
-            column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
-            // TODO columns.getString(GetColumn.TYPE_NAME.name());
-
-            // TODO get column description (comment)
-
-            // TODO scorreia other informations for columns can be retrieved here
-
-            // --- create and set type of column
-            TdSqlDataType sqlDataType = createDataType(columns);
-            column.setType(sqlDataType);
-            tableColumns.add(column);
-        }
-
-        // release JDBC resources
-        columns.close();
-
-        return tableColumns;
-    }
-
     private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
-        // if (true)
-        // return null; // FIXME scorreia remove this patch
+        if (true)
+            return null; // FIXME scorreia remove this patch
+        // this patch is here because the created sql data type is not stored in a resource set.
         TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
         sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
         sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
