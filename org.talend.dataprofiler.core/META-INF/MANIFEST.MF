@@ -11,8 +11,9 @@ Require-Bundle: org.eclipse.ui,
  net.sourceforge.sqlexplorer,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
- org.talend.libraries.logging,
- org.eclipse.ui.navigator
+ org.eclipse.ui.navigator,
+ org.talend.libraries.apache,
+ org.talend.cwm.management
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core.i18n,
  org.talend.dataprofiler.core.ui.perspective,

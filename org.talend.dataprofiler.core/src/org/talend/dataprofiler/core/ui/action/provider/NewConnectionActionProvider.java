@@ -21,10 +21,13 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataprofiler.core.ui.wizard.DatabaseConnectionWizard;
 
 
 /**
@@ -100,6 +103,11 @@ public class NewConnectionActionProvider extends CommonActionProvider {
          * (non-Javadoc) Method declared on IAction.
          */
         public void run() {
+            DatabaseConnectionWizard wizard = new DatabaseConnectionWizard(PlatformUI.getWorkbench(), true, null, null);
+            wizard.init(PlatformUI.getWorkbench(), null);
+            WizardDialog dialog = new WizardDialog(null, wizard);
+            dialog.setPageSize(600, 500);
+            dialog.open();
         }
     }
     
