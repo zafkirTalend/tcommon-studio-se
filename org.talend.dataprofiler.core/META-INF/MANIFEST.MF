@@ -14,7 +14,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator,
  org.talend.cwm.management,
  org.talend.libraries.logging,
- org.talend.libraries.apache
+ org.talend.libraries.apache,
+ org.talend.utils,
+ org.talend.cwm.ext
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core.i18n,
  org.talend.dataprofiler.core.ui.perspective,

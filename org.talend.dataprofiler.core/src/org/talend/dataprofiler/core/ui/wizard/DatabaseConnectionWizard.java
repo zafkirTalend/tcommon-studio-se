@@ -12,12 +12,16 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard;
 
+import java.util.Properties;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.talend.cwm.management.api.ConnectionService;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 
 /**
@@ -37,6 +41,8 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
 
     private Object selection;
 
+    private DatabaseWizardPage databaseWizardPage;
+
     /**
      * Constructor for DatabaseWizard. Analyse Iselection to extract DatabaseConnection and the pathToSave. Start the
      * Lock Strategy.
@@ -44,12 +50,10 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
      * @param selection
      * @param existingNames
      */
-    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
-            String[] existingNames) {
+    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection, String[] existingNames) {
         super();
         this.init(workbench, selection);
         this.creation = creation;
-
     }
 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -63,17 +67,18 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     public void addPages() {
         setWindowTitle("Database Connection");
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
-
+        connectionProperty = new ConnectionParameters();
+        connectionProperty.setParameters(new Properties());
         propertiesWizardPage = new Step0WizardPage(connectionProperty, null, false, creation);
-        // databaseWizardPage = new DatabaseWizardPage(connectionItem, isRepositoryObjectEditable(), existingNames);
+        databaseWizardPage = new DatabaseWizardPage("DatabaseParam Page", connectionProperty);
 
         if (creation) {
             propertiesWizardPage.setTitle("New Database Connection on repository - Step 1/2");
             propertiesWizardPage.setDescription("Define the properties");
             propertiesWizardPage.setPageComplete(false);
 
-            // databaseWizardPage.setTitle(Messages.getString("DatabaseWizardPage.titleCreate.Step2")); //$NON-NLS-1$
-            // databaseWizardPage.setDescription(Messages.getString("DatabaseWizardPage.descriptionCreate.Step2"));
+            databaseWizardPage.setTitle("Database connection");
+            databaseWizardPage.setDescription("New database connection on repository - step 2/2"); //$NON-NLS-1$
             // //$NON-NLS-1$
             // databaseWizardPage.setPageComplete(false);
         } else {
@@ -87,7 +92,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
             // databaseWizardPage.setPageComplete(isRepositoryObjectEditable());
         }
         addPage(propertiesWizardPage);
-        // addPage(databaseWizardPage);
+        addPage(databaseWizardPage);
     }
 
     /**
@@ -95,6 +100,10 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
      * wizard.
      */
     public boolean performFinish() {
+        TdDataProvider provider = ConnectionService.createConnection(this.connectionProperty);
+        if (provider == null) {
+            return false;
+        }
         return true;
     }
 

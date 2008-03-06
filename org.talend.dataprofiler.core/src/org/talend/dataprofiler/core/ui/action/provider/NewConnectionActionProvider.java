@@ -106,7 +106,7 @@ public class NewConnectionActionProvider extends CommonActionProvider {
             DatabaseConnectionWizard wizard = new DatabaseConnectionWizard(PlatformUI.getWorkbench(), true, null, null);
             wizard.init(PlatformUI.getWorkbench(), null);
             WizardDialog dialog = new WizardDialog(null, wizard);
-            dialog.setPageSize(600, 500);
+            dialog.setPageSize(600, 320);
             dialog.open();
         }
     }
