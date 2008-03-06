@@ -103,4 +103,6 @@ public interface IComponent {
 
     public boolean useImport();
 
+    public EComponentType getComponentType();
+
 }
