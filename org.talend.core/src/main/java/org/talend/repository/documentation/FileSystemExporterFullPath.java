@@ -13,7 +13,14 @@
 package org.talend.repository.documentation;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
@@ -28,6 +35,10 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
 
     File rootFolder = null;
 
+    private String regEx = "*"; //$NON-NLS-1$
+
+    private List<ExportFileResource> resourcesListToExport;
+
     /**
      * Create an instance of this class.
      * 
@@ -37,6 +48,11 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
      */
     public FileSystemExporterFullPath(String filename) throws IOException {
         rootFolder = new File(filename);
+    }
+
+    public FileSystemExporterFullPath(List<ExportFileResource> resourcesListToExport, String filename) throws IOException {
+        rootFolder = new File(filename);
+        this.resourcesListToExport = resourcesListToExport;
     }
 
     /**
@@ -92,4 +108,87 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
         // this test is ok.
     }
 
+    /**
+     * Sets the regEx.
+     * 
+     * @param regEx the regEx to set
+     */
+    public void setRegEx(String regEx) {
+        this.regEx = regEx;
+    }
+
+    /**
+     * Export the resources contained in the previously-defined resourcesToExport collection.
+     */
+    public void exportSpecifiedResources() throws InterruptedException {
+        for (ExportFileResource fileResource : resourcesListToExport) {
+            String rootName = fileResource.getDirectoryName();
+
+            Set<String> paths = fileResource.getRelativePathList();
+            for (Iterator iter = paths.iterator(); iter.hasNext();) {
+                String relativePath = (String) iter.next();
+                Set<URL> resource = fileResource.getResourcesByRelativePath(relativePath);
+                for (URL url : resource) {
+                    String currentResource = url.getPath();
+                    exportResource(rootName, relativePath, currentResource, 1);
+                }
+            }
+
+        }
+    }
+
+    public void exportResource(String rootName, String directory, String exportResource, int leadupDepth)
+            throws InterruptedException {
+        final String separator = "/";
+        File file = new File(exportResource);
+        if (file.isFile()) {
+            String destinationName = file.getName();
+            if (!"".equals(directory)) { //$NON-NLS-1$
+                if (directory.endsWith(separator)) {
+                    destinationName = directory + file.getName();
+                } else {
+                    destinationName = directory + separator + file.getName();
+                }
+            }
+            if (rootName != null && !"".equals(destinationName)) { //$NON-NLS-1$
+                destinationName = rootName + separator + destinationName;
+            }
+            try {
+                this.write(exportResource, destinationName);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (CoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        } else if (file.isDirectory()) {
+            File[] children = null;
+            try {
+                children = file.listFiles(new FileFilter() {
+
+                    public boolean accept(File pathname) {
+
+                        boolean result = true;
+                        if (pathname != null && pathname.isFile()) {
+                            try {
+
+                                result = Pattern.compile(regEx).matcher(pathname.getName()).find();
+                            } catch (PatternSyntaxException e) {
+                                // here do nothing
+                            }
+                        }
+                        return result;
+                    }
+                });
+            } catch (Exception e) {
+                // this should never happen because an #isAccessible check is done before #members is invoked
+            }
+            for (int i = 0; i < children.length; i++) {
+                exportResource(rootName, directory + file.getName() + separator, children[i].getPath(), leadupDepth + 1);
+            }
+
+        }
+    }
 }
