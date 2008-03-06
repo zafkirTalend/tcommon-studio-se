@@ -17,5 +17,6 @@ Export-Package: org.talend.cwm.constants,
  org.talend.cwm.softwaredeployment.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.talend.cwm.mip;visibility:=reexport
+ org.talend.cwm.mip;visibility:=reexport,
+ org.talend.utils
 Eclipse-LazyStart: true

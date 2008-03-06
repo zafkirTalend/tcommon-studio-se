@@ -18,6 +18,7 @@ import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.util.RelationalSwitch;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.util.SoftwaredeploymentSwitch;
 
 /**
@@ -66,6 +67,15 @@ public class SwitchHelpers {
 
         @Override
         public TdDataProvider caseTdDataProvider(TdDataProvider object) {
+            return object;
+        }
+
+    };
+
+    public static final SoftwaredeploymentSwitch<TdProviderConnection> TDPROVIDER_CONNECTION_SWITCH = new SoftwaredeploymentSwitch<TdProviderConnection>() {
+
+        @Override
+        public TdProviderConnection caseTdProviderConnection(TdProviderConnection object) {
             return object;
         }
 

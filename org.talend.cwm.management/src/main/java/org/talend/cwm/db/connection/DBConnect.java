@@ -26,10 +26,10 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.builders.CatalogBuilder;
-import org.talend.cwm.builders.ConnectionProviderBuilder;
 import org.talend.cwm.builders.DataProviderBuilder;
 import org.talend.cwm.builders.SoftwareSystemBuilder;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -66,7 +66,7 @@ public class DBConnect {
 
     private CatalogBuilder catalogBuilder;
 
-    private ConnectionProviderBuilder connectionProvBuilder;
+    private TdProviderConnection providerConnection;
 
     private DataProviderBuilder dataProvBuilder;
 
@@ -148,15 +148,12 @@ public class DBConnect {
     }
 
     /**
-     * Method "getProviderConnection". This method can be called right after this.{@link #connect()}.
+     * Method "getProviderConnection". This method can be called right after {@link this#connect()}.
      * 
      * @return the connection provider (containing connection parameters given in CTOR)
      */
     public TdProviderConnection getProviderConnection() {
-        if (connectionProvBuilder == null) {
-            return null;
-        }
-        return connectionProvBuilder.getProviderConnection();
+        return providerConnection;
     }
 
     /**
@@ -348,8 +345,8 @@ public class DBConnect {
             DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(dbUrl, props);
 
-            connectionProvBuilder = new ConnectionProviderBuilder(connection, dbUrl, driverClassName, props);
-
+            this.providerConnection = DatabaseContentRetriever.getProviderConnection(dbUrl, driverClassName, props,
+                    connection);
         } catch (InstantiationException e) {
             log.error(e);
             ok = false;

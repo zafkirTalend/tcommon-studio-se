@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
+import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
 import orgomg.cwm.objectmodel.core.Package;
 
 /**
@@ -127,7 +130,55 @@ public final class DataProviderHelper {
         return added;
     }
 
+    /**
+     * Method "getTdProviderConnections".
+     * 
+     * @param dataProvider must not be null
+     * @return the list of provider connections.
+     */
+    public static List<TdProviderConnection> getTdProviderConnections(TdDataProvider dataProvider) {
+        assert dataProvider != null;
+        List<TdProviderConnection> tdProvConnections = new ArrayList<TdProviderConnection>();
+        EList<ProviderConnection> resourceConnections = dataProvider.getResourceConnection();
+        for (ProviderConnection providerConnection : resourceConnections) {
+            TdProviderConnection tdProvConn = SwitchHelpers.TDPROVIDER_CONNECTION_SWITCH.doSwitch(providerConnection);
+            if (tdProvConn != null) {
+                tdProvConnections.add(tdProvConn);
+            }
+        }
+        return tdProvConnections;
+    }
+
+    /**
+     * Method "getTdProviderConnection".
+     * 
+     * @param dataProvider the data provider that contains connections.
+     * @return the returned code is true only when there is only one provider connection in the list. When there is no
+     * provider connection, the returned code is false, the object is null and an error message is set. When there are
+     * several provider connections, the returned code is false, an error message is set, but the first connection is
+     * returned by the method {@link TypedReturnCode#getObject()}.
+     */
+    public static TypedReturnCode<TdProviderConnection> getTdProviderConnection(TdDataProvider dataProvider) {
+        assert dataProvider != null;
+        TypedReturnCode<TdProviderConnection> rc = new TypedReturnCode<TdProviderConnection>(true);
+        List<TdProviderConnection> resourceConnections = getTdProviderConnections(dataProvider);
+        int nbConnections = resourceConnections.size();
+        if (nbConnections == 0) {
+            rc.setReturnCode("No connection found in Data provider " + dataProvider.getName(), false);
+        } else {
+            TdProviderConnection tdProvConn = resourceConnections.get(0);
+            if (nbConnections > 1) {
+                rc.setReturnCode("Warning: several connection found for this data provider " + dataProvider.getName()
+                        + ". Returning the first one only.", false, tdProvConn);
+            }
+            // else got only one provider connection
+            rc.setObject(tdProvConn);
+        }
+        return rc;
+    }
+
     public static List<TdCatalog> getTdCatalogs(TdDataProvider dataProvider) {
         return CatalogHelper.getTdCatalogs(dataProvider.getDataPackage());
     }
+
 }

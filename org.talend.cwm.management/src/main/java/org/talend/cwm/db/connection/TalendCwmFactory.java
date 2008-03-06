@@ -273,13 +273,15 @@ public final class TalendCwmFactory {
         try {
             TimeTracer tt = new TimeTracer("DB CONNECT", log);
             tt.start();
+
+            // --- set where to save the files
             FolderProvider folderProvider = new FolderProvider();
             folderProvider.setFolder(new File("out"));
             initializeConnection(connector, folderProvider);
             tt.end("Everything saved.");
 
-            // --- now create the lower structure
-            // recreate a connection
+            // --- now create the lower structure (tables, columns)
+            // recreate a connection from the TdProviderConnection
             TdProviderConnection providerConnection = connector.getProviderConnection();
             TypedReturnCode<Connection> rc = JavaSqlFactory.createConnection(providerConnection);
             if (!rc.isOk()) {
