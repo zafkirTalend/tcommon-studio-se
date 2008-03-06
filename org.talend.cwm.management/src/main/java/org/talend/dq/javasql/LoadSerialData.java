@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
-import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 import org.talend.dataquality.indicators.util.IndicatorsSwitch;
 
 /**
@@ -38,8 +37,7 @@ public class LoadSerialData {
     public static void main(String[] args) {
         EMFUtil util = new EMFUtil();
         File file = new File("out/myi." + IndicatorsPackage.eNAME);
-        IndicatorsPackageImpl.init();
-        // test reload this file
+
         ResourceSet rs = util.getResourceSet();
         Resource r = rs.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 

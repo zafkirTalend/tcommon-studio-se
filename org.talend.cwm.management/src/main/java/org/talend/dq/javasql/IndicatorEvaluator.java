@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.talend.commons.emf.EMFUtil;
-import org.talend.cwm.helper.factories.ColumnSetFactory;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
@@ -69,9 +69,12 @@ public class IndicatorEvaluator {
         String driverClassName = connectionParams.getProperty("driver");
         String dbUrl = connectionParams.getProperty("url");
         try {
+            final int fetchSize = 100; // TODO scorreia add this as a parameter.
+
             Connection connection = ConnectionUtils.createConnection(dbUrl, driverClassName, connectionParams);
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,
                     ResultSet.CLOSE_CURSORS_AT_COMMIT);
+            statement.setFetchSize(fetchSize);
 
             String database = "test";
             String tableName = "my_test";
@@ -115,7 +118,7 @@ public class IndicatorEvaluator {
 
             if (COMPUTE) {
                 ResultSetMetaData metaData = resultSet.getMetaData();
-                QueryColumnSet columnSet = ColumnSetFactory.createQueryColumnSet(metaData);
+                QueryColumnSet columnSet = DatabaseContentRetriever.getQueryColumnSet(metaData);
 
                 int columnCount = metaData.getColumnCount();
 
