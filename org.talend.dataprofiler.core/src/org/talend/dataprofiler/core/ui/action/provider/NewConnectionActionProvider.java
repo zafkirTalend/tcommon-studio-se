@@ -27,12 +27,12 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.wizard.DatabaseConnectionWizard;
-
 
 /**
  * @author rli
- *
+ * 
  */
 public class NewConnectionActionProvider extends CommonActionProvider {
 
@@ -42,7 +42,6 @@ public class NewConnectionActionProvider extends CommonActionProvider {
     public NewConnectionActionProvider() {
         // TODO Auto-generated constructor stub
     }
-
 
     private IAction createConnectionAction;
 
@@ -54,20 +53,17 @@ public class NewConnectionActionProvider extends CommonActionProvider {
             createConnectionAction = new CreateConnectionAction();
         }
     }
-    
-    private static final String[] ACTIONSETIDS = new String[] {
-      "org.eclipse.ui.DeleteResourceAction", //$NON-NLS-1$ //$NON-NLS-2$
-      "org.eclipse.ui.RenameResourceAction",
-      "org.eclipse.ui.CopyAction", //$NON-NLS-1$
-      "org.eclipse.ui.PasteAction", //$NON-NLS-1$ 
-      "org.eclipse.ui.MoveResourceAction" }; //$NON-NLS-1$ 
+
+    private static final String[] ACTIONSETIDS = new String[] { "org.eclipse.ui.DeleteResourceAction", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.ui.RenameResourceAction", "org.eclipse.ui.CopyAction", //$NON-NLS-1$
+            "org.eclipse.ui.PasteAction", //$NON-NLS-1$ 
+            "org.eclipse.ui.MoveResourceAction" }; //$NON-NLS-1$ 
 
     /**
      * Adds a submenu to the given menu with the name "New Component".
      */
     public void fillContextMenu(IMenuManager menu) {
-        Object obj = ((TreeSelection) this.getContext().getSelection())
-                .getFirstElement();
+        Object obj = ((TreeSelection) this.getContext().getSelection()).getFirstElement();
         List<String> removeActionList = Arrays.asList(ACTIONSETIDS);
         for (IContributionItem item : menu.getItems()) {
             if (item == null || item.getId() == null) {
@@ -77,12 +73,12 @@ public class NewConnectionActionProvider extends CommonActionProvider {
                 menu.remove(item);
             }
         }
-        
+
         if (obj instanceof IFolder) {
             selectedFolderName = ((IFolder) obj).getName();
-            if (selectedFolderName.equals("Db Connections")) {
+            if (selectedFolderName.equals(DQStructureManager.DB_CONNECTIONS)) {
                 menu.add(createConnectionAction);
-//                menu.insertBefore("group.edit", createConnectionAction);
+                // menu.insertBefore("group.edit", createConnectionAction);
             }
         }
     }
@@ -95,8 +91,7 @@ public class NewConnectionActionProvider extends CommonActionProvider {
 
         public CreateConnectionAction() {
             super("Create a new connection");
-            setImageDescriptor(ImageLib
-                    .getImageDescriptor(ImageLib.REFRESH_IMAGE));
+            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
         }
 
         /*
@@ -110,5 +105,5 @@ public class NewConnectionActionProvider extends CommonActionProvider {
             dialog.open();
         }
     }
-    
+
 }

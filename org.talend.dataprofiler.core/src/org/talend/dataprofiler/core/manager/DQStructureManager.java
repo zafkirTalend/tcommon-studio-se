@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -31,12 +30,16 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.ui.progress.ProgressUI;
 
-
 /**
  * Create the folder structure for the DQ Reponsitory view.
- *
+ * 
  */
 public final class DQStructureManager {
+
+    /**
+     * String for the DB connections folder.
+     */
+    public static final String DB_CONNECTIONS = "DB Connections";
 
     private static DQStructureManager manager = new DQStructureManager();
 
@@ -47,8 +50,7 @@ public final class DQStructureManager {
     private DQStructureManager() {
 
     }
-    
-    
+
     public boolean createDQStructure() {
 
         Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
@@ -63,7 +65,7 @@ public final class DQStructureManager {
             this.createNewFoler(project, "Source Files");
             // create "Metadata" project
             project = this.createNewProject("Metadata", shell);
-            this.createNewFoler(project, "Db Connections");
+            this.createNewFoler(project, DB_CONNECTIONS);
         } catch (Exception ex) {
             ExceptionHandler.process(ex);
             return false;
@@ -75,38 +77,31 @@ public final class DQStructureManager {
      * Creates a new project resource with the special name.
      * 
      * @return the created project resource, or <code>null</code> if the project was not created
-     * @throws InterruptedException 
-     * @throws InvocationTargetException 
+     * @throws InterruptedException
+     * @throws InvocationTargetException
      */
-    private IProject createNewProject(String projectName, Shell shell) throws InvocationTargetException, InterruptedException {      
-        
-        final Shell currentShell = shell; 
+    private IProject createNewProject(String projectName, Shell shell) throws InvocationTargetException,
+            InterruptedException {
+
+        final Shell currentShell = shell;
 
         // get a project handle
-        final IProject newProjectHandle = ResourcesPlugin.getWorkspace()
-                .getRoot().getProject(projectName);
-        
-//      final IJavaProject javaProjHandle  = JavaCore.create(newProjectHandle);
+        final IProject newProjectHandle = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+
+        // final IJavaProject javaProjHandle = JavaCore.create(newProjectHandle);
         // get a project descriptor
 
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        final IProjectDescription description = workspace
-                .newProjectDescription(newProjectHandle.getName());
+        final IProjectDescription description = workspace.newProjectDescription(newProjectHandle.getName());
 
         // create the new project operation
         IRunnableWithProgress op = new IRunnableWithProgress() {
 
-            public void run(IProgressMonitor monitor)
-                    throws InvocationTargetException {
-                CreateProjectOperation op = new CreateProjectOperation(
-                        description, "Create data profiling structure");
+            public void run(IProgressMonitor monitor) throws InvocationTargetException {
+                CreateProjectOperation op = new CreateProjectOperation(description, "Create data profiling structure");
                 try {
-                    PlatformUI.getWorkbench().getOperationSupport()
-                            .getOperationHistory().execute(
-                                    op,
-                                    monitor,
-                                    WorkspaceUndoUtil
-                                            .getUIInfoAdapter(currentShell));
+                    PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, monitor,
+                            WorkspaceUndoUtil.getUIInfoAdapter(currentShell));
                 } catch (ExecutionException e) {
                     throw new InvocationTargetException(e);
                 }
@@ -114,57 +109,57 @@ public final class DQStructureManager {
         };
 
         // run the new project creation o`peration
-//        try {
-            ProgressUI.popProgressDialog(op, shell);
-//        } catch (InterruptedException e) {
-//            return null;
-//        } catch (InvocationTargetException e) {
-//            Throwable t = e.getTargetException();
-//            if (t instanceof ExecutionException
-//                    && t.getCause() instanceof CoreException) {
-//                CoreException cause = (CoreException) t.getCause();
-//                StatusAdapter status;
-//                if (cause.getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
-//                    status = new StatusAdapter(
-//
-//                            new Status(
-//                                    IStatus.WARNING,
-//                                    CorePlugin.PLUGIN_ID,
-//                                    IStatus.WARNING,
-//                                    "The underlying file system is case insensitive. There is an existing project which conflicts with"
-//                                            + newProjectHandle.getName(), cause));
-//                } else {
-//                    status = new StatusAdapter(new Status(cause.getStatus()
-//                            .getSeverity(), CorePlugin.PLUGIN_ID,
-//                            cause.getStatus().getSeverity(),
-//                            "Creation Problems", cause));
-//                }
-//                status.setProperty(StatusAdapter.TITLE_PROPERTY,
-//                        "Creation Problems");
-//                StatusManager.getManager().handle(status, StatusManager.BLOCK);
-//            } else {
-//                StatusAdapter status = new StatusAdapter(new Status(
-//                        IStatus.WARNING, CorePlugin.PLUGIN_ID, 0,
-//                        "Internal error:" + t.getMessage(), t));
-//                status.setProperty(StatusAdapter.TITLE_PROPERTY,
-//                        "Creation Problems");
-//                StatusManager.getManager().handle(status,
-//                        StatusManager.LOG | StatusManager.BLOCK);
-//            }
-//            return null;
-//        }
+        // try {
+        ProgressUI.popProgressDialog(op, shell);
+        // } catch (InterruptedException e) {
+        // return null;
+        // } catch (InvocationTargetException e) {
+        // Throwable t = e.getTargetException();
+        // if (t instanceof ExecutionException
+        // && t.getCause() instanceof CoreException) {
+        // CoreException cause = (CoreException) t.getCause();
+        // StatusAdapter status;
+        // if (cause.getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
+        // status = new StatusAdapter(
+        //
+        // new Status(
+        // IStatus.WARNING,
+        // CorePlugin.PLUGIN_ID,
+        // IStatus.WARNING,
+        // "The underlying file system is case insensitive. There is an existing project which conflicts with"
+        // + newProjectHandle.getName(), cause));
+        // } else {
+        // status = new StatusAdapter(new Status(cause.getStatus()
+        // .getSeverity(), CorePlugin.PLUGIN_ID,
+        // cause.getStatus().getSeverity(),
+        // "Creation Problems", cause));
+        // }
+        // status.setProperty(StatusAdapter.TITLE_PROPERTY,
+        // "Creation Problems");
+        // StatusManager.getManager().handle(status, StatusManager.BLOCK);
+        // } else {
+        // StatusAdapter status = new StatusAdapter(new Status(
+        // IStatus.WARNING, CorePlugin.PLUGIN_ID, 0,
+        // "Internal error:" + t.getMessage(), t));
+        // status.setProperty(StatusAdapter.TITLE_PROPERTY,
+        // "Creation Problems");
+        // StatusManager.getManager().handle(status,
+        // StatusManager.LOG | StatusManager.BLOCK);
+        // }
+        // return null;
+        // }
 
         return newProjectHandle;
     }
-   
+
     private void createNewFoler(IProject project, String folderName) throws CoreException {
         IFolder desFolder = project.getFolder(folderName);
-//        ResourceAttributes attr = new ResourceAttributes();
-//        attr.setReadOnly(true);
-//        desFolder.setResourceAttributes(attr);
+        // ResourceAttributes attr = new ResourceAttributes();
+        // attr.setReadOnly(true);
+        // desFolder.setResourceAttributes(attr);
         if (!desFolder.exists()) {
             desFolder.create(false, true, null);
         }
     }
-    
+
 }
