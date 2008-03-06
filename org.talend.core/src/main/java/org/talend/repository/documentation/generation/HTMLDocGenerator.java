@@ -209,7 +209,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
         file.mkdirs();
 
-        handleXMLFile(resource, targetPath, version);
+        handleXMLFile(resource, targetPath, jobVersion);
 
         String picFolderPath = checkPicDirIsExists(resource, targetPath);
 
@@ -326,7 +326,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         Document document = DocumentHelper.createDocument();
         Element projectElement = generateProjectInfo(document);
 
-        Element jobElement = generateJobInfo(item, projectElement);
+        Element jobElement = generateJobInfo(item, projectElement, version);
 
         List<List> allList = seperateNodes(item);
         if (allList == null || allList.size() != 3) {
@@ -357,8 +357,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-             * ,
-             */);
+                                         * ,
+                                         */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
@@ -376,10 +376,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             generateConnectionsInfo(jobElement, connectionList);
         }
 
-        String versionPath = "";
+        String versionPath = "_";
         if (version != null && version.length == 1) {
-            String currentVersion = (version[0].equals("") ? item.getProperty().getVersion() : version[0]);
-            versionPath = "_" + currentVersion;
+
+            versionPath = versionPath + version[0];
+        } else {
+            versionPath = versionPath + item.getProperty().getVersion();
         }
 
         String filePath = tempFolderPath + File.separatorChar + item.getProperty().getLabel() + versionPath
@@ -545,9 +547,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * 
      * @param item <code>ProcessItem</code>
      * @param projectElement <code>Element</code>
+     * @param version
      * @return an instance of <code>Element</code>
      */
-    private Element generateJobInfo(Item item, Element projectElement) {
+    private Element generateJobInfo(Item item, Element projectElement, String... version) {
 
         picFilePathMap = new HashMap<String, String>();
         // IProcess process = CorePlugin.getDefault().getDesignerCoreService().getProcessFromProcessItem(processItem);
@@ -559,7 +562,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         jobElement.addAttribute("name", HTMLDocUtils.checkString(jobName));
 
         jobElement.addAttribute("author", HTMLDocUtils.checkString(property.getAuthor().toString()));
-        jobElement.addAttribute("version", HTMLDocUtils.checkString(property.getVersion()));
+
+        if (version != null && version.length == 1) {
+            jobVersion = version[0];
+        }
+        jobElement.addAttribute("version", HTMLDocUtils.checkString(jobVersion));
         jobElement.addAttribute("purpose", HTMLDocUtils.checkString(property.getPurpose()));
         jobElement.addAttribute("status", HTMLDocUtils.checkString(property.getStatusCode()));
         jobElement.addAttribute("description", HTMLDocUtils.checkString(property.getDescription()));
