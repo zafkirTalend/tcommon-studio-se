@@ -326,13 +326,22 @@ public interface ComponentPackage extends EPackage {
     int COMPONENT_TYPE__PLUGINDEPENDENCIES = 7;
 
     /**
+     * The feature id for the '<em><b>LABELCOLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_TYPE__LABELCOLOR = 8;
+
+    /**
      * The number of structural features of the '<em>COMPONENT Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE_FEATURE_COUNT = 8;
+    int COMPONENT_TYPE_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORSTypeImpl <em>CONNECTORS Type</em>}' class.
@@ -2081,6 +2090,17 @@ public interface ComponentPackage extends EPackage {
     EReference getCOMPONENTType_PLUGINDEPENDENCIES();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getLABELCOLOR <em>LABELCOLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>LABELCOLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getLABELCOLOR()
+     * @see #getCOMPONENTType()
+     * @generated
+     */
+    EAttribute getCOMPONENTType_LABELCOLOR();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORSType <em>CONNECTORS Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3801,6 +3821,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference COMPONENT_TYPE__PLUGINDEPENDENCIES = eINSTANCE.getCOMPONENTType_PLUGINDEPENDENCIES();
+
+        /**
+         * The meta object literal for the '<em><b>LABELCOLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_TYPE__LABELCOLOR = eINSTANCE.getCOMPONENTType_LABELCOLOR();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORSTypeImpl <em>CONNECTORS Type</em>}' class.

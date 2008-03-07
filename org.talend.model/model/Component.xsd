@@ -7,15 +7,16 @@
 	<xs:element name="COMPONENT">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="HEADER"/>
-				<xs:element ref="DOCUMENTATION"/>
-				<xs:element ref="CONNECTORS"/>
-				<xs:element ref="PARAMETERS"/>
-				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0"/>
-				<xs:element ref="CODEGENERATION"/>
-				<xs:element ref="RETURNS"/>
-				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0"/>
+				<xs:element ref="HEADER" />
+				<xs:element ref="DOCUMENTATION" />
+				<xs:element ref="CONNECTORS" />
+				<xs:element ref="PARAMETERS" />
+				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0" />
+				<xs:element ref="CODEGENERATION" />
+				<xs:element ref="RETURNS" />
+				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0" />
 			</xs:sequence>
+			<xs:attribute name="LABEL_COLOR" type="xs:string"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="HEADER">
