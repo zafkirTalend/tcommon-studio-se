@@ -111,13 +111,18 @@ public class SimpleHtmlFigure extends Figure {
         add(horizContainer);
     }
 
+    public void setText(String text) {
+        this.setText(text, null);
+    }
+
     /**
      * Display some HTML text..
      * 
      * @param text Text to rendered.
+     * @param color defaul value is black if it's null.
      */
     @SuppressWarnings("unchecked")
-    public void setText(final String text) {
+    public void setText(final String text, Color color) {
 
         if (this.text.equals(text)) {
             // if the text is the same, there's nothing to change, so return.
@@ -135,7 +140,9 @@ public class SimpleHtmlFigure extends Figure {
         newHorizContainer();
 
         List<Color> colorStack = new ArrayList<Color>();
-        Color color = ColorConstants.black;
+        if (color == null) {
+            color = ColorConstants.black;
+        }
         colorStack.add(color);
         buildFigures(text, SWT.None, colorStack);
 
@@ -285,8 +292,8 @@ public class SimpleHtmlFigure extends Figure {
             }
             return color;
         } else { // color name
-            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow",
-                    "blue", "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" };
+            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow", "blue",
+                    "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" };
             int choosedColor = 0;
             for (int i = 0; i < colors.length; i++) {
                 if (colors[i].equalsIgnoreCase(colorCode)) {
@@ -349,4 +356,5 @@ public class SimpleHtmlFigure extends Figure {
     public String getText() {
         return this.text;
     }
+
 }
