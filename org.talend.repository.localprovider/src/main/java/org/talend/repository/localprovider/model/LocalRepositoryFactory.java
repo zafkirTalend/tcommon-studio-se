@@ -65,6 +65,7 @@ import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -1020,6 +1021,23 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource create(LinkDocumentationItem item, IPath path) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
+                ERepositoryObjectType.DOCUMENTATION, false);
+        itemResource.getContents().add(item.getLink());
+
+        return itemResource;
+    }
+
+    private Resource save(LinkDocumentationItem item) {
+        Resource itemResource = xmiResourceManager.getItemResource(item);
+
+        itemResource.getContents().clear();
+        itemResource.getContents().add(item.getLink());
+
+        return itemResource;
+    }
+
     public void save(Item item) throws PersistenceException {
         item.getProperty().setModificationDate(new Date());
 
@@ -1066,6 +1084,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM:
                 itemResource = save((JobletDocumentationItem) item);
+                break;
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM:
+                itemResource = save((LinkDocumentationItem) item);
                 break;
             default:
                 throw new UnsupportedOperationException();
@@ -1187,6 +1208,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.SNIPPET_ITEM:
                 itemResource = create((SnippetItem) item, path);
+                break;
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM:
+                itemResource = create((LinkDocumentationItem) item, path);
                 break;
             default:
                 throw new UnsupportedOperationException();
