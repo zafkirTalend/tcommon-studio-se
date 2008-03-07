@@ -99,11 +99,13 @@ public abstract class Element implements Cloneable, IElement {
         if (listParam == null) {
             return;
         }
-        for (int i = 0; i < listParam.size(); i++) {
-            if (listParam.get(i).getName().equals(id)) {
-                listParam.get(i).setValue(value);
-            }
-        }
+        IElementParameter param = this.getElementParameter(id);
+        param.setValue(value);
+        // for (int i = 0; i < listParam.size(); i++) {
+        // if (listParam.get(i).getName().equals(id)) {
+        // listParam.get(i).setValue(value);
+        // }
+        // }
     }
 
     public void addElementParameter(IElementParameter parameter) {

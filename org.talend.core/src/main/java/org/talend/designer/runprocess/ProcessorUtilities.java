@@ -13,8 +13,10 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.emf.common.util.EList;
@@ -68,15 +70,34 @@ public class ProcessorUtilities {
         return openedEditors;
     }
 
-    // this character is used only when exporting a job in java, this will be replaced by the correct separator
+    // this character is used only when exporting a job in java, this will be
+    // replaced by the correct separator
     // corresponding to the selected platform.
     public static final String TEMP_JAVA_CLASSPATH_SEPARATOR = "@";
 
-    public static ProcessItem getProcessItem(String processName) {
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        ProcessItem selectedProcessItem = null;
+    // this cache will avoid too much access to the repository
+    private static Map<String, ProcessItem> processItemCache = new HashMap<String, ProcessItem>();
 
+    public static ProcessItem getProcessItem(String processName) {
+        ProcessItem selectedProcessItem = processItemCache.get(processName);
+        if (processName == null || "".equals(processName)) {
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
+            if (selectedProcessItem != null) {
+                IRepositoryObject object = factory.getLastVersion(selectedProcessItem.getProperty().getId());
+                if (object == null) {
+                    return null;
+                }
+                ProcessItem lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
+
+                processItemCache.put(processName, lastVersionOfProcess);
+                versionsProcessItemCache.put(processName + "," + lastVersionOfProcess.getProperty().getVersion(),
+                        selectedProcessItem);
+                return lastVersionOfProcess;
+            }
+
             List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
 
             for (IRepositoryObject process : list) {
@@ -90,12 +111,24 @@ public class ProcessorUtilities {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
+        processItemCache.put(processName, selectedProcessItem);
+        versionsProcessItemCache.put(processName + "," + selectedProcessItem.getProperty().getVersion(), selectedProcessItem);
         return selectedProcessItem;
     }
 
+    private static Map<String, ProcessItem> versionsProcessItemCache = new HashMap<String, ProcessItem>();
+
     public static ProcessItem getProcessItem(String processName, String version) {
+        ProcessItem selectedProcessItem = versionsProcessItemCache.get(processName + "," + version);
+        if (processName == null || "".equals(processName)) {
+            return null;
+        }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
+            if (selectedProcessItem != null) {
+                return selectedProcessItem;
+            }
+
             List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
             for (IRepositoryObject process : list) {
                 if (processName.equals(process.getLabel())) {
@@ -103,7 +136,9 @@ public class ProcessorUtilities {
                         List<IRepositoryObject> allVersions = factory.getAllVersion(process.getId());
                         for (IRepositoryObject ro : allVersions) {
                             if (ro.getVersion().equals(version)) {
-                                return (ProcessItem) ro.getProperty().getItem();
+                                selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
+                                versionsProcessItemCache.put(processName + "," + version, selectedProcessItem);
+                                return selectedProcessItem;
                             }
                         }
                     }
@@ -232,7 +267,13 @@ public class ProcessorUtilities {
                 }
                 processor.setContext(context);
                 try {
-                    processor.generateCode(statistics, trace, properties); // main job will use stats / traces
+                    processor.generateCode(statistics, trace, properties); // main
+                    // job
+                    // will
+                    // use
+                    // stats
+                    // /
+                    // traces
                 } catch (ProcessorException pe) {
                     MessageBoxExceptionHandler.process(pe);
                 }
@@ -240,7 +281,10 @@ public class ProcessorUtilities {
         }
         processor.setContext(currentContext);
         try {
-            processor.generateCode(statistics, trace, properties); // main job will use stats / traces
+            processor.generateCode(statistics, trace, properties); // main job
+            // will use
+            // stats /
+            // traces
         } catch (ProcessorException pe) {
             MessageBoxExceptionHandler.process(pe);
         }
@@ -280,7 +324,8 @@ public class ProcessorUtilities {
                 INode node = iter.next();
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
                     Element element = (Element) node;
-                    // the corresponding parameter is EParameterName.PROCESS_TYPE_CONTEXT
+                    // the corresponding parameter is
+                    // EParameterName.PROCESS_TYPE_CONTEXT
                     element.setPropertyValue("PROCESS_TYPE_CONTEXT", jobInfo.getContextName());
                 }
             }
