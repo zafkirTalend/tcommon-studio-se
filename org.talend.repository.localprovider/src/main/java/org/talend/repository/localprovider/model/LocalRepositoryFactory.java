@@ -447,14 +447,25 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
 
         List<Project> toReturn = new ArrayList<Project>();
+
+        Exception ex = null;
+        int readSuccess = 0;
         for (int i = 0; i < prjs.length; i++) {
             IProject p = prjs[i];
+            try {
+                readProject(local, toReturn, p, false);
+                readProject(local, toReturn, p, true);
+                readSuccess++;
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
 
-            readProject(local, toReturn, p, false);
-            readProject(local, toReturn, p, true);
         }
-
-        return toReturn.toArray(new Project[toReturn.size()]);
+        if (readSuccess == 0 && prjs.length > 0) {
+            throw new PersistenceException("Read projects error.", ex);
+        } else {
+            return toReturn.toArray(new Project[toReturn.size()]);
+        }
     }
 
     private void readProject(boolean local, List<Project> toReturn, IProject p, boolean useOldProjectFile) {
