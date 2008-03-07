@@ -47,6 +47,24 @@ public interface PropertiesFactory extends EFactory {
     Property createProperty();
 
     /**
+     * Returns a new object of class '<em>Link Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Link Documentation Item</em>'.
+     * @generated
+     */
+    LinkDocumentationItem createLinkDocumentationItem();
+
+    /**
+     * Returns a new object of class '<em>Link Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Link Type</em>'.
+     * @generated
+     */
+    LinkType createLinkType();
+
+    /**
      * Returns a new object of class '<em>Business Process Item</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Business Process Item</em>'.

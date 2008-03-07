@@ -44,6 +44,8 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.License;
+import org.talend.core.model.properties.LinkDocumentationItem;
+import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -103,6 +105,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass itemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass linkDocumentationItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass linkTypeEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -772,6 +788,69 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getItem_State() {
         return (EReference)itemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLinkDocumentationItem() {
+        return linkDocumentationItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLinkDocumentationItem_Name() {
+        return (EAttribute)linkDocumentationItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLinkDocumentationItem_Extension() {
+        return (EAttribute)linkDocumentationItemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getLinkDocumentationItem_Link() {
+        return (EReference)linkDocumentationItemEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLinkType() {
+        return linkTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLinkType_URI() {
+        return (EAttribute)linkTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLinkType_State() {
+        return (EAttribute)linkTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2542,6 +2621,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(itemEClass, ITEM__PROPERTY);
         createEReference(itemEClass, ITEM__STATE);
 
+        linkDocumentationItemEClass = createEClass(LINK_DOCUMENTATION_ITEM);
+        createEAttribute(linkDocumentationItemEClass, LINK_DOCUMENTATION_ITEM__NAME);
+        createEAttribute(linkDocumentationItemEClass, LINK_DOCUMENTATION_ITEM__EXTENSION);
+        createEReference(linkDocumentationItemEClass, LINK_DOCUMENTATION_ITEM__LINK);
+
+        linkTypeEClass = createEClass(LINK_TYPE);
+        createEAttribute(linkTypeEClass, LINK_TYPE__URI);
+        createEAttribute(linkTypeEClass, LINK_TYPE__STATE);
+
         businessProcessItemEClass = createEClass(BUSINESS_PROCESS_ITEM);
         createEReference(businessProcessItemEClass, BUSINESS_PROCESS_ITEM__NOTATION);
         createEReference(businessProcessItemEClass, BUSINESS_PROCESS_ITEM__SEMANTIC);
@@ -2815,6 +2903,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         JobletPackage theJobletPackage = (JobletPackage)EPackage.Registry.INSTANCE.getEPackage(JobletPackage.eNS_URI);
 
         // Add supertypes to classes
+        linkDocumentationItemEClass.getESuperTypes().add(this.getItem());
         businessProcessItemEClass.getESuperTypes().add(this.getItem());
         fileItemEClass.getESuperTypes().add(this.getItem());
         documentationItemEClass.getESuperTypes().add(this.getFileItem());
@@ -2900,6 +2989,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(itemEClass, Item.class, "Item", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getItem_Property(), this.getProperty(), this.getProperty_Item(), "property", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getItem_State(), this.getItemState(), null, "state", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(linkDocumentationItemEClass, LinkDocumentationItem.class, "LinkDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLinkDocumentationItem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, LinkDocumentationItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLinkDocumentationItem_Extension(), theEcorePackage.getEString(), "extension", null, 0, 1, LinkDocumentationItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getLinkDocumentationItem_Link(), this.getLinkType(), null, "link", null, 0, 1, LinkDocumentationItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(linkTypeEClass, LinkType.class, "LinkType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLinkType_URI(), theEcorePackage.getEString(), "URI", null, 0, 1, LinkType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLinkType_State(), ecorePackage.getEBoolean(), "state", null, 0, 1, LinkType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(businessProcessItemEClass, BusinessProcessItem.class, "BusinessProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getBusinessProcessItem_Notation(), theNotationPackage.getDiagram(), null, "notation", null, 0, 1, BusinessProcessItem.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

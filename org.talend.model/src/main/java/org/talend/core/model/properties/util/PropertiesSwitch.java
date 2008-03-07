@@ -129,6 +129,19 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM: {
+                LinkDocumentationItem linkDocumentationItem = (LinkDocumentationItem)theEObject;
+                Object result = caseLinkDocumentationItem(linkDocumentationItem);
+                if (result == null) result = caseItem(linkDocumentationItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.LINK_TYPE: {
+                LinkType linkType = (LinkType)theEObject;
+                Object result = caseLinkType(linkType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.BUSINESS_PROCESS_ITEM: {
                 BusinessProcessItem businessProcessItem = (BusinessProcessItem)theEObject;
                 Object result = caseBusinessProcessItem(businessProcessItem);
@@ -529,6 +542,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseItem(Item object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Link Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Link Documentation Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Link Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Link Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseLinkType(LinkType object) {
         return null;
     }
 

@@ -91,6 +91,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseItem(Item object) {
                 return createItemAdapter();
             }
+            public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
+                return createLinkDocumentationItemAdapter();
+            }
+            public Object caseLinkType(LinkType object) {
+                return createLinkTypeAdapter();
+            }
             public Object caseBusinessProcessItem(BusinessProcessItem object) {
                 return createBusinessProcessItemAdapter();
             }
@@ -330,6 +336,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.LinkDocumentationItem <em>Link Documentation Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.LinkDocumentationItem
+     * @generated
+     */
+    public Adapter createLinkDocumentationItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.LinkType <em>Link Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.LinkType
+     * @generated
+     */
+    public Adapter createLinkTypeAdapter() {
         return null;
     }
 

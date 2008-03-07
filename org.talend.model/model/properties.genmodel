@@ -79,6 +79,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Item/property"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Item/state"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//LinkDocumentationItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkDocumentationItem/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkDocumentationItem/extension"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//LinkDocumentationItem/link"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//LinkType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkType/URI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkType/state"/>
+    </genClasses>
     <genClasses ecoreClass="properties.ecore#//BusinessProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/notation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/semantic"/>

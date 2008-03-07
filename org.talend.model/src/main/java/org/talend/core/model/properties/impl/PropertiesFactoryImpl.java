@@ -95,6 +95,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.STATUS: return createStatus();
             case PropertiesPackage.ITEM_STATE: return createItemState();
             case PropertiesPackage.PROPERTY: return createProperty();
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM: return createLinkDocumentationItem();
+            case PropertiesPackage.LINK_TYPE: return createLinkType();
             case PropertiesPackage.BUSINESS_PROCESS_ITEM: return createBusinessProcessItem();
             case PropertiesPackage.BYTE_ARRAY: return createByteArray();
             case PropertiesPackage.DOCUMENTATION_ITEM: return createDocumentationItem();
@@ -200,6 +202,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public Property createProperty() {
         PropertyImpl property = new PropertyImpl();
         return property;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LinkDocumentationItem createLinkDocumentationItem() {
+        LinkDocumentationItemImpl linkDocumentationItem = new LinkDocumentationItemImpl();
+        return linkDocumentationItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LinkType createLinkType() {
+        LinkTypeImpl linkType = new LinkTypeImpl();
+        return linkType;
     }
 
     /**

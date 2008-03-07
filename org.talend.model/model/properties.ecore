@@ -87,6 +87,15 @@
         eOpposite="#//Property/item"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkDocumentationItem" eSuperTypes="#//Item">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extension" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="link" eType="#//LinkType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="URI" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessProcessItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="notation" eType="ecore:EClass platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"
         transient="true"/>
