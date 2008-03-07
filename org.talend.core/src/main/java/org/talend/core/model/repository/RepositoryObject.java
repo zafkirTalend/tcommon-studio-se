@@ -39,6 +39,7 @@ import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
+import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -233,6 +234,12 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
                 return ERepositoryObjectType.METADATA_WSDL_SCHEMA;
+            }
+
+            @Override
+            public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
+
+                return ERepositoryObjectType.DOCUMENTATION;
             }
 
             public Object defaultCase(EObject object) {
