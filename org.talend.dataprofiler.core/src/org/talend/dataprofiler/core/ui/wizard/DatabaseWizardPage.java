@@ -46,7 +46,7 @@ import org.talend.utils.sugars.ReturnCode;
 class DatabaseWizardPage extends WizardPage {
 
     /* use this to paint a more helpful UI for the JDBC URL */
-    private String lastTimeDBType = PluginConstant.EMPTY_STRING;
+    private SupportDBUrlType lastTimeDBType;
 
     private String userid;
 
@@ -72,7 +72,7 @@ class DatabaseWizardPage extends WizardPage {
             if (PluginConstant.CONNECTION_URL_PROPERTY.equals(event.getPropertyName())) {
                 DatabaseWizardPage.this.setConnectionURL((String) event.getNewValue());
                 DatabaseWizardPage.this.updateButtonState();
-            }
+            } 
         }
     };
 
@@ -143,17 +143,17 @@ class DatabaseWizardPage extends WizardPage {
             public void widgetSelected(SelectionEvent e) {
                 String selectedItem = ((Combo) e.getSource()).getText();
                 setDBType(selectedItem);
-                rebuildJDBCControls(selectedItem);
+                rebuildJDBCControls(SupportDBUrlStore.getInstance().getDBUrlType(selectedItem));
             }
         });
         String defalutItem = SupportDBUrlType.MYSQLDEFAULTURL.getDBKey();
         dbTypeCombo.setText(defalutItem);
         setDBType(defalutItem);
-        lastTimeDBType = dbTypeCombo.getText();
+        lastTimeDBType = SupportDBUrlStore.getInstance().getDBUrlType(dbTypeCombo.getText());
         this.container = comp;
         setControl(comp);
 
-        rebuildJDBCControls(lastTimeDBType);
+        rebuildJDBCControls(SupportDBUrlType.MYSQLDEFAULTURL);
 
         String tempUserid = connectionParam.getParameters().getProperty("user");
         if (tempUserid != null) {
@@ -199,13 +199,14 @@ class DatabaseWizardPage extends WizardPage {
     private boolean checkDBConnection() {
         ReturnCode returnCode = ConnectionService.checkConnection(this.connectionParam.getJdbcUrl(), this.connectionParam
                 .getDriverClassName(), this.connectionParam.getParameters());
+//        com
         return returnCode.isOk();
     }
 
     /**
      * 
      */
-    private void rebuildJDBCControls(String dbType) {
+    private void rebuildJDBCControls(SupportDBUrlType dbType) {
         Point windowSize = getShell().getSize();
         Point oldSize = getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT);
 
@@ -248,6 +249,8 @@ class DatabaseWizardPage extends WizardPage {
             public void widgetSelected(SelectionEvent e) {
                 if (checkDBConnection()) {
                     MessageDialog.openInformation(getShell(), "check connections", "Check connection successful.");
+                } else {
+                    MessageDialog.openInformation(getShell(), "check connections", "Check connection failure.");
                 }
             }
 

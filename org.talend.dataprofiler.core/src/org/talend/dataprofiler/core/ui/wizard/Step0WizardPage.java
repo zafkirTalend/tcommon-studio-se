@@ -26,8 +26,7 @@ import org.talend.cwm.management.connection.ConnectionParameters;
  */
 public class Step0WizardPage extends PropertiesWizardPage {
 
-    public Step0WizardPage(ConnectionParameters property, IPath destinationPath, boolean readOnly,
-            boolean editPath) {
+    public Step0WizardPage(ConnectionParameters property, IPath destinationPath, boolean readOnly, boolean editPath) {
         super("WizardPage", property, destinationPath, readOnly, editPath); //$NON-NLS-1$
 
         setTitle("title");
@@ -48,11 +47,11 @@ public class Step0WizardPage extends PropertiesWizardPage {
         super.createControl(container);
 
         setControl(container);
-//        updateContent();
+        // updateContent();
         addListeners();
-        // setPageComplete(false);
-        
-        updatePageComplete();
+        setPageComplete(false);
+
+//        updatePageComplete();
 
     }
 
@@ -62,7 +61,7 @@ public class Step0WizardPage extends PropertiesWizardPage {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-           this.nameText.setFocus();
+            this.nameText.setFocus();
         }
     }
 }

@@ -50,7 +50,6 @@ public final class SupportDBUrlStore {
             PROP.load(in);
             in.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -67,12 +66,28 @@ public final class SupportDBUrlStore {
         supportDBUrlMap.put(SupportDBUrlType.INFORMIXDEFAULTURL.getDBKey(), SupportDBUrlType.INFORMIXDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.FIREBIRDDEFAULTURL.getDBKey(), SupportDBUrlType.FIREBIRDDEFAULTURL);
     }
+    
+    public void changeAllDBNmae(String dbName) {
+        Iterator<String> it = supportDBUrlMap.keySet().iterator();
+        while (it.hasNext()) {
+            SupportDBUrlType dbType = supportDBUrlMap.get(it.next());
+            if (dbType.getDBName() != null) {
+                dbType.setDBName(dbName);
+            }
+        }
+    }
 
     public String[] getDBTypes() {
         String[] dbTypeItems = new String[supportDBUrlMap.size()];
         supportDBUrlMap.keySet().toArray(dbTypeItems);
         return dbTypeItems;
     }
+    
+    public String getDBUrl(SupportDBUrlType dbType) {
+        return getDBUrl(dbType.getDBKey(), dbType.getHostName(), dbType.getPort(), dbType.getDBName(), dbType
+                .getDataSource());
+    }
+
 
     public String getDBUrl(String dbType, String host, String port, String dbName, String dataSource) {
         return getDBUrl(dbType, host, port, dbName, dataSource, PluginConstant.EMPTY_STRING);
@@ -97,10 +112,10 @@ public final class SupportDBUrlStore {
             return PluginConstant.EMPTY_STRING;
         }
 
-        String argHost = host.equals(PluginConstant.EMPTY_STRING) ? defaultUrlType.getHostName() : host;
-        String argPort = port.equals(PluginConstant.EMPTY_STRING) ? defaultUrlType.getPort() : port;
-        String argDBName = dbName.equals(PluginConstant.EMPTY_STRING) ? defaultUrlType.getDBName() : dbName;
-        String argDataSource = dataSource.equals(PluginConstant.EMPTY_STRING) ? defaultUrlType.getDataSource() : dataSource;
+        String argHost = (host == null) ? PluginConstant.EMPTY_STRING : host;
+        String argPort = (port == null) ? PluginConstant.EMPTY_STRING : port;
+        String argDBName = (dbName == null) ? PluginConstant.EMPTY_STRING : dbName;
+        String argDataSource = (dataSource == null) ? PluginConstant.EMPTY_STRING : dataSource;
         Object[] argsUrl = { argHost, argPort, argDBName, argDataSource };
         if (paramString.equals(PluginConstant.EMPTY_STRING)) {
             return MessageFormat.format(propUrlValue, argsUrl);

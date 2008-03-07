@@ -31,7 +31,7 @@ import org.talend.dataprofiler.core.model.SupportDBUrlType;
  */
 public class BasicThreePartURLSetupControl extends URLSetupControl {
 
-    public BasicThreePartURLSetupControl(Composite parent, String dbType) {
+    public BasicThreePartURLSetupControl(Composite parent, SupportDBUrlType dbType) {
         super(parent, dbType);
     }
 
@@ -41,39 +41,40 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
         layout.numColumns = 2;
         parent.setLayout(layout);
 
-
-        SupportDBUrlType urlType = SupportDBUrlStore.getInstance().getDBUrlType(dbType);
-        
-        boolean compositeEnable = !urlType.getHostName().equals(PluginConstant.EMPTY_STRING);
-        Label label = new Label(parent, SWT.NONE);        
+        boolean compositeEnable = !(dbType.getHostName() == null);
+        Label label = new Label(parent, SWT.NONE);
         label.setText("Hostname");
         final Text hostNameText = new Text(parent, SWT.BORDER | SWT.SINGLE);
         hostNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        hostNameText.setText(urlType.getHostName());
+        if (compositeEnable) {
+            hostNameText.setText(dbType.getHostName());
+        }
         label.setEnabled(compositeEnable);
         hostNameText.setEnabled(compositeEnable);
-        
 
-        compositeEnable = !urlType.getPort().equals(PluginConstant.EMPTY_STRING);
+        compositeEnable = !(dbType.getPort() == null);
         label = new Label(parent, SWT.NONE);
-        label.setText("Port"); 
+        label.setText("Port");
         final Text portText = new Text(parent, SWT.BORDER | SWT.SINGLE);
         portText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        portText.setText(urlType.getPort());
+        if (compositeEnable) {
+            portText.setText(dbType.getPort());
+        }
         label.setEnabled(compositeEnable);
         portText.setEnabled(compositeEnable);
 
-
-        compositeEnable = !urlType.getDBName().equals(PluginConstant.EMPTY_STRING);
+        compositeEnable = !(dbType.getDBName() == null);
         label = new Label(parent, SWT.NONE);
         label.setText("DBname"); //$NON-NLS-1$
         final Text databaseNameText = new Text(parent, SWT.BORDER | SWT.SINGLE);
         databaseNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        databaseNameText.setText(urlType.getDBName());
+        if (compositeEnable) {
+            databaseNameText.setText(dbType.getDBName());
+        }
         label.setEnabled(compositeEnable);
         databaseNameText.setEnabled(compositeEnable);
-        
-        compositeEnable = !urlType.getParamSeprator().equals(PluginConstant.EMPTY_STRING);
+
+        compositeEnable = !(dbType.getParamSeprator() == null);
         label = new Label(parent, SWT.NONE);
         label.setText("Additional JDBC Parameters"); //$NON-NLS-1$
         final Text parameterText = new Text(parent, SWT.BORDER | SWT.SINGLE);
@@ -83,17 +84,19 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
         label.setEnabled(compositeEnable);
         parameterText.setEnabled(compositeEnable);
 
-        compositeEnable = !urlType.getDataSource().equals(PluginConstant.EMPTY_STRING);
+        compositeEnable = !(dbType.getDataSource() == null);
         label = new Label(parent, SWT.NONE);
         label.setText("DataSource");
         final Text dataSourceText = new Text(parent, SWT.BORDER | SWT.SINGLE);
         dataSourceText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        dataSourceText.setText(urlType.getDataSource());
+        if (compositeEnable) {
+            dataSourceText.setText(dbType.getDataSource());
+        }
         label.setEnabled(compositeEnable);
         dataSourceText.setEnabled(compositeEnable);
 
         label = new Label(parent, SWT.NONE);
-        label.setText("Url"); 
+        label.setText("Url");
         final Text urlText = new Text(parent, SWT.BORDER | SWT.SINGLE);
         urlText.setEditable(false);
         urlText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -102,7 +105,7 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
         dataSourceText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent event) {
-                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType, hostNameText.getText(),
+                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType.getDBKey(), hostNameText.getText(),
                         portText.getText(), databaseNameText.getText(), dataSourceText.getText(), parameterText.getText()));
                 urlText.setText(getConnectionURL());
             }
@@ -111,7 +114,7 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
         hostNameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent event) {
-                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType, hostNameText.getText(),
+                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType.getDBKey(), hostNameText.getText(),
                         portText.getText(), databaseNameText.getText(), dataSourceText.getText(), parameterText.getText()));
                 urlText.setText(getConnectionURL());
             }
@@ -121,7 +124,7 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
 
             public void modifyText(ModifyEvent event) {
 
-                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType, hostNameText.getText(),
+                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType.getDBKey(), hostNameText.getText(),
                         portText.getText(), databaseNameText.getText(), dataSourceText.getText(), parameterText.getText()));
                 urlText.setText(getConnectionURL());
             }
@@ -133,7 +136,7 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
                 try {
                     portValue = new Long(portText.getText());
                 } catch (NumberFormatException e1) {
-                    //JUMP
+                    // JUMP
                 }
                 if (portValue == null || portValue <= 0) {
                     portText.setText(PluginConstant.EMPTY_STRING); //$NON-NLS-1$
@@ -144,22 +147,21 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
         databaseNameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent event) {
-                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType, hostNameText.getText(),
+                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType.getDBKey(), hostNameText.getText(),
+                        portText.getText(), databaseNameText.getText(), dataSourceText.getText(), parameterText.getText()));
+                urlText.setText(getConnectionURL());
+                SupportDBUrlStore.getInstance().changeAllDBNmae(databaseNameText.getText());
+            }
+        });
+
+        parameterText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType.getDBKey(), hostNameText.getText(),
                         portText.getText(), databaseNameText.getText(), dataSourceText.getText(), parameterText.getText()));
                 urlText.setText(getConnectionURL());
             }
+
         });
-        
-        parameterText.addModifyListener(new ModifyListener() {
-
-			public void modifyText(ModifyEvent e) {
-				setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(
-						dbType, hostNameText.getText(), portText.getText(),
-						databaseNameText.getText(), dataSourceText.getText(),
-						parameterText.getText()));
-				urlText.setText(getConnectionURL());
-			}
-
-		});
     }
 }

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.SupportDBUrlStore;
+import org.talend.dataprofiler.core.model.SupportDBUrlType;
 
 
 /**
@@ -35,13 +36,13 @@ public abstract class URLSetupControl extends Composite {
 //    private final JDBCDriver driver;
     private String connectionURL;
     
-    protected String dbType;
+    protected SupportDBUrlType dbType;
 
     /**
      * @param parent
      * @param style
      */
-    public URLSetupControl(Composite parent, String dbType) {
+    public URLSetupControl(Composite parent, SupportDBUrlType dbType) {
         super(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
         setLayout(layout);
@@ -49,7 +50,7 @@ public abstract class URLSetupControl extends Composite {
         
 //        setPropertyDefaults();
         this.dbType = dbType;
-        setConnectionURL(SupportDBUrlStore.getInstance().getDefaultDBUrl(dbType));
+        setConnectionURL(SupportDBUrlStore.getInstance().getDBUrl(dbType));
     }
 
     /**

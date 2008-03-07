@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model;
 
-import org.talend.dataprofiler.core.PluginConstant;
 
 /**
  * DOC rli class global comment. Detailled comment <br/>
@@ -20,10 +19,10 @@ import org.talend.dataprofiler.core.PluginConstant;
  */
 public enum SupportDBUrlType {
     ODBCDEFAULTURL("Generic ODBC", //$NON-NLS-1$
-                   PluginConstant.EMPTY_STRING,
-                   PluginConstant.EMPTY_STRING,
-                   PluginConstant.EMPTY_STRING,
-                   PluginConstant.EMPTY_STRING,
+                   null,
+                   null,
+                   null,
+                   null,
                    "sun.jdbc.odbc.JdbcOdbcDriver", //$NON-NLS-1$
                    "datasourceName"), //$NON-NLS-1$ //$NON-NLS-2$
     MYSQLDEFAULTURL("Mysql", //$NON-NLS-1$
@@ -32,49 +31,49 @@ public enum SupportDBUrlType {
                     "dbname", //$NON-NLS-1$
                     "?",  //$NON-NLS-1$
                     "org.gjt.mm.mysql.Driver", //$NON-NLS-1$
-                     PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                    null), //$NON-NLS-1$
     ORACLEDEFAULTURL("Oracle", //$NON-NLS-1$
                      "localhost", //$NON-NLS-1$
                      "1521", //$NON-NLS-1$
                      "dbname", //$NON-NLS-1$
-                     PluginConstant.EMPTY_STRING,
+                     null,
                      "oracle.jdbc.driver.OracleDriver", //$NON-NLS-1$
-                      PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                     null), //$NON-NLS-1$
     MSSQLDEFAULTURL("MSSQL", //$NON-NLS-1$
                     "localhost", //$NON-NLS-1$
                     "1433", //$NON-NLS-1$
                     "dbname", //$NON-NLS-1$
                     ";",  //$NON-NLS-1$
                     "net.sourceforge.jtds.jdbc.Driver", //$NON-NLS-1$
-                    PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                    null), //$NON-NLS-1$
     DB2DEFAULTURL("DB2", //$NON-NLS-1$
                   "localhost", //$NON-NLS-1$
                   "50000", //$NON-NLS-1$
                   "dbname", //$NON-NLS-1$
-                  PluginConstant.EMPTY_STRING,
+                  null,
                   "com.ibm.db2.jcc.DB2Driver", //$NON-NLS-1$
-                   PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                  null), //$NON-NLS-1$
     POSTGRESQLEFAULTURL("PostgreSQL", //$NON-NLS-1$
                         "localhost", //$NON-NLS-1$
                         "5423", //$NON-NLS-1$
                         "dbname", //$NON-NLS-1$
-                        PluginConstant.EMPTY_STRING,
+                        null,
                         "org.postgresql.Driver", //$NON-NLS-1$
-                       PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                        null), //$NON-NLS-1$
     INTERBASEDEFAULTURL("Interbase", //$NON-NLS-1$
                         "localhost", //$NON-NLS-1$
                         "3060", //$NON-NLS-1$
                         "dbname", //$NON-NLS-1$
-                        PluginConstant.EMPTY_STRING,
+                        null,
                         "interbase.interclient.Driver", //$NON-NLS-1$
-                        PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                        null), //$NON-NLS-1$
     SYBASEDEFAULTURL("Sybase", //$NON-NLS-1$
                      "localhost", //$NON-NLS-1$
                      "5007", //$NON-NLS-1$
                      "dbname", //$NON-NLS-1$
-                     PluginConstant.EMPTY_STRING,
+                     null,
                      "com.sybase.jdbc3.jdbc.SybDriver", //$NON-NLS-1$
-                     PluginConstant.EMPTY_STRING), //$NON-NLS-1$
+                     null), //$NON-NLS-1$
     INFORMIXDEFAULTURL("Informix", //$NON-NLS-1$
                        "localhost", //$NON-NLS-1$
                        "1533", //$NON-NLS-1$
@@ -84,11 +83,11 @@ public enum SupportDBUrlType {
                        "myserver"), //$NON-NLS-1$ //$NON-NLS-2$
     FIREBIRDDEFAULTURL("FireBird", //$NON-NLS-1$
                        "localhost", //$NON-NLS-1$
-                       PluginConstant.EMPTY_STRING, //$NON-NLS-1$
+                       null, //$NON-NLS-1$
                        "dbname", //$NON-NLS-1$
-                       PluginConstant.EMPTY_STRING,
+                       null,
                        "org.firebirdsql.jdbc.FBDriver", //$NON-NLS-1$
-                       PluginConstant.EMPTY_STRING); //$NON-NLS-1$
+                       null); //$NON-NLS-1$
 
     private final String dbKey;
 
@@ -96,7 +95,7 @@ public enum SupportDBUrlType {
 
     private final String port;
 
-    private final String dbName;
+    private  String dbName;
     
     private final String paramSeprator;
 
@@ -122,6 +121,10 @@ public enum SupportDBUrlType {
 
     public String getPort() {
         return port;
+    }
+    
+    public void setDBName(String dbName) {
+        this.dbName = dbName;
     }
 
     public String getDBName() {

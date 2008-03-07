@@ -141,11 +141,11 @@
    <extension
       point="org.talend.dataprofiler.core.dataprofilerperspectives">
         <DataprofilerPerspective
-         refPerspectiveId="net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective"
-         dataprofilerPerspectiveName="Data Discovery"/>
-        <DataprofilerPerspective
          refPerspectiveId="org.talend.dataprofiler.DataProfilingPerspective"
          dataprofilerPerspectiveName="Data Profiling"/>
+        <DataprofilerPerspective
+         refPerspectiveId="net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective"
+         dataprofilerPerspectiveName="Data Discovery"/>
    </extension>
 
 </plugin>
