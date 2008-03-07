@@ -15,6 +15,7 @@ package org.talend.core.model.components;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.RGB;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -46,6 +47,8 @@ public interface IComponent {
     public String getName();
 
     public String getTranslatedName();
+
+    public RGB getLableForegroundColor();
 
     public String getLongName();
 
