@@ -94,6 +94,10 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
+            case IndicatorsPackage.ENUM_STATISTICS:
+                return createEnumStatisticsFromString(eDataType, initialValue);
+            case IndicatorsPackage.DATAMINING_TYPE:
+                return createDataminingTypeFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_SET:
                 return createJavaSetFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -113,6 +117,10 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
+            case IndicatorsPackage.ENUM_STATISTICS:
+                return convertEnumStatisticsToString(eDataType, instanceValue);
+            case IndicatorsPackage.DATAMINING_TYPE:
+                return convertDataminingTypeToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_SET:
                 return convertJavaSetToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -282,6 +290,46 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     public MedianIndicator createMedianIndicator() {
         MedianIndicatorImpl medianIndicator = new MedianIndicatorImpl();
         return medianIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EnumStatistics createEnumStatisticsFromString(EDataType eDataType, String initialValue) {
+        EnumStatistics result = EnumStatistics.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertEnumStatisticsToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DataminingType createDataminingTypeFromString(EDataType eDataType, String initialValue) {
+        DataminingType result = DataminingType.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertDataminingTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
     }
 
     /**

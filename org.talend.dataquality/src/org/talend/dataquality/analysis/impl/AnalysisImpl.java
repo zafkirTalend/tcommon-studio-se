@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.analysis.impl;
 
+import java.util.Date;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -38,6 +39,7 @@ import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisImpl#getResults <em>Results</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisImpl#getCreationDate <em>Creation Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,6 +75,26 @@ public class AnalysisImpl extends ReportGroupImpl implements Analysis {
      * @ordered
      */
     protected AnalysisParameters parameters;
+
+    /**
+     * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCreationDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date CREATION_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCreationDate()
+     * @generated
+     * @ordered
+     */
+    protected Date creationDate = CREATION_DATE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -227,6 +249,27 @@ public class AnalysisImpl extends ReportGroupImpl implements Analysis {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCreationDate(Date newCreationDate) {
+        Date oldCreationDate = creationDate;
+        creationDate = newCreationDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, AnalysisPackage.ANALYSIS__CREATION_DATE, oldCreationDate, creationDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -270,6 +313,8 @@ public class AnalysisImpl extends ReportGroupImpl implements Analysis {
                 return getResults();
             case AnalysisPackage.ANALYSIS__PARAMETERS:
                 return getParameters();
+            case AnalysisPackage.ANALYSIS__CREATION_DATE:
+                return getCreationDate();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -292,6 +337,9 @@ public class AnalysisImpl extends ReportGroupImpl implements Analysis {
             case AnalysisPackage.ANALYSIS__PARAMETERS:
                 setParameters((AnalysisParameters)newValue);
                 return;
+            case AnalysisPackage.ANALYSIS__CREATION_DATE:
+                setCreationDate((Date)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -313,6 +361,9 @@ public class AnalysisImpl extends ReportGroupImpl implements Analysis {
             case AnalysisPackage.ANALYSIS__PARAMETERS:
                 setParameters((AnalysisParameters)null);
                 return;
+            case AnalysisPackage.ANALYSIS__CREATION_DATE:
+                setCreationDate(CREATION_DATE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -331,8 +382,26 @@ public class AnalysisImpl extends ReportGroupImpl implements Analysis {
                 return results != null;
             case AnalysisPackage.ANALYSIS__PARAMETERS:
                 return parameters != null;
+            case AnalysisPackage.ANALYSIS__CREATION_DATE:
+                return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (creationDate: ");
+        result.append(creationDate);
+        result.append(')');
+        return result.toString();
     }
 
 } //AnalysisImpl

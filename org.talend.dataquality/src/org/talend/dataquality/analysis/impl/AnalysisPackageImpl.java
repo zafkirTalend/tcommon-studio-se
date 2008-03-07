@@ -302,6 +302,15 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getAnalysis_CreationDate() {
+        return (EAttribute)analysisEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getAnalysisContext() {
         return analysisContextEClass;
     }
@@ -322,15 +331,6 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
      */
     public EReference getAnalysisContext_AnalysedElement() {
         return (EReference)analysisContextEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAnalysisContext_PathToElement() {
-        return (EAttribute)analysisContextEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -464,11 +464,11 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         createEReference(analysisEClass, ANALYSIS__CONTEXT);
         createEReference(analysisEClass, ANALYSIS__RESULTS);
         createEReference(analysisEClass, ANALYSIS__PARAMETERS);
+        createEAttribute(analysisEClass, ANALYSIS__CREATION_DATE);
 
         analysisContextEClass = createEClass(ANALYSIS_CONTEXT);
         createEReference(analysisContextEClass, ANALYSIS_CONTEXT__CONNECTION);
         createEReference(analysisContextEClass, ANALYSIS_CONTEXT__ANALYSED_ELEMENT);
-        createEAttribute(analysisContextEClass, ANALYSIS_CONTEXT__PATH_TO_ELEMENT);
 
         analysisParametersEClass = createEClass(ANALYSIS_PARAMETERS);
         createEReference(analysisParametersEClass, ANALYSIS_PARAMETERS__DATA_FILTER);
@@ -529,11 +529,11 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         initEReference(getAnalysis_Context(), this.getAnalysisContext(), null, "context", null, 0, 1, Analysis.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAnalysis_Results(), this.getAnalysisResult(), this.getAnalysisResult_Analysis(), "results", null, 0, 1, Analysis.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAnalysis_Parameters(), this.getAnalysisParameters(), null, "parameters", null, 0, 1, Analysis.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAnalysis_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 0, 1, Analysis.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(analysisContextEClass, AnalysisContext.class, "AnalysisContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAnalysisContext_Connection(), theSoftwaredeploymentPackage.getDataManager(), null, "connection", null, 0, 1, AnalysisContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAnalysisContext_AnalysedElement(), theCorePackage.getModelElement(), null, "analysedElement", null, 0, 1, AnalysisContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAnalysisContext_PathToElement(), ecorePackage.getEString(), "pathToElement", null, 0, 1, AnalysisContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(analysisParametersEClass, AnalysisParameters.class, "AnalysisParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAnalysisParameters_DataFilter(), theDomainPackage.getDomain(), null, "dataFilter", null, 0, -1, AnalysisParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

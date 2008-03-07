@@ -27,7 +27,6 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroup;
  * <ul>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisContext#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisContext#getAnalysedElement <em>Analysed Element</em>}</li>
- *   <li>{@link org.talend.dataquality.analysis.AnalysisContext#getPathToElement <em>Path To Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -86,31 +85,5 @@ public interface AnalysisContext extends ReportGroup {
      * @generated
      */
     void setAnalysedElement(ModelElement value);
-
-    /**
-     * Returns the value of the '<em><b>Path To Element</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * The path to the analysed object. 
-     * e.g. for a Column, the string will be "Schema/Table"
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Path To Element</em>' attribute.
-     * @see #setPathToElement(String)
-     * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisContext_PathToElement()
-     * @model
-     * @generated
-     */
-    String getPathToElement();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.analysis.AnalysisContext#getPathToElement <em>Path To Element</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Path To Element</em>' attribute.
-     * @see #getPathToElement()
-     * @generated
-     */
-    void setPathToElement(String value);
 
 } // AnalysisContext

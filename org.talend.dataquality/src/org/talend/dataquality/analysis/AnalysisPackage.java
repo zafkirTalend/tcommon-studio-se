@@ -531,13 +531,22 @@ public interface AnalysisPackage extends EPackage {
     int ANALYSIS__PARAMETERS = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Creation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ANALYSIS__CREATION_DATE = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Analysis</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ANALYSIS_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+    int ANALYSIS_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl <em>Context</em>}' class.
@@ -1000,22 +1009,13 @@ public interface AnalysisPackage extends EPackage {
     int ANALYSIS_CONTEXT__ANALYSED_ELEMENT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Path To Element</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ANALYSIS_CONTEXT__PATH_TO_ELEMENT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 2;
-
-    /**
      * The number of structural features of the '<em>Context</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ANALYSIS_CONTEXT_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+    int ANALYSIS_CONTEXT_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl <em>Parameters</em>}' class.
@@ -2056,6 +2056,17 @@ public interface AnalysisPackage extends EPackage {
     EReference getAnalysis_Parameters();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.Analysis#getCreationDate <em>Creation Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Creation Date</em>'.
+     * @see org.talend.dataquality.analysis.Analysis#getCreationDate()
+     * @see #getAnalysis()
+     * @generated
+     */
+    EAttribute getAnalysis_CreationDate();
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.analysis.AnalysisContext <em>Context</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2086,17 +2097,6 @@ public interface AnalysisPackage extends EPackage {
      * @generated
      */
     EReference getAnalysisContext_AnalysedElement();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.AnalysisContext#getPathToElement <em>Path To Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Path To Element</em>'.
-     * @see org.talend.dataquality.analysis.AnalysisContext#getPathToElement()
-     * @see #getAnalysisContext()
-     * @generated
-     */
-    EAttribute getAnalysisContext_PathToElement();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.analysis.AnalysisParameters <em>Parameters</em>}'.
@@ -2273,6 +2273,14 @@ public interface AnalysisPackage extends EPackage {
         EReference ANALYSIS__PARAMETERS = eINSTANCE.getAnalysis_Parameters();
 
         /**
+         * The meta object literal for the '<em><b>Creation Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ANALYSIS__CREATION_DATE = eINSTANCE.getAnalysis_CreationDate();
+
+        /**
          * The meta object literal for the '{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl <em>Context</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2297,14 +2305,6 @@ public interface AnalysisPackage extends EPackage {
          * @generated
          */
         EReference ANALYSIS_CONTEXT__ANALYSED_ELEMENT = eINSTANCE.getAnalysisContext_AnalysedElement();
-
-        /**
-         * The meta object literal for the '<em><b>Path To Element</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ANALYSIS_CONTEXT__PATH_TO_ELEMENT = eINSTANCE.getAnalysisContext_PathToElement();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl <em>Parameters</em>}' class.

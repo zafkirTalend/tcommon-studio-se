@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -28,8 +29,10 @@ import org.talend.dataquality.indicators.BigDecimalMeanIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.BoxIndicator;
 import org.talend.dataquality.indicators.CompositeIndicator;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.DoubleMeanIndicator;
 import org.talend.dataquality.indicators.DoubleSumIndicator;
+import org.talend.dataquality.indicators.EnumStatistics;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
@@ -190,6 +193,20 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     private EClass medianIndicatorEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum enumStatisticsEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum dataminingTypeEEnum = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -710,6 +727,24 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EEnum getEnumStatistics() {
+        return enumStatisticsEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getDataminingType() {
+        return dataminingTypeEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EDataType getJavaSet() {
         return javaSetEDataType;
     }
@@ -821,6 +856,10 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         medianIndicatorEClass = createEClass(MEDIAN_INDICATOR);
         createEAttribute(medianIndicatorEClass, MEDIAN_INDICATOR__MEDIAN);
         createEAttribute(medianIndicatorEClass, MEDIAN_INDICATOR__FREQUENCE_TABLE);
+
+        // Create enums
+        enumStatisticsEEnum = createEEnum(ENUM_STATISTICS);
+        dataminingTypeEEnum = createEEnum(DATAMINING_TYPE);
 
         // Create data types
         javaSetEDataType = createEDataType(JAVA_SET);
@@ -962,6 +1001,34 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEAttribute(getMedianIndicator_FrequenceTable(), this.getJavaTreeMap(), "frequenceTable", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(medianIndicatorEClass, ecorePackage.getEBoolean(), "computeMedian", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        // Initialize enums and add enum literals
+        initEEnum(enumStatisticsEEnum, EnumStatistics.class, "EnumStatistics");
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MIN_VALUE);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MAX_VALUE);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.LOWER_QUARTILE);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.UPPER_QUARTILE);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MEAN);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MEDIAN);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.ROW_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.NULL_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.DISTINCT_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.UNIQUE_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.DUPLICATE_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.BOX);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.FREQ_TABLE);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.RANGE);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.IQR);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.BIN_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MATCHING_VALUES);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.BLANK_COUNT);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MIN_LENGTH);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MAX_LENGTH);
+        addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.AVG_LENGTH);
+
+        initEEnum(dataminingTypeEEnum, DataminingType.class, "DataminingType");
+        addEEnumLiteral(dataminingTypeEEnum, DataminingType.NOMINAL);
+        addEEnumLiteral(dataminingTypeEEnum, DataminingType.INTERVAL);
 
         // Initialize data types
         initEDataType(javaSetEDataType, Set.class, "JavaSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Set<Object>");

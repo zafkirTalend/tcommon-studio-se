@@ -69,7 +69,6 @@ public class AnalysisContextItemProvider
 
             addConnectionPropertyDescriptor(object);
             addAnalysedElementPropertyDescriptor(object);
-            addPathToElementPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -119,28 +118,6 @@ public class AnalysisContextItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Path To Element feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addPathToElementPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_AnalysisContext_pathToElement_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AnalysisContext_pathToElement_feature", "_UI_AnalysisContext_type"),
-                 AnalysisPackage.Literals.ANALYSIS_CONTEXT__PATH_TO_ELEMENT,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
      * This returns AnalysisContext.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -175,12 +152,6 @@ public class AnalysisContextItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
-
-        switch (notification.getFeatureID(AnalysisContext.class)) {
-            case AnalysisPackage.ANALYSIS_CONTEXT__PATH_TO_ELEMENT:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-        }
         super.notifyChanged(notification);
     }
 

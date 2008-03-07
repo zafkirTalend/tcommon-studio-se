@@ -41,7 +41,6 @@ import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
  * <ul>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl#getAnalysedElement <em>Analysed Element</em>}</li>
- *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl#getPathToElement <em>Path To Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,26 +66,6 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
      * @ordered
      */
     protected ModelElement analysedElement;
-
-    /**
-     * The default value of the '{@link #getPathToElement() <em>Path To Element</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getPathToElement()
-     * @generated
-     * @ordered
-     */
-    protected static final String PATH_TO_ELEMENT_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getPathToElement() <em>Path To Element</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getPathToElement()
-     * @generated
-     * @ordered
-     */
-    protected String pathToElement = PATH_TO_ELEMENT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -188,27 +167,6 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getPathToElement() {
-        return pathToElement;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setPathToElement(String newPathToElement) {
-        String oldPathToElement = pathToElement;
-        pathToElement = newPathToElement;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, AnalysisPackage.ANALYSIS_CONTEXT__PATH_TO_ELEMENT, oldPathToElement, pathToElement));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -218,8 +176,6 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
             case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
                 if (resolve) return getAnalysedElement();
                 return basicGetAnalysedElement();
-            case AnalysisPackage.ANALYSIS_CONTEXT__PATH_TO_ELEMENT:
-                return getPathToElement();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -239,9 +195,6 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
             case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
                 setAnalysedElement((ModelElement)newValue);
                 return;
-            case AnalysisPackage.ANALYSIS_CONTEXT__PATH_TO_ELEMENT:
-                setPathToElement((String)newValue);
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -260,9 +213,6 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
             case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
                 setAnalysedElement((ModelElement)null);
                 return;
-            case AnalysisPackage.ANALYSIS_CONTEXT__PATH_TO_ELEMENT:
-                setPathToElement(PATH_TO_ELEMENT_EDEFAULT);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -279,26 +229,8 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
                 return connection != null;
             case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
                 return analysedElement != null;
-            case AnalysisPackage.ANALYSIS_CONTEXT__PATH_TO_ELEMENT:
-                return PATH_TO_ELEMENT_EDEFAULT == null ? pathToElement != null : !PATH_TO_ELEMENT_EDEFAULT.equals(pathToElement);
         }
         return super.eIsSet(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public String toString() {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (pathToElement: ");
-        result.append(pathToElement);
-        result.append(')');
-        return result.toString();
     }
 
 } //AnalysisContextImpl

@@ -218,7 +218,7 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     }
 
     /**
-     * ADDED Method "computeDistinctValues".
+     * ADDED scorreia Method "computeDistinctValues".
      * 
      * @return the distinct values
      */

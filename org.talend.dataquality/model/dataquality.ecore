@@ -11,17 +11,13 @@
           containment="true" eOpposite="#//analysis/AnalysisResult/analysis"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" eType="#//analysis/AnalysisParameters"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AnalysisContext" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/ReportGroup">
       <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/softwaredeployment/DataManager"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="analysedElement" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="the analysed object (could be a Catalog, a Schema, a Table, a ColumnSet, a Column, ...)"/>
-        </eAnnotations>
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pathToElement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The path to the analysed object. &#xA;e.g. for a Column, the string will be &quot;Schema/Table&quot;"/>
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
@@ -198,6 +194,33 @@
     <eClassifiers xsi:type="ecore:EDataType" name="JavaSet" instanceClassName="java.util.Set&lt;Object>"/>
     <eClassifiers xsi:type="ecore:EDataType" name="JavaHashMap" instanceClassName="java.util.HashMap&lt;Object, java.lang.Long>"/>
     <eClassifiers xsi:type="ecore:EDataType" name="JavaTreeMap" instanceClassName="java.util.TreeMap&lt;Object, java.lang.Long>"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="EnumStatistics">
+      <eLiterals name="MIN_VALUE" literal="Minimal value"/>
+      <eLiterals name="MAX_VALUE" value="1" literal="Maximal value"/>
+      <eLiterals name="LOWER_QUARTILE" value="2" literal="Lower quartile"/>
+      <eLiterals name="UPPER_QUARTILE" value="3" literal="Upper quartile"/>
+      <eLiterals name="MEAN" value="4" literal="Mean"/>
+      <eLiterals name="MEDIAN" value="5" literal="Median"/>
+      <eLiterals name="ROW_COUNT" literal="Row count"/>
+      <eLiterals name="NULL_COUNT" value="1" literal="Null count"/>
+      <eLiterals name="DISTINCT_COUNT" value="2" literal="Distinct count"/>
+      <eLiterals name="UNIQUE_COUNT" value="3" literal="Unique count"/>
+      <eLiterals name="DUPLICATE_COUNT" value="4" literal="Duplicate count"/>
+      <eLiterals name="BOX"/>
+      <eLiterals name="FREQ_TABLE" value="1" literal="Frequency table"/>
+      <eLiterals name="RANGE" value="2" literal="Range"/>
+      <eLiterals name="IQR" value="3" literal="Inter quartile range"/>
+      <eLiterals name="BIN_COUNT" value="4" literal="Bin count"/>
+      <eLiterals name="MATCHING_VALUES" literal="Matching values"/>
+      <eLiterals name="BLANK_COUNT" literal="Blank count"/>
+      <eLiterals name="MIN_LENGTH" value="1" literal="Minimal length"/>
+      <eLiterals name="MAX_LENGTH" value="2" literal="Maximal length"/>
+      <eLiterals name="AVG_LENGTH" value="3" literal="Average length"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="DataminingType">
+      <eLiterals name="NOMINAL" literal="Nominal"/>
+      <eLiterals name="INTERVAL" value="1" literal="Interval"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="expressions" nsURI="http://dataquality.expressions" nsPrefix="dataquality.expressions">
     <eClassifiers xsi:type="ecore:EClass" name="BooleanExpressionNode" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/expressions/ExpressionNode">

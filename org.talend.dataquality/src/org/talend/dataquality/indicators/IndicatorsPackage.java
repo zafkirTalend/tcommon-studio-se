@@ -1787,6 +1787,26 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.EnumStatistics
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
+     * @generated
+     */
+    int ENUM_STATISTICS = 18;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.DataminingType
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
+     * @generated
+     */
+    int DATAMINING_TYPE = 19;
+
+    /**
      * The meta object id for the '<em>Java Set</em>' data type.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1794,7 +1814,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 18;
+    int JAVA_SET = 20;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -1804,7 +1824,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 19;
+    int JAVA_HASH_MAP = 21;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -1814,7 +1834,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 20;
+    int JAVA_TREE_MAP = 22;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -2316,6 +2336,26 @@ public interface IndicatorsPackage extends EPackage {
     EAttribute getMedianIndicator_FrequenceTable();
 
     /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Enum Statistics</em>'.
+     * @see org.talend.dataquality.indicators.EnumStatistics
+     * @generated
+     */
+    EEnum getEnumStatistics();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Datamining Type</em>'.
+     * @see org.talend.dataquality.indicators.DataminingType
+     * @generated
+     */
+    EEnum getDataminingType();
+
+    /**
      * Returns the meta object for data type '{@link java.util.Set <em>Java Set</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2781,6 +2821,26 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EAttribute MEDIAN_INDICATOR__FREQUENCE_TABLE = eINSTANCE.getMedianIndicator_FrequenceTable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.EnumStatistics
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
+         * @generated
+         */
+        EEnum ENUM_STATISTICS = eINSTANCE.getEnumStatistics();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.DataminingType
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
+         * @generated
+         */
+        EEnum DATAMINING_TYPE = eINSTANCE.getDataminingType();
 
         /**
          * The meta object literal for the '<em>Java Set</em>' data type.

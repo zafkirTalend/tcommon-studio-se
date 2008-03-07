@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.analysis;
 
+import java.util.Date;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.dataquality.indicators.Indicator;
@@ -22,6 +23,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroup;
  *   <li>{@link org.talend.dataquality.analysis.Analysis#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.Analysis#getResults <em>Results</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.Analysis#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.Analysis#getCreationDate <em>Creation Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,5 +111,31 @@ public interface Analysis extends ReportGroup {
      * @generated
      */
     void setParameters(AnalysisParameters value);
+
+    /**
+     * Returns the value of the '<em><b>Creation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Creation Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Creation Date</em>' attribute.
+     * @see #setCreationDate(Date)
+     * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysis_CreationDate()
+     * @model
+     * @generated
+     */
+    Date getCreationDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.analysis.Analysis#getCreationDate <em>Creation Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Creation Date</em>' attribute.
+     * @see #getCreationDate()
+     * @generated
+     */
+    void setCreationDate(Date value);
 
 } // Analysis
