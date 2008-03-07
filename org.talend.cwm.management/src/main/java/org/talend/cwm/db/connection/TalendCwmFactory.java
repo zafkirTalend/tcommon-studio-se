@@ -113,8 +113,10 @@ public final class TalendCwmFactory {
             printInformations(catalogs, schemata);
         }
 
-        String folder = folderProvider.getFolder().getAbsolutePath();
+        String folder = ((folderProvider != null) && folderProvider.getFolder() != null) ? folderProvider.getFolder()
+                .getAbsolutePath() : null;
         if (folder == null) { // do not serialize data
+            log.info("Data provider not serialized: no folder given.");
             return dataProvider;
         }
 
@@ -300,6 +302,7 @@ public final class TalendCwmFactory {
                         List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
                                 .getName(), tdSchema.getName(), connection);
                         ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
+
                     }
                 }
                 // first try to get the columns
