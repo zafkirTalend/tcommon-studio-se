@@ -122,14 +122,12 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
 
         addField(languageSelectionEditor);
 
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD, Messages
-                    .getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
-                    getFieldEditorParent());
-
-            addField(runInMultiThread);
-
-        }
+        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(
+            ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
+            Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+            getFieldEditorParent()
+        );
+        addField(runInMultiThread);
         
         DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH, Messages
                 .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
