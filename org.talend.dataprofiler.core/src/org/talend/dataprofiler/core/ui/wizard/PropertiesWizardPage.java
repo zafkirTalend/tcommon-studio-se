@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,6 +45,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
+import org.talend.cwm.db.connection.FolderProvider;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
@@ -51,8 +53,6 @@ import org.talend.dataprofiler.core.ui.dialog.TypedViewerFilter;
 
 /**
  * Wizard page contains common properties fields.<br/>
- * 
- * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 十二月 2006) bqian $
  * 
  */
 public abstract class PropertiesWizardPage extends WizardPage {
@@ -102,6 +102,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
+	private ConnectionParameters connectionParams;
+
+    private IFolder defaultFolderProviderRes;
+
     protected PropertiesWizardPage(String pageName, ConnectionParameters property, IPath destinationPath) {
         this(pageName, property, destinationPath, false, true);
     }
@@ -115,6 +119,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         this.readOnly = readOnly;
         this.editPath = editPath;
+        this.connectionParams = property;
 
         nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
@@ -276,8 +281,13 @@ public abstract class PropertiesWizardPage extends WizardPage {
         pathText = new Text(pathContainer, SWT.BORDER);
         pathText.setEnabled(false);
         pathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        
+        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot()
+				.getProject("Metadata").getFolder("Db Connections");
+        pathText.setText(defaultFolderProviderRes.getFullPath().toString());
+        this.setFolderProvider(defaultFolderProviderRes);
 
-        if (editPath) {
+		if (editPath) {
             Button button = new Button(pathContainer, SWT.PUSH);
             button.setText("Select..");
 
@@ -285,20 +295,20 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    openFolderSelectionDialog();
+                    openFolderSelectionDialog("Metadata");
                 }
             });
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void openFolderSelectionDialog() {
+    private void openFolderSelectionDialog(String projectName) {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class };
         IProject[] allProjects = root.getProjects();
         ArrayList rejectedElements = new ArrayList(allProjects.length);
         for (int i = 0; i < allProjects.length; i++) {
-            if (!allProjects[i].equals(ResourcesPlugin.getWorkspace().getRoot().getProject("Metadata"))) {
+            if (!allProjects[i].equals(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName))) {
                 rejectedElements.add(allProjects[i]);
             }
         }
@@ -319,12 +329,20 @@ public abstract class PropertiesWizardPage extends WizardPage {
         if (dialog.open() == Window.OK) {
             Object elements = dialog.getResult()[0];
             IResource elem = (IResource) elements;
-            String name = elem.getName();
-            pathText.setText(name);
-            this.path = name;
+            if (elem instanceof IFolder) {
+                pathText.setText(elem.getLocation().toString());
+                setFolderProvider(((IFolder) elem).getFolder(nameText.getText()));
+                this.path = pathText.getText();
+            }
         }
 
     }
+    
+    private void setFolderProvider(IResource res) {
+		FolderProvider provider = new FolderProvider();
+		provider.setFolder(new File(res.getLocationURI()));
+		connectionParams.setFolderProvider(provider);
+	}
 
     // protected void updateContent() {
     // if (property != null) {
@@ -351,6 +369,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     nameModifiedByUser = false;
                 } else {
                     nameModifiedByUser = true;
+                    connectionParams.setConnectionName(nameText.getText());
+                    IResource newResource = defaultFolderProviderRes.getFolder(nameText.getText());
+                   setFolderProvider(newResource);
                 }
                 // }
                 evaluateTextField();

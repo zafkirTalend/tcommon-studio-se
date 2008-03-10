@@ -196,11 +196,11 @@ class DatabaseWizardPage extends WizardPage {
         updateButtonState();
     }
 
-    private boolean checkDBConnection() {
+    private ReturnCode checkDBConnection() {
         ReturnCode returnCode = ConnectionService.checkConnection(this.connectionParam.getJdbcUrl(), this.connectionParam
                 .getDriverClassName(), this.connectionParam.getParameters());
-//        com
-        return returnCode.isOk();
+//        com.m
+        return returnCode;
     }
 
     /**
@@ -247,10 +247,13 @@ class DatabaseWizardPage extends WizardPage {
         checkButton.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                if (checkDBConnection()) {
+            	ReturnCode code = checkDBConnection();
+                if (code.isOk()) {
                     MessageDialog.openInformation(getShell(), "check connections", "Check connection successful.");
                 } else {
-                    MessageDialog.openInformation(getShell(), "check connections", "Check connection failure.");
+                    MessageDialog.openInformation(getShell(),
+							"check connections", "Check connection failure:"
+									+ code.getMessage());
                 }
             }
 

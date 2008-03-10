@@ -46,15 +46,25 @@
              viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
           <includes>
        	      <contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />		       	      
-	          <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+	         <contentExtension pattern="org.talend.dataprofiler.core.emfContent"/>
+	         <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
           </includes>
        </viewerContentBinding>
        <viewerActionBinding
+             viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
+          <includes>
+            <!-- <actionExtension
+                   pattern="org.eclipse.ui.navigator.resources.*">
+             </actionExtension> -->
+             <actionExtension pattern="org.talend.dataprofiler.core.ui.action.provider.*" />
+          </includes>
+       </viewerActionBinding>
+      <!-- <viewerActionBinding
             viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
          <includes>
              <actionExtension pattern="org.talend.dataprofiler.core.ui.action.provider.*" />
          </includes>
-       </viewerActionBinding>     
+       </viewerActionBinding>  -->   
    </extension>
 <!-- Resource Content--> 
    <extension  
@@ -97,8 +107,34 @@
 						</adapt>
 					</or>
 	         </enablement>
-		</actionProvider>      
-   </extension>
+		</actionProvider>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.talend.dataprofiler.core.factory.DQRepositoryViewContentProvider"
+            id="org.talend.dataprofiler.core.emfContent"
+            labelProvider="org.talend.dataprofiler.core.factory.DQRepositoryViewLabelProvider"
+            name="DQ EMF Content"
+            priority="normal">
+           <triggerPoints> 
+             <or>
+                <and> 
+                   <instanceof value="org.eclipse.core.resources.IResource"/> 
+                   <test 
+                   forcePluginActivation="true" 
+                   property="org.eclipse.core.resources.extension" 
+                   value="relational"/> 
+                </and> 
+             </or>
+           </triggerPoints> 
+           <possibleChildren> 
+              <or> 
+                <instanceof value="org.eclipse.emf.ecore.resource.Resource"/>
+                <instanceof value="org.eclipse.emf.ecore.EObject"/>  
+              </or> 
+           </possibleChildren>   
+      </navigatorContent>      
+       
+  </extension>
     
       
      

@@ -10,25 +10,25 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.views;
+package org.talend.dataprofiler.core.factory;
 
-import org.eclipse.ui.navigator.CommonNavigator;
-import org.talend.dataprofiler.core.CorePlugin;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * @author rli
  * 
  */
-public class DQRespositoryView extends CommonNavigator {
+public class DQRepositoryViewLabelProvider extends AdapterFactoryLabelProvider {
+	public DQRepositoryViewLabelProvider() {
+		super(MNComposedAdapterFactory.getAdapterFactory());
+	}
 
-    public DQRespositoryView() {
-        super();
-        CorePlugin.getDefault().checkDQStructure();
-    }
-    
-    public void refreshView() {
-        this.getCommonViewer().getTree().update();
-        this.getCommonViewer().refresh();
-//        this.getCommonViewer()upthis.getCommonViewer().getSelection();
-    }
+	public Image getImage(Object element) {
+		return super.getImage(element);
+	}
+
+	public String getText(Object element) {
+		return super.getText(element);
+	}
 }

@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.actions.RefreshAction;
 import org.talend.cwm.management.api.ConnectionService;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -104,7 +105,17 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         if (provider == null) {
             return false;
         }
+
+        RefreshAction refreshAction = new RefreshAction(this.getShell());
+        refreshAction.run();
+
+        // TdDataProvider provider = ConnectionService.createConnection(this.connectionProperty);
+        // if (provider == null) {
+        // return false;
+        // }
+        // DqRepositoryViewService.listTdDataProviders(folder)
         return true;
-    }
+    }  
+    
 
 }
