@@ -127,7 +127,10 @@ public final class EMFUtil {
      * @param set the resource set (MUST not be null)
      */
     public void setResourceSet(ResourceSet set) {
-        resourceSet = set;
+        assert set != null;
+        if (set != null) {
+            resourceSet = set;
+        }
     }
 
     /**
@@ -161,4 +164,15 @@ public final class EMFUtil {
         return newUri;
     }
 
+    /**
+     * Method "saveResource" saves the given resource. This method is a helper for saving quickly a given resource.
+     * 
+     * @param resource the resource to save
+     * @return true if no problem
+     */
+    public static boolean saveResource(Resource resource) {
+        EMFUtil util = new EMFUtil();
+        util.getResourceSet().getResources().add(resource);
+        return util.save();
+    }
 }

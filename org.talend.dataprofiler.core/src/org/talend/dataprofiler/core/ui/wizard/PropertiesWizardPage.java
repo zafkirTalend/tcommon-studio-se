@@ -48,6 +48,7 @@ import org.eclipse.ui.views.navigator.ResourceComparator;
 import org.talend.cwm.db.connection.FolderProvider;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
 import org.talend.dataprofiler.core.ui.dialog.TypedViewerFilter;
 
@@ -102,7 +103,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
-	private ConnectionParameters connectionParams;
+    private ConnectionParameters connectionParams;
 
     private IFolder defaultFolderProviderRes;
 
@@ -281,13 +282,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
         pathText = new Text(pathContainer, SWT.BORDER);
         pathText.setEnabled(false);
         pathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        
-        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot()
-				.getProject("Metadata").getFolder("Db Connections");
+
+        // MODSCA 2008-03-10 use DQStructureManager.DB_CONNECTIONS constant instead of hard coded "Db Connections"
+        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject("Metadata").getFolder(
+                DQStructureManager.DB_CONNECTIONS);
         pathText.setText(defaultFolderProviderRes.getFullPath().toString());
         this.setFolderProvider(defaultFolderProviderRes);
 
-		if (editPath) {
+        if (editPath) {
             Button button = new Button(pathContainer, SWT.PUSH);
             button.setText("Select..");
 
@@ -337,12 +339,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
 
     }
-    
+
     private void setFolderProvider(IResource res) {
-		FolderProvider provider = new FolderProvider();
-		provider.setFolder(new File(res.getLocationURI()));
-		connectionParams.setFolderProvider(provider);
-	}
+        FolderProvider provider = new FolderProvider();
+        provider.setFolder(new File(res.getLocationURI()));
+        connectionParams.setFolderProvider(provider);
+    }
 
     // protected void updateContent() {
     // if (property != null) {
@@ -371,7 +373,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     nameModifiedByUser = true;
                     connectionParams.setConnectionName(nameText.getText());
                     IResource newResource = defaultFolderProviderRes.getFolder(nameText.getText());
-                   setFolderProvider(newResource);
+                    setFolderProvider(newResource);
                 }
                 // }
                 evaluateTextField();
@@ -385,6 +387,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     purposeStatus = createStatus(IStatus.WARNING, "Empty purpose is discouraged.");
                 } else {
                     purposeStatus = createOkStatus();
+                    connectionParams.setConnectionPurpose(purposeText.getText()); // MODSCA 2008-03-10 add purpose
                 }
                 // property.setPurpose(StringUtils.trimToNull(purposeText.getText()));
                 updatePageStatus();
@@ -398,6 +401,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     commentStatus = createStatus(IStatus.WARNING, "Empty description is discouraged.");
                 } else {
                     commentStatus = createOkStatus();
+                    // MODSCA 2008-03-10 add text
+                    connectionParams.setConnectionDescription(descriptionText.getText());
                 }
                 // property.setDescription(StringUtils.trimToNull(descriptionText.getText()));
                 updatePageStatus();

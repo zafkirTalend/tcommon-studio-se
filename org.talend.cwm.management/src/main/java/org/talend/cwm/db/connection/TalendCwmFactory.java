@@ -20,15 +20,19 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.talend.commons.emf.FactoriesUtil;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SchemaHelper;
+import org.talend.cwm.helper.TableHelper;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.management.connection.JavaSqlFactory;
-import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdCatalog;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -37,7 +41,6 @@ import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sugars.TypedReturnCode;
 import org.talend.utils.time.TimeTracer;
-import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -52,20 +55,21 @@ public final class TalendCwmFactory {
     }
 
     /**
-     * Method "initializeConnection" initializes objects, close connection and serializes objects.
+     * Method "initializeConnection" initializes objects, close connection and serializes objects. (Not for public
+     * usage.)
      * 
      * @param connector
      * @param folderProvider
      * @throws SQLException
      */
-    public static void initializeConnection(DBConnect connector, FolderProvider folderProvider) throws SQLException {
-        createDataProvider(connector, folderProvider);
+    static void initializeConnection(DBConnect connector, FolderProvider folderProvider) throws SQLException {
+        TdDataProvider dataProvider = createDataProvider(connector);
 
         // --- close connection now
         connector.closeConnection();
 
         // --- save on disk
-        connector.saveInFiles();
+        DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, folderProvider);
     }
 
     /**
@@ -78,8 +82,7 @@ public final class TalendCwmFactory {
      * @return the data provider
      * @throws SQLException
      */
-    public static TdDataProvider createDataProvider(DBConnect connector, FolderProvider folderProvider)
-            throws SQLException {
+    public static TdDataProvider createDataProvider(DBConnect connector) throws SQLException {
         // --- connect and check the connection
         checkConnection(connector);
 
@@ -87,7 +90,7 @@ public final class TalendCwmFactory {
         TdDataProvider dataProvider = getTdDataProvider(connector);
         // --- get the connection provider
         TdProviderConnection providerConnection = connector.getProviderConnection();
-        
+
         // --- get database structure informations
         Collection<TdCatalog> catalogs = getCatalogs(connector);
         Collection<TdSchema> schemata = getSchemata(connector);
@@ -113,33 +116,24 @@ public final class TalendCwmFactory {
             printInformations(catalogs, schemata);
         }
 
-        String folder = ((folderProvider != null) && folderProvider.getFolder() != null) ? folderProvider.getFolder()
-                .getAbsolutePath() : null;
-        if (folder == null) { // do not serialize data
-            log.info("Data provider not serialized: no folder given.");
-            return dataProvider;
-        }
-
-        // --- add resources in resource set
-        addInSoftwareSystemResourceSet(folder, connector, dataProvider);
-        // The provider connection is stored in the dataprovider because of the containment relation.
-        // addInSoftwareSystemResourceSet(folder, connector, providerConnection);
-
-        addInRelationResourceSet(folder, connector, catalogs);
-        addInRelationResourceSet(folder, connector, schemata);
         return dataProvider;
     }
 
-    
-    
     /**
-     //FIXME  rli want to save the .relational files, but can't save all the table/column information on the .relational file.
-      * so, copy the main method to here. But the code will happen the driver class not found exception. Later, will change this method.
+     * //FIXME rli want to save the .relational files, but can't save all the table/column information on the
+     * .relational file. so, copy the main method to here. But the code will happen the driver class not found
+     * exception. Later, will change this method.
+     * 
+     * Proposed Solution:
+     * {@link DqRepositoryViewService#getTables(TdDataProvider, orgomg.cwm.resource.relational.Catalog, String, boolean)}
+     * {@link DqRepositoryViewService#saveOpenDataProvider(TdDataProvider)}
+     * 
      * @param connector
      * @param folderProvider
      * @return
      */
-    public static TdDataProvider createDataProvider2(DBConnect connector, FolderProvider folderProvider) throws SQLException {
+    public static TdDataProvider createDataProvider2(DBConnect connector, FolderProvider folderProvider)
+            throws SQLException {
 
         TdDataProvider dataProvider = null;
 
@@ -153,10 +147,10 @@ public final class TalendCwmFactory {
         // --- now create the lower structure (tables, columns)
         // recreate a connection from the TdProviderConnection
         TypedReturnCode<Connection> rc = JavaSqlFactory.createConnection(providerConnection);
-//        if (!rc.isOk()) {
-//            log.error(rc.getMessage());
-//            return null;
-//        }
+        // if (!rc.isOk()) {
+        // log.error(rc.getMessage());
+        // return null;
+        // }
         boolean ok = false;
         Collection<TdCatalog> catalogs = connector.getCatalogs();
         Connection connection = rc.getObject();
@@ -166,8 +160,8 @@ public final class TalendCwmFactory {
                 List<TdTable> tables = SchemaHelper.getTables(tdSchema);
                 if (tables.isEmpty()) {
                     // TODO try to load them from DB.
-                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog.getName(),
-                            tdSchema.getName(), connection);
+                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
+                            .getName(), tdSchema.getName(), connection);
                     ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
 
                 }
@@ -176,8 +170,8 @@ public final class TalendCwmFactory {
             List<TdTable> tables = CatalogHelper.getTables(tdCatalog);
             if (tables.isEmpty()) {
                 // TODO try to load them from DB.
-                List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog.getName(), null,
-                        connection);
+                List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
+                        .getName(), null, connection);
                 ok = CatalogHelper.addTables(tablesWithAllColumns, tdCatalog);
             }
         }
@@ -194,14 +188,14 @@ public final class TalendCwmFactory {
         connector.saveInFiles();
         return dataProvider;
     }
-    
+
     /**
      * Method "getTdDataProvider" simply tries to instantiate a data provider from the given connection. The connector
      * should have already open its connection. If not, this method tries to open a connection. The caller should close
      * the connection.
      * 
      * @param connector the database connector
-     * @return the DataProvider
+     * @return the DataProvider for which the name is null. The data provider does not contain structure.
      * @throws SQLException
      */
     public static TdDataProvider getTdDataProvider(DBConnect connector) throws SQLException {
@@ -251,40 +245,29 @@ public final class TalendCwmFactory {
         return connector.getSchemata();
     }
 
-    /**
-     * DOC scorreia Comment method "createTechnicalName".
-     * 
-     * @param connectionName
-     * @return
-     */
-    private static String createTechnicalName(String connectionName) {
-        // TODO scorreia create utility class for this
-        return connectionName;
-    }
-
     private static String getDriverClassName(ConnectionParameters connectionParams) {
         // TODO scorreia create the utility class for this
         return null;
     }
 
-    private static void addInRelationResourceSet(String folder, DBConnect connector,
-            Collection<? extends ModelElement> elements) {
-        for (ModelElement elt : elements) {
-            addInResourceSet(folder, connector, elt, RelationalPackage.eNAME);
-        }
-    }
+    // private static void addInRelationResourceSet(String folder, DBConnect connector,
+    // Collection<? extends ModelElement> elements) {
+    // for (ModelElement elt : elements) {
+    // addInResourceSet(folder, connector, elt, RelationalPackage.eNAME);
+    // }
+    // }
 
-    private static void addInSoftwareSystemResourceSet(String folder, DBConnect connector, ModelElement elt) {
-        addInResourceSet(folder, connector, elt, FactoriesUtil.PROV);
-        // ORIG addInResourceSet(folder, connector, elt, SoftwaredeploymentPackage.eNAME);
-    }
+    // private static void addInSoftwareSystemResourceSet(String folder, DBConnect connector, ModelElement elt) {
+    // addInResourceSet(folder, connector, elt, FactoriesUtil.PROV);
+    // // ORIG addInResourceSet(folder, connector, elt, SoftwaredeploymentPackage.eNAME);
+    // }
 
-    private static void addInResourceSet(String folder, DBConnect connector, ModelElement pack, String extension) {
-        if (pack != null) {
-            String filename = createFilename(folder, pack.getName(), extension);
-            connector.storeInResourceSet(pack, filename);
-        }
-    }
+    // private static void addInResourceSet(String folder, DBConnect connector, ModelElement pack, String extension) {
+    // if (pack != null) {
+    // String filename = createFilename(folder, pack.getName(), extension);
+    // connector.storeInResourceSet(pack, filename);
+    // }
+    // }
 
     /**
      * Method "checkConnection" checks whether the connection is open. If not, tries to connect.
@@ -299,18 +282,6 @@ public final class TalendCwmFactory {
                 throw new SQLException("Connection failed for " + connector.getDatabaseUrl());
             }
         }
-    }
-
-    /**
-     * Method "createFilename".
-     * 
-     * @param folder the folder
-     * @param basename the filename without extension
-     * @param extension the extension of the file
-     * @return the path "folder/basename.extension"
-     */
-    private static String createFilename(String folder, String basename, String extension) {
-        return folder + File.separator + basename + "." + extension;
     }
 
     /**
@@ -367,7 +338,6 @@ public final class TalendCwmFactory {
                         List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
                                 .getName(), tdSchema.getName(), connection);
                         ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
-
                     }
                 }
                 // first try to get the columns
@@ -377,6 +347,23 @@ public final class TalendCwmFactory {
                     List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
                             .getName(), null, connection);
                     ok = CatalogHelper.addTables(tablesWithAllColumns, tdCatalog);
+
+                    // --- get the resource of the catalog
+                    Resource resource = tdCatalog.eResource();
+                    if (resource == null) {
+                        log.error("Resource null");
+                    }
+                    // --- add column type to resource set
+                    for (TdTable tdTable : tablesWithAllColumns) {
+                        List<TdColumn> columns = TableHelper.getColumns(tdTable);
+                        for (TdColumn tdColumn : columns) {
+                            if (resource != null) {
+                                resource.getContents().add(tdColumn.getType());
+                            }
+
+                        }
+                    }
+
                 }
             }
             if (!ok) {
@@ -389,7 +376,12 @@ public final class TalendCwmFactory {
             connection.close();
 
             // --- save on disk
-            connector.saveInFiles();
+
+            EMFUtil util = new EMFUtil();
+            ResourceSet resourceSet = providerConnection.eResource().getResourceSet();
+            util.setResourceSet(resourceSet);
+            util.save();
+            // OLD code : connector.saveInFiles();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

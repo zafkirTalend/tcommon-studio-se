@@ -216,12 +216,18 @@ public final class DatabaseContentRetriever {
         return getViews(catalogName, schemaPattern, viewPattern, null, connection);
     }
 
+    /**
+     * Method "getDataProvider".
+     * 
+     * @param driver the driver for the database connection
+     * @param databaseUrl the database url
+     * @param driverProperties the properties given to the driver
+     * @return the data provider with a null name. Its name has to be set elsewhere.
+     * @throws SQLException
+     */
     public static TdDataProvider getDataProvider(Driver driver, String databaseUrl, Properties driverProperties)
             throws SQLException {
-        TdDataProvider provider = DataProviderHelper.createTdDataProvider(driver.getClass().getName()); // TODO scorreia
-        // should data
-        // provider
-        // name be something else?
+        TdDataProvider provider = DataProviderHelper.createTdDataProvider(null);
 
         // print driver properties
         // TODO scorreia adapt this code in order to store information in CWM ????
@@ -384,8 +390,9 @@ public final class DatabaseContentRetriever {
             // TODO scorreia other informations for columns can be retrieved here
 
             // --- create and set type of column
-            TdSqlDataType sqlDataType = createDataType(columns);
-            column.setType(sqlDataType);
+            // TODO scorreia get type of column on demand, not on creation of column
+            // TdSqlDataType sqlDataType = createDataType(columns);
+            // column.setType(sqlDataType);
             tableColumns.add(column);
         }
 
@@ -493,10 +500,11 @@ public final class DatabaseContentRetriever {
     }
 
     private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
-        if (true)
-            return null; // FIXME scorreia remove this patch
+        // if (true)
+        // return null; // FIXME scorreia remove this patch
         // this patch is here because the created sql data type is not stored in a resource set.
         TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
+        sqlDataType.setName("datatype"); // FIXME set name?
         sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
         sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
         sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));

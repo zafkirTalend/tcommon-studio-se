@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -20,8 +21,13 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.RefreshAction;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.management.api.ConnectionService;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.cwm.relational.TdCatalog;
+import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 
@@ -51,7 +57,8 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
      * @param selection
      * @param existingNames
      */
-    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection, String[] existingNames) {
+    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
+            String[] existingNames) {
         super();
         this.init(workbench, selection);
         this.creation = creation;
@@ -105,6 +112,22 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         if (provider == null) {
             return false;
         }
+        // MODSCA 2008-03-10 save the provider
+        boolean saved = DqRepositoryViewService.saveDataProviderAndStructure(provider, this.connectionProperty
+                .getFolderProvider());
+        // TODO rli handle return code "saved"
+
+        // FIXME do not do this here. This is just for testing
+        boolean loadTables = true;
+        if (loadTables) {
+            TdCatalog tdCatalog = DataProviderHelper.getTdCatalogs(provider).get(0);
+            List<TdTable> tables = DqRepositoryViewService.getTables(provider, tdCatalog, null, true);
+            // store tables in catalog
+            CatalogHelper.addTables(tables, tdCatalog);
+
+            // now save again the data provider
+            DqRepositoryViewService.saveOpenDataProvider(provider);
+        }
 
         RefreshAction refreshAction = new RefreshAction(this.getShell());
         refreshAction.run();
@@ -115,7 +138,6 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         // }
         // DqRepositoryViewService.listTdDataProviders(folder)
         return true;
-    }  
-    
+    }
 
 }

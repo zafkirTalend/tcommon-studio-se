@@ -16,3 +16,4 @@ Export-Package: org.talend.cwm.db.connection,
  org.talend.cwm.management.api,
  org.talend.cwm.management.connection
 Bundle-ClassPath: .
+Eclipse-RegisterBuddy: org.talend.utils

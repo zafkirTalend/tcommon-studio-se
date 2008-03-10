@@ -40,7 +40,7 @@ public final class DataProviderHelper {
     /**
      * Method "createTdDataProvider" creates a data provider with the given name.
      * 
-     * @param name the name of the data provider
+     * @param name the name of the data provider (could be null)
      * @return the created data provider.
      */
     public static TdDataProvider createTdDataProvider(String name) {
@@ -96,7 +96,7 @@ public final class DataProviderHelper {
         return addPackage(schema, dataProvider);
     }
 
-    public static boolean addPackages(Collection<? extends Package> packages, TdDataProvider dataProvider) {
+    private static boolean addPackages(Collection<? extends Package> packages, TdDataProvider dataProvider) {
         boolean added = false;
         if ((dataProvider != null) && (packages != null)) {
             added = dataProvider.getDataPackage().addAll(packages);
@@ -104,7 +104,7 @@ public final class DataProviderHelper {
         return added;
     }
 
-    public static boolean addPackage(Package pack, TdDataProvider dataProvider) {
+    private static boolean addPackage(Package pack, TdDataProvider dataProvider) {
         boolean added = false;
         if ((dataProvider != null) && (pack != null)) {
             added = dataProvider.getDataPackage().add(pack);
@@ -177,8 +177,23 @@ public final class DataProviderHelper {
         return rc;
     }
 
+    /**
+     * Method "getTdCatalogs".
+     * 
+     * @param dataProvider the data provider
+     * @return the catalogs contained in the data provider
+     */
     public static List<TdCatalog> getTdCatalogs(TdDataProvider dataProvider) {
         return CatalogHelper.getTdCatalogs(dataProvider.getDataPackage());
     }
 
+    /**
+     * Method "getTdSchema".
+     * 
+     * @param dataProvider the data provider
+     * @return the schemas contained in the data provider
+     */
+    public static List<TdSchema> getTdSchema(TdDataProvider dataProvider) {
+        return SchemaHelper.getSchemas(dataProvider.getDataPackage());
+    }
 }

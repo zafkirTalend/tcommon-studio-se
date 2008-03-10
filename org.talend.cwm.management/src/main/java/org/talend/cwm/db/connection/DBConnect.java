@@ -72,6 +72,12 @@ public class DBConnect {
 
     // TODO scorreia errorMessage;
 
+    /**
+     * DBConnect constructor.
+     * 
+     * @param connParams the connection parameters (must not be null). The connection parameters must have at least a
+     * JDBC url, a driver classname and a user password (when needed) in its properties.
+     */
     public DBConnect(ConnectionParameters connParams) {
         this(connParams.getJdbcUrl(), connParams.getDriverClassName(), connParams.getParameters());
     }
