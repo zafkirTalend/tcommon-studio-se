@@ -24,7 +24,7 @@ import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
  */
 public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
-    private static final String PERSPECTIVE_ID = "net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective";
+    private static final String PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
 
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         return new ApplicationWorkbenchWindowAdvisor(configurer);
