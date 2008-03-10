@@ -72,6 +72,8 @@ public final class ConnectionService {
             e.printStackTrace();
         } finally {
             connector.closeConnection();
+            //MODRLI 2008-3-10
+            connector.saveInFiles();
         }
         return null;
     }
