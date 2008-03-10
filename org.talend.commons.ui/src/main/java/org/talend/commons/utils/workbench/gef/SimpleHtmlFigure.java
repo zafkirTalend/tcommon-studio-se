@@ -111,18 +111,13 @@ public class SimpleHtmlFigure extends Figure {
         add(horizContainer);
     }
 
-    public void setText(String text) {
-        this.setText(text, null);
-    }
-
     /**
      * Display some HTML text..
      * 
      * @param text Text to rendered.
-     * @param color defaul value is black if it's null.
      */
     @SuppressWarnings("unchecked")
-    public void setText(final String text, Color color) {
+    public void setText(final String text) {
 
         if (this.text.equals(text)) {
             // if the text is the same, there's nothing to change, so return.
@@ -140,10 +135,7 @@ public class SimpleHtmlFigure extends Figure {
         newHorizContainer();
 
         List<Color> colorStack = new ArrayList<Color>();
-        if (color == null) {
-            color = ColorConstants.black;
-        }
-        colorStack.add(color);
+        colorStack.add(ColorConstants.black);
         buildFigures(text, SWT.None, colorStack);
 
         setPreferredSize(computePreferedSize());
