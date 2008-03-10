@@ -104,4 +104,22 @@ public final class ConnectionUtils {
         }
 
     }
+
+    /**
+     * Method "closeConnection".
+     * 
+     * @param connection the connection to close.
+     * @return a ReturnCode with true if ok, false if problem. {@link ReturnCode#getMessage()} gives the error message
+     * when there is a problem.
+     */
+    public static ReturnCode closeConnection(Connection connection) {
+        assert connection != null;
+        ReturnCode rc = new ReturnCode(true);
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            rc.setReturnCode("Failed to close connection. Reason: " + e.getMessage(), false);
+        }
+        return rc;
+    }
 }
