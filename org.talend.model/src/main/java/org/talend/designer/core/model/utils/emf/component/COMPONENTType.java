@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getRETURNS <em>RETURNS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getLABELCOLOR <em>LABELCOLOR</em>}</li>
  * </ul>
  * </p>
  *
@@ -250,32 +249,5 @@ public interface COMPONENTType extends EObject {
      * @generated
      */
     void setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType value);
-
-    /**
-     * Returns the value of the '<em><b>LABELCOLOR</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>LABELCOLOR</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>LABELCOLOR</em>' attribute.
-     * @see #setLABELCOLOR(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_LABELCOLOR()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='LABEL_COLOR' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getLABELCOLOR();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getLABELCOLOR <em>LABELCOLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>LABELCOLOR</em>' attribute.
-     * @see #getLABELCOLOR()
-     * @generated
-     */
-    void setLABELCOLOR(String value);
 
 } // COMPONENTType

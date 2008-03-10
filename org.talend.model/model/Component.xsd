@@ -16,7 +16,6 @@
 				<xs:element ref="RETURNS" />
 				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0" />
 			</xs:sequence>
-			<xs:attribute name="LABEL_COLOR" type="xs:string"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="HEADER">

@@ -38,7 +38,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cODEGENERATION"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/rETURNS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pLUGINDEPENDENCIES"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COMPONENTType/lABELCOLOR"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//CONNECTORSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CONNECTORSType/cONNECTOR"/>

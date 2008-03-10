@@ -548,15 +548,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOMPONENTType_LABELCOLOR() {
-        return (EAttribute)componentTypeEClass.getEStructuralFeatures().get(8);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getCONNECTORSType() {
         return connectorsTypeEClass;
     }
@@ -1842,7 +1833,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(componentTypeEClass, COMPONENT_TYPE__CODEGENERATION);
         createEReference(componentTypeEClass, COMPONENT_TYPE__RETURNS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__PLUGINDEPENDENCIES);
-        createEAttribute(componentTypeEClass, COMPONENT_TYPE__LABELCOLOR);
 
         connectorsTypeEClass = createEClass(CONNECTORS_TYPE);
         createEReference(connectorsTypeEClass, CONNECTORS_TYPE__CONNECTOR);
@@ -2063,7 +2053,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getCOMPONENTType_CODEGENERATION(), this.getCODEGENERATIONType(), null, "cODEGENERATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_PLUGINDEPENDENCIES(), this.getPLUGINDEPENDENCIESType(), null, "pLUGINDEPENDENCIES", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCOMPONENTType_LABELCOLOR(), theXMLTypePackage.getString(), "lABELCOLOR", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectorsTypeEClass, CONNECTORSType.class, "CONNECTORSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCONNECTORSType_CONNECTOR(), this.getCONNECTORType(), null, "cONNECTOR", null, 1, -1, CONNECTORSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2449,14 +2438,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "PLUGINDEPENDENCIES",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getCOMPONENTType_LABELCOLOR(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "LABEL_COLOR",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

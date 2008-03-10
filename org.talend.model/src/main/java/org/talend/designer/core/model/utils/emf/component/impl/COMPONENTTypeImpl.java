@@ -46,7 +46,6 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getRETURNS <em>RETURNS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getLABELCOLOR <em>LABELCOLOR</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,26 +131,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @ordered
      */
     protected PLUGINDEPENDENCIESType pLUGINDEPENDENCIES;
-
-    /**
-     * The default value of the '{@link #getLABELCOLOR() <em>LABELCOLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLABELCOLOR()
-     * @generated
-     * @ordered
-     */
-    protected static final String LABELCOLOR_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getLABELCOLOR() <em>LABELCOLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLABELCOLOR()
-     * @generated
-     * @ordered
-     */
-    protected String lABELCOLOR = LABELCOLOR_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -520,27 +499,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getLABELCOLOR() {
-        return lABELCOLOR;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setLABELCOLOR(String newLABELCOLOR) {
-        String oldLABELCOLOR = lABELCOLOR;
-        lABELCOLOR = newLABELCOLOR;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__LABELCOLOR, oldLABELCOLOR, lABELCOLOR));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
@@ -586,8 +544,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return getRETURNS();
             case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
                 return getPLUGINDEPENDENCIES();
-            case ComponentPackage.COMPONENT_TYPE__LABELCOLOR:
-                return getLABELCOLOR();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -622,9 +578,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return;
             case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
                 setPLUGINDEPENDENCIES((PLUGINDEPENDENCIESType)newValue);
-                return;
-            case ComponentPackage.COMPONENT_TYPE__LABELCOLOR:
-                setLABELCOLOR((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -661,9 +614,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
                 setPLUGINDEPENDENCIES((PLUGINDEPENDENCIESType)null);
                 return;
-            case ComponentPackage.COMPONENT_TYPE__LABELCOLOR:
-                setLABELCOLOR(LABELCOLOR_EDEFAULT);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -691,25 +641,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return rETURNS != null;
             case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
                 return pLUGINDEPENDENCIES != null;
-            case ComponentPackage.COMPONENT_TYPE__LABELCOLOR:
-                return LABELCOLOR_EDEFAULT == null ? lABELCOLOR != null : !LABELCOLOR_EDEFAULT.equals(lABELCOLOR);
         }
         return super.eIsSet(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String toString() {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (lABELCOLOR: ");
-        result.append(lABELCOLOR);
-        result.append(')');
-        return result.toString();
     }
 
 } //COMPONENTTypeImpl
