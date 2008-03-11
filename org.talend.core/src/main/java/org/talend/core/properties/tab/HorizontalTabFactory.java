@@ -179,4 +179,13 @@ public class HorizontalTabFactory {
         return this.widgetFactory;
     }
 
+    /**
+     * Getter for tabbedPropertyComposite.
+     * 
+     * @return the tabbedPropertyComposite
+     */
+    public TalendTabbedPropertyComposite getTabbedPropertyComposite() {
+        return this.tabbedPropertyComposite;
+    }
+
 }

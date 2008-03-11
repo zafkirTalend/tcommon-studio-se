@@ -14,13 +14,20 @@ package org.talend.core.properties.tab;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyTitle;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.i18n.Messages;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -34,6 +41,8 @@ public class TalendTabbedPropertyComposite extends Composite {
 
     private Composite mainComposite;
 
+    private Composite titleComposite;
+
     private Composite leftComposite;
 
     private ScrolledComposite scrolledComposite;
@@ -43,6 +52,16 @@ public class TalendTabbedPropertyComposite extends Composite {
     private TabbedPropertyTitle title;
 
     private TalendTabbedPropertyList listComposite;
+
+    private Button compactButton;
+
+    private Button tableButton;
+
+    // private static final int BUTTON_HINT = 100;
+
+    private Composite composite = null;
+
+    private boolean isCompactView = true;
 
     private boolean displayTitle;
 
@@ -86,9 +105,53 @@ public class TalendTabbedPropertyComposite extends Composite {
 
             FormData data = new FormData();
             data.left = new FormAttachment(0, 0);
-            data.right = new FormAttachment(100, 0);
+            data.right = new FormAttachment(90, 0);
             data.top = new FormAttachment(0, 0);
             title.setLayoutData(data);
+
+            composite = new Composite(mainComposite, SWT.NONE);
+            compactButton = new Button(composite, SWT.PUSH);
+            compactButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+            compactButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.compactButton.toolTip"));
+
+            tableButton = new Button(composite, SWT.PUSH);
+            tableButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+            tableButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.tableButton.toolTip"));
+
+            if (isCompactView()) {
+                compactButton.setImage(ImageProvider.getImage(EImage.COMPACT_VIEW));
+                tableButton.setImage(ImageProvider.getImage(EImage.NO_TABLE_VIEW));
+            } else {
+                compactButton.setImage(ImageProvider.getImage(EImage.NO_COMPACT_VIEW));
+                tableButton.setImage(ImageProvider.getImage(EImage.TABLE_VIEW));
+            }
+
+            Rectangle compactRectangle = compactButton.getBounds();
+            tableButton.setBounds(compactRectangle);
+
+            compactButton.setVisible(false);
+            tableButton.setVisible(false);
+
+            data = new FormData();
+            data.left = new FormAttachment(title, 0);
+            data.top = new FormAttachment(0, -5);
+            composite.setLayoutData(data);
+
+            GridData gridData = new GridData();
+            gridData.horizontalAlignment = SWT.RIGHT;
+            gridData.verticalAlignment = SWT.TOP;
+            // gridData.widthHint = TalendTabbedPropertyComposite.BUTTON_HINT;
+            // gridData.heightHint = TalendTabbedPropertyComposite.BUTTON_HINT;
+            compactButton.setData(gridData);
+            tableButton.setData(gridData);
+
+            GridLayout layout = new GridLayout();
+            layout.numColumns = 2;
+            layout.horizontalSpacing = 0;
+            layout.verticalSpacing = 0;
+            layout.makeColumnsEqualWidth = true;
+            composite.setLayout(layout);
+            composite.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
         }
 
         leftComposite = factory.createComposite(mainComposite, SWT.NO_FOCUS);
@@ -199,4 +262,50 @@ public class TalendTabbedPropertyComposite extends Composite {
         }
         super.dispose();
     }
+
+    /**
+     * Getter for isCompactView.
+     * 
+     * @return the isCompactView
+     */
+    public boolean isCompactView() {
+        return this.isCompactView;
+    }
+
+    /**
+     * Sets the isCompactView.
+     * 
+     * @param isCompactView the isCompactView to set
+     */
+    public void setCompactView(boolean isCompactView) {
+        this.isCompactView = isCompactView;
+    }
+
+    /**
+     * Getter for compactButton.
+     * 
+     * @return the compactButton
+     */
+    public Button getCompactButton() {
+        return this.compactButton;
+    }
+
+    /**
+     * Getter for tableButton.
+     * 
+     * @return the tableButton
+     */
+    public Button getTableButton() {
+        return this.tableButton;
+    }
+
+    /**
+     * Getter for composite.
+     * 
+     * @return the composite
+     */
+    public Composite getComposite() {
+        return this.composite;
+    }
+
 }
