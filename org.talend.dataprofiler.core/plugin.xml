@@ -45,7 +45,7 @@
        <viewerContentBinding 
              viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
           <includes>
-       	      <contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />		       	      
+       	      <contentExtension pattern="org.eclipse.ui.navigator.DQresourceContent" />		       	      
 	         <contentExtension pattern="org.talend.dataprofiler.core.emfContent"/>
 	         <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
           </includes>
@@ -53,49 +53,13 @@
        <viewerActionBinding
              viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
           <includes>
-            <!-- <actionExtension
-                   pattern="org.eclipse.ui.navigator.resources.*">
-             </actionExtension> -->
              <actionExtension pattern="org.talend.dataprofiler.core.ui.action.provider.*" />
           </includes>
-       </viewerActionBinding>
-      <!-- <viewerActionBinding
-            viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
-         <includes>
-             <actionExtension pattern="org.talend.dataprofiler.core.ui.action.provider.*" />
-         </includes>
-       </viewerActionBinding>  -->   
+       </viewerActionBinding>  
    </extension>
 <!-- Resource Content--> 
    <extension  
          point="org.eclipse.ui.navigator.navigatorContent">
-     <!-- <navigatorContent
-            name="%resource.extension.name"
-            priority="low"
-            icon="$nl$/icons/sample.gif"
-            activeByDefault="true"
-			            contentProvider="org.talend.componentdesigner.resources.ResourceExtensionContentProvider"
-            			labelProvider="org.talend.componentdesigner.resources.ResourceExtensionLabelProvider"			
-            id="org.talend.dataprofiler.core.ui.views.DQRespositoryView">         
-        <enablement>
-		         <or>         
-		            <adapt type="org.eclipse.core.resources.IProject" /> 
-		            <instanceof 
-		                  	value="org.eclipse.core.resources.IResource" /> 
-		         </or>
-         </enablement>
-         
-        <actionProvider 
-      			id="org.talend.componentdesigner.ui.action.CopyComponentActionProvider"
-				class="org.talend.componentdesigner.ui.action.provider.CopyComponentActionProvider">
-			<enablement>
-				<or>
-					<adapt type="org.eclipse.core.resources.IFolder" /> 	
-				</or>
-			</enablement>
-		</actionProvider> 
-             
-      </navigatorContent> --> 
       <actionProvider
             	class="org.talend.dataprofiler.core.ui.action.provider.NewConnectionActionProvider"
             	id="org.talend.dataprofiler.core.ui.action.provider.NewConnectionActionProvider"> 
@@ -122,7 +86,7 @@
                    <test 
                    forcePluginActivation="true" 
                    property="org.eclipse.core.resources.extension" 
-                   value="relational"/> 
+                   value="prv"/> 
                 </and> 
              </or>
            </triggerPoints> 
@@ -132,7 +96,33 @@
                 <instanceof value="org.eclipse.emf.ecore.EObject"/>  
               </or> 
            </possibleChildren>   
-      </navigatorContent>      
+      </navigatorContent>    
+      
+      <navigatorContent
+            name="DQ Resource"
+            priority="low"
+            activeByDefault="true"
+			            contentProvider="org.eclipse.ui.internal.navigator.resources.workbench.ResourceExtensionContentProvider"
+            			labelProvider="org.talend.dataprofiler.core.ui.views.ResourceViewLabelProvider"			
+            id="org.eclipse.ui.navigator.DQresourceContent">         
+         <enablement>
+		         <or>         
+		            <adapt type="org.eclipse.core.resources.IProject" /> 
+		            <instanceof 
+		                  	value="org.eclipse.core.resources.IResource" /> 
+		         </or>
+         </enablement>
+         
+       <!-- <commonSorter
+              class="org.eclipse.ui.internal.navigator.resources.workbench.ResourceExtensionSorter"
+              id="org.eclipse.ui.navigator.resources.sorters.defaultSorter">
+           <parentExpression>
+           		  <or>           
+		            <instanceof value="org.eclipse.core.resources.IResource" /> 
+		         </or>
+		   </parentExpression>
+        </commonSorter>     -->   
+     </navigatorContent> 
        
   </extension>
     
