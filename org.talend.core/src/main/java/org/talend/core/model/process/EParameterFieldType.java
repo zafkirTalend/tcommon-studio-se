@@ -56,7 +56,8 @@ public enum EParameterFieldType {
     AS400_CHECK,
     MODULE_LIST,
     COMMAND,
-    PALO_DIM_SELECTION;
+    PALO_DIM_SELECTION,
+    WSDL2JAVA;
 
     public String getName() {
         return toString();
