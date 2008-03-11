@@ -222,10 +222,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
                     FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
 
+                    Property property = null;
                     if (folder == null) {
-                        continue;
+                        FolderItem newFolder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                        property = newFolder.getProperty();
+                    } else {
+                        property = folder.getProperty();
                     }
-                    Property property = folder.getProperty();
+
                     cont.setProperty(property);
                     cont.setId(property.getId());
                     addFolderMembers(type, cont, (IFolder) current, onlyLastVersion);
