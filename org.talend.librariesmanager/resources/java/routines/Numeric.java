@@ -9,10 +9,19 @@ public class Numeric {
     /**
      * return an incremented numeric id
      * 
-     * {talendTypes} int | Integer {Category} Numeric {param} string("s1") sequence identifier {param} int(1) start
-     * value {param} int(1) step
+     * {talendTypes} int | Integer
      * 
-     * {example} sequence("s1", 1, 1) # 1, 2, 3, ... {example} sequence("s2", 100, -2) # 100, 98, 96, ...
+     * {Category} Numeric
+     * 
+     * {param} string("s1") sequence identifier
+     * 
+     * {param} int(1) start value
+     * 
+     * {param} int(1) step
+     * 
+     * {example} sequence("s1", 1, 1) # 1, 2, 3, ...
+     * 
+     * {example} sequence("s2", 100, -2) # 100, 98, 96, ...
      * 
      */
     public static Integer sequence(String seqName, int startValue, int step) {
@@ -28,9 +37,17 @@ public class Numeric {
     /**
      * return a random int between min and max
      * 
-     * {Category} Numeric {talendTypes} int | Integer {param} int(0) min value {param} int(100) max value
+     * {Category} Numeric
      * 
-     * {example} random(3, 10) # 7, 4, 8, ... {example} random(0, 100) # 93, 12, 83, ...
+     * {talendTypes} int | Integer
+     * 
+     * {param} int(0) min value
+     * 
+     * {param} int(100) max value
+     * 
+     * {example} random(3, 10) # 7, 4, 8, ...
+     * 
+     * {example} random(0, 100) # 93, 12, 83, ...
      * 
      */
     public static Integer random(Integer min, Integer max) {
