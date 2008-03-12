@@ -39,7 +39,7 @@ public class EnvironmentUtils {
      * DOC amaumont Comment method "getEnv".
      */
     public static String getEnvOs() {
-        return System.getenv("OS"); //$NON-NLS-N$
+        return System.getProperty("os.name");//$NON-NLS-N$
     }
 
 }
