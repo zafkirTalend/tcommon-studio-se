@@ -26,6 +26,7 @@ import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
 import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.resource.relational.Catalog;
 
 /**
  * @author scorreia
@@ -47,6 +48,16 @@ public final class DataProviderHelper {
         TdDataProvider provider = SoftwaredeploymentFactory.eINSTANCE.createTdDataProvider();
         provider.setName(name);
         return provider;
+    }
+    
+    public static TdDataProvider getTdDataProvider(Catalog catalog) {
+        Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(new ArrayList<EObject>(
+                catalog.getDataManager()));
+        if ((tdDataProviders.isEmpty()) || (tdDataProviders.size() > 1)) {
+            return null;
+        }
+        // else
+        return tdDataProviders.iterator().next();
     }
 
     /**
