@@ -46,6 +46,18 @@ public class ElementItemProvider
     public ElementItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
+    
+   
+
+    /* (non-Javadoc) ADDED
+     * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getString(java.lang.String)
+     * 
+     */
+    public String getString(String key) {
+        return "";
+    }
+
+
 
     /**
      * This returns the property descriptors for the adapted class.
