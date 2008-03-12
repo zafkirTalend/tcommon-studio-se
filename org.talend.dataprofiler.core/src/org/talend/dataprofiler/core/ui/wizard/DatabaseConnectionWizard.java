@@ -30,6 +30,7 @@ import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataprofiler.core.helper.TDDataProviderStoreHelper;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to manage the metadata connection.
@@ -111,6 +112,8 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         TdDataProvider provider = ConnectionService.createConnection(this.connectionProperty);
         if (provider == null) {
             return false;
+        } else {
+            TDDataProviderStoreHelper.put(provider.getName(), provider);
         }
         // MODSCA 2008-03-10 save the provider
         boolean saved = DqRepositoryViewService.saveDataProviderAndStructure(provider, this.connectionProperty

@@ -18,15 +18,14 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
 
-
 /**
  * @author rli
- *
+ * 
  */
 public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements ICommonLabelProvider {
 
     public void init(ICommonContentExtensionSite aConfig) {
-        //init
+        // init
     }
 
     public String getDescription(Object anElement) {
@@ -42,5 +41,13 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
     }
 
     public void saveState(IMemento aMemento) {
+    }
+
+    protected String decorateText(String input, Object element) {
+        if (input.endsWith(".prv")) {
+            int lastOdtIndex = input.lastIndexOf(".");
+            return input.substring(0, lastOdtIndex);
+        }
+        return input;
     }
 }

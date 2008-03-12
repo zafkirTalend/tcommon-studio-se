@@ -333,7 +333,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
             IResource elem = (IResource) elements;
             if (elem instanceof IFolder) {
                 pathText.setText(elem.getLocation().toString());
-                setFolderProvider(((IFolder) elem).getFolder(nameText.getText()));
+//                setFolderProvider(((IFolder) elem).getFolder(nameText.getText()));
+                setFolderProvider(elem);
                 this.path = pathText.getText();
             }
         }
@@ -372,8 +373,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 } else {
                     nameModifiedByUser = true;
                     connectionParams.setConnectionName(nameText.getText());
-                    IResource newResource = defaultFolderProviderRes.getFolder(nameText.getText());
-                    setFolderProvider(newResource);
+//                    IResource newResource = defaultFolderProviderRes.getFolder(nameText.getText());
+//                    setFolderProvider(newResource);
                 }
                 // }
                 evaluateTextField();

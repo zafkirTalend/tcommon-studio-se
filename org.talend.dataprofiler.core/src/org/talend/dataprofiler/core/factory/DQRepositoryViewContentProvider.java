@@ -17,6 +17,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.talend.dataprofiler.core.helper.FolderNodeHelper;
+import org.talend.dataprofiler.core.model.nodes.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.TableFolderNode;
+import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author rli
@@ -35,13 +40,28 @@ public class DQRepositoryViewContentProvider extends
 	}
 
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof IFile) {
-			String path = ((IFile) parentElement).getFullPath().toString();
-			URI uri = URI.createPlatformResourceURI(path, true);
-			 parentElement = resourceSet.getResource(uri, true);
-		}
-		return super.getChildren(parentElement);
-	}
+        if (parentElement instanceof IFile) {
+            String path = ((IFile) parentElement).getFullPath().toString();
+            URI uri = URI.createPlatformResourceURI(path, true);
+            parentElement = resourceSet.getResource(uri, true);
+        } else if (parentElement instanceof Catalog) {
+            IFolderNode[] folderNodes = FolderNodeHelper.get((Catalog) parentElement);
+             if (folderNodes == null) {
+                TableFolderNode tabbleFolderNode = new TableFolderNode();
+                tabbleFolderNode.setParent(parentElement);
+                folderNodes = new TableFolderNode[] { tabbleFolderNode };
+                FolderNodeHelper.put((Catalog) parentElement, folderNodes);
+            }
+             return folderNodes;
+        } else if (parentElement instanceof TableFolderNode) {
+            TableFolderNode folerNode = (TableFolderNode) parentElement;
+            if (!(folerNode.isLoaded())) {
+                folerNode.loadChildren();               
+            }
+            return super.getChildren(folerNode.getParent());
+        }
+        return super.getChildren(parentElement);
+    }
 
 	@Override
 	public Object[] getElements(Object object) {
@@ -56,10 +76,12 @@ public class DQRepositoryViewContentProvider extends
 	}
 
 	public boolean hasChildren(Object element) {
-		if (element instanceof IFile) {
-			return true;
-		}
-		return super.hasChildren(element);
-	}
+        if (element instanceof IFile) {
+            return true;
+        } else if (element instanceof Catalog || element instanceof Schema || element instanceof IFolderNode) {
+            return true;
+        }
+        return super.hasChildren(element);
+    }
 
 }
