@@ -57,6 +57,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SchemaInformation;
 import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
@@ -386,6 +387,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass wsdlSchemaConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass schemaInformationEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2483,6 +2491,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSchemaInformation() {
+        return schemaInformationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSchemaInformation_Version() {
+        return (EAttribute)schemaInformationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2865,6 +2891,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         wsdlSchemaConnectionItemEClass = createEClass(WSDL_SCHEMA_CONNECTION_ITEM);
 
+        schemaInformationEClass = createEClass(SCHEMA_INFORMATION);
+        createEAttribute(schemaInformationEClass, SCHEMA_INFORMATION__VERSION);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -3233,6 +3262,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(jobletDocumentationItemEClass, JobletDocumentationItem.class, "JobletDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(wsdlSchemaConnectionItemEClass, WSDLSchemaConnectionItem.class, "WSDLSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(schemaInformationEClass, SchemaInformation.class, "SchemaInformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSchemaInformation_Version(), theEcorePackage.getEString(), "version", null, 0, 1, SchemaInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

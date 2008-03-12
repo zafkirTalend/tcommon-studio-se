@@ -436,6 +436,15 @@ public interface PropertiesFactory extends EFactory {
     WSDLSchemaConnectionItem createWSDLSchemaConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Schema Information</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Schema Information</em>'.
+     * @generated
+     */
+    SchemaInformation createSchemaInformation();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

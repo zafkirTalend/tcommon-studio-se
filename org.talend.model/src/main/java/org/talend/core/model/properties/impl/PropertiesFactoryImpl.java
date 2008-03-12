@@ -138,6 +138,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.JOB_DOCUMENTATION_ITEM: return createJobDocumentationItem();
             case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM: return createJobletDocumentationItem();
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM: return createWSDLSchemaConnectionItem();
+            case PropertiesPackage.SCHEMA_INFORMATION: return createSchemaInformation();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -626,6 +627,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public WSDLSchemaConnectionItem createWSDLSchemaConnectionItem() {
         WSDLSchemaConnectionItemImpl wsdlSchemaConnectionItem = new WSDLSchemaConnectionItemImpl();
         return wsdlSchemaConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SchemaInformation createSchemaInformation() {
+        SchemaInformationImpl schemaInformation = new SchemaInformationImpl();
+        return schemaInformation;
     }
 
     /**

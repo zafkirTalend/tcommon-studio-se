@@ -387,4 +387,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="JobDocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="JobletDocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="WSDLSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SchemaInformation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

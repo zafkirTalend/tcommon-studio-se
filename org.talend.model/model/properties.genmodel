@@ -310,5 +310,8 @@
     <genClasses ecoreClass="properties.ecore#//JobDocumentationItem"/>
     <genClasses ecoreClass="properties.ecore#//JobletDocumentationItem"/>
     <genClasses ecoreClass="properties.ecore#//WSDLSchemaConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//SchemaInformation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SchemaInformation/version"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

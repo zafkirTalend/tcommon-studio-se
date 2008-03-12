@@ -3724,13 +3724,41 @@ public interface PropertiesPackage extends EPackage {
     int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SchemaInformationImpl <em>Schema Information</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SchemaInformationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
+     * @generated
+     */
+    int SCHEMA_INFORMATION = 51;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCHEMA_INFORMATION__VERSION = 0;
+
+    /**
+     * The number of structural features of the '<em>Schema Information</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCHEMA_INFORMATION_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 51;
+    int FOLDER_TYPE = 52;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3740,7 +3768,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 52;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 53;
 
 
     /**
@@ -3751,7 +3779,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 53;
+    int USER_MODULE_AUTHORIZATION_TYPE = 54;
 
 
     /**
@@ -6348,6 +6376,27 @@ public interface PropertiesPackage extends EPackage {
     EClass getWSDLSchemaConnectionItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SchemaInformation <em>Schema Information</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Schema Information</em>'.
+     * @see org.talend.core.model.properties.SchemaInformation
+     * @generated
+     */
+    EClass getSchemaInformation();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SchemaInformation#getVersion <em>Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Version</em>'.
+     * @see org.talend.core.model.properties.SchemaInformation#getVersion()
+     * @see #getSchemaInformation()
+     * @generated
+     */
+    EAttribute getSchemaInformation_Version();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -8489,6 +8538,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass WSDL_SCHEMA_CONNECTION_ITEM = eINSTANCE.getWSDLSchemaConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SchemaInformationImpl <em>Schema Information</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SchemaInformationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
+         * @generated
+         */
+        EClass SCHEMA_INFORMATION = eINSTANCE.getSchemaInformation();
+
+        /**
+         * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SCHEMA_INFORMATION__VERSION = eINSTANCE.getSchemaInformation_Version();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
