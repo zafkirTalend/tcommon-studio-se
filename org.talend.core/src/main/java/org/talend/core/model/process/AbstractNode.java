@@ -679,4 +679,16 @@ public abstract class AbstractNode implements INode {
         return value; // keep original value
 
     }
+
+	public List<? extends IElementParameter> getElementParametersWithChildrens() {
+        List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(this.elementParameters);
+
+        for (IElementParameter curParam : elementParameters) {
+            for (String key : curParam.getChildParameters().keySet()) {
+                IElementParameter childParam = curParam.getChildParameters().get(key);
+                fullListParam.add(childParam);
+            }
+        }
+        return fullListParam;
+	}
 }

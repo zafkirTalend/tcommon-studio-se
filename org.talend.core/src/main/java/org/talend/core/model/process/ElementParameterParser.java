@@ -40,8 +40,9 @@ public final class ElementParameterParser {
         IElementParameter param;
         boolean end = false;
 
-        for (int i = 0; i < node.getElementParameters().size() && !end; i++) {
-            param = node.getElementParameters().get(i);
+        List<IElementParameter> params = (List<IElementParameter>) node.getElementParametersWithChildrens();
+        for (int i = 0; i < params.size() && !end; i++) {
+            param = params.get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
                 newText = getDisplayValue(param);
                 end = true;
@@ -77,8 +78,9 @@ public final class ElementParameterParser {
         }
         IElementParameter param;
 
-        for (int i = 0; i < element.getElementParameters().size(); i++) {
-            param = element.getElementParameters().get(i);
+        List<IElementParameter> params = (List<IElementParameter>) element.getElementParametersWithChildrens();
+        for (int i = 0; i < params.size(); i++) {
+            param = params.get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
                 if (param.getField() == EParameterFieldType.TABLE) {
                     return createTableValues((List<Map<String, Object>>) param.getValue(), param);

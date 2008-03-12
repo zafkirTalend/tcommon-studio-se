@@ -65,23 +65,6 @@ public abstract class Element implements Cloneable, IElement {
      * @return Object
      */
     public Object getPropertyValue(final String id) {
-        // if (id.contains(":")) { // look for the parent first, then will retrieve the children
-        // StringTokenizer token = new StringTokenizer(id, ":");
-        // String parentId = token.nextToken();
-        // String childId = token.nextToken();
-        // for (int i = 0; i < listParam.size(); i++) {
-        // if (listParam.get(i).getName().equals(parentId)) {
-        // IElementParameter parent = listParam.get(i);
-        // return parent.getChildParameters().get(childId).getValue();
-        // }
-        // }
-        // } else {
-        // for (int i = 0; i < listParam.size(); i++) {
-        // if (listParam.get(i).getName().equals(id)) {
-        // return listParam.get(i).getValue();
-        // }
-        // }
-        // }
         IElementParameter param = this.getElementParameter(id);
         if (param != null) {
             return param.getValue();
@@ -101,11 +84,6 @@ public abstract class Element implements Cloneable, IElement {
         }
         IElementParameter param = this.getElementParameter(id);
         param.setValue(value);
-        // for (int i = 0; i < listParam.size(); i++) {
-        // if (listParam.get(i).getName().equals(id)) {
-        // listParam.get(i).setValue(value);
-        // }
-        // }
     }
 
     public void addElementParameter(IElementParameter parameter) {
@@ -190,6 +168,16 @@ public abstract class Element implements Cloneable, IElement {
             }
         }
         return null;
+    }
+
+    public IElementParameter getElementParameterFromField(EParameterFieldType fieldType, EComponentCategory category) {
+        for (IElementParameter elementParam : listParam) {
+            if (elementParam.getCategory().equals(category) && elementParam.getField().equals(fieldType)) {
+                return elementParam;
+            }
+        }
+        // in case there is only one field of this type in all the element (all category) take the field type by default
+        return getElementParameterFromField(fieldType);
     }
 
     public abstract String getElementName();

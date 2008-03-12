@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -209,4 +210,16 @@ public abstract class AbstractConnection implements IConnection {
     public String toString() {
         return "{Name=" + getName() + ", Table=" + getMetadataTable() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
     }
+
+	public List<? extends IElementParameter> getElementParametersWithChildrens() {
+        List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(this.elementParameters);
+
+        for (IElementParameter curParam : elementParameters) {
+            for (String key : curParam.getChildParameters().keySet()) {
+                IElementParameter childParam = curParam.getChildParameters().get(key);
+                fullListParam.add(childParam);
+            }
+        }
+        return fullListParam;
+	}
 }
