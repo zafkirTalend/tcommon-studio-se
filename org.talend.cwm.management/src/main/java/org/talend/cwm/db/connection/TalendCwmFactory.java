@@ -120,76 +120,6 @@ public final class TalendCwmFactory {
     }
 
     /**
-     * //FIXME rli want to save the .relational files, but can't save all the table/column information on the
-     * .relational file. so, copy the main method to here. But the code will happen the driver class not found
-     * exception. Later, will change this method.
-     * 
-     * Proposed Solution:
-     * {@link DqRepositoryViewService#getTables(TdDataProvider, orgomg.cwm.resource.relational.Catalog, String, boolean)}
-     * {@link DqRepositoryViewService#saveOpenDataProvider(TdDataProvider)}
-     * 
-     * @param connector
-     * @param folderProvider
-     * @return
-     */
-    public static TdDataProvider createDataProvider2(DBConnect connector, FolderProvider folderProvider)
-            throws SQLException {
-
-        TdDataProvider dataProvider = null;
-
-        checkConnection(connector);
-
-        // --- get data provider
-        dataProvider = getTdDataProvider(connector);
-        // --- get the connection provider
-        TdProviderConnection providerConnection = connector.getProviderConnection();
-
-        // --- now create the lower structure (tables, columns)
-        // recreate a connection from the TdProviderConnection
-        TypedReturnCode<Connection> rc = JavaSqlFactory.createConnection(providerConnection);
-        // if (!rc.isOk()) {
-        // log.error(rc.getMessage());
-        // return null;
-        // }
-        boolean ok = false;
-        Collection<TdCatalog> catalogs = connector.getCatalogs();
-        Connection connection = rc.getObject();
-        for (TdCatalog tdCatalog : catalogs) {
-            List<TdSchema> schemas = CatalogHelper.getSchemas(tdCatalog);
-            for (TdSchema tdSchema : schemas) {
-                List<TdTable> tables = SchemaHelper.getTables(tdSchema);
-                if (tables.isEmpty()) {
-                    // TODO try to load them from DB.
-                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
-                            .getName(), tdSchema.getName(), connection);
-                    ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
-
-                }
-            }
-            // first try to get the columns
-            List<TdTable> tables = CatalogHelper.getTables(tdCatalog);
-            if (tables.isEmpty()) {
-                // TODO try to load them from DB.
-                List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
-                        .getName(), null, connection);
-                ok = CatalogHelper.addTables(tablesWithAllColumns, tdCatalog);
-            }
-        }
-        if (!ok) {
-            log.error("Tables not retrieved.");
-        } else {
-            log.info("table retrieved.");
-
-        }
-
-        connection.close();
-
-        // --- save on disk
-        connector.saveInFiles();
-        return dataProvider;
-    }
-
-    /**
      * Method "getTdDataProvider" simply tries to instantiate a data provider from the given connection. The connector
      * should have already open its connection. If not, this method tries to open a connection. The caller should close
      * the connection.
@@ -335,8 +265,8 @@ public final class TalendCwmFactory {
                     List<TdTable> tables = SchemaHelper.getTables(tdSchema);
                     if (tables.isEmpty()) {
                         // TODO try to load them from DB.
-                        List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
-                                .getName(), tdSchema.getName(), connection);
+                        List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithColumns(tdCatalog
+                                .getName(), tdSchema.getName(), null, connection);
                         ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
                     }
                 }
@@ -344,8 +274,8 @@ public final class TalendCwmFactory {
                 List<TdTable> tables = CatalogHelper.getTables(tdCatalog);
                 if (tables.isEmpty()) {
                     // TODO try to load them from DB.
-                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithAllColumns(tdCatalog
-                            .getName(), null, connection);
+                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithColumns(tdCatalog
+                            .getName(), null, null, connection);
                     ok = CatalogHelper.addTables(tablesWithAllColumns, tdCatalog);
 
                     // --- get the resource of the catalog

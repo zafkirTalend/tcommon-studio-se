@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
+import org.talend.dataquality.analysis.impl.AnalysisFactoryImpl;
+import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 import org.talend.dataquality.domain.impl.DomainFactoryImpl;
 import org.talend.dataquality.domain.impl.DomainPackageImpl;
 import org.talend.dataquality.domain.pattern.impl.PatternFactoryImpl;
@@ -39,6 +41,11 @@ public final class FactoriesUtil {
      */
     public static final String PROV = "prv";
 
+    /**
+     * Extension used for the files in which the analysis objects are serialized.
+     */
+    public static final String ANA = "ana";
+
     private FactoriesUtil() {
     }
 
@@ -52,10 +59,12 @@ public final class FactoriesUtil {
         org.talend.cwm.relational.impl.RelationalFactoryImpl.init();
 
         // --- talend DQ factories
+        AnalysisFactoryImpl.init();
         DomainFactoryImpl.init();
         IndicatorsFactoryImpl.init();
         PatternFactoryImpl.init();
         org.talend.dataquality.expressions.impl.ExpressionsFactoryImpl.init();
+        org.talend.dataquality.reports.impl.ReportsFactoryImpl.init();
 
         // CWM generated packages
         // TODO scorreia add other factories
@@ -86,6 +95,7 @@ public final class FactoriesUtil {
 
         // --- add specific extensions
         extensions.add(PROV);
+        extensions.add(ANA);
 
         // --- CWM generated packages
         extensions.add(CorePackage.eNAME);
@@ -103,10 +113,12 @@ public final class FactoriesUtil {
         org.talend.cwm.relational.impl.RelationalPackageImpl.init();
 
         // --- talend DQ factories
+        AnalysisPackageImpl.init();
         DomainPackageImpl.init();
         IndicatorsPackageImpl.init();
         PatternPackageImpl.init();
         org.talend.dataquality.expressions.impl.ExpressionsPackageImpl.init();
+        org.talend.dataquality.reports.impl.ReportsPackageImpl.init();
 
         // CWM generated packages
         // TODO scorreia add other packages

@@ -12,18 +12,21 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.perspective;
 
+import org.apache.log4j.Logger;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 /**
- * DOC rli  class global comment. Detailled comment
- * <br/>
- *
+ * DOC rli class global comment. Detailled comment <br/>
+ * 
  */
 public class DataProfilingPerspective implements IPerspectiveFactory {
 
+    private static Logger log = Logger.getLogger(DataProfilingPerspective.class);
+
     public void createInitialLayout(IPageLayout layout) {
-        
-        System.out.println("gogogo,alaala");
+        if (log.isDebugEnabled()) { // MODSCA 2008-03-13
+            log.debug("Creating Data profiling perspective's layout.");
+        }
     }
 }

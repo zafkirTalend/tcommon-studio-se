@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -28,13 +29,14 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.cwm.builders.CatalogBuilder;
+import org.talend.cwm.builders.TableBuilder;
+import org.talend.cwm.builders.ViewBuilder;
 import org.talend.cwm.constants.SoftwareSystemConstants;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
-import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.cwm.helper.ViewHelper;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
@@ -48,9 +50,7 @@ import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.utils.collections.MultiMapHelper;
 import org.talend.utils.sql.metadata.constants.GetColumn;
-import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
-import org.talend.utils.sql.metadata.constants.TableType;
 import org.talend.utils.sql.metadata.constants.TypeInfoColumns;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 import orgomg.cwm.foundation.typemapping.TypemappingFactory;
@@ -68,12 +68,6 @@ public final class DatabaseContentRetriever {
 
     private static Logger log = Logger.getLogger(DatabaseContentRetriever.class);
 
-    private static final String[] TABLETYPE = new String[] { TableType.TABLE.toString() };
-
-    private static final String[] VIEWTYPE = new String[] { TableType.VIEW.toString() };
-
-    private static final String NO_COLUMN_PATTERN = "apeorjfldsnfmlskdfjaerjfdlksnfmdslkfgjpareoijf";
-
     private DatabaseContentRetriever() {
     }
 
@@ -84,33 +78,9 @@ public final class DatabaseContentRetriever {
      * @return a map [name of catalog, catalog]
      * @throws SQLException
      */
-    public static Map<String, TdCatalog> getCatalogs(Connection connection) throws SQLException {
-
-        Map<String, TdCatalog> name2catalog = new HashMap<String, TdCatalog>();
-        ResultSet catalogNames = getConnectionMetadata(connection).getCatalogs();
-        if (catalogNames == null) {
-            String currentCatalogName = connection.getCatalog();
-            if (currentCatalogName == null) {
-                if (log.isInfoEnabled()) {
-                    log.info("No catalog found in connection " + getConnectionInformations(connection));
-                }
-            } else { // got the current catalog name, create a Catalog
-                TdCatalog catalog = createCatalog(currentCatalogName);
-                name2catalog.put(currentCatalogName, catalog);
-            }
-        } else {
-            // else DB support getCatalogs() method
-            while (catalogNames.next()) {
-                String catalogName = catalogNames.getString(MetaDataConstants.TABLE_CAT.name());
-                assert catalogName != null : "This should not happen: Catalog name is null with connection "
-                        + getConnectionInformations(connection);
-                TdCatalog catalog = createCatalog(catalogName);
-                name2catalog.put(catalogName, catalog);
-            }
-        }
-        // --- release the result set.
-        catalogNames.close();
-        return name2catalog;
+    public static Collection<TdCatalog> getCatalogs(Connection connection) throws SQLException {
+        CatalogBuilder builder = new CatalogBuilder(connection);
+        return builder.getCatalogs();
     }
 
     public static QueryColumnSet getQueryColumnSet(ResultSetMetaData metaData) throws SQLException {
@@ -187,33 +157,70 @@ public final class DatabaseContentRetriever {
         return catalogName2schemas;
     }
 
-    public static List<TdTable> getTablesWithColumns(String catalogName, String schemaPattern, String tablePattern,
-            Connection connection) throws SQLException {
-        return getTables(catalogName, schemaPattern, tablePattern, null, connection);
-    }
-
     /**
      * Method "getTablesWithColumns".
      * 
      * @param catalogName the name of the Catalog
      * @param schemaPattern the schema pattern
+     * @param tablePattern the tables to be loaded (null means all tables are loaded from DB)
      * @param connection
-     * @return
+     * @return the tables
      * @throws SQLException
      */
-    public static List<TdTable> getTablesWithAllColumns(String catalogName, String schemaPattern, Connection connection)
-            throws SQLException {
-        return getTables(catalogName, schemaPattern, null, null, connection);
+    public static List<TdTable> getTablesWithColumns(String catalogName, String schemaPattern, String tablePattern,
+            Connection connection) throws SQLException {
+        TableBuilder tableBuilder = new TableBuilder(connection);
+        tableBuilder.setColumnsRequested(true);
+        return tableBuilder.getColumnSets(catalogName, schemaPattern, tablePattern, null);
     }
 
+    /**
+     * Method "getTablesWithoutColumns".
+     * 
+     * @param catalogName the name of the Catalog
+     * @param schemaPattern the schema pattern
+     * @param tablePattern the tables to be loaded (null means all tables are loaded from DB)
+     * @param connection
+     * @return the tables
+     * @throws SQLException
+     */
     public static List<TdTable> getTablesWithoutColumns(String catalogName, String schemaPattern, String tablePattern,
             Connection connection) throws SQLException {
-        return getTables(catalogName, schemaPattern, tablePattern, NO_COLUMN_PATTERN, connection);
+        TableBuilder tableBuilder = new TableBuilder(connection);
+        return tableBuilder.getColumnSets(catalogName, schemaPattern, tablePattern, null);
     }
 
+    /**
+     * Method "getViewsWithColumns".
+     * 
+     * @param catalogName
+     * @param schemaPattern
+     * @param viewPattern
+     * @param connection
+     * @return the views with the columns
+     * @throws SQLException
+     */
     public static List<TdView> getViewsWithColumns(String catalogName, String schemaPattern, String viewPattern,
             Connection connection) throws SQLException {
-        return getViews(catalogName, schemaPattern, viewPattern, null, connection);
+        ViewBuilder viewBuilder = new ViewBuilder(connection);
+        viewBuilder.setColumnsRequested(true);
+        return viewBuilder.getColumnSets(catalogName, schemaPattern, viewPattern, null);
+    }
+
+    /**
+     * Method "getViewsWithoutColumns".
+     * 
+     * @param catalogName
+     * @param schemaPattern
+     * @param viewPattern
+     * @param connection
+     * @return the view without the columns
+     * @throws SQLException
+     */
+    public static List<TdView> getViewsWithoutColumns(String catalogName, String schemaPattern, String viewPattern,
+            Connection connection) throws SQLException {
+        ViewBuilder viewBuilder = new ViewBuilder(connection);
+        return viewBuilder.getColumnSets(catalogName, schemaPattern, viewPattern, null);
     }
 
     /**
@@ -402,131 +409,23 @@ public final class DatabaseContentRetriever {
         return tableColumns;
     }
 
-    /**
-     * Method "getTables".
-     * 
-     * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
-     * those without a catalog; null means that the catalog name should not be used to narrow the search
-     * @param schemaPattern a schema name pattern; must match the schema name as it is stored in the database; ""
-     * retrieves those without a schema; null means that the schema name should not be used to narrow the search
-     * @param tablePattern a table name pattern; must match the table name as it is stored in the database
-     * @param columnPattern a column name pattern; must match the column name as it is stored in the database
-     * @param connection the connection
-     * @return the tables with for the given catalog, schemas, table name pattern.
-     * @throws SQLException
-     */
-    private static List<TdTable> getTables(String catalogName, String schemaPattern, String tablePattern,
-            String columnPattern, Connection connection) throws SQLException {
-        List<TdTable> tables = new ArrayList<TdTable>();
-
-        ResultSet tablesSet = getConnectionMetadata(connection).getTables(catalogName, schemaPattern, tablePattern,
-                TABLETYPE);
-        while (tablesSet.next()) {
-            TdTable table = createTable(catalogName, schemaPattern, columnPattern, connection, tablesSet);
-            tables.add(table);
-        }
-        // release JDBC resources
-        tablesSet.close();
-
-        return tables;
-    }
-
-    /**
-     * Method "getViews".
-     * 
-     * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
-     * those without a catalog; null means that the catalog name should not be used to narrow the search
-     * @param schemaPattern a schema name pattern; must match the schema name as it is stored in the database; ""
-     * retrieves those without a schema; null means that the schema name should not be used to narrow the search
-     * @param viewPattern a view name pattern; must match the view name as it is stored in the database
-     * @param columnPattern a column name pattern; must match the column name as it is stored in the database
-     * @param connection the connection
-     * @return the views with for the given catalog, schemas, view name pattern.
-     * @throws SQLException
-     */
-    private static List<TdView> getViews(String catalogName, String schemaPattern, String viewPattern,
-            String columnPattern, Connection connection) throws SQLException {
-        List<TdView> tables = new ArrayList<TdView>();
-
-        ResultSet viewSet = getConnectionMetadata(connection).getTables(catalogName, schemaPattern, viewPattern,
-                VIEWTYPE);
-        while (viewSet.next()) {
-            TdView table = createView(catalogName, schemaPattern, viewPattern, columnPattern, connection, viewSet);
-            tables.add(table);
-        }
-        // release JDBC resources
-        viewSet.close();
-
-        return tables;
-    }
-
-    private static TdView createView(String catalogName, String schemaPattern, String viewPattern,
-            String columnPattern, Connection connection, ResultSet viewsSet) throws SQLException {
-        TdView view = RelationalFactory.eINSTANCE.createTdView();
-        String viewName = viewsSet.getString(GetTable.TABLE_NAME.name());
-        view.setName(viewName);
-        List<TdColumn> columns = getColumns(catalogName, schemaPattern, viewPattern, columnPattern, connection);
-        ViewHelper.addColumns(view, columns);
-        return view;
-    }
-
-    /**
-     * Method "createTableWithColumns" create a Table with its columns (given the column pattern).
-     * 
-     * @param catalogName
-     * @param schemaPattern
-     * @param columnPattern the pattern of the columns to get (null means all columns, "" means no column, other means
-     * specific columns)
-     * @param connection
-     * @param tablesSet
-     * @return
-     * @throws SQLException
-     */
-    private static TdTable createTable(String catalogName, String schemaPattern, String columnPattern,
-            Connection connection, ResultSet tablesSet) throws SQLException {
-        String tableName = tablesSet.getString(GetTable.TABLE_NAME.name());
-        // --- create a table and add columns
-        TdTable table = RelationalFactory.eINSTANCE.createTdTable();
-        table.setName(tableName);
-        List<TdColumn> columns = getColumns(catalogName, schemaPattern, tableName, columnPattern, connection);
-        TableHelper.addColumns(table, columns);
-        return table;
-    }
-
     private static DatabaseMetaData getConnectionMetadata(Connection connection) throws SQLException {
         assert connection != null : "Connection should not be null in DatabaseContentRetriever.getConnectionMetadata() "
                 + getConnectionInformations(connection);
         return connection.getMetaData();
     }
 
-    private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
-        // if (true)
-        // return null; // FIXME scorreia remove this patch
-        // this patch is here because the created sql data type is not stored in a resource set.
-        TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
-        sqlDataType.setName("datatype"); // FIXME set name?
-        sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
-        sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
-        sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
-        return sqlDataType;
-    }
-
-    /**
-     * Method "createCatalog" creates a Catalog with the given name.
-     * 
-     * @param name the name of the catalog
-     * @return the newly created catalog
-     */
-    private static TdCatalog createCatalog(String name) {
-        if (name == null) {
-            return null;
-        }
-        TdCatalog cat = RelationalFactory.eINSTANCE.createTdCatalog();
-        cat.setName(name);
-
-        // --- TODO set attributes of catalog
-        return cat;
-    }
+    // private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
+    // // if (true)
+    // // return null; // FIXME scorreia remove this patch
+    // // this patch is here because the created sql data type is not stored in a resource set.
+    // TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
+    // sqlDataType.setName("datatype"); // FIXME set name?
+    // sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
+    // sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
+    // sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
+    // return sqlDataType;
+    // }
 
     private static String getConnectionInformations(Connection connection) {
         return connection.toString(); // TODO scorreia give more user friendly informations.

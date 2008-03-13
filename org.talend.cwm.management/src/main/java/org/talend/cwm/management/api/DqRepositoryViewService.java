@@ -26,20 +26,28 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.commons.emf.FactoriesUtil;
+import org.talend.cwm.builders.AbstractTableBuilder;
+import org.talend.cwm.builders.ColumnBuilder;
+import org.talend.cwm.builders.TableBuilder;
+import org.talend.cwm.builders.ViewBuilder;
 import org.talend.cwm.db.connection.FolderProvider;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SchemaHelper;
+import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.management.connection.JavaSqlFactory;
+import org.talend.cwm.relational.RelationalPackage;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
@@ -65,6 +73,23 @@ public final class DqRepositoryViewService {
     };
 
     /**
+     * Method "createTechnicalName" creates a technical name used for file system storage.
+     * 
+     * @param functionalName the user friendly name
+     * @return the technical name created from the user given name.
+     */
+    public static String createTechnicalName(String functionalName) {
+        if (functionalName == null) {
+            log.warn("A functional name should not be null");
+            return "no_name";
+        }
+        // TODO scorreia remove all characters such white spaces, accents, everything that is dangerous when used for
+        // file names...
+
+        return functionalName;
+    }
+
+    /**
      * Method "listTdDataProviders" list all the connections in the given folder.
      * 
      * @param folder the path to the folder containing TdDataProviders
@@ -86,14 +111,14 @@ public final class DqRepositoryViewService {
     }
 
     /**
-     * Method "getTables" loads or get from catalog the tables and columns.
+     * Method "getTables" loads the tables from the database or get the tables and columns from the catalog .
      * 
      * @param dataProvider the data provider
-     * @param catalog the catalog
+     * @param catalog the catalog (must not be null)
      * @param tablePattern the pattern of the tables to be loaded (from the DB)
      * @param loadFromDB true if we want to load tables from the database. false when the tables are already in the
      * catalog.
-     * @return the list of tables.
+     * @return the list of tables. Theses tables are not added to the given catalog. It must be done by the caller.
      */
     public static List<TdTable> getTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern,
             boolean loadFromDB) {
@@ -104,12 +129,39 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdTable> getTables(TdDataProvider dataProvider, Schema catalog, String tablePattern,
+    public static List<TdTable> getTables(TdDataProvider dataProvider, Schema schema, String tablePattern,
             boolean loadFromDB) {
         if (loadFromDB) {
-            return loadTables(dataProvider, catalog, tablePattern);
+            return loadTables(dataProvider, schema, tablePattern);
         } else {
-            return SchemaHelper.getTables(catalog);
+            return SchemaHelper.getTables(schema);
+        }
+    }
+
+    public static List<TdView> getViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern,
+            boolean loadFromDB) {
+        if (loadFromDB) {
+            return loadViews(dataProvider, catalog, viewPattern);
+        } else {
+            return CatalogHelper.getViews(catalog);
+        }
+    }
+
+    public static List<TdView> getViews(TdDataProvider dataProvider, Schema schema, String viewPattern,
+            boolean loadFromDB) {
+        if (loadFromDB) {
+            return loadViews(dataProvider, schema, viewPattern);
+        } else {
+            return SchemaHelper.getViews(schema);
+        }
+    }
+
+    public static List<TdColumn> getColumns(TdDataProvider dataProvider, TdTable table, String columnPattern,
+            boolean loadFromDB) {
+        if (loadFromDB) {
+            return loadColumns(dataProvider, table, columnPattern);
+        } else {
+            return TableHelper.getColumns(table);
         }
     }
 
@@ -200,6 +252,10 @@ public final class DqRepositoryViewService {
         return rc;
     }
 
+    private static String getName(ModelElement element) {
+        return element != null ? element.getName() : null;
+    }
+
     /**
      * Method "createFilename".
      * 
@@ -210,23 +266,6 @@ public final class DqRepositoryViewService {
      */
     private static String createFilename(String folder, String basename, String extension) {
         return folder + File.separator + createTechnicalName(basename) + "." + extension;
-    }
-
-    /**
-     * Method "createTechnicalName" creates a technical name used for file system storage.
-     * 
-     * @param functionalName the user friendly name
-     * @return the technical name created from the user given name.
-     */
-    public static String createTechnicalName(String functionalName) {
-        if (functionalName == null) {
-            log.warn("A functional name should not be null");
-            return "no_name";
-        }
-        // TODO scorreia remove all characters such white spaces, accents, everything that is dangerous when used for
-        // file names...
-
-        return functionalName;
     }
 
     /**
@@ -251,41 +290,98 @@ public final class DqRepositoryViewService {
     }
 
     private static List<TdTable> loadTables(TdDataProvider dataProvider, Schema schema, String tablePattern) {
-        List<TdTable> tables = new ArrayList<TdTable>();
         assert dataProvider != null;
         assert schema != null;
 
         String schemaName = schema.getName();
         if (schemaName == null) {
             log.error("No schema given. Cannot retrieve tables!");
-            return tables;
+            return new ArrayList<TdTable>();
         }
         return loadTables(dataProvider, null, schema, tablePattern);
     }
 
+    @SuppressWarnings("unchecked")
     private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, Schema schema,
             String tablePattern) {
-        List<TdTable> tables = new ArrayList<TdTable>();
-        assert dataProvider != null;
+        return (List<TdTable>) loadColumnSets(dataProvider, catalog, schema, tablePattern, RelationalPackage.TD_TABLE);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<TdView> loadViews(TdDataProvider dataProvider, Schema schema, String viewPattern) {
+        assert schema != null : "could not load views. No schema given.";
+        return (List<TdView>) loadColumnSets(dataProvider, null, schema, viewPattern, RelationalPackage.TD_VIEW);
+    }
+
+    /**
+     * DOC scorreia Comment method "loadViews".
+     * 
+     * @param dataProvider
+     * @param catalog
+     * @param viewPattern
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    private static List<TdView> loadViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern) {
+        assert catalog != null : "could not load views. No catalog given.";
+        return (List<TdView>) loadColumnSets(dataProvider, catalog, null, viewPattern, RelationalPackage.TD_VIEW);
+    }
+
+    private static List<TdColumn> loadColumns(TdDataProvider dataProvider, TdTable table, String columnPattern) {
+        assert table != null;
+        List<TdColumn> columns = new ArrayList<TdColumn>();
+        TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            return columns;
+        }
+        Connection connection = rcConn.getObject();
+        ColumnBuilder colBuilder = new ColumnBuilder(connection);
+
+        String catalogName = getName(CatalogHelper.getParentCatalog(table));
+        String schemaPattern = getName(SchemaHelper.getParentSchema(table));
+        String tablePattern = getName(table);
+
+        try {
+            columns = colBuilder.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
+        } catch (SQLException e) {
+            log.error(e, e);
+        } finally {
+            ConnectionUtils.closeConnection(connection);
+        }
+        return columns;
+    }
+
+    /**
+     * Method "loadColumnSets".
+     * 
+     * @param dataProvider
+     * @param catalog (can be null)
+     * @param schema (can be null)
+     * @param tablePattern (can be null)
+     * @param classifierID a either {@link RelationalPackage#TD_TABLE} or {@link RelationalPackage#TD_VIEW}
+     * @return list of tables or views
+     */
+    private static List<? extends NamedColumnSet> loadColumnSets(TdDataProvider dataProvider, Catalog catalog,
+            Schema schema, String tablePattern, int classifierID) {
+        List<? extends NamedColumnSet> tables = new ArrayList<NamedColumnSet>();
+
+        TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
+        if (!rcConn.isOk()) {
+            log.error(rcConn.getMessage());
+            return tables;
+        }
+
+        Connection connection = rcConn.getObject();
 
         String schemaName = (schema == null) ? null : schema.getName();
         String catalogName = (catalog == null) ? null : catalog.getName();
-
-        TypedReturnCode<TdProviderConnection> rc = DataProviderHelper.getTdProviderConnection(dataProvider);
-        if (!rc.isOk()) {
-            log.error(rc.getMessage());
-            return tables;
-        }
-
-        TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(rc.getObject());
-        if (!rc.isOk()) {
-            log.error(rc.getMessage());
-            return tables;
-        }
-        Connection connection = rcConn.getObject();
-
         try {
-            return DatabaseContentRetriever.getTablesWithColumns(catalogName, schemaName, tablePattern, connection);
+            AbstractTableBuilder<? extends NamedColumnSet> tableBuilder = getBuilder(connection, classifierID);
+            tableBuilder.setColumnsRequested(true);
+            tables = tableBuilder.getColumnSets(catalogName, schemaName, tablePattern, null);
+            tables = DatabaseContentRetriever.getTablesWithColumns(catalogName, schemaName, tablePattern, connection);
+
         } catch (SQLException e) {
             log.error(e);
         } finally {
@@ -294,6 +390,24 @@ public final class DqRepositoryViewService {
             }
         }
         return tables;
+    }
+
+    /**
+     * DOC scorreia Comment method "getBuilder".
+     * 
+     * @param connection
+     * @param classifierID
+     * @return
+     */
+    private static AbstractTableBuilder<? extends NamedColumnSet> getBuilder(Connection connection, int classifierID) {
+        switch (classifierID) {
+        case RelationalPackage.TD_TABLE:
+            return new TableBuilder(connection);
+        case RelationalPackage.TD_VIEW:
+            return new ViewBuilder(connection);
+        default:
+            return null;
+        }
     }
 
     /**

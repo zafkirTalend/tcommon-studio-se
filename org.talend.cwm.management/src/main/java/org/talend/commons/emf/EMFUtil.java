@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.emf;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -86,12 +87,36 @@ public final class EMFUtil {
      * @return true (as per the general contract of the <tt>Collection.add</tt> method).
      */
     public boolean addPoolToResourceSet(String uri, EObject eObject) {
-        Resource res = resourceSet.createResource(URI.createURI(uri));
+        return addPoolToResourceSet(URI.createURI(uri), eObject);
+    }
+
+    /**
+     * Creates a new Resource in the ResourceSet. The file will be actually written when the save() method will be
+     * called.
+     * 
+     * @param uri the uri of the file in which the pool will be stored
+     * @param eObject the pool that contains objects.
+     * @return true (as per the general contract of the <tt>Collection.add</tt> method).
+     */
+    public boolean addPoolToResourceSet(URI uri, EObject eObject) {
+        Resource res = resourceSet.createResource(uri);
         if (res == null) {
             lastErrorMessage = "No factory has been found for URI: " + uri;
             return false;
         }
         return res.getContents().add(eObject);
+    }
+
+    /**
+     * Creates a new Resource in the ResourceSet. The file will be actually written when the save() method will be
+     * called.
+     * 
+     * @param file the file in which the pool will be stored
+     * @param eObject the pool that contains objects.
+     * @return true (as per the general contract of the <tt>Collection.add</tt> method).
+     */
+    public boolean addPoolToResourceSet(File file, EObject eObject) {
+        return addPoolToResourceSet(URI.createFileURI(file.getAbsolutePath()), eObject);
     }
 
     /**

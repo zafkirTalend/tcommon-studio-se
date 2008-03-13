@@ -23,8 +23,6 @@ import java.sql.SQLException;
  */
 abstract class CwmBuilder {
 
-    protected final DatabaseMetaData databaseMetadata;
-
     protected final Connection connection;
 
     /**
@@ -32,13 +30,22 @@ abstract class CwmBuilder {
      * 
      * @param conn a connection
      */
-    public CwmBuilder(Connection conn) throws SQLException {
+    public CwmBuilder(Connection conn) {
         this.connection = conn;
-        this.databaseMetadata = connection.getMetaData();
     }
 
     protected void print(String tag, String str) { // for tests only
         System.out.println(tag + " " + str);
+    }
+
+    protected DatabaseMetaData getConnectionMetadata(Connection connection) throws SQLException {
+        assert connection != null : "Connection should not be null in " + getClass().getName() + " for connection "
+                + getConnectionInformations(connection);
+        return connection.getMetaData();
+    }
+
+    protected String getConnectionInformations(Connection connection) {
+        return connection.toString(); // TODO scorreia give more user friendly informations.
     }
 
 }

@@ -13,6 +13,8 @@
 package org.talend.cwm.builders;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,11 +24,11 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.talend.cwm.helper.CatalogHelper;
-import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
+import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
-import org.talend.cwm.relational.TdTable;
+import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 
 /**
  * @author scorreia
@@ -52,69 +54,18 @@ public class CatalogBuilder extends CwmBuilder {
      * @param connection2 the sql connection
      * @throws SQLException
      */
-    public CatalogBuilder(Connection conn) throws SQLException {
+    public CatalogBuilder(Connection conn) {
         super(conn);
         try {
-            printMetadata();
+            if (log.isDebugEnabled()) {
+                printMetadata();
+            }
         } catch (RuntimeException e) {
-            log.error(e);
+            log.error(e, e);
+        } catch (SQLException e) {
+            log.error(e, e);
         }
 
-        initializeCatalog();
-        initializeSchema();
-    }
-
-    /**
-     * DOC scorreia Comment method "initializeTables".
-     * 
-     * @throws SQLException
-     */
-    protected void initializeTables() throws SQLException {
-        if (!catalogsInitialized) {
-            initializeCatalog();
-        }
-        if (!schemaInitialized) {
-            initializeSchema();
-        }
-
-        if (name2catalog.isEmpty()) { // we got only schemata
-            for (TdSchema schema : name2schema.values()) {
-                setTablesIntoStructure(null, schema.getName());
-            }
-        } else if (name2schema.isEmpty()) { // we got only catalogs
-            for (TdCatalog cat : name2catalog.values()) {
-                setTablesIntoStructure(cat.getName(), null);
-            }
-
-        } else { // we got schemata and catalogs
-            for (TdCatalog cat : name2catalog.values()) {
-                for (TdSchema schema : name2schema.values()) {
-                    setTablesIntoStructure(cat.getName(), schema.getName());
-                }
-            }
-        }
-    } // eom initializeTables
-
-    private boolean setTablesIntoStructure(String catName, String schemaName) throws SQLException {
-        boolean ok = true;
-        List<TdTable> tablesWithColumns = DatabaseContentRetriever.getTablesWithAllColumns(catName, schemaName,
-                connection);
-        // --- store table in Catalog or in Schema.
-        if (schemaName != null) {
-            TdSchema schema = name2schema.get(schemaName);
-            SchemaHelper.addTables(tablesWithColumns, schema);
-        } else {
-            // store table in catalog
-            // TODO scorreia what do we do when there is no schema
-            TdCatalog cat = name2catalog.get(catName);
-            if (cat != null) {
-                CatalogHelper.addTables(tablesWithColumns, cat);
-            } else {
-                ok = false;
-                log.error("No schema nor catalog found for " + catName);
-            }
-        }
-        return ok;
     }
 
     /**
@@ -123,6 +74,7 @@ public class CatalogBuilder extends CwmBuilder {
      * @throws SQLException
      */
     private void printMetadata() throws SQLException {
+        DatabaseMetaData databaseMetadata = getConnectionMetadata(connection);
         int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
         int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
         String databaseProductName = databaseMetadata.getDatabaseProductName();
@@ -173,6 +125,9 @@ public class CatalogBuilder extends CwmBuilder {
      * @return the catalogs initialized with the metadata (The list could be empty)
      */
     public Collection<TdCatalog> getCatalogs() {
+        if (!catalogsInitialized) {
+            initializeCatalog();
+        }
         return this.name2catalog.values();
     }
 
@@ -182,14 +137,56 @@ public class CatalogBuilder extends CwmBuilder {
      * @return the schemata initialized with the metadata
      */
     public Collection<TdSchema> getSchemata() {
+        if (!schemaInitialized) {
+            initializeSchema();
+        }
         return this.name2schema.values();
     }
 
-    private void initializeCatalog() throws SQLException {
-        name2catalog.putAll(DatabaseContentRetriever.getCatalogs(connection));
+    private void initializeCatalog() {
+        try {
+            initializeCatalogLow();
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
     }
 
-    private void initializeSchema() throws SQLException {
+    private void initializeCatalogLow() throws SQLException {
+        ResultSet catalogNames = getConnectionMetadata(connection).getCatalogs();
+        if (catalogNames == null) {
+            String currentCatalogName = connection.getCatalog();
+            if (currentCatalogName == null) {
+                if (log.isInfoEnabled()) {
+                    log.info("No catalog found in connection " + getConnectionInformations(connection));
+                }
+            } else { // got the current catalog name, create a Catalog
+                TdCatalog catalog = createCatalog(currentCatalogName);
+                name2catalog.put(currentCatalogName, catalog);
+            }
+        } else {
+            // else DB support getCatalogs() method
+            while (catalogNames.next()) {
+                String catalogName = catalogNames.getString(MetaDataConstants.TABLE_CAT.name());
+                assert catalogName != null : "This should not happen: Catalog name is null with connection "
+                        + getConnectionInformations(connection);
+                TdCatalog catalog = createCatalog(catalogName);
+                name2catalog.put(catalogName, catalog);
+            }
+        }
+        // --- release the result set.
+        catalogNames.close();
+        catalogsInitialized = true;
+    }
+
+    private void initializeSchema() {
+        try {
+            initializeSchemaLow();
+        } catch (SQLException e) {
+            log.error(e, e);
+        }
+    }
+
+    private void initializeSchemaLow() throws SQLException {
 
         // initialize the catalog if not already done
         if (!catalogsInitialized) {
@@ -201,12 +198,31 @@ public class CatalogBuilder extends CwmBuilder {
         // store schemas in catalogs
         Set<String> catNames = catalog2schemas.keySet();
         for (String catName : catNames) {
-            TdCatalog catalog = name2catalog.get(catName);
-            CatalogHelper.addSchemas(catalog2schemas.get(catName), catalog);
+            if (catName != null) {
+                TdCatalog catalog = name2catalog.get(catName);
+                CatalogHelper.addSchemas(catalog2schemas.get(catName), catalog);
+            }
         }
 
         // set the flag to initialized and return the created catalog
         schemaInitialized = true;
 
+    }
+
+    /**
+     * Method "createCatalog" creates a Catalog with the given name.
+     * 
+     * @param name the name of the catalog
+     * @return the newly created catalog
+     */
+    private TdCatalog createCatalog(String name) {
+        if (name == null) {
+            return null;
+        }
+        TdCatalog cat = RelationalFactory.eINSTANCE.createTdCatalog();
+        cat.setName(name);
+
+        // --- TODO set attributes of catalog
+        return cat;
     }
 }

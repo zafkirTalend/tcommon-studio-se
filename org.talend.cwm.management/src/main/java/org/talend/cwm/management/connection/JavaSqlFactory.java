@@ -17,7 +17,10 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -32,7 +35,22 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
  */
 public final class JavaSqlFactory {
 
+    private static Logger log = Logger.getLogger(JavaSqlFactory.class);
+
     private JavaSqlFactory() {
+    }
+
+    public static TypedReturnCode<Connection> createConnection(TdDataProvider dataProvider) {
+        assert dataProvider != null;
+        TypedReturnCode<TdProviderConnection> rc = DataProviderHelper.getTdProviderConnection(dataProvider);
+        if (!rc.isOk()) {
+            log.error(rc.getMessage());
+            TypedReturnCode<Connection> rcConn = new TypedReturnCode<Connection>();
+            rcConn.setReturnCode(rc.getMessage(), false);
+            return rcConn;
+        }
+
+        return JavaSqlFactory.createConnection(rc.getObject());
     }
 
     /**
