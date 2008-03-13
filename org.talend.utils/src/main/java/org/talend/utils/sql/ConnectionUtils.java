@@ -63,7 +63,7 @@ public final class ConnectionUtils {
      * @param connection the connection to test
      * @return a return code with the appropriate message (never null)
      */
-    public static ReturnCode isValid(Connection connection) {
+    public static ReturnCode isValid(final Connection connection) {
         ReturnCode retCode = new ReturnCode();
         if (connection == null) {
             retCode.setReturnCode("Connection is null!", false);
@@ -112,7 +112,7 @@ public final class ConnectionUtils {
      * @return a ReturnCode with true if ok, false if problem. {@link ReturnCode#getMessage()} gives the error message
      * when there is a problem.
      */
-    public static ReturnCode closeConnection(Connection connection) {
+    public static ReturnCode closeConnection(final Connection connection) {
         assert connection != null;
         ReturnCode rc = new ReturnCode(true);
         try {
