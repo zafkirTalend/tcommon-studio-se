@@ -19,6 +19,8 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Schema;
 
 /**
@@ -46,7 +48,25 @@ public final class SchemaHelper {
         return TableHelper.getTables(schema.getOwnedElement());
     }
 
+    public static List<TdView> getViews(Schema schema) {
+        return ViewHelper.getViews(schema.getOwnedElement());
+    }
+
     public static boolean addTables(Collection<TdTable> tables, Schema schema) {
         return schema.getOwnedElement().addAll(tables);
     }
+
+    /**
+     * Method "getParentSchema" returns a schema if the element is directly owned by a schema.
+     * 
+     * @param element (can be null)
+     * @return the Catalog or null
+     */
+    public static TdSchema getParentSchema(ModelElement element) {
+        if (element == null) {
+            return null;
+        }
+        return SwitchHelpers.SCHEMA_SWITCH.doSwitch(element.getNamespace());
+    }
+
 }

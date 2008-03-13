@@ -16,10 +16,12 @@ import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
 import org.talend.cwm.relational.util.RelationalSwitch;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.util.SoftwaredeploymentSwitch;
+import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
  * @author scorreia
@@ -54,10 +56,28 @@ public class SwitchHelpers {
 
     };
 
+    public static final RelationalSwitch<TdView> VIEW_SWITCH = new RelationalSwitch<TdView>() {
+
+        @Override
+        public TdView caseTdView(TdView object) {
+            return object;
+        }
+
+    };
+
     public static final RelationalSwitch<TdColumn> COLUMN_SWITCH = new RelationalSwitch<TdColumn>() {
 
         @Override
         public TdColumn caseTdColumn(TdColumn object) {
+            return object;
+        }
+
+    };
+
+    public static final RelationalSwitch<ColumnSet> COLUMN_SET_SWITCH = new RelationalSwitch<ColumnSet>() {
+
+        @Override
+        public ColumnSet caseColumnSet(ColumnSet object) {
             return object;
         }
 

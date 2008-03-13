@@ -19,6 +19,8 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
+import orgomg.cwm.resource.relational.Column;
+import orgomg.cwm.resource.relational.Table;
 
 /**
  * @author scorreia
@@ -65,9 +67,7 @@ public final class TableHelper {
      * @return true if the content of the table changed as a result of the call.
      */
     public static boolean addColumns(TdTable table, Collection<TdColumn> columns) {
-        assert table != null;
-        assert columns != null;
-        return table.getFeature().addAll(columns);
+        return ColumnSetHelper.addColumns(table, columns);
     }
 
     /**
@@ -81,5 +81,16 @@ public final class TableHelper {
         assert table != null;
         assert column != null;
         return table.getFeature().add(column);
+    }
+
+    /**
+     * Method "getParentTable".
+     * 
+     * @param column a column
+     * @return the table containing this column or null
+     */
+    public static Table getParentTable(Column column) {
+        TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(column.getOwner());
+        return table;
     }
 }

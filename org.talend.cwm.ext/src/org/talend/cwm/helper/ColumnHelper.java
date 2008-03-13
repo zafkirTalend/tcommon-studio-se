@@ -66,7 +66,10 @@ public class ColumnHelper {
         List<TdColumn> columns = new ArrayList<TdColumn>();
         for (EObject elt : elements) {
             if (elt != null) {
-                columns.add(SwitchHelpers.COLUMN_SWITCH.doSwitch(elt));
+                TdColumn col = SwitchHelpers.COLUMN_SWITCH.doSwitch(elt);
+                if (col != null) {
+                    columns.add(col);
+                }
             }
         }
         return columns;

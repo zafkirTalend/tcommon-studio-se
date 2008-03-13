@@ -49,10 +49,16 @@ public final class DataProviderHelper {
         provider.setName(name);
         return provider;
     }
-    
+
+    /**
+     * Method "getTdDataProvider" returns the data provider when the catalog is associated to only one data provider. It
+     * returns null if there is no data provider or more than one data provider.
+     * 
+     * @param catalog the catalog
+     * @return the associated data provider or null
+     */
     public static TdDataProvider getTdDataProvider(Catalog catalog) {
-        Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(new ArrayList<EObject>(
-                catalog.getDataManager()));
+        Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(catalog.getDataManager());
         if ((tdDataProviders.isEmpty()) || (tdDataProviders.size() > 1)) {
             return null;
         }
@@ -66,7 +72,7 @@ public final class DataProviderHelper {
      * @param objects a collection of objects
      * @return the subset of objects containing only the TdDataProviders.
      */
-    public static Collection<TdDataProvider> getTdDataProviders(Collection<EObject> objects) {
+    public static Collection<TdDataProvider> getTdDataProviders(Collection<? extends EObject> objects) {
         Collection<TdDataProvider> list = new ArrayList<TdDataProvider>();
         getTdDataProvider(objects, list);
         return list;
@@ -79,7 +85,8 @@ public final class DataProviderHelper {
      * @param resultingCollection the collection in which the TdDataProviders are added (must not be null).
      * @return true if resulting collection is not empty.
      */
-    public static boolean getTdDataProvider(Collection<EObject> objects, Collection<TdDataProvider> resultingCollection) {
+    public static boolean getTdDataProvider(Collection<? extends EObject> objects,
+            Collection<TdDataProvider> resultingCollection) {
         assert objects != null;
         assert resultingCollection != null;
         for (EObject object : objects) {

@@ -20,6 +20,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
+
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 
 /**
@@ -43,6 +46,19 @@ public final class CatalogHelper {
         return catalogs;
     }
 
+    /**
+     * Method "getParentCatalog" returns a Catalog if the element is directly owned by a catalog.
+     * 
+     * @param element (can be null)
+     * @return the Catalog or null
+     */
+    public static TdCatalog getParentCatalog(ModelElement element) {
+        if (element == null) {
+            return null;
+        }
+        return SwitchHelpers.CATALOG_SWITCH.doSwitch(element.getNamespace());
+    }
+
     public static boolean addSchemas(Collection<TdSchema> schemas, Catalog catalog) {
         return catalog.getOwnedElement().addAll(schemas);
     }
@@ -57,5 +73,9 @@ public final class CatalogHelper {
 
     public static List<TdSchema> getSchemas(Catalog catalog) {
         return SchemaHelper.getSchemas(catalog.getOwnedElement());
+    }
+
+    public static List<TdView> getViews(Catalog catalog) {
+        return ViewHelper.getViews(catalog.getOwnedElement());
     }
 }
