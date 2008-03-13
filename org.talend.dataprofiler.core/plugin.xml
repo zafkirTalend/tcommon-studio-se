@@ -39,15 +39,15 @@
     
     <extension
          point="org.eclipse.ui.navigator.viewer">
-       <viewer
+       <!--<viewer
              viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">        
-       </viewer>
+       </viewer>-->
        <viewerContentBinding 
              viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView">
           <includes>
        	      <contentExtension pattern="org.eclipse.ui.navigator.DQresourceContent" />		       	      
 	         <contentExtension pattern="org.talend.dataprofiler.core.emfContent"/>
-	         <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+	         <contentExtension pattern="org.eclipse.ui.navigator.resources.filters.startsWithDot"/>
           </includes>
        </viewerContentBinding>
        <viewerActionBinding
@@ -57,6 +57,7 @@
           </includes>
        </viewerActionBinding>  
    </extension>
+   
 <!-- Resource Content--> 
    <extension  
          point="org.eclipse.ui.navigator.navigatorContent">
@@ -111,18 +112,8 @@
 		            <instanceof 
 		                  	value="org.eclipse.core.resources.IResource" /> 
 		         </or>
-         </enablement>
-         
-       <!-- <commonSorter
-              class="org.eclipse.ui.internal.navigator.resources.workbench.ResourceExtensionSorter"
-              id="org.eclipse.ui.navigator.resources.sorters.defaultSorter">
-           <parentExpression>
-           		  <or>           
-		            <instanceof value="org.eclipse.core.resources.IResource" /> 
-		         </or>
-		   </parentExpression>
-        </commonSorter>     -->   
-     </navigatorContent> 
+         </enablement> 
+     </navigatorContent>
        
   </extension>
     

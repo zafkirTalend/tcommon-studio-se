@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.views;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
 
 /**
  * @author rli
@@ -25,10 +27,15 @@ public class DQRespositoryView extends CommonNavigator {
         super();
         CorePlugin.getDefault().checkDQStructure();
     }
-    
-    public void refreshView() {
-        this.getCommonViewer().getTree().update();
-        this.getCommonViewer().refresh();
-//        this.getCommonViewer()upthis.getCommonViewer().getSelection();
+
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.navigator.CommonNavigator#createPartControl(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    public void createPartControl(Composite parent) {
+        super.createPartControl(parent);
+        this.getCommonViewer().addFilter(new EMFObjFilter());
     }
+    
+  
 }

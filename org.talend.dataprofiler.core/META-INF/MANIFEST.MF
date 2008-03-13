@@ -22,5 +22,4 @@ Require-Bundle: org.talend.dataprofiler.libraries,
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core.i18n,
  org.talend.dataprofiler.core.ui.perspective,
- org.talend.dataprofiler.core.ui.views,
- org.talend.dataprofiler.core.views
+ org.talend.dataprofiler.core.ui.views
