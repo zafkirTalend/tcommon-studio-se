@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 
 /**
@@ -49,6 +50,7 @@ public class CorePlugin extends AbstractUIPlugin {
     public void stop(BundleContext context) throws Exception {
         plugin = null;
         super.stop(context);
+        save();
     }
 
     /**
@@ -58,6 +60,10 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     public static CorePlugin getDefault() {
         return plugin;
+    }
+    
+    public void save() {
+       NeedSaveDataProviderHelper.saveAllDataProvider();
     }
 
     /**

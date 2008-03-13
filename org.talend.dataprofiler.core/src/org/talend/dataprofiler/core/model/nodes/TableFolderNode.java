@@ -19,6 +19,8 @@ import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+
 import orgomg.cwm.resource.relational.Catalog;
 
 
@@ -41,15 +43,20 @@ public class TableFolderNode extends AbstractFolderNode {
         if (this.getParent() instanceof Catalog) {
 
             Catalog catalog = (Catalog) this.getParent();
+            
+            List<TdTable> tableList = CatalogHelper.getTables(catalog);
+            
+            if (tableList.size() > 0) {
+                this.setLoaded(true);
+                return;
+            }
 
             TdDataProvider provider =  DataProviderHelper.getTdDataProvider(catalog);
 
             List<TdTable> tables = DqRepositoryViewService.getTables(provider, catalog, null, true);
             // store tables in catalog
             CatalogHelper.addTables(tables, catalog);
-
-            // now save again the data provider
-            DqRepositoryViewService.saveOpenDataProvider(provider);
+            NeedSaveDataProviderHelper.register(provider.getName(), provider);
             this.setLoaded(true);
         }
     }

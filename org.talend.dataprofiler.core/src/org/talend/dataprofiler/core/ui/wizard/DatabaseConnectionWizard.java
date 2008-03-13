@@ -30,7 +30,7 @@ import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.helper.TDDataProviderStoreHelper;
+import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to manage the metadata connection.
@@ -112,28 +112,26 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         TdDataProvider provider = ConnectionService.createConnection(this.connectionProperty);
         if (provider == null) {
             return false;
-        } else {
-            TDDataProviderStoreHelper.put(provider.getName(), provider);
-        }
+        } 
+        NeedSaveDataProviderHelper.register(provider.getName(), provider);
         // MODSCA 2008-03-10 save the provider
-        boolean saved = DqRepositoryViewService.saveDataProviderAndStructure(provider, this.connectionProperty
-                .getFolderProvider());
-        // TODO rli handle return code "saved"
+        if (DqRepositoryViewService.saveDataProviderAndStructure(provider, this.connectionProperty.getFolderProvider())) {
+            RefreshAction refreshAction = new RefreshAction(this.getShell());
+            refreshAction.run();
+        }
+
 
         // FIXME do not do this here. This is just for testing
-        boolean loadTables = true;
-        if (loadTables) {
-            TdCatalog tdCatalog = DataProviderHelper.getTdCatalogs(provider).get(0);
-            List<TdTable> tables = DqRepositoryViewService.getTables(provider, tdCatalog, null, true);
-            // store tables in catalog
-            CatalogHelper.addTables(tables, tdCatalog);
-
-            // now save again the data provider
-            DqRepositoryViewService.saveOpenDataProvider(provider);
-        }
-
-        RefreshAction refreshAction = new RefreshAction(this.getShell());
-        refreshAction.run();
+//        boolean loadTables = true;
+//        if (loadTables) {
+//            TdCatalog tdCatalog = DataProviderHelper.getTdCatalogs(provider).get(0);
+//            List<TdTable> tables = DqRepositoryViewService.getTables(provider, tdCatalog, null, true);
+//            // store tables in catalog
+//            CatalogHelper.addTables(tables, tdCatalog);
+//
+//            // now save again the data provider
+//            DqRepositoryViewService.saveOpenDataProvider(provider);
+//        }
 
         // TdDataProvider provider = ConnectionService.createConnection(this.connectionProperty);
         // if (provider == null) {
