@@ -104,6 +104,9 @@ public class ProcessorUtilities {
                 if (processName.equals(process.getLabel())) {
                     if (process.getProperty().getItem() instanceof ProcessItem) {
                         selectedProcessItem = (ProcessItem) process.getProperty().getItem();
+                        processItemCache.put(processName, selectedProcessItem);
+                        versionsProcessItemCache.put(processName + "," + selectedProcessItem.getProperty().getVersion(),
+                                selectedProcessItem);
                         break;
                     }
                 }
@@ -111,8 +114,10 @@ public class ProcessorUtilities {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
-        processItemCache.put(processName, selectedProcessItem);
-        versionsProcessItemCache.put(processName + "," + selectedProcessItem.getProperty().getVersion(), selectedProcessItem);
+        if (selectedProcessItem != null) {
+            processItemCache.put(processName, selectedProcessItem);
+            versionsProcessItemCache.put(processName + "," + selectedProcessItem.getProperty().getVersion(), selectedProcessItem);
+        }
         return selectedProcessItem;
     }
 
