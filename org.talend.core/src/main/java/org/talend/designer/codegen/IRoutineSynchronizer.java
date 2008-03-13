@@ -13,6 +13,7 @@
 package org.talend.designer.codegen;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.model.properties.RoutineItem;
 
@@ -28,5 +29,7 @@ public interface IRoutineSynchronizer {
 
     public void syncAllRoutines() throws SystemException;
 
-    public IFile syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
+    public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
+
+    public IFile getRoutineFile(RoutineItem routineItem) throws SystemException;
 }
