@@ -81,5 +81,7 @@ public interface IProcess2 extends IProcess {
      */
     void setProcessModified(boolean processModified);
 
+    boolean isProcessModified();
+
     public CommandStack getCommandStack();
 }
