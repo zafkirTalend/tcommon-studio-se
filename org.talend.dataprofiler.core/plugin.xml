@@ -75,9 +75,9 @@
 		</actionProvider>
       <navigatorContent
             activeByDefault="true"
-            contentProvider="org.talend.dataprofiler.core.factory.DQRepositoryViewContentProvider"
+            contentProvider="org.talend.dataprofiler.core.ui.views.provider.DQRepositoryViewContentProvider"
             id="org.talend.dataprofiler.core.emfContent"
-            labelProvider="org.talend.dataprofiler.core.factory.DQRepositoryViewLabelProvider"
+            labelProvider="org.talend.dataprofiler.core.ui.views.provider.DQRepositoryViewLabelProvider"
             name="DQ EMF Content"
             priority="normal">
            <triggerPoints> 
