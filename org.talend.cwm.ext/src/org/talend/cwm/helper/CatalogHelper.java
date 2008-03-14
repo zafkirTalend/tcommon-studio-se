@@ -74,6 +74,12 @@ public final class CatalogHelper {
     public static List<TdSchema> getSchemas(Catalog catalog) {
         return SchemaHelper.getSchemas(catalog.getOwnedElement());
     }
+    
+    //ADDED add a method addViews to add all the views to special catalog
+    public static boolean addViews(Collection<TdView> views, Catalog catalog) {
+        // FIXME this method need Sebastiao to implent.
+        return true;
+    }
 
     public static List<TdView> getViews(Catalog catalog) {
         return ViewHelper.getViews(catalog.getOwnedElement());
