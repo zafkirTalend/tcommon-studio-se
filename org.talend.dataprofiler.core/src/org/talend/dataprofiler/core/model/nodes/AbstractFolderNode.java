@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes;
 
+import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 
 
@@ -23,9 +24,9 @@ public abstract class AbstractFolderNode implements IFolderNode {
     
     private String name;
     
-    private Object children;
+    private EObject children;
     
-    private Object parent;
+    private EObject parent;
     
     private boolean isLoaded;
 
@@ -46,7 +47,7 @@ public abstract class AbstractFolderNode implements IFolderNode {
     /**
      * @return the children
      */
-    public Object getChildren() {
+    public EObject getChildren() {
         return children;
     }
 
@@ -54,16 +55,16 @@ public abstract class AbstractFolderNode implements IFolderNode {
     /**
      * @param children the children to set
      */
-    public void setChildren(Object children) {
+    public void setChildren(EObject children) {
         this.children = children;
     }
 
 
-    public void setParent(Object parent) {
+    public void setParent(EObject parent) {
         this.parent = parent;
     }
 
-    public Object getParent() {
+    public EObject getParent() {
         return parent;
     }
 

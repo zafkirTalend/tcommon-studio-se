@@ -12,12 +12,51 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes;
 
+import org.eclipse.emf.ecore.EObject;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
 
 /**
  * @author rli
- *
+ * 
  */
 public interface IFolderNode {
 
     public String getName();
+
+    /**
+     * @return the children
+     */
+    public EObject getChildren();
+
+    /**
+     * @param children the children to set
+     */
+    public void setChildren(EObject children);
+
+    public void setParent(EObject parent);
+
+    public EObject getParent();
+
+    /**
+     * @return the isLoaded
+     */
+    public boolean isLoaded();
+
+    /**
+     * @param isLoaded the isLoaded to set
+     */
+    public void setLoaded(boolean isLoaded);
+
+    public abstract void loadChildren();
+
+    /**
+     * @return the dataProvider
+     */
+    public TdDataProvider getDataProvider();
+
+    /**
+     * @param dataProvider the dataProvider to set
+     */
+    public void setDataProvider(TdDataProvider dataProvider);
+
 }

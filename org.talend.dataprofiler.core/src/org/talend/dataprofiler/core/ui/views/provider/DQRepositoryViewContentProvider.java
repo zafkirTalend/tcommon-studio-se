@@ -15,12 +15,11 @@ package org.talend.dataprofiler.core.ui.views.provider;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.talend.dataprofiler.core.helper.FolderNodeHelper;
 import org.talend.dataprofiler.core.model.nodes.IFolderNode;
-import org.talend.dataprofiler.core.model.nodes.impl.TableFolderNode;
-
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
 
@@ -45,21 +44,14 @@ public class DQRepositoryViewContentProvider extends
             String path = ((IFile) parentElement).getFullPath().toString();
             URI uri = URI.createPlatformResourceURI(path, true);
             parentElement = resourceSet.getResource(uri, true);
-        } else if (parentElement instanceof Catalog) {
-            IFolderNode[] folderNodes = FolderNodeHelper.get((Catalog) parentElement);
-             if (folderNodes == null) {
-                TableFolderNode tabbleFolderNode = new TableFolderNode();
-                tabbleFolderNode.setParent(parentElement);
-                folderNodes = new TableFolderNode[] { tabbleFolderNode };
-                FolderNodeHelper.put((Catalog) parentElement, folderNodes);
-            }
-             return folderNodes;
-        } else if (parentElement instanceof TableFolderNode) {
-            TableFolderNode folerNode = (TableFolderNode) parentElement;
+        } else if (parentElement instanceof IFolderNode) {
+            IFolderNode folerNode = (IFolderNode) parentElement;
             if (!(folerNode.isLoaded())) {
-                folerNode.loadChildren();               
+                folerNode.loadChildren();
             }
             return super.getChildren(folerNode.getParent());
+        } else {
+            return FolderNodeHelper.getFolderNode((EObject) parentElement);
         }
         return super.getChildren(parentElement);
     }

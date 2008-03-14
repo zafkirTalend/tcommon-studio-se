@@ -17,9 +17,10 @@ import java.util.List;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
-import org.talend.cwm.relational.TdCatalog;
-import org.talend.cwm.relational.TdView;
+import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.model.nodes.AbstractFolderNode;
@@ -29,13 +30,13 @@ import org.talend.dataprofiler.core.model.nodes.AbstractFolderNode;
  * @author rli
  *
  */
-public class ViewFolderNode extends AbstractFolderNode {
+public class ColumnFolderNode extends AbstractFolderNode {
 
     /**
      * @param name
      */
-    public ViewFolderNode() {
-        super("Views");
+    public ColumnFolderNode() {
+        super("Columns");
     }
 
     /* (non-Javadoc)
@@ -43,20 +44,18 @@ public class ViewFolderNode extends AbstractFolderNode {
      */
     @Override
     public void loadChildren() {
-        TdCatalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(this.getParent());
-        if (catalog != null) {
-            List<TdView> viewList = CatalogHelper.getViews(catalog);
-
-            if (viewList.size() > 0) {
+        TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(this.getParent());
+        if (table != null) {
+            List<TdColumn> columnList = TableHelper.getColumns(table);
+            if (columnList.size() > 0) {
                 this.setLoaded(true);
                 return;
             }
+            TdDataProvider provider = DataProviderHelper.getTdDataProvider(CatalogHelper.getParentCatalog(table));
 
-            TdDataProvider provider = DataProviderHelper.getTdDataProvider(catalog);
-
-            List<TdView> views = DqRepositoryViewService.getViews(provider, catalog, null, true);
-            // store views in catalog
-            CatalogHelper.addViews(views, catalog);
+            List<TdColumn> columns = DqRepositoryViewService.getColumns(provider, table, null, true);
+            // store tables in catalog
+            TableHelper.addColumns(table, columns);
             NeedSaveDataProviderHelper.register(provider.getName(), provider);
             this.setLoaded(true);
         }
