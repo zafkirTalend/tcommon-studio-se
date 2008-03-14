@@ -58,18 +58,16 @@ public abstract class AbstractTableBuilder<T extends NamedColumnSet> extends Cwm
      * @param schemaPattern a schema name pattern; must match the schema name as it is stored in the database; ""
      * retrieves those without a schema; null means that the schema name should not be used to narrow the search
      * @param tablePattern a table name pattern; must match the table name as it is stored in the database
-     * @param columnPattern a column name pattern; must match the column name as it is stored in the database
      * @return the tables with for the given catalog, schemas, table name pattern.
      * @throws SQLException
      */
-    public List<T> getColumnSets(String catalogName, String schemaPattern, String tablePattern, String columnPattern)
-            throws SQLException {
+    public List<T> getColumnSets(String catalogName, String schemaPattern, String tablePattern) throws SQLException {
         List<T> tables = new ArrayList<T>();
 
         ResultSet tablesSet = getConnectionMetadata(connection).getTables(catalogName, schemaPattern, tablePattern,
                 this.tableType);
         while (tablesSet.next()) {
-            T table = createTable(catalogName, schemaPattern, columnPattern, tablesSet);
+            T table = createTable(catalogName, schemaPattern, tablesSet);
             tables.add(table);
         }
         // release JDBC resources
@@ -101,21 +99,18 @@ public abstract class AbstractTableBuilder<T extends NamedColumnSet> extends Cwm
      * 
      * @param catalogName
      * @param schemaPattern
-     * @param columnPattern the pattern of the columns to get (null means all columns, "" means no column, other means
-     * specific columns)
      * @param tablesSet
      * @return
      * @throws SQLException
      */
-    private T createTable(String catalogName, String schemaPattern, String columnPattern, ResultSet tablesSet)
-            throws SQLException {
+    private T createTable(String catalogName, String schemaPattern, ResultSet tablesSet) throws SQLException {
         String tableName = tablesSet.getString(GetTable.TABLE_NAME.name());
         // --- create a table and add columns
         T table = createTable();
         table.setName(tableName);
         if (columnsRequested) {
             ColumnBuilder colBuild = new ColumnBuilder(connection);
-            List<TdColumn> columns = colBuild.getColumns(catalogName, schemaPattern, tableName, columnPattern);
+            List<TdColumn> columns = colBuild.getColumns(catalogName, schemaPattern, tableName, null);
             ColumnSetHelper.addColumns(table, columns);
         }
         return table;

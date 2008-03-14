@@ -25,7 +25,10 @@ import org.talend.utils.sql.metadata.constants.GetColumn;
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
- * DOC scorreia class global comment. Detailled comment
+ * @author scorreia
+ * 
+ * This class creates TdColumn objects from a connection. The connection must be closed by the caller. It will not be
+ * closed by the ColumnBuilder.
  */
 public class ColumnBuilder extends CwmBuilder {
 

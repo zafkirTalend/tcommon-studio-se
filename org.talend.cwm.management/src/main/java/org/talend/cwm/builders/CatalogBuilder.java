@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class CatalogBuilder extends CwmBuilder {
 
     private final Map<String, TdCatalog> name2catalog = new HashMap<String, TdCatalog>();
 
-    private final Map<String, TdSchema> name2schema = new HashMap<String, TdSchema>();
+    private final Set<TdSchema> schemata = new HashSet<TdSchema>();
 
     private boolean catalogsInitialized = false;
 
@@ -122,7 +123,9 @@ public class CatalogBuilder extends CwmBuilder {
     /**
      * Method "getCatalogs".
      * 
-     * @return the catalogs initialized with the metadata (The list could be empty)
+     * @return the catalogs initialized with the metadata (The list could be empty). If the method
+     * {@link CatalogBuilder#getSchemata()} has been called before, then the catalogs will contain schemata. if not,
+     * then the catalogs are empty.
      */
     public Collection<TdCatalog> getCatalogs() {
         if (!catalogsInitialized) {
@@ -134,13 +137,13 @@ public class CatalogBuilder extends CwmBuilder {
     /**
      * Method "getSchemata".
      * 
-     * @return the schemata initialized with the metadata
+     * @return the schemata initialized with the metadata. Catalogs will be created.
      */
     public Collection<TdSchema> getSchemata() {
         if (!schemaInitialized) {
             initializeSchema();
         }
-        return this.name2schema.values();
+        return this.schemata;
     }
 
     private void initializeCatalog() {
@@ -198,9 +201,12 @@ public class CatalogBuilder extends CwmBuilder {
         // store schemas in catalogs
         Set<String> catNames = catalog2schemas.keySet();
         for (String catName : catNames) {
+            List<TdSchema> schemas = catalog2schemas.get(catName);
             if (catName != null) {
                 TdCatalog catalog = name2catalog.get(catName);
-                CatalogHelper.addSchemas(catalog2schemas.get(catName), catalog);
+                CatalogHelper.addSchemas(schemas, catalog);
+            } else {
+                this.schemata.addAll(schemas);
             }
         }
 

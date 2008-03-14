@@ -28,6 +28,7 @@ import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
+import org.talend.cwm.management.api.FolderProvider;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.management.connection.JavaSqlFactory;
@@ -101,16 +102,20 @@ public final class TalendCwmFactory {
         // TODO scorreia probably add only when catalogs is empty.
         if (catalogs.isEmpty()) {
             allAdded = DataProviderHelper.addSchemas(schemata, dataProvider);
-            if (log.isInfoEnabled()) {
-                log.info("all " + schemata.size() + " schemata added: " + allAdded);
+            if (log.isDebugEnabled()) {
+                log.debug("all " + schemata.size() + " schemata added: " + allAdded);
             }
         } else {
             allAdded = DataProviderHelper.addCatalogs(catalogs, dataProvider);
-            if (log.isInfoEnabled()) {
-                log.info("all " + catalogs.size() + " catalogs added: " + allAdded);
+            if (log.isDebugEnabled()) {
+                log.debug("all " + catalogs.size() + " catalogs added: " + allAdded);
             }
         }
 
+        if (log.isInfoEnabled()) {
+            log.info(catalogs.size() + " catalogs loaded from database");
+            log.info(schemata.size() + " schemata loaded from database");
+        }
         // --- print some informations
         if (log.isDebugEnabled()) {
             printInformations(catalogs, schemata);

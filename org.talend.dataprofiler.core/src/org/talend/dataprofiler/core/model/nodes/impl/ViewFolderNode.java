@@ -12,24 +12,24 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.talend.cwm.helper.CatalogHelper;
-import org.talend.cwm.helper.DataProviderHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdCatalog;
+import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
-import org.talend.dataprofiler.core.model.nodes.AbstractFolderNode;
-
 
 /**
  * @author rli
  *
  */
-public class ViewFolderNode extends AbstractFolderNode {
+public class ViewFolderNode extends NamedColumnSetFolderNode<TdView> {
 
     /**
      * @param name
@@ -38,28 +38,64 @@ public class ViewFolderNode extends AbstractFolderNode {
         super("Views");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.dataprofiler.core.model.nodes.AbstractFolderNode#loadChildren()
      */
     @Override
     public void loadChildren() {
+        // MODSCA 2008-03-14 load children also when no catalog is given, but a schema exists (e.g. for DB2 database)
         TdCatalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(this.getParent());
         if (catalog != null) {
-            List<TdView> viewList = CatalogHelper.getViews(catalog);
+            loadChildrenLow(catalog, catalog, null, new ArrayList<TdView>());
+        } else {
+            TdSchema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(this.getParent());
+            if (schema != null) {
+                loadChildrenLow(schema, null, schema, new ArrayList<TdView>());
+            }
+        }
 
-            if (viewList.size() > 0) {
-                this.setLoaded(true);
-                return;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataprofiler.core.model.nodes.AbstractFolderNode#getColumnSets(org.talend.cwm.relational.TdCatalog,
+     * org.talend.cwm.relational.TdSchema)
+     */
+    @Override
+    protected List<TdView> getColumnSets(TdCatalog catalog, TdSchema schema) {
+        if (catalog != null) {
+            return CatalogHelper.getViews(catalog);
+        }
+        if (schema != null) {
+            return SchemaHelper.getViews(schema);
+        }
+        return Collections.emptyList();
             }
 
-            TdDataProvider provider = DataProviderHelper.getTdDataProvider(catalog);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataprofiler.core.model.nodes.AbstractFolderNode#loadColumnSets(org.talend.cwm.relational.TdCatalog,
+     * org.talend.cwm.relational.TdSchema, org.talend.cwm.softwaredeployment.TdDataProvider, java.util.List)
+     */
+    @Override
+    protected <T extends List<TdView>> boolean loadColumnSets(TdCatalog catalog, TdSchema schema,
+            TdDataProvider provider, final T columnSets) {
+        boolean ok = false;
+        assert provider != null : "no provider given for getting views";
+        assert catalog != null ^ schema != null : "either catalog or schema must exist but not both. Provider= "
+                + provider.getName();
 
-            List<TdView> views = DqRepositoryViewService.getViews(provider, catalog, null, true);
-            // store views in catalog
-            CatalogHelper.addViews(views, catalog);
-            NeedSaveDataProviderHelper.register(provider.getName(), provider);
-            this.setLoaded(true);
+        if (catalog != null) {
+            ok = columnSets.addAll(DqRepositoryViewService.getViews(provider, catalog, null, true));
         }
+        if (schema != null) {
+            ok = columnSets.addAll(DqRepositoryViewService.getViews(provider, schema, null, true));
+        }
+        return ok;
     }
 
 }

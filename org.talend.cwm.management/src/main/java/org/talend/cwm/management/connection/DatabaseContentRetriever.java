@@ -109,22 +109,8 @@ public final class DatabaseContentRetriever {
         Map<String, List<TdSchema>> catalogName2schemas = new HashMap<String, List<TdSchema>>();
         ResultSet schemas = getConnectionMetadata(connection).getSchemas();
         if (schemas != null) {
-            // uncomment code for debug purpose
-            // if (log.isDebugEnabled()) {
-            // ResultSetUtils.printResultSet(schemas, 40);
-            // }
-
             // --- check whether the result set has two columns (Oracle and Sybase only return 1 column)
-            int columnCount = schemas.getMetaData().getColumnCount();
-
-            // TODO scorreia MODSCA20080118 do we need to create a default catalog when there is none?
-            // String defaultCatName = "My Default Catalog";
-            // if (columnCount == 1) {
-            // // TODO scorreia create a default catalog
-            // if (name2catalog.isEmpty()) {
-            // createCatalog(defaultCatName);
-            // }
-            // }
+            final int columnCount = schemas.getMetaData().getColumnCount();
 
             while (schemas.next()) {
                 // create the schemata
@@ -137,14 +123,9 @@ public final class DatabaseContentRetriever {
 
                     String catName = schemas.getString(MetaDataConstants.TABLE_CATALOG.name());
                     MultiMapHelper.addUniqueObjectToListMap(catName, schema, catalogName2schemas);
+                } else { // store schemata with a null key (meaning no catalog)
+                    MultiMapHelper.addUniqueObjectToListMap(null, schema, catalogName2schemas);
                 }
-
-                // TODO scorreia MODSCA20080118 do we need to create a default catalog when there is none?
-                // else {
-                // TdCatalog cat = name2catalog.get(defaultCatName);
-                // cat.getOwnedElement().add(schema);
-                // }
-
             }
 
             // --- release JDBC resources
@@ -171,7 +152,7 @@ public final class DatabaseContentRetriever {
             Connection connection) throws SQLException {
         TableBuilder tableBuilder = new TableBuilder(connection);
         tableBuilder.setColumnsRequested(true);
-        return tableBuilder.getColumnSets(catalogName, schemaPattern, tablePattern, null);
+        return tableBuilder.getColumnSets(catalogName, schemaPattern, tablePattern);
     }
 
     /**
@@ -187,7 +168,7 @@ public final class DatabaseContentRetriever {
     public static List<TdTable> getTablesWithoutColumns(String catalogName, String schemaPattern, String tablePattern,
             Connection connection) throws SQLException {
         TableBuilder tableBuilder = new TableBuilder(connection);
-        return tableBuilder.getColumnSets(catalogName, schemaPattern, tablePattern, null);
+        return tableBuilder.getColumnSets(catalogName, schemaPattern, tablePattern);
     }
 
     /**
@@ -204,7 +185,7 @@ public final class DatabaseContentRetriever {
             Connection connection) throws SQLException {
         ViewBuilder viewBuilder = new ViewBuilder(connection);
         viewBuilder.setColumnsRequested(true);
-        return viewBuilder.getColumnSets(catalogName, schemaPattern, viewPattern, null);
+        return viewBuilder.getColumnSets(catalogName, schemaPattern, viewPattern);
     }
 
     /**
@@ -220,7 +201,7 @@ public final class DatabaseContentRetriever {
     public static List<TdView> getViewsWithoutColumns(String catalogName, String schemaPattern, String viewPattern,
             Connection connection) throws SQLException {
         ViewBuilder viewBuilder = new ViewBuilder(connection);
-        return viewBuilder.getColumnSets(catalogName, schemaPattern, viewPattern, null);
+        return viewBuilder.getColumnSets(catalogName, schemaPattern, viewPattern);
     }
 
     /**

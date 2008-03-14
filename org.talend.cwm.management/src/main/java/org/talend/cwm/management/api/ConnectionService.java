@@ -24,6 +24,7 @@ import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * @author scorreia
@@ -80,18 +81,20 @@ public final class ConnectionService {
      * with user/password). The name, description and purpose are also set in the Data provider.
      * @return the Data provider.
      */
-    public static TdDataProvider createConnection(ConnectionParameters connectionParameters) {
+    public static TypedReturnCode<TdDataProvider> createConnection(ConnectionParameters connectionParameters) {
         DBConnect connector = new DBConnect(connectionParameters);
+        TypedReturnCode<TdDataProvider> rc = new TypedReturnCode<TdDataProvider>();
         try {
             TdDataProvider dataProvider = TalendCwmFactory.createDataProvider(connector);
-
             dataProvider.setName(connectionParameters.getConnectionName());
             DescriptionHelper.addFunctionalDescription(connectionParameters.getConnectionDescription(), dataProvider);
             DescriptionHelper.addPurpose(connectionParameters.getConnectionPurpose(), dataProvider);
-            return dataProvider;
+            rc.setObject(dataProvider);
+            return rc;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            String mess = "Failed to create a data provider for the given connection parameters: " + e.getMessage();
+            log.warn(mess);
+            rc.setReturnCode(e.getMessage(), false);
         } finally {
             connector.closeConnection();
             // MODRLI 2008-3-10
@@ -99,7 +102,6 @@ public final class ConnectionService {
             // MODSCA 2008-03-10 do not save here (keep creation and saving separate). Use DqRepositoryViewService if
             // possible
         }
-        return null;
+        return rc;
     }
-
 }

@@ -30,12 +30,10 @@ import org.talend.cwm.builders.AbstractTableBuilder;
 import org.talend.cwm.builders.ColumnBuilder;
 import org.talend.cwm.builders.TableBuilder;
 import org.talend.cwm.builders.ViewBuilder;
-import org.talend.cwm.db.connection.FolderProvider;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.management.connection.JavaSqlFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
@@ -304,13 +302,18 @@ public final class DqRepositoryViewService {
     @SuppressWarnings("unchecked")
     private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, Schema schema,
             String tablePattern) {
-        return (List<TdTable>) loadColumnSets(dataProvider, catalog, schema, tablePattern, RelationalPackage.TD_TABLE);
+        List<TdTable> tables = new ArrayList<TdTable>();
+        // PTODO scorreia check return code
+        loadColumnSets(dataProvider, catalog, schema, tablePattern, RelationalPackage.TD_TABLE, tables);
+        return tables;
     }
 
-    @SuppressWarnings("unchecked")
     private static List<TdView> loadViews(TdDataProvider dataProvider, Schema schema, String viewPattern) {
         assert schema != null : "could not load views. No schema given.";
-        return (List<TdView>) loadColumnSets(dataProvider, null, schema, viewPattern, RelationalPackage.TD_VIEW);
+        List<TdView> views = new ArrayList<TdView>();
+        // PTODO scorreia check return code
+        loadColumnSets(dataProvider, null, schema, viewPattern, RelationalPackage.TD_VIEW, views);
+        return views;
     }
 
     /**
@@ -321,10 +324,12 @@ public final class DqRepositoryViewService {
      * @param viewPattern
      * @return
      */
-    @SuppressWarnings("unchecked")
     private static List<TdView> loadViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern) {
         assert catalog != null : "could not load views. No catalog given.";
-        return (List<TdView>) loadColumnSets(dataProvider, catalog, null, viewPattern, RelationalPackage.TD_VIEW);
+        List<TdView> views = new ArrayList<TdView>();
+        // PTODO scorreia check return code
+        loadColumnSets(dataProvider, catalog, null, viewPattern, RelationalPackage.TD_VIEW, views);
+        return views;
     }
 
     private static List<TdColumn> loadColumns(TdDataProvider dataProvider, TdTable table, String columnPattern) {
@@ -360,16 +365,16 @@ public final class DqRepositoryViewService {
      * @param schema (can be null)
      * @param tablePattern (can be null)
      * @param classifierID a either {@link RelationalPackage#TD_TABLE} or {@link RelationalPackage#TD_VIEW}
-     * @return list of tables or views
+     * @param tables the list of tables or views to be loaded.
+     * @return true if ok
      */
-    private static List<? extends NamedColumnSet> loadColumnSets(TdDataProvider dataProvider, Catalog catalog,
-            Schema schema, String tablePattern, int classifierID) {
-        List<? extends NamedColumnSet> tables = new ArrayList<NamedColumnSet>();
-
+    private static <T extends List<? extends NamedColumnSet>> boolean loadColumnSets(TdDataProvider dataProvider,
+            Catalog catalog, Schema schema, String tablePattern, int classifierID, final T tables) {
+        boolean ok = false;
         TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage());
-            return tables;
+            return ok;
         }
 
         Connection connection = rcConn.getObject();
@@ -378,18 +383,20 @@ public final class DqRepositoryViewService {
         String catalogName = (catalog == null) ? null : catalog.getName();
         try {
             AbstractTableBuilder<? extends NamedColumnSet> tableBuilder = getBuilder(connection, classifierID);
-            tableBuilder.setColumnsRequested(true);
-            tables = tableBuilder.getColumnSets(catalogName, schemaName, tablePattern, null);
-            tables = DatabaseContentRetriever.getTablesWithColumns(catalogName, schemaName, tablePattern, connection);
-
+            // TODO rli: scorreia removed this line so that columns are loaded later but now we do not see the "Columns"
+            // folder in the DQ repository view
+            // tableBuilder.setColumnsRequested(true);
+            tables.addAll(tableBuilder.getColumnSets(catalogName, schemaName, tablePattern));
+            ok = true;
         } catch (SQLException e) {
             log.error(e);
+            ok = false;
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
             }
         }
-        return tables;
+        return ok;
     }
 
     /**

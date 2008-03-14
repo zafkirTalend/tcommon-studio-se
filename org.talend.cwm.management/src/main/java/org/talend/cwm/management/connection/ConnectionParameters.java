@@ -14,7 +14,7 @@ package org.talend.cwm.management.connection;
 
 import java.util.Properties;
 
-import org.talend.cwm.db.connection.FolderProvider;
+import org.talend.cwm.management.api.FolderProvider;
 
 /**
  * @author scorreia

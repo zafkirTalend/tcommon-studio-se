@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.swt,
  org.talend.dataprofiler.core,
  org.talend.dataprofiler.libraries,
- org.eclipse.ui.ide.application
+ org.eclipse.ui.ide.application,
+ org.talend.libraries.logging
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.

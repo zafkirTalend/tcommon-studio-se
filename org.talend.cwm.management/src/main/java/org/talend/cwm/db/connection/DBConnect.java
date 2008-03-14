@@ -283,6 +283,9 @@ public class DBConnect {
         boolean ok = checkConnection("Cannot retrieve database structure. ");
         if (ok && catalogBuilder == null) {
             catalogBuilder = new CatalogBuilder(connection);
+            // initialize database structure
+            catalogBuilder.getCatalogs();
+            catalogBuilder.getSchemata();
         }
         return ok;
     }

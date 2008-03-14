@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.cwm.db.connection;
+package org.talend.cwm.management.api;
 
 import java.io.File;
 

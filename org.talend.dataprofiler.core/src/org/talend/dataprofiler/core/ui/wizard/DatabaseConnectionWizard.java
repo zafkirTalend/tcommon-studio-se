@@ -26,6 +26,7 @@ import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * DatabaseWizard present the DatabaseForm. Use to manage the metadata connection.
@@ -104,13 +105,16 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
      * wizard.
      */
     public boolean performFinish() {
-        TdDataProvider provider = ConnectionService.createConnection(this.connectionProperty);
-        if (provider == null) {
+        TypedReturnCode<TdDataProvider> rc = ConnectionService.createConnection(this.connectionProperty);
+        if (!rc.isOk()) {
+            // FIXME rli handle case of invalid connection here (use rc.getMessage() for error message)
             return false;
-        } 
-        NeedSaveDataProviderHelper.register(provider.getName(), provider);
+        }
+        TdDataProvider dataProvider = rc.getObject();
+        NeedSaveDataProviderHelper.register(dataProvider.getName(), dataProvider);
         // MODSCA 2008-03-10 save the provider
-        if (DqRepositoryViewService.saveDataProviderAndStructure(provider, this.connectionProperty.getFolderProvider())) {
+        if (DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, this.connectionProperty
+                .getFolderProvider())) {
             RefreshAction refreshAction = new RefreshAction(this.getShell());
             refreshAction.run();
         }
