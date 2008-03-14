@@ -33,6 +33,8 @@ public interface INode extends IElement {
 
     public static final String RELOAD_PARAMETER_EXTERNAL_BYTES_DATA = "param.externalData";
 
+    public static final String RELOAD_PARAMETER_CONNECTORS = "param.connectors";
+
     public static final String RELOAD_NEW = "param.new ";
 
     /**
