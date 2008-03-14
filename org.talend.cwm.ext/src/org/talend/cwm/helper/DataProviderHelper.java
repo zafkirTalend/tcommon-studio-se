@@ -26,7 +26,6 @@ import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
 import orgomg.cwm.objectmodel.core.Package;
-import orgomg.cwm.resource.relational.Catalog;
 
 /**
  * @author scorreia
@@ -51,13 +50,13 @@ public final class DataProviderHelper {
     }
 
     /**
-     * Method "getTdDataProvider" returns the data provider when the catalog is associated to only one data provider. It
-     * returns null if there is no data provider or more than one data provider.
+     * Method "getTdDataProvider" returns the data provider when the catalog (or schema) is associated to only one data
+     * provider. It returns null if there is no data provider or more than one data provider.
      * 
-     * @param catalog the catalog
+     * @param catalog the catalog or schema
      * @return the associated data provider or null
      */
-    public static TdDataProvider getTdDataProvider(Catalog catalog) {
+    public static TdDataProvider getTdDataProvider(Package catalog) {
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(catalog.getDataManager());
         if ((tdDataProviders.isEmpty()) || (tdDataProviders.size() > 1)) {
             return null;
