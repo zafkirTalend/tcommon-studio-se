@@ -9,6 +9,7 @@ package org.talend.dataquality.analysis;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.dataquality.domain.LiteralValue;
+import org.talend.dataquality.indicators.Indicator;
 import orgomg.cwmx.analysis.informationreporting.ReportGroup;
 
 /**
@@ -22,6 +23,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroup;
  *   <li>{@link org.talend.dataquality.analysis.AnalysisResult#getAnalysis <em>Analysis</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisResult#getResultMetadata <em>Result Metadata</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisResult#getIndicatorValues <em>Indicator Values</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.AnalysisResult#getIndicators <em>Indicators</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,5 +101,21 @@ public interface AnalysisResult extends ReportGroup {
      * @generated
      */
     EList<LiteralValue> getIndicatorValues();
+
+    /**
+     * Returns the value of the '<em><b>Indicators</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.dataquality.indicators.Indicator}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Indicators</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Indicators</em>' containment reference list.
+     * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisResult_Indicators()
+     * @model containment="true"
+     * @generated
+     */
+    EList<Indicator> getIndicators();
 
 } // AnalysisResult

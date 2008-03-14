@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -70,8 +71,31 @@ public class AnalysisResultItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addIndicatorsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Indicators feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addIndicatorsPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_AnalysisResult_indicators_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_AnalysisResult_indicators_feature", "_UI_AnalysisResult_type"),
+                 AnalysisPackage.Literals.ANALYSIS_RESULT__INDICATORS,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
     }
 
     /**

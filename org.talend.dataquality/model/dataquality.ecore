@@ -48,6 +48,8 @@
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorValues" upperBound="-1"
           eType="#//domain/LiteralValue" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
+          eType="#//indicators/Indicator" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ExecutionInformations">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>

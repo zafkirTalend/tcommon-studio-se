@@ -410,6 +410,15 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getAnalysisResult_Indicators() {
+        return (EReference)analysisResultEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionInformations() {
         return executionInformationsEClass;
     }
@@ -479,6 +488,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         createEReference(analysisResultEClass, ANALYSIS_RESULT__ANALYSIS);
         createEReference(analysisResultEClass, ANALYSIS_RESULT__RESULT_METADATA);
         createEReference(analysisResultEClass, ANALYSIS_RESULT__INDICATOR_VALUES);
+        createEReference(analysisResultEClass, ANALYSIS_RESULT__INDICATORS);
 
         executionInformationsEClass = createEClass(EXECUTION_INFORMATIONS);
         createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__EXECUTION_DATE);
@@ -513,6 +523,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         SoftwaredeploymentPackage theSoftwaredeploymentPackage = (SoftwaredeploymentPackage)EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI);
         CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
         DomainPackage theDomainPackage = (DomainPackage)EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI);
+        IndicatorsPackage theIndicatorsPackage = (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
 
         // Create type parameters
 
@@ -544,6 +555,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         initEReference(getAnalysisResult_Analysis(), this.getAnalysis(), this.getAnalysis_Results(), "analysis", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAnalysisResult_ResultMetadata(), this.getExecutionInformations(), null, "resultMetadata", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAnalysisResult_IndicatorValues(), theDomainPackage.getLiteralValue(), null, "indicatorValues", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAnalysisResult_Indicators(), theIndicatorsPackage.getIndicator(), null, "indicators", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionInformationsEClass, ExecutionInformations.class, "ExecutionInformations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionInformations_ExecutionDate(), ecorePackage.getEDate(), "executionDate", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

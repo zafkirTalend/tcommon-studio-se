@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -26,6 +27,7 @@ import org.talend.dataquality.analysis.AnalysisPackage;
 import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.analysis.ExecutionInformations;
 import org.talend.dataquality.domain.LiteralValue;
+import org.talend.dataquality.indicators.Indicator;
 import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
 
 /**
@@ -38,6 +40,7 @@ import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisResultImpl#getAnalysis <em>Analysis</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisResultImpl#getResultMetadata <em>Result Metadata</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisResultImpl#getIndicatorValues <em>Indicator Values</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisResultImpl#getIndicators <em>Indicators</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +66,16 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
      * @ordered
      */
     protected EList<LiteralValue> indicatorValues;
+
+    /**
+     * The cached value of the '{@link #getIndicators() <em>Indicators</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIndicators()
+     * @generated
+     * @ordered
+     */
+    protected EList<Indicator> indicators;
 
     /**
      * <!-- begin-user-doc -->
@@ -184,6 +197,18 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<Indicator> getIndicators() {
+        if (indicators == null) {
+            indicators = new EObjectContainmentEList<Indicator>(Indicator.class, this, AnalysisPackage.ANALYSIS_RESULT__INDICATORS);
+        }
+        return indicators;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -209,6 +234,8 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
                 return basicSetResultMetadata(null, msgs);
             case AnalysisPackage.ANALYSIS_RESULT__INDICATOR_VALUES:
                 return ((InternalEList<?>)getIndicatorValues()).basicRemove(otherEnd, msgs);
+            case AnalysisPackage.ANALYSIS_RESULT__INDICATORS:
+                return ((InternalEList<?>)getIndicators()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -241,6 +268,8 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
                 return getResultMetadata();
             case AnalysisPackage.ANALYSIS_RESULT__INDICATOR_VALUES:
                 return getIndicatorValues();
+            case AnalysisPackage.ANALYSIS_RESULT__INDICATORS:
+                return getIndicators();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -264,6 +293,10 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
                 getIndicatorValues().clear();
                 getIndicatorValues().addAll((Collection<? extends LiteralValue>)newValue);
                 return;
+            case AnalysisPackage.ANALYSIS_RESULT__INDICATORS:
+                getIndicators().clear();
+                getIndicators().addAll((Collection<? extends Indicator>)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -285,6 +318,9 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
             case AnalysisPackage.ANALYSIS_RESULT__INDICATOR_VALUES:
                 getIndicatorValues().clear();
                 return;
+            case AnalysisPackage.ANALYSIS_RESULT__INDICATORS:
+                getIndicators().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -303,6 +339,8 @@ public class AnalysisResultImpl extends ReportGroupImpl implements AnalysisResul
                 return resultMetadata != null;
             case AnalysisPackage.ANALYSIS_RESULT__INDICATOR_VALUES:
                 return indicatorValues != null && !indicatorValues.isEmpty();
+            case AnalysisPackage.ANALYSIS_RESULT__INDICATORS:
+                return indicators != null && !indicators.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -1966,13 +1966,22 @@ public interface AnalysisPackage extends EPackage {
     int ANALYSIS_RESULT__INDICATOR_VALUES = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ANALYSIS_RESULT__INDICATORS = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Result</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ANALYSIS_RESULT_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+    int ANALYSIS_RESULT_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.analysis.impl.ExecutionInformationsImpl <em>Execution Informations</em>}' class.
@@ -2185,6 +2194,17 @@ public interface AnalysisPackage extends EPackage {
     EReference getAnalysisResult_IndicatorValues();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.dataquality.analysis.AnalysisResult#getIndicators <em>Indicators</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Indicators</em>'.
+     * @see org.talend.dataquality.analysis.AnalysisResult#getIndicators()
+     * @see #getAnalysisResult()
+     * @generated
+     */
+    EReference getAnalysisResult_Indicators();
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.analysis.ExecutionInformations <em>Execution Informations</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2373,6 +2393,14 @@ public interface AnalysisPackage extends EPackage {
          * @generated
          */
         EReference ANALYSIS_RESULT__INDICATOR_VALUES = eINSTANCE.getAnalysisResult_IndicatorValues();
+
+        /**
+         * The meta object literal for the '<em><b>Indicators</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ANALYSIS_RESULT__INDICATORS = eINSTANCE.getAnalysisResult_Indicators();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.analysis.impl.ExecutionInformationsImpl <em>Execution Informations</em>}' class.
