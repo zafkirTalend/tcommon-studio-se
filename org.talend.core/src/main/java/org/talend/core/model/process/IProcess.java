@@ -74,4 +74,8 @@ public interface IProcess extends IRepositoryObject, IElement {
     boolean disableRunJobView();
 
     public List<INode> getNodesWithImport();
+    
+    public IContext getLastRunContext();
+
+    public void setLastRunContext(IContext context);
 }

@@ -46,7 +46,7 @@ public class ConfigureContextAction extends Action {
      * {@inheritDoc}
      */
     public void run() {
-        ContextSetConfigurationDialog dialog = new ContextSetConfigurationDialog(shell, manager.getContextManager());
+        ContextSetConfigurationDialog dialog = new ContextSetConfigurationDialog(shell, manager);
         if (dialog.open() == IDialogConstants.OK_ID) {
             List<IContext> result = dialog.getResultContexts();
             manager.getContextManager().setListContext(result);
