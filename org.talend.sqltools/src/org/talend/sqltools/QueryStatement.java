@@ -17,9 +17,7 @@ import java.util.Vector;
 import Zql.ZConstant;
 import Zql.ZExp;
 import Zql.ZExpression;
-import Zql.ZFromItem;
 import Zql.ZQuery;
-import Zql.ZSelectItem;
 
 /**
  * @author scorreia
@@ -37,33 +35,7 @@ public class QueryStatement {
      * exists).
      */
     public void addFrom(String... f) {
-        query.addFrom(createFromVector(f));
-    }
-
-    private Vector<ZSelectItem> createSelectVector(String[] f) {
-        Vector<ZSelectItem> v = new Vector<ZSelectItem>();
-        if (f == null) {
-            return v;
-        }
-        for (String string : f) {
-            if (string != null) {
-                v.add(new ZSelectItem(string));
-            }
-        }
-        return v;
-    }
-
-    private Vector<ZFromItem> createFromVector(String[] f) {
-        Vector<ZFromItem> v = new Vector<ZFromItem>();
-        if (f == null) {
-            return v;
-        }
-        for (String string : f) {
-            if (string != null) {
-                v.add(new ZFromItem(string));
-            }
-        }
-        return v;
+        query.addFrom(ZQueryHelper.createFromVector(f));
     }
 
     /**
@@ -72,7 +44,7 @@ public class QueryStatement {
      * @param s a list of column (either fully qualified "schema.table.column or not)
      */
     public void addSelect(String... s) {
-        query.addSelect(createSelectVector(s));
+        query.addSelect(ZQueryHelper.createSelectVector(s));
     }
 
     public void addWhereColumnStringRelation(String operator, String column, String value) {
