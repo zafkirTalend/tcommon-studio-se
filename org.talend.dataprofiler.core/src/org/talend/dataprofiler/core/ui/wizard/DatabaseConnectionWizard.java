@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.ui.wizard;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -107,7 +108,9 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     public boolean performFinish() {
         TypedReturnCode<TdDataProvider> rc = ConnectionService.createConnection(this.connectionProperty);
         if (!rc.isOk()) {
-            // FIXME rli handle case of invalid connection here (use rc.getMessage() for error message)
+            MessageDialog.openInformation(getShell(),
+                    "Create  connections", "Create connection failure:"
+                            + rc.getMessage());
             return false;
         }
         TdDataProvider dataProvider = rc.getObject();
