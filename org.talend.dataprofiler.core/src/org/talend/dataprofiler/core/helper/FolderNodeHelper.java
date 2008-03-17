@@ -52,6 +52,8 @@ public final class FolderNodeHelper {
             return createTableViewNodes(eObject);
         } else if (SwitchHelpers.TABLE_SWITCH.doSwitch(eObject) != null) {
             return createColumFolderNodes(eObject);
+        } else if (SwitchHelpers.VIEW_SWITCH.doSwitch(eObject) != null) {
+            return createColumFolderNodes(eObject);
         } 
         return folderNodes;
     }
