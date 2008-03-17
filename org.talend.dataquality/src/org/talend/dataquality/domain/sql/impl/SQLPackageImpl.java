@@ -4,13 +4,11 @@
  *
  * $Id$
  */
-package org.talend.dataquality.reports.impl;
+package org.talend.dataquality.domain.sql.impl;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.dataquality.analysis.AnalysisPackage;
@@ -25,18 +23,19 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
 
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 
+import org.talend.dataquality.domain.sql.SQLFactory;
 import org.talend.dataquality.domain.sql.SQLPackage;
-import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
+import org.talend.dataquality.domain.sql.SqlRelationalOperator;
+
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 
-import org.talend.dataquality.reports.PresentationParameter;
-import org.talend.dataquality.reports.ReportsFactory;
 import org.talend.dataquality.reports.ReportsPackage;
-import org.talend.dataquality.reports.TdReport;
+
+import org.talend.dataquality.reports.impl.ReportsPackageImpl;
 
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
 
@@ -106,20 +105,13 @@ import orgomg.mof.model.ModelPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
+public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass tdReportEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass presentationParameterEClass = null;
+    private EEnum sqlRelationalOperatorEEnum = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -132,12 +124,12 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see org.talend.dataquality.reports.ReportsPackage#eNS_URI
+     * @see org.talend.dataquality.domain.sql.SQLPackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private ReportsPackageImpl() {
-        super(eNS_URI, ReportsFactory.eINSTANCE);
+    private SQLPackageImpl() {
+        super(eNS_URI, SQLFactory.eINSTANCE);
     }
 
     /**
@@ -169,11 +161,11 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * @see #initializePackageContents()
      * @generated
      */
-    public static ReportsPackage init() {
-        if (isInited) return (ReportsPackage)EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI);
+    public static SQLPackage init() {
+        if (isInited) return (SQLPackage)EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI);
 
         // Obtain or create and register package
-        ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ReportsPackageImpl());
+        SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new SQLPackageImpl());
 
         isInited = true;
 
@@ -212,34 +204,34 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
-        SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
-        theReportsPackage.createPackageContents();
+        theSQLPackage.createPackageContents();
         theAnalysisPackage.createPackageContents();
+        theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         theDomainPackage.createPackageContents();
         thePatternPackage.createPackageContents();
-        theSQLPackage.createPackageContents();
 
         // Initialize created meta-data
-        theReportsPackage.initializePackageContents();
+        theSQLPackage.initializePackageContents();
         theAnalysisPackage.initializePackageContents();
+        theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         theDomainPackage.initializePackageContents();
         thePatternPackage.initializePackageContents();
-        theSQLPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theReportsPackage.freeze();
+        theSQLPackage.freeze();
 
-        return theReportsPackage;
+        return theSQLPackage;
     }
 
     /**
@@ -247,8 +239,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTdReport() {
-        return tdReportEClass;
+    public EEnum getSqlRelationalOperator() {
+        return sqlRelationalOperatorEEnum;
     }
 
     /**
@@ -256,44 +248,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTdReport_PresentationParams() {
-        return (EReference)tdReportEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getPresentationParameter() {
-        return presentationParameterEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getPresentationParameter_PlotType() {
-        return (EAttribute)presentationParameterEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getPresentationParameter_Indicator() {
-        return (EReference)presentationParameterEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ReportsFactory getReportsFactory() {
-        return (ReportsFactory)getEFactoryInstance();
+    public SQLFactory getSQLFactory() {
+        return (SQLFactory)getEFactoryInstance();
     }
 
     /**
@@ -314,13 +270,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         if (isCreated) return;
         isCreated = true;
 
-        // Create classes and their features
-        tdReportEClass = createEClass(TD_REPORT);
-        createEReference(tdReportEClass, TD_REPORT__PRESENTATION_PARAMS);
-
-        presentationParameterEClass = createEClass(PRESENTATION_PARAMETER);
-        createEAttribute(presentationParameterEClass, PRESENTATION_PARAMETER__PLOT_TYPE);
-        createEReference(presentationParameterEClass, PRESENTATION_PARAMETER__INDICATOR);
+        // Create enums
+        sqlRelationalOperatorEEnum = createEEnum(SQL_RELATIONAL_OPERATOR);
     }
 
     /**
@@ -346,27 +297,14 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         setNsPrefix(eNS_PREFIX);
         setNsURI(eNS_URI);
 
-        // Obtain other dependent packages
-        InformationreportingPackage theInformationreportingPackage = (InformationreportingPackage)EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI);
-        IndicatorsPackage theIndicatorsPackage = (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
-
-        // Create type parameters
-
-        // Set bounds for type parameters
-
-        // Add supertypes to classes
-        tdReportEClass.getESuperTypes().add(theInformationreportingPackage.getReport());
-
-        // Initialize classes and features; add operations and parameters
-        initEClass(tdReportEClass, TdReport.class, "TdReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getTdReport_PresentationParams(), this.getPresentationParameter(), null, "presentationParams", null, 0, -1, TdReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(presentationParameterEClass, PresentationParameter.class, "PresentationParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getPresentationParameter_PlotType(), ecorePackage.getEString(), "plotType", null, 0, 1, PresentationParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getPresentationParameter_Indicator(), theIndicatorsPackage.getIndicator(), null, "indicator", null, 0, 1, PresentationParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        // Create resource
-        createResource(eNS_URI);
+        // Initialize enums and add enum literals
+        initEEnum(sqlRelationalOperatorEEnum, SqlRelationalOperator.class, "SqlRelationalOperator");
+        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.EQUAL);
+        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.NOT_EQUAL);
+        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.GREATER);
+        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.LESS);
+        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.GREATER_EQUAL);
+        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.LESS_EQUAL);
     }
 
-} //ReportsPackageImpl
+} //SQLPackageImpl

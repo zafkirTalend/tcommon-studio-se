@@ -28,6 +28,8 @@ import org.talend.dataquality.domain.pattern.PatternFactory;
 import org.talend.dataquality.domain.pattern.PatternPackage;
 import org.talend.dataquality.domain.pattern.RegularExpression;
 
+import org.talend.dataquality.domain.sql.SQLPackage;
+import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -237,6 +239,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
+        SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
         thePatternPackage.createPackageContents();
@@ -245,6 +248,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         theIndicatorsPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         theDomainPackage.createPackageContents();
+        theSQLPackage.createPackageContents();
 
         // Initialize created meta-data
         thePatternPackage.initializePackageContents();
@@ -253,6 +257,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         theIndicatorsPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         theDomainPackage.initializePackageContents();
+        theSQLPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         thePatternPackage.freeze();

@@ -297,5 +297,15 @@
             eType="#//domain/pattern/PatternComponent"/>
       </eClassifiers>
     </eSubpackages>
+    <eSubpackages name="sql" nsURI="http://dataquality.domain.sql" nsPrefix="dataquality.domain.sql">
+      <eClassifiers xsi:type="ecore:EEnum" name="SqlRelationalOperator">
+        <eLiterals name="EQUAL" literal="="/>
+        <eLiterals name="NOT_EQUAL" value="1" literal="&lt;>"/>
+        <eLiterals name="GREATER" value="2" literal=">"/>
+        <eLiterals name="LESS" value="3" literal="&lt;"/>
+        <eLiterals name="GREATER_EQUAL" value="4" literal=">="/>
+        <eLiterals name="LESS_EQUAL" value="5" literal="&lt;="/>
+      </eClassifiers>
+    </eSubpackages>
   </eSubpackages>
 </ecore:EPackage>

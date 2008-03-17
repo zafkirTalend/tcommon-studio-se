@@ -245,6 +245,17 @@
               ecoreFeature="ecore:EReference dataquality.ecore#//domain/pattern/ComponentReference/referencedComponent"/>
         </genClasses>
       </nestedGenPackages>
+      <nestedGenPackages prefix="SQL" basePackage="org.talend.dataquality.domain"
+          disposableProviderFactory="true" ecorePackage="dataquality.ecore#//domain/sql">
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlRelationalOperator">
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/NOT_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS_EQUAL"/>
+        </genEnums>
+      </nestedGenPackages>
     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

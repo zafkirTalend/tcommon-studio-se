@@ -34,6 +34,8 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
 
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 
+import org.talend.dataquality.domain.sql.SQLPackage;
+import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -278,6 +280,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
+        SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
         theDomainPackage.createPackageContents();
@@ -286,6 +289,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         theIndicatorsPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         thePatternPackage.createPackageContents();
+        theSQLPackage.createPackageContents();
 
         // Initialize created meta-data
         theDomainPackage.initializePackageContents();
@@ -294,6 +298,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         theIndicatorsPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         thePatternPackage.initializePackageContents();
+        theSQLPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theDomainPackage.freeze();
@@ -655,6 +660,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
         // Obtain other dependent packages
         PatternPackage thePatternPackage = (PatternPackage)EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI);
+        SQLPackage theSQLPackage = (SQLPackage)EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI);
         CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
         DatatypesPackage theDatatypesPackage = (DatatypesPackage)EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
         org.talend.dataquality.expressions.ExpressionsPackage theExpressionsPackage_1 = (org.talend.dataquality.expressions.ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI);
@@ -662,6 +668,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
         // Add subpackages
         getESubpackages().add(thePatternPackage);
+        getESubpackages().add(theSQLPackage);
 
         // Create type parameters
 

@@ -23,6 +23,8 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
 
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 
+import org.talend.dataquality.domain.sql.SQLPackage;
+import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.expressions.ExpressionsFactory;
 import org.talend.dataquality.expressions.ExpressionsPackage;
@@ -204,6 +206,7 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
+        SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
         theExpressionsPackage.createPackageContents();
@@ -212,6 +215,7 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
         theIndicatorsPackage.createPackageContents();
         theDomainPackage.createPackageContents();
         thePatternPackage.createPackageContents();
+        theSQLPackage.createPackageContents();
 
         // Initialize created meta-data
         theExpressionsPackage.initializePackageContents();
@@ -220,6 +224,7 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
         theIndicatorsPackage.initializePackageContents();
         theDomainPackage.initializePackageContents();
         thePatternPackage.initializePackageContents();
+        theSQLPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theExpressionsPackage.freeze();
