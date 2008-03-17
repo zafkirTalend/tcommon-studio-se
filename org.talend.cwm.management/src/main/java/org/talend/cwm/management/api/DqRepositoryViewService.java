@@ -383,8 +383,6 @@ public final class DqRepositoryViewService {
         String catalogName = (catalog == null) ? null : catalog.getName();
         try {
             AbstractTableBuilder<? extends NamedColumnSet> tableBuilder = getBuilder(connection, classifierID);
-            // TODO rli: scorreia removed this line so that columns are loaded later but now we do not see the "Columns"
-            // folder in the DQ repository view
             // tableBuilder.setColumnsRequested(true);
             tables.addAll(tableBuilder.getColumnSets(catalogName, schemaName, tablePattern));
             ok = true;
