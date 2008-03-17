@@ -14,15 +14,11 @@ package org.talend.cwm.builders;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.cwm.helper.ColumnHelper;
+import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.utils.sql.metadata.constants.GetColumn;
-import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
  * @author scorreia
@@ -43,7 +39,7 @@ public class ColumnBuilder extends CwmBuilder {
     }
 
     /**
-     * Method "storeTable".
+     * Method "getColumns".
      * 
      * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
      * those without a catalog; null means that the catalog name should not be used to narrow the search
@@ -56,31 +52,6 @@ public class ColumnBuilder extends CwmBuilder {
      */
     public List<TdColumn> getColumns(String catalogName, String schemaPattern, String tablePattern, String columnPattern)
             throws SQLException {
-        List<TdColumn> tableColumns = new ArrayList<TdColumn>();
-
-        // --- add columns to table
-        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
-                columnPattern);
-        while (columns.next()) {
-            TdColumn column = ColumnHelper.createTdColumn(columns.getString(GetColumn.COLUMN_NAME.name()));
-            column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
-            column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
-            // TODO columns.getString(GetColumn.TYPE_NAME.name());
-
-            // TODO get column description (comment)
-
-            // TODO scorreia other informations for columns can be retrieved here
-
-            // --- create and set type of column
-            // TODO scorreia get type of column on demand, not on creation of column
-            // TdSqlDataType sqlDataType = createDataType(columns);
-            // column.setType(sqlDataType);
-            tableColumns.add(column);
-        }
-
-        // release JDBC resources
-        columns.close();
-
-        return tableColumns;
+        return DatabaseContentRetriever.getColumns(catalogName, schemaPattern, tablePattern, columnPattern, connection);
     }
 }

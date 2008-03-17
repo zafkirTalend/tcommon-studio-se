@@ -349,7 +349,7 @@ public final class DatabaseContentRetriever {
     }
 
     /**
-     * Method "storeTable".
+     * Method "getColumns".
      * 
      * @param catalogName a catalog name; must match the catalog name as it is stored in the database; "" retrieves
      * those without a catalog; null means that the catalog name should not be used to narrow the search
@@ -357,6 +357,7 @@ public final class DatabaseContentRetriever {
      * retrieves those without a schema; null means that the schema name should not be used to narrow the search
      * @param tablePattern a table name pattern; must match the table name as it is stored in the database
      * @param columnPattern a column name pattern; must match the column name as it is stored in the database
+     * @return the list of columns
      * @throws SQLException
      * @see DatabaseMetaData#getColumns(String, String, String, String)
      */
@@ -388,6 +389,30 @@ public final class DatabaseContentRetriever {
         columns.close();
 
         return tableColumns;
+
+    }
+
+    /**
+     * Method "getDataType".
+     * 
+     * @param catalogName the catalog
+     * @param schemaPattern the schema(s)
+     * @param tablePattern the table(s)
+     * @param columnPattern the column(s)
+     * @param connection the connection
+     * @return the list of datatypes of the given columns
+     * @throws SQLException
+     */
+    public List<TdSqlDataType> getDataType(String catalogName, String schemaPattern, String tablePattern,
+            String columnPattern, Connection connection) throws SQLException {
+        List<TdSqlDataType> sqlDatatypes = new ArrayList<TdSqlDataType>();
+        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
+                columnPattern);
+        while (columns.next()) {
+            sqlDatatypes.add(createDataType(columns));
+        }
+        columns.close();
+        return sqlDatatypes;
     }
 
     private static DatabaseMetaData getConnectionMetadata(Connection connection) throws SQLException {
@@ -396,17 +421,14 @@ public final class DatabaseContentRetriever {
         return connection.getMetaData();
     }
 
-    // private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
-    // // if (true)
-    // // return null; // FIXME scorreia remove this patch
-    // // this patch is here because the created sql data type is not stored in a resource set.
-    // TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
-    // sqlDataType.setName("datatype"); // FIXME set name?
-    // sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
-    // sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
-    // sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
-    // return sqlDataType;
-    // }
+    private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
+        TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
+        sqlDataType.setName("datatype"); // FIXME set name?
+        sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
+        sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
+        sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
+        return sqlDataType;
+    }
 
     private static String getConnectionInformations(Connection connection) {
         return connection.toString(); // TODO scorreia give more user friendly informations.

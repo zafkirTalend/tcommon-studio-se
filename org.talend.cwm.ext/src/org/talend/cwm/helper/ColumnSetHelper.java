@@ -12,10 +12,14 @@
 // ============================================================================
 package org.talend.cwm.helper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
+import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.QueryColumnSet;
@@ -76,5 +80,50 @@ public class ColumnSetHelper {
             addColumn(column, columnSet);
         }
         return columnSet;
+    }
+
+    /**
+     * Method "getParentCatalogOrSchema" returns the owner of the element (Catalog or Schema).
+     * 
+     * @param element (can be null)
+     * @return the Catalog or of Schema or null
+     */
+    public static Package getParentCatalogOrSchema(ModelElement element) {
+        if (element == null) {
+            return null;
+        }
+        TdCatalog res = SwitchHelpers.CATALOG_SWITCH.doSwitch(element.getNamespace());
+        if (res != null) {
+            return res;
+        }
+        return SwitchHelpers.SCHEMA_SWITCH.doSwitch(element.getNamespace());
+    }
+
+    /**
+     * Method "getTableNames".
+     * 
+     * @param columnSet a set of columns (that could come from several Tables or views)
+     * @return the list of container names (tables, views) which the columns belong to (not null).
+     */
+    public static String[] getColumnSetNames(ColumnSet columnSet) {
+        List<TdColumn> columns = ColumnSetHelper.getColumns(columnSet);
+        return getColumnSetNames(columns);
+    }
+
+    /**
+     * Method "getTableNames".
+     * 
+     * @param columnSet a set of columns (that could come from several Tables or views)
+     * @return the list of container names (tables, views) which the columns belong to (not null).
+     */
+    public static String[] getColumnSetNames(Collection<? extends Column> columns) {
+        List<String> tableNames = new ArrayList<String>();
+        for (Column tdColumn : columns) {
+            String tableName = ColumnHelper.getColumnSetFullName(tdColumn);
+            if (tableName != null) {
+                tableNames.add(tableName);
+            }
+        }
+        return tableNames.toArray(new String[tableNames.size()]);
     }
 }

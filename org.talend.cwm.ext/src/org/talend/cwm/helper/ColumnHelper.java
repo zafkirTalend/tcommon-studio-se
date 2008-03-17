@@ -13,13 +13,17 @@
 package org.talend.cwm.helper;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
 import orgomg.cwm.resource.relational.Column;
+import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
  * @author scorreia
@@ -75,4 +79,59 @@ public class ColumnHelper {
         return columns;
     }
 
+    /**
+     * Method "getColumnNames".
+     * 
+     * @param columnSet
+     * @return the list of column names (with their table names specified)
+     */
+    public static String[] getColumnFullNames(ColumnSet columnSet) {
+        List<TdColumn> columns = ColumnSetHelper.getColumns(columnSet);
+        return getColumnFullNames(columns);
+    }
+
+    /**
+     * Method "getColumnNames".
+     * 
+     * @param columnSet
+     * @return the list of column names (with their table names specified)
+     */
+    public static String[] getColumnFullNames(Collection<? extends Column> columns) {
+        Set<String> columnNames = new HashSet<String>();
+        for (Column column : columns) {
+            String colName = getFullName(column);
+            columnNames.add(colName);
+        }
+
+        return columnNames.toArray(new String[columnNames.size()]);
+    }
+
+    /**
+     * Method "getFullName" the name of the column with the table (or view) name in front of it. E.g. "Table.Column".
+     * 
+     * @param column
+     * @return the name of the column or null
+     */
+    public static String getFullName(Column column) {
+        String tableName = getColumnSetFullName(column);
+        if (tableName != null) {
+            return tableName + "." + column.getName();
+        }
+        return column.getName();
+    }
+
+    /**
+     * Method "getColumnSetFulName" the name of the container of the column. E.g. a table or a view.
+     * 
+     * @param column a column
+     * @return the name of the container of the column or null
+     */
+    public static String getColumnSetFullName(Column column) {
+        ColumnSet colSet = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(column.getOwner());
+        if (colSet != null) {
+            return colSet.getName();
+        }
+        // else
+        return null;
+    }
 }

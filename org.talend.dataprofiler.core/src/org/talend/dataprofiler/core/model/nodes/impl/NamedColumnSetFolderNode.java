@@ -38,8 +38,7 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
     protected <T extends List<COLSET>> void loadChildrenLow(orgomg.cwm.objectmodel.core.Package pack,
             TdCatalog catalog, TdSchema schema, final T columnSets) {
         assert pack != null;
-        columnSets.addAll(getColumnSets(catalog, schema)); // TODO check this
-
+        columnSets.addAll(getColumnSets(catalog, schema));
         if (columnSets.size() > 0) {
             this.setLoaded(true);
             this.setChildren(columnSets.toArray());
@@ -47,6 +46,7 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
         }
 
         TdDataProvider provider = DataProviderHelper.getTdDataProvider(pack);
+        // TODO rli handle case when provider = null
 
         // load from database
         loadColumnSets(catalog, schema, provider, columnSets);

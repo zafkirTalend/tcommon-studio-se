@@ -14,21 +14,21 @@ package org.talend.dataprofiler.core.model.nodes.impl;
 
 import java.util.List;
 
-import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
-import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.model.nodes.AbstractFolderNode;
 
+import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
  * @author rli
- *
+ * 
  */
 public class ColumnFolderNode extends AbstractFolderNode {
 
@@ -39,24 +39,29 @@ public class ColumnFolderNode extends AbstractFolderNode {
         super("Columns");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.dataprofiler.core.model.nodes.AbstractFolderNode#loadChildren()
      */
     @Override
     public void loadChildren() {
-        TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(this.getParent());
-        if (table != null) {
-            List<TdColumn> columnList = TableHelper.getColumns(table);
+        // get columns from either tables or views.
+        ColumnSet columnSet = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(this.getParent());
+        if (columnSet != null) {
+            List<TdColumn> columnList = ColumnSetHelper.getColumns(columnSet);
             if (columnList.size() > 0) {
                 this.setLoaded(true);
                 this.setChildren(columnList.toArray());
                 return;
             }
-            TdDataProvider provider = DataProviderHelper.getTdDataProvider(CatalogHelper.getParentCatalog(table));
-
-            columnList = DqRepositoryViewService.getColumns(provider, table, null, true);
+            Package parentCatalogOrSchema = ColumnSetHelper.getParentCatalogOrSchema(columnSet);
+            // TODO rli handle case when parentCatalogOrSchema = null
+            TdDataProvider provider = DataProviderHelper.getTdDataProvider(parentCatalogOrSchema);
+            // TODO rli handle case when provider = null
+            columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
             // store tables in catalog
-            TableHelper.addColumns(table, columnList);
+            ColumnSetHelper.addColumns(columnSet, columnList);
             this.setChildren(columnList.toArray());
             NeedSaveDataProviderHelper.register(provider.getName(), provider);
             this.setLoaded(true);

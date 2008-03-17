@@ -31,9 +31,9 @@ import org.talend.cwm.builders.ColumnBuilder;
 import org.talend.cwm.builders.TableBuilder;
 import org.talend.cwm.builders.ViewBuilder;
 import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SchemaHelper;
-import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.connection.JavaSqlFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
@@ -45,6 +45,7 @@ import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.NamedColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 
@@ -109,7 +110,7 @@ public final class DqRepositoryViewService {
     }
 
     /**
-     * Method "getTables" loads the tables from the database or get the tables and columns from the catalog .
+     * Method "getTables" loads the tables from the database or get the tables from the catalog .
      * 
      * @param dataProvider the data provider
      * @param catalog the catalog (must not be null)
@@ -154,12 +155,22 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdColumn> getColumns(TdDataProvider dataProvider, TdTable table, String columnPattern,
+    /**
+     * Method "getColumns".
+     * 
+     * @param dataProvider the data provider for connecting to database (can be null when the columns are not loaded
+     * from the database)
+     * @param columnSet a column set (Table or View)
+     * @param columnPattern the pattern of the columns to get
+     * @param loadFromDB true if columns must be loaded from the database
+     * @return
+     */
+    public static List<TdColumn> getColumns(TdDataProvider dataProvider, ColumnSet columnSet, String columnPattern,
             boolean loadFromDB) {
         if (loadFromDB) {
-            return loadColumns(dataProvider, table, columnPattern);
+            return loadColumns(dataProvider, columnSet, columnPattern);
         } else {
-            return TableHelper.getColumns(table);
+            return ColumnSetHelper.getColumns(columnSet);
         }
     }
 
@@ -332,7 +343,7 @@ public final class DqRepositoryViewService {
         return views;
     }
 
-    private static List<TdColumn> loadColumns(TdDataProvider dataProvider, TdTable table, String columnPattern) {
+    private static List<TdColumn> loadColumns(TdDataProvider dataProvider, ColumnSet table, String columnPattern) {
         assert table != null;
         List<TdColumn> columns = new ArrayList<TdColumn>();
         TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
