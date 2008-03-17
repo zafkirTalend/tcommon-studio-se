@@ -130,7 +130,12 @@ public class JobContextManager implements IContextManager {
                 return false;
             }
         }
-
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            // for java, the var name not be named with java keywords.
+            if (ContextUtils.isJavaKeyWords(contextName)) {
+                return false;
+            }
+        }
         return Pattern.matches(RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN, contextName);
     }
 
