@@ -24,7 +24,7 @@ public abstract class AbstractFolderNode implements IFolderNode {
     
     private String name;
     
-    private EObject children;
+    private Object[] children;
     
     private EObject parent;
     
@@ -47,7 +47,7 @@ public abstract class AbstractFolderNode implements IFolderNode {
     /**
      * @return the children
      */
-    public EObject getChildren() {
+    public Object[] getChildren() {
         return children;
     }
 
@@ -55,7 +55,7 @@ public abstract class AbstractFolderNode implements IFolderNode {
     /**
      * @param children the children to set
      */
-    public void setChildren(EObject children) {
+    public void setChildren(Object[] children) {
         this.children = children;
     }
 

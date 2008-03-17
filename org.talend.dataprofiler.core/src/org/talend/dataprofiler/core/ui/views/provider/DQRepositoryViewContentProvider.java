@@ -18,10 +18,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.helper.FolderNodeHelper;
 import org.talend.dataprofiler.core.model.nodes.IFolderNode;
-import orgomg.cwm.resource.relational.Catalog;
-import orgomg.cwm.resource.relational.Schema;
 
 /**
  * @author rli
@@ -49,7 +48,7 @@ public class DQRepositoryViewContentProvider extends
             if (!(folerNode.isLoaded())) {
                 folerNode.loadChildren();
             }
-            return super.getChildren(folerNode.getParent());
+            return folerNode.getChildren();
         } else {
             return FolderNodeHelper.getFolderNode((EObject) parentElement);
         }
@@ -69,12 +68,7 @@ public class DQRepositoryViewContentProvider extends
 	}
 
 	public boolean hasChildren(Object element) {
-        if (element instanceof IFile) {
-            return true;
-        } else if (element instanceof Catalog || element instanceof Schema || element instanceof IFolderNode) {
-            return true;
-        }
-        return super.hasChildren(element);
+	    return !(element instanceof TdColumn);
     }
 
 }

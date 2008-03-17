@@ -42,6 +42,7 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
 
         if (columnSets.size() > 0) {
             this.setLoaded(true);
+            this.setChildren(columnSets.toArray());
             return;
         }
 
@@ -51,7 +52,7 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
         loadColumnSets(catalog, schema, provider, columnSets);
         // store views in catalog or schema
         pack.getOwnedElement().addAll(columnSets);
-
+        this.setChildren(columnSets.toArray());
         NeedSaveDataProviderHelper.register(provider.getName(), provider);
         this.setLoaded(true);
     }

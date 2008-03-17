@@ -26,12 +26,12 @@ public interface IFolderNode {
     /**
      * @return the children
      */
-    public EObject getChildren();
+    public Object[] getChildren();
 
     /**
      * @param children the children to set
      */
-    public void setChildren(EObject children);
+    public void setChildren(Object[] children);
 
     public void setParent(EObject parent);
 

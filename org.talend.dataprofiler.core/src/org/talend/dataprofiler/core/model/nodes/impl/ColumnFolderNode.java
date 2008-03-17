@@ -49,13 +49,15 @@ public class ColumnFolderNode extends AbstractFolderNode {
             List<TdColumn> columnList = TableHelper.getColumns(table);
             if (columnList.size() > 0) {
                 this.setLoaded(true);
+                this.setChildren(columnList.toArray());
                 return;
             }
             TdDataProvider provider = DataProviderHelper.getTdDataProvider(CatalogHelper.getParentCatalog(table));
 
-            List<TdColumn> columns = DqRepositoryViewService.getColumns(provider, table, null, true);
+            columnList = DqRepositoryViewService.getColumns(provider, table, null, true);
             // store tables in catalog
-            TableHelper.addColumns(table, columns);
+            TableHelper.addColumns(table, columnList);
+            this.setChildren(columnList.toArray());
             NeedSaveDataProviderHelper.register(provider.getName(), provider);
             this.setLoaded(true);
         }
