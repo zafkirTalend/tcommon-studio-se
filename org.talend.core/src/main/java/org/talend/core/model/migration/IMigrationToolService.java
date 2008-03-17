@@ -26,8 +26,6 @@ public interface IMigrationToolService extends IService {
 
     public void executeWorspaceTasks();
 
-    public void executeProjectTasks(Project project, boolean beforeLogon);
-
     public void initNewProjectTasks(Project project);
 
     public boolean needExecutemigration();

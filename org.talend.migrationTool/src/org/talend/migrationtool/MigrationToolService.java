@@ -49,47 +49,6 @@ public class MigrationToolService implements IMigrationToolService {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
     }
 
-    public void executeProjectTasks(Project project, boolean beforeLogon) {
-        log.trace("Migration tool: project [" + project.getLabel() + "] tasks"); //$NON-NLS-1$ //$NON-NLS-2$
-
-        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
-        List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
-
-        boolean needSave = false;
-
-        for (IProjectMigrationTask task : toExecute) {
-
-            if (!done.contains(task.getId())) {
-                try {
-                    switch (task.execute(project)) {
-                    case SUCCESS_WITH_ALERT:
-                        doneThisSession.add(task);
-                    case SUCCESS_NO_ALERT:
-                        log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
-                    case NOTHING_TO_DO:
-                        done.add(task.getId());
-                        needSave = true;
-                        break;
-                    case SKIPPED:
-                        log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
-                        break;
-                    case FAILURE:
-                    default:
-                        log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
-                        break;
-                    }
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-            }
-        }
-
-        if (needSave) {
-            saveProjectMigrationTasksDone(project, done);
-        }
-    }
-
     /*
      * (non-Javadoc)
      * 
