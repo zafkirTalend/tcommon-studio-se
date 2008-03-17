@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.localprovider.model.migration;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.talend.commons.exception.ExceptionHandler;
@@ -52,4 +54,8 @@ public class RemoveRoutineFolderTask extends AbstractProjectMigrationTask {
         }
     }
 
+    public Date getOrder() {
+        GregorianCalendar gc = new GregorianCalendar(2008, 2, 17, 12, 0, 0);
+        return gc.getTime();
+    }
 }

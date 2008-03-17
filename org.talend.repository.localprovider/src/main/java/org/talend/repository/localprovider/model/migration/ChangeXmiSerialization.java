@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.localprovider.model.migration;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -131,5 +133,9 @@ public class ChangeXmiSerialization extends AbstractProjectMigrationTask {
         public Collection<IFile> getPropertiesResourcesFiles() {
             return propertiesResourcesFiles;
         }
+    }
+    public Date getOrder() {
+        GregorianCalendar gc = new GregorianCalendar(2008, 2, 17, 12, 0, 0);
+        return gc.getTime();
     }
 }
