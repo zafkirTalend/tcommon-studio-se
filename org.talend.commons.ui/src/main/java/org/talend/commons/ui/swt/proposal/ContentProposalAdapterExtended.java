@@ -167,7 +167,7 @@ public class ContentProposalAdapterExtended {
                     acceptCurrentProposal();
                     return;
                 }
-                
+
                 if (e.type == SWT.Deactivate) {
                     // System.out.println("Deactivate");
                     return;
@@ -933,6 +933,7 @@ public class ContentProposalAdapterExtended {
             if (!isValid()) {
                 return false;
             }
+
             return getShell().isFocusControl() || proposalTable.isFocusControl();
         }
 
@@ -1956,7 +1957,10 @@ public class ContentProposalAdapterExtended {
     }
 
     public boolean hasFocus() {
-        return popup.hasFocus();
+        if (null != popup) {
+            return popup.hasFocus();
+        }
+        return true;
     }
 
 }
