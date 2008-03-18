@@ -1,0 +1,234 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.dq.analysis;
+
+import java.io.File;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Assert;
+import org.talend.commons.emf.EMFUtil;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.TableHelper;
+import org.talend.cwm.management.api.ConnectionService;
+import org.talend.cwm.management.api.DqRepositoryViewService;
+import org.talend.cwm.management.api.FolderProvider;
+import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.cwm.relational.TdCatalog;
+import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.domain.DomainFactory;
+import org.talend.dataquality.domain.DomainPackage;
+import org.talend.dataquality.domain.RangeRestriction;
+import org.talend.dataquality.domain.sql.SqlRelationalOperator;
+import org.talend.dataquality.expressions.BooleanExpressionNode;
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.IndicatorsFactory;
+import org.talend.dataquality.indicators.RowCountIndicator;
+import org.talend.dq.javasql.IndicatorEvaluator;
+import org.talend.dq.sql.converters.CwmZExpression;
+import org.talend.utils.properties.PropertiesLoader;
+import org.talend.utils.properties.TypedProperties;
+import org.talend.utils.sugars.ReturnCode;
+import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.resource.relational.Column;
+
+/**
+ * DOC scorreia class global comment. Detailled comment
+ */
+public class TestAnalysisCreation {
+
+    /**
+     * 
+     */
+    private static final DomainFactory DOMAIN = DomainFactory.eINSTANCE;
+
+    /**
+     * DOC scorreia Comment method "main".
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+        String outputFolder = "ANA";
+        // initialized analysis
+        AnalysisBuilder analysisBuilder = new AnalysisBuilder();
+        String analysisName = "My test analysis";
+
+        boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
+        Assert.assertTrue(analysisName + " failed to initialize!", analysisInitialized);
+
+        // get the connection
+        TdDataProvider dataManager = getDataManager();
+        Assert.assertNotNull("No datamanager found!", dataManager);
+        analysisBuilder.setAnalysisConnection(dataManager);
+
+        // get a column to analyze
+        ModelElement column = getColumn(dataManager);
+        Indicator[] indicators = getIndicators(column);
+        analysisBuilder.addElementToAnalyze(column, indicators);
+
+        // get the domain constraint
+        Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
+        analysisBuilder.addFilterOnData(dataFilter);
+        // TODO scorreia save domain with analysisbuilder
+        saveDomain(dataFilter, new File(outputFolder + File.separator + "domain." + DomainPackage.eNAME));
+
+        // run analysis
+        Analysis analysis = analysisBuilder.getAnalysis();
+        IAnalysisExecutor exec = new ColumnAnalysisExecutor();
+        ReturnCode executed = exec.execute(analysis);
+        Assert
+                .assertTrue("Problem executing analysis: " + analysisName + ": " + executed.getMessage(), executed
+                        .isOk());
+
+        // save data provider
+        FolderProvider folderProvider = new FolderProvider();
+        folderProvider.setFolder(new File(outputFolder));
+        DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
+
+        // save analysis
+        AnalysisWriter writer = new AnalysisWriter();
+        File file = new File(outputFolder + File.separator + "analysis.ana");
+        ReturnCode saved = writer.save(analysis, file);
+        Assert.assertTrue(saved.getMessage(), saved.isOk());
+        if (saved.isOk()) {
+            log.info("Saved in  " + file.getAbsolutePath());
+        }
+    }
+
+    /**
+     * DOC scorreia Comment method "saveDomain".
+     * 
+     * @param dataFilter
+     */
+    private static void saveDomain(Domain dataFilter, File file) {
+        EMFUtil util = new EMFUtil();
+        Resource resource = util.getResourceSet().createResource(URI.createFileURI(file.getAbsolutePath()));
+        assert resource != null;
+        EList<EObject> contents = resource.getContents();
+        contents.add(dataFilter);
+
+        EList<RangeRestriction> ranges = dataFilter.getRanges();
+        for (RangeRestriction rangeRestriction : ranges) {
+            contents.add(rangeRestriction.getExpressions());
+        }
+        contents.addAll(ranges);
+        util.save();
+    }
+
+    /**
+     * DOC scorreia Comment method "getDataFilter".
+     * 
+     * @param dataManager
+     * @param column
+     * @return
+     */
+    private static Domain getDataFilter(TdDataProvider dataManager, Column column) {
+        Domain domain = DOMAIN.createDomain();
+        RangeRestriction rangeRestriction = DOMAIN.createRangeRestriction();
+        domain.getRanges().add(rangeRestriction);
+        BooleanExpressionNode expr = getExpression(column);
+        rangeRestriction.setExpressions(expr);
+        return domain;
+    }
+
+    /**
+     * DOC scorreia Comment method "getExpression".
+     * 
+     * @param column
+     * 
+     * @return
+     */
+    private static BooleanExpressionNode getExpression(Column column) {
+        CwmZExpression<String> expre = new CwmZExpression<String>(SqlRelationalOperator.EQUAL);
+        expre.setOperands(column, "sunny");
+        return expre.generateExpressions();
+    }
+
+    private static Logger log = Logger.getLogger(TestAnalysisCreation.class);
+
+    /**
+     * DOC scorreia Comment method "getIndicators".
+     * 
+     * @param column
+     * @return
+     */
+    private static Indicator[] getIndicators(ModelElement column) {
+        RowCountIndicator rowCountIndicator = IndicatorsFactory.eINSTANCE.createRowCountIndicator();
+        rowCountIndicator.setAnalyzedElement(column);
+        return new Indicator[] { rowCountIndicator };
+    }
+
+    /**
+     * DOC scorreia Comment method "getColumn".
+     * 
+     * @param dataManager
+     * @return
+     */
+    private static ModelElement getColumn(TdDataProvider dataManager) {
+        List<TdCatalog> tdCatalogs = CatalogHelper.getTdCatalogs(dataManager.getDataPackage());
+        System.out.println("Catalogs: " + tdCatalogs);
+        Assert.assertFalse(tdCatalogs.isEmpty());
+        TdCatalog catalog = tdCatalogs.get(0);
+        Assert.assertNotNull(catalog);
+        System.out.println("analysed Catalog: " + catalog.getName());
+        List<TdTable> tables = DqRepositoryViewService.getTables(dataManager, catalog, null, true);
+
+        // store tables in catalog
+        CatalogHelper.addTables(tables, catalog);
+
+        Assert.assertFalse(tables.isEmpty());
+        TdTable tdTable = tables.get(0);
+        System.out.println("analyzed Table: " + tdTable.getName());
+        List<TdColumn> columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
+        TableHelper.addColumns(tdTable, columns);
+
+        Assert.assertFalse(columns.isEmpty());
+        TdColumn col = columns.get(0);
+        System.out.println("analyzed Column: " + col.getName());
+        return col;
+    }
+
+    /**
+     * DOC scorreia Comment method "getDataManager".
+     * 
+     * @return
+     */
+    private static TdDataProvider getDataManager() {
+        TypedProperties connectionParams = PropertiesLoader.getProperties(IndicatorEvaluator.class, "db.properties");
+        String driverClassName = connectionParams.getProperty("driver");
+        String dbUrl = connectionParams.getProperty("url");
+
+        ConnectionParameters params = new ConnectionParameters();
+        params.setConnectionName("My connection");
+        params.setDriverClassName(driverClassName);
+        params.setJdbcUrl(dbUrl);
+        params.setParameters(connectionParams);
+
+        // create connection
+
+        TdDataProvider dataProvider = ConnectionService.createConnection(params).getObject();
+
+        dataProvider.setName("My data provider");
+        return dataProvider;
+
+    }
+}

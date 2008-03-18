@@ -19,6 +19,7 @@ import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
 import org.talend.dataquality.analysis.impl.AnalysisFactoryImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
+import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.impl.DomainFactoryImpl;
 import org.talend.dataquality.domain.impl.DomainPackageImpl;
 import org.talend.dataquality.domain.pattern.impl.PatternFactoryImpl;
@@ -92,6 +93,7 @@ public final class FactoriesUtil {
 
         // --- Talend DQ extension packages
         extensions.add(IndicatorsPackage.eNAME);
+        extensions.add(DomainPackage.eNAME);
 
         // --- add specific extensions
         extensions.add(PROV);

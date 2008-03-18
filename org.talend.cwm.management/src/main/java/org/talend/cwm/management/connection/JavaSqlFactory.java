@@ -25,6 +25,8 @@ import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -34,6 +36,9 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
  * DatabaseContentRetriever class.
  */
 public final class JavaSqlFactory {
+
+    // TODO scorreia create a utility class for checking various database url patterns.
+    private static final String MYSQL_PATTERN = "jdbc:mysql://\\p{Alnum}*\\:\\p{Digit}*";
 
     private static Logger log = Logger.getLogger(JavaSqlFactory.class);
 
@@ -87,5 +92,39 @@ public final class JavaSqlFactory {
             rc.setReturnCode(e.getMessage(), false);
         }
         return rc;
+    }
+
+    /**
+     * Method "createConnection" checks that the connection provider gives a url with the database name. If not, the
+     * database name is added to the url.
+     * 
+     * @param databaseConnection the connection informations
+     * @param schema the database to which the connection must be created
+     * @return the connection or error message
+     */
+    public static TypedReturnCode<Connection> createConnection(TdProviderConnection databaseConnection, Package schema) {
+        String connectionString = databaseConnection.getConnectionString();
+        String oldConnectionString = connectionString;
+        if (connectionString.matches(MYSQL_PATTERN + ".*")) {
+            if (!connectionString.matches(MYSQL_PATTERN + "/(\\p{Alnum})+")) {
+                if (log.isDebugEnabled()) {
+                    log.debug("INVALID Mysql connection string: " + connectionString);
+                }
+
+                connectionString += (connectionString.matches(MYSQL_PATTERN + "/")) ? schema.getName() : "/"
+                        + schema.getName();
+                databaseConnection.setConnectionString(connectionString);
+                TypedReturnCode<Connection> rc = createConnection(databaseConnection);
+                // reset connection string to previous value
+                databaseConnection.setConnectionString(oldConnectionString);
+                return rc;
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Valid Mysql connection string: " + connectionString);
+                }
+            }
+        }
+
+        return createConnection(databaseConnection);
     }
 }

@@ -134,4 +134,14 @@ public class ColumnHelper {
         // else
         return null;
     }
+
+    /**
+     * Method "getColumnSetOwner".
+     * 
+     * @param column
+     * @return the owner of the given column
+     */
+    public static ColumnSet getColumnSetOwner(Column column) {
+        return SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(column.getOwner());
+    }
 }

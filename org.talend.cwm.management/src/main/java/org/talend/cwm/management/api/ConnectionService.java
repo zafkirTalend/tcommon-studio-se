@@ -60,13 +60,12 @@ public final class ConnectionService {
         } catch (IllegalAccessException e) {
             rc.setReturnCode(e.getMessage(), false);
         } catch (ClassNotFoundException e) {
-            rc.setReturnCode(e.getMessage(), false);
+            rc.setReturnCode("Driver not found: " + e.getMessage(), false);
         } finally {
             if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    rc.setReturnCode(e.getMessage(), false);
+                ReturnCode closed = ConnectionUtils.closeConnection(connection);
+                if (!closed.isOk()) {
+                    log.warn(closed.getMessage());
                 }
             }
         }
