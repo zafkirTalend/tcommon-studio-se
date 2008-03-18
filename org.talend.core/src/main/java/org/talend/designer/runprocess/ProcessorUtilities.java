@@ -130,9 +130,9 @@ public class ProcessorUtilities {
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            if (selectedProcessItem != null) {
-                return selectedProcessItem;
-            }
+            // if (selectedProcessItem != null) {
+            // return selectedProcessItem;
+            // }
 
             List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
             for (IRepositoryObject process : list) {
@@ -226,13 +226,21 @@ public class ProcessorUtilities {
         }
     }
 
-    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option,
+            String... jobVersion) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem;
+        String currentRelatedJobVersion = null;
+        if (jobVersion != null && jobVersion.length == 1) {
+            currentRelatedJobVersion = jobVersion[0];
+        }
+
         if (jobInfo.getProcess() != null) {
             // main job
             selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
+        } else if (currentRelatedJobVersion != null) {
+            selectedProcessItem = getProcessItem(jobInfo.getJobName(), currentRelatedJobVersion);
         } else {
             // child job
             selectedProcessItem = getProcessItem(jobInfo.getJobName());
@@ -304,16 +312,31 @@ public class ProcessorUtilities {
                     subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
                     subJobInfo.setContextName(jobInfo.getContextName());
                 }
+
+                String relatedJobVersion = "";
+                // ParametersType parameters = selectedProcessItem.getProcess().getParameters();
+                // EList elementParameter = parameters.getElementParameter();
+
+                List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
+                for (INode node : graphicalNodes) {
+                    if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
+                        Element element = (Element) node;
+                        relatedJobVersion = (String) element.getPropertyValue("PROCESS_TYPE_VERSION");
+                        break;
+                    }
+                }
+
                 if (!jobList.contains(subJobInfo)) {
                     // children won't have stats / traces
                     if (option == GENERATE_WITH_FIRST_CHILD) {
-                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_MAIN_ONLY);
+                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_MAIN_ONLY, relatedJobVersion);
                     } else {
-                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_ALL_CHILDS);
+                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_ALL_CHILDS, relatedJobVersion);
                     }
                 }
             }
         }
+
         return toReturn;
     }
 
@@ -448,10 +471,15 @@ public class ProcessorUtilities {
         return processor.getCommandLine(externalUse, statisticPort, tracePort, codeOptions);
     }
 
-    public static String[] getMainCommand(String processName, String contextName, int statisticPort, int tracePort,
-            String... codeOptions) throws ProcessorException {
+    public static String[] getMainCommand(String processName, String processVersion, String contextName, int statisticPort,
+            int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
-        ProcessItem selectedProcessItem = getProcessItem(processName);
+        ProcessItem selectedProcessItem = null;
+        if (processVersion == null || processVersion.equals("")) {
+            selectedProcessItem = getProcessItem(processName);
+        } else {
+            selectedProcessItem = getProcessItem(processName, processVersion);
+        }
         if (selectedProcessItem != null) {
             IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
             currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
