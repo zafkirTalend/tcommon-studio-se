@@ -8,10 +8,12 @@ package org.talend.dataquality.analysis.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -19,6 +21,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.talend.dataquality.analysis.AnalysisPackage;
 import org.talend.dataquality.analysis.AnalysisParameters;
 
+import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.domain.Domain;
 import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
 
@@ -32,6 +35,7 @@ import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl#getDataFilter <em>Data Filter</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl#getIndicatorValidationDomains <em>Indicator Validation Domains</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl#getDataValidationDomains <em>Data Validation Domains</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl#getAnalysisType <em>Analysis Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +71,26 @@ public class AnalysisParametersImpl extends ReportGroupImpl implements AnalysisP
      * @ordered
      */
     protected EList<Domain> dataValidationDomains;
+
+    /**
+     * The default value of the '{@link #getAnalysisType() <em>Analysis Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAnalysisType()
+     * @generated
+     * @ordered
+     */
+    protected static final AnalysisType ANALYSIS_TYPE_EDEFAULT = AnalysisType.COLUMN;
+
+    /**
+     * The cached value of the '{@link #getAnalysisType() <em>Analysis Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAnalysisType()
+     * @generated
+     * @ordered
+     */
+    protected AnalysisType analysisType = ANALYSIS_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -128,6 +152,27 @@ public class AnalysisParametersImpl extends ReportGroupImpl implements AnalysisP
      * <!-- end-user-doc -->
      * @generated
      */
+    public AnalysisType getAnalysisType() {
+        return analysisType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAnalysisType(AnalysisType newAnalysisType) {
+        AnalysisType oldAnalysisType = analysisType;
+        analysisType = newAnalysisType == null ? ANALYSIS_TYPE_EDEFAULT : newAnalysisType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, AnalysisPackage.ANALYSIS_PARAMETERS__ANALYSIS_TYPE, oldAnalysisType, analysisType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -137,6 +182,8 @@ public class AnalysisParametersImpl extends ReportGroupImpl implements AnalysisP
                 return getIndicatorValidationDomains();
             case AnalysisPackage.ANALYSIS_PARAMETERS__DATA_VALIDATION_DOMAINS:
                 return getDataValidationDomains();
+            case AnalysisPackage.ANALYSIS_PARAMETERS__ANALYSIS_TYPE:
+                return getAnalysisType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -162,6 +209,9 @@ public class AnalysisParametersImpl extends ReportGroupImpl implements AnalysisP
                 getDataValidationDomains().clear();
                 getDataValidationDomains().addAll((Collection<? extends Domain>)newValue);
                 return;
+            case AnalysisPackage.ANALYSIS_PARAMETERS__ANALYSIS_TYPE:
+                setAnalysisType((AnalysisType)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -183,6 +233,9 @@ public class AnalysisParametersImpl extends ReportGroupImpl implements AnalysisP
             case AnalysisPackage.ANALYSIS_PARAMETERS__DATA_VALIDATION_DOMAINS:
                 getDataValidationDomains().clear();
                 return;
+            case AnalysisPackage.ANALYSIS_PARAMETERS__ANALYSIS_TYPE:
+                setAnalysisType(ANALYSIS_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -201,8 +254,26 @@ public class AnalysisParametersImpl extends ReportGroupImpl implements AnalysisP
                 return indicatorValidationDomains != null && !indicatorValidationDomains.isEmpty();
             case AnalysisPackage.ANALYSIS_PARAMETERS__DATA_VALIDATION_DOMAINS:
                 return dataValidationDomains != null && !dataValidationDomains.isEmpty();
+            case AnalysisPackage.ANALYSIS_PARAMETERS__ANALYSIS_TYPE:
+                return analysisType != ANALYSIS_TYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (analysisType: ");
+        result.append(analysisType);
+        result.append(')');
+        return result.toString();
     }
 
 } //AnalysisParametersImpl

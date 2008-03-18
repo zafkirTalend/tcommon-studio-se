@@ -9,6 +9,12 @@
       ecorePackage="dataquality.ecore#/">
     <nestedGenPackages prefix="Analysis" basePackage="org.talend.dataquality" disposableProviderFactory="true"
         ecorePackage="dataquality.ecore#//analysis">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//analysis/AnalysisType">
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/COLUMN"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/COLUMNS_COMPARISON"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/TABLE"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/TABLE_COMPARISON"/>
+      </genEnums>
       <genClasses ecoreClass="dataquality.ecore#//analysis/Analysis">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//analysis/Analysis/context"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//analysis/Analysis/results"/>
@@ -19,7 +25,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//analysis/AnalysisContext/connection"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference dataquality.ecore#//analysis/AnalysisContext/analysedElement"/>
+            ecoreFeature="ecore:EReference dataquality.ecore#//analysis/AnalysisContext/analysedElements"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//analysis/AnalysisParameters">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -28,6 +34,7 @@
             ecoreFeature="ecore:EReference dataquality.ecore#//analysis/AnalysisParameters/indicatorValidationDomains"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//analysis/AnalysisParameters/dataValidationDomains"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/AnalysisParameters/analysisType"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//analysis/AnalysisResult">
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dataquality.ecore#//analysis/AnalysisResult/analysis"/>

@@ -68,7 +68,7 @@ public class AnalysisContextItemProvider
             super.getPropertyDescriptors(object);
 
             addConnectionPropertyDescriptor(object);
-            addAnalysedElementPropertyDescriptor(object);
+            addAnalysedElementsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -96,19 +96,19 @@ public class AnalysisContextItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Analysed Element feature.
+     * This adds a property descriptor for the Analysed Elements feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addAnalysedElementPropertyDescriptor(Object object) {
+    protected void addAnalysedElementsPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_AnalysisContext_analysedElement_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AnalysisContext_analysedElement_feature", "_UI_AnalysisContext_type"),
-                 AnalysisPackage.Literals.ANALYSIS_CONTEXT__ANALYSED_ELEMENT,
+                 getString("_UI_AnalysisContext_analysedElements_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_AnalysisContext_analysedElements_feature", "_UI_AnalysisContext_type"),
+                 AnalysisPackage.Literals.ANALYSIS_CONTEXT__ANALYSED_ELEMENTS,
                  true,
                  false,
                  true,

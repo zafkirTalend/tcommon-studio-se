@@ -8,6 +8,7 @@ package org.talend.dataquality.analysis;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -1000,13 +1001,13 @@ public interface AnalysisPackage extends EPackage {
     int ANALYSIS_CONTEXT__CONNECTION = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Analysed Element</b></em>' reference.
+     * The feature id for the '<em><b>Analysed Elements</b></em>' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ANALYSIS_CONTEXT__ANALYSED_ELEMENT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 1;
+    int ANALYSIS_CONTEXT__ANALYSED_ELEMENTS = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Context</em>' class.
@@ -1487,13 +1488,22 @@ public interface AnalysisPackage extends EPackage {
     int ANALYSIS_PARAMETERS__DATA_VALIDATION_DOMAINS = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Analysis Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ANALYSIS_PARAMETERS__ANALYSIS_TYPE = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Parameters</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ANALYSIS_PARAMETERS_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 3;
+    int ANALYSIS_PARAMETERS_FEATURE_COUNT = InformationreportingPackage.REPORT_GROUP_FEATURE_COUNT + 4;
 
 
     /**
@@ -2022,6 +2032,17 @@ public interface AnalysisPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.analysis.AnalysisType <em>Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.analysis.AnalysisType
+     * @see org.talend.dataquality.analysis.impl.AnalysisPackageImpl#getAnalysisType()
+     * @generated
+     */
+    int ANALYSIS_TYPE = 5;
+
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.analysis.Analysis <em>Analysis</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2097,15 +2118,15 @@ public interface AnalysisPackage extends EPackage {
     EReference getAnalysisContext_Connection();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.analysis.AnalysisContext#getAnalysedElement <em>Analysed Element</em>}'.
+     * Returns the meta object for the reference list '{@link org.talend.dataquality.analysis.AnalysisContext#getAnalysedElements <em>Analysed Elements</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Analysed Element</em>'.
-     * @see org.talend.dataquality.analysis.AnalysisContext#getAnalysedElement()
+     * @return the meta object for the reference list '<em>Analysed Elements</em>'.
+     * @see org.talend.dataquality.analysis.AnalysisContext#getAnalysedElements()
      * @see #getAnalysisContext()
      * @generated
      */
-    EReference getAnalysisContext_AnalysedElement();
+    EReference getAnalysisContext_AnalysedElements();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.analysis.AnalysisParameters <em>Parameters</em>}'.
@@ -2149,6 +2170,17 @@ public interface AnalysisPackage extends EPackage {
      * @generated
      */
     EReference getAnalysisParameters_DataValidationDomains();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.AnalysisParameters#getAnalysisType <em>Analysis Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Analysis Type</em>'.
+     * @see org.talend.dataquality.analysis.AnalysisParameters#getAnalysisType()
+     * @see #getAnalysisParameters()
+     * @generated
+     */
+    EAttribute getAnalysisParameters_AnalysisType();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.analysis.AnalysisResult <em>Result</em>}'.
@@ -2237,6 +2269,16 @@ public interface AnalysisPackage extends EPackage {
     EAttribute getExecutionInformations_ExecutionDuration();
 
     /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.analysis.AnalysisType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Type</em>'.
+     * @see org.talend.dataquality.analysis.AnalysisType
+     * @generated
+     */
+    EEnum getAnalysisType();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2319,12 +2361,12 @@ public interface AnalysisPackage extends EPackage {
         EReference ANALYSIS_CONTEXT__CONNECTION = eINSTANCE.getAnalysisContext_Connection();
 
         /**
-         * The meta object literal for the '<em><b>Analysed Element</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Analysed Elements</b></em>' reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference ANALYSIS_CONTEXT__ANALYSED_ELEMENT = eINSTANCE.getAnalysisContext_AnalysedElement();
+        EReference ANALYSIS_CONTEXT__ANALYSED_ELEMENTS = eINSTANCE.getAnalysisContext_AnalysedElements();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.analysis.impl.AnalysisParametersImpl <em>Parameters</em>}' class.
@@ -2359,6 +2401,14 @@ public interface AnalysisPackage extends EPackage {
          * @generated
          */
         EReference ANALYSIS_PARAMETERS__DATA_VALIDATION_DOMAINS = eINSTANCE.getAnalysisParameters_DataValidationDomains();
+
+        /**
+         * The meta object literal for the '<em><b>Analysis Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ANALYSIS_PARAMETERS__ANALYSIS_TYPE = eINSTANCE.getAnalysisParameters_AnalysisType();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.analysis.impl.AnalysisResultImpl <em>Result</em>}' class.
@@ -2427,6 +2477,16 @@ public interface AnalysisPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_INFORMATIONS__EXECUTION_DURATION = eINSTANCE.getExecutionInformations_ExecutionDuration();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.analysis.AnalysisType <em>Type</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.analysis.AnalysisType
+         * @see org.talend.dataquality.analysis.impl.AnalysisPackageImpl#getAnalysisType()
+         * @generated
+         */
+        EEnum ANALYSIS_TYPE = eINSTANCE.getAnalysisType();
 
     }
 

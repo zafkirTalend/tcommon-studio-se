@@ -23,6 +23,8 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.talend.dataquality.analysis.AnalysisPackage;
 import org.talend.dataquality.analysis.AnalysisParameters;
 
@@ -68,6 +70,7 @@ public class AnalysisParametersItemProvider
             addDataFilterPropertyDescriptor(object);
             addIndicatorValidationDomainsPropertyDescriptor(object);
             addDataValidationDomainsPropertyDescriptor(object);
+            addAnalysisTypePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -139,6 +142,28 @@ public class AnalysisParametersItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Analysis Type feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addAnalysisTypePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_AnalysisParameters_analysisType_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_AnalysisParameters_analysisType_feature", "_UI_AnalysisParameters_type"),
+                 AnalysisPackage.Literals.ANALYSIS_PARAMETERS__ANALYSIS_TYPE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns AnalysisParameters.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -173,6 +198,12 @@ public class AnalysisParametersItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(AnalysisParameters.class)) {
+            case AnalysisPackage.ANALYSIS_PARAMETERS__ANALYSIS_TYPE:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 

@@ -24,6 +24,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroup;
  *   <li>{@link org.talend.dataquality.analysis.AnalysisParameters#getDataFilter <em>Data Filter</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisParameters#getIndicatorValidationDomains <em>Indicator Validation Domains</em>}</li>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisParameters#getDataValidationDomains <em>Data Validation Domains</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.AnalysisParameters#getAnalysisType <em>Analysis Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,5 +82,34 @@ public interface AnalysisParameters extends ReportGroup {
      * @generated
      */
     EList<Domain> getDataValidationDomains();
+
+    /**
+     * Returns the value of the '<em><b>Analysis Type</b></em>' attribute.
+     * The literals are from the enumeration {@link org.talend.dataquality.analysis.AnalysisType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Analysis Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Analysis Type</em>' attribute.
+     * @see org.talend.dataquality.analysis.AnalysisType
+     * @see #setAnalysisType(AnalysisType)
+     * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisParameters_AnalysisType()
+     * @model
+     * @generated
+     */
+    AnalysisType getAnalysisType();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.analysis.AnalysisParameters#getAnalysisType <em>Analysis Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Analysis Type</em>' attribute.
+     * @see org.talend.dataquality.analysis.AnalysisType
+     * @see #getAnalysisType()
+     * @generated
+     */
+    void setAnalysisType(AnalysisType value);
 
 } // AnalysisParameters

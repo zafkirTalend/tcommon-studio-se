@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_Nwj_4PQrEdyubdWj5a9KaA">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_gZ_OQM59Edye0-CeUl0BxA">
   <model href="dataquality.ecore#/"/>
   <subdiagrams xmi:id="_NJJ5YMROEdybWP_3i664pg">
     <model href="dataquality.ecore#//indicators"/>
-    <diagrams xmi:id="_NJROIMROEdybWP_3i664pg" position="0,0" size="100,100" name="indicators" viewport="0,93">
+    <diagrams xmi:id="_NJROIMROEdybWP_3i664pg" position="0,0" size="100,100" name="indicators" viewport="0,0">
       <property xmi:id="_NJvvQMROEdybWP_3i664pg" key="pageFormatName" value="A4"/>
       <property xmi:id="_NJvvQcROEdybWP_3i664pg" key="diagramWidth" value="840"/>
       <property xmi:id="_NJvvQsROEdybWP_3i664pg" key="diagramHeight" value="1188"/>
@@ -1685,7 +1685,7 @@
   </subdiagrams>
   <subdiagrams xmi:id="_jZjj4MRPEdybWP_3i664pg">
     <model href="dataquality.ecore#//analysis"/>
-    <diagrams xmi:id="_jZpqgMRPEdybWP_3i664pg" position="0,0" size="100,100" name="Analysis" viewport="0,142">
+    <diagrams xmi:id="_jZpqgMRPEdybWP_3i664pg" position="0,0" size="100,100" name="Analysis" viewport="0,147">
       <property xmi:id="_jaHkkMRPEdybWP_3i664pg" key="pageFormatName" value="A4"/>
       <property xmi:id="_jaHkkcRPEdybWP_3i664pg" key="diagramWidth" value="840"/>
       <property xmi:id="_jaHkksRPEdybWP_3i664pg" key="diagramHeight" value="1188"/>
@@ -1927,7 +1927,7 @@
       </contained>
       <contained xsi:type="di:GraphEdge" xmi:id="_NSzjUMgtEdyQB43bWInoVA" anchor="_VQmVwMgsEdyQB43bWInoVA _NSy8QMgtEdyQB43bWInoVA">
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NSzjUcgtEdyQB43bWInoVA" presentation="default">
-          <element href="dataquality.ecore#//analysis/AnalysisContext/analysedElement"/>
+          <element href="dataquality.ecore#//analysis/AnalysisContext/analysedElements"/>
         </semanticModel>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_NSzjUsgtEdyQB43bWInoVA" id="nameLabel" uDistance="12" vDistance="9"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_NSzjU8gtEdyQB43bWInoVA" id="cardinalityLabel" uDistance="17" vDistance="-2"/>
@@ -2135,6 +2135,11 @@
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_rRduJM59Edye0-CeUl0BxA" presentation="default">
             <element href="dataquality.ecore#//analysis/AnalysisParameters"/>
           </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_BjtkQPT2Edy21Iq0Ol5djA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_BjtkQfT2Edy21Iq0Ol5djA" presentation="default">
+              <element href="dataquality.ecore#//analysis/AnalysisParameters/analysisType"/>
+            </semanticModel>
+          </contained>
         </contained>
         <contained xsi:type="di:GraphNode" xmi:id="_rRduJc59Edye0-CeUl0BxA">
           <property xmi:id="_rRduJs59Edye0-CeUl0BxA" key="eStructuralFeatureID" value="11"/>
@@ -2200,6 +2205,37 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_wvgEIs59Edye0-CeUl0BxA" id="nameLabel" uDistance="12" vDistance="14"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_wvgEI859Edye0-CeUl0BxA" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
         <waypoints>[0, 155, -367, 0]</waypoints>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_93Y48PT0Edy21Iq0Ol5djA" position="603,141" size="149,-1">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_93Y48fT0Edy21Iq0Ol5djA" presentation="default">
+          <element href="dataquality.ecore#//analysis/AnalysisType"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_93Y48vT0Edy21Iq0Ol5djA">
+          <property xmi:id="_93Y48_T0Edy21Iq0Ol5djA" key="eStructuralFeatureID" value="9"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_93Y49PT0Edy21Iq0Ol5djA" presentation="default">
+            <element href="dataquality.ecore#//analysis/AnalysisType"/>
+          </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="__EnhEPT0Edy21Iq0Ol5djA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="__EnhEfT0Edy21Iq0Ol5djA" presentation="default">
+              <element href="dataquality.ecore#//analysis/AnalysisType/COLUMN"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_Dke-ovT1Edy21Iq0Ol5djA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Dke-o_T1Edy21Iq0Ol5djA" presentation="default">
+              <element href="dataquality.ecore#//analysis/AnalysisType/COLUMNS_COMPARISON"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_KHD60PT1Edy21Iq0Ol5djA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_KHD60fT1Edy21Iq0Ol5djA" presentation="default">
+              <element href="dataquality.ecore#//analysis/AnalysisType/TABLE"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_LbhMUvT1Edy21Iq0Ol5djA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_LbhMU_T1Edy21Iq0Ol5djA" presentation="default">
+              <element href="dataquality.ecore#//analysis/AnalysisType/TABLE_COMPARISON"/>
+            </semanticModel>
+          </contained>
+        </contained>
       </contained>
     </diagrams>
     <diagrams xmi:id="_dJN3cNaIEdyuA5s-GqTORg" position="0,0" size="100,100" name="inheritance" viewport="0,0">

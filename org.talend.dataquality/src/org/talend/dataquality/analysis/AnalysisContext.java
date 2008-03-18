@@ -26,7 +26,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportGroup;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.dataquality.analysis.AnalysisContext#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.talend.dataquality.analysis.AnalysisContext#getAnalysedElement <em>Analysed Element</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.AnalysisContext#getAnalysedElements <em>Analysed Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,28 +62,18 @@ public interface AnalysisContext extends ReportGroup {
     void setConnection(DataManager value);
 
     /**
-     * Returns the value of the '<em><b>Analysed Element</b></em>' reference.
+     * Returns the value of the '<em><b>Analysed Elements</b></em>' reference list.
+     * The list contents are of type {@link orgomg.cwm.objectmodel.core.ModelElement}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * the analysed object (could be a Catalog, a Schema, a Table, a ColumnSet, a Column, ...)
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Analysed Element</em>' reference.
-     * @see #setAnalysedElement(ModelElement)
-     * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisContext_AnalysedElement()
+     * @return the value of the '<em>Analysed Elements</em>' reference list.
+     * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisContext_AnalysedElements()
      * @model
      * @generated
      */
-    ModelElement getAnalysedElement();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.analysis.AnalysisContext#getAnalysedElement <em>Analysed Element</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Analysed Element</em>' reference.
-     * @see #getAnalysedElement()
-     * @generated
-     */
-    void setAnalysedElement(ModelElement value);
+    EList<ModelElement> getAnalysedElements();
 
 } // AnalysisContext

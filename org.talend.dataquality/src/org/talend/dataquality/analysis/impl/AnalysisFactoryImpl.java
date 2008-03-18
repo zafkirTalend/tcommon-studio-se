@@ -7,6 +7,7 @@
 package org.talend.dataquality.analysis.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -75,6 +76,36 @@ public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
+    public Object createFromString(EDataType eDataType, String initialValue) {
+        switch (eDataType.getClassifierID()) {
+            case AnalysisPackage.ANALYSIS_TYPE:
+                return createAnalysisTypeFromString(eDataType, initialValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String convertToString(EDataType eDataType, Object instanceValue) {
+        switch (eDataType.getClassifierID()) {
+            case AnalysisPackage.ANALYSIS_TYPE:
+                return convertAnalysisTypeToString(eDataType, instanceValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Analysis createAnalysis() {
         AnalysisImpl analysis = new AnalysisImpl();
         return analysis;
@@ -118,6 +149,26 @@ public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory
     public ExecutionInformations createExecutionInformations() {
         ExecutionInformationsImpl executionInformations = new ExecutionInformationsImpl();
         return executionInformations;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AnalysisType createAnalysisTypeFromString(EDataType eDataType, String initialValue) {
+        AnalysisType result = AnalysisType.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertAnalysisTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
     }
 
     /**

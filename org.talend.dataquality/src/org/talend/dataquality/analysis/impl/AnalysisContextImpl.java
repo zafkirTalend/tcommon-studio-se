@@ -40,7 +40,7 @@ import orgomg.cwmx.analysis.informationreporting.impl.ReportGroupImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl#getAnalysedElement <em>Analysed Element</em>}</li>
+ *   <li>{@link org.talend.dataquality.analysis.impl.AnalysisContextImpl#getAnalysedElements <em>Analysed Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,14 +58,14 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
     protected DataManager connection;
 
     /**
-     * The cached value of the '{@link #getAnalysedElement() <em>Analysed Element</em>}' reference.
+     * The cached value of the '{@link #getAnalysedElements() <em>Analysed Elements</em>}' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getAnalysedElement()
+     * @see #getAnalysedElements()
      * @generated
      * @ordered
      */
-    protected ModelElement analysedElement;
+    protected EList<ModelElement> analysedElements;
 
     /**
      * <!-- begin-user-doc -->
@@ -129,37 +129,11 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
      * <!-- end-user-doc -->
      * @generated
      */
-    public ModelElement getAnalysedElement() {
-        if (analysedElement != null && analysedElement.eIsProxy()) {
-            InternalEObject oldAnalysedElement = (InternalEObject)analysedElement;
-            analysedElement = (ModelElement)eResolveProxy(oldAnalysedElement);
-            if (analysedElement != oldAnalysedElement) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT, oldAnalysedElement, analysedElement));
-            }
+    public EList<ModelElement> getAnalysedElements() {
+        if (analysedElements == null) {
+            analysedElements = new EObjectResolvingEList<ModelElement>(ModelElement.class, this, AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENTS);
         }
-        return analysedElement;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ModelElement basicGetAnalysedElement() {
-        return analysedElement;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setAnalysedElement(ModelElement newAnalysedElement) {
-        ModelElement oldAnalysedElement = analysedElement;
-        analysedElement = newAnalysedElement;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT, oldAnalysedElement, analysedElement));
+        return analysedElements;
     }
 
     /**
@@ -173,9 +147,8 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
             case AnalysisPackage.ANALYSIS_CONTEXT__CONNECTION:
                 if (resolve) return getConnection();
                 return basicGetConnection();
-            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
-                if (resolve) return getAnalysedElement();
-                return basicGetAnalysedElement();
+            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENTS:
+                return getAnalysedElements();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -192,8 +165,9 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
             case AnalysisPackage.ANALYSIS_CONTEXT__CONNECTION:
                 setConnection((DataManager)newValue);
                 return;
-            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
-                setAnalysedElement((ModelElement)newValue);
+            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENTS:
+                getAnalysedElements().clear();
+                getAnalysedElements().addAll((Collection<? extends ModelElement>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -210,8 +184,8 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
             case AnalysisPackage.ANALYSIS_CONTEXT__CONNECTION:
                 setConnection((DataManager)null);
                 return;
-            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
-                setAnalysedElement((ModelElement)null);
+            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENTS:
+                getAnalysedElements().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -227,8 +201,8 @@ public class AnalysisContextImpl extends ReportGroupImpl implements AnalysisCont
         switch (featureID) {
             case AnalysisPackage.ANALYSIS_CONTEXT__CONNECTION:
                 return connection != null;
-            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENT:
-                return analysedElement != null;
+            case AnalysisPackage.ANALYSIS_CONTEXT__ANALYSED_ELEMENTS:
+                return analysedElements != null && !analysedElements.isEmpty();
         }
         return super.eIsSet(featureID);
     }
