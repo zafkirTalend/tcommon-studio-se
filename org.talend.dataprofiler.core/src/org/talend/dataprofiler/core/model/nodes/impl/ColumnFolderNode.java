@@ -56,9 +56,13 @@ public class ColumnFolderNode extends AbstractFolderNode {
                 return;
             }
             Package parentCatalogOrSchema = ColumnSetHelper.getParentCatalogOrSchema(columnSet);
-            // TODO rli handle case when parentCatalogOrSchema = null
+            if (parentCatalogOrSchema == null) {
+                return;
+            }
             TdDataProvider provider = DataProviderHelper.getTdDataProvider(parentCatalogOrSchema);
-            // TODO rli handle case when provider = null
+            if (provider == null) {
+                return;
+            }
             columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
             // store tables in catalog
             ColumnSetHelper.addColumns(columnSet, columnList);

@@ -31,6 +31,8 @@ import org.talend.dataprofiler.core.model.SupportDBUrlType;
  */
 public class BasicThreePartURLSetupControl extends URLSetupControl {
 
+    private Text urlText;
+
     public BasicThreePartURLSetupControl(Composite parent, SupportDBUrlType dbType) {
         super(parent, dbType);
     }
@@ -97,7 +99,7 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
 
         label = new Label(parent, SWT.NONE);
         label.setText("Url");
-        final Text urlText = new Text(parent, SWT.BORDER | SWT.SINGLE);
+        urlText = new Text(parent, SWT.BORDER | SWT.SINGLE);
         urlText.setEditable(false);
         urlText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         urlText.setText(getConnectionURL());
@@ -163,5 +165,16 @@ public class BasicThreePartURLSetupControl extends URLSetupControl {
             }
 
         });
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.wizard.urlsetup.URLSetupControl#setConnectionURL(java.lang.String)
+     */
+    @Override
+    public void setConnectionURL(String connectionURL) {
+        super.setConnectionURL(connectionURL);
+        if (urlText != null) {
+            this.urlText.setText(connectionURL);
+        }
     }
 }

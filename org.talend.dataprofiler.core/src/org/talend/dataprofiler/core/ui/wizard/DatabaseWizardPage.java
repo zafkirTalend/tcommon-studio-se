@@ -65,6 +65,8 @@ class DatabaseWizardPage extends WizardPage {
     private Button checkButton;
 
     private ConnectionParameters connectionParam;
+    
+    private boolean dbTypeSwitchFlag = false;
 
     private PropertyChangeListener listener = new PropertyChangeListener() {
 
@@ -143,6 +145,7 @@ class DatabaseWizardPage extends WizardPage {
             public void widgetSelected(SelectionEvent e) {
                 String selectedItem = ((Combo) e.getSource()).getText();
                 setDBType(selectedItem);
+                dbTypeSwitchFlag = true;
                 rebuildJDBCControls(SupportDBUrlStore.getInstance().getDBUrlType(selectedItem));
             }
         });
@@ -199,7 +202,6 @@ class DatabaseWizardPage extends WizardPage {
     private ReturnCode checkDBConnection() {
         ReturnCode returnCode = ConnectionService.checkConnection(this.connectionParam.getJdbcUrl(), this.connectionParam
                 .getDriverClassName(), this.connectionParam.getParameters());
-//        com.m
         return returnCode;
     }
 
@@ -218,7 +220,7 @@ class DatabaseWizardPage extends WizardPage {
             data.horizontalSpan = 2;
             this.urlSetupControl.setLayoutData(data);
 
-            if (connectionURL != null) {
+            if (connectionURL != null && !dbTypeSwitchFlag) {
                 urlSetupControl.setConnectionURL(connectionURL);
             } else {
                 setConnectionURL(this.urlSetupControl.getConnectionURL());

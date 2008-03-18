@@ -46,7 +46,9 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
         }
 
         TdDataProvider provider = DataProviderHelper.getTdDataProvider(pack);
-        // TODO rli handle case when provider = null
+        if (provider == null) {
+            return;
+        }
 
         // load from database
         loadColumnSets(catalog, schema, provider, columnSets);
