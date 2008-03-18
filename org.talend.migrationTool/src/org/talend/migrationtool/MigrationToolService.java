@@ -13,6 +13,8 @@
 package org.talend.migrationtool;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -64,6 +66,13 @@ public class MigrationToolService implements IMigrationToolService {
         List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
         boolean needSave = false;
+
+        Collections.sort(toExecute, new Comparator<IProjectMigrationTask>() {
+
+            public int compare(IProjectMigrationTask o1, IProjectMigrationTask o2) {
+                return o1.getOrder().compareTo(o2.getOrder());
+            }
+        });
 
         for (IProjectMigrationTask task : toExecute) {
 
@@ -158,6 +167,13 @@ public class MigrationToolService implements IMigrationToolService {
             }
         }
         // --------------------------------------------------------------------------------------------------
+
+        Collections.sort(toExecute, new Comparator<IWorkspaceMigrationTask>() {
+
+            public int compare(IWorkspaceMigrationTask o1, IWorkspaceMigrationTask o2) {
+                return o1.getOrder().compareTo(o2.getOrder());
+            }
+        });
 
         for (IWorkspaceMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {

@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.prefs;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.talend.core.CorePlugin;
@@ -53,4 +55,8 @@ public class InitConnectionsMigrationTask extends AbstractMigrationTask implemen
         return true;
     }
 
+    public Date getOrder() {
+        GregorianCalendar gc = new GregorianCalendar(2008, 2, 17, 12, 0, 0);
+        return gc.getTime();
+    }
 }

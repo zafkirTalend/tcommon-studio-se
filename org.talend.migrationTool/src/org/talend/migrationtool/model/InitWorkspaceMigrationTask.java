@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.migrationtool.model;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.talend.core.model.migration.AbstractMigrationTask;
 import org.talend.core.model.migration.IWorkspaceMigrationTask;
 
@@ -27,4 +30,8 @@ public class InitWorkspaceMigrationTask extends AbstractMigrationTask implements
         return true;
     }
 
+    public Date getOrder() {
+        GregorianCalendar gc = new GregorianCalendar(2008, 2, 17, 12, 0, 0);
+        return gc.getTime();
+    }
 }

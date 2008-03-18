@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
+import java.util.Date;
+
 /**
  * Define an atomic migration task to run on a workspace to assure comptibility trough Talend versions. See
  * org.talend.core.migrationTask extension point.<br/>
@@ -30,4 +32,7 @@ public interface IWorkspaceMigrationTask {
     public void setName(String name);
 
     public boolean execute();
+
+    // Use to manage task order. Tasks are sorted (ASC) by this date, then executed following this order.
+    public Date getOrder();
 }

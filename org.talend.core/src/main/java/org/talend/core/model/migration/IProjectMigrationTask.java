@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
+import java.util.Date;
+
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 
@@ -41,6 +43,9 @@ public interface IProjectMigrationTask {
     public ExecutionResult execute(Project project);
 
     public ExecutionResult execute(Project project, Item item);
+
+    // Use to manage task order. Tasks are sorted (ASC) by this date, then executed following this order.
+    public Date getOrder();
 
     /**
      * Represents the execution status of this task.
