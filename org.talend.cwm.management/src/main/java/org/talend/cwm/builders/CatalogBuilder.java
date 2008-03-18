@@ -202,11 +202,18 @@ public class CatalogBuilder extends CwmBuilder {
         Set<String> catNames = catalog2schemas.keySet();
         for (String catName : catNames) {
             List<TdSchema> schemas = catalog2schemas.get(catName);
-            if (catName != null) {
+            if (catName != null) { // a mapping between catalog and schema exist
                 TdCatalog catalog = name2catalog.get(catName);
                 CatalogHelper.addSchemas(schemas, catalog);
             } else {
                 this.schemata.addAll(schemas);
+                // handle case when one catalog exist but no mapping between catalog and schemas exist (PostgreSQL)
+                if (catNames.size() == 1) {
+                    if (this.name2catalog.size() == 1) { // a catalog exists
+                        TdCatalog cat = this.name2catalog.values().iterator().next();
+                        CatalogHelper.addSchemas(schemas, cat);
+                    }
+                }
             }
         }
 

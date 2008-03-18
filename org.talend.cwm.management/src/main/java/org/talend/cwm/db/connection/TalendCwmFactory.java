@@ -113,8 +113,8 @@ public final class TalendCwmFactory {
         }
 
         if (log.isInfoEnabled()) {
-            log.info(catalogs.size() + " catalogs loaded from database");
-            log.info(schemata.size() + " schemata loaded from database");
+            log.info(catalogs.size() + " catalog(s) loaded from database");
+            log.info(schemata.size() + " schema(s) loaded from database");
         }
         // --- print some informations
         if (log.isDebugEnabled()) {

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model;
 
-
 /**
  * DOC rli class global comment. Detailled comment <br/>
  * 
@@ -29,7 +28,7 @@ public enum SupportDBUrlType {
                     "localhost", //$NON-NLS-1$
                     "3306", //$NON-NLS-1$
                     "dbname", //$NON-NLS-1$
-                    "?",  //$NON-NLS-1$
+                    "?", //$NON-NLS-1$
                     "org.gjt.mm.mysql.Driver", //$NON-NLS-1$
                     null), //$NON-NLS-1$
     ORACLEDEFAULTURL("Oracle", //$NON-NLS-1$
@@ -43,7 +42,7 @@ public enum SupportDBUrlType {
                     "localhost", //$NON-NLS-1$
                     "1433", //$NON-NLS-1$
                     "dbname", //$NON-NLS-1$
-                    ";",  //$NON-NLS-1$
+                    ";", //$NON-NLS-1$
                     "net.sourceforge.jtds.jdbc.Driver", //$NON-NLS-1$
                     null), //$NON-NLS-1$
     DB2DEFAULTURL("DB2", //$NON-NLS-1$
@@ -55,7 +54,7 @@ public enum SupportDBUrlType {
                   null), //$NON-NLS-1$
     POSTGRESQLEFAULTURL("PostgreSQL", //$NON-NLS-1$
                         "localhost", //$NON-NLS-1$
-                        "5423", //$NON-NLS-1$
+                        "5432", //$NON-NLS-1$
                         "dbname", //$NON-NLS-1$
                         null,
                         "org.postgresql.Driver", //$NON-NLS-1$
@@ -95,25 +94,24 @@ public enum SupportDBUrlType {
 
     private final String port;
 
-    private  String dbName;
-    
+    private String dbName;
+
     private final String paramSeprator;
 
     private final String dbDriver;
 
     private final String dataSource;
 
-    SupportDBUrlType(String dbKey, String hostName, String port, String dbName,
-			String paramSeprator, String dbDriver,
-			String datasource) {
-		this.dbKey = dbKey;
-		this.hostName = hostName;
-		this.port = port;
-		this.dbName = dbName;
-		this.paramSeprator = paramSeprator;
-		this.dbDriver = dbDriver;
-		this.dataSource = datasource;
-	}
+    SupportDBUrlType(String dbKey, String hostName, String port, String dbName, String paramSeprator, String dbDriver,
+            String datasource) {
+        this.dbKey = dbKey;
+        this.hostName = hostName;
+        this.port = port;
+        this.dbName = dbName;
+        this.paramSeprator = paramSeprator;
+        this.dbDriver = dbDriver;
+        this.dataSource = datasource;
+    }
 
     public String getHostName() {
         return hostName;
@@ -122,7 +120,7 @@ public enum SupportDBUrlType {
     public String getPort() {
         return port;
     }
-    
+
     public void setDBName(String dbName) {
         this.dbName = dbName;
     }
@@ -148,8 +146,8 @@ public enum SupportDBUrlType {
         return dataSource;
     }
 
-	public String getParamSeprator() {
-		return paramSeprator;
-	}
+    public String getParamSeprator() {
+        return paramSeprator;
+    }
 
 }
