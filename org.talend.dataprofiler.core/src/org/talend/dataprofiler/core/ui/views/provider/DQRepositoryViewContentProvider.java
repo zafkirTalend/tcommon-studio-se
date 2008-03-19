@@ -18,6 +18,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.helper.FolderNodeHelper;
 import org.talend.dataprofiler.core.model.nodes.IFolderNode;
@@ -49,6 +51,13 @@ public class DQRepositoryViewContentProvider extends
                 folerNode.loadChildren();
             }
             return folerNode.getChildren();
+        } else if (SwitchHelpers.CATALOG_SWITCH.doSwitch((EObject) parentElement) != null) {
+            if (CatalogHelper.getSchemas(SwitchHelpers.CATALOG_SWITCH.doSwitch((EObject) parentElement)).size() > 0) {
+                return super.getChildren(parentElement);
+            } else {
+                FolderNodeHelper.getFolderNode((EObject) parentElement);
+            }
+
         } else {
             return FolderNodeHelper.getFolderNode((EObject) parentElement);
         }

@@ -114,6 +114,18 @@
 		         </or>
          </enablement> 
      </navigatorContent>
+      <actionProvider
+            class="org.talend.dataprofiler.core.ui.action.provider.NewAnalysisActionProvider"
+            id="org.talend.dataprofiler.core.ui.action.provider.NewAnalysisActionProvider">
+            <enablement> 
+        			<or>
+						<adapt type="org.eclipse.core.resources.IResource" />	 
+						<adapt type="java.util.Collection"> 
+							<count value="0" />
+						</adapt>
+					</or>
+	         </enablement>
+      </actionProvider>
        
   </extension>
     
@@ -163,6 +175,16 @@
         <DataprofilerPerspective
          refPerspectiveId="net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective"
          dataprofilerPerspectiveName="Data Discovery"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.talend.dataprofiler.core.ui.editor.AnalysisEditor"
+            extensions="ana"
+            icon="icons/sample.gif"
+            id="org.talend.dataprofiler.core.ui.editor.AnalysisEditor"
+            name="AnalysisEditor">
+      </editor>
    </extension>
 
 </plugin>

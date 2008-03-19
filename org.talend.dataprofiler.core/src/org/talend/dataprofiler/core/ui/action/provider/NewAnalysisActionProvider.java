@@ -12,44 +12,44 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.provider;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
+import org.talend.commons.emf.FactoriesUtil;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
-import org.talend.dataprofiler.core.ui.wizard.DatabaseConnectionWizard;
+
 
 /**
  * @author rli
- * 
+ *
  */
-public class NewConnectionActionProvider extends CommonActionProvider {
+public class NewAnalysisActionProvider extends CommonActionProvider {
 
-    /**
-     * 
-     */
-    public NewConnectionActionProvider() {
+    public NewAnalysisActionProvider() {
     }
 
-    private IAction createConnectionAction;
+    private IAction createAnalysisAction;
 
     private String selectedFolderName;
 
     public void init(ICommonActionExtensionSite anExtensionSite) {
 
         if (anExtensionSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
-            createConnectionAction = new CreateConnectionAction();
+            createAnalysisAction = new CreateNewAnalysisAction();
         }
     }
 
@@ -75,9 +75,8 @@ public class NewConnectionActionProvider extends CommonActionProvider {
 
         if (obj instanceof IFolder) {
             selectedFolderName = ((IFolder) obj).getName();
-            if (selectedFolderName.equals(DQStructureManager.DB_CONNECTIONS)) {
-                menu.add(createConnectionAction);
-                // menu.insertBefore("group.edit", createConnectionAction);
+            if (selectedFolderName.equals(DQStructureManager.ANALYSIS)) {
+                menu.add(createAnalysisAction);
             }
         }
     }
@@ -86,10 +85,10 @@ public class NewConnectionActionProvider extends CommonActionProvider {
      * @author rli
      * 
      */
-    class CreateConnectionAction extends Action {
+    class CreateNewAnalysisAction extends Action {
 
-        public CreateConnectionAction() {
-            super("Create a new connection");
+        public CreateNewAnalysisAction() {
+            super("New Analysis");
             setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
         }
 
@@ -97,12 +96,19 @@ public class NewConnectionActionProvider extends CommonActionProvider {
          * (non-Javadoc) Method declared on IAction.
          */
         public void run() {
-            DatabaseConnectionWizard wizard = new DatabaseConnectionWizard(PlatformUI.getWorkbench(), true, null, null);
-            wizard.init(PlatformUI.getWorkbench(), null);
-            WizardDialog dialog = new WizardDialog(null, wizard);
-            dialog.setPageSize(600, 320);
-            dialog.open();
+            IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.DATA_PROFILING).getFolder(
+                    DQStructureManager.ANALYSIS);
+            IFile newFile = folder.getFile("sample." + FactoriesUtil.ANA);
+            if (newFile.exists()) {
+                return;
+            }
+            try {
+                newFile.create(new ByteArrayInputStream(new byte[0]), false, null);
+            } catch (CoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
-
+    
 }

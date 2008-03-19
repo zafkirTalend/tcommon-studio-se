@@ -18,7 +18,8 @@ Require-Bundle: org.talend.dataprofiler.libraries,
  org.talend.utils,
  org.eclipse.emf.edit.ui,
  org.talend.cwm.ext.edit,
- org.eclipse.ui.navigator.resources
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.ui.forms
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core.i18n,
  org.talend.dataprofiler.core.ui.perspective,

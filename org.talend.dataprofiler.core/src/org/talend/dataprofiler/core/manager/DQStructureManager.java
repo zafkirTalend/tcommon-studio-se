@@ -36,6 +36,10 @@ import org.talend.dataprofiler.core.ui.progress.ProgressUI;
  */
 public final class DQStructureManager {
 
+    public static final String DATA_PROFILING = "Data Profiling";
+
+    public static final String ANALYSIS = "Analysis";
+
     /**
      * String for the DB connections folder.
      */
@@ -56,8 +60,8 @@ public final class DQStructureManager {
         Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
         try {
             // create "Data Profiling" project
-            IProject project = this.createNewProject("Data Profiling", shell);
-            this.createNewFoler(project, "Analysis");
+            IProject project = this.createNewProject(DATA_PROFILING, shell);
+            this.createNewFoler(project, ANALYSIS);
             this.createNewFoler(project, "Reports");
             // create "Libraries" project
             project = this.createNewProject("Libraries", shell);
