@@ -16,7 +16,8 @@ Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.oracle;resolution:=optional,
  org.talend.libraries.jdbc.db2;resolution:=optional
 Bundle-Vendor: .Talend SA.
-Export-Package: org.talend.cwm.management.api,
+Export-Package: org.talend.commons.emf,
+ org.talend.cwm.management.api,
  org.talend.cwm.management.connection
 Bundle-ClassPath: .
 Eclipse-RegisterBuddy: org.talend.utils
