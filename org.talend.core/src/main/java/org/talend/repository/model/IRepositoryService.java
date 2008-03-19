@@ -81,4 +81,6 @@ public interface IRepositoryService extends IService {
     public void setRCPMode();
 
     public boolean isFromRecycleBin(RepositoryNode node);
+
+    public void openMetadataConnection(IRepositoryObject o);
 }

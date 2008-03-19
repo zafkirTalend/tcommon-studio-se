@@ -159,7 +159,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return the selection
      */
-    public final ISelection getSelection() {
+    public ISelection getSelection() {
         // useful for version property tab
         if (getActivePage().getActivePart() instanceof PropertySheet) {
             return getActivePage().getSelection();
