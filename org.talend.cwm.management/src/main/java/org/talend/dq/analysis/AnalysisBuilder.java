@@ -177,6 +177,11 @@ public class AnalysisBuilder {
         return true;
     }
 
+    /**
+     * Method "getAnalysis".
+     * 
+     * @return the analysis built and filled in other methods.
+     */
     public Analysis getAnalysis() {
         return this.analysis;
     }

@@ -51,6 +51,17 @@ public final class DataProviderHelper {
     }
 
     /**
+     * Method "setTechnicalName".
+     * 
+     * @param dataProvider the data provider
+     * @param technicalName the technical name of the given data provider
+     * @return true if the technical name was not set before.
+     */
+    public static boolean setTechnicalName(TdDataProvider dataProvider, String technicalName) {
+        return TaggedValueHelper.setTechnicalName(dataProvider, technicalName);
+    }
+
+    /**
      * Method "getTdDataProvider" returns the data provider when the catalog (or schema) is associated to only one data
      * provider. It returns null if there is no data provider or more than one data provider.
      * 

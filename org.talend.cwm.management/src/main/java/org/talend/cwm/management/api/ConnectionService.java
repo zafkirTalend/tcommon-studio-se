@@ -19,6 +19,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.talend.cwm.db.connection.DBConnect;
 import org.talend.cwm.db.connection.TalendCwmFactory;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.DescriptionHelper;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -85,7 +86,11 @@ public final class ConnectionService {
         TypedReturnCode<TdDataProvider> rc = new TypedReturnCode<TdDataProvider>();
         try {
             TdDataProvider dataProvider = TalendCwmFactory.createDataProvider(connector);
-            dataProvider.setName(connectionParameters.getConnectionName());
+            String connectionName = connectionParameters.getConnectionName();
+            dataProvider.setName(connectionName);
+            // set technical name
+            DataProviderHelper.setTechnicalName(dataProvider, DqRepositoryViewService
+                    .createTechnicalName(connectionName));
             DescriptionHelper.addFunctionalDescription(connectionParameters.getConnectionDescription(), dataProvider);
             DescriptionHelper.addPurpose(connectionParameters.getConnectionPurpose(), dataProvider);
             rc.setObject(dataProvider);

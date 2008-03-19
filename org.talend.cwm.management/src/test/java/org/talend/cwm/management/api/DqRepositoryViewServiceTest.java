@@ -32,6 +32,9 @@ public class DqRepositoryViewServiceTest {
 
     private static final File FOLDER = new File("out");
 
+    private static final String[] TECHNAMES = new String[] { "salut", "tu vas bien", "etage", "tage", "étage",
+            "ça promet", "&%ùöôk~n@^aâ", "è@kl£$€" };
+
     /**
      * Test method for {@link org.talend.cwm.management.api.DqRepositoryViewService#listTdDataProviders(java.io.File)}.
      */
@@ -43,6 +46,15 @@ public class DqRepositoryViewServiceTest {
         assertFalse(dataProviders.isEmpty());
         for (TdDataProvider tdDataProvider : dataProviders) {
             log.info("tdDataProvider name = " + tdDataProvider.getName());
+        }
+
+    }
+
+    @Test
+    public void testCreateTechnicalName() {
+        for (String functionalName : TECHNAMES) {
+            String technicalName = DqRepositoryViewService.createTechnicalName(functionalName);
+            System.out.println(functionalName + " -> " + technicalName);
         }
 
     }

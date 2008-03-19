@@ -108,13 +108,13 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     public boolean performFinish() {
         TypedReturnCode<TdDataProvider> rc = ConnectionService.createConnection(this.connectionProperty);
         if (!rc.isOk()) {
-            MessageDialog.openInformation(getShell(),
-                    "Create  connections", "Create connection failure:"
-                            + rc.getMessage());
+            MessageDialog.openInformation(getShell(), "Create  connections", "Create connection failure:"
+                    + rc.getMessage());
             return false;
         }
         TdDataProvider dataProvider = rc.getObject();
-        NeedSaveDataProviderHelper.register(dataProvider.getName(), dataProvider);
+        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(dataProvider.getName()),
+                dataProvider);
         // MODSCA 2008-03-10 save the provider
         if (DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, this.connectionProperty
                 .getFolderProvider())) {

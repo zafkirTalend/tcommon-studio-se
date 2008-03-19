@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.model.nodes.impl;
 import java.util.List;
 
 import org.talend.cwm.helper.DataProviderHelper;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -50,12 +51,13 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
 //            return;
 //        }
 
+        // FIXME rli do not allow to pass null argument to method. Instead throw an exception if needed
         // load from database
         loadColumnSets(catalog, schema, provider, columnSets);
         // store views in catalog or schema
         pack.getOwnedElement().addAll(columnSets);
         this.setChildren(columnSets.toArray());
-        NeedSaveDataProviderHelper.register(provider.getName(), provider);
+        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()), provider);
         this.setLoaded(true);
     }
 

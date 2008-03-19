@@ -15,7 +15,9 @@ package org.talend.cwm.helper;
 import java.util.Collection;
 import java.util.Properties;
 
+import org.eclipse.emf.common.util.EList;
 import orgomg.cwm.objectmodel.core.CoreFactory;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -24,6 +26,8 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
  * This class is a helper for handling TaggedValues.
  */
 public final class TaggedValueHelper {
+
+    public static final String TECH_NAME_TAGGED_VAL = "Technical Name";
 
     private TaggedValueHelper() {
     }
@@ -50,16 +54,31 @@ public final class TaggedValueHelper {
      * @return the value (if found) or null
      */
     public static String getValue(String tag, Collection<TaggedValue> taggedValues) {
+        TaggedValue taggedValue = getTaggedValue(tag, taggedValues);
+        if (taggedValue == null) {
+            return null;
+        }
+        return taggedValue.getValue();
+    }
+
+    /**
+     * Method "getTaggedValue" retrieves the tagged value corresponding to the first matching tag.
+     * 
+     * @param tag the tag to match
+     * @param taggedValues the tagged values in which to search for the given tag
+     * @return the tagged value (if found) or null
+     */
+    public static TaggedValue getTaggedValue(String tag, Collection<TaggedValue> taggedValues) {
         if (tag == null) {
             return null;
         }
-        String value = null;
+        TaggedValue value = null;
         for (TaggedValue taggedValue : taggedValues) {
             if (taggedValue == null) {
                 continue;
             }
             if (tag.compareTo(taggedValue.getTag()) == 0) {
-                value = taggedValue.getValue();
+                value = taggedValue;
             }
         }
         return value;
@@ -81,4 +100,24 @@ public final class TaggedValueHelper {
         }
         return properties;
     }
+
+    /**
+     * Method "setTechnicalName".
+     * 
+     * @param element the CWM model element to which a tagged value with a technical name will be attached
+     * @param technicalName the technical name of the given element
+     * @return true if the technical name was not set before.
+     */
+    public static boolean setTechnicalName(ModelElement element, String technicalName) {
+        EList<TaggedValue> taggedValues = element.getTaggedValue();
+        TaggedValue currentTechName = TaggedValueHelper.getTaggedValue(TECH_NAME_TAGGED_VAL, taggedValues);
+        boolean techNameCreate = (currentTechName == null);
+        if (techNameCreate) {
+            taggedValues.add(TaggedValueHelper.createTaggedValue(TECH_NAME_TAGGED_VAL, technicalName));
+        } else {
+            currentTechName.setValue(technicalName);
+        }
+        return techNameCreate;
+    }
+
 }

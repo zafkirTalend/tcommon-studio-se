@@ -20,8 +20,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.talend.commons.emf.EMFUtil;
@@ -40,6 +43,9 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.domain.DomainPackage;
+import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -58,15 +64,22 @@ public final class DqRepositoryViewService {
 
     private static Logger log = Logger.getLogger(DqRepositoryViewService.class);
 
+    private static final Base64 CODEC = new Base64();
+
+    private static final String B64ID = "\\[B@";
+
+    private static final String PREFIX = "tdq";
+
     private DqRepositoryViewService() {
     }
 
     /**
      * Filter on the files with extension meaning data provider.
      */
-    private static final FilenameFilter PRV_FILTER = new FilenameFilter() {
+    public static final FilenameFilter PRV_FILTER = new FilenameFilter() {
 
         public boolean accept(File dir, String name) {
+            // TODO check to path (in metadata)?
             return name != null && name.endsWith(FactoriesUtil.PROV);
         }
     };
@@ -77,15 +90,16 @@ public final class DqRepositoryViewService {
      * @param functionalName the user friendly name
      * @return the technical name created from the user given name.
      */
-    public static String createTechnicalName(String functionalName) {
+    public static String createTechnicalName(final String functionalName) {
         if (functionalName == null) {
             log.warn("A functional name should not be null");
             return "no_name";
         }
-        // TODO scorreia remove all characters such white spaces, accents, everything that is dangerous when used for
+        // remove all characters such white spaces, accents, everything that is dangerous when used for
         // file names...
-
-        return functionalName;
+        String techname = functionalName;
+        techname = CODEC.encode(functionalName.getBytes()).toString().replaceAll(B64ID, PREFIX);
+        return techname;
     }
 
     /**
@@ -265,6 +279,37 @@ public final class DqRepositoryViewService {
         return element != null ? element.getName() : null;
     }
 
+    public static boolean saveDomain(Domain domain, FolderProvider folderProvider) {
+        assert domain != null;
+
+        String folder = ((folderProvider != null) && folderProvider.getFolder() != null) ? folderProvider.getFolder()
+                .getAbsolutePath() : null;
+        if (folder == null) { // do not serialize data
+            if (log.isInfoEnabled()) {
+                log.info("Domain not serialized: no folder given.");
+            }
+            return false;
+        }
+
+        String filename = createFilename(folder, domain.getName(), DomainPackage.eNAME);
+        return saveDomain(domain, new File(filename));
+    }
+
+    private static boolean saveDomain(Domain domain, File file) {
+        EMFUtil util = new EMFUtil();
+        Resource resource = util.getResourceSet().createResource(URI.createFileURI(file.getAbsolutePath()));
+        assert resource != null;
+        EList<EObject> contents = resource.getContents();
+        contents.add(domain);
+
+        EList<RangeRestriction> ranges = domain.getRanges();
+        for (RangeRestriction rangeRestriction : ranges) {
+            contents.add(rangeRestriction.getExpressions());
+        }
+        contents.addAll(ranges);
+        return util.save();
+    }
+
     /**
      * Method "createFilename".
      * 
@@ -273,7 +318,7 @@ public final class DqRepositoryViewService {
      * @param extension the extension of the file
      * @return the path "folder/basename.extension"
      */
-    private static String createFilename(String folder, String basename, String extension) {
+    public static String createFilename(String folder, String basename, String extension) {
         return folder + File.separator + createTechnicalName(basename) + "." + extension;
     }
 

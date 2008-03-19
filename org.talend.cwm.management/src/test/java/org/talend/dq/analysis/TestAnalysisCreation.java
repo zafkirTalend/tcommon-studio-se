@@ -16,12 +16,7 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Assert;
-import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.ConnectionService;
@@ -36,7 +31,6 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.DomainFactory;
-import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.domain.sql.SqlRelationalOperator;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
@@ -88,8 +82,11 @@ public class TestAnalysisCreation {
         // get the domain constraint
         Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
         analysisBuilder.addFilterOnData(dataFilter);
-        // TODO scorreia save domain with analysisbuilder
-        saveDomain(dataFilter, new File(outputFolder + File.separator + "domain." + DomainPackage.eNAME));
+
+        // TODO scorreia save domain with analysisbuilder?
+        FolderProvider folderProvider = new FolderProvider();
+        folderProvider.setFolder(new File(outputFolder));
+        DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
 
         // run analysis
         Analysis analysis = analysisBuilder.getAnalysis();
@@ -100,8 +97,6 @@ public class TestAnalysisCreation {
                         .isOk());
 
         // save data provider
-        FolderProvider folderProvider = new FolderProvider();
-        folderProvider.setFolder(new File(outputFolder));
         DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
 
         // save analysis
@@ -112,26 +107,6 @@ public class TestAnalysisCreation {
         if (saved.isOk()) {
             log.info("Saved in  " + file.getAbsolutePath());
         }
-    }
-
-    /**
-     * DOC scorreia Comment method "saveDomain".
-     * 
-     * @param dataFilter
-     */
-    private static void saveDomain(Domain dataFilter, File file) {
-        EMFUtil util = new EMFUtil();
-        Resource resource = util.getResourceSet().createResource(URI.createFileURI(file.getAbsolutePath()));
-        assert resource != null;
-        EList<EObject> contents = resource.getContents();
-        contents.add(dataFilter);
-
-        EList<RangeRestriction> ranges = dataFilter.getRanges();
-        for (RangeRestriction rangeRestriction : ranges) {
-            contents.add(rangeRestriction.getExpressions());
-        }
-        contents.addAll(ranges);
-        util.save();
     }
 
     /**

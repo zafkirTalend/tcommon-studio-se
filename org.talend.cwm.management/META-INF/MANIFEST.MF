@@ -14,10 +14,13 @@ Require-Bundle: org.talend.libraries.apache,
  org.talend.sqltools,
  org.talend.libraries.jdbc.jtds;resolution:=optional,
  org.talend.libraries.jdbc.oracle;resolution:=optional,
- org.talend.libraries.jdbc.db2;resolution:=optional
+ org.talend.libraries.jdbc.db2;resolution:=optional,
+ org.talend.libraries.jdbc.postgresql;resolution:=optional,
+ org.talend.libraries.jdbc.sybase;resolution:=optional
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.emf,
  org.talend.cwm.management.api,
- org.talend.cwm.management.connection
+ org.talend.cwm.management.connection,
+ org.talend.dq.analysis
 Bundle-ClassPath: .
 Eclipse-RegisterBuddy: org.talend.utils
