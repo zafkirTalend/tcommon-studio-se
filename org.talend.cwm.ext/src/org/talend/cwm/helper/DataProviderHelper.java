@@ -25,6 +25,7 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
+import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
 
 /**
@@ -59,6 +60,14 @@ public final class DataProviderHelper {
     public static TdDataProvider getTdDataProvider(Package catalog) {
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(catalog.getDataManager());
         if ((tdDataProviders.isEmpty()) || (tdDataProviders.size() > 1)) {
+            // check whether given object is a schema contained in a catalog
+            Namespace cat = catalog.getNamespace();
+            if (cat != null) {
+                TdCatalog realCatalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(cat);
+                if (realCatalog != null) {
+                    return getTdDataProvider(realCatalog);
+                }
+            }
             return null;
         }
         // else
