@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sybase Plug-in
+Bundle-SymbolicName: org.talend.libraries.jdbc.sybase
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: .Talend SA.
+Bundle-ClassPath: lib/jconn3.jar,
+ .
+Export-Package: com.sybase.jdbc3.jdbc,
+ com.sybase.jdbc3.jdbc.resource,
+ com.sybase.jdbc3.tds,
+ com.sybase.jdbc3.timedio,
+ com.sybase.jdbc3.utils,
+ com.sybase.jdbc3.utils.resource,
+ com.sybase.jdbcx
