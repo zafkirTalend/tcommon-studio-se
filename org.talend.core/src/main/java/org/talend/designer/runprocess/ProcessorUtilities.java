@@ -232,13 +232,14 @@ public class ProcessorUtilities {
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem;
         String currentRelatedJobVersion = null;
-        if (jobVersion != null && jobVersion.length == 1) {
+        if (jobVersion != null && jobVersion.length == 1 && !jobVersion[0].equals("")) {
             currentRelatedJobVersion = jobVersion[0];
         }
 
         if (jobInfo.getProcess() != null) {
             // main job
-            selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
+            // selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
+            selectedProcessItem = getProcessItem(jobInfo.getJobName());
         } else if (currentRelatedJobVersion != null) {
             selectedProcessItem = getProcessItem(jobInfo.getJobName(), currentRelatedJobVersion);
         } else {
@@ -409,7 +410,8 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
         jobInfo.setContext(context);
-        boolean genCode = generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
+        boolean genCode = false;
+        genCode = generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
         jobList.clear();
         return genCode;
     }
