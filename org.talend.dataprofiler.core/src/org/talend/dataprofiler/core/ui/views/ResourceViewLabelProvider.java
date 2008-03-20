@@ -28,7 +28,7 @@ import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.helper.DataProviderMapHelper;
+import org.talend.dataprofiler.core.helper.FileResourceMapHelper;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -86,7 +86,7 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
         URI uri = URI.createPlatformResourceURI(path, true);
         ResourceSet rs = util.getResourceSet();
         Resource resource =  rs.getResource(uri, true);
-        DataProviderMapHelper.register(file, resource);
+        FileResourceMapHelper.register(file, resource);
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(resource.getContents());
         if (tdDataProviders.isEmpty()) {
             rc.setReturnCode("No Data Provider found in " + file.getFullPath(), false);

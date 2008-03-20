@@ -64,14 +64,14 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
     public void fillContextMenu(IMenuManager menu) {
         Object obj = ((TreeSelection) this.getContext().getSelection()).getFirstElement();
         List<String> removeActionList = Arrays.asList(ACTIONSETIDS);
-        for (IContributionItem item : menu.getItems()) {
-            if (item == null || item.getId() == null) {
-                continue;
-            }
-            if (removeActionList.contains(item.getId())) {
-                menu.remove(item);
-            }
-        }
+//        for (IContributionItem item : menu.getItems()) {
+//            if (item == null || item.getId() == null) {
+//                continue;
+//            }
+//            if (removeActionList.contains(item.getId())) {
+//                menu.remove(item);
+//            }
+//        }
 
         if (obj instanceof IFolder) {
             selectedFolderName = ((IFolder) obj).getName();

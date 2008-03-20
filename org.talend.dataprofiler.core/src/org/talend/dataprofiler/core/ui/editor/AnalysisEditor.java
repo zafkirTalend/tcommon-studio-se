@@ -13,10 +13,8 @@
 package org.talend.dataprofiler.core.ui.editor;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 
 /**
@@ -29,7 +27,7 @@ public class AnalysisEditor extends FormEditor {
      * 
      */
     public AnalysisEditor() {
-        // TODO Auto-generated constructor stub
+       System.out.println("Editor");
     }
 
     protected void addPages() {

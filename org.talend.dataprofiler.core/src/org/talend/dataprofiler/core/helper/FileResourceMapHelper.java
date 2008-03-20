@@ -23,9 +23,9 @@ import org.eclipse.emf.ecore.resource.Resource;
  * This class help the '.prv' file to store the corresponding DataProvider value.
  *
  */
-public final class DataProviderMapHelper {
+public final class FileResourceMapHelper {
     
-    private DataProviderMapHelper() {
+    private FileResourceMapHelper() {
 
     }
 
