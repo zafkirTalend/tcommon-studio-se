@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.internal.core.SourceField;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
-import org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal;
 import org.eclipse.jdt.ui.text.java.CompletionProposalCollector;
 import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
 import org.eclipse.jdt.ui.text.java.JavaContentAssistInvocationContext;
@@ -79,11 +78,11 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
                     }
                 }
 
-                if (firstChar != '.') {
-                    if (proposal instanceof JavaMethodCompletionProposal) {
-                        toRemove.add(proposal);
-                    }
-                }
+                // if (firstChar != '.') {
+                // if (proposal instanceof JavaMethodCompletionProposal) {
+                // toRemove.add(proposal);
+                // }
+                // }
                 if (proposal.getDisplayString().startsWith(TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
                     toRemove.add(proposal);
                 }
