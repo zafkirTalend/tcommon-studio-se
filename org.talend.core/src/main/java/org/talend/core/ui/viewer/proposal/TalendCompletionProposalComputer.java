@@ -141,7 +141,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             String description = getContextDescription(ctxParam, display);
 
             if (prefix.equals("") || display.startsWith(prefix)) {
-                TalendCompletionProposal proposal = new TalendCompletionProposal(display, offset - prefix.length(), prefix
+                TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
                         .length(), code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
                 proposal.setType(TalendCompletionProposal.CONTEXT);
                 proposals.add(proposal);
@@ -234,14 +234,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
     }
 
     private String getContextContent(IContextParameter contextParameter) {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        ECodeLanguage language = repositoryContext.getProject().getLanguage();
-        if (language == ECodeLanguage.JAVA) {
-            return contextParameter.getName();
-        } else {
-            return ContextParameterUtils.getScriptCode(contextParameter, language);
-        }
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+        return ContextParameterUtils.getNewScriptCode(contextParameter
+                .getName(), language);
 
     }
 
