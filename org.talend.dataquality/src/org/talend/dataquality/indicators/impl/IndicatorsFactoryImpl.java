@@ -36,7 +36,7 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      */
     public static IndicatorsFactory init() {
         try {
-            IndicatorsFactory theIndicatorsFactory = (IndicatorsFactory)EPackage.Registry.INSTANCE.getEFactory("http://.dataquality.indicators"); 
+            IndicatorsFactory theIndicatorsFactory = (IndicatorsFactory)EPackage.Registry.INSTANCE.getEFactory("http://dataquality.indicators"); 
             if (theIndicatorsFactory != null) {
                 return theIndicatorsFactory;
             }

@@ -36,6 +36,8 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
 
 import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 
+import org.talend.dataquality.indicators.schema.SchemaPackage;
+import org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl;
 import org.talend.dataquality.reports.ReportsPackage;
 
 import org.talend.dataquality.reports.impl.ReportsPackageImpl;
@@ -237,6 +239,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
+        SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
         SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
@@ -246,6 +249,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         theAnalysisPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
+        theSchemaPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         theDomainPackage.createPackageContents();
         theSQLPackage.createPackageContents();
@@ -255,6 +259,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         theAnalysisPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
+        theSchemaPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         theDomainPackage.initializePackageContents();
         theSQLPackage.initializePackageContents();

@@ -4,13 +4,12 @@
  *
  * $Id$
  */
-package org.talend.dataquality.reports.impl;
+package org.talend.dataquality.indicators.schema.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.dataquality.analysis.AnalysisPackage;
@@ -26,19 +25,22 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 
 import org.talend.dataquality.domain.sql.SQLPackage;
+
 import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
+
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 
+import org.talend.dataquality.indicators.schema.SchemaFactory;
+import org.talend.dataquality.indicators.schema.SchemaIndicator;
 import org.talend.dataquality.indicators.schema.SchemaPackage;
-import org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl;
-import org.talend.dataquality.reports.PresentationParameter;
-import org.talend.dataquality.reports.ReportsFactory;
+
 import org.talend.dataquality.reports.ReportsPackage;
-import org.talend.dataquality.reports.TdReport;
+
+import org.talend.dataquality.reports.impl.ReportsPackageImpl;
 
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
 
@@ -108,20 +110,13 @@ import orgomg.mof.model.ModelPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
+public class SchemaPackageImpl extends EPackageImpl implements SchemaPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass tdReportEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass presentationParameterEClass = null;
+    private EClass schemaIndicatorEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -134,12 +129,12 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see org.talend.dataquality.reports.ReportsPackage#eNS_URI
+     * @see org.talend.dataquality.indicators.schema.SchemaPackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private ReportsPackageImpl() {
-        super(eNS_URI, ReportsFactory.eINSTANCE);
+    private SchemaPackageImpl() {
+        super(eNS_URI, SchemaFactory.eINSTANCE);
     }
 
     /**
@@ -171,11 +166,11 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * @see #initializePackageContents()
      * @generated
      */
-    public static ReportsPackage init() {
-        if (isInited) return (ReportsPackage)EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI);
+    public static SchemaPackage init() {
+        if (isInited) return (SchemaPackage)EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI);
 
         // Obtain or create and register package
-        ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ReportsPackageImpl());
+        SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new SchemaPackageImpl());
 
         isInited = true;
 
@@ -214,37 +209,37 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
-        SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
         SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
-        theReportsPackage.createPackageContents();
-        theAnalysisPackage.createPackageContents();
-        theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
+        theAnalysisPackage.createPackageContents();
+        theReportsPackage.createPackageContents();
+        theIndicatorsPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         theDomainPackage.createPackageContents();
         thePatternPackage.createPackageContents();
         theSQLPackage.createPackageContents();
 
         // Initialize created meta-data
-        theReportsPackage.initializePackageContents();
-        theAnalysisPackage.initializePackageContents();
-        theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
+        theAnalysisPackage.initializePackageContents();
+        theReportsPackage.initializePackageContents();
+        theIndicatorsPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         theDomainPackage.initializePackageContents();
         thePatternPackage.initializePackageContents();
         theSQLPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theReportsPackage.freeze();
+        theSchemaPackage.freeze();
 
-        return theReportsPackage;
+        return theSchemaPackage;
     }
 
     /**
@@ -252,8 +247,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTdReport() {
-        return tdReportEClass;
+    public EClass getSchemaIndicator() {
+        return schemaIndicatorEClass;
     }
 
     /**
@@ -261,8 +256,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTdReport_PresentationParams() {
-        return (EReference)tdReportEClass.getEStructuralFeatures().get(0);
+    public EAttribute getSchemaIndicator_TotalRowCount() {
+        return (EAttribute)schemaIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -270,8 +265,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getPresentationParameter() {
-        return presentationParameterEClass;
+    public EAttribute getSchemaIndicator_TableCount() {
+        return (EAttribute)schemaIndicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -279,8 +274,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPresentationParameter_PlotType() {
-        return (EAttribute)presentationParameterEClass.getEStructuralFeatures().get(0);
+    public EAttribute getSchemaIndicator_KeyCount() {
+        return (EAttribute)schemaIndicatorEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -288,8 +283,8 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getPresentationParameter_Indicator() {
-        return (EReference)presentationParameterEClass.getEStructuralFeatures().get(1);
+    public EAttribute getSchemaIndicator_IndexCount() {
+        return (EAttribute)schemaIndicatorEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -297,8 +292,26 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public ReportsFactory getReportsFactory() {
-        return (ReportsFactory)getEFactoryInstance();
+    public EAttribute getSchemaIndicator_ViewCount() {
+        return (EAttribute)schemaIndicatorEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSchemaIndicator_TriggerCount() {
+        return (EAttribute)schemaIndicatorEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SchemaFactory getSchemaFactory() {
+        return (SchemaFactory)getEFactoryInstance();
     }
 
     /**
@@ -320,12 +333,13 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         isCreated = true;
 
         // Create classes and their features
-        tdReportEClass = createEClass(TD_REPORT);
-        createEReference(tdReportEClass, TD_REPORT__PRESENTATION_PARAMS);
-
-        presentationParameterEClass = createEClass(PRESENTATION_PARAMETER);
-        createEAttribute(presentationParameterEClass, PRESENTATION_PARAMETER__PLOT_TYPE);
-        createEReference(presentationParameterEClass, PRESENTATION_PARAMETER__INDICATOR);
+        schemaIndicatorEClass = createEClass(SCHEMA_INDICATOR);
+        createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__TOTAL_ROW_COUNT);
+        createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__TABLE_COUNT);
+        createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__KEY_COUNT);
+        createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__INDEX_COUNT);
+        createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__VIEW_COUNT);
+        createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__TRIGGER_COUNT);
     }
 
     /**
@@ -352,7 +366,6 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        InformationreportingPackage theInformationreportingPackage = (InformationreportingPackage)EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI);
         IndicatorsPackage theIndicatorsPackage = (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
 
         // Create type parameters
@@ -360,18 +373,16 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        tdReportEClass.getESuperTypes().add(theInformationreportingPackage.getReport());
+        schemaIndicatorEClass.getESuperTypes().add(theIndicatorsPackage.getIndicator());
 
         // Initialize classes and features; add operations and parameters
-        initEClass(tdReportEClass, TdReport.class, "TdReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getTdReport_PresentationParams(), this.getPresentationParameter(), null, "presentationParams", null, 0, -1, TdReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(presentationParameterEClass, PresentationParameter.class, "PresentationParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getPresentationParameter_PlotType(), ecorePackage.getEString(), "plotType", null, 0, 1, PresentationParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getPresentationParameter_Indicator(), theIndicatorsPackage.getIndicator(), null, "indicator", null, 0, 1, PresentationParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        // Create resource
-        createResource(eNS_URI);
+        initEClass(schemaIndicatorEClass, SchemaIndicator.class, "SchemaIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSchemaIndicator_TotalRowCount(), ecorePackage.getELong(), "totalRowCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSchemaIndicator_TableCount(), ecorePackage.getEInt(), "tableCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSchemaIndicator_KeyCount(), ecorePackage.getEInt(), "keyCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSchemaIndicator_IndexCount(), ecorePackage.getEInt(), "indexCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSchemaIndicator_ViewCount(), ecorePackage.getEInt(), "viewCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSchemaIndicator_TriggerCount(), ecorePackage.getEInt(), "triggerCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     }
 
-} //ReportsPackageImpl
+} //SchemaPackageImpl

@@ -14,6 +14,8 @@
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/COLUMNS_COMPARISON"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/TABLE"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/TABLE_COMPARISON"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/CONNECTION"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//analysis/AnalysisType/SCHEMA"/>
       </genEnums>
       <genClasses ecoreClass="dataquality.ecore#//analysis/Analysis">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//analysis/Analysis/context"/>
@@ -179,6 +181,17 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/frequenceTable"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/MedianIndicator/computeMedian"/>
       </genClasses>
+      <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
+          disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">
+        <genClasses ecoreClass="dataquality.ecore#//indicators/schema/SchemaIndicator">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/totalRowCount"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/tableCount"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/keyCount"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/indexCount"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/viewCount"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/triggerCount"/>
+        </genClasses>
+      </nestedGenPackages>
     </nestedGenPackages>
     <nestedGenPackages prefix="Expressions" basePackage="org.talend.dataquality" disposableProviderFactory="true"
         ecorePackage="dataquality.ecore#//expressions">

@@ -62,6 +62,8 @@
       <eLiterals name="COLUMNS_COMPARISON" value="1" literal="Columns Comparison Analysis"/>
       <eLiterals name="TABLE" value="2" literal="Table Analysis"/>
       <eLiterals name="TABLE_COMPARISON" value="3" literal="Table Comparison"/>
+      <eLiterals name="CONNECTION" value="4" literal="Connection Analysis"/>
+      <eLiterals name="SCHEMA" value="5" literal="Schema Analysis"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="reports" nsURI="http://dataquality.reports" nsPrefix="dataquality.reports">
@@ -78,7 +80,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicator" eType="#//indicators/Indicator"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="indicators" nsURI="http://.dataquality.indicators" nsPrefix="dataquality.indicators">
+  <eSubpackages name="indicators" nsURI="http://dataquality.indicators" nsPrefix="dataquality.indicators">
     <eClassifiers xsi:type="ecore:EClass" name="Indicator">
       <eOperations name="handle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="data" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
@@ -231,6 +233,16 @@
       <eLiterals name="NOMINAL" literal="Nominal"/>
       <eLiterals name="INTERVAL" value="1" literal="Interval"/>
     </eClassifiers>
+    <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
+      <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/Indicator">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="keyCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="triggerCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eClassifiers>
+    </eSubpackages>
   </eSubpackages>
   <eSubpackages name="expressions" nsURI="http://dataquality.expressions" nsPrefix="dataquality.expressions">
     <eClassifiers xsi:type="ecore:EClass" name="BooleanExpressionNode" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/expressions/ExpressionNode">

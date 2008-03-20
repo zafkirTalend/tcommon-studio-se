@@ -60,7 +60,23 @@ public enum AnalysisType implements Enumerator {
      * @generated
      * @ordered
      */
-    TABLE_COMPARISON(3, "TABLE_COMPARISON", "Table Comparison");
+    TABLE_COMPARISON(3, "TABLE_COMPARISON", "Table Comparison"), /**
+     * The '<em><b>CONNECTION</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #CONNECTION_VALUE
+     * @generated
+     * @ordered
+     */
+    CONNECTION(4, "CONNECTION", "Connection Analysis"), /**
+     * The '<em><b>SCHEMA</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #SCHEMA_VALUE
+     * @generated
+     * @ordered
+     */
+    SCHEMA(5, "SCHEMA", "Schema Analysis");
 
     /**
      * The '<em><b>COLUMN</b></em>' literal value.
@@ -123,6 +139,36 @@ public enum AnalysisType implements Enumerator {
     public static final int TABLE_COMPARISON_VALUE = 3;
 
     /**
+     * The '<em><b>CONNECTION</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>CONNECTION</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #CONNECTION
+     * @model literal="Connection Analysis"
+     * @generated
+     * @ordered
+     */
+    public static final int CONNECTION_VALUE = 4;
+
+    /**
+     * The '<em><b>SCHEMA</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>SCHEMA</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #SCHEMA
+     * @model literal="Schema Analysis"
+     * @generated
+     * @ordered
+     */
+    public static final int SCHEMA_VALUE = 5;
+
+    /**
      * An array of all the '<em><b>Type</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -134,6 +180,8 @@ public enum AnalysisType implements Enumerator {
             COLUMNS_COMPARISON,
             TABLE,
             TABLE_COMPARISON,
+            CONNECTION,
+            SCHEMA,
         };
 
     /**
@@ -188,6 +236,8 @@ public enum AnalysisType implements Enumerator {
             case COLUMNS_COMPARISON_VALUE: return COLUMNS_COMPARISON;
             case TABLE_VALUE: return TABLE;
             case TABLE_COMPARISON_VALUE: return TABLE_COMPARISON;
+            case CONNECTION_VALUE: return CONNECTION;
+            case SCHEMA_VALUE: return SCHEMA;
         }
         return null;
     }

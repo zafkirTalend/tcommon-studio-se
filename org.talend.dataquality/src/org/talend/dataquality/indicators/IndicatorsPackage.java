@@ -46,7 +46,7 @@ public interface IndicatorsPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "http://.dataquality.indicators";
+    String eNS_URI = "http://dataquality.indicators";
 
     /**
      * The package namespace name.
