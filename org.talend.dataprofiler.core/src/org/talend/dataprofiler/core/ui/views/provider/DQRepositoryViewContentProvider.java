@@ -14,13 +14,12 @@ package org.talend.dataprofiler.core.ui.views.provider;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.helper.DataProviderMapHelper;
 import org.talend.dataprofiler.core.helper.FolderNodeHelper;
 import org.talend.dataprofiler.core.model.nodes.IFolderNode;
 
@@ -29,9 +28,7 @@ import org.talend.dataprofiler.core.model.nodes.IFolderNode;
  * 
  */
 public class DQRepositoryViewContentProvider extends
-		AdapterFactoryContentProvider {
-	
-	private static ResourceSetImpl resourceSet = new ResourceSetImpl();
+		AdapterFactoryContentProvider {	
 
 	/**
 	 * @param adapterFactory
@@ -42,9 +39,7 @@ public class DQRepositoryViewContentProvider extends
 
 	public Object[] getChildren(Object parentElement) {
         if (parentElement instanceof IFile) {
-            String path = ((IFile) parentElement).getFullPath().toString();
-            URI uri = URI.createPlatformResourceURI(path, true);
-            parentElement = resourceSet.getResource(uri, true);
+            parentElement = DataProviderMapHelper.get((IFile) parentElement);
         } else if (parentElement instanceof IFolderNode) {
             IFolderNode folerNode = (IFolderNode) parentElement;
             if (!(folerNode.isLoaded())) {
