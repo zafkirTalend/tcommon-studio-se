@@ -28,6 +28,7 @@ import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileExcelMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
@@ -97,6 +98,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.FILE_POSITIONAL_METADATA: return createFilePositionalMetadata();
             case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
             case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
+            case BusinessPackage.FILE_EXCEL_METADATA: return createFileExcelMetadata();
             case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             case BusinessPackage.GENERIC_SCHEMA_METADATA: return createGenericSchemaMetadata();
             case BusinessPackage.CONTEXT: return createContext();
@@ -371,6 +373,16 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public FileXmlMetadata createFileXmlMetadata() {
         FileXmlMetadataImpl fileXmlMetadata = new FileXmlMetadataImpl();
         return fileXmlMetadata;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FileExcelMetadata createFileExcelMetadata() {
+        FileExcelMetadataImpl fileExcelMetadata = new FileExcelMetadataImpl();
+        return fileExcelMetadata;
     }
 
     /**

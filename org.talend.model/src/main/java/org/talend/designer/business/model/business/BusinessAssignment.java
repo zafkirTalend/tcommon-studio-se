@@ -44,7 +44,7 @@ public interface BusinessAssignment extends EObject {
      * @see #setBusinessItem(BusinessItem)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessAssignment_BusinessItem()
      * @see org.talend.designer.business.model.business.BusinessItem#getAssignments
-     * @model opposite="assignments" required="true"
+     * @model opposite="assignments" required="true" transient="false"
      * @generated
      */
     BusinessItem getBusinessItem();

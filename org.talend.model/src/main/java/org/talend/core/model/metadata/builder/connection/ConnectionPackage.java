@@ -2486,6 +2486,313 @@ public interface ConnectionPackage extends EPackage {
     int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl <em>File Excel Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
+     * @generated
+     */
+    int FILE_EXCEL_CONNECTION = 15;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__PROPERTIES = FILE_CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ID = FILE_CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__COMMENT = FILE_CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__LABEL = FILE_CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__READ_ONLY = FILE_CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__SYNCHRONISED = FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__DIVERGENCY = FILE_CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Server</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__SERVER = FILE_CONNECTION__SERVER;
+
+    /**
+     * The feature id for the '<em><b>File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__FILE_PATH = FILE_CONNECTION__FILE_PATH;
+
+    /**
+     * The feature id for the '<em><b>Format</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__FORMAT = FILE_CONNECTION__FORMAT;
+
+    /**
+     * The feature id for the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ENCODING = FILE_CONNECTION__ENCODING;
+
+    /**
+     * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ROW_SEPARATOR_VALUE = FILE_CONNECTION__ROW_SEPARATOR_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__TEXT_IDENTIFIER = FILE_CONNECTION__TEXT_IDENTIFIER;
+
+    /**
+     * The feature id for the '<em><b>Use Header</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__USE_HEADER = FILE_CONNECTION__USE_HEADER;
+
+    /**
+     * The feature id for the '<em><b>Header Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__HEADER_VALUE = FILE_CONNECTION__HEADER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Use Footer</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__USE_FOOTER = FILE_CONNECTION__USE_FOOTER;
+
+    /**
+     * The feature id for the '<em><b>Footer Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__FOOTER_VALUE = FILE_CONNECTION__FOOTER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Use Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__USE_LIMIT = FILE_CONNECTION__USE_LIMIT;
+
+    /**
+     * The feature id for the '<em><b>Limit Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
+
+    /**
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
+
+    /**
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__REMOVE_EMPTY_ROW = FILE_CONNECTION__REMOVE_EMPTY_ROW;
+
+    /**
+     * The feature id for the '<em><b>Escape Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ESCAPE_TYPE = FILE_CONNECTION__ESCAPE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Escape Char</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ESCAPE_CHAR = FILE_CONNECTION__ESCAPE_CHAR;
+
+    /**
+     * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__TEXT_ENCLOSURE = FILE_CONNECTION__TEXT_ENCLOSURE;
+
+    /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
+
+    /**
+     * The feature id for the '<em><b>Sheet Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__SHEET_NAME = FILE_CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Sheet Columns</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__SHEET_COLUMNS = FILE_CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>File Excel Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2493,7 +2800,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
      * @generated
      */
-    int XML_XPATH_LOOP_DESCRIPTOR = 15;
+    int XML_XPATH_LOOP_DESCRIPTOR = 16;
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
@@ -2548,7 +2855,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
      * @generated
      */
-    int GENERIC_SCHEMA_CONNECTION = 16;
+    int GENERIC_SCHEMA_CONNECTION = 17;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2675,7 +2982,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
      * @generated
      */
-    int LDAP_SCHEMA_CONNECTION = 17;
+    int LDAP_SCHEMA_CONNECTION = 18;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2991,7 +3298,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION = 18;
+    int WSDL_SCHEMA_CONNECTION = 19;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3225,7 +3532,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 19;
+    int DATABASE_PROPERTIES = 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -3234,7 +3541,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 20;
+    int FILE_FORMAT = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -3243,7 +3550,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 21;
+    int FIELD_SEPARATOR = 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -3252,7 +3559,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 22;
+    int ESCAPE = 23;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -3261,7 +3568,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 23;
+    int ROW_SEPARATOR = 24;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -3270,7 +3577,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 24;
+    int MAP = 25;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -3280,7 +3587,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 25;
+    int LIST = 26;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -4305,6 +4612,38 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getLdifFileConnection_Server();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection <em>File Excel Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>File Excel Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection
+     * @generated
+     */
+    EClass getFileExcelConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetName <em>Sheet Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Sheet Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetName()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_SheetName();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetColumns <em>Sheet Columns</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Sheet Columns</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetColumns()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_SheetColumns();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
@@ -5732,6 +6071,32 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__SERVER = eINSTANCE.getLdifFileConnection_Server();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl <em>File Excel Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
+         * @generated
+         */
+        EClass FILE_EXCEL_CONNECTION = eINSTANCE.getFileExcelConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Sheet Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__SHEET_NAME = eINSTANCE.getFileExcelConnection_SheetName();
+
+        /**
+         * The meta object literal for the '<em><b>Sheet Columns</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__SHEET_COLUMNS = eINSTANCE.getFileExcelConnection_SheetColumns();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.

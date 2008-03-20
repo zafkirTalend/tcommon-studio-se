@@ -29,6 +29,7 @@ import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileExcelMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
@@ -193,6 +194,13 @@ public class BusinessSwitch {
                 FileXmlMetadata fileXmlMetadata = (FileXmlMetadata)theEObject;
                 Object result = caseFileXmlMetadata(fileXmlMetadata);
                 if (result == null) result = caseTalendItem(fileXmlMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.FILE_EXCEL_METADATA: {
+                FileExcelMetadata fileExcelMetadata = (FileExcelMetadata)theEObject;
+                Object result = caseFileExcelMetadata(fileExcelMetadata);
+                if (result == null) result = caseTalendItem(fileExcelMetadata);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -388,11 +396,11 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Process</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Process</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Process</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Process</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -401,11 +409,11 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Process</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Process</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Process</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Process</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -414,11 +422,11 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Routine</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Routine</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Routine</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Routine</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -469,13 +477,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>File Delimited Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>File Delimited Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>File Delimited Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>File Delimited Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -484,13 +492,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>File Positional Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>File Positional Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>File Positional Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>File Positional Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -513,11 +521,11 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -526,13 +534,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Base Business Item Relationship</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Base Business Item Relationship</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Base Business Item Relationship</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Base Business Item Relationship</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -555,13 +563,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Directional Business Item Relationship</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Directional Business Item Relationship</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Directional Business Item Relationship</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Directional Business Item Relationship</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -570,13 +578,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Bidirectional Business Item Relationship</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Bidirectional Business Item Relationship</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Bidirectional Business Item Relationship</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Bidirectional Business Item Relationship</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -711,13 +719,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>File Regexp Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>File Regexp Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>File Regexp Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>File Regexp Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -726,13 +734,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Actor Business Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Actor Business Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Actor Business Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Actor Business Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -741,13 +749,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Ellipse Business Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Ellipse Business Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Ellipse Business Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Ellipse Business Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -756,13 +764,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Gear Business Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Gear Business Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Gear Business Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Gear Business Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -771,13 +779,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Context</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Context</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Context</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Context</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -786,13 +794,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>File Xml Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>File Xml Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>File Xml Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>File Xml Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -801,13 +809,28 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>File Ldif Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>File Excel Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>File Ldif Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>File Excel Metadata</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseFileExcelMetadata(FileExcelMetadata object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>File Ldif Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>File Ldif Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -816,13 +839,13 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Generic Schema Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Generic Schema Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Generic Schema Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Generic Schema Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -831,12 +854,12 @@ public class BusinessSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch, but this is the last
      * case anyway. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
      * @generated
      */

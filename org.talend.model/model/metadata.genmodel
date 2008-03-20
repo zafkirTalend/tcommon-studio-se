@@ -163,6 +163,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/UseLimit"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/Server"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//FileExcelConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/SheetName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/sheetColumns"/>
+    </genClasses>
     <genClasses ecoreClass="metadata.ecore#//XmlXPathLoopDescriptor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlXPathLoopDescriptor/LimitBoucle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlXPathLoopDescriptor/AbsoluteXPathQuery"/>

@@ -48,7 +48,7 @@ public abstract class BaseBusinessItemRelationshipImpl extends BusinessItemImpl 
      * @generated
      * @ordered
      */
-    protected BusinessItemShape source = null;
+    protected BusinessItemShape source;
 
     /**
      * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -58,7 +58,7 @@ public abstract class BaseBusinessItemRelationshipImpl extends BusinessItemImpl 
      * @generated
      * @ordered
      */
-    protected BusinessItemShape target = null;
+    protected BusinessItemShape target;
 
     /**
      * <!-- begin-user-doc -->

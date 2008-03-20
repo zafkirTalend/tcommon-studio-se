@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
+import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -140,6 +141,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass ldifFileConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass fileExcelConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1087,6 +1095,33 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFileExcelConnection() {
+        return fileExcelConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_SheetName() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_SheetColumns() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1675,6 +1710,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__USE_LIMIT);
         createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__SERVER);
 
+        fileExcelConnectionEClass = createEClass(FILE_EXCEL_CONNECTION);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__SHEET_NAME);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__SHEET_COLUMNS);
+
         xmlXPathLoopDescriptorEClass = createEClass(XML_XPATH_LOOP_DESCRIPTOR);
         createEAttribute(xmlXPathLoopDescriptorEClass, XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE);
         createEAttribute(xmlXPathLoopDescriptorEClass, XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY);
@@ -1772,6 +1811,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         xmlFileConnectionEClass.getESuperTypes().add(this.getConnection());
         queryEClass.getESuperTypes().add(this.getAbstractMetadataObject());
         ldifFileConnectionEClass.getESuperTypes().add(this.getConnection());
+        fileExcelConnectionEClass.getESuperTypes().add(this.getFileConnection());
         genericSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         ldapSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         wsdlSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
@@ -1892,6 +1932,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getLdifFileConnection_LimitEntry(), ecorePackage.getEInt(), "LimitEntry", null, 0, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLdifFileConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLdifFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(fileExcelConnectionEClass, FileExcelConnection.class, "FileExcelConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFileExcelConnection_SheetName(), ecorePackage.getEString(), "SheetName", null, 1, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_SheetColumns(), ecorePackage.getEString(), "sheetColumns", null, 0, -1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(xmlXPathLoopDescriptorEClass, XmlXPathLoopDescriptor.class, "XmlXPathLoopDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getXmlXPathLoopDescriptor_LimitBoucle(), ecorePackage.getEIntegerObject(), "LimitBoucle", null, 0, 1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

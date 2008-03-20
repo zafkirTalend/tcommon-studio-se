@@ -133,6 +133,15 @@ public interface ConnectionFactory extends EFactory {
     LdifFileConnection createLdifFileConnection();
 
     /**
+     * Returns a new object of class '<em>File Excel Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>File Excel Connection</em>'.
+     * @generated
+     */
+    FileExcelConnection createFileExcelConnection();
+
+    /**
      * Returns a new object of class '<em>Xml XPath Loop Descriptor</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

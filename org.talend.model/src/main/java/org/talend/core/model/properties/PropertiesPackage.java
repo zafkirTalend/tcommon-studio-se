@@ -390,7 +390,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getProcessItem()
      * @generated
      */
-    int PROCESS_ITEM = 24;
+    int PROCESS_ITEM = 25;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.UserImpl <em>User</em>}' class. <!--
@@ -400,7 +400,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUser()
      * @generated
      */
-    int USER = 26;
+    int USER = 27;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.
@@ -409,7 +409,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderItem()
      * @generated
      */
-    int FOLDER_ITEM = 27;
+    int FOLDER_ITEM = 28;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.UserRoleImpl <em>User Role</em>}' class.
@@ -418,7 +418,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRole()
      * @generated
      */
-    int USER_ROLE = 25;
+    int USER_ROLE = 26;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ComponentImpl <em>Component</em>}' class.
@@ -427,7 +427,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponent()
      * @generated
      */
-    int COMPONENT = 28;
+    int COMPONENT = 29;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.XmlFileConnectionItemImpl <em>Xml File Connection Item</em>}' class.
@@ -445,7 +445,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotationHolder()
      * @generated
      */
-    int NOTATION_HOLDER = 29;
+    int NOTATION_HOLDER = 30;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ProjectComponentAuthorisationImpl <em>Project Component Authorisation</em>}' class.
@@ -1455,6 +1455,52 @@ public interface PropertiesPackage extends EPackage {
     int LDIF_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExcelFileConnectionItemImpl <em>Excel File Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExcelFileConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExcelFileConnectionItem()
+     * @generated
+     */
+    int EXCEL_FILE_CONNECTION_ITEM = 24;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Excel File Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1865,7 +1911,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorization()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION = 30;
+    int USER_PROJECT_AUTHORIZATION = 31;
 
     /**
      * The feature id for the '<em><b>User</b></em>' reference.
@@ -1911,7 +1957,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getContextItem()
      * @generated
      */
-    int CONTEXT_ITEM = 31;
+    int CONTEXT_ITEM = 32;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -1966,7 +2012,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSpagoBiServer()
      * @generated
      */
-    int SPAGO_BI_SERVER = 32;
+    int SPAGO_BI_SERVER = 33;
 
     /**
      * The feature id for the '<em><b>Engine Name</b></em>' attribute.
@@ -2048,7 +2094,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLicense()
      * @generated
      */
-    int LICENSE = 33;
+    int LICENSE = 34;
 
     /**
      * The feature id for the '<em><b>License</b></em>' attribute.
@@ -2076,7 +2122,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getGenericSchemaConnectionItem()
      * @generated
      */
-    int GENERIC_SCHEMA_CONNECTION_ITEM = 34;
+    int GENERIC_SCHEMA_CONNECTION_ITEM = 35;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -2122,7 +2168,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorization()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION = 35;
+    int USER_MODULE_AUTHORIZATION = 36;
 
     /**
      * The feature id for the '<em><b>User</b></em>' reference.
@@ -2159,7 +2205,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLDAPSchemaConnectionItem()
      * @generated
      */
-    int LDAP_SCHEMA_CONNECTION_ITEM = 36;
+    int LDAP_SCHEMA_CONNECTION_ITEM = 37;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -2205,7 +2251,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getDashboardConnection()
      * @generated
      */
-    int DASHBOARD_CONNECTION = 37;
+    int DASHBOARD_CONNECTION = 38;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2323,7 +2369,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServer()
      * @generated
      */
-    int EXECUTION_SERVER = 38;
+    int EXECUTION_SERVER = 39;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2414,7 +2460,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionTask()
      * @generated
      */
-    int EXECUTION_TASK = 39;
+    int EXECUTION_TASK = 40;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2676,7 +2722,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
      * @generated
      */
-    int TALEND_TRIGGER = 40;
+    int TALEND_TRIGGER = 41;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2785,7 +2831,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
      * @generated
      */
-    int CRON_TALEND_TRIGGER = 41;
+    int CRON_TALEND_TRIGGER = 42;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2903,7 +2949,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
      * @generated
      */
-    int CRON_UI_TALEND_TRIGGER = 42;
+    int CRON_UI_TALEND_TRIGGER = 43;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3066,7 +3112,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
      * @generated
      */
-    int SIMPLE_TALEND_TRIGGER = 43;
+    int SIMPLE_TALEND_TRIGGER = 44;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3202,7 +3248,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
      * @generated
      */
-    int EXECUTION_VIRTUAL_SERVER = 44;
+    int EXECUTION_VIRTUAL_SERVER = 45;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3266,7 +3312,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
      * @generated
      */
-    int FILE_TRIGGER = 45;
+    int FILE_TRIGGER = 46;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3411,7 +3457,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
      * @generated
      */
-    int FILE_TRIGGER_MASK = 46;
+    int FILE_TRIGGER_MASK = 47;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3511,7 +3557,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
      * @generated
      */
-    int JOBLET_PROCESS_ITEM = 47;
+    int JOBLET_PROCESS_ITEM = 48;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3557,7 +3603,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
      * @generated
      */
-    int JOB_DOCUMENTATION_ITEM = 48;
+    int JOB_DOCUMENTATION_ITEM = 49;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3621,7 +3667,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
      * @generated
      */
-    int JOBLET_DOCUMENTATION_ITEM = 49;
+    int JOBLET_DOCUMENTATION_ITEM = 50;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3685,7 +3731,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getWSDLSchemaConnectionItem()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION_ITEM = 50;
+    int WSDL_SCHEMA_CONNECTION_ITEM = 51;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3731,7 +3777,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
      * @generated
      */
-    int SCHEMA_INFORMATION = 51;
+    int SCHEMA_INFORMATION = 52;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -3758,7 +3804,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 52;
+    int FOLDER_TYPE = 53;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3768,7 +3814,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 53;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 54;
 
 
     /**
@@ -3779,7 +3825,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 54;
+    int USER_MODULE_AUTHORIZATION_TYPE = 55;
 
 
     /**
@@ -5097,6 +5143,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getLdifFileConnectionItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExcelFileConnectionItem <em>Excel File Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Excel File Connection Item</em>'.
+     * @see org.talend.core.model.properties.ExcelFileConnectionItem
+     * @generated
+     */
+    EClass getExcelFileConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.UserProjectAuthorization <em>User Project Authorization</em>}'.
@@ -7552,6 +7608,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass LDIF_FILE_CONNECTION_ITEM = eINSTANCE.getLdifFileConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExcelFileConnectionItemImpl <em>Excel File Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExcelFileConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExcelFileConnectionItem()
+         * @generated
+         */
+        EClass EXCEL_FILE_CONNECTION_ITEM = eINSTANCE.getExcelFileConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserProjectAuthorizationImpl <em>User Project Authorization</em>}' class.

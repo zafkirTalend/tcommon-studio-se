@@ -194,6 +194,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Server" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileExcelConnection" eSuperTypes="#//FileConnection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SheetName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sheetColumns" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XmlXPathLoopDescriptor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="LimitBoucle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="AbsoluteXPathQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

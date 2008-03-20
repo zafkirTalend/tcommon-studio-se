@@ -125,6 +125,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseLdifFileConnection(LdifFileConnection object) {
                 return createLdifFileConnectionAdapter();
             }
+            public Object caseFileExcelConnection(FileExcelConnection object) {
+                return createFileExcelConnectionAdapter();
+            }
             public Object caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
                 return createXmlXPathLoopDescriptorAdapter();
             }
@@ -330,6 +333,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLdifFileConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection <em>File Excel Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection
+     * @generated
+     */
+    public Adapter createFileExcelConnectionAdapter() {
         return null;
     }
 

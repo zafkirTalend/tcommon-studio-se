@@ -150,7 +150,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * @generated
      * @ordered
      */
-    protected EList assignments = null;
+    protected EList assignments;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

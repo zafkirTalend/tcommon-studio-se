@@ -33,6 +33,7 @@
     <genClasses ecoreClass="Business.ecore#//FilePositionalMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FileRegexpMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FileXmlMetadata"/>
+    <genClasses ecoreClass="Business.ecore#//FileExcelMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FileLdifMetadata"/>
     <genClasses ecoreClass="Business.ecore#//GenericSchemaMetadata"/>
     <genClasses ecoreClass="Business.ecore#//Context"/>

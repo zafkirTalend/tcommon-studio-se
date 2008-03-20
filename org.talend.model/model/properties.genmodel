@@ -127,6 +127,7 @@
     <genClasses ecoreClass="properties.ecore#//DatabaseConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//XmlFileConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//LdifFileConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//ExcelFileConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//ProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProcessItem/process"/>
     </genClasses>

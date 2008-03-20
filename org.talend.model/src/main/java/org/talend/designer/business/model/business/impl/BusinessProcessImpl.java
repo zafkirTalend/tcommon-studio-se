@@ -48,7 +48,7 @@ public class BusinessProcessImpl extends TalendItemImpl implements BusinessProce
      * @generated
      * @ordered
      */
-    protected EList businessItems = null;
+    protected EList businessItems;
 
     /**
      * The cached value of the '{@link #getLocalRepositoryCopy() <em>Local Repository Copy</em>}' containment reference.
@@ -57,7 +57,7 @@ public class BusinessProcessImpl extends TalendItemImpl implements BusinessProce
      * @generated
      * @ordered
      */
-    protected Repository localRepositoryCopy = null;
+    protected Repository localRepositoryCopy;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -255,6 +255,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM: {
+                ExcelFileConnectionItem excelFileConnectionItem = (ExcelFileConnectionItem)theEObject;
+                Object result = caseExcelFileConnectionItem(excelFileConnectionItem);
+                if (result == null) result = caseConnectionItem(excelFileConnectionItem);
+                if (result == null) result = caseItem(excelFileConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.PROCESS_ITEM: {
                 ProcessItem processItem = (ProcessItem)theEObject;
                 Object result = caseProcessItem(processItem);
@@ -803,6 +811,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Excel File Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Excel File Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExcelFileConnectionItem(ExcelFileConnectionItem object) {
         return null;
     }
 

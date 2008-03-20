@@ -71,7 +71,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * @generated
      * @ordered
      */
-    protected EList assignments = null;
+    protected EList assignments;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

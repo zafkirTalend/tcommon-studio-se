@@ -47,7 +47,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
      * @generated
      * @ordered
      */
-    protected TalendItem talendItem = null;
+    protected TalendItem talendItem;
 
     /**
      * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.

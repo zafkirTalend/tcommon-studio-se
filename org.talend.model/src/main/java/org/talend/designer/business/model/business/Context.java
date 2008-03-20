@@ -18,11 +18,5 @@ package org.talend.designer.business.model.business;
  * @generated
  */
 public interface Context extends TalendItem {
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    String copyright = "";
 
 } // Context

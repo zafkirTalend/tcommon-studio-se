@@ -259,6 +259,15 @@ public interface BusinessFactory extends EFactory {
     FileXmlMetadata createFileXmlMetadata();
 
     /**
+     * Returns a new object of class '<em>File Excel Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>File Excel Metadata</em>'.
+     * @generated
+     */
+    FileExcelMetadata createFileExcelMetadata();
+
+    /**
      * Returns a new object of class '<em>File Ldif Metadata</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

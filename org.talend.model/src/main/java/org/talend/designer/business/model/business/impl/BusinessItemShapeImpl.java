@@ -46,7 +46,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      * @generated
      * @ordered
      */
-    protected EList incomingRelationships = null;
+    protected EList incomingRelationships;
 
     /**
      * The cached value of the '{@link #getOutgoingRelationships() <em>Outgoing Relationships</em>}' reference list.
@@ -55,7 +55,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      * @generated
      * @ordered
      */
-    protected EList outgoingRelationships = null;
+    protected EList outgoingRelationships;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

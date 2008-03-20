@@ -46,7 +46,7 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
      * @generated
      * @ordered
      */
-    protected EList talenditems = null;
+    protected EList talenditems;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

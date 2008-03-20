@@ -97,6 +97,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.QUERIES_CONNECTION: return createQueriesConnection();
             case ConnectionPackage.QUERY: return createQuery();
             case ConnectionPackage.LDIF_FILE_CONNECTION: return createLdifFileConnection();
+            case ConnectionPackage.FILE_EXCEL_CONNECTION: return createFileExcelConnection();
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: return createXmlXPathLoopDescriptor();
             case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: return createGenericSchemaConnection();
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION: return createLDAPSchemaConnection();
@@ -271,6 +272,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public LdifFileConnection createLdifFileConnection() {
         LdifFileConnectionImpl ldifFileConnection = new LdifFileConnectionImpl();
         return ldifFileConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FileExcelConnection createFileExcelConnection() {
+        FileExcelConnectionImpl fileExcelConnection = new FileExcelConnectionImpl();
+        return fileExcelConnection;
     }
 
     /**

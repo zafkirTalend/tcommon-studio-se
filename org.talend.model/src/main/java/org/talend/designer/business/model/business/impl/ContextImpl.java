@@ -26,13 +26,6 @@ public class ContextImpl extends TalendItemImpl implements Context {
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     protected ContextImpl() {
         super();
     }

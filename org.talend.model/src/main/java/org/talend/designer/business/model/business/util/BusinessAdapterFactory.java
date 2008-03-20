@@ -29,6 +29,7 @@ import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileExcelMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
@@ -135,6 +136,9 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseFileXmlMetadata(FileXmlMetadata object) {
                 return createFileXmlMetadataAdapter();
+            }
+            public Object caseFileExcelMetadata(FileExcelMetadata object) {
+                return createFileExcelMetadataAdapter();
             }
             public Object caseFileLdifMetadata(FileLdifMetadata object) {
                 return createFileLdifMetadataAdapter();
@@ -607,6 +611,20 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createFileXmlMetadataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.FileExcelMetadata <em>File Excel Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.FileExcelMetadata
+     * @generated
+     */
+    public Adapter createFileExcelMetadataAdapter() {
         return null;
     }
 

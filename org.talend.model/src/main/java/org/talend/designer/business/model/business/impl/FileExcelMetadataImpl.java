@@ -9,24 +9,24 @@ package org.talend.designer.business.model.business.impl;
 import org.eclipse.emf.ecore.EClass;
 
 import org.talend.designer.business.model.business.BusinessPackage;
-import org.talend.designer.business.model.business.GenericSchemaMetadata;
+import org.talend.designer.business.model.business.FileExcelMetadata;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Generic Schema Metadata</b></em>'.
+ * An implementation of the model object '<em><b>File Excel Metadata</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class GenericSchemaMetadataImpl extends TalendItemImpl implements GenericSchemaMetadata {
+public class FileExcelMetadataImpl extends TalendItemImpl implements FileExcelMetadata {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected GenericSchemaMetadataImpl() {
+    protected FileExcelMetadataImpl() {
         super();
     }
 
@@ -36,7 +36,7 @@ public class GenericSchemaMetadataImpl extends TalendItemImpl implements Generic
      * @generated
      */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.GENERIC_SCHEMA_METADATA;
+        return BusinessPackage.Literals.FILE_EXCEL_METADATA;
     }
 
-} //GenericSchemaMetadataImpl
+} //FileExcelMetadataImpl

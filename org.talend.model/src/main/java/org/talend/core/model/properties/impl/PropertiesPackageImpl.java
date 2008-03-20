@@ -27,6 +27,7 @@ import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionVirtualServer;
@@ -258,6 +259,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass ldifFileConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass excelFileConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1540,6 +1548,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExcelFileConnectionItem() {
+        return excelFileConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2703,6 +2720,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         ldifFileConnectionItemEClass = createEClass(LDIF_FILE_CONNECTION_ITEM);
 
+        excelFileConnectionItemEClass = createEClass(EXCEL_FILE_CONNECTION_ITEM);
+
         processItemEClass = createEClass(PROCESS_ITEM);
         createEReference(processItemEClass, PROCESS_ITEM__PROCESS);
 
@@ -2946,6 +2965,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         databaseConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         xmlFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ldifFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        excelFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
         contextItemEClass.getESuperTypes().add(this.getItem());
@@ -3074,6 +3094,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(xmlFileConnectionItemEClass, XmlFileConnectionItem.class, "XmlFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(ldifFileConnectionItemEClass, LdifFileConnectionItem.class, "LdifFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(excelFileConnectionItemEClass, ExcelFileConnectionItem.class, "ExcelFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(processItemEClass, ProcessItem.class, "ProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProcessItem_Process(), theTalendFilePackage.getProcessType(), null, "process", null, 0, 1, ProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

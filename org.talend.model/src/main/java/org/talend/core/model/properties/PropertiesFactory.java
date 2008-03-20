@@ -251,6 +251,15 @@ public interface PropertiesFactory extends EFactory {
     LdifFileConnectionItem createLdifFileConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Excel File Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Excel File Connection Item</em>'.
+     * @generated
+     */
+    ExcelFileConnectionItem createExcelFileConnectionItem();
+
+    /**
      * Returns a new object of class '<em>User Project Authorization</em>'.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->

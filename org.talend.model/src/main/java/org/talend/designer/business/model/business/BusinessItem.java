@@ -45,7 +45,7 @@ public interface BusinessItem extends EObject {
      * @see #setBusinessProcess(BusinessProcess)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_BusinessProcess()
      * @see org.talend.designer.business.model.business.BusinessProcess#getBusinessItems
-     * @model opposite="businessItems" required="true"
+     * @model opposite="businessItems" required="true" transient="false"
      * @generated
      */
     BusinessProcess getBusinessProcess();

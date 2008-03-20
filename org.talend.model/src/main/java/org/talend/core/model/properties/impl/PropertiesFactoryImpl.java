@@ -111,6 +111,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.DATABASE_CONNECTION_ITEM: return createDatabaseConnectionItem();
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM: return createXmlFileConnectionItem();
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
+            case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM: return createExcelFileConnectionItem();
             case PropertiesPackage.PROCESS_ITEM: return createProcessItem();
             case PropertiesPackage.USER_ROLE: return createUserRole();
             case PropertiesPackage.USER: return createUser();
@@ -425,6 +426,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public LdifFileConnectionItem createLdifFileConnectionItem() {
         LdifFileConnectionItemImpl ldifFileConnectionItem = new LdifFileConnectionItemImpl();
         return ldifFileConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExcelFileConnectionItem createExcelFileConnectionItem() {
+        ExcelFileConnectionItemImpl excelFileConnectionItem = new ExcelFileConnectionItemImpl();
+        return excelFileConnectionItem;
     }
 
     /**

@@ -31,6 +31,7 @@ import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileExcelMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
@@ -250,6 +251,13 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass fileXmlMetadataEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass fileExcelMetadataEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -753,6 +761,15 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getFileExcelMetadata() {
+        return fileExcelMetadataEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getFileLdifMetadata() {
         return fileLdifMetadataEClass;
     }
@@ -824,6 +841,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
 
         fileXmlMetadataEClass = createEClass(FILE_XML_METADATA);
+
+        fileExcelMetadataEClass = createEClass(FILE_EXCEL_METADATA);
 
         fileLdifMetadataEClass = createEClass(FILE_LDIF_METADATA);
 
@@ -910,6 +929,7 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         filePositionalMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        fileExcelMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
         genericSchemaMetadataEClass.getESuperTypes().add(this.getTalendItem());
         contextEClass.getESuperTypes().add(this.getTalendItem());
@@ -932,7 +952,7 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         // Initialize classes and features; add operations and parameters
         initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getRepository_Talenditems(), this.getTalendItem(), this.getTalendItem_Repository(), "Talenditems", "", 0, -1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getRepository_Talenditems(), this.getTalendItem(), this.getTalendItem_Repository(), "Talenditems", null, 0, -1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(talendItemEClass, TalendItem.class, "TalendItem", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTalendItem_Id(), ecorePackage.getEString(), "id", null, 0, 1, TalendItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -964,6 +984,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(fileExcelMetadataEClass, FileExcelMetadata.class, "FileExcelMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(fileLdifMetadataEClass, FileLdifMetadata.class, "FileLdifMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
