@@ -133,7 +133,7 @@ public class MetadataTool {
                 for (Object tableObj : connection.getTables()) {
                     MetadataTable table = (MetadataTable) tableObj;
                     if (!factory.isDeleted(table)) {
-                        String name = connectionItem.getProperty().getId() + " - " + table.getLabel(); //$NON-NLS-1$
+                        String name = connectionItem.getProperty().getId() + " - " + table.getLabel(); //$NON-NLS-1$0
                         if (name.equals(metaRepositoryName)) {
                             metaToReturn = ConvertionHelper.convert(table);
                         }

@@ -21,6 +21,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -65,6 +66,7 @@ public enum ERepositoryObjectType {
     METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_EXCEL("repository.metadataFileExcel", "repository.metadataFileExcel.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
@@ -150,6 +152,8 @@ public enum ERepositoryObjectType {
             return "metadata/fileRegex"; //$NON-NLS-1$
         case METADATA_FILE_XML:
             return "metadata/fileXml"; //$NON-NLS-1$
+        case METADATA_FILE_EXCEL:
+            return "metadata/fileExcel"; //$NON-NLS-1$
         case METADATA_FILE_LDIF:
             return "metadata/fileLdif"; //$NON-NLS-1$
         case METADATA_LDAP_SCHEMA:
@@ -274,6 +278,10 @@ public enum ERepositoryObjectType {
 
             public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
                 return METADATA_FILE_XML;
+            }
+
+            public Object caseExcelFileConnectionItem(ExcelFileConnectionItem object) {
+                return METADATA_FILE_EXCEL;
             }
 
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {

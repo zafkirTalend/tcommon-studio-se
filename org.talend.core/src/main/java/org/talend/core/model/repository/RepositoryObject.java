@@ -31,6 +31,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
@@ -210,6 +211,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_XML;
+            }
+
+            public Object caseExcelFileConnectionItem(ExcelFileConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_EXCEL;
             }
 
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {

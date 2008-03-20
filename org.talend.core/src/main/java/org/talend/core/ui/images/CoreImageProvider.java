@@ -73,6 +73,8 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_FILE_REGEXP_ICON;
         case METADATA_FILE_XML:
             return ECoreImage.METADATA_FILE_XML_ICON;
+        case METADATA_FILE_EXCEL:
+            return ECoreImage.METADATA_FILE_EXCEL_ICON;
         case METADATA_FILE_LDIF:
             return ECoreImage.METADATA_FILE_LDIF_ICON;
         case FOLDER:

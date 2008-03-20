@@ -281,6 +281,14 @@ public interface IProxyRepositoryFactory {
      */
     public abstract RootContainer<String, IRepositoryObject> getMetadataFileLdif() throws PersistenceException;
 
+    /**
+     * @param project
+     * @return
+     * @throws PersistenceException
+     * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataFileLdif(org.talend.core.model.general.Project)
+     */
+    public abstract RootContainer<String, IRepositoryObject> getMetadataFileExcel() throws PersistenceException;
+
     public abstract void lock(IRepositoryObject obj) throws PersistenceException, BusinessException;
 
     /**

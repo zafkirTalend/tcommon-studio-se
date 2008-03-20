@@ -69,6 +69,8 @@ public enum ECoreImage implements IImage {
     METADATA_FILE_REGEXP_WIZ("/icons/regexp_wiz.png"), //$NON-NLS-1$
     METADATA_FILE_XML_ICON("/icons/filexml.gif"), //$NON-NLS-1$
     METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"), //$NON-NLS-1$
+    METADATA_FILE_EXCEL_ICON("/icons/fileexcel.gif"), //$NON-NLS-1$
+    METADATA_FILE_EXCEL_WIZ("/icons/excel_wiz.png"), //$NON-NLS-1$
     METADATA_FILE_LDIF_ICON("/icons/fileldif.gif"), //$NON-NLS-1$
     METADATA_FILE_LDIF_WIZ("/icons/ldif_wiz.png"), //$NON-NLS-1$
     METADATA_GENERIC_ICON("/icons/genericSchema_icon.png"), //$NON-NLS-1$

@@ -27,6 +27,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
+import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
@@ -102,6 +103,9 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof LdifFileConnection) {
             return getLdifFileValue((LdifFileConnection) connection, value);
+        }
+        if (connection instanceof FileExcelConnection) {
+            return getExcelFileValue((FileExcelConnection) connection, value);
         }
 
         return null;
@@ -347,6 +351,27 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof LdifFileConnection) {
             return getLdifFileValue((LdifFileConnection) connection, value);
+        }
+        if (connection instanceof FileExcelConnection) {
+            return getExcelFileValue((FileExcelConnection) connection, value);
+        }
+        return null;
+    }
+
+    /**
+     * DOC yexiaowei Comment method "getExcelFileValue".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getExcelFileValue(FileExcelConnection connection, String value) {
+        if (value.equals("FILE_PATH")) { //$NON-NLS-1$
+            Path p = new Path(connection.getFilePath());
+            return TalendTextUtils.addQuotes(p.toPortableString());
+        }
+        if (value.equals("SHEET_NAME")) { //$NON-NLS-1$
+            return TalendTextUtils.addQuotes(connection.getSheetName());
         }
         return null;
     }
