@@ -310,6 +310,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_XML);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_EXCEL);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_LDIF);
         needsBinFolder.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
         needsBinFolder.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
@@ -1057,6 +1058,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
+            case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM:
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
@@ -1176,6 +1178,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
                 itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_XML, path);
+                break;
+            case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM:
+                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_EXCEL, path);
                 break;
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
                 itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_LDIF, path);
