@@ -159,4 +159,8 @@ public interface IElementParameter extends Cloneable {
     public IElementParameter getParentParameter();
 
     public void setParentParameter(IElementParameter parentParameter);
+
+    public boolean isContextMode();
+
+    public void setContextMode(boolean mode);
 }

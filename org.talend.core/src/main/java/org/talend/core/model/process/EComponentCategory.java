@@ -30,7 +30,8 @@ public enum EComponentCategory {
     ADVANCED("Advanced settings", 9),
     BASIC("Basic settings", 10),
     ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED),
-    EXTRA("Extra", 12);
+    EXTRA("Extra", 12),
+    ADVANCED_CONTEXT("Advanced Context", 13);
 
     private String title;
 
