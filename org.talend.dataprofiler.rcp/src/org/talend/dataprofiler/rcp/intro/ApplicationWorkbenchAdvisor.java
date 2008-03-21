@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dataprofiler.rcp.intro;
 
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
@@ -33,6 +35,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     public void initialize(IWorkbenchConfigurer configurer) {
         super.initialize(configurer);
         configurer.setSaveAndRestore(true);
+        PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
     }
 
     public String getInitialWindowPerspectiveId() {
