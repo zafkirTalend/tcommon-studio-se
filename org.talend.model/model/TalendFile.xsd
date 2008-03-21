@@ -133,16 +133,19 @@
 	<xs:element name="ElementParameter">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ElementValue" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="ElementValue" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:complexType>
-						<xs:attribute name="elementRef" type="xs:string"/>
-						<xs:attribute name="value" type="xs:string"/>
+						<xs:attribute name="elementRef"
+							type="xs:string" />
+						<xs:attribute name="value" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="name" type="xs:string"/>
-			<xs:attribute name="field" type="xs:string"/>
-			<xs:attribute name="value" type="xs:string" use="optional"/>
+			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="field" type="xs:string" />
+			<xs:attribute name="value" type="xs:string" use="optional" />
+			<xs:attribute name="contextMode" type="xs:boolean"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Required">

@@ -562,13 +562,22 @@ public interface TalendFilePackage extends EPackage {
     int ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE = 0;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELEMENT_PARAMETER_TYPE__CONTEXT_MODE = 1;
+
+    /**
      * The feature id for the '<em><b>Field</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__FIELD = 1;
+    int ELEMENT_PARAMETER_TYPE__FIELD = 2;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -577,7 +586,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__NAME = 2;
+    int ELEMENT_PARAMETER_TYPE__NAME = 3;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -586,7 +595,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__VALUE = 3;
+    int ELEMENT_PARAMETER_TYPE__VALUE = 4;
 
     /**
      * The number of structural features of the '<em>Element Parameter Type</em>' class.
@@ -595,7 +604,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE_FEATURE_COUNT = 4;
+    int ELEMENT_PARAMETER_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementValueTypeImpl <em>Element Value Type</em>}' class.
@@ -1885,6 +1894,17 @@ public interface TalendFilePackage extends EPackage {
     EReference getElementParameterType_ElementValue();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Mode</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode()
+     * @see #getElementParameterType()
+     * @generated
+     */
+    EAttribute getElementParameterType_ContextMode();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getField <em>Field</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3097,6 +3117,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE = eINSTANCE.getElementParameterType_ElementValue();
+
+        /**
+         * The meta object literal for the '<em><b>Context Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ELEMENT_PARAMETER_TYPE__CONTEXT_MODE = eINSTANCE.getElementParameterType_ContextMode();
 
         /**
          * The meta object literal for the '<em><b>Field</b></em>' attribute feature.

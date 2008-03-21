@@ -1340,13 +1340,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__CONTEXT = 3;
 
     /**
+     * The feature id for the '<em><b>CONTEXTMODE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__CONTEXTMODE = 4;
+
+    /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FIELD = 4;
+    int PARAMETER_TYPE__FIELD = 5;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -1355,7 +1364,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FILTER = 5;
+    int PARAMETER_TYPE__FILTER = 6;
 
     /**
      * The feature id for the '<em><b>GROUP</b></em>' attribute.
@@ -1364,7 +1373,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__GROUP = 6;
+    int PARAMETER_TYPE__GROUP = 7;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1373,7 +1382,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NAME = 7;
+    int PARAMETER_TYPE__NAME = 8;
 
     /**
      * The feature id for the '<em><b>NBLINES</b></em>' attribute.
@@ -1382,7 +1391,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NBLINES = 8;
+    int PARAMETER_TYPE__NBLINES = 9;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -1391,7 +1400,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NOTSHOWIF = 9;
+    int PARAMETER_TYPE__NOTSHOWIF = 10;
 
     /**
      * The feature id for the '<em><b>NUMROW</b></em>' attribute.
@@ -1400,7 +1409,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NUMROW = 10;
+    int PARAMETER_TYPE__NUMROW = 11;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1409,7 +1418,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__READONLY = 11;
+    int PARAMETER_TYPE__READONLY = 12;
 
     /**
      * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
@@ -1418,7 +1427,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REPOSITORYVALUE = 12;
+    int PARAMETER_TYPE__REPOSITORYVALUE = 13;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -1427,7 +1436,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REQUIRED = 13;
+    int PARAMETER_TYPE__REQUIRED = 14;
 
     /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
@@ -1436,7 +1445,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOW = 14;
+    int PARAMETER_TYPE__SHOW = 15;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1445,7 +1454,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOWIF = 15;
+    int PARAMETER_TYPE__SHOWIF = 16;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1454,7 +1463,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 16;
+    int PARAMETER_TYPE_FEATURE_COUNT = 17;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -3122,6 +3131,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_CONTEXT();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE <em>CONTEXTMODE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CONTEXTMODE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_CONTEXTMODE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4599,6 +4619,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__CONTEXT = eINSTANCE.getPARAMETERType_CONTEXT();
+
+        /**
+         * The meta object literal for the '<em><b>CONTEXTMODE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__CONTEXTMODE = eINSTANCE.getPARAMETERType_CONTEXTMODE();
 
         /**
          * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.

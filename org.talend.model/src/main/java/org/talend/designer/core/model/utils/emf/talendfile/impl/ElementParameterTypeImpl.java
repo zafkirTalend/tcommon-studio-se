@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getElementValue <em>Element Value</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getField <em>Field</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getValue <em>Value</em>}</li>
@@ -47,6 +48,35 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
      * @ordered
      */
     protected EList elementValue;
+
+    /**
+     * The default value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isContextMode()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CONTEXT_MODE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isContextMode()
+     * @generated
+     * @ordered
+     */
+    protected boolean contextMode = CONTEXT_MODE_EDEFAULT;
+
+    /**
+     * This is true if the Context Mode attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean contextModeESet;
 
     /**
      * The default value of the '{@link #getField() <em>Field</em>}' attribute.
@@ -143,6 +173,52 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isContextMode() {
+        return contextMode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setContextMode(boolean newContextMode) {
+        boolean oldContextMode = contextMode;
+        contextMode = newContextMode;
+        boolean oldContextModeESet = contextModeESet;
+        contextModeESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE, oldContextMode, contextMode, !oldContextModeESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetContextMode() {
+        boolean oldContextMode = contextMode;
+        boolean oldContextModeESet = contextModeESet;
+        contextMode = CONTEXT_MODE_EDEFAULT;
+        contextModeESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE, oldContextMode, CONTEXT_MODE_EDEFAULT, oldContextModeESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetContextMode() {
+        return contextModeESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getField() {
         return field;
     }
@@ -223,6 +299,8 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         switch (featureID) {
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 return getElementValue();
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                return isContextMode() ? Boolean.TRUE : Boolean.FALSE;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 return getField();
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__NAME:
@@ -243,6 +321,9 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 getElementValue().clear();
                 getElementValue().addAll((Collection)newValue);
+                return;
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                setContextMode(((Boolean)newValue).booleanValue());
                 return;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 setField((String)newValue);
@@ -267,6 +348,9 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 getElementValue().clear();
                 return;
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                unsetContextMode();
+                return;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 setField(FIELD_EDEFAULT);
                 return;
@@ -289,6 +373,8 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         switch (featureID) {
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 return elementValue != null && !elementValue.isEmpty();
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                return isSetContextMode();
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? field != null : !FIELD_EDEFAULT.equals(field);
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__NAME:
@@ -308,7 +394,9 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (field: ");
+        result.append(" (contextMode: ");
+        if (contextModeESet) result.append(contextMode); else result.append("<unset>");
+        result.append(", field: ");
         result.append(field);
         result.append(", name: ");
         result.append(name);

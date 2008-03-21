@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getElementValue <em>Element Value</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getField <em>Field</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getValue <em>Value</em>}</li>
@@ -45,6 +46,60 @@ public interface ElementParameterType extends EObject {
      * @generated
      */
     EList getElementValue();
+
+    /**
+     * Returns the value of the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Context Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Context Mode</em>' attribute.
+     * @see #isSetContextMode()
+     * @see #unsetContextMode()
+     * @see #setContextMode(boolean)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getElementParameterType_ContextMode()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='contextMode' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isContextMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Context Mode</em>' attribute.
+     * @see #isSetContextMode()
+     * @see #unsetContextMode()
+     * @see #isContextMode()
+     * @generated
+     */
+    void setContextMode(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetContextMode()
+     * @see #isContextMode()
+     * @see #setContextMode(boolean)
+     * @generated
+     */
+    void unsetContextMode();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Context Mode</em>' attribute is set.
+     * @see #unsetContextMode()
+     * @see #isContextMode()
+     * @see #setContextMode(boolean)
+     * @generated
+     */
+    boolean isSetContextMode();
 
     /**
      * Returns the value of the '<em><b>Field</b></em>' attribute.

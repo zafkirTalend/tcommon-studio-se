@@ -35,6 +35,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getTABLE <em>TABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isCONTEXTMODE <em>CONTEXTMODE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getGROUP <em>GROUP</em>}</li>
@@ -102,6 +103,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected String cONTEXT = CONTEXT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isCONTEXTMODE() <em>CONTEXTMODE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCONTEXTMODE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CONTEXTMODE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isCONTEXTMODE() <em>CONTEXTMODE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCONTEXTMODE()
+     * @generated
+     * @ordered
+     */
+    protected boolean cONTEXTMODE = CONTEXTMODE_EDEFAULT;
+
+    /**
+     * This is true if the CONTEXTMODE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean cONTEXTMODEESet;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -492,6 +522,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         cONTEXT = newCONTEXT;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__CONTEXT, oldCONTEXT, cONTEXT));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isCONTEXTMODE() {
+        return cONTEXTMODE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCONTEXTMODE(boolean newCONTEXTMODE) {
+        boolean oldCONTEXTMODE = cONTEXTMODE;
+        cONTEXTMODE = newCONTEXTMODE;
+        boolean oldCONTEXTMODEESet = cONTEXTMODEESet;
+        cONTEXTMODEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__CONTEXTMODE, oldCONTEXTMODE, cONTEXTMODE, !oldCONTEXTMODEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetCONTEXTMODE() {
+        boolean oldCONTEXTMODE = cONTEXTMODE;
+        boolean oldCONTEXTMODEESet = cONTEXTMODEESet;
+        cONTEXTMODE = CONTEXTMODE_EDEFAULT;
+        cONTEXTMODEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__CONTEXTMODE, oldCONTEXTMODE, CONTEXTMODE_EDEFAULT, oldCONTEXTMODEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetCONTEXTMODE() {
+        return cONTEXTMODEESet;
     }
 
     /**
@@ -903,6 +979,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getTABLE();
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 return getCONTEXT();
+            case ComponentPackage.PARAMETER_TYPE__CONTEXTMODE:
+                return isCONTEXTMODE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return getFIELD();
             case ComponentPackage.PARAMETER_TYPE__FILTER:
@@ -952,6 +1030,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 setCONTEXT((String)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__CONTEXTMODE:
+                setCONTEXTMODE(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -1012,6 +1093,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 setCONTEXT(CONTEXT_EDEFAULT);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__CONTEXTMODE:
+                unsetCONTEXTMODE();
+                return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD(FIELD_EDEFAULT);
                 return;
@@ -1067,6 +1151,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return tABLE != null && !tABLE.isEmpty();
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 return CONTEXT_EDEFAULT == null ? cONTEXT != null : !CONTEXT_EDEFAULT.equals(cONTEXT);
+            case ComponentPackage.PARAMETER_TYPE__CONTEXTMODE:
+                return isSetCONTEXTMODE();
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.PARAMETER_TYPE__FILTER:
@@ -1106,6 +1192,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (cONTEXT: ");
         result.append(cONTEXT);
+        result.append(", cONTEXTMODE: ");
+        if (cONTEXTMODEESet) result.append(cONTEXTMODE); else result.append("<unset>");
         result.append(", fIELD: ");
         result.append(fIELD);
         result.append(", fILTER: ");

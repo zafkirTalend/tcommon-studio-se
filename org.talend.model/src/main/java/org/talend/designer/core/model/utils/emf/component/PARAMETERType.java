@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT <em>CONTEXT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE <em>CONTEXTMODE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
@@ -139,6 +140,60 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     void setCONTEXT(String value);
+
+    /**
+     * Returns the value of the '<em><b>CONTEXTMODE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>CONTEXTMODE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>CONTEXTMODE</em>' attribute.
+     * @see #isSetCONTEXTMODE()
+     * @see #unsetCONTEXTMODE()
+     * @see #setCONTEXTMODE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_CONTEXTMODE()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='CONTEXT_MODE' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isCONTEXTMODE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE <em>CONTEXTMODE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>CONTEXTMODE</em>' attribute.
+     * @see #isSetCONTEXTMODE()
+     * @see #unsetCONTEXTMODE()
+     * @see #isCONTEXTMODE()
+     * @generated
+     */
+    void setCONTEXTMODE(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE <em>CONTEXTMODE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetCONTEXTMODE()
+     * @see #isCONTEXTMODE()
+     * @see #setCONTEXTMODE(boolean)
+     * @generated
+     */
+    void unsetCONTEXTMODE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE <em>CONTEXTMODE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>CONTEXTMODE</em>' attribute is set.
+     * @see #unsetCONTEXTMODE()
+     * @see #isCONTEXTMODE()
+     * @see #setCONTEXTMODE(boolean)
+     * @generated
+     */
+    boolean isSetCONTEXTMODE();
 
     /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.

@@ -692,7 +692,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getElementParameterType_Field() {
+    public EAttribute getElementParameterType_ContextMode() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -701,7 +701,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getElementParameterType_Name() {
+    public EAttribute getElementParameterType_Field() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -710,8 +710,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getElementParameterType_Value() {
+    public EAttribute getElementParameterType_Name() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getElementParameterType_Value() {
+        return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1418,6 +1427,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
 
         elementParameterTypeEClass = createEClass(ELEMENT_PARAMETER_TYPE);
         createEReference(elementParameterTypeEClass, ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE);
+        createEAttribute(elementParameterTypeEClass, ELEMENT_PARAMETER_TYPE__CONTEXT_MODE);
         createEAttribute(elementParameterTypeEClass, ELEMENT_PARAMETER_TYPE__FIELD);
         createEAttribute(elementParameterTypeEClass, ELEMENT_PARAMETER_TYPE__NAME);
         createEAttribute(elementParameterTypeEClass, ELEMENT_PARAMETER_TYPE__VALUE);
@@ -1588,6 +1598,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
 
         initEClass(elementParameterTypeEClass, ElementParameterType.class, "ElementParameterType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getElementParameterType_ElementValue(), this.getElementValueType(), null, "elementValue", null, 0, -1, ElementParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getElementParameterType_ContextMode(), theXMLTypePackage.getBoolean(), "contextMode", null, 0, 1, ElementParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getElementParameterType_Field(), theXMLTypePackage.getString(), "field", null, 0, 1, ElementParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getElementParameterType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, ElementParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getElementParameterType_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, ElementParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2084,6 +2095,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "element",
              "name", "ElementValue",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getElementParameterType_ContextMode(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "contextMode",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
