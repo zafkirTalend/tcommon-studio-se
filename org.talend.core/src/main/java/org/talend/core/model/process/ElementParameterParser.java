@@ -18,8 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.commons.utils.generation.CodeGenerationUtils;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.runprocess.ProcessorUtilities;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -211,10 +213,21 @@ public final class ElementParameterParser {
     @SuppressWarnings("unchecked")//$NON-NLS-1$
     private static String getDisplayValue(final IElementParameter param) {
         Object value = param.getValue();
-        if (value instanceof String) {
-            return (String) value;
-        }
 
+        if (value instanceof String) {
+            final String value2 = (String) value;
+
+            if ("__PROCESS_TYPE_PROCESS__".indexOf(param.getVariableName()) != -1) { //$NON-NLS-1$
+                ProcessItem item = ProcessorUtilities.getProcessItemById(value2);
+                if (item != null) {
+                    return item.getProperty().getLabel();
+                } else {
+                    return ""; //$NON-NLS-1$
+                }
+
+            }
+            return value2;
+        }
         if (param.getField() == EParameterFieldType.RADIO || param.getField() == EParameterFieldType.CHECK
                 || param.getField() == EParameterFieldType.AS400_CHECK) {
             return ((Boolean) param.getValue()).toString();
@@ -263,11 +276,11 @@ public final class ElementParameterParser {
     public static String getUNIQUENAME(NodeType node) {
         List<ElementParameterType> parameters = node.getElementParameter();
         for (ElementParameterType elementParam : parameters) {
-            if (elementParam.getName().equals("UNIQUE_NAME")) {
+            if (elementParam.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$
                 return elementParam.getValue();
             }
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
 
 }

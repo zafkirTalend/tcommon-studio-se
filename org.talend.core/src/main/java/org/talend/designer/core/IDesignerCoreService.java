@@ -93,4 +93,5 @@ public interface IDesignerCoreService extends IService {
 
     public boolean isTalendEditor(IEditorPart activeEditor);
 
+    public boolean upgradeItemParameters(Item item);
 }

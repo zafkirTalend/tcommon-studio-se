@@ -163,4 +163,8 @@ public interface IElementParameter extends Cloneable {
     public boolean isContextMode();
 
     public void setContextMode(boolean mode);
+
+    public void setLabelFromRepository(String label);
+
+    public String getLabelFromRepository();
 }

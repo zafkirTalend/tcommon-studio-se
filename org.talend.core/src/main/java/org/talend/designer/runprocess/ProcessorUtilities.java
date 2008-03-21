@@ -79,9 +79,42 @@ public class ProcessorUtilities {
     private static Map<String, ProcessItem> processItemCache = new HashMap<String, ProcessItem>();
 
     public static ProcessItem getProcessItem(String processName) {
-        ProcessItem selectedProcessItem = processItemCache.get(processName);
-        if (processName == null || "".equals(processName)) {
+        return getProcessItem(processName, false);
+    }
+
+    public static ProcessItem getProcessItemByName(String processName) {
+        return getProcessItem(processName, false);
+    }
+
+    public static ProcessItem getProcessItemById(String processId) {
+        return getProcessItem(processId, true);
+    }
+
+    /**
+     * 
+     * ggu Comment method "getProcessItem".
+     * 
+     * @param processNameOrId
+     * @param isId
+     * 
+     * if "isId" equals true. the "processNameOrId" must be id.
+     * 
+     * @return
+     */
+    private static ProcessItem getProcessItem(String processNameOrId, boolean isId) {
+        if (processNameOrId == null || "".equals(processNameOrId)) {
             return null;
+        }
+        ProcessItem selectedProcessItem = null;
+        if (isId) {
+            for (String name : processItemCache.keySet()) {
+                ProcessItem tmpItem = processItemCache.get(name);
+                if (tmpItem != null && tmpItem.getProperty().getId().equals(processNameOrId)) {
+                    selectedProcessItem = tmpItem;
+                }
+            }
+        } else {
+            selectedProcessItem = processItemCache.get(processNameOrId);
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
@@ -91,21 +124,34 @@ public class ProcessorUtilities {
                     return null;
                 }
                 ProcessItem lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
+                final String label = lastVersionOfProcess.getProperty().getLabel();
 
-                processItemCache.put(processName, lastVersionOfProcess);
-                versionsProcessItemCache.put(processName + "," + lastVersionOfProcess.getProperty().getVersion(),
-                        selectedProcessItem);
+                processItemCache.put(label, lastVersionOfProcess);
+                versionsProcessItemCache.put(label + "," + lastVersionOfProcess.getProperty().getVersion(), selectedProcessItem);
                 return lastVersionOfProcess;
             }
 
             List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
 
             for (IRepositoryObject process : list) {
-                if (processName.equals(process.getLabel())) {
-                    if (process.getProperty().getItem() instanceof ProcessItem) {
-                        selectedProcessItem = (ProcessItem) process.getProperty().getItem();
-                        processItemCache.put(processName, selectedProcessItem);
-                        versionsProcessItemCache.put(processName + "," + selectedProcessItem.getProperty().getVersion(),
+                if (process.getProperty().getItem() instanceof ProcessItem) {
+                    ProcessItem tmpItem = (ProcessItem) process.getProperty().getItem();
+                    final String label = tmpItem.getProperty().getLabel();
+                    boolean found = false;
+                    if (isId) {
+                        if (tmpItem.getProperty().getId().equals(processNameOrId)) {
+                            found = true;
+                        }
+                    } else {
+                        if (processNameOrId.equals(label)) {
+                            found = true;
+                        }
+                    }
+                    if (found) {
+                        selectedProcessItem = tmpItem;
+
+                        processItemCache.put(label, selectedProcessItem);
+                        versionsProcessItemCache.put(label + "," + selectedProcessItem.getProperty().getVersion(),
                                 selectedProcessItem);
                         break;
                     }
@@ -115,19 +161,34 @@ public class ProcessorUtilities {
             ExceptionHandler.process(e);
         }
         if (selectedProcessItem != null) {
-            processItemCache.put(processName, selectedProcessItem);
-            versionsProcessItemCache.put(processName + "," + selectedProcessItem.getProperty().getVersion(), selectedProcessItem);
+            final String label = selectedProcessItem.getProperty().getLabel();
+            processItemCache.put(label, selectedProcessItem);
+            versionsProcessItemCache.put(label + "," + selectedProcessItem.getProperty().getVersion(), selectedProcessItem);
         }
         return selectedProcessItem;
     }
 
     private static Map<String, ProcessItem> versionsProcessItemCache = new HashMap<String, ProcessItem>();
 
+    public static List<IRepositoryObject> getAllRepositoryObjectById(String id) {
+        if (id == null) {
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            final List<IRepositoryObject> allVersion = factory.getAllVersion(id);
+            return allVersion;
+        } catch (PersistenceException e) {
+            // 
+        }
+        return null;
+    }
+
     public static ProcessItem getProcessItem(String processName, String version) {
-        ProcessItem selectedProcessItem = versionsProcessItemCache.get(processName + "," + version);
         if (processName == null || "".equals(processName)) {
             return null;
         }
+        ProcessItem selectedProcessItem = versionsProcessItemCache.get(processName + "," + version);
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             // if (selectedProcessItem != null) {
