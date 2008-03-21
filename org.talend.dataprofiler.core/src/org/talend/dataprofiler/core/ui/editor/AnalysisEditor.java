@@ -27,7 +27,6 @@ public class AnalysisEditor extends FormEditor {
      * 
      */
     public AnalysisEditor() {
-       System.out.println("Editor");
     }
 
     protected void addPages() {
