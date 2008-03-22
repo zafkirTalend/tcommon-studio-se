@@ -23,11 +23,12 @@ use vars qw(@EXPORT @ISA);
 # {example} getCurrentDate('DD/MM/CCYY')
 # {example} getCurrentDate(undef)
 sub getDate {
-    my ($format) = @_;
+    my ($format, $time) = @_;
     $format = 'DD/MM/CCYY' if not defined $format;
+    $time = time() if not defined $time;
 
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
-        localtime(time);
+        localtime($time);
 
     my %fields = (
         CC => int(($year + 1900) / 100),
