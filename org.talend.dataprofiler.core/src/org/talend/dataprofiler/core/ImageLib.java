@@ -36,6 +36,10 @@ public class ImageLib {
     public static final String REFRESH_IMAGE = "sample.gif"; //$NON-NLS-1$
     
     public static final String FOLDERNODE_IMAGE = "folder.gif"; //$NON-NLS-1$
+    
+    public static final String PROJECT_ACTIVE = "prject_active.gif"; //$NON-NLS-1$
+    
+    
 
     /**
      * get <code>ImageDescriptor</code> with special imageName.

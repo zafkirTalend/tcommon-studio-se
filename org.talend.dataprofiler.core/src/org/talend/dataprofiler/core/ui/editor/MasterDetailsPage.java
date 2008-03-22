@@ -12,8 +12,23 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
+import java.util.ArrayList;
+
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -21,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -29,6 +45,16 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.model.nodes.IFolderNode;
+import org.talend.dataprofiler.core.ui.dialog.TwoPartCheckSelectionDialog;
+import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
+import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
+import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewLabelProvider;
+import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
+import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
 
 /**
  * @author rli
@@ -70,6 +96,7 @@ public class MasterDetailsPage extends FormPage {
         anasisDataComp.setLayout(new GridLayout(1, true));
 
         createAnalysisMetadataSection(form, toolkit, anasisDataComp);
+        createAnalysisColumnsSection(form, toolkit, anasisDataComp);
         createDataFilterSection(form, toolkit, anasisDataComp);
     }
 
@@ -89,6 +116,7 @@ public class MasterDetailsPage extends FormPage {
         });
 
         section.setText("Analysis metadata");
+        section.setDescription("Set the properties of analysis.");
         Composite labelButtonClient = toolkit.createComposite(section);
 
         labelButtonClient.setLayout(new GridLayout(2, false));
@@ -106,6 +134,74 @@ public class MasterDetailsPage extends FormPage {
         descriptionText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         descriptionText.setLayoutData(new GridData());
         section.setClient(labelButtonClient);
+    }
+
+    private void createAnalysisColumnsSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
+        Section section = toolkit.createSection(anasisDataComp, Section.DESCRIPTION
+
+        | Section.TWISTIE | Section.TITLE_BAR);
+
+        section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING));
+
+        section.addExpansionListener(new ExpansionAdapter() {
+
+            public void expansionStateChanged(ExpansionEvent e) {
+                form.reflow(true);
+            }
+
+        });
+        section.setText("Analysis metadata");
+        section.setDescription("Edit the columns anasis on the following section.");
+        section.setExpanded(true);
+        Composite topComp = toolkit.createComposite(section);
+        topComp.setLayout(new GridLayout(3, true));
+
+        Tree tree = toolkit.createTree(topComp, SWT.BORDER);
+        GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
+        AnasisColumnTreeViewer treeViewer = new AnasisColumnTreeViewer(tree);
+
+        Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
+        GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
+        buttonsComp.setLayout(new GridLayout(1, true));
+        Button button = toolkit.createButton(buttonsComp, "Add..", SWT.None);
+        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.TOP).applyTo(button);
+        button.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                openColumnsSelectionDialog();
+            }
+        });
+
+        section.setClient(topComp);
+
+    }
+
+    /**
+     * 
+     */
+    private void openColumnsSelectionDialog() {
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        final Class[] acceptedClasses = new Class[] { IResource.class, IFolderNode.class, EObject.class };
+        IProject[] allProjects = root.getProjects();
+        ArrayList rejectedElements = new ArrayList(allProjects.length);
+        for (int i = 0; i < allProjects.length; i++) {
+            if (!allProjects[i].equals(ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME))) {
+                rejectedElements.add(allProjects[i]);
+            }
+        }
+        rejectedElements.add(ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFile(
+                ".project"));
+        ViewerFilter filter = new TypedViewerFilter(acceptedClasses, rejectedElements.toArray());
+
+        ILabelProvider lp = new DBTablesViewLabelProvider();
+        ITreeContentProvider cp = new DBTablesViewContentProvider();
+        TwoPartCheckSelectionDialog dialog = new TwoPartCheckSelectionDialog(getSite().getShell(), lp, cp, "Column Selection");
+        dialog.addFilter(filter);
+        dialog.addFilter(new EMFObjFilter());
+        dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
+        if (dialog.open() == Window.OK) {
+            return;
+        }
     }
 
     /**
@@ -128,24 +224,32 @@ public class MasterDetailsPage extends FormPage {
 
         });
 
-        section.setText("Data Filter");
-        section.setExpanded(true);
+        section.setText("Anasis Columns");
+        section.setExpanded(false);
 
         // toolkit.createCompositeSeparator(section);
 
         section
 
-        .setDescription("This is restriction list to filter the data");
+        .setDescription("Edit the data filter on the following section.");
 
         Composite sectionClient = toolkit.createComposite(section);
 
-        sectionClient.setLayout(new GridLayout(5, true));
+        sectionClient.setLayout(new GridLayout(3, true));
 
         Table table = toolkit.createTable(sectionClient, SWT.BORDER);
         GridDataFactory.fillDefaults().span(2, 3).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(table);
 
-        Button button = toolkit.createButton(sectionClient, "Edit", SWT.None);
-        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.CENTER).applyTo(button);
+        Composite buttonsComp = toolkit.createComposite(sectionClient, SWT.None);
+        GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
+        buttonsComp.setLayout(new GridLayout(1, true));
+
+        Button button = toolkit.createButton(buttonsComp, "Add..", SWT.None);
+        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.TOP).applyTo(button);
+        button = toolkit.createButton(buttonsComp, "Edit..", SWT.None);
+        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.TOP).applyTo(button);
+        button = toolkit.createButton(buttonsComp, "Remove", SWT.None);
+        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.TOP).applyTo(button);
 
         section.setClient(sectionClient);
     }

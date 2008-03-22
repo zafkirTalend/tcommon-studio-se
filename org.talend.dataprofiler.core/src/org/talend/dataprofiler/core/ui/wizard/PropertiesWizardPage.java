@@ -48,9 +48,10 @@ import org.eclipse.ui.views.navigator.ResourceComparator;
 import org.talend.cwm.management.api.FolderProvider;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
-import org.talend.dataprofiler.core.ui.dialog.TypedViewerFilter;
+import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
 
 /**
  * Wizard page contains common properties fields.<br/>
@@ -95,8 +96,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean update = false;
 
-    private IPath destinationPath;
-
     private String path;
 
     private boolean readOnly;
@@ -116,7 +115,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         super(pageName);
         // IRepositoryService service = (IRepositoryService)
         // GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        this.destinationPath = destinationPath;
 
         this.readOnly = readOnly;
         this.editPath = editPath;
@@ -284,7 +282,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         pathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // MODSCA 2008-03-10 use DQStructureManager.DB_CONNECTIONS constant instead of hard coded "Db Connections"
-        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject("Metadata").getFolder(
+        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFolder(
                 DQStructureManager.DB_CONNECTIONS);
         pathText.setText(defaultFolderProviderRes.getFullPath().toString());
         this.setFolderProvider(defaultFolderProviderRes);

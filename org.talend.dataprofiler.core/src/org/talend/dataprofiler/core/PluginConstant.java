@@ -12,16 +12,22 @@
 // ============================================================================
 package org.talend.dataprofiler.core;
 
-
 /**
  * This class store all the constant of current plugin.
- *
+ * 
  */
 public final class PluginConstant {
 
     public static final String EMPTY_STRING = "";
+
     public static final String PROJECTCREATED_FLAG = "PROJECTCREATED_FLAG";
+
     public static final String CONNECTION_URL_PROPERTY = "CONNECTION_URL_PROPERTY";
+
     public static final String CONNECTION_DBNAME_PROPERTY = "CONNECTION_DBNAME_PROPERTY";
-    
+
+    public static final String PRV_SUFFIX = ".prv";
+
+    public static final String METADATA_PROJECTNAME = "Metadata";
+
 }
