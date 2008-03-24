@@ -73,6 +73,8 @@ public interface IComponent {
 
     public Boolean isMultiplyingOutputs();
 
+    public Boolean isSubtreeWithLoop();
+
     public String getPluginFullName();
 
     public boolean isSchemaAutoPropagated();
