@@ -12,19 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
-import java.util.ArrayList;
-
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -45,16 +33,8 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.model.WorkbenchContentProvider;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.model.nodes.IFolderNode;
-import org.talend.dataprofiler.core.ui.dialog.TwoPartCheckSelectionDialog;
-import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
-import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
-import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewLabelProvider;
+import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
-import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
 
 /**
  * @author rli
@@ -180,25 +160,7 @@ public class MasterDetailsPage extends FormPage {
      * 
      */
     private void openColumnsSelectionDialog() {
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        final Class[] acceptedClasses = new Class[] { IResource.class, IFolderNode.class, EObject.class };
-        IProject[] allProjects = root.getProjects();
-        ArrayList rejectedElements = new ArrayList(allProjects.length);
-        for (int i = 0; i < allProjects.length; i++) {
-            if (!allProjects[i].equals(ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME))) {
-                rejectedElements.add(allProjects[i]);
-            }
-        }
-        rejectedElements.add(ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFile(
-                ".project"));
-        ViewerFilter filter = new TypedViewerFilter(acceptedClasses, rejectedElements.toArray());
-
-        ILabelProvider lp = new DBTablesViewLabelProvider();
-        ITreeContentProvider cp = new DBTablesViewContentProvider();
-        TwoPartCheckSelectionDialog dialog = new TwoPartCheckSelectionDialog(getSite().getShell(), lp, cp, "Column Selection");
-        dialog.addFilter(filter);
-        dialog.addFilter(new EMFObjFilter());
-        dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
+        ColumnsSelectionDialog dialog = new ColumnsSelectionDialog(getSite().getShell(), "Column Selection");
         if (dialog.open() == Window.OK) {
             return;
         }

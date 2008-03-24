@@ -17,24 +17,30 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.FileResourceMapHelper;
-import org.talend.dataprofiler.core.ui.views.provider.DQRepositoryViewLabelProvider;
+import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * @author rli
  * 
  */
-public class DBTablesViewLabelProvider extends DQRepositoryViewLabelProvider {
+public class DBTablesViewLabelProvider extends AdapterFactoryLabelProvider {
 
-    private static Logger log = Logger.getLogger(DBTablesViewLabelProvider.class);    
-    
+    private static Logger log = Logger.getLogger(DBTablesViewLabelProvider.class);
 
-    /* (non-Javadoc)
+    public DBTablesViewLabelProvider() {
+        super(MNComposedAdapterFactory.getAdapterFactory());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider#getColumnImage(java.lang.Object, int)
      */
     @Override
@@ -42,7 +48,9 @@ public class DBTablesViewLabelProvider extends DQRepositoryViewLabelProvider {
         return getImage(object);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider#getColumnText(java.lang.Object, int)
      */
     @Override

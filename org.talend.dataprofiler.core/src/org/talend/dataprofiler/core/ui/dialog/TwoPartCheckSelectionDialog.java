@@ -25,6 +25,8 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -46,30 +48,35 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.dialogs.SelectionStatusDialog;
-import org.eclipse.ui.internal.WorkbenchMessages;
 
 /**
  * A class to select elements out of a tree structure.
  * 
  * @since 2.0
  */
-public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
+public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog implements ISelectionChangedListener {
+
     private CheckboxTreeViewer fViewer;
 
-    private ILabelProvider fLabelProvider;
+    protected ILabelProvider fLabelProvider;
 
-    private ITreeContentProvider fContentProvider;
+    protected ITreeContentProvider fContentProvider;
+
+    private CheckboxTableViewer sTableViewer;
+
+    protected ILabelProvider sLabelProvider;
+
+    protected IStructuredContentProvider sContentProvider;
 
     private ISelectionStatusValidator fValidator = null;
 
     private ViewerComparator fComparator;
 
-    private String fEmptyListMessage = WorkbenchMessages.CheckedTreeSelectionDialog_nothing_available; 
+    private String fEmptyListMessage = "No entries available.";
 
-    private IStatus fCurrStatus = new Status(IStatus.OK, PlatformUI.PLUGIN_ID,
-            0, "", null); //$NON-NLS-1$
+    private IStatus fCurrStatus = new Status(IStatus.OK, PlatformUI.PLUGIN_ID, 0, "", null); //$NON-NLS-1$
 
-    private List fFilters;
+    private List<ViewerFilter> fFilters;
 
     private Object fInput;
 
@@ -83,23 +90,16 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
 
     private Object[] fExpandedElements;
 
-    private CheckboxTableViewer tableViewer;
-
     /**
      * Constructs an instance of <code>ElementTreeSelectionDialog</code>.
      * 
-     * @param parent
-     *            The shell to parent from.
-     * @param labelProvider
-     *            the label provider to render the entries
-     * @param contentProvider
-     *            the content provider to evaluate the tree structure
+     * @param parent The shell to parent from.
+     * @param labelProvider the label provider to render the entries
+     * @param contentProvider the content provider to evaluate the tree structure
      */
-    public TwoPartCheckSelectionDialog(Shell parent,
-            ILabelProvider labelProvider, ITreeContentProvider contentProvider, String message) {
+    @SuppressWarnings("unchecked")
+    public TwoPartCheckSelectionDialog(Shell parent, String message) {
         super(parent);
-        fLabelProvider = labelProvider;
-        fContentProvider = contentProvider;
         setResult(new ArrayList(0));
         setStatusLineAboveButtons(true);
         fContainerMode = false;
@@ -107,14 +107,15 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
         int shellStyle = getShellStyle();
         setShellStyle(shellStyle | SWT.MAX | SWT.RESIZE);
         setMessage(message);
+        initProvider();
     }
 
+    protected abstract void initProvider();
+
     /**
-     * If set, the checked /gray state of containers (inner nodes) is derived
-     * from the checked state of its leaf nodes.
+     * If set, the checked /gray state of containers (inner nodes) is derived from the checked state of its leaf nodes.
      * 
-     * @param containerMode
-     *            The containerMode to set
+     * @param containerMode The containerMode to set
      */
     public void setContainerMode(boolean containerMode) {
         fContainerMode = containerMode;
@@ -123,8 +124,7 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
     /**
      * Sets the initial selection. Convenience method.
      * 
-     * @param selection
-     *            the initial selection.
+     * @param selection the initial selection.
      */
     public void setInitialSelection(Object selection) {
         setInitialSelections(new Object[] { selection });
@@ -133,8 +133,7 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
     /**
      * Sets the message to be displayed if the list is empty.
      * 
-     * @param message
-     *            the message to be displayed.
+     * @param message the message to be displayed.
      */
     public void setEmptyListMessage(String message) {
         fEmptyListMessage = message;
@@ -144,43 +143,39 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
      * Sets the sorter used by the tree viewer.
      * 
      * @param sorter
-     * @deprecated since 3.3, use
-     *             {@link TwoPartCheckSelectionDialog#setComparator(ViewerComparator)}
-     *             instead
+     * @deprecated since 3.3, use {@link TwoPartCheckSelectionDialog#setComparator(ViewerComparator)} instead
      */
     public void setSorter(ViewerSorter sorter) {
         fComparator = sorter;
     }
-    
+
     /**
      * Sets the comparator used by the tree viewer.
      * 
      * @param comparator
      * @since 3.3
      */
-    public void setComparator(ViewerComparator comparator){
+    public void setComparator(ViewerComparator comparator) {
         fComparator = comparator;
     }
 
     /**
      * Adds a filter to the tree viewer.
      * 
-     * @param filter
-     *            a filter.
+     * @param filter a filter.
      */
     public void addFilter(ViewerFilter filter) {
         if (fFilters == null) {
-            fFilters = new ArrayList(4);
+            fFilters = new ArrayList<ViewerFilter>(4);
         }
         fFilters.add(filter);
     }
 
     /**
-     * Sets an optional validator to check if the selection is valid. The
-     * validator is invoked whenever the selection changes.
+     * Sets an optional validator to check if the selection is valid. The validator is invoked whenever the selection
+     * changes.
      * 
-     * @param validator
-     *            the validator to validate the selection.
+     * @param validator the validator to validate the selection.
      */
     public void setValidator(ISelectionStatusValidator validator) {
         fValidator = validator;
@@ -189,18 +184,20 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
     /**
      * Sets the tree input.
      * 
-     * @param input
-     *            the tree input.
+     * @param input the tree input.
      */
     public void setInput(Object input) {
         fInput = input;
     }
 
+    public void setOutput(Object output) {
+        sTableViewer.setInput(output);
+    }
+
     /**
      * Expands elements in the tree.
      * 
-     * @param elements
-     *            The elements that will be expanded.
+     * @param elements The elements that will be expanded.
      */
     public void setExpandedElements(Object[] elements) {
         fExpandedElements = elements;
@@ -209,10 +206,8 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
     /**
      * Sets the size of the tree in unit of characters.
      * 
-     * @param width
-     *            the width of the tree.
-     * @param height
-     *            the height of the tree.
+     * @param width the width of the tree.
+     * @param height the height of the tree.
      */
     public void setSize(int width, int height) {
         fWidth = width;
@@ -221,7 +216,7 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
 
     /**
      * Validate the receiver and update the status with the result.
-     *
+     * 
      */
     protected void updateOKStatus() {
         if (!fIsEmpty) {
@@ -229,19 +224,18 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
                 fCurrStatus = fValidator.validate(fViewer.getCheckedElements());
                 updateStatus(fCurrStatus);
             } else if (!fCurrStatus.isOK()) {
-                fCurrStatus = new Status(IStatus.OK, PlatformUI.PLUGIN_ID,
-                        IStatus.OK, "", //$NON-NLS-1$
+                fCurrStatus = new Status(IStatus.OK, PlatformUI.PLUGIN_ID, IStatus.OK, "", //$NON-NLS-1$
                         null);
             }
         } else {
-            fCurrStatus = new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID,
-                    IStatus.OK, fEmptyListMessage, null);
+            fCurrStatus = new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID, IStatus.OK, fEmptyListMessage, null);
         }
         updateStatus(fCurrStatus);
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.window.Window#open()
      */
     public int open() {
@@ -264,21 +258,22 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
     protected void computeResult() {
         setResult(Arrays.asList(fViewer.getCheckedElements()));
     }
-    
+
     private void parentCreate() {
         super.create();
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.window.Window#create()
      */
     public void create() {
         BusyIndicator.showWhile(null, new Runnable() {
+
             public void run() {
                 parentCreate();
-                fViewer.setCheckedElements(getInitialElementSelections()
-                        .toArray());
+                fViewer.setCheckedElements(getInitialElementSelections().toArray());
                 if (fExpandedElements != null) {
                     fViewer.setExpandedElements(fExpandedElements);
                 }
@@ -288,24 +283,25 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets.Composite)
      */
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
         Label messageLabel = createMessageArea(composite);
-        
+
         Composite twoPartComp = new Composite(composite, 0);
         GridLayout layout = new GridLayout(2, true);
         layout.marginHeight = 0;
         layout.marginWidth = 0;
         layout.verticalSpacing = 0;
-        twoPartComp.setLayout(layout);  
+        twoPartComp.setLayout(layout);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(twoPartComp);
-        
-        CheckboxTreeViewer treeViewer = createFirstPart(twoPartComp);  
-        tableViewer = createSecondPart(twoPartComp);
-        
+
+        CheckboxTreeViewer treeViewer = createFirstPart(twoPartComp);
+        sTableViewer = createSecondPart(twoPartComp);
+
         Control buttonComposite = createSelectionButtons(composite);
         GridData data = new GridData(GridData.FILL_BOTH);
         data.widthHint = convertWidthInCharsToPixels(fWidth);
@@ -318,34 +314,12 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
             treeWidget.setEnabled(false);
             buttonComposite.setEnabled(false);
         }
+        addCheckedListener();
         return composite;
     }
 
-    /**
-     * Creates the tree viewer.
-     * 
-     * @param parent
-     *            the parent composite
-     * @return the tree viewer
-     */
-    protected CheckboxTreeViewer createFirstPart(Composite parent) {
-        if (fContainerMode) {
-            fViewer = new ContainerCheckedTreeViewer(parent, SWT.BORDER);
-        } else {
-            fViewer = new CheckboxTreeViewer(parent, SWT.BORDER);
-        }
-        
-        fViewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
-        applyDialogFont(fViewer.getTree());
-        
-        fViewer.setContentProvider(fContentProvider);
-        fViewer.setLabelProvider(fLabelProvider);
-        fViewer.addCheckStateListener(new ICheckStateListener() {
-            public void checkStateChanged(CheckStateChangedEvent event) {
-                updateOKStatus();
-            }
-        });
-        
+    protected void addCheckedListener() {
+
         // When user checks a checkbox in the tree, check all its children
         fViewer.addCheckStateListener(new ICheckStateListener() {
 
@@ -359,7 +333,33 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
                 }
             }
         });
-        
+    }
+
+    /**
+     * Creates the tree viewer.
+     * 
+     * @param parent the parent composite
+     * @return the tree viewer
+     */
+    protected CheckboxTreeViewer createFirstPart(Composite parent) {
+        if (fContainerMode) {
+            fViewer = new ContainerCheckedTreeViewer(parent, SWT.BORDER);
+        } else {
+            fViewer = new CheckboxTreeViewer(parent, SWT.BORDER);
+        }
+
+        fViewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
+        applyDialogFont(fViewer.getTree());
+
+        fViewer.setContentProvider(fContentProvider);
+        fViewer.setLabelProvider(fLabelProvider);
+        fViewer.addCheckStateListener(new ICheckStateListener() {
+
+            public void checkStateChanged(CheckStateChangedEvent event) {
+                updateOKStatus();
+            }
+        });
+
         fViewer.setComparator(fComparator);
         if (fFilters != null) {
             for (int i = 0; i != fFilters.size(); i++) {
@@ -367,11 +367,15 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
             }
         }
         fViewer.setInput(fInput);
+        fViewer.addSelectionChangedListener(this);
         return fViewer;
     }
-    
+
     protected CheckboxTableViewer createSecondPart(Composite parent) {
         CheckboxTableViewer viewer = CheckboxTableViewer.newCheckList(parent, SWT.MULTI | SWT.BORDER);
+        viewer.setLabelProvider(this.sLabelProvider);
+        viewer.setContentProvider(this.sContentProvider);
+        viewer.addSelectionChangedListener(this);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(viewer.getTable());
         return viewer;
     }
@@ -385,11 +389,14 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
         return fViewer;
     }
 
+    protected CheckboxTableViewer getTableViewer() {
+        return sTableViewer;
+    }
+
     /**
      * Adds the selection and deselection buttons to the dialog.
      * 
-     * @param composite
-     *            the parent composite
+     * @param composite the parent composite
      * @return Composite the composite the buttons were created in.
      */
     protected Composite createSelectionButtons(Composite composite) {
@@ -398,14 +405,12 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
         layout.numColumns = 2;
         buttonComposite.setLayout(layout);
         buttonComposite.setFont(composite.getFont());
-        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_END
-                | GridData.GRAB_HORIZONTAL);
+        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.GRAB_HORIZONTAL);
         data.grabExcessHorizontalSpace = true;
         composite.setData(data);
-        Button selectButton = createButton(buttonComposite,
-                IDialogConstants.SELECT_ALL_ID, WorkbenchMessages.CheckedTreeSelectionDialog_select_all,
-                false);
+        Button selectButton = createButton(buttonComposite, IDialogConstants.SELECT_ALL_ID, "Select &All", false);
         SelectionListener listener = new SelectionAdapter() {
+
             public void widgetSelected(SelectionEvent e) {
                 Object[] viewerElements = fContentProvider.getElements(fInput);
                 if (fContainerMode) {
@@ -419,10 +424,9 @@ public class TwoPartCheckSelectionDialog extends SelectionStatusDialog {
             }
         };
         selectButton.addSelectionListener(listener);
-        Button deselectButton = createButton(buttonComposite,
-                IDialogConstants.DESELECT_ALL_ID, WorkbenchMessages.CheckedTreeSelectionDialog_deselect_all,
-                false);
+        Button deselectButton = createButton(buttonComposite, IDialogConstants.DESELECT_ALL_ID, "&Deselect All", false);
         listener = new SelectionAdapter() {
+
             public void widgetSelected(SelectionEvent e) {
                 fViewer.setCheckedElements(new Object[0]);
                 updateOKStatus();
