@@ -15,6 +15,7 @@ package org.talend.core.model.process;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.swt.graphics.Color;
 import org.talend.core.model.properties.Item;
 
 /**
@@ -167,4 +168,12 @@ public interface IElementParameter extends Cloneable {
     public void setLabelFromRepository(String label);
 
     public String getLabelFromRepository();
+
+    public void setBackgroundColor(Color bgColor);
+
+    public Color getBackgroundColor();
+
+    public void setColor(Color color);
+
+    public Color getColor();
 }
