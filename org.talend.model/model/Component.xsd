@@ -340,6 +340,8 @@ On CLOSED_LIST mode:
 				use="optional" />
 			<xs:attribute name="GROUP" type="xs:string"></xs:attribute>
 			<xs:attribute name="CONTEXT_MODE" type="xs:boolean"></xs:attribute>
+			<xs:attribute name="COLOR" type="xs:string"></xs:attribute>
+			<xs:attribute name="BACKGROUND" type="xs:string"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

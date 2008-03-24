@@ -1331,13 +1331,31 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__TABLE = 2;
 
     /**
+     * The feature id for the '<em><b>BACKGROUND</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__BACKGROUND = 3;
+
+    /**
+     * The feature id for the '<em><b>COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__COLOR = 4;
+
+    /**
      * The feature id for the '<em><b>CONTEXT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__CONTEXT = 3;
+    int PARAMETER_TYPE__CONTEXT = 5;
 
     /**
      * The feature id for the '<em><b>CONTEXTMODE</b></em>' attribute.
@@ -1346,7 +1364,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__CONTEXTMODE = 4;
+    int PARAMETER_TYPE__CONTEXTMODE = 6;
 
     /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
@@ -1355,7 +1373,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FIELD = 5;
+    int PARAMETER_TYPE__FIELD = 7;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -1364,7 +1382,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FILTER = 6;
+    int PARAMETER_TYPE__FILTER = 8;
 
     /**
      * The feature id for the '<em><b>GROUP</b></em>' attribute.
@@ -1373,7 +1391,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__GROUP = 7;
+    int PARAMETER_TYPE__GROUP = 9;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1382,7 +1400,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NAME = 8;
+    int PARAMETER_TYPE__NAME = 10;
 
     /**
      * The feature id for the '<em><b>NBLINES</b></em>' attribute.
@@ -1391,7 +1409,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NBLINES = 9;
+    int PARAMETER_TYPE__NBLINES = 11;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -1400,7 +1418,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NOTSHOWIF = 10;
+    int PARAMETER_TYPE__NOTSHOWIF = 12;
 
     /**
      * The feature id for the '<em><b>NUMROW</b></em>' attribute.
@@ -1409,7 +1427,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NUMROW = 11;
+    int PARAMETER_TYPE__NUMROW = 13;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1418,7 +1436,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__READONLY = 12;
+    int PARAMETER_TYPE__READONLY = 14;
 
     /**
      * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
@@ -1427,7 +1445,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REPOSITORYVALUE = 13;
+    int PARAMETER_TYPE__REPOSITORYVALUE = 15;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -1436,7 +1454,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REQUIRED = 14;
+    int PARAMETER_TYPE__REQUIRED = 16;
 
     /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
@@ -1445,7 +1463,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOW = 15;
+    int PARAMETER_TYPE__SHOW = 17;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1454,7 +1472,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOWIF = 16;
+    int PARAMETER_TYPE__SHOWIF = 18;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1463,7 +1481,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 17;
+    int PARAMETER_TYPE_FEATURE_COUNT = 19;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -3120,6 +3138,28 @@ public interface ComponentPackage extends EPackage {
     EReference getPARAMETERType_TABLE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getBACKGROUND <em>BACKGROUND</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>BACKGROUND</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getBACKGROUND()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_BACKGROUND();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCOLOR <em>COLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCOLOR()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_COLOR();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT <em>CONTEXT</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4611,6 +4651,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference PARAMETER_TYPE__TABLE = eINSTANCE.getPARAMETERType_TABLE();
+
+        /**
+         * The meta object literal for the '<em><b>BACKGROUND</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__BACKGROUND = eINSTANCE.getPARAMETERType_BACKGROUND();
+
+        /**
+         * The meta object literal for the '<em><b>COLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__COLOR = eINSTANCE.getPARAMETERType_COLOR();
 
         /**
          * The meta object literal for the '<em><b>CONTEXT</b></em>' attribute feature.

@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getBACKGROUND <em>BACKGROUND</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isCONTEXTMODE <em>CONTEXTMODE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
@@ -113,6 +115,60 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     EList getTABLE();
+
+    /**
+     * Returns the value of the '<em><b>BACKGROUND</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>BACKGROUND</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>BACKGROUND</em>' attribute.
+     * @see #setBACKGROUND(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_BACKGROUND()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='BACKGROUND' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getBACKGROUND();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getBACKGROUND <em>BACKGROUND</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>BACKGROUND</em>' attribute.
+     * @see #getBACKGROUND()
+     * @generated
+     */
+    void setBACKGROUND(String value);
+
+    /**
+     * Returns the value of the '<em><b>COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>COLOR</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>COLOR</em>' attribute.
+     * @see #setCOLOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_COLOR()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='COLOR' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getCOLOR();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCOLOR <em>COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>COLOR</em>' attribute.
+     * @see #getCOLOR()
+     * @generated
+     */
+    void setCOLOR(String value);
 
     /**
      * Returns the value of the '<em><b>CONTEXT</b></em>' attribute.

@@ -34,6 +34,8 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getTABLE <em>TABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getBACKGROUND <em>BACKGROUND</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isCONTEXTMODE <em>CONTEXTMODE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
@@ -83,6 +85,46 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected EList tABLE;
+
+    /**
+     * The default value of the '{@link #getBACKGROUND() <em>BACKGROUND</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBACKGROUND()
+     * @generated
+     * @ordered
+     */
+    protected static final String BACKGROUND_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBACKGROUND() <em>BACKGROUND</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBACKGROUND()
+     * @generated
+     * @ordered
+     */
+    protected String bACKGROUND = BACKGROUND_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOLOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String COLOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOLOR()
+     * @generated
+     * @ordered
+     */
+    protected String cOLOR = COLOR_EDEFAULT;
 
     /**
      * The default value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
@@ -501,6 +543,48 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             tABLE = new EObjectContainmentEList(TABLEType.class, this, ComponentPackage.PARAMETER_TYPE__TABLE);
         }
         return tABLE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getBACKGROUND() {
+        return bACKGROUND;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBACKGROUND(String newBACKGROUND) {
+        String oldBACKGROUND = bACKGROUND;
+        bACKGROUND = newBACKGROUND;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__BACKGROUND, oldBACKGROUND, bACKGROUND));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCOLOR() {
+        return cOLOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOLOR(String newCOLOR) {
+        String oldCOLOR = cOLOR;
+        cOLOR = newCOLOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__COLOR, oldCOLOR, cOLOR));
     }
 
     /**
@@ -977,6 +1061,10 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getITEMS();
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return getTABLE();
+            case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
+                return getBACKGROUND();
+            case ComponentPackage.PARAMETER_TYPE__COLOR:
+                return getCOLOR();
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 return getCONTEXT();
             case ComponentPackage.PARAMETER_TYPE__CONTEXTMODE:
@@ -1027,6 +1115,12 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 getTABLE().clear();
                 getTABLE().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
+                setBACKGROUND((String)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__COLOR:
+                setCOLOR((String)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 setCONTEXT((String)newValue);
@@ -1090,6 +1184,12 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 getTABLE().clear();
                 return;
+            case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
+                setBACKGROUND(BACKGROUND_EDEFAULT);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__COLOR:
+                setCOLOR(COLOR_EDEFAULT);
+                return;
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 setCONTEXT(CONTEXT_EDEFAULT);
                 return;
@@ -1149,6 +1249,10 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return iTEMS != null;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return tABLE != null && !tABLE.isEmpty();
+            case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
+                return BACKGROUND_EDEFAULT == null ? bACKGROUND != null : !BACKGROUND_EDEFAULT.equals(bACKGROUND);
+            case ComponentPackage.PARAMETER_TYPE__COLOR:
+                return COLOR_EDEFAULT == null ? cOLOR != null : !COLOR_EDEFAULT.equals(cOLOR);
             case ComponentPackage.PARAMETER_TYPE__CONTEXT:
                 return CONTEXT_EDEFAULT == null ? cONTEXT != null : !CONTEXT_EDEFAULT.equals(cONTEXT);
             case ComponentPackage.PARAMETER_TYPE__CONTEXTMODE:
@@ -1190,7 +1294,11 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cONTEXT: ");
+        result.append(" (bACKGROUND: ");
+        result.append(bACKGROUND);
+        result.append(", cOLOR: ");
+        result.append(cOLOR);
+        result.append(", cONTEXT: ");
         result.append(cONTEXT);
         result.append(", cONTEXTMODE: ");
         if (cONTEXTMODEESet) result.append(cONTEXTMODE); else result.append("<unset>");

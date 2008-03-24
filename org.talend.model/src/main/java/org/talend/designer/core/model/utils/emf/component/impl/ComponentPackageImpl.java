@@ -1403,7 +1403,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_CONTEXT() {
+    public EAttribute getPARAMETERType_BACKGROUND() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -1412,7 +1412,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_CONTEXTMODE() {
+    public EAttribute getPARAMETERType_COLOR() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1421,7 +1421,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_FIELD() {
+    public EAttribute getPARAMETERType_CONTEXT() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -1430,7 +1430,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_FILTER() {
+    public EAttribute getPARAMETERType_CONTEXTMODE() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -1439,7 +1439,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_GROUP() {
+    public EAttribute getPARAMETERType_FIELD() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -1448,7 +1448,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NAME() {
+    public EAttribute getPARAMETERType_FILTER() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -1457,7 +1457,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NBLINES() {
+    public EAttribute getPARAMETERType_GROUP() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -1466,7 +1466,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NOTSHOWIF() {
+    public EAttribute getPARAMETERType_NAME() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -1475,7 +1475,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NUMROW() {
+    public EAttribute getPARAMETERType_NBLINES() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1484,7 +1484,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_READONLY() {
+    public EAttribute getPARAMETERType_NOTSHOWIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -1493,7 +1493,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_REPOSITORYVALUE() {
+    public EAttribute getPARAMETERType_NUMROW() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(13);
     }
 
@@ -1502,7 +1502,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_REQUIRED() {
+    public EAttribute getPARAMETERType_READONLY() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(14);
     }
 
@@ -1511,7 +1511,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOW() {
+    public EAttribute getPARAMETERType_REPOSITORYVALUE() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(15);
     }
 
@@ -1520,8 +1520,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOWIF() {
+    public EAttribute getPARAMETERType_REQUIRED() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_SHOW() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(17);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_SHOWIF() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -1952,6 +1970,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(parameterTypeEClass, PARAMETER_TYPE__DEFAULT);
         createEReference(parameterTypeEClass, PARAMETER_TYPE__ITEMS);
         createEReference(parameterTypeEClass, PARAMETER_TYPE__TABLE);
+        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__BACKGROUND);
+        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__COLOR);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__CONTEXT);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__CONTEXTMODE);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__FIELD);
@@ -2173,6 +2193,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getPARAMETERType_DEFAULT(), this.getDEFAULTType(), null, "dEFAULT", null, 0, -1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getPARAMETERType_ITEMS(), this.getITEMSType(), null, "iTEMS", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getPARAMETERType_TABLE(), this.getTABLEType(), null, "tABLE", null, 0, -1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPARAMETERType_BACKGROUND(), theXMLTypePackage.getString(), "bACKGROUND", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPARAMETERType_COLOR(), theXMLTypePackage.getString(), "cOLOR", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_CONTEXT(), theXMLTypePackage.getString(), "cONTEXT", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_CONTEXTMODE(), theXMLTypePackage.getBoolean(), "cONTEXTMODE", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_FIELD(), theXMLTypePackage.getString(), "fIELD", null, 1, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3190,6 +3212,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "TABLE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getPARAMETERType_BACKGROUND(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "BACKGROUND",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getPARAMETERType_COLOR(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "COLOR",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
