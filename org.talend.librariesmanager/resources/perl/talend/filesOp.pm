@@ -39,6 +39,7 @@ sub getFileList {
     #  - include_subdir
     #  - match_dirs
     #  - match_files
+    #  - exclude_filemask
     my %param = @_;
 
     foreach my $option (qw/match_dirs match_files/) {
@@ -91,6 +92,12 @@ sub getFileList {
         }
         else {
             $add_file = 1;
+        }
+
+        if ($add_file and exists $param{exclude_filemask}) {
+            if ($filename =~ m/$param{exclude_filemask}/) {
+                $add_file = 0;
+            }
         }
 
         if ($add_file) {
