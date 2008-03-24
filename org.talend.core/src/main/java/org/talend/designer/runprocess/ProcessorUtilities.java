@@ -644,7 +644,12 @@ public class ProcessorUtilities {
         }
 
         JobInfo(JobType jobType) {
-            this.jobName = jobType.getName();
+            final ProcessItem item = ProcessorUtilities.getProcessItemById(jobType.getName());
+            if (item != null) {
+                this.jobName = item.getProperty().getLabel();
+            } else {
+                this.jobName = null;
+            }
             this.contextName = jobType.getContext();
         }
 
