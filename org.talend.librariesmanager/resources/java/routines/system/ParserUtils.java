@@ -188,12 +188,17 @@ public class ParserUtils {
     /**
      * in order to transform the string "1.234.567,89" to number 1234567.89
      */
-    public static String parseTo_Number(String s, char thousandsSeparator, char decimalSeparator) {
+    public static String parseTo_Number(String s, Character thousandsSeparator, Character decimalSeparator) {
         if (s == null) {
             return null;
         }
-        String temp = StringUtils.deleteChar(s, thousandsSeparator);
-        String result = temp.replace(decimalSeparator, '.');
+        String result = s;
+        if (thousandsSeparator != null) {
+            result = StringUtils.deleteChar(s, thousandsSeparator);
+        }
+        if (decimalSeparator != null) {
+            result = result.replace(decimalSeparator, '.');
+        }
         return result;
     }
 }

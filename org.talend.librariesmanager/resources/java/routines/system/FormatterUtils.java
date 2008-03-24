@@ -26,12 +26,17 @@ public class FormatterUtils {
     /**
      * in order to transform the number "1234567.89" to string 123,456.89
      */
-    public static String format_Number(String s, char thousandsSeparator, char decimalSeparator) {
+    public static String format_Number(String s, Character thousandsSeparator, Character decimalSeparator) {
         if (s == null) {
             return null;
         }
-        String temp = formatNumber(s, thousandsSeparator);
-        String result = temp.replace('.', decimalSeparator);
+        String result = s;
+        if (thousandsSeparator != null) {
+            result = formatNumber(s, thousandsSeparator);
+        }
+        if (decimalSeparator != null) {
+            result = result.replace('.', decimalSeparator);
+        }
         return result;
     }
 
