@@ -113,8 +113,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
     protected PropertiesWizardPage(String pageName, ConnectionParameters property, IPath destinationPath,
             boolean readOnly, boolean editPath) {
         super(pageName);
-        // IRepositoryService service = (IRepositoryService)
-        // GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
 
         this.readOnly = readOnly;
         this.editPath = editPath;

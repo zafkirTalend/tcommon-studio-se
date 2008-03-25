@@ -12,25 +12,23 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.provider;
 
-import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
-import org.talend.commons.emf.FactoriesUtil;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
+import org.talend.dataprofiler.core.ui.wizard.analysis.CreateNewAnalysisWizard;
 
 
 /**
@@ -96,18 +94,28 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
          * (non-Javadoc) Method declared on IAction.
          */
         public void run() {
-            IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.DATA_PROFILING).getFolder(
-                    DQStructureManager.ANALYSIS);
-            IFile newFile = folder.getFile("sample." + FactoriesUtil.ANA);
-            if (newFile.exists()) {
-                return;
-            }
+//            IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.DATA_PROFILING).getFolder(
+//                    DQStructureManager.ANALYSIS);
+//            IFile newFile = folder.getFile("sample." + FactoriesUtil.ANA);
+//            if (newFile.exists()) {
+//                return;
+//            }
+//            try {
+//                newFile.create(new ByteArrayInputStream(new byte[0]), false, null);
+//            } catch (CoreException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
             try {
-                newFile.create(new ByteArrayInputStream(new byte[0]), false, null);
-            } catch (CoreException e) {
-                // TODO Auto-generated catch block
+                CreateNewAnalysisWizard wizard = new CreateNewAnalysisWizard(PlatformUI.getWorkbench(), true, null, null);
+                WizardDialog dialog = new WizardDialog(null, wizard);
+                dialog.setPageSize(600, 320);
+                dialog.open();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+          
+            
         }
     }
     
