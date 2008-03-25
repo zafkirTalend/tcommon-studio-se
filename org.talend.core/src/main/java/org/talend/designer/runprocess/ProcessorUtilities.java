@@ -704,4 +704,43 @@ public class ProcessorUtilities {
         }
 
     }
+
+    /*
+     * process id to all version repository object.
+     */
+    private static Map<String, List<IRepositoryObject>> allVersionProcessMap = new HashMap<String, List<IRepositoryObject>>();
+
+    /**
+     * 
+     * ggu Comment method "getAllVersionProcessList".
+     * 
+     * @param processId
+     * @return
+     */
+    public static List<IRepositoryObject> getAllVersionProcessList(String processId) {
+        if (processId == null || "".equals(processId)) {
+            return null;
+        }
+        List<IRepositoryObject> allVersionList = allVersionProcessMap.get(processId);
+        if (allVersionList == null) {
+            allVersionList = getAllRepositoryObjectById(processId);
+            if (allVersionList != null) {
+                allVersionProcessMap.put(processId, allVersionList);
+            }
+        }
+        return allVersionList;
+    }
+
+    /**
+     * 
+     * ggu Comment method "setAllVersionProcessList".
+     * 
+     * this method is only for the process Type RepositoryReviewDialog class.
+     */
+    public static void setAllVersionProcessList(String processId, List<IRepositoryObject> allVersionList) {
+        if (processId == null || "".equals(processId) || allVersionList == null || allVersionList.isEmpty()) {
+            return;
+        }
+        allVersionProcessMap.put(processId, allVersionList);
+    }
 }
