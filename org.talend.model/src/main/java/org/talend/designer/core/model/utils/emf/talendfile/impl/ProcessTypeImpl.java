@@ -25,6 +25,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
 import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
+import org.talend.designer.core.model.utils.emf.talendfile.SubjobType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
@@ -41,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNote <em>Note</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getSubjob <em>Subjob</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getLogs <em>Logs</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getComment <em>Comment</em>}</li>
@@ -135,6 +137,16 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @ordered
      */
     protected EList note;
+
+    /**
+     * The cached value of the '{@link #getSubjob() <em>Subjob</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSubjob()
+     * @generated
+     * @ordered
+     */
+    protected EList subjob;
 
     /**
      * The cached value of the '{@link #getLogs() <em>Logs</em>}' containment reference.
@@ -484,6 +496,18 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getSubjob() {
+        if (subjob == null) {
+            subjob = new EObjectContainmentEList(SubjobType.class, this, TalendFilePackage.PROCESS_TYPE__SUBJOB);
+        }
+        return subjob;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public LogsType getLogs() {
         return logs;
     }
@@ -709,6 +733,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return ((InternalEList)getConnection()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__NOTE:
                 return ((InternalEList)getNote()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+                return ((InternalEList)getSubjob()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 return basicSetLogs(null, msgs);
         }
@@ -736,6 +762,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return getConnection();
             case TalendFilePackage.PROCESS_TYPE__NOTE:
                 return getNote();
+            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+                return getSubjob();
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 return getLogs();
             case TalendFilePackage.PROCESS_TYPE__AUTHOR:
@@ -789,6 +817,10 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__NOTE:
                 getNote().clear();
                 getNote().addAll((Collection)newValue);
+                return;
+            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+                getSubjob().clear();
+                getSubjob().addAll((Collection)newValue);
                 return;
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 setLogs((LogsType)newValue);
@@ -849,6 +881,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__NOTE:
                 getNote().clear();
                 return;
+            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+                getSubjob().clear();
+                return;
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 setLogs((LogsType)null);
                 return;
@@ -901,6 +936,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return connection != null && !connection.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__NOTE:
                 return note != null && !note.isEmpty();
+            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+                return subjob != null && !subjob.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 return logs != null;
             case TalendFilePackage.PROCESS_TYPE__AUTHOR:

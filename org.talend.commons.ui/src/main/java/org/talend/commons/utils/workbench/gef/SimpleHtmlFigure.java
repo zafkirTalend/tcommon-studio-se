@@ -333,6 +333,8 @@ public class SimpleHtmlFigure extends Figure {
     public void paint(Graphics graphics) {
         if (alpha != -1) {
             graphics.setAlpha(alpha);
+        } else {
+            graphics.setAlpha(255);
         }
         super.paint(graphics);
     }

@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
 import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
+import org.talend.designer.core.model.utils.emf.talendfile.SubjobType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
@@ -47,6 +48,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getProcess <em>Process</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getRequired <em>Required</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getSubjob <em>Subjob</em>}</li>
  * </ul>
  * </p>
  *
@@ -358,6 +360,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
+    public SubjobType getSubjob() {
+        return (SubjobType)getMixed().get(TalendFilePackage.Literals.DOCUMENT_ROOT__SUBJOB, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetSubjob(SubjobType newSubjob, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(TalendFilePackage.Literals.DOCUMENT_ROOT__SUBJOB, newSubjob, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSubjob(SubjobType newSubjob) {
+        ((FeatureMap.Internal)getMixed()).set(TalendFilePackage.Literals.DOCUMENT_ROOT__SUBJOB, newSubjob);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.DOCUMENT_ROOT__MIXED:
@@ -382,6 +411,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetProcess(null, msgs);
             case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
                 return basicSetRequired(null, msgs);
+            case TalendFilePackage.DOCUMENT_ROOT__SUBJOB:
+                return basicSetSubjob(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -418,6 +449,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getProcess();
             case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
                 return getRequired();
+            case TalendFilePackage.DOCUMENT_ROOT__SUBJOB:
+                return getSubjob();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -461,6 +494,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
                 setRequired((RequiredType)newValue);
+                return;
+            case TalendFilePackage.DOCUMENT_ROOT__SUBJOB:
+                setSubjob((SubjobType)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -506,6 +542,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
                 setRequired((RequiredType)null);
                 return;
+            case TalendFilePackage.DOCUMENT_ROOT__SUBJOB:
+                setSubjob((SubjobType)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -539,6 +578,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getProcess() != null;
             case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
                 return getRequired() != null;
+            case TalendFilePackage.DOCUMENT_ROOT__SUBJOB:
+                return getSubjob() != null;
         }
         return super.eIsSet(featureID);
     }

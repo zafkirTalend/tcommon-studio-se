@@ -137,6 +137,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseRequiredType(RequiredType object) {
                 return createRequiredTypeAdapter();
             }
+            public Object caseSubjobType(SubjobType object) {
+                return createSubjobTypeAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -404,6 +407,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createRequiredTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.SubjobType <em>Subjob Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.SubjobType
+     * @generated
+     */
+    public Adapter createSubjobTypeAdapter() {
         return null;
     }
 

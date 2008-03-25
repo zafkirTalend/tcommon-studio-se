@@ -534,13 +534,22 @@ public interface TalendFilePackage extends EPackage {
     int DOCUMENT_ROOT__REQUIRED = 10;
 
     /**
+     * The feature id for the '<em><b>Subjob</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__SUBJOB = 11;
+
+    /**
      * The number of structural features of the '<em>Document Root</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 11;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl <em>Element Parameter Type</em>}' class.
@@ -1230,13 +1239,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__NOTE = 6;
 
     /**
+     * The feature id for the '<em><b>Subjob</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__SUBJOB = 7;
+
+    /**
      * The feature id for the '<em><b>Logs</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__LOGS = 7;
+    int PROCESS_TYPE__LOGS = 8;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' attribute.
@@ -1245,7 +1263,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__AUTHOR = 8;
+    int PROCESS_TYPE__AUTHOR = 9;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -1254,7 +1272,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__COMMENT = 9;
+    int PROCESS_TYPE__COMMENT = 10;
 
     /**
      * The feature id for the '<em><b>Default Context</b></em>' attribute.
@@ -1263,7 +1281,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__DEFAULT_CONTEXT = 10;
+    int PROCESS_TYPE__DEFAULT_CONTEXT = 11;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1272,7 +1290,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NAME = 11;
+    int PROCESS_TYPE__NAME = 12;
 
     /**
      * The feature id for the '<em><b>Purpose</b></em>' attribute.
@@ -1281,7 +1299,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__PURPOSE = 12;
+    int PROCESS_TYPE__PURPOSE = 13;
 
     /**
      * The feature id for the '<em><b>Repository Context Id</b></em>' attribute.
@@ -1290,7 +1308,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 13;
+    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 14;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -1299,7 +1317,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__STATUS = 14;
+    int PROCESS_TYPE__STATUS = 15;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1308,7 +1326,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__VERSION = 15;
+    int PROCESS_TYPE__VERSION = 16;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
@@ -1317,7 +1335,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 16;
+    int PROCESS_TYPE_FEATURE_COUNT = 17;
 
 
     /**
@@ -1347,6 +1365,35 @@ public interface TalendFilePackage extends EPackage {
      * @ordered
      */
     int REQUIRED_TYPE_FEATURE_COUNT = 1;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.SubjobTypeImpl <em>Subjob Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.SubjobTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getSubjobType()
+     * @generated
+     */
+    int SUBJOB_TYPE = 18;
+
+    /**
+     * The feature id for the '<em><b>Element Parameter</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBJOB_TYPE__ELEMENT_PARAMETER = 0;
+
+    /**
+     * The number of structural features of the '<em>Subjob Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBJOB_TYPE_FEATURE_COUNT = 1;
 
 
     /**
@@ -1871,6 +1918,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getDocumentRoot_Required();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getSubjob <em>Subjob</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Subjob</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getSubjob()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_Subjob();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType <em>Element Parameter Type</em>}'.
@@ -2565,6 +2623,17 @@ public interface TalendFilePackage extends EPackage {
     EReference getProcessType_Note();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getSubjob <em>Subjob</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Subjob</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getSubjob()
+     * @see #getProcessType()
+     * @generated
+     */
+    EReference getProcessType_Subjob();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2683,6 +2752,27 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getRequiredType_Job();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.SubjobType <em>Subjob Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Subjob Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.SubjobType
+     * @generated
+     */
+    EClass getSubjobType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.SubjobType#getElementParameter <em>Element Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Element Parameter</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.SubjobType#getElementParameter()
+     * @see #getSubjobType()
+     * @generated
+     */
+    EReference getSubjobType_ElementParameter();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -3099,6 +3189,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference DOCUMENT_ROOT__REQUIRED = eINSTANCE.getDocumentRoot_Required();
+
+        /**
+         * The meta object literal for the '<em><b>Subjob</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__SUBJOB = eINSTANCE.getDocumentRoot_Subjob();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl <em>Element Parameter Type</em>}' class.
@@ -3637,6 +3735,14 @@ public interface TalendFilePackage extends EPackage {
         EReference PROCESS_TYPE__NOTE = eINSTANCE.getProcessType_Note();
 
         /**
+         * The meta object literal for the '<em><b>Subjob</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROCESS_TYPE__SUBJOB = eINSTANCE.getProcessType_Subjob();
+
+        /**
          * The meta object literal for the '<em><b>Logs</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3725,6 +3831,24 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference REQUIRED_TYPE__JOB = eINSTANCE.getRequiredType_Job();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.SubjobTypeImpl <em>Subjob Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.SubjobTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getSubjobType()
+         * @generated
+         */
+        EClass SUBJOB_TYPE = eINSTANCE.getSubjobType();
+
+        /**
+         * The meta object literal for the '<em><b>Element Parameter</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SUBJOB_TYPE__ELEMENT_PARAMETER = eINSTANCE.getSubjobType_ElementParameter();
 
     }
 

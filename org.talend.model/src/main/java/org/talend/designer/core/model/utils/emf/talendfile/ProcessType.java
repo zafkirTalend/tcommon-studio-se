@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNote <em>Note</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getSubjob <em>Subjob</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getComment <em>Comment</em>}</li>
@@ -189,6 +190,23 @@ public interface ProcessType extends EObject {
      * @generated
      */
     EList getNote();
+
+    /**
+     * Returns the value of the '<em><b>Subjob</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.talendfile.SubjobType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Subjob</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Subjob</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Subjob()
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.SubjobType" containment="true"
+     *        extendedMetaData="kind='element' name='Subjob' namespace='##targetNamespace'"
+     * @generated
+     */
+    EList getSubjob();
 
     /**
      * Returns the value of the '<em><b>Logs</b></em>' containment reference.

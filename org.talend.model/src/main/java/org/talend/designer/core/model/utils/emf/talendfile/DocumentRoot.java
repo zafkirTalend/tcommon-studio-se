@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getProcess <em>Process</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getRequired <em>Required</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getSubjob <em>Subjob</em>}</li>
  * </ul>
  * </p>
  *
@@ -305,5 +306,32 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     void setRequired(RequiredType value);
+
+    /**
+     * Returns the value of the '<em><b>Subjob</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Subjob</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Subjob</em>' containment reference.
+     * @see #setSubjob(SubjobType)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getDocumentRoot_Subjob()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='Subjob' namespace='##targetNamespace'"
+     * @generated
+     */
+    SubjobType getSubjob();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getSubjob <em>Subjob</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Subjob</em>' containment reference.
+     * @see #getSubjob()
+     * @generated
+     */
+    void setSubjob(SubjobType value);
 
 } // DocumentRoot

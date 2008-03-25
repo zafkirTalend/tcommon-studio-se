@@ -84,4 +84,6 @@ public interface IProcess2 extends IProcess {
     boolean isProcessModified();
 
     public CommandStack getCommandStack();
+
+    public List<? extends ISubjobContainer> getSubjobContainers();
 }

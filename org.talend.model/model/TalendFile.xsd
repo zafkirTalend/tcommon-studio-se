@@ -11,6 +11,7 @@
 				<xs:element ref="Node" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Connection" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Note" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Subjob" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="Logs" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
@@ -45,7 +46,7 @@
 			<xs:attribute name="purpose" type="xs:string"/>
 			<xs:attribute name="status" type="xs:string"/>
 			<xs:attribute name="defaultContext" type="xs:string"/>
-			<xs:attribute name="repositoryContextId" type="xs:string" use="optional"/> 
+			<xs:attribute name="repositoryContextId" type="xs:string" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Node">
@@ -133,19 +134,17 @@
 	<xs:element name="ElementParameter">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ElementValue" minOccurs="0"
-					maxOccurs="unbounded">
+				<xs:element name="ElementValue" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
-						<xs:attribute name="elementRef"
-							type="xs:string" />
-						<xs:attribute name="value" type="xs:string" />
+						<xs:attribute name="elementRef" type="xs:string"/>
+						<xs:attribute name="value" type="xs:string"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="name" type="xs:string" />
-			<xs:attribute name="field" type="xs:string" />
-			<xs:attribute name="value" type="xs:string" use="optional" />
-			<xs:attribute name="contextMode" type="xs:boolean"></xs:attribute>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="field" type="xs:string"/>
+			<xs:attribute name="value" type="xs:string" use="optional"/>
+			<xs:attribute name="contextMode" type="xs:boolean"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Required">
@@ -171,6 +170,13 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Parameters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ElementParameter" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Subjob">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="ElementParameter" maxOccurs="unbounded"/>
