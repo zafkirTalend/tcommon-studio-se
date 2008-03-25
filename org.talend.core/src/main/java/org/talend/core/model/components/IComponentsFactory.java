@@ -28,7 +28,7 @@ public interface IComponentsFactory {
 
     String COMPONENTS_INNER_FOLDER = "components"; //$NON-NLS-1$
 
-    String COMPONENTS_USER_INNER_FOLDER = "user"; //$NON-NLS-1$
+    String EXTERNAL_COMPONENTS_INNER_FOLDER = "ext"; //$NON-NLS-1$
 
     String COMPONENT_DEFINITION = "org.talend.core.component_definition";
 

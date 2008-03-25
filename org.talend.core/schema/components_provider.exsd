@@ -13,7 +13,7 @@
    <element name="extension">
       <complexType>
          <sequence>
-            <element ref="ComponentsFactory"/>
+            <element ref="ComponentsProvider"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -42,16 +42,30 @@
       </complexType>
    </element>
 
-   <element name="ComponentsFactory">
+   <element name="ComponentsProvider">
       <complexType>
-         <attribute name="class" type="string">
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.talend.designer.core.model.components.IComponentsFactory"/>
+                  <meta.attribute kind="java" basedOn="org.talend.core.model.components.AbstractComponentsProvider:"/>
                </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="folderName" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
             </annotation>
          </attribute>
       </complexType>
