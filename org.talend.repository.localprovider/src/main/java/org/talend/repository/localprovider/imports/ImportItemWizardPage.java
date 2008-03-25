@@ -59,11 +59,18 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.RoutineItem;
+import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.IRoutineSynchronizer;
 import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.i18n.Messages;
 
@@ -632,6 +639,7 @@ class ImportItemWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
+
         final Object[] checkedElements = itemsList.getCheckedElements();
 
         try {
@@ -641,6 +649,8 @@ class ImportItemWizardPage extends WizardPage {
                     monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
 
                     repositoryUtil.setErrors(false);
+
+                    IRoutineSynchronizer routineSynchronizer = getRoutineSynchronizer();
 
                     for (int i = 0; i < checkedElements.length; i++) {
                         if (!monitor.isCanceled()) {
@@ -660,6 +670,12 @@ class ImportItemWizardPage extends WizardPage {
                                     } else if (importItem instanceof JobletProcessItem && PluginChecker.isJobLetPluginLoaded()) {
                                         service.saveDocumentNode(importItem);
                                     }
+
+                                    if (importItem instanceof RoutineItem) {
+                                        RoutineItem item = (RoutineItem) importItem;
+                                        routineSynchronizer.syncRoutine(item, true);
+                                        routineSynchronizer.getRoutineFile(item);
+                                    }
                                 }
                             } catch (Exception e) {
                                 throw new InvocationTargetException(e);
@@ -675,6 +691,7 @@ class ImportItemWizardPage extends WizardPage {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$
                     }
                 }
+
             };
             new ProgressMonitorDialog(getShell()).run(true, true, op);
         } catch (InvocationTargetException e) {
@@ -689,6 +706,29 @@ class ImportItemWizardPage extends WizardPage {
 
         ArchiveFileManipulations.clearProviderCache(getContainer().getShell());
         return true;
+    }
+
+    private IRoutineSynchronizer getRoutineSynchronizer() {
+
+        ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                ICodeGeneratorService.class);
+
+        ECodeLanguage lang = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
+        IRoutineSynchronizer routineSynchronizer = null;
+        switch (lang) {
+        case JAVA:
+            routineSynchronizer = service.createJavaRoutineSynchronizer();
+            break;
+        case PERL:
+            routineSynchronizer = service.createPerlRoutineSynchronizer();
+            break;
+        default:
+            throw new UnsupportedOperationException("Unknow language: " + lang);
+        }
+
+        return routineSynchronizer;
+
     }
 
     public boolean performCancel() {
