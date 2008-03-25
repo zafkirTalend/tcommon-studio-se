@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.utils.sql.metadata.constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author scorreia
  * 
@@ -39,5 +42,26 @@ public enum TableType {
         default:
             return this.name();
         }
+    }
+
+    /**
+     * Mmethod "getTableTypes".
+     * 
+     * @param type the types to convert into strings
+     * @return the string array of the types
+     */
+    public static String[] getTableTypes(TableType... type) {
+        if (type == null) {
+            return null;
+        }
+        List<String> tablesTypes = new ArrayList<String>();
+        for (TableType tableType : type) {
+            if (tableType == null) {
+                tablesTypes.add(null);
+            } else {
+                tablesTypes.add(tableType.toString());
+            }
+        }
+        return tablesTypes.toArray(new String[tablesTypes.size()]);
     }
 }
