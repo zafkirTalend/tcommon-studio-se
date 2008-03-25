@@ -24,6 +24,7 @@ import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
@@ -173,7 +174,7 @@ public final class DataProviderHelper {
      * @param dataProvider must not be null
      * @return the list of provider connections.
      */
-    public static List<TdProviderConnection> getTdProviderConnections(TdDataProvider dataProvider) {
+    public static List<TdProviderConnection> getTdProviderConnections(DataProvider dataProvider) {
         assert dataProvider != null;
         List<TdProviderConnection> tdProvConnections = new ArrayList<TdProviderConnection>();
         EList<ProviderConnection> resourceConnections = dataProvider.getResourceConnection();
@@ -195,7 +196,7 @@ public final class DataProviderHelper {
      * several provider connections, the returned code is false, an error message is set, but the first connection is
      * returned by the method {@link TypedReturnCode#getObject()}.
      */
-    public static TypedReturnCode<TdProviderConnection> getTdProviderConnection(TdDataProvider dataProvider) {
+    public static TypedReturnCode<TdProviderConnection> getTdProviderConnection(DataProvider dataProvider) {
         assert dataProvider != null;
         TypedReturnCode<TdProviderConnection> rc = new TypedReturnCode<TdProviderConnection>(true);
         List<TdProviderConnection> resourceConnections = getTdProviderConnections(dataProvider);
@@ -220,7 +221,7 @@ public final class DataProviderHelper {
      * @param dataProvider the data provider
      * @return the catalogs contained in the data provider
      */
-    public static List<TdCatalog> getTdCatalogs(TdDataProvider dataProvider) {
+    public static List<TdCatalog> getTdCatalogs(DataProvider dataProvider) {
         return CatalogHelper.getTdCatalogs(dataProvider.getDataPackage());
     }
 
@@ -230,7 +231,7 @@ public final class DataProviderHelper {
      * @param dataProvider the data provider
      * @return the schemas contained in the data provider
      */
-    public static List<TdSchema> getTdSchema(TdDataProvider dataProvider) {
+    public static List<TdSchema> getTdSchema(DataProvider dataProvider) {
         return SchemaHelper.getSchemas(dataProvider.getDataPackage());
     }
 }

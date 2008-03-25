@@ -24,7 +24,7 @@ import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.indicators.Indicator;
-import org.talend.dq.javasql.IndicatorEvaluator;
+import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.dq.sql.converters.CwmZQuery;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -62,7 +62,7 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         }
 
         // open a connection
-        TypedReturnCode<Connection> connection = getConnection(analysis, schemata.iterator().next());
+        TypedReturnCode<Connection> connection = getConnection(analysis);
         if (!connection.isOk()) {
             log.error(connection.getMessage());
             this.errorMessage = connection.getMessage();
@@ -73,6 +73,10 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         eval.setConnection(connection.getObject());
         // when to close connection
         boolean closeAtTheEnd = true;
+        Package catalog = schemata.iterator().next();
+        if (!eval.selectCatalog(catalog.getName())) {
+            log.warn("Failed to select catalog " + catalog.getName() + " for connection.");
+        }
         ReturnCode rc = eval.evaluateIndicators(sqlStatement, closeAtTheEnd);
         if (!rc.isOk()) {
             log.warn(rc.getMessage());

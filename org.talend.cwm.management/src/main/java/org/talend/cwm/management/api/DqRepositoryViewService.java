@@ -46,6 +46,7 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.RangeRestriction;
+import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -275,6 +276,18 @@ public final class DqRepositoryViewService {
         return rc;
     }
 
+    /**
+     * Method "getRelatedElements" returns all the elements in the repository related to the given connection: Analysis,
+     * Reports... This method can be called before deleting a data provider.
+     * 
+     * @param dataProvider a data provider
+     * @return the elements linked to the given data provider.
+     */
+    public static List<ModelElement> getRelatedElements(TdDataProvider dataProvider) {
+        // TODO scorreia implement me
+        return null;
+    }
+
     private static String getName(ModelElement element) {
         return element != null ? element.getName() : null;
     }
@@ -304,7 +317,10 @@ public final class DqRepositoryViewService {
 
         EList<RangeRestriction> ranges = domain.getRanges();
         for (RangeRestriction rangeRestriction : ranges) {
-            contents.add(rangeRestriction.getExpressions());
+            BooleanExpressionNode rExpr = rangeRestriction.getExpressions();
+            if (rExpr != null) {
+                contents.add(rExpr);
+            }
         }
         contents.addAll(ranges);
         return util.save();

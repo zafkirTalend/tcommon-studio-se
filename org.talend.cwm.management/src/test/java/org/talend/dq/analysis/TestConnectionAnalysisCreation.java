@@ -37,6 +37,7 @@ import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.RowCountIndicator;
+import org.talend.dataquality.indicators.schema.SchemaFactory;
 import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.dq.sql.converters.CwmZExpression;
 import org.talend.utils.properties.PropertiesLoader;
@@ -48,7 +49,7 @@ import orgomg.cwm.resource.relational.Column;
 /**
  * DOC scorreia class global comment. Detailled comment
  */
-public class TestAnalysisCreation {
+public class TestConnectionAnalysisCreation {
 
     /**
      * 
@@ -64,9 +65,9 @@ public class TestAnalysisCreation {
         String outputFolder = "ANA";
         // initialized analysis
         AnalysisBuilder analysisBuilder = new AnalysisBuilder();
-        String analysisName = "My test analysis";
+        String analysisName = "My Connection analysis";
 
-        boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
+        boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.CONNECTION);
         Assert.assertTrue(analysisName + " failed to initialize!", analysisInitialized);
 
         // get the connection
@@ -74,13 +75,12 @@ public class TestAnalysisCreation {
         Assert.assertNotNull("No datamanager found!", dataManager);
         analysisBuilder.setAnalysisConnection(dataManager);
 
-        // get a column to analyze
-        ModelElement column = getColumn(dataManager);
-        Indicator[] indicators = getIndicators(column);
-        analysisBuilder.addElementToAnalyze(column, indicators);
+        Indicator indicator = SchemaFactory.eINSTANCE.createConnectionIndicator();
+        indicator.setAnalyzedElement(dataManager);
+        analysisBuilder.addElementToAnalyze(dataManager, indicator);
 
         // get the domain constraint
-        Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
+        Domain dataFilter = getDataFilter(dataManager); // CAST here for test
         analysisBuilder.addFilterOnData(dataFilter);
 
         // TODO scorreia save domain with analysisbuilder?
@@ -90,18 +90,17 @@ public class TestAnalysisCreation {
 
         // run analysis
         Analysis analysis = analysisBuilder.getAnalysis();
-        IAnalysisExecutor exec = new ColumnAnalysisExecutor();
+        IAnalysisExecutor exec = new ConnectionAnalysisExecutor();
         ReturnCode executed = exec.execute(analysis);
-        Assert
-                .assertTrue("Problem executing analysis: " + analysisName + ": " + executed.getMessage(), executed
-                        .isOk());
+        Assert.assertTrue("Problem executing analysis: '" + analysisName + "': " + executed.getMessage(), executed
+                .isOk());
 
         // save data provider
         DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
 
         // save analysis
         AnalysisWriter writer = new AnalysisWriter();
-        File file = new File(outputFolder + File.separator + "analysis.ana");
+        File file = new File(outputFolder + File.separator + "connection.ana");
         ReturnCode saved = writer.save(analysis, file);
         Assert.assertTrue(saved.getMessage(), saved.isOk());
         if (saved.isOk()) {
@@ -116,12 +115,11 @@ public class TestAnalysisCreation {
      * @param column
      * @return
      */
-    private static Domain getDataFilter(TdDataProvider dataManager, Column column) {
+    private static Domain getDataFilter(TdDataProvider dataManager) {
         Domain domain = DOMAIN.createDomain();
         RangeRestriction rangeRestriction = DOMAIN.createRangeRestriction();
         domain.getRanges().add(rangeRestriction);
-        BooleanExpressionNode expr = getExpression(column);
-        rangeRestriction.setExpressions(expr);
+
         return domain;
     }
 
@@ -138,7 +136,7 @@ public class TestAnalysisCreation {
         return expre.generateExpressions();
     }
 
-    private static Logger log = Logger.getLogger(TestAnalysisCreation.class);
+    private static Logger log = Logger.getLogger(TestConnectionAnalysisCreation.class);
 
     /**
      * DOC scorreia Comment method "getIndicators".

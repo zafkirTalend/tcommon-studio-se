@@ -78,6 +78,17 @@ public class CwmZQuery {
     }
 
     /**
+     * Method "addSelect" add the given string to the select part of the statement.
+     * 
+     * @param selectPart the select part
+     * @return true
+     */
+    public boolean addSelect(String... selectPart) {
+        this.zQuery.addSelect(ZQueryHelper.createSelectVector(selectPart));
+        return true;
+    }
+
+    /**
      * Method "evalFromStatement" evaluates the different ColumnSets used in the given set of columns.
      * 
      * @param columnSet views only as a set of column that could belong to different Tables or views.

@@ -16,12 +16,9 @@ import java.sql.Connection;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.talend.cwm.helper.ColumnHelper;
-import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.management.connection.JavaSqlFactory;
-import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.dataquality.analysis.Analysis;
@@ -30,8 +27,6 @@ import org.talend.dataquality.analysis.ExecutionInformations;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
-import orgomg.cwm.objectmodel.core.Package;
-import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -119,39 +114,6 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
      */
     protected abstract boolean runAnalysis(Analysis analysis, String sqlStatement);
 
-    // {
-    // IndicatorEvaluator eval = new IndicatorEvaluator();
-    // // --- add indicators
-    // EList<Indicator> indicators = analysis.getResults().getIndicators();
-    // for (Indicator indicator : indicators) {
-    // TdColumn tdColumn = SwitchHelpers.COLUMN_SWITCH.doSwitch(indicator.getAnalyzedElement());
-    // if (tdColumn == null) {
-    // continue;
-    // }
-    // String columnName = getColumnName(tdColumn);
-    // eval.storeIndicator(columnName, indicator);
-    // }
-    //
-    // // open a connection
-    // TypedReturnCode<Connection> connection = getConnection(analysis);
-    // if (!connection.isOk()) {
-    // log.error(connection.getMessage());
-    // this.errorMessage = connection.getMessage();
-    // return false;
-    // }
-    //
-    // // set it into the evaluator
-    // eval.setConnection(connection.getObject());
-    // // when to close connection
-    // boolean closeAtTheEnd = true;
-    // ReturnCode rc = eval.evaluateIndicators(sqlStatement, closeAtTheEnd);
-    // if (!rc.isOk()) {
-    // log.warn(rc.getMessage());
-    // this.errorMessage = rc.getMessage();
-    // }
-    // return rc.isOk();
-    // }
-
     /**
      * DOC scorreia Comment method "getConnection".
      * 
@@ -159,7 +121,9 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
      * @param schema
      * @return
      */
-    protected TypedReturnCode<Connection> getConnection(Analysis analysis, Package schema) {
+    protected TypedReturnCode<Connection> getConnection(Analysis analysis) {
+        // MODSCA 2008-03-25 scorreia schema is not used. removed (was used before to select the catalog of the db)
+        // now it is done elsewhere
         TypedReturnCode<Connection> rc = new TypedReturnCode<Connection>();
 
         DataManager datamanager = analysis.getContext().getConnection();
@@ -175,8 +139,7 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
         }
         // else ok
 
-        TypedReturnCode<Connection> connection = JavaSqlFactory
-                .createConnection(providerConnection.getObject(), schema);
+        TypedReturnCode<Connection> connection = JavaSqlFactory.createConnection(providerConnection.getObject());
         if (!connection.isOk()) {
             rc.setReturnCode(connection.getMessage(), false);
             return rc;
@@ -187,63 +150,4 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
 
     }
 
-    /**
-     * DOC scorreia Comment method "createSchemaProviderConnection".
-     * 
-     * @param object
-     * @return
-     */
-    private TdProviderConnection createSchemaProviderConnection(TdProviderConnection object) {
-        String connectionString = object.getConnectionString();
-        if (connectionString.matches("jdbc:mysql://\\p{Alnum}*\\:\\p{Digit}*.*")) {
-            if (!connectionString.matches("jdbc:mysql://\\p{Alnum}*\\:\\p{Digit}*/(\\p{Alnum}){1,}")) {
-                if (log.isDebugEnabled()) {
-                    log.debug("INVALID Mysql connection string: " + connectionString);
-                }
-            } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("Valid Mysql connection string: " + connectionString);
-                }
-
-            }
-        }
-        if (log.isDebugEnabled()) {
-            log.debug("Valid Mysql connection string: " + connectionString);
-        }
-        return object;
-    }
-
-    /**
-     * DOC scorreia Comment method "getColumnNames".
-     * 
-     * @param columnSet
-     * @return
-     */
-    private String[] getColumnNames(ColumnSet columnSet) {
-        return ColumnHelper.getColumnFullNames(columnSet);
-    }
-
-    /**
-     * DOC scorreia Comment method "getColumnName".
-     * 
-     * @param tdColumn
-     * @return
-     */
-    private String getColumnName(TdColumn tdColumn) {
-        return ColumnHelper.getFullName(tdColumn);
-    }
-
-    private String getTableName(TdColumn tdColumn) {
-        return ColumnHelper.getColumnSetFullName(tdColumn);
-    }
-
-    /**
-     * DOC scorreia Comment method "getTableNames".
-     * 
-     * @param columnSet
-     * @return
-     */
-    private String[] getTableNames(ColumnSet columnSet) {
-        return ColumnSetHelper.getColumnSetNames(columnSet);
-    }
 }

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dq.sql.converters;
+package org.talend.dq.indicators;
 
 import java.io.File;
 import java.sql.Connection;
@@ -33,7 +33,7 @@ import org.talend.dataquality.indicators.IntegerSumIndicator;
 import org.talend.dataquality.indicators.MedianIndicator;
 import org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl;
 import org.talend.dataquality.indicators.util.IndicatorsSwitch;
-import org.talend.dq.javasql.IndicatorEvaluator;
+import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sql.ConnectionUtils;
@@ -85,7 +85,7 @@ public class IndicatorEvaluationMain {
 
             List<String> columns = Arrays.asList(columnsArray);
 
-            IndicatorEvaluator evaluator = new IndicatorEvaluator();
+            Evaluator evaluator = new IndicatorEvaluator();
             evaluator.setConnection(connection);
 
             // --- create indicators

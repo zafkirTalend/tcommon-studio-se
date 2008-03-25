@@ -10,12 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dq.javasql;
+package org.talend.dq.indicators;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,29 +28,49 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
- * DOC scorreia class global comment. Detailled comment
+ * @author scorreia
+ * 
+ * Abstract class for computing indicators.
+ * @param <T> the type of the object identifying the analyzed element (usually a string).
  */
-public class IndicatorEvaluator {
+public abstract class Evaluator<T> {
 
-    private static Logger log = Logger.getLogger(IndicatorEvaluator.class);
+    private static Logger log = Logger.getLogger(Evaluator.class);
 
-    private Connection connection;
+    protected Connection connection;
 
-    private Map<String, List<Indicator>> columnToIndicators = new HashMap<String, List<Indicator>>();
+    protected int fetchSize = 0;
 
-    private int fetchSize = 0;
+    protected Map<T, List<Indicator>> elementToIndicators = new HashMap<T, List<Indicator>>();
 
-    public boolean storeIndicator(String columnName, Indicator indicator) {
-        return MultiMapHelper.addUniqueObjectToListMap(columnName, indicator, columnToIndicators);
+    /**
+     * Method "storeIndicator" stores the mapping between the analyzed element name and its indicators. The column name
+     * should be completely qualified in order to avoid confusion when several elements have the same label).
+     * 
+     * @param elementName a column name
+     * @param indicator the indicator for the given element
+     * @return true if ok
+     */
+    public boolean storeIndicator(T elementToAnalyze, Indicator indicator) {
+        return MultiMapHelper.addUniqueObjectToListMap(elementToAnalyze, indicator, elementToIndicators);
     }
 
-    public List<Indicator> getIndicators(String columnName) {
-        List<Indicator> indics = columnToIndicators.get(columnName);
+    public List<Indicator> getIndicators(T elementName) {
+        List<Indicator> indics = elementToIndicators.get(elementName);
         return (indics != null) ? indics : new ArrayList<Indicator>();
     }
 
     /**
-     * Method "evaluateIndicators". A connection must be open It does not close the connection. It is to the caller
+     * Method "getAnalyzedElements".
+     * 
+     * @return the unmodifiable set of analyzed elements.
+     */
+    protected Set<T> getAnalyzedElements() {
+        return Collections.unmodifiableSet(this.elementToIndicators.keySet());
+    }
+
+    /**
+     * Method "evaluateIndicators". A connection must be open. It does not close the connection. It is to the caller
      * responsibility to close the connection.
      * 
      * @param sqlStatement
@@ -64,7 +82,7 @@ public class IndicatorEvaluator {
             return rc;
         }
         try {
-            return executeSqlQueryLow(sqlStatement);
+            return executeSqlQuery(sqlStatement);
         } catch (SQLException e) {
             if (log.isDebugEnabled()) {
                 log.debug("Exception while executing SQL query " + sqlStatement, e);
@@ -73,6 +91,14 @@ public class IndicatorEvaluator {
         }
         return rc;
     }
+
+    /**
+     * DOC scorreia Comment method "executeSqlQuery".
+     * 
+     * @param sqlStatement
+     * @return
+     */
+    protected abstract ReturnCode executeSqlQuery(String sqlStatement) throws SQLException;
 
     /**
      * Method "evaluateIndicators". A connection must be open. This method does not close the connection. It is to the
@@ -102,15 +128,6 @@ public class IndicatorEvaluator {
         }
     }
 
-    /**
-     * Method "getAnalyzedColumns".
-     * 
-     * @return the unmodifiable set of analyzed columns.
-     */
-    public Set<String> getAnalyzedColumns() {
-        return Collections.unmodifiableSet(this.columnToIndicators.keySet());
-    }
-
     public Connection getConnection() {
         return this.connection;
     }
@@ -127,7 +144,7 @@ public class IndicatorEvaluator {
         this.fetchSize = fetchSize;
     }
 
-    private ReturnCode closeConnection() {
+    protected ReturnCode closeConnection() {
 
         if (connection != null) {
             return ConnectionUtils.closeConnection(connection);
@@ -135,59 +152,30 @@ public class IndicatorEvaluator {
         return new ReturnCode("Attempting to close a null connection. ", false);
     }
 
-    private ReturnCode checkConnection() {
+    protected ReturnCode checkConnection() {
         if (connection == null) {
             return new ReturnCode("Attempting to open a null connection. Set the connection parameters first.", false);
         }
         return ConnectionUtils.isValid(connection);
     }
 
-    private ReturnCode executeSqlQueryLow(String sqlStatement) throws SQLException {
-        ReturnCode ok = new ReturnCode(true);
-        // check analyzed columns
-        Set<String> columns = getAnalyzedColumns();
-        if (columns.isEmpty()) {
-            ok.setReturnCode("No column to analyze found? Define the analyzed columns properly, please.", false);
-            return ok;
+    /**
+     * Method "selectCatalog" attempts to set the catalog for the current connection.
+     * 
+     * @param catalogName the catalog to select
+     * @return true if set, false if problem
+     */
+    public boolean selectCatalog(String catalogName) {
+        if (connection == null) {
+            return false;
+        }
+        try {
+            connection.setCatalog(catalogName);
+            return true;
+        } catch (SQLException e) {
+            return false;
         }
 
-        // create query statement
-        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,
-                ResultSet.CLOSE_CURSORS_AT_COMMIT);
-        statement.setFetchSize(fetchSize);
-        statement.execute(sqlStatement);
-
-        // get the results
-        ResultSet resultSet = statement.getResultSet();
-        if (resultSet == null) {
-            String mess = "No result set for this statement: " + sqlStatement;
-            log.warn(mess);
-            ok.setReturnCode(mess, false);
-            return ok;
-        }
-        while (resultSet.next()) {
-
-            // --- for each column
-            for (String col : columns) {
-                List<Indicator> indicators = getIndicators(col);
-
-                // --- get content of column
-                Object object = resultSet.getObject(col);
-
-                // --- give row to handle to indicators
-                for (Indicator indicator : indicators) {
-                    indicator.handle(object);
-                }
-            }
-
-            // TODO scorreia give a full row to indicator (indicator will have to handle its data??
-
-        }
-        // --- release resultset
-        resultSet.close();
-        // --- close
-        connection.close();
-        return ok;
     }
 
 }

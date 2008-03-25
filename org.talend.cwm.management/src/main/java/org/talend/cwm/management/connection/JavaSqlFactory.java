@@ -38,7 +38,7 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
 public final class JavaSqlFactory {
 
     // TODO scorreia create a utility class for checking various database url patterns.
-    private static final String MYSQL_PATTERN = "jdbc:mysql://\\p{Alnum}*\\:\\p{Digit}*";
+    private static final String MYSQL_PATTERN = "jdbc:mysql://\\p{Alnum}*\\:\\p{Digit}*.*";
 
     private static Logger log = Logger.getLogger(JavaSqlFactory.class);
 
@@ -101,11 +101,13 @@ public final class JavaSqlFactory {
      * @param databaseConnection the connection informations
      * @param schema the database to which the connection must be created
      * @return the connection or error message
+     * @deprecated use this{@link #createConnection(TdProviderConnection)} instead and then use
+     * {@link Connection#setCatalog(String)}
      */
     public static TypedReturnCode<Connection> createConnection(TdProviderConnection databaseConnection, Package schema) {
         String connectionString = databaseConnection.getConnectionString();
         String oldConnectionString = connectionString;
-        if (connectionString.matches(MYSQL_PATTERN + ".*")) {
+        if (connectionString.matches(MYSQL_PATTERN)) {
             if (!connectionString.matches(MYSQL_PATTERN + "/(\\p{Alnum})+")) {
                 if (log.isDebugEnabled()) {
                     log.debug("INVALID Mysql connection string: " + connectionString);

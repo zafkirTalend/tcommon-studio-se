@@ -16,18 +16,18 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
- * @author scorreia
- * 
- * Interface for executing an analysis.
+ * DOC scorreia class global comment. Detailled comment
  */
-public interface IAnalysisExecutor {
+public class CompareAnalysisExecutor implements IAnalysisExecutor {
 
-    /**
-     * Method "execute".
+    /*
+     * (non-Javadoc)
      * 
-     * @param analysis the analysis to execute
-     * @return a return code with an error message in case when something went bad
+     * @see org.talend.dq.analysis.IAnalysisExecutor#execute(org.talend.dataquality.analysis.Analysis)
      */
-    public abstract ReturnCode execute(final Analysis analysis);
+    public ReturnCode execute(Analysis analysis) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
