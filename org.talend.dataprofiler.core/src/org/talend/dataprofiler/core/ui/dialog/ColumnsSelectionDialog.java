@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.dialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +32,11 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
@@ -62,7 +67,6 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
         columnSetCheckedMap = new HashMap<ColumnSet, ColumnCheckedMap>();
     }
 
-    @Override
     protected void initProvider() {
         fLabelProvider = new DBTablesViewLabelProvider();
         fContentProvider = new DBTablesViewContentProvider();
@@ -71,7 +75,7 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
     }
 
     @SuppressWarnings("unchecked")
-    public void addFirstPartFilters() {
+    private void addFirstPartFilters() {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         final Class[] acceptedClasses = new Class[] { IResource.class, IFolderNode.class, EObject.class };
         IProject[] allProjects = root.getProjects();
@@ -88,6 +92,11 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
         this.addFilter(new EMFObjFilter());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataprofiler.core.ui.dialog.TwoPartCheckSelectionDialog#addCheckedListener()
+     */
     protected void addCheckedListener() {
 
         // When user checks a checkbox in the tree, check all its children
@@ -100,13 +109,11 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
                     getTreeViewer().setSubtreeChecked(event.getElement(), true);
                     if (event.getElement() instanceof ColumnSet) {
                         handleColumnsChecked((ColumnSet) event.getElement(), true);
-                        getTableViewer().setAllChecked(true);
                     }
                 } else {
                     getTreeViewer().setSubtreeChecked(event.getElement(), false);
                     if (event.getElement() instanceof ColumnSet) {
                         handleColumnsChecked((ColumnSet) event.getElement(), false);
-                        getTableViewer().setAllChecked(false);
                     }
                 }
             }
@@ -151,7 +158,11 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
     }
 
     private void handleColumnChecked(TdColumn column, Boolean checkedFlag) {
-        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(ColumnHelper.getColumnSetOwner(column));
+        ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(column);
+        if (checkedFlag) {
+            getTreeViewer().setChecked(columnSetOwner, true);
+        }
+        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(columnSetOwner);
         if (columnCheckMap != null) {
             columnCheckMap.putColumnChecked(column, checkedFlag);
         }
@@ -168,6 +179,49 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
             columnCheckMap.putAllChecked(EObjectHelper.getColumns(columnSet), checkedFlag);
             columnSetCheckedMap.put(columnSet, columnCheckMap);
         }
+
+        getTableViewer().setAllChecked(checkedFlag);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataprofiler.core.ui.dialog.TwoPartCheckSelectionDialog#addSelectionButtonListener(org.eclipse.swt.widgets.Button,
+     * org.eclipse.swt.widgets.Button)
+     */
+    protected void addSelectionButtonListener(Button selectButton, Button deselectButton) {
+        SelectionListener listener = new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                Object[] viewerElements = fContentProvider.getElements(getTreeViewer().getInput());
+                if (fContainerMode) {
+                    getTreeViewer().setCheckedElements(viewerElements);
+                } else {
+                    for (int i = 0; i < viewerElements.length; i++) {
+                        getTreeViewer().setSubtreeChecked(viewerElements[i], true);
+                    }
+                }
+                columnSetCheckedMap.clear();
+                if (getTableViewer().getInput() != null) {
+                    handleColumnsChecked((ColumnSet) getTableViewer().getInput(), true);
+                }
+                updateOKStatus();
+            }
+        };
+        selectButton.addSelectionListener(listener);
+
+        listener = new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                getTreeViewer().setCheckedElements(new Object[0]);
+                columnSetCheckedMap.clear();
+                if (getTableViewer().getInput() != null) {
+                    handleColumnsChecked((ColumnSet) getTableViewer().getInput(), false);
+                }
+                updateOKStatus();
+            }
+        };
+        deselectButton.addSelectionListener(listener);
     }
 
     /**
@@ -204,10 +258,43 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
             return checkedColumns.toArray(new TdColumn[checkedColumns.size()]);
         }
 
+        public List<TdColumn> getCheckedColumnList() {
+            List<TdColumn> checkedColumns = new ArrayList<TdColumn>();
+            Iterator<TdColumn> it = columnMap.keySet().iterator();
+            while (it.hasNext()) {
+                TdColumn column = it.next();
+                if (columnMap.get(column)) {
+                    checkedColumns.add(column);
+                }
+            }
+            return checkedColumns;
+        }
+
         public void clear() {
             columnMap.clear();
         }
 
+    }
+
+    protected void computeResult() {
+        setResult(getAllCheckedColumns());
+    }
+
+    private List<TdColumn> getAllCheckedColumns() {
+        Object[] checkedNodes = this.getTreeViewer().getCheckedElements();
+        List<TdColumn> columnList = new ArrayList<TdColumn>();
+        for (int i = 0; i < checkedNodes.length; i++) {
+            if (!(checkedNodes[i] instanceof ColumnSet)) {
+                continue;
+            }
+            if (columnSetCheckedMap.containsKey(checkedNodes[i])) {
+                ColumnCheckedMap columnMap = columnSetCheckedMap.get(checkedNodes[i]);
+                columnList.addAll(columnMap.getCheckedColumnList());
+            } else {
+                columnList.addAll(ColumnSetHelper.getColumns((ColumnSet) checkedNodes[i]));
+            }
+        }
+        return columnList;
     }
 
     /**

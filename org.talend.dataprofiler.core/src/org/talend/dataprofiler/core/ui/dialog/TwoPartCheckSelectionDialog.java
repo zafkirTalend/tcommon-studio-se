@@ -86,7 +86,7 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
 
     private int fHeight = 18;
 
-    private boolean fContainerMode;
+    protected boolean fContainerMode;
 
     private Object[] fExpandedElements;
 
@@ -110,6 +110,9 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
         initProvider();
     }
 
+    /**
+     * Init the LabelProvider or ContentProvider for treeViewer and tableViewer.
+     */
     protected abstract void initProvider();
 
     /**
@@ -318,6 +321,9 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
         return composite;
     }
 
+    /**
+     * Add the checked listener for treeviewer or tableviewer.
+     */
     protected void addCheckedListener() {
 
         // When user checks a checkbox in the tree, check all its children
@@ -409,6 +415,20 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
         data.grabExcessHorizontalSpace = true;
         composite.setData(data);
         Button selectButton = createButton(buttonComposite, IDialogConstants.SELECT_ALL_ID, "Select &All", false);
+
+        Button deselectButton = createButton(buttonComposite, IDialogConstants.DESELECT_ALL_ID, "&Deselect All", false);
+
+        addSelectionButtonListener(selectButton, deselectButton);
+        return buttonComposite;
+    }
+
+    /**
+     * Add the listeners for all select(deselect) button.
+     * 
+     * @param selectButton
+     * @param deselectButton
+     */
+    protected void addSelectionButtonListener(Button selectButton, Button deselectButton) {
         SelectionListener listener = new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -424,7 +444,7 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
             }
         };
         selectButton.addSelectionListener(listener);
-        Button deselectButton = createButton(buttonComposite, IDialogConstants.DESELECT_ALL_ID, "&Deselect All", false);
+
         listener = new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -433,7 +453,6 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
             }
         };
         deselectButton.addSelectionListener(listener);
-        return buttonComposite;
     }
 
     private boolean evaluateIfTreeEmpty(Object input) {

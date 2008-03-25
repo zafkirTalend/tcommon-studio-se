@@ -48,6 +48,8 @@ public class MasterDetailsPage extends FormPage {
 
     private Text descriptionText;
 
+    private AnasisColumnTreeViewer treeViewer;
+
     public MasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
     }
@@ -137,9 +139,13 @@ public class MasterDetailsPage extends FormPage {
         topComp.setLayout(new GridLayout(3, true));
 
         Tree tree = toolkit.createTree(topComp, SWT.BORDER);
+//        GridData gd = new GridData();
+        // gd.
         GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
-        AnasisColumnTreeViewer treeViewer = new AnasisColumnTreeViewer(tree);
+        ((GridData) tree.getLayoutData()).heightHint = 300;
+        ((GridData) tree.getLayoutData()).widthHint = 500;
 
+        treeViewer = new AnasisColumnTreeViewer(tree);
         Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
         buttonsComp.setLayout(new GridLayout(1, true));
@@ -162,6 +168,8 @@ public class MasterDetailsPage extends FormPage {
     private void openColumnsSelectionDialog() {
         ColumnsSelectionDialog dialog = new ColumnsSelectionDialog(getSite().getShell(), "Column Selection");
         if (dialog.open() == Window.OK) {
+            Object[] columns = dialog.getResult();
+            treeViewer.setElements(columns);
             return;
         }
     }
