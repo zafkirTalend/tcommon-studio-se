@@ -11,6 +11,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.Indicator;
 
 import org.talend.dataquality.indicators.schema.*;
@@ -92,7 +93,25 @@ public class SchemaSwitch<T> {
             case SchemaPackage.SCHEMA_INDICATOR: {
                 SchemaIndicator schemaIndicator = (SchemaIndicator)theEObject;
                 T result = caseSchemaIndicator(schemaIndicator);
+                if (result == null) result = caseCompositeIndicator(schemaIndicator);
                 if (result == null) result = caseIndicator(schemaIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SchemaPackage.TABLE_INDICATOR: {
+                TableIndicator tableIndicator = (TableIndicator)theEObject;
+                T result = caseTableIndicator(tableIndicator);
+                if (result == null) result = caseCompositeIndicator(tableIndicator);
+                if (result == null) result = caseIndicator(tableIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SchemaPackage.CONNECTION_INDICATOR: {
+                ConnectionIndicator connectionIndicator = (ConnectionIndicator)theEObject;
+                T result = caseConnectionIndicator(connectionIndicator);
+                if (result == null) result = caseSchemaIndicator(connectionIndicator);
+                if (result == null) result = caseCompositeIndicator(connectionIndicator);
+                if (result == null) result = caseIndicator(connectionIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -116,6 +135,36 @@ public class SchemaSwitch<T> {
     }
 
     /**
+     * Returns the result of interpreting the object as an instance of '<em>Table Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Table Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTableIndicator(TableIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Connection Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Connection Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseConnectionIndicator(ConnectionIndicator object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>Indicator</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -127,6 +176,21 @@ public class SchemaSwitch<T> {
      * @generated
      */
     public T caseIndicator(Indicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Composite Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Composite Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseCompositeIndicator(CompositeIndicator object) {
         return null;
     }
 

@@ -184,12 +184,23 @@
       <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">
         <genClasses ecoreClass="dataquality.ecore#//indicators/schema/SchemaIndicator">
-          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/totalRowCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/tableCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/keyCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/indexCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/viewCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/triggerCount"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/totalRowCount"/>
+          <genOperations ecoreOperation="dataquality.ecore#//indicators/schema/SchemaIndicator/addTableIndicator">
+            <genParameters ecoreParameter="dataquality.ecore#//indicators/schema/SchemaIndicator/addTableIndicator/tableIndicator"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="dataquality.ecore#//indicators/schema/TableIndicator">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/TableIndicator/rowCount"/>
+        </genClasses>
+        <genClasses ecoreClass="dataquality.ecore#//indicators/schema/ConnectionIndicator">
+          <genOperations ecoreOperation="dataquality.ecore#//indicators/schema/ConnectionIndicator/addSchemaIndicator">
+            <genParameters ecoreParameter="dataquality.ecore#//indicators/schema/ConnectionIndicator/addSchemaIndicator/schemaIndicator"/>
+          </genOperations>
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>

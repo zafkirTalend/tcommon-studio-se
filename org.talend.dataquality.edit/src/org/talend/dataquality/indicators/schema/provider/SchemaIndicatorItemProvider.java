@@ -15,6 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -27,6 +28,8 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
+import org.talend.dataquality.indicators.provider.CompositeIndicatorItemProvider;
+import org.talend.dataquality.indicators.schema.SchemaFactory;
 import org.talend.dataquality.indicators.provider.IndicatorItemProvider;
 
 import org.talend.dataquality.indicators.schema.SchemaIndicator;
@@ -39,7 +42,7 @@ import org.talend.dataquality.indicators.schema.SchemaPackage;
  * @generated
  */
 public class SchemaIndicatorItemProvider
-    extends IndicatorItemProvider
+    extends CompositeIndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	
@@ -67,12 +70,12 @@ public class SchemaIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addTotalRowCountPropertyDescriptor(object);
             addTableCountPropertyDescriptor(object);
             addKeyCountPropertyDescriptor(object);
             addIndexCountPropertyDescriptor(object);
             addViewCountPropertyDescriptor(object);
             addTriggerCountPropertyDescriptor(object);
+            addTotalRowCountPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -244,12 +247,12 @@ public class SchemaIndicatorItemProvider
         updateChildren(notification);
 
         switch (notification.getFeatureID(SchemaIndicator.class)) {
-            case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
             case SchemaPackage.SCHEMA_INDICATOR__TABLE_COUNT:
             case SchemaPackage.SCHEMA_INDICATOR__KEY_COUNT:
             case SchemaPackage.SCHEMA_INDICATOR__INDEX_COUNT:
             case SchemaPackage.SCHEMA_INDICATOR__VIEW_COUNT:
             case SchemaPackage.SCHEMA_INDICATOR__TRIGGER_COUNT:
+            case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

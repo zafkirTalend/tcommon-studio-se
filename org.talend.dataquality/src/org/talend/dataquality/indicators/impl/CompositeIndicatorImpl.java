@@ -8,10 +8,14 @@ package org.talend.dataquality.indicators.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.talend.dataquality.indicators.CompositeIndicator;
@@ -33,7 +37,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  */
 public class CompositeIndicatorImpl extends IndicatorImpl implements CompositeIndicator {
     /**
-     * The cached value of the '{@link #getIndicators() <em>Indicators</em>}' reference list.
+     * The cached value of the '{@link #getIndicators() <em>Indicators</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getIndicators()
@@ -68,9 +72,23 @@ public class CompositeIndicatorImpl extends IndicatorImpl implements CompositeIn
      */
     public EList<Indicator> getIndicators() {
         if (indicators == null) {
-            indicators = new EObjectResolvingEList<Indicator>(Indicator.class, this, IndicatorsPackage.COMPOSITE_INDICATOR__INDICATORS);
+            indicators = new EObjectContainmentEList<Indicator>(Indicator.class, this, IndicatorsPackage.COMPOSITE_INDICATOR__INDICATORS);
         }
         return indicators;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case IndicatorsPackage.COMPOSITE_INDICATOR__INDICATORS:
+                return ((InternalEList<?>)getIndicators()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**

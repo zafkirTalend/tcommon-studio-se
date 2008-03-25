@@ -99,6 +99,52 @@ public class SchemaItemProviderAdapterFactory extends SchemaAdapterFactory imple
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.schema.TableIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TableIndicatorItemProvider tableIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.schema.TableIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createTableIndicatorAdapter() {
+        if (tableIndicatorItemProvider == null) {
+            tableIndicatorItemProvider = new TableIndicatorItemProvider(this);
+        }
+
+        return tableIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.schema.ConnectionIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ConnectionIndicatorItemProvider connectionIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.schema.ConnectionIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createConnectionIndicatorAdapter() {
+        if (connectionIndicatorItemProvider == null) {
+            connectionIndicatorItemProvider = new ConnectionIndicatorItemProvider(this);
+        }
+
+        return connectionIndicatorItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -198,6 +244,8 @@ public class SchemaItemProviderAdapterFactory extends SchemaAdapterFactory imple
      */
     public void dispose() {
         if (schemaIndicatorItemProvider != null) schemaIndicatorItemProvider.dispose();
+        if (tableIndicatorItemProvider != null) tableIndicatorItemProvider.dispose();
+        if (connectionIndicatorItemProvider != null) connectionIndicatorItemProvider.dispose();
     }
 
 }

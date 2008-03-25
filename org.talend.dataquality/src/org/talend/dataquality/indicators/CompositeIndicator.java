@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface CompositeIndicator extends Indicator {
     /**
-     * Returns the value of the '<em><b>Indicators</b></em>' reference list.
+     * Returns the value of the '<em><b>Indicators</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.dataquality.indicators.Indicator}.
      * <!-- begin-user-doc -->
      * <p>
@@ -34,9 +34,9 @@ public interface CompositeIndicator extends Indicator {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Indicators</em>' reference list.
+     * @return the value of the '<em>Indicators</em>' containment reference list.
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getCompositeIndicator_Indicators()
-     * @model
+     * @model containment="true"
      * @generated
      */
     EList<Indicator> getIndicators();

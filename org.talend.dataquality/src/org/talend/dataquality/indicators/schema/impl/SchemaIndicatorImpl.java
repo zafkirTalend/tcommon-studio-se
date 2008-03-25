@@ -6,53 +6,31 @@
 package org.talend.dataquality.indicators.schema.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.talend.dataquality.indicators.impl.IndicatorImpl;
-
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.impl.CompositeIndicatorImpl;
 import org.talend.dataquality.indicators.schema.SchemaIndicator;
 import org.talend.dataquality.indicators.schema.SchemaPackage;
+import org.talend.dataquality.indicators.schema.TableIndicator;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Indicator</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTotalRowCount <em>Total Row Count</em>}</li>
  * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTableCount <em>Table Count</em>}</li>
  * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getKeyCount <em>Key Count</em>}</li>
  * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getIndexCount <em>Index Count</em>}</li>
  * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getViewCount <em>View Count</em>}</li>
  * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTriggerCount <em>Trigger Count</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTotalRowCount <em>Total Row Count</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicator {
-
-    /**
-     * The default value of the '{@link #getTotalRowCount() <em>Total Row Count</em>}' attribute. <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * 
-     * @see #getTotalRowCount()
-     * @generated
-     * @ordered
-     */
-    protected static final long TOTAL_ROW_COUNT_EDEFAULT = 0L;
-
-    /**
-     * The cached value of the '{@link #getTotalRowCount() <em>Total Row Count</em>}' attribute. <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * 
-     * @see #getTotalRowCount()
-     * @generated
-     * @ordered
-     */
-    protected long totalRowCount = TOTAL_ROW_COUNT_EDEFAULT;
+public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements SchemaIndicator {
 
     /**
      * The default value of the '{@link #getTableCount() <em>Table Count</em>}' attribute. <!-- begin-user-doc -->
@@ -155,6 +133,26 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
     protected int triggerCount = TRIGGER_COUNT_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getTotalRowCount() <em>Total Row Count</em>}' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
+     * @see #getTotalRowCount()
+     * @generated
+     * @ordered
+     */
+    protected static final long TOTAL_ROW_COUNT_EDEFAULT = 0L;
+
+    /**
+     * The cached value of the '{@link #getTotalRowCount() <em>Total Row Count</em>}' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
+     * @see #getTotalRowCount()
+     * @generated
+     * @ordered
+     */
+    protected long totalRowCount = TOTAL_ROW_COUNT_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
@@ -193,6 +191,15 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT,
                     oldTotalRowCount, totalRowCount));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    public boolean addTableIndicator(TableIndicator tableIndicator) {
+        return this.getIndicators().add(tableIndicator);
     }
 
     /**
@@ -313,8 +320,6 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
-            return new Long(getTotalRowCount());
         case SchemaPackage.SCHEMA_INDICATOR__TABLE_COUNT:
             return new Integer(getTableCount());
         case SchemaPackage.SCHEMA_INDICATOR__KEY_COUNT:
@@ -325,6 +330,8 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
             return new Integer(getViewCount());
         case SchemaPackage.SCHEMA_INDICATOR__TRIGGER_COUNT:
             return new Integer(getTriggerCount());
+        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
+            return new Long(getTotalRowCount());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -334,12 +341,10 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
      * 
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
-            setTotalRowCount(((Long) newValue).longValue());
-            return;
         case SchemaPackage.SCHEMA_INDICATOR__TABLE_COUNT:
             setTableCount(((Integer) newValue).intValue());
             return;
@@ -355,6 +360,9 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
         case SchemaPackage.SCHEMA_INDICATOR__TRIGGER_COUNT:
             setTriggerCount(((Integer) newValue).intValue());
             return;
+        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
+            setTotalRowCount(((Long) newValue).longValue());
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -367,9 +375,6 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
-            setTotalRowCount(TOTAL_ROW_COUNT_EDEFAULT);
-            return;
         case SchemaPackage.SCHEMA_INDICATOR__TABLE_COUNT:
             setTableCount(TABLE_COUNT_EDEFAULT);
             return;
@@ -385,6 +390,9 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
         case SchemaPackage.SCHEMA_INDICATOR__TRIGGER_COUNT:
             setTriggerCount(TRIGGER_COUNT_EDEFAULT);
             return;
+        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
+            setTotalRowCount(TOTAL_ROW_COUNT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -397,8 +405,6 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
-            return totalRowCount != TOTAL_ROW_COUNT_EDEFAULT;
         case SchemaPackage.SCHEMA_INDICATOR__TABLE_COUNT:
             return tableCount != TABLE_COUNT_EDEFAULT;
         case SchemaPackage.SCHEMA_INDICATOR__KEY_COUNT:
@@ -409,6 +415,8 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
             return viewCount != VIEW_COUNT_EDEFAULT;
         case SchemaPackage.SCHEMA_INDICATOR__TRIGGER_COUNT:
             return triggerCount != TRIGGER_COUNT_EDEFAULT;
+        case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
+            return totalRowCount != TOTAL_ROW_COUNT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -424,9 +432,7 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
             return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (totalRowCount: ");
-        result.append(totalRowCount);
-        result.append(", tableCount: ");
+        result.append(" (tableCount: ");
         result.append(tableCount);
         result.append(", keyCount: ");
         result.append(keyCount);
@@ -436,8 +442,32 @@ public class SchemaIndicatorImpl extends IndicatorImpl implements SchemaIndicato
         result.append(viewCount);
         result.append(", triggerCount: ");
         result.append(triggerCount);
+        result.append(", totalRowCount: ");
+        result.append(totalRowCount);
         result.append(')');
         return result.toString();
+    }
+
+    /*
+     * (non-Javadoc) ADDED scorreia 2008-03-25 reset implemented.
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#reset()
+     */
+    @Override
+    public boolean reset() {
+        boolean ok = super.reset();
+        this.tableCount = TABLE_COUNT_EDEFAULT;
+        this.viewCount = VIEW_COUNT_EDEFAULT;
+        this.keyCount = KEY_COUNT_EDEFAULT;
+        this.indexCount = INDEX_COUNT_EDEFAULT;
+        this.totalRowCount = TOTAL_ROW_COUNT_EDEFAULT;
+        this.triggerCount = TRIGGER_COUNT_EDEFAULT;
+        for (Indicator ind : this.getIndicators()) {
+            if (ind != null) {
+                ind.reset();
+            }
+        }
+        return ok;
     }
 
 } // SchemaIndicatorImpl

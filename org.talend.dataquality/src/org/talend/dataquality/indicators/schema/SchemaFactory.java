@@ -35,6 +35,24 @@ public interface SchemaFactory extends EFactory {
     SchemaIndicator createSchemaIndicator();
 
     /**
+     * Returns a new object of class '<em>Table Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Table Indicator</em>'.
+     * @generated
+     */
+    TableIndicator createTableIndicator();
+
+    /**
+     * Returns a new object of class '<em>Connection Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Connection Indicator</em>'.
+     * @generated
+     */
+    ConnectionIndicator createConnectionIndicator();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

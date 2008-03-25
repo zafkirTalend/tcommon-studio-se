@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 /**
@@ -77,7 +78,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__VALUE = IndicatorsPackage.INDICATOR__VALUE;
+    int SCHEMA_INDICATOR__VALUE = IndicatorsPackage.COMPOSITE_INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -86,7 +87,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__INDICATOR_TYPE = IndicatorsPackage.INDICATOR__INDICATOR_TYPE;
+    int SCHEMA_INDICATOR__INDICATOR_TYPE = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -95,7 +96,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__COUNT = IndicatorsPackage.INDICATOR__COUNT;
+    int SCHEMA_INDICATOR__COUNT = IndicatorsPackage.COMPOSITE_INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -104,7 +105,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__NULL_COUNT = IndicatorsPackage.INDICATOR__NULL_COUNT;
+    int SCHEMA_INDICATOR__NULL_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -113,7 +114,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__PARAMETERS = IndicatorsPackage.INDICATOR__PARAMETERS;
+    int SCHEMA_INDICATOR__PARAMETERS = IndicatorsPackage.COMPOSITE_INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -122,16 +123,16 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__ANALYZED_ELEMENT = IndicatorsPackage.INDICATOR__ANALYZED_ELEMENT;
+    int SCHEMA_INDICATOR__ANALYZED_ELEMENT = IndicatorsPackage.COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Total Row Count</b></em>' attribute.
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__TOTAL_ROW_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 0;
+    int SCHEMA_INDICATOR__INDICATORS = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATORS;
 
     /**
      * The feature id for the '<em><b>Table Count</b></em>' attribute.
@@ -140,7 +141,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__TABLE_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 1;
+    int SCHEMA_INDICATOR__TABLE_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Key Count</b></em>' attribute.
@@ -149,7 +150,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__KEY_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 2;
+    int SCHEMA_INDICATOR__KEY_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Index Count</b></em>' attribute.
@@ -158,7 +159,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__INDEX_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 3;
+    int SCHEMA_INDICATOR__INDEX_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>View Count</b></em>' attribute.
@@ -167,7 +168,7 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__VIEW_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 4;
+    int SCHEMA_INDICATOR__VIEW_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Trigger Count</b></em>' attribute.
@@ -176,7 +177,16 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR__TRIGGER_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 5;
+    int SCHEMA_INDICATOR__TRIGGER_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Total Row Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCHEMA_INDICATOR__TOTAL_ROW_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 5;
 
     /**
      * The number of structural features of the '<em>Indicator</em>' class.
@@ -185,7 +195,235 @@ public interface SchemaPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_INDICATOR_FEATURE_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 6;
+    int SCHEMA_INDICATOR_FEATURE_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 6;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.schema.impl.TableIndicatorImpl <em>Table Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.schema.impl.TableIndicatorImpl
+     * @see org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl#getTableIndicator()
+     * @generated
+     */
+    int TABLE_INDICATOR = 1;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__VALUE = IndicatorsPackage.COMPOSITE_INDICATOR__VALUE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__INDICATOR_TYPE = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__COUNT = IndicatorsPackage.COMPOSITE_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__NULL_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__PARAMETERS = IndicatorsPackage.COMPOSITE_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__ANALYZED_ELEMENT = IndicatorsPackage.COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__INDICATORS = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATORS;
+
+    /**
+     * The feature id for the '<em><b>Row Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__ROW_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Table Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR_FEATURE_COUNT = IndicatorsPackage.COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.schema.impl.ConnectionIndicatorImpl <em>Connection Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.schema.impl.ConnectionIndicatorImpl
+     * @see org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl#getConnectionIndicator()
+     * @generated
+     */
+    int CONNECTION_INDICATOR = 2;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__VALUE = SCHEMA_INDICATOR__VALUE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__INDICATOR_TYPE = SCHEMA_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__COUNT = SCHEMA_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__NULL_COUNT = SCHEMA_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__PARAMETERS = SCHEMA_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__ANALYZED_ELEMENT = SCHEMA_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__INDICATORS = SCHEMA_INDICATOR__INDICATORS;
+
+    /**
+     * The feature id for the '<em><b>Table Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__TABLE_COUNT = SCHEMA_INDICATOR__TABLE_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Key Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__KEY_COUNT = SCHEMA_INDICATOR__KEY_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Index Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__INDEX_COUNT = SCHEMA_INDICATOR__INDEX_COUNT;
+
+    /**
+     * The feature id for the '<em><b>View Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__VIEW_COUNT = SCHEMA_INDICATOR__VIEW_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Trigger Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__TRIGGER_COUNT = SCHEMA_INDICATOR__TRIGGER_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Total Row Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__TOTAL_ROW_COUNT = SCHEMA_INDICATOR__TOTAL_ROW_COUNT;
+
+    /**
+     * The number of structural features of the '<em>Connection Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR_FEATURE_COUNT = SCHEMA_INDICATOR_FEATURE_COUNT + 0;
 
 
     /**
@@ -208,6 +446,37 @@ public interface SchemaPackage extends EPackage {
      * @generated
      */
     EAttribute getSchemaIndicator_TotalRowCount();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.schema.TableIndicator <em>Table Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Table Indicator</em>'.
+     * @see org.talend.dataquality.indicators.schema.TableIndicator
+     * @generated
+     */
+    EClass getTableIndicator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.schema.TableIndicator#getRowCount <em>Row Count</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Row Count</em>'.
+     * @see org.talend.dataquality.indicators.schema.TableIndicator#getRowCount()
+     * @see #getTableIndicator()
+     * @generated
+     */
+    EAttribute getTableIndicator_RowCount();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.schema.ConnectionIndicator <em>Connection Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Connection Indicator</em>'.
+     * @see org.talend.dataquality.indicators.schema.ConnectionIndicator
+     * @generated
+     */
+    EClass getConnectionIndicator();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getTableCount <em>Table Count</em>}'.
@@ -303,6 +572,34 @@ public interface SchemaPackage extends EPackage {
          * @generated
          */
         EAttribute SCHEMA_INDICATOR__TOTAL_ROW_COUNT = eINSTANCE.getSchemaIndicator_TotalRowCount();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.schema.impl.TableIndicatorImpl <em>Table Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.schema.impl.TableIndicatorImpl
+         * @see org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl#getTableIndicator()
+         * @generated
+         */
+        EClass TABLE_INDICATOR = eINSTANCE.getTableIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Row Count</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TABLE_INDICATOR__ROW_COUNT = eINSTANCE.getTableIndicator_RowCount();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.schema.impl.ConnectionIndicatorImpl <em>Connection Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.schema.impl.ConnectionIndicatorImpl
+         * @see org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl#getConnectionIndicator()
+         * @generated
+         */
+        EClass CONNECTION_INDICATOR = eINSTANCE.getConnectionIndicator();
 
         /**
          * The meta object literal for the '<em><b>Table Count</b></em>' attribute feature.

@@ -6,6 +6,8 @@
  */
 package org.talend.dataquality.indicators.schema;
 
+import org.eclipse.emf.common.util.EList;
+import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.Indicator;
 
 /**
@@ -16,12 +18,12 @@ import org.talend.dataquality.indicators.Indicator;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getTotalRowCount <em>Total Row Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getTableCount <em>Table Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getKeyCount <em>Key Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getIndexCount <em>Index Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getViewCount <em>View Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getTriggerCount <em>Trigger Count</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.schema.SchemaIndicator#getTotalRowCount <em>Total Row Count</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,7 +31,7 @@ import org.talend.dataquality.indicators.Indicator;
  * @model
  * @generated
  */
-public interface SchemaIndicator extends Indicator {
+public interface SchemaIndicator extends CompositeIndicator {
     /**
      * Returns the value of the '<em><b>Total Row Count</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -55,6 +57,14 @@ public interface SchemaIndicator extends Indicator {
      * @generated
      */
     void setTotalRowCount(long value);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model
+     * @generated
+     */
+    boolean addTableIndicator(TableIndicator tableIndicator);
 
     /**
      * Returns the value of the '<em><b>Table Count</b></em>' attribute.

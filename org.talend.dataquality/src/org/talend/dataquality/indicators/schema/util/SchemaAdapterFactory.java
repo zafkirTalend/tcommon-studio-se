@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.Indicator;
 
 import org.talend.dataquality.indicators.schema.*;
@@ -78,8 +79,20 @@ public class SchemaAdapterFactory extends AdapterFactoryImpl {
                 return createSchemaIndicatorAdapter();
             }
             @Override
+            public Adapter caseTableIndicator(TableIndicator object) {
+                return createTableIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseConnectionIndicator(ConnectionIndicator object) {
+                return createConnectionIndicatorAdapter();
+            }
+            @Override
             public Adapter caseIndicator(Indicator object) {
                 return createIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseCompositeIndicator(CompositeIndicator object) {
+                return createCompositeIndicatorAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -116,6 +129,34 @@ public class SchemaAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.schema.TableIndicator <em>Table Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.schema.TableIndicator
+     * @generated
+     */
+    public Adapter createTableIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.schema.ConnectionIndicator <em>Connection Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.schema.ConnectionIndicator
+     * @generated
+     */
+    public Adapter createConnectionIndicatorAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -126,6 +167,20 @@ public class SchemaAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.CompositeIndicator <em>Composite Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.CompositeIndicator
+     * @generated
+     */
+    public Adapter createCompositeIndicatorAdapter() {
         return null;
     }
 

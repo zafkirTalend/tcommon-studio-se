@@ -12,9 +12,22 @@
 // ============================================================================
 package org.talend.dataquality.helpers;
 
-/**
- * DOC scorreia class global comment. Detailled comment
- */
-public class AnalysisSwitchHelper {
+import org.talend.dataquality.indicators.schema.ConnectionIndicator;
+import org.talend.dataquality.indicators.schema.util.SchemaSwitch;
 
+/**
+ * @author scorreia
+ * 
+ * 
+ */
+public class DataqualitySwitchHelper {
+
+    public static final SchemaSwitch<ConnectionIndicator> CONNECTION_SWITCH = new SchemaSwitch<ConnectionIndicator>() {
+
+        @Override
+        public ConnectionIndicator caseConnectionIndicator(ConnectionIndicator object) {
+            return object;
+        }
+
+    };
 }

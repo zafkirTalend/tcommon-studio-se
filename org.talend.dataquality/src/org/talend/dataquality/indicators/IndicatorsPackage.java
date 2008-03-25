@@ -367,7 +367,7 @@ public interface IndicatorsPackage extends EPackage {
     int COMPOSITE_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' reference list.
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -449,7 +449,7 @@ public interface IndicatorsPackage extends EPackage {
     int RANGE_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' reference list.
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -558,7 +558,7 @@ public interface IndicatorsPackage extends EPackage {
     int BOX_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' reference list.
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1953,10 +1953,10 @@ public interface IndicatorsPackage extends EPackage {
     EClass getCompositeIndicator();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.dataquality.indicators.CompositeIndicator#getIndicators <em>Indicators</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.dataquality.indicators.CompositeIndicator#getIndicators <em>Indicators</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Indicators</em>'.
+     * @return the meta object for the containment reference list '<em>Indicators</em>'.
      * @see org.talend.dataquality.indicators.CompositeIndicator#getIndicators()
      * @see #getCompositeIndicator()
      * @generated
@@ -2509,7 +2509,7 @@ public interface IndicatorsPackage extends EPackage {
         EClass COMPOSITE_INDICATOR = eINSTANCE.getCompositeIndicator();
 
         /**
-         * The meta object literal for the '<em><b>Indicators</b></em>' reference list feature.
+         * The meta object literal for the '<em><b>Indicators</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

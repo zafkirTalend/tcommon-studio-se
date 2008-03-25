@@ -112,7 +112,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="SumIndicator" abstract="true" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
-          eType="#//indicators/Indicator"/>
+          eType="#//indicators/Indicator" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RangeIndicator" eSuperTypes="#//indicators/CompositeIndicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//indicators/Indicator"/>
@@ -234,13 +234,24 @@
       <eLiterals name="INTERVAL" value="1" literal="Interval"/>
     </eClassifiers>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
-      <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/Indicator">
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
+        <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+          <eParameters name="tableIndicator" eType="#//indicators/schema/TableIndicator"/>
+        </eOperations>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="keyCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="triggerCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="TableIndicator" eSuperTypes="#//indicators/CompositeIndicator">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="rowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="ConnectionIndicator" eSuperTypes="#//indicators/schema/SchemaIndicator">
+        <eOperations name="addSchemaIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+          <eParameters name="schemaIndicator" eType="#//indicators/schema/SchemaIndicator"/>
+        </eOperations>
       </eClassifiers>
     </eSubpackages>
   </eSubpackages>
