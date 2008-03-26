@@ -671,12 +671,14 @@ class ImportItemWizardPage extends WizardPage {
                                         service.saveDocumentNode(importItem);
                                     }
 
-                                    if (importItem instanceof RoutineItem) {
-                                        RoutineItem item = (RoutineItem) importItem;
-                                        routineSynchronizer.syncRoutine(item, true);
-                                        routineSynchronizer.getRoutineFile(item);
-                                    }
                                 }
+
+                                if (importItem != null && importItem instanceof RoutineItem) {
+                                    RoutineItem item = (RoutineItem) importItem;
+                                    routineSynchronizer.syncRoutine(item, true);
+                                    routineSynchronizer.getRoutineFile(item);
+                                }
+
                             } catch (Exception e) {
                                 throw new InvocationTargetException(e);
                             }
