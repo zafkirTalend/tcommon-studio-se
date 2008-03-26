@@ -171,20 +171,6 @@ public class ProcessorUtilities {
 
     private static Map<String, ProcessItem> versionsProcessItemCache = new HashMap<String, ProcessItem>();
 
-    public static List<IRepositoryObject> getAllRepositoryObjectById(String id) {
-        if (id == null) {
-            return null;
-        }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        try {
-            final List<IRepositoryObject> allVersion = factory.getAllVersion(id);
-            return allVersion;
-        } catch (PersistenceException e) {
-            // 
-        }
-        return null;
-    }
-
     public static ProcessItem getProcessItem(String processName, String version) {
         if (processName == null || "".equals(processName)) {
             return null;
@@ -706,11 +692,6 @@ public class ProcessorUtilities {
 
     }
 
-    /*
-     * process id to all version repository object.
-     */
-    private static Map<String, List<IRepositoryObject>> allVersionProcessMap = new HashMap<String, List<IRepositoryObject>>();
-
     /**
      * 
      * ggu Comment method "getAllVersionProcessList".
@@ -718,42 +699,22 @@ public class ProcessorUtilities {
      * @param processId
      * @return
      */
-    public static List<IRepositoryObject> getAllVersionProcessList(String processId) {
-        if (processId == null || "".equals(processId)) {
+    public static List<IRepositoryObject> getAllVersionObjectById(String id) {
+        if (id == null || "".equals(id)) {
             return null;
         }
-        List<IRepositoryObject> allVersionList = allVersionProcessMap.get(processId);
-        if (allVersionList == null) {
-            allVersionList = getAllRepositoryObjectById(processId);
-            if (allVersionList != null) {
-                allVersionProcessMap.put(processId, allVersionList);
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            final List<IRepositoryObject> allVersion = factory.getAllVersion(id);
+            final IRepositoryObject lastVersion = factory.getLastVersion(id);
+            if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
+                return allVersion;
             }
+        } catch (PersistenceException e) {
+            // 
         }
-        if (allVersionList != null && !allVersionList.isEmpty()) {
-            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-            try {
-                final IRepositoryObject lastVersion = factory.getLastVersion(processId);
-                if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
-                    return allVersionList;
-                }
-            } catch (PersistenceException e) {
-                // 
-            }
 
-        }
         return null;
     }
 
-    /**
-     * 
-     * ggu Comment method "setAllVersionProcessList".
-     * 
-     * this method is only for the process Type RepositoryReviewDialog class.
-     */
-    public static void setAllVersionProcessList(String processId, List<IRepositoryObject> allVersionList) {
-        if (processId == null || "".equals(processId) || allVersionList == null || allVersionList.isEmpty()) {
-            return;
-        }
-        allVersionProcessMap.put(processId, allVersionList);
-    }
 }
