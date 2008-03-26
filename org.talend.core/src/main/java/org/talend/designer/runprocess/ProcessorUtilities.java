@@ -36,6 +36,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.JobType;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -728,7 +729,19 @@ public class ProcessorUtilities {
                 allVersionProcessMap.put(processId, allVersionList);
             }
         }
-        return allVersionList;
+        if (allVersionList != null && !allVersionList.isEmpty()) {
+            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+            try {
+                final IRepositoryObject lastVersion = factory.getLastVersion(processId);
+                if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
+                    return allVersionList;
+                }
+            } catch (PersistenceException e) {
+                // 
+            }
+
+        }
+        return null;
     }
 
     /**
