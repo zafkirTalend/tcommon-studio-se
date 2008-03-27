@@ -153,6 +153,42 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createMedianIndicatorAdapter();
             }
             @Override
+            public Adapter caseValueIndicator(ValueIndicator object) {
+                return createValueIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseMinValueIndicator(MinValueIndicator object) {
+                return createMinValueIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseMaxValueIndicator(MaxValueIndicator object) {
+                return createMaxValueIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseModeIndicator(ModeIndicator object) {
+                return createModeIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseNullCountIndicator(NullCountIndicator object) {
+                return createNullCountIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseDistinctCountIndicator(DistinctCountIndicator object) {
+                return createDistinctCountIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseUniqueCountIndicator(UniqueCountIndicator object) {
+                return createUniqueCountIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseDuplicateCountIndicator(DuplicateCountIndicator object) {
+                return createDuplicateCountIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseIQRIndicator(IQRIndicator object) {
+                return createIQRIndicatorAdapter();
+            }
+            @Override
             public Adapter caseElement(Element object) {
                 return createElementAdapter();
             }
@@ -437,6 +473,132 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createMedianIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.ValueIndicator <em>Value Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.ValueIndicator
+     * @generated
+     */
+    public Adapter createValueIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.MinValueIndicator <em>Min Value Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.MinValueIndicator
+     * @generated
+     */
+    public Adapter createMinValueIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.MaxValueIndicator <em>Max Value Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.MaxValueIndicator
+     * @generated
+     */
+    public Adapter createMaxValueIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.ModeIndicator <em>Mode Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.ModeIndicator
+     * @generated
+     */
+    public Adapter createModeIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.NullCountIndicator <em>Null Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.NullCountIndicator
+     * @generated
+     */
+    public Adapter createNullCountIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.DistinctCountIndicator <em>Distinct Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.DistinctCountIndicator
+     * @generated
+     */
+    public Adapter createDistinctCountIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.UniqueCountIndicator <em>Unique Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.UniqueCountIndicator
+     * @generated
+     */
+    public Adapter createUniqueCountIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.DuplicateCountIndicator <em>Duplicate Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.DuplicateCountIndicator
+     * @generated
+     */
+    public Adapter createDuplicateCountIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.IQRIndicator <em>IQR Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.IQRIndicator
+     * @generated
+     */
+    public Adapter createIQRIndicatorAdapter() {
         return null;
     }
 

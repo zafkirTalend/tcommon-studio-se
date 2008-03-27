@@ -23,12 +23,15 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getMode <em>Mode</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueValues <em>Unique Values</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getDistinctValueCount <em>Distinct Value Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueValueCount <em>Unique Value Count</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getDupplicateValueCount <em>Dupplicate Value Count</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateValueCount <em>Duplicate Value Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getValueToFreq <em>Value To Freq</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getModeIndicator <em>Mode Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getDistinctCountIndicator <em>Distinct Count Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueCountIndicator <em>Unique Count Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateCountIndicator <em>Duplicate Count Indicator</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,32 +39,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FrequencyIndicator extends Indicator {
-
-    /**
-     * Returns the value of the '<em><b>Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * most frequent value
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Mode</em>' attribute.
-     * @see #setMode(Object)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_Mode()
-     * @model
-     * @generated
-     */
-    Object getMode();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getMode <em>Mode</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Mode</em>' attribute.
-     * @see #getMode()
-     * @generated
-     */
-    void setMode(Object value);
+public interface FrequencyIndicator extends CompositeIndicator {
 
     /**
      * Returns the value of the '<em><b>Unique Values</b></em>' attribute list.
@@ -153,19 +131,19 @@ public interface FrequencyIndicator extends Indicator {
     void setUniqueValueCount(int value);
 
     /**
-     * Returns the value of the '<em><b>Dupplicate Value Count</b></em>' attribute.
+     * Returns the value of the '<em><b>Duplicate Value Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Dupplicate Value Count</em>' attribute isn't clear,
+     * If the meaning of the '<em>Duplicate Value Count</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Dupplicate Value Count</em>' attribute.
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_DupplicateValueCount()
+     * @return the value of the '<em>Duplicate Value Count</em>' attribute.
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_DuplicateValueCount()
      * @model transient="true" changeable="false" volatile="true"
      * @generated
      */
-    int getDupplicateValueCount();
+    int getDuplicateValueCount();
 
     /**
      * Returns the value of the '<em><b>Value To Freq</b></em>' attribute.
@@ -192,5 +170,109 @@ public interface FrequencyIndicator extends Indicator {
      * @generated
      */
     void setValueToFreq(HashMap<Object, Long> value);
+
+    /**
+     * Returns the value of the '<em><b>Mode Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Mode Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Mode Indicator</em>' containment reference.
+     * @see #setModeIndicator(ModeIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_ModeIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    ModeIndicator getModeIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getModeIndicator <em>Mode Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Mode Indicator</em>' containment reference.
+     * @see #getModeIndicator()
+     * @generated
+     */
+    void setModeIndicator(ModeIndicator value);
+
+    /**
+     * Returns the value of the '<em><b>Distinct Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Distinct Count Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Distinct Count Indicator</em>' containment reference.
+     * @see #setDistinctCountIndicator(DistinctCountIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_DistinctCountIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    DistinctCountIndicator getDistinctCountIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDistinctCountIndicator <em>Distinct Count Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Distinct Count Indicator</em>' containment reference.
+     * @see #getDistinctCountIndicator()
+     * @generated
+     */
+    void setDistinctCountIndicator(DistinctCountIndicator value);
+
+    /**
+     * Returns the value of the '<em><b>Unique Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Unique Count Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Unique Count Indicator</em>' containment reference.
+     * @see #setUniqueCountIndicator(UniqueCountIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_UniqueCountIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    UniqueCountIndicator getUniqueCountIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueCountIndicator <em>Unique Count Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Unique Count Indicator</em>' containment reference.
+     * @see #getUniqueCountIndicator()
+     * @generated
+     */
+    void setUniqueCountIndicator(UniqueCountIndicator value);
+
+    /**
+     * Returns the value of the '<em><b>Duplicate Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Duplicate Count Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Duplicate Count Indicator</em>' containment reference.
+     * @see #setDuplicateCountIndicator(DuplicateCountIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_DuplicateCountIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    DuplicateCountIndicator getDuplicateCountIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateCountIndicator <em>Duplicate Count Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Duplicate Count Indicator</em>' containment reference.
+     * @see #getDuplicateCountIndicator()
+     * @generated
+     */
+    void setDuplicateCountIndicator(DuplicateCountIndicator value);
 
 } // FrequencyIndicator

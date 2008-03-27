@@ -81,6 +81,15 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
             case IndicatorsPackage.BLANK_COUNT_INDICATOR: return createBlankCountIndicator();
             case IndicatorsPackage.INDICATOR_PARAMETERS: return createIndicatorParameters();
             case IndicatorsPackage.MEDIAN_INDICATOR: return createMedianIndicator();
+            case IndicatorsPackage.VALUE_INDICATOR: return createValueIndicator();
+            case IndicatorsPackage.MIN_VALUE_INDICATOR: return createMinValueIndicator();
+            case IndicatorsPackage.MAX_VALUE_INDICATOR: return createMaxValueIndicator();
+            case IndicatorsPackage.MODE_INDICATOR: return createModeIndicator();
+            case IndicatorsPackage.NULL_COUNT_INDICATOR: return createNullCountIndicator();
+            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR: return createDistinctCountIndicator();
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR: return createUniqueCountIndicator();
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR: return createDuplicateCountIndicator();
+            case IndicatorsPackage.IQR_INDICATOR: return createIQRIndicator();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -98,6 +107,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return createEnumStatisticsFromString(eDataType, initialValue);
             case IndicatorsPackage.DATAMINING_TYPE:
                 return createDataminingTypeFromString(eDataType, initialValue);
+            case IndicatorsPackage.DATATYPE:
+                return createDatatypeFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_SET:
                 return createJavaSetFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -121,6 +132,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return convertEnumStatisticsToString(eDataType, instanceValue);
             case IndicatorsPackage.DATAMINING_TYPE:
                 return convertDataminingTypeToString(eDataType, instanceValue);
+            case IndicatorsPackage.DATATYPE:
+                return convertDatatypeToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_SET:
                 return convertJavaSetToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -297,6 +310,96 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * <!-- end-user-doc -->
      * @generated
      */
+    public ValueIndicator createValueIndicator() {
+        ValueIndicatorImpl valueIndicator = new ValueIndicatorImpl();
+        return valueIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MinValueIndicator createMinValueIndicator() {
+        MinValueIndicatorImpl minValueIndicator = new MinValueIndicatorImpl();
+        return minValueIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MaxValueIndicator createMaxValueIndicator() {
+        MaxValueIndicatorImpl maxValueIndicator = new MaxValueIndicatorImpl();
+        return maxValueIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ModeIndicator createModeIndicator() {
+        ModeIndicatorImpl modeIndicator = new ModeIndicatorImpl();
+        return modeIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NullCountIndicator createNullCountIndicator() {
+        NullCountIndicatorImpl nullCountIndicator = new NullCountIndicatorImpl();
+        return nullCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DistinctCountIndicator createDistinctCountIndicator() {
+        DistinctCountIndicatorImpl distinctCountIndicator = new DistinctCountIndicatorImpl();
+        return distinctCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UniqueCountIndicator createUniqueCountIndicator() {
+        UniqueCountIndicatorImpl uniqueCountIndicator = new UniqueCountIndicatorImpl();
+        return uniqueCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DuplicateCountIndicator createDuplicateCountIndicator() {
+        DuplicateCountIndicatorImpl duplicateCountIndicator = new DuplicateCountIndicatorImpl();
+        return duplicateCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public IQRIndicator createIQRIndicator() {
+        IQRIndicatorImpl iqrIndicator = new IQRIndicatorImpl();
+        return iqrIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EnumStatistics createEnumStatisticsFromString(EDataType eDataType, String initialValue) {
         EnumStatistics result = EnumStatistics.get(initialValue);
         if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -329,6 +432,26 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * @generated
      */
     public String convertDataminingTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Datatype createDatatypeFromString(EDataType eDataType, String initialValue) {
+        Datatype result = Datatype.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertDatatypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

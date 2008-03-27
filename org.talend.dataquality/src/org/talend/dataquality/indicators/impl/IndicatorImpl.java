@@ -24,7 +24,6 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getIndicatorType <em>Indicator Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getCount <em>Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getNullCount <em>Null Count</em>}</li>
@@ -36,16 +35,6 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @generated
  */
 public class IndicatorImpl extends EObjectImpl implements Indicator {
-
-    /**
-     * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getValue()
-     * @generated
-     * @ordered
-     */
-    protected LiteralValue value;
 
     /**
      * The cached value of the '{@link #getIndicatorType() <em>Indicator Type</em>}' reference.
@@ -316,82 +305,9 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public LiteralValue getValue() {
-        if (value != null && value.eIsProxy()) {
-            InternalEObject oldValue = (InternalEObject)value;
-            value = (LiteralValue)eResolveProxy(oldValue);
-            if (value != oldValue) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.INDICATOR__VALUE, oldValue, value));
-            }
-        }
-        return value;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public LiteralValue basicGetValue() {
-        return value;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetValue(LiteralValue newValue, NotificationChain msgs) {
-        LiteralValue oldValue = value;
-        value = newValue;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__VALUE, oldValue, newValue);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setValue(LiteralValue newValue) {
-        if (newValue != value) {
-            NotificationChain msgs = null;
-            if (value != null)
-                msgs = ((InternalEObject)value).eInverseRemove(this, DomainPackage.LITERAL_VALUE__INDICATOR, LiteralValue.class, msgs);
-            if (newValue != null)
-                msgs = ((InternalEObject)newValue).eInverseAdd(this, DomainPackage.LITERAL_VALUE__INDICATOR, LiteralValue.class, msgs);
-            msgs = basicSetValue(newValue, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__VALUE, newValue, newValue));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case IndicatorsPackage.INDICATOR__VALUE:
-                if (value != null)
-                    msgs = ((InternalEObject)value).eInverseRemove(this, DomainPackage.LITERAL_VALUE__INDICATOR, LiteralValue.class, msgs);
-                return basicSetValue((LiteralValue)otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__VALUE:
-                return basicSetValue(null, msgs);
             case IndicatorsPackage.INDICATOR__PARAMETERS:
                 return basicSetParameters(null, msgs);
         }
@@ -405,9 +321,6 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__VALUE:
-                if (resolve) return getValue();
-                return basicGetValue();
             case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
                 if (resolve) return getIndicatorType();
                 return basicGetIndicatorType();
@@ -431,9 +344,6 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__VALUE:
-                setValue((LiteralValue)newValue);
-                return;
             case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
                 setIndicatorType((IndicatorType)newValue);
                 return;
@@ -460,9 +370,6 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__VALUE:
-                setValue((LiteralValue)null);
-                return;
             case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
                 setIndicatorType((IndicatorType)null);
                 return;
@@ -489,8 +396,6 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__VALUE:
-                return value != null;
             case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
                 return indicatorType != null;
             case IndicatorsPackage.INDICATOR__COUNT:

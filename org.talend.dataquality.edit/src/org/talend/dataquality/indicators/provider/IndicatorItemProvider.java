@@ -69,35 +69,12 @@ public class IndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addValuePropertyDescriptor(object);
             addIndicatorTypePropertyDescriptor(object);
             addCountPropertyDescriptor(object);
             addNullCountPropertyDescriptor(object);
             addAnalyzedElementPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
-    }
-
-    /**
-     * This adds a property descriptor for the Value feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Indicator_value_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Indicator_value_feature", "_UI_Indicator_type"),
-                 IndicatorsPackage.Literals.INDICATOR__VALUE,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
     }
 
     /**

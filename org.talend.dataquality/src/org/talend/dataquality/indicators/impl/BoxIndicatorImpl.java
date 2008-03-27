@@ -8,14 +8,19 @@ package org.talend.dataquality.indicators.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.talend.dataquality.indicators.BoxIndicator;
+import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.MeanIndicator;
+import org.talend.dataquality.indicators.MedianIndicator;
+import org.talend.dataquality.indicators.RangeIndicator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,11 +29,10 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getMin <em>Min</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getMax <em>Max</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getFirstQuartile <em>First Quartile</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getThirdQuartile <em>Third Quartile</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getIQR <em>IQR</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getRangeIndicator <em>Range Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getMeanIndicator <em>Mean Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl#getMedianIndicator <em>Median Indicator</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,54 +40,44 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  */
 public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndicator {
     /**
-     * The cached value of the '{@link #getMin() <em>Min</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getMin()
-     * @generated
-     * @ordered
-     */
-    protected Indicator min;
-
-    /**
-     * The cached value of the '{@link #getMax() <em>Max</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getMax()
-     * @generated
-     * @ordered
-     */
-    protected Indicator max;
-
-    /**
-     * The cached value of the '{@link #getFirstQuartile() <em>First Quartile</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getFirstQuartile()
-     * @generated
-     * @ordered
-     */
-    protected Indicator firstQuartile;
-
-    /**
-     * The cached value of the '{@link #getThirdQuartile() <em>Third Quartile</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getThirdQuartile()
-     * @generated
-     * @ordered
-     */
-    protected Indicator thirdQuartile;
-
-    /**
-     * The cached value of the '{@link #getIQR() <em>IQR</em>}' reference.
+     * The cached value of the '{@link #getIQR() <em>IQR</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getIQR()
      * @generated
      * @ordered
      */
-    protected Indicator iqr;
+    protected IQRIndicator iqr;
+
+    /**
+     * The cached value of the '{@link #getRangeIndicator() <em>Range Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRangeIndicator()
+     * @generated
+     * @ordered
+     */
+    protected RangeIndicator rangeIndicator;
+
+    /**
+     * The cached value of the '{@link #getMeanIndicator() <em>Mean Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMeanIndicator()
+     * @generated
+     * @ordered
+     */
+    protected MeanIndicator meanIndicator;
+
+    /**
+     * The cached value of the '{@link #getMedianIndicator() <em>Median Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMedianIndicator()
+     * @generated
+     * @ordered
+     */
+    protected MedianIndicator medianIndicator;
 
     /**
      * <!-- begin-user-doc -->
@@ -109,167 +103,7 @@ public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndic
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator getMin() {
-        if (min != null && min.eIsProxy()) {
-            InternalEObject oldMin = (InternalEObject)min;
-            min = (Indicator)eResolveProxy(oldMin);
-            if (min != oldMin) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.BOX_INDICATOR__MIN, oldMin, min));
-            }
-        }
-        return min;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator basicGetMin() {
-        return min;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setMin(Indicator newMin) {
-        Indicator oldMin = min;
-        min = newMin;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__MIN, oldMin, min));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator getMax() {
-        if (max != null && max.eIsProxy()) {
-            InternalEObject oldMax = (InternalEObject)max;
-            max = (Indicator)eResolveProxy(oldMax);
-            if (max != oldMax) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.BOX_INDICATOR__MAX, oldMax, max));
-            }
-        }
-        return max;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator basicGetMax() {
-        return max;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setMax(Indicator newMax) {
-        Indicator oldMax = max;
-        max = newMax;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__MAX, oldMax, max));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator getFirstQuartile() {
-        if (firstQuartile != null && firstQuartile.eIsProxy()) {
-            InternalEObject oldFirstQuartile = (InternalEObject)firstQuartile;
-            firstQuartile = (Indicator)eResolveProxy(oldFirstQuartile);
-            if (firstQuartile != oldFirstQuartile) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.BOX_INDICATOR__FIRST_QUARTILE, oldFirstQuartile, firstQuartile));
-            }
-        }
-        return firstQuartile;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator basicGetFirstQuartile() {
-        return firstQuartile;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setFirstQuartile(Indicator newFirstQuartile) {
-        Indicator oldFirstQuartile = firstQuartile;
-        firstQuartile = newFirstQuartile;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__FIRST_QUARTILE, oldFirstQuartile, firstQuartile));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator getThirdQuartile() {
-        if (thirdQuartile != null && thirdQuartile.eIsProxy()) {
-            InternalEObject oldThirdQuartile = (InternalEObject)thirdQuartile;
-            thirdQuartile = (Indicator)eResolveProxy(oldThirdQuartile);
-            if (thirdQuartile != oldThirdQuartile) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.BOX_INDICATOR__THIRD_QUARTILE, oldThirdQuartile, thirdQuartile));
-            }
-        }
-        return thirdQuartile;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator basicGetThirdQuartile() {
-        return thirdQuartile;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setThirdQuartile(Indicator newThirdQuartile) {
-        Indicator oldThirdQuartile = thirdQuartile;
-        thirdQuartile = newThirdQuartile;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__THIRD_QUARTILE, oldThirdQuartile, thirdQuartile));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Indicator getIQR() {
-        if (iqr != null && iqr.eIsProxy()) {
-            InternalEObject oldIQR = (InternalEObject)iqr;
-            iqr = (Indicator)eResolveProxy(oldIQR);
-            if (iqr != oldIQR) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.BOX_INDICATOR__IQR, oldIQR, iqr));
-            }
-        }
+    public IQRIndicator getIQR() {
         return iqr;
     }
 
@@ -278,20 +112,182 @@ public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndic
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator basicGetIQR() {
-        return iqr;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setIQR(Indicator newIQR) {
-        Indicator oldIQR = iqr;
+    public NotificationChain basicSetIQR(IQRIndicator newIQR, NotificationChain msgs) {
+        IQRIndicator oldIQR = iqr;
         iqr = newIQR;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__IQR, oldIQR, iqr));
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__IQR, oldIQR, newIQR);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setIQR(IQRIndicator newIQR) {
+        if (newIQR != iqr) {
+            NotificationChain msgs = null;
+            if (iqr != null)
+                msgs = ((InternalEObject)iqr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__IQR, null, msgs);
+            if (newIQR != null)
+                msgs = ((InternalEObject)newIQR).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__IQR, null, msgs);
+            msgs = basicSetIQR(newIQR, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__IQR, newIQR, newIQR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RangeIndicator getRangeIndicator() {
+        return rangeIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetRangeIndicator(RangeIndicator newRangeIndicator, NotificationChain msgs) {
+        RangeIndicator oldRangeIndicator = rangeIndicator;
+        rangeIndicator = newRangeIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR, oldRangeIndicator, newRangeIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRangeIndicator(RangeIndicator newRangeIndicator) {
+        if (newRangeIndicator != rangeIndicator) {
+            NotificationChain msgs = null;
+            if (rangeIndicator != null)
+                msgs = ((InternalEObject)rangeIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR, null, msgs);
+            if (newRangeIndicator != null)
+                msgs = ((InternalEObject)newRangeIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR, null, msgs);
+            msgs = basicSetRangeIndicator(newRangeIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR, newRangeIndicator, newRangeIndicator));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MeanIndicator getMeanIndicator() {
+        return meanIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetMeanIndicator(MeanIndicator newMeanIndicator, NotificationChain msgs) {
+        MeanIndicator oldMeanIndicator = meanIndicator;
+        meanIndicator = newMeanIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR, oldMeanIndicator, newMeanIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMeanIndicator(MeanIndicator newMeanIndicator) {
+        if (newMeanIndicator != meanIndicator) {
+            NotificationChain msgs = null;
+            if (meanIndicator != null)
+                msgs = ((InternalEObject)meanIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR, null, msgs);
+            if (newMeanIndicator != null)
+                msgs = ((InternalEObject)newMeanIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR, null, msgs);
+            msgs = basicSetMeanIndicator(newMeanIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR, newMeanIndicator, newMeanIndicator));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MedianIndicator getMedianIndicator() {
+        return medianIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetMedianIndicator(MedianIndicator newMedianIndicator, NotificationChain msgs) {
+        MedianIndicator oldMedianIndicator = medianIndicator;
+        medianIndicator = newMedianIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR, oldMedianIndicator, newMedianIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMedianIndicator(MedianIndicator newMedianIndicator) {
+        if (newMedianIndicator != medianIndicator) {
+            NotificationChain msgs = null;
+            if (medianIndicator != null)
+                msgs = ((InternalEObject)medianIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR, null, msgs);
+            if (newMedianIndicator != null)
+                msgs = ((InternalEObject)newMedianIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR, null, msgs);
+            msgs = basicSetMedianIndicator(newMedianIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR, newMedianIndicator, newMedianIndicator));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case IndicatorsPackage.BOX_INDICATOR__IQR:
+                return basicSetIQR(null, msgs);
+            case IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR:
+                return basicSetRangeIndicator(null, msgs);
+            case IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR:
+                return basicSetMeanIndicator(null, msgs);
+            case IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR:
+                return basicSetMedianIndicator(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
@@ -302,21 +298,14 @@ public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndic
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.BOX_INDICATOR__MIN:
-                if (resolve) return getMin();
-                return basicGetMin();
-            case IndicatorsPackage.BOX_INDICATOR__MAX:
-                if (resolve) return getMax();
-                return basicGetMax();
-            case IndicatorsPackage.BOX_INDICATOR__FIRST_QUARTILE:
-                if (resolve) return getFirstQuartile();
-                return basicGetFirstQuartile();
-            case IndicatorsPackage.BOX_INDICATOR__THIRD_QUARTILE:
-                if (resolve) return getThirdQuartile();
-                return basicGetThirdQuartile();
             case IndicatorsPackage.BOX_INDICATOR__IQR:
-                if (resolve) return getIQR();
-                return basicGetIQR();
+                return getIQR();
+            case IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR:
+                return getRangeIndicator();
+            case IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR:
+                return getMeanIndicator();
+            case IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR:
+                return getMedianIndicator();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -329,20 +318,17 @@ public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndic
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.BOX_INDICATOR__MIN:
-                setMin((Indicator)newValue);
-                return;
-            case IndicatorsPackage.BOX_INDICATOR__MAX:
-                setMax((Indicator)newValue);
-                return;
-            case IndicatorsPackage.BOX_INDICATOR__FIRST_QUARTILE:
-                setFirstQuartile((Indicator)newValue);
-                return;
-            case IndicatorsPackage.BOX_INDICATOR__THIRD_QUARTILE:
-                setThirdQuartile((Indicator)newValue);
-                return;
             case IndicatorsPackage.BOX_INDICATOR__IQR:
-                setIQR((Indicator)newValue);
+                setIQR((IQRIndicator)newValue);
+                return;
+            case IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR:
+                setRangeIndicator((RangeIndicator)newValue);
+                return;
+            case IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR:
+                setMeanIndicator((MeanIndicator)newValue);
+                return;
+            case IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR:
+                setMedianIndicator((MedianIndicator)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -356,20 +342,17 @@ public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndic
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.BOX_INDICATOR__MIN:
-                setMin((Indicator)null);
-                return;
-            case IndicatorsPackage.BOX_INDICATOR__MAX:
-                setMax((Indicator)null);
-                return;
-            case IndicatorsPackage.BOX_INDICATOR__FIRST_QUARTILE:
-                setFirstQuartile((Indicator)null);
-                return;
-            case IndicatorsPackage.BOX_INDICATOR__THIRD_QUARTILE:
-                setThirdQuartile((Indicator)null);
-                return;
             case IndicatorsPackage.BOX_INDICATOR__IQR:
-                setIQR((Indicator)null);
+                setIQR((IQRIndicator)null);
+                return;
+            case IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR:
+                setRangeIndicator((RangeIndicator)null);
+                return;
+            case IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR:
+                setMeanIndicator((MeanIndicator)null);
+                return;
+            case IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR:
+                setMedianIndicator((MedianIndicator)null);
                 return;
         }
         super.eUnset(featureID);
@@ -383,16 +366,14 @@ public class BoxIndicatorImpl extends CompositeIndicatorImpl implements BoxIndic
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.BOX_INDICATOR__MIN:
-                return min != null;
-            case IndicatorsPackage.BOX_INDICATOR__MAX:
-                return max != null;
-            case IndicatorsPackage.BOX_INDICATOR__FIRST_QUARTILE:
-                return firstQuartile != null;
-            case IndicatorsPackage.BOX_INDICATOR__THIRD_QUARTILE:
-                return thirdQuartile != null;
             case IndicatorsPackage.BOX_INDICATOR__IQR:
                 return iqr != null;
+            case IndicatorsPackage.BOX_INDICATOR__RANGE_INDICATOR:
+                return rangeIndicator != null;
+            case IndicatorsPackage.BOX_INDICATOR__MEAN_INDICATOR:
+                return meanIndicator != null;
+            case IndicatorsPackage.BOX_INDICATOR__MEDIAN_INDICATOR:
+                return medianIndicator != null;
         }
         return super.eIsSet(featureID);
     }

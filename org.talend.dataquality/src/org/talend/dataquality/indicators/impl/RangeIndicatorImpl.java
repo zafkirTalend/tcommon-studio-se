@@ -13,8 +13,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.talend.dataquality.indicators.Datatype;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.MaxValueIndicator;
+import org.talend.dataquality.indicators.MinValueIndicator;
 import org.talend.dataquality.indicators.RangeIndicator;
 
 /**
@@ -26,6 +29,7 @@ import org.talend.dataquality.indicators.RangeIndicator;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.impl.RangeIndicatorImpl#getLowerValue <em>Lower Value</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.RangeIndicatorImpl#getUpperValue <em>Upper Value</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.RangeIndicatorImpl#getDatatype <em>Datatype</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.RangeIndicatorImpl#getRange <em>Range</em>}</li>
  * </ul>
  * </p>
@@ -41,7 +45,7 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * @generated
      * @ordered
      */
-    protected Indicator lowerValue;
+    protected MinValueIndicator lowerValue;
 
     /**
      * The cached value of the '{@link #getUpperValue() <em>Upper Value</em>}' reference.
@@ -51,17 +55,47 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * @generated
      * @ordered
      */
-    protected Indicator upperValue;
+    protected MaxValueIndicator upperValue;
 
     /**
-     * The cached value of the '{@link #getRange() <em>Range</em>}' reference.
+     * The default value of the '{@link #getDatatype() <em>Datatype</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDatatype()
+     * @generated
+     * @ordered
+     */
+    protected static final Datatype DATATYPE_EDEFAULT = Datatype.INTEGER;
+
+    /**
+     * The cached value of the '{@link #getDatatype() <em>Datatype</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDatatype()
+     * @generated
+     * @ordered
+     */
+    protected Datatype datatype = DATATYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRange() <em>Range</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getRange()
      * @generated
      * @ordered
      */
-    protected Indicator range;
+    protected static final String RANGE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRange() <em>Range</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRange()
+     * @generated
+     * @ordered
+     */
+    protected String range = RANGE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -87,10 +121,10 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator getLowerValue() {
+    public MinValueIndicator getLowerValue() {
         if (lowerValue != null && lowerValue.eIsProxy()) {
             InternalEObject oldLowerValue = (InternalEObject)lowerValue;
-            lowerValue = (Indicator)eResolveProxy(oldLowerValue);
+            lowerValue = (MinValueIndicator)eResolveProxy(oldLowerValue);
             if (lowerValue != oldLowerValue) {
                 if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.RANGE_INDICATOR__LOWER_VALUE, oldLowerValue, lowerValue));
@@ -104,7 +138,7 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator basicGetLowerValue() {
+    public MinValueIndicator basicGetLowerValue() {
         return lowerValue;
     }
 
@@ -113,8 +147,8 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setLowerValue(Indicator newLowerValue) {
-        Indicator oldLowerValue = lowerValue;
+    public void setLowerValue(MinValueIndicator newLowerValue) {
+        MinValueIndicator oldLowerValue = lowerValue;
         lowerValue = newLowerValue;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.RANGE_INDICATOR__LOWER_VALUE, oldLowerValue, lowerValue));
@@ -125,10 +159,10 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator getUpperValue() {
+    public MaxValueIndicator getUpperValue() {
         if (upperValue != null && upperValue.eIsProxy()) {
             InternalEObject oldUpperValue = (InternalEObject)upperValue;
-            upperValue = (Indicator)eResolveProxy(oldUpperValue);
+            upperValue = (MaxValueIndicator)eResolveProxy(oldUpperValue);
             if (upperValue != oldUpperValue) {
                 if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.RANGE_INDICATOR__UPPER_VALUE, oldUpperValue, upperValue));
@@ -142,7 +176,7 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator basicGetUpperValue() {
+    public MaxValueIndicator basicGetUpperValue() {
         return upperValue;
     }
 
@@ -151,8 +185,8 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setUpperValue(Indicator newUpperValue) {
-        Indicator oldUpperValue = upperValue;
+    public void setUpperValue(MaxValueIndicator newUpperValue) {
+        MaxValueIndicator oldUpperValue = upperValue;
         upperValue = newUpperValue;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.RANGE_INDICATOR__UPPER_VALUE, oldUpperValue, upperValue));
@@ -163,15 +197,28 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator getRange() {
-        if (range != null && range.eIsProxy()) {
-            InternalEObject oldRange = (InternalEObject)range;
-            range = (Indicator)eResolveProxy(oldRange);
-            if (range != oldRange) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.RANGE_INDICATOR__RANGE, oldRange, range));
-            }
-        }
+    public Datatype getDatatype() {
+        return datatype;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDatatype(Datatype newDatatype) {
+        Datatype oldDatatype = datatype;
+        datatype = newDatatype == null ? DATATYPE_EDEFAULT : newDatatype;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.RANGE_INDICATOR__DATATYPE, oldDatatype, datatype));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getRange() {
         return range;
     }
 
@@ -180,17 +227,8 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
      * <!-- end-user-doc -->
      * @generated
      */
-    public Indicator basicGetRange() {
-        return range;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setRange(Indicator newRange) {
-        Indicator oldRange = range;
+    public void setRange(String newRange) {
+        String oldRange = range;
         range = newRange;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.RANGE_INDICATOR__RANGE, oldRange, range));
@@ -210,9 +248,10 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
             case IndicatorsPackage.RANGE_INDICATOR__UPPER_VALUE:
                 if (resolve) return getUpperValue();
                 return basicGetUpperValue();
+            case IndicatorsPackage.RANGE_INDICATOR__DATATYPE:
+                return getDatatype();
             case IndicatorsPackage.RANGE_INDICATOR__RANGE:
-                if (resolve) return getRange();
-                return basicGetRange();
+                return getRange();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -226,13 +265,16 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case IndicatorsPackage.RANGE_INDICATOR__LOWER_VALUE:
-                setLowerValue((Indicator)newValue);
+                setLowerValue((MinValueIndicator)newValue);
                 return;
             case IndicatorsPackage.RANGE_INDICATOR__UPPER_VALUE:
-                setUpperValue((Indicator)newValue);
+                setUpperValue((MaxValueIndicator)newValue);
+                return;
+            case IndicatorsPackage.RANGE_INDICATOR__DATATYPE:
+                setDatatype((Datatype)newValue);
                 return;
             case IndicatorsPackage.RANGE_INDICATOR__RANGE:
-                setRange((Indicator)newValue);
+                setRange((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -247,13 +289,16 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
     public void eUnset(int featureID) {
         switch (featureID) {
             case IndicatorsPackage.RANGE_INDICATOR__LOWER_VALUE:
-                setLowerValue((Indicator)null);
+                setLowerValue((MinValueIndicator)null);
                 return;
             case IndicatorsPackage.RANGE_INDICATOR__UPPER_VALUE:
-                setUpperValue((Indicator)null);
+                setUpperValue((MaxValueIndicator)null);
+                return;
+            case IndicatorsPackage.RANGE_INDICATOR__DATATYPE:
+                setDatatype(DATATYPE_EDEFAULT);
                 return;
             case IndicatorsPackage.RANGE_INDICATOR__RANGE:
-                setRange((Indicator)null);
+                setRange(RANGE_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -271,10 +316,30 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
                 return lowerValue != null;
             case IndicatorsPackage.RANGE_INDICATOR__UPPER_VALUE:
                 return upperValue != null;
+            case IndicatorsPackage.RANGE_INDICATOR__DATATYPE:
+                return datatype != DATATYPE_EDEFAULT;
             case IndicatorsPackage.RANGE_INDICATOR__RANGE:
-                return range != null;
+                return RANGE_EDEFAULT == null ? range != null : !RANGE_EDEFAULT.equals(range);
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (datatype: ");
+        result.append(datatype);
+        result.append(", range: ");
+        result.append(range);
+        result.append(')');
+        return result.toString();
     }
 
 } //RangeIndicatorImpl

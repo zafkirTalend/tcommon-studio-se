@@ -99,12 +99,6 @@
         <eParameters name="data" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       </eOperations>
       <eOperations name="reset" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//domain/LiteralValue"
-          eOpposite="#//domain/LiteralValue/indicator">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="value of the indicator"/>
-        </eAnnotations>
-      </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -128,16 +122,20 @@
           eType="#//indicators/Indicator" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RangeIndicator" eSuperTypes="#//indicators/CompositeIndicator">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//indicators/Indicator"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//indicators/Indicator"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//indicators/MinValueIndicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//indicators/MaxValueIndicator"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="#//indicators/Datatype"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="range" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BoxIndicator" eSuperTypes="#//indicators/CompositeIndicator">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="min" eType="#//indicators/Indicator"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="max" eType="#//indicators/Indicator"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="firstQuartile" eType="#//indicators/Indicator"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="thirdQuartile" eType="#//indicators/Indicator"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="IQR" eType="#//indicators/Indicator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="IQR" eType="#//indicators/IQRIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rangeIndicator" eType="#//indicators/RangeIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="meanIndicator" eType="#//indicators/MeanIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="medianIndicator" eType="#//indicators/MedianIndicator"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IndicatorType" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Classifier"/>
     <eClassifiers xsi:type="ecore:EClass" name="IntegerSumIndicator" eSuperTypes="#//indicators/SumIndicator">
@@ -149,7 +147,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="BigDecimalIndicator" eSuperTypes="#//indicators/SumIndicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="sum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FrequencyIndicator" eSuperTypes="#//indicators/Indicator">
+    <eClassifiers xsi:type="ecore:EClass" name="FrequencyIndicator" eSuperTypes="#//indicators/CompositeIndicator">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Stores Frequencies for each value.&#xA;TODO store them in EMF (need to be modeled). "/>
       </eAnnotations>
@@ -166,19 +164,22 @@
         <eParameters name="dataValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       </eOperations>
       <eOperations name="getDistinctValues" eType="#//indicators/JavaSet"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="most frequent value"/>
-        </eAnnotations>
-      </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueValues" upperBound="-1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinctValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dupplicateValueCount"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="duplicateValueCount"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" changeable="false"
           volatile="true" transient="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueToFreq" eType="#//indicators/JavaHashMap"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="modeIndicator" eType="#//indicators/ModeIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="distinctCountIndicator"
+          eType="#//indicators/DistinctCountIndicator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueCountIndicator"
+          eType="#//indicators/UniqueCountIndicator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateCountIndicator"
+          eType="#//indicators/DuplicateCountIndicator" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IntegerMeanIndicator" eSuperTypes="#//indicators/IntegerSumIndicator #//indicators/MeanIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="DoubleMeanIndicator" eSuperTypes="#//indicators/DoubleSumIndicator #//indicators/MeanIndicator"/>
@@ -246,6 +247,30 @@
       <eLiterals name="NOMINAL" literal="Nominal"/>
       <eLiterals name="INTERVAL" value="1" literal="Interval"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ValueIndicator" eSuperTypes="#//indicators/Indicator">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="#//indicators/Datatype"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MinValueIndicator" eSuperTypes="#//indicators/ValueIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MaxValueIndicator" eSuperTypes="#//indicators/ValueIndicator"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="Datatype">
+      <eLiterals name="INTEGER" literal="Integer"/>
+      <eLiterals name="DOUBLE" value="1" literal="Double"/>
+      <eLiterals name="TEXT" value="2" literal="Text"/>
+      <eLiterals name="BIGDECIMAL" value="3" literal="Big Decimal"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ModeIndicator" eSuperTypes="#//indicators/Indicator">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="most frequent value"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NullCountIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DistinctCountIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="UniqueCountIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DuplicateCountIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="IQRIndicator" eSuperTypes="#//indicators/RangeIndicator"/>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -302,8 +327,6 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="LiteralValue">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="encodeValueMeaning" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="indicator" eType="#//indicators/Indicator"
-          eOpposite="#//indicators/Indicator/value"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="LengthRestriction">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

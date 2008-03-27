@@ -4,62 +4,57 @@
  *
  * $Id$
  */
-package org.talend.dataquality.domain.impl;
+package org.talend.dataquality.indicators.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.talend.dataquality.domain.DomainPackage;
-import org.talend.dataquality.domain.LiteralValue;
-import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.ModeIndicator;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Literal Value</b></em>'.
+ * An implementation of the model object '<em><b>Mode Indicator</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.domain.impl.LiteralValueImpl#getEncodeValueMeaning <em>Encode Value Meaning</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.ModeIndicatorImpl#getMode <em>Mode</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
+public class ModeIndicatorImpl extends IndicatorImpl implements ModeIndicator {
     /**
-     * The default value of the '{@link #getEncodeValueMeaning() <em>Encode Value Meaning</em>}' attribute.
+     * The default value of the '{@link #getMode() <em>Mode</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getEncodeValueMeaning()
+     * @see #getMode()
      * @generated
      * @ordered
      */
-    protected static final String ENCODE_VALUE_MEANING_EDEFAULT = null;
+    protected static final Object MODE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getEncodeValueMeaning() <em>Encode Value Meaning</em>}' attribute.
+     * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getEncodeValueMeaning()
+     * @see #getMode()
      * @generated
      * @ordered
      */
-    protected String encodeValueMeaning = ENCODE_VALUE_MEANING_EDEFAULT;
+    protected Object mode = MODE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected LiteralValueImpl() {
+    protected ModeIndicatorImpl() {
         super();
     }
 
@@ -70,7 +65,7 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
      */
     @Override
     protected EClass eStaticClass() {
-        return DomainPackage.Literals.LITERAL_VALUE;
+        return IndicatorsPackage.Literals.MODE_INDICATOR;
     }
 
     /**
@@ -78,8 +73,8 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getEncodeValueMeaning() {
-        return encodeValueMeaning;
+    public Object getMode() {
+        return mode;
     }
 
     /**
@@ -87,11 +82,11 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setEncodeValueMeaning(String newEncodeValueMeaning) {
-        String oldEncodeValueMeaning = encodeValueMeaning;
-        encodeValueMeaning = newEncodeValueMeaning;
+    public void setMode(Object newMode) {
+        Object oldMode = mode;
+        mode = newMode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.LITERAL_VALUE__ENCODE_VALUE_MEANING, oldEncodeValueMeaning, encodeValueMeaning));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.MODE_INDICATOR__MODE, oldMode, mode));
     }
 
     /**
@@ -102,8 +97,8 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DomainPackage.LITERAL_VALUE__ENCODE_VALUE_MEANING:
-                return getEncodeValueMeaning();
+            case IndicatorsPackage.MODE_INDICATOR__MODE:
+                return getMode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -116,8 +111,8 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DomainPackage.LITERAL_VALUE__ENCODE_VALUE_MEANING:
-                setEncodeValueMeaning((String)newValue);
+            case IndicatorsPackage.MODE_INDICATOR__MODE:
+                setMode(newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -131,8 +126,8 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DomainPackage.LITERAL_VALUE__ENCODE_VALUE_MEANING:
-                setEncodeValueMeaning(ENCODE_VALUE_MEANING_EDEFAULT);
+            case IndicatorsPackage.MODE_INDICATOR__MODE:
+                setMode(MODE_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -146,8 +141,8 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DomainPackage.LITERAL_VALUE__ENCODE_VALUE_MEANING:
-                return ENCODE_VALUE_MEANING_EDEFAULT == null ? encodeValueMeaning != null : !ENCODE_VALUE_MEANING_EDEFAULT.equals(encodeValueMeaning);
+            case IndicatorsPackage.MODE_INDICATOR__MODE:
+                return MODE_EDEFAULT == null ? mode != null : !MODE_EDEFAULT.equals(mode);
         }
         return super.eIsSet(featureID);
     }
@@ -162,10 +157,10 @@ public class LiteralValueImpl extends EObjectImpl implements LiteralValue {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (encodeValueMeaning: ");
-        result.append(encodeValueMeaning);
+        result.append(" (mode: ");
+        result.append(mode);
         result.append(')');
         return result.toString();
     }
 
-} //LiteralValueImpl
+} //ModeIndicatorImpl

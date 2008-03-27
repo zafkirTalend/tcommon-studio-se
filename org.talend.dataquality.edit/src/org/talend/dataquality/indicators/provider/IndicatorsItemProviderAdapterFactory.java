@@ -444,6 +444,213 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.ValueIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ValueIndicatorItemProvider valueIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.ValueIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createValueIndicatorAdapter() {
+        if (valueIndicatorItemProvider == null) {
+            valueIndicatorItemProvider = new ValueIndicatorItemProvider(this);
+        }
+
+        return valueIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.MinValueIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected MinValueIndicatorItemProvider minValueIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.MinValueIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createMinValueIndicatorAdapter() {
+        if (minValueIndicatorItemProvider == null) {
+            minValueIndicatorItemProvider = new MinValueIndicatorItemProvider(this);
+        }
+
+        return minValueIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.MaxValueIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected MaxValueIndicatorItemProvider maxValueIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.MaxValueIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createMaxValueIndicatorAdapter() {
+        if (maxValueIndicatorItemProvider == null) {
+            maxValueIndicatorItemProvider = new MaxValueIndicatorItemProvider(this);
+        }
+
+        return maxValueIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.ModeIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ModeIndicatorItemProvider modeIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.ModeIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createModeIndicatorAdapter() {
+        if (modeIndicatorItemProvider == null) {
+            modeIndicatorItemProvider = new ModeIndicatorItemProvider(this);
+        }
+
+        return modeIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.NullCountIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected NullCountIndicatorItemProvider nullCountIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.NullCountIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createNullCountIndicatorAdapter() {
+        if (nullCountIndicatorItemProvider == null) {
+            nullCountIndicatorItemProvider = new NullCountIndicatorItemProvider(this);
+        }
+
+        return nullCountIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.DistinctCountIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DistinctCountIndicatorItemProvider distinctCountIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.DistinctCountIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createDistinctCountIndicatorAdapter() {
+        if (distinctCountIndicatorItemProvider == null) {
+            distinctCountIndicatorItemProvider = new DistinctCountIndicatorItemProvider(this);
+        }
+
+        return distinctCountIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.UniqueCountIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected UniqueCountIndicatorItemProvider uniqueCountIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.UniqueCountIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createUniqueCountIndicatorAdapter() {
+        if (uniqueCountIndicatorItemProvider == null) {
+            uniqueCountIndicatorItemProvider = new UniqueCountIndicatorItemProvider(this);
+        }
+
+        return uniqueCountIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.DuplicateCountIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DuplicateCountIndicatorItemProvider duplicateCountIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.DuplicateCountIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createDuplicateCountIndicatorAdapter() {
+        if (duplicateCountIndicatorItemProvider == null) {
+            duplicateCountIndicatorItemProvider = new DuplicateCountIndicatorItemProvider(this);
+        }
+
+        return duplicateCountIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.IQRIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected IQRIndicatorItemProvider iqrIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.IQRIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createIQRIndicatorAdapter() {
+        if (iqrIndicatorItemProvider == null) {
+            iqrIndicatorItemProvider = new IQRIndicatorItemProvider(this);
+        }
+
+        return iqrIndicatorItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -558,6 +765,15 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (blankCountIndicatorItemProvider != null) blankCountIndicatorItemProvider.dispose();
         if (indicatorParametersItemProvider != null) indicatorParametersItemProvider.dispose();
         if (medianIndicatorItemProvider != null) medianIndicatorItemProvider.dispose();
+        if (valueIndicatorItemProvider != null) valueIndicatorItemProvider.dispose();
+        if (minValueIndicatorItemProvider != null) minValueIndicatorItemProvider.dispose();
+        if (maxValueIndicatorItemProvider != null) maxValueIndicatorItemProvider.dispose();
+        if (modeIndicatorItemProvider != null) modeIndicatorItemProvider.dispose();
+        if (nullCountIndicatorItemProvider != null) nullCountIndicatorItemProvider.dispose();
+        if (distinctCountIndicatorItemProvider != null) distinctCountIndicatorItemProvider.dispose();
+        if (uniqueCountIndicatorItemProvider != null) uniqueCountIndicatorItemProvider.dispose();
+        if (duplicateCountIndicatorItemProvider != null) duplicateCountIndicatorItemProvider.dispose();
+        if (iqrIndicatorItemProvider != null) iqrIndicatorItemProvider.dispose();
     }
 
 }

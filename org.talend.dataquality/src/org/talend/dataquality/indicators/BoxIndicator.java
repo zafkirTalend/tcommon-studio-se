@@ -15,11 +15,10 @@ package org.talend.dataquality.indicators;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getMin <em>Min</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getMax <em>Max</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getFirstQuartile <em>First Quartile</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getThirdQuartile <em>Third Quartile</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getIQR <em>IQR</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getRangeIndicator <em>Range Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getMeanIndicator <em>Mean Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.BoxIndicator#getMedianIndicator <em>Median Indicator</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,133 +28,107 @@ package org.talend.dataquality.indicators;
  */
 public interface BoxIndicator extends CompositeIndicator {
     /**
-     * Returns the value of the '<em><b>Min</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Min</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Min</em>' reference.
-     * @see #setMin(Indicator)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_Min()
-     * @model
-     * @generated
-     */
-    Indicator getMin();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getMin <em>Min</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Min</em>' reference.
-     * @see #getMin()
-     * @generated
-     */
-    void setMin(Indicator value);
-
-    /**
-     * Returns the value of the '<em><b>Max</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Max</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Max</em>' reference.
-     * @see #setMax(Indicator)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_Max()
-     * @model
-     * @generated
-     */
-    Indicator getMax();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getMax <em>Max</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Max</em>' reference.
-     * @see #getMax()
-     * @generated
-     */
-    void setMax(Indicator value);
-
-    /**
-     * Returns the value of the '<em><b>First Quartile</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>First Quartile</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>First Quartile</em>' reference.
-     * @see #setFirstQuartile(Indicator)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_FirstQuartile()
-     * @model
-     * @generated
-     */
-    Indicator getFirstQuartile();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getFirstQuartile <em>First Quartile</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>First Quartile</em>' reference.
-     * @see #getFirstQuartile()
-     * @generated
-     */
-    void setFirstQuartile(Indicator value);
-
-    /**
-     * Returns the value of the '<em><b>Third Quartile</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Third Quartile</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Third Quartile</em>' reference.
-     * @see #setThirdQuartile(Indicator)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_ThirdQuartile()
-     * @model
-     * @generated
-     */
-    Indicator getThirdQuartile();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getThirdQuartile <em>Third Quartile</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Third Quartile</em>' reference.
-     * @see #getThirdQuartile()
-     * @generated
-     */
-    void setThirdQuartile(Indicator value);
-
-    /**
-     * Returns the value of the '<em><b>IQR</b></em>' reference.
+     * Returns the value of the '<em><b>IQR</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>IQR</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>IQR</em>' reference.
-     * @see #setIQR(Indicator)
+     * @return the value of the '<em>IQR</em>' containment reference.
+     * @see #setIQR(IQRIndicator)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_IQR()
-     * @model
+     * @model containment="true"
      * @generated
      */
-    Indicator getIQR();
+    IQRIndicator getIQR();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getIQR <em>IQR</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getIQR <em>IQR</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>IQR</em>' reference.
+     * @param value the new value of the '<em>IQR</em>' containment reference.
      * @see #getIQR()
      * @generated
      */
-    void setIQR(Indicator value);
+    void setIQR(IQRIndicator value);
+
+    /**
+     * Returns the value of the '<em><b>Range Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Range Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Range Indicator</em>' containment reference.
+     * @see #setRangeIndicator(RangeIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_RangeIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    RangeIndicator getRangeIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getRangeIndicator <em>Range Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Range Indicator</em>' containment reference.
+     * @see #getRangeIndicator()
+     * @generated
+     */
+    void setRangeIndicator(RangeIndicator value);
+
+    /**
+     * Returns the value of the '<em><b>Mean Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Mean Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Mean Indicator</em>' containment reference.
+     * @see #setMeanIndicator(MeanIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_MeanIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    MeanIndicator getMeanIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getMeanIndicator <em>Mean Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Mean Indicator</em>' containment reference.
+     * @see #getMeanIndicator()
+     * @generated
+     */
+    void setMeanIndicator(MeanIndicator value);
+
+    /**
+     * Returns the value of the '<em><b>Median Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Median Indicator</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Median Indicator</em>' containment reference.
+     * @see #setMedianIndicator(MedianIndicator)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getBoxIndicator_MedianIndicator()
+     * @model containment="true"
+     * @generated
+     */
+    MedianIndicator getMedianIndicator();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.BoxIndicator#getMedianIndicator <em>Median Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Median Indicator</em>' containment reference.
+     * @see #getMedianIndicator()
+     * @generated
+     */
+    void setMedianIndicator(MedianIndicator value);
 
 } // BoxIndicator

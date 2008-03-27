@@ -75,22 +75,13 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR = 0;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR__VALUE = 0;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INDICATOR__INDICATOR_TYPE = 1;
+    int INDICATOR__INDICATOR_TYPE = 0;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -99,7 +90,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__COUNT = 2;
+    int INDICATOR__COUNT = 1;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -108,7 +99,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__NULL_COUNT = 3;
+    int INDICATOR__NULL_COUNT = 2;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -117,7 +108,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__PARAMETERS = 4;
+    int INDICATOR__PARAMETERS = 3;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -126,7 +117,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__ANALYZED_ELEMENT = 5;
+    int INDICATOR__ANALYZED_ELEMENT = 4;
 
     /**
      * The number of structural features of the '<em>Indicator</em>' class.
@@ -135,7 +126,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR_FEATURE_COUNT = 6;
+    int INDICATOR_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.
@@ -146,15 +137,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     int ROW_COUNT_INDICATOR = 1;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROW_COUNT_INDICATOR__VALUE = INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -240,15 +222,6 @@ public interface IndicatorsPackage extends EPackage {
     int SUM_INDICATOR = 3;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SUM_INDICATOR__VALUE = INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -311,15 +284,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     int COMPOSITE_INDICATOR = 4;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPOSITE_INDICATOR__VALUE = INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -395,15 +359,6 @@ public interface IndicatorsPackage extends EPackage {
     int RANGE_INDICATOR = 5;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int RANGE_INDICATOR__VALUE = COMPOSITE_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -476,13 +431,22 @@ public interface IndicatorsPackage extends EPackage {
     int RANGE_INDICATOR__UPPER_VALUE = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Range</b></em>' reference.
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int RANGE_INDICATOR__RANGE = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
+    int RANGE_INDICATOR__DATATYPE = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Range</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RANGE_INDICATOR__RANGE = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The number of structural features of the '<em>Range Indicator</em>' class.
@@ -491,7 +455,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int RANGE_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
+    int RANGE_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl <em>Box Indicator</em>}' class.
@@ -502,15 +466,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     int BOX_INDICATOR = 6;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BOX_INDICATOR__VALUE = COMPOSITE_INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -567,49 +522,40 @@ public interface IndicatorsPackage extends EPackage {
     int BOX_INDICATOR__INDICATORS = COMPOSITE_INDICATOR__INDICATORS;
 
     /**
-     * The feature id for the '<em><b>Min</b></em>' reference.
+     * The feature id for the '<em><b>IQR</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BOX_INDICATOR__MIN = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
+    int BOX_INDICATOR__IQR = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Max</b></em>' reference.
+     * The feature id for the '<em><b>Range Indicator</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BOX_INDICATOR__MAX = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
+    int BOX_INDICATOR__RANGE_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>First Quartile</b></em>' reference.
+     * The feature id for the '<em><b>Mean Indicator</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BOX_INDICATOR__FIRST_QUARTILE = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
+    int BOX_INDICATOR__MEAN_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Third Quartile</b></em>' reference.
+     * The feature id for the '<em><b>Median Indicator</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BOX_INDICATOR__THIRD_QUARTILE = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>IQR</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BOX_INDICATOR__IQR = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
+    int BOX_INDICATOR__MEDIAN_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The number of structural features of the '<em>Box Indicator</em>' class.
@@ -618,7 +564,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BOX_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 5;
+    int BOX_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IndicatorTypeImpl <em>Indicator Type</em>}' class.
@@ -967,15 +913,6 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_SUM_INDICATOR = 8;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__VALUE = SUM_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1048,15 +985,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     int DOUBLE_SUM_INDICATOR = 9;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__VALUE = SUM_INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -1132,15 +1060,6 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_INDICATOR = 10;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__VALUE = SUM_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1214,22 +1133,13 @@ public interface IndicatorsPackage extends EPackage {
     int FREQUENCY_INDICATOR = 11;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__VALUE = INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+    int FREQUENCY_INDICATOR__INDICATOR_TYPE = COMPOSITE_INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1238,7 +1148,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__COUNT = INDICATOR__COUNT;
+    int FREQUENCY_INDICATOR__COUNT = COMPOSITE_INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -1247,7 +1157,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+    int FREQUENCY_INDICATOR__NULL_COUNT = COMPOSITE_INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -1256,7 +1166,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+    int FREQUENCY_INDICATOR__PARAMETERS = COMPOSITE_INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -1265,16 +1175,16 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+    int FREQUENCY_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Mode</b></em>' attribute.
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__MODE = INDICATOR_FEATURE_COUNT + 0;
+    int FREQUENCY_INDICATOR__INDICATORS = COMPOSITE_INDICATOR__INDICATORS;
 
     /**
      * The feature id for the '<em><b>Unique Values</b></em>' attribute list.
@@ -1283,7 +1193,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__UNIQUE_VALUES = INDICATOR_FEATURE_COUNT + 1;
+    int FREQUENCY_INDICATOR__UNIQUE_VALUES = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Distinct Value Count</b></em>' attribute.
@@ -1292,7 +1202,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT = INDICATOR_FEATURE_COUNT + 2;
+    int FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Unique Value Count</b></em>' attribute.
@@ -1301,16 +1211,16 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT = INDICATOR_FEATURE_COUNT + 3;
+    int FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Dupplicate Value Count</b></em>' attribute.
+     * The feature id for the '<em><b>Duplicate Value Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DUPPLICATE_VALUE_COUNT = INDICATOR_FEATURE_COUNT + 4;
+    int FREQUENCY_INDICATOR__DUPLICATE_VALUE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Value To Freq</b></em>' attribute.
@@ -1319,7 +1229,43 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__VALUE_TO_FREQ = INDICATOR_FEATURE_COUNT + 5;
+    int FREQUENCY_INDICATOR__VALUE_TO_FREQ = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Mode Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FREQUENCY_INDICATOR__MODE_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Distinct Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Unique Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Duplicate Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 8;
 
     /**
      * The number of structural features of the '<em>Frequency Indicator</em>' class.
@@ -1328,7 +1274,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 6;
+    int FREQUENCY_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 9;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IntegerMeanIndicatorImpl <em>Integer Mean Indicator</em>}' class.
@@ -1339,15 +1285,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     int INTEGER_MEAN_INDICATOR = 12;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__VALUE = INTEGER_SUM_INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -1423,15 +1360,6 @@ public interface IndicatorsPackage extends EPackage {
     int DOUBLE_MEAN_INDICATOR = 13;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__VALUE = DOUBLE_SUM_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1505,15 +1433,6 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_MEAN_INDICATOR = 14;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__VALUE = BIG_DECIMAL_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1585,15 +1504,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     int BLANK_COUNT_INDICATOR = 15;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BLANK_COUNT_INDICATOR__VALUE = INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
@@ -1706,15 +1616,6 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR = 17;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEDIAN_INDICATOR__VALUE = INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1787,6 +1688,690 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl <em>Value Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.ValueIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getValueIndicator()
+     * @generated
+     */
+    int VALUE_INDICATOR = 18;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__VALUE = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__DATATYPE = INDICATOR_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Value Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MinValueIndicatorImpl <em>Min Value Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.MinValueIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinValueIndicator()
+     * @generated
+     */
+    int MIN_VALUE_INDICATOR = 19;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__INDICATOR_TYPE = VALUE_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__COUNT = VALUE_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__NULL_COUNT = VALUE_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__PARAMETERS = VALUE_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__ANALYZED_ELEMENT = VALUE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__VALUE = VALUE_INDICATOR__VALUE;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__DATATYPE = VALUE_INDICATOR__DATATYPE;
+
+    /**
+     * The number of structural features of the '<em>Min Value Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR_FEATURE_COUNT = VALUE_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MaxValueIndicatorImpl <em>Max Value Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.MaxValueIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxValueIndicator()
+     * @generated
+     */
+    int MAX_VALUE_INDICATOR = 20;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__INDICATOR_TYPE = VALUE_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__COUNT = VALUE_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__NULL_COUNT = VALUE_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__PARAMETERS = VALUE_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__ANALYZED_ELEMENT = VALUE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__VALUE = VALUE_INDICATOR__VALUE;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__DATATYPE = VALUE_INDICATOR__DATATYPE;
+
+    /**
+     * The number of structural features of the '<em>Max Value Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR_FEATURE_COUNT = VALUE_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.ModeIndicatorImpl <em>Mode Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.ModeIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getModeIndicator()
+     * @generated
+     */
+    int MODE_INDICATOR = 21;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__MODE = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Mode Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.NullCountIndicatorImpl <em>Null Count Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.NullCountIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getNullCountIndicator()
+     * @generated
+     */
+    int NULL_COUNT_INDICATOR = 22;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The number of structural features of the '<em>Null Count Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.DistinctCountIndicatorImpl <em>Distinct Count Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.DistinctCountIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDistinctCountIndicator()
+     * @generated
+     */
+    int DISTINCT_COUNT_INDICATOR = 23;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The number of structural features of the '<em>Distinct Count Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.UniqueCountIndicatorImpl <em>Unique Count Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.UniqueCountIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getUniqueCountIndicator()
+     * @generated
+     */
+    int UNIQUE_COUNT_INDICATOR = 24;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The number of structural features of the '<em>Unique Count Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl <em>Duplicate Count Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDuplicateCountIndicator()
+     * @generated
+     */
+    int DUPLICATE_COUNT_INDICATOR = 25;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The number of structural features of the '<em>Duplicate Count Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IQRIndicatorImpl <em>IQR Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.IQRIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIQRIndicator()
+     * @generated
+     */
+    int IQR_INDICATOR = 26;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__INDICATOR_TYPE = RANGE_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__COUNT = RANGE_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__NULL_COUNT = RANGE_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__PARAMETERS = RANGE_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__ANALYZED_ELEMENT = RANGE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__INDICATORS = RANGE_INDICATOR__INDICATORS;
+
+    /**
+     * The feature id for the '<em><b>Lower Value</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__LOWER_VALUE = RANGE_INDICATOR__LOWER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Upper Value</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__UPPER_VALUE = RANGE_INDICATOR__UPPER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__DATATYPE = RANGE_INDICATOR__DATATYPE;
+
+    /**
+     * The feature id for the '<em><b>Range</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__RANGE = RANGE_INDICATOR__RANGE;
+
+    /**
+     * The number of structural features of the '<em>IQR Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR_FEATURE_COUNT = RANGE_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1794,7 +2379,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 18;
+    int ENUM_STATISTICS = 27;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -1804,7 +2389,17 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 19;
+    int DATAMINING_TYPE = 28;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.Datatype
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
+     * @generated
+     */
+    int DATATYPE = 29;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -1814,7 +2409,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 20;
+    int JAVA_SET = 30;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -1824,7 +2419,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 21;
+    int JAVA_HASH_MAP = 31;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -1834,7 +2429,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 22;
+    int JAVA_TREE_MAP = 32;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -1900,17 +2495,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EReference getIndicator_AnalyzedElement();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.Indicator#getValue <em>Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Value</em>'.
-     * @see org.talend.dataquality.indicators.Indicator#getValue()
-     * @see #getIndicator()
-     * @generated
-     */
-    EReference getIndicator_Value();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.RowCountIndicator <em>Row Count Indicator</em>}'.
@@ -1996,15 +2580,26 @@ public interface IndicatorsPackage extends EPackage {
     EReference getRangeIndicator_UpperValue();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.RangeIndicator#getRange <em>Range</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.RangeIndicator#getDatatype <em>Datatype</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Range</em>'.
+     * @return the meta object for the attribute '<em>Datatype</em>'.
+     * @see org.talend.dataquality.indicators.RangeIndicator#getDatatype()
+     * @see #getRangeIndicator()
+     * @generated
+     */
+    EAttribute getRangeIndicator_Datatype();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.RangeIndicator#getRange <em>Range</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Range</em>'.
      * @see org.talend.dataquality.indicators.RangeIndicator#getRange()
      * @see #getRangeIndicator()
      * @generated
      */
-    EReference getRangeIndicator_Range();
+    EAttribute getRangeIndicator_Range();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.BoxIndicator <em>Box Indicator</em>}'.
@@ -2017,59 +2612,48 @@ public interface IndicatorsPackage extends EPackage {
     EClass getBoxIndicator();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.BoxIndicator#getMin <em>Min</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.BoxIndicator#getIQR <em>IQR</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Min</em>'.
-     * @see org.talend.dataquality.indicators.BoxIndicator#getMin()
-     * @see #getBoxIndicator()
-     * @generated
-     */
-    EReference getBoxIndicator_Min();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.BoxIndicator#getMax <em>Max</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Max</em>'.
-     * @see org.talend.dataquality.indicators.BoxIndicator#getMax()
-     * @see #getBoxIndicator()
-     * @generated
-     */
-    EReference getBoxIndicator_Max();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.BoxIndicator#getFirstQuartile <em>First Quartile</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>First Quartile</em>'.
-     * @see org.talend.dataquality.indicators.BoxIndicator#getFirstQuartile()
-     * @see #getBoxIndicator()
-     * @generated
-     */
-    EReference getBoxIndicator_FirstQuartile();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.BoxIndicator#getThirdQuartile <em>Third Quartile</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Third Quartile</em>'.
-     * @see org.talend.dataquality.indicators.BoxIndicator#getThirdQuartile()
-     * @see #getBoxIndicator()
-     * @generated
-     */
-    EReference getBoxIndicator_ThirdQuartile();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.BoxIndicator#getIQR <em>IQR</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>IQR</em>'.
+     * @return the meta object for the containment reference '<em>IQR</em>'.
      * @see org.talend.dataquality.indicators.BoxIndicator#getIQR()
      * @see #getBoxIndicator()
      * @generated
      */
     EReference getBoxIndicator_IQR();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.BoxIndicator#getRangeIndicator <em>Range Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Range Indicator</em>'.
+     * @see org.talend.dataquality.indicators.BoxIndicator#getRangeIndicator()
+     * @see #getBoxIndicator()
+     * @generated
+     */
+    EReference getBoxIndicator_RangeIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.BoxIndicator#getMeanIndicator <em>Mean Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Mean Indicator</em>'.
+     * @see org.talend.dataquality.indicators.BoxIndicator#getMeanIndicator()
+     * @see #getBoxIndicator()
+     * @generated
+     */
+    EReference getBoxIndicator_MeanIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.BoxIndicator#getMedianIndicator <em>Median Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Median Indicator</em>'.
+     * @see org.talend.dataquality.indicators.BoxIndicator#getMedianIndicator()
+     * @see #getBoxIndicator()
+     * @generated
+     */
+    EReference getBoxIndicator_MedianIndicator();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.IndicatorType <em>Indicator Type</em>}'.
@@ -2155,17 +2739,6 @@ public interface IndicatorsPackage extends EPackage {
     EClass getFrequencyIndicator();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.FrequencyIndicator#getMode <em>Mode</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Mode</em>'.
-     * @see org.talend.dataquality.indicators.FrequencyIndicator#getMode()
-     * @see #getFrequencyIndicator()
-     * @generated
-     */
-    EAttribute getFrequencyIndicator_Mode();
-
-    /**
      * Returns the meta object for the attribute list '{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueValues <em>Unique Values</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2199,15 +2772,15 @@ public interface IndicatorsPackage extends EPackage {
     EAttribute getFrequencyIndicator_UniqueValueCount();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDupplicateValueCount <em>Dupplicate Value Count</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateValueCount <em>Duplicate Value Count</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Dupplicate Value Count</em>'.
-     * @see org.talend.dataquality.indicators.FrequencyIndicator#getDupplicateValueCount()
+     * @return the meta object for the attribute '<em>Duplicate Value Count</em>'.
+     * @see org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateValueCount()
      * @see #getFrequencyIndicator()
      * @generated
      */
-    EAttribute getFrequencyIndicator_DupplicateValueCount();
+    EAttribute getFrequencyIndicator_DuplicateValueCount();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.FrequencyIndicator#getValueToFreq <em>Value To Freq</em>}'.
@@ -2219,6 +2792,50 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EAttribute getFrequencyIndicator_ValueToFreq();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getModeIndicator <em>Mode Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Mode Indicator</em>'.
+     * @see org.talend.dataquality.indicators.FrequencyIndicator#getModeIndicator()
+     * @see #getFrequencyIndicator()
+     * @generated
+     */
+    EReference getFrequencyIndicator_ModeIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDistinctCountIndicator <em>Distinct Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Distinct Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.FrequencyIndicator#getDistinctCountIndicator()
+     * @see #getFrequencyIndicator()
+     * @generated
+     */
+    EReference getFrequencyIndicator_DistinctCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueCountIndicator <em>Unique Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Unique Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.FrequencyIndicator#getUniqueCountIndicator()
+     * @see #getFrequencyIndicator()
+     * @generated
+     */
+    EReference getFrequencyIndicator_UniqueCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateCountIndicator <em>Duplicate Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Duplicate Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateCountIndicator()
+     * @see #getFrequencyIndicator()
+     * @generated
+     */
+    EReference getFrequencyIndicator_DuplicateCountIndicator();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.IntegerMeanIndicator <em>Integer Mean Indicator</em>}'.
@@ -2336,6 +2953,129 @@ public interface IndicatorsPackage extends EPackage {
     EAttribute getMedianIndicator_FrequenceTable();
 
     /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.ValueIndicator <em>Value Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Value Indicator</em>'.
+     * @see org.talend.dataquality.indicators.ValueIndicator
+     * @generated
+     */
+    EClass getValueIndicator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.ValueIndicator#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see org.talend.dataquality.indicators.ValueIndicator#getValue()
+     * @see #getValueIndicator()
+     * @generated
+     */
+    EAttribute getValueIndicator_Value();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.ValueIndicator#getDatatype <em>Datatype</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Datatype</em>'.
+     * @see org.talend.dataquality.indicators.ValueIndicator#getDatatype()
+     * @see #getValueIndicator()
+     * @generated
+     */
+    EAttribute getValueIndicator_Datatype();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.MinValueIndicator <em>Min Value Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Min Value Indicator</em>'.
+     * @see org.talend.dataquality.indicators.MinValueIndicator
+     * @generated
+     */
+    EClass getMinValueIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.MaxValueIndicator <em>Max Value Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Max Value Indicator</em>'.
+     * @see org.talend.dataquality.indicators.MaxValueIndicator
+     * @generated
+     */
+    EClass getMaxValueIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.ModeIndicator <em>Mode Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Mode Indicator</em>'.
+     * @see org.talend.dataquality.indicators.ModeIndicator
+     * @generated
+     */
+    EClass getModeIndicator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.ModeIndicator#getMode <em>Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mode</em>'.
+     * @see org.talend.dataquality.indicators.ModeIndicator#getMode()
+     * @see #getModeIndicator()
+     * @generated
+     */
+    EAttribute getModeIndicator_Mode();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.NullCountIndicator <em>Null Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Null Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.NullCountIndicator
+     * @generated
+     */
+    EClass getNullCountIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.DistinctCountIndicator <em>Distinct Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Distinct Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.DistinctCountIndicator
+     * @generated
+     */
+    EClass getDistinctCountIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.UniqueCountIndicator <em>Unique Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Unique Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.UniqueCountIndicator
+     * @generated
+     */
+    EClass getUniqueCountIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.DuplicateCountIndicator <em>Duplicate Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Duplicate Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.DuplicateCountIndicator
+     * @generated
+     */
+    EClass getDuplicateCountIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.IQRIndicator <em>IQR Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>IQR Indicator</em>'.
+     * @see org.talend.dataquality.indicators.IQRIndicator
+     * @generated
+     */
+    EClass getIQRIndicator();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2354,6 +3094,16 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EEnum getDataminingType();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Datatype</em>'.
+     * @see org.talend.dataquality.indicators.Datatype
+     * @generated
+     */
+    EEnum getDatatype();
 
     /**
      * Returns the meta object for data type '{@link java.util.Set <em>Java Set</em>}'.
@@ -2461,14 +3211,6 @@ public interface IndicatorsPackage extends EPackage {
         EReference INDICATOR__ANALYZED_ELEMENT = eINSTANCE.getIndicator_AnalyzedElement();
 
         /**
-         * The meta object literal for the '<em><b>Value</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference INDICATOR__VALUE = eINSTANCE.getIndicator_Value();
-
-        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2543,12 +3285,20 @@ public interface IndicatorsPackage extends EPackage {
         EReference RANGE_INDICATOR__UPPER_VALUE = eINSTANCE.getRangeIndicator_UpperValue();
 
         /**
-         * The meta object literal for the '<em><b>Range</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Datatype</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference RANGE_INDICATOR__RANGE = eINSTANCE.getRangeIndicator_Range();
+        EAttribute RANGE_INDICATOR__DATATYPE = eINSTANCE.getRangeIndicator_Datatype();
+
+        /**
+         * The meta object literal for the '<em><b>Range</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute RANGE_INDICATOR__RANGE = eINSTANCE.getRangeIndicator_Range();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.BoxIndicatorImpl <em>Box Indicator</em>}' class.
@@ -2561,44 +3311,36 @@ public interface IndicatorsPackage extends EPackage {
         EClass BOX_INDICATOR = eINSTANCE.getBoxIndicator();
 
         /**
-         * The meta object literal for the '<em><b>Min</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference BOX_INDICATOR__MIN = eINSTANCE.getBoxIndicator_Min();
-
-        /**
-         * The meta object literal for the '<em><b>Max</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference BOX_INDICATOR__MAX = eINSTANCE.getBoxIndicator_Max();
-
-        /**
-         * The meta object literal for the '<em><b>First Quartile</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference BOX_INDICATOR__FIRST_QUARTILE = eINSTANCE.getBoxIndicator_FirstQuartile();
-
-        /**
-         * The meta object literal for the '<em><b>Third Quartile</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference BOX_INDICATOR__THIRD_QUARTILE = eINSTANCE.getBoxIndicator_ThirdQuartile();
-
-        /**
-         * The meta object literal for the '<em><b>IQR</b></em>' reference feature.
+         * The meta object literal for the '<em><b>IQR</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EReference BOX_INDICATOR__IQR = eINSTANCE.getBoxIndicator_IQR();
+
+        /**
+         * The meta object literal for the '<em><b>Range Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference BOX_INDICATOR__RANGE_INDICATOR = eINSTANCE.getBoxIndicator_RangeIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Mean Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference BOX_INDICATOR__MEAN_INDICATOR = eINSTANCE.getBoxIndicator_MeanIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Median Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference BOX_INDICATOR__MEDIAN_INDICATOR = eINSTANCE.getBoxIndicator_MedianIndicator();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.IndicatorTypeImpl <em>Indicator Type</em>}' class.
@@ -2675,14 +3417,6 @@ public interface IndicatorsPackage extends EPackage {
         EClass FREQUENCY_INDICATOR = eINSTANCE.getFrequencyIndicator();
 
         /**
-         * The meta object literal for the '<em><b>Mode</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute FREQUENCY_INDICATOR__MODE = eINSTANCE.getFrequencyIndicator_Mode();
-
-        /**
          * The meta object literal for the '<em><b>Unique Values</b></em>' attribute list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2707,12 +3441,12 @@ public interface IndicatorsPackage extends EPackage {
         EAttribute FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT = eINSTANCE.getFrequencyIndicator_UniqueValueCount();
 
         /**
-         * The meta object literal for the '<em><b>Dupplicate Value Count</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Duplicate Value Count</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute FREQUENCY_INDICATOR__DUPPLICATE_VALUE_COUNT = eINSTANCE.getFrequencyIndicator_DupplicateValueCount();
+        EAttribute FREQUENCY_INDICATOR__DUPLICATE_VALUE_COUNT = eINSTANCE.getFrequencyIndicator_DuplicateValueCount();
 
         /**
          * The meta object literal for the '<em><b>Value To Freq</b></em>' attribute feature.
@@ -2721,6 +3455,38 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EAttribute FREQUENCY_INDICATOR__VALUE_TO_FREQ = eINSTANCE.getFrequencyIndicator_ValueToFreq();
+
+        /**
+         * The meta object literal for the '<em><b>Mode Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FREQUENCY_INDICATOR__MODE_INDICATOR = eINSTANCE.getFrequencyIndicator_ModeIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Distinct Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_DistinctCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Unique Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_UniqueCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Duplicate Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_DuplicateCountIndicator();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.IntegerMeanIndicatorImpl <em>Integer Mean Indicator</em>}' class.
@@ -2823,6 +3589,120 @@ public interface IndicatorsPackage extends EPackage {
         EAttribute MEDIAN_INDICATOR__FREQUENCE_TABLE = eINSTANCE.getMedianIndicator_FrequenceTable();
 
         /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl <em>Value Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.ValueIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getValueIndicator()
+         * @generated
+         */
+        EClass VALUE_INDICATOR = eINSTANCE.getValueIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALUE_INDICATOR__VALUE = eINSTANCE.getValueIndicator_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Datatype</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute VALUE_INDICATOR__DATATYPE = eINSTANCE.getValueIndicator_Datatype();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MinValueIndicatorImpl <em>Min Value Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.MinValueIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinValueIndicator()
+         * @generated
+         */
+        EClass MIN_VALUE_INDICATOR = eINSTANCE.getMinValueIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MaxValueIndicatorImpl <em>Max Value Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.MaxValueIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxValueIndicator()
+         * @generated
+         */
+        EClass MAX_VALUE_INDICATOR = eINSTANCE.getMaxValueIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.ModeIndicatorImpl <em>Mode Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.ModeIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getModeIndicator()
+         * @generated
+         */
+        EClass MODE_INDICATOR = eINSTANCE.getModeIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MODE_INDICATOR__MODE = eINSTANCE.getModeIndicator_Mode();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.NullCountIndicatorImpl <em>Null Count Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.NullCountIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getNullCountIndicator()
+         * @generated
+         */
+        EClass NULL_COUNT_INDICATOR = eINSTANCE.getNullCountIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.DistinctCountIndicatorImpl <em>Distinct Count Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.DistinctCountIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDistinctCountIndicator()
+         * @generated
+         */
+        EClass DISTINCT_COUNT_INDICATOR = eINSTANCE.getDistinctCountIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.UniqueCountIndicatorImpl <em>Unique Count Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.UniqueCountIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getUniqueCountIndicator()
+         * @generated
+         */
+        EClass UNIQUE_COUNT_INDICATOR = eINSTANCE.getUniqueCountIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl <em>Duplicate Count Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDuplicateCountIndicator()
+         * @generated
+         */
+        EClass DUPLICATE_COUNT_INDICATOR = eINSTANCE.getDuplicateCountIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.IQRIndicatorImpl <em>IQR Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.IQRIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIQRIndicator()
+         * @generated
+         */
+        EClass IQR_INDICATOR = eINSTANCE.getIQRIndicator();
+
+        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2841,6 +3721,16 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EEnum DATAMINING_TYPE = eINSTANCE.getDataminingType();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.Datatype
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
+         * @generated
+         */
+        EEnum DATATYPE = eINSTANCE.getDatatype();
 
         /**
          * The meta object literal for the '<em>Java Set</em>' data type.

@@ -170,6 +170,87 @@ public interface IndicatorsFactory extends EFactory {
     MedianIndicator createMedianIndicator();
 
     /**
+     * Returns a new object of class '<em>Value Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Value Indicator</em>'.
+     * @generated
+     */
+    ValueIndicator createValueIndicator();
+
+    /**
+     * Returns a new object of class '<em>Min Value Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Min Value Indicator</em>'.
+     * @generated
+     */
+    MinValueIndicator createMinValueIndicator();
+
+    /**
+     * Returns a new object of class '<em>Max Value Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Max Value Indicator</em>'.
+     * @generated
+     */
+    MaxValueIndicator createMaxValueIndicator();
+
+    /**
+     * Returns a new object of class '<em>Mode Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Mode Indicator</em>'.
+     * @generated
+     */
+    ModeIndicator createModeIndicator();
+
+    /**
+     * Returns a new object of class '<em>Null Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Null Count Indicator</em>'.
+     * @generated
+     */
+    NullCountIndicator createNullCountIndicator();
+
+    /**
+     * Returns a new object of class '<em>Distinct Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Distinct Count Indicator</em>'.
+     * @generated
+     */
+    DistinctCountIndicator createDistinctCountIndicator();
+
+    /**
+     * Returns a new object of class '<em>Unique Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Unique Count Indicator</em>'.
+     * @generated
+     */
+    UniqueCountIndicator createUniqueCountIndicator();
+
+    /**
+     * Returns a new object of class '<em>Duplicate Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Duplicate Count Indicator</em>'.
+     * @generated
+     */
+    DuplicateCountIndicator createDuplicateCountIndicator();
+
+    /**
+     * Returns a new object of class '<em>IQR Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>IQR Indicator</em>'.
+     * @generated
+     */
+    IQRIndicator createIQRIndicator();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

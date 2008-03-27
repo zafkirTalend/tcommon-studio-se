@@ -182,6 +182,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.FREQUENCY_INDICATOR: {
                 FrequencyIndicator frequencyIndicator = (FrequencyIndicator)theEObject;
                 T result = caseFrequencyIndicator(frequencyIndicator);
+                if (result == null) result = caseCompositeIndicator(frequencyIndicator);
                 if (result == null) result = caseIndicator(frequencyIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
@@ -233,6 +234,73 @@ public class IndicatorsSwitch<T> {
                 MedianIndicator medianIndicator = (MedianIndicator)theEObject;
                 T result = caseMedianIndicator(medianIndicator);
                 if (result == null) result = caseIndicator(medianIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.VALUE_INDICATOR: {
+                ValueIndicator valueIndicator = (ValueIndicator)theEObject;
+                T result = caseValueIndicator(valueIndicator);
+                if (result == null) result = caseIndicator(valueIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.MIN_VALUE_INDICATOR: {
+                MinValueIndicator minValueIndicator = (MinValueIndicator)theEObject;
+                T result = caseMinValueIndicator(minValueIndicator);
+                if (result == null) result = caseValueIndicator(minValueIndicator);
+                if (result == null) result = caseIndicator(minValueIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.MAX_VALUE_INDICATOR: {
+                MaxValueIndicator maxValueIndicator = (MaxValueIndicator)theEObject;
+                T result = caseMaxValueIndicator(maxValueIndicator);
+                if (result == null) result = caseValueIndicator(maxValueIndicator);
+                if (result == null) result = caseIndicator(maxValueIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.MODE_INDICATOR: {
+                ModeIndicator modeIndicator = (ModeIndicator)theEObject;
+                T result = caseModeIndicator(modeIndicator);
+                if (result == null) result = caseIndicator(modeIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.NULL_COUNT_INDICATOR: {
+                NullCountIndicator nullCountIndicator = (NullCountIndicator)theEObject;
+                T result = caseNullCountIndicator(nullCountIndicator);
+                if (result == null) result = caseIndicator(nullCountIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR: {
+                DistinctCountIndicator distinctCountIndicator = (DistinctCountIndicator)theEObject;
+                T result = caseDistinctCountIndicator(distinctCountIndicator);
+                if (result == null) result = caseIndicator(distinctCountIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR: {
+                UniqueCountIndicator uniqueCountIndicator = (UniqueCountIndicator)theEObject;
+                T result = caseUniqueCountIndicator(uniqueCountIndicator);
+                if (result == null) result = caseIndicator(uniqueCountIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR: {
+                DuplicateCountIndicator duplicateCountIndicator = (DuplicateCountIndicator)theEObject;
+                T result = caseDuplicateCountIndicator(duplicateCountIndicator);
+                if (result == null) result = caseIndicator(duplicateCountIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.IQR_INDICATOR: {
+                IQRIndicator iqrIndicator = (IQRIndicator)theEObject;
+                T result = caseIQRIndicator(iqrIndicator);
+                if (result == null) result = caseRangeIndicator(iqrIndicator);
+                if (result == null) result = caseCompositeIndicator(iqrIndicator);
+                if (result == null) result = caseIndicator(iqrIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -507,6 +575,141 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseMedianIndicator(MedianIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Value Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Value Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseValueIndicator(ValueIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Min Value Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Min Value Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMinValueIndicator(MinValueIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Max Value Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Max Value Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMaxValueIndicator(MaxValueIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Mode Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Mode Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseModeIndicator(ModeIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Null Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Null Count Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseNullCountIndicator(NullCountIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Distinct Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Distinct Count Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDistinctCountIndicator(DistinctCountIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Unique Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Unique Count Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseUniqueCountIndicator(UniqueCountIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Duplicate Count Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Duplicate Count Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDuplicateCountIndicator(DuplicateCountIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>IQR Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>IQR Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseIQRIndicator(IQRIndicator object) {
         return null;
     }
 

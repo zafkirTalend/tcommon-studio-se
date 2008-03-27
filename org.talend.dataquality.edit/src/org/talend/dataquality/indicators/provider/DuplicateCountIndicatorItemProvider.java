@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.talend.dataquality.domain.provider;
+package org.talend.dataquality.indicators.provider;
 
 
 import java.util.Collection;
@@ -15,30 +15,25 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
-import org.talend.dataquality.domain.DomainPackage;
-import org.talend.dataquality.domain.LiteralValue;
+import org.talend.dataquality.indicators.DuplicateCountIndicator;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.domain.LiteralValue} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.DuplicateCountIndicator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LiteralValueItemProvider
-    extends ItemProviderAdapter
+public class DuplicateCountIndicatorItemProvider
+    extends IndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	
@@ -51,7 +46,7 @@ public class LiteralValueItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public LiteralValueItemProvider(AdapterFactory adapterFactory) {
+    public DuplicateCountIndicatorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -66,42 +61,19 @@ public class LiteralValueItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addEncodeValueMeaningPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Encode Value Meaning feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addEncodeValueMeaningPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_LiteralValue_encodeValueMeaning_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_LiteralValue_encodeValueMeaning_feature", "_UI_LiteralValue_type"),
-                 DomainPackage.Literals.LITERAL_VALUE__ENCODE_VALUE_MEANING,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This returns LiteralValue.gif.
+     * This returns DuplicateCountIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/LiteralValue"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/DuplicateCountIndicator"));
     }
 
     /**
@@ -112,10 +84,8 @@ public class LiteralValueItemProvider
      */
     @Override
     public String getText(Object object) {
-        String label = ((LiteralValue)object).getEncodeValueMeaning();
-        return label == null || label.length() == 0 ?
-            getString("_UI_LiteralValue_type") :
-            getString("_UI_LiteralValue_type") + " " + label;
+        DuplicateCountIndicator duplicateCountIndicator = (DuplicateCountIndicator)object;
+        return getString("_UI_DuplicateCountIndicator_type") + " " + duplicateCountIndicator.getCount();
     }
 
     /**
@@ -128,12 +98,6 @@ public class LiteralValueItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
-
-        switch (notification.getFeatureID(LiteralValue.class)) {
-            case DomainPackage.LITERAL_VALUE__ENCODE_VALUE_MEANING:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-        }
         super.notifyChanged(notification);
     }
 

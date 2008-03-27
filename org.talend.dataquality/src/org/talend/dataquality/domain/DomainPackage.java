@@ -235,22 +235,13 @@ public interface DomainPackage extends EPackage {
     int LITERAL_VALUE__ENCODE_VALUE_MEANING = 0;
 
     /**
-     * The feature id for the '<em><b>Indicator</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LITERAL_VALUE__INDICATOR = 1;
-
-    /**
      * The number of structural features of the '<em>Literal Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LITERAL_VALUE_FEATURE_COUNT = 2;
+    int LITERAL_VALUE_FEATURE_COUNT = 1;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.domain.impl.LengthRestrictionImpl <em>Length Restriction</em>}' class.
@@ -309,15 +300,6 @@ public interface DomainPackage extends EPackage {
     int NUMERIC_VALUE__ENCODE_VALUE_MEANING = LITERAL_VALUE__ENCODE_VALUE_MEANING;
 
     /**
-     * The feature id for the '<em><b>Indicator</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NUMERIC_VALUE__INDICATOR = LITERAL_VALUE__INDICATOR;
-
-    /**
      * The number of structural features of the '<em>Numeric Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -344,15 +326,6 @@ public interface DomainPackage extends EPackage {
      * @ordered
      */
     int TEXT_VALUE__ENCODE_VALUE_MEANING = LITERAL_VALUE__ENCODE_VALUE_MEANING;
-
-    /**
-     * The feature id for the '<em><b>Indicator</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_VALUE__INDICATOR = LITERAL_VALUE__INDICATOR;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -392,15 +365,6 @@ public interface DomainPackage extends EPackage {
     int INTEGER_VALUE__ENCODE_VALUE_MEANING = NUMERIC_VALUE__ENCODE_VALUE_MEANING;
 
     /**
-     * The feature id for the '<em><b>Indicator</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_VALUE__INDICATOR = NUMERIC_VALUE__INDICATOR;
-
-    /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -438,15 +402,6 @@ public interface DomainPackage extends EPackage {
     int REAL_NUMBER_VALUE__ENCODE_VALUE_MEANING = NUMERIC_VALUE__ENCODE_VALUE_MEANING;
 
     /**
-     * The feature id for the '<em><b>Indicator</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int REAL_NUMBER_VALUE__INDICATOR = NUMERIC_VALUE__INDICATOR;
-
-    /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -482,15 +437,6 @@ public interface DomainPackage extends EPackage {
      * @ordered
      */
     int DATE_VALUE__ENCODE_VALUE_MEANING = NUMERIC_VALUE__ENCODE_VALUE_MEANING;
-
-    /**
-     * The feature id for the '<em><b>Indicator</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATE_VALUE__INDICATOR = NUMERIC_VALUE__INDICATOR;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -682,17 +628,6 @@ public interface DomainPackage extends EPackage {
      * @generated
      */
     EAttribute getLiteralValue_EncodeValueMeaning();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.domain.LiteralValue#getIndicator <em>Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Indicator</em>'.
-     * @see org.talend.dataquality.domain.LiteralValue#getIndicator()
-     * @see #getLiteralValue()
-     * @generated
-     */
-    EReference getLiteralValue_Indicator();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.domain.LengthRestriction <em>Length Restriction</em>}'.
@@ -977,14 +912,6 @@ public interface DomainPackage extends EPackage {
          * @generated
          */
         EAttribute LITERAL_VALUE__ENCODE_VALUE_MEANING = eINSTANCE.getLiteralValue_EncodeValueMeaning();
-
-        /**
-         * The meta object literal for the '<em><b>Indicator</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference LITERAL_VALUE__INDICATOR = eINSTANCE.getLiteralValue_Indicator();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.domain.impl.LengthRestrictionImpl <em>Length Restriction</em>}' class.

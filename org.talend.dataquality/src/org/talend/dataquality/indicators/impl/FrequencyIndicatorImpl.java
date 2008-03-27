@@ -10,12 +10,18 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.talend.dataquality.indicators.DistinctCountIndicator;
+import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.ModeIndicator;
+import org.talend.dataquality.indicators.UniqueCountIndicator;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Frequency Indicator</b></em>'. <!--
@@ -23,38 +29,21 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getMode <em>Mode</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getUniqueValues <em>Unique Values</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getDistinctValueCount <em>Distinct Value Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getUniqueValueCount <em>Unique Value Count</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getDupplicateValueCount <em>Dupplicate Value Count</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getDuplicateValueCount <em>Duplicate Value Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getValueToFreq <em>Value To Freq</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getModeIndicator <em>Mode Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getDistinctCountIndicator <em>Distinct Count Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getUniqueCountIndicator <em>Unique Count Indicator</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl#getDuplicateCountIndicator <em>Duplicate Count Indicator</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIndicator {
-
-    /**
-     * The default value of the '{@link #getMode() <em>Mode</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getMode()
-     * @generated
-     * @ordered
-     */
-    protected static final Object MODE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @see #getMode()
-     * @generated
-     * @ordered
-     */
-    protected Object mode = MODE_EDEFAULT;
+public class FrequencyIndicatorImpl extends CompositeIndicatorImpl implements FrequencyIndicator {
 
     /**
      * The cached value of the '{@link #getUniqueValues() <em>Unique Values</em>}' attribute list.
@@ -107,14 +96,14 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     protected int uniqueValueCount = UNIQUE_VALUE_COUNT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDupplicateValueCount() <em>Dupplicate Value Count</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getDupplicateValueCount()
+     * The default value of the '{@link #getDuplicateValueCount() <em>Duplicate Value Count</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDuplicateValueCount()
      * @generated
      * @ordered
      */
-    protected static final int DUPPLICATE_VALUE_COUNT_EDEFAULT = 0;
+    protected static final int DUPLICATE_VALUE_COUNT_EDEFAULT = 0;
 
     /**
      * The default value of the '{@link #getValueToFreq() <em>Value To Freq</em>}' attribute.
@@ -137,6 +126,46 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     protected HashMap<Object, Long> valueToFreq = VALUE_TO_FREQ_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getModeIndicator() <em>Mode Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getModeIndicator()
+     * @generated
+     * @ordered
+     */
+    protected ModeIndicator modeIndicator;
+
+    /**
+     * The cached value of the '{@link #getDistinctCountIndicator() <em>Distinct Count Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDistinctCountIndicator()
+     * @generated
+     * @ordered
+     */
+    protected DistinctCountIndicator distinctCountIndicator;
+
+    /**
+     * The cached value of the '{@link #getUniqueCountIndicator() <em>Unique Count Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUniqueCountIndicator()
+     * @generated
+     * @ordered
+     */
+    protected UniqueCountIndicator uniqueCountIndicator;
+
+    /**
+     * The cached value of the '{@link #getDuplicateCountIndicator() <em>Duplicate Count Indicator</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDuplicateCountIndicator()
+     * @generated
+     * @ordered
+     */
+    protected DuplicateCountIndicator duplicateCountIndicator;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -151,25 +180,6 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     @Override
     protected EClass eStaticClass() {
         return IndicatorsPackage.Literals.FREQUENCY_INDICATOR;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Object getMode() {
-        return mode;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setMode(Object newMode) {
-        Object oldMode = mode;
-        mode = newMode;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__MODE, oldMode, mode));
     }
 
     /**
@@ -215,6 +225,26 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
             distinctValues = computeDistinctValues();
         }
         return distinctValues;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR:
+                return basicSetModeIndicator(null, msgs);
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR:
+                return basicSetDistinctCountIndicator(null, msgs);
+            case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR:
+                return basicSetUniqueCountIndicator(null, msgs);
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR:
+                return basicSetDuplicateCountIndicator(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
@@ -281,11 +311,12 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public int getDupplicateValueCount() {
-        // TODO: implement this method to return the 'Dupplicate Value Count' attribute
+    public int getDuplicateValueCount() {
+        // TODO: implement this method to return the 'Duplicate Value Count' attribute
         // Ensure that you remove @generated or mark it @generated NOT
         throw new UnsupportedOperationException();
     }
@@ -322,24 +353,202 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ModeIndicator getModeIndicator() {
+        return modeIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetModeIndicator(ModeIndicator newModeIndicator, NotificationChain msgs) {
+        ModeIndicator oldModeIndicator = modeIndicator;
+        modeIndicator = newModeIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR, oldModeIndicator, newModeIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setModeIndicator(ModeIndicator newModeIndicator) {
+        if (newModeIndicator != modeIndicator) {
+            NotificationChain msgs = null;
+            if (modeIndicator != null)
+                msgs = ((InternalEObject)modeIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR, null, msgs);
+            if (newModeIndicator != null)
+                msgs = ((InternalEObject)newModeIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR, null, msgs);
+            msgs = basicSetModeIndicator(newModeIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR, newModeIndicator, newModeIndicator));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DistinctCountIndicator getDistinctCountIndicator() {
+        return distinctCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetDistinctCountIndicator(DistinctCountIndicator newDistinctCountIndicator, NotificationChain msgs) {
+        DistinctCountIndicator oldDistinctCountIndicator = distinctCountIndicator;
+        distinctCountIndicator = newDistinctCountIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR, oldDistinctCountIndicator, newDistinctCountIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDistinctCountIndicator(DistinctCountIndicator newDistinctCountIndicator) {
+        if (newDistinctCountIndicator != distinctCountIndicator) {
+            NotificationChain msgs = null;
+            if (distinctCountIndicator != null)
+                msgs = ((InternalEObject)distinctCountIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR, null, msgs);
+            if (newDistinctCountIndicator != null)
+                msgs = ((InternalEObject)newDistinctCountIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR, null, msgs);
+            msgs = basicSetDistinctCountIndicator(newDistinctCountIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR, newDistinctCountIndicator, newDistinctCountIndicator));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UniqueCountIndicator getUniqueCountIndicator() {
+        return uniqueCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetUniqueCountIndicator(UniqueCountIndicator newUniqueCountIndicator, NotificationChain msgs) {
+        UniqueCountIndicator oldUniqueCountIndicator = uniqueCountIndicator;
+        uniqueCountIndicator = newUniqueCountIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR, oldUniqueCountIndicator, newUniqueCountIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUniqueCountIndicator(UniqueCountIndicator newUniqueCountIndicator) {
+        if (newUniqueCountIndicator != uniqueCountIndicator) {
+            NotificationChain msgs = null;
+            if (uniqueCountIndicator != null)
+                msgs = ((InternalEObject)uniqueCountIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR, null, msgs);
+            if (newUniqueCountIndicator != null)
+                msgs = ((InternalEObject)newUniqueCountIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR, null, msgs);
+            msgs = basicSetUniqueCountIndicator(newUniqueCountIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR, newUniqueCountIndicator, newUniqueCountIndicator));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DuplicateCountIndicator getDuplicateCountIndicator() {
+        return duplicateCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetDuplicateCountIndicator(DuplicateCountIndicator newDuplicateCountIndicator, NotificationChain msgs) {
+        DuplicateCountIndicator oldDuplicateCountIndicator = duplicateCountIndicator;
+        duplicateCountIndicator = newDuplicateCountIndicator;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR, oldDuplicateCountIndicator, newDuplicateCountIndicator);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDuplicateCountIndicator(DuplicateCountIndicator newDuplicateCountIndicator) {
+        if (newDuplicateCountIndicator != duplicateCountIndicator) {
+            NotificationChain msgs = null;
+            if (duplicateCountIndicator != null)
+                msgs = ((InternalEObject)duplicateCountIndicator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR, null, msgs);
+            if (newDuplicateCountIndicator != null)
+                msgs = ((InternalEObject)newDuplicateCountIndicator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR, null, msgs);
+            msgs = basicSetDuplicateCountIndicator(newDuplicateCountIndicator, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR, newDuplicateCountIndicator, newDuplicateCountIndicator));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE:
-                return getMode();
             case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_VALUES:
                 return getUniqueValues();
             case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT:
                 return new Integer(getDistinctValueCount());
             case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT:
                 return new Integer(getUniqueValueCount());
-            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPPLICATE_VALUE_COUNT:
-                return new Integer(getDupplicateValueCount());
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_VALUE_COUNT:
+                return new Integer(getDuplicateValueCount());
             case IndicatorsPackage.FREQUENCY_INDICATOR__VALUE_TO_FREQ:
                 return getValueToFreq();
+            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR:
+                return getModeIndicator();
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR:
+                return getDistinctCountIndicator();
+            case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR:
+                return getUniqueCountIndicator();
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR:
+                return getDuplicateCountIndicator();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -352,9 +561,6 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE:
-                setMode(newValue);
-                return;
             case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_VALUES:
                 getUniqueValues().clear();
                 getUniqueValues().addAll((Collection<? extends Object>)newValue);
@@ -368,6 +574,18 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
             case IndicatorsPackage.FREQUENCY_INDICATOR__VALUE_TO_FREQ:
                 setValueToFreq((HashMap<Object, Long>)newValue);
                 return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR:
+                setModeIndicator((ModeIndicator)newValue);
+                return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR:
+                setDistinctCountIndicator((DistinctCountIndicator)newValue);
+                return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR:
+                setUniqueCountIndicator((UniqueCountIndicator)newValue);
+                return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR:
+                setDuplicateCountIndicator((DuplicateCountIndicator)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -379,9 +597,6 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE:
-                setMode(MODE_EDEFAULT);
-                return;
             case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_VALUES:
                 getUniqueValues().clear();
                 return;
@@ -394,6 +609,18 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
             case IndicatorsPackage.FREQUENCY_INDICATOR__VALUE_TO_FREQ:
                 setValueToFreq(VALUE_TO_FREQ_EDEFAULT);
                 return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR:
+                setModeIndicator((ModeIndicator)null);
+                return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR:
+                setDistinctCountIndicator((DistinctCountIndicator)null);
+                return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR:
+                setUniqueCountIndicator((UniqueCountIndicator)null);
+                return;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR:
+                setDuplicateCountIndicator((DuplicateCountIndicator)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -405,18 +632,24 @@ public class FrequencyIndicatorImpl extends IndicatorImpl implements FrequencyIn
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE:
-                return MODE_EDEFAULT == null ? mode != null : !MODE_EDEFAULT.equals(mode);
             case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_VALUES:
                 return uniqueValues != null && !uniqueValues.isEmpty();
             case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT:
                 return distinctValueCount != DISTINCT_VALUE_COUNT_EDEFAULT;
             case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT:
                 return uniqueValueCount != UNIQUE_VALUE_COUNT_EDEFAULT;
-            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPPLICATE_VALUE_COUNT:
-                return getDupplicateValueCount() != DUPPLICATE_VALUE_COUNT_EDEFAULT;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_VALUE_COUNT:
+                return getDuplicateValueCount() != DUPLICATE_VALUE_COUNT_EDEFAULT;
             case IndicatorsPackage.FREQUENCY_INDICATOR__VALUE_TO_FREQ:
                 return VALUE_TO_FREQ_EDEFAULT == null ? valueToFreq != null : !VALUE_TO_FREQ_EDEFAULT.equals(valueToFreq);
+            case IndicatorsPackage.FREQUENCY_INDICATOR__MODE_INDICATOR:
+                return modeIndicator != null;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR:
+                return distinctCountIndicator != null;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR:
+                return uniqueCountIndicator != null;
+            case IndicatorsPackage.FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR:
+                return duplicateCountIndicator != null;
         }
         return super.eIsSet(featureID);
     }

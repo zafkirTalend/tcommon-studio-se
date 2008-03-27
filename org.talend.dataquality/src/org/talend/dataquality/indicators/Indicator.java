@@ -20,7 +20,6 @@ import orgomg.cwmx.analysis.informationreporting.ReportField;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.Indicator#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getIndicatorType <em>Indicator Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getCount <em>Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getNullCount <em>Null Count</em>}</li>
@@ -179,36 +178,5 @@ public interface Indicator extends EObject {
      * @generated
      */
     boolean reset();
-
-    /**
-     * Returns the value of the '<em><b>Value</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link org.talend.dataquality.domain.LiteralValue#getIndicator <em>Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Value</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * value of the indicator
-     * <!-- end-model-doc -->
-     * @return the value of the '<em>Value</em>' reference.
-     * @see #setValue(LiteralValue)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_Value()
-     * @see org.talend.dataquality.domain.LiteralValue#getIndicator
-     * @model opposite="indicator"
-     * @generated
-     */
-    LiteralValue getValue();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getValue <em>Value</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Value</em>' reference.
-     * @see #getValue()
-     * @generated
-     */
-    void setValue(LiteralValue value);
 
 } // Indicator

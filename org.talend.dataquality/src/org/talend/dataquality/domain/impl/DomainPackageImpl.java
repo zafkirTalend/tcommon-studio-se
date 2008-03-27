@@ -465,15 +465,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getLiteralValue_Indicator() {
-        return (EReference)literalValueEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getLengthRestriction() {
         return lengthRestrictionEClass;
     }
@@ -624,7 +615,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
         literalValueEClass = createEClass(LITERAL_VALUE);
         createEAttribute(literalValueEClass, LITERAL_VALUE__ENCODE_VALUE_MEANING);
-        createEReference(literalValueEClass, LITERAL_VALUE__INDICATOR);
 
         lengthRestrictionEClass = createEClass(LENGTH_RESTRICTION);
         createEAttribute(lengthRestrictionEClass, LENGTH_RESTRICTION__MAXIMUM);
@@ -674,7 +664,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
         DatatypesPackage theDatatypesPackage = (DatatypesPackage)EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
         org.talend.dataquality.expressions.ExpressionsPackage theExpressionsPackage_1 = (org.talend.dataquality.expressions.ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI);
-        IndicatorsPackage theIndicatorsPackage = (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
 
         // Add subpackages
         getESubpackages().add(thePatternPackage);
@@ -711,7 +700,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
         initEClass(literalValueEClass, LiteralValue.class, "LiteralValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLiteralValue_EncodeValueMeaning(), ecorePackage.getEString(), "encodeValueMeaning", null, 0, 1, LiteralValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getLiteralValue_Indicator(), theIndicatorsPackage.getIndicator(), theIndicatorsPackage.getIndicator_Value(), "indicator", null, 0, 1, LiteralValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(lengthRestrictionEClass, LengthRestriction.class, "LengthRestriction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLengthRestriction_Maximum(), ecorePackage.getEInt(), "maximum", null, 0, 1, LengthRestriction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

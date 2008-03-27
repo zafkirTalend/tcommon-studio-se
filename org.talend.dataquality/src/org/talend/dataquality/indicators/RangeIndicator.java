@@ -17,6 +17,7 @@ package org.talend.dataquality.indicators;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.RangeIndicator#getLowerValue <em>Lower Value</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.RangeIndicator#getUpperValue <em>Upper Value</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.RangeIndicator#getDatatype <em>Datatype</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.RangeIndicator#getRange <em>Range</em>}</li>
  * </ul>
  * </p>
@@ -35,12 +36,12 @@ public interface RangeIndicator extends CompositeIndicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Lower Value</em>' reference.
-     * @see #setLowerValue(Indicator)
+     * @see #setLowerValue(MinValueIndicator)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getRangeIndicator_LowerValue()
      * @model
      * @generated
      */
-    Indicator getLowerValue();
+    MinValueIndicator getLowerValue();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getLowerValue <em>Lower Value</em>}' reference.
@@ -50,7 +51,7 @@ public interface RangeIndicator extends CompositeIndicator {
      * @see #getLowerValue()
      * @generated
      */
-    void setLowerValue(Indicator value);
+    void setLowerValue(MinValueIndicator value);
 
     /**
      * Returns the value of the '<em><b>Upper Value</b></em>' reference.
@@ -61,12 +62,12 @@ public interface RangeIndicator extends CompositeIndicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Upper Value</em>' reference.
-     * @see #setUpperValue(Indicator)
+     * @see #setUpperValue(MaxValueIndicator)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getRangeIndicator_UpperValue()
      * @model
      * @generated
      */
-    Indicator getUpperValue();
+    MaxValueIndicator getUpperValue();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getUpperValue <em>Upper Value</em>}' reference.
@@ -76,32 +77,61 @@ public interface RangeIndicator extends CompositeIndicator {
      * @see #getUpperValue()
      * @generated
      */
-    void setUpperValue(Indicator value);
+    void setUpperValue(MaxValueIndicator value);
 
     /**
-     * Returns the value of the '<em><b>Range</b></em>' reference.
+     * Returns the value of the '<em><b>Datatype</b></em>' attribute.
+     * The literals are from the enumeration {@link org.talend.dataquality.indicators.Datatype}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Range</em>' reference isn't clear,
+     * If the meaning of the '<em>Datatype</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Range</em>' reference.
-     * @see #setRange(Indicator)
+     * @return the value of the '<em>Datatype</em>' attribute.
+     * @see org.talend.dataquality.indicators.Datatype
+     * @see #setDatatype(Datatype)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getRangeIndicator_Datatype()
+     * @model
+     * @generated
+     */
+    Datatype getDatatype();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getDatatype <em>Datatype</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Datatype</em>' attribute.
+     * @see org.talend.dataquality.indicators.Datatype
+     * @see #getDatatype()
+     * @generated
+     */
+    void setDatatype(Datatype value);
+
+    /**
+     * Returns the value of the '<em><b>Range</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Range</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Range</em>' attribute.
+     * @see #setRange(String)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getRangeIndicator_Range()
      * @model
      * @generated
      */
-    Indicator getRange();
+    String getRange();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getRange <em>Range</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getRange <em>Range</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Range</em>' reference.
+     * @param value the new value of the '<em>Range</em>' attribute.
      * @see #getRange()
      * @generated
      */
-    void setRange(Indicator value);
+    void setRange(String value);
 
 } // RangeIndicator

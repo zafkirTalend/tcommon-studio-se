@@ -72,15 +72,6 @@ public interface SchemaPackage extends EPackage {
     int SCHEMA_INDICATOR = 0;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SCHEMA_INDICATOR__VALUE = IndicatorsPackage.COMPOSITE_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -209,15 +200,6 @@ public interface SchemaPackage extends EPackage {
     int TABLE_INDICATOR = 1;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TABLE_INDICATOR__VALUE = IndicatorsPackage.COMPOSITE_INDICATOR__VALUE;
-
-    /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -298,15 +280,6 @@ public interface SchemaPackage extends EPackage {
      * @generated
      */
     int CONNECTION_INDICATOR = 2;
-
-    /**
-     * The feature id for the '<em><b>Value</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_INDICATOR__VALUE = SCHEMA_INDICATOR__VALUE;
 
     /**
      * The feature id for the '<em><b>Indicator Type</b></em>' reference.

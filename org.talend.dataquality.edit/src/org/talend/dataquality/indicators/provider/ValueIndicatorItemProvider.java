@@ -22,22 +22,22 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
-import org.talend.dataquality.indicators.RangeIndicator;
+import org.talend.dataquality.indicators.ValueIndicator;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.indicators.RangeIndicator} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.ValueIndicator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class RangeIndicatorItemProvider
-    extends CompositeIndicatorItemProvider
+public class ValueIndicatorItemProvider
+    extends IndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	
@@ -50,7 +50,7 @@ public class RangeIndicatorItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public RangeIndicatorItemProvider(AdapterFactory adapterFactory) {
+    public ValueIndicatorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -65,54 +65,30 @@ public class RangeIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addLowerValuePropertyDescriptor(object);
-            addUpperValuePropertyDescriptor(object);
+            addValuePropertyDescriptor(object);
             addDatatypePropertyDescriptor(object);
-            addRangePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Lower Value feature.
+     * This adds a property descriptor for the Value feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addLowerValuePropertyDescriptor(Object object) {
+    protected void addValuePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_RangeIndicator_lowerValue_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_RangeIndicator_lowerValue_feature", "_UI_RangeIndicator_type"),
-                 IndicatorsPackage.Literals.RANGE_INDICATOR__LOWER_VALUE,
+                 getString("_UI_ValueIndicator_value_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ValueIndicator_value_feature", "_UI_ValueIndicator_type"),
+                 IndicatorsPackage.Literals.VALUE_INDICATOR__VALUE,
                  true,
                  false,
-                 true,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Upper Value feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addUpperValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_RangeIndicator_upperValue_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_RangeIndicator_upperValue_feature", "_UI_RangeIndicator_type"),
-                 IndicatorsPackage.Literals.RANGE_INDICATOR__UPPER_VALUE,
-                 true,
                  false,
-                 true,
-                 null,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
                  null));
     }
@@ -128,9 +104,9 @@ public class RangeIndicatorItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_RangeIndicator_datatype_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_RangeIndicator_datatype_feature", "_UI_RangeIndicator_type"),
-                 IndicatorsPackage.Literals.RANGE_INDICATOR__DATATYPE,
+                 getString("_UI_ValueIndicator_datatype_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ValueIndicator_datatype_feature", "_UI_ValueIndicator_type"),
+                 IndicatorsPackage.Literals.VALUE_INDICATOR__DATATYPE,
                  true,
                  false,
                  false,
@@ -140,36 +116,14 @@ public class RangeIndicatorItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Range feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addRangePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_RangeIndicator_range_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_RangeIndicator_range_feature", "_UI_RangeIndicator_type"),
-                 IndicatorsPackage.Literals.RANGE_INDICATOR__RANGE,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This returns RangeIndicator.gif.
+     * This returns ValueIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/RangeIndicator"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/ValueIndicator"));
     }
 
     /**
@@ -180,8 +134,8 @@ public class RangeIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        RangeIndicator rangeIndicator = (RangeIndicator)object;
-        return getString("_UI_RangeIndicator_type") + " " + rangeIndicator.getCount();
+        ValueIndicator valueIndicator = (ValueIndicator)object;
+        return getString("_UI_ValueIndicator_type") + " " + valueIndicator.getCount();
     }
 
     /**
@@ -195,9 +149,9 @@ public class RangeIndicatorItemProvider
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(RangeIndicator.class)) {
-            case IndicatorsPackage.RANGE_INDICATOR__DATATYPE:
-            case IndicatorsPackage.RANGE_INDICATOR__RANGE:
+        switch (notification.getFeatureID(ValueIndicator.class)) {
+            case IndicatorsPackage.VALUE_INDICATOR__VALUE:
+            case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }
