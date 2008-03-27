@@ -280,4 +280,20 @@ public interface IProcessDescription {
      * @param ldapSchemaBean
      */
     public void setWsdlSchemaBean(WSDLSchemaBean wsdlSchemaBean);
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "addExcelSchemaBean".
+     * 
+     * @param excelSchemaBean
+     */
+    public void setExcelSchemaBean(ExcelSchemaBean excelSchemaBean);
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getExcelSchemaBean".
+     * 
+     * @return
+     */
+    public ExcelSchemaBean getExcelSchemaBean();
 }

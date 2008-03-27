@@ -373,6 +373,23 @@ public class RepositoryToComponentProperty {
         if (value.equals("SHEET_NAME")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getSheetName());
         }
+
+        if (value.equals("FIRST_COLUMN")) { //$NON-NLS-1$
+            return connection.getFirstColumn();
+        }
+        if (value.equals("LAST_COLUMN")) { //$NON-NLS-1$
+            return connection.getLastColumn();
+        }
+        if (value.equals("ADVANCED_SEPARATOR")) { //$NON-NLS-1$
+            return Boolean.toString(connection.isAdvancedSpearator());
+        }
+        if (value.equals("THOUSANDS_SEPARATOR")) { //$NON-NLS-1$
+            return connection.getThousandSeparator();
+        }
+        if (value.equals("DECIMAL_SEPARATOR")) { //$NON-NLS-1$
+            return connection.getDecimalSeparator();
+        }
+
         return null;
     }
 
