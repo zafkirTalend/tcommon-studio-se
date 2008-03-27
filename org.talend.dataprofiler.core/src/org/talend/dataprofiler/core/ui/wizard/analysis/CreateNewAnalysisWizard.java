@@ -12,30 +12,24 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
-import java.io.ByteArrayInputStream;
 import java.util.Properties;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.talend.commons.emf.FactoriesUtil;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
 
 /**
- * @author huangssssx
+ * @author zqin
  *
  */
-public class CreateNewAnalysisWizard extends Wizard implements INewWizard {
+public class CreateNewAnalysisWizard extends Wizard{
     
     private IWorkbench workbench;
 
@@ -45,19 +39,17 @@ public class CreateNewAnalysisWizard extends Wizard implements INewWizard {
     
     private PropertiesWizardPage propertiesWizardPage;
 
-    private ConnectionParameters connectionProperty;
+    private ConnectionParameters connectionParams;
     
     private AnalysisWizardPageStep0 page0;
     
     private AnalysisWizardPageStep1 page1;
-    /**
-     * 
-     */
+
+    
     public CreateNewAnalysisWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
             String[] existingNames) {
-        super();
-        this.init(workbench, selection);
         this.creation = creation;
+        this.init(workbench, selection);
     }
 
     /* (non-Javadoc)
@@ -65,36 +57,9 @@ public class CreateNewAnalysisWizard extends Wizard implements INewWizard {
      */
     @Override
     public boolean performFinish() {
-        // TODO Auto-generated method stub
-        String analysisName = page1.getName();
-        AnalysisType analysisType = AnalysisType.getByName(page0.getTypeName());
-        if (analysisName != null && analysisType != null) {
-            
-            if (creation) {
-              IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.DATA_PROFILING).getFolder(
-              DQStructureManager.ANALYSIS);
-              IFile newFile = folder.getFile(analysisName+ "." + FactoriesUtil.ANA);
-              if (newFile.exists()) {
-                  return false;
-              }
-              try {
-                  newFile.create(new ByteArrayInputStream(new byte[0]), false, null);
-                  return true;
-              } catch (CoreException e) {
-                  e.printStackTrace();
-                  return false;
-              }
-            } else {
-                AnalysisBuilder builder = new AnalysisBuilder();
-                builder.initializeAnalysis(analysisName, analysisType);
-                
-                //create realted property to build the analysis file
-                return true;
-            }
-            
-        } else {
-            return false;
-        }
+        
+        
+        return true;
     }
 
     /* (non-Javadoc)
@@ -104,6 +69,13 @@ public class CreateNewAnalysisWizard extends Wizard implements INewWizard {
         // TODO Auto-generated method stub
         this.workbench = workbench;
         this.selection = selection;
+        if (creation) {
+            connectionParams = new ConnectionParameters();
+            connectionParams.setParameters(new Properties());
+        } else {
+            //get existing connectionParameters
+        }
+        
     }
 
     /* (non-Javadoc)
@@ -114,14 +86,13 @@ public class CreateNewAnalysisWizard extends Wizard implements INewWizard {
 
         setWindowTitle("Create New Analysis");
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
-        connectionProperty = new ConnectionParameters();
-        connectionProperty.setParameters(new Properties());
         
-        page0 = new AnalysisWizardPageStep0();
-        page1 = new AnalysisWizardPageStep1(connectionProperty, null, false, true); 
+        page0 = new AnalysisWizardPageStep0(connectionParams);
+        page1 = new AnalysisWizardPageStep1(connectionParams, null, false, true); 
         
         addPage(page0);
         addPage(page1);
+        
     }
 
     /* (non-Javadoc)
@@ -129,14 +100,9 @@ public class CreateNewAnalysisWizard extends Wizard implements INewWizard {
      */
     @Override
     public boolean canFinish() {
-        if(this.getContainer().getCurrentPage() != page1){
+        if (this.getContainer().getCurrentPage() != page1) {
             return false;
         }
         return super.canFinish();
     }
-    
-    public boolean createANA(String anaName, String anaType, String anaParameter){
-        return false;
-    }
-
 }

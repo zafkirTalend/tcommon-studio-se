@@ -33,7 +33,6 @@ public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
 
     public AnalysisWizardPageStep1(ConnectionParameters property, IPath destinationPath, boolean readOnly, boolean editPath){
         super("WizardPage", property, destinationPath, readOnly, editPath);
-        
         setTitle("New Analysis");
         setDescription("Add a Analysis in the repository Optionnaly the analysis can be added on a report");
     }
@@ -56,8 +55,8 @@ public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
         typeText = new Text(container, SWT.BORDER);
         
         GridData dataForTypeText = new GridData();
-        dataForTypeText.widthHint = 150;
-        typeText.setLayoutData(dataForTypeText);
+        dataForTypeText.widthHint = 200;
+        typeText.setLayoutData(dataForTypeText);      
         typeText.setEnabled(false);
         
         setControl(container);
@@ -69,11 +68,10 @@ public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
      */
     @Override
     public void setVisible(boolean visible) {
-        // TODO Auto-generated method stub
+        
+        if (connectionParams.getConnectionTypeForANA() != null) {
+            typeText.setText(connectionParams.getConnectionTypeForANA());
+        }
         super.setVisible(visible);
     }        
-    
-    public String getName(){
-        return this.nameText.getText();
-    }
 }

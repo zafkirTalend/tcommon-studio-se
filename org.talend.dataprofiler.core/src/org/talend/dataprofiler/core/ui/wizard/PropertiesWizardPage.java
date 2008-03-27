@@ -73,6 +73,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     /** Version text. */
     protected Text versionText;
+    
+    protected ConnectionParameters connectionParams;
 
     /** Status text. */
     // protected Text statusText;
@@ -101,8 +103,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private boolean readOnly;
 
     private boolean editPath = true;
-
-    private ConnectionParameters connectionParams;
 
     private IFolder defaultFolderProviderRes;
 
@@ -321,7 +321,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         dialog.setMessage("Select the folder in which the item will be created");
         // dialog.addFilter(filter);
         dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-        dialog.addFilter(filter);
+        //dialog.addFilter(filter);
         dialog.setComparator(new ResourceComparator(ResourceComparator.NAME));
 
         if (dialog.open() == Window.OK) {

@@ -37,11 +37,11 @@ public class AnalysisTypeLabelProvider implements ILabelProvider {
      */
     public Image getImage(Object element) {
         // TODO Auto-generated method stub
-        AnalysisTypeNode node = (AnalysisTypeNode)element;
-        if(node.getParent() != null){
-            return ImageLib.getImage("FOLDERNODE_IMAGE");
+        AnalysisTypeNode node = (AnalysisTypeNode) element;
+        if (node.getParent() != null) {
+            return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
         } else {
-            return ImageLib.getImage("REFRESH_IMAGE");
+            return ImageLib.getImage(ImageLib.PROJECT_ACTIVE);
         }
         
     }

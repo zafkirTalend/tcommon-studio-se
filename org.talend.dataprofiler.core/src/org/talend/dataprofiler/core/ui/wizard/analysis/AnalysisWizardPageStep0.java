@@ -39,22 +39,25 @@ import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeCont
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeLabelProvider;
 
 /**
- * @author huangssssx
+ * @author zqin
  * 
  */
-public class AnalysisWizardPageStep0 extends AbstractAnalysisWizardPage {
+public class AnalysisWizardPageStep0 extends WizardPage {
     
     private final String defaultValue = "type filter text";
 
     private Text typeName;
 
     private TreeViewer analysisTypes;
+    
+    private ConnectionParameters connectionParams;
 
-    public AnalysisWizardPageStep0() {
-        super("WizardPage");
-
+    public AnalysisWizardPageStep0(ConnectionParameters connectionParams) {
+        super("WizardPage");      
         setTitle("Select a wizard");
         setMessage("Create a new Analysis");
+        
+        this.connectionParams = connectionParams;
     }
 
     /*
@@ -143,6 +146,8 @@ public class AnalysisWizardPageStep0 extends AbstractAnalysisWizardPage {
                         typeName.setText(parentType + "." + type);
                     }
                     
+                    //set parameter
+                    connectionParams.setConnectionTypeForANA(typeName.getText());
                 }
             }
 
