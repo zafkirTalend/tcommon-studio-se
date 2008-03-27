@@ -44,7 +44,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.EObjectHelper;
-import org.talend.dataprofiler.core.model.nodes.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewLabelProvider;

@@ -17,10 +17,10 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.helper.SwitchHelpers;
-import org.talend.dataprofiler.core.model.nodes.IFolderNode;
-import org.talend.dataprofiler.core.model.nodes.impl.ColumnFolderNode;
-import org.talend.dataprofiler.core.model.nodes.impl.TableFolderNode;
-import org.talend.dataprofiler.core.model.nodes.impl.ViewFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.ColumnFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.TableFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.ViewFolderNode;
 
 /**
  * @author rli

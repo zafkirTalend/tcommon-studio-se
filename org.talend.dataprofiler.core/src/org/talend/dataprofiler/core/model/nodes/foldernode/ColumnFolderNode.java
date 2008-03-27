@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.model.nodes.impl;
+package org.talend.dataprofiler.core.model.nodes.foldernode;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
-import org.talend.dataprofiler.core.model.nodes.AbstractFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.AbstractFolderNode;
 
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;

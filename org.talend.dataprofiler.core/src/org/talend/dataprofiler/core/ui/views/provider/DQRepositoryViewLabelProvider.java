@@ -15,7 +15,7 @@ package org.talend.dataprofiler.core.ui.views.provider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.model.nodes.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 
 /**
  * @author rli

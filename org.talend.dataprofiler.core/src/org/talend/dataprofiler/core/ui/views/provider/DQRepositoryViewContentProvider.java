@@ -21,7 +21,7 @@ import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.helper.FileResourceMapHelper;
 import org.talend.dataprofiler.core.helper.FolderNodeHelper;
-import org.talend.dataprofiler.core.model.nodes.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 
 /**
  * @author rli
