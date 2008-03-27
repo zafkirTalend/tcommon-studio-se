@@ -2784,13 +2784,58 @@ public interface ConnectionPackage extends EPackage {
     int FILE_EXCEL_CONNECTION__SHEET_COLUMNS = FILE_CONNECTION_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>First Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__FIRST_COLUMN = FILE_CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Last Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__LAST_COLUMN = FILE_CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Thousand Separator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR = FILE_CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Decimal Separator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR = FILE_CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Advanced Spearator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR = FILE_CONNECTION_FEATURE_COUNT + 6;
+
+    /**
      * The number of structural features of the '<em>File Excel Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
+    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 7;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
@@ -4646,6 +4691,61 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileExcelConnection_SheetColumns();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getFirstColumn <em>First Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>First Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getFirstColumn()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_FirstColumn();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getLastColumn <em>Last Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getLastColumn()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_LastColumn();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator <em>Thousand Separator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Thousand Separator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_ThousandSeparator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator <em>Decimal Separator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Decimal Separator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_DecimalSeparator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator <em>Advanced Spearator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Advanced Spearator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_AdvancedSpearator();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6097,6 +6197,46 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__SHEET_COLUMNS = eINSTANCE.getFileExcelConnection_SheetColumns();
+
+        /**
+         * The meta object literal for the '<em><b>First Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__FIRST_COLUMN = eINSTANCE.getFileExcelConnection_FirstColumn();
+
+        /**
+         * The meta object literal for the '<em><b>Last Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__LAST_COLUMN = eINSTANCE.getFileExcelConnection_LastColumn();
+
+        /**
+         * The meta object literal for the '<em><b>Thousand Separator</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR = eINSTANCE.getFileExcelConnection_ThousandSeparator();
+
+        /**
+         * The meta object literal for the '<em><b>Decimal Separator</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR = eINSTANCE.getFileExcelConnection_DecimalSeparator();
+
+        /**
+         * The meta object literal for the '<em><b>Advanced Spearator</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR = eINSTANCE.getFileExcelConnection_AdvancedSpearator();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.

@@ -19,6 +19,11 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetName <em>Sheet Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetColumns <em>Sheet Columns</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getFirstColumn <em>First Column</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getLastColumn <em>Last Column</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator <em>Thousand Separator</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator <em>Decimal Separator</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator <em>Advanced Spearator</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,5 +73,135 @@ public interface FileExcelConnection extends FileConnection {
      * @generated
      */
     EList getSheetColumns();
+
+    /**
+     * Returns the value of the '<em><b>First Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>First Column</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>First Column</em>' attribute.
+     * @see #setFirstColumn(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_FirstColumn()
+     * @model
+     * @generated
+     */
+    String getFirstColumn();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getFirstColumn <em>First Column</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>First Column</em>' attribute.
+     * @see #getFirstColumn()
+     * @generated
+     */
+    void setFirstColumn(String value);
+
+    /**
+     * Returns the value of the '<em><b>Last Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Column</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Column</em>' attribute.
+     * @see #setLastColumn(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_LastColumn()
+     * @model
+     * @generated
+     */
+    String getLastColumn();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getLastColumn <em>Last Column</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Column</em>' attribute.
+     * @see #getLastColumn()
+     * @generated
+     */
+    void setLastColumn(String value);
+
+    /**
+     * Returns the value of the '<em><b>Thousand Separator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Thousand Separator</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Thousand Separator</em>' attribute.
+     * @see #setThousandSeparator(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_ThousandSeparator()
+     * @model
+     * @generated
+     */
+    String getThousandSeparator();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator <em>Thousand Separator</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Thousand Separator</em>' attribute.
+     * @see #getThousandSeparator()
+     * @generated
+     */
+    void setThousandSeparator(String value);
+
+    /**
+     * Returns the value of the '<em><b>Decimal Separator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Decimal Separator</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Decimal Separator</em>' attribute.
+     * @see #setDecimalSeparator(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_DecimalSeparator()
+     * @model
+     * @generated
+     */
+    String getDecimalSeparator();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator <em>Decimal Separator</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Decimal Separator</em>' attribute.
+     * @see #getDecimalSeparator()
+     * @generated
+     */
+    void setDecimalSeparator(String value);
+
+    /**
+     * Returns the value of the '<em><b>Advanced Spearator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Advanced Spearator</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Advanced Spearator</em>' attribute.
+     * @see #setAdvancedSpearator(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_AdvancedSpearator()
+     * @model
+     * @generated
+     */
+    boolean isAdvancedSpearator();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator <em>Advanced Spearator</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Advanced Spearator</em>' attribute.
+     * @see #isAdvancedSpearator()
+     * @generated
+     */
+    void setAdvancedSpearator(boolean value);
 
 } // FileExcelConnection

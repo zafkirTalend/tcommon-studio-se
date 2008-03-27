@@ -1122,6 +1122,51 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_FirstColumn() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_LastColumn() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_ThousandSeparator() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_DecimalSeparator() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileExcelConnection_AdvancedSpearator() {
+        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1713,6 +1758,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         fileExcelConnectionEClass = createEClass(FILE_EXCEL_CONNECTION);
         createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__SHEET_NAME);
         createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__SHEET_COLUMNS);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__FIRST_COLUMN);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__LAST_COLUMN);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR);
+        createEAttribute(fileExcelConnectionEClass, FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR);
 
         xmlXPathLoopDescriptorEClass = createEClass(XML_XPATH_LOOP_DESCRIPTOR);
         createEAttribute(xmlXPathLoopDescriptorEClass, XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE);
@@ -1936,6 +1986,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(fileExcelConnectionEClass, FileExcelConnection.class, "FileExcelConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFileExcelConnection_SheetName(), ecorePackage.getEString(), "SheetName", null, 1, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFileExcelConnection_SheetColumns(), ecorePackage.getEString(), "sheetColumns", null, 0, -1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_FirstColumn(), ecorePackage.getEString(), "firstColumn", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_LastColumn(), ecorePackage.getEString(), "lastColumn", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_ThousandSeparator(), ecorePackage.getEString(), "thousandSeparator", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_DecimalSeparator(), ecorePackage.getEString(), "decimalSeparator", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_AdvancedSpearator(), ecorePackage.getEBoolean(), "advancedSpearator", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(xmlXPathLoopDescriptorEClass, XmlXPathLoopDescriptor.class, "XmlXPathLoopDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getXmlXPathLoopDescriptor_LimitBoucle(), ecorePackage.getEIntegerObject(), "LimitBoucle", null, 0, 1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

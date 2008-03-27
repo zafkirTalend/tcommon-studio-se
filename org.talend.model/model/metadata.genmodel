@@ -166,6 +166,11 @@
     <genClasses ecoreClass="metadata.ecore#//FileExcelConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/SheetName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/sheetColumns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/firstColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/lastColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/thousandSeparator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/decimalSeparator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileExcelConnection/advancedSpearator"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//XmlXPathLoopDescriptor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlXPathLoopDescriptor/LimitBoucle"/>
