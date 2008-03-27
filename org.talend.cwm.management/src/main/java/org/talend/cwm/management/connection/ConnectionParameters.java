@@ -37,6 +37,8 @@ public class ConnectionParameters {
     private String connectionPurpose;
 
     private String connectionDescription;
+    
+    private String connectionTypeForANA;
 
     /**
      * The path where to store the connection.
@@ -145,5 +147,23 @@ public class ConnectionParameters {
 
     public void setFolderProvider(FolderProvider folderProvider) {
         this.folderProvider = folderProvider;
+    }
+
+    
+    /**
+     * Getter for connectionTypeForANA.
+     * @return the connectionTypeForANA
+     */
+    public String getConnectionTypeForANA() {
+        return this.connectionTypeForANA;
+    }
+
+    
+    /**
+     * Sets the connectionTypeForANA.
+     * @param connectionTypeForANA the connectionTypeForANA to set
+     */
+    public void setConnectionTypeForANA(String connectionTypeForANA) {
+        this.connectionTypeForANA = connectionTypeForANA;
     }
 }
