@@ -8,11 +8,13 @@ Bundle-Activator: org.talend.dataquality.analysis.provider.DataqualityEditPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.talend.dataquality.analysis.provider,
+Export-Package: org.talend.dataquality.analysis.category.provider,
+ org.talend.dataquality.analysis.provider,
  org.talend.dataquality.domain.pattern.provider,
  org.talend.dataquality.domain.provider,
  org.talend.dataquality.expressions.provider,
  org.talend.dataquality.indicators.provider,
+ org.talend.dataquality.indicators.schema.provider,
  org.talend.dataquality.reports.provider
 Require-Bundle: org.eclipse.core.runtime,
  org.talend.dataquality;visibility:=reexport,

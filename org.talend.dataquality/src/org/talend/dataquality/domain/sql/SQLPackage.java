@@ -69,6 +69,27 @@ public interface SQLPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.domain.sql.SqlCompoundCondition <em>Sql Compound Condition</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.domain.sql.SqlCompoundCondition
+     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlCompoundCondition()
+     * @generated
+     */
+    int SQL_COMPOUND_CONDITION = 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.domain.sql.Bracket <em>Bracket</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.domain.sql.Bracket
+     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getBracket()
+     * @generated
+     */
+    int BRACKET = 2;
+
+
+    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlRelationalOperator <em>Sql Relational Operator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -77,6 +98,26 @@ public interface SQLPackage extends EPackage {
      * @generated
      */
     EEnum getSqlRelationalOperator();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlCompoundCondition <em>Sql Compound Condition</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Sql Compound Condition</em>'.
+     * @see org.talend.dataquality.domain.sql.SqlCompoundCondition
+     * @generated
+     */
+    EEnum getSqlCompoundCondition();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.Bracket <em>Bracket</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Bracket</em>'.
+     * @see org.talend.dataquality.domain.sql.Bracket
+     * @generated
+     */
+    EEnum getBracket();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -109,6 +150,24 @@ public interface SQLPackage extends EPackage {
          * @generated
          */
         EEnum SQL_RELATIONAL_OPERATOR = eINSTANCE.getSqlRelationalOperator();
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.SqlCompoundCondition <em>Sql Compound Condition</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.domain.sql.SqlCompoundCondition
+         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlCompoundCondition()
+         * @generated
+         */
+        EEnum SQL_COMPOUND_CONDITION = eINSTANCE.getSqlCompoundCondition();
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.Bracket <em>Bracket</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.domain.sql.Bracket
+         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getBracket()
+         * @generated
+         */
+        EEnum BRACKET = eINSTANCE.getBracket();
 
     }
 

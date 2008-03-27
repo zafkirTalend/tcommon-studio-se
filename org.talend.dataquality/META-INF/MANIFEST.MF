@@ -8,6 +8,9 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.talend.dataquality.analysis,
+ org.talend.dataquality.analysis.category,
+ org.talend.dataquality.analysis.category.impl,
+ org.talend.dataquality.analysis.category.util,
  org.talend.dataquality.analysis.impl,
  org.talend.dataquality.analysis.util,
  org.talend.dataquality.domain,

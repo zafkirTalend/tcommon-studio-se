@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.dataquality.analysis.AnalysisPackage;
 
+import org.talend.dataquality.analysis.category.CategoryPackage;
+import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 
 import org.talend.dataquality.domain.DomainPackage;
@@ -23,8 +25,10 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
 
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 
+import org.talend.dataquality.domain.sql.Bracket;
 import org.talend.dataquality.domain.sql.SQLFactory;
 import org.talend.dataquality.domain.sql.SQLPackage;
+import org.talend.dataquality.domain.sql.SqlCompoundCondition;
 import org.talend.dataquality.domain.sql.SqlRelationalOperator;
 
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
@@ -114,6 +118,19 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
      * @generated
      */
     private EEnum sqlRelationalOperatorEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum sqlCompoundConditionEEnum = null;
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum bracketEEnum = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -206,6 +223,7 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
@@ -216,6 +234,7 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         // Create package meta-data objects
         theSQLPackage.createPackageContents();
         theAnalysisPackage.createPackageContents();
+        theCategoryPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
@@ -226,6 +245,7 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         // Initialize created meta-data
         theSQLPackage.initializePackageContents();
         theAnalysisPackage.initializePackageContents();
+        theCategoryPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
@@ -246,6 +266,24 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
      */
     public EEnum getSqlRelationalOperator() {
         return sqlRelationalOperatorEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getSqlCompoundCondition() {
+        return sqlCompoundConditionEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getBracket() {
+        return bracketEEnum;
     }
 
     /**
@@ -277,6 +315,8 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
 
         // Create enums
         sqlRelationalOperatorEEnum = createEEnum(SQL_RELATIONAL_OPERATOR);
+        sqlCompoundConditionEEnum = createEEnum(SQL_COMPOUND_CONDITION);
+        bracketEEnum = createEEnum(BRACKET);
     }
 
     /**
@@ -310,6 +350,17 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.LESS);
         addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.GREATER_EQUAL);
         addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.LESS_EQUAL);
+
+        initEEnum(sqlCompoundConditionEEnum, SqlCompoundCondition.class, "SqlCompoundCondition");
+        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.AND);
+        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.OR);
+        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.LIKE);
+        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.IN);
+        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.BETWEEN);
+
+        initEEnum(bracketEEnum, Bracket.class, "Bracket");
+        addEEnumLiteral(bracketEEnum, Bracket.LEFT);
+        addEEnumLiteral(bracketEEnum, Bracket.RIGHT);
     }
 
 } //SQLPackageImpl

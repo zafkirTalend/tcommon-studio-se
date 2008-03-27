@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.dataquality.analysis.AnalysisPackage;
+import org.talend.dataquality.analysis.category.CategoryPackage;
+import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.impl.DomainPackageImpl;
@@ -321,6 +323,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
@@ -331,6 +334,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         // Create package meta-data objects
         theIndicatorsPackage.createPackageContents();
         theAnalysisPackage.createPackageContents();
+        theCategoryPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
@@ -341,6 +345,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         // Initialize created meta-data
         theIndicatorsPackage.initializePackageContents();
         theAnalysisPackage.initializePackageContents();
+        theCategoryPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();

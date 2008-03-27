@@ -23,6 +23,8 @@ import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.analysis.ExecutionInformations;
+import org.talend.dataquality.analysis.category.CategoryPackage;
+import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.domain.DomainPackage;
 
 import org.talend.dataquality.domain.impl.DomainPackageImpl;
@@ -246,6 +248,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         ModelPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
@@ -256,6 +259,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
         // Create package meta-data objects
         theAnalysisPackage.createPackageContents();
+        theCategoryPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
@@ -266,6 +270,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
         // Initialize created meta-data
         theAnalysisPackage.initializePackageContents();
+        theCategoryPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
@@ -560,11 +565,15 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
+        CategoryPackage theCategoryPackage = (CategoryPackage)EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI);
         InformationreportingPackage theInformationreportingPackage = (InformationreportingPackage)EPackage.Registry.INSTANCE.getEPackage(InformationreportingPackage.eNS_URI);
         SoftwaredeploymentPackage theSoftwaredeploymentPackage = (SoftwaredeploymentPackage)EPackage.Registry.INSTANCE.getEPackage(SoftwaredeploymentPackage.eNS_URI);
         CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
         DomainPackage theDomainPackage = (DomainPackage)EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI);
         IndicatorsPackage theIndicatorsPackage = (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
+
+        // Add subpackages
+        getESubpackages().add(theCategoryPackage);
 
         // Create type parameters
 

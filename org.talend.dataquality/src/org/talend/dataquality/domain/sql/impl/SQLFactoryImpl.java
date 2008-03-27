@@ -76,6 +76,10 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
         switch (eDataType.getClassifierID()) {
             case SQLPackage.SQL_RELATIONAL_OPERATOR:
                 return createSqlRelationalOperatorFromString(eDataType, initialValue);
+            case SQLPackage.SQL_COMPOUND_CONDITION:
+                return createSqlCompoundConditionFromString(eDataType, initialValue);
+            case SQLPackage.BRACKET:
+                return createBracketFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -91,6 +95,10 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
         switch (eDataType.getClassifierID()) {
             case SQLPackage.SQL_RELATIONAL_OPERATOR:
                 return convertSqlRelationalOperatorToString(eDataType, instanceValue);
+            case SQLPackage.SQL_COMPOUND_CONDITION:
+                return convertSqlCompoundConditionToString(eDataType, instanceValue);
+            case SQLPackage.BRACKET:
+                return convertBracketToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -113,6 +121,46 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
      * @generated
      */
     public String convertSqlRelationalOperatorToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SqlCompoundCondition createSqlCompoundConditionFromString(EDataType eDataType, String initialValue) {
+        SqlCompoundCondition result = SqlCompoundCondition.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertSqlCompoundConditionToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Bracket createBracketFromString(EDataType eDataType, String initialValue) {
+        Bracket result = Bracket.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertBracketToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

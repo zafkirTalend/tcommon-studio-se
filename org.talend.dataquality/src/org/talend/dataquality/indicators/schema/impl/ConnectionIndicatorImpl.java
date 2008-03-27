@@ -15,14 +15,13 @@ import org.talend.dataquality.indicators.schema.SchemaPackage;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class ConnectionIndicatorImpl extends SchemaIndicatorImpl implements ConnectionIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ConnectionIndicatorImpl() {
@@ -31,7 +30,6 @@ public class ConnectionIndicatorImpl extends SchemaIndicatorImpl implements Conn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

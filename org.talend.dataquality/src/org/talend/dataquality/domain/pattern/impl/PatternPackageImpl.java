@@ -14,6 +14,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.dataquality.analysis.AnalysisPackage;
 
+import org.talend.dataquality.analysis.category.CategoryPackage;
+import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 
 import org.talend.dataquality.domain.DomainPackage;
@@ -237,6 +239,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
@@ -247,6 +250,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         // Create package meta-data objects
         thePatternPackage.createPackageContents();
         theAnalysisPackage.createPackageContents();
+        theCategoryPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
@@ -257,6 +261,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         // Initialize created meta-data
         thePatternPackage.initializePackageContents();
         theAnalysisPackage.initializePackageContents();
+        theCategoryPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();

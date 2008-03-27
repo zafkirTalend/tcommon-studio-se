@@ -4,17 +4,22 @@
  *
  * $Id$
  */
-package org.talend.dataquality.expressions.impl;
+package org.talend.dataquality.analysis.category.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.dataquality.analysis.AnalysisPackage;
 
+import org.talend.dataquality.analysis.category.AnalysisCategories;
+import org.talend.dataquality.analysis.category.AnalysisCategory;
+import org.talend.dataquality.analysis.category.CategoryFactory;
 import org.talend.dataquality.analysis.category.CategoryPackage;
-import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
+
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 
 import org.talend.dataquality.domain.DomainPackage;
@@ -26,17 +31,19 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 
 import org.talend.dataquality.domain.sql.SQLPackage;
+
 import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
-import org.talend.dataquality.expressions.BooleanExpressionNode;
-import org.talend.dataquality.expressions.ExpressionsFactory;
-import org.talend.dataquality.expressions.ExpressionsPackage;
+
+import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 
 import org.talend.dataquality.indicators.schema.SchemaPackage;
+
 import org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl;
+
 import org.talend.dataquality.reports.ReportsPackage;
 
 import org.talend.dataquality.reports.impl.ReportsPackageImpl;
@@ -54,6 +61,8 @@ import orgomg.cwm.analysis.transformation.TransformationPackage;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 import orgomg.cwm.foundation.datatypes.DatatypesPackage;
+
+import orgomg.cwm.foundation.expressions.ExpressionsPackage;
 
 import orgomg.cwm.foundation.keysindexes.KeysindexesPackage;
 
@@ -107,13 +116,20 @@ import orgomg.mof.model.ModelPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsPackage {
+public class CategoryPackageImpl extends EPackageImpl implements CategoryPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass booleanExpressionNodeEClass = null;
+    private EClass analysisCategoryEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass analysisCategoriesEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -126,12 +142,12 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see org.talend.dataquality.expressions.ExpressionsPackage#eNS_URI
+     * @see org.talend.dataquality.analysis.category.CategoryPackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private ExpressionsPackageImpl() {
-        super(eNS_URI, ExpressionsFactory.eINSTANCE);
+    private CategoryPackageImpl() {
+        super(eNS_URI, CategoryFactory.eINSTANCE);
     }
 
     /**
@@ -163,11 +179,11 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
      * @see #initializePackageContents()
      * @generated
      */
-    public static ExpressionsPackage init() {
-        if (isInited) return (ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI);
+    public static CategoryPackage init() {
+        if (isInited) return (CategoryPackage)EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI);
 
         // Obtain or create and register package
-        ExpressionsPackageImpl theExpressionsPackage = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ExpressionsPackageImpl());
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new CategoryPackageImpl());
 
         isInited = true;
 
@@ -178,7 +194,7 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
         InstancePackage.eINSTANCE.eClass();
         BusinessinformationPackage.eINSTANCE.eClass();
         DatatypesPackage.eINSTANCE.eClass();
-        orgomg.cwm.foundation.expressions.ExpressionsPackage.eINSTANCE.eClass();
+        ExpressionsPackage.eINSTANCE.eClass();
         KeysindexesPackage.eINSTANCE.eClass();
         SoftwaredeploymentPackage.eINSTANCE.eClass();
         TypemappingPackage.eINSTANCE.eClass();
@@ -206,40 +222,40 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
+        ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
         SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
-        theExpressionsPackage.createPackageContents();
-        theAnalysisPackage.createPackageContents();
         theCategoryPackage.createPackageContents();
+        theAnalysisPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
+        theExpressionsPackage_1.createPackageContents();
         theDomainPackage.createPackageContents();
         thePatternPackage.createPackageContents();
         theSQLPackage.createPackageContents();
 
         // Initialize created meta-data
-        theExpressionsPackage.initializePackageContents();
-        theAnalysisPackage.initializePackageContents();
         theCategoryPackage.initializePackageContents();
+        theAnalysisPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
+        theExpressionsPackage_1.initializePackageContents();
         theDomainPackage.initializePackageContents();
         thePatternPackage.initializePackageContents();
         theSQLPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theExpressionsPackage.freeze();
+        theCategoryPackage.freeze();
 
-        return theExpressionsPackage;
+        return theCategoryPackage;
     }
 
     /**
@@ -247,8 +263,8 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getBooleanExpressionNode() {
-        return booleanExpressionNodeEClass;
+    public EClass getAnalysisCategory() {
+        return analysisCategoryEClass;
     }
 
     /**
@@ -256,8 +272,53 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExpressionsFactory getExpressionsFactory() {
-        return (ExpressionsFactory)getEFactoryInstance();
+    public EAttribute getAnalysisCategory_AnalysisType() {
+        return (EAttribute)analysisCategoryEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAnalysisCategory_SubCategories() {
+        return (EReference)analysisCategoryEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAnalysisCategory_Label() {
+        return (EAttribute)analysisCategoryEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAnalysisCategories() {
+        return analysisCategoriesEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAnalysisCategories_Categories() {
+        return (EReference)analysisCategoriesEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CategoryFactory getCategoryFactory() {
+        return (CategoryFactory)getEFactoryInstance();
     }
 
     /**
@@ -279,7 +340,13 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
         isCreated = true;
 
         // Create classes and their features
-        booleanExpressionNodeEClass = createEClass(BOOLEAN_EXPRESSION_NODE);
+        analysisCategoryEClass = createEClass(ANALYSIS_CATEGORY);
+        createEAttribute(analysisCategoryEClass, ANALYSIS_CATEGORY__ANALYSIS_TYPE);
+        createEReference(analysisCategoryEClass, ANALYSIS_CATEGORY__SUB_CATEGORIES);
+        createEAttribute(analysisCategoryEClass, ANALYSIS_CATEGORY__LABEL);
+
+        analysisCategoriesEClass = createEClass(ANALYSIS_CATEGORIES);
+        createEReference(analysisCategoriesEClass, ANALYSIS_CATEGORIES__CATEGORIES);
     }
 
     /**
@@ -306,20 +373,22 @@ public class ExpressionsPackageImpl extends EPackageImpl implements ExpressionsP
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        orgomg.cwm.foundation.expressions.ExpressionsPackage theExpressionsPackage_1 = (orgomg.cwm.foundation.expressions.ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(orgomg.cwm.foundation.expressions.ExpressionsPackage.eNS_URI);
+        AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
 
         // Create type parameters
 
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        booleanExpressionNodeEClass.getESuperTypes().add(theExpressionsPackage_1.getExpressionNode());
 
         // Initialize classes and features; add operations and parameters
-        initEClass(booleanExpressionNodeEClass, BooleanExpressionNode.class, "BooleanExpressionNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(analysisCategoryEClass, AnalysisCategory.class, "AnalysisCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAnalysisCategory_AnalysisType(), theAnalysisPackage.getAnalysisType(), "analysisType", "", 0, 1, AnalysisCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAnalysisCategory_SubCategories(), this.getAnalysisCategory(), null, "subCategories", null, 0, -1, AnalysisCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAnalysisCategory_Label(), ecorePackage.getEString(), "label", null, 0, 1, AnalysisCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        // Create resource
-        createResource(eNS_URI);
+        initEClass(analysisCategoriesEClass, AnalysisCategories.class, "AnalysisCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getAnalysisCategories_Categories(), this.getAnalysisCategory(), null, "categories", null, 0, -1, AnalysisCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     }
 
-} //ExpressionsPackageImpl
+} //CategoryPackageImpl

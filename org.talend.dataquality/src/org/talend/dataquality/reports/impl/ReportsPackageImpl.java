@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.dataquality.analysis.AnalysisPackage;
 
+import org.talend.dataquality.analysis.category.CategoryPackage;
+import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 
 import org.talend.dataquality.domain.DomainPackage;
@@ -214,6 +216,7 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
 
         // Obtain or create and register interdependencies
         AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
@@ -224,6 +227,7 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         // Create package meta-data objects
         theReportsPackage.createPackageContents();
         theAnalysisPackage.createPackageContents();
+        theCategoryPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
@@ -234,6 +238,7 @@ public class ReportsPackageImpl extends EPackageImpl implements ReportsPackage {
         // Initialize created meta-data
         theReportsPackage.initializePackageContents();
         theAnalysisPackage.initializePackageContents();
+        theCategoryPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();

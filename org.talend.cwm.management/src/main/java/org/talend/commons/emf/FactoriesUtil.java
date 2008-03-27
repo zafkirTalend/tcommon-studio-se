@@ -17,6 +17,9 @@ import java.util.List;
 
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
+import org.talend.dataquality.analysis.category.CategoryPackage;
+import org.talend.dataquality.analysis.category.impl.CategoryFactoryImpl;
+import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.analysis.impl.AnalysisFactoryImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
 import org.talend.dataquality.domain.DomainPackage;
@@ -64,6 +67,7 @@ public final class FactoriesUtil {
         DomainFactoryImpl.init();
         IndicatorsFactoryImpl.init();
         PatternFactoryImpl.init();
+        CategoryFactoryImpl.init();
         org.talend.dataquality.expressions.impl.ExpressionsFactoryImpl.init();
         org.talend.dataquality.reports.impl.ReportsFactoryImpl.init();
 
@@ -94,6 +98,7 @@ public final class FactoriesUtil {
         // --- Talend DQ extension packages
         extensions.add(IndicatorsPackage.eNAME);
         extensions.add(DomainPackage.eNAME);
+        extensions.add(CategoryPackage.eNAME);
 
         // --- add specific extensions
         extensions.add(PROV);
@@ -119,6 +124,7 @@ public final class FactoriesUtil {
         DomainPackageImpl.init();
         IndicatorsPackageImpl.init();
         PatternPackageImpl.init();
+        CategoryPackageImpl.init();
         org.talend.dataquality.expressions.impl.ExpressionsPackageImpl.init();
         org.talend.dataquality.reports.impl.ReportsPackageImpl.init();
 

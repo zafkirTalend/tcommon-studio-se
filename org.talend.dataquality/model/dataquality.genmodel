@@ -49,6 +49,17 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/executionDate"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/executionDuration"/>
       </genClasses>
+      <nestedGenPackages prefix="Category" basePackage="org.talend.dataquality.analysis"
+          disposableProviderFactory="true" ecorePackage="dataquality.ecore#//analysis/category">
+        <genClasses ecoreClass="dataquality.ecore#//analysis/category/AnalysisCategory">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/category/AnalysisCategory/analysisType"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//analysis/category/AnalysisCategory/subCategories"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/category/AnalysisCategory/label"/>
+        </genClasses>
+        <genClasses ecoreClass="dataquality.ecore#//analysis/category/AnalysisCategories">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//analysis/category/AnalysisCategories/categories"/>
+        </genClasses>
+      </nestedGenPackages>
     </nestedGenPackages>
     <nestedGenPackages prefix="Reports" basePackage="org.talend.dataquality" disposableProviderFactory="true"
         ecorePackage="dataquality.ecore#//reports">
@@ -285,6 +296,17 @@
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER_EQUAL"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS_EQUAL"/>
+        </genEnums>
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlCompoundCondition">
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/AND"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/OR"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/LIKE"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/IN"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/BETWEEN"/>
+        </genEnums>
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/Bracket">
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/LEFT"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/RIGHT"/>
         </genEnums>
       </nestedGenPackages>
     </nestedGenPackages>

@@ -21,6 +21,7 @@ Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.emf,
  org.talend.cwm.management.api,
  org.talend.cwm.management.connection,
- org.talend.dq.analysis
+ org.talend.dq.analysis,
+ org.talend.dq.analysis.category
 Bundle-ClassPath: .
 Eclipse-RegisterBuddy: org.talend.utils

@@ -17,6 +17,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Sql Relational Operator</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * See http://www.experlog.com/gibello/zql/sqltut.html#Relational%20Operators
+ * <!-- end-model-doc -->
  * @see org.talend.dataquality.domain.sql.SQLPackage#getSqlRelationalOperator()
  * @model
  * @generated
