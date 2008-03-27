@@ -13,14 +13,18 @@
 package org.talend.dataprofiler.core.ui.editor.composite;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TreeEditor;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataquality.indicators.DataminingType;
 
 /**
@@ -32,6 +36,8 @@ public class AnasisColumnTreeViewer {
     private TreeViewer treeView;
 
     private final Tree tree;
+
+    private Object[] tdColumns;
 
     public AnasisColumnTreeViewer(final Tree tree) {
         this.tree = tree;
@@ -61,12 +67,13 @@ public class AnasisColumnTreeViewer {
                 return;
             }
         }
+        this.tdColumns = columns;
         TreeItem treeItem;
         for (int i = 0; i < columns.length; i++) {
             treeItem = new TreeItem(tree, SWT.NONE);
-            
+
             treeItem.setText(0, ((TdColumn) columns[i]).getName());
-            
+
             TreeEditor editor = new TreeEditor(tree);
             CCombo combo = new CCombo(tree, SWT.BORDER);
             for (DataminingType type : DataminingType.values()) {
@@ -83,6 +90,16 @@ public class AnasisColumnTreeViewer {
             editor.minimumWidth = addButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(addButton, treeItem, 2);
+            addButton.addSelectionListener(new SelectionAdapter() {
+
+                // public void widgetDefaultSelected(SelectionEvent e) {
+                // }
+
+                public void widgetSelected(SelectionEvent e) {
+                    openIndicatorSelectDialog();
+                }
+
+            });
 
             editor = new TreeEditor(tree);
             Button modButton = new Button(tree, SWT.PUSH);
@@ -99,6 +116,15 @@ public class AnasisColumnTreeViewer {
             editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 4);
+        }
+    }
+
+    private void openIndicatorSelectDialog() {
+        IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector", tdColumns);
+        if (dialog.open() == Window.OK) {
+            // Object[] columns = dialog.getResult();
+            // treeViewer.setElements(columns);
+            return;
         }
     }
 

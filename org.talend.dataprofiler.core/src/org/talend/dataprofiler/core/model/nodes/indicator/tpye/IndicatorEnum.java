@@ -18,13 +18,13 @@ package org.talend.dataprofiler.core.model.nodes.indicator.tpye;
  *
  */
 public enum IndicatorEnum {
-    RowCountIndicator,
-    CompositeIndicator,
-    RangeIndicator,
-    BoxIndicator,
-    IndicatorType,
-    BlankCountIndicator,
-    FrequencyIndicator,
-    MedianIndicator,
-    DoubleMeanIndicator
+    RowCountIndicatorEnum,
+    CompositeIndicatorEnum,
+    RangeIndicatorEnum,
+    BoxIndicatorEnum,
+    IndicatorEnumType,
+    BlankCountIndicatorEnum,
+    FrequencyIndicatorEnum,
+    MedianIndicatorEnum,
+    DoubleMeanIndicatorEnum
 }
