@@ -21,10 +21,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage;
+import org.talend.dataquality.analysis.AnalysisType;
 
 
 /**
- * @author huangssssx
+ * @author zqin
  *
  */
 public class AnalysisWizardPageStep1 extends PropertiesWizardPage {

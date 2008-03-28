@@ -18,17 +18,21 @@ import java.util.List;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.wizard.analysis.CreateNewAnalysisWizard;
+import org.talend.dataprofiler.core.ui.wizard.analysis.DynamicAnalysisWizard;
 
 
 /**
@@ -36,6 +40,10 @@ import org.talend.dataprofiler.core.ui.wizard.analysis.CreateNewAnalysisWizard;
  *
  */
 public class NewAnalysisActionProvider extends CommonActionProvider {
+    
+    private ConnectionParameters connectionParams;
+    
+    private boolean creation;
 
     public NewAnalysisActionProvider() {
     }
@@ -83,7 +91,7 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
      * @author rli
      * 
      */
-    class CreateNewAnalysisAction extends Action {
+    private class CreateNewAnalysisAction extends Action {
 
         public CreateNewAnalysisAction() {
             super("New Analysis");
@@ -117,6 +125,5 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
           
             
         }
-    }
-    
+    }    
 }

@@ -10,21 +10,31 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.model.nodes.analysis;
+package org.talend.dataprofiler.core.ui.wizard.analysis;
+
+import org.eclipse.jface.wizard.WizardPage;
+import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep0;
 
 
 /**
  * @author zqin
  *
  */
-public class AnalysisTypeNode extends AbstractAnalysisNode {
+public class DnamicAnalysisFactory {
 
     /**
      * 
      */
-    public AnalysisTypeNode(String name, String literal, Object parent) {
+    public DnamicAnalysisFactory() {
         // TODO Auto-generated constructor stub
-        super(name, literal, parent);
+    }
+    
+    public static WizardPage[] getConnectionPages(ConnectionParameters parameters) {
+        WizardPage[] connnectionPages = new WizardPage[1];
+        connnectionPages[0] = new ConnAnalysisPageStep0(parameters);
+        
+        return connnectionPages;
     }
 
 }

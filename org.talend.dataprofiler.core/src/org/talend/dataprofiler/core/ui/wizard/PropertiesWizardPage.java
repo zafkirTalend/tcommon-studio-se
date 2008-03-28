@@ -52,6 +52,7 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
+import org.talend.dataquality.analysis.AnalysisType;
 
 /**
  * Wizard page contains common properties fields.<br/>
@@ -293,23 +294,45 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    openFolderSelectionDialog("Metadata");
+                    if (AnalysisType.CONNECTION.getName().equals(connectionParams.getConnectionTypeForANA())) {
+                        openFolderSelectionDialog("Metadata", "DB Connections");
+                    } else {
+                        openFolderSelectionDialog("Data Profiling", "Analysis");
+                    }
+                    
                 }
             });
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void openFolderSelectionDialog(String projectName) {
+    private void openFolderSelectionDialog(String projectName , String folderName) {
+        
+        final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class }; 
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class };
-        IProject[] allProjects = root.getProjects();
-        ArrayList rejectedElements = new ArrayList(allProjects.length);
-        for (int i = 0; i < allProjects.length; i++) {
-            if (!allProjects[i].equals(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName))) {
-                rejectedElements.add(allProjects[i]);
+        ArrayList rejectedElements = new ArrayList();
+        
+        if (projectName != null) {
+            IProject theProject = root.getProject(projectName);
+            IProject[] allProjects = root.getProjects();
+            for (int i = 0; i < allProjects.length; i++) {          
+                if (!allProjects[i].equals(theProject)) {
+                    rejectedElements.add(allProjects[i]);
+                }
+            }
+            
+            if (folderName != null) {
+                try {
+                    IResource[] resourse = theProject.members();
+                    for (IResource one : resourse) {
+                        if (one.getType() == IResource.FOLDER && !one.getName().equals(folderName)) {
+                            rejectedElements.add(one);
+                        }
+                    }
+                } catch (Exception e) { }
             }
         }
+
         ViewerFilter filter = new TypedViewerFilter(acceptedClasses, rejectedElements.toArray());
 
         ILabelProvider lp = new WorkbenchLabelProvider();
@@ -319,9 +342,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
         // dialog.setValidator(validator);
         dialog.setTitle("Select folder");
         dialog.setMessage("Select the folder in which the item will be created");
-        // dialog.addFilter(filter);
-        dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-        //dialog.addFilter(filter);
+        dialog.setInput(root);
+        dialog.addFilter(filter);
         dialog.setComparator(new ResourceComparator(ResourceComparator.NAME));
 
         if (dialog.open() == Window.OK) {
@@ -329,7 +351,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
             IResource elem = (IResource) elements;
             if (elem instanceof IFolder) {
                 pathText.setText(elem.getLocation().toString());
-//                setFolderProvider(((IFolder) elem).getFolder(nameText.getText()));
                 setFolderProvider(elem);
                 this.path = pathText.getText();
             }

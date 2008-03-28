@@ -16,35 +16,28 @@ import java.util.Properties;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.INewWizard;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
 import org.talend.cwm.management.connection.ConnectionParameters;
-import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage;
-import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dq.analysis.AnalysisBuilder;
 
 /**
  * @author zqin
  *
  */
-public class CreateNewAnalysisWizard extends Wizard{
+public class CreateNewAnalysisWizard extends Wizard {
     
     private IWorkbench workbench;
 
     private Object selection;
     
     private boolean creation;
-    
-    private PropertiesWizardPage propertiesWizardPage;
 
     private ConnectionParameters connectionParams;
     
     private AnalysisWizardPageStep0 page0;
     
     private AnalysisWizardPageStep1 page1;
-
     
     public CreateNewAnalysisWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
             String[] existingNames) {
@@ -57,7 +50,18 @@ public class CreateNewAnalysisWizard extends Wizard{
      */
     @Override
     public boolean performFinish() {
-        
+        try {
+
+            getShell().close();
+            DynamicAnalysisWizard wizard = new DynamicAnalysisWizard(connectionParams, creation);
+            
+            WizardDialog dialog = new WizardDialog(null, wizard);
+            dialog.setPageSize(600, 320);
+            dialog.open();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         return true;
     }
@@ -66,7 +70,6 @@ public class CreateNewAnalysisWizard extends Wizard{
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
      */
     public void init(IWorkbench workbench, IStructuredSelection selection) {
-        // TODO Auto-generated method stub
         this.workbench = workbench;
         this.selection = selection;
         if (creation) {
@@ -92,7 +95,6 @@ public class CreateNewAnalysisWizard extends Wizard{
         
         addPage(page0);
         addPage(page1);
-        
     }
 
     /* (non-Javadoc)
@@ -103,6 +105,7 @@ public class CreateNewAnalysisWizard extends Wizard{
         if (this.getContainer().getCurrentPage() != page1) {
             return false;
         }
+        
         return super.canFinish();
     }
 }

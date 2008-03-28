@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.analysis.category.AnalysisCategories;
-import org.talend.dq.analysis.category.CategoryHandler;
+//import org.talend.dq.analysis.category.CategoryHandler;
 
 /**
  * @author zqin
@@ -29,17 +29,16 @@ public class AnalysisDataFactory {
         List<AnalysisTypeNode> returnList = new ArrayList<AnalysisTypeNode>();
 
         // TODO zqin use CategoryHandler
-        AnalysisCategories analysisCategories = CategoryHandler.getAnalysisCategories();
+        //AnalysisCategories analysisCategories = CategoryHandler.getAnalysisCategories();
         // TODO zqin use this tree (use label attribute of each Category instance)
-        analysisCategories.getCategories();
+        //analysisCategories.getCategories();
 
         List<AnalysisType> list = AnalysisType.VALUES;
         AnalysisTypeNode typeNode = null;
         for (AnalysisType oneType : list) {
-            typeNode = new AnalysisTypeNode(oneType.getName(), null);
-            AnalysisTypeNode[] childs = new AnalysisTypeNode[2];
-            childs[0] = new AnalysisTypeNode("Default", typeNode);
-            childs[1] = new AnalysisTypeNode(oneType.getLiteral(), typeNode);
+            typeNode = new AnalysisTypeNode(oneType.getName(), oneType.getLiteral(), null);
+            AnalysisTypeNode[] childs = new AnalysisTypeNode[1];
+            childs[0] = new AnalysisTypeNode("Default", oneType.getLiteral(), typeNode);
 
             typeNode.setChildren(childs);
 

@@ -23,17 +23,20 @@ public abstract class AbstractAnalysisNode implements IAnalysisTypeNode {
     
     protected String name;
     
+    protected String literal;
+    
     protected Object[] children;
     
     protected Object parent;
     
-    public AbstractAnalysisNode(String name){
+    public AbstractAnalysisNode(String name) {
         this.name = name;
     }
     
-    public AbstractAnalysisNode(String name,Object parent){
+    public AbstractAnalysisNode(String name, String literal, Object parent) {
         this.name = name;
         this.parent = parent;
+        this.literal = literal;
     }
 
     /* (non-Javadoc)
@@ -83,6 +86,22 @@ public abstract class AbstractAnalysisNode implements IAnalysisTypeNode {
     public void setParent(Object parent) {
         // TODO Auto-generated method stub
         this.parent = parent;
+    }
+
+    
+    /**
+     * @return the literal
+     */
+    public String getLiteral() {
+        return this.literal;
+    }
+
+    
+    /**
+     * @param literal the literal to set
+     */
+    public void setLiteral(String literal) {
+        this.literal = literal;
     }
 
 

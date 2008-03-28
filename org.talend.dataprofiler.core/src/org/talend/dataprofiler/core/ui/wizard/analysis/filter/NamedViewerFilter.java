@@ -30,11 +30,6 @@ public class NamedViewerFilter extends ViewerFilter {
     public NamedViewerFilter() {
         // TODO Auto-generated constructor stub
     }
-    
-    public NamedViewerFilter(String typeName){
-        this.typeName = typeName;
-    }
-
     /* (non-Javadoc)
      * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
      */
@@ -43,10 +38,14 @@ public class NamedViewerFilter extends ViewerFilter {
         // TODO Auto-generated method stub
         if (element instanceof AnalysisTypeNode) {
             AnalysisTypeNode oneNode = (AnalysisTypeNode) element;
-            return oneNode.getName().indexOf(this.typeName) > -1;
+            return oneNode.getName().startsWith(this.typeName);
         } else {
             return false;
         }
+    }
+    
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
 }
