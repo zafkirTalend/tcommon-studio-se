@@ -108,6 +108,14 @@ public class HorizontalTabFactory {
         tabbedPropertyViewer.setInput(descriptors);
     }
 
+    public List<TalendPropertyTabDescriptor> getInput() {
+        return (List<TalendPropertyTabDescriptor>) tabbedPropertyViewer.getInput();
+    }
+
+    public TalendPropertyTabDescriptor getSelection() {
+        return (TalendPropertyTabDescriptor) ((IStructuredSelection) tabbedPropertyViewer.getSelection()).getFirstElement();
+    }
+
     /**
      * yzhang Comment method "setTitle".
      * 
