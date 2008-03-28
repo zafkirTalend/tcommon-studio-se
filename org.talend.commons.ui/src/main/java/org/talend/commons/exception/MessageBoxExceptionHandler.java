@@ -47,10 +47,6 @@ public final class MessageBoxExceptionHandler {
     public static void process(Throwable ex, Shell shell) {
         ExceptionHandler.process(ex);
 
-        if (!PlatformUI.isWorkbenchRunning()) {
-            return;
-        }
-
         if (shell == null) {
             try {
                 shell = new Shell();
