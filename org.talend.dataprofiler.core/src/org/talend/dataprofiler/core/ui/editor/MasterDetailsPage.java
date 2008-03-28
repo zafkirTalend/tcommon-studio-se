@@ -169,7 +169,7 @@ public class MasterDetailsPage extends FormPage {
         ColumnsSelectionDialog dialog = new ColumnsSelectionDialog(getSite().getShell(), "Column Selection");
         if (dialog.open() == Window.OK) {
             Object[] columns = dialog.getResult();
-            treeViewer.setElements(columns);
+            treeViewer.setInput(columns);
             return;
         }
     }

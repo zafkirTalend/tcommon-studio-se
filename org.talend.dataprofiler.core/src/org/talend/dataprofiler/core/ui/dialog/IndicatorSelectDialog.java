@@ -16,6 +16,8 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TreeEditor;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -24,7 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuilder;
 
@@ -34,14 +36,16 @@ import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuil
  */
 public class IndicatorSelectDialog extends Dialog {
 
-    private Object[] tdColumns;
+    // private Object[] tdColumns;
+
+    private ColumnIndicator[] columnIndicators;
 
     /**
      * @param parentShell
      */
-    public IndicatorSelectDialog(Shell parentShell, String title, Object[] columns) {
+    public IndicatorSelectDialog(Shell parentShell, String title, ColumnIndicator[] columnIndicators) {
         super(parentShell);
-        this.tdColumns = columns;
+        this.columnIndicators = columnIndicators;
     }
 
     protected Control createDialogArea(Composite parent) {
@@ -73,18 +77,19 @@ public class IndicatorSelectDialog extends Dialog {
         for (int i = 0; i < branchNodes.length; i++) {
             TreeItem treeItem;
             treeItem = new TreeItem(tree, SWT.NONE);
-            TreeEditor editor;
+            treeItem.setExpanded(true);
+            // TreeEditor editor;
             for (int j = 0; j < treeColumns.length; j++) {
                 if (j == 0) {
                     treeItem.setText(0, branchNodes[i].getLabel());
                     continue;
                 }
-                editor = new TreeEditor(tree);
-                Button delButton = new Button(tree, SWT.CHECK);
-                delButton.pack();
-                editor.minimumWidth = delButton.getSize().x;
-                editor.horizontalAlignment = SWT.CENTER;
-                editor.setEditor(delButton, treeItem, j);
+                // editor = new TreeEditor(tree);
+                // Button checkButton = new Button(tree, SWT.CHECK);
+                // checkButton.pack();
+                // editor.minimumWidth = checkButton.getSize().x;
+                // editor.horizontalAlignment = SWT.CENTER;
+                // editor.setEditor(checkButton, treeItem, j);
             }
             if (branchNodes[i].hasChildren()) {
                 createChildrenNode(tree, treeItem, treeColumns, branchNodes[i].getChildren());
@@ -97,6 +102,7 @@ public class IndicatorSelectDialog extends Dialog {
         for (int i = 0; i < branchNodes.length; i++) {
             TreeItem treeItem;
             treeItem = new TreeItem(parentItem, SWT.NONE);
+            treeItem.setExpanded(true);
             TreeEditor editor;
             for (int j = 0; j < treeColumns.length; j++) {
                 if (j == 0) {
@@ -104,11 +110,26 @@ public class IndicatorSelectDialog extends Dialog {
                     continue;
                 }
                 editor = new TreeEditor(tree);
-                Button delButton = new Button(tree, SWT.CHECK);
-                delButton.pack();
-                editor.minimumWidth = delButton.getSize().x;
+                Button checkButton = new Button(tree, SWT.CHECK);
+                checkButton.pack();
+                editor.minimumWidth = checkButton.getSize().x;
                 editor.horizontalAlignment = SWT.CENTER;
-                editor.setEditor(delButton, treeItem, j);
+                editor.setEditor(checkButton, treeItem, j);
+
+                final TreeColumn treeColumn = treeColumns[j];
+                final IIndicatorNode indicatorNode = branchNodes[i];
+                checkButton.addSelectionListener(new SelectionAdapter() {
+
+                    public void widgetSelected(SelectionEvent e) {
+                        if (((Button) e.getSource()).getSelection()) {
+                            ((ColumnIndicator) treeColumn.getData()).addIndicatorEnum(indicatorNode.getIndicatorEnum());
+                        } else {
+                            ((ColumnIndicator) treeColumn.getData()).removeIndicatorEnum(indicatorNode.getIndicatorEnum());
+                        }
+
+                    }
+
+                });
             }
             if (branchNodes[i].hasChildren()) {
                 createChildrenNode(tree, treeItem, treeColumns, branchNodes[i].getChildren());
@@ -119,15 +140,20 @@ public class IndicatorSelectDialog extends Dialog {
 
     private TreeColumn[] createTreeColumns(Tree tree) {
         tree.setHeaderVisible(true);
-        TreeColumn[] treeColumn = new TreeColumn[tdColumns.length + 1];
+        TreeColumn[] treeColumn = new TreeColumn[columnIndicators.length + 1];
         treeColumn[0] = new TreeColumn(tree, SWT.CENTER);
         treeColumn[0].setWidth(200);
-        for (int i = 0; i < this.tdColumns.length; i++) {
+        for (int i = 0; i < this.columnIndicators.length; i++) {
             treeColumn[i + 1] = new TreeColumn(tree, SWT.CENTER);
             treeColumn[i + 1].setWidth(100);
-            treeColumn[i + 1].setText(((TdColumn) tdColumns[i]).getName());
+            treeColumn[i + 1].setText(columnIndicators[i].getTdColumn().getName());
+            treeColumn[i + 1].setData(columnIndicators[i]);
         }
         return treeColumn;
+    }
+
+    public ColumnIndicator[] getResult() {
+        return columnIndicators;
     }
 
 }

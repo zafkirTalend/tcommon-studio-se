@@ -11,8 +11,8 @@
 //
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes.indicator;
+import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
-import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorFieldEnum;
 
 /**
  * @author rli
@@ -24,7 +24,7 @@ public class AbstractIndicatorNode implements IIndicatorNode {
 
     private IIndicatorNode[] children;
 
-    private IndicatorFieldEnum indicatorFieldEnum;
+    private IndicatorEnum indicatorEnum;
 
     private String label;
 
@@ -69,23 +69,23 @@ public class AbstractIndicatorNode implements IIndicatorNode {
         return children != null;
     }
 
-    /**
-     * @return the indicatorFieldEnum
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode#getIndicatorEnum()
      */
-    public IndicatorFieldEnum getIndicatorFieldEnum() {
-        return indicatorFieldEnum;
+    public IndicatorEnum getIndicatorEnum() {
+        return indicatorEnum;
     }
 
     /**
-     * @param indicatorFieldEnum the indicatorFieldEnum to set
+     * @param indicatorEnum
      */
-    public void setIndicatorFieldEnum(IndicatorFieldEnum indicatorFieldEnum) {
-        this.indicatorFieldEnum = indicatorFieldEnum;
+    public void setIndicatorEnum(IndicatorEnum indicatorEnum) {
+        this.indicatorEnum = indicatorEnum;
     }
 
     public String getLabel() {
-        if (this.label == null && indicatorFieldEnum != null) {
-            return this.indicatorFieldEnum.getLabel();
+        if (this.label == null && indicatorEnum != null) {
+            return this.indicatorEnum.getLabel();
         }
         return label;
     }

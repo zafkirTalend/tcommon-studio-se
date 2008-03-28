@@ -24,6 +24,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.model.ColumnIndicator;
+import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataquality.indicators.DataminingType;
 
@@ -37,7 +39,7 @@ public class AnasisColumnTreeViewer {
 
     private final Tree tree;
 
-    private Object[] tdColumns;
+    private ColumnIndicator[] tdColumns;
 
     public AnasisColumnTreeViewer(final Tree tree) {
         this.tree = tree;
@@ -61,18 +63,28 @@ public class AnasisColumnTreeViewer {
         return treeView;
     }
 
-    public void setElements(Object[] columns) {
-        if (columns != null && columns.length != 0) {
-            if (!(columns[0] instanceof TdColumn)) {
+    public void setInput(Object[] obj) {
+        if (obj != null && obj.length != 0) {
+            if (!(obj[0] instanceof TdColumn)) {
                 return;
             }
         }
-        this.tdColumns = columns;
+        this.tdColumns = new ColumnIndicator[obj.length];
+        for (int i = 0; i < obj.length; i++) {
+            tdColumns[i] = new ColumnIndicator((TdColumn) obj[i]);
+        }
+        this.setElements(tdColumns);
+    }
+
+    public void setElements(ColumnIndicator[] columnIndicators) {
+        this.tdColumns = columnIndicators;
         TreeItem treeItem;
-        for (int i = 0; i < columns.length; i++) {
+        for (int i = 0; i < columnIndicators.length; i++) {
             treeItem = new TreeItem(tree, SWT.NONE);
 
-            treeItem.setText(0, ((TdColumn) columns[i]).getName());
+            ColumnIndicator columnIndicator = (ColumnIndicator) columnIndicators[i];
+
+            treeItem.setText(0, columnIndicator.getTdColumn().getName());
 
             TreeEditor editor = new TreeEditor(tree);
             CCombo combo = new CCombo(tree, SWT.BORDER);
@@ -116,14 +128,41 @@ public class AnasisColumnTreeViewer {
             editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 4);
+            if (columnIndicator.hasIndicators()) {
+                createIndicatorItems(treeItem, columnIndicator.getIndicatorEnums());
+            }
+        }
+    }
+
+    private void createIndicatorItems(TreeItem treeItem, IndicatorEnum[] indicatorEnums) {
+        TreeItem indicatorItem;
+        for (int i = 0; i < indicatorEnums.length; i++) {
+            indicatorItem = new TreeItem(treeItem, SWT.NONE);
+            indicatorItem.setText(0, indicatorEnums[i].getLabel());
+
+            TreeEditor editor = new TreeEditor(tree);
+            Button modButton = new Button(tree, SWT.PUSH);
+            modButton.setText("Options");
+            modButton.pack();
+            editor.minimumWidth = modButton.getSize().x;
+            editor.horizontalAlignment = SWT.CENTER;
+            editor.setEditor(modButton, indicatorItem, 1);
+
+            editor = new TreeEditor(tree);
+            Button delButton = new Button(tree, SWT.PUSH);
+            delButton.setText("Del");
+            delButton.pack();
+            editor.minimumWidth = delButton.getSize().x;
+            editor.horizontalAlignment = SWT.CENTER;
+            editor.setEditor(delButton, indicatorItem, 2);
         }
     }
 
     private void openIndicatorSelectDialog() {
         IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector", tdColumns);
         if (dialog.open() == Window.OK) {
-            // Object[] columns = dialog.getResult();
-            // treeViewer.setElements(columns);
+            ColumnIndicator[] columnIndicators = dialog.getResult();
+            this.setElements(columnIndicators);
             return;
         }
     }
