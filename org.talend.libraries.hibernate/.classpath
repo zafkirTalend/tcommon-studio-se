@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/c3p0-0.9.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/antlr-2.7.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/c3p0-0.9.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ehcache-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate3.jar" sourcepath="libs_src/hibernate-3.2"/>
