@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.commons.utils.generation.CodeGenerationUtils;
+import org.talend.core.model.metadata.types.JavaType;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -65,6 +67,43 @@ public final class ElementParameterParser {
         String value = getValue(node, text);
         String key = CodeGenerationUtils.buildProblemKey(node.getUniqueName(), fieldName);
         return CodeGenerationUtils.buildJavaStartFieldKey(key) + value + CodeGenerationUtils.buildJavaEndFieldKey(key);
+    }
+
+    /**
+     * DOC xtan Comment method "getValueWithJavaType".
+     * <p>
+     * if there want a char ',', but user input in GUI like this ",", this method just deal with this case.
+     * </p>
+     * 
+     * @param node
+     * @param text
+     * @param javaType
+     * @return
+     */
+    public static String getValueWithJavaType(final INode node, final String text, JavaType javaType) {
+        String value = getValue(node, text);
+
+        // the default return old value
+        String result = value;
+
+        String trimValue = null;
+
+        if (value == null) {
+            return null;
+        } else {
+            trimValue = value.trim();
+        }
+
+        if (javaType == JavaTypesManager.CHARACTER) {
+            // case: null, (nothing in GUI), "", "a", "ab", "a, '', 'a', 'ab', 'a, null(this means null directly in GUI)
+            if (trimValue.equals("") || trimValue.equals("\"\"") || trimValue.equals("''")) {
+                return null;
+            } else if (trimValue.length() == 3) {
+                result = "'" + trimValue.charAt(1) + "'";
+            }
+        }
+
+        return result;
     }
 
     /**
