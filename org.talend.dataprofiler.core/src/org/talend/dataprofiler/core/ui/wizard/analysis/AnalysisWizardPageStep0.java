@@ -12,19 +12,22 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -51,9 +54,12 @@ public class AnalysisWizardPageStep0 extends WizardPage {
     private TreeViewer analysisTypes;
     
     private ConnectionParameters connectionParams;
+    
+    private NamedViewerFilter filter = new NamedViewerFilter();
 
     public AnalysisWizardPageStep0(ConnectionParameters connectionParams) {
         super("WizardPage");      
+        setPageComplete(false);
         setTitle("Select a wizard");
         setMessage("Create a new Analysis");
         
@@ -70,7 +76,6 @@ public class AnalysisWizardPageStep0 extends WizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout gdLayout = new GridLayout(1, true);
         container.setLayout(gdLayout);
-        container.setSize(200, 300);
 
         Label nameLabel = new Label(container, SWT.NONE);
         nameLabel.setText("Wizards:");
@@ -78,22 +83,47 @@ public class AnalysisWizardPageStep0 extends WizardPage {
         typeName = new Text(container, SWT.BORDER);
         typeName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         typeName.setText(defaultValue);
+        typeName.setSelection(new Point(0, typeName.getText().length()));
 
-        typeName.addKeyListener(new KeyAdapter() {
+        createTypeTree(container);
+        addListeners();
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.KeyAdapter#keyPressed(org.eclipse.swt.events.KeyEvent)
-             */
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // TODO Auto-generated method stub
+        setControl(container);
+    }
+
+    public void createTypeTree(Composite parent) {
+
+        Composite treeContainer = new Composite(parent, SWT.NONE);
+        treeContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
+        treeContainer.setLayout(new FillLayout());
+
+        ILabelProvider labelProvider = new AnalysisTypeLabelProvider();
+        ITreeContentProvider contentProvider = new AnalysisTypeContentProvider();
+
+        analysisTypes = new TreeViewer(treeContainer, SWT.BORDER);
+        analysisTypes.setContentProvider(contentProvider);
+        analysisTypes.setLabelProvider(labelProvider);
+        analysisTypes.setInput(AnalysisDataFactory.createTreeData());
+
+    }
+    
+    protected void addListeners() {
+        
+        typeName.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
                 String filterString = ((Text) e.getSource()).getText();
                 if (filterString != "") {
-                    analysisTypes.addFilter(new NamedViewerFilter(filterString));
+                    filter.setTypeName(filterString);
+                    analysisTypes.addFilter(filter);
+                } else {
+                    ViewerFilter[] filters = analysisTypes.getFilters();
+                    for (ViewerFilter one : filters) {
+                        analysisTypes.removeFilter(one);
+                    }
+                    analysisTypes.refresh(true);
                 }
-            }
+            } 
         });
 
         typeName.addMouseListener(new MouseAdapter() {
@@ -110,66 +140,39 @@ public class AnalysisWizardPageStep0 extends WizardPage {
             }
 
         });
-
-        createTypeTree(container);
-
-        setControl(container);
-
-    }
-
-    public void createTypeTree(Composite parent) {
-
-        Composite treeContainer = new Composite(parent, SWT.NONE);
-        treeContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
-        treeContainer.setLayout(new FillLayout());
-
-        ILabelProvider labelProvider = new AnalysisTypeLabelProvider();
-        ITreeContentProvider contentProvider = new AnalysisTypeContentProvider();
-
-        analysisTypes = new TreeViewer(treeContainer, SWT.BORDER);
-        analysisTypes.setContentProvider(contentProvider);
-        analysisTypes.setLabelProvider(labelProvider);
-
-        analysisTypes.setInput(AnalysisDataFactory.createTreeData());
-
+        
         analysisTypes.addSelectionChangedListener(new ISelectionChangedListener() {
 
             public void selectionChanged(SelectionChangedEvent event) {
-                // TODO Auto-generated method stub
-                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) getSelection()).getFirstElement();
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
+                
                 if (node.getParent() != null) {
-                    String parentType = ((AnalysisTypeNode) node.getParent()).getName();
-                    String type = node.getName();
-                    if (node.getName().equals("Default")) {
-                        typeName.setText(parentType);
-                    } else {
-                        typeName.setText(parentType + "." + type);
-                    }
-                    
+                    setMessage(node.getLiteral());
+                    setPageComplete(true);
                     //set parameter
-                    connectionParams.setConnectionTypeForANA(typeName.getText());
+                    connectionParams.setConnectionTypeForANA(((AnalysisTypeNode) node.getParent()).getName());
+                } else {
+                    setPageComplete(false);
                 }
             }
 
         });
+        
+        analysisTypes.addDoubleClickListener(new IDoubleClickListener() {
 
+            public void doubleClick(DoubleClickEvent event) {
+                
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
+                if (node.getParent() == null) {
+                    analysisTypes.expandToLevel(node, 1);
+                }
+            }
+            
+        });
     }
 
-    /**
-     * @return the selection
-     */
-    public ISelection getSelection() {
-        return this.analysisTypes.getSelection();
-    }
-
-    /**
-     * @param selection the selection to set
-     */
-    public void setSelection(ISelection selection) {
-        this.analysisTypes.setSelection(selection);
-    }
     
-    public String getTypeName(){
+    public String getTypeName() {
         return typeName.getText();
     }
 }
