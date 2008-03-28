@@ -303,24 +303,30 @@
       </nestedGenPackages>
       <nestedGenPackages prefix="SQL" basePackage="org.talend.dataquality.domain"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//domain/sql">
-        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlRelationalOperator">
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/EQUAL"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/NOT_EQUAL"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER_EQUAL"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS_EQUAL"/>
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlPredicate">
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/NOT_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/GREATER"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/LESS"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/GREATER_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/LESS_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IS"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/BETWEEN"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/LIKE"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IN"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/NOT_EQUAL2"/>
         </genEnums>
-        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlCompoundCondition">
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/AND"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/OR"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/LIKE"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/IN"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlCompoundCondition/BETWEEN"/>
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlLogicalOperator">
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlLogicalOperator/AND"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlLogicalOperator/OR"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlLogicalOperator/NOT"/>
         </genEnums>
         <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/Bracket">
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/LEFT"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/RIGHT"/>
+        </genEnums>
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlKeyword">
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlKeyword/NULL"/>
         </genEnums>
       </nestedGenPackages>
     </nestedGenPackages>

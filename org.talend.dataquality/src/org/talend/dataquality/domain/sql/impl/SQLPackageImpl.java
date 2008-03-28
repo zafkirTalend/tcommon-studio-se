@@ -1,136 +1,96 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.domain.sql.impl;
 
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.talend.dataquality.analysis.AnalysisPackage;
-
 import org.talend.dataquality.analysis.category.CategoryPackage;
 import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
 import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
-
 import org.talend.dataquality.domain.DomainPackage;
-
 import org.talend.dataquality.domain.impl.DomainPackageImpl;
-
 import org.talend.dataquality.domain.pattern.PatternPackage;
-
 import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
-
 import org.talend.dataquality.domain.sql.Bracket;
 import org.talend.dataquality.domain.sql.SQLFactory;
 import org.talend.dataquality.domain.sql.SQLPackage;
-import org.talend.dataquality.domain.sql.SqlCompoundCondition;
-import org.talend.dataquality.domain.sql.SqlRelationalOperator;
-
+import org.talend.dataquality.domain.sql.SqlKeyword;
+import org.talend.dataquality.domain.sql.SqlLogicalOperator;
+import org.talend.dataquality.domain.sql.SqlPredicate;
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
-
 import org.talend.dataquality.indicators.IndicatorsPackage;
-
 import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
-
 import org.talend.dataquality.indicators.schema.SchemaPackage;
 import org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl;
 import org.talend.dataquality.reports.ReportsPackage;
-
 import org.talend.dataquality.reports.impl.ReportsPackageImpl;
-
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
-
 import orgomg.cwm.analysis.datamining.DataminingPackage;
-
 import orgomg.cwm.analysis.informationvisualization.InformationvisualizationPackage;
-
 import orgomg.cwm.analysis.olap.OlapPackage;
-
 import orgomg.cwm.analysis.transformation.TransformationPackage;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
-
 import orgomg.cwm.foundation.datatypes.DatatypesPackage;
-
 import orgomg.cwm.foundation.expressions.ExpressionsPackage;
-
 import orgomg.cwm.foundation.keysindexes.KeysindexesPackage;
-
 import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
-
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
-
 import orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage;
-
 import orgomg.cwm.management.warehouseprocess.WarehouseprocessPackage;
-
 import orgomg.cwm.objectmodel.behavioral.BehavioralPackage;
-
 import orgomg.cwm.objectmodel.core.CorePackage;
-
 import orgomg.cwm.objectmodel.instance.InstancePackage;
-
 import orgomg.cwm.objectmodel.relationships.RelationshipsPackage;
-
 import orgomg.cwm.resource.multidimensional.MultidimensionalPackage;
-
 import orgomg.cwm.resource.record.RecordPackage;
-
 import orgomg.cwm.resource.relational.RelationalPackage;
-
 import orgomg.cwm.resource.xml.XmlPackage;
-
 import orgomg.cwmmip.CwmmipPackage;
-
 import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
-
 import orgomg.cwmx.analysis.informationset.InformationsetPackage;
-
 import orgomg.cwmx.foundation.er.ErPackage;
-
 import orgomg.cwmx.resource.coboldata.CoboldataPackage;
-
 import orgomg.cwmx.resource.dmsii.DmsiiPackage;
-
 import orgomg.cwmx.resource.essbase.EssbasePackage;
-
 import orgomg.cwmx.resource.express.ExpressPackage;
-
 import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
-
 import orgomg.mof.model.ModelPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
  * @generated
  */
 public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EEnum sqlRelationalOperatorEEnum = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EEnum sqlCompoundConditionEEnum = null;
+    private EEnum sqlPredicateEEnum = null;
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum sqlLogicalOperatorEEnum = null;
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     private EEnum bracketEEnum = null;
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum sqlKeywordEEnum = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -264,8 +224,8 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EEnum getSqlRelationalOperator() {
-        return sqlRelationalOperatorEEnum;
+    public EEnum getSqlPredicate() {
+        return sqlPredicateEEnum;
     }
 
     /**
@@ -273,8 +233,8 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EEnum getSqlCompoundCondition() {
-        return sqlCompoundConditionEEnum;
+    public EEnum getSqlLogicalOperator() {
+        return sqlLogicalOperatorEEnum;
     }
 
     /**
@@ -284,6 +244,15 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
      */
     public EEnum getBracket() {
         return bracketEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getSqlKeyword() {
+        return sqlKeywordEEnum;
     }
 
     /**
@@ -314,9 +283,10 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         isCreated = true;
 
         // Create enums
-        sqlRelationalOperatorEEnum = createEEnum(SQL_RELATIONAL_OPERATOR);
-        sqlCompoundConditionEEnum = createEEnum(SQL_COMPOUND_CONDITION);
+        sqlPredicateEEnum = createEEnum(SQL_PREDICATE);
+        sqlLogicalOperatorEEnum = createEEnum(SQL_LOGICAL_OPERATOR);
         bracketEEnum = createEEnum(BRACKET);
+        sqlKeywordEEnum = createEEnum(SQL_KEYWORD);
     }
 
     /**
@@ -343,24 +313,29 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         setNsURI(eNS_URI);
 
         // Initialize enums and add enum literals
-        initEEnum(sqlRelationalOperatorEEnum, SqlRelationalOperator.class, "SqlRelationalOperator");
-        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.EQUAL);
-        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.NOT_EQUAL);
-        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.GREATER);
-        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.LESS);
-        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.GREATER_EQUAL);
-        addEEnumLiteral(sqlRelationalOperatorEEnum, SqlRelationalOperator.LESS_EQUAL);
+        initEEnum(sqlPredicateEEnum, SqlPredicate.class, "SqlPredicate");
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.EQUAL);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.NOT_EQUAL);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.GREATER);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.LESS);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.GREATER_EQUAL);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.LESS_EQUAL);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IS);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.BETWEEN);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.LIKE);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IN);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.NOT_EQUAL2);
 
-        initEEnum(sqlCompoundConditionEEnum, SqlCompoundCondition.class, "SqlCompoundCondition");
-        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.AND);
-        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.OR);
-        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.LIKE);
-        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.IN);
-        addEEnumLiteral(sqlCompoundConditionEEnum, SqlCompoundCondition.BETWEEN);
+        initEEnum(sqlLogicalOperatorEEnum, SqlLogicalOperator.class, "SqlLogicalOperator");
+        addEEnumLiteral(sqlLogicalOperatorEEnum, SqlLogicalOperator.AND);
+        addEEnumLiteral(sqlLogicalOperatorEEnum, SqlLogicalOperator.OR);
+        addEEnumLiteral(sqlLogicalOperatorEEnum, SqlLogicalOperator.NOT);
 
         initEEnum(bracketEEnum, Bracket.class, "Bracket");
         addEEnumLiteral(bracketEEnum, Bracket.LEFT);
         addEEnumLiteral(bracketEEnum, Bracket.RIGHT);
-    }
 
-} //SQLPackageImpl
+        initEEnum(sqlKeywordEEnum, SqlKeyword.class, "SqlKeyword");
+        addEEnumLiteral(sqlKeywordEEnum, SqlKeyword.NULL);
+    }
+} // SQLPackageImpl

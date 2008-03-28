@@ -22,7 +22,10 @@ import org.talend.dataquality.analysis.category.AnalysisCategories;
 import org.talend.dataquality.analysis.category.util.CategorySwitch;
 
 /**
- * DOC scorreia class global comment. Detailled comment
+ * @author scorreia
+ * 
+ * This class is a handler for the categories of analysis. A tree structure of categories is loaded from a configuration
+ * file.
  */
 public final class CategoryHandler {
 
@@ -30,20 +33,6 @@ public final class CategoryHandler {
 
     private static AnalysisCategories analysisCategories;
 
-    /**
-     * DOC scorreia Comment method "main".
-     * 
-     * @param args
-     */
-    public static void main(String[] args) {
-        System.out.println("nb cat = " + getAnalysisCategories().getCategories().size());
-    }
-
-    /**
-     * DOC scorreia Comment method "loadFromFile".
-     * 
-     * @return
-     */
     private static AnalysisCategories loadFromFile() {
         EMFUtil util = new EMFUtil();
         String pathName = "/org.talend.cwm.management/My.category";
@@ -54,6 +43,10 @@ public final class CategoryHandler {
             return null;
         }
         EList<EObject> contents = catFile.getContents();
+        if (contents == null) {
+            log.error("No category found in given resource: " + uri);
+            return null;
+        }
         CategorySwitch<AnalysisCategories> catSwitch = new CategorySwitch<AnalysisCategories>() {
 
             @Override

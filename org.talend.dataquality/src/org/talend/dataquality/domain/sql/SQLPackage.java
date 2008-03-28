@@ -58,25 +58,24 @@ public interface SQLPackage extends EPackage {
     SQLPackage eINSTANCE = org.talend.dataquality.domain.sql.impl.SQLPackageImpl.init();
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.domain.sql.SqlRelationalOperator <em>Sql Relational Operator</em>}' enum.
+     * The meta object id for the '{@link org.talend.dataquality.domain.sql.SqlPredicate <em>Sql Predicate</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.dataquality.domain.sql.SqlRelationalOperator
-     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlRelationalOperator()
+     * @see org.talend.dataquality.domain.sql.SqlPredicate
+     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlPredicate()
      * @generated
      */
-    int SQL_RELATIONAL_OPERATOR = 0;
-
+    int SQL_PREDICATE = 0;
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.domain.sql.SqlCompoundCondition <em>Sql Compound Condition</em>}' enum.
+     * The meta object id for the '{@link org.talend.dataquality.domain.sql.SqlLogicalOperator <em>Sql Logical Operator</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.dataquality.domain.sql.SqlCompoundCondition
-     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlCompoundCondition()
+     * @see org.talend.dataquality.domain.sql.SqlLogicalOperator
+     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlLogicalOperator()
      * @generated
      */
-    int SQL_COMPOUND_CONDITION = 1;
+    int SQL_LOGICAL_OPERATOR = 1;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.domain.sql.Bracket <em>Bracket</em>}' enum.
@@ -90,24 +89,35 @@ public interface SQLPackage extends EPackage {
 
 
     /**
-     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlRelationalOperator <em>Sql Relational Operator</em>}'.
+     * The meta object id for the '{@link org.talend.dataquality.domain.sql.SqlKeyword <em>Sql Keyword</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for enum '<em>Sql Relational Operator</em>'.
-     * @see org.talend.dataquality.domain.sql.SqlRelationalOperator
+     * @see org.talend.dataquality.domain.sql.SqlKeyword
+     * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlKeyword()
      * @generated
      */
-    EEnum getSqlRelationalOperator();
+    int SQL_KEYWORD = 3;
+
 
     /**
-     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlCompoundCondition <em>Sql Compound Condition</em>}'.
+     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlPredicate <em>Sql Predicate</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for enum '<em>Sql Compound Condition</em>'.
-     * @see org.talend.dataquality.domain.sql.SqlCompoundCondition
+     * @return the meta object for enum '<em>Sql Predicate</em>'.
+     * @see org.talend.dataquality.domain.sql.SqlPredicate
      * @generated
      */
-    EEnum getSqlCompoundCondition();
+    EEnum getSqlPredicate();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlLogicalOperator <em>Sql Logical Operator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Sql Logical Operator</em>'.
+     * @see org.talend.dataquality.domain.sql.SqlLogicalOperator
+     * @generated
+     */
+    EEnum getSqlLogicalOperator();
 
     /**
      * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.Bracket <em>Bracket</em>}'.
@@ -118,6 +128,16 @@ public interface SQLPackage extends EPackage {
      * @generated
      */
     EEnum getBracket();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.domain.sql.SqlKeyword <em>Sql Keyword</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Sql Keyword</em>'.
+     * @see org.talend.dataquality.domain.sql.SqlKeyword
+     * @generated
+     */
+    EEnum getSqlKeyword();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -142,23 +162,23 @@ public interface SQLPackage extends EPackage {
      */
     interface Literals {
         /**
-         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.SqlRelationalOperator <em>Sql Relational Operator</em>}' enum.
+         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.SqlPredicate <em>Sql Predicate</em>}' enum.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.dataquality.domain.sql.SqlRelationalOperator
-         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlRelationalOperator()
+         * @see org.talend.dataquality.domain.sql.SqlPredicate
+         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlPredicate()
          * @generated
          */
-        EEnum SQL_RELATIONAL_OPERATOR = eINSTANCE.getSqlRelationalOperator();
+        EEnum SQL_PREDICATE = eINSTANCE.getSqlPredicate();
         /**
-         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.SqlCompoundCondition <em>Sql Compound Condition</em>}' enum.
+         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.SqlLogicalOperator <em>Sql Logical Operator</em>}' enum.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.dataquality.domain.sql.SqlCompoundCondition
-         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlCompoundCondition()
+         * @see org.talend.dataquality.domain.sql.SqlLogicalOperator
+         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlLogicalOperator()
          * @generated
          */
-        EEnum SQL_COMPOUND_CONDITION = eINSTANCE.getSqlCompoundCondition();
+        EEnum SQL_LOGICAL_OPERATOR = eINSTANCE.getSqlLogicalOperator();
         /**
          * The meta object literal for the '{@link org.talend.dataquality.domain.sql.Bracket <em>Bracket</em>}' enum.
          * <!-- begin-user-doc -->
@@ -168,6 +188,15 @@ public interface SQLPackage extends EPackage {
          * @generated
          */
         EEnum BRACKET = eINSTANCE.getBracket();
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.domain.sql.SqlKeyword <em>Sql Keyword</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.domain.sql.SqlKeyword
+         * @see org.talend.dataquality.domain.sql.impl.SQLPackageImpl#getSqlKeyword()
+         * @generated
+         */
+        EEnum SQL_KEYWORD = eINSTANCE.getSqlKeyword();
 
     }
 

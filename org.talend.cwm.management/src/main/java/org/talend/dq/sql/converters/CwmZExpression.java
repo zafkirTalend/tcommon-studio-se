@@ -13,7 +13,7 @@
 package org.talend.dq.sql.converters;
 
 import org.talend.cwm.helper.ColumnHelper;
-import org.talend.dataquality.domain.sql.SqlRelationalOperator;
+import org.talend.dataquality.domain.sql.SqlPredicate;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.expressions.ExpressionsFactory;
 
@@ -33,7 +33,7 @@ import Zql.ZExpression;
  */
 public class CwmZExpression<T> {
 
-    private SqlRelationalOperator operator;
+    private SqlPredicate operator;
 
     private Column column1;
 
@@ -41,7 +41,7 @@ public class CwmZExpression<T> {
 
     private T instance;
 
-    public CwmZExpression(SqlRelationalOperator op) {
+    public CwmZExpression(SqlPredicate op) {
         assert op != null : "null operator given";
         this.operator = op;
     }

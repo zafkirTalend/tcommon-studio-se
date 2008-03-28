@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="__kJ2QMgREdyG0LgpY5XOwg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_Nwj_4PQrEdyubdWj5a9KaA">
   <model href="dataquality.ecore#/"/>
   <subdiagrams xmi:id="_NJJ5YMROEdybWP_3i664pg">
     <model href="dataquality.ecore#//indicators"/>
@@ -3984,84 +3984,99 @@
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Nwj_4fQrEdyubdWj5a9KaA" presentation="org.topcased.modeler.ecore.ediagram">
           <element href="dataquality.ecore#//domain/sql"/>
         </semanticModel>
-        <contained xsi:type="di:GraphNode" xmi:id="_QH0yMPQrEdyubdWj5a9KaA" position="118,60" size="150,-1">
+        <contained xsi:type="di:GraphNode" xmi:id="_QH0yMPQrEdyubdWj5a9KaA" position="61,24" size="150,-1">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_QH0yMfQrEdyubdWj5a9KaA" presentation="default">
-            <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator"/>
+            <element href="dataquality.ecore#//domain/sql/SqlPredicate"/>
           </semanticModel>
           <contained xsi:type="di:GraphNode" xmi:id="_QH0yMvQrEdyubdWj5a9KaA">
             <property xmi:id="_QH0yM_QrEdyubdWj5a9KaA" key="eStructuralFeatureID" value="9"/>
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_QH0yNPQrEdyubdWj5a9KaA" presentation="default">
-              <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator"/>
+              <element href="dataquality.ecore#//domain/sql/SqlPredicate"/>
             </semanticModel>
             <contained xsi:type="di:GraphNode" xmi:id="_XI3MAPQrEdyubdWj5a9KaA" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_XI3MAfQrEdyubdWj5a9KaA" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator/EQUAL"/>
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/EQUAL"/>
               </semanticModel>
             </contained>
             <contained xsi:type="di:GraphNode" xmi:id="_gY_6oPQrEdyubdWj5a9KaA" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gY_6ofQrEdyubdWj5a9KaA" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator/NOT_EQUAL"/>
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/NOT_EQUAL"/>
               </semanticModel>
             </contained>
             <contained xsi:type="di:GraphNode" xmi:id="_1xVKIPQrEdyubdWj5a9KaA" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_1xVKIfQrEdyubdWj5a9KaA" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER"/>
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/GREATER"/>
               </semanticModel>
             </contained>
             <contained xsi:type="di:GraphNode" xmi:id="_3w08sPQrEdyubdWj5a9KaA" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3w08sfQrEdyubdWj5a9KaA" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS"/>
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/LESS"/>
               </semanticModel>
             </contained>
             <contained xsi:type="di:GraphNode" xmi:id="_9ehfUPQrEdyubdWj5a9KaA" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_9ehfUfQrEdyubdWj5a9KaA" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator/GREATER_EQUAL"/>
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/GREATER_EQUAL"/>
               </semanticModel>
             </contained>
             <contained xsi:type="di:GraphNode" xmi:id="_CU1G8vQsEdyubdWj5a9KaA" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_CU1G8_QsEdyubdWj5a9KaA" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlRelationalOperator/LESS_EQUAL"/>
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/LESS_EQUAL"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_RRZ5oPygEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_RRZ5ofygEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/IS"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_ZLIO8PygEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_ZLIO8fygEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/LIKE"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_ZiY4YPygEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_ZiY4YfygEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/IN"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_Z8k6APygEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Z8k6AfygEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/BETWEEN"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_xTJF4PyiEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_xTJF4fyiEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/NOT_EQUAL2"/>
               </semanticModel>
             </contained>
           </contained>
         </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_hrrBAPwOEdyaC-R3HxpFbg" position="458,54" size="150,-1">
+        <contained xsi:type="di:GraphNode" xmi:id="_hrrBAPwOEdyaC-R3HxpFbg" position="394,25" size="150,-1">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_hrrBAfwOEdyaC-R3HxpFbg" presentation="default">
-            <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition"/>
+            <element href="dataquality.ecore#//domain/sql/SqlLogicalOperator"/>
           </semanticModel>
           <contained xsi:type="di:GraphNode" xmi:id="_hrrBAvwOEdyaC-R3HxpFbg">
             <property xmi:id="_hrrBA_wOEdyaC-R3HxpFbg" key="eStructuralFeatureID" value="9"/>
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_hrrBBPwOEdyaC-R3HxpFbg" presentation="default">
-              <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition"/>
+              <element href="dataquality.ecore#//domain/sql/SqlLogicalOperator"/>
             </semanticModel>
             <contained xsi:type="di:GraphNode" xmi:id="_j-5A0PwOEdyaC-R3HxpFbg" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_j-5A0fwOEdyaC-R3HxpFbg" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition/AND"/>
+                <element href="dataquality.ecore#//domain/sql/SqlLogicalOperator/AND"/>
               </semanticModel>
             </contained>
             <contained xsi:type="di:GraphNode" xmi:id="_l58YQvwOEdyaC-R3HxpFbg" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_l58_UPwOEdyaC-R3HxpFbg" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition/OR"/>
+                <element href="dataquality.ecore#//domain/sql/SqlLogicalOperator/OR"/>
               </semanticModel>
             </contained>
-            <contained xsi:type="di:GraphNode" xmi:id="_5H4z0PwOEdyaC-R3HxpFbg" position="0,0" size="-1,-1">
-              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_5H4z0fwOEdyaC-R3HxpFbg" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition/LIKE"/>
-              </semanticModel>
-            </contained>
-            <contained xsi:type="di:GraphNode" xmi:id="_5gv_wPwOEdyaC-R3HxpFbg" position="0,0" size="-1,-1">
-              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_5gv_wfwOEdyaC-R3HxpFbg" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition/IN"/>
-              </semanticModel>
-            </contained>
-            <contained xsi:type="di:GraphNode" xmi:id="_Et0VIvwPEdyaC-R3HxpFbg" position="0,0" size="-1,-1">
-              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Et0VI_wPEdyaC-R3HxpFbg" presentation="default">
-                <element href="dataquality.ecore#//domain/sql/SqlCompoundCondition/BETWEEN"/>
+            <contained xsi:type="di:GraphNode" xmi:id="_iYdhMvygEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_iYdhM_ygEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlLogicalOperator/NOT"/>
               </semanticModel>
             </contained>
           </contained>
         </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_O9CiMPwPEdyaC-R3HxpFbg" position="282,89" size="150,-1">
+        <contained xsi:type="di:GraphNode" xmi:id="_O9CiMPwPEdyaC-R3HxpFbg" position="227,23" size="150,-1">
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_O9CiMfwPEdyaC-R3HxpFbg" presentation="default">
             <element href="dataquality.ecore#//domain/sql/Bracket"/>
           </semanticModel>
@@ -4078,6 +4093,22 @@
             <contained xsi:type="di:GraphNode" xmi:id="_Y6u6YPwPEdyaC-R3HxpFbg" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y6u6YfwPEdyaC-R3HxpFbg" presentation="default">
                 <element href="dataquality.ecore#//domain/sql/Bracket/RIGHT"/>
+              </semanticModel>
+            </contained>
+          </contained>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_pMNF4PygEdyWuvo4OLvIoQ" position="578,38" size="150,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_pMNF4fygEdyWuvo4OLvIoQ" presentation="default">
+            <element href="dataquality.ecore#//domain/sql/SqlKeyword"/>
+          </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_pMNF4vygEdyWuvo4OLvIoQ">
+            <property xmi:id="_pMNF4_ygEdyWuvo4OLvIoQ" key="eStructuralFeatureID" value="9"/>
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_pMNF5PygEdyWuvo4OLvIoQ" presentation="default">
+              <element href="dataquality.ecore#//domain/sql/SqlKeyword"/>
+            </semanticModel>
+            <contained xsi:type="di:GraphNode" xmi:id="_q4fokPygEdyWuvo4OLvIoQ" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_q4fokfygEdyWuvo4OLvIoQ" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlKeyword/NULL"/>
               </semanticModel>
             </contained>
           </contained>

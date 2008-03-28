@@ -32,7 +32,7 @@ import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.DomainFactory;
 import org.talend.dataquality.domain.RangeRestriction;
-import org.talend.dataquality.domain.sql.SqlRelationalOperator;
+import org.talend.dataquality.domain.sql.SqlPredicate;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
@@ -133,7 +133,7 @@ public class TestAnalysisCreation {
      * @return
      */
     private static BooleanExpressionNode getExpression(Column column) {
-        CwmZExpression<String> expre = new CwmZExpression<String>(SqlRelationalOperator.EQUAL);
+        CwmZExpression<String> expre = new CwmZExpression<String>(SqlPredicate.EQUAL);
         expre.setOperands(column, "sunny");
         return expre.generateExpressions();
     }
