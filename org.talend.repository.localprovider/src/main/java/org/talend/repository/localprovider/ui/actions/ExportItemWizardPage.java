@@ -293,7 +293,9 @@ class ExportItemWizardPage extends WizardPage {
         }
 
         try {
-            new ExportItemUtil().exportItems(new File(lastPath), items);
+            ExportItemUtil exportItemUtil = new ExportItemUtil();
+            items = exportItemUtil.getAllVersions(items);
+			exportItemUtil.exportItems(new File(lastPath), items);
         } catch (Exception e) {
             MessageBoxExceptionHandler.process(e);
         }
