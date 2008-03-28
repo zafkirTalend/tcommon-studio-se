@@ -39,6 +39,8 @@ public class ConnectionParameters {
     private String connectionDescription;
     
     private String connectionTypeForANA;
+    
+    private boolean isReady = false;
 
     /**
      * The path where to store the connection.
@@ -165,5 +167,23 @@ public class ConnectionParameters {
      */
     public void setConnectionTypeForANA(String connectionTypeForANA) {
         this.connectionTypeForANA = connectionTypeForANA;
+    }
+
+    
+    /**
+     * Getter for isReady.
+     * @return the isReady
+     */
+    public boolean isReady() {
+        return this.isReady;
+    }
+
+    
+    /**
+     * Sets the isReady.
+     * @param isReady the isReady to set
+     */
+    public void setReady(boolean isReady) {
+        this.isReady = isReady;
     }
 }
