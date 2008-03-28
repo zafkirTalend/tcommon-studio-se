@@ -16,13 +16,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
+import org.talend.cwm.relational.util.RelationalSwitch;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.QueryColumnSet;
+import orgomg.cwm.resource.relational.Table;
+import orgomg.cwm.resource.relational.View;
 
 /**
  * @author scorreia
@@ -97,6 +106,81 @@ public class ColumnSetHelper {
             return res;
         }
         return SwitchHelpers.SCHEMA_SWITCH.doSwitch(element.getNamespace());
+    }
+
+    /**
+     * Method "fillColumnSets". TODO scorreia this method has not been tested yet!!
+     * 
+     * @param <T> the type of elements to find (either Table, View, ColumnSet)
+     * @param catalog the catalog if the tables are stored directly in catalog (or null)
+     * @param schema the schema if the tables are stored directly in schema (or null)
+     * @param output the list of searched elements (Tables, TdTables....)
+     * @param tClassifierId the the classifierId of the searched elements (e.g. {@link RelationalPackage#TD_VIEW})
+     * @return true if elements have been found and potentially added to the output list.
+     */
+    public static <T extends ColumnSet> boolean fillColumnSets(TdCatalog catalog, TdSchema schema,
+            Collection<T> output, final int tClassifierId) {
+        // --- precondition
+        if (catalog == null && schema == null) {
+            return false;
+        }
+
+        RelationalSwitch<T> relationalSwitch = new RelationalSwitch<T>() {
+
+            @Override
+            protected T doSwitch(int classifierID, EObject theEObject) {
+                if (theEObject.eClass().getClassifierID() != tClassifierId) {
+                    return null;
+                } else {
+                    return super.doSwitch(classifierID, theEObject);
+                }
+            }
+
+            @Override
+            public T caseColumnSet(ColumnSet object) {
+                return castObject(object);
+            }
+
+            @Override
+            public T caseTable(Table object) {
+                return castObject(object);
+            }
+
+            @Override
+            public T caseTdTable(TdTable object) {
+                return castObject(object);
+            }
+
+            @Override
+            public T caseTdView(TdView object) {
+                return castObject(object);
+            }
+
+            @Override
+            public T caseView(View object) {
+                return castObject(object);
+            }
+
+            @SuppressWarnings("unchecked")
+            private T castObject(Object object) {
+                return (T) object;
+            }
+
+        };
+
+        EList<ModelElement> elements = (schema != null) ? schema.getOwnedElement() : catalog.getOwnedElement();
+        if (elements.isEmpty()) {
+            // no element found
+            return false;
+        }
+        for (EObject elt : elements) {
+            T columnSet = relationalSwitch.doSwitch(elt);
+            if (columnSet != null) {
+                output.add(columnSet);
+            }
+        }
+        return true;
+
     }
 
     /**

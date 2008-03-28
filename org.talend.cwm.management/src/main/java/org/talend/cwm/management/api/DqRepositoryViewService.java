@@ -51,6 +51,7 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.NamedColumnSet;
@@ -122,6 +123,57 @@ public final class DqRepositoryViewService {
             }
         }
         return providers;
+    }
+
+    /**
+     * Method "refreshDataProvider" reload database structure. Existing elements (catalogs, tables...) must not be
+     * replaced by new elements. Only their content must be updated because these elements can be refered to by
+     * analysis.
+     * 
+     * @param dataProvider
+     * @param catalogPattern the catalogs to load (can be null, meaning all are loaded)
+     * @param schemaPattern the schema to load (can be null, meaning all are loaded)
+     * @return true if the catalog have been reload
+     */
+    public static boolean refreshDataProvider(TdDataProvider dataProvider, String catalogPattern, String schemaPattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshTables".
+     * 
+     * @param schema
+     * @param tablePattern
+     * @return
+     */
+    public static boolean refreshTables(Package schema, String tablePattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshViews".
+     * 
+     * @param schema
+     * @param viewPattern
+     * @return
+     */
+    public static boolean refreshViews(Package schema, String viewPattern) {
+        // TODO scorreia implement me
+        return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshColumns".
+     * 
+     * @param table
+     * @param columnPattern
+     * @return
+     */
+    public static boolean refreshColumns(ColumnSet table, String columnPattern) {
+        // TODO scorreia implement me
+        return false;
     }
 
     /**

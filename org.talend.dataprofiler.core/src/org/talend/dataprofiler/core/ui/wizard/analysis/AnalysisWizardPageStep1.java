@@ -21,24 +21,25 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage;
-import org.talend.dataquality.analysis.AnalysisType;
-
 
 /**
  * @author zqin
- *
+ * 
  */
 public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
 
     private Text typeText;
 
-    public AnalysisWizardPageStep1(ConnectionParameters property, IPath destinationPath, boolean readOnly, boolean editPath){
+    public AnalysisWizardPageStep1(ConnectionParameters property, IPath destinationPath, boolean readOnly,
+            boolean editPath) {
         super("WizardPage", property, destinationPath, readOnly, editPath);
         setTitle("New Analysis");
-        setDescription("Add a Analysis in the repository Optionnaly the analysis can be added on a report");
+        setDescription("Adds an analysis in the repository.");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage#createControl(org.eclipse.swt.widgets.Composite)
      */
     @Override
@@ -47,32 +48,34 @@ public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout gdLayout = new GridLayout(2, false);
         container.setLayout(gdLayout);
-        
+
         super.createControl(container);
-        
+
         Label typeLabel = new Label(container, SWT.NONE);
         typeLabel.setText("Type");
-        
+
         typeText = new Text(container, SWT.BORDER);
-        
+
         GridData dataForTypeText = new GridData();
         dataForTypeText.widthHint = 200;
-        typeText.setLayoutData(dataForTypeText);      
+        typeText.setLayoutData(dataForTypeText);
         typeText.setEnabled(false);
-        
+
         setControl(container);
         addListeners();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
      */
     @Override
     public void setVisible(boolean visible) {
-        
+
         if (connectionParams.getConnectionTypeForANA() != null) {
             typeText.setText(connectionParams.getConnectionTypeForANA());
         }
         super.setVisible(visible);
-    }        
+    }
 }

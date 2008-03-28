@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dq.analysis.category;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -33,11 +35,23 @@ public final class CategoryHandler {
 
     private static AnalysisCategories analysisCategories;
 
+    private CategoryHandler() {
+    }
+
     private static AnalysisCategories loadFromFile() {
         EMFUtil util = new EMFUtil();
         String pathName = "/org.talend.cwm.management/My.category";
         URI uri = URI.createPlatformPluginURI(pathName, false);
-        Resource catFile = util.getResourceSet().getResource(uri, true);
+        Resource catFile = null;
+        try {
+            catFile = util.getResourceSet().getResource(uri, true);
+        } catch (RuntimeException e) {
+            log.error(e.getMessage());
+        }
+        if (catFile == null) {
+            // try to load from a local file
+            catFile = util.getResourceSet().getResource(URI.createFileURI(".." + File.separator + pathName), true);
+        }
         if (catFile == null) {
             log.error("No resource found at " + pathName + " URI= " + uri);
             return null;
