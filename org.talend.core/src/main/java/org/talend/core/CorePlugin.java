@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.core;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -45,6 +49,8 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public static final String PROJECT_LANGUAGE_TYPE = "PROJECT_LANGUAGE_TYPE";
 
+    private static Logger logger = Logger.getLogger(CorePlugin.class);
+    
     // The shared instance
     private static CorePlugin plugin;
 
@@ -74,9 +80,13 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     @Override
     public void stop(BundleContext contextP) throws Exception {
-        ECodeLanguage lan = LanguageManager.getCurrentLanguage();
-        getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
-        plugin = null;
+        try {
+            ECodeLanguage lan = LanguageManager.getCurrentLanguage();
+            getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
+            plugin = null;
+        } catch (RuntimeException e) {
+            logger.log(Priority.DEBUG, e.getMessage(), e);
+        }
         super.stop(contextP);
     }
 
