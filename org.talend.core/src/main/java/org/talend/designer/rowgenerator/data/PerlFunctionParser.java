@@ -25,15 +25,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.Content;
 import org.talend.commons.utils.data.container.ContentList;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.IRoutineSynchronizer;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
@@ -60,7 +68,9 @@ public class PerlFunctionParser extends AbstractFunctionParser {
         // TODO find a better way to find routine files
 
         try {
-
+            ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
+            IRoutineSynchronizer routineSynchronizer = service.createRoutineSynchronizer();
+            
             RootContainer<String, IRepositoryObject> routineContainer = factory.getRoutine();
             ContentList<String, IRepositoryObject> routineAbsoluteMembers = routineContainer.getAbsoluteMembers();
             final List<Container<String, IRepositoryObject>> subContainer = routineContainer.getSubContainer();
@@ -68,19 +78,19 @@ public class PerlFunctionParser extends AbstractFunctionParser {
                 if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
                     final List<IRepositoryObject> members = container.getMembers();
                     for (IRepositoryObject object : members) {
-                        URI uri = CommonPlugin.asLocalURI(object.getProperty().getItem().eResource().getURI());
-                        final String[] segments = uri.segments();
-                        systems.add(segments[segments.length - 1].replace(".properties", ".item"));
+                        IFile routineFile = getRoutineFile(routineSynchronizer, object);
+                        if (routineFile != null) {
+                            systems.add(routineFile.getLocation().toOSString());
+                        }
                     }
                 }
             }
             for (Content<String, IRepositoryObject> object : routineAbsoluteMembers.values()) {
                 IRepositoryObject routine = (IRepositoryObject) object.getContent();
-                URI uri = CommonPlugin.asLocalURI(routine.getProperty().getItem().eResource().getURI());
-                String filePath = uri.devicePath().replaceAll("%20", " "); // to fix URI bug
-                filePath = filePath.replace(".properties", ".item");
-
-                filesList.add(new File(filePath));
+                IFile routineFile = getRoutineFile(routineSynchronizer, routine);
+                if (routineFile != null) {
+                    filesList.add(new File(routineFile.getLocation().toOSString()));
+                }
 
                 // String completePath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
                 // + IPath.SEPARATOR + factory.getRoutine().getPath().toString();
@@ -95,6 +105,17 @@ public class PerlFunctionParser extends AbstractFunctionParser {
         }
 
         this.files = filesList.toArray(new File[filesList.size()]);
+    }
+
+    private IFile getRoutineFile(IRoutineSynchronizer routineSynchronizer, IRepositoryObject object)
+            throws SystemException {
+        Item item = object.getProperty().getItem();
+        if (item.eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
+            RoutineItem routineItem = (RoutineItem) item;
+            routineSynchronizer.syncRoutine(routineItem, true);
+            return routineSynchronizer.getRoutineFile(routineItem);
+        }
+        return null;
     }
 
     public void parse() {
