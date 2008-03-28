@@ -23,8 +23,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.model.SupportDBUrlStore;
-import org.talend.dataprofiler.core.model.SupportDBUrlType;
+import org.talend.dataprofiler.core.model.dburl.SupportDBUrlStore;
+import org.talend.dataprofiler.core.model.dburl.SupportDBUrlType;
 
 /**
  * 

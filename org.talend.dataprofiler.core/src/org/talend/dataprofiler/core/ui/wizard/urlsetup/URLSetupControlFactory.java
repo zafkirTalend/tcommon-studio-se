@@ -13,7 +13,7 @@
 package org.talend.dataprofiler.core.ui.wizard.urlsetup;
 
 import org.eclipse.swt.widgets.Composite;
-import org.talend.dataprofiler.core.model.SupportDBUrlType;
+import org.talend.dataprofiler.core.model.dburl.SupportDBUrlType;
 
 /**
  * 
