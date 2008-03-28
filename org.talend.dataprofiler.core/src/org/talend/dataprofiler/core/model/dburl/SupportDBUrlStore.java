@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.model;
+package org.talend.dataprofiler.core.model.dburl;
 
 import java.io.IOException;
 import java.io.InputStream;
