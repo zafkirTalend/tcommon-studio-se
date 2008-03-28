@@ -44,6 +44,7 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -136,6 +137,13 @@ public class ImportItemUtil {
                     repFactory.initialize();
                 }
 
+                User author = itemRecord.getProperty().getAuthor();
+                if (author != null) {
+                    if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
+                        tmpItem.getProperty().setAuthor(null); //author will be the logged user in create method
+                    }
+                }
+                
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
                 } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
@@ -202,7 +210,6 @@ public class ImportItemUtil {
                             URI uri = null;
                             if (author != null) {
                                 uri = author.eProxyURI();
-                                property.setAuthor(null); // the author will be the one who import items
                             }
 
                             IPath projectFilePath = getValidProjectFilePath(collector, path, uri);
@@ -210,6 +217,9 @@ public class ImportItemUtil {
                                 Project project = computeProject(collector, itemRecord, projectFilePath);
                                 if (checkProject(project, itemRecord)) {
                                     // we can try to import item
+                                    // and we will try to resolve user
+                                    User user = (User) project.eResource().getEObject(uri.fragment());
+                                    property.setAuthor(user);
                                 }
                             } else {
                                 itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$

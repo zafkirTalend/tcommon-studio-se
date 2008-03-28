@@ -1361,4 +1361,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
     }
+
+    public boolean setAuthorByLogin(Item item, String login) throws PersistenceException {
+        IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
+        Resource projectResource = emfProject.eResource();
+        
+        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
+        for (Iterator iter = users.iterator(); iter.hasNext();) {
+            User emfUser = (User) iter.next();
+            if (emfUser.getLogin().equals(login)) {
+                item.getProperty().setAuthor(emfUser);
+                return true;
+            }
+        }
+        return false;
+    }
 }
