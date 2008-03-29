@@ -20,6 +20,9 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.utils.JavaResourcesHelper;
+import org.talend.core.model.utils.PerlResourcesHelper;
+import org.talend.designer.runprocess.JobInfo;
 
 /**
  * Reference to both jobs and its resources.
@@ -31,9 +34,9 @@ import org.talend.core.language.LanguageManager;
  */
 public class JobResource {
 
-    private String jobName;
-
     private String projectName;
+
+    private JobInfo jobInfo;
 
     private IWorkspace workspace;
 
@@ -46,36 +49,10 @@ public class JobResource {
         workspace = ResourcesPlugin.getWorkspace();
     }
 
-    /**
-     * Constructor.
-     * 
-     * yzhang JobResource constructor comment.
-     * 
-     * @param pn project name.
-     * @param jn job name.
-     */
-    public JobResource(String pn, String jn) {
+    public JobResource(String projectName, JobInfo jobInfo) {
         this();
-        jobName = jn.toLowerCase();
-        projectName = pn.toLowerCase();
-    }
-
-    /**
-     * Getter for jobName.
-     * 
-     * @return the jobName
-     */
-    public String getJobName() {
-        return this.jobName;
-    }
-
-    /**
-     * Sets the jobName.
-     * 
-     * @param jobName the jobName to set
-     */
-    public void setJobName(String jobName) {
-        this.jobName = jobName.toLowerCase();
+        this.jobInfo = jobInfo;
+        this.projectName = projectName.toLowerCase();
     }
 
     /**
@@ -102,7 +79,7 @@ public class JobResource {
      * yzhang Comment method "getResourceName".
      */
     public String getUniqueResourceName() {
-        return projectName + "." + jobName;
+        return projectName + "." + jobInfo.getJobName() + "." + jobInfo.getJobVersion();
     }
 
     /**
@@ -118,15 +95,31 @@ public class JobResource {
         IResource res = null;
 
         if (language == ECodeLanguage.JAVA) {
-            res = workspace.getRoot().findMember(".Java/src" + "/" + projectName + "/" + jobName);
+            res = workspace.getRoot().findMember(
+                    ".Java/src" + "/" + projectName + "/"
+                            + JavaResourcesHelper.getJobFolderName(jobInfo.getJobName(), jobInfo.getJobVersion()));
             resources.add(res);
         } else if (language == ECodeLanguage.PERL) {
-            res = workspace.getRoot().findMember(".Perl" + "/" + projectName.toUpperCase() + ".job_" + jobName + ".pl");
-            resources.add(res);
+
             res = workspace.getRoot().findMember(
-                    ".Perl" + "/" + projectName.toUpperCase() + ".job_" + jobName + "_Default.pl");
+                    ".Perl" + "/" + PerlResourcesHelper.getJobFileName(jobInfo.getJobName(), jobInfo.getJobVersion()));
+            resources.add(res);
+
+            res = workspace.getRoot().findMember(
+                    ".Perl"
+                            + "/"
+                            + PerlResourcesHelper.getContextFileName(jobInfo.getJobName(), jobInfo.getJobVersion(), jobInfo
+                                    .getContextName()));
             resources.add(res);
         }
         return resources;
+    }
+
+    public JobInfo getJobInfo() {
+        return this.jobInfo;
+    }
+
+    public void setJobInfo(JobInfo jobInfo) {
+        this.jobInfo = jobInfo;
     }
 }

@@ -14,12 +14,13 @@ package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
@@ -35,7 +36,8 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.core.model.utils.emf.talendfile.JobType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -57,6 +59,8 @@ public class ProcessorUtilities {
 
     private static boolean exportConfig = false;
 
+    public static final String LATEST_JOB_VERSION = "Latest";
+
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
     public static void addOpenEditor(IEditorPart editor) {
@@ -76,129 +80,63 @@ public class ProcessorUtilities {
     // corresponding to the selected platform.
     public static final String TEMP_JAVA_CLASSPATH_SEPARATOR = "@";
 
-    // this cache will avoid too much access to the repository
-    private static Map<String, ProcessItem> processItemCache = new HashMap<String, ProcessItem>();
-
-    public static ProcessItem getProcessItem(String processName) {
-        return getProcessItem(processName, false);
-    }
-
-    public static ProcessItem getProcessItemByName(String processName) {
-        return getProcessItem(processName, false);
-    }
-
-    public static ProcessItem getProcessItemById(String processId) {
-        return getProcessItem(processId, true);
-    }
-
-    /**
-     * 
-     * ggu Comment method "getProcessItem".
-     * 
-     * @param processNameOrId
-     * @param isId
-     * 
-     * if "isId" equals true. the "processNameOrId" must be id.
-     * 
-     * @return
-     */
-    private static ProcessItem getProcessItem(String processNameOrId, boolean isId) {
-        if (processNameOrId == null || "".equals(processNameOrId)) {
+    public static ProcessItem getProcessItem(String processId) {
+        if (processId == null || "".equals(processId)) {
             return null;
         }
-        ProcessItem selectedProcessItem = null;
-        if (isId) {
-            for (String name : processItemCache.keySet()) {
-                ProcessItem tmpItem = processItemCache.get(name);
-                if (tmpItem != null && tmpItem.getProperty().getId().equals(processNameOrId)) {
-                    selectedProcessItem = tmpItem;
-                }
-            }
-        } else {
-            selectedProcessItem = processItemCache.get(processNameOrId);
-        }
+
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            if (selectedProcessItem != null) {
-                IRepositoryObject object = factory.getLastVersion(selectedProcessItem.getProperty().getId());
-                if (object == null) {
-                    return null;
-                }
-                ProcessItem lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
-                final String label = lastVersionOfProcess.getProperty().getLabel();
-
-                processItemCache.put(label, lastVersionOfProcess);
-                versionsProcessItemCache.put(label + "," + lastVersionOfProcess.getProperty().getVersion(), selectedProcessItem);
-                return lastVersionOfProcess;
+            IRepositoryObject object = factory.getLastVersion(processId);
+            if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
+                return null;
             }
-
-            List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
-
-            for (IRepositoryObject process : list) {
-                if (process.getProperty().getItem() instanceof ProcessItem) {
-                    ProcessItem tmpItem = (ProcessItem) process.getProperty().getItem();
-                    final String label = tmpItem.getProperty().getLabel();
-                    boolean found = false;
-                    if (isId) {
-                        if (tmpItem.getProperty().getId().equals(processNameOrId)) {
-                            found = true;
-                        }
-                    } else {
-                        if (processNameOrId.equals(label)) {
-                            found = true;
-                        }
-                    }
-                    if (found) {
-                        selectedProcessItem = tmpItem;
-
-                        processItemCache.put(label, selectedProcessItem);
-                        versionsProcessItemCache.put(label + "," + selectedProcessItem.getProperty().getVersion(),
-                                selectedProcessItem);
-                        break;
-                    }
-                }
-            }
+            ProcessItem lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
+            versionsProcessItemCache.put(processId + "," + lastVersionOfProcess.getProperty().getVersion(), lastVersionOfProcess);
+            return lastVersionOfProcess;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
-        if (selectedProcessItem != null) {
-            final String label = selectedProcessItem.getProperty().getLabel();
-            processItemCache.put(label, selectedProcessItem);
-            versionsProcessItemCache.put(label + "," + selectedProcessItem.getProperty().getVersion(), selectedProcessItem);
-        }
-        return selectedProcessItem;
+        return null;
     }
 
     private static Map<String, ProcessItem> versionsProcessItemCache = new HashMap<String, ProcessItem>();
 
-    public static ProcessItem getProcessItem(String processName, String version) {
-        if (processName == null || "".equals(processName)) {
+    public static ProcessItem getProcessItem(String processId, String version) {
+        if (processId == null || "".equals(processId)) {
             return null;
         }
-        ProcessItem selectedProcessItem = versionsProcessItemCache.get(processName + "," + version);
+        if (version == null || LATEST_JOB_VERSION.equals(version)) {
+            return getProcessItem(processId);
+        }
+        ProcessItem selectedProcessItem = versionsProcessItemCache.get(processId + "," + version);
+        if (selectedProcessItem != null) {
+            return selectedProcessItem;
+        }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            // if (selectedProcessItem != null) {
-            // return selectedProcessItem;
-            // }
 
-            List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS);
-            for (IRepositoryObject process : list) {
-                if (processName.equals(process.getLabel())) {
-                    if (process.getProperty().getItem() instanceof ProcessItem) {
-                        List<IRepositoryObject> allVersions = factory.getAllVersion(process.getId());
-                        for (IRepositoryObject ro : allVersions) {
-                            if (ro.getVersion().equals(version)) {
-                                selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
-                                versionsProcessItemCache.put(processName + "," + version, selectedProcessItem);
-                                return selectedProcessItem;
-                            }
-                        }
+            List<IRepositoryObject> allVersions = factory.getAllVersion(processId);
+            for (IRepositoryObject ro : allVersions) {
+                if (ro.getType() == ERepositoryObjectType.PROCESS) {
+                    versionsProcessItemCache.put(ro.getProperty().getId() + "," + ro.getProperty().getVersion(), (ProcessItem) ro
+                            .getProperty().getItem());
+                    if (ro.getVersion().equals(version)) {
+                        selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
                     }
                 }
             }
+            return selectedProcessItem;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
+        }
+        return null;
+    }
+
+    public static String getProcessNameByProcessId(String processId) {
+        ProcessItem item = ProcessorUtilities.getProcessItem(processId);
+        if (item != null) {
+            return item.getProperty().getLabel();
         }
         return null;
     }
@@ -274,25 +212,19 @@ public class ProcessorUtilities {
         }
     }
 
-    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option,
-            String... jobVersion) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem;
-        String currentRelatedJobVersion = null;
-        if (jobVersion != null && jobVersion.length == 1 && !jobVersion[0].equals("")) {
-            currentRelatedJobVersion = jobVersion[0];
-        }
 
-        if (jobInfo.getProcess() != null) {
-            // main job
-            // selectedProcessItem = getProcessItem(jobInfo.getJobName(), jobInfo.getProcess().getVersion());
-            selectedProcessItem = getProcessItem(jobInfo.getJobName());
-        } else if (currentRelatedJobVersion != null) {
-            selectedProcessItem = getProcessItem(jobInfo.getJobName(), currentRelatedJobVersion);
-        } else {
-            // child job
-            selectedProcessItem = getProcessItem(jobInfo.getJobName());
+        selectedProcessItem = jobInfo.getProcessItem();
+        if (selectedProcessItem == null) {
+            if (jobInfo.getJobVersion() != null) {
+                selectedProcessItem = getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
+            } else {
+                // child job
+                selectedProcessItem = getProcessItem(jobInfo.getJobId());
+            }
         }
 
         if (selectedProcessItem == null) {
@@ -329,13 +261,8 @@ public class ProcessorUtilities {
                 }
                 processor.setContext(context);
                 try {
-                    processor.generateCode(statistics, trace, properties); // main
-                    // job
-                    // will
-                    // use
-                    // stats
-                    // /
-                    // traces
+                    // main job will use stats / traces
+                    processor.generateCode(statistics, trace, properties);
                 } catch (ProcessorException pe) {
                     MessageBoxExceptionHandler.process(pe);
                 }
@@ -343,49 +270,37 @@ public class ProcessorUtilities {
         }
         processor.setContext(currentContext);
         try {
-            processor.generateCode(statistics, trace, properties); // main job
-            // will use
-            // stats /
-            // traces
+            // main job will use stats / traces
+            processor.generateCode(statistics, trace, properties);
         } catch (ProcessorException pe) {
             MessageBoxExceptionHandler.process(pe);
         }
 
         boolean toReturn = true;
-        if (selectedProcessItem.getProcess().getRequired() != null && (option != GENERATE_MAIN_ONLY)) {
-            EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
-            for (int j = 0; j < emfJobList.size() && toReturn; j++) {
-                JobType jType = (JobType) emfJobList.get(j);
-                JobInfo subJobInfo = new JobInfo(jType);
-                if (jobInfo.isApplyContextToChildren()) {
-                    subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                    subJobInfo.setContextName(jobInfo.getContextName());
-                }
-
-                String relatedJobVersion = "";
-                // ParametersType parameters = selectedProcessItem.getProcess().getParameters();
-                // EList elementParameter = parameters.getElementParameter();
-
-                List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
-                for (INode node : graphicalNodes) {
-                    if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
-                        Element element = (Element) node;
-                        relatedJobVersion = (String) element.getPropertyValue("PROCESS_TYPE_VERSION");
-                        break;
+        if (option != GENERATE_MAIN_ONLY) {
+            List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
+            for (INode node : graphicalNodes) {
+                if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
+                    String jobId = (String) node.getElementParameter("PROCESS_TYPE_PROCESS").getValue();
+                    String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
+                    String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
+                    JobInfo subJobInfo = new JobInfo(jobId, context, version);
+                    if (jobInfo.isApplyContextToChildren()) {
+                        subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
+                        subJobInfo.setContextName(jobInfo.getContextName());
                     }
-                }
 
-                if (!jobList.contains(subJobInfo)) {
-                    // children won't have stats / traces
-                    if (option == GENERATE_WITH_FIRST_CHILD) {
-                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_MAIN_ONLY, relatedJobVersion);
-                    } else {
-                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_ALL_CHILDS, relatedJobVersion);
+                    if (!jobList.contains(subJobInfo)) {
+                        // children won't have stats / traces
+                        if (option == GENERATE_WITH_FIRST_CHILD) {
+                            toReturn = generateCode(subJobInfo, false, false, true, GENERATE_MAIN_ONLY);
+                        } else {
+                            toReturn = generateCode(subJobInfo, false, false, true, GENERATE_ALL_CHILDS);
+                        }
                     }
                 }
             }
         }
-
         return toReturn;
     }
 
@@ -416,10 +331,11 @@ public class ProcessorUtilities {
      * 
      * @param processName
      * @param contextName
+     * @param version null if no specific version required
      */
-    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace) {
+    public static boolean generateCode(String processName, String contextName, String version, boolean statistics, boolean trace) {
         jobList.clear();
-        JobInfo jobInfo = new JobInfo(processName, contextName);
+        JobInfo jobInfo = new JobInfo(processName, contextName, version);
         boolean genCode = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
         jobList.clear();
         return genCode;
@@ -432,11 +348,12 @@ public class ProcessorUtilities {
      * 
      * @param processName
      * @param contextName
+     * @param version null if no specific version required
      */
-    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace,
+    public static boolean generateCode(String processId, String contextName, String version, boolean statistics, boolean trace,
             boolean applyContextToChildren) {
         jobList.clear();
-        JobInfo jobInfo = new JobInfo(processName, contextName);
+        JobInfo jobInfo = new JobInfo(processId, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         generateAllContexts = true;
         boolean result = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
@@ -445,9 +362,26 @@ public class ProcessorUtilities {
         return result;
     }
 
-    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace, int option) {
+    public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace,
+            boolean applyContextToChildren) {
         jobList.clear();
-        JobInfo jobInfo = new JobInfo(processName, contextName);
+        JobInfo jobInfo = new JobInfo(process, contextName);
+        jobInfo.setApplyContextToChildren(applyContextToChildren);
+        generateAllContexts = true;
+        boolean result = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        generateAllContexts = false;
+        jobList.clear();
+        return result;
+    }
+
+    public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace) {
+        return generateCode(process, contextName, statistics, trace, false);
+    }
+
+    public static boolean generateCode(String processId, String contextName, String version, boolean statistics, boolean trace,
+            int option) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(processId, contextName, version);
         boolean genCode = generateCode(jobInfo, statistics, trace, true, option);
         jobList.clear();
         return genCode;
@@ -455,7 +389,7 @@ public class ProcessorUtilities {
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties) {
         jobList.clear();
-        JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
+        JobInfo jobInfo = new JobInfo(process.getId(), context.getName(), process.getVersion());
         jobInfo.setProcess(process);
         jobInfo.setContext(context);
         boolean genCode = false;
@@ -467,9 +401,7 @@ public class ProcessorUtilities {
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
             int option) {
         jobList.clear();
-        JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
-        jobInfo.setProcess(process);
-        jobInfo.setContext(context);
+        JobInfo jobInfo = new JobInfo(process, context);
         boolean genCode = generateCode(jobInfo, statistics, trace, properties, option);
         jobList.clear();
         return genCode;
@@ -491,6 +423,11 @@ public class ProcessorUtilities {
         return getCommandLine(null, externalUse, processName, contextName, statisticPort, tracePort, codeOptions);
     }
 
+    public static String[] getCommandLine(boolean externalUse, String processName, String contextName, String version,
+            int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+        return getCommandLine(null, externalUse, processName, contextName, version, statisticPort, tracePort, codeOptions);
+    }
+
     /**
      * Get the command line to launch the job.
      * 
@@ -504,14 +441,30 @@ public class ProcessorUtilities {
      * @return
      * @throws ProcessorException
      */
-    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processName, String contextName,
+    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+        ProcessItem selectedProcessItem = getProcessItem(processId);
+        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, statisticPort, tracePort,
+                codeOptions);
+    }
+
+    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
+            String version, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+        ProcessItem selectedProcessItem = getProcessItem(processId, version);
+        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, statisticPort, tracePort,
+                codeOptions);
+    }
+
+    public static String[] getCommandLine(String targetPlatform, boolean externalUse, ProcessItem processItem,
+            String contextName, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
-        ProcessItem selectedProcessItem = getProcessItem(processName);
-        if (selectedProcessItem != null) {
-            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-            currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+        IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+
+        if (processItem == null) {
+            return new String[] {};
         }
+        currentProcess = service.getProcessFromProcessItem(processItem);
+
         if (currentProcess == null) {
             return new String[] {};
         }
@@ -525,7 +478,7 @@ public class ProcessorUtilities {
             int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = null;
-        if (processVersion == null || processVersion.equals("")) {
+        if (processVersion == null || processVersion.equals(LATEST_JOB_VERSION)) {
             selectedProcessItem = getProcessItem(processName);
         } else {
             selectedProcessItem = getProcessItem(processName, processVersion);
@@ -562,137 +515,6 @@ public class ProcessorUtilities {
     }
 
     /**
-     * DOC nrousseau ProcessController class global comment. Detailled comment <br/>
-     * 
-     * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
-     * 
-     */
-    private static class JobInfo {
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((contextName == null) ? 0 : contextName.hashCode());
-            result = prime * result + ((jobName == null) ? 0 : jobName.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            final JobInfo other = (JobInfo) obj;
-            if (contextName == null) {
-                if (other.contextName != null) {
-                    return false;
-                }
-            } else if (!contextName.equals(other.contextName)) {
-                return false;
-            }
-            if (jobName == null) {
-                if (other.jobName != null) {
-                    return false;
-                }
-            } else if (!jobName.equals(other.jobName)) {
-                return false;
-            }
-            if (context == null) {
-                if (other.context != null) {
-                    return false;
-                }
-            } else if (!context.equals(other.context)) {
-                return false;
-            }
-            if (process == null) {
-                if (other.process != null) {
-                    return false;
-                }
-            } else if (!process.equals(other.process)) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        public String toString() {
-            return "job:" + jobName + " / context:" + contextName; //$NON-NLS-1$ //$NON-NLS-2$
-        }
-
-        String jobName, contextName;
-
-        IProcess process;
-
-        IContext context;
-
-        boolean applyContextToChildren = false;
-
-        JobInfo(String jobName, String contextName) {
-            this.jobName = jobName;
-            this.contextName = contextName;
-        }
-
-        JobInfo(JobType jobType) {
-            final ProcessItem item = ProcessorUtilities.getProcessItemById(jobType.getName());
-            if (item != null) {
-                this.jobName = item.getProperty().getLabel();
-            } else {
-                this.jobName = null;
-            }
-            this.contextName = jobType.getContext();
-        }
-
-        public String getContextName() {
-            return contextName;
-        }
-
-        public void setContextName(String contextName) {
-            this.contextName = contextName;
-        }
-
-        public String getJobName() {
-            return jobName;
-        }
-
-        public void setJobName(String processName) {
-            this.jobName = processName;
-        }
-
-        public IProcess getProcess() {
-            return process;
-        }
-
-        public void setProcess(IProcess process) {
-            this.process = process;
-        }
-
-        public IContext getContext() {
-            return context;
-        }
-
-        public void setContext(IContext context) {
-            this.context = context;
-        }
-
-        /**
-         * Getter for applyContextToChildren.
-         * 
-         * @return the applyContextToChildren
-         */
-        public boolean isApplyContextToChildren() {
-            return this.applyContextToChildren;
-        }
-
-        /**
-         * Sets the applyContextToChildren.
-         * 
-         * @param applyContextToChildren the applyContextToChildren to set
-         */
-        public void setApplyContextToChildren(boolean applyContextToChildren) {
-            this.applyContextToChildren = applyContextToChildren;
-        }
-
-    }
-
-    /**
      * 
      * ggu Comment method "getAllVersionProcessList".
      * 
@@ -717,4 +539,35 @@ public class ProcessorUtilities {
         return null;
     }
 
+    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem) {
+        Set<JobInfo> jobInfos = new HashSet<JobInfo>();
+        List<NodeType> list = processItem.getProcess().getNode();
+        for (NodeType nodeType : list) {
+            if (nodeType.getComponentName().equals("tRunJob")) { //$NON-NLS-1$
+                String jobId = null, jobContext = null, jobVersion = null;
+
+                for (Object obj : nodeType.getElementParameter()) {
+                    ElementParameterType element = (ElementParameterType) obj;
+                    if (element.getName().contains("PROCESS_TYPE_PROCESS")) {
+                        jobId = element.getValue();
+                    }
+                    if (element.getName().contains("PROCESS_TYPE_CONTEXT")) {
+                        jobContext = element.getValue();
+                    }
+                    if (element.getName().contains("PROCESS_TYPE_VERSION")) {
+                        jobVersion = element.getValue();
+                    }
+                }
+                ProcessItem item = ProcessorUtilities.getProcessItem(jobId, jobVersion);
+                if (item != null) {
+                    JobInfo jobInfo = new JobInfo(item, jobContext);
+                    if (!jobInfos.contains(jobInfo)) {
+                        jobInfos.add(jobInfo);
+                        jobInfos.addAll(getChildrenJobInfo(item));
+                    }
+                }
+            }
+        }
+        return jobInfos;
+    }
 }

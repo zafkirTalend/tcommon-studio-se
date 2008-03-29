@@ -15,7 +15,6 @@ package org.talend.core.model.process;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.gef.commands.CommandStack;
 import org.talend.commons.exception.PersistenceException;
@@ -31,8 +30,6 @@ public interface IProcess2 extends IProcess {
     ProcessType saveXmlFile() throws IOException;
 
     void setPropertyValue(String id, Object value);
-
-    Set<String> getSubJobs(String processName);
 
     void updateProperties();
 
