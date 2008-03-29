@@ -30,7 +30,7 @@ public class PerlResourcesHelper {
 
     private static final String FILE_SUFFIX = ".pl";
 
-    public static final boolean USE_VERSIONING = false;
+    public static final boolean USE_VERSIONING = true;
 
     /**
      * Gets the specific resource in the perl project.
@@ -78,7 +78,7 @@ public class PerlResourcesHelper {
         if (USE_VERSIONING) {
             if (version != null) {
                 version = "_" + version;
-                version = version.replace(".", "_");
+                // version = version.replace(".", "_");
             }
             jobFileName += version;
         }
@@ -92,7 +92,7 @@ public class PerlResourcesHelper {
         if (USE_VERSIONING) {
             if (version != null) {
                 version = "_" + version;
-                version = version.replace(".", "_");
+                // version = version.replace(".", "_");
             }
             contextFileName += version;
         }

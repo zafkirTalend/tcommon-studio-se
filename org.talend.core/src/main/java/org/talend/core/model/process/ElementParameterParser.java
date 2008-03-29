@@ -22,6 +22,7 @@ import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.runprocess.ProcessorUtilities;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -252,6 +253,11 @@ public final class ElementParameterParser {
         Object value = param.getValue();
 
         if (value instanceof String) {
+
+            if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(ProcessorUtilities.LATEST_JOB_VERSION)) {
+                String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue();
+                return ProcessorUtilities.getProcessItem(jobId).getProperty().getVersion();
+            }
             return (String) value;
         }
         if (param.getField() == EParameterFieldType.RADIO || param.getField() == EParameterFieldType.CHECK
