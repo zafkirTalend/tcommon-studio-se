@@ -30,4 +30,5 @@ public final class PluginConstant {
 
     public static final String METADATA_PROJECTNAME = "Metadata";
 
+    public static final String DATA_PROFILING_PROJECTNAME = "Data Profiling";
 }

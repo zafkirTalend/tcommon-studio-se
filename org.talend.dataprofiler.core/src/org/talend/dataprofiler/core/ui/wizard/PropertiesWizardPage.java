@@ -281,10 +281,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         pathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // MODSCA 2008-03-10 use DQStructureManager.DB_CONNECTIONS constant instead of hard coded "Db Connections"
-        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFolder(
-                DQStructureManager.DB_CONNECTIONS);
-        pathText.setText(defaultFolderProviderRes.getFullPath().toString());
-        this.setFolderProvider(defaultFolderProviderRes);
 
         if (editPath) {
             Button button = new Button(pathContainer, SWT.PUSH);
@@ -294,7 +290,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    if (AnalysisType.CONNECTION.getName().equals(connectionParams.getConnectionTypeForANA())) {
+                    if (AnalysisType.CONNECTION.getLiteral().equals(connectionParams.getConnectionTypeForANA())) {
                         openFolderSelectionDialog("Metadata", "DB Connections");
                     } else {
                         openFolderSelectionDialog("Data Profiling", "Analysis");
@@ -549,5 +545,25 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
         return null;
 
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+     */
+    @Override
+    public void setVisible(boolean visible) {
+        if (AnalysisType.CONNECTION.getLiteral().equals(connectionParams.getConnectionTypeForANA())) {
+            defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFolder(
+                    DQStructureManager.DB_CONNECTIONS);
+            pathText.setText(defaultFolderProviderRes.getFullPath().toString());
+        } else {
+            IProject analysisProject = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.DATA_PROFILING_PROJECTNAME);
+            defaultFolderProviderRes = analysisProject.getFolder(DQStructureManager.ANALYSIS);
+            pathText.setText(defaultFolderProviderRes.getFullPath().toString());
+        }
+
+        this.setFolderProvider(defaultFolderProviderRes);
+        // TODO Auto-generated method stub
+        super.setVisible(visible);
     }
 }
