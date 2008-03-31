@@ -71,7 +71,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
      * qwei Comment method "activeSwitchAction".
      */
     public static void activeSwitchAction() {
-        switchProjectAction.setEnabled(true);
+        if (switchProjectAction != null) {
+            switchProjectAction.setEnabled(true);
+        }
+
     }
 
     // private List<IAction> actions = new ArrayList<IAction>();
