@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.composite;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -19,7 +20,9 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -37,23 +40,39 @@ public class AnasisColumnTreeViewer {
 
     private TreeViewer treeView;
 
-    private final Tree tree;
+    private Composite parentComp;
+
+    private Tree tree;
 
     private ColumnIndicator[] tdColumns;
 
-    public AnasisColumnTreeViewer(final Tree tree) {
-        this.tree = tree;
-        tree.setHeaderVisible(false);
-        TreeColumn column1 = new TreeColumn(tree, SWT.CENTER);
+    public AnasisColumnTreeViewer(Composite parent) {
+        parentComp = parent;
+        // this.tree = tree;
+        this.tree = createTree(parent);
+    }
+
+    /**
+     * @param parent
+     */
+    private Tree createTree(Composite parent) {
+        Tree newTree = new Tree(parent, SWT.NONE);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(newTree);
+        ((GridData) newTree.getLayoutData()).heightHint = 300;
+        ((GridData) newTree.getLayoutData()).widthHint = 500;
+        newTree.setHeaderVisible(false);
+        TreeColumn column1 = new TreeColumn(newTree, SWT.CENTER);
         column1.setWidth(160);
-        TreeColumn column2 = new TreeColumn(tree, SWT.CENTER);
+        TreeColumn column2 = new TreeColumn(newTree, SWT.CENTER);
         column2.setWidth(80);
-        TreeColumn column3 = new TreeColumn(tree, SWT.CENTER);
+        TreeColumn column3 = new TreeColumn(newTree, SWT.CENTER);
         column3.setWidth(120);
-        TreeColumn column4 = new TreeColumn(tree, SWT.CENTER);
+        TreeColumn column4 = new TreeColumn(newTree, SWT.CENTER);
         column4.setWidth(120);
-        TreeColumn column5 = new TreeColumn(tree, SWT.CENTER);
+        TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
         column5.setWidth(120);
+        parent.layout();
+        return newTree;
     }
 
     /**
@@ -76,15 +95,17 @@ public class AnasisColumnTreeViewer {
         this.setElements(tdColumns);
     }
 
-    public void setElements(ColumnIndicator[] columnIndicators) {
+    public void setElements(final ColumnIndicator[] columnIndicators) {
+        this.tree.dispose();
+        this.tree = createTree(this.parentComp);
         this.tdColumns = columnIndicators;
-        TreeItem treeItem;
         for (int i = 0; i < columnIndicators.length; i++) {
-            treeItem = new TreeItem(tree, SWT.NONE);
+            final TreeItem treeItem = new TreeItem(tree, SWT.NONE);
 
-            ColumnIndicator columnIndicator = (ColumnIndicator) columnIndicators[i];
+            final ColumnIndicator columnIndicator = (ColumnIndicator) columnIndicators[i];
 
             treeItem.setText(0, columnIndicator.getTdColumn().getName());
+            treeItem.setData(columnIndicator);
 
             TreeEditor editor = new TreeEditor(tree);
             CCombo combo = new CCombo(tree, SWT.BORDER);
@@ -96,16 +117,13 @@ public class AnasisColumnTreeViewer {
             editor.setEditor(combo, treeItem, 1);
 
             editor = new TreeEditor(tree);
-            Button addButton = new Button(tree, SWT.PUSH);
+            Button addButton = new Button(tree, SWT.NONE);
             addButton.setText("Add..");
             addButton.pack();
             editor.minimumWidth = addButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(addButton, treeItem, 2);
             addButton.addSelectionListener(new SelectionAdapter() {
-
-                // public void widgetDefaultSelected(SelectionEvent e) {
-                // }
 
                 public void widgetSelected(SelectionEvent e) {
                     openIndicatorSelectDialog();
@@ -114,7 +132,7 @@ public class AnasisColumnTreeViewer {
             });
 
             editor = new TreeEditor(tree);
-            Button modButton = new Button(tree, SWT.PUSH);
+            Button modButton = new Button(tree, SWT.NONE);
             modButton.setText("Repository");
             modButton.pack();
             editor.minimumWidth = modButton.getSize().x;
@@ -122,22 +140,42 @@ public class AnasisColumnTreeViewer {
             editor.setEditor(modButton, treeItem, 3);
 
             editor = new TreeEditor(tree);
-            Button delButton = new Button(tree, SWT.PUSH);
+            Button delButton = new Button(tree, SWT.NONE);
             delButton.setText("Del");
             delButton.pack();
+
+            delButton.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent e) {
+                    // remove the corresponding columnIndicator object, set the input element with new value to recreate the tree.
+                    ColumnIndicator[] leaves = new ColumnIndicator[columnIndicators.length - 1];
+                    int j = 0;
+                    for (int i = 0; i < columnIndicators.length; i++) {
+                        if (columnIndicators[i] == columnIndicator) {
+                            continue;
+                        }
+                        leaves[j] = columnIndicators[i];
+                        j++;
+                    }
+                    setElements(leaves);
+                }
+
+            });
+
             editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 4);
             if (columnIndicator.hasIndicators()) {
                 createIndicatorItems(treeItem, columnIndicator.getIndicatorEnums());
             }
+            treeItem.setExpanded(true);
         }
     }
 
-    private void createIndicatorItems(TreeItem treeItem, IndicatorEnum[] indicatorEnums) {
-        TreeItem indicatorItem;
+    private void createIndicatorItems(final TreeItem treeItem, IndicatorEnum[] indicatorEnums) {
         for (int i = 0; i < indicatorEnums.length; i++) {
-            indicatorItem = new TreeItem(treeItem, SWT.NONE);
+            final TreeItem indicatorItem = new TreeItem(treeItem, SWT.NONE);
+            final IndicatorEnum indicatorEnum = indicatorEnums[i];
             indicatorItem.setText(0, indicatorEnums[i].getLabel());
 
             TreeEditor editor = new TreeEditor(tree);
@@ -149,12 +187,20 @@ public class AnasisColumnTreeViewer {
             editor.setEditor(modButton, indicatorItem, 1);
 
             editor = new TreeEditor(tree);
-            Button delButton = new Button(tree, SWT.PUSH);
+            Button delButton = new Button(tree, SWT.NONE);
             delButton.setText("Del");
             delButton.pack();
             editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, indicatorItem, 2);
+            delButton.addSelectionListener(new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent e) {
+                    // remove the corresponding indicatorEnum object, set the input element and recreate the tree.
+                    ((ColumnIndicator) treeItem.getData()).removeIndicatorEnum(indicatorEnum);
+                    setElements(tdColumns);
+                }
+
+            });
         }
     }
 

@@ -19,7 +19,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
 /**
- * @author rli
+ * This class can store the all the Indicators of one TdColumn, and provide the method to access all indicator.
  * 
  */
 public class ColumnIndicator {
@@ -42,6 +42,10 @@ public class ColumnIndicator {
         if (!this.indicatorEnums.contains(indicatorEnum)) {
             indicatorEnums.add(indicatorEnum);
         }
+    }
+
+    public boolean contains(IndicatorEnum indicatorEnum) {
+        return indicatorEnums == null ? false : this.indicatorEnums.contains(indicatorEnum);
     }
 
     /**

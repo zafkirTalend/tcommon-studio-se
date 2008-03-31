@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -138,12 +137,11 @@ public class MasterDetailsPage extends FormPage {
         Composite topComp = toolkit.createComposite(section);
         topComp.setLayout(new GridLayout(3, true));
 
-        Tree tree = toolkit.createTree(topComp, SWT.BORDER);
+        Composite tree = toolkit.createComposite(topComp, SWT.BORDER);
 //        GridData gd = new GridData();
         // gd.
         GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
-        ((GridData) tree.getLayoutData()).heightHint = 300;
-        ((GridData) tree.getLayoutData()).widthHint = 500;
+        tree.setLayout(new GridLayout());
 
         treeViewer = new AnasisColumnTreeViewer(tree);
         Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);

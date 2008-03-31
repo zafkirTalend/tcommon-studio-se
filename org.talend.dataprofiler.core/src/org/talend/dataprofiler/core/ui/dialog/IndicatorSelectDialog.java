@@ -51,10 +51,12 @@ public class IndicatorSelectDialog extends Dialog {
     protected Control createDialogArea(Composite parent) {
         Composite comp = (Composite) super.createDialogArea(parent);
         Tree tree = new Tree(comp, SWT.BORDER);
-        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
-        ((GridData) tree.getLayoutData()).widthHint = 800;
-        ((GridData) tree.getLayoutData()).heightHint = 600;
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
+        ((GridData) tree.getLayoutData()).widthHint = 650;
+        ((GridData) tree.getLayoutData()).heightHint = 320;
         createTreeStructure(tree);
+        tree.pack();
+        comp.layout();        
         return comp;
     }
 
@@ -77,23 +79,18 @@ public class IndicatorSelectDialog extends Dialog {
         for (int i = 0; i < branchNodes.length; i++) {
             TreeItem treeItem;
             treeItem = new TreeItem(tree, SWT.NONE);
-            treeItem.setExpanded(true);
-            // TreeEditor editor;
+
+            // Create the catalog items
             for (int j = 0; j < treeColumns.length; j++) {
                 if (j == 0) {
                     treeItem.setText(0, branchNodes[i].getLabel());
                     continue;
                 }
-                // editor = new TreeEditor(tree);
-                // Button checkButton = new Button(tree, SWT.CHECK);
-                // checkButton.pack();
-                // editor.minimumWidth = checkButton.getSize().x;
-                // editor.horizontalAlignment = SWT.CENTER;
-                // editor.setEditor(checkButton, treeItem, j);
             }
             if (branchNodes[i].hasChildren()) {
                 createChildrenNode(tree, treeItem, treeColumns, branchNodes[i].getChildren());
             }
+            treeItem.setExpanded(true);
         }
 
     }
@@ -102,7 +99,6 @@ public class IndicatorSelectDialog extends Dialog {
         for (int i = 0; i < branchNodes.length; i++) {
             TreeItem treeItem;
             treeItem = new TreeItem(parentItem, SWT.NONE);
-            treeItem.setExpanded(true);
             TreeEditor editor;
             for (int j = 0; j < treeColumns.length; j++) {
                 if (j == 0) {
@@ -111,6 +107,9 @@ public class IndicatorSelectDialog extends Dialog {
                 }
                 editor = new TreeEditor(tree);
                 Button checkButton = new Button(tree, SWT.CHECK);
+                if (((ColumnIndicator) treeColumns[j].getData()).contains(branchNodes[i].getIndicatorEnum())) {
+                    checkButton.setSelection(true);
+                }
                 checkButton.pack();
                 editor.minimumWidth = checkButton.getSize().x;
                 editor.horizontalAlignment = SWT.CENTER;
