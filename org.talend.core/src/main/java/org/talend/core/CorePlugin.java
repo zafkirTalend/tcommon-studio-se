@@ -31,6 +31,7 @@ import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.rcp.IRcpService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryLocalProviderService;
 import org.talend.repository.model.IRepositoryService;
@@ -170,5 +171,9 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public IResourceService getResourceService() {
         return (IResourceService) GlobalServiceRegister.getDefault().getService(IResourceService.class);
+    }
+
+    public IRcpService getRcpService() {
+        return (IRcpService) GlobalServiceRegister.getDefault().getService(IRcpService.class);
     }
 }
