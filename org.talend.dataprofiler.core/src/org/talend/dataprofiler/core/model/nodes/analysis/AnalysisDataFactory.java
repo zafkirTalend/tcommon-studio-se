@@ -15,9 +15,10 @@ package org.talend.dataprofiler.core.model.nodes.analysis;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.dataquality.analysis.AnalysisType;
+import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.analysis.category.AnalysisCategories;
-//import org.talend.dq.analysis.category.CategoryHandler;
+import org.talend.dataquality.analysis.category.AnalysisCategory;
+import org.talend.dq.analysis.category.CategoryHandler;
 
 /**
  * @author zqin
@@ -28,24 +29,30 @@ public class AnalysisDataFactory {
     public static Object createTreeData() {
         List<AnalysisTypeNode> returnList = new ArrayList<AnalysisTypeNode>();
 
-        // TODO zqin use CategoryHandler
-        //AnalysisCategories analysisCategories = CategoryHandler.getAnalysisCategories();
-        // TODO zqin use this tree (use label attribute of each Category instance)
-        //analysisCategories.getCategories();
-
-        List<AnalysisType> list = AnalysisType.VALUES;
         AnalysisTypeNode typeNode = null;
-        for (AnalysisType oneType : list) {
-            typeNode = new AnalysisTypeNode(oneType.getName(), oneType.getLiteral(), null);
-            AnalysisTypeNode[] childs = new AnalysisTypeNode[1];
-            childs[0] = new AnalysisTypeNode("Default", oneType.getLiteral(), typeNode);
-
-            typeNode.setChildren(childs);
-
+        // TODO zqin use CategoryHandler
+        AnalysisCategories analysisCategories = CategoryHandler.getAnalysisCategories();
+        // TODO zqin use this tree (use label attribute of each Category instance)
+        EList<AnalysisCategory> categories = analysisCategories.getCategories();
+        
+        
+        for (AnalysisCategory category : categories) {
+            
+            typeNode = new AnalysisTypeNode(category.getLabel(), category.getLabel(), null);
+            if (category.getSubCategories() != null) {
+                List<AnalysisTypeNode> subCategories = null;
+                for (AnalysisCategory subCategory : category.getSubCategories()) {
+                    subCategories = new ArrayList<AnalysisTypeNode>();
+                    subCategories.add(new AnalysisTypeNode(subCategory.getLabel(), subCategory.getLabel(), typeNode));
+                }
+                typeNode.setChildren(subCategories.toArray());
+            }
+            
             returnList.add(typeNode);
         }
 
         return returnList;
 
     }
+    
 }
