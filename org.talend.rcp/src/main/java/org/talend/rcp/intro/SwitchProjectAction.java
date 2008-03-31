@@ -33,6 +33,7 @@ public class SwitchProjectAction extends Action {
      */
     public SwitchProjectAction() {
         super(Messages.getString("SwitchProjectAction_actionLabel")); //$NON-NLS-1$
+        setEnabled(false);
     }
 
     /*
@@ -43,41 +44,54 @@ public class SwitchProjectAction extends Action {
     @Override
     public void run() {
 
-        //The prefered method Actually is a restart : 
+        // The prefered method Actually is a restart :
         PlatformUI.getWorkbench().restart();
-        
-        //But the logically Method will be :
-        //The Problem is that the RunProcess view is always "No process to run"
-        
+
+        // But the logically Method will be :
+        // The Problem is that the RunProcess view is always "No process to run"
+
         // After loginDialog are open, the Ok Button must to open the SelectedProject.
-//        logUserOnProject(new Shell());
-//        try {
-//            IWorkbench workbench = PlatformUI.getWorkbench();
-//            workbench.openWorkbenchWindow(PERSPECTIVE_ID, null);
-//            
-//            RepositoryContext repositoryContext = (RepositoryContext) Context.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
-//
-//            IRepositoryView repositoryView = (IRepositoryView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-//                    .findView(RepositoryView.VIEW_ID);
-//
-//            repositoryView.setRepositoryContext(repositoryContext);
-//
-//            RefreshAction refreshAction = new RefreshAction(repositoryView);
-//            refreshAction.run();
-//            
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            for (int i = 1; i <= PlatformUI.getWorkbench().getWorkbenchWindows().length; i++) {
-//                PlatformUI.getWorkbench().getWorkbenchWindows()[0].close();
-//            }
-//        }
+        // logUserOnProject(new Shell());
+        // try {
+        // IWorkbench workbench = PlatformUI.getWorkbench();
+        // workbench.openWorkbenchWindow(PERSPECTIVE_ID, null);
+        //            
+        // RepositoryContext repositoryContext = (RepositoryContext)
+        // Context.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        //
+        // IRepositoryView repositoryView = (IRepositoryView)
+        // PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+        // .findView(RepositoryView.VIEW_ID);
+        //
+        // repositoryView.setRepositoryContext(repositoryContext);
+        //
+        // RefreshAction refreshAction = new RefreshAction(repositoryView);
+        // refreshAction.run();
+        //            
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // } finally {
+        // for (int i = 1; i <= PlatformUI.getWorkbench().getWorkbenchWindows().length; i++) {
+        // PlatformUI.getWorkbench().getWorkbenchWindows()[0].close();
+        // }
+        // }
     }
-    
+
     private boolean logUserOnProject(Shell shell) {
         boolean logged = false;
         LoginDialog loginDialog = new LoginDialog(shell);
         logged = loginDialog.open() == LoginDialog.OK;
         return logged;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.action.Action#setEnabled()
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+    }
+    // setEnabled(CodeGeneratorEmittersPoolFactory.initialized);
 }

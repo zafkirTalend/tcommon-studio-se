@@ -32,4 +32,11 @@
          refPerspectiveId="org.eclipse.debug.ui.DebugPerspective"
          talendPerspectiveId="org.talend.rcp.DebugPerspective"/>
 </extension>
+<extension
+      point="org.talend.core.service">
+   <Service
+         class="org.talend.rcp.RcpServices"
+         serviceId="IRcpService">
+   </Service>
+</extension>
 </plugin>

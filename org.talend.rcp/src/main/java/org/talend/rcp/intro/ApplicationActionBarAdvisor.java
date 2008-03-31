@@ -60,9 +60,18 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     private static final String GROUP_DELETE = "group delete"; //$NON-NLS-1$
 
+    private static SwitchProjectAction switchProjectAction;
+
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
         actionBarConfigurer = configurer;
+    }
+
+    /**
+     * qwei Comment method "activeSwitchAction".
+     */
+    public static void activeSwitchAction() {
+        switchProjectAction.setEnabled(true);
     }
 
     // private List<IAction> actions = new ArrayList<IAction>();
@@ -178,8 +187,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new Separator());
         fileMenu.add(ActionFactory.PRINT.create(window));
         fileMenu.add(new Separator());
-        // CAN. SwitchProject Action must be call the LoginDialog to Change of Project and Open this.
-        fileMenu.add(new SwitchProjectAction());
+        switchProjectAction = new SwitchProjectAction();
+        fileMenu.add(switchProjectAction);
         fileMenu.add(new Separator());
 
         fileMenu.add(ActionFactory.IMPORT.create(window));
