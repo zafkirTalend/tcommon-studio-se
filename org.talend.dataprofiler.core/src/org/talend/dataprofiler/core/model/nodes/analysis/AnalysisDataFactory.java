@@ -29,30 +29,25 @@ public class AnalysisDataFactory {
     public static Object createTreeData() {
         List<AnalysisTypeNode> returnList = new ArrayList<AnalysisTypeNode>();
 
-        AnalysisTypeNode typeNode = null;
-        // TODO zqin use CategoryHandler
+        // use CategoryHandler
         AnalysisCategories analysisCategories = CategoryHandler.getAnalysisCategories();
-        // TODO zqin use this tree (use label attribute of each Category instance)
+        // use this tree (use label attribute of each Category instance)
         EList<AnalysisCategory> categories = analysisCategories.getCategories();
-        
-        
+
         for (AnalysisCategory category : categories) {
-            
-            typeNode = new AnalysisTypeNode(category.getLabel(), category.getLabel(), null);
+            AnalysisTypeNode typeNode = new AnalysisTypeNode(category.getLabel(), category.getLabel(), null);
             if (category.getSubCategories() != null) {
-                List<AnalysisTypeNode> subCategories = null;
+                List<AnalysisTypeNode> subCategories = new ArrayList<AnalysisTypeNode>();
                 for (AnalysisCategory subCategory : category.getSubCategories()) {
-                    subCategories = new ArrayList<AnalysisTypeNode>();
                     subCategories.add(new AnalysisTypeNode(subCategory.getLabel(), subCategory.getLabel(), typeNode));
                 }
                 typeNode.setChildren(subCategories.toArray());
             }
-            
+
             returnList.add(typeNode);
         }
 
         return returnList;
 
     }
-    
 }
