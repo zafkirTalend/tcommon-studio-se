@@ -94,11 +94,21 @@ public final class ElementParameterParser {
         }
 
         if (javaType == JavaTypesManager.CHARACTER) {
-            // case: null, (nothing in GUI), "", "a", "ab", "a, '', 'a', 'ab', 'a, null(this means null directly in GUI)
-            if (trimValue.equals("") || trimValue.equals("\"\"") || trimValue.equals("''")) {
+            // 5 cases: null(no this parameter in shadow process), String.length()=0(nothing in GUI), "", '', null(this
+            // means null directly in GUI)
+            if (trimValue.equals("") || trimValue.equals("\"\"") || trimValue.equals("''") || trimValue.equals("null")) {
                 return null;
-            } else if (trimValue.length() == 3) {
-                result = "'" + trimValue.charAt(1) + "'";
+            } else if (trimValue.length() >= 3 && trimValue.startsWith("\"") && trimValue.endsWith("\"")) {
+                // "a", "ab", "a, 'a', 'ab', 'a, 93, '\042', '\u0022', '\'', "\u0022"
+
+                String substring = trimValue.substring(1, trimValue.length() - 1);
+
+                if (substring.length() == 1 && (substring.charAt(0) == '\\' || substring.charAt(0) == '\'')) {
+                    // support to input like that: "\", "'"
+                    result = "'" + "\\" + substring + "'";
+                } else {
+                    result = "'" + substring + "'";
+                }
             }
         }
 
