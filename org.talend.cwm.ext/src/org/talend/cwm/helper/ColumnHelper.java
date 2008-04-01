@@ -22,6 +22,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdColumn;
+
+import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.ColumnSet;
 
@@ -127,7 +129,7 @@ public class ColumnHelper {
      * @return the name of the container of the column or null
      */
     public static String getColumnSetFullName(Column column) {
-        ColumnSet colSet = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(column.getOwner());
+        ColumnSet colSet = getColumnSetOwner(column);
         if (colSet != null) {
             return colSet.getName();
         }
@@ -139,9 +141,13 @@ public class ColumnHelper {
      * Method "getColumnSetOwner".
      * 
      * @param column
-     * @return the owner of the given column
+     * @return the owner of the given column or null
      */
     public static ColumnSet getColumnSetOwner(Column column) {
-        return SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(column.getOwner());
+        Classifier owner = column.getOwner();
+        if (owner == null) {
+            return null;
+        }
+        return SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(owner);
     }
 }

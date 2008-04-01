@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
@@ -33,6 +34,18 @@ import orgomg.cwm.resource.relational.Catalog;
 public final class CatalogHelper {
 
     private CatalogHelper() {
+    }
+
+    /**
+     * Method "createCatalog" creates a catalog with the given name.
+     * 
+     * @param name the name of the catalog
+     * @return the new catalog
+     */
+    public static TdCatalog createCatalog(String name) {
+        TdCatalog catalog = RelationalFactory.eINSTANCE.createTdCatalog();
+        catalog.setName(name);
+        return catalog;
     }
 
     public static List<TdCatalog> getTdCatalogs(Collection<? extends EObject> elements) {
