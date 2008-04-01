@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -21,16 +22,17 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage;
+import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep1;
 
 /**
  * @author zqin
  * 
  */
-public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
+public class MetadataWizardPage extends PropertiesWizardPage {
 
     private Text typeText;
 
-    public AnalysisWizardPageStep1(ConnectionParameters property, IPath destinationPath, boolean readOnly,
+    public MetadataWizardPage(ConnectionParameters property, IPath destinationPath, boolean readOnly,
             boolean editPath) {
         super("WizardPage", property, destinationPath, readOnly, editPath);
         setTitle("New Analysis");
@@ -77,5 +79,6 @@ public class AnalysisWizardPageStep1 extends PropertiesWizardPage {
             typeText.setText(connectionParams.getConnectionTypeForANA());
         }
         super.setVisible(visible);
-    }
+    }    
+
 }

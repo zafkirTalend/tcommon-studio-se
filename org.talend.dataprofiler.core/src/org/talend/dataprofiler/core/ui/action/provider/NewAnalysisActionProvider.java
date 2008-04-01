@@ -107,8 +107,12 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
 //            }
             try {
                 CreateNewAnalysisWizard wizard = new CreateNewAnalysisWizard(PlatformUI.getWorkbench(), true, null, null);
+                wizard.setForcePreviousAndNextButtons(true);
+                
                 WizardDialog dialog = new WizardDialog(null, wizard);
-                dialog.setPageSize(600, 320);
+                dialog.create();
+                dialog.setPageSize(600, 340);
+                
                 dialog.open();
             } catch (Exception e) {
                 e.printStackTrace();

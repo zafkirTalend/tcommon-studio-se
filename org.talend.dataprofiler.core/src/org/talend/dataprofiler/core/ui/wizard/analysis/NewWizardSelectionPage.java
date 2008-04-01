@@ -21,6 +21,10 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -34,18 +38,20 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.internal.operations.AdvancedValidationUserApprover;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.model.nodes.analysis.AnalysisDataFactory;
 import org.talend.dataprofiler.core.model.nodes.analysis.AnalysisTypeNode;
 import org.talend.dataprofiler.core.ui.wizard.analysis.filter.NamedViewerFilter;
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeContentProvider;
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeLabelProvider;
+import org.talend.dataquality.analysis.AnalysisType;
 
 /**
  * @author zqin
  * 
  */
-public class AnalysisWizardPageStep0 extends WizardPage {
+public class NewWizardSelectionPage extends WizardPage {
     
     private final String defaultValue = "type filter text";
 
@@ -56,8 +62,12 @@ public class AnalysisWizardPageStep0 extends WizardPage {
     private ConnectionParameters connectionParams;
     
     private NamedViewerFilter filter = new NamedViewerFilter();
+    
+    private boolean canFinishEarly = false, hasPages = true;
+    
+    private Wizard selectedWizard;
 
-    public AnalysisWizardPageStep0(ConnectionParameters connectionParams) {
+    public NewWizardSelectionPage(ConnectionParameters connectionParams) {
         super("WizardPage");      
         setPageComplete(false);
         setTitle("Select a wizard");
@@ -151,7 +161,9 @@ public class AnalysisWizardPageStep0 extends WizardPage {
                     setPageComplete(true);
                     //set parameter
                     connectionParams.setConnectionTypeForANA(((AnalysisTypeNode) node.getParent()).getName());
+                    
                 } else {
+                    updateSelectonNode();
                     setPageComplete(false);
                 }
             }
@@ -165,14 +177,124 @@ public class AnalysisWizardPageStep0 extends WizardPage {
                 AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
                 if (node.getParent() == null) {
                     analysisTypes.expandToLevel(node, 1);
+                } else {
+                    advanceToNextPageOrFinish();
                 }
             }
             
         });
     }
+    
+    /**
+     * Makes the next page visible.
+     */
+    public void advanceToNextPageOrFinish() {
+            if (canFlipToNextPage()) {
+                getContainer().showPage(getNextPage());
+            } else if (isCanFinishEarly()) {
+                if (getWizard().performFinish()) {
+                    ((WizardDialog) getContainer()).close();
+                }
+            }
+    }
 
     
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
+     */
+    @Override
+    public boolean canFlipToNextPage() {
+        // TODO Auto-generated method stub
+        if (hasPages) {
+            return super.canFlipToNextPage();
+        } else {
+            return false;
+        }
+        
+    }
+    
+    public void updateSelectonNode() {
+        AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) analysisTypes.getSelection()).getFirstElement();
+        
+        //System.out.println(node.getName());
+        if (node.getName().equals(AnalysisType.CONNECTION.getLiteral())) {
+            
+            this.selectedWizard = WizardFactory.createConnectionWizard(connectionParams);
+            this.setCanFinishEarly(false);
+            this.setHasPages(true);
+        } else if (node.getName().equals("Comparison analysis")) {
+            
+            this.selectedWizard = WizardFactory.createColumnWizard(connectionParams);
+            this.setCanFinishEarly(false);
+            this.setHasPages(true);
+        } else {
+            
+            this.selectedWizard = null;
+            this.setCanFinishEarly(false);
+            this.setHasPages(false);
+        }
+    }
+
     public String getTypeName() {
         return typeName.getText();
     }
+
+    
+    /**
+     * @return the canFinishEarly
+     */
+    public boolean isCanFinishEarly() {
+        return this.canFinishEarly;
+    }
+
+    
+    /**
+     * @param canFinishEarly the canFinishEarly to set
+     */
+    public void setCanFinishEarly(boolean canFinishEarly) {
+        this.canFinishEarly = canFinishEarly;
+    }
+
+    
+    /**
+     * @return the hasPages
+     */
+    public boolean isHasPages() {
+        return this.hasPages;
+    }
+
+    
+    /**
+     * @param hasPages the hasPages to set
+     */
+    public void setHasPages(boolean hasPages) {
+        this.hasPages = hasPages;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.wizard.WizardPage#getNextPage()
+     */
+    @Override
+    public IWizardPage getNextPage() {
+        
+        if (selectedWizard == null) {
+            return null;
+        }
+        
+        if (selectedWizard.getStartingPage() == null) {
+            selectedWizard.addPages();
+        }
+        
+        return selectedWizard.getStartingPage();
+    }
+
+    
+    /**
+     * @return the selectedWizard
+     */
+    public Wizard getSelectedWizard() {
+        return this.selectedWizard;
+    }
+    
+    
 }

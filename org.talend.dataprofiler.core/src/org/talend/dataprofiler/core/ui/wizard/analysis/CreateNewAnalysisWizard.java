@@ -15,11 +15,15 @@ package org.talend.dataprofiler.core.ui.wizard.analysis;
 import java.util.Properties;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep1;
+import org.talend.dataquality.analysis.AnalysisType;
 
 /**
  * @author zqin
@@ -35,9 +39,7 @@ public class CreateNewAnalysisWizard extends Wizard {
 
     private ConnectionParameters connectionParams;
     
-    private AnalysisWizardPageStep0 page0;
-    
-    private AnalysisWizardPageStep1 page1;
+    private NewWizardSelectionPage mainPage;
     
     public CreateNewAnalysisWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
             String[] existingNames) {
@@ -50,19 +52,15 @@ public class CreateNewAnalysisWizard extends Wizard {
      */
     @Override
     public boolean performFinish() {
-        try {
-
-            getShell().close();
-            DynamicAnalysisWizard wizard = new DynamicAnalysisWizard(connectionParams, creation);
-            
-            WizardDialog dialog = new WizardDialog(null, wizard);
-            dialog.setPageSize(600, 320);
-            dialog.open();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         
+        // if we're finishing from the main page then perform finish on the selected wizard.
+        if (getContainer().getCurrentPage() == mainPage) {
+            if (mainPage.isCanFinishEarly()) {
+                IWizard wizard = mainPage.getSelectedWizard();
+                wizard.setContainer(getContainer());
+                return wizard.performFinish();
+            }
+        }
         return true;
     }
 
@@ -75,8 +73,16 @@ public class CreateNewAnalysisWizard extends Wizard {
         if (creation) {
             connectionParams = new ConnectionParameters();
             connectionParams.setParameters(new Properties());
+            
+            mainPage = new NewWizardSelectionPage(connectionParams);
         } else {
             //get existing connectionParameters
+            connectionParams = new ConnectionParameters();
+            connectionParams.setConnectionDescription("description");
+            connectionParams.setConnectionName("Connection Analysis");
+            connectionParams.setConnectionPurpose("purpose");
+            connectionParams.setConnectionTypeForANA(AnalysisType.CONNECTION.getLiteral());
+            connectionParams.setParameters(new Properties());
         }
         
     }
@@ -89,12 +95,20 @@ public class CreateNewAnalysisWizard extends Wizard {
 
         setWindowTitle("Create New Analysis");
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
+
+        if (creation) {
+            addPage(mainPage);
+        } else {
+            Wizard wizard = WizardFactory.createConnectionWizard(connectionParams);
+            wizard.addPages();
+            
+            IWizardPage[] pages = wizard.getPages();
+            
+            for (IWizardPage page : pages) {
+                addPage(page);
+            }
+        }
         
-        page0 = new AnalysisWizardPageStep0(connectionParams);
-        page1 = new AnalysisWizardPageStep1(connectionParams, null, false, true); 
-        
-        addPage(page0);
-        addPage(page1);
     }
 
     /* (non-Javadoc)
@@ -102,10 +116,13 @@ public class CreateNewAnalysisWizard extends Wizard {
      */
     @Override
     public boolean canFinish() {
-        if (this.getContainer().getCurrentPage() != page1) {
-            return false;
+        // TODO Auto-generated method stub
+        if (mainPage != null) {
+            return mainPage.isCanFinishEarly();
         }
         
         return super.canFinish();
     }
+    
+    
 }

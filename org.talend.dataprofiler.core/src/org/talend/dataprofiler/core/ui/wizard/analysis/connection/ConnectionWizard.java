@@ -10,32 +10,32 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.wizard.analysis;
+package org.talend.dataprofiler.core.ui.wizard.analysis.connection;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardPage;
 import org.talend.cwm.management.connection.ConnectionParameters;
-import org.talend.dataquality.analysis.AnalysisType;
-
-import sun.awt.image.ImageWatched;
+import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
 
 
 /**
- * @author zqin
+ * @author huangssssx
  *
  */
-public class DynamicAnalysisWizard extends Wizard {
+public class ConnectionWizard extends Wizard {
 
-    private ConnectionParameters connectionParams;
+    private ConnectionParameters parameters;
     
-    private boolean creation;
+    private MetadataWizardPage metadataPage;
+    
+    private ConnAnalysisPageStep0 page0;
+    
+    private ConnAnalysisPageStep1 page1;
     /**
      * 
      */
-    public DynamicAnalysisWizard(ConnectionParameters connectionParams, boolean creation) {
+    public ConnectionWizard(ConnectionParameters parameters) {
         
-        this.connectionParams = connectionParams;
-        this.creation = creation;
+        this.parameters = parameters;
     }
 
     /* (non-Javadoc)
@@ -43,9 +43,7 @@ public class DynamicAnalysisWizard extends Wizard {
      */
     @Override
     public boolean performFinish() {
-        
-        //open the related editor
-        
+        // TODO Auto-generated method stub
         return true;
     }
 
@@ -55,13 +53,13 @@ public class DynamicAnalysisWizard extends Wizard {
     @Override
     public void addPages() {
         
-        if (AnalysisType.getByName(connectionParams.getConnectionTypeForANA()) == AnalysisType.CONNECTION) {
-           for (WizardPage page : DnamicAnalysisFactory.getConnectionPages(connectionParams)) {
-               addPage(page);
-           }
-        }
+        metadataPage = new MetadataWizardPage(parameters, null, false, true);
+//        page0 = new ConnAnalysisPageStep0(parameters);
+        page1 = new ConnAnalysisPageStep1(parameters);
         
-        //deal with other cases here
+        addPage(metadataPage);
+//        addPage(page0);
+        addPage(page1);
     }
 
     /* (non-Javadoc)
@@ -70,7 +68,12 @@ public class DynamicAnalysisWizard extends Wizard {
     @Override
     public boolean canFinish() {
         // TODO Auto-generated method stub
+        if (this.getContainer().getCurrentPage() != page1) {
+            return false;
+        }
         return super.canFinish();
     }
+    
+    
 
 }

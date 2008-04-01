@@ -12,29 +12,23 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
-import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.jface.wizard.Wizard;
 import org.talend.cwm.management.connection.ConnectionParameters;
-import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep0;
+import org.talend.dataprofiler.core.ui.wizard.analysis.column.ColumnWizard;
+import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnectionWizard;
 
 
 /**
  * @author zqin
  *
  */
-public class DnamicAnalysisFactory {
+public class WizardFactory {
 
-    /**
-     * 
-     */
-    public DnamicAnalysisFactory() {
-        // TODO Auto-generated constructor stub
+    public static Wizard createConnectionWizard(ConnectionParameters parameters) {
+        return new ConnectionWizard(parameters);
     }
     
-    public static WizardPage[] getConnectionPages(ConnectionParameters parameters) {
-        WizardPage[] connnectionPages = new WizardPage[1];
-        connnectionPages[0] = new ConnAnalysisPageStep0(parameters);
-        
-        return connnectionPages;
+    public static Wizard createColumnWizard(ConnectionParameters parameters) {
+        return new ColumnWizard(parameters);
     }
-
 }
