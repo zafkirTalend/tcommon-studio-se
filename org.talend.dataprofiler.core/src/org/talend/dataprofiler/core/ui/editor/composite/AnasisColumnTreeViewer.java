@@ -37,6 +37,9 @@ import org.talend.dataquality.indicators.DataminingType;
  */
 public class AnasisColumnTreeViewer {
 
+    private static final  int WIDTH1_CELL = 75;
+    private static final  int WIDTH2_CELL = 65;
+
     private Composite parentComp;
 
     private Tree tree;
@@ -103,14 +106,16 @@ public class AnasisColumnTreeViewer {
                 combo.add(type.getName());
             }
             combo.select(0);
-            editor.grabHorizontal = true;
+//            editor.grabHorizontal = true;
+            editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);
 
             editor = new TreeEditor(tree);
             Button addButton = new Button(tree, SWT.NONE);
             addButton.setText("Add..");
             addButton.pack();
-            editor.minimumWidth = addButton.getSize().x;
+            editor.minimumWidth = WIDTH1_CELL;
+//            editor.minimumWidth = addButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(addButton, treeItem, 2);
             addButton.addSelectionListener(new SelectionAdapter() {
@@ -125,7 +130,8 @@ public class AnasisColumnTreeViewer {
             Button modButton = new Button(tree, SWT.NONE);
             modButton.setText("Repository");
             modButton.pack();
-            editor.minimumWidth = modButton.getSize().x;
+            editor.minimumWidth = WIDTH1_CELL;
+//            editor.minimumWidth = modButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, treeItem, 3);
 
@@ -133,7 +139,6 @@ public class AnasisColumnTreeViewer {
             Button delButton = new Button(tree, SWT.NONE);
             delButton.setText("Del");
             delButton.pack();
-
             delButton.addSelectionListener(new SelectionAdapter() {
 
                 public void widgetSelected(SelectionEvent e) {
@@ -152,8 +157,8 @@ public class AnasisColumnTreeViewer {
                 }
 
             });
-
-            editor.minimumWidth = delButton.getSize().x;
+            editor.minimumWidth = WIDTH2_CELL;
+//            editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 4);
             if (columnIndicator.hasIndicators()) {
@@ -170,10 +175,10 @@ public class AnasisColumnTreeViewer {
             indicatorItem.setText(0, indicatorEnums[i].getLabel());
 
             TreeEditor editor = new TreeEditor(tree);
-            Button modButton = new Button(tree, SWT.PUSH);
+            Button modButton = new Button(tree, SWT.NONE);
             modButton.setText("Options");
             modButton.pack();
-            editor.minimumWidth = modButton.getSize().x;
+            editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, indicatorItem, 1);
 
@@ -181,7 +186,8 @@ public class AnasisColumnTreeViewer {
             Button delButton = new Button(tree, SWT.NONE);
             delButton.setText("Del");
             delButton.pack();
-            editor.minimumWidth = delButton.getSize().x;
+            editor.minimumWidth = WIDTH1_CELL;
+//            editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, indicatorItem, 2);
             delButton.addSelectionListener(new SelectionAdapter() {

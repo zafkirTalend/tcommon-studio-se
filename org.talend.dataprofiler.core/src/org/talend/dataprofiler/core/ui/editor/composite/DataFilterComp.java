@@ -33,7 +33,7 @@ public class DataFilterComp {
     public void createContent(Composite parent) {
         parent.setLayout(new GridLayout(3, true));
 
-        Text text = new Text(parent, SWT.BORDER);
+        Text text = new Text(parent, SWT.BORDER | SWT.MULTI);
         GridDataFactory.fillDefaults().span(2, 3).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(text);
         ((GridData) text.getLayoutData()).heightHint = 150;
 
