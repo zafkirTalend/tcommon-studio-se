@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.IndicatorsFactory;
 
 /**
  * This class can store the all the Indicators of one TdColumn, and provide the method to access all indicator.
@@ -74,6 +76,64 @@ public class ColumnIndicator {
      */
     public TdColumn getTdColumn() {
         return tdColumn;
+    }
+
+    public Indicator[] getIndicators() {
+        IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
+        List<Indicator> indicatorList = new ArrayList<Indicator>();
+        Indicator indicator = null;
+        for (IndicatorEnum indicatorEnum : indicatorEnums) {
+            switch (indicatorEnum) {
+            case RowCountIndicatorEnum:
+                indicator = factory.createRowCountIndicator();
+                break;
+            case NullCountIndicatorEnum:
+                indicator = factory.createNullCountIndicator();
+                break;
+            case DistinctCountIndicatorEnum:
+                indicator = factory.createDistinctCountIndicator();
+                break;
+            case UniqueIndicatorEnum:
+                indicator = factory.createUniqueCountIndicator();
+                break;
+            case DuplicateCountIndicatorEnum:
+                indicator = factory.createUniqueCountIndicator();
+                break;
+            case BlankCountIndicatorEnum:
+                indicator = factory.createBlankCountIndicator();
+                break;
+
+            case ModeIndicatorEnum:
+                indicator = factory.createModeIndicator();
+                break;
+                
+            //TODO MeanIndicator only corresponding DoubleMeanIndicator?
+            case MeanIndicatorEnum:
+                indicator = factory.createDoubleMeanIndicator();
+                break;
+            case MedianIndicatorEnum:
+                indicator = factory.createMedianIndicator();
+                break;
+            case IQRIndicatorEnum:
+                indicator = factory.createIQRIndicator();
+                break;
+            case RangeIndicatorEnum:
+                indicator = factory.createRangeIndicator();
+                break;
+            case MinValueIndicatorEnum:
+                indicator = factory.createMinValueIndicator();
+                break;
+            case MaxValueIndicatorEnum:
+                indicator = factory.createMaxValueIndicator();
+                break;
+            case FrequencyIndicatorEnum:
+                indicator = factory.createFrequencyIndicator();
+                break;
+            default:
+            }
+            indicatorList.add(indicator);
+        }
+        return indicatorList.toArray(new Indicator[indicatorList.size()]);
     }
 
 }

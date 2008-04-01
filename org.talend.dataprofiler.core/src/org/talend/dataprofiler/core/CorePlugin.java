@@ -12,11 +12,17 @@
 // ============================================================================
 package org.talend.dataprofiler.core;
 
+import java.io.File;
+
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
+import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
+import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -44,7 +50,10 @@ public class CorePlugin extends AbstractUIPlugin {
         super.start(context);
         plugin = this;
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
@@ -61,9 +70,9 @@ public class CorePlugin extends AbstractUIPlugin {
     public static CorePlugin getDefault() {
         return plugin;
     }
-    
+
     public void save() {
-       NeedSaveDataProviderHelper.saveAllDataProvider();
+        NeedSaveDataProviderHelper.saveAllDataProvider();
     }
 
     /**
@@ -75,20 +84,30 @@ public class CorePlugin extends AbstractUIPlugin {
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
     }
-    
+
     public void setUsed(boolean isUsed) {
         this.getPreferenceStore().setValue(PluginConstant.PROJECTCREATED_FLAG, isUsed);
-         
-     }
 
-     public boolean isUsed() {
-         return this.getPreferenceStore().getBoolean(PluginConstant.PROJECTCREATED_FLAG);
-     }
-    
+    }
+
+    public boolean isUsed() {
+        return this.getPreferenceStore().getBoolean(PluginConstant.PROJECTCREATED_FLAG);
+    }
+
     public void checkDQStructure() {
         if (!getDefault().isUsed()) {
             DQStructureManager manager = DQStructureManager.getInstance();
             getDefault().setUsed(manager.createDQStructure());
+        }
+    }
+
+    public void openEditor(File file) {
+        AnalysisEditorInuput input = new AnalysisEditorInuput(file);
+        // input.setUser(alias.getDefaultUser());
+        try {
+            this.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, AnalysisEditor.class.getName());
+        } catch (PartInitException e) {
+            ExceptionHandler.process(e);
         }
     }
 }

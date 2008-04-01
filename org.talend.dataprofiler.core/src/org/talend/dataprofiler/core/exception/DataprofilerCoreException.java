@@ -23,5 +23,9 @@ public class DataprofilerCoreException extends Exception {
      * 
      */
     private static final long serialVersionUID = 556930098222177421L;
+    
+    public DataprofilerCoreException(String message) {
+        super(message);
+    }
 
 }

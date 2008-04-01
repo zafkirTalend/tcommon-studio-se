@@ -12,97 +12,168 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
-
+import org.talend.dataprofiler.core.PluginConstant;
 
 /**
  * @author rli
- *
+ * 
  */
 public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableElement {
 
-    /**
-     * 
-     */
-    public AnalysisEditorInuput() {
-        // TODO Auto-generated constructor stub
+    private IStorage fStorage;
+
+    private File fFile;
+
+    private String fName;
+
+    public AnalysisEditorInuput(String name) {
+        fName = name;
+        createStorage();
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IStorageEditorInput#getStorage()
-     */
-    public IStorage getStorage() throws CoreException {
-        // TODO Auto-generated method stub
-        return null;
+    public AnalysisEditorInuput(File file) {
+        fFile = file;
+        createStorage();
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IEditorInput#exists()
-     */
+    private void createStorage() {
+        fStorage = new IStorage() {
+
+            public InputStream getContents() throws CoreException {
+                try {
+                    return fFile != null ? new FileInputStream(fFile) : getClearStream();
+                } catch (IOException e) {
+                    return getClearStream();
+                }
+            }
+
+            private InputStream getClearStream() {
+                return new ByteArrayInputStream(new byte[0]);
+            }
+
+            public IPath getFullPath() {
+                return null;
+            }
+
+            public String getName() {
+                return AnalysisEditorInuput.this.getName();
+            }
+
+            public boolean isReadOnly() {
+                return false;
+            }
+
+            @SuppressWarnings("unchecked")
+            public Object getAdapter(Class adapter) {
+                return null;
+            }
+        };
+    }
+
     public boolean exists() {
-        // TODO Auto-generated method stub
-        return false;
+        return fFile != null ? fFile.exists() : false;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IEditorInput#getImageDescriptor()
-     */
     public ImageDescriptor getImageDescriptor() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IEditorInput#getName()
-     */
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return fFile != null ? fFile.getName() : fName;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IEditorInput#getPersistable()
-     */
     public IPersistableElement getPersistable() {
-        // TODO Auto-generated method stub
-        return null;
+        return fFile != null ? this : null;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IEditorInput#getToolTipText()
-     */
     public String getToolTipText() {
-        // TODO Auto-generated method stub
-        return null;
+        return fFile != null ? fFile.getAbsolutePath() : getName();
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-     */
     public Object getAdapter(Class adapter) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IPersistableElement#getFactoryId()
-     */
+    public IStorage getStorage() throws CoreException {
+        return fStorage;
+    }
+
+    public File getFile() {
+        return fFile;
+    }
+
     public String getFactoryId() {
-        // TODO Auto-generated method stub
-        return null;
+        return "org.talend.dataprofiler.core.ui.editor.DocumentEditorInput";
+    }
+
+    public void saveState(IMemento memento) {
+        if (fFile == null) {
+            return;
+        }
+        memento.putString(PluginConstant.PATH_SAVE, fFile.getAbsolutePath());
     }
 
     /* (non-Javadoc)
-     * @see org.eclipse.ui.IPersistable#saveState(org.eclipse.ui.IMemento)
+     * @see java.lang.Object#hashCode()
      */
-    public void saveState(IMemento memento) {
-        // TODO Auto-generated method stub
-
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((fFile == null) ? 0 : fFile.hashCode());
+        result = prime * result + ((fName == null) ? 0 : fName.hashCode());
+        return result;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj)
+//            return true;
+//        if (obj == null)
+//            return false;
+//        if (getClass() != obj.getClass())
+//            return false;
+//        final AnalysisEditorInuput other = (AnalysisEditorInuput) obj;
+//        if (fFile == null) {
+//            if (other.fFile != null)
+//                return false;
+//        } else if (!fFile.equals(other.fFile))
+//            return false;
+//        if (fName == null) {
+//            if (other.fName != null)
+//                return false;
+//        } else if (!fName.equals(other.fName))
+//            return false;
+//        return true;
+//    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof AnalysisEditorInuput)) {
+            return false;
+        }
+        AnalysisEditorInuput input = (AnalysisEditorInuput) obj;
+        return fFile == null && input.fFile == null ? fName == input.fName || fName != null && fName.equals(input.fName)
+                : fFile == input.fFile || fFile != null && fFile.equals(input.fFile);
+    }
+    
+    
 
 }
