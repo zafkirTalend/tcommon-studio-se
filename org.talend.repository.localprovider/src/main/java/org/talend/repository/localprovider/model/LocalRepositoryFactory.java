@@ -510,6 +510,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 public boolean visit(IResource resource) throws CoreException {
                     if (resource.getType() == IResource.FOLDER) {
                         IPath path = resource.getProjectRelativePath();
+
+                        // ignore folders with . (e.g. : .settings) see bug 364
+                        if (path.lastSegment().startsWith(".")) {
+                            return false;
+                        }
+
                         if (!listFolders.remove(path)) {
                             // create emf folder
                             helper.createFolder(path);
