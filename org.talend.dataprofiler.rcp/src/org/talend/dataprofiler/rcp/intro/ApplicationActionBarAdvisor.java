@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dataprofiler.rcp.intro;
 
+import java.awt.Menu;
+import java.awt.MenuItem;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,6 +44,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction preferenceAction;
 
 	private IWorkbenchAction aboutAction;
+
+    private IWorkbenchAction saveAction;
+    
+    private IWorkbenchAction saveAllAction;
     
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -50,6 +56,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void makeActions(IWorkbenchWindow window) {
 		exitAction = ActionFactory.QUIT.create(window);
 		register(exitAction);
+		
+		saveAction = ActionFactory.SAVE.create(window);
+        register(saveAction);
+        
+        saveAllAction = ActionFactory.SAVE_ALL.create(window);
+        register(saveAllAction);
 
 		preferenceAction = ActionFactory.PREFERENCES.create(window);
 		register(preferenceAction);
@@ -71,7 +83,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		menuBar.add(helpMenu);
 
 		// File
-		fileMenu.add(exitAction);
+		fileMenu.add(saveAction);
+		fileMenu.add(saveAllAction);
+        fileMenu.add(exitAction);
 
 		// Window
 		
@@ -89,7 +103,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         "org.eclipse.ui.WorkingSetActionSet", //$NON-NLS-1$ //$NON-NLS-2$
         "org.eclipse.update.ui.softwareUpdates",
 //        "org.eclipse.ui.actionSet.keyBindings", //$NON-NLS-1$ //$NON-NLS-2$
-        "org.eclipse.ui.edit.text.actionSet.openExternalFile", //$NON-NLS-1$
+        "org.eclipse.ui.actionSet.openFiles", //$NON-NLS-1$
         "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo" }; //$NON-NLS-1$ 
 	
 	private void beforefillMenuBar() {
@@ -104,7 +118,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		ActionSetRegistry reg = WorkbenchPlugin.getDefault()
 				.getActionSetRegistry();
 		IActionSetDescriptor[] actionSets = reg.getActionSets();
-		List list = Arrays.asList(ACTIONSETID);
+		List<String> list = Arrays.asList(ACTIONSETID);
 		for (int i = 0; i < actionSets.length; i++) {
 			if (list.contains(actionSets[i].getId())) {
 				IExtension ext = actionSets[i].getConfigurationElement()
