@@ -154,7 +154,7 @@ public interface Component extends EObject {
      * @return the value of the '<em>Projects</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getComponent_Projects()
      * @see org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent
-     * @model type="org.talend.core.model.properties.ProjectComponentAuthorisation" opposite="component"
+     * @model type="org.talend.core.model.properties.ProjectComponentAuthorisation" opposite="component" ordered="false"
      * @generated
      */
     EList getProjects();

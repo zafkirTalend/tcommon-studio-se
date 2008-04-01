@@ -218,7 +218,7 @@ public interface Project extends EObject {
      * @return the value of the '<em>User Authorization</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_UserAuthorization()
      * @see org.talend.core.model.properties.UserProjectAuthorization#getProject
-     * @model type="org.talend.core.model.properties.UserProjectAuthorization" opposite="project"
+     * @model type="org.talend.core.model.properties.UserProjectAuthorization" opposite="project" ordered="false"
      * @generated
      */
     EList getUserAuthorization();
@@ -236,7 +236,7 @@ public interface Project extends EObject {
      * @return the value of the '<em>Allowed Components</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_AllowedComponents()
      * @see org.talend.core.model.properties.ProjectComponentAuthorisation#getProject
-     * @model type="org.talend.core.model.properties.ProjectComponentAuthorisation" opposite="project"
+     * @model type="org.talend.core.model.properties.ProjectComponentAuthorisation" opposite="project" ordered="false"
      * @generated
      */
     EList getAllowedComponents();
@@ -254,7 +254,7 @@ public interface Project extends EObject {
      * @return the value of the '<em>Referenced Projects</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_ReferencedProjects()
      * @see org.talend.core.model.properties.ProjectReference#getProject
-     * @model type="org.talend.core.model.properties.ProjectReference" opposite="project"
+     * @model type="org.talend.core.model.properties.ProjectReference" opposite="project" ordered="false"
      * @generated
      */
     EList getReferencedProjects();
@@ -272,7 +272,7 @@ public interface Project extends EObject {
      * @return the value of the '<em>Available Ref Project</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_AvailableRefProject()
      * @see org.talend.core.model.properties.ProjectReference#getReferencedProject
-     * @model type="org.talend.core.model.properties.ProjectReference" opposite="referencedProject"
+     * @model type="org.talend.core.model.properties.ProjectReference" opposite="referencedProject" ordered="false"
      * @generated
      */
     EList getAvailableRefProject();
@@ -288,7 +288,7 @@ public interface Project extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Migration Tasks</em>' attribute list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_MigrationTasks()
-     * @model
+     * @model ordered="false"
      * @generated
      */
     EList getMigrationTasks();
@@ -330,7 +330,7 @@ public interface Project extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Spago Bi Server</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_SpagoBiServer()
-     * @model type="org.talend.core.model.properties.SpagoBiServer" containment="true"
+     * @model type="org.talend.core.model.properties.SpagoBiServer" containment="true" ordered="false"
      * @generated
      */
     EList getSpagoBiServer();

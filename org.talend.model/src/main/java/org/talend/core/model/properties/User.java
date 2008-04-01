@@ -346,7 +346,7 @@ public interface User extends EObject {
      * @return the value of the '<em>Project Authorization</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_ProjectAuthorization()
      * @see org.talend.core.model.properties.UserProjectAuthorization#getUser
-     * @model type="org.talend.core.model.properties.UserProjectAuthorization" opposite="user"
+     * @model type="org.talend.core.model.properties.UserProjectAuthorization" opposite="user" ordered="false"
      * @generated
      */
     EList getProjectAuthorization();
@@ -364,7 +364,7 @@ public interface User extends EObject {
      * @return the value of the '<em>Module Authorization</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_ModuleAuthorization()
      * @see org.talend.core.model.properties.UserModuleAuthorization#getUser
-     * @model type="org.talend.core.model.properties.UserModuleAuthorization" opposite="user"
+     * @model type="org.talend.core.model.properties.UserModuleAuthorization" opposite="user" ordered="false"
      * @generated
      */
     EList getModuleAuthorization();

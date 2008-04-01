@@ -141,7 +141,7 @@ public interface ExecutionVirtualServer extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Execution Servers</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_ExecutionServers()
-     * @model type="org.talend.core.model.properties.ExecutionServer"
+     * @model type="org.talend.core.model.properties.ExecutionServer" ordered="false"
      * @generated
      */
     EList getExecutionServers();

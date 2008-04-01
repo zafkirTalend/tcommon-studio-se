@@ -561,7 +561,7 @@ public interface ExecutionTask extends EObject {
      * @return the value of the '<em>Triggers</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Triggers()
      * @see org.talend.core.model.properties.TalendTrigger#getExecutionTask
-     * @model type="org.talend.core.model.properties.TalendTrigger" opposite="executionTask" containment="true"
+     * @model type="org.talend.core.model.properties.TalendTrigger" opposite="executionTask" containment="true" ordered="false"
      * @generated
      */
     EList getTriggers();

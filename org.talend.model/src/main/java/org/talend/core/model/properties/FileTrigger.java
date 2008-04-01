@@ -36,7 +36,7 @@ public interface FileTrigger extends SimpleTalendTrigger {
      * <!-- end-user-doc -->
      * @return the value of the '<em>File Trigger Masks</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getFileTrigger_FileTriggerMasks()
-     * @model type="org.talend.core.model.properties.FileTriggerMask" containment="true"
+     * @model type="org.talend.core.model.properties.FileTriggerMask" containment="true" ordered="false"
      * @generated
      */
     EList getFileTriggerMasks();
