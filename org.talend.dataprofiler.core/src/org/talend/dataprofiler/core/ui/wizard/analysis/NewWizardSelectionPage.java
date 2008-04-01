@@ -158,14 +158,11 @@ public class NewWizardSelectionPage extends WizardPage {
                 
                 if (node.getParent() != null) {
                     setMessage(node.getLiteral());
-                    setPageComplete(true);
                     //set parameter
-                    connectionParams.setConnectionTypeForANA(((AnalysisTypeNode) node.getParent()).getName());
-                    
-                } else {
-                    updateSelectonNode();
-                    setPageComplete(false);
-                }
+                    connectionParams.setConnectionTypeForANA(((AnalysisTypeNode) node.getParent()).getName());   
+                } 
+                
+                updateSelectonNode();
             }
 
         });
@@ -216,6 +213,10 @@ public class NewWizardSelectionPage extends WizardPage {
     public void updateSelectonNode() {
         AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) analysisTypes.getSelection()).getFirstElement();
         
+        if (node.getParent() != null) {
+            node = (AnalysisTypeNode) node.getParent();
+        }
+        
         //System.out.println(node.getName());
         if (node.getName().equals(AnalysisType.CONNECTION.getLiteral())) {
             
@@ -232,6 +233,11 @@ public class NewWizardSelectionPage extends WizardPage {
             this.selectedWizard = null;
             this.setCanFinishEarly(false);
             this.setHasPages(false);
+            this.setPageComplete(false);
+        }
+        
+        if (selectedWizard != null) {
+            setPageComplete(true);
         }
     }
 
