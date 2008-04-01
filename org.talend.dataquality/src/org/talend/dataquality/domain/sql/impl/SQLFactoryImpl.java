@@ -76,12 +76,8 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
         switch (eDataType.getClassifierID()) {
             case SQLPackage.SQL_PREDICATE:
                 return createSqlPredicateFromString(eDataType, initialValue);
-            case SQLPackage.SQL_LOGICAL_OPERATOR:
-                return createSqlLogicalOperatorFromString(eDataType, initialValue);
             case SQLPackage.BRACKET:
                 return createBracketFromString(eDataType, initialValue);
-            case SQLPackage.SQL_KEYWORD:
-                return createSqlKeywordFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -97,12 +93,8 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
         switch (eDataType.getClassifierID()) {
             case SQLPackage.SQL_PREDICATE:
                 return convertSqlPredicateToString(eDataType, instanceValue);
-            case SQLPackage.SQL_LOGICAL_OPERATOR:
-                return convertSqlLogicalOperatorToString(eDataType, instanceValue);
             case SQLPackage.BRACKET:
                 return convertBracketToString(eDataType, instanceValue);
-            case SQLPackage.SQL_KEYWORD:
-                return convertSqlKeywordToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -133,26 +125,6 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public SqlLogicalOperator createSqlLogicalOperatorFromString(EDataType eDataType, String initialValue) {
-        SqlLogicalOperator result = SqlLogicalOperator.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-        return result;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String convertSqlLogicalOperatorToString(EDataType eDataType, Object instanceValue) {
-        return instanceValue == null ? null : instanceValue.toString();
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public Bracket createBracketFromString(EDataType eDataType, String initialValue) {
         Bracket result = Bracket.get(initialValue);
         if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -165,26 +137,6 @@ public class SQLFactoryImpl extends EFactoryImpl implements SQLFactory {
      * @generated
      */
     public String convertBracketToString(EDataType eDataType, Object instanceValue) {
-        return instanceValue == null ? null : instanceValue.toString();
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public SqlKeyword createSqlKeywordFromString(EDataType eDataType, String initialValue) {
-        SqlKeyword result = SqlKeyword.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-        return result;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String convertSqlKeywordToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

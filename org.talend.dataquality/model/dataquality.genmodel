@@ -310,23 +310,21 @@
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/LESS"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/GREATER_EQUAL"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/LESS_EQUAL"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IS"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IS_NULL"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/BETWEEN"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/LIKE"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IN"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/NOT_EQUAL2"/>
-        </genEnums>
-        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlLogicalOperator">
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlLogicalOperator/AND"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlLogicalOperator/OR"/>
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlLogicalOperator/NOT"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/NOT_IN"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/NOT_BETWEEN"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/NOT_LIKE"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IS_NOT_NULL"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/AND"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/OR"/>
         </genEnums>
         <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/Bracket">
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/LEFT"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/RIGHT"/>
-        </genEnums>
-        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/SqlKeyword">
-          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlKeyword/NULL"/>
         </genEnums>
       </nestedGenPackages>
     </nestedGenPackages>

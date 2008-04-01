@@ -1,9 +1,5 @@
-/**
- * <copyright> </copyright>
- * 
- * $Id$
- */
 package org.talend.dataquality.domain.sql.impl;
+
 
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
@@ -19,8 +15,6 @@ import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 import org.talend.dataquality.domain.sql.Bracket;
 import org.talend.dataquality.domain.sql.SQLFactory;
 import org.talend.dataquality.domain.sql.SQLPackage;
-import org.talend.dataquality.domain.sql.SqlKeyword;
-import org.talend.dataquality.domain.sql.SqlLogicalOperator;
 import org.talend.dataquality.domain.sql.SqlPredicate;
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -62,35 +56,25 @@ import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
 import orgomg.mof.model.ModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
  * @generated
  */
 public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
-
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     private EEnum sqlPredicateEEnum = null;
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EEnum sqlLogicalOperatorEEnum = null;
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     private EEnum bracketEEnum = null;
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EEnum sqlKeywordEEnum = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -233,26 +217,8 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EEnum getSqlLogicalOperator() {
-        return sqlLogicalOperatorEEnum;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EEnum getBracket() {
         return bracketEEnum;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EEnum getSqlKeyword() {
-        return sqlKeywordEEnum;
     }
 
     /**
@@ -284,9 +250,7 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
 
         // Create enums
         sqlPredicateEEnum = createEEnum(SQL_PREDICATE);
-        sqlLogicalOperatorEEnum = createEEnum(SQL_LOGICAL_OPERATOR);
         bracketEEnum = createEEnum(BRACKET);
-        sqlKeywordEEnum = createEEnum(SQL_KEYWORD);
     }
 
     /**
@@ -320,22 +284,21 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.LESS);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.GREATER_EQUAL);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.LESS_EQUAL);
-        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IS);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IS_NULL);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.BETWEEN);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.LIKE);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IN);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.NOT_EQUAL2);
-
-        initEEnum(sqlLogicalOperatorEEnum, SqlLogicalOperator.class, "SqlLogicalOperator");
-        addEEnumLiteral(sqlLogicalOperatorEEnum, SqlLogicalOperator.AND);
-        addEEnumLiteral(sqlLogicalOperatorEEnum, SqlLogicalOperator.OR);
-        addEEnumLiteral(sqlLogicalOperatorEEnum, SqlLogicalOperator.NOT);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.NOT_IN);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.NOT_BETWEEN);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.NOT_LIKE);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IS_NOT_NULL);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.AND);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.OR);
 
         initEEnum(bracketEEnum, Bracket.class, "Bracket");
         addEEnumLiteral(bracketEEnum, Bracket.LEFT);
         addEEnumLiteral(bracketEEnum, Bracket.RIGHT);
-
-        initEEnum(sqlKeywordEEnum, SqlKeyword.class, "SqlKeyword");
-        addEEnumLiteral(sqlKeywordEEnum, SqlKeyword.NULL);
     }
-} // SQLPackageImpl
+
+} //SQLPackageImpl

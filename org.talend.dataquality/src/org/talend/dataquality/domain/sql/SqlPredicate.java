@@ -86,16 +86,14 @@ public enum SqlPredicate implements Enumerator {
     LESS_EQUAL(5, "LESS_EQUAL", "<="),
 
     /**
-     * The '<em><b>IS</b></em>' literal object.
+     * The '<em><b>IS NULL</b></em>' literal object.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #IS_VALUE
+     * @see #IS_NULL_VALUE
      * @generated
      * @ordered
      */
-    IS(6, "IS", "IS"),
-
-    /**
+    IS_NULL(6, "IS_NULL", "IS NULL"), /**
      * The '<em><b>BETWEEN</b></em>' literal object.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -129,7 +127,55 @@ public enum SqlPredicate implements Enumerator {
      * @generated
      * @ordered
      */
-    NOT_EQUAL2(10, "NOT_EQUAL2", "!=");
+    NOT_EQUAL2(10, "NOT_EQUAL2", "!="), /**
+     * The '<em><b>NOT IN</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #NOT_IN_VALUE
+     * @generated
+     * @ordered
+     */
+    NOT_IN(11, "NOT_IN", "NOT IN"), /**
+     * The '<em><b>NOT BETWEEN</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #NOT_BETWEEN_VALUE
+     * @generated
+     * @ordered
+     */
+    NOT_BETWEEN(12, "NOT_BETWEEN", "NOT BETWEEN"), /**
+     * The '<em><b>NOT LIKE</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #NOT_LIKE_VALUE
+     * @generated
+     * @ordered
+     */
+    NOT_LIKE(13, "NOT_LIKE", "NOT LIKE"), /**
+     * The '<em><b>IS NOT NULL</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #IS_NOT_NULL_VALUE
+     * @generated
+     * @ordered
+     */
+    IS_NOT_NULL(14, "IS_NOT_NULL", "IS NOT NULL"), /**
+     * The '<em><b>AND</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #AND_VALUE
+     * @generated
+     * @ordered
+     */
+    AND(15, "AND", "AND"), /**
+     * The '<em><b>OR</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #OR_VALUE
+     * @generated
+     * @ordered
+     */
+    OR(16, "OR", "OR");
 
     /**
      * The '<em><b>EQUAL</b></em>' literal value.
@@ -221,19 +267,19 @@ public enum SqlPredicate implements Enumerator {
     public static final int LESS_EQUAL_VALUE = 5;
 
     /**
-     * The '<em><b>IS</b></em>' literal value.
+     * The '<em><b>IS NULL</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of '<em><b>IS</b></em>' literal object isn't clear,
+     * If the meaning of '<em><b>IS NULL</b></em>' literal object isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @see #IS
-     * @model
+     * @see #IS_NULL
+     * @model literal="IS NULL"
      * @generated
      * @ordered
      */
-    public static final int IS_VALUE = 6;
+    public static final int IS_NULL_VALUE = 6;
 
     /**
      * The '<em><b>BETWEEN</b></em>' literal value.
@@ -295,6 +341,96 @@ public enum SqlPredicate implements Enumerator {
     public static final int NOT_EQUAL2_VALUE = 10;
 
     /**
+     * The '<em><b>NOT IN</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>NOT IN</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #NOT_IN
+     * @model literal="NOT IN"
+     * @generated
+     * @ordered
+     */
+    public static final int NOT_IN_VALUE = 11;
+
+    /**
+     * The '<em><b>NOT BETWEEN</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>NOT BETWEEN</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #NOT_BETWEEN
+     * @model literal="NOT BETWEEN"
+     * @generated
+     * @ordered
+     */
+    public static final int NOT_BETWEEN_VALUE = 12;
+
+    /**
+     * The '<em><b>NOT LIKE</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>NOT LIKE</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #NOT_LIKE
+     * @model literal="NOT LIKE"
+     * @generated
+     * @ordered
+     */
+    public static final int NOT_LIKE_VALUE = 13;
+
+    /**
+     * The '<em><b>IS NOT NULL</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>IS NOT NULL</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #IS_NOT_NULL
+     * @model literal="IS NOT NULL"
+     * @generated
+     * @ordered
+     */
+    public static final int IS_NOT_NULL_VALUE = 14;
+
+    /**
+     * The '<em><b>AND</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>AND</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #AND
+     * @model
+     * @generated
+     * @ordered
+     */
+    public static final int AND_VALUE = 15;
+
+    /**
+     * The '<em><b>OR</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>OR</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #OR
+     * @model
+     * @generated
+     * @ordered
+     */
+    public static final int OR_VALUE = 16;
+
+    /**
      * An array of all the '<em><b>Sql Predicate</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -308,11 +444,17 @@ public enum SqlPredicate implements Enumerator {
             LESS,
             GREATER_EQUAL,
             LESS_EQUAL,
-            IS,
+            IS_NULL,
             BETWEEN,
             LIKE,
             IN,
             NOT_EQUAL2,
+            NOT_IN,
+            NOT_BETWEEN,
+            NOT_LIKE,
+            IS_NOT_NULL,
+            AND,
+            OR,
         };
 
     /**
@@ -369,11 +511,17 @@ public enum SqlPredicate implements Enumerator {
             case LESS_VALUE: return LESS;
             case GREATER_EQUAL_VALUE: return GREATER_EQUAL;
             case LESS_EQUAL_VALUE: return LESS_EQUAL;
-            case IS_VALUE: return IS;
+            case IS_NULL_VALUE: return IS_NULL;
             case BETWEEN_VALUE: return BETWEEN;
             case LIKE_VALUE: return LIKE;
             case IN_VALUE: return IN;
             case NOT_EQUAL2_VALUE: return NOT_EQUAL2;
+            case NOT_IN_VALUE: return NOT_IN;
+            case NOT_BETWEEN_VALUE: return NOT_BETWEEN;
+            case NOT_LIKE_VALUE: return NOT_LIKE;
+            case IS_NOT_NULL_VALUE: return IS_NOT_NULL;
+            case AND_VALUE: return AND;
+            case OR_VALUE: return OR;
         }
         return null;
     }
