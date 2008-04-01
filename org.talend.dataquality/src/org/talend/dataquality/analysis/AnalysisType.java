@@ -207,6 +207,8 @@ public enum AnalysisType implements Enumerator {
         }
         return null;
     }
+    
+
 
     /**
      * Returns the '<em><b>Type</b></em>' literal with the specified name.
