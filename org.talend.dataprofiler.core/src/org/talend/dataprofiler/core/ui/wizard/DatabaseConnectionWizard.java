@@ -27,6 +27,7 @@ import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -75,6 +76,8 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
         connectionProperty = new ConnectionParameters();
         connectionProperty.setParameters(new Properties());
+        connectionProperty.setConnectionTypeForANA(AnalysisType.CONNECTION.getLiteral());
+        
         propertiesWizardPage = new Step0WizardPage(connectionProperty, null, false, creation);
         databaseWizardPage = new DatabaseWizardPage("DatabaseParam Page", connectionProperty);
 
