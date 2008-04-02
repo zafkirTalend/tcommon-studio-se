@@ -19,29 +19,33 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * 
  */
 public enum IndicatorEnum {
-    RowCountIndicatorEnum(IndicatorsPackage.ROW_COUNT_INDICATOR, "row count"),
-    NullCountIndicatorEnum(IndicatorsPackage.NULL_COUNT_INDICATOR, "null count"),
-    DistinctCountIndicatorEnum(IndicatorsPackage.DISTINCT_COUNT_INDICATOR, "distinct count"),
-    UniqueIndicatorEnum(IndicatorsPackage.UNIQUE_COUNT_INDICATOR, "unique count"),
-    DuplicateCountIndicatorEnum(IndicatorsPackage.DUPLICATE_COUNT_INDICATOR, "duplicate count"),
-    BlankCountIndicatorEnum(IndicatorsPackage.BLANK_COUNT_INDICATOR, "blank count"),
+    RowCountIndicatorEnum(IndicatorsPackage.ROW_COUNT_INDICATOR, "row count", null),
+    NullCountIndicatorEnum(IndicatorsPackage.NULL_COUNT_INDICATOR, "null count", null),
+    DistinctCountIndicatorEnum(IndicatorsPackage.DISTINCT_COUNT_INDICATOR, "distinct count", null),
+    UniqueIndicatorEnum(IndicatorsPackage.UNIQUE_COUNT_INDICATOR, "unique count", null),
+    DuplicateCountIndicatorEnum(IndicatorsPackage.DUPLICATE_COUNT_INDICATOR, "duplicate count", null),
+    BlankCountIndicatorEnum(IndicatorsPackage.BLANK_COUNT_INDICATOR, "blank count", null),
 
-    ModeIndicatorEnum(IndicatorsPackage.MODE_INDICATOR, "mode"),
-    MeanIndicatorEnum(IndicatorsPackage.INTEGER_MEAN_INDICATOR, "mean"),
-    MedianIndicatorEnum(IndicatorsPackage.MEDIAN_INDICATOR, "median"),
-    IQRIndicatorEnum(IndicatorsPackage.IQR_INDICATOR, "IQR"),
-    RangeIndicatorEnum(IndicatorsPackage.RANGE_INDICATOR, "range"),
-    MinValueIndicatorEnum(IndicatorsPackage.MIN_VALUE_INDICATOR, "min"),
-    MaxValueIndicatorEnum(IndicatorsPackage.MAX_VALUE_INDICATOR, "max"),
-    FrequencyIndicatorEnum(IndicatorsPackage.FREQUENCY_INDICATOR, "frequency table");
+    ModeIndicatorEnum(IndicatorsPackage.MODE_INDICATOR, "mode", null),
+    MeanIndicatorEnum(IndicatorsPackage.INTEGER_MEAN_INDICATOR, "mean", null),
+    MedianIndicatorEnum(IndicatorsPackage.MEDIAN_INDICATOR, "median", null),
+    MinValueIndicatorEnum(IndicatorsPackage.MIN_VALUE_INDICATOR, "min", null),
+    MaxValueIndicatorEnum(IndicatorsPackage.MAX_VALUE_INDICATOR, "max", null),
+    IQRIndicatorEnum(IndicatorsPackage.IQR_INDICATOR, "IQR", new IndicatorEnum[] { MinValueIndicatorEnum, MaxValueIndicatorEnum }),
+    RangeIndicatorEnum(IndicatorsPackage.RANGE_INDICATOR, "range", new IndicatorEnum[] { MinValueIndicatorEnum,
+            MaxValueIndicatorEnum }),
+    FrequencyIndicatorEnum(IndicatorsPackage.FREQUENCY_INDICATOR, "frequency table", null);
 
     private int indicatorType;
 
     private String label;
 
-    IndicatorEnum(int indicatorType, String label) {
+    private IndicatorEnum[] children;
+
+    IndicatorEnum(int indicatorType, String label, IndicatorEnum[] children) {
         this.indicatorType = indicatorType;
         this.label = label;
+        this.children = children;
     }
 
     /**
@@ -56,6 +60,17 @@ public enum IndicatorEnum {
      */
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * @return the children
+     */
+    public IndicatorEnum[] getChildren() {
+        return children;
+    }
+
+    public boolean hasChildren() {
+        return children != null;
     }
 
 }

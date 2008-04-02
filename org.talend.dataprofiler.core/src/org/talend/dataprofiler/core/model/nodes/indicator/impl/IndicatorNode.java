@@ -19,12 +19,12 @@ import org.talend.dataprofiler.core.model.nodes.indicator.AbstractIndicatorNode;
  * @author rli
  *
  */
-public class IndicatorLeafNode extends AbstractIndicatorNode {
+public class IndicatorNode extends AbstractIndicatorNode {
 
     /**
      * 
      */
-    public IndicatorLeafNode() {
+    public IndicatorNode() {
     }
 
 }

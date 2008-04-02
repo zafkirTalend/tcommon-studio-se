@@ -29,9 +29,10 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuilder;
+import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
 /**
- * @author rli
+ * This dialog use to select the indictor object for different columns.
  * 
  */
 public class IndicatorSelectDialog extends Dialog {
@@ -56,8 +57,48 @@ public class IndicatorSelectDialog extends Dialog {
         ((GridData) tree.getLayoutData()).heightHint = 320;
         createTreeStructure(tree);
         tree.pack();
-        comp.layout();        
+        comp.layout();
         return comp;
+    }
+
+    /**
+     * @author rli
+     * 
+     */
+    class TreeItemContainer extends TreeItem {
+
+        private Button[] buttons;
+
+        private final int initialCapacity;
+
+        public TreeItemContainer(TreeItemContainer parentItem, int style, int initialCapacity) {
+            super(parentItem, style);
+            this.initialCapacity = initialCapacity;
+        }
+
+        public TreeItemContainer(Tree parent, int style, int initionSize) {
+            super(parent, style);
+            this.initialCapacity = initionSize;
+        }
+
+        public void setButton(int index, Button button) {
+            if (buttons == null) {
+                buttons = new Button[initialCapacity];
+            }
+            buttons[index] = button;
+        }
+
+        public Button getButton(int index) {
+            return buttons == null ? null : buttons[index];
+        }
+
+        /*
+         * Disable the judge of subclass.
+         * 
+         * @see org.eclipse.swt.widgets.TreeItem#checkSubclass()
+         */
+        protected void checkSubclass() {
+        }
     }
 
     private void createTreeStructure(Tree tree) {
@@ -66,39 +107,18 @@ public class IndicatorSelectDialog extends Dialog {
 
         IIndicatorNode[] branchNodes = IndicatorTreeModelBuilder.buildIndicatorCategory();
 
-        createChildrenNode(tree, treeColumns, branchNodes);
+        createChildrenNode(tree, null, treeColumns, branchNodes);
     }
 
-    /**
-     * @param tree
-     * @param treeColumns
-     * @param branchNodes
-     * @param i
-     */
-    private void createChildrenNode(Tree tree, TreeColumn[] treeColumns, IIndicatorNode[] branchNodes) {
+    private void createChildrenNode(Tree tree, TreeItemContainer parentItem, TreeColumn[] treeColumns,
+            IIndicatorNode[] branchNodes) {
         for (int i = 0; i < branchNodes.length; i++) {
-            TreeItem treeItem;
-            treeItem = new TreeItem(tree, SWT.NONE);
-
-            // Create the catalog items
-            for (int j = 0; j < treeColumns.length; j++) {
-                if (j == 0) {
-                    treeItem.setText(0, branchNodes[i].getLabel());
-                    continue;
-                }
+            final TreeItemContainer treeItem;
+            if (parentItem == null) {
+                treeItem = new TreeItemContainer(tree, SWT.NONE, treeColumns.length);
+            } else {
+                treeItem = new TreeItemContainer(parentItem, SWT.NONE, treeColumns.length);
             }
-            if (branchNodes[i].hasChildren()) {
-                createChildrenNode(tree, treeItem, treeColumns, branchNodes[i].getChildren());
-            }
-            treeItem.setExpanded(true);
-        }
-
-    }
-
-    private void createChildrenNode(Tree tree, TreeItem parentItem, TreeColumn[] treeColumns, IIndicatorNode[] branchNodes) {
-        for (int i = 0; i < branchNodes.length; i++) {
-            TreeItem treeItem;
-            treeItem = new TreeItem(parentItem, SWT.NONE);
             TreeEditor editor;
             for (int j = 0; j < treeColumns.length; j++) {
                 if (j == 0) {
@@ -107,6 +127,7 @@ public class IndicatorSelectDialog extends Dialog {
                 }
                 editor = new TreeEditor(tree);
                 Button checkButton = new Button(tree, SWT.CHECK);
+                checkButton.setData(branchNodes[i].getIndicatorEnum());
                 if (((ColumnIndicator) treeColumns[j].getData()).contains(branchNodes[i].getIndicatorEnum())) {
                     checkButton.setSelection(true);
                 }
@@ -115,24 +136,53 @@ public class IndicatorSelectDialog extends Dialog {
                 editor.horizontalAlignment = SWT.CENTER;
                 editor.setEditor(checkButton, treeItem, j);
 
-                final TreeColumn treeColumn = treeColumns[j];
-                final IIndicatorNode indicatorNode = branchNodes[i];
+                final int index = j;
+                final ColumnIndicator currentColumnIndicator = (ColumnIndicator) treeColumns[j].getData();
+                final IndicatorEnum indicatorEnum = branchNodes[i].getIndicatorEnum();
                 checkButton.addSelectionListener(new SelectionAdapter() {
 
                     public void widgetSelected(SelectionEvent e) {
-                        if (((Button) e.getSource()).getSelection()) {
-                            ((ColumnIndicator) treeColumn.getData()).addIndicatorEnum(indicatorNode.getIndicatorEnum());
-                        } else {
-                            ((ColumnIndicator) treeColumn.getData()).removeIndicatorEnum(indicatorNode.getIndicatorEnum());
+                        boolean selection = ((Button) e.getSource()).getSelection();
+                        if (treeItem.getParentItem() != null && selection) {
+                            Button parentButton = ((TreeItemContainer) treeItem.getParentItem()).getButton(index);
+                            parentButton.setSelection(selection);
+                            currentColumnIndicator.addIndicatorEnum((IndicatorEnum) parentButton.getData());
                         }
+                        handleSelection(treeItem, index, currentColumnIndicator, indicatorEnum, selection);
+                    }
 
+                    /**
+                     * Handle the selection event.
+                     */
+                    private void handleSelection(final TreeItemContainer treeItem, final int index,
+                            final ColumnIndicator currentColumnIndicator, final IndicatorEnum indicatorEnum, boolean selection) {
+                        Button childrenButton;
+                        if (selection) {
+                            currentColumnIndicator.addIndicatorEnum(indicatorEnum);
+                            for (TreeItem children : treeItem.getItems()) {
+                                childrenButton = ((TreeItemContainer) children).getButton(index);
+                                childrenButton.setSelection(selection);
+                                handleSelection((TreeItemContainer) children, index, currentColumnIndicator,
+                                        (IndicatorEnum) childrenButton.getData(), selection);
+                            }
+                        } else {
+                            currentColumnIndicator.removeIndicatorEnum(indicatorEnum);
+                            for (TreeItem children : treeItem.getItems()) {
+                                childrenButton = ((TreeItemContainer) children).getButton(index);
+                                childrenButton.setSelection(selection);
+                                handleSelection((TreeItemContainer) children, index, currentColumnIndicator,
+                                        (IndicatorEnum) childrenButton.getData(), selection);
+                            }
+                        }
                     }
 
                 });
+                treeItem.setButton(index, checkButton);
             }
             if (branchNodes[i].hasChildren()) {
                 createChildrenNode(tree, treeItem, treeColumns, branchNodes[i].getChildren());
             }
+            treeItem.setExpanded(true);
         }
 
     }

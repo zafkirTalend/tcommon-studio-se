@@ -38,6 +38,9 @@ public class ColumnIndicator {
      * @return the indicatorEnums
      */
     public void addIndicatorEnum(IndicatorEnum indicatorEnum) {
+        if (indicatorEnum == null) {
+            return;
+        }
         if (indicatorEnums == null) {
             indicatorEnums = new ArrayList<IndicatorEnum>();
         }
@@ -106,8 +109,8 @@ public class ColumnIndicator {
             case ModeIndicatorEnum:
                 indicator = factory.createModeIndicator();
                 break;
-                
-            //TODO MeanIndicator only corresponding DoubleMeanIndicator?
+
+            // TODO MeanIndicator only corresponding DoubleMeanIndicator?
             case MeanIndicatorEnum:
                 indicator = factory.createDoubleMeanIndicator();
                 break;

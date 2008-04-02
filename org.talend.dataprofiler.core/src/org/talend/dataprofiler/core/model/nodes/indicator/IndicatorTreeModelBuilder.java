@@ -13,7 +13,7 @@
 package org.talend.dataprofiler.core.model.nodes.indicator;
 
 import org.talend.dataprofiler.core.model.nodes.indicator.impl.IndicatorCategoryNode;
-import org.talend.dataprofiler.core.model.nodes.indicator.impl.IndicatorLeafNode;
+import org.talend.dataprofiler.core.model.nodes.indicator.impl.IndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
 /**
@@ -37,45 +37,14 @@ public class IndicatorTreeModelBuilder {
         advanceCategoryNode.setLabel("Advanced statistics");
         IndicatorEnum[] advanceIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.ModeIndicatorEnum,
                 IndicatorEnum.MeanIndicatorEnum, IndicatorEnum.MedianIndicatorEnum, IndicatorEnum.IQRIndicatorEnum,
-                IndicatorEnum.RangeIndicatorEnum, IndicatorEnum.MinValueIndicatorEnum, IndicatorEnum.MaxValueIndicatorEnum };
+                IndicatorEnum.RangeIndicatorEnum, IndicatorEnum.FrequencyIndicatorEnum };
         createChildren(advanceCategoryNode, advanceIndicatorEnums);
-
-        // // build Numerical Statistic categoryNode
-        // IndicatorCategoryNode numericalCategoryNode = new IndicatorCategoryNode();
-        // numericalCategoryNode.setLabel("Numerical Statistic");
-        // IndicatorEnum[] numericalFieldEnums = new IndicatorEnum[] { IndicatorEnum.MeanField,
-        // IndicatorEnum.MedianField,
-        // IndicatorEnum.MinimumValueField, IndicatorEnum.MaximumValueField, IndicatorEnum.RangeField,
-        // IndicatorEnum.LowQuartileField, IndicatorEnum.UpperQuartileField, IndicatorEnum.IQRField,
-        // IndicatorEnum.ModeField };
-        // createChildren(numericalCategoryNode, new IndicatorCategoryNode[] { basicCategoryNode },
-        // numericalFieldEnums);
-        //
-        // // build Date Statistic categoryNode
-        // IndicatorCategoryNode dateCategoryNode = new IndicatorCategoryNode();
-        // dateCategoryNode.setLabel("Date Statistic");
-        // IndicatorEnum[] dateFieldEnums = new IndicatorEnum[] { IndicatorEnum.ModeField,
-        // IndicatorEnum.FrequenceTableField,
-        // IndicatorEnum.MeanField, IndicatorEnum.MinimumValueField, IndicatorEnum.MaximumValueField,
-        // IndicatorEnum.MedianField, IndicatorEnum.LowQuartileField, IndicatorEnum.UpperQuartileField,
-        // IndicatorEnum.IQRField, IndicatorEnum.RangeField };
-        // createChildren(dateCategoryNode, new IndicatorCategoryNode[] { basicCategoryNode }, dateFieldEnums);
 
         return new IndicatorCategoryNode[] { simpleCategoryNode, advanceCategoryNode };
     }
 
-//    private static void createChildren(IndicatorCategoryNode parent, IndicatorCategoryNode[] nodes, IndicatorEnum[] fieldEnums) {
-//        createChildren(parent, fieldEnums);
-//
-//        for (IndicatorCategoryNode node : nodes) {
-//            parent.addChildren(node);
-//            node.setParent(parent);
-//        }
-//
-//    }
-
     private static void createChildren(IndicatorCategoryNode parent, IndicatorEnum[] fieldEnums) {
-        IndicatorLeafNode[] leafNodes = new IndicatorLeafNode[fieldEnums.length];
+        IndicatorNode[] leafNodes = new IndicatorNode[fieldEnums.length];
         for (int i = 0; i < fieldEnums.length; i++) {
             leafNodes[i] = createLeafNode(fieldEnums[i]);
             leafNodes[i].setParent(parent);
@@ -83,9 +52,16 @@ public class IndicatorTreeModelBuilder {
         parent.setChildren(leafNodes);
     }
 
-    private static IndicatorLeafNode createLeafNode(IndicatorEnum indicatorEnum) {
-        IndicatorLeafNode node = new IndicatorLeafNode();
+    private static IndicatorNode createLeafNode(IndicatorEnum indicatorEnum) {
+        IndicatorNode node = new IndicatorNode();
         node.setIndicatorEnum(indicatorEnum);
+        if (indicatorEnum.hasChildren()) {
+            IndicatorNode[] indicatorNodes = new IndicatorNode[indicatorEnum.getChildren().length];
+            for (int i = 0; i < indicatorEnum.getChildren().length; i++) {
+                indicatorNodes[i] = createLeafNode(indicatorEnum.getChildren()[i]);
+            }
+            node.setChildren(indicatorNodes);
+        }
         return node;
     }
 

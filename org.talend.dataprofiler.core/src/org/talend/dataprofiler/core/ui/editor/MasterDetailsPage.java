@@ -231,7 +231,7 @@ public class MasterDetailsPage extends FormPage {
             analysisBuilder.addElementToAnalyze(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
         }
 
-        // get the domain constraint
+        //TODO get the domain constraint, we will see later.
         // Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
         // analysisBuilder.addFilterOnData(dataFilter);
         //

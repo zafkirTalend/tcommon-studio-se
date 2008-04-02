@@ -112,7 +112,7 @@ public class AnasisColumnTreeViewer {
 
             editor = new TreeEditor(tree);
             Button addButton = new Button(tree, SWT.NONE);
-            addButton.setText("Add..");
+            addButton.setText("Add");
             addButton.pack();
             editor.minimumWidth = WIDTH1_CELL;
 //            editor.minimumWidth = addButton.getSize().x;
