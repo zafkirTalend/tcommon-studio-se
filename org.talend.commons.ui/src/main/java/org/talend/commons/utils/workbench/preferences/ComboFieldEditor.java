@@ -161,7 +161,4 @@ public class ComboFieldEditor extends FieldEditor {
         }
     }
 
-    public Control getControl() {
-        return fCombo;
-    }
 }
