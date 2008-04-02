@@ -59,11 +59,11 @@ public class ConnAnalysisPageStep1 extends WizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new GridLayout());  
 
-
-        Label inforLabel = new Label(container, SWT.NONE);
+        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+        gd.heightHint = 70;
+        Label inforLabel = new Label(container, SWT.BORDER);
         inforLabel.setText(defaultInfor);
-        inforLabel.setBackground(container.getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
-        inforLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        inforLabel.setLayoutData(gd);
         
         Composite subContainer = new Composite(container, SWT.NONE);
         GridLayout subLayout = new GridLayout(2, false);
@@ -71,14 +71,16 @@ public class ConnAnalysisPageStep1 extends WizardPage {
         subContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         Label labelTable = new Label(subContainer, SWT.NONE);
-        labelTable.setText("Table name filter :");
+        labelTable.setText("Table name filter");
         tableFilter = new Text(subContainer, SWT.BORDER);
         tableFilter.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        tableFilter.setText("%");
         
         Label labelView = new Label(subContainer, SWT.NONE);
-        labelView.setText("View name filter :");
+        labelView.setText("View name filter");
         viewFilter = new Text(subContainer, SWT.BORDER);
         viewFilter.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        viewFilter.setText("%");
         
         setControl(container);
     }

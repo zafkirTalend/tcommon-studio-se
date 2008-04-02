@@ -86,7 +86,7 @@ public class NewWizardSelectionPage extends WizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout gdLayout = new GridLayout(1, true);
         container.setLayout(gdLayout);
-
+        
         Label nameLabel = new Label(container, SWT.NONE);
         nameLabel.setText("Wizards:");
 
@@ -162,7 +162,7 @@ public class NewWizardSelectionPage extends WizardPage {
                     connectionParams.setConnectionTypeForANA(((AnalysisTypeNode) node.getParent()).getName());   
                 } 
                 
-                updateSelectonNode();
+                updateSelectionNode();
             }
 
         });
@@ -210,7 +210,7 @@ public class NewWizardSelectionPage extends WizardPage {
         
     }
     
-    public void updateSelectonNode() {
+    public void updateSelectionNode() {
         AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) analysisTypes.getSelection()).getFirstElement();
         
         if (node.getParent() != null) {
@@ -240,11 +240,6 @@ public class NewWizardSelectionPage extends WizardPage {
             setPageComplete(true);
         }
     }
-
-    public String getTypeName() {
-        return typeName.getText();
-    }
-
     
     /**
      * @return the canFinishEarly

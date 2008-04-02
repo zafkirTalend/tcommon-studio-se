@@ -54,11 +54,11 @@ public class ConnectionWizard extends Wizard {
     public void addPages() {
         
         metadataPage = new MetadataWizardPage(parameters, null, false, true);
-//        page0 = new ConnAnalysisPageStep0(parameters);
+        page0 = new ConnAnalysisPageStep0(parameters);
         page1 = new ConnAnalysisPageStep1(parameters);
         
         addPage(metadataPage);
-//        addPage(page0);
+        addPage(page0);
         addPage(page1);
     }
 

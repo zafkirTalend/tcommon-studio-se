@@ -79,6 +79,6 @@ public class MetadataWizardPage extends PropertiesWizardPage {
             typeText.setText(connectionParams.getConnectionTypeForANA());
         }
         super.setVisible(visible);
-    }    
-
+    }
+    
 }

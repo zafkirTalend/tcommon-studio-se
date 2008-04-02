@@ -110,8 +110,9 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
                 wizard.setForcePreviousAndNextButtons(true);
                 
                 WizardDialog dialog = new WizardDialog(null, wizard);
+                dialog.setPageSize(500, 340);
                 dialog.create();
-                dialog.setPageSize(600, 340);
+
                 
                 dialog.open();
             } catch (Exception e) {
