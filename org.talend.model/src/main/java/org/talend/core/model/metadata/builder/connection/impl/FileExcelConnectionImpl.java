@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -32,6 +33,8 @@ import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#getThousandSeparator <em>Thousand Separator</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#getDecimalSeparator <em>Decimal Separator</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#isAdvancedSpearator <em>Advanced Spearator</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#isSelectAllSheets <em>Select All Sheets</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl#getSheetList <em>Sheet List</em>}</li>
  * </ul>
  * </p>
  *
@@ -167,6 +170,46 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * @ordered
      */
     protected boolean advancedSpearator = ADVANCED_SPEARATOR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSelectAllSheets() <em>Select All Sheets</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSelectAllSheets()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SELECT_ALL_SHEETS_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSelectAllSheets() <em>Select All Sheets</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSelectAllSheets()
+     * @generated
+     * @ordered
+     */
+    protected boolean selectAllSheets = SELECT_ALL_SHEETS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSheetList() <em>Sheet List</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSheetList()
+     * @generated
+     * @ordered
+     */
+    protected static final ArrayList SHEET_LIST_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSheetList() <em>Sheet List</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSheetList()
+     * @generated
+     * @ordered
+     */
+    protected ArrayList sheetList = SHEET_LIST_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -329,6 +372,48 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isSelectAllSheets() {
+        return selectAllSheets;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSelectAllSheets(boolean newSelectAllSheets) {
+        boolean oldSelectAllSheets = selectAllSheets;
+        selectAllSheets = newSelectAllSheets;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS, oldSelectAllSheets, selectAllSheets));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ArrayList getSheetList() {
+        return sheetList;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSheetList(ArrayList newSheetList) {
+        ArrayList oldSheetList = sheetList;
+        sheetList = newSheetList;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST, oldSheetList, sheetList));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
@@ -345,6 +430,10 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
                 return getDecimalSeparator();
             case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
                 return isAdvancedSpearator() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+                return isSelectAllSheets() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+                return getSheetList();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -378,6 +467,12 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
             case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
                 setAdvancedSpearator(((Boolean)newValue).booleanValue());
                 return;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+                setSelectAllSheets(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+                setSheetList((ArrayList)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -410,6 +505,12 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
             case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
                 setAdvancedSpearator(ADVANCED_SPEARATOR_EDEFAULT);
                 return;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+                setSelectAllSheets(SELECT_ALL_SHEETS_EDEFAULT);
+                return;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+                setSheetList(SHEET_LIST_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -435,6 +536,10 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
                 return DECIMAL_SEPARATOR_EDEFAULT == null ? decimalSeparator != null : !DECIMAL_SEPARATOR_EDEFAULT.equals(decimalSeparator);
             case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
                 return advancedSpearator != ADVANCED_SPEARATOR_EDEFAULT;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+                return selectAllSheets != SELECT_ALL_SHEETS_EDEFAULT;
+            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+                return SHEET_LIST_EDEFAULT == null ? sheetList != null : !SHEET_LIST_EDEFAULT.equals(sheetList);
         }
         return super.eIsSet(featureID);
     }
@@ -462,6 +567,10 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         result.append(decimalSeparator);
         result.append(", advancedSpearator: ");
         result.append(advancedSpearator);
+        result.append(", selectAllSheets: ");
+        result.append(selectAllSheets);
+        result.append(", sheetList: ");
+        result.append(sheetList);
         result.append(')');
         return result.toString();
     }

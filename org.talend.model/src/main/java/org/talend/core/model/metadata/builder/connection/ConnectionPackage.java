@@ -2829,13 +2829,31 @@ public interface ConnectionPackage extends EPackage {
     int FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR = FILE_CONNECTION_FEATURE_COUNT + 6;
 
     /**
+     * The feature id for the '<em><b>Select All Sheets</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS = FILE_CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Sheet List</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__SHEET_LIST = FILE_CONNECTION_FEATURE_COUNT + 8;
+
+    /**
      * The number of structural features of the '<em>File Excel Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 7;
+    int FILE_EXCEL_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
@@ -4746,6 +4764,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileExcelConnection_AdvancedSpearator();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets <em>Select All Sheets</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Select All Sheets</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_SelectAllSheets();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList <em>Sheet List</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Sheet List</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList()
+     * @see #getFileExcelConnection()
+     * @generated
+     */
+    EAttribute getFileExcelConnection_SheetList();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6237,6 +6277,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR = eINSTANCE.getFileExcelConnection_AdvancedSpearator();
+
+        /**
+         * The meta object literal for the '<em><b>Select All Sheets</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS = eINSTANCE.getFileExcelConnection_SelectAllSheets();
+
+        /**
+         * The meta object literal for the '<em><b>Sheet List</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_EXCEL_CONNECTION__SHEET_LIST = eINSTANCE.getFileExcelConnection_SheetList();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.

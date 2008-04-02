@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import java.util.ArrayList;
 import org.eclipse.emf.common.util.EList;
 
 
@@ -24,6 +25,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator <em>Thousand Separator</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator <em>Decimal Separator</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator <em>Advanced Spearator</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets <em>Select All Sheets</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList <em>Sheet List</em>}</li>
  * </ul>
  * </p>
  *
@@ -203,5 +206,57 @@ public interface FileExcelConnection extends FileConnection {
      * @generated
      */
     void setAdvancedSpearator(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Select All Sheets</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Select All Sheets</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Select All Sheets</em>' attribute.
+     * @see #setSelectAllSheets(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_SelectAllSheets()
+     * @model
+     * @generated
+     */
+    boolean isSelectAllSheets();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets <em>Select All Sheets</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Select All Sheets</em>' attribute.
+     * @see #isSelectAllSheets()
+     * @generated
+     */
+    void setSelectAllSheets(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Sheet List</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Sheet List</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Sheet List</em>' attribute.
+     * @see #setSheetList(ArrayList)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileExcelConnection_SheetList()
+     * @model dataType="org.talend.core.model.metadata.builder.connection.List"
+     * @generated
+     */
+    ArrayList getSheetList();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList <em>Sheet List</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Sheet List</em>' attribute.
+     * @see #getSheetList()
+     * @generated
+     */
+    void setSheetList(ArrayList value);
 
 } // FileExcelConnection
