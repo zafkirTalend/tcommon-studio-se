@@ -245,19 +245,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return convert(getSerializableFromFolder(folder, null, type, false, true, withDeleted));
     }
 
-    public IRepositoryObject getLastVersion(String id) throws PersistenceException {
-        List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, false);
-
-        if (serializableAllVersion.size() > 1) {
-            throw new PersistenceException(Messages
-                    .getString("LocalRepositoryFactory.presistenceException.onlyOneOccurenceAllowed")); //$NON-NLS-1$
-        } else if (serializableAllVersion.size() == 1) {
-            return serializableAllVersion.get(0);
-        } else {
-            return null;
-        }
-    }
-
     /**
      * 
      * Get all object in a folder recursively.
