@@ -24,10 +24,10 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -120,12 +120,18 @@ public class MetadataTool {
 
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
         org.talend.core.model.metadata.builder.connection.Connection connection;
-        connection = getConnectionFromRepository(metaRepositoryId);
+
+        String[] names = metaRepositoryId.split(" - ");
+        if (names.length != 2) {
+            return null;
+        }
+        String linkedRepository = names[0];
+        connection = getConnectionFromRepository(linkedRepository);
 
         if (connection != null) {
             for (Object tableObj : connection.getTables()) {
                 MetadataTable table = (MetadataTable) tableObj;
-                if (metaRepositoryId.equals(table.getId())) {
+                if (table.getLabel().equals(names[1])) {
                     return ConvertionHelper.convert(table);
                 }
             }
@@ -135,22 +141,24 @@ public class MetadataTool {
     }
 
     public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(String metaRepositoryid) {
+        String connectionId = metaRepositoryid;
+        // some calls can be done either with only the connection Id or with informations from query or table
+        String[] names = metaRepositoryid.split(" - ");
+        if (names.length == 2) {
+            connectionId = names[0];
+        }
+
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ConnectionItem> metadataConnectionsItem = null;
         try {
-            metadataConnectionsItem = factory.getMetadataConnectionsItem();
+            IRepositoryObject object = factory.getLastVersion(connectionId);
+            if (object == null) {
+                return null;
+            }
+            if (factory.getStatus(object) != ERepositoryStatus.DELETED) {
+                return ((ConnectionItem) object.getProperty().getItem()).getConnection();
+            }
         } catch (PersistenceException e) {
             throw new RuntimeException(e);
-        }
-        if (metadataConnectionsItem != null) {
-            for (ConnectionItem connectionItem : metadataConnectionsItem) {
-                if (factory.getStatus(connectionItem) != ERepositoryStatus.DELETED) {
-                    final MetadataTable table = UpdateRepositoryUtils.getTableById(connectionItem, metaRepositoryid);
-                    if (table != null) {
-                        return connectionItem.getConnection();
-                    }
-                }
-            }
         }
         return null;
 

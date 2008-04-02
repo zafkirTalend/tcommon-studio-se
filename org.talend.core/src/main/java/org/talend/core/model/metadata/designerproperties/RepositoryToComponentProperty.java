@@ -396,7 +396,7 @@ public class RepositoryToComponentProperty {
 
         }
         if (value.equals("ADVANCED_SEPARATOR")) { //$NON-NLS-1$
-            return Boolean.toString(connection.isAdvancedSpearator());
+            return connection.isAdvancedSpearator();
         }
         if (value.equals("THOUSANDS_SEPARATOR")) { //$NON-NLS-1$
             return connection.getThousandSeparator();
