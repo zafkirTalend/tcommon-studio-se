@@ -20,6 +20,8 @@ import java.util.Map;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -374,11 +376,24 @@ public class RepositoryToComponentProperty {
             return TalendTextUtils.addQuotes(connection.getSheetName());
         }
 
+        if (value.equals("SELECT_ALL_SHEETS")) {
+            return connection.isSelectAllSheets();
+        }
+
         if (value.equals("FIRST_COLUMN")) { //$NON-NLS-1$
-            return connection.getFirstColumn();
+            if (isPerlProject()) {
+                return TalendTextUtils.addQuotes(connection.getFirstColumn());
+            } else {
+                return connection.getFirstColumn();
+            }
         }
         if (value.equals("LAST_COLUMN")) { //$NON-NLS-1$
-            return connection.getLastColumn();
+            if (isPerlProject()) {
+                return TalendTextUtils.addQuotes(connection.getLastColumn());
+            } else {
+                return connection.getLastColumn();
+            }
+
         }
         if (value.equals("ADVANCED_SEPARATOR")) { //$NON-NLS-1$
             return Boolean.toString(connection.isAdvancedSpearator());
@@ -390,7 +405,36 @@ public class RepositoryToComponentProperty {
             return connection.getDecimalSeparator();
         }
 
+        if (value.equals("SHEET_LIST")) {
+            return getExcelSheetTableValue(connection);
+        }
+
         return null;
+    }
+
+    private static boolean isPerlProject() {
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        return (codeLanguage == ECodeLanguage.PERL);
+    }
+
+    /**
+     * DOC YeXiaowei Comment method "getExcelSheetTableValue".
+     * 
+     * @param connection
+     */
+    private static List<Map<String, Object>> getExcelSheetTableValue(FileExcelConnection connection) {
+        ArrayList<String> list = connection.getSheetList();
+        if (list == null || list.size() <= 0) {
+            return null;
+        }
+        List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+        for (String s : list) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("SHEETNAME", TalendTextUtils.addQuotes(s));
+            maps.add(map);
+        }
+        return maps;
+
     }
 
     /**

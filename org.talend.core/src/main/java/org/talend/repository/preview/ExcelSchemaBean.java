@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.preview;
 
+import java.util.ArrayList;
+
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
  * 
@@ -31,6 +33,10 @@ public class ExcelSchemaBean {
     private boolean dieOnError = false;
 
     private String sheetName = null;
+
+    private boolean selectAllSheets = false;
+
+    private ArrayList sheetsList = null;
 
     /**
      * Getter for advancedSeparator.
@@ -156,6 +162,42 @@ public class ExcelSchemaBean {
      */
     public void setSheetName(String sheetName) {
         this.sheetName = sheetName;
+    }
+
+    /**
+     * Getter for selectAllSheets.
+     * 
+     * @return the selectAllSheets
+     */
+    public boolean isSelectAllSheets() {
+        return this.selectAllSheets;
+    }
+
+    /**
+     * Sets the selectAllSheets.
+     * 
+     * @param selectAllSheets the selectAllSheets to set
+     */
+    public void setSelectAllSheets(boolean selectAllSheets) {
+        this.selectAllSheets = selectAllSheets;
+    }
+
+    /**
+     * Getter for sheetsList.
+     * 
+     * @return the sheetsList
+     */
+    public ArrayList getSheetsList() {
+        return this.sheetsList;
+    }
+
+    /**
+     * Sets the sheetsList.
+     * 
+     * @param sheetsList the sheetsList to set
+     */
+    public void setSheetsList(ArrayList sheetsList) {
+        this.sheetsList = sheetsList;
     }
 
 }
