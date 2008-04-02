@@ -126,7 +126,7 @@ public class ComboFieldEditor extends FieldEditor {
         }
         return fCombo;
     }
-    
+
     public String getFieldValue() {
         return fValue;
     }
@@ -159,5 +159,9 @@ public class ComboFieldEditor extends FieldEditor {
             fValue = fEntryNamesAndValues[0][1];
             fCombo.setText(fEntryNamesAndValues[0][0]);
         }
+    }
+
+    public Control getControl() {
+        return fCombo;
     }
 }
