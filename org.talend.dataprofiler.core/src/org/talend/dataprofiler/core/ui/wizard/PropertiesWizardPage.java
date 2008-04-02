@@ -290,15 +290,21 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    if (AnalysisType.CONNECTION.getLiteral().equals(connectionParams.getConnectionTypeForANA())) {
-                        openFolderSelectionDialog("Metadata", "DB Connections");
-                    } else {
-                        openFolderSelectionDialog("Data Profiling", "Analysis");
-                    }
                     
+                    if (connectionParams.getConnectionTypeForANA() != null) {
+                        openFolderSelectionDialog("Data Profiling", "Analysis");
+                    } else {
+                        openFolderSelectionDialog("Metadata", "DB Connections");
+                    }
                 }
             });
         }
+        
+        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFolder(
+                DQStructureManager.DB_CONNECTIONS);
+        pathText.setText(defaultFolderProviderRes.getFullPath().toString());
+        
+        this.setFolderProvider(defaultFolderProviderRes);
     }
 
     @SuppressWarnings("unchecked")
@@ -552,11 +558,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
      */
     @Override
     public void setVisible(boolean visible) {
-        if (AnalysisType.CONNECTION.getLiteral().equals(connectionParams.getConnectionTypeForANA())) {
-            defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFolder(
-                    DQStructureManager.DB_CONNECTIONS);
-            pathText.setText(defaultFolderProviderRes.getFullPath().toString());
-        } else {
+        if (connectionParams.getConnectionTypeForANA() != null) {
             IProject analysisProject = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.DATA_PROFILING_PROJECTNAME);
             defaultFolderProviderRes = analysisProject.getFolder(DQStructureManager.ANALYSIS);
             pathText.setText(defaultFolderProviderRes.getFullPath().toString());

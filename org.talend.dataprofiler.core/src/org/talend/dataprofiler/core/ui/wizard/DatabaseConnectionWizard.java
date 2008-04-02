@@ -76,7 +76,6 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
         connectionProperty = new ConnectionParameters();
         connectionProperty.setParameters(new Properties());
-        connectionProperty.setConnectionTypeForANA(AnalysisType.CONNECTION.getLiteral());
         
         propertiesWizardPage = new Step0WizardPage(connectionProperty, null, false, creation);
         databaseWizardPage = new DatabaseWizardPage("DatabaseParam Page", connectionProperty);
