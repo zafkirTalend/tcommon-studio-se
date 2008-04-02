@@ -121,6 +121,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
             String jobName = resource.getItem().getProperty().getLabel();
 
+            String jobVersion = resource.getItem().getProperty().getVersion();
+
             String tempFolderPath = checkTempDirIsExists(resource);
 
             handleXMLFile(resource, tempFolderPath);
@@ -151,7 +153,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
             }
 
-            List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName, xslFilePath);
+            List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName + "_" + jobVersion, xslFilePath);
 
             addResources(resource, resultFiles);
 
@@ -272,7 +274,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return
      */
     private String checkTempDirIsExists(ExportFileResource resource) {
-        String tempDirPath = HTMLDocUtils.getTmpFolder() + File.separator + resource.getDirectoryName();
+        String tempDirPath = HTMLDocUtils.getTmpFolder() + File.separator + resource.getDirectoryName() + "_"
+                + resource.getItem().getProperty().getVersion();
         File file = new File(tempDirPath);
         if (!file.exists()) {
             file.mkdirs();
@@ -357,8 +360,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-                                         * ,
-                                         */);
+             * ,
+             */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
