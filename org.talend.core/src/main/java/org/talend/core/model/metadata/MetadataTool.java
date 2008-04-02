@@ -16,10 +16,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -116,6 +119,33 @@ public class MetadataTool {
         }
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
+    }
+
+    public static Query getQueryFromRepository(String metaRepositoryId) {
+        org.talend.core.model.metadata.builder.connection.Connection connection;
+
+        String[] names = metaRepositoryId.split(" - ");
+        if (names.length != 2) {
+            return null;
+        }
+        String linkedRepository = names[0];
+        connection = getConnectionFromRepository(linkedRepository);
+
+        if (connection != null) {
+            QueriesConnection queriesConnection = connection.getQueries();
+            if (queriesConnection == null) {
+                return null;
+            }
+            EList<Query> queries = queriesConnection.getQuery();
+
+            for (Query currentQuery : queries) {
+                if (currentQuery.getLabel().equals(names[1])) {
+                    return currentQuery;
+                }
+            }
+        }
+        return null;
+
     }
 
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
