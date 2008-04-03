@@ -19,4 +19,26 @@ import orgomg.cwm.resource.relational.Column;
  * @generated
  */
 public interface TdColumn extends Column {
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * The type of the content of the column. This type is a meta-information either set by the user who knows what type of data is contained in the column, or infered from the data.
+     * <!-- end-model-doc -->
+     * @model contentTypeDataType="orgomg.cwm.objectmodel.core.String"
+     * @generated
+     */
+    void setContentType(String contentType);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * The type of the content of the column. This type is a meta-information either set by the user who knows what type of data is contained in the column, or infered from the data.
+     * <!-- end-model-doc -->
+     * @model kind="operation" dataType="orgomg.cwm.objectmodel.core.String"
+     * @generated
+     */
+    String getContentType();
 } // TdColumn

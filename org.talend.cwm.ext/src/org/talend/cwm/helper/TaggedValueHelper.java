@@ -27,7 +27,15 @@ import orgomg.cwm.objectmodel.core.TaggedValue;
  */
 public final class TaggedValueHelper {
 
+    /**
+     * The tag used for setting a technical name.
+     */
     public static final String TECH_NAME_TAGGED_VAL = "Technical Name";
+
+    /**
+     * The tag used when setting a column content type.
+     */
+    public static final String DATA_CONTENT_TYPE_TAGGED_VAL = "Content Nype";
 
     private TaggedValueHelper() {
     }
@@ -109,15 +117,26 @@ public final class TaggedValueHelper {
      * @return true if the technical name was not set before.
      */
     public static boolean setTechnicalName(ModelElement element, String technicalName) {
-        EList<TaggedValue> taggedValues = element.getTaggedValue();
-        TaggedValue currentTechName = TaggedValueHelper.getTaggedValue(TECH_NAME_TAGGED_VAL, taggedValues);
-        boolean techNameCreate = (currentTechName == null);
-        if (techNameCreate) {
-            taggedValues.add(TaggedValueHelper.createTaggedValue(TECH_NAME_TAGGED_VAL, technicalName));
-        } else {
-            currentTechName.setValue(technicalName);
-        }
-        return techNameCreate;
+        return setTaggedValue(element, TECH_NAME_TAGGED_VAL, technicalName);
     }
 
+    /**
+     * Method "setTaggedValue".
+     * 
+     * @param element the CWM model element to which a tagged value will be attached (if not already set)
+     * @param tag the tag
+     * @param value the value to set
+     * @return true if the value was not set before.
+     */
+    public static boolean setTaggedValue(ModelElement element, String tag, String value) {
+        EList<TaggedValue> taggedValues = element.getTaggedValue();
+        TaggedValue currentValue = TaggedValueHelper.getTaggedValue(tag, taggedValues);
+        boolean create = (currentValue == null);
+        if (create) {
+            taggedValues.add(TaggedValueHelper.createTaggedValue(tag, value));
+        } else {
+            currentValue.setValue(value);
+        }
+        return create;
+    }
 }

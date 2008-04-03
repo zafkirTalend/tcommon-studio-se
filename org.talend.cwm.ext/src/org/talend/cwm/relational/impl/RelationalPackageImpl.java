@@ -497,6 +497,11 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
 
         initEClass(tdColumnEClass, TdColumn.class, "TdColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+        op = addEOperation(tdColumnEClass, null, "setContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theCorePackage.getString(), "contentType", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(tdColumnEClass, theCorePackage.getString(), "getContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(tdSqlDataTypeEClass, TdSqlDataType.class, "TdSqlDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTdSqlDataType_JavaDataType(), ecorePackage.getEInt(), "javaDataType", null, 0, 1, TdSqlDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTdSqlDataType_Nullable(), ecorePackage.getEShort(), "nullable", null, 0, 1, TdSqlDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

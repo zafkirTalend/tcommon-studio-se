@@ -299,7 +299,7 @@
   </diagrams>
   <subdiagrams xmi:id="_h7C_AJ5yEdyb0Z-YZ5spFw">
     <model href="org.talend.cwm.ext.ecore#//relational"/>
-    <diagrams xmi:id="_h7GpYJ5yEdyb0Z-YZ5spFw" position="0,0" size="100,100" name="relational inheritance" viewport="341,0">
+    <diagrams xmi:id="_h7GpYJ5yEdyb0Z-YZ5spFw" position="0,0" size="100,100" name="relational inheritance" viewport="603,203">
       <property xmi:id="_h7mYoJ5yEdyb0Z-YZ5spFw" key="pageFormatName" value="A3"/>
       <property xmi:id="_h7mYoZ5yEdyb0Z-YZ5spFw" key="diagramWidth" value="1188"/>
       <property xmi:id="_h7mYop5yEdyb0Z-YZ5spFw" key="diagramHeight" value="1680"/>
@@ -566,6 +566,16 @@
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_9j5FdqlWEdy7orlER5pF5Q" presentation="default">
             <element href="org.talend.cwm.ext.ecore#//relational/TdColumn"/>
           </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_K5qM4gFgEd2dvfjTovqltw" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_K5qM4wFgEd2dvfjTovqltw" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/setContentType"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_NPr-MgFiEd2dvfjTovqltw" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NPr-MwFiEd2dvfjTovqltw" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/getContentType"/>
+            </semanticModel>
+          </contained>
         </contained>
       </contained>
       <contained xsi:type="di:GraphEdge" xmi:id="_AkcsYKlXEdy7orlER5pF5Q" anchor="_AkbeQKlXEdy7orlER5pF5Q _AkbeQalXEdy7orlER5pF5Q">

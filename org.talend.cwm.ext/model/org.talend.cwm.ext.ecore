@@ -13,7 +13,19 @@
       </eOperations>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TdSchema" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/relational/Schema"/>
-    <eClassifiers xsi:type="ecore:EClass" name="TdColumn" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/relational/Column"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TdColumn" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/relational/Column">
+      <eOperations name="setContentType">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The type of the content of the column. This type is a meta-information either set by the user who knows what type of data is contained in the column, or infered from the data."/>
+        </eAnnotations>
+        <eParameters name="contentType" eType="ecore:EDataType ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/String"/>
+      </eOperations>
+      <eOperations name="getContentType" eType="ecore:EDataType ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/String">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The type of the content of the column. This type is a meta-information either set by the user who knows what type of data is contained in the column, or infered from the data."/>
+        </eAnnotations>
+      </eOperations>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TdSqlDataType" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/resource/relational/SQLSimpleType">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaDataType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
