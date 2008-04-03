@@ -389,7 +389,9 @@ public class RepositoryToComponentProperty {
         }
         if (value.equals("LAST_COLUMN")) { //$NON-NLS-1$
             if (isPerlProject()) {
-                return TalendTextUtils.addQuotes(connection.getLastColumn());
+                if (connection.getLastColumn() != null && !connection.getLastColumn().equals("")) {
+                    return TalendTextUtils.addQuotes(connection.getLastColumn());
+                }
             } else {
                 return connection.getLastColumn();
             }
