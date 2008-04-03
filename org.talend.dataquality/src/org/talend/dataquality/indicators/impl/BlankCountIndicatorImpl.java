@@ -27,7 +27,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  *
  * @generated
  */
-public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCountIndicator {
+public class BlankCountIndicatorImpl extends TextIndicatorImpl implements BlankCountIndicator {
 
     /**
      * The default value of the '{@link #getBlankCount() <em>Blank Count</em>}' attribute.

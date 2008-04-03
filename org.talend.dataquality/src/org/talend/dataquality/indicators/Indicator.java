@@ -25,6 +25,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportField;
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getNullCount <em>Null Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getAnalyzedElement <em>Analyzed Element</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.Indicator#getDataminingType <em>Datamining Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -162,6 +163,35 @@ public interface Indicator extends EObject {
      * @generated
      */
     void setAnalyzedElement(ModelElement value);
+
+    /**
+     * Returns the value of the '<em><b>Datamining Type</b></em>' attribute.
+     * The literals are from the enumeration {@link org.talend.dataquality.indicators.DataminingType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Datamining Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Datamining Type</em>' attribute.
+     * @see org.talend.dataquality.indicators.DataminingType
+     * @see #setDataminingType(DataminingType)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_DataminingType()
+     * @model
+     * @generated
+     */
+    DataminingType getDataminingType();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getDataminingType <em>Datamining Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Datamining Type</em>' attribute.
+     * @see org.talend.dataquality.indicators.DataminingType
+     * @see #getDataminingType()
+     * @generated
+     */
+    void setDataminingType(DataminingType value);
 
     /**
      * <!-- begin-user-doc -->

@@ -220,6 +220,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.BLANK_COUNT_INDICATOR: {
                 BlankCountIndicator blankCountIndicator = (BlankCountIndicator)theEObject;
                 T result = caseBlankCountIndicator(blankCountIndicator);
+                if (result == null) result = caseTextIndicator(blankCountIndicator);
                 if (result == null) result = caseIndicator(blankCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
@@ -301,6 +302,48 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseRangeIndicator(iqrIndicator);
                 if (result == null) result = caseCompositeIndicator(iqrIndicator);
                 if (result == null) result = caseIndicator(iqrIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.TEXT_INDICATOR: {
+                TextIndicator textIndicator = (TextIndicator)theEObject;
+                T result = caseTextIndicator(textIndicator);
+                if (result == null) result = caseIndicator(textIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.MIN_LENGTH_INDICATOR: {
+                MinLengthIndicator minLengthIndicator = (MinLengthIndicator)theEObject;
+                T result = caseMinLengthIndicator(minLengthIndicator);
+                if (result == null) result = caseLengthIndicator(minLengthIndicator);
+                if (result == null) result = caseTextIndicator(minLengthIndicator);
+                if (result == null) result = caseIndicator(minLengthIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.MAX_LENGTH_INDICATOR: {
+                MaxLengthIndicator maxLengthIndicator = (MaxLengthIndicator)theEObject;
+                T result = caseMaxLengthIndicator(maxLengthIndicator);
+                if (result == null) result = caseLengthIndicator(maxLengthIndicator);
+                if (result == null) result = caseTextIndicator(maxLengthIndicator);
+                if (result == null) result = caseIndicator(maxLengthIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR: {
+                AverageLengthIndicator averageLengthIndicator = (AverageLengthIndicator)theEObject;
+                T result = caseAverageLengthIndicator(averageLengthIndicator);
+                if (result == null) result = caseLengthIndicator(averageLengthIndicator);
+                if (result == null) result = caseTextIndicator(averageLengthIndicator);
+                if (result == null) result = caseIndicator(averageLengthIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.LENGTH_INDICATOR: {
+                LengthIndicator lengthIndicator = (LengthIndicator)theEObject;
+                T result = caseLengthIndicator(lengthIndicator);
+                if (result == null) result = caseTextIndicator(lengthIndicator);
+                if (result == null) result = caseIndicator(lengthIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -710,6 +753,81 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseIQRIndicator(IQRIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Text Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Text Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTextIndicator(TextIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Min Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Min Length Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMinLengthIndicator(MinLengthIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Max Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Max Length Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMaxLengthIndicator(MaxLengthIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Average Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Average Length Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseAverageLengthIndicator(AverageLengthIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Length Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseLengthIndicator(LengthIndicator object) {
         return null;
     }
 

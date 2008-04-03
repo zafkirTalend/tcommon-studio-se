@@ -117,6 +117,15 @@ public interface SchemaPackage extends EPackage {
     int SCHEMA_INDICATOR__ANALYZED_ELEMENT = IndicatorsPackage.COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCHEMA_INDICATOR__DATAMINING_TYPE = IndicatorsPackage.COMPOSITE_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -245,6 +254,15 @@ public interface SchemaPackage extends EPackage {
     int TABLE_INDICATOR__ANALYZED_ELEMENT = IndicatorsPackage.COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__DATAMINING_TYPE = IndicatorsPackage.COMPOSITE_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -325,6 +343,15 @@ public interface SchemaPackage extends EPackage {
      * @ordered
      */
     int CONNECTION_INDICATOR__ANALYZED_ELEMENT = SCHEMA_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__DATAMINING_TYPE = SCHEMA_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.

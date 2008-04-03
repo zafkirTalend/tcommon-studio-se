@@ -23,7 +23,7 @@ package org.talend.dataquality.indicators;
  * @model
  * @generated
  */
-public interface BlankCountIndicator extends Indicator {
+public interface BlankCountIndicator extends TextIndicator {
     /**
      * Returns the value of the '<em><b>Blank Count</b></em>' attribute.
      * <!-- begin-user-doc -->

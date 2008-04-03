@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.LiteralValue;
 import org.talend.dataquality.indicators.Indicator;
@@ -29,6 +30,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getNullCount <em>Null Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getAnalyzedElement <em>Analyzed Element</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getDataminingType <em>Datamining Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -105,6 +107,26 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
      * @ordered
      */
     protected ModelElement analyzedElement;
+
+    /**
+     * The default value of the '{@link #getDataminingType() <em>Datamining Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDataminingType()
+     * @generated
+     * @ordered
+     */
+    protected static final DataminingType DATAMINING_TYPE_EDEFAULT = DataminingType.NOMINAL;
+
+    /**
+     * The cached value of the '{@link #getDataminingType() <em>Datamining Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDataminingType()
+     * @generated
+     * @ordered
+     */
+    protected DataminingType dataminingType = DATAMINING_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -278,6 +300,27 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DataminingType getDataminingType() {
+        return dataminingType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDataminingType(DataminingType newDataminingType) {
+        DataminingType oldDataminingType = dataminingType;
+        dataminingType = newDataminingType == null ? DATAMINING_TYPE_EDEFAULT : newDataminingType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__DATAMINING_TYPE, oldDataminingType, dataminingType));
+    }
+
+    /**
      * <!-- begin-user-doc --> Increments counts for each given data. <!-- end-user-doc -->
      * 
      * @generated NOT
@@ -333,6 +376,8 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
             case IndicatorsPackage.INDICATOR__ANALYZED_ELEMENT:
                 if (resolve) return getAnalyzedElement();
                 return basicGetAnalyzedElement();
+            case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
+                return getDataminingType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -358,6 +403,9 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
                 return;
             case IndicatorsPackage.INDICATOR__ANALYZED_ELEMENT:
                 setAnalyzedElement((ModelElement)newValue);
+                return;
+            case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
+                setDataminingType((DataminingType)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -385,6 +433,9 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
             case IndicatorsPackage.INDICATOR__ANALYZED_ELEMENT:
                 setAnalyzedElement((ModelElement)null);
                 return;
+            case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
+                setDataminingType(DATAMINING_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -406,6 +457,8 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
                 return parameters != null;
             case IndicatorsPackage.INDICATOR__ANALYZED_ELEMENT:
                 return analyzedElement != null;
+            case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
+                return dataminingType != DATAMINING_TYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -423,6 +476,8 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
         result.append(count);
         result.append(", nullCount: ");
         result.append(nullCount);
+        result.append(", dataminingType: ");
+        result.append(dataminingType);
         result.append(')');
         return result.toString();
     }

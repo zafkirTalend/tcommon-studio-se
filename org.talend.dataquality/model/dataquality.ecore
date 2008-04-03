@@ -41,7 +41,8 @@
           <details key="documentation" value="@deprecated (is now on indicator) &#xA;FIXME scorreia remove this method in model.&#xA;The domain that defines the valid data. It can be patterns or thresholds, or more complex validation function. &#xA;This is not a filter. Data that do not respect these domain are counted in the analysis but are used to compute a quality indicator."/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysisType" eType="#//analysis/AnalysisType"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysisType" eType="#//analysis/AnalysisType"
+          defaultValueLiteral=""/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/ReportGroup">
       <eStructuralFeatures xsi:type="ecore:EReference" name="analysis" eType="#//analysis/Analysis"
@@ -49,7 +50,11 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="resultMetadata" eType="#//analysis/ExecutionInformations"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorValues" upperBound="-1"
-          eType="#//domain/LiteralValue" containment="true"/>
+          eType="#//domain/LiteralValue" containment="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="TODO scorreia remove?&#xA;@deprecated will be removed from the model."/>
+        </eAnnotations>
+      </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
           eType="#//indicators/Indicator" containment="true"/>
     </eClassifiers>
@@ -105,6 +110,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" eType="#//indicators/IndicatorParameters"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="analyzedElement" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataminingType" eType="#//indicators/DataminingType"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RowCountIndicator" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MeanIndicator" abstract="true" interface="true">
@@ -184,7 +190,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="IntegerMeanIndicator" eSuperTypes="#//indicators/IntegerSumIndicator #//indicators/MeanIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="DoubleMeanIndicator" eSuperTypes="#//indicators/DoubleSumIndicator #//indicators/MeanIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="BigDecimalMeanIndicator" eSuperTypes="#//indicators/BigDecimalIndicator #//indicators/MeanIndicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="BlankCountIndicator" eSuperTypes="#//indicators/Indicator">
+    <eClassifiers xsi:type="ecore:EClass" name="BlankCountIndicator" eSuperTypes="#//indicators/TextIndicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="blankCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IndicatorParameters">
@@ -271,6 +277,15 @@
     <eClassifiers xsi:type="ecore:EClass" name="UniqueCountIndicator" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="DuplicateCountIndicator" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="IQRIndicator" eSuperTypes="#//indicators/RangeIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MinLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MaxLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AverageLengthIndicator" eSuperTypes="#//indicators/LengthIndicator">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LengthIndicator" eSuperTypes="#//indicators/TextIndicator">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

@@ -251,6 +251,51 @@ public interface IndicatorsFactory extends EFactory {
     IQRIndicator createIQRIndicator();
 
     /**
+     * Returns a new object of class '<em>Text Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Text Indicator</em>'.
+     * @generated
+     */
+    TextIndicator createTextIndicator();
+
+    /**
+     * Returns a new object of class '<em>Min Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Min Length Indicator</em>'.
+     * @generated
+     */
+    MinLengthIndicator createMinLengthIndicator();
+
+    /**
+     * Returns a new object of class '<em>Max Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Max Length Indicator</em>'.
+     * @generated
+     */
+    MaxLengthIndicator createMaxLengthIndicator();
+
+    /**
+     * Returns a new object of class '<em>Average Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Average Length Indicator</em>'.
+     * @generated
+     */
+    AverageLengthIndicator createAverageLengthIndicator();
+
+    /**
+     * Returns a new object of class '<em>Length Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Length Indicator</em>'.
+     * @generated
+     */
+    LengthIndicator createLengthIndicator();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

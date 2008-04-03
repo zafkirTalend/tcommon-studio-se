@@ -28,6 +28,7 @@ import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
 import org.talend.dataquality.domain.sql.SQLPackage;
 import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
+import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BigDecimalIndicator;
 import org.talend.dataquality.indicators.BigDecimalMeanIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
@@ -49,15 +50,19 @@ import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.IntegerMeanIndicator;
 import org.talend.dataquality.indicators.IntegerSumIndicator;
+import org.talend.dataquality.indicators.LengthIndicator;
+import org.talend.dataquality.indicators.MaxLengthIndicator;
 import org.talend.dataquality.indicators.MaxValueIndicator;
 import org.talend.dataquality.indicators.MeanIndicator;
 import org.talend.dataquality.indicators.MedianIndicator;
+import org.talend.dataquality.indicators.MinLengthIndicator;
 import org.talend.dataquality.indicators.MinValueIndicator;
 import org.talend.dataquality.indicators.ModeIndicator;
 import org.talend.dataquality.indicators.NullCountIndicator;
 import org.talend.dataquality.indicators.RangeIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.SumIndicator;
+import org.talend.dataquality.indicators.TextIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.ValueIndicator;
 import org.talend.dataquality.indicators.schema.SchemaPackage;
@@ -278,6 +283,41 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass textIndicatorEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass minLengthIndicatorEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass maxLengthIndicatorEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass averageLengthIndicatorEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass lengthIndicatorEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EEnum enumStatisticsEEnum = null;
 
     /**
@@ -485,6 +525,15 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      */
     public EReference getIndicator_AnalyzedElement() {
         return (EReference)indicatorEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIndicator_DataminingType() {
+        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -956,6 +1005,69 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getTextIndicator() {
+        return textIndicatorEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getMinLengthIndicator() {
+        return minLengthIndicatorEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getMaxLengthIndicator() {
+        return maxLengthIndicatorEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAverageLengthIndicator() {
+        return averageLengthIndicatorEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAverageLengthIndicator_SumLength() {
+        return (EAttribute)averageLengthIndicatorEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLengthIndicator() {
+        return lengthIndicatorEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLengthIndicator_Length() {
+        return (EAttribute)lengthIndicatorEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EEnum getEnumStatistics() {
         return enumStatisticsEEnum;
     }
@@ -1036,6 +1148,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         createEAttribute(indicatorEClass, INDICATOR__NULL_COUNT);
         createEReference(indicatorEClass, INDICATOR__PARAMETERS);
         createEReference(indicatorEClass, INDICATOR__ANALYZED_ELEMENT);
+        createEAttribute(indicatorEClass, INDICATOR__DATAMINING_TYPE);
 
         rowCountIndicatorEClass = createEClass(ROW_COUNT_INDICATOR);
 
@@ -1118,6 +1231,18 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         iqrIndicatorEClass = createEClass(IQR_INDICATOR);
 
+        textIndicatorEClass = createEClass(TEXT_INDICATOR);
+
+        minLengthIndicatorEClass = createEClass(MIN_LENGTH_INDICATOR);
+
+        maxLengthIndicatorEClass = createEClass(MAX_LENGTH_INDICATOR);
+
+        averageLengthIndicatorEClass = createEClass(AVERAGE_LENGTH_INDICATOR);
+        createEAttribute(averageLengthIndicatorEClass, AVERAGE_LENGTH_INDICATOR__SUM_LENGTH);
+
+        lengthIndicatorEClass = createEClass(LENGTH_INDICATOR);
+        createEAttribute(lengthIndicatorEClass, LENGTH_INDICATOR__LENGTH);
+
         // Create enums
         enumStatisticsEEnum = createEEnum(ENUM_STATISTICS);
         dataminingTypeEEnum = createEEnum(DATAMINING_TYPE);
@@ -1179,7 +1304,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         doubleMeanIndicatorEClass.getESuperTypes().add(this.getMeanIndicator());
         bigDecimalMeanIndicatorEClass.getESuperTypes().add(this.getBigDecimalIndicator());
         bigDecimalMeanIndicatorEClass.getESuperTypes().add(this.getMeanIndicator());
-        blankCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
+        blankCountIndicatorEClass.getESuperTypes().add(this.getTextIndicator());
         medianIndicatorEClass.getESuperTypes().add(this.getIndicator());
         valueIndicatorEClass.getESuperTypes().add(this.getIndicator());
         minValueIndicatorEClass.getESuperTypes().add(this.getValueIndicator());
@@ -1190,6 +1315,11 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         uniqueCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
         duplicateCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
         iqrIndicatorEClass.getESuperTypes().add(this.getRangeIndicator());
+        textIndicatorEClass.getESuperTypes().add(this.getIndicator());
+        minLengthIndicatorEClass.getESuperTypes().add(this.getLengthIndicator());
+        maxLengthIndicatorEClass.getESuperTypes().add(this.getLengthIndicator());
+        averageLengthIndicatorEClass.getESuperTypes().add(this.getLengthIndicator());
+        lengthIndicatorEClass.getESuperTypes().add(this.getTextIndicator());
 
         // Initialize classes and features; add operations and parameters
         initEClass(indicatorEClass, Indicator.class, "Indicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1198,6 +1328,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEAttribute(getIndicator_NullCount(), ecorePackage.getELong(), "nullCount", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicator_Parameters(), this.getIndicatorParameters(), null, "parameters", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicator_AnalyzedElement(), theCorePackage.getModelElement(), null, "analyzedElement", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicator_DataminingType(), this.getDataminingType(), "dataminingType", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         EOperation op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "handle", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEJavaObject(), "data", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1299,6 +1430,18 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(duplicateCountIndicatorEClass, DuplicateCountIndicator.class, "DuplicateCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(iqrIndicatorEClass, IQRIndicator.class, "IQRIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(textIndicatorEClass, TextIndicator.class, "TextIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(minLengthIndicatorEClass, MinLengthIndicator.class, "MinLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(maxLengthIndicatorEClass, MaxLengthIndicator.class, "MaxLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(averageLengthIndicatorEClass, AverageLengthIndicator.class, "AverageLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getELong(), "sumLength", null, 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(lengthIndicatorEClass, LengthIndicator.class, "LengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLengthIndicator_Length(), ecorePackage.getEInt(), "length", null, 0, 1, LengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(enumStatisticsEEnum, EnumStatistics.class, "EnumStatistics");

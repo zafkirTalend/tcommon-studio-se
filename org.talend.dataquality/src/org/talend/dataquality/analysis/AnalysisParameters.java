@@ -85,6 +85,7 @@ public interface AnalysisParameters extends ReportGroup {
 
     /**
      * Returns the value of the '<em><b>Analysis Type</b></em>' attribute.
+     * The default value is <code>""</code>.
      * The literals are from the enumeration {@link org.talend.dataquality.analysis.AnalysisType}.
      * <!-- begin-user-doc -->
      * <p>
@@ -96,7 +97,7 @@ public interface AnalysisParameters extends ReportGroup {
      * @see org.talend.dataquality.analysis.AnalysisType
      * @see #setAnalysisType(AnalysisType)
      * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisParameters_AnalysisType()
-     * @model
+     * @model default=""
      * @generated
      */
     AnalysisType getAnalysisType();

@@ -120,13 +120,22 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR__ANALYZED_ELEMENT = 4;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INDICATOR__DATAMINING_TYPE = 5;
+
+    /**
      * The number of structural features of the '<em>Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INDICATOR_FEATURE_COUNT = 5;
+    int INDICATOR_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.
@@ -182,6 +191,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int ROW_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROW_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The number of structural features of the '<em>Row Count Indicator</em>' class.
@@ -267,6 +285,15 @@ public interface IndicatorsPackage extends EPackage {
     int SUM_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUM_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The number of structural features of the '<em>Sum Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -329,6 +356,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int COMPOSITE_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPOSITE_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -402,6 +438,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int RANGE_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RANGE_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -511,6 +556,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int BOX_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOX_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -958,6 +1012,15 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_SUM_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1030,6 +1093,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DOUBLE_SUM_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
@@ -1105,6 +1177,15 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1176,6 +1257,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int FREQUENCY_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FREQUENCY_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -1332,6 +1422,15 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_MEAN_INDICATOR__ANALYZED_ELEMENT = INTEGER_SUM_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_MEAN_INDICATOR__DATAMINING_TYPE = INTEGER_SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1403,6 +1502,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DOUBLE_MEAN_INDICATOR__ANALYZED_ELEMENT = DOUBLE_SUM_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_MEAN_INDICATOR__DATAMINING_TYPE = DOUBLE_SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
@@ -1478,6 +1586,15 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_MEAN_INDICATOR__ANALYZED_ELEMENT = BIG_DECIMAL_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_MEAN_INDICATOR__DATAMINING_TYPE = BIG_DECIMAL_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1496,6 +1613,79 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_MEAN_INDICATOR_FEATURE_COUNT = BIG_DECIMAL_INDICATOR_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.TextIndicatorImpl <em>Text Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.TextIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextIndicator()
+     * @generated
+     */
+    int TEXT_INDICATOR = 27;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The number of structural features of the '<em>Text Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.BlankCountIndicatorImpl <em>Blank Count Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1512,7 +1702,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
+    int BLANK_COUNT_INDICATOR__INDICATOR_TYPE = TEXT_INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1521,7 +1711,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__COUNT = INDICATOR__COUNT;
+    int BLANK_COUNT_INDICATOR__COUNT = TEXT_INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -1530,7 +1720,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+    int BLANK_COUNT_INDICATOR__NULL_COUNT = TEXT_INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -1539,7 +1729,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+    int BLANK_COUNT_INDICATOR__PARAMETERS = TEXT_INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -1548,7 +1738,16 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+    int BLANK_COUNT_INDICATOR__ANALYZED_ELEMENT = TEXT_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BLANK_COUNT_INDICATOR__DATAMINING_TYPE = TEXT_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Blank Count</b></em>' attribute.
@@ -1557,7 +1756,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__BLANK_COUNT = INDICATOR_FEATURE_COUNT + 0;
+    int BLANK_COUNT_INDICATOR__BLANK_COUNT = TEXT_INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Blank Count Indicator</em>' class.
@@ -1566,7 +1765,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 1;
+    int BLANK_COUNT_INDICATOR_FEATURE_COUNT = TEXT_INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl <em>Indicator Parameters</em>}' class.
@@ -1661,6 +1860,15 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEDIAN_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Median</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1741,6 +1949,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int VALUE_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1825,6 +2042,15 @@ public interface IndicatorsPackage extends EPackage {
     int MIN_VALUE_INDICATOR__ANALYZED_ELEMENT = VALUE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__DATAMINING_TYPE = VALUE_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1905,6 +2131,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int MAX_VALUE_INDICATOR__ANALYZED_ELEMENT = VALUE_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__DATAMINING_TYPE = VALUE_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1989,6 +2224,15 @@ public interface IndicatorsPackage extends EPackage {
     int MODE_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Mode</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2062,6 +2306,15 @@ public interface IndicatorsPackage extends EPackage {
     int NULL_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The number of structural features of the '<em>Null Count Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2124,6 +2377,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DISTINCT_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The number of structural features of the '<em>Distinct Count Indicator</em>' class.
@@ -2190,6 +2452,15 @@ public interface IndicatorsPackage extends EPackage {
     int UNIQUE_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The number of structural features of the '<em>Unique Count Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2252,6 +2523,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DUPLICATE_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The number of structural features of the '<em>Duplicate Count Indicator</em>' class.
@@ -2318,6 +2598,15 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR__ANALYZED_ELEMENT = RANGE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__DATAMINING_TYPE = RANGE_INDICATOR__DATAMINING_TYPE;
+
+    /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2372,6 +2661,343 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR_FEATURE_COUNT = RANGE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.LengthIndicatorImpl <em>Length Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.LengthIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getLengthIndicator()
+     * @generated
+     */
+    int LENGTH_INDICATOR = 31;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__INDICATOR_TYPE = TEXT_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__COUNT = TEXT_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__NULL_COUNT = TEXT_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__PARAMETERS = TEXT_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__ANALYZED_ELEMENT = TEXT_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__DATAMINING_TYPE = TEXT_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__LENGTH = TEXT_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Length Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR_FEATURE_COUNT = TEXT_INDICATOR_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MinLengthIndicatorImpl <em>Min Length Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.MinLengthIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinLengthIndicator()
+     * @generated
+     */
+    int MIN_LENGTH_INDICATOR = 28;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__INDICATOR_TYPE = LENGTH_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__COUNT = LENGTH_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__NULL_COUNT = LENGTH_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__PARAMETERS = LENGTH_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__ANALYZED_ELEMENT = LENGTH_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__DATAMINING_TYPE = LENGTH_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__LENGTH = LENGTH_INDICATOR__LENGTH;
+
+    /**
+     * The number of structural features of the '<em>Min Length Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR_FEATURE_COUNT = LENGTH_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MaxLengthIndicatorImpl <em>Max Length Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.MaxLengthIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxLengthIndicator()
+     * @generated
+     */
+    int MAX_LENGTH_INDICATOR = 29;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__INDICATOR_TYPE = LENGTH_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__COUNT = LENGTH_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__NULL_COUNT = LENGTH_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__PARAMETERS = LENGTH_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__ANALYZED_ELEMENT = LENGTH_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__DATAMINING_TYPE = LENGTH_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__LENGTH = LENGTH_INDICATOR__LENGTH;
+
+    /**
+     * The number of structural features of the '<em>Max Length Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR_FEATURE_COUNT = LENGTH_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl <em>Average Length Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getAverageLengthIndicator()
+     * @generated
+     */
+    int AVERAGE_LENGTH_INDICATOR = 30;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__INDICATOR_TYPE = LENGTH_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__COUNT = LENGTH_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__NULL_COUNT = LENGTH_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__PARAMETERS = LENGTH_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__ANALYZED_ELEMENT = LENGTH_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__DATAMINING_TYPE = LENGTH_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__LENGTH = LENGTH_INDICATOR__LENGTH;
+
+    /**
+     * The feature id for the '<em><b>Sum Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__SUM_LENGTH = LENGTH_INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Average Length Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR_FEATURE_COUNT = LENGTH_INDICATOR_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2379,7 +3005,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 27;
+    int ENUM_STATISTICS = 32;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -2389,7 +3015,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 28;
+    int DATAMINING_TYPE = 33;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
@@ -2399,7 +3025,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
      * @generated
      */
-    int DATATYPE = 29;
+    int DATATYPE = 34;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -2409,7 +3035,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 30;
+    int JAVA_SET = 35;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -2419,7 +3045,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 31;
+    int JAVA_HASH_MAP = 36;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -2429,7 +3055,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 32;
+    int JAVA_TREE_MAP = 37;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -2495,6 +3121,17 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EReference getIndicator_AnalyzedElement();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.Indicator#getDataminingType <em>Datamining Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Datamining Type</em>'.
+     * @see org.talend.dataquality.indicators.Indicator#getDataminingType()
+     * @see #getIndicator()
+     * @generated
+     */
+    EAttribute getIndicator_DataminingType();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.RowCountIndicator <em>Row Count Indicator</em>}'.
@@ -3076,6 +3713,78 @@ public interface IndicatorsPackage extends EPackage {
     EClass getIQRIndicator();
 
     /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.TextIndicator <em>Text Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Text Indicator</em>'.
+     * @see org.talend.dataquality.indicators.TextIndicator
+     * @generated
+     */
+    EClass getTextIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.MinLengthIndicator <em>Min Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Min Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.MinLengthIndicator
+     * @generated
+     */
+    EClass getMinLengthIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.MaxLengthIndicator <em>Max Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Max Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.MaxLengthIndicator
+     * @generated
+     */
+    EClass getMaxLengthIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.AverageLengthIndicator <em>Average Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Average Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.AverageLengthIndicator
+     * @generated
+     */
+    EClass getAverageLengthIndicator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.AverageLengthIndicator#getSumLength <em>Sum Length</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Sum Length</em>'.
+     * @see org.talend.dataquality.indicators.AverageLengthIndicator#getSumLength()
+     * @see #getAverageLengthIndicator()
+     * @generated
+     */
+    EAttribute getAverageLengthIndicator_SumLength();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.LengthIndicator <em>Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.LengthIndicator
+     * @generated
+     */
+    EClass getLengthIndicator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.LengthIndicator#getLength <em>Length</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Length</em>'.
+     * @see org.talend.dataquality.indicators.LengthIndicator#getLength()
+     * @see #getLengthIndicator()
+     * @generated
+     */
+    EAttribute getLengthIndicator_Length();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3209,6 +3918,14 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EReference INDICATOR__ANALYZED_ELEMENT = eINSTANCE.getIndicator_AnalyzedElement();
+
+        /**
+         * The meta object literal for the '<em><b>Datamining Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INDICATOR__DATAMINING_TYPE = eINSTANCE.getIndicator_DataminingType();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.
@@ -3701,6 +4418,72 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EClass IQR_INDICATOR = eINSTANCE.getIQRIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.TextIndicatorImpl <em>Text Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.TextIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextIndicator()
+         * @generated
+         */
+        EClass TEXT_INDICATOR = eINSTANCE.getTextIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MinLengthIndicatorImpl <em>Min Length Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.MinLengthIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinLengthIndicator()
+         * @generated
+         */
+        EClass MIN_LENGTH_INDICATOR = eINSTANCE.getMinLengthIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MaxLengthIndicatorImpl <em>Max Length Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.MaxLengthIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxLengthIndicator()
+         * @generated
+         */
+        EClass MAX_LENGTH_INDICATOR = eINSTANCE.getMaxLengthIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl <em>Average Length Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getAverageLengthIndicator()
+         * @generated
+         */
+        EClass AVERAGE_LENGTH_INDICATOR = eINSTANCE.getAverageLengthIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Sum Length</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute AVERAGE_LENGTH_INDICATOR__SUM_LENGTH = eINSTANCE.getAverageLengthIndicator_SumLength();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.LengthIndicatorImpl <em>Length Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.LengthIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getLengthIndicator()
+         * @generated
+         */
+        EClass LENGTH_INDICATOR = eINSTANCE.getLengthIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LENGTH_INDICATOR__LENGTH = eINSTANCE.getLengthIndicator_Length();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.

@@ -117,6 +117,7 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/parameters"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/analyzedElement"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/dataminingType"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/handle">
           <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/handle/data"/>
         </genOperations>
@@ -208,6 +209,15 @@
       <genClasses ecoreClass="dataquality.ecore#//indicators/UniqueCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/DuplicateCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IQRIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/TextIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/MinLengthIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/MaxLengthIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/AverageLengthIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/AverageLengthIndicator/sumLength"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/LengthIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/LengthIndicator/length"/>
+      </genClasses>
       <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">
         <genClasses ecoreClass="dataquality.ecore#//indicators/schema/SchemaIndicator">

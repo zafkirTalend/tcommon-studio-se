@@ -189,6 +189,26 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createIQRIndicatorAdapter();
             }
             @Override
+            public Adapter caseTextIndicator(TextIndicator object) {
+                return createTextIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseMinLengthIndicator(MinLengthIndicator object) {
+                return createMinLengthIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseMaxLengthIndicator(MaxLengthIndicator object) {
+                return createMaxLengthIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseAverageLengthIndicator(AverageLengthIndicator object) {
+                return createAverageLengthIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseLengthIndicator(LengthIndicator object) {
+                return createLengthIndicatorAdapter();
+            }
+            @Override
             public Adapter caseElement(Element object) {
                 return createElementAdapter();
             }
@@ -599,6 +619,76 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createIQRIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.TextIndicator <em>Text Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.TextIndicator
+     * @generated
+     */
+    public Adapter createTextIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.MinLengthIndicator <em>Min Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.MinLengthIndicator
+     * @generated
+     */
+    public Adapter createMinLengthIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.MaxLengthIndicator <em>Max Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.MaxLengthIndicator
+     * @generated
+     */
+    public Adapter createMaxLengthIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.AverageLengthIndicator <em>Average Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.AverageLengthIndicator
+     * @generated
+     */
+    public Adapter createAverageLengthIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.LengthIndicator <em>Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.LengthIndicator
+     * @generated
+     */
+    public Adapter createLengthIndicatorAdapter() {
         return null;
     }
 

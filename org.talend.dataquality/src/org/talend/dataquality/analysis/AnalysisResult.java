@@ -95,6 +95,10 @@ public interface AnalysisResult extends ReportGroup {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * TODO scorreia remove?
+     * @deprecated will be removed from the model.
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Indicator Values</em>' containment reference list.
      * @see org.talend.dataquality.analysis.AnalysisPackage#getAnalysisResult_IndicatorValues()
      * @model containment="true"

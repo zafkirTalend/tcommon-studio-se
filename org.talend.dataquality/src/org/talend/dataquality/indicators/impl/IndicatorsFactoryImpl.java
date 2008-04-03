@@ -90,6 +90,11 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
             case IndicatorsPackage.UNIQUE_COUNT_INDICATOR: return createUniqueCountIndicator();
             case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR: return createDuplicateCountIndicator();
             case IndicatorsPackage.IQR_INDICATOR: return createIQRIndicator();
+            case IndicatorsPackage.TEXT_INDICATOR: return createTextIndicator();
+            case IndicatorsPackage.MIN_LENGTH_INDICATOR: return createMinLengthIndicator();
+            case IndicatorsPackage.MAX_LENGTH_INDICATOR: return createMaxLengthIndicator();
+            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR: return createAverageLengthIndicator();
+            case IndicatorsPackage.LENGTH_INDICATOR: return createLengthIndicator();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -393,6 +398,56 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     public IQRIndicator createIQRIndicator() {
         IQRIndicatorImpl iqrIndicator = new IQRIndicatorImpl();
         return iqrIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TextIndicator createTextIndicator() {
+        TextIndicatorImpl textIndicator = new TextIndicatorImpl();
+        return textIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MinLengthIndicator createMinLengthIndicator() {
+        MinLengthIndicatorImpl minLengthIndicator = new MinLengthIndicatorImpl();
+        return minLengthIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MaxLengthIndicator createMaxLengthIndicator() {
+        MaxLengthIndicatorImpl maxLengthIndicator = new MaxLengthIndicatorImpl();
+        return maxLengthIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AverageLengthIndicator createAverageLengthIndicator() {
+        AverageLengthIndicatorImpl averageLengthIndicator = new AverageLengthIndicatorImpl();
+        return averageLengthIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LengthIndicator createLengthIndicator() {
+        LengthIndicatorImpl lengthIndicator = new LengthIndicatorImpl();
+        return lengthIndicator;
     }
 
     /**
