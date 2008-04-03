@@ -28,7 +28,7 @@ public enum EDatabaseTypeName {
 
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"),
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MSSQL"),
+    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "MSSQL"),
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"),
     HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"),

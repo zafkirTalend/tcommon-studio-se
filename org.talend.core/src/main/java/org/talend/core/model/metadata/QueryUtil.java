@@ -32,23 +32,18 @@ public class QueryUtil {
     public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName) {
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
-        return generateNewQuery(repositoryMetadata, dbType, tableName, schema);
+        return generateNewQuery(repositoryMetadata, dbType, tableName);
     }
 
     public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName, boolean standardSyntax) {
 
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
-        return generateNewQuery(repositoryMetadata, dbType, tableName, standardSyntax, schema);
+        return generateNewQuery(repositoryMetadata, dbType, tableName, standardSyntax);
     }
 
     public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType, final String tableName,
-            final boolean standardSyntax, final String schema) {
-
-        String tableNameWithSchema = tableName;
-        if (schema != null && !schema.equals("")) {
-            tableNameWithSchema = schema + "." + tableName;
-        }
+            final boolean standardSyntax) {
 
         List<IMetadataColumn> metaDataColumnList = repositoryMetadata.getListColumns();
         int index = metaDataColumnList.size();
@@ -61,7 +56,7 @@ public class QueryUtil {
         String space = " ";
         query.append("SELECT").append(space);
 
-        String tableNameForColumnSuffix = TalendTextUtils.addQuotesWithSpaceField(tableNameWithSchema, dbType) + ".";
+        String tableNameForColumnSuffix = TalendTextUtils.addQuotesWithSpaceField(tableName, dbType) + ".";
 
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
@@ -72,8 +67,7 @@ public class QueryUtil {
                 query.append(tableNameForColumnSuffix).append(columnName).append(space);
             }
         }
-        query.append(enter).append("FROM").append(space).append(
-                TalendTextUtils.addQuotesWithSpaceField(tableNameWithSchema, dbType));
+        query.append(enter).append("FROM").append(space).append(TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
         if (!standardSyntax) {
             return query.toString().replace(".", "/");
         } else {
@@ -81,16 +75,10 @@ public class QueryUtil {
         }
     }
 
-    public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType, final String tableName,
-            final String schema) {
+    public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType, final String tableName) {
 
         if (repositoryMetadata == null) {
             return "";
-        }
-
-        String tableNameWithSchema = tableName;
-        if (schema != null && !schema.equals("")) {
-            tableNameWithSchema = schema + "." + tableName;
         }
 
         List<IMetadataColumn> metaDataColumnList = repositoryMetadata.getListColumns();
@@ -104,7 +92,7 @@ public class QueryUtil {
         String space = " ";
         query.append("SELECT").append(space);
 
-        String tableNameForColumnSuffix = TalendTextUtils.addQuotesWithSpaceField(tableNameWithSchema, dbType) + ".";
+        String tableNameForColumnSuffix = TalendTextUtils.addQuotesWithSpaceField(tableName, dbType) + ".";
 
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
@@ -115,8 +103,7 @@ public class QueryUtil {
                 query.append(tableNameForColumnSuffix).append(columnName).append(space);
             }
         }
-        query.append(enter).append("FROM").append(space).append(
-                TalendTextUtils.addQuotesWithSpaceField(tableNameWithSchema, dbType));
+        query.append(enter).append("FROM").append(space).append(TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
 
         return query.toString();
     }
