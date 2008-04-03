@@ -20,6 +20,7 @@ import java.util.Map;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.ProcessorUtilities;
@@ -266,7 +267,11 @@ public final class ElementParameterParser {
 
             if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(ProcessorUtilities.LATEST_JOB_VERSION)) {
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue();
-                return ProcessorUtilities.getProcessItem(jobId).getProperty().getVersion();
+                ProcessItem processItem = ProcessorUtilities.getProcessItem(jobId);
+                if (processItem == null) {
+                    return "";
+                }
+                return processItem.getProperty().getVersion();
             }
             return (String) value;
         }
