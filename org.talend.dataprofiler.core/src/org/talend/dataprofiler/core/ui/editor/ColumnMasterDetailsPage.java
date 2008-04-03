@@ -80,7 +80,7 @@ public class ColumnMasterDetailsPage extends FormPage {
         final ScrolledForm form = managedForm.getForm();
         FormToolkit toolkit = this.getEditor().getToolkit();
         Composite body = form.getBody();
-        form.setText("Anasis Settings");
+        form.setText("Analysis Settings");
 
         // TableWrapLayout layout = new TableWrapLayout();
         GridLayout layout = new GridLayout();
@@ -105,15 +105,15 @@ public class ColumnMasterDetailsPage extends FormPage {
 
         labelButtonClient.setLayout(new GridLayout(2, false));
 
-        Label label = toolkit.createLabel(labelButtonClient, "Anasis Name:");
+        Label label = toolkit.createLabel(labelButtonClient, "Analysis Name:");
         label.setLayoutData(new GridData());
         nameText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         nameText.setLayoutData(new GridData());
-        label = toolkit.createLabel(labelButtonClient, "Anasis Purpose:");
+        label = toolkit.createLabel(labelButtonClient, "Analysis Purpose:");
         label.setLayoutData(new GridData());
         purposeText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         purposeText.setLayoutData(new GridData());
-        label = toolkit.createLabel(labelButtonClient, "Anasis Description:");
+        label = toolkit.createLabel(labelButtonClient, "Analysis Description:");
         label.setLayoutData(new GridData());
         descriptionText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         descriptionText.setLayoutData(new GridData());
@@ -121,8 +121,8 @@ public class ColumnMasterDetailsPage extends FormPage {
     }
 
     private void createAnalysisColumnsSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Analysis Column Selection", true,
-                "Edit the columns anasis on the following section.");
+        Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true,
+                "Select the columns to analyze:");
 
         Composite topComp = toolkit.createComposite(section);
         topComp.setLayout(new GridLayout(3, true));
@@ -166,8 +166,7 @@ public class ColumnMasterDetailsPage extends FormPage {
      * @param anasisDataComp
      */
     private void createDataFilterSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Anasis Columns", false,
-                "Edit the data filter on the following section.");
+        Section section = createSection(form, toolkit, anasisDataComp, "Data Filter", false, "Edit the data filter:");
 
         Composite sectionClient = toolkit.createComposite(section);
         dataFilterComp = new DataFilterComp(sectionClient);
@@ -183,8 +182,8 @@ public class ColumnMasterDetailsPage extends FormPage {
      * @param discription
      * @return
      */
-    private Section createSection(final ScrolledForm form, FormToolkit toolkit, Composite parent, String title, boolean expanded,
-            String discription) {
+    private Section createSection(final ScrolledForm form, FormToolkit toolkit, Composite parent, String title,
+            boolean expanded, String discription) {
         Section section = toolkit.createSection(parent, Section.DESCRIPTION
 
         | Section.TWISTIE | Section.TITLE_BAR);
@@ -237,8 +236,10 @@ public class ColumnMasterDetailsPage extends FormPage {
 
         // get a column to analyze
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
-        for (ColumnIndicator columnIndicator : columnIndicators) {
-            analysisBuilder.addElementToAnalyze(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
+        if (columnIndicators != null) {
+            for (ColumnIndicator columnIndicator : columnIndicators) {
+                analysisBuilder.addElementToAnalyze(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
+            }
         }
 
         // TODO get the domain constraint, we will see later.
@@ -254,7 +255,8 @@ public class ColumnMasterDetailsPage extends FormPage {
         IAnalysisExecutor exec = new ColumnAnalysisExecutor();
         ReturnCode executed = exec.execute(analysis);
         if (executed.isOk()) {
-            throw new DataprofilerCoreException("Problem executing analysis: " + analysisName + ": " + executed.getMessage());
+            throw new DataprofilerCoreException("Problem executing analysis: " + analysisName + ": "
+                    + executed.getMessage());
         }
 
         // save analysis
@@ -264,7 +266,8 @@ public class ColumnMasterDetailsPage extends FormPage {
         if (saved.isOk()) {
             log.info("Saved in  " + file.getAbsolutePath());
         } else {
-            throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + executed.getMessage());
+            throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": "
+                    + saved.getMessage());
         }
     }
 
