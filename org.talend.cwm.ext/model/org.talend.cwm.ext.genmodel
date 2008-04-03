@@ -48,5 +48,12 @@
       <genClasses ecoreClass="org.talend.cwm.ext.ecore#//softwaredeployment/TdSoftwareSystem"/>
       <genClasses ecoreClass="org.talend.cwm.ext.ecore#//softwaredeployment/TdMachine"/>
     </nestedGenPackages>
+    <nestedGenPackages prefix="Constants" basePackage="org.talend.cwm" disposableProviderFactory="true"
+        ecorePackage="org.talend.cwm.ext.ecore#//constants">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.talend.cwm.ext.ecore#//constants/DevelopmentStatus">
+        <genEnumLiterals ecoreEnumLiteral="org.talend.cwm.ext.ecore#//constants/DevelopmentStatus/DRAFT"/>
+        <genEnumLiterals ecoreEnumLiteral="org.talend.cwm.ext.ecore#//constants/DevelopmentStatus/PROD"/>
+      </genEnums>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

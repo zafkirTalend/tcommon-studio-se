@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.Properties;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.cwm.constants.DevelopmentStatus;
+
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.TaggedValue;
@@ -36,6 +38,11 @@ public final class TaggedValueHelper {
      * The tag used when setting a column content type.
      */
     public static final String DATA_CONTENT_TYPE_TAGGED_VAL = "Content Nype";
+
+    /**
+     * The tag used when setting the development status of an object such as analysis, connection...
+     */
+    public static final String DEV_STATUS = "Status";
 
     private TaggedValueHelper() {
     }
@@ -118,6 +125,31 @@ public final class TaggedValueHelper {
      */
     public static boolean setTechnicalName(ModelElement element, String technicalName) {
         return setTaggedValue(element, TECH_NAME_TAGGED_VAL, technicalName);
+    }
+
+    /**
+     * Method "setDevStatus" sets the development status of the given element.
+     * 
+     * @param element
+     * @param status the state to set.
+     * @return
+     */
+    public static boolean setDevStatus(ModelElement element, DevelopmentStatus status) {
+        return setTaggedValue(element, DEV_STATUS, status.getLiteral());
+    }
+
+    /**
+     * Method "getDevStatus".
+     * 
+     * @param element such as Analysis, DataProvider...
+     * @return the development status of the element
+     */
+    public static DevelopmentStatus getDevStatus(ModelElement element) {
+        TaggedValue taggedValue = getTaggedValue(DEV_STATUS, element.getTaggedValue());
+        if (taggedValue == null) {
+            return DevelopmentStatus.DRAFT;
+        }
+        return DevelopmentStatus.get(taggedValue.getValue());
     }
 
     /**

@@ -75,4 +75,11 @@
     <eClassifiers xsi:type="ecore:EClass" name="TdSoftwareSystem" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/softwaredeployment/SoftwareSystem"/>
     <eClassifiers xsi:type="ecore:EClass" name="TdMachine" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/softwaredeployment/Machine"/>
   </eSubpackages>
+  <eSubpackages name="constants" nsURI="http:///org/talend/cwm/constants.constants"
+      nsPrefix="constants">
+    <eClassifiers xsi:type="ecore:EEnum" name="DevelopmentStatus">
+      <eLiterals name="DRAFT" literal="Draft"/>
+      <eLiterals name="PROD" value="1" literal="Production"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>

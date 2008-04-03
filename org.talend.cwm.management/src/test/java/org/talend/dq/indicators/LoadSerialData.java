@@ -37,7 +37,7 @@ public class LoadSerialData {
     public static void main(String[] args) {
         EMFUtil util = new EMFUtil();
         File file = new File("out/myi." + IndicatorsPackage.eNAME);
-
+        System.out.println("Loading file " + file.getAbsolutePath());
         ResourceSet rs = util.getResourceSet();
         Resource r = rs.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 
@@ -45,6 +45,7 @@ public class LoadSerialData {
         if (contents.isEmpty()) {
             System.err.println("No content in " + r);
         }
+        System.out.println("Nb elements in contents " + contents.size());
         IndicatorsSwitch<FrequencyIndicator> mySwitch = new IndicatorsSwitch<FrequencyIndicator>() {
 
             @Override

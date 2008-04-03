@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.talend.cwm.constants.ConstantsPackage;
+import org.talend.cwm.constants.impl.ConstantsPackageImpl;
 import org.talend.cwm.relational.impl.RelationalPackageImpl;
 
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
@@ -215,14 +217,17 @@ public class SoftwaredeploymentPackageImpl extends EPackageImpl implements Softw
 
         // Obtain or create and register interdependencies
         RelationalPackageImpl theRelationalPackage_1 = (RelationalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.cwm.relational.RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.cwm.relational.RelationalPackage.eNS_URI) : org.talend.cwm.relational.RelationalPackage.eINSTANCE);
+        ConstantsPackageImpl theConstantsPackage = (ConstantsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ConstantsPackage.eNS_URI) instanceof ConstantsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ConstantsPackage.eNS_URI) : ConstantsPackage.eINSTANCE);
 
         // Create package meta-data objects
         theSoftwaredeploymentPackage.createPackageContents();
         theRelationalPackage_1.createPackageContents();
+        theConstantsPackage.createPackageContents();
 
         // Initialize created meta-data
         theSoftwaredeploymentPackage.initializePackageContents();
         theRelationalPackage_1.initializePackageContents();
+        theConstantsPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theSoftwaredeploymentPackage.freeze();

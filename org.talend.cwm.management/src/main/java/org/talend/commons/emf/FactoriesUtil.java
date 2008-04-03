@@ -15,28 +15,27 @@ package org.talend.commons.emf;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.cwm.constants.ConstantsFactory;
+import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
+import org.talend.dataquality.analysis.AnalysisFactory;
+import org.talend.dataquality.analysis.category.CategoryFactory;
 import org.talend.dataquality.analysis.category.CategoryPackage;
-import org.talend.dataquality.analysis.category.impl.CategoryFactoryImpl;
-import org.talend.dataquality.analysis.category.impl.CategoryPackageImpl;
-import org.talend.dataquality.analysis.impl.AnalysisFactoryImpl;
-import org.talend.dataquality.analysis.impl.AnalysisPackageImpl;
+import org.talend.dataquality.domain.DomainFactory;
 import org.talend.dataquality.domain.DomainPackage;
-import org.talend.dataquality.domain.impl.DomainFactoryImpl;
-import org.talend.dataquality.domain.impl.DomainPackageImpl;
-import org.talend.dataquality.domain.pattern.impl.PatternFactoryImpl;
-import org.talend.dataquality.domain.pattern.impl.PatternPackageImpl;
+import org.talend.dataquality.domain.pattern.PatternFactory;
+import org.talend.dataquality.domain.pattern.PatternPackage;
+import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
-import org.talend.dataquality.indicators.impl.IndicatorsFactoryImpl;
-import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
  * @author scorreia
  * 
- * This class is a utility for CWM and Talend extension Factories initialization.
+ * This class is a utility for CWM and Talend extension Factories initialization. MODSCA 2008-04-03 use
+ * Factory.eINSTANCE.getEPackage() instead of FactoryImpl.init() so that implementation packages can be hidden.
  */
 public final class FactoriesUtil {
 
@@ -50,6 +49,11 @@ public final class FactoriesUtil {
      */
     public static final String ANA = "ana";
 
+    /**
+     * Extension used for the files in which the catalog or schema objects are serialized.
+     */
+    public static final String CAT = "cat";
+
     private FactoriesUtil() {
     }
 
@@ -58,30 +62,33 @@ public final class FactoriesUtil {
      * needed when writing EMF files.
      */
     public static void initializeAllFactories() {
+
         // --- talend extension packages
-        org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentFactoryImpl.init();
-        org.talend.cwm.relational.impl.RelationalFactoryImpl.init();
+        ConstantsFactory.eINSTANCE.getEPackage();
+        org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory.eINSTANCE.getEPackage();
+        RelationalFactory.eINSTANCE.getRelationalPackage();
 
         // --- talend DQ factories
-        AnalysisFactoryImpl.init();
-        DomainFactoryImpl.init();
-        IndicatorsFactoryImpl.init();
-        PatternFactoryImpl.init();
-        CategoryFactoryImpl.init();
-        org.talend.dataquality.expressions.impl.ExpressionsFactoryImpl.init();
-        org.talend.dataquality.reports.impl.ReportsFactoryImpl.init();
+        AnalysisFactory.eINSTANCE.getAnalysisPackage();
+        DomainFactory.eINSTANCE.getDomainPackage();
+        IndicatorsFactory.eINSTANCE.getIndicatorsPackage();
+
+        PatternFactory.eINSTANCE.getEPackage();
+        CategoryFactory.eINSTANCE.getEPackage();
+        org.talend.dataquality.expressions.ExpressionsFactory.eINSTANCE.getEPackage();
+        org.talend.dataquality.reports.ReportsFactory.eINSTANCE.getEPackage();
 
         // CWM generated packages
         // TODO scorreia add other factories
-        orgomg.cwm.foundation.softwaredeployment.impl.SoftwaredeploymentFactoryImpl.init();
-        orgomg.cwm.resource.relational.impl.RelationalFactoryImpl.init();
+        orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentFactory.eINSTANCE.getEPackage();
+        orgomg.cwm.resource.relational.RelationalFactory.eINSTANCE.getEPackage();
 
-        orgomg.cwmmip.impl.CwmmipFactoryImpl.init();
-        orgomg.mof.model.impl.ModelFactoryImpl.init();
-        orgomg.cwm.foundation.datatypes.impl.DatatypesFactoryImpl.init();
-        orgomg.cwm.objectmodel.core.impl.CoreFactoryImpl.init();
-        orgomg.cwm.objectmodel.relationships.impl.RelationshipsFactoryImpl.init();
-        orgomg.cwm.foundation.typemapping.impl.TypemappingFactoryImpl.init();
+        orgomg.cwmmip.CwmmipFactory.eINSTANCE.getEPackage();
+        orgomg.mof.model.ModelFactory.eINSTANCE.getEPackage();
+        orgomg.cwm.foundation.datatypes.DatatypesFactory.eINSTANCE.getEPackage();
+        orgomg.cwm.objectmodel.core.CoreFactory.eINSTANCE.getEPackage();
+        orgomg.cwm.objectmodel.relationships.RelationshipsFactory.eINSTANCE.getEPackage();
+        orgomg.cwm.foundation.typemapping.TypemappingFactory.eINSTANCE.getEPackage();
     }
 
     /**
@@ -103,6 +110,7 @@ public final class FactoriesUtil {
         // --- add specific extensions
         extensions.add(PROV);
         extensions.add(ANA);
+        extensions.add(CAT);
 
         // --- CWM generated packages
         extensions.add(CorePackage.eNAME);
@@ -115,29 +123,30 @@ public final class FactoriesUtil {
      * Method "initializeAllPackages" initializes all the EMF packages. This is needed when reading EMF files.
      */
     public static void initializeAllPackages() {
+
         // --- talend extension packages
-        org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentPackageImpl.init();
-        org.talend.cwm.relational.impl.RelationalPackageImpl.init();
+        org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage.eINSTANCE.getEFactoryInstance();
+        // RelationalPackage.eINSTANCE.getRelationalFactory();
 
         // --- talend DQ factories
-        AnalysisPackageImpl.init();
-        DomainPackageImpl.init();
-        IndicatorsPackageImpl.init();
-        PatternPackageImpl.init();
-        CategoryPackageImpl.init();
-        org.talend.dataquality.expressions.impl.ExpressionsPackageImpl.init();
-        org.talend.dataquality.reports.impl.ReportsPackageImpl.init();
+        // AnalysisPackage.eINSTANCE.getEFactoryInstance();
+        DomainPackage.eINSTANCE.getEFactoryInstance();
+        IndicatorsPackage.eINSTANCE.getEFactoryInstance();
+        PatternPackage.eINSTANCE.getEFactoryInstance();
+        CategoryPackage.eINSTANCE.getEFactoryInstance();
+        org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE.getEFactoryInstance();
+        org.talend.dataquality.reports.ReportsPackage.eINSTANCE.getEFactoryInstance();
 
         // CWM generated packages
         // TODO scorreia add other packages
-        orgomg.cwm.foundation.softwaredeployment.impl.SoftwaredeploymentPackageImpl.init();
-        orgomg.cwm.resource.relational.impl.RelationalPackageImpl.init();
+        orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage.eINSTANCE.getEFactoryInstance();
+        orgomg.cwm.resource.relational.RelationalPackage.eINSTANCE.getEFactoryInstance();
 
-        orgomg.cwmmip.impl.CwmmipPackageImpl.init();
-        orgomg.mof.model.impl.ModelPackageImpl.init();
-        orgomg.cwm.foundation.datatypes.impl.DatatypesPackageImpl.init();
-        orgomg.cwm.objectmodel.core.impl.CorePackageImpl.init();
-        orgomg.cwm.objectmodel.relationships.impl.RelationshipsPackageImpl.init();
-        orgomg.cwm.foundation.typemapping.impl.TypemappingPackageImpl.init();
+        orgomg.cwmmip.CwmmipPackage.eINSTANCE.getEFactoryInstance();
+        orgomg.mof.model.ModelPackage.eINSTANCE.getEFactoryInstance();
+        orgomg.cwm.foundation.datatypes.DatatypesPackage.eINSTANCE.getEFactoryInstance();
+        orgomg.cwm.objectmodel.core.CorePackage.eINSTANCE.getEFactoryInstance();
+        orgomg.cwm.objectmodel.relationships.RelationshipsPackage.eINSTANCE.getEFactoryInstance();
+        orgomg.cwm.foundation.typemapping.TypemappingPackage.eINSTANCE.getEFactoryInstance();
     }
 }
