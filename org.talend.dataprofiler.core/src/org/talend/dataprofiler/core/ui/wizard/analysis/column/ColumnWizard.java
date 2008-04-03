@@ -12,20 +12,23 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis.column;
 
+import java.io.File;
+
 import org.eclipse.jface.wizard.Wizard;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep1;
-
 
 /**
  * @author zqin
- *
+ * 
  */
 public class ColumnWizard extends Wizard {
 
     private ConnectionParameters parameters;
-    
+
     private ConnAnalysisPageStep1 page1;
+
     /**
      * 
      */
@@ -34,23 +37,30 @@ public class ColumnWizard extends Wizard {
         this.parameters = parameters;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.wizard.Wizard#performFinish()
      */
     @Override
     public boolean performFinish() {
-        // TODO Auto-generated method stub
-        return false;
+        //TODO Need ZhongYong  fill the parameters.
+//        FolderProvider folderProvider = parameters.getFolderProvider();
+//        CorePlugin.getDefault().openEditor(folderProvider.getFolder());
+        CorePlugin.getDefault().openEditor(new File("columnAnalysisFile"));
+        return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.wizard.Wizard#addPages()
      */
     @Override
     public void addPages() {
-        
+
         page1 = new ConnAnalysisPageStep1(parameters);
-        
+
         addPage(page1);
     }
 

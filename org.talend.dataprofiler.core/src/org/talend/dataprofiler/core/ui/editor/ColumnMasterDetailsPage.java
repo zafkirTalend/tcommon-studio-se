@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.ui.editor;
 import java.io.File;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -25,7 +26,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -35,8 +35,6 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
-import org.talend.cwm.management.api.DqRepositoryViewService;
-import org.talend.cwm.management.api.FolderProvider;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
@@ -44,23 +42,19 @@ import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dataquality.domain.Domain;
-import org.talend.dataquality.indicators.Indicator;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.AnalysisWriter;
 import org.talend.dq.analysis.ColumnAnalysisExecutor;
 import org.talend.dq.analysis.IAnalysisExecutor;
 import org.talend.utils.sugars.ReturnCode;
-import orgomg.cwm.objectmodel.core.ModelElement;
-import orgomg.cwm.resource.relational.Column;
 
 /**
  * @author rli
  * 
  */
-public class MasterDetailsPage extends FormPage {
+public class ColumnMasterDetailsPage extends FormPage {
 
-    private static Logger log = Logger.getLogger(MasterDetailsPage.class);
+    private static Logger log = Logger.getLogger(ColumnMasterDetailsPage.class);
 
     private Text nameText;
 
@@ -72,7 +66,7 @@ public class MasterDetailsPage extends FormPage {
 
     private DataFilterComp dataFilterComp;
 
-    public MasterDetailsPage(FormEditor editor, String id, String title) {
+    public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
     }
 
@@ -214,14 +208,30 @@ public class MasterDetailsPage extends FormPage {
         return section;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.forms.editor.FormPage#doSave(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        super.doSave(monitor);
+        try {
+            createAnalysisBuilder();
+            treeViewer.setDirty(false);
+        } catch (DataprofilerCoreException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void createAnalysisBuilder() throws DataprofilerCoreException {
-        String outputFolder = "ANA";
+        String outputFolder = this.getEditorInput().getName();
         // initialized analysis
         AnalysisBuilder analysisBuilder = new AnalysisBuilder();
         String analysisName = "My test analysis";
 
         boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
-        if (analysisInitialized) {
+        if (!analysisInitialized) {
             throw new DataprofilerCoreException(analysisName + " failed to initialize!");
         }
 
@@ -231,7 +241,7 @@ public class MasterDetailsPage extends FormPage {
             analysisBuilder.addElementToAnalyze(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
         }
 
-        //TODO get the domain constraint, we will see later.
+        // TODO get the domain constraint, we will see later.
         // Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
         // analysisBuilder.addFilterOnData(dataFilter);
         //
@@ -247,9 +257,6 @@ public class MasterDetailsPage extends FormPage {
             throw new DataprofilerCoreException("Problem executing analysis: " + analysisName + ": " + executed.getMessage());
         }
 
-        // save data provider
-        // DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
-
         // save analysis
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(outputFolder + File.separator + "analysis.ana");
@@ -259,6 +266,16 @@ public class MasterDetailsPage extends FormPage {
         } else {
             throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + executed.getMessage());
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.forms.editor.FormPage#isDirty()
+     */
+    @Override
+    public boolean isDirty() {
+        return super.isDirty() || treeViewer.isDirty();
     }
 
     /*

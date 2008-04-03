@@ -82,6 +82,9 @@ public class ColumnIndicator {
     }
 
     public Indicator[] getIndicators() {
+        if (indicatorEnums == null) {
+            return new Indicator[0];
+        }
         IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
         List<Indicator> indicatorList = new ArrayList<Indicator>();
         Indicator indicator = null;

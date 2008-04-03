@@ -37,14 +37,17 @@ import org.talend.dataquality.indicators.DataminingType;
  */
 public class AnasisColumnTreeViewer {
 
-    private static final  int WIDTH1_CELL = 75;
-    private static final  int WIDTH2_CELL = 65;
+    private static final int WIDTH1_CELL = 75;
+
+    private static final int WIDTH2_CELL = 65;
 
     private Composite parentComp;
 
     private Tree tree;
 
     private ColumnIndicator[] columnIndicators;
+
+    private boolean isDirty;
 
     public AnasisColumnTreeViewer(Composite parent) {
         parentComp = parent;
@@ -72,6 +75,7 @@ public class AnasisColumnTreeViewer {
         TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
         column5.setWidth(120);
         parent.layout();
+        this.isDirty = true;
         return newTree;
     }
 
@@ -106,7 +110,7 @@ public class AnasisColumnTreeViewer {
                 combo.add(type.getName());
             }
             combo.select(0);
-//            editor.grabHorizontal = true;
+            // editor.grabHorizontal = true;
             editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);
 
@@ -115,7 +119,7 @@ public class AnasisColumnTreeViewer {
             addButton.setText("Add");
             addButton.pack();
             editor.minimumWidth = WIDTH1_CELL;
-//            editor.minimumWidth = addButton.getSize().x;
+            // editor.minimumWidth = addButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(addButton, treeItem, 2);
             addButton.addSelectionListener(new SelectionAdapter() {
@@ -131,7 +135,7 @@ public class AnasisColumnTreeViewer {
             modButton.setText("Repository");
             modButton.pack();
             editor.minimumWidth = WIDTH1_CELL;
-//            editor.minimumWidth = modButton.getSize().x;
+            // editor.minimumWidth = modButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, treeItem, 3);
 
@@ -158,7 +162,7 @@ public class AnasisColumnTreeViewer {
 
             });
             editor.minimumWidth = WIDTH2_CELL;
-//            editor.minimumWidth = delButton.getSize().x;
+            // editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 4);
             if (columnIndicator.hasIndicators()) {
@@ -187,7 +191,7 @@ public class AnasisColumnTreeViewer {
             delButton.setText("Del");
             delButton.pack();
             editor.minimumWidth = WIDTH1_CELL;
-//            editor.minimumWidth = delButton.getSize().x;
+            // editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, indicatorItem, 2);
             delButton.addSelectionListener(new SelectionAdapter() {
@@ -213,6 +217,14 @@ public class AnasisColumnTreeViewer {
 
     public ColumnIndicator[] getColumnIndicator() {
         return this.columnIndicators;
+    }
+
+    public void setDirty(boolean dirty) {
+        this.isDirty = dirty;
+    }
+
+    public boolean isDirty() {
+        return isDirty;
     }
 
 }

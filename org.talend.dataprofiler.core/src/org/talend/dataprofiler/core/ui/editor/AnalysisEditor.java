@@ -26,10 +26,7 @@ import org.talend.dataprofiler.core.exception.ExceptionHandler;
  */
 public class AnalysisEditor extends FormEditor {
 
-    
     private IFormPage masterPage;
-
-    private boolean isDirty;
 
     /**
      * 
@@ -39,7 +36,7 @@ public class AnalysisEditor extends FormEditor {
 
     protected void addPages() {
         try {
-            masterPage = new MasterDetailsPage(this, "MasterPage", "analysis detail");
+            masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis detail");
             addPage(masterPage);
         } catch (PartInitException e) {
             ExceptionHandler.process(e, Level.ERROR);
@@ -47,18 +44,27 @@ public class AnalysisEditor extends FormEditor {
     }
 
     public void doSave(IProgressMonitor monitor) {
-        IEditorInput input = getEditorInput();
-        if (input instanceof AnalysisEditorInuput) {
-            AnalysisEditorInuput sqlInput = (AnalysisEditorInuput) input;
+        if (masterPage.isDirty()) {
+            masterPage.doSave(monitor);
         }
     }
-  
+
     public void doSaveAs() {
         doSave(null);
     }
 
     public boolean isSaveAsAllowed() {
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.forms.editor.FormEditor#isDirty()
+     */
+    @Override
+    public boolean isDirty() {
+        return super.isDirty();
     }
 
     /*
@@ -74,7 +80,7 @@ public class AnalysisEditor extends FormEditor {
         if (input instanceof AnalysisEditor) {
             AnalysisEditorInuput analysisInput = (AnalysisEditorInuput) input;
             if (input != null) {
-                isDirty = true;
+//                isDirty = true;
                 // isUntitled = true;
             }
         }
