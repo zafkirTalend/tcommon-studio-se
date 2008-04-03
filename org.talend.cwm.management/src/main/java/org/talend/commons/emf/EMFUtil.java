@@ -42,6 +42,9 @@ public final class EMFUtil {
 
     /** the options needed for saving the resources. */
     private final Map<String, Object> options;
+    static {
+        initialize();
+    }
 
     private ResourceSet resourceSet;
 
@@ -53,6 +56,21 @@ public final class EMFUtil {
      * @param fileExtensions the list of extensions (without the dot).
      */
     public EMFUtil() {
+
+        // set the options
+        options = new HashMap<String, Object>();
+        options.put(XMIResource.OPTION_DECLARE_XML, Boolean.TRUE);
+        options.put(XMIResource.OPTION_ENCODING, ENCODING);
+
+        // Obtain a new resource set
+        resourceSet = new ResourceSetImpl();
+
+    }
+
+    /**
+     * Method "initialize" initializes EMF factories, packages and file extensions.
+     */
+    private static void initialize() {
         // Initialize the enterprise factories
         FactoriesUtil.initializeAllFactories();
 
@@ -67,15 +85,6 @@ public final class EMFUtil {
         for (String extension : fileExtensions) {
             m.put(extension, new XMIResourceFactoryImpl());
         }
-
-        // set the options
-        options = new HashMap<String, Object>();
-        options.put(XMIResource.OPTION_DECLARE_XML, Boolean.TRUE);
-        options.put(XMIResource.OPTION_ENCODING, ENCODING);
-
-        // Obtain a new resource set
-        resourceSet = new ResourceSetImpl();
-
     }
 
     /**
