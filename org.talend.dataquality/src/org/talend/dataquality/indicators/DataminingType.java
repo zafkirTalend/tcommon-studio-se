@@ -40,7 +40,23 @@ public enum DataminingType implements Enumerator {
      * @generated
      * @ordered
      */
-    INTERVAL(1, "INTERVAL", "Interval");
+    INTERVAL(1, "INTERVAL", "Interval"), /**
+     * The '<em><b>UNSTRUCTURED TEXT</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #UNSTRUCTURED_TEXT_VALUE
+     * @generated
+     * @ordered
+     */
+    UNSTRUCTURED_TEXT(2, "UNSTRUCTURED_TEXT", "Unstructured Text"), /**
+     * The '<em><b>OTHER</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #OTHER_VALUE
+     * @generated
+     * @ordered
+     */
+    OTHER(0, "OTHER", "Other");
 
     /**
      * The '<em><b>NOMINAL</b></em>' literal value.
@@ -73,6 +89,34 @@ public enum DataminingType implements Enumerator {
     public static final int INTERVAL_VALUE = 1;
 
     /**
+     * The '<em><b>UNSTRUCTURED TEXT</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Used for long text
+     * <!-- end-model-doc -->
+     * @see #UNSTRUCTURED_TEXT
+     * @model literal="Unstructured Text"
+     * @generated
+     * @ordered
+     */
+    public static final int UNSTRUCTURED_TEXT_VALUE = 2;
+
+    /**
+     * The '<em><b>OTHER</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Could be binary data, geometrical data...
+     * <!-- end-model-doc -->
+     * @see #OTHER
+     * @model literal="Other"
+     * @generated
+     * @ordered
+     */
+    public static final int OTHER_VALUE = 0;
+
+    /**
      * An array of all the '<em><b>Datamining Type</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -82,6 +126,8 @@ public enum DataminingType implements Enumerator {
         new DataminingType[] {
             NOMINAL,
             INTERVAL,
+            UNSTRUCTURED_TEXT,
+            OTHER,
         };
 
     /**
@@ -134,6 +180,7 @@ public enum DataminingType implements Enumerator {
         switch (value) {
             case NOMINAL_VALUE: return NOMINAL;
             case INTERVAL_VALUE: return INTERVAL;
+            case UNSTRUCTURED_TEXT_VALUE: return UNSTRUCTURED_TEXT;
         }
         return null;
     }

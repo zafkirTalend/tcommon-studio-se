@@ -252,6 +252,16 @@
     <eClassifiers xsi:type="ecore:EEnum" name="DataminingType">
       <eLiterals name="NOMINAL" literal="Nominal"/>
       <eLiterals name="INTERVAL" value="1" literal="Interval"/>
+      <eLiterals name="UNSTRUCTURED_TEXT" value="2" literal="Unstructured Text">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Used for long text"/>
+        </eAnnotations>
+      </eLiterals>
+      <eLiterals name="OTHER" literal="Other">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Could be binary data, geometrical data..."/>
+        </eAnnotations>
+      </eLiterals>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ValueIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

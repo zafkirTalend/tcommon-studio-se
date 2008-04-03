@@ -1470,6 +1470,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEEnum(dataminingTypeEEnum, DataminingType.class, "DataminingType");
         addEEnumLiteral(dataminingTypeEEnum, DataminingType.NOMINAL);
         addEEnumLiteral(dataminingTypeEEnum, DataminingType.INTERVAL);
+        addEEnumLiteral(dataminingTypeEEnum, DataminingType.UNSTRUCTURED_TEXT);
+        addEEnumLiteral(dataminingTypeEEnum, DataminingType.OTHER);
 
         initEEnum(datatypeEEnum, Datatype.class, "Datatype");
         addEEnumLiteral(datatypeEEnum, Datatype.INTEGER);
