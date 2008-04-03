@@ -15,29 +15,25 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
-import org.talend.dataquality.indicators.BlankCountIndicator;
-import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.MaxLengthIndicator;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.indicators.BlankCountIndicator} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.MaxLengthIndicator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BlankCountIndicatorItemProvider
-    extends TextIndicatorItemProvider
+public class MaxLengthIndicatorItemProvider
+    extends LengthIndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	
@@ -50,7 +46,7 @@ public class BlankCountIndicatorItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public BlankCountIndicatorItemProvider(AdapterFactory adapterFactory) {
+    public MaxLengthIndicatorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -65,42 +61,19 @@ public class BlankCountIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addBlankCountPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Blank Count feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addBlankCountPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_BlankCountIndicator_blankCount_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BlankCountIndicator_blankCount_feature", "_UI_BlankCountIndicator_type"),
-                 IndicatorsPackage.Literals.BLANK_COUNT_INDICATOR__BLANK_COUNT,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This returns BlankCountIndicator.gif.
+     * This returns MaxLengthIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/BlankCountIndicator"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/MaxLengthIndicator"));
     }
 
     /**
@@ -111,8 +84,8 @@ public class BlankCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        BlankCountIndicator blankCountIndicator = (BlankCountIndicator)object;
-        return getString("_UI_BlankCountIndicator_type") + " " + blankCountIndicator.getCount();
+        MaxLengthIndicator maxLengthIndicator = (MaxLengthIndicator)object;
+        return getString("_UI_MaxLengthIndicator_type") + " " + maxLengthIndicator.getCount();
     }
 
     /**
@@ -125,12 +98,6 @@ public class BlankCountIndicatorItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
-
-        switch (notification.getFeatureID(BlankCountIndicator.class)) {
-            case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-        }
         super.notifyChanged(notification);
     }
 

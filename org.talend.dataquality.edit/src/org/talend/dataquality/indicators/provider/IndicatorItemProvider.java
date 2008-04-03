@@ -73,6 +73,7 @@ public class IndicatorItemProvider
             addCountPropertyDescriptor(object);
             addNullCountPropertyDescriptor(object);
             addAnalyzedElementPropertyDescriptor(object);
+            addDataminingTypePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -166,6 +167,28 @@ public class IndicatorItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Datamining Type feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDataminingTypePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Indicator_dataminingType_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Indicator_dataminingType_feature", "_UI_Indicator_type"),
+                 IndicatorsPackage.Literals.INDICATOR__DATAMINING_TYPE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -222,6 +245,7 @@ public class IndicatorItemProvider
             case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
             case IndicatorsPackage.INDICATOR__COUNT:
             case IndicatorsPackage.INDICATOR__NULL_COUNT:
+            case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case IndicatorsPackage.INDICATOR__PARAMETERS:

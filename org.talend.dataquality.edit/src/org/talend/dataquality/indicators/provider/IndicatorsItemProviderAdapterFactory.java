@@ -651,6 +651,121 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.TextIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TextIndicatorItemProvider textIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.TextIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createTextIndicatorAdapter() {
+        if (textIndicatorItemProvider == null) {
+            textIndicatorItemProvider = new TextIndicatorItemProvider(this);
+        }
+
+        return textIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.MinLengthIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected MinLengthIndicatorItemProvider minLengthIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.MinLengthIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createMinLengthIndicatorAdapter() {
+        if (minLengthIndicatorItemProvider == null) {
+            minLengthIndicatorItemProvider = new MinLengthIndicatorItemProvider(this);
+        }
+
+        return minLengthIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.MaxLengthIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected MaxLengthIndicatorItemProvider maxLengthIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.MaxLengthIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createMaxLengthIndicatorAdapter() {
+        if (maxLengthIndicatorItemProvider == null) {
+            maxLengthIndicatorItemProvider = new MaxLengthIndicatorItemProvider(this);
+        }
+
+        return maxLengthIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.AverageLengthIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AverageLengthIndicatorItemProvider averageLengthIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.AverageLengthIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createAverageLengthIndicatorAdapter() {
+        if (averageLengthIndicatorItemProvider == null) {
+            averageLengthIndicatorItemProvider = new AverageLengthIndicatorItemProvider(this);
+        }
+
+        return averageLengthIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.LengthIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected LengthIndicatorItemProvider lengthIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.LengthIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createLengthIndicatorAdapter() {
+        if (lengthIndicatorItemProvider == null) {
+            lengthIndicatorItemProvider = new LengthIndicatorItemProvider(this);
+        }
+
+        return lengthIndicatorItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -774,6 +889,11 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (uniqueCountIndicatorItemProvider != null) uniqueCountIndicatorItemProvider.dispose();
         if (duplicateCountIndicatorItemProvider != null) duplicateCountIndicatorItemProvider.dispose();
         if (iqrIndicatorItemProvider != null) iqrIndicatorItemProvider.dispose();
+        if (textIndicatorItemProvider != null) textIndicatorItemProvider.dispose();
+        if (minLengthIndicatorItemProvider != null) minLengthIndicatorItemProvider.dispose();
+        if (maxLengthIndicatorItemProvider != null) maxLengthIndicatorItemProvider.dispose();
+        if (averageLengthIndicatorItemProvider != null) averageLengthIndicatorItemProvider.dispose();
+        if (lengthIndicatorItemProvider != null) lengthIndicatorItemProvider.dispose();
     }
 
 }

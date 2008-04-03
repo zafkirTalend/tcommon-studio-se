@@ -27,16 +27,16 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
-import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.LengthIndicator;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.indicators.BlankCountIndicator} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.LengthIndicator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BlankCountIndicatorItemProvider
+public class LengthIndicatorItemProvider
     extends TextIndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
@@ -50,7 +50,7 @@ public class BlankCountIndicatorItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public BlankCountIndicatorItemProvider(AdapterFactory adapterFactory) {
+    public LengthIndicatorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -65,25 +65,25 @@ public class BlankCountIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addBlankCountPropertyDescriptor(object);
+            addLengthPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Blank Count feature.
+     * This adds a property descriptor for the Length feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addBlankCountPropertyDescriptor(Object object) {
+    protected void addLengthPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BlankCountIndicator_blankCount_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BlankCountIndicator_blankCount_feature", "_UI_BlankCountIndicator_type"),
-                 IndicatorsPackage.Literals.BLANK_COUNT_INDICATOR__BLANK_COUNT,
+                 getString("_UI_LengthIndicator_length_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_LengthIndicator_length_feature", "_UI_LengthIndicator_type"),
+                 IndicatorsPackage.Literals.LENGTH_INDICATOR__LENGTH,
                  true,
                  false,
                  false,
@@ -93,14 +93,14 @@ public class BlankCountIndicatorItemProvider
     }
 
     /**
-     * This returns BlankCountIndicator.gif.
+     * This returns LengthIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/BlankCountIndicator"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/LengthIndicator"));
     }
 
     /**
@@ -111,8 +111,8 @@ public class BlankCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        BlankCountIndicator blankCountIndicator = (BlankCountIndicator)object;
-        return getString("_UI_BlankCountIndicator_type") + " " + blankCountIndicator.getCount();
+        LengthIndicator lengthIndicator = (LengthIndicator)object;
+        return getString("_UI_LengthIndicator_type") + " " + lengthIndicator.getCount();
     }
 
     /**
@@ -126,8 +126,8 @@ public class BlankCountIndicatorItemProvider
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(BlankCountIndicator.class)) {
-            case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
+        switch (notification.getFeatureID(LengthIndicator.class)) {
+            case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }
