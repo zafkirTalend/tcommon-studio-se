@@ -111,8 +111,10 @@ public class IntegerSumIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        IntegerSumIndicator integerSumIndicator = (IntegerSumIndicator)object;
-        return getString("_UI_IntegerSumIndicator_type") + " " + integerSumIndicator.getCount();
+        String label = ((IntegerSumIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_IntegerSumIndicator_type") :
+            getString("_UI_IntegerSumIndicator_type") + " " + label;
     }
 
     /**

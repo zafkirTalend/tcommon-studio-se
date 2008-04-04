@@ -84,8 +84,10 @@ public class DuplicateCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        DuplicateCountIndicator duplicateCountIndicator = (DuplicateCountIndicator)object;
-        return getString("_UI_DuplicateCountIndicator_type") + " " + duplicateCountIndicator.getCount();
+        String label = ((DuplicateCountIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_DuplicateCountIndicator_type") :
+            getString("_UI_DuplicateCountIndicator_type") + " " + label;
     }
 
     /**

@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface MeanIndicator extends EObject {
+public interface MeanIndicator extends Indicator {
     /**
      * <!-- begin-user-doc -->
      * <p>

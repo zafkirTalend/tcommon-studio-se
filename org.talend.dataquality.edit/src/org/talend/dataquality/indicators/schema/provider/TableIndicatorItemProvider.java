@@ -113,8 +113,10 @@ public class TableIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        TableIndicator tableIndicator = (TableIndicator)object;
-        return getString("_UI_TableIndicator_type") + " " + tableIndicator.getCount();
+        String label = ((TableIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_TableIndicator_type") :
+            getString("_UI_TableIndicator_type") + " " + label;
     }
 
     /**

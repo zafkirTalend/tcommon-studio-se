@@ -19,6 +19,7 @@ import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorType;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Indicator</b></em>'. <!-- end-user-doc -->
@@ -36,7 +37,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  *
  * @generated
  */
-public class IndicatorImpl extends EObjectImpl implements Indicator {
+public class IndicatorImpl extends ModelElementImpl implements Indicator {
 
     /**
      * The cached value of the '{@link #getIndicatorType() <em>Indicator Type</em>}' reference.
@@ -342,6 +343,28 @@ public class IndicatorImpl extends EObjectImpl implements Indicator {
         count = COUNT_EDEFAULT;
         nullCount = NULL_COUNT_EDEFAULT;
         return true;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getPurpose() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLongDescription() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
     }
 
     /**

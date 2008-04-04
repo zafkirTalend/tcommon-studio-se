@@ -111,8 +111,10 @@ public class DoubleSumIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        DoubleSumIndicator doubleSumIndicator = (DoubleSumIndicator)object;
-        return getString("_UI_DoubleSumIndicator_type") + " " + doubleSumIndicator.getCount();
+        String label = ((DoubleSumIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_DoubleSumIndicator_type") :
+            getString("_UI_DoubleSumIndicator_type") + " " + label;
     }
 
     /**

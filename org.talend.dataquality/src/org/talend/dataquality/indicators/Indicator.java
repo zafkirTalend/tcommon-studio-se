@@ -33,7 +33,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportField;
  * @model
  * @generated
  */
-public interface Indicator extends EObject {
+public interface Indicator extends ModelElement {
     /**
      * Returns the value of the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
@@ -208,5 +208,21 @@ public interface Indicator extends EObject {
      * @generated
      */
     boolean reset();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    String getPurpose();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    String getLongDescription();
 
 } // Indicator

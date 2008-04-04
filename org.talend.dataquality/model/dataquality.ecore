@@ -99,11 +99,13 @@
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="indicators" nsURI="http://dataquality.indicators" nsPrefix="dataquality.indicators">
-    <eClassifiers xsi:type="ecore:EClass" name="Indicator">
+    <eClassifiers xsi:type="ecore:EClass" name="Indicator" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement">
       <eOperations name="handle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="data" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       </eOperations>
       <eOperations name="reset" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="getPurpose" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getLongDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -113,7 +115,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataminingType" eType="#//indicators/DataminingType"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RowCountIndicator" eSuperTypes="#//indicators/Indicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="MeanIndicator" abstract="true" interface="true">
+    <eClassifiers xsi:type="ecore:EClass" name="MeanIndicator" abstract="true" interface="true"
+        eSuperTypes="#//indicators/Indicator">
       <eOperations name="getMean" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eOperations name="getMeanWithNulls" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

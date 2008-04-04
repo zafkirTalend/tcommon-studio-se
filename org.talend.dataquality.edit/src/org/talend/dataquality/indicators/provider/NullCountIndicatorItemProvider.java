@@ -84,8 +84,10 @@ public class NullCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        NullCountIndicator nullCountIndicator = (NullCountIndicator)object;
-        return getString("_UI_NullCountIndicator_type") + " " + nullCountIndicator.getCount();
+        String label = ((NullCountIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_NullCountIndicator_type") :
+            getString("_UI_NullCountIndicator_type") + " " + label;
     }
 
     /**

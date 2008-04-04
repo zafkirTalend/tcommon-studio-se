@@ -180,8 +180,10 @@ public class RangeIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        RangeIndicator rangeIndicator = (RangeIndicator)object;
-        return getString("_UI_RangeIndicator_type") + " " + rangeIndicator.getCount();
+        String label = ((RangeIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_RangeIndicator_type") :
+            getString("_UI_RangeIndicator_type") + " " + label;
     }
 
     /**

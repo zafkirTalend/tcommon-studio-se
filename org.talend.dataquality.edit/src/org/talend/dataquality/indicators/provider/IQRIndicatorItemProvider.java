@@ -84,8 +84,10 @@ public class IQRIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        IQRIndicator iqrIndicator = (IQRIndicator)object;
-        return getString("_UI_IQRIndicator_type") + " " + iqrIndicator.getCount();
+        String label = ((IQRIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_IQRIndicator_type") :
+            getString("_UI_IQRIndicator_type") + " " + label;
     }
 
     /**

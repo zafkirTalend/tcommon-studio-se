@@ -134,8 +134,10 @@ public class MedianIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        MedianIndicator medianIndicator = (MedianIndicator)object;
-        return getString("_UI_MedianIndicator_type") + " " + medianIndicator.getCount();
+        String label = ((MedianIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_MedianIndicator_type") :
+            getString("_UI_MedianIndicator_type") + " " + label;
     }
 
     /**

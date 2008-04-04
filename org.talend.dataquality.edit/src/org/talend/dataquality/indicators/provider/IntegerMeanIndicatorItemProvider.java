@@ -84,8 +84,10 @@ public class IntegerMeanIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        IntegerMeanIndicator integerMeanIndicator = (IntegerMeanIndicator)object;
-        return getString("_UI_IntegerMeanIndicator_type") + " " + integerMeanIndicator.getCount();
+        String label = ((IntegerMeanIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_IntegerMeanIndicator_type") :
+            getString("_UI_IntegerMeanIndicator_type") + " " + label;
     }
 
     /**

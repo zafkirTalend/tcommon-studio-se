@@ -15,6 +15,8 @@ import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.Indicator;
 
 import org.talend.dataquality.indicators.schema.*;
+import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,6 +97,8 @@ public class SchemaSwitch<T> {
                 T result = caseSchemaIndicator(schemaIndicator);
                 if (result == null) result = caseCompositeIndicator(schemaIndicator);
                 if (result == null) result = caseIndicator(schemaIndicator);
+                if (result == null) result = caseModelElement(schemaIndicator);
+                if (result == null) result = caseElement(schemaIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -103,6 +107,8 @@ public class SchemaSwitch<T> {
                 T result = caseTableIndicator(tableIndicator);
                 if (result == null) result = caseCompositeIndicator(tableIndicator);
                 if (result == null) result = caseIndicator(tableIndicator);
+                if (result == null) result = caseModelElement(tableIndicator);
+                if (result == null) result = caseElement(tableIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -112,6 +118,8 @@ public class SchemaSwitch<T> {
                 if (result == null) result = caseSchemaIndicator(connectionIndicator);
                 if (result == null) result = caseCompositeIndicator(connectionIndicator);
                 if (result == null) result = caseIndicator(connectionIndicator);
+                if (result == null) result = caseModelElement(connectionIndicator);
+                if (result == null) result = caseElement(connectionIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -161,6 +169,36 @@ public class SchemaSwitch<T> {
      * @generated
      */
     public T caseConnectionIndicator(ConnectionIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseElement(Element object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Model Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Model Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseModelElement(ModelElement object) {
         return null;
     }
 

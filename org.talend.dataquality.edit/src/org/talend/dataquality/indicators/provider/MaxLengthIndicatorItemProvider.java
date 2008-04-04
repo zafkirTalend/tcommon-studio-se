@@ -84,8 +84,10 @@ public class MaxLengthIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        MaxLengthIndicator maxLengthIndicator = (MaxLengthIndicator)object;
-        return getString("_UI_MaxLengthIndicator_type") + " " + maxLengthIndicator.getCount();
+        String label = ((MaxLengthIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_MaxLengthIndicator_type") :
+            getString("_UI_MaxLengthIndicator_type") + " " + label;
     }
 
     /**

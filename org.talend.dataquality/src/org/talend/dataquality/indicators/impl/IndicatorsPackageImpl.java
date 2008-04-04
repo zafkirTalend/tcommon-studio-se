@@ -1288,7 +1288,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         // Set bounds for type parameters
 
         // Add supertypes to classes
+        indicatorEClass.getESuperTypes().add(theCorePackage.getModelElement());
         rowCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
+        meanIndicatorEClass.getESuperTypes().add(this.getIndicator());
         sumIndicatorEClass.getESuperTypes().add(this.getIndicator());
         compositeIndicatorEClass.getESuperTypes().add(this.getIndicator());
         rangeIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
@@ -1334,6 +1336,10 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         addEParameter(op, ecorePackage.getEJavaObject(), "data", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "reset", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(indicatorEClass, ecorePackage.getEString(), "getPurpose", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(indicatorEClass, ecorePackage.getEString(), "getLongDescription", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

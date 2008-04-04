@@ -134,8 +134,10 @@ public class ValueIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        ValueIndicator valueIndicator = (ValueIndicator)object;
-        return getString("_UI_ValueIndicator_type") + " " + valueIndicator.getCount();
+        String label = ((ValueIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_ValueIndicator_type") :
+            getString("_UI_ValueIndicator_type") + " " + label;
     }
 
     /**

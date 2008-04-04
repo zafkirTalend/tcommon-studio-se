@@ -84,8 +84,10 @@ public class MaxValueIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        MaxValueIndicator maxValueIndicator = (MaxValueIndicator)object;
-        return getString("_UI_MaxValueIndicator_type") + " " + maxValueIndicator.getCount();
+        String label = ((MaxValueIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_MaxValueIndicator_type") :
+            getString("_UI_MaxValueIndicator_type") + " " + label;
     }
 
     /**

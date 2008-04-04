@@ -84,8 +84,10 @@ public class BigDecimalMeanIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        BigDecimalMeanIndicator bigDecimalMeanIndicator = (BigDecimalMeanIndicator)object;
-        return getString("_UI_BigDecimalMeanIndicator_type") + " " + bigDecimalMeanIndicator.getCount();
+        String label = ((BigDecimalMeanIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_BigDecimalMeanIndicator_type") :
+            getString("_UI_BigDecimalMeanIndicator_type") + " " + label;
     }
 
     /**

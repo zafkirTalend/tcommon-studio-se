@@ -109,8 +109,10 @@ public class CompositeIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        CompositeIndicator compositeIndicator = (CompositeIndicator)object;
-        return getString("_UI_CompositeIndicator_type") + " " + compositeIndicator.getCount();
+        String label = ((CompositeIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_CompositeIndicator_type") :
+            getString("_UI_CompositeIndicator_type") + " " + label;
     }
 
     /**

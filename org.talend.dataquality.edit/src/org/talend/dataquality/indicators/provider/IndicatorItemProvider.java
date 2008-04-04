@@ -33,6 +33,7 @@ import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import orgomg.cwm.objectmodel.core.provider.ModelElementItemProvider;
 
 /**
  * This is the item provider adapter for a {@link org.talend.dataquality.indicators.Indicator} object.
@@ -41,7 +42,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * @generated
  */
 public class IndicatorItemProvider
-    extends ItemProviderAdapter
+    extends ModelElementItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	
@@ -226,8 +227,10 @@ public class IndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        Indicator indicator = (Indicator)object;
-        return getString("_UI_Indicator_type") + " " + indicator.getCount();
+        String label = ((Indicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_Indicator_type") :
+            getString("_UI_Indicator_type") + " " + label;
     }
 
     /**

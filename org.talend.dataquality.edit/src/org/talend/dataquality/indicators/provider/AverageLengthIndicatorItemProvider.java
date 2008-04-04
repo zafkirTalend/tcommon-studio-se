@@ -111,8 +111,10 @@ public class AverageLengthIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        AverageLengthIndicator averageLengthIndicator = (AverageLengthIndicator)object;
-        return getString("_UI_AverageLengthIndicator_type") + " " + averageLengthIndicator.getCount();
+        String label = ((AverageLengthIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_AverageLengthIndicator_type") :
+            getString("_UI_AverageLengthIndicator_type") + " " + label;
     }
 
     /**

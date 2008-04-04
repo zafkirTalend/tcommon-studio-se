@@ -84,8 +84,10 @@ public class MinValueIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        MinValueIndicator minValueIndicator = (MinValueIndicator)object;
-        return getString("_UI_MinValueIndicator_type") + " " + minValueIndicator.getCount();
+        String label = ((MinValueIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_MinValueIndicator_type") :
+            getString("_UI_MinValueIndicator_type") + " " + label;
     }
 
     /**

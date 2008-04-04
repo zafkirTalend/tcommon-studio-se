@@ -111,8 +111,10 @@ public class BlankCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        BlankCountIndicator blankCountIndicator = (BlankCountIndicator)object;
-        return getString("_UI_BlankCountIndicator_type") + " " + blankCountIndicator.getCount();
+        String label = ((BlankCountIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_BlankCountIndicator_type") :
+            getString("_UI_BlankCountIndicator_type") + " " + label;
     }
 
     /**

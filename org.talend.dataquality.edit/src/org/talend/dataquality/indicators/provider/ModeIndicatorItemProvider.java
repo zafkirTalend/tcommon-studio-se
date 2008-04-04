@@ -111,8 +111,10 @@ public class ModeIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        ModeIndicator modeIndicator = (ModeIndicator)object;
-        return getString("_UI_ModeIndicator_type") + " " + modeIndicator.getCount();
+        String label = ((ModeIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_ModeIndicator_type") :
+            getString("_UI_ModeIndicator_type") + " " + label;
     }
 
     /**

@@ -84,8 +84,10 @@ public class UniqueCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        UniqueCountIndicator uniqueCountIndicator = (UniqueCountIndicator)object;
-        return getString("_UI_UniqueCountIndicator_type") + " " + uniqueCountIndicator.getCount();
+        String label = ((UniqueCountIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_UniqueCountIndicator_type") :
+            getString("_UI_UniqueCountIndicator_type") + " " + label;
     }
 
     /**

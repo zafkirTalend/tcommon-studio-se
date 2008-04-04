@@ -84,8 +84,10 @@ public class DoubleMeanIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        DoubleMeanIndicator doubleMeanIndicator = (DoubleMeanIndicator)object;
-        return getString("_UI_DoubleMeanIndicator_type") + " " + doubleMeanIndicator.getCount();
+        String label = ((DoubleMeanIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_DoubleMeanIndicator_type") :
+            getString("_UI_DoubleMeanIndicator_type") + " " + label;
     }
 
     /**

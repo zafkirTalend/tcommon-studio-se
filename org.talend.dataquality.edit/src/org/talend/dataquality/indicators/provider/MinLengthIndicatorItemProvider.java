@@ -84,8 +84,10 @@ public class MinLengthIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        MinLengthIndicator minLengthIndicator = (MinLengthIndicator)object;
-        return getString("_UI_MinLengthIndicator_type") + " " + minLengthIndicator.getCount();
+        String label = ((MinLengthIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_MinLengthIndicator_type") :
+            getString("_UI_MinLengthIndicator_type") + " " + label;
     }
 
     /**

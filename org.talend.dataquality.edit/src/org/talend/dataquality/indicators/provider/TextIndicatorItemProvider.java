@@ -84,8 +84,10 @@ public class TextIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        TextIndicator textIndicator = (TextIndicator)object;
-        return getString("_UI_TextIndicator_type") + " " + textIndicator.getCount();
+        String label = ((TextIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_TextIndicator_type") :
+            getString("_UI_TextIndicator_type") + " " + label;
     }
 
     /**

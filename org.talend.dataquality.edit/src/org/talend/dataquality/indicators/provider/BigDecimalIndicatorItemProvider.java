@@ -111,8 +111,10 @@ public class BigDecimalIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        BigDecimalIndicator bigDecimalIndicator = (BigDecimalIndicator)object;
-        return getString("_UI_BigDecimalIndicator_type") + " " + bigDecimalIndicator.getCount();
+        String label = ((BigDecimalIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_BigDecimalIndicator_type") :
+            getString("_UI_BigDecimalIndicator_type") + " " + label;
     }
 
     /**

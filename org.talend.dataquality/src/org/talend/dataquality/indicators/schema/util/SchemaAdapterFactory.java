@@ -17,6 +17,8 @@ import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.Indicator;
 
 import org.talend.dataquality.indicators.schema.*;
+import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -87,6 +89,14 @@ public class SchemaAdapterFactory extends AdapterFactoryImpl {
                 return createConnectionIndicatorAdapter();
             }
             @Override
+            public Adapter caseElement(Element object) {
+                return createElementAdapter();
+            }
+            @Override
+            public Adapter caseModelElement(ModelElement object) {
+                return createModelElementAdapter();
+            }
+            @Override
             public Adapter caseIndicator(Indicator object) {
                 return createIndicatorAdapter();
             }
@@ -153,6 +163,34 @@ public class SchemaAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createConnectionIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Element
+     * @generated
+     */
+    public Adapter createElementAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.ModelElement
+     * @generated
+     */
+    public Adapter createModelElementAdapter() {
         return null;
     }
 

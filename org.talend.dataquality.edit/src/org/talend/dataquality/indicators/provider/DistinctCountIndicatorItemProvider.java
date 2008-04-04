@@ -84,8 +84,10 @@ public class DistinctCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        DistinctCountIndicator distinctCountIndicator = (DistinctCountIndicator)object;
-        return getString("_UI_DistinctCountIndicator_type") + " " + distinctCountIndicator.getCount();
+        String label = ((DistinctCountIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_DistinctCountIndicator_type") :
+            getString("_UI_DistinctCountIndicator_type") + " " + label;
     }
 
     /**

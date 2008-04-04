@@ -111,8 +111,10 @@ public class LengthIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        LengthIndicator lengthIndicator = (LengthIndicator)object;
-        return getString("_UI_LengthIndicator_type") + " " + lengthIndicator.getCount();
+        String label = ((LengthIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_LengthIndicator_type") :
+            getString("_UI_LengthIndicator_type") + " " + label;
     }
 
     /**

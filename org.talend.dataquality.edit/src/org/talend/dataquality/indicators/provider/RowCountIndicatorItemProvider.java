@@ -84,8 +84,10 @@ public class RowCountIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        RowCountIndicator rowCountIndicator = (RowCountIndicator)object;
-        return getString("_UI_RowCountIndicator_type") + " " + rowCountIndicator.getCount();
+        String label = ((RowCountIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_RowCountIndicator_type") :
+            getString("_UI_RowCountIndicator_type") + " " + label;
     }
 
     /**

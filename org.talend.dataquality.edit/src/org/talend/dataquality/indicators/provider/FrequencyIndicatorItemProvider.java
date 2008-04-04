@@ -238,8 +238,10 @@ public class FrequencyIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        FrequencyIndicator frequencyIndicator = (FrequencyIndicator)object;
-        return getString("_UI_FrequencyIndicator_type") + " " + frequencyIndicator.getCount();
+        String label = ((FrequencyIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_FrequencyIndicator_type") :
+            getString("_UI_FrequencyIndicator_type") + " " + label;
     }
 
     /**

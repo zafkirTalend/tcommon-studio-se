@@ -89,8 +89,10 @@ public class ConnectionIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        ConnectionIndicator connectionIndicator = (ConnectionIndicator)object;
-        return getString("_UI_ConnectionIndicator_type") + " " + connectionIndicator.getCount();
+        String label = ((ConnectionIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_ConnectionIndicator_type") :
+            getString("_UI_ConnectionIndicator_type") + " " + label;
     }
 
     /**

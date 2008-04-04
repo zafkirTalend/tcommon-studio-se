@@ -144,8 +144,10 @@ public class BoxIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        BoxIndicator boxIndicator = (BoxIndicator)object;
-        return getString("_UI_BoxIndicator_type") + " " + boxIndicator.getCount();
+        String label = ((BoxIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_BoxIndicator_type") :
+            getString("_UI_BoxIndicator_type") + " " + label;
     }
 
     /**

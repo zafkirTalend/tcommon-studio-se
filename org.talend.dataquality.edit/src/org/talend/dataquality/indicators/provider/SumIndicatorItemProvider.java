@@ -84,8 +84,10 @@ public class SumIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        SumIndicator sumIndicator = (SumIndicator)object;
-        return getString("_UI_SumIndicator_type") + " " + sumIndicator.getCount();
+        String label = ((SumIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_SumIndicator_type") :
+            getString("_UI_SumIndicator_type") + " " + label;
     }
 
     /**

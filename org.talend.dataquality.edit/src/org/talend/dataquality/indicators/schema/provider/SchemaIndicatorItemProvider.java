@@ -231,8 +231,10 @@ public class SchemaIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        SchemaIndicator schemaIndicator = (SchemaIndicator)object;
-        return getString("_UI_SchemaIndicator_type") + " " + schemaIndicator.getCount();
+        String label = ((SchemaIndicator)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_SchemaIndicator_type") :
+            getString("_UI_SchemaIndicator_type") + " " + label;
     }
 
     /**
