@@ -45,6 +45,13 @@ public final class JavaSqlFactory {
     private JavaSqlFactory() {
     }
 
+    /**
+     * Method "createConnection".
+     * 
+     * @see JavaSqlFactory#createConnection(TdProviderConnection).
+     * @param dataProvider to get the provider connection and create the connection
+     * @return the created connection.
+     */
     public static TypedReturnCode<Connection> createConnection(TdDataProvider dataProvider) {
         assert dataProvider != null;
         TypedReturnCode<TdProviderConnection> rc = DataProviderHelper.getTdProviderConnection(dataProvider);
@@ -64,6 +71,8 @@ public final class JavaSqlFactory {
      * <p>
      * When something goes wrong, {@link ReturnCode#isOk()} is false and {@link ReturnCode#getMessage()} gives the error
      * message.
+     * <p>
+     * The created connection must be closed by the caller. (use {@link ConnectionUtils#closeConnection(Connection)})
      * 
      * @param providerConnection the provider connection
      * @return a ReturnCode (never null)

@@ -12,9 +12,13 @@
 // ============================================================================
 package org.talend.dq.analysis;
 
+import java.io.File;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
+import org.talend.commons.emf.FactoriesUtil;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisContext;
 import org.talend.dataquality.analysis.AnalysisFactory;
@@ -25,6 +29,8 @@ import org.talend.dataquality.analysis.ExecutionInformations;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.indicators.Indicator;
+import org.talend.utils.sugars.ReturnCode;
+
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -186,4 +192,25 @@ public class AnalysisBuilder {
         return this.analysis;
     }
 
+    /**
+     * Method "saveAnalysis". This method should be called when the creation of the analysis definition (analysis
+     * context + parameters) is created. It is not safe to use it for saving the analysis after the evaluation of the
+     * analysis result. The domain should be saved before calling this method.
+     * 
+     * @param folder the folder where the analysis is saved.
+     * @return true if saved without problem
+     */
+    public boolean saveAnalysis(File folder) {
+        assert analysis != null;
+        AnalysisWriter writer = new AnalysisWriter();
+        String filename = DqRepositoryViewService.createFilename(folder.getAbsolutePath(), this.analysis.getName(),
+                FactoriesUtil.ANA);
+        File file = new File(filename);
+        ReturnCode saved = writer.save(analysis, file);
+        Assert.assertTrue(saved.getMessage(), saved.isOk());
+        if (saved.isOk()) {
+            log.info("Saved in  " + file.getAbsolutePath());
+        }
+        return saved.isOk();
+    }
 }

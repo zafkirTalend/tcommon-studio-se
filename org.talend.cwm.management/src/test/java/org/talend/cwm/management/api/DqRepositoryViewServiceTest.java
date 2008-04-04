@@ -17,9 +17,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 
@@ -52,9 +54,16 @@ public class DqRepositoryViewServiceTest {
 
     @Test
     public void testCreateTechnicalName() {
+        List<String> technames = new ArrayList<String>();
+
         for (String functionalName : TECHNAMES) {
             String technicalName = DqRepositoryViewService.createTechnicalName(functionalName);
             System.out.println(functionalName + " -> " + technicalName);
+            technames.add(technicalName);
+        }
+        for (int i = 0; i < TECHNAMES.length; i++) {
+            String functionalName = TECHNAMES[i];
+            Assert.assertEquals(technames.get(i), DqRepositoryViewService.createTechnicalName(functionalName));
         }
 
     }
