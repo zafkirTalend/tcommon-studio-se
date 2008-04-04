@@ -36,7 +36,7 @@ public class AnalysisEditor extends FormEditor {
 
     protected void addPages() {
         try {
-            masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis detail");
+            masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis settings");
             addPage(masterPage);
         } catch (PartInitException e) {
             ExceptionHandler.process(e, Level.ERROR);
@@ -80,7 +80,7 @@ public class AnalysisEditor extends FormEditor {
         if (input instanceof AnalysisEditor) {
             AnalysisEditorInuput analysisInput = (AnalysisEditorInuput) input;
             if (input != null) {
-//                isDirty = true;
+                // isDirty = true;
                 // isUntitled = true;
             }
         }

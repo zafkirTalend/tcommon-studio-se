@@ -52,7 +52,6 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
-import org.talend.dataquality.analysis.AnalysisType;
 
 /**
  * Wizard page contains common properties fields.<br/>
@@ -74,7 +73,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     /** Version text. */
     protected Text versionText;
-    
+
     protected ConnectionParameters connectionParams;
 
     /** Status text. */
@@ -290,39 +289,39 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    
+
                     if (connectionParams.getConnectionTypeForANA() != null) {
-                        openFolderSelectionDialog("Data Profiling", "Analysis");
+                        openFolderSelectionDialog(DQStructureManager.DATA_PROFILING, DQStructureManager.ANALYSIS);
                     } else {
-                        openFolderSelectionDialog("Metadata", "DB Connections");
+                        openFolderSelectionDialog(DQStructureManager.METADATA, DQStructureManager.DB_CONNECTIONS);
                     }
                 }
             });
         }
-        
-        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.METADATA_PROJECTNAME).getFolder(
-                DQStructureManager.DB_CONNECTIONS);
+
+        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(
+                PluginConstant.METADATA_PROJECTNAME).getFolder(DQStructureManager.DB_CONNECTIONS);
         pathText.setText(defaultFolderProviderRes.getFullPath().toString());
-        
+
         this.setFolderProvider(defaultFolderProviderRes);
     }
 
     @SuppressWarnings("unchecked")
-    private void openFolderSelectionDialog(String projectName , String folderName) {
-        
-        final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class }; 
+    private void openFolderSelectionDialog(String projectName, String folderName) {
+
+        final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class };
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         ArrayList rejectedElements = new ArrayList();
-        
+
         if (projectName != null) {
             IProject theProject = root.getProject(projectName);
             IProject[] allProjects = root.getProjects();
-            for (int i = 0; i < allProjects.length; i++) {          
+            for (int i = 0; i < allProjects.length; i++) {
                 if (!allProjects[i].equals(theProject)) {
                     rejectedElements.add(allProjects[i]);
                 }
             }
-            
+
             if (folderName != null) {
                 try {
                     IResource[] resourse = theProject.members();
@@ -331,7 +330,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
                             rejectedElements.add(one);
                         }
                     }
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
         }
 
@@ -392,8 +392,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 } else {
                     nameModifiedByUser = true;
                     connectionParams.setConnectionName(nameText.getText());
-//                    IResource newResource = defaultFolderProviderRes.getFolder(nameText.getText());
-//                    setFolderProvider(newResource);
+                    // IResource newResource = defaultFolderProviderRes.getFolder(nameText.getText());
+                    // setFolderProvider(newResource);
                 }
                 // }
                 evaluateTextField();
@@ -553,13 +553,16 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
      */
     @Override
     public void setVisible(boolean visible) {
         if (connectionParams.getConnectionTypeForANA() != null) {
-            IProject analysisProject = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.DATA_PROFILING_PROJECTNAME);
+            IProject analysisProject = ResourcesPlugin.getWorkspace().getRoot().getProject(
+                    PluginConstant.DATA_PROFILING_PROJECTNAME);
             defaultFolderProviderRes = analysisProject.getFolder(DQStructureManager.ANALYSIS);
             pathText.setText(defaultFolderProviderRes.getFullPath().toString());
         }

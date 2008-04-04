@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.dataprofiler.core;
 
+import org.talend.commons.emf.FactoriesUtil;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
+
 /**
  * This class store all the constant of current plugin.
  * 
@@ -26,11 +29,11 @@ public final class PluginConstant {
 
     public static final String CONNECTION_DBNAME_PROPERTY = "CONNECTION_DBNAME_PROPERTY";
 
-    public static final String PRV_SUFFIX = ".prv";
+    public static final String PRV_SUFFIX = "." + FactoriesUtil.PROV;
 
-    public static final String METADATA_PROJECTNAME = "Metadata";
+    public static final String METADATA_PROJECTNAME = DQStructureManager.METADATA;
 
-    public static final String DATA_PROFILING_PROJECTNAME = "Data Profiling";
-    
+    public static final String DATA_PROFILING_PROJECTNAME = DQStructureManager.DATA_PROFILING;
+
     public static final String PATH_SAVE = "PATH_SAVE";
 }

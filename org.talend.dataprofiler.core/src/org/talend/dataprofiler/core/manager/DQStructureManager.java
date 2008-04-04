@@ -36,6 +36,16 @@ import org.talend.dataprofiler.core.ui.progress.ProgressUI;
  */
 public final class DQStructureManager {
 
+    public static final String REPORTS = "Reports";
+
+    public static final String SOURCE_FILES = "Source Files";
+
+    public static final String PATTERNS = "Patterns";
+
+    public static final String LIBRARIES = "Libraries";
+
+    public static final String METADATA = "Metadata";
+
     public static final String DATA_PROFILING = "Data Profiling";
 
     public static final String ANALYSIS = "Analysis";
@@ -62,13 +72,13 @@ public final class DQStructureManager {
             // create "Data Profiling" project
             IProject project = this.createNewProject(DATA_PROFILING, shell);
             this.createNewFoler(project, ANALYSIS);
-            this.createNewFoler(project, "Reports");
+            this.createNewFoler(project, REPORTS);
             // create "Libraries" project
-            project = this.createNewProject("Libraries", shell);
-            this.createNewFoler(project, "Patterns");
-            this.createNewFoler(project, "Source Files");
+            project = this.createNewProject(LIBRARIES, shell);
+            this.createNewFoler(project, PATTERNS);
+            this.createNewFoler(project, SOURCE_FILES);
             // create "Metadata" project
-            project = this.createNewProject("Metadata", shell);
+            project = this.createNewProject(METADATA, shell);
             this.createNewFoler(project, DB_CONNECTIONS);
         } catch (Exception ex) {
             ExceptionHandler.process(ex);
