@@ -126,6 +126,7 @@
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/reset"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getPurpose"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getLongDescription"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/prepare"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RowCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MeanIndicator">

@@ -225,4 +225,15 @@ public interface Indicator extends ModelElement {
      */
     String getLongDescription();
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Prepares this indicator for a computation. This method can be used for initialization some internal state data from parameters. Or initializing some internal values before handling data. 
+     * <!-- end-model-doc -->
+     * @model
+     * @generated
+     */
+    boolean prepare();
+
 } // Indicator
