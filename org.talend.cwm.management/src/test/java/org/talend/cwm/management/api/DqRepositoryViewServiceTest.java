@@ -34,7 +34,7 @@ public class DqRepositoryViewServiceTest {
 
     private static final File FOLDER = new File("out");
 
-    private static final String[] TECHNAMES = new String[] { "salut", "tu vas bien", "etage", "tage", "étage",
+    private static final String[] TECHNAMES = new String[] { "abc", "salut", "tu vas bien", "etage", "tage", "étage",
             "ça promet", "&%ùöôk~n@^aâ", "è@kl£$€" };
 
     /**
@@ -58,7 +58,7 @@ public class DqRepositoryViewServiceTest {
 
         for (String functionalName : TECHNAMES) {
             String technicalName = DqRepositoryViewService.createTechnicalName(functionalName);
-            System.out.println(functionalName + " -> " + technicalName);
+            // System.out.println(functionalName + " -> " + technicalName);
             technames.add(technicalName);
         }
         for (int i = 0; i < TECHNAMES.length; i++) {

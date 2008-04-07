@@ -26,7 +26,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
-import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
@@ -48,6 +47,8 @@ public class CatalogBuilder extends CwmBuilder {
 
     private boolean schemaInitialized = false;
 
+    private Map<String, TdCatalog> catalogsToUpdate = new HashMap<String, TdCatalog>();
+
     /**
      * CatalogBuilder constructor. Catalogs and/or schemata are initialized, but not the lower structure such as the
      * table, trigger, procedures...
@@ -67,6 +68,19 @@ public class CatalogBuilder extends CwmBuilder {
             log.error(e, e);
         }
 
+    }
+
+    public boolean refreshCatalogs(final Collection<TdCatalog> catalogs) {
+        for (TdCatalog tdCatalog : catalogs) {
+            if (tdCatalog == null) {
+                continue;
+            }
+            this.catalogsToUpdate.put(tdCatalog.getName(), tdCatalog);
+        }
+        initializeCatalog();
+        // remove all catalogs
+        this.catalogsToUpdate.clear();
+        return true;
     }
 
     /**
@@ -146,6 +160,13 @@ public class CatalogBuilder extends CwmBuilder {
         return this.schemata;
     }
 
+    public TdCatalog getCatalog(String catalogName) {
+        if (!catalogsInitialized) {
+            initializeCatalog();
+        }
+        return this.name2catalog.get(catalogName);
+    }
+
     private void initializeCatalog() {
         try {
             initializeCatalogLow();
@@ -163,7 +184,7 @@ public class CatalogBuilder extends CwmBuilder {
                     log.info("No catalog found in connection " + getConnectionInformations(connection));
                 }
             } else { // got the current catalog name, create a Catalog
-                TdCatalog catalog = createCatalog(currentCatalogName);
+                TdCatalog catalog = createOrUpdateCatalog(currentCatalogName);
                 name2catalog.put(currentCatalogName, catalog);
             }
         } else {
@@ -172,7 +193,7 @@ public class CatalogBuilder extends CwmBuilder {
                 String catalogName = catalogNames.getString(MetaDataConstants.TABLE_CAT.name());
                 assert catalogName != null : "This should not happen: Catalog name is null with connection "
                         + getConnectionInformations(connection);
-                TdCatalog catalog = createCatalog(catalogName);
+                TdCatalog catalog = createOrUpdateCatalog(catalogName);
                 name2catalog.put(catalogName, catalog);
             }
         }
@@ -228,14 +249,24 @@ public class CatalogBuilder extends CwmBuilder {
      * @param name the name of the catalog
      * @return the newly created catalog
      */
-    private TdCatalog createCatalog(String name) {
+    private TdCatalog createOrUpdateCatalog(String name) {
         if (name == null) {
             return null;
         }
-        TdCatalog cat = RelationalFactory.eINSTANCE.createTdCatalog();
-        cat.setName(name);
+        TdCatalog cat = getOrCreateCatalog(name);
 
         // --- TODO set attributes of catalog
         return cat;
     }
+
+    private TdCatalog getOrCreateCatalog(String name) {
+        TdCatalog cat = (!this.catalogsToUpdate.isEmpty()) ? this.catalogsToUpdate.get(name) : null;
+        if (cat != null) {
+            return cat;
+        }
+        // else
+        cat = CatalogHelper.createCatalog(name);
+        return cat;
+    }
+
 }

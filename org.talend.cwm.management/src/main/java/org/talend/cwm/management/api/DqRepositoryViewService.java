@@ -14,6 +14,7 @@ package org.talend.cwm.management.api;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.commons.emf.FactoriesUtil;
 import org.talend.cwm.builders.AbstractTableBuilder;
@@ -39,6 +41,7 @@ import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.management.connection.JavaSqlFactory;
 import org.talend.cwm.relational.RelationalPackage;
+import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
@@ -48,6 +51,7 @@ import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.utils.sql.ConnectionUtils;
+import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -70,7 +74,12 @@ public final class DqRepositoryViewService {
 
     private static final String B64ID = "\\[B@";
 
-    private static final String PREFIX = "tdq";
+    /**
+     * if true, the catalogs (and schemas) are stored in the same file as the data provider. Used for tests only.
+     */
+    private static final boolean CAT_WITH_PRV = true;
+
+    private static final String PREFIX = "tdq_";
 
     private DqRepositoryViewService() {
     }
@@ -86,6 +95,10 @@ public final class DqRepositoryViewService {
         }
     };
 
+    private static final String CHARS_TO_REMOVE = "/";
+
+    private static final String REPLACEMENT_CHARS = "_";
+
     /**
      * Method "createTechnicalName" creates a technical name used for file system storage.
      * 
@@ -93,14 +106,27 @@ public final class DqRepositoryViewService {
      * @return the technical name created from the user given name.
      */
     public static String createTechnicalName(final String functionalName) {
+        String techname = "no_name";
         if (functionalName == null) {
             log.warn("A functional name should not be null");
-            return "no_name";
+            return techname;
         }
-        // remove all characters such white spaces, accents, everything that is dangerous when used for
-        // file names...
-        String techname = functionalName;
-        techname = CODEC.encode(functionalName.getBytes()).toString().replaceAll(B64ID, PREFIX);
+        // encode in base 64 so that all characters such white spaces, accents, everything that is dangerous when used
+        // for
+        // file names are removed
+        try {
+            // encode
+            String b64 = new String(Base64.encodeBase64(functionalName.getBytes()), "UTF-8");
+            // replace special characters
+            techname = AsciiUtils.replaceCharacters(b64, CHARS_TO_REMOVE, REPLACEMENT_CHARS);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // .replaceAll(B64ID, PREFIX);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Functional name: " + functionalName + " -> techname: " + techname);
+        }
         return techname;
     }
 
@@ -138,6 +164,15 @@ public final class DqRepositoryViewService {
     public static boolean refreshDataProvider(TdDataProvider dataProvider, String catalogPattern, String schemaPattern) {
         // TODO scorreia implement me
         return false;
+    }
+
+    /**
+     * DOC scorreia Comment method "refreshCatalog".
+     * 
+     * @param tdCatalog
+     */
+    private static void refreshCatalog(TdCatalog tdCatalog, Connection connection) {
+
     }
 
     /**
@@ -280,14 +315,26 @@ public final class DqRepositoryViewService {
         // The provider connection is stored in the dataprovider because of the containment relation.
         // addInSoftwareSystemResourceSet(folder, connector, providerConnection);
 
+        // save each catalog is its own file
         Collection<? extends ModelElement> catalogs = DataProviderHelper.getTdCatalogs(dataProvider);
-        ok = resource.getContents().addAll(catalogs);
+        if (CAT_WITH_PRV) {
+            ok = resource.getContents().addAll(catalogs);
+        } else {
+            ok = addElementsToOwnResources(catalogs, folder, util);
+        }
+
         if (log.isDebugEnabled()) {
             log.debug("Catalogs added " + ok);
         }
 
+        // save each schema is its own file
         Collection<? extends ModelElement> schemata = DataProviderHelper.getTdSchema(dataProvider);
-        ok = resource.getContents().addAll(schemata);
+        if (CAT_WITH_PRV) {
+            ok = resource.getContents().addAll(schemata);
+        } else {
+            ok = addElementsToOwnResources(schemata, folder, util);
+        }
+
         if (log.isDebugEnabled()) {
             log.debug("Schema added " + ok);
         }
@@ -303,6 +350,7 @@ public final class DqRepositoryViewService {
      */
     public static ReturnCode saveOpenDataProvider(TdDataProvider dataProvider) {
         assert dataProvider != null;
+
         Resource resource = dataProvider.eResource();
 
         // // get all content
@@ -562,6 +610,30 @@ public final class DqRepositoryViewService {
         TdDataProvider prov = tdDataProviders.iterator().next();
         rc.setObject(prov);
         return rc;
+    }
+
+    /**
+     * Method "addElementsToOwnResources" saves each element in its own file.
+     * 
+     * @param elements the elements to save
+     * @param folder where to save the elements.
+     * @param util used for linking elements to each other and to their container
+     * @return true if added.
+     */
+    private static boolean addElementsToOwnResources(Collection<? extends ModelElement> elements, String folder,
+            EMFUtil util) {
+        boolean ok = true;
+        for (ModelElement modelElement : elements) {
+            String uuid = EcoreUtil.generateUUID();
+            if (log.isDebugEnabled()) {
+                log.debug("Element uuid " + uuid);
+            }
+            URI catUri = URI.createFileURI(createFilename(folder, modelElement.getName() + uuid, FactoriesUtil.CAT));
+            if (!util.addPoolToResourceSet(catUri, modelElement)) {
+                ok = false;
+            }
+        }
+        return ok;
     }
 
 }
