@@ -454,6 +454,15 @@ public interface PropertiesFactory extends EFactory {
     SchemaInformation createSchemaInformation();
 
     /**
+     * Returns a new object of class '<em>Information</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Information</em>'.
+     * @generated
+     */
+    Information createInformation();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

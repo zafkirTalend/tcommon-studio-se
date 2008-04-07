@@ -140,6 +140,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM: return createJobletDocumentationItem();
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM: return createWSDLSchemaConnectionItem();
             case PropertiesPackage.SCHEMA_INFORMATION: return createSchemaInformation();
+            case PropertiesPackage.INFORMATION: return createInformation();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -157,6 +158,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
                 return createUserProjectAuthorizationTypeFromString(eDataType, initialValue);
             case PropertiesPackage.USER_MODULE_AUTHORIZATION_TYPE:
                 return createUserModuleAuthorizationTypeFromString(eDataType, initialValue);
+            case PropertiesPackage.INFORMATION_LEVEL:
+                return createInformationLevelFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -174,6 +177,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
                 return convertUserProjectAuthorizationTypeToString(eDataType, instanceValue);
             case PropertiesPackage.USER_MODULE_AUTHORIZATION_TYPE:
                 return convertUserModuleAuthorizationTypeToString(eDataType, instanceValue);
+            case PropertiesPackage.INFORMATION_LEVEL:
+                return convertInformationLevelToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -651,6 +656,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Information createInformation() {
+        InformationImpl information = new InformationImpl();
+        return information;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -703,6 +718,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * @generated
      */
     public String convertUserModuleAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public InformationLevel createInformationLevelFromString(EDataType eDataType, String initialValue) {
+        InformationLevel result = InformationLevel.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertInformationLevelToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

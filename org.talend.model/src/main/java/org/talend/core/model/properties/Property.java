@@ -7,6 +7,7 @@ package org.talend.core.model.properties;
 
 import java.util.Date;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -25,6 +26,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Property#getStatusCode <em>Status Code</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getItem <em>Item</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Property#getInformations <em>Informations</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}</li>
  * </ul>
  * </p>
  *
@@ -209,6 +212,51 @@ public interface Property extends EObject {
      * @generated
      */
     void setAuthor(User value);
+
+    /**
+     * Returns the value of the '<em><b>Informations</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.Information}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Informations</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Informations</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Informations()
+     * @model type="org.talend.core.model.properties.Information" containment="true"
+     * @generated
+     */
+    EList getInformations();
+
+    /**
+     * Returns the value of the '<em><b>Max Information Level</b></em>' attribute.
+     * The literals are from the enumeration {@link org.talend.core.model.properties.InformationLevel}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Max Information Level</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Max Information Level</em>' attribute.
+     * @see org.talend.core.model.properties.InformationLevel
+     * @see #setMaxInformationLevel(InformationLevel)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_MaxInformationLevel()
+     * @model
+     * @generated
+     */
+    InformationLevel getMaxInformationLevel();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Max Information Level</em>' attribute.
+     * @see org.talend.core.model.properties.InformationLevel
+     * @see #getMaxInformationLevel()
+     * @generated
+     */
+    void setMaxInformationLevel(InformationLevel value);
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

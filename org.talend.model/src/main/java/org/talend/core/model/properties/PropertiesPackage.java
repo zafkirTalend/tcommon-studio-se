@@ -692,13 +692,31 @@ public interface PropertiesPackage extends EPackage {
     int PROPERTY__AUTHOR = 9;
 
     /**
+     * The feature id for the '<em><b>Informations</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROPERTY__INFORMATIONS = 10;
+
+    /**
+     * The feature id for the '<em><b>Max Information Level</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROPERTY__MAX_INFORMATION_LEVEL = 11;
+
+    /**
      * The number of structural features of the '<em>Property</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROPERTY_FEATURE_COUNT = 10;
+    int PROPERTY_FEATURE_COUNT = 12;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3798,13 +3816,59 @@ public interface PropertiesPackage extends EPackage {
     int SCHEMA_INFORMATION_FEATURE_COUNT = 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.InformationImpl <em>Information</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.InformationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
+     * @generated
+     */
+    int INFORMATION = 53;
+
+    /**
+     * The feature id for the '<em><b>Level</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INFORMATION__LEVEL = 0;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INFORMATION__TYPE = 1;
+
+    /**
+     * The feature id for the '<em><b>Text</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INFORMATION__TEXT = 2;
+
+    /**
+     * The number of structural features of the '<em>Information</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INFORMATION_FEATURE_COUNT = 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 53;
+    int FOLDER_TYPE = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3814,7 +3878,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 54;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 55;
 
 
     /**
@@ -3825,7 +3889,18 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 55;
+    int USER_MODULE_AUTHORIZATION_TYPE = 56;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.InformationLevel
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
+     * @generated
+     */
+    int INFORMATION_LEVEL = 57;
 
 
     /**
@@ -4155,6 +4230,28 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getProperty_Author();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Property#getInformations <em>Informations</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Informations</em>'.
+     * @see org.talend.core.model.properties.Property#getInformations()
+     * @see #getProperty()
+     * @generated
+     */
+    EReference getProperty_Informations();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Max Information Level</em>'.
+     * @see org.talend.core.model.properties.Property#getMaxInformationLevel()
+     * @see #getProperty()
+     * @generated
+     */
+    EAttribute getProperty_MaxInformationLevel();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getVersion <em>Version</em>}'.
@@ -6453,6 +6550,49 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSchemaInformation_Version();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.Information <em>Information</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Information</em>'.
+     * @see org.talend.core.model.properties.Information
+     * @generated
+     */
+    EClass getInformation();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Information#getLevel <em>Level</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Level</em>'.
+     * @see org.talend.core.model.properties.Information#getLevel()
+     * @see #getInformation()
+     * @generated
+     */
+    EAttribute getInformation_Level();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Information#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.Information#getType()
+     * @see #getInformation()
+     * @generated
+     */
+    EAttribute getInformation_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Information#getText <em>Text</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Text</em>'.
+     * @see org.talend.core.model.properties.Information#getText()
+     * @see #getInformation()
+     * @generated
+     */
+    EAttribute getInformation_Text();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -6480,6 +6620,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EEnum getUserModuleAuthorizationType();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Information Level</em>'.
+     * @see org.talend.core.model.properties.InformationLevel
+     * @generated
+     */
+    EEnum getInformationLevel();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.UserRole <em>User Role</em>}'. <!--
@@ -6799,6 +6949,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROPERTY__AUTHOR = eINSTANCE.getProperty_Author();
+
+        /**
+         * The meta object literal for the '<em><b>Informations</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROPERTY__INFORMATIONS = eINSTANCE.getProperty_Informations();
+
+        /**
+         * The meta object literal for the '<em><b>Max Information Level</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROPERTY__MAX_INFORMATION_LEVEL = eINSTANCE.getProperty_MaxInformationLevel();
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
@@ -8624,6 +8790,40 @@ public interface PropertiesPackage extends EPackage {
         EAttribute SCHEMA_INFORMATION__VERSION = eINSTANCE.getSchemaInformation_Version();
 
         /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.InformationImpl <em>Information</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.InformationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
+         * @generated
+         */
+        EClass INFORMATION = eINSTANCE.getInformation();
+
+        /**
+         * The meta object literal for the '<em><b>Level</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INFORMATION__LEVEL = eINSTANCE.getInformation_Level();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INFORMATION__TYPE = eINSTANCE.getInformation_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INFORMATION__TEXT = eINSTANCE.getInformation_Text();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.FolderType
@@ -8651,6 +8851,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EEnum USER_MODULE_AUTHORIZATION_TYPE = eINSTANCE.getUserModuleAuthorizationType();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.InformationLevel
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
+         * @generated
+         */
+        EEnum INFORMATION_LEVEL = eINSTANCE.getInformationLevel();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserRoleImpl <em>User Role</em>}' class.

@@ -5,14 +5,20 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.core.model.properties.Information;
+import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -33,6 +39,8 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getStatusCode <em>Status Code</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getItem <em>Item</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getInformations <em>Informations</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getMaxInformationLevel <em>Max Information Level</em>}</li>
  * </ul>
  * </p>
  *
@@ -220,6 +228,36 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected User author;
 
     /**
+     * The cached value of the '{@link #getInformations() <em>Informations</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getInformations()
+     * @generated
+     * @ordered
+     */
+    protected EList informations;
+
+    /**
+     * The default value of the '{@link #getMaxInformationLevel() <em>Max Information Level</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMaxInformationLevel()
+     * @generated
+     * @ordered
+     */
+    protected static final InformationLevel MAX_INFORMATION_LEVEL_EDEFAULT = InformationLevel.DEBUG_LITERAL;
+
+    /**
+     * The cached value of the '{@link #getMaxInformationLevel() <em>Max Information Level</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMaxInformationLevel()
+     * @generated
+     * @ordered
+     */
+    protected InformationLevel maxInformationLevel = MAX_INFORMATION_LEVEL_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -385,6 +423,39 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getInformations() {
+        if (informations == null) {
+            informations = new EObjectContainmentEList(Information.class, this, PropertiesPackage.PROPERTY__INFORMATIONS);
+        }
+        return informations;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public InformationLevel getMaxInformationLevel() {
+        return maxInformationLevel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMaxInformationLevel(InformationLevel newMaxInformationLevel) {
+        InformationLevel oldMaxInformationLevel = maxInformationLevel;
+        maxInformationLevel = newMaxInformationLevel == null ? MAX_INFORMATION_LEVEL_EDEFAULT : newMaxInformationLevel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL, oldMaxInformationLevel, maxInformationLevel));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -500,6 +571,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
         switch (featureID) {
             case PropertiesPackage.PROPERTY__ITEM:
                 return basicSetItem(null, msgs);
+            case PropertiesPackage.PROPERTY__INFORMATIONS:
+                return ((InternalEList)getInformations()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -532,6 +605,10 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__AUTHOR:
                 if (resolve) return getAuthor();
                 return basicGetAuthor();
+            case PropertiesPackage.PROPERTY__INFORMATIONS:
+                return getInformations();
+            case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
+                return getMaxInformationLevel();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -571,6 +648,13 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return;
             case PropertiesPackage.PROPERTY__AUTHOR:
                 setAuthor((User)newValue);
+                return;
+            case PropertiesPackage.PROPERTY__INFORMATIONS:
+                getInformations().clear();
+                getInformations().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
+                setMaxInformationLevel((InformationLevel)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -612,6 +696,12 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__AUTHOR:
                 setAuthor((User)null);
                 return;
+            case PropertiesPackage.PROPERTY__INFORMATIONS:
+                getInformations().clear();
+                return;
+            case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
+                setMaxInformationLevel(MAX_INFORMATION_LEVEL_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -642,6 +732,10 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return item != null;
             case PropertiesPackage.PROPERTY__AUTHOR:
                 return author != null;
+            case PropertiesPackage.PROPERTY__INFORMATIONS:
+                return informations != null && !informations.isEmpty();
+            case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
+                return maxInformationLevel != MAX_INFORMATION_LEVEL_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }

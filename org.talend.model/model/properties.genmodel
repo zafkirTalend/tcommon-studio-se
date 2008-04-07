@@ -21,6 +21,12 @@
       <genEnumLiterals ecoreEnumLiteral="properties.ecore#//UserModuleAuthorizationType/JobConductor"/>
       <genEnumLiterals ecoreEnumLiteral="properties.ecore#//UserModuleAuthorizationType/Dashboard"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="properties.ecore#//InformationLevel">
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//InformationLevel/DEBUG"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//InformationLevel/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//InformationLevel/WARN"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//InformationLevel/ERROR"/>
+    </genEnums>
     <genClasses ecoreClass="properties.ecore#//Project">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/technicalStatus"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/documentationStatus"/>
@@ -74,6 +80,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/statusCode"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Property/item"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Property/author"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Property/informations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/maxInformationLevel"/>
     </genClasses>
     <genClasses image="false" ecoreClass="properties.ecore#//Item">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Item/property"/>
@@ -313,6 +321,11 @@
     <genClasses ecoreClass="properties.ecore#//WSDLSchemaConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//SchemaInformation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SchemaInformation/version"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//Information">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Information/level"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Information/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Information/text"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

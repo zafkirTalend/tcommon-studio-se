@@ -37,6 +37,8 @@ import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.Information;
+import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
@@ -404,6 +406,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass schemaInformationEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass informationEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -420,6 +429,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EEnum userModuleAuthorizationTypeEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum informationLevelEEnum = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -756,6 +772,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getProperty_Author() {
         return (EReference)propertyEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProperty_Informations() {
+        return (EReference)propertyEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProperty_MaxInformationLevel() {
+        return (EAttribute)propertyEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -2526,6 +2560,42 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getInformation() {
+        return informationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInformation_Level() {
+        return (EAttribute)informationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInformation_Type() {
+        return (EAttribute)informationEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInformation_Text() {
+        return (EAttribute)informationEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2547,6 +2617,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EEnum getUserModuleAuthorizationType() {
         return userModuleAuthorizationTypeEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getInformationLevel() {
+        return informationLevelEEnum;
     }
 
     /**
@@ -2659,6 +2738,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(propertyEClass, PROPERTY__STATUS_CODE);
         createEReference(propertyEClass, PROPERTY__ITEM);
         createEReference(propertyEClass, PROPERTY__AUTHOR);
+        createEReference(propertyEClass, PROPERTY__INFORMATIONS);
+        createEAttribute(propertyEClass, PROPERTY__MAX_INFORMATION_LEVEL);
 
         itemEClass = createEClass(ITEM);
         createEReference(itemEClass, ITEM__PROPERTY);
@@ -2913,10 +2994,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         schemaInformationEClass = createEClass(SCHEMA_INFORMATION);
         createEAttribute(schemaInformationEClass, SCHEMA_INFORMATION__VERSION);
 
+        informationEClass = createEClass(INFORMATION);
+        createEAttribute(informationEClass, INFORMATION__LEVEL);
+        createEAttribute(informationEClass, INFORMATION__TYPE);
+        createEAttribute(informationEClass, INFORMATION__TEXT);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
         userModuleAuthorizationTypeEEnum = createEEnum(USER_MODULE_AUTHORIZATION_TYPE);
+        informationLevelEEnum = createEEnum(INFORMATION_LEVEL);
     }
 
     /**
@@ -3034,6 +3121,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProperty_StatusCode(), ecorePackage.getEString(), "statusCode", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProperty_Item(), this.getItem(), this.getItem_Property(), "item", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProperty_Author(), this.getUser(), null, "author", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProperty_Informations(), this.getInformation(), null, "informations", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProperty_MaxInformationLevel(), this.getInformationLevel(), "maxInformationLevel", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(itemEClass, Item.class, "Item", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getItem_Property(), this.getProperty(), this.getProperty_Item(), "property", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3288,6 +3377,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(schemaInformationEClass, SchemaInformation.class, "SchemaInformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSchemaInformation_Version(), theEcorePackage.getEString(), "version", null, 0, 1, SchemaInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(informationEClass, Information.class, "Information", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getInformation_Level(), this.getInformationLevel(), "level", null, 1, 1, Information.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInformation_Type(), theEcorePackage.getEString(), "type", null, 0, 1, Information.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInformation_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Information.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
         addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
@@ -3301,6 +3395,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEEnum(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.class, "UserModuleAuthorizationType");
         addEEnumLiteral(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.JOB_CONDUCTOR_LITERAL);
         addEEnumLiteral(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.DASHBOARD_LITERAL);
+
+        initEEnum(informationLevelEEnum, InformationLevel.class, "InformationLevel");
+        addEEnumLiteral(informationLevelEEnum, InformationLevel.DEBUG_LITERAL);
+        addEEnumLiteral(informationLevelEEnum, InformationLevel.INFO_LITERAL);
+        addEEnumLiteral(informationLevelEEnum, InformationLevel.WARN_LITERAL);
+        addEEnumLiteral(informationLevelEEnum, InformationLevel.ERROR_LITERAL);
 
         // Create resource
         createResource(eNS_URI);

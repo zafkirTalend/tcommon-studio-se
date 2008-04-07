@@ -81,6 +81,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="statusCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="item" eType="#//Item" eOpposite="#//Item/property"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="informations" upperBound="-1"
+        eType="#//Information" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxInformationLevel" eType="#//InformationLevel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Item" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//Property"
@@ -390,5 +393,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="WSDLSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="SchemaInformation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Information">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" lowerBound="1" eType="#//InformationLevel"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="InformationLevel">
+    <eLiterals name="DEBUG" value="10"/>
+    <eLiterals name="INFO" value="20"/>
+    <eLiterals name="WARN" value="30"/>
+    <eLiterals name="ERROR" value="40"/>
   </eClassifiers>
 </ecore:EPackage>
