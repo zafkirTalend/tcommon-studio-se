@@ -1341,6 +1341,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         addEOperation(indicatorEClass, ecorePackage.getEString(), "getLongDescription", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+        addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "prepare", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(meanIndicatorEClass, MeanIndicator.class, "MeanIndicator", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
