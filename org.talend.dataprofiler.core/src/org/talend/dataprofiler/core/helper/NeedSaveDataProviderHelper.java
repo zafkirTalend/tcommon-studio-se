@@ -39,18 +39,6 @@ public final class NeedSaveDataProviderHelper {
         return needSaveProviderMap.get(providerName);
     }
 
-    // public static String[] getAllDataProviderNames() {
-    // return needSaveProviderMap.keySet().toArray(new String[getDataProviderSize()]);
-    // }
-    //    
-    // public static TdDataProvider[] getAllDataProvider() {
-    // return needSaveProviderMap.values().toArray(new TdDataProvider[getDataProviderSize()]);
-    // }
-    //    
-    // public static int getDataProviderSize() {
-    // return needSaveProviderMap.keySet().size();
-    // }
-
     /**
      * Save all the data provider.
      */

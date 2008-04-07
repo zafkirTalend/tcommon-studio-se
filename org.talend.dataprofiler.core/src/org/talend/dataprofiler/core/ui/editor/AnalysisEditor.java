@@ -12,12 +12,16 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
+import java.io.File;
+import java.net.URI;
+
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
+import org.eclipse.ui.part.FileEditorInput;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 
 /**
@@ -27,6 +31,8 @@ import org.talend.dataprofiler.core.exception.ExceptionHandler;
 public class AnalysisEditor extends FormEditor {
 
     private IFormPage masterPage;
+
+    private boolean isDirty = false;
 
     /**
      * 
@@ -47,6 +53,7 @@ public class AnalysisEditor extends FormEditor {
         if (masterPage.isDirty()) {
             masterPage.doSave(monitor);
         }
+        this.isDirty = false;
     }
 
     public void doSaveAs() {
@@ -64,7 +71,7 @@ public class AnalysisEditor extends FormEditor {
      */
     @Override
     public boolean isDirty() {
-        return super.isDirty();
+        return isDirty || super.isDirty();
     }
 
     /*
@@ -74,15 +81,18 @@ public class AnalysisEditor extends FormEditor {
      */
     @Override
     protected void setInput(IEditorInput input) {
-        super.setInput(input);
+        if (input == null) {
+            return;
+        }
 
-        // Handle our own form of input
-        if (input instanceof AnalysisEditor) {
-            AnalysisEditorInuput analysisInput = (AnalysisEditorInuput) input;
-            if (input != null) {
-                // isDirty = true;
-                // isUntitled = true;
-            }
+        AnalysisEditorInuput analysisInput = null;
+        if (input instanceof FileEditorInput) {
+            URI uri = ((FileEditorInput) input).getFile().getLocationURI();
+            analysisInput = new AnalysisEditorInuput(new File(uri));
+            super.setInput(analysisInput);
+            isDirty = true;
+        } else if (input instanceof AnalysisEditorInuput) {
+            super.setInput(input);
         }
 
         setPartName(input.getName());

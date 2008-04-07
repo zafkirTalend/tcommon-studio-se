@@ -36,6 +36,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
+import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
@@ -44,8 +45,6 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.AnalysisWriter;
-import org.talend.dq.analysis.ColumnAnalysisExecutor;
-import org.talend.dq.analysis.IAnalysisExecutor;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -66,8 +65,16 @@ public class ColumnMasterDetailsPage extends FormPage {
 
     private DataFilterComp dataFilterComp;
 
+    private AnalysisBuilder analysisBuilder;
+
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
+        try {
+            initializeAnalysisBuilder();
+        } catch (DataprofilerCoreException e) {
+            e.printStackTrace();
+            ExceptionHandler.process(e);
+        }
     }
 
     /*
@@ -121,8 +128,7 @@ public class ColumnMasterDetailsPage extends FormPage {
     }
 
     private void createAnalysisColumnsSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true,
-                "Select the columns to analyze:");
+        Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true, "Select the columns to analyze:");
 
         Composite topComp = toolkit.createComposite(section);
         topComp.setLayout(new GridLayout(3, true));
@@ -182,8 +188,8 @@ public class ColumnMasterDetailsPage extends FormPage {
      * @param discription
      * @return
      */
-    private Section createSection(final ScrolledForm form, FormToolkit toolkit, Composite parent, String title,
-            boolean expanded, String discription) {
+    private Section createSection(final ScrolledForm form, FormToolkit toolkit, Composite parent, String title, boolean expanded,
+            String discription) {
         Section section = toolkit.createSection(parent, Section.DESCRIPTION
 
         | Section.TWISTIE | Section.TITLE_BAR);
@@ -216,17 +222,16 @@ public class ColumnMasterDetailsPage extends FormPage {
     public void doSave(IProgressMonitor monitor) {
         super.doSave(monitor);
         try {
-            createAnalysisBuilder();
+
+            saveAnalysis();
             treeViewer.setDirty(false);
         } catch (DataprofilerCoreException e) {
             e.printStackTrace();
         }
     }
 
-    private void createAnalysisBuilder() throws DataprofilerCoreException {
-        String outputFolder = this.getEditorInput().getName();
-        // initialized analysis
-        AnalysisBuilder analysisBuilder = new AnalysisBuilder();
+    private void initializeAnalysisBuilder() throws DataprofilerCoreException {
+        analysisBuilder = new AnalysisBuilder();
         String analysisName = "My test analysis";
 
         boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
@@ -234,12 +239,33 @@ public class ColumnMasterDetailsPage extends FormPage {
             throw new DataprofilerCoreException(analysisName + " failed to initialize!");
         }
 
-        // get a column to analyze
+    }
+
+    /**
+     * @param outputFolder
+     * @throws DataprofilerCoreException
+     */
+    private void saveAnalysis() throws DataprofilerCoreException {
+        AnalysisEditorInuput editorInput = (AnalysisEditorInuput) this.getEditorInput();
+        String fileName = editorInput.getName();
+
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
+        analysisBuilder.removeAllElementFromAnalyze();
         if (columnIndicators != null) {
             for (ColumnIndicator columnIndicator : columnIndicators) {
                 analysisBuilder.addElementToAnalyze(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
             }
+        }
+        Analysis analysis = analysisBuilder.getAnalysis();
+
+        // save analysis
+        AnalysisWriter writer = new AnalysisWriter();
+        File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
+        ReturnCode saved = writer.save(analysis, file);
+        if (saved.isOk()) {
+            log.info("Saved in  " + file.getAbsolutePath());
+        } else {
+            throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
         }
 
         // TODO get the domain constraint, we will see later.
@@ -249,26 +275,6 @@ public class ColumnMasterDetailsPage extends FormPage {
         // FolderProvider folderProvider = new FolderProvider();
         // folderProvider.setFolder(new File(outputFolder));
         // DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
-
-        // run analysis
-        Analysis analysis = analysisBuilder.getAnalysis();
-        IAnalysisExecutor exec = new ColumnAnalysisExecutor();
-        ReturnCode executed = exec.execute(analysis);
-        if (executed.isOk()) {
-            throw new DataprofilerCoreException("Problem executing analysis: " + analysisName + ": "
-                    + executed.getMessage());
-        }
-
-        // save analysis
-        AnalysisWriter writer = new AnalysisWriter();
-        File file = new File(outputFolder + File.separator + "analysis.ana");
-        ReturnCode saved = writer.save(analysis, file);
-        if (saved.isOk()) {
-            log.info("Saved in  " + file.getAbsolutePath());
-        } else {
-            throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": "
-                    + saved.getMessage());
-        }
     }
 
     /*
