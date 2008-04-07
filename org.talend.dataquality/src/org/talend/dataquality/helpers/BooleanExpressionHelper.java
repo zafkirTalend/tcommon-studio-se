@@ -30,7 +30,7 @@ public class BooleanExpressionHelper {
      * @param body the body of the Expression
      * @return a BooleanExpressionNode with the given Expression.
      */
-    public BooleanExpressionNode createBooleanExpressionNode(String body) {
+    public static BooleanExpressionNode createBooleanExpressionNode(String body) {
         BooleanExpressionNode expr = ExpressionsFactory.eINSTANCE.createBooleanExpressionNode();
         Expression expression = CoreFactory.eINSTANCE.createExpression();
         expression.setBody(body);
