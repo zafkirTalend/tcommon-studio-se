@@ -29,7 +29,7 @@ import Zql.ZExpression;
  * @author scorreia
  * 
  * A class for building expressions.
- * @param <T> the type of value for instances.
+ * @param <T> the type of the value to be compared to an SQL element (Column name...).
  */
 public class CwmZExpression<T> {
 
@@ -52,12 +52,30 @@ public class CwmZExpression<T> {
 
     public void setOperands(Column column, T value) {
         this.column1 = column;
+        this.column2 = null;
         this.instance = value;
     }
 
     public void setOperands(Column col1, Column col2) {
         this.column1 = col1;
         this.column2 = col2;
+        this.instance = null;
+    }
+
+    public void setNullOperand(Column col1) {
+        this.column1 = col1;
+        this.column2 = null;
+        this.instance = null;
+    }
+
+    public void addSubQuery(SqlPredicate operator, CwmZQuery subQuery) {
+        // TODO scorreia check goodness of operator (IN, NOT IN)
+        // TODO scorreia append subquery
+    }
+
+    public <T2> void addExpression(SqlPredicate operator, CwmZExpression<T2> expression) {
+        // TODO scorreia check goodness of operator (AND, OR)
+        // TODO scorreia append expression
     }
 
     protected ZExp getColumn1() {
@@ -87,9 +105,13 @@ public class CwmZExpression<T> {
         expr.addOperand(getColumn1());
         if (instance != null) {
             expr.addOperand(getInstance());
-        } else {
+        } else if (column2 != null) {
             expr.addOperand(getColumn2());
         }
+        // else if (operator == SqlPredicate.IS_NULL) {
+        // || (operator == SqlPredicate.IS_NOT_NULL)
+        // nothing to do
+
         return expr;
     }
 
