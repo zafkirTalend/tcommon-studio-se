@@ -147,6 +147,11 @@ public class AnalysisBuilder {
         return true;
 
     }
+    
+   // FIXME Need Scorreia add this method and implements it.
+    public void removeAllElementFromAnalyze() {
+
+    }
 
     /**
      * Method "addFilterOnData". Several filter can be added for one analysis.
