@@ -18,14 +18,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
+import org.talend.commons.emf.EMFUtil;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.util.AnalysisSwitch;
 
 /**
  * @author rli
@@ -33,11 +42,15 @@ import org.talend.dataprofiler.core.PluginConstant;
  */
 public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableElement {
 
+    private static Logger log = Logger.getLogger(AnalysisEditorInuput.class);
+
     private IStorage fStorage;
 
     private File fFile;
 
     private String fName;
+
+    private Analysis analysis;
 
     public AnalysisEditorInuput(String name) {
         fName = name;
@@ -126,7 +139,35 @@ public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableEl
         memento.putString(PluginConstant.PATH_SAVE, fFile.getAbsolutePath());
     }
 
-    /* (non-Javadoc)
+    public Analysis getAnalysis() {
+        if (analysis != null) {
+            return analysis;
+        }
+        EMFUtil util = new EMFUtil();
+        log.info("Loading file " + fFile.getAbsolutePath());
+        ResourceSet rs = util.getResourceSet();
+        Resource r = rs.getResource(URI.createFileURI(fFile.getAbsolutePath()), true);
+
+        EList<EObject> contents = r.getContents();
+        if (contents.isEmpty()) {
+            log.error("No content in " + r);
+        }
+        log.info("Nb elements in contents " + contents.size());
+        AnalysisSwitch<Analysis> mySwitch = new AnalysisSwitch<Analysis>() {
+
+            public Analysis caseAnalysis(Analysis object) {
+                return object;
+            }
+        };
+        if (contents != null) {
+            analysis = mySwitch.doSwitch(contents.get(0));
+        }
+        return analysis;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {
@@ -137,31 +178,32 @@ public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableEl
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj)
-//            return true;
-//        if (obj == null)
-//            return false;
-//        if (getClass() != obj.getClass())
-//            return false;
-//        final AnalysisEditorInuput other = (AnalysisEditorInuput) obj;
-//        if (fFile == null) {
-//            if (other.fFile != null)
-//                return false;
-//        } else if (!fFile.equals(other.fFile))
-//            return false;
-//        if (fName == null) {
-//            if (other.fName != null)
-//                return false;
-//        } else if (!fName.equals(other.fName))
-//            return false;
-//        return true;
-//    }
-
+    // @Override
+    // public boolean equals(Object obj) {
+    // if (this == obj)
+    // return true;
+    // if (obj == null)
+    // return false;
+    // if (getClass() != obj.getClass())
+    // return false;
+    // final AnalysisEditorInuput other = (AnalysisEditorInuput) obj;
+    // if (fFile == null) {
+    // if (other.fFile != null)
+    // return false;
+    // } else if (!fFile.equals(other.fFile))
+    // return false;
+    // if (fName == null) {
+    // if (other.fName != null)
+    // return false;
+    // } else if (!fName.equals(other.fName))
+    // return false;
+    // return true;
+    // }
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -173,7 +215,5 @@ public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableEl
         return fFile == null && input.fFile == null ? fName == input.fName || fName != null && fName.equals(input.fName)
                 : fFile == input.fFile || fFile != null && fFile.equals(input.fFile);
     }
-    
-    
 
 }

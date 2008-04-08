@@ -13,9 +13,13 @@
 package org.talend.dataprofiler.core.ui.editor;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -27,6 +31,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -35,17 +40,19 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
-import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
-import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dq.analysis.AnalysisBuilder;
+import org.talend.dataquality.indicators.Indicator;
 import org.talend.dq.analysis.AnalysisWriter;
+import org.talend.dq.analysis.ColumnAnalysisHandler;
 import org.talend.utils.sugars.ReturnCode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * @author rli
@@ -65,16 +72,33 @@ public class ColumnMasterDetailsPage extends FormPage {
 
     private DataFilterComp dataFilterComp;
 
-    private AnalysisBuilder analysisBuilder;
+    private ColumnAnalysisHandler analysisHandler;
+
+    private ColumnIndicator[] currentColumnIndicators;
 
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
-        try {
-            initializeAnalysisBuilder();
-        } catch (DataprofilerCoreException e) {
-            e.printStackTrace();
-            ExceptionHandler.process(e);
+        this.initAnalysis(editor);
+    }
+
+    private void initAnalysis(FormEditor editor) {
+        IEditorInput input = editor.getEditorInput();
+        analysisHandler = new ColumnAnalysisHandler();
+        analysisHandler.setAnalysis(((AnalysisEditorInuput) input).getAnalysis());
+        EList<ModelElement> analyzedColumns = analysisHandler.getAnalyzedColumns();
+        List<ColumnIndicator> columnIndicatorList = new ArrayList<ColumnIndicator>();
+        ColumnIndicator currentColumnIndicator;
+        for (ModelElement element : analyzedColumns) {
+            TdColumn tdColumn = SwitchHelpers.COLUMN_SWITCH.doSwitch(element);
+            if (tdColumn == null) {
+                continue;
+            }
+            currentColumnIndicator = new ColumnIndicator(tdColumn);
+            Collection<Indicator> indicatorList = analysisHandler.getIndicators(tdColumn);
+            currentColumnIndicator.setIndicators(indicatorList.toArray(new Indicator[indicatorList.size()]));
+            columnIndicatorList.add(currentColumnIndicator);
         }
+        currentColumnIndicators = columnIndicatorList.toArray(new ColumnIndicator[columnIndicatorList.size()]);
     }
 
     /*
@@ -115,15 +139,19 @@ public class ColumnMasterDetailsPage extends FormPage {
         Label label = toolkit.createLabel(labelButtonClient, "Analysis Name:");
         label.setLayoutData(new GridData());
         nameText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        nameText.setLayoutData(new GridData());
+        GridDataFactory.fillDefaults().grab(true, true);
+        nameText.setText(analysisHandler.getName() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getName());
         label = toolkit.createLabel(labelButtonClient, "Analysis Purpose:");
         label.setLayoutData(new GridData());
         purposeText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         purposeText.setLayoutData(new GridData());
+        purposeText.setText(analysisHandler.getPurpose() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getPurpose());
         label = toolkit.createLabel(labelButtonClient, "Analysis Description:");
         label.setLayoutData(new GridData());
         descriptionText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         descriptionText.setLayoutData(new GridData());
+        descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
+                .getDescription());
         section.setClient(labelButtonClient);
     }
 
@@ -138,6 +166,7 @@ public class ColumnMasterDetailsPage extends FormPage {
         tree.setLayout(new GridLayout());
 
         treeViewer = new AnasisColumnTreeViewer(tree);
+        treeViewer.setElements(currentColumnIndicators);
         Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
         buttonsComp.setLayout(new GridLayout(1, true));
@@ -222,23 +251,11 @@ public class ColumnMasterDetailsPage extends FormPage {
     public void doSave(IProgressMonitor monitor) {
         super.doSave(monitor);
         try {
-
             saveAnalysis();
             treeViewer.setDirty(false);
         } catch (DataprofilerCoreException e) {
             e.printStackTrace();
         }
-    }
-
-    private void initializeAnalysisBuilder() throws DataprofilerCoreException {
-        analysisBuilder = new AnalysisBuilder();
-        String analysisName = "My test analysis";
-
-        boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
-        if (!analysisInitialized) {
-            throw new DataprofilerCoreException(analysisName + " failed to initialize!");
-        }
-
     }
 
     /**
@@ -250,20 +267,16 @@ public class ColumnMasterDetailsPage extends FormPage {
         String fileName = editorInput.getName();
 
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
-        analysisBuilder.removeAllElementFromAnalyze();
         if (columnIndicators != null) {
             for (ColumnIndicator columnIndicator : columnIndicators) {
-                analysisBuilder.addElementToAnalyze(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
+                analysisHandler.addIndicator(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
             }
         }
-        Analysis analysis = analysisBuilder.getAnalysis();
-
-        // save analysis
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
-        ReturnCode saved = writer.save(analysis, file);
+        ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
         if (saved.isOk()) {
-            log.info("Saved in  " + file.getAbsolutePath());
+            log.info("Saved in  " + file.getAbsolutePath() + " successful");
         } else {
             throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
         }

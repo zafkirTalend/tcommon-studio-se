@@ -73,6 +73,10 @@ public class AnalysisEditor extends FormEditor {
     public boolean isDirty() {
         return isDirty || super.isDirty();
     }
+    
+    public void setDirty(boolean isDirty) {
+        this.isDirty = isDirty;
+    }
 
     /*
      * (non-Javadoc)
@@ -90,7 +94,6 @@ public class AnalysisEditor extends FormEditor {
             URI uri = ((FileEditorInput) input).getFile().getLocationURI();
             analysisInput = new AnalysisEditorInuput(new File(uri));
             super.setInput(analysisInput);
-            isDirty = true;
         } else if (input instanceof AnalysisEditorInuput) {
             super.setInput(input);
         }

@@ -75,7 +75,6 @@ public class AnasisColumnTreeViewer {
         TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
         column5.setWidth(120);
         parent.layout();
-        this.isDirty = true;
         return newTree;
     }
 
@@ -170,6 +169,7 @@ public class AnasisColumnTreeViewer {
             }
             treeItem.setExpanded(true);
         }
+        this.isDirty = true;
     }
 
     private void createIndicatorItems(final TreeItem treeItem, IndicatorEnum[] indicatorEnums) {

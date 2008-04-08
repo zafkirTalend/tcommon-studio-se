@@ -30,6 +30,8 @@ public class ColumnIndicator {
 
     private List<IndicatorEnum> indicatorEnums;
 
+    private Indicator[] indicators;
+
     public ColumnIndicator(TdColumn tdColumn) {
         this.tdColumn = tdColumn;
     }
@@ -71,6 +73,9 @@ public class ColumnIndicator {
     }
 
     public boolean hasIndicators() {
+        if (indicators != null && indicators.length != 0) {
+            return true;
+        }
         return !(this.indicatorEnums == null || this.indicatorEnums.size() == 0);
     }
 
@@ -82,6 +87,9 @@ public class ColumnIndicator {
     }
 
     public Indicator[] getIndicators() {
+        if (this.indicators != null) {
+            return this.indicators;
+        }
         if (indicatorEnums == null) {
             return new Indicator[0];
         }
@@ -139,7 +147,12 @@ public class ColumnIndicator {
             }
             indicatorList.add(indicator);
         }
-        return indicatorList.toArray(new Indicator[indicatorList.size()]);
+        this.indicators = indicatorList.toArray(new Indicator[indicatorList.size()]);
+        return this.indicators;
+    }
+
+    public void setIndicators(Indicator[] indicators) {
+        this.indicators = indicators;
     }
 
 }

@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core;
 import java.io.File;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -101,13 +102,16 @@ public class CorePlugin extends AbstractUIPlugin {
         }
     }
 
-    public void openEditor(File file) {
+    public IEditorPart openEditor(File file) {
         AnalysisEditorInuput input = new AnalysisEditorInuput(file);
         // input.setUser(alias.getDefaultUser());
         try {
-            this.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, AnalysisEditor.class.getName());
+
+            return this.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input,
+                    AnalysisEditor.class.getName());
         } catch (PartInitException e) {
             ExceptionHandler.process(e);
+            return null;
         }
     }
 }
