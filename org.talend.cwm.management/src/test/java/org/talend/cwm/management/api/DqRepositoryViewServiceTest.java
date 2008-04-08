@@ -35,7 +35,7 @@ public class DqRepositoryViewServiceTest {
     private static final File FOLDER = new File("out");
 
     private static final String[] FUNC_NAMES = new String[] { "abc", "salut", "tu vas bien", "etage", "tage", "étage",
-            "ça promet", "&%ùöôk~n@^aâ", "è@kl£$€" };
+            "ça promet", "&%ùöôk~n@^aâ", "fdg "};
 
     /**
      * Test method for {@link org.talend.cwm.management.api.DqRepositoryViewService#listTdDataProviders(java.io.File)}.
