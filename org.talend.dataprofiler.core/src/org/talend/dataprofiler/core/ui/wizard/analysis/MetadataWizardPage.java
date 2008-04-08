@@ -21,13 +21,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
@@ -43,14 +40,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
+import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.management.api.FolderProvider;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
-import org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage;
-import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep1;
 import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
 
 /**
@@ -188,6 +183,10 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         statusText.setEditable(!readOnly);
         statusText.setEnabled(!readOnly);
+        
+        for (DevelopmentStatus status : DevelopmentStatus.values()) {
+            statusText.add(status.getName());
+        }
 
         // Path:
         Label pathLab = new Label(container, SWT.NONE);
@@ -344,7 +343,8 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         statusText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, ((Text) e.getSource()).getText());
+                String selected = ((CCombo) e.getSource()).getText();
+                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, selected);
                 getConnectionParams().setAnalysisMetadate(analysisMetadate);
             }
 
@@ -364,6 +364,10 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         if (typeName != null) {
             typeText.setText(typeName);
         }
+        
+        FolderProvider defaultFolder = new FolderProvider();
+        defaultFolder.setFolder(new File(defaultFolderProviderRes.getLocationURI()));
+        getConnectionParams().setFolderProvider(defaultFolder);
 
         super.setVisible(visible);
     }

@@ -14,18 +14,24 @@ package org.talend.dataprofiler.core.ui.wizard.analysis.connection;
 
 import java.io.File;
 
+import org.apache.log4j.Level;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.RefreshAction;
-import org.talend.cwm.management.api.DqRepositoryViewService;
+import org.talend.cwm.constants.DevelopmentStatus;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
+import org.talend.dataprofiler.core.exception.ExceptionHandler;
+import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.AnalysisWriter;
-import org.talend.dq.analysis.ColumnAnalysisExecutor;
-import org.talend.dq.analysis.IAnalysisExecutor;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
 import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
 import org.talend.utils.sugars.ReturnCode;
@@ -59,6 +65,7 @@ public class ConnectionWizard extends Wizard {
         if (parameters != null) {
             try {
                 String analysisName = parameters.getAnalysisMetadate().get(IAnalysisParameterConstant.ANALYSIS_NAME);
+                String analysisStatue = parameters.getAnalysisMetadate().get(IAnalysisParameterConstant.ANALYSIS_STATUS);
                 
                 AnalysisBuilder analysisBuilder = new AnalysisBuilder();
                 boolean analysisInitialized = analysisBuilder.initializeAnalysis(parameters.getAnalysisTypeName(), 
@@ -67,14 +74,14 @@ public class ConnectionWizard extends Wizard {
                     TdDataProvider dataManager = parameters.getTdDataProvider();
                     analysisBuilder.setAnalysisConnection(dataManager);
                     
-                    //DqRepositoryViewService.saveDomain(null, parameters.getFolderProvider());
-                    
+//                    DqRepositoryViewService.saveDomain(null, parameters.getFolderProvider());
+                    TaggedValueHelper.setDevStatus(dataManager, DevelopmentStatus.getByName(analysisStatue));
                     Analysis analysis = analysisBuilder.getAnalysis();
 //                    IAnalysisExecutor exec = new ColumnAnalysisExecutor();
 //                    ReturnCode executed = exec.execute(analysis);
-                    // save data provider
+//                    save data provider
 //                    DqRepositoryViewService.saveDataProviderAndStructure(dataManager, parameters.getFolderProvider());
-                    // save analysis
+//                    save analysis
                     AnalysisWriter writer = new AnalysisWriter();    
                     File file = new File(parameters.getFolderProvider().getFolder() + File.separator + analysisName + ".ana");
                     
@@ -82,7 +89,18 @@ public class ConnectionWizard extends Wizard {
                     if (saved.isOk()) {
                         RefreshAction refreshAction = new RefreshAction(this.getShell());
                         refreshAction.run();
-                        System.out.println("Saved in  " + file.getAbsolutePath());
+                        
+                        //open the editor
+                        IEditorPart openEditor = null;
+                        try {
+                            openEditor = CorePlugin.getDefault().openEditor(file);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ExceptionHandler.process(e, Level.ERROR);
+                        }
+                        if (openEditor != null) {
+                            ((AnalysisEditor) openEditor).setDirty(true);
+                        }
                     }
                 }
                 
