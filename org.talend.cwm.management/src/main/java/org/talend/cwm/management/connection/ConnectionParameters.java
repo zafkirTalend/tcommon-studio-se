@@ -37,10 +37,6 @@ public class ConnectionParameters {
     private String connectionPurpose;
 
     private String connectionDescription;
-    
-    private String connectionTypeForANA;
-    
-    private boolean isReady = false;
 
     /**
      * The path where to store the connection.
@@ -149,41 +145,5 @@ public class ConnectionParameters {
 
     public void setFolderProvider(FolderProvider folderProvider) {
         this.folderProvider = folderProvider;
-    }
-
-    
-    /**
-     * Getter for connectionTypeForANA.
-     * @return the connectionTypeForANA
-     */
-    public String getConnectionTypeForANA() {
-        return this.connectionTypeForANA;
-    }
-
-    
-    /**
-     * Sets the connectionTypeForANA.
-     * @param connectionTypeForANA the connectionTypeForANA to set
-     */
-    public void setConnectionTypeForANA(String connectionTypeForANA) {
-        this.connectionTypeForANA = connectionTypeForANA;
-    }
-
-    
-    /**
-     * Getter for isReady.
-     * @return the isReady
-     */
-    public boolean isReady() {
-        return this.isReady;
-    }
-
-    
-    /**
-     * Sets the isReady.
-     * @param isReady the isReady to set
-     */
-    public void setReady(boolean isReady) {
-        this.isReady = isReady;
     }
 }
