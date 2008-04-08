@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.cwm.helper;
 
+import org.eclipse.emf.common.util.EList;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationFactory;
 import orgomg.cwm.foundation.businessinformation.Description;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -54,6 +56,79 @@ public final class DescriptionHelper {
         Description descriptionObject = createDescription(PURPOSE, purpose);
         element.getDescription().add(descriptionObject);
         return descriptionObject;
+    }
+
+    /**
+     * Method "getDescription".
+     * 
+     * @param element a CWM element
+     * @return the description of the element or null
+     */
+    public static String getDescription(ModelElement element) {
+        return getTypedDescriptionString(DESCRIPTION, element);
+    }
+
+    /**
+     * Method "setDescription".
+     * 
+     * @param description the functional description to set or create
+     * @param element a CWM element
+     */
+    public static void setDescription(String description, ModelElement element) {
+        setTypedDescription(DESCRIPTION, description, element);
+    }
+
+    /**
+     * Method "setPurpose".
+     * 
+     * @param purpose the purpose to set or create
+     * @param element a CWM element
+     */
+    public static void setPurpose(String purpose, ModelElement element) {
+        setTypedDescription(PURPOSE, purpose, element);
+    }
+
+    /**
+     * Method "getPurpose".
+     * 
+     * @param element a CWM element
+     * @return the purpose or null
+     */
+    public static String getPurpose(ModelElement element) {
+        return getTypedDescriptionString(PURPOSE, element);
+    }
+
+    /**
+     * Method "getTaggedDescription".
+     * 
+     * @param type the type of the searched description
+     * @param element a CWM element
+     * @return the description or null
+     */
+    private static String getTypedDescriptionString(String type, ModelElement element) {
+        Description descr = getTypedDescription(type, element);
+        return (descr != null) ? descr.getBody() : null;
+    }
+
+    private static Description getTypedDescription(String type, ModelElement element) {
+        assert type != null;
+        EList<Description> descriptions = element.getDescription();
+        for (Description description : descriptions) {
+            if (type.equals(description.getType())) {
+                return description;
+            }
+        }
+        return null;
+    }
+
+    private static void setTypedDescription(String type, String description, ModelElement element) {
+        assert type != null;
+        Description descr = getTypedDescription(type, element);
+        if (descr != null) {
+            descr.setBody(description);
+        } else {
+            element.getDescription().add(createDescription(type, description));
+        }
     }
 
     /**

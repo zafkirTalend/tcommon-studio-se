@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.cwm.relational.impl;
@@ -15,18 +14,18 @@ import org.talend.cwm.relational.TdSchema;
 import orgomg.cwm.resource.relational.impl.CatalogImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Td Catalog</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Td Catalog</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class TdCatalogImpl extends CatalogImpl implements TdCatalog {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected TdCatalogImpl() {
@@ -34,8 +33,8 @@ public class TdCatalogImpl extends CatalogImpl implements TdCatalog {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -44,14 +43,12 @@ public class TdCatalogImpl extends CatalogImpl implements TdCatalog {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public boolean addSchema(TdSchema schema) {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        return this.getOwnedElement().add(schema);
     }
 
-} //TdCatalogImpl
+} // TdCatalogImpl
