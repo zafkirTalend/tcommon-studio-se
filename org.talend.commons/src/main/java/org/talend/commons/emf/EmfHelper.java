@@ -26,32 +26,29 @@ public class EmfHelper {
      * WARNING : you may face StackOverflowError if you have bidirectional relationships or circular references it was
      * only tested with containment references.
      */
-	   @SuppressWarnings("unchecked")
-	    public static void visitChilds(EObject object) {
-	        List<EObject> toVisit = new ArrayList<EObject>(); 
-	        for (Iterator iterator = object.eClass().getEAllReferences().iterator(); iterator.hasNext();) {
-	            EReference reference = (EReference) iterator.next();
-	            if (reference.isMany()) {
-	                List list = (List) object.eGet(reference);
-	                for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
-	                    Object get = iterator2.next();
-	                    if (get instanceof EObject) {
-	                        toVisit.add((EObject) get);
-	                    }
-	                }
-	            } else {
-	                Object get = object.eGet(reference);
-	                if (get instanceof EObject) {
-	                    toVisit.add((EObject) get);
-	                }
-	            }
-	        }
-	        
-	        for (EObject eObject : toVisit) {
-	            visitChilds(eObject);
-	        }
-	    }
+    @SuppressWarnings("unchecked")
+    public static void visitChilds(EObject object) {
+        List<EObject> toVisit = new ArrayList<EObject>();
+        for (Iterator iterator = object.eClass().getEAllReferences().iterator(); iterator.hasNext();) {
+            EReference reference = (EReference) iterator.next();
+            if (reference.isMany()) {
+                List list = (List) object.eGet(reference);
+                for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
+                    Object get = iterator2.next();
+                    if (get instanceof EObject) {
+                        toVisit.add((EObject) get);
+                    }
+                }
+            } else {
+                Object get = object.eGet(reference);
+                if (get instanceof EObject) {
+                    toVisit.add((EObject) get);
+                }
+            }
+        }
+
+        for (EObject eObject : toVisit) {
+            visitChilds(eObject);
         }
     }
-
 }
