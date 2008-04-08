@@ -21,11 +21,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -38,20 +35,19 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.internal.operations.AdvancedValidationUserApprover;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.model.nodes.analysis.AnalysisDataFactory;
 import org.talend.dataprofiler.core.model.nodes.analysis.AnalysisTypeNode;
 import org.talend.dataprofiler.core.ui.wizard.analysis.filter.NamedViewerFilter;
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeContentProvider;
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeLabelProvider;
 import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
 
 /**
  * @author zqin
  * 
  */
-public class NewWizardSelectionPage extends WizardPage {
+public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
     
     private final String defaultValue = "type filter text";
 
@@ -59,21 +55,17 @@ public class NewWizardSelectionPage extends WizardPage {
 
     private TreeViewer analysisTypes;
     
-    private ConnectionParameters connectionParams;
+    private Wizard selectedWizard;
     
     private NamedViewerFilter filter = new NamedViewerFilter();
-    
-    private boolean canFinishEarly = false, hasPages = true;
-    
-    private Wizard selectedWizard;
 
-    public NewWizardSelectionPage(ConnectionParameters connectionParams) {
-        super("WizardPage");      
-        setPageComplete(false);
+    public NewWizardSelectionPage() {   
         setTitle("Select a wizard");
         setMessage("Create a new Analysis");
         
-        this.connectionParams = connectionParams;
+        setCanFinishEarly(false);
+        setPageComplete(false);
+        setHasPages(true);
     }
 
     /*
@@ -159,10 +151,10 @@ public class NewWizardSelectionPage extends WizardPage {
                 if (node.getParent() != null) {
                     setMessage(node.getLiteral());
                     //set parameter
-                    connectionParams.setConnectionTypeForANA(((AnalysisTypeNode) node.getParent()).getName());   
+                    getConnectionParams().setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());   
                 } 
                 
-                updateSelectionNode();
+                updateSelectionNode(node);
             }
 
         });
@@ -181,97 +173,31 @@ public class NewWizardSelectionPage extends WizardPage {
             
         });
     }
-    
-    /**
-     * Makes the next page visible.
-     */
-    public void advanceToNextPageOrFinish() {
-            if (canFlipToNextPage()) {
-                getContainer().showPage(getNextPage());
-            } else if (isCanFinishEarly()) {
-                if (getWizard().performFinish()) {
-                    ((WizardDialog) getContainer()).close();
-                }
-            }
-    }
 
-    
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
-     */
-    @Override
-    public boolean canFlipToNextPage() {
-        // TODO Auto-generated method stub
-        if (hasPages) {
-            return super.canFlipToNextPage();
-        } else {
-            return false;
-        }
+    public void updateSelectionNode(AnalysisTypeNode node) {
         
-    }
-    
-    public void updateSelectionNode() {
-        AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) analysisTypes.getSelection()).getFirstElement();
-        
+        AnalysisTypeNode parentNode = null;
         if (node.getParent() != null) {
-            node = (AnalysisTypeNode) node.getParent();
+            parentNode = (AnalysisTypeNode) node.getParent();
+        } else {
+            parentNode = node;
         }
         
         //System.out.println(node.getName());
-        if (node.getName().equals(AnalysisType.CONNECTION.getLiteral())) {
-            
-            this.selectedWizard = WizardFactory.createConnectionWizard(connectionParams);
-            this.setCanFinishEarly(false);
-            this.setHasPages(true);
-        } else if (node.getName().equals("Comparison analysis")) {
-            
-            this.selectedWizard = WizardFactory.createColumnWizard(connectionParams);
-            this.setCanFinishEarly(false);
-            this.setHasPages(true);
+        if (parentNode.getName().equals(AnalysisType.CONNECTION.getLiteral())) {
+            selectedWizard = WizardFactory.createConnectionWizard();
+            setConnectionParams(new ConnectionAnalysisParameter());
+        } else if (parentNode.getName().equals("Comparison analysis")) { 
+            selectedWizard = WizardFactory.createColumnWizard();
         } else {
-            
-            this.selectedWizard = null;
-            this.setCanFinishEarly(false);
-            this.setHasPages(false);
-            this.setPageComplete(false);
+            selectedWizard = null;
+            setPageComplete(false);
         }
         
-        if (selectedWizard != null) {
+        if (selectedWizard != null && node.getParent() != null) {
             setPageComplete(true);
         }
     }
-    
-    /**
-     * @return the canFinishEarly
-     */
-    public boolean isCanFinishEarly() {
-        return this.canFinishEarly;
-    }
-
-    
-    /**
-     * @param canFinishEarly the canFinishEarly to set
-     */
-    public void setCanFinishEarly(boolean canFinishEarly) {
-        this.canFinishEarly = canFinishEarly;
-    }
-
-    
-    /**
-     * @return the hasPages
-     */
-    public boolean isHasPages() {
-        return this.hasPages;
-    }
-
-    
-    /**
-     * @param hasPages the hasPages to set
-     */
-    public void setHasPages(boolean hasPages) {
-        this.hasPages = hasPages;
-    }
-
     /* (non-Javadoc)
      * @see org.eclipse.jface.wizard.WizardPage#getNextPage()
      */
@@ -288,7 +214,6 @@ public class NewWizardSelectionPage extends WizardPage {
         
         return selectedWizard.getStartingPage();
     }
-
     
     /**
      * @return the selectedWizard

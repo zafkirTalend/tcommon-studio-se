@@ -13,9 +13,9 @@
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ui.wizard.analysis.column.ColumnWizard;
 import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnectionWizard;
+import org.talend.dq.analysis.parameters.AnalysisParameter;
 
 
 /**
@@ -24,11 +24,12 @@ import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnectionWiza
  */
 public class WizardFactory {
 
-    public static Wizard createConnectionWizard(ConnectionParameters parameters) {
-        return new ConnectionWizard(parameters);
+    public static Wizard createConnectionWizard() {
+        return new ConnectionWizard();
     }
     
-    public static Wizard createColumnWizard(ConnectionParameters parameters) {
-        return new ColumnWizard(parameters);
+    public static Wizard createColumnWizard() {
+        //return new ColumnWizard();
+        return null;
     }
 }

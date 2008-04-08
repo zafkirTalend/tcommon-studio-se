@@ -12,18 +12,13 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
-import java.util.Properties;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep1;
-import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dq.analysis.parameters.AnalysisParameter;
 
 /**
  * @author zqin
@@ -37,7 +32,7 @@ public class CreateNewAnalysisWizard extends Wizard {
     
     private boolean creation;
 
-    private ConnectionParameters connectionParams;
+    private AnalysisParameter connectionParams;
     
     private NewWizardSelectionPage mainPage;
     
@@ -70,21 +65,10 @@ public class CreateNewAnalysisWizard extends Wizard {
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         this.workbench = workbench;
         this.selection = selection;
-        if (creation) {
-            connectionParams = new ConnectionParameters();
-            connectionParams.setParameters(new Properties());
-            
-            mainPage = new NewWizardSelectionPage(connectionParams);
-        } else {
-            //get existing connectionParameters
-            connectionParams = new ConnectionParameters();
-            connectionParams.setConnectionDescription("description");
-            connectionParams.setConnectionName("Connection Analysis");
-            connectionParams.setConnectionPurpose("purpose");
-            connectionParams.setConnectionTypeForANA(AnalysisType.CONNECTION.getLiteral());
-            connectionParams.setParameters(new Properties());
-        }
         
+        mainPage = new NewWizardSelectionPage();
+        mainPage.setConnectionParams(new AnalysisParameter());
+ 
     }
 
     /* (non-Javadoc)
@@ -99,7 +83,7 @@ public class CreateNewAnalysisWizard extends Wizard {
         if (creation) {
             addPage(mainPage);
         } else {
-            Wizard wizard = WizardFactory.createConnectionWizard(connectionParams);
+            Wizard wizard = WizardFactory.createConnectionWizard();
             wizard.addPages();
             
             IWizardPage[] pages = wizard.getPages();

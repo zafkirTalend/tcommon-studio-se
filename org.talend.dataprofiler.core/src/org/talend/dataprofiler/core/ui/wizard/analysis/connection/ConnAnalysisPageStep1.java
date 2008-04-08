@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.connection.ConnectionParameters;
+import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
 import org.talend.dataquality.analysis.AnalysisType;
 
 
@@ -29,7 +30,7 @@ import org.talend.dataquality.analysis.AnalysisType;
  * @author zqin
  *
  */
-public class ConnAnalysisPageStep1 extends WizardPage {
+public class ConnAnalysisPageStep1 extends AbstractAnalysisWizardPage {
 
     private String defaultInfor = "Set filter on tables and / or views if needed.\n" +
     		"By default, all tables and views will be used in the analysis.\n" +
@@ -38,17 +39,12 @@ public class ConnAnalysisPageStep1 extends WizardPage {
     private Text tableFilter;
     
     private Text viewFilter;
-    
-    private ConnectionParameters connectionParams;
     /**
      * @param pageName
      */
-    public ConnAnalysisPageStep1(ConnectionParameters connectionParams) {
-        super("WizardPage"); 
+    public ConnAnalysisPageStep1() {
         setTitle("New Analysis");
         setMessage("Add the filters for Connection Analysis");
-        
-        this.connectionParams = connectionParams;
     }
 
     /* (non-Javadoc)

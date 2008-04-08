@@ -290,11 +290,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
 
-                    if (connectionParams.getConnectionTypeForANA() != null) {
-                        openFolderSelectionDialog(DQStructureManager.DATA_PROFILING, DQStructureManager.ANALYSIS);
-                    } else {
-                        openFolderSelectionDialog(DQStructureManager.METADATA, DQStructureManager.DB_CONNECTIONS);
-                    }
+                    openFolderSelectionDialog(DQStructureManager.METADATA, DQStructureManager.DB_CONNECTIONS);
                 }
             });
         }
@@ -551,24 +547,5 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
         return null;
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
-     */
-    @Override
-    public void setVisible(boolean visible) {
-        if (connectionParams.getConnectionTypeForANA() != null) {
-            IProject analysisProject = ResourcesPlugin.getWorkspace().getRoot().getProject(
-                    PluginConstant.DATA_PROFILING_PROJECTNAME);
-            defaultFolderProviderRes = analysisProject.getFolder(DQStructureManager.ANALYSIS);
-            pathText.setText(defaultFolderProviderRes.getFullPath().toString());
-        }
-
-        this.setFolderProvider(defaultFolderProviderRes);
-        // TODO Auto-generated method stub
-        super.setVisible(visible);
     }
 }

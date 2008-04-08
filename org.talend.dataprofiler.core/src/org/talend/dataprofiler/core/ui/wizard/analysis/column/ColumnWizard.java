@@ -63,7 +63,7 @@ public class ColumnWizard extends Wizard {
     @Override
     public void addPages() {
 
-        page1 = new ConnAnalysisPageStep1(parameters);
+        page1 = new ConnAnalysisPageStep1();
 
         addPage(page1);
     }
