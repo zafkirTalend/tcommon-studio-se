@@ -88,7 +88,10 @@ public class TalendTextUtils {
 
     private static String addSQLQuotes(String text, String quoteStyle) {
         String newString;
-
+        String tempText = text;
+        tempText = tempText.replaceAll("\r", " ");
+        tempText = tempText.replaceAll("\n", " ");
+        tempText = tempText.trim();
         if (quoteStyle.equals(SINGLE_QUOTE)) {
             newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
         } else if (quoteStyle.equals(ANTI_QUOTE)) {
@@ -96,10 +99,14 @@ public class TalendTextUtils {
         } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
             newString = LBRACKET + checkStringQuotationMarks(text) + RBRACKET;
         } else {
-            newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
+            if (tempText.startsWith(QUOTATION_MARK) && tempText.endsWith(QUOTATION_MARK)) {
+                newString = text;
+            } else {
+                newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
+            }
         }
-        // newString = newString.replaceAll("\r", "");
-        // newString = newString.replaceAll("\n", "");
+        // newString = newString.replaceAll("\r", " ");
+        // newString = newString.replaceAll("\n", " ");
         return widenSQLRestrict(newString, quoteStyle);
     }
 
