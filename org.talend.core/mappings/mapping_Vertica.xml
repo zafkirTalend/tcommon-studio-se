@@ -2,52 +2,41 @@
 <mapping>
 	<dbms product="VERTICA" id="vertica_id" label="Mapping Vertica" default="true">
 		<dbTypes>
-			<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true"/>
 			<dbType type="CHAR" defaultLength="200" ignorePre="true"/>
-			<dbType type="CHARACTER" defaultLength="200" ignorePre="true"/>
+			<dbType type="CHARACTER" defaultLength="200" ignorePre="true"/>			
+			<dbType type="VARCHAR" defaultLength="300" ignorePre="true"/>			
 			<dbType type="CHARACTER VARYING" defaultLength="200" ignorePre="true"/>
-			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true"/>			
+			<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>						
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
-			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>
-			<dbType type="INTEGER" defaultLength="5" ignorePre="true"/>
-			<dbType type="INTERVAL" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TIME" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TIMETZ" ignoreLen="true" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>			
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TIMESTAMPTZ" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TYPE" ignoreLen="true" ignorePre="true"/>
-			<dbType type="VARCHAR" defaultLength="300" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
-				<talendType type="id_List"/>
+				<talendType type="id_List">
+				</talendType>
 				<talendType type="id_BigDecimal">
-					<dbType type="DOUBLE PRECISION" default="true" />
-					<dbType type="FLOAT" />			
+					<dbType type="DOUBLE PRECISION" default="true"/>			
 				</talendType>
 				<talendType type="id_Boolean">	
 					<dbType type="BOOLEAN" default="true"/>
 				</talendType>
 				<talendType type="id_Byte">
-					
+					<dbType type="INTEGER" default="true" />					
 				</talendType>
 				<talendType type="id_byte[]">
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true"/>
 					<dbType type="CHARACTER"/>
-					<dbType type="CHARACTER VARYING"/>
-					<dbType type="VARCHAR"/>
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true" />
-					<dbType type="TIME"/>
-					<dbType type="TIMETZ"/>
 					<dbType type="TIMESTAMP"/>
-					<dbType type="TIMESTAMPTZ"/>
-					<dbType type="INTERVAL"/>
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DOUBLE PRECISION" default="true" />
@@ -62,69 +51,51 @@
 					<dbType type="BIGINT" default="true" />
 				</talendType>
 				<talendType type="id_Object">
-					<dbType type="TYPE"/>
 				</talendType>
 				<talendType type="id_Short">
 					<dbType type="INTEGER" default="true" />
 				</talendType>
 				<talendType type="id_String">
 					<dbType type="VARCHAR" default="true" />
-					<dbType type="CHARACTER" />
 					<dbType type="CHARACTER VARYING"/>	
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
-				<dbType type="BIGINT">
-					<talendType type="id_Long" default="true" />
-					<talendType type="id_Integer" />
-					<talendType type="id_Short"/>
-				</dbType>
 				<dbType type="BOOLEAN">
 					<talendType type="id_Boolean" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_String" default="true" />
+					<talendType type="id_Character" default="true" />
 				</dbType>
 				<dbType type="CHARACTER">
+					<talendType type="id_Character" default="true" />
+				</dbType>
+				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="CHARACTER VARYING">
 					<talendType type="id_String" default="true" />
 				</dbType>
-				<dbType type="DATE">
-					<talendType type="id_Date" default="true" />
+				<dbType type="INTEGER">
+					<talendType type="id_Integer" default="true" />
+					<talendType type="id_Short" />
+					<talendType type="id_Byte" />
 				</dbType>
-				<dbType type="DOUBLE PRECISION">
-					<talendType type="id_Double" default="true" />
-					<talendType type="id_BigDecimal"/>
+				<dbType type="BIGINT">
+					<talendType type="id_Long" default="true" />
 				</dbType>
 				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true" />
-					<talendType type="id_BigDecimal"/>
 				</dbType>
-				<dbType type="INTEGER">
-					<talendType type="id_Integer" default="true" />
+				<dbType type="DOUBLE PRECISION">
+					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal" />
 				</dbType>
-				<dbType type="INTERVAL">
-					<talendType type="id_Date" default="true" />
-				</dbType>
-				<dbType type="TIME">
-					<talendType type="id_Date" default="true" />
-				</dbType>
-				<dbType type="TIMETZ">
+				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />
 				</dbType>
 				<dbType type="TIMESTAMP">
 					<talendType type="id_Date" default="true" />
-				</dbType>
-				<dbType type="TIMESTAMPTZ">
-					<talendType type="id_Date" default="true" />
-				</dbType>
-				<dbType type="TYPE">
-					<talendType type="id_Object" default="true" />
-				</dbType>
-				<dbType type="VARCHAR">
-					<talendType type="id_String" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
@@ -135,8 +106,8 @@
 					<dbType type="BIGINT"/>				
 				</talendType>
 				<talendType type="decimal">
-					<dbType type="FLOAT" default="true" />	
-					<dbType type="DOUBLE PRECISION"/>						
+					<dbType type="DOUBLE PRECISION" default="true" />	
+					<dbType type="FLOAT"/>						
 				</talendType>
 				<talendType type="boolean">	
 					<dbType type="BOOLEAN" default="true"/>
@@ -148,68 +119,45 @@
 					<dbType type="CHARACTER VARYING" />		
 				</talendType>
 				<talendType type="date">
-					<dbType type="DATE" default="true" />
-					<dbType type="TIME"/>
-					<dbType type="TIMETZ"/>
-					<dbType type="TIMESTAMP"/>
-					<dbType type="TIMESTAMPTZ"/>	
+					<dbType type="DATE" default="true" />	
 				</talendType>
 				<talendType type="datetime">
-					<dbType type="DATE" default="true" />
-					<dbType type="TIME"/>
-					<dbType type="TIMETZ"/>
-					<dbType type="TIMESTAMP"/>
-					<dbType type="TIMESTAMPTZ"/>
+					<dbType type="TIMESTAMP" default="true" />
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
-				<dbType type="BIGINT">
-					<talendType type="int" default="true" />			
-				</dbType>
 				<dbType type="BOOLEAN">
-					<talendType type="boolean" default="true" />			
+					<talendType type="boolean" default="true" />
 				</dbType>
 				<dbType type="CHAR">
 					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="CHARACTER">
-					<talendType type="string" default="true" />			
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="CHARACTER VARYING">
 					<talendType type="string" default="true" />
 				</dbType>
-				<dbType type="DATE">
-					<talendType type="date" default="true" />			
+				<dbType type="INTEGER">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="BIGINT">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="FLOAT">
+					<talendType type="decimal" default="true" />
 				</dbType>
 				<dbType type="DOUBLE PRECISION">
 					<talendType type="decimal" default="true" />
 				</dbType>
-				<dbType type="FLOAT">
-					<talendType type="decimal" default="true" />			
-				</dbType>
-				<dbType type="INTEGER">
-					<talendType type="int" default="true" />
-				</dbType>
-				<dbType type="INTERVAL">
-					<talendType type="datetime" default="true" />			
-				</dbType>
-				<dbType type="TIME">
-					<talendType type="datetime" default="true" />
-				</dbType>
-				<dbType type="TIMETZ">
-					<talendType type="datetime" default="true" />
+				<dbType type="DATE">
+					<talendType type="date" default="true" />
 				</dbType>
 				<dbType type="TIMESTAMP">
-					<talendType type="datetime" default="true" />			
-				</dbType>
-				<dbType type="TIMESTAMPTZ">
-					<talendType type="datetime" default="true" />			
-				</dbType>
-				<dbType type="TYPE">
-					<talendType type="string" default="true" />			
-				</dbType>
-				<dbType type="VARCHAR">
-					<talendType type="string" default="true" />			
+					<talendType type="datetime" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
