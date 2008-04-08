@@ -30,6 +30,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ProcessItem;
@@ -281,10 +282,18 @@ public class ProcessorUtilities {
             List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
             for (INode node : graphicalNodes) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
-                    String jobId = (String) node.getElementParameter("PROCESS_TYPE_PROCESS").getValue();
+                    IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS");
+                    String jobId = (String) processIdparam.getValue();
+                    ProcessItem processItem = (ProcessItem) processIdparam.getLinkedRepositoryItem();
+
                     String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
                     String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
-                    JobInfo subJobInfo = new JobInfo(jobId, context, version);
+                    JobInfo subJobInfo = null;
+                    if (processItem != null) {
+                        subJobInfo = new JobInfo(processItem, context);
+                    } else {
+                        subJobInfo = new JobInfo(jobId, context, version);
+                    }
                     if (jobInfo.isApplyContextToChildren()) {
                         subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
                         subJobInfo.setContextName(jobInfo.getContextName());
