@@ -14,8 +14,10 @@ package org.talend.core.model.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
@@ -28,6 +30,7 @@ import org.talend.core.model.process.IContextListener;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.update.UpdatesConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
@@ -58,6 +61,11 @@ public class JobContextManager implements IContextManager {
      * this flag only works for update the var of reference(job context, tRunjob).
      */
     private boolean modified = false;
+
+    /*
+     * detected the context parameter source is lost. (feature 3232)
+     */
+    private Set<String> lostParameters = new HashSet<String>();
 
     public JobContextManager() {
         listContext.add(defaultContext);
@@ -196,6 +204,7 @@ public class JobContextManager implements IContextManager {
         ContextParameterType contextParamType;
         JobContextParameter contextParam;
 
+        lostParameters.clear();
         listContext.clear();
         if (contextTypeList == null || contextTypeList.isEmpty()) {
             // set default context
@@ -244,12 +253,17 @@ public class JobContextManager implements IContextManager {
                 contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
                 contextParam.setComment(contextParamType.getComment());
 
-                ContextItem item = ContextUtils.getContextItemById(contextItemList, contextParamType.getRepositoryContextId());
-                String name = IContextParameter.BUILT_IN;
-                if (item != null && ContextUtils.updateParameterFromRepository(item, contextParam, context.getName())) {
-                    name = item.getProperty().getLabel();
+                String repositoryContextId = contextParamType.getRepositoryContextId();
+                String source = IContextParameter.BUILT_IN;
+                if (repositoryContextId != null && !UpdatesConstants.EMPTY.equals(repositoryContextId)) {
+                    ContextItem item = ContextUtils.getContextItemById(contextItemList, repositoryContextId);
+                    if (item != null) {
+                        source = item.getProperty().getLabel();
+                    } else {
+                        lostParameters.add(contextParam.getName());
+                    }
                 }
-                contextParam.setSource(name);
+                contextParam.setSource(source);
                 contextParamList.add(contextParam);
             }
             context.setContextParameterList(contextParamList);
@@ -312,4 +326,15 @@ public class JobContextManager implements IContextManager {
         setDefaultContext(context);
 
     }
+
+    /**
+     * 
+     * ggu Comment method "getLostParameters".
+     * 
+     * @return
+     */
+    public Set<String> getLostParameters() {
+        return this.lostParameters;
+    }
+
 }

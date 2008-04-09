@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.gef.commands.CommandStack;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.model.update.IUpdateManager;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
@@ -83,4 +84,6 @@ public interface IProcess2 extends IProcess {
     public CommandStack getCommandStack();
 
     public List<? extends ISubjobContainer> getSubjobContainers();
+
+    public IUpdateManager getUpdateManager();
 }

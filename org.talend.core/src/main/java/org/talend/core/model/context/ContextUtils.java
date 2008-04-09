@@ -372,4 +372,39 @@ public class ContextUtils {
         }
         return varNameSet;
     }
+
+    /**
+     * 
+     * ggu Comment method "sameValueContextParameter".
+     * 
+     * not contain the source
+     */
+    public static boolean samePropertiesForContextParameter(IContextParameter sourceParam, ContextParameterType targetParamType) {
+        if (targetParamType == null && sourceParam == null) {
+            return true;
+        }
+        if (targetParamType != null && sourceParam != null) {
+            if (!sourceParam.getName().equals(targetParamType.getName())) {
+                return false;
+            }
+            if (!sourceParam.getComment().equals(targetParamType.getComment())) {
+                return false;
+            }
+            if (!sourceParam.getPrompt().equals(targetParamType.getPrompt())) {
+                return false;
+            }
+            if (!sourceParam.getType().equals(targetParamType.getType())) {
+                return false;
+            }
+            if (sourceParam.isPromptNeeded() != targetParamType.isPromptNeeded()) {
+                return false;
+            }
+            if (!sourceParam.getValue().equals(targetParamType.getValue())) {
+                return false;
+            }
+
+            return true;
+        }
+        return false;
+    }
 }

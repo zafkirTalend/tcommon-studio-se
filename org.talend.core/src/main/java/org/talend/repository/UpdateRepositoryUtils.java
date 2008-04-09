@@ -18,15 +18,23 @@ import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.designerproperties.RepositoryToComponentProperty;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.update.UpdatesConstants;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * ggu class global comment. Detailled comment
@@ -38,7 +46,7 @@ public final class UpdateRepositoryUtils {
      * 
      * get Query
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public static Query getQueryById(Item item, final String queryId) {
         if (item == null || queryId == null) {
             return null;
@@ -52,8 +60,11 @@ public final class UpdateRepositoryUtils {
                     final EList queries = queryConn.getQuery();
                     if (queries != null) {
                         for (Query query : (List<Query>) queries) {
-                            if (query.getId().equals(queryId)) {
-                                return query;
+                            Object object = query.getProperties().get("deleted"); //$NON-NLS-1$
+                            if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
+                                if (query.getId().equals(queryId)) {
+                                    return query;
+                                }
                             }
                         }
                     }
@@ -74,7 +85,10 @@ public final class UpdateRepositoryUtils {
         if (metadataConnectionsItem != null) {
             for (ConnectionItem connectionItem : metadataConnectionsItem) {
                 if (factory.getStatus(connectionItem) != ERepositoryStatus.DELETED) {
-                    return getQueryById(connectionItem, queryId);
+                    Query query = getQueryById(connectionItem, queryId);
+                    if (query != null) {
+                        return query;
+                    }
                 }
             }
         }
@@ -102,12 +116,11 @@ public final class UpdateRepositoryUtils {
      * 
      * get MetadataTable
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public static MetadataTable getTableById(Item item, final String tableId) {
         if (item == null || tableId == null) {
             return null;
         }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         if (item instanceof ConnectionItem) {
             ConnectionItem connItem = (ConnectionItem) item;
             final Connection connection = connItem.getConnection();
@@ -115,11 +128,13 @@ public final class UpdateRepositoryUtils {
                 final EList tables = connection.getTables();
                 if (tables != null) {
                     for (MetadataTable table : (List<MetadataTable>) tables) {
-                        if (!factory.isDeleted(table)) {
+                        Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
+                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
                             if (table.getId().equals(tableId)) {
                                 return table;
                             }
                         }
+
                     }
                 }
             }
@@ -138,7 +153,10 @@ public final class UpdateRepositoryUtils {
         if (metadataConnectionsItem != null) {
             for (ConnectionItem connectionItem : metadataConnectionsItem) {
                 if (factory.getStatus(connectionItem) != ERepositoryStatus.DELETED) {
-                    return getTableById(connectionItem, tableId);
+                    MetadataTable table = getTableById(connectionItem, tableId);
+                    if (table != null) {
+                        return table;
+                    }
                 }
             }
         }
@@ -164,7 +182,7 @@ public final class UpdateRepositoryUtils {
      * ggu Comment method "getConnectionItemByChildId".
      * 
      * @param itemsMap
-     * @param childId
+     * @param childId for table and query
      * @return
      */
     public static ConnectionItem getConnectionItemByChildId(Map<String, ConnectionItem> itemsMap, final String childId) {
@@ -185,6 +203,26 @@ public final class UpdateRepositoryUtils {
         return null;
     }
 
+    public static ConnectionItem getConnectionItemByChildId(final String childId) {
+        final IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            List<ConnectionItem> metadataConnectionsItem = proxyRepositoryFactory.getMetadataConnectionsItem();
+            for (ConnectionItem item : metadataConnectionsItem) {
+                // check query
+                if (getQueryById(item, childId) != null) {
+                    return item;
+                }
+                // check table
+                if (getTableById(item, childId) != null) {
+                    return item;
+                }
+            }
+        } catch (PersistenceException e) {
+            // 
+        }
+        return null;
+    }
+
     /**
      * 
      * ggu Comment method "getConnectionItemByItemId".
@@ -196,7 +234,7 @@ public final class UpdateRepositoryUtils {
     }
 
     public static ConnectionItem getConnectionItemByItemId(String itemId, boolean deleted) {
-        if (itemId == null || itemId.equals("")) {
+        if (itemId == null || itemId.equals("")) { //$NON-NLS-1$
             return null;
         }
         final IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
@@ -295,4 +333,103 @@ public final class UpdateRepositoryUtils {
         return null;
     }
 
+    /**
+     * 
+     * ggu Comment method "getRepositoryObjectById".
+     * 
+     * @param id
+     * @return
+     */
+    public static IRepositoryObject getRepositoryObjectById(final String id) {
+        if (id == null || "".equals(id) || RepositoryNode.NO_ID.equals(id)) { //$NON-NLS-1$
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            IRepositoryObject lastVersion = factory.getLastVersion(id);
+            if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
+                return lastVersion;
+            }
+        } catch (PersistenceException e) {
+            //
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * ggu Comment method "getRepositoryAliasName".
+     * 
+     * @param item
+     * @return
+     */
+    public static String getRepositorySourceName(Item item) {
+        String source = UpdatesConstants.EMPTY;
+        if (item != null) {
+            String aliasName = null;
+            if (item instanceof ConnectionItem) {
+                ERepositoryObjectType repositoryObjectType = ERepositoryObjectType.getItemType(item);
+                aliasName = repositoryObjectType.getAlias();
+                Connection connection = ((ConnectionItem) item).getConnection();
+                if (connection instanceof DatabaseConnection) {
+                    String currentDbType = (String) RepositoryToComponentProperty.getValue(connection, UpdatesConstants.TYPE);
+                    aliasName += " (" + currentDbType + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+                }
+            } else if (item instanceof ContextItem) {
+                aliasName = UpdatesConstants.CONTEXT;
+            }
+            //
+            source = (aliasName == null ? UpdatesConstants.EMPTY : aliasName);
+            source = source + UpdatesConstants.COLON + item.getProperty().getLabel();
+        }
+        return source;
+    }
+
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    public static IMetadataTable getTableByName(ConnectionItem item, String name) {
+        if (item == null || name == null) {
+            return null;
+        }
+        final Connection connection = item.getConnection();
+        if (connection != null) {
+            final EList tables = connection.getTables();
+            if (tables != null) {
+                for (MetadataTable table : (List<MetadataTable>) tables) {
+                    Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
+                    if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
+                        if (table.getLabel().equals(name)) {
+                            return ConvertionHelper.convert(table);
+                        }
+                    }
+
+                }
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    public static Query getQueryByName(ConnectionItem item, String name) {
+        if (item == null || name == null) {
+            return null;
+        }
+        final Connection connection = item.getConnection();
+        if (connection != null) {
+            final QueriesConnection queryConn = connection.getQueries();
+            if (queryConn != null) {
+                final EList queries = queryConn.getQuery();
+                if (queries != null) {
+                    for (Query query : (List<Query>) queries) {
+                        Object object = query.getProperties().get("deleted"); //$NON-NLS-1$
+                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
+                            if (query.getLabel().equals(name)) {
+                                return query;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }
