@@ -18,6 +18,7 @@ import java.net.URI;
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
@@ -54,6 +55,11 @@ public class AnalysisEditor extends FormEditor {
             masterPage.doSave(monitor);
         }
         this.isDirty = false;
+        firePropertyChange(IEditorPart.PROP_DIRTY);
+    }
+    
+    protected void firePropertyChange(final int propertyId) {
+        super.firePropertyChange(propertyId);
     }
 
     public void doSaveAs() {

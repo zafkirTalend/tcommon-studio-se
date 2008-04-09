@@ -36,4 +36,6 @@ public final class PluginConstant {
     public static final String DATA_PROFILING_PROJECTNAME = DQStructureManager.DATA_PROFILING;
 
     public static final String PATH_SAVE = "PATH_SAVE";
+    
+    public static final String ISDIRTY_PROPERTY = "ISDIRTY_PROPERTY";
 }

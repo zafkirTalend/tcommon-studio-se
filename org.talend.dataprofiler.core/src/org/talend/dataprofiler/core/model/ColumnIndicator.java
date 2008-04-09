@@ -73,9 +73,6 @@ public class ColumnIndicator {
     }
 
     public boolean hasIndicators() {
-        if (indicators != null && indicators.length != 0) {
-            return true;
-        }
         return !(this.indicatorEnums == null || this.indicatorEnums.size() == 0);
     }
 
@@ -87,9 +84,6 @@ public class ColumnIndicator {
     }
 
     public Indicator[] getIndicators() {
-        if (this.indicators != null) {
-            return this.indicators;
-        }
         if (indicatorEnums == null) {
             return new Indicator[0];
         }
@@ -97,54 +91,55 @@ public class ColumnIndicator {
         List<Indicator> indicatorList = new ArrayList<Indicator>();
         Indicator indicator = null;
         for (IndicatorEnum indicatorEnum : indicatorEnums) {
-            switch (indicatorEnum) {
-            case RowCountIndicatorEnum:
-                indicator = factory.createRowCountIndicator();
-                break;
-            case NullCountIndicatorEnum:
-                indicator = factory.createNullCountIndicator();
-                break;
-            case DistinctCountIndicatorEnum:
-                indicator = factory.createDistinctCountIndicator();
-                break;
-            case UniqueIndicatorEnum:
-                indicator = factory.createUniqueCountIndicator();
-                break;
-            case DuplicateCountIndicatorEnum:
-                indicator = factory.createUniqueCountIndicator();
-                break;
-            case BlankCountIndicatorEnum:
-                indicator = factory.createBlankCountIndicator();
-                break;
-
-            case ModeIndicatorEnum:
-                indicator = factory.createModeIndicator();
-                break;
-
-            // TODO MeanIndicator only corresponding DoubleMeanIndicator?
-            case MeanIndicatorEnum:
-                indicator = factory.createDoubleMeanIndicator();
-                break;
-            case MedianIndicatorEnum:
-                indicator = factory.createMedianIndicator();
-                break;
-            case IQRIndicatorEnum:
-                indicator = factory.createIQRIndicator();
-                break;
-            case RangeIndicatorEnum:
-                indicator = factory.createRangeIndicator();
-                break;
-            case MinValueIndicatorEnum:
-                indicator = factory.createMinValueIndicator();
-                break;
-            case MaxValueIndicatorEnum:
-                indicator = factory.createMaxValueIndicator();
-                break;
-            case FrequencyIndicatorEnum:
-                indicator = factory.createFrequencyIndicator();
-                break;
-            default:
-            }
+            indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
+            // switch (indicatorEnum) {
+            // case RowCountIndicatorEnum:
+            // indicator = factory.createRowCountIndicator();
+            // break;
+            // case NullCountIndicatorEnum:
+            // indicator = factory.createNullCountIndicator();
+            // break;
+            // case DistinctCountIndicatorEnum:
+            // indicator = factory.createDistinctCountIndicator();
+            // break;
+            // case UniqueIndicatorEnum:
+            // indicator = factory.createUniqueCountIndicator();
+            // break;
+            // case DuplicateCountIndicatorEnum:
+            // indicator = factory.createUniqueCountIndicator();
+            // break;
+            // case BlankCountIndicatorEnum:
+            // indicator = factory.createBlankCountIndicator();
+            // break;
+            //
+            // case ModeIndicatorEnum:
+            // indicator = factory.createModeIndicator();
+            // break;
+            //
+            // // TODO MeanIndicator only corresponding DoubleMeanIndicator?
+            // case MeanIndicatorEnum:
+            // indicator = factory.createDoubleMeanIndicator();
+            // break;
+            // case MedianIndicatorEnum:
+            // indicator = factory.createMedianIndicator();
+            // break;
+            // case IQRIndicatorEnum:
+            // indicator = factory.createIQRIndicator();
+            // break;
+            // case RangeIndicatorEnum:
+            // indicator = factory.createRangeIndicator();
+            // break;
+            // case MinValueIndicatorEnum:
+            // indicator = factory.createMinValueIndicator();
+            // break;
+            // case MaxValueIndicatorEnum:
+            // indicator = factory.createMaxValueIndicator();
+            // break;
+            // case FrequencyIndicatorEnum:
+            // indicator = factory.createFrequencyIndicator();
+            // break;
+            // default:
+            // }
             indicatorList.add(indicator);
         }
         this.indicators = indicatorList.toArray(new Indicator[indicatorList.size()]);
@@ -153,6 +148,9 @@ public class ColumnIndicator {
 
     public void setIndicators(Indicator[] indicators) {
         this.indicators = indicators;
+        for (int i = 0; i < indicators.length; i++) {
+            addIndicatorEnum(IndicatorEnum.findIndicatorEnum(indicators[i].eClass()));
+        }
     }
 
 }

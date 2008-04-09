@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,6 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -58,7 +61,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @author rli
  * 
  */
-public class ColumnMasterDetailsPage extends FormPage {
+public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeListener {
 
     private static Logger log = Logger.getLogger(ColumnMasterDetailsPage.class);
 
@@ -139,17 +142,19 @@ public class ColumnMasterDetailsPage extends FormPage {
         Label label = toolkit.createLabel(labelButtonClient, "Analysis Name:");
         label.setLayoutData(new GridData());
         nameText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        GridDataFactory.fillDefaults().grab(true, true);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(nameText);
         nameText.setText(analysisHandler.getName() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getName());
         label = toolkit.createLabel(labelButtonClient, "Analysis Purpose:");
         label.setLayoutData(new GridData());
         purposeText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        purposeText.setLayoutData(new GridData());
+        // purposeText.setLayoutData(new GridData());
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(purposeText);
         purposeText.setText(analysisHandler.getPurpose() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getPurpose());
         label = toolkit.createLabel(labelButtonClient, "Analysis Description:");
         label.setLayoutData(new GridData());
         descriptionText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        descriptionText.setLayoutData(new GridData());
+        // descriptionText.setLayoutData(new GridData());
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
                 .getDescription());
         section.setClient(labelButtonClient);
@@ -165,8 +170,9 @@ public class ColumnMasterDetailsPage extends FormPage {
         GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
         tree.setLayout(new GridLayout());
 
-        treeViewer = new AnasisColumnTreeViewer(tree);
-        treeViewer.setElements(currentColumnIndicators);
+        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators);
+        treeViewer.setDirty(false);
+        treeViewer.addPropertyChangeListener(this);
         Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
         buttonsComp.setLayout(new GridLayout(1, true));
@@ -308,6 +314,16 @@ public class ColumnMasterDetailsPage extends FormPage {
     @Override
     public void dispose() {
         super.dispose();
+        if (this.treeViewer != null) {
+            this.treeViewer.removePropertyChangeListener(this);
+        }
+    }
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (PluginConstant.ISDIRTY_PROPERTY.equals(evt.getPropertyName())) {
+            ((AnalysisEditor) this.getEditor()).firePropertyChange(IEditorPart.PROP_DIRTY);
+        }
+
     }
 
 }

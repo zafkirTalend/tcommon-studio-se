@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes.indicator.tpye;
 
+import org.eclipse.emf.ecore.EClass;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 /**
@@ -19,30 +20,31 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * 
  */
 public enum IndicatorEnum {
-    RowCountIndicatorEnum(IndicatorsPackage.ROW_COUNT_INDICATOR, "row count", null),
-    NullCountIndicatorEnum(IndicatorsPackage.NULL_COUNT_INDICATOR, "null count", null),
-    DistinctCountIndicatorEnum(IndicatorsPackage.DISTINCT_COUNT_INDICATOR, "distinct count", null),
-    UniqueIndicatorEnum(IndicatorsPackage.UNIQUE_COUNT_INDICATOR, "unique count", null),
-    DuplicateCountIndicatorEnum(IndicatorsPackage.DUPLICATE_COUNT_INDICATOR, "duplicate count", null),
-    BlankCountIndicatorEnum(IndicatorsPackage.BLANK_COUNT_INDICATOR, "blank count", null),
+    RowCountIndicatorEnum(IndicatorsPackage.Literals.ROW_COUNT_INDICATOR, "row count", null),
+    NullCountIndicatorEnum(IndicatorsPackage.Literals.NULL_COUNT_INDICATOR, "null count", null),
+    DistinctCountIndicatorEnum(IndicatorsPackage.Literals.DISTINCT_COUNT_INDICATOR, "distinct count", null),
+    UniqueIndicatorEnum(IndicatorsPackage.Literals.UNIQUE_COUNT_INDICATOR, "unique count", null),
+    DuplicateCountIndicatorEnum(IndicatorsPackage.Literals.DUPLICATE_COUNT_INDICATOR, "duplicate count", null),
+    BlankCountIndicatorEnum(IndicatorsPackage.Literals.BLANK_COUNT_INDICATOR, "blank count", null),
 
-    ModeIndicatorEnum(IndicatorsPackage.MODE_INDICATOR, "mode", null),
-    MeanIndicatorEnum(IndicatorsPackage.INTEGER_MEAN_INDICATOR, "mean", null),
-    MedianIndicatorEnum(IndicatorsPackage.MEDIAN_INDICATOR, "median", null),
-    MinValueIndicatorEnum(IndicatorsPackage.MIN_VALUE_INDICATOR, "min", null),
-    MaxValueIndicatorEnum(IndicatorsPackage.MAX_VALUE_INDICATOR, "max", null),
-    IQRIndicatorEnum(IndicatorsPackage.IQR_INDICATOR, "IQR", new IndicatorEnum[] { MinValueIndicatorEnum, MaxValueIndicatorEnum }),
-    RangeIndicatorEnum(IndicatorsPackage.RANGE_INDICATOR, "range", new IndicatorEnum[] { MinValueIndicatorEnum,
+    ModeIndicatorEnum(IndicatorsPackage.Literals.MODE_INDICATOR, "mode", null),
+    MeanIndicatorEnum(IndicatorsPackage.Literals.MEAN_INDICATOR, "mean", null),
+    MedianIndicatorEnum(IndicatorsPackage.Literals.MEDIAN_INDICATOR, "median", null),
+    MinValueIndicatorEnum(IndicatorsPackage.Literals.MIN_VALUE_INDICATOR, "min", null),
+    MaxValueIndicatorEnum(IndicatorsPackage.Literals.MAX_VALUE_INDICATOR, "max", null),
+    IQRIndicatorEnum(IndicatorsPackage.Literals.IQR_INDICATOR, "IQR", new IndicatorEnum[] { MinValueIndicatorEnum,
             MaxValueIndicatorEnum }),
-    FrequencyIndicatorEnum(IndicatorsPackage.FREQUENCY_INDICATOR, "frequency table", null);
+    RangeIndicatorEnum(IndicatorsPackage.Literals.RANGE_INDICATOR, "range", new IndicatorEnum[] { MinValueIndicatorEnum,
+            MaxValueIndicatorEnum }),
+    FrequencyIndicatorEnum(IndicatorsPackage.Literals.FREQUENCY_INDICATOR, "frequency table", null);
 
-    private int indicatorType;
+    private EClass indicatorType;
 
     private String label;
 
     private IndicatorEnum[] children;
 
-    IndicatorEnum(int indicatorType, String label, IndicatorEnum[] children) {
+    IndicatorEnum(EClass indicatorType, String label, IndicatorEnum[] children) {
         this.indicatorType = indicatorType;
         this.label = label;
         this.children = children;
@@ -51,7 +53,7 @@ public enum IndicatorEnum {
     /**
      * @return the indicator
      */
-    public int getIndicatorType() {
+    public EClass getIndicatorType() {
         return indicatorType;
     }
 
@@ -71,6 +73,41 @@ public enum IndicatorEnum {
 
     public boolean hasChildren() {
         return children != null;
+    }
+
+    public static IndicatorEnum findIndicatorEnum(EClass indicatorType) {
+        IndicatorEnum returnEnum = null;
+        if (indicatorType == RowCountIndicatorEnum.getIndicatorType()) {
+            returnEnum = RowCountIndicatorEnum;
+        } else if (indicatorType == NullCountIndicatorEnum.getIndicatorType()) {
+            returnEnum = NullCountIndicatorEnum;
+        } else if (indicatorType == DistinctCountIndicatorEnum.getIndicatorType()) {
+            returnEnum = DistinctCountIndicatorEnum;
+        } else if (indicatorType == UniqueIndicatorEnum.getIndicatorType()) {
+            returnEnum = UniqueIndicatorEnum;
+        } else if (indicatorType == DuplicateCountIndicatorEnum.getIndicatorType()) {
+            returnEnum = DuplicateCountIndicatorEnum;
+        } else if (indicatorType == BlankCountIndicatorEnum.getIndicatorType()) {
+            returnEnum = BlankCountIndicatorEnum;
+        } else if (indicatorType == ModeIndicatorEnum.getIndicatorType()) {
+            returnEnum = ModeIndicatorEnum;
+        } else if (indicatorType == MeanIndicatorEnum.getIndicatorType()) {
+            returnEnum = MeanIndicatorEnum;
+        } else if (indicatorType == MedianIndicatorEnum.getIndicatorType()) {
+            returnEnum = MedianIndicatorEnum;
+        } else if (indicatorType == MinValueIndicatorEnum.getIndicatorType()) {
+            returnEnum = MinValueIndicatorEnum;
+        } else if (indicatorType == MaxValueIndicatorEnum.getIndicatorType()) {
+            returnEnum = MaxValueIndicatorEnum;
+        } else if (indicatorType == IQRIndicatorEnum.getIndicatorType()) {
+            returnEnum = IQRIndicatorEnum;
+        } else if (indicatorType == RangeIndicatorEnum.getIndicatorType()) {
+            returnEnum = RangeIndicatorEnum;
+        } else if (indicatorType == FrequencyIndicatorEnum.getIndicatorType()) {
+            returnEnum = FrequencyIndicatorEnum;
+        }
+        return returnEnum;
+
     }
 
 }

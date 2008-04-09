@@ -15,7 +15,6 @@ package org.talend.dataprofiler.core.ui.wizard.analysis;
 import org.eclipse.jface.wizard.Wizard;
 import org.talend.dataprofiler.core.ui.wizard.analysis.column.ColumnWizard;
 import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnectionWizard;
-import org.talend.dq.analysis.parameters.AnalysisParameter;
 
 
 /**
@@ -29,7 +28,6 @@ public class WizardFactory {
     }
     
     public static Wizard createColumnWizard() {
-        //return new ColumnWizard();
-        return null;
+        return new ColumnWizard();
     }
 }

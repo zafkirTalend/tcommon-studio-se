@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.composite;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -26,6 +29,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
@@ -49,10 +53,19 @@ public class AnasisColumnTreeViewer {
 
     private boolean isDirty;
 
+    private PropertyChangeSupport propertyChangeSupport;
+
     public AnasisColumnTreeViewer(Composite parent) {
         parentComp = parent;
         // this.tree = tree;
         this.tree = createTree(parent);
+        propertyChangeSupport = new PropertyChangeSupport(this);
+    }
+
+    public AnasisColumnTreeViewer(Composite parent, ColumnIndicator[] columnIndicators) {
+        this(parent);
+        this.setElements(columnIndicators);
+        this.setDirty(false);
     }
 
     /**
@@ -169,7 +182,7 @@ public class AnasisColumnTreeViewer {
             }
             treeItem.setExpanded(true);
         }
-        this.isDirty = true;
+        this.setDirty(true);
     }
 
     private void createIndicatorItems(final TreeItem treeItem, IndicatorEnum[] indicatorEnums) {
@@ -220,11 +233,23 @@ public class AnasisColumnTreeViewer {
     }
 
     public void setDirty(boolean dirty) {
-        this.isDirty = dirty;
+        if (isDirty != dirty) {
+            this.isDirty = dirty;
+            propertyChangeSupport.firePropertyChange(PluginConstant.ISDIRTY_PROPERTY, null, Boolean.valueOf(dirty));
+        }
     }
 
     public boolean isDirty() {
         return isDirty;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+
     }
 
 }

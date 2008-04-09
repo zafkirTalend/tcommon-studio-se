@@ -21,7 +21,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IEditorPart;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
@@ -43,16 +42,13 @@ public class ColumnWizard extends Wizard {
 
     private static Logger log = Logger.getLogger(ColumnWizard.class);
 
-    private ConnectionParameters parameters;
-
     private ConnAnalysisPageStep1 page1;
 
     /**
      * 
      */
-    public ColumnWizard(ConnectionParameters parameters) {
-        // TODO Auto-generated constructor stub
-        this.parameters = parameters;
+    public ColumnWizard() {
+
     }
 
     /*
