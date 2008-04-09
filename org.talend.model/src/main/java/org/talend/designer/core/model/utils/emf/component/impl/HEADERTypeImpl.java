@@ -32,6 +32,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEXTENSION <em>EXTENSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
@@ -196,6 +197,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean hASCONDITIONALOUTPUTSESet;
+
+    /**
+     * The default value of the '{@link #isHASHCOMPONENT() <em>HASHCOMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isHASHCOMPONENT()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean HASHCOMPONENT_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isHASHCOMPONENT() <em>HASHCOMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isHASHCOMPONENT()
+     * @generated
+     * @ordered
+     */
+    protected boolean hASHCOMPONENT = HASHCOMPONENT_EDEFAULT;
+
+    /**
+     * This is true if the HASHCOMPONENT attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean hASHCOMPONENTESet;
 
     /**
      * The default value of the '{@link #isISMULTIPLYINGOUTPUTS() <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
@@ -713,6 +743,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isHASHCOMPONENT() {
+        return hASHCOMPONENT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setHASHCOMPONENT(boolean newHASHCOMPONENT) {
+        boolean oldHASHCOMPONENT = hASHCOMPONENT;
+        hASHCOMPONENT = newHASHCOMPONENT;
+        boolean oldHASHCOMPONENTESet = hASHCOMPONENTESet;
+        hASHCOMPONENTESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__HASHCOMPONENT, oldHASHCOMPONENT, hASHCOMPONENT, !oldHASHCOMPONENTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetHASHCOMPONENT() {
+        boolean oldHASHCOMPONENT = hASHCOMPONENT;
+        boolean oldHASHCOMPONENTESet = hASHCOMPONENTESet;
+        hASHCOMPONENT = HASHCOMPONENT_EDEFAULT;
+        hASHCOMPONENTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__HASHCOMPONENT, oldHASHCOMPONENT, HASHCOMPONENT_EDEFAULT, oldHASHCOMPONENTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetHASHCOMPONENT() {
+        return hASHCOMPONENTESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isISMULTIPLYINGOUTPUTS() {
         return iSMULTIPLYINGOUTPUTS;
     }
@@ -1123,6 +1199,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getEXTENSION();
             case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
                 return isHASCONDITIONALOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                return isHASHCOMPONENT() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 return isISMULTIPLYINGOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP:
@@ -1176,6 +1254,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
                 setHASCONDITIONALOUTPUTS(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                setHASHCOMPONENT(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 setISMULTIPLYINGOUTPUTS(((Boolean)newValue).booleanValue());
@@ -1242,6 +1323,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
                 unsetHASCONDITIONALOUTPUTS();
                 return;
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                unsetHASHCOMPONENT();
+                return;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 unsetISMULTIPLYINGOUTPUTS();
                 return;
@@ -1300,6 +1384,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
             case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
                 return isSetHASCONDITIONALOUTPUTS();
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                return isSetHASHCOMPONENT();
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 return isSetISMULTIPLYINGOUTPUTS();
             case ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP:
@@ -1347,6 +1433,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(eXTENSION);
         result.append(", hASCONDITIONALOUTPUTS: ");
         if (hASCONDITIONALOUTPUTSESet) result.append(hASCONDITIONALOUTPUTS); else result.append("<unset>");
+        result.append(", hASHCOMPONENT: ");
+        if (hASHCOMPONENTESet) result.append(hASHCOMPONENT); else result.append("<unset>");
         result.append(", iSMULTIPLYINGOUTPUTS: ");
         if (iSMULTIPLYINGOUTPUTSESet) result.append(iSMULTIPLYINGOUTPUTS); else result.append("<unset>");
         result.append(", iSSUBTREEWITHLOOP: ");

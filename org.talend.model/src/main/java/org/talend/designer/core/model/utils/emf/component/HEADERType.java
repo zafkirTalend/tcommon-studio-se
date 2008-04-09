@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
@@ -292,6 +293,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetHASCONDITIONALOUTPUTS();
+
+    /**
+     * Returns the value of the '<em><b>HASHCOMPONENT</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>HASHCOMPONENT</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>HASHCOMPONENT</em>' attribute.
+     * @see #isSetHASHCOMPONENT()
+     * @see #unsetHASHCOMPONENT()
+     * @see #setHASHCOMPONENT(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_HASHCOMPONENT()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='HASH_COMPONENT' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isHASHCOMPONENT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>HASHCOMPONENT</em>' attribute.
+     * @see #isSetHASHCOMPONENT()
+     * @see #unsetHASHCOMPONENT()
+     * @see #isHASHCOMPONENT()
+     * @generated
+     */
+    void setHASHCOMPONENT(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetHASHCOMPONENT()
+     * @see #isHASHCOMPONENT()
+     * @see #setHASHCOMPONENT(boolean)
+     * @generated
+     */
+    void unsetHASHCOMPONENT();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>HASHCOMPONENT</em>' attribute is set.
+     * @see #unsetHASHCOMPONENT()
+     * @see #isHASHCOMPONENT()
+     * @see #setHASHCOMPONENT(boolean)
+     * @generated
+     */
+    boolean isSetHASHCOMPONENT();
 
     /**
      * Returns the value of the '<em><b>ISMULTIPLYINGOUTPUTS</b></em>' attribute.
