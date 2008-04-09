@@ -51,7 +51,7 @@ public class Numeric {
      * 
      */
     public static Integer random(Integer min, Integer max) {
-        return min + ((Long) Math.round(Math.random() * (max - min))).intValue();
+        return ((Long) Math.round(min - 0.5 + (Math.random() * (max - min + 1)))).intValue();
     }
 
     /**
