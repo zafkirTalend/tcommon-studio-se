@@ -14,6 +14,8 @@ package org.talend.dataquality.helpers;
 
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisFactory;
+import org.talend.dataquality.analysis.AnalysisParameters;
+import org.talend.dataquality.analysis.AnalysisType;
 
 /**
  * @author scorreia
@@ -35,5 +37,35 @@ public class AnalysisHelper {
         Analysis analysis = AnalysisFactory.eINSTANCE.createAnalysis();
         analysis.setName(name);
         return analysis;
+    }
+
+    /**
+     * Method "getAnalysisType".
+     * 
+     * @param analysis
+     * @return the analysis type or null if not set
+     */
+    public static AnalysisType getAnalysisType(Analysis analysis) {
+        AnalysisParameters parameters = analysis.getParameters();
+        if (parameters == null) {
+            return null;
+        }
+        // else
+        return parameters.getAnalysisType();
+    }
+
+    /**
+     * Method "setAnalysisType".
+     * 
+     * @param analysis an analysis
+     * @param analysisType the type to set to the analysis
+     */
+    public static void setAnalysisType(Analysis analysis, AnalysisType analysisType) {
+        AnalysisParameters parameters = analysis.getParameters();
+        if (parameters == null) {
+            parameters = AnalysisFactory.eINSTANCE.createAnalysisParameters();
+            analysis.setParameters(parameters);
+        }
+        parameters.setAnalysisType(analysisType);
     }
 }
