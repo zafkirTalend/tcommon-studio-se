@@ -81,6 +81,8 @@ public interface IComponent {
 
     public boolean isDataAutoPropagated();
 
+    public boolean isHashComponent();
+
     public boolean useMerge();
 
     public boolean useLookup();
