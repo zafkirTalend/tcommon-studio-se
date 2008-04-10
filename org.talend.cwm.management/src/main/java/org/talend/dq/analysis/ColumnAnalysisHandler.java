@@ -19,12 +19,15 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.cwm.helper.DescriptionHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.helpers.BooleanExpressionHelper;
 import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.indicators.Indicator;
+
+import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -127,7 +130,7 @@ public class ColumnAnalysisHandler {
         Collection<Indicator> indics = new ArrayList<Indicator>();
         EList<Indicator> allIndics = analysis.getResults().getIndicators();
         for (Indicator indicator : allIndics) {
-            if (indicator.getAnalyzedElement().equals(column)) {
+            if (indicator.getAnalyzedElement() != null && indicator.getAnalyzedElement().equals(column)) {
                 indics.add(indicator);
             }
         }
@@ -141,6 +144,37 @@ public class ColumnAnalysisHandler {
             dataFilters.clear();
         }
         return dataFilters.add(createDomain(datafilterString));
+    }
+
+    public String getStringDataFilter() {
+        AnalysisParameters parameters = analysis.getParameters();
+        if (parameters == null) {
+            return null;
+        }
+        EList<Domain> dataFilters = parameters.getDataFilter();
+        // remove existing filters
+        if (dataFilters.isEmpty()) {
+            return null;
+        }
+
+        for (Domain domain : dataFilters) {
+            if (domain == null) {
+                continue;
+            }
+            EList<RangeRestriction> ranges = domain.getRanges();
+            for (RangeRestriction rangeRestriction : ranges) {
+                BooleanExpressionNode expressions = rangeRestriction.getExpressions();
+                if (expressions == null) {
+                    continue;
+                }
+                Expression expression = expressions.getExpression();
+                if (expression == null) {
+                    continue;
+                }
+                return expression.getBody();
+            }
+        }
+        return null;
     }
 
     private Domain createDomain(String datafilterString) {

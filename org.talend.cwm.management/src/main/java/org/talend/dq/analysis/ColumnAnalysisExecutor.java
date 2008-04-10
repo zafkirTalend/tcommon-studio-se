@@ -49,6 +49,7 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         // --- add indicators
         EList<Indicator> indicators = analysis.getResults().getIndicators();
         for (Indicator indicator : indicators) {
+            assert indicator != null;
             TdColumn tdColumn = SwitchHelpers.COLUMN_SWITCH.doSwitch(indicator.getAnalyzedElement());
             if (tdColumn == null) {
                 continue;
