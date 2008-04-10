@@ -17,8 +17,10 @@ import java.io.FilenameFilter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -118,17 +120,19 @@ public final class DqRepositoryViewService {
             // encode
             String b64 = new String(Base64.encodeBase64(functionalName.getBytes()), "UTF-8");
             // replace special characters
-            techname = AsciiUtils.replaceCharacters(b64, CHARS_TO_REMOVE, REPLACEMENT_CHARS);
+            String date = SMPL_DATE_FMT.format(new Date(System.currentTimeMillis()));
+            techname = AsciiUtils.replaceCharacters(b64, CHARS_TO_REMOVE, REPLACEMENT_CHARS) + date;
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } // .replaceAll(B64ID, PREFIX);
-
         if (log.isDebugEnabled()) {
             log.debug("Functional name: " + functionalName + " -> techname: " + techname);
         }
         return techname;
     }
+
+    private static final SimpleDateFormat SMPL_DATE_FMT = new SimpleDateFormat("yyyyMMddhhmm");
 
     /**
      * Method "listTdDataProviders" list all the connections in the given folder.

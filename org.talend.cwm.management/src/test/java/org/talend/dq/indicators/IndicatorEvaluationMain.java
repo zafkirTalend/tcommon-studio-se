@@ -22,21 +22,32 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.talend.commons.emf.EMFUtil;
+import org.talend.dataquality.indicators.AverageLengthIndicator;
+import org.talend.dataquality.indicators.BlankCountIndicator;
+import org.talend.dataquality.indicators.DistinctCountIndicator;
+import org.talend.dataquality.indicators.DoubleMeanIndicator;
+import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.IntegerMeanIndicator;
 import org.talend.dataquality.indicators.IntegerSumIndicator;
+import org.talend.dataquality.indicators.MaxLengthIndicator;
 import org.talend.dataquality.indicators.MedianIndicator;
+import org.talend.dataquality.indicators.MinLengthIndicator;
+import org.talend.dataquality.indicators.ModeIndicator;
+import org.talend.dataquality.indicators.NullCountIndicator;
+import org.talend.dataquality.indicators.RowCountIndicator;
+import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl;
 import org.talend.dataquality.indicators.util.IndicatorsSwitch;
-import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sql.ConnectionUtils;
+import org.talend.utils.time.TimeTracer;
+
 import orgomg.cwm.foundation.datatypes.DatatypesFactory;
 import orgomg.cwm.foundation.datatypes.QueryExpression;
 
@@ -57,6 +68,8 @@ public class IndicatorEvaluationMain {
 
     private static final char DOT = '.';
 
+    private static Evaluator<String> evaluator = new IndicatorEvaluator();
+
     /**
      * DOC scorreia Comment method "main".
      * 
@@ -68,6 +81,8 @@ public class IndicatorEvaluationMain {
         String driverClassName = connectionParams.getProperty("driver");
         String dbUrl = connectionParams.getProperty("url");
         try {
+            TimeTracer tt = new TimeTracer("Indicator evaluation", null);
+            tt.start();
             // create connection
             Connection connection = ConnectionUtils.createConnection(dbUrl, driverClassName, connectionParams);
 
@@ -85,22 +100,61 @@ public class IndicatorEvaluationMain {
 
             List<String> columns = Arrays.asList(columnsArray);
 
-            Evaluator evaluator = new IndicatorEvaluator();
+            // store in file
+            File file = new File("out/myi." + IndicatorsPackage.eNAME);
+            EMFUtil util = new EMFUtil();
+            Resource resource = util.getResourceSet().createResource(URI.createFileURI(file.getAbsolutePath()));
+            rContents = resource.getContents();
+
             evaluator.setConnection(connection);
 
             // --- create indicators
+            RowCountIndicator rowCountIndicator = IndicatorsFactory.eINSTANCE.createRowCountIndicator();
+            NullCountIndicator nullCountIndicator = IndicatorsFactory.eINSTANCE.createNullCountIndicator();
+            DistinctCountIndicator distinctCountIndicator = IndicatorsFactory.eINSTANCE.createDistinctCountIndicator();
+            DistinctCountIndicator distinctCountIndicator2 = IndicatorsFactory.eINSTANCE.createDistinctCountIndicator();
+            UniqueCountIndicator uniqueCountIndicator = IndicatorsFactory.eINSTANCE.createUniqueCountIndicator();
+            DuplicateCountIndicator duplicateCountIndicator = IndicatorsFactory.eINSTANCE
+                    .createDuplicateCountIndicator();
 
-            MedianIndicator medianIndicator = IndicatorsFactory.eINSTANCE.createMedianIndicator();
+            BlankCountIndicator blankCountIndicator = IndicatorsFactory.eINSTANCE.createBlankCountIndicator();
+
+            MinLengthIndicator minLengthIndicator = IndicatorsFactory.eINSTANCE.createMinLengthIndicator();
+            MaxLengthIndicator maxLengthIndicator = IndicatorsFactory.eINSTANCE.createMaxLengthIndicator();
+            AverageLengthIndicator averageLengthIndicator = IndicatorsFactory.eINSTANCE.createAverageLengthIndicator();
+            AverageLengthIndicator averageLengthIndicator2 = IndicatorsFactory.eINSTANCE.createAverageLengthIndicator();
+
+            ModeIndicator modeIndicator = IndicatorsFactory.eINSTANCE.createModeIndicator();
             FrequencyIndicator textFrequencyIndicator = IndicatorsFactory.eINSTANCE.createFrequencyIndicator();
+            // store in freq indic
+            textFrequencyIndicator.setDistinctCountIndicator(distinctCountIndicator);
+            textFrequencyIndicator.setDistinctCountIndicator(distinctCountIndicator2);
+            textFrequencyIndicator.setUniqueCountIndicator(uniqueCountIndicator);
+            textFrequencyIndicator.setDuplicateCountIndicator(duplicateCountIndicator);
+            textFrequencyIndicator.setModeIndicator(modeIndicator);
 
-            // storeIndicator(columnsArray[0], IndicatorsFactory.eINSTANCE.createFrequencyIndicator());
-            // storeIndicator(columnsArray[0], medianIndicator);
-            // storeIndicator(columnsArray[1], IndicatorsFactory.eINSTANCE.createDoubleMeanIndicator());
-            // storeIndicator(columnsArray[2], IndicatorsFactory.eINSTANCE.createBlankCountIndicator());
-            evaluator.storeIndicator(columnsArray[2], textFrequencyIndicator);
-            // storeIndicator(columnsArray[3], IndicatorsFactory.eINSTANCE.createRowCountIndicator());
-            // storeIndicator(columnsArray[5], IndicatorsFactory.eINSTANCE.createIntegerSumIndicator());
-            // storeIndicator(columnsArray[5], IndicatorsFactory.eINSTANCE.createIntegerMeanIndicator());
+            DoubleMeanIndicator doubleMeanIndicator = IndicatorsFactory.eINSTANCE.createDoubleMeanIndicator();
+            IntegerMeanIndicator integerMeanIndicator = IndicatorsFactory.eINSTANCE.createIntegerMeanIndicator();
+            MedianIndicator medianIndicator = IndicatorsFactory.eINSTANCE.createMedianIndicator();
+
+            IntegerSumIndicator integerSumIndicator = IndicatorsFactory.eINSTANCE.createIntegerSumIndicator();
+
+            addIndicator(columnsArray[0], medianIndicator);
+            addIndicator(columnsArray[1], doubleMeanIndicator);
+            addIndicator(columnsArray[2], blankCountIndicator);
+            addIndicator(columnsArray[5], nullCountIndicator);
+            // addIndicator(columnsArray[2], textFrequencyIndicator);
+            // addIndicator(columnsArray[2], distinctCountIndicator); // probably not useful?
+            // addIndicator(columnsArray[2], uniqueCountIndicator); // probably not useful?
+            // addIndicator(columnsArray[2], duplicateCountIndicator); // probably not useful?
+            // addIndicator(columnsArray[2], modeIndicator); // probably not useful?
+            addIndicator(columnsArray[3], rowCountIndicator);
+            addIndicator(columnsArray[5], integerSumIndicator);
+            addIndicator(columnsArray[5], integerMeanIndicator);
+            addIndicator(columnsArray[2], averageLengthIndicator);
+            addIndicator(columnsArray[3], averageLengthIndicator2);
+            addIndicator(columnsArray[3], minLengthIndicator);
+            addIndicator(columnsArray[3], maxLengthIndicator);
 
             // build query on columns
             // TODO scorreia add filter somewhere here...
@@ -110,9 +164,10 @@ public class IndicatorEvaluationMain {
             QueryExpression queryExpression = DatatypesFactory.eINSTANCE.createQueryExpression();
             queryExpression.setBody(selectCols);
             queryExpression.setLanguage("SQL"); // TODO scorreia externalize this as a constant
-
-            evaluator.setFetchSize(100);
+            tt.start("compute");
+            evaluator.setFetchSize(10000);
             evaluator.evaluateIndicators(selectCols);
+            tt.end("compute");
 
             // Print indicators the median
             System.out.println("Median=" + medianIndicator.getMedian());
@@ -122,42 +177,13 @@ public class IndicatorEvaluationMain {
             for (String col : columns) {
                 printIndicators(evaluator.getIndicators(col));
             }
-
-            // store in file
-            File file = new File("out/myi." + IndicatorsPackage.eNAME);
-            EMFUtil util = new EMFUtil();
-            if (!util.addPoolToResourceSet(file.toURI().toString(), textFrequencyIndicator)) {
-                System.err.println(util.getLastErrorMessage());
-            }
+            tt.start("save");
             util.save();
+            tt.end("save");
+            tt.end();
 
             // test reload this file
-            ResourceSet rs = new ResourceSetImpl();
-            Resource r = rs.getResource(URI.createFileURI(file.getAbsolutePath()), true);
-
-            EList<EObject> contents = r.getContents();
-            if (contents.isEmpty()) {
-                System.err.println("No content in " + r);
-            }
-            IndicatorsSwitch<FrequencyIndicator> mySwitch = new IndicatorsSwitch<FrequencyIndicator>() {
-
-                @Override
-                public FrequencyIndicator caseFrequencyIndicator(FrequencyIndicator object) {
-                    return object;
-                }
-
-            };
-            for (EObject object : contents) {
-                FrequencyIndicator freqI = mySwitch.doSwitch(object);
-                if (freqI != null) {
-                    int uniqueValueCount = freqI.getUniqueValueCount();
-                    System.out.println("nb unique values = " + uniqueValueCount);
-                    EList<Object> uniqueValues = freqI.getUniqueValues();
-                    for (Object data : uniqueValues) {
-                        System.out.println("unique value= " + data);
-                    }
-                }
-            }
+            // LoadSerialData.main(args);
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -172,6 +198,13 @@ public class IndicatorEvaluationMain {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    private static EList<EObject> rContents;
+
+    private static void addIndicator(String column, Indicator indicator) {
+        evaluator.storeIndicator(column, indicator);
+        rContents.add(indicator);
     }
 
     /**

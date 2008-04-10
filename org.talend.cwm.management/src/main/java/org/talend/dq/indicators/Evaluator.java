@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,6 +44,8 @@ public abstract class Evaluator<T> {
 
     protected Map<T, List<Indicator>> elementToIndicators = new HashMap<T, List<Indicator>>();
 
+    private Set<Indicator> allIndicators = new HashSet<Indicator>();
+
     /**
      * Method "storeIndicator" stores the mapping between the analyzed element name and its indicators. The column name
      * should be completely qualified in order to avoid confusion when several elements have the same label).
@@ -52,6 +55,7 @@ public abstract class Evaluator<T> {
      * @return true if ok
      */
     public boolean storeIndicator(T elementToAnalyze, Indicator indicator) {
+        this.allIndicators.add(indicator);
         return MultiMapHelper.addUniqueObjectToListMap(elementToAnalyze, indicator, elementToIndicators);
     }
 
@@ -82,7 +86,18 @@ public abstract class Evaluator<T> {
             return rc;
         }
         try {
-            return executeSqlQuery(sqlStatement);
+            if (!prepareIndicators()) {
+                rc.setReturnCode("Problem when preparing all indicators", false);
+                return rc;
+            }
+            rc = executeSqlQuery(sqlStatement);
+            if (!rc.isOk()) {
+                return rc;
+            }
+            if (!finalizeIndicators()) {
+                rc.setReturnCode("Problem when finalizing all indicators", false);
+            }
+            return rc;
         } catch (SQLException e) {
             if (log.isDebugEnabled()) {
                 log.debug("Exception while executing SQL query " + sqlStatement, e);
@@ -90,6 +105,26 @@ public abstract class Evaluator<T> {
             rc.setReturnCode(e.getMessage(), false);
         }
         return rc;
+    }
+
+    private boolean finalizeIndicators() {
+        boolean ok = true;
+        for (Indicator indic : allIndicators) {
+            if (!indic.finalizeComputation()) {
+                ok = false;
+            }
+        }
+        return ok;
+    }
+
+    private boolean prepareIndicators() {
+        boolean ok = true;
+        for (Indicator indic : allIndicators) {
+            if (!indic.prepare()) {
+                ok = false;
+            }
+        }
+        return ok;
     }
 
     /**
