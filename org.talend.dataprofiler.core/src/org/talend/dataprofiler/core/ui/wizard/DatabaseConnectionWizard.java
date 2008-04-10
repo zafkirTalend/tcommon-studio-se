@@ -14,7 +14,6 @@ package org.talend.dataprofiler.core.ui.wizard;
 
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -25,9 +24,9 @@ import org.talend.cwm.management.api.ConnectionService;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
-import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -35,17 +34,11 @@ import org.talend.utils.sugars.TypedReturnCode;
  */
 public class DatabaseConnectionWizard extends Wizard implements INewWizard {
 
-    private static Logger log = Logger.getLogger(DatabaseConnectionWizard.class);
-
     private boolean creation;
 
     private PropertiesWizardPage propertiesWizardPage;
 
     private ConnectionParameters connectionProperty;
-
-    private IWorkbench workbench;
-
-    private Object selection;
 
     private DatabaseWizardPage databaseWizardPage;
 
@@ -56,16 +49,13 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
      * @param selection
      * @param existingNames
      */
-    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
-            String[] existingNames) {
+    public DatabaseConnectionWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection, String[] existingNames) {
         super();
         this.init(workbench, selection);
         this.creation = creation;
     }
 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
-        this.workbench = workbench;
-        this.selection = selection;
     }
 
     /**
@@ -76,7 +66,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
         connectionProperty = new ConnectionParameters();
         connectionProperty.setParameters(new Properties());
-        
+
         propertiesWizardPage = new Step0WizardPage(connectionProperty, null, false, creation);
         databaseWizardPage = new DatabaseWizardPage("DatabaseParam Page", connectionProperty);
 
@@ -110,20 +100,15 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     public boolean performFinish() {
         TypedReturnCode<TdDataProvider> rc = ConnectionService.createConnection(this.connectionProperty);
         if (!rc.isOk()) {
-            MessageDialog.openInformation(getShell(), "Create  connections", "Create connection failure:"
-                    + rc.getMessage());
+            MessageDialog.openInformation(getShell(), "Create  connections", "Create connection failure:" + rc.getMessage());
             return false;
         }
         TdDataProvider dataProvider = rc.getObject();
-        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(dataProvider.getName()),
-                dataProvider);
+        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(dataProvider.getName()), dataProvider);
         // MODSCA 2008-03-10 save the provider
-        if (DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, this.connectionProperty
-                .getFolderProvider())) {
-            RefreshAction refreshAction = new RefreshAction(this.getShell());
-            refreshAction.run();
+        if (DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, this.connectionProperty.getFolderProvider())) {
+            CorePlugin.getDefault().refreshWorkSpace();
         }
-        // DqRepositoryViewService.listTdDataProviders(folder)
         return true;
     }
 

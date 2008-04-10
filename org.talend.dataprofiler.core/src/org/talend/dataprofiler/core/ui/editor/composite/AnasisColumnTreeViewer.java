@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.composite;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -29,7 +28,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
@@ -39,7 +37,7 @@ import org.talend.dataquality.indicators.DataminingType;
  * @author rli
  * 
  */
-public class AnasisColumnTreeViewer {
+public class AnasisColumnTreeViewer extends AbstractPagePart {
 
     private static final int WIDTH1_CELL = 75;
 
@@ -51,15 +49,9 @@ public class AnasisColumnTreeViewer {
 
     private ColumnIndicator[] columnIndicators;
 
-    private boolean isDirty;
-
-    private PropertyChangeSupport propertyChangeSupport;
-
     public AnasisColumnTreeViewer(Composite parent) {
         parentComp = parent;
-        // this.tree = tree;
         this.tree = createTree(parent);
-        propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     public AnasisColumnTreeViewer(Composite parent, ColumnIndicator[] columnIndicators) {
@@ -230,26 +222,6 @@ public class AnasisColumnTreeViewer {
 
     public ColumnIndicator[] getColumnIndicator() {
         return this.columnIndicators;
-    }
-
-    public void setDirty(boolean dirty) {
-        if (isDirty != dirty) {
-            this.isDirty = dirty;
-            propertyChangeSupport.firePropertyChange(PluginConstant.ISDIRTY_PROPERTY, null, Boolean.valueOf(dirty));
-        }
-    }
-
-    public boolean isDirty() {
-        return isDirty;
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-
     }
 
 }

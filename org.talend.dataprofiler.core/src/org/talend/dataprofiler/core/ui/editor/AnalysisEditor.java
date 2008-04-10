@@ -24,6 +24,7 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
+import org.talend.dataquality.analysis.AnalysisType;
 
 /**
  * @author rli
@@ -35,6 +36,8 @@ public class AnalysisEditor extends FormEditor {
 
     private boolean isDirty = false;
 
+    private AnalysisType analysisType;
+
     /**
      * 
      */
@@ -42,8 +45,18 @@ public class AnalysisEditor extends FormEditor {
     }
 
     protected void addPages() {
-        try {
+        switch (analysisType) {
+        case COLUMN:
             masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis settings");
+            break;
+        case CONNECTION:
+            masterPage = new ConnectionMasterDetailsPage(this, "MasterPage", "analysis settings");
+            break;
+        default:
+            masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis settings");
+            break;
+        }
+        try {
             addPage(masterPage);
         } catch (PartInitException e) {
             ExceptionHandler.process(e, Level.ERROR);
@@ -57,7 +70,7 @@ public class AnalysisEditor extends FormEditor {
         this.isDirty = false;
         firePropertyChange(IEditorPart.PROP_DIRTY);
     }
-    
+
     protected void firePropertyChange(final int propertyId) {
         super.firePropertyChange(propertyId);
     }
@@ -79,9 +92,10 @@ public class AnalysisEditor extends FormEditor {
     public boolean isDirty() {
         return isDirty || super.isDirty();
     }
-    
+
     public void setDirty(boolean isDirty) {
         this.isDirty = isDirty;
+        firePropertyChange(IEditorPart.PROP_DIRTY);
     }
 
     /*
@@ -99,8 +113,10 @@ public class AnalysisEditor extends FormEditor {
         if (input instanceof FileEditorInput) {
             URI uri = ((FileEditorInput) input).getFile().getLocationURI();
             analysisInput = new AnalysisEditorInuput(new File(uri));
+            analysisType = analysisInput.getAnalysisType();
             super.setInput(analysisInput);
         } else if (input instanceof AnalysisEditorInuput) {
+            analysisType = ((AnalysisEditorInuput) input).getAnalysisType();
             super.setInput(input);
         }
 

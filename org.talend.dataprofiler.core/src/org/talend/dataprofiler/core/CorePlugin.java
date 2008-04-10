@@ -17,6 +17,7 @@ import java.io.File;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -35,6 +36,8 @@ public class CorePlugin extends AbstractUIPlugin {
 
     // The shared instance
     private static CorePlugin plugin;
+
+    private RefreshAction refreshAction;
 
     /**
      * The constructor.
@@ -113,5 +116,13 @@ public class CorePlugin extends AbstractUIPlugin {
             ExceptionHandler.process(e);
             return null;
         }
+    }
+
+    public void refreshWorkSpace() {
+        if (refreshAction == null) {
+            refreshAction = new RefreshAction(this.getWorkbench().getActiveWorkbenchWindow().getShell());
+
+        }
+        refreshAction.run();
     }
 }

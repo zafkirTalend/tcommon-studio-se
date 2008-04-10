@@ -34,7 +34,9 @@ import org.eclipse.ui.IStorageEditorInput;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.analysis.util.AnalysisSwitch;
+import org.talend.dataquality.helpers.AnalysisHelper;
 
 /**
  * @author rli
@@ -163,6 +165,10 @@ public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableEl
             analysis = mySwitch.doSwitch(contents.get(0));
         }
         return analysis;
+    }
+
+    public AnalysisType getAnalysisType() {
+        return AnalysisHelper.getAnalysisType(getAnalysis());
     }
 
     /*

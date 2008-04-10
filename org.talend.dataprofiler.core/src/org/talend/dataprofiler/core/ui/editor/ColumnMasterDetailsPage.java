@@ -19,12 +19,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -47,6 +50,7 @@ import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
+import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
@@ -78,6 +82,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     private ColumnAnalysisHandler analysisHandler;
 
     private ColumnIndicator[] currentColumnIndicators;
+
+    private boolean isDirty = false;
 
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
@@ -157,6 +163,17 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
                 .getDescription());
+
+        ModifyListener listener = new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+            }
+
+        };
+        nameText.addModifyListener(listener);
+        purposeText.addModifyListener(listener);
+        descriptionText.addModifyListener(listener);
         section.setClient(labelButtonClient);
     }
 
@@ -211,6 +228,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
 
         Composite sectionClient = toolkit.createComposite(section);
         dataFilterComp = new DataFilterComp(sectionClient);
+        dataFilterComp.addPropertyChangeListener(this);
         section.setClient(sectionClient);
     }
 
@@ -258,8 +276,11 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         super.doSave(monitor);
         try {
             saveAnalysis();
+            this.isDirty = false;
             treeViewer.setDirty(false);
+            dataFilterComp.setDirty(false);
         } catch (DataprofilerCoreException e) {
+            ExceptionHandler.process(e, Level.ERROR);
             e.printStackTrace();
         }
     }
@@ -296,6 +317,13 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         // DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
     }
 
+    public void setDirty(boolean isDirty) {
+        if (this.isDirty != isDirty) {
+            this.isDirty = isDirty;
+            ((AnalysisEditor) this.getEditor()).firePropertyChange(IEditorPart.PROP_DIRTY);
+        }
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -303,7 +331,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      */
     @Override
     public boolean isDirty() {
-        return super.isDirty() || treeViewer.isDirty();
+        return super.isDirty() || isDirty || treeViewer.isDirty() || dataFilterComp.isDirty();
     }
 
     /*
@@ -316,6 +344,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         super.dispose();
         if (this.treeViewer != null) {
             this.treeViewer.removePropertyChangeListener(this);
+        }
+        if (dataFilterComp != null) {
+            this.dataFilterComp.removePropertyChangeListener(this);
         }
     }
 

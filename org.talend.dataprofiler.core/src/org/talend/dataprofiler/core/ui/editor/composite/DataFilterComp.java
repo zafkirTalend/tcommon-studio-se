@@ -14,6 +14,8 @@ package org.talend.dataprofiler.core.ui.editor.composite;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -24,7 +26,7 @@ import org.eclipse.swt.widgets.Text;
  * @author rli
  * 
  */
-public class DataFilterComp {
+public class DataFilterComp extends AbstractPagePart {
 
     public DataFilterComp(Composite parent) {
         this.createContent(parent);
@@ -36,6 +38,13 @@ public class DataFilterComp {
         Text text = new Text(parent, SWT.BORDER | SWT.MULTI);
         GridDataFactory.fillDefaults().span(2, 3).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(text);
         ((GridData) text.getLayoutData()).heightHint = 150;
+        text.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+            }
+
+        });
 
         Composite buttonsComp = new Composite(parent, SWT.None);
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
