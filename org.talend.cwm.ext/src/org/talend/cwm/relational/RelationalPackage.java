@@ -1729,13 +1729,22 @@ public interface RelationalPackage extends EPackage {
     int TD_COLUMN__OPTION_SCOPE_COLUMN_SET = orgomg.cwm.resource.relational.RelationalPackage.COLUMN__OPTION_SCOPE_COLUMN_SET;
 
     /**
+     * The feature id for the '<em><b>Java Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_COLUMN__JAVA_TYPE = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 0;
+
+    /**
      * The number of structural features of the '<em>Td Column</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_COLUMN_FEATURE_COUNT = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 0;
+    int TD_COLUMN_FEATURE_COUNT = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 1;
 
 
     /**
@@ -2811,6 +2820,17 @@ public interface RelationalPackage extends EPackage {
     EClass getTdColumn();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.cwm.relational.TdColumn#getJavaType <em>Java Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Java Type</em>'.
+     * @see org.talend.cwm.relational.TdColumn#getJavaType()
+     * @see #getTdColumn()
+     * @generated
+     */
+    EAttribute getTdColumn_JavaType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.cwm.relational.TdSqlDataType <em>Td Sql Data Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2988,6 +3008,14 @@ public interface RelationalPackage extends EPackage {
          * @generated
          */
         EClass TD_COLUMN = eINSTANCE.getTdColumn();
+
+        /**
+         * The meta object literal for the '<em><b>Java Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TD_COLUMN__JAVA_TYPE = eINSTANCE.getTdColumn_JavaType();
 
         /**
          * The meta object literal for the '{@link org.talend.cwm.relational.impl.TdSqlDataTypeImpl <em>Td Sql Data Type</em>}' class.

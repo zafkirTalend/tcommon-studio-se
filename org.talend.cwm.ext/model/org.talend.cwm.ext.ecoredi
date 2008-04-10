@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_x4RGIJ5xEdyb0Z-YZ5spFw" activeDiagram="_TQbt8AGJEd2dvfjTovqltw">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_x4RGIJ5xEdyb0Z-YZ5spFw" activeDiagram="_h7GpYJ5yEdyb0Z-YZ5spFw">
   <model href="org.talend.cwm.ext.ecore#/"/>
   <diagrams xmi:id="_4xqdULlAEdyVO9N2bdEv6g" position="0,0" size="100,100" name="analysis" viewport="0,0">
     <property xmi:id="_4yMo0LlAEdyVO9N2bdEv6g" key="pageFormatName" value="A2"/>
@@ -299,7 +299,7 @@
   </diagrams>
   <subdiagrams xmi:id="_h7C_AJ5yEdyb0Z-YZ5spFw">
     <model href="org.talend.cwm.ext.ecore#//relational"/>
-    <diagrams xmi:id="_h7GpYJ5yEdyb0Z-YZ5spFw" position="0,0" size="100,100" name="relational inheritance" viewport="0,203">
+    <diagrams xmi:id="_h7GpYJ5yEdyb0Z-YZ5spFw" position="0,0" size="100,100" name="relational inheritance" viewport="0,29">
       <property xmi:id="_h7mYoJ5yEdyb0Z-YZ5spFw" key="pageFormatName" value="A3"/>
       <property xmi:id="_h7mYoZ5yEdyb0Z-YZ5spFw" key="diagramWidth" value="1188"/>
       <property xmi:id="_h7mYop5yEdyb0Z-YZ5spFw" key="diagramHeight" value="1680"/>
@@ -560,6 +560,11 @@
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_9j5Fc6lWEdy7orlER5pF5Q" presentation="default">
             <element href="org.talend.cwm.ext.ecore#//relational/TdColumn"/>
           </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_48U7IAVxEd27H5GBgvhOuw" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_48U7IQVxEd27H5GBgvhOuw" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/javaType"/>
+            </semanticModel>
+          </contained>
         </contained>
         <contained xsi:type="di:GraphNode" xmi:id="_9j5FdKlWEdy7orlER5pF5Q">
           <property xmi:id="_9j5FdalWEdy7orlER5pF5Q" key="eStructuralFeatureID" value="11"/>

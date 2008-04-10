@@ -372,6 +372,7 @@ public final class DatabaseContentRetriever {
             TdColumn column = ColumnHelper.createTdColumn(columns.getString(GetColumn.COLUMN_NAME.name()));
             column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
             column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
+            column.setJavaType(columns.getInt(GetColumn.DATA_TYPE.name()));
             // TODO columns.getString(GetColumn.TYPE_NAME.name());
 
             // TODO get column description (comment)

@@ -18,6 +18,7 @@
       </genClasses>
       <genClasses ecoreClass="org.talend.cwm.ext.ecore#//relational/TdSchema"/>
       <genClasses ecoreClass="org.talend.cwm.ext.ecore#//relational/TdColumn">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.talend.cwm.ext.ecore#//relational/TdColumn/javaType"/>
         <genOperations ecoreOperation="org.talend.cwm.ext.ecore#//relational/TdColumn/setContentType">
           <genParameters ecoreParameter="org.talend.cwm.ext.ecore#//relational/TdColumn/setContentType/contentType"/>
         </genOperations>
