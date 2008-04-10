@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators.impl;
@@ -12,13 +11,13 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.LengthIndicator;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Length Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Length Indicator</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -29,10 +28,11 @@ import org.talend.dataquality.indicators.LengthIndicator;
  * @generated
  */
 public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndicator {
+
     /**
      * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLength()
      * @generated
      * @ordered
@@ -41,8 +41,8 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
 
     /**
      * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLength()
      * @generated
      * @ordered
@@ -50,8 +50,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     protected int length = LENGTH_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected LengthIndicatorImpl() {
@@ -59,8 +58,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -69,8 +67,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getLength() {
@@ -78,8 +75,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLength(int newLength) {
@@ -90,8 +86,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -104,8 +99,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -119,8 +113,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -134,8 +127,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -148,19 +140,15 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (length: ");
-        result.append(length);
-        result.append(')');
-        return result.toString();
+        StringBuffer buf = new StringBuffer(IndicatorDocumentationHandler.getName(this.eClass().getClassifierID()));
+        buf.append("= ");
+        buf.append(this.getLength());
+        return buf.toString();
     }
-
-} //LengthIndicatorImpl
+} // LengthIndicatorImpl

@@ -561,6 +561,24 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSumIndicator_SumStr() {
+        return (EAttribute)sumIndicatorEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSumIndicator_Datatype() {
+        return (EAttribute)sumIndicatorEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1155,6 +1173,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         meanIndicatorEClass = createEClass(MEAN_INDICATOR);
 
         sumIndicatorEClass = createEClass(SUM_INDICATOR);
+        createEAttribute(sumIndicatorEClass, SUM_INDICATOR__SUM_STR);
+        createEAttribute(sumIndicatorEClass, SUM_INDICATOR__DATATYPE);
 
         compositeIndicatorEClass = createEClass(COMPOSITE_INDICATOR);
         createEReference(compositeIndicatorEClass, COMPOSITE_INDICATOR__INDICATORS);
@@ -1343,6 +1363,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "prepare", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+        addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "finalizeComputation", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(meanIndicatorEClass, MeanIndicator.class, "MeanIndicator", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1352,7 +1374,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         op = addEOperation(meanIndicatorEClass, ecorePackage.getEDouble(), "getMeanWithNulls", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEDouble(), "valueForNull", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(sumIndicatorEClass, SumIndicator.class, "SumIndicator", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(sumIndicatorEClass, SumIndicator.class, "SumIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSumIndicator_SumStr(), ecorePackage.getEString(), "sumStr", null, 0, 1, SumIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSumIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, SumIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(compositeIndicatorEClass, CompositeIndicator.class, "CompositeIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCompositeIndicator_Indicators(), this.getIndicator(), null, "indicators", null, 0, -1, CompositeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1433,9 +1457,19 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         initEClass(distinctCountIndicatorEClass, DistinctCountIndicator.class, "DistinctCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+        addEOperation(distinctCountIndicatorEClass, this.getJavaSet(), "getDistinctValues", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(uniqueCountIndicatorEClass, UniqueCountIndicator.class, "UniqueCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+        addEOperation(uniqueCountIndicatorEClass, this.getJavaSet(), "getUniqueValues", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(uniqueCountIndicatorEClass, ecorePackage.getEInt(), "getUniqueValueCount", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(duplicateCountIndicatorEClass, DuplicateCountIndicator.class, "DuplicateCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        addEOperation(duplicateCountIndicatorEClass, this.getJavaSet(), "getDuplicateValues", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(duplicateCountIndicatorEClass, ecorePackage.getEInt(), "getDuplicateValueCount", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(iqrIndicatorEClass, IQRIndicator.class, "IQRIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

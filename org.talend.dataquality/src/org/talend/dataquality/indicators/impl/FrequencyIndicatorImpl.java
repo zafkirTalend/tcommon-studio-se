@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
@@ -110,10 +111,10 @@ public class FrequencyIndicatorImpl extends CompositeIndicatorImpl implements Fr
      * <!-- end-user-doc -->
      * 
      * @see #getValueToFreq()
-     * @generated
+     * @generated NOT
      * @ordered
      */
-    protected static final HashMap<Object, Long> VALUE_TO_FREQ_EDEFAULT = null;
+    protected static final HashMap<Object, Long> VALUE_TO_FREQ_EDEFAULT = new HashMap<Object, Long>();
 
     /**
      * The cached value of the '{@link #getValueToFreq() <em>Value To Freq</em>}' attribute. <!-- begin-user-doc -->
@@ -734,7 +735,7 @@ public class FrequencyIndicatorImpl extends CompositeIndicatorImpl implements Fr
 
     @Override
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuffer buf = new StringBuffer(IndicatorDocumentationHandler.getName(this.eClass().getClassifierID()));
         Set<Object> keySet = this.valueToFreq.keySet();
         for (Object object : keySet) {
             buf.append(object);

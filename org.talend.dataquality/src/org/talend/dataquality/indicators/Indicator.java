@@ -236,4 +236,15 @@ public interface Indicator extends ModelElement {
      */
     boolean prepare();
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * can be called after having given all objects to handle. Subclasses can use this method for doing some computation that must be done at the end only.
+     * <!-- end-model-doc -->
+     * @model
+     * @generated
+     */
+    boolean finalizeComputation();
+
 } // Indicator

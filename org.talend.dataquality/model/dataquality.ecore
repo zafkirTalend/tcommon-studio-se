@@ -111,6 +111,11 @@
           <details key="documentation" value="Prepares this indicator for a computation. This method can be used for initialization some internal state data from parameters. Or initializing some internal values before handling data. "/>
         </eAnnotations>
       </eOperations>
+      <eOperations name="finalizeComputation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="can be called after having given all objects to handle. Subclasses can use this method for doing some computation that must be done at the end only."/>
+        </eAnnotations>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -130,7 +135,10 @@
         <eParameters name="valueForNull" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       </eOperations>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="SumIndicator" abstract="true" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SumIndicator" eSuperTypes="#//indicators/Indicator">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumStr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="#//indicators/Datatype"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
           eType="#//indicators/Indicator" containment="true"/>
@@ -291,9 +299,21 @@
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="NullCountIndicator" eSuperTypes="#//indicators/Indicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="DistinctCountIndicator" eSuperTypes="#//indicators/Indicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="UniqueCountIndicator" eSuperTypes="#//indicators/Indicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="DuplicateCountIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DistinctCountIndicator" eSuperTypes="#//indicators/Indicator">
+      <eOperations name="getDistinctValues" eType="#//indicators/JavaSet">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns the set of distinct values. (This set is larger than the Unique values set)."/>
+        </eAnnotations>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UniqueCountIndicator" eSuperTypes="#//indicators/Indicator">
+      <eOperations name="getUniqueValues" eType="#//indicators/JavaSet"/>
+      <eOperations name="getUniqueValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DuplicateCountIndicator" eSuperTypes="#//indicators/Indicator">
+      <eOperations name="getDuplicateValues" eType="#//indicators/JavaSet"/>
+      <eOperations name="getDuplicateValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IQRIndicator" eSuperTypes="#//indicators/RangeIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MinLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>

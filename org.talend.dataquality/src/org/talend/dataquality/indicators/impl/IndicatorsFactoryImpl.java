@@ -67,6 +67,7 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
         switch (eClass.getClassifierID()) {
             case IndicatorsPackage.INDICATOR: return createIndicator();
             case IndicatorsPackage.ROW_COUNT_INDICATOR: return createRowCountIndicator();
+            case IndicatorsPackage.SUM_INDICATOR: return createSumIndicator();
             case IndicatorsPackage.COMPOSITE_INDICATOR: return createCompositeIndicator();
             case IndicatorsPackage.RANGE_INDICATOR: return createRangeIndicator();
             case IndicatorsPackage.BOX_INDICATOR: return createBoxIndicator();
@@ -168,6 +169,16 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     public RowCountIndicator createRowCountIndicator() {
         RowCountIndicatorImpl rowCountIndicator = new RowCountIndicatorImpl();
         return rowCountIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SumIndicator createSumIndicator() {
+        SumIndicatorImpl sumIndicator = new SumIndicatorImpl();
+        return sumIndicator;
     }
 
     /**

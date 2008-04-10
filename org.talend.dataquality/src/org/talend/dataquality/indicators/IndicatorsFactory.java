@@ -44,6 +44,15 @@ public interface IndicatorsFactory extends EFactory {
     RowCountIndicator createRowCountIndicator();
 
     /**
+     * Returns a new object of class '<em>Sum Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Sum Indicator</em>'.
+     * @generated
+     */
+    SumIndicator createSumIndicator();
+
+    /**
      * Returns a new object of class '<em>Composite Indicator</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

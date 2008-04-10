@@ -316,7 +316,10 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
     public boolean handle(Object data) {
         medianComputed = false; // tells that median should be recomputed.
         boolean ok = super.handle(data);
-        // TODO scorreia handle null values
+        // TODO scorreia handle null values (handle case when null is replaced by a default value.
+        if (data == null) {
+            return ok;
+        }
         return ok && AlgoUtils.incrementValueCounts(data, this.getFrequenceTable());
     }
 

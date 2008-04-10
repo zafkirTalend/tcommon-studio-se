@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators.impl;
@@ -12,18 +11,17 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.MinLengthIndicator;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Min Length Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Min Length Indicator</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class MinLengthIndicatorImpl extends LengthIndicatorImpl implements MinLengthIndicator {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected MinLengthIndicatorImpl() {
@@ -31,8 +29,7 @@ public class MinLengthIndicatorImpl extends LengthIndicatorImpl implements MinLe
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +37,22 @@ public class MinLengthIndicatorImpl extends LengthIndicatorImpl implements MinLe
         return IndicatorsPackage.Literals.MIN_LENGTH_INDICATOR;
     }
 
-} //MinLengthIndicatorImpl
+    /*
+     * (non-Javadoc) ADDED scorreia 2008-04-08 compute min length
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#handle(java.lang.Object)
+     */
+    @Override
+    public boolean handle(Object data) {
+        boolean ok = super.handle(data);
+        if (data != null) {
+            String str = (String) data;
+            if (length > str.length()) {
+                length = str.length();
+            }
+        }
+        // TODO scorreia handle null data
+        return ok;
+    }
+
+} // MinLengthIndicatorImpl

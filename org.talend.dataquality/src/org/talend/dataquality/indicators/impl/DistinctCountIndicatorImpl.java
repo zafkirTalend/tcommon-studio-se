@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 
 import org.talend.dataquality.indicators.DistinctCountIndicator;
@@ -38,6 +39,17 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
     @Override
     protected EClass eStaticClass() {
         return IndicatorsPackage.Literals.DISTINCT_COUNT_INDICATOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Set<Object> getDistinctValues() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
     }
 
 } //DistinctCountIndicatorImpl

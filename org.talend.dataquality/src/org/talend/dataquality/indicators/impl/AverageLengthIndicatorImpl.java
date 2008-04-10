@@ -1,24 +1,19 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Average Length Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Average Length Indicator</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -29,10 +24,11 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * @generated
  */
 public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements AverageLengthIndicator {
+
     /**
      * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSumLength()
      * @generated
      * @ordered
@@ -41,8 +37,8 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getSumLength()
      * @generated
      * @ordered
@@ -50,8 +46,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     protected long sumLength = SUM_LENGTH_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected AverageLengthIndicatorImpl() {
@@ -59,8 +54,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -69,8 +63,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public long getSumLength() {
@@ -78,8 +71,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSumLength(long newSumLength) {
@@ -90,8 +82,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -104,8 +95,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -119,8 +109,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -134,8 +123,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -148,19 +136,43 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sumLength: ");
-        result.append(sumLength);
-        result.append(')');
-        return result.toString();
+        return super.toString();
     }
 
-} //AverageLengthIndicatorImpl
+    /*
+     * (non-Javadoc) ADDED scorreia 2008-04-08 compute sum
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#handle(java.lang.Object)
+     */
+    @Override
+    public boolean handle(Object data) {
+        boolean ok = super.handle(data);
+        if (data != null) {
+            String str = (String) data;
+            sumLength += str.length();
+        }
+        // TODO scorreia handle case when data is null and should be replaced by empty string
+        return ok;
+    }
+
+    /*
+     * (non-Javadoc) ADDED scorreia 2008-04-08 get average length
+     * 
+     * @see org.talend.dataquality.indicators.impl.LengthIndicatorImpl#getLength()
+     */
+    @Override
+    public int getLength() {
+        if (count == 0) {
+            return 0;
+        }
+        // else
+        return (int) (sumLength / count); // CAST in int
+    }
+
+} // AverageLengthIndicatorImpl

@@ -127,6 +127,7 @@
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getPurpose"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getLongDescription"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/prepare"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/finalizeComputation"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RowCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MeanIndicator">
@@ -135,7 +136,10 @@
           <genParameters ecoreParameter="dataquality.ecore#//indicators/MeanIndicator/getMeanWithNulls/valueForNull"/>
         </genOperations>
       </genClasses>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/SumIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/SumIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/SumIndicator/sumStr"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/SumIndicator/datatype"/>
+      </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/CompositeIndicator">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CompositeIndicator/indicators"/>
@@ -210,9 +214,17 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/ModeIndicator/mode"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/NullCountIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/DistinctCountIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/UniqueCountIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/DuplicateCountIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/DistinctCountIndicator">
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/DistinctCountIndicator/getDistinctValues"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/UniqueCountIndicator">
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/UniqueCountIndicator/getUniqueValues"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/UniqueCountIndicator/getUniqueValueCount"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/DuplicateCountIndicator">
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/DuplicateCountIndicator/getDuplicateValues"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/DuplicateCountIndicator/getDuplicateValueCount"/>
+      </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IQRIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/TextIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MinLengthIndicator"/>

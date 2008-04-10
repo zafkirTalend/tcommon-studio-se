@@ -75,8 +75,7 @@ public class BlankCountIndicatorImpl extends TextIndicatorImpl implements BlankC
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBlankCount(int newBlankCount) {
@@ -142,16 +141,14 @@ public class BlankCountIndicatorImpl extends TextIndicatorImpl implements BlankC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * 
+     * @generated NOT
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (blankCount: ");
+        StringBuffer result = new StringBuffer();
+        result.append("blankCount: ");
         result.append(blankCount);
-        result.append(')');
         return result.toString();
     }
 

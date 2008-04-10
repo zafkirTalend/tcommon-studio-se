@@ -1,29 +1,28 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.NullCountIndicator;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Null Count Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Null Count Indicator</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
 public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIndicator {
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected NullCountIndicatorImpl() {
@@ -31,8 +30,7 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -40,4 +38,17 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
         return IndicatorsPackage.Literals.NULL_COUNT_INDICATOR;
     }
 
-} //NullCountIndicatorImpl
+    /*
+     * (non-Javadoc) ADDED scorreia 2008-04-08 toString()
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer(IndicatorDocumentationHandler.getName(this.eClass().getClassifierID()));
+        buf.append("= ");
+        buf.append(this.nullCount);
+        return buf.toString();
+    }
+
+} // NullCountIndicatorImpl

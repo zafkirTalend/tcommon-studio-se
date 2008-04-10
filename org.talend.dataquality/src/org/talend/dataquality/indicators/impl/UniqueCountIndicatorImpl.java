@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -38,6 +39,28 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
     @Override
     protected EClass eStaticClass() {
         return IndicatorsPackage.Literals.UNIQUE_COUNT_INDICATOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Set<Object> getUniqueValues() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getUniqueValueCount() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
     }
 
 } //UniqueCountIndicatorImpl

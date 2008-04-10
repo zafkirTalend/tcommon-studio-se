@@ -1032,13 +1032,31 @@ public interface IndicatorsPackage extends EPackage {
     int SUM_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUM_INDICATOR__SUM_STR = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUM_INDICATOR__DATATYPE = INDICATOR_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Sum Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SUM_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
+    int SUM_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.CompositeIndicatorImpl <em>Composite Indicator</em>}' class.
@@ -2443,6 +2461,24 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_SUM_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_SUM_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2697,6 +2733,24 @@ public interface IndicatorsPackage extends EPackage {
     int DOUBLE_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_SUM_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_SUM_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2948,6 +3002,24 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int BIG_DECIMAL_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
 
     /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
@@ -3537,6 +3609,24 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_MEAN_INDICATOR__DATAMINING_TYPE = INTEGER_SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_MEAN_INDICATOR__SUM_STR = INTEGER_SUM_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_MEAN_INDICATOR__DATATYPE = INTEGER_SUM_INDICATOR__DATATYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3790,6 +3880,24 @@ public interface IndicatorsPackage extends EPackage {
     int DOUBLE_MEAN_INDICATOR__DATAMINING_TYPE = DOUBLE_SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_MEAN_INDICATOR__SUM_STR = DOUBLE_SUM_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_MEAN_INDICATOR__DATATYPE = DOUBLE_SUM_INDICATOR__DATATYPE;
+
+    /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4041,6 +4149,24 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int BIG_DECIMAL_MEAN_INDICATOR__DATAMINING_TYPE = BIG_DECIMAL_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_MEAN_INDICATOR__SUM_STR = BIG_DECIMAL_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_MEAN_INDICATOR__DATATYPE = BIG_DECIMAL_INDICATOR__DATATYPE;
 
     /**
      * The feature id for the '<em><b>Sum</b></em>' attribute.
@@ -8348,6 +8474,28 @@ public interface IndicatorsPackage extends EPackage {
     EClass getSumIndicator();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.SumIndicator#getSumStr <em>Sum Str</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Sum Str</em>'.
+     * @see org.talend.dataquality.indicators.SumIndicator#getSumStr()
+     * @see #getSumIndicator()
+     * @generated
+     */
+    EAttribute getSumIndicator_SumStr();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.SumIndicator#getDatatype <em>Datatype</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Datatype</em>'.
+     * @see org.talend.dataquality.indicators.SumIndicator#getDatatype()
+     * @see #getSumIndicator()
+     * @generated
+     */
+    EAttribute getSumIndicator_Datatype();
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.CompositeIndicator <em>Composite Indicator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9140,6 +9288,22 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EClass SUM_INDICATOR = eINSTANCE.getSumIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Sum Str</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SUM_INDICATOR__SUM_STR = eINSTANCE.getSumIndicator_SumStr();
+
+        /**
+         * The meta object literal for the '<em><b>Datatype</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SUM_INDICATOR__DATATYPE = eINSTANCE.getSumIndicator_Datatype();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.CompositeIndicatorImpl <em>Composite Indicator</em>}' class.
