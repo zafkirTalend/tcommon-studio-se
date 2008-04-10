@@ -1,4 +1,4 @@
-package org.talend.designer.components.persistent;
+package routines.system;
 
 public interface IPersistableLookupRow<R> {
 
@@ -12,4 +12,6 @@ public interface IPersistableLookupRow<R> {
 
     public void copyDataTo(R other);
     
+    public void copyKeysDataTo(R other);
+
 }
