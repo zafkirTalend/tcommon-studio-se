@@ -25,6 +25,8 @@ import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.helpers.BooleanExpressionHelper;
 import org.talend.dataquality.helpers.DomainHelper;
+import org.talend.dataquality.helpers.MetadataHelper;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 
 import orgomg.cwm.objectmodel.core.Expression;
@@ -118,6 +120,32 @@ public class ColumnAnalysisHandler {
             analysis.getResults().getIndicators().add(indicator);
         }
         return true;
+    }
+
+    /**
+     * Method "setDatamingType".
+     * 
+     * @param dataminingTypeLiteral the literal expression of the datamining type used for the analysis
+     * @param column a column
+     */
+    public void setDatamingType(String dataminingTypeLiteral, TdColumn column) {
+        DataminingType type = DataminingType.get(dataminingTypeLiteral);
+        MetadataHelper.setDataminingType(type, column);
+    }
+
+    /**
+     * Method "getDatamingType".
+     * 
+     * @param column
+     * @return the datamining type literal if any or empty string
+     */
+    public String getDatamingType(TdColumn column) {
+        DataminingType dmType = MetadataHelper.getDataminingType(column);
+        if (dmType == null) {
+            return "";
+        }
+        // else
+        return dmType.getLiteral();
     }
 
     /**

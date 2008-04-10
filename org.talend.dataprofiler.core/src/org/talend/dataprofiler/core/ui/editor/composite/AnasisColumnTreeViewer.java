@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.composite;
 
-import java.beans.PropertyChangeSupport;
-
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -111,7 +109,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             TreeEditor editor = new TreeEditor(tree);
             CCombo combo = new CCombo(tree, SWT.BORDER);
             for (DataminingType type : DataminingType.values()) {
-                combo.add(type.getName());
+                combo.add(type.getLiteral()); // MODSCA 2008-04-10 use literal for presentation
             }
             combo.select(0);
             // editor.grabHorizontal = true;
