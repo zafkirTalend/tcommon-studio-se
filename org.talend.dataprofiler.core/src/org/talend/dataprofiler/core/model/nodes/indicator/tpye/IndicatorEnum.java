@@ -27,13 +27,19 @@ public enum IndicatorEnum {
     DuplicateCountIndicatorEnum(IndicatorsPackage.Literals.DUPLICATE_COUNT_INDICATOR, "duplicate count", null),
     BlankCountIndicatorEnum(IndicatorsPackage.Literals.BLANK_COUNT_INDICATOR, "blank count", null),
 
+    MinLengthIndicatorEnum(IndicatorsPackage.Literals.MIN_LENGTH_INDICATOR, "min length", null),
+    MaxLengthIndicatorEnum(IndicatorsPackage.Literals.MAX_LENGTH_INDICATOR, "max length", null),
+    AverageLengthIndicatorEnum(IndicatorsPackage.Literals.AVERAGE_LENGTH_INDICATOR, "average length", null),
+
     ModeIndicatorEnum(IndicatorsPackage.Literals.MODE_INDICATOR, "mode", null),
     MeanIndicatorEnum(IndicatorsPackage.Literals.MEAN_INDICATOR, "mean", null),
     MedianIndicatorEnum(IndicatorsPackage.Literals.MEDIAN_INDICATOR, "median", null),
-    MinValueIndicatorEnum(IndicatorsPackage.Literals.MIN_VALUE_INDICATOR, "min", null),
-    MaxValueIndicatorEnum(IndicatorsPackage.Literals.MAX_VALUE_INDICATOR, "max", null),
-    IQRIndicatorEnum(IndicatorsPackage.Literals.IQR_INDICATOR, "IQR", new IndicatorEnum[] { MinValueIndicatorEnum,
-            MaxValueIndicatorEnum }),
+    MinValueIndicatorEnum(IndicatorsPackage.Literals.MIN_VALUE_INDICATOR, "min.value", null),
+    MaxValueIndicatorEnum(IndicatorsPackage.Literals.MAX_VALUE_INDICATOR, "max.value", null),
+    LowerQuartileIndicatorEnum(IndicatorsPackage.Literals.MIN_VALUE_INDICATOR, "lower quartile", null),
+    UpperQuartileIndicatorEnum(IndicatorsPackage.Literals.MAX_VALUE_INDICATOR, "upper quartile", null),
+    IQRIndicatorEnum(IndicatorsPackage.Literals.IQR_INDICATOR, "inter quartile range", new IndicatorEnum[] {
+            LowerQuartileIndicatorEnum, UpperQuartileIndicatorEnum }),
     RangeIndicatorEnum(IndicatorsPackage.Literals.RANGE_INDICATOR, "range", new IndicatorEnum[] { MinValueIndicatorEnum,
             MaxValueIndicatorEnum }),
     FrequencyIndicatorEnum(IndicatorsPackage.Literals.FREQUENCY_INDICATOR, "frequency table", null);
@@ -89,6 +95,12 @@ public enum IndicatorEnum {
             returnEnum = DuplicateCountIndicatorEnum;
         } else if (indicatorType == BlankCountIndicatorEnum.getIndicatorType()) {
             returnEnum = BlankCountIndicatorEnum;
+        } else if (indicatorType == MinLengthIndicatorEnum.getIndicatorType()) {
+            returnEnum = MinLengthIndicatorEnum;
+        } else if (indicatorType == MaxLengthIndicatorEnum.getIndicatorType()) {
+            returnEnum = MaxLengthIndicatorEnum;
+        } else if (indicatorType == AverageLengthIndicatorEnum.getIndicatorType()) {
+            returnEnum = AverageLengthIndicatorEnum;
         } else if (indicatorType == ModeIndicatorEnum.getIndicatorType()) {
             returnEnum = ModeIndicatorEnum;
         } else if (indicatorType == MeanIndicatorEnum.getIndicatorType()) {
@@ -99,6 +111,10 @@ public enum IndicatorEnum {
             returnEnum = MinValueIndicatorEnum;
         } else if (indicatorType == MaxValueIndicatorEnum.getIndicatorType()) {
             returnEnum = MaxValueIndicatorEnum;
+        } else if (indicatorType == LowerQuartileIndicatorEnum.getIndicatorType()) {
+            returnEnum = LowerQuartileIndicatorEnum;
+        } else if (indicatorType == UpperQuartileIndicatorEnum.getIndicatorType()) {
+            returnEnum = UpperQuartileIndicatorEnum;
         } else if (indicatorType == IQRIndicatorEnum.getIndicatorType()) {
             returnEnum = IQRIndicatorEnum;
         } else if (indicatorType == RangeIndicatorEnum.getIndicatorType()) {
