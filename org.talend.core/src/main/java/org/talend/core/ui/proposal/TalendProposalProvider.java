@@ -34,17 +34,23 @@ import org.talend.designer.rowgenerator.data.TalendType;
  * $Id$
  * 
  */
-public class ProcessProposalProvider implements IContentProposalProvider {
+public class TalendProposalProvider implements IContentProposalProvider {
 
     private IProcess process;
 
     /**
      * Constructs a new ProcessProposalProvider.
      */
-    public ProcessProposalProvider(IProcess process) {
+    public TalendProposalProvider(IProcess process) {
         super();
 
         this.process = process;
+    }
+
+    /**
+     * yzhang ProcessProposalProvider constructor comment.
+     */
+    public TalendProposalProvider() {
     }
 
     /*
@@ -55,19 +61,22 @@ public class ProcessProposalProvider implements IContentProposalProvider {
     public IContentProposal[] getProposals(String contents, int position) {
         List<IContentProposal> proposals = new ArrayList<IContentProposal>();
 
-        // Proposals based on process context
-        List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
-        for (IContextParameter ctxParam : ctxParams) {
-            proposals.add(new ContextParameterProposal(ctxParam));
-        }
-
-        // Proposals based on global variables
-        List<? extends INode> nodes = process.getGraphicalNodes();
-        for (INode node : nodes) {
-            List<? extends INodeReturn> nodeReturns = node.getReturns();
-            for (INodeReturn nodeReturn : nodeReturns) {
-                proposals.add(new NodeReturnProposal(node, nodeReturn));
+        if (process != null) {
+            // Proposals based on process context
+            List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
+            for (IContextParameter ctxParam : ctxParams) {
+                proposals.add(new ContextParameterProposal(ctxParam));
             }
+
+            // Proposals based on global variables
+            List<? extends INode> nodes = process.getGraphicalNodes();
+            for (INode node : nodes) {
+                List<? extends INodeReturn> nodeReturns = node.getReturns();
+                for (INodeReturn nodeReturn : nodeReturns) {
+                    proposals.add(new NodeReturnProposal(node, nodeReturn));
+                }
+            }
+
         }
 
         // Proposals based on global variables(only perl ).

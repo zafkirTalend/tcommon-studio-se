@@ -18,26 +18,28 @@ import org.talend.commons.ui.swt.proposal.ContentProposalAdapterExtended;
 import org.talend.commons.ui.swt.proposal.ProposalUtils;
 import org.talend.core.model.process.IProcess;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public class ProcessProposalUtils {
+public class TalendProposalUtils {
 
     /**
      * Installs a proposal provider on a text component based on a process.
      * 
-     * @param text Text component on wich proposals are installed.
+     * @param control Text component on wich proposals are installed.
      * @param process Process from wich proposals are built.
      */
-    public static ContentProposalAdapterExtended installOn(Control text, IProcess process) {
-        IContentProposalProvider proposalProvider = new ProcessProposalProvider(process);
-        return ProposalUtils.getCommonProposal(text, proposalProvider);
+    public static ContentProposalAdapterExtended installOn(Control control, IProcess process) {
+        IContentProposalProvider proposalProvider = null;
+        if (process != null) {
+            proposalProvider = new TalendProposalProvider(process);
+        } else {
+            proposalProvider = new TalendProposalProvider();
+        }
+        return ProposalUtils.getCommonProposal(control, proposalProvider);
     }
-
 
 }
