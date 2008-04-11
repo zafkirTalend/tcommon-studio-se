@@ -28,7 +28,6 @@ import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
-
 import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -105,6 +104,22 @@ public class ColumnAnalysisHandler {
         assert analysis != null;
         assert analysis.getContext() != null;
         return analysis.getContext().getAnalysedElements().addAll(column);
+    }
+
+    public void removeColumnFromAnalyze(TdColumn column) {
+        assert analysis != null;
+        assert analysis.getContext() != null;
+        EList<ModelElement> analysedElements = analysis.getContext().getAnalysedElements();
+        if (analysedElements.contains(column)) {
+            analysedElements.remove(column);
+        }
+    }
+
+    public void removeColumnsFromAnalyze(Collection<TdColumn> columns) {
+        assert analysis != null;
+        assert analysis.getContext() != null;
+        EList<ModelElement> analysedElements = analysis.getContext().getAnalysedElements();
+        analysedElements.removeAll(columns);
     }
 
     public EList<ModelElement> getAnalyzedColumns() {
