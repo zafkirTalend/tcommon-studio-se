@@ -106,22 +106,6 @@ public class ColumnAnalysisHandler {
         return analysis.getContext().getAnalysedElements().addAll(column);
     }
 
-    public void removeColumnFromAnalyze(TdColumn column) {
-        assert analysis != null;
-        assert analysis.getContext() != null;
-        EList<ModelElement> analysedElements = analysis.getContext().getAnalysedElements();
-        if (analysedElements.contains(column)) {
-            analysedElements.remove(column);
-        }
-    }
-
-    public void removeColumnsFromAnalyze(Collection<TdColumn> columns) {
-        assert analysis != null;
-        assert analysis.getContext() != null;
-        EList<ModelElement> analysedElements = analysis.getContext().getAnalysedElements();
-        analysedElements.removeAll(columns);
-    }
-
     public EList<ModelElement> getAnalyzedColumns() {
         return analysis.getContext().getAnalysedElements();
     }
@@ -135,6 +119,13 @@ public class ColumnAnalysisHandler {
             analysis.getResults().getIndicators().add(indicator);
         }
         return true;
+    }
+
+    public void clearAnalysis() {
+        assert analysis != null;
+        assert analysis.getContext() != null;
+        analysis.getContext().getAnalysedElements().clear();
+        analysis.getResults().getIndicators().clear();
     }
 
     /**
