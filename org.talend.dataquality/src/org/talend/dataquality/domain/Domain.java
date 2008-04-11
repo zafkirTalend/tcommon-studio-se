@@ -115,7 +115,7 @@ public interface Domain extends EObject {
     void setDataType(DataType value);
 
     /**
-     * Returns the value of the '<em><b>Length Restriction</b></em>' reference list.
+     * Returns the value of the '<em><b>Length Restriction</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.dataquality.domain.LengthRestriction}.
      * <!-- begin-user-doc -->
      * <p>
@@ -123,15 +123,15 @@ public interface Domain extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Length Restriction</em>' reference list.
+     * @return the value of the '<em>Length Restriction</em>' containment reference list.
      * @see org.talend.dataquality.domain.DomainPackage#getDomain_LengthRestriction()
-     * @model
+     * @model containment="true"
      * @generated
      */
     EList<LengthRestriction> getLengthRestriction();
 
     /**
-     * Returns the value of the '<em><b>Ranges</b></em>' reference list.
+     * Returns the value of the '<em><b>Ranges</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.dataquality.domain.RangeRestriction}.
      * <!-- begin-user-doc -->
      * <p>
@@ -139,9 +139,9 @@ public interface Domain extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Ranges</em>' reference list.
+     * @return the value of the '<em>Ranges</em>' containment reference list.
      * @see org.talend.dataquality.domain.DomainPackage#getDomain_Ranges()
-     * @model
+     * @model containment="true"
      * @generated
      */
     EList<RangeRestriction> getRanges();

@@ -12,10 +12,12 @@
 // ============================================================================
 package org.talend.dataquality.helpers;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisFactory;
 import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dataquality.domain.Domain;
 
 /**
  * @author scorreia
@@ -67,5 +69,19 @@ public class AnalysisHelper {
             analysis.setParameters(parameters);
         }
         parameters.setAnalysisType(analysisType);
+    }
+
+    /**
+     * Method "getDataFilter".
+     * 
+     * @param analysis
+     * @return the list of domains or null
+     */
+    public static EList<Domain> getDataFilter(Analysis analysis) {
+        AnalysisParameters parameters = analysis.getParameters();
+        if (parameters == null) {
+            return null;
+        }
+        return parameters.getDataFilter();
     }
 }

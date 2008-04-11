@@ -69,6 +69,7 @@
       <eLiterals name="TABLE_COMPARISON" value="3" literal="Table Comparison"/>
       <eLiterals name="CONNECTION" value="4" literal="Connection Analysis"/>
       <eLiterals name="SCHEMA" value="5" literal="Schema Analysis"/>
+      <eLiterals name="MULTIPLE_COLUMN" value="6" literal="Multiple Column Analysis"/>
     </eClassifiers>
     <eSubpackages name="category" nsURI="http://org.talend.dataquality.category" nsPrefix="dataquality.category">
       <eClassifiers xsi:type="ecore:EClass" name="AnalysisCategory">
@@ -359,9 +360,9 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataType" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/DataType"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="lengthRestriction" upperBound="-1"
-          eType="#//domain/LengthRestriction"/>
+          eType="#//domain/LengthRestriction" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ranges" upperBound="-1"
-          eType="#//domain/RangeRestriction"/>
+          eType="#//domain/RangeRestriction" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="patterns" upperBound="-1"
           eType="#//domain/pattern/Pattern"/>
     </eClassifiers>
@@ -374,9 +375,12 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="enumeration" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/foundation/datatypes/Enumeration"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RangeRestriction">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//domain/LiteralValue"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//domain/LiteralValue"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" eType="#//expressions/BooleanExpressionNode"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//domain/LiteralValue"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//domain/LiteralValue"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" eType="#//expressions/BooleanExpressionNode"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="LiteralValue">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="encodeValueMeaning" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

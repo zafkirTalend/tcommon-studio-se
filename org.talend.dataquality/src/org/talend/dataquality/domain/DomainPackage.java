@@ -97,7 +97,7 @@ public interface DomainPackage extends EPackage {
     int DOMAIN__DATA_TYPE = 2;
 
     /**
-     * The feature id for the '<em><b>Length Restriction</b></em>' reference list.
+     * The feature id for the '<em><b>Length Restriction</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -106,7 +106,7 @@ public interface DomainPackage extends EPackage {
     int DOMAIN__LENGTH_RESTRICTION = 3;
 
     /**
-     * The feature id for the '<em><b>Ranges</b></em>' reference list.
+     * The feature id for the '<em><b>Ranges</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -180,7 +180,7 @@ public interface DomainPackage extends EPackage {
     int RANGE_RESTRICTION = 2;
 
     /**
-     * The feature id for the '<em><b>Lower Value</b></em>' reference.
+     * The feature id for the '<em><b>Lower Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -189,7 +189,7 @@ public interface DomainPackage extends EPackage {
     int RANGE_RESTRICTION__LOWER_VALUE = 0;
 
     /**
-     * The feature id for the '<em><b>Upper Value</b></em>' reference.
+     * The feature id for the '<em><b>Upper Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -198,7 +198,7 @@ public interface DomainPackage extends EPackage {
     int RANGE_RESTRICTION__UPPER_VALUE = 1;
 
     /**
-     * The feature id for the '<em><b>Expressions</b></em>' reference.
+     * The feature id for the '<em><b>Expressions</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -501,10 +501,10 @@ public interface DomainPackage extends EPackage {
     EReference getDomain_DataType();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.dataquality.domain.Domain#getLengthRestriction <em>Length Restriction</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.dataquality.domain.Domain#getLengthRestriction <em>Length Restriction</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Length Restriction</em>'.
+     * @return the meta object for the containment reference list '<em>Length Restriction</em>'.
      * @see org.talend.dataquality.domain.Domain#getLengthRestriction()
      * @see #getDomain()
      * @generated
@@ -512,10 +512,10 @@ public interface DomainPackage extends EPackage {
     EReference getDomain_LengthRestriction();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.dataquality.domain.Domain#getRanges <em>Ranges</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.dataquality.domain.Domain#getRanges <em>Ranges</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Ranges</em>'.
+     * @return the meta object for the containment reference list '<em>Ranges</em>'.
      * @see org.talend.dataquality.domain.Domain#getRanges()
      * @see #getDomain()
      * @generated
@@ -576,10 +576,10 @@ public interface DomainPackage extends EPackage {
     EClass getRangeRestriction();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.domain.RangeRestriction#getLowerValue <em>Lower Value</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.domain.RangeRestriction#getLowerValue <em>Lower Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Lower Value</em>'.
+     * @return the meta object for the containment reference '<em>Lower Value</em>'.
      * @see org.talend.dataquality.domain.RangeRestriction#getLowerValue()
      * @see #getRangeRestriction()
      * @generated
@@ -587,10 +587,10 @@ public interface DomainPackage extends EPackage {
     EReference getRangeRestriction_LowerValue();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.domain.RangeRestriction#getUpperValue <em>Upper Value</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.domain.RangeRestriction#getUpperValue <em>Upper Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Upper Value</em>'.
+     * @return the meta object for the containment reference '<em>Upper Value</em>'.
      * @see org.talend.dataquality.domain.RangeRestriction#getUpperValue()
      * @see #getRangeRestriction()
      * @generated
@@ -598,10 +598,10 @@ public interface DomainPackage extends EPackage {
     EReference getRangeRestriction_UpperValue();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.domain.RangeRestriction#getExpressions <em>Expressions</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.domain.RangeRestriction#getExpressions <em>Expressions</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Expressions</em>'.
+     * @return the meta object for the containment reference '<em>Expressions</em>'.
      * @see org.talend.dataquality.domain.RangeRestriction#getExpressions()
      * @see #getRangeRestriction()
      * @generated
@@ -812,7 +812,7 @@ public interface DomainPackage extends EPackage {
         EReference DOMAIN__DATA_TYPE = eINSTANCE.getDomain_DataType();
 
         /**
-         * The meta object literal for the '<em><b>Length Restriction</b></em>' reference list feature.
+         * The meta object literal for the '<em><b>Length Restriction</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -820,7 +820,7 @@ public interface DomainPackage extends EPackage {
         EReference DOMAIN__LENGTH_RESTRICTION = eINSTANCE.getDomain_LengthRestriction();
 
         /**
-         * The meta object literal for the '<em><b>Ranges</b></em>' reference list feature.
+         * The meta object literal for the '<em><b>Ranges</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -872,7 +872,7 @@ public interface DomainPackage extends EPackage {
         EClass RANGE_RESTRICTION = eINSTANCE.getRangeRestriction();
 
         /**
-         * The meta object literal for the '<em><b>Lower Value</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Lower Value</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -880,7 +880,7 @@ public interface DomainPackage extends EPackage {
         EReference RANGE_RESTRICTION__LOWER_VALUE = eINSTANCE.getRangeRestriction_LowerValue();
 
         /**
-         * The meta object literal for the '<em><b>Upper Value</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Upper Value</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -888,7 +888,7 @@ public interface DomainPackage extends EPackage {
         EReference RANGE_RESTRICTION__UPPER_VALUE = eINSTANCE.getRangeRestriction_UpperValue();
 
         /**
-         * The meta object literal for the '<em><b>Expressions</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Expressions</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

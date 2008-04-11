@@ -122,6 +122,29 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.SumIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SumIndicatorItemProvider sumIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.SumIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createSumIndicatorAdapter() {
+        if (sumIndicatorItemProvider == null) {
+            sumIndicatorItemProvider = new SumIndicatorItemProvider(this);
+        }
+
+        return sumIndicatorItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.CompositeIndicator} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -866,6 +889,7 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     public void dispose() {
         if (indicatorItemProvider != null) indicatorItemProvider.dispose();
         if (rowCountIndicatorItemProvider != null) rowCountIndicatorItemProvider.dispose();
+        if (sumIndicatorItemProvider != null) sumIndicatorItemProvider.dispose();
         if (compositeIndicatorItemProvider != null) compositeIndicatorItemProvider.dispose();
         if (rangeIndicatorItemProvider != null) rangeIndicatorItemProvider.dispose();
         if (boxIndicatorItemProvider != null) boxIndicatorItemProvider.dispose();

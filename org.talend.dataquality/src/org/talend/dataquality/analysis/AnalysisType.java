@@ -1,15 +1,9 @@
-/**
- * <copyright>
- * </copyright>
- *
- * $Id$
- */
 package org.talend.dataquality.analysis;
+
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
@@ -60,7 +54,9 @@ public enum AnalysisType implements Enumerator {
      * @generated
      * @ordered
      */
-    TABLE_COMPARISON(3, "TABLE_COMPARISON", "Table Comparison"), /**
+    TABLE_COMPARISON(3, "TABLE_COMPARISON", "Table Comparison"),
+
+    /**
      * The '<em><b>CONNECTION</b></em>' literal object.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -68,7 +64,9 @@ public enum AnalysisType implements Enumerator {
      * @generated
      * @ordered
      */
-    CONNECTION(4, "CONNECTION", "Connection Analysis"), /**
+    CONNECTION(4, "CONNECTION", "Connection Analysis"),
+
+    /**
      * The '<em><b>SCHEMA</b></em>' literal object.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -78,7 +76,16 @@ public enum AnalysisType implements Enumerator {
      */
     SCHEMA(5, "SCHEMA", "Schema Analysis"),
 
-    MULTIPLE_COLUMN(6, "COLUMN", "Multiple Column Analysis");
+    /**
+     * The '<em><b>MULTIPLE COLUMN</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #MULTIPLE_COLUMN_VALUE
+     * @generated
+     * @ordered
+     */
+    MULTIPLE_COLUMN(6, "MULTIPLE_COLUMN", "Multiple Column Analysis");
+
     /**
      * The '<em><b>COLUMN</b></em>' literal value.
      * <!-- begin-user-doc -->
@@ -168,7 +175,20 @@ public enum AnalysisType implements Enumerator {
      * @ordered
      */
     public static final int SCHEMA_VALUE = 5;
-    
+
+    /**
+     * The '<em><b>MULTIPLE COLUMN</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>MULTIPLE COLUMN</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #MULTIPLE_COLUMN
+     * @model literal="Multiple Column Analysis"
+     * @generated
+     * @ordered
+     */
     public static final int MULTIPLE_COLUMN_VALUE = 6;
 
     /**
@@ -211,8 +231,6 @@ public enum AnalysisType implements Enumerator {
         }
         return null;
     }
-    
-
 
     /**
      * Returns the '<em><b>Type</b></em>' literal with the specified name.

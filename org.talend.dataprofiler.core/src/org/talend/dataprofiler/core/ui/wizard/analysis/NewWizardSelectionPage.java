@@ -48,21 +48,21 @@ import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
  * 
  */
 public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
-    
+
     private final String defaultValue = "type filter text";
 
     private Text typeName;
 
     private TreeViewer analysisTypes;
-    
+
     private Wizard selectedWizard;
-    
+
     private NamedViewerFilter filter = new NamedViewerFilter();
 
-    public NewWizardSelectionPage() {   
+    public NewWizardSelectionPage() {
         setTitle("Select a wizard");
         setMessage("Create a new Analysis");
-        
+
         setCanFinishEarly(false);
         setPageComplete(false);
         setHasPages(true);
@@ -78,7 +78,7 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         GridLayout gdLayout = new GridLayout(1, true);
         container.setLayout(gdLayout);
-        
+
         Label nameLabel = new Label(container, SWT.NONE);
         nameLabel.setText("Wizards:");
 
@@ -108,9 +108,9 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
         analysisTypes.setInput(AnalysisDataFactory.createTreeData());
 
     }
-    
+
     protected void addListeners() {
-        
+
         typeName.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -125,7 +125,7 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
                     }
                     analysisTypes.refresh(true);
                 }
-            } 
+            }
         });
 
         typeName.addMouseListener(new MouseAdapter() {
@@ -142,86 +142,90 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
             }
 
         });
-        
+
         analysisTypes.addSelectionChangedListener(new ISelectionChangedListener() {
 
             public void selectionChanged(SelectionChangedEvent event) {
-                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
-                
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection())
+                        .getFirstElement();
+
                 if (node.getParent() != null) {
                     setMessage(node.getLiteral());
-                    //set parameter
-                    getConnectionParams().setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());   
-                } 
-                
+                    // set parameter
+                    getConnectionParams().setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
+                }
+
                 updateSelectionNode(node);
             }
 
         });
-        
+
         analysisTypes.addDoubleClickListener(new IDoubleClickListener() {
 
             public void doubleClick(DoubleClickEvent event) {
-                
-                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
+
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection())
+                        .getFirstElement();
                 if (node.getParent() == null) {
                     analysisTypes.expandToLevel(node, 1);
                 } else {
                     advanceToNextPageOrFinish();
                 }
             }
-            
+
         });
     }
 
     public void updateSelectionNode(AnalysisTypeNode node) {
-        
+
         AnalysisTypeNode parentNode = null;
         selectedWizard = null;
         setPageComplete(false);
-        
+
         if (node.getParent() != null) {
             parentNode = (AnalysisTypeNode) node.getParent();
         } else {
             parentNode = node;
         }
- 
+
         if (parentNode.getName().equals(AnalysisType.CONNECTION.getLiteral())) {
             selectedWizard = WizardFactory.createConnectionWizard();
             setConnectionParams(new ConnectionAnalysisParameter());
         }
-        if (parentNode.getName().endsWith("Multiple Column Analysis")) {
+        if (parentNode.getName().equals(AnalysisType.MULTIPLE_COLUMN.getLiteral())) {
             selectedWizard = WizardFactory.createColumnWizard();
             setConnectionParams(new ConnectionAnalysisParameter());
-        } 
-        
+        }
+
         if (selectedWizard != null && node.getParent() != null) {
             setPageComplete(true);
         }
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.wizard.WizardPage#getNextPage()
      */
     @Override
     public IWizardPage getNextPage() {
-        
+
         if (selectedWizard == null) {
             return null;
         }
-        
+
         if (selectedWizard.getStartingPage() == null) {
             selectedWizard.addPages();
         }
-        
+
         return selectedWizard.getStartingPage();
     }
-    
+
     /**
      * @return the selectedWizard
      */
     public Wizard getSelectedWizard() {
         return this.selectedWizard;
     }
-    
-    
+
 }

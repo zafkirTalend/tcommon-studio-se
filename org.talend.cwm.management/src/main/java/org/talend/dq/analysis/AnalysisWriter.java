@@ -14,9 +14,13 @@ package org.talend.dq.analysis;
 
 import java.io.File;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.commons.emf.FactoriesUtil;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -55,6 +59,17 @@ public class AnalysisWriter {
             rc.setReturnCode("Analysis won't be saved. " + util.getLastErrorMessage(), added);
             return rc;
         }
+
+        // --- store descriptions (description and purpose) in the same resource
+        EList<EObject> resourceContents = analysis.eResource().getContents();
+        resourceContents.addAll(analysis.getDescription());
+        // --- store the data filter in the same resource
+        EList<Domain> dataFilter = AnalysisHelper.getDataFilter(analysis);
+        if (dataFilter != null) {
+            // TODO scorreia save them in their own file?
+            resourceContents.addAll(dataFilter);
+        }
+
         boolean saved = util.save();
         if (!saved) {
             rc.setReturnCode("Problem while saving analysis " + analysis.getName() + ". " + util.getLastErrorMessage(),

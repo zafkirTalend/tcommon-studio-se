@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -18,8 +19,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.DomainPackage;
 import org.talend.dataquality.domain.LengthRestriction;
@@ -99,7 +102,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
     protected DataType dataType;
 
     /**
-     * The cached value of the '{@link #getLengthRestriction() <em>Length Restriction</em>}' reference list.
+     * The cached value of the '{@link #getLengthRestriction() <em>Length Restriction</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getLengthRestriction()
@@ -109,7 +112,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
     protected EList<LengthRestriction> lengthRestriction;
 
     /**
-     * The cached value of the '{@link #getRanges() <em>Ranges</em>}' reference list.
+     * The cached value of the '{@link #getRanges() <em>Ranges</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getRanges()
@@ -234,7 +237,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
      */
     public EList<LengthRestriction> getLengthRestriction() {
         if (lengthRestriction == null) {
-            lengthRestriction = new EObjectResolvingEList<LengthRestriction>(LengthRestriction.class, this, DomainPackage.DOMAIN__LENGTH_RESTRICTION);
+            lengthRestriction = new EObjectContainmentEList<LengthRestriction>(LengthRestriction.class, this, DomainPackage.DOMAIN__LENGTH_RESTRICTION);
         }
         return lengthRestriction;
     }
@@ -246,7 +249,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
      */
     public EList<RangeRestriction> getRanges() {
         if (ranges == null) {
-            ranges = new EObjectResolvingEList<RangeRestriction>(RangeRestriction.class, this, DomainPackage.DOMAIN__RANGES);
+            ranges = new EObjectContainmentEList<RangeRestriction>(RangeRestriction.class, this, DomainPackage.DOMAIN__RANGES);
         }
         return ranges;
     }
@@ -261,6 +264,22 @@ public class DomainImpl extends EObjectImpl implements Domain {
             patterns = new EObjectResolvingEList<Pattern>(Pattern.class, this, DomainPackage.DOMAIN__PATTERNS);
         }
         return patterns;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case DomainPackage.DOMAIN__LENGTH_RESTRICTION:
+                return ((InternalEList<?>)getLengthRestriction()).basicRemove(otherEnd, msgs);
+            case DomainPackage.DOMAIN__RANGES:
+                return ((InternalEList<?>)getRanges()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**

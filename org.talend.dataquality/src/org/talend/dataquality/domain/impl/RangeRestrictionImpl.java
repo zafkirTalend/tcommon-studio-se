@@ -8,6 +8,7 @@ package org.talend.dataquality.domain.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -37,7 +38,7 @@ import org.talend.dataquality.expressions.BooleanExpressionNode;
  */
 public class RangeRestrictionImpl extends EObjectImpl implements RangeRestriction {
     /**
-     * The cached value of the '{@link #getLowerValue() <em>Lower Value</em>}' reference.
+     * The cached value of the '{@link #getLowerValue() <em>Lower Value</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getLowerValue()
@@ -47,7 +48,7 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
     protected LiteralValue lowerValue;
 
     /**
-     * The cached value of the '{@link #getUpperValue() <em>Upper Value</em>}' reference.
+     * The cached value of the '{@link #getUpperValue() <em>Upper Value</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getUpperValue()
@@ -57,7 +58,7 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
     protected LiteralValue upperValue;
 
     /**
-     * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' reference.
+     * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getExpressions()
@@ -91,14 +92,6 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * @generated
      */
     public LiteralValue getLowerValue() {
-        if (lowerValue != null && lowerValue.eIsProxy()) {
-            InternalEObject oldLowerValue = (InternalEObject)lowerValue;
-            lowerValue = (LiteralValue)eResolveProxy(oldLowerValue);
-            if (lowerValue != oldLowerValue) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DomainPackage.RANGE_RESTRICTION__LOWER_VALUE, oldLowerValue, lowerValue));
-            }
-        }
         return lowerValue;
     }
 
@@ -107,8 +100,14 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * <!-- end-user-doc -->
      * @generated
      */
-    public LiteralValue basicGetLowerValue() {
-        return lowerValue;
+    public NotificationChain basicSetLowerValue(LiteralValue newLowerValue, NotificationChain msgs) {
+        LiteralValue oldLowerValue = lowerValue;
+        lowerValue = newLowerValue;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__LOWER_VALUE, oldLowerValue, newLowerValue);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -117,10 +116,17 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * @generated
      */
     public void setLowerValue(LiteralValue newLowerValue) {
-        LiteralValue oldLowerValue = lowerValue;
-        lowerValue = newLowerValue;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__LOWER_VALUE, oldLowerValue, lowerValue));
+        if (newLowerValue != lowerValue) {
+            NotificationChain msgs = null;
+            if (lowerValue != null)
+                msgs = ((InternalEObject)lowerValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainPackage.RANGE_RESTRICTION__LOWER_VALUE, null, msgs);
+            if (newLowerValue != null)
+                msgs = ((InternalEObject)newLowerValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainPackage.RANGE_RESTRICTION__LOWER_VALUE, null, msgs);
+            msgs = basicSetLowerValue(newLowerValue, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__LOWER_VALUE, newLowerValue, newLowerValue));
     }
 
     /**
@@ -129,14 +135,6 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * @generated
      */
     public LiteralValue getUpperValue() {
-        if (upperValue != null && upperValue.eIsProxy()) {
-            InternalEObject oldUpperValue = (InternalEObject)upperValue;
-            upperValue = (LiteralValue)eResolveProxy(oldUpperValue);
-            if (upperValue != oldUpperValue) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DomainPackage.RANGE_RESTRICTION__UPPER_VALUE, oldUpperValue, upperValue));
-            }
-        }
         return upperValue;
     }
 
@@ -145,8 +143,14 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * <!-- end-user-doc -->
      * @generated
      */
-    public LiteralValue basicGetUpperValue() {
-        return upperValue;
+    public NotificationChain basicSetUpperValue(LiteralValue newUpperValue, NotificationChain msgs) {
+        LiteralValue oldUpperValue = upperValue;
+        upperValue = newUpperValue;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__UPPER_VALUE, oldUpperValue, newUpperValue);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -155,10 +159,17 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * @generated
      */
     public void setUpperValue(LiteralValue newUpperValue) {
-        LiteralValue oldUpperValue = upperValue;
-        upperValue = newUpperValue;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__UPPER_VALUE, oldUpperValue, upperValue));
+        if (newUpperValue != upperValue) {
+            NotificationChain msgs = null;
+            if (upperValue != null)
+                msgs = ((InternalEObject)upperValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainPackage.RANGE_RESTRICTION__UPPER_VALUE, null, msgs);
+            if (newUpperValue != null)
+                msgs = ((InternalEObject)newUpperValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainPackage.RANGE_RESTRICTION__UPPER_VALUE, null, msgs);
+            msgs = basicSetUpperValue(newUpperValue, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__UPPER_VALUE, newUpperValue, newUpperValue));
     }
 
     /**
@@ -167,14 +178,6 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * @generated
      */
     public BooleanExpressionNode getExpressions() {
-        if (expressions != null && expressions.eIsProxy()) {
-            InternalEObject oldExpressions = (InternalEObject)expressions;
-            expressions = (BooleanExpressionNode)eResolveProxy(oldExpressions);
-            if (expressions != oldExpressions) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, DomainPackage.RANGE_RESTRICTION__EXPRESSIONS, oldExpressions, expressions));
-            }
-        }
         return expressions;
     }
 
@@ -183,8 +186,14 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * <!-- end-user-doc -->
      * @generated
      */
-    public BooleanExpressionNode basicGetExpressions() {
-        return expressions;
+    public NotificationChain basicSetExpressions(BooleanExpressionNode newExpressions, NotificationChain msgs) {
+        BooleanExpressionNode oldExpressions = expressions;
+        expressions = newExpressions;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__EXPRESSIONS, oldExpressions, newExpressions);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -193,10 +202,35 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
      * @generated
      */
     public void setExpressions(BooleanExpressionNode newExpressions) {
-        BooleanExpressionNode oldExpressions = expressions;
-        expressions = newExpressions;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__EXPRESSIONS, oldExpressions, expressions));
+        if (newExpressions != expressions) {
+            NotificationChain msgs = null;
+            if (expressions != null)
+                msgs = ((InternalEObject)expressions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainPackage.RANGE_RESTRICTION__EXPRESSIONS, null, msgs);
+            if (newExpressions != null)
+                msgs = ((InternalEObject)newExpressions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainPackage.RANGE_RESTRICTION__EXPRESSIONS, null, msgs);
+            msgs = basicSetExpressions(newExpressions, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.RANGE_RESTRICTION__EXPRESSIONS, newExpressions, newExpressions));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case DomainPackage.RANGE_RESTRICTION__LOWER_VALUE:
+                return basicSetLowerValue(null, msgs);
+            case DomainPackage.RANGE_RESTRICTION__UPPER_VALUE:
+                return basicSetUpperValue(null, msgs);
+            case DomainPackage.RANGE_RESTRICTION__EXPRESSIONS:
+                return basicSetExpressions(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
@@ -208,14 +242,11 @@ public class RangeRestrictionImpl extends EObjectImpl implements RangeRestrictio
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case DomainPackage.RANGE_RESTRICTION__LOWER_VALUE:
-                if (resolve) return getLowerValue();
-                return basicGetLowerValue();
+                return getLowerValue();
             case DomainPackage.RANGE_RESTRICTION__UPPER_VALUE:
-                if (resolve) return getUpperValue();
-                return basicGetUpperValue();
+                return getUpperValue();
             case DomainPackage.RANGE_RESTRICTION__EXPRESSIONS:
-                if (resolve) return getExpressions();
-                return basicGetExpressions();
+                return getExpressions();
         }
         return super.eGet(featureID, resolve, coreType);
     }
