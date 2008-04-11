@@ -45,6 +45,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
+import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.management.api.FolderProvider;
 import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
@@ -226,42 +227,47 @@ public abstract class PropertiesWizardPage extends WizardPage {
         authorLab.setText("Author");
 
         authorText = new Text(parent, SWT.BORDER);
-        authorText.setEnabled(false);
+        authorText.setEnabled(!readOnly);
         authorText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // Version
-        Label versionLab = new Label(parent, SWT.NONE);
-        versionLab.setText("Version");
-
-        Composite versionContainer = new Composite(parent, SWT.NONE);
-        versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        GridLayout versionLayout = new GridLayout(3, false);
-        versionLayout.marginHeight = 0;
-        versionLayout.marginWidth = 0;
-        versionLayout.horizontalSpacing = 0;
-        versionContainer.setLayout(versionLayout);
-
-        versionText = new Text(versionContainer, SWT.BORDER);
-        versionText.setEnabled(false);
-        versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-        versionMajorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMajorBtn.setText("M");
-        versionMajorBtn.setEnabled(!readOnly);
-
-        versionMinorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMinorBtn.setText("m"); //$NON-NLS-1$
-        versionMinorBtn.setEnabled(!readOnly);
+//        Label versionLab = new Label(parent, SWT.NONE);
+//        versionLab.setText("Version");
+//
+//        Composite versionContainer = new Composite(parent, SWT.NONE);
+//        versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//        GridLayout versionLayout = new GridLayout(3, false);
+//        versionLayout.marginHeight = 0;
+//        versionLayout.marginWidth = 0;
+//        versionLayout.horizontalSpacing = 0;
+//        versionContainer.setLayout(versionLayout);
+//
+//        versionText = new Text(versionContainer, SWT.BORDER);
+//        versionText.setEnabled(false);
+//        versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//
+//        versionMajorBtn = new Button(versionContainer, SWT.PUSH);
+//        versionMajorBtn.setText("M");
+//        versionMajorBtn.setEnabled(!readOnly);
+//
+//        versionMinorBtn = new Button(versionContainer, SWT.PUSH);
+//        versionMinorBtn.setText("m"); //$NON-NLS-1$
+//        versionMinorBtn.setEnabled(!readOnly);
 
         // Status
         Label statusLab = new Label(parent, SWT.NONE);
         statusLab.setText("Status"); //$NON-NLS-1$
 
         statusText = new CCombo(parent, SWT.BORDER);
-        // statusText.setItems(toArray(statusList));
+        statusText.setText(DevelopmentStatus.DRAFT.getName());
         statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        statusText.setEditable(!readOnly);
+        statusText.setEditable(false);
         statusText.setEnabled(!readOnly);
+        
+        for (DevelopmentStatus status : DevelopmentStatus.values()) {
+
+            statusText.add(status.getName());
+        }
 
         // Path:
         Label pathLab = new Label(parent, SWT.NONE);
@@ -425,29 +431,29 @@ public abstract class PropertiesWizardPage extends WizardPage {
             }
         });
 
-        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                // String version = property.getVersion();
-                // version = VersionUtils.upMajor(version);
-                versionText.setText("");
-                // property.setVersion(version);
-                updatePageStatus();
-            }
-        });
-
-        versionMinorBtn.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                // String version = property.getVersion();
-                // version = VersionUtils.upMinor(version);
-                // versionText.setText(version);
-                // property.setVersion(version);
-                updatePageStatus();
-            }
-        });
+//        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
+//
+//            @Override
+//            public void widgetSelected(SelectionEvent e) {
+//                // String version = property.getVersion();
+//                // version = VersionUtils.upMajor(version);
+//                versionText.setText("");
+//                // property.setVersion(version);
+//                updatePageStatus();
+//            }
+//        });
+//
+//        versionMinorBtn.addSelectionListener(new SelectionAdapter() {
+//
+//            @Override
+//            public void widgetSelected(SelectionEvent e) {
+//                // String version = property.getVersion();
+//                // version = VersionUtils.upMinor(version);
+//                // versionText.setText(version);
+//                // property.setVersion(version);
+//                updatePageStatus();
+//            }
+//        });
 
         statusText.addModifyListener(new ModifyListener() {
 

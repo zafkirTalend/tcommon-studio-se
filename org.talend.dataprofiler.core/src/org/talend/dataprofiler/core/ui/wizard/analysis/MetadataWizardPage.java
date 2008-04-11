@@ -151,40 +151,41 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         authorText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // Version
-        Label versionLab = new Label(container, SWT.NONE);
-        versionLab.setText("Version");
-
-        Composite versionContainer = new Composite(container, SWT.NONE);
-        versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        GridLayout versionLayout = new GridLayout(3, false);
-        versionLayout.marginHeight = 0;
-        versionLayout.marginWidth = 0;
-        versionLayout.horizontalSpacing = 0;
-        versionContainer.setLayout(versionLayout);
-
-        versionText = new Text(versionContainer, SWT.BORDER);
-        versionText.setEnabled(false);
-        versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-        versionMajorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMajorBtn.setText("M");
-        versionMajorBtn.setEnabled(!readOnly);
-
-        versionMinorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMinorBtn.setText("m"); //$NON-NLS-1$
-        versionMinorBtn.setEnabled(!readOnly);
+//        Label versionLab = new Label(container, SWT.NONE);
+//        versionLab.setText("Version");
+//
+//        Composite versionContainer = new Composite(container, SWT.NONE);
+//        versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//        GridLayout versionLayout = new GridLayout(3, false);
+//        versionLayout.marginHeight = 0;
+//        versionLayout.marginWidth = 0;
+//        versionLayout.horizontalSpacing = 0;
+//        versionContainer.setLayout(versionLayout);
+//
+//        versionText = new Text(versionContainer, SWT.BORDER);
+//        versionText.setEnabled(false);
+//        versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//
+//        versionMajorBtn = new Button(versionContainer, SWT.PUSH);
+//        versionMajorBtn.setText("M");
+//        versionMajorBtn.setEnabled(!readOnly);
+//
+//        versionMinorBtn = new Button(versionContainer, SWT.PUSH);
+//        versionMinorBtn.setText("m"); //$NON-NLS-1$
+//        versionMinorBtn.setEnabled(!readOnly);
 
         // Status
         Label statusLab = new Label(container, SWT.NONE);
         statusLab.setText("Status"); //$NON-NLS-1$
 
         statusText = new CCombo(container, SWT.BORDER);
-        // statusText.setItems(toArray(statusList));
+        statusText.setText(DevelopmentStatus.DRAFT.getName());
         statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        statusText.setEditable(!readOnly);
+        statusText.setEditable(false);
         statusText.setEnabled(!readOnly);
         
         for (DevelopmentStatus status : DevelopmentStatus.values()) {
+
             statusText.add(status.getName());
         }
 
@@ -324,21 +325,21 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
             }
         });
 
-        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-
-            }
-        });
-
-        versionMinorBtn.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-
-            }
-        });
+//        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
+//
+//            @Override
+//            public void widgetSelected(SelectionEvent e) {
+//
+//            }
+//        });
+//
+//        versionMinorBtn.addSelectionListener(new SelectionAdapter() {
+//
+//            @Override
+//            public void widgetSelected(SelectionEvent e) {
+//
+//            }
+//        });
 
         statusText.addModifyListener(new ModifyListener() {
 
@@ -360,9 +361,14 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
     public void setVisible(boolean visible) {
 
         String typeName = getConnectionParams().getAnalysisTypeName();
-
         if (typeName != null) {
             typeText.setText(typeName);
+        }
+        
+        String status = statusText.getText();
+        if (status != null) {
+            analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, status); 
+            getConnectionParams().setAnalysisMetadate(analysisMetadate);
         }
         
         FolderProvider defaultFolder = new FolderProvider();

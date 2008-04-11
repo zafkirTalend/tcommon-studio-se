@@ -47,16 +47,17 @@ public abstract class AbstractAnalysisWizard extends Wizard {
 
     @Override
     public boolean performFinish() {
-        this.fillAnalysisEditorParam();
-        if (!checkAnalysisEditorParam()) {
-            return false;
-        }
-
         // CorePlugin.getDefault().openEditor(folderProvider.getFolder());
         IEditorPart openEditor = null;
+        
         try {
+            this.fillAnalysisEditorParam();
+            if (!checkAnalysisEditorParam()) {
+                return false;
+            }
+
             openEditor = CorePlugin.getDefault().openEditor(createEmptyAnalysisFile());
-        } catch (DataprofilerCoreException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             ExceptionHandler.process(e, Level.ERROR);
         }

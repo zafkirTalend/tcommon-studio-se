@@ -188,7 +188,10 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
             selectedWizard = WizardFactory.createConnectionWizard();
             setConnectionParams(new ConnectionAnalysisParameter());
         } else if (parentNode.getName().equals("Comparison analysis")) { 
+            
+        } else if (parentNode.getName().endsWith("Multiple Column Analysis")) {
             selectedWizard = WizardFactory.createColumnWizard();
+            setConnectionParams(new ConnectionAnalysisParameter());
         } else {
             selectedWizard = null;
             setPageComplete(false);
