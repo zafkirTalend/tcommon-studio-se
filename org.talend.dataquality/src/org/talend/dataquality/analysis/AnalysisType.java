@@ -76,8 +76,9 @@ public enum AnalysisType implements Enumerator {
      * @generated
      * @ordered
      */
-    SCHEMA(5, "SCHEMA", "Schema Analysis");
+    SCHEMA(5, "SCHEMA", "Schema Analysis"),
 
+    MULTIPLE_COLUMN(6, "COLUMN", "Multiple Column Analysis");
     /**
      * The '<em><b>COLUMN</b></em>' literal value.
      * <!-- begin-user-doc -->
@@ -167,6 +168,8 @@ public enum AnalysisType implements Enumerator {
      * @ordered
      */
     public static final int SCHEMA_VALUE = 5;
+    
+    public static final int MULTIPLE_COLUMN_VALUE = 6;
 
     /**
      * An array of all the '<em><b>Type</b></em>' enumerators.
@@ -182,6 +185,7 @@ public enum AnalysisType implements Enumerator {
             TABLE_COMPARISON,
             CONNECTION,
             SCHEMA,
+            MULTIPLE_COLUMN,
         };
 
     /**
@@ -240,6 +244,7 @@ public enum AnalysisType implements Enumerator {
             case TABLE_COMPARISON_VALUE: return TABLE_COMPARISON;
             case CONNECTION_VALUE: return CONNECTION;
             case SCHEMA_VALUE: return SCHEMA;
+            case MULTIPLE_COLUMN_VALUE: return MULTIPLE_COLUMN;
         }
         return null;
     }
