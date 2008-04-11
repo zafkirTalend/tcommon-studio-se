@@ -34,7 +34,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -55,6 +57,7 @@ import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dq.analysis.AnalysisWriter;
 import org.talend.dq.analysis.ColumnAnalysisHandler;
@@ -85,6 +88,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
 
     private boolean isDirty = false;
 
+    private String stringDataFilter;
+
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
         this.initAnalysis(editor);
@@ -94,6 +99,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         IEditorInput input = editor.getEditorInput();
         analysisHandler = new ColumnAnalysisHandler();
         analysisHandler.setAnalysis(((AnalysisEditorInuput) input).getAnalysis());
+        stringDataFilter = analysisHandler.getStringDataFilter();
         EList<ModelElement> analyzedColumns = analysisHandler.getAnalyzedColumns();
         List<ColumnIndicator> columnIndicatorList = new ArrayList<ColumnIndicator>();
         ColumnIndicator currentColumnIndicator;
@@ -103,6 +109,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 continue;
             }
             currentColumnIndicator = new ColumnIndicator(tdColumn);
+            DataminingType dataminingType = DataminingType.get(analysisHandler.getDatamingType(tdColumn));
+            currentColumnIndicator.setDataminingType(dataminingType == null ? DataminingType.NOMINAL : dataminingType);
             Collection<Indicator> indicatorList = analysisHandler.getIndicators(tdColumn);
             currentColumnIndicator.setIndicators(indicatorList.toArray(new Indicator[indicatorList.size()]));
             columnIndicatorList.add(currentColumnIndicator);
@@ -163,7 +171,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
                 .getDescription());
-
         ModifyListener listener = new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -181,10 +188,11 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true, "Select the columns to analyze:");
 
         Composite topComp = toolkit.createComposite(section);
-        topComp.setLayout(new GridLayout(3, true));
+        topComp.setLayout(new GridLayout(2, false));
 
         Composite tree = toolkit.createComposite(topComp, SWT.BORDER);
-        GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
+        ((GridData) tree.getLayoutData()).widthHint = 500;
         tree.setLayout(new GridLayout());
 
         treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators);
@@ -194,7 +202,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
         buttonsComp.setLayout(new GridLayout(1, true));
         Button button = toolkit.createButton(buttonsComp, "Add..", SWT.None);
-        GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.TOP).applyTo(button);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(button);
         button.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -227,7 +235,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         Section section = createSection(form, toolkit, anasisDataComp, "Data Filter", false, "Edit the data filter:");
 
         Composite sectionClient = toolkit.createComposite(section);
-        dataFilterComp = new DataFilterComp(sectionClient);
+        dataFilterComp = new DataFilterComp(sectionClient, stringDataFilter);
         dataFilterComp.addPropertyChangeListener(this);
         section.setClient(sectionClient);
     }
@@ -297,8 +305,14 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         if (columnIndicators != null) {
             for (ColumnIndicator columnIndicator : columnIndicators) {
                 analysisHandler.addIndicator(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
+                analysisHandler.setDatamingType(columnIndicator.getDataminingType().getLiteral(), columnIndicator.getTdColumn());
             }
         }
+        analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
+        analysisHandler.setName(this.nameText.getText() == null ? PluginConstant.EMPTY_STRING : this.nameText.getText());
+        analysisHandler.setPurpose(this.purposeText.getText() == null ? PluginConstant.EMPTY_STRING : this.purposeText.getText());
+        analysisHandler.setDescription(this.descriptionText.getText() == null ? PluginConstant.EMPTY_STRING
+                : this.descriptionText.getText());
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
         ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);

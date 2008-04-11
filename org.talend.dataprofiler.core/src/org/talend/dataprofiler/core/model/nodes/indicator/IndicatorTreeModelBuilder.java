@@ -56,7 +56,7 @@ public class IndicatorTreeModelBuilder {
                 IndicatorEnum.FrequencyIndicatorEnum };
         createChildren(advanceCategoryNode, advanceIndicatorEnums, new IndicatorCategoryNode[] { summaryCategoryNode });
 
-        return new IndicatorCategoryNode[] { simpleCategoryNode, advanceCategoryNode };
+        return new IndicatorCategoryNode[] { simpleCategoryNode, textCategoryNode, advanceCategoryNode };
     }
 
     private static void createChildren(IndicatorCategoryNode parent, IndicatorEnum[] fieldEnums) {

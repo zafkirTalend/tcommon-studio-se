@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.talend.dataprofiler.core.PluginConstant;
 
 /**
  * @author rli
@@ -28,17 +29,23 @@ import org.eclipse.swt.widgets.Text;
  */
 public class DataFilterComp extends AbstractPagePart {
 
-    public DataFilterComp(Composite parent) {
+    private final String stringDataFilter;
+
+    private Text dataFilterText;
+
+    public DataFilterComp(Composite parent, String stringDataFilter) {
+        this.stringDataFilter = stringDataFilter;
         this.createContent(parent);
     }
 
     public void createContent(Composite parent) {
         parent.setLayout(new GridLayout(3, true));
 
-        Text text = new Text(parent, SWT.BORDER | SWT.MULTI);
-        GridDataFactory.fillDefaults().span(2, 3).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(text);
-        ((GridData) text.getLayoutData()).heightHint = 150;
-        text.addModifyListener(new ModifyListener() {
+        dataFilterText = new Text(parent, SWT.BORDER | SWT.MULTI);
+        dataFilterText.setText(stringDataFilter == null ? PluginConstant.EMPTY_STRING : stringDataFilter);
+        GridDataFactory.fillDefaults().span(2, 3).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(dataFilterText);
+        ((GridData) dataFilterText.getLayoutData()).heightHint = 150;
+        dataFilterText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
                 setDirty(true);
@@ -53,6 +60,10 @@ public class DataFilterComp extends AbstractPagePart {
         Button button = new Button(buttonsComp, SWT.None);
         button.setText("Edit..");
         GridDataFactory.fillDefaults().span(1, 1).align(SWT.FILL, SWT.TOP).applyTo(button);
+    }
+
+    public String getDataFilterString() {
+        return dataFilterText.getText();
     }
 
 }

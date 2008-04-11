@@ -14,15 +14,9 @@ package org.talend.dataprofiler.core.ui.wizard.analysis.column;
 
 import java.io.File;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
-import org.talend.dataprofiler.core.ui.wizard.analysis.connection.ConnAnalysisPageStep1;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
 import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;

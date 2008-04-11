@@ -109,11 +109,23 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             treeItem.setData(columnIndicator);
 
             TreeEditor editor = new TreeEditor(tree);
-            CCombo combo = new CCombo(tree, SWT.BORDER);
+            final CCombo combo = new CCombo(tree, SWT.BORDER);
             for (DataminingType type : DataminingType.values()) {
                 combo.add(type.getLiteral()); // MODSCA 2008-04-10 use literal for presentation
             }
-            combo.select(0);
+            if (columnIndicator.getDataminingType() == null) {
+                combo.select(0);
+            } else {
+                combo.setText(columnIndicator.getDataminingType().getLiteral());
+            }
+            combo.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent e) {
+                    columnIndicator.setDataminingType(DataminingType.get(combo.getText()));
+                    setDirty(true);
+                }
+
+            });
             // editor.grabHorizontal = true;
             editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);
@@ -208,14 +220,14 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 }
 
             });
-            
+
             modButton.addSelectionListener(new SelectionAdapter() {
-                
+
                 public void widgetSelected(SelectionEvent e) {
-                    
+
                     // open the wizard
                     IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicatorEnum);
-                    
+
                     WizardDialog dialog = new WizardDialog(null, wizard);
                     dialog.setPageSize(300, 400);
                     dialog.create();

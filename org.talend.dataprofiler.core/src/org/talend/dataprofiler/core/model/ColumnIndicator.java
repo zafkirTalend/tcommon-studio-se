@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 
@@ -31,6 +32,8 @@ public class ColumnIndicator {
     private List<IndicatorEnum> indicatorEnums;
 
     private Indicator[] indicators;
+
+    private DataminingType dataminingType = DataminingType.NOMINAL;
 
     public ColumnIndicator(TdColumn tdColumn) {
         this.tdColumn = tdColumn;
@@ -151,6 +154,24 @@ public class ColumnIndicator {
         for (int i = 0; i < indicators.length; i++) {
             addIndicatorEnum(IndicatorEnum.findIndicatorEnum(indicators[i].eClass()));
         }
+    }
+
+    /**
+     * Getter for detaminingType.
+     * 
+     * @return the detaminingType
+     */
+    public DataminingType getDataminingType() {
+        return dataminingType;
+    }
+
+    /**
+     * Sets the detaminingType.
+     * 
+     * @param detaminingType the detaminingType to set
+     */
+    public void setDataminingType(DataminingType dataminingType) {
+        this.dataminingType = dataminingType;
     }
 
 }

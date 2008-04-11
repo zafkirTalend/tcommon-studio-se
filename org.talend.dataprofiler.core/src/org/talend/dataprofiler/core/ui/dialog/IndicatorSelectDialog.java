@@ -54,7 +54,7 @@ public class IndicatorSelectDialog extends Dialog {
         Tree tree = new Tree(comp, SWT.BORDER);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
         ((GridData) tree.getLayoutData()).widthHint = 650;
-        ((GridData) tree.getLayoutData()).heightHint = 320;
+        ((GridData) tree.getLayoutData()).heightHint = 360;
         createTreeStructure(tree);
         tree.pack();
         comp.layout();
