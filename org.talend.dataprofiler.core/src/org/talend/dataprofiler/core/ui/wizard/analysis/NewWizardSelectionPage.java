@@ -177,25 +177,23 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
     public void updateSelectionNode(AnalysisTypeNode node) {
         
         AnalysisTypeNode parentNode = null;
+        selectedWizard = null;
+        setPageComplete(false);
+        
         if (node.getParent() != null) {
             parentNode = (AnalysisTypeNode) node.getParent();
         } else {
             parentNode = node;
         }
-        
-        //System.out.println(node.getName());
+ 
         if (parentNode.getName().equals(AnalysisType.CONNECTION.getLiteral())) {
             selectedWizard = WizardFactory.createConnectionWizard();
             setConnectionParams(new ConnectionAnalysisParameter());
-        } else if (parentNode.getName().equals("Comparison analysis")) { 
-            
-        } else if (parentNode.getName().endsWith("Multiple Column Analysis")) {
+        }
+        if (parentNode.getName().endsWith("Multiple Column Analysis")) {
             selectedWizard = WizardFactory.createColumnWizard();
             setConnectionParams(new ConnectionAnalysisParameter());
-        } else {
-            selectedWizard = null;
-            setPageComplete(false);
-        }
+        } 
         
         if (selectedWizard != null && node.getParent() != null) {
             setPageComplete(true);
