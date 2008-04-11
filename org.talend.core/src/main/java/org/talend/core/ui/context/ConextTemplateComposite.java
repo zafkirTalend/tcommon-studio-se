@@ -109,8 +109,8 @@ public class ConextTemplateComposite extends Composite {
             TYPE_COLUMN_NAME, SCRIPTCODE_COLUMN_NAME, COMMENT_COLUMN_NAME };
 
     private static final String[] ITEMS = new String[] { "boolean | Boolean", "char | Character", "Date", "double | Double",
-            "float | Float", "int | Integer", "long | Long", "short | Short", "String", "Object", "File", "Directory",
-            "List Of Value" };
+            "float | Float", "int | Integer", "long | Long", "short | Short", "String", "BigDecimal", "Object", "File",
+            "Directory", "List Of Value" };
 
     public static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
 
