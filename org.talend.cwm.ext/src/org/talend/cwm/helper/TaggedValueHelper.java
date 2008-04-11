@@ -44,6 +44,10 @@ public final class TaggedValueHelper {
      */
     public static final String DEV_STATUS = "Status";
 
+    public static final String AUTHOR = "Author";
+
+    private static final String EMPTY_STRING = "";
+
     private TaggedValueHelper() {
     }
 
@@ -136,6 +140,18 @@ public final class TaggedValueHelper {
      */
     public static boolean setDevStatus(ModelElement element, DevelopmentStatus status) {
         return setTaggedValue(element, DEV_STATUS, status.getLiteral());
+    }
+
+    public static boolean setAuthor(ModelElement element, String author) {
+        return setTaggedValue(element, AUTHOR, author);
+    }
+
+    public static String getAuthor(ModelElement element) {
+        TaggedValue tv = getTaggedValue(AUTHOR, element.getTaggedValue());
+        if (tv == null) {
+            return EMPTY_STRING;
+        }
+        return tv.getValue();
     }
 
     /**
