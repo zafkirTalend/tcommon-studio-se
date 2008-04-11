@@ -14,18 +14,17 @@ package org.talend.dataprofiler.core.ui.dialog.provider;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.talend.dataprofiler.core.helper.FileResourceMapHelper;
-import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
+import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
+import org.talend.dataprofiler.core.ui.views.provider.DQRepositoryViewContentProvider;
 import orgomg.cwm.resource.relational.NamedColumnSet;
 
 /**
  * @author rli
  * 
  */
-public class DBTablesViewContentProvider extends AdapterFactoryContentProvider {
+public class DBTablesViewContentProvider extends DQRepositoryViewContentProvider {
 
     private static Logger log = Logger.getLogger(DBTablesViewContentProvider.class);
 
@@ -33,7 +32,7 @@ public class DBTablesViewContentProvider extends AdapterFactoryContentProvider {
      * @param adapterFactory
      */
     public DBTablesViewContentProvider() {
-        super(MNComposedAdapterFactory.getAdapterFactory());
+        super();
     }
 
     public Object[] getChildren(Object parentElement) {
@@ -43,27 +42,14 @@ public class DBTablesViewContentProvider extends AdapterFactoryContentProvider {
             } catch (CoreException e) {
                 log.error("Can't get the children of container:" + ((IContainer) parentElement).getLocation());
             }
-        } else if (parentElement instanceof IFile) {
-            parentElement = FileResourceMapHelper.get((IFile) parentElement);
         } else if (parentElement instanceof NamedColumnSet) {
-                return null;
+            return null;
         }
         return super.getChildren(parentElement);
     }
 
-    public Object[] getElements(Object object) {
-        return this.getChildren(object);
-    }
-
-    public Object getParent(Object element) {
-        if (element instanceof IContainer) {
-            return ((IContainer) element).getParent();
-        }
-        return super.getParent(element);
-    }
-
     public boolean hasChildren(Object element) {
-        return !(element instanceof NamedColumnSet);
+        return !(element instanceof TdView || element instanceof TdTable);
     }
 
 }

@@ -34,9 +34,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -301,6 +299,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         AnalysisEditorInuput editorInput = (AnalysisEditorInuput) this.getEditorInput();
         String fileName = editorInput.getName();
 
+        analysisHandler.clearAnalysis();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
         if (columnIndicators != null) {
             for (ColumnIndicator columnIndicator : columnIndicators) {
@@ -308,11 +307,11 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 analysisHandler.setDatamingType(columnIndicator.getDataminingType().getLiteral(), columnIndicator.getTdColumn());
             }
         }
-        analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
-        analysisHandler.setName(this.nameText.getText() == null ? PluginConstant.EMPTY_STRING : this.nameText.getText());
-        analysisHandler.setPurpose(this.purposeText.getText() == null ? PluginConstant.EMPTY_STRING : this.purposeText.getText());
-        analysisHandler.setDescription(this.descriptionText.getText() == null ? PluginConstant.EMPTY_STRING
-                : this.descriptionText.getText());
+//        analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
+//        analysisHandler.setName(this.nameText.getText() == null ? PluginConstant.EMPTY_STRING : this.nameText.getText());
+//        analysisHandler.setPurpose(this.purposeText.getText() == null ? PluginConstant.EMPTY_STRING : this.purposeText.getText());
+//        analysisHandler.setDescription(this.descriptionText.getText() == null ? PluginConstant.EMPTY_STRING
+//                : this.descriptionText.getText());
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
         ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);

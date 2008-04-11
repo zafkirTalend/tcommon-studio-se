@@ -128,18 +128,6 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
         });
     }
 
-    public void selectionChanged(SelectionChangedEvent event) {
-        Object selectedObj = ((IStructuredSelection) event.getSelection()).getFirstElement();
-        if (selectedObj instanceof ColumnSet) {
-            this.setOutput(selectedObj);
-            TdColumn[] columns = getCheckedColumns((ColumnSet) selectedObj);
-            if (columns != null) {
-                this.getTableViewer().setCheckedElements(columns);
-            }
-        }
-
-    }
-
     private TdColumn[] getCheckedColumns(ColumnSet columnSet) {
         ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(columnSet);
         if (columnCheckMap == null) {
@@ -221,6 +209,19 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
             }
         };
         deselectButton.addSelectionListener(listener);
+    }    
+
+
+    public void selectionChanged(SelectionChangedEvent event) {
+        Object selectedObj = ((IStructuredSelection) event.getSelection()).getFirstElement();
+        if (selectedObj instanceof ColumnSet) {
+            this.setOutput(selectedObj);
+            TdColumn[] columns = getCheckedColumns((ColumnSet) selectedObj);
+            if (columns != null) {
+                this.getTableViewer().setCheckedElements(columns);
+            }
+        }
+
     }
 
     /**

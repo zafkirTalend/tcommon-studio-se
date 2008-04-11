@@ -23,6 +23,7 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.FileResourceMapHelper;
+import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
 import org.talend.utils.sugars.TypedReturnCode;
 
@@ -63,6 +64,8 @@ public class DBTablesViewLabelProvider extends AdapterFactoryLabelProvider {
             return ImageLib.getImage(ImageLib.PROJECT_ACTIVE);
         } else if (element instanceof IFolder) {
             return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
+        } else if (element instanceof IFolderNode) {
+            return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
         }
         return super.getImage(element);
     }
@@ -70,6 +73,8 @@ public class DBTablesViewLabelProvider extends AdapterFactoryLabelProvider {
     public String getText(Object element) {
         if (element instanceof IContainer) {
             return ((IContainer) element).getName();
+        } else if (element instanceof IFolderNode) {
+            return ((IFolderNode) element).getName();
         }
         String text = super.getText(element);
         if (text.endsWith(PluginConstant.PRV_SUFFIX)) {
