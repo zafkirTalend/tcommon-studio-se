@@ -14,6 +14,7 @@ package org.talend.dataprofiler.core.ui.editor.composite;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TreeEditor;
@@ -29,6 +30,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
+import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataquality.indicators.DataminingType;
 
 /**
@@ -205,6 +207,20 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                     setElements(columnIndicators);
                 }
 
+            });
+            
+            modButton.addSelectionListener(new SelectionAdapter() {
+                
+                public void widgetSelected(SelectionEvent e) {
+                    
+                    // open the wizard
+                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicatorEnum);
+                    
+                    WizardDialog dialog = new WizardDialog(null, wizard);
+                    dialog.setPageSize(300, 400);
+                    dialog.create();
+                    dialog.open();
+                }
             });
         }
     }
