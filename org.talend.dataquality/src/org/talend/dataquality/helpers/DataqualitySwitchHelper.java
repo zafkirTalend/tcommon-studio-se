@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dataquality.helpers;
 
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.util.AnalysisSwitch;
 import org.talend.dataquality.indicators.schema.ConnectionIndicator;
 import org.talend.dataquality.indicators.schema.util.SchemaSwitch;
 
@@ -26,6 +28,15 @@ public class DataqualitySwitchHelper {
 
         @Override
         public ConnectionIndicator caseConnectionIndicator(ConnectionIndicator object) {
+            return object;
+        }
+
+    };
+
+    public static final AnalysisSwitch<Analysis> ANALYSIS_SWITCH = new AnalysisSwitch<Analysis>() {
+
+        @Override
+        public Analysis caseAnalysis(Analysis object) {
             return object;
         }
 

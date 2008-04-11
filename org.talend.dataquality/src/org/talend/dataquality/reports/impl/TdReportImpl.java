@@ -1,29 +1,26 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.reports.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.reports.PresentationParameter;
 import org.talend.dataquality.reports.ReportsPackage;
 import org.talend.dataquality.reports.TdReport;
-
 import orgomg.cwmx.analysis.informationreporting.impl.ReportImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Td Report</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Td Report</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,10 +31,10 @@ import orgomg.cwmx.analysis.informationreporting.impl.ReportImpl;
  * @generated
  */
 public class TdReportImpl extends ReportImpl implements TdReport {
+
     /**
      * The cached value of the '{@link #getPresentationParams() <em>Presentation Params</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPresentationParams()
      * @generated
      * @ordered
@@ -45,8 +42,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     protected EList<PresentationParameter> presentationParams;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TdReportImpl() {
@@ -54,8 +50,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -64,8 +59,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList<PresentationParameter> getPresentationParams() {
@@ -76,8 +70,16 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    public boolean addAnalysis(Analysis analysis) {
+        return this.getComponent().add(analysis);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -90,8 +92,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -104,8 +105,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -121,8 +121,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -136,8 +135,7 @@ public class TdReportImpl extends ReportImpl implements TdReport {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -149,4 +147,4 @@ public class TdReportImpl extends ReportImpl implements TdReport {
         return super.eIsSet(featureID);
     }
 
-} //TdReportImpl
+} // TdReportImpl

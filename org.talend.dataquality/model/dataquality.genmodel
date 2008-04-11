@@ -66,6 +66,9 @@
         ecorePackage="dataquality.ecore#//reports">
       <genClasses ecoreClass="dataquality.ecore#//reports/TdReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//reports/TdReport/presentationParams"/>
+        <genOperations ecoreOperation="dataquality.ecore#//reports/TdReport/addAnalysis">
+          <genParameters ecoreParameter="dataquality.ecore#//reports/TdReport/addAnalysis/analysis"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//reports/PresentationParameter">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//reports/PresentationParameter/plotType"/>

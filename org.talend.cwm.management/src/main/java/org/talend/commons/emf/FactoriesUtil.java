@@ -28,6 +28,9 @@ import org.talend.dataquality.domain.pattern.PatternFactory;
 import org.talend.dataquality.domain.pattern.PatternPackage;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.reports.ReportsFactory;
+import org.talend.dataquality.reports.ReportsPackage;
+
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
 import orgomg.cwm.objectmodel.core.CorePackage;
 
@@ -54,6 +57,11 @@ public final class FactoriesUtil {
      */
     public static final String CAT = "cat";
 
+    /**
+     * Extension used for the files in which the reports are serialized.
+     */
+    public static final String REP = "rep";
+
     private FactoriesUtil() {
     }
 
@@ -72,6 +80,7 @@ public final class FactoriesUtil {
         AnalysisFactory.eINSTANCE.getAnalysisPackage();
         DomainFactory.eINSTANCE.getDomainPackage();
         IndicatorsFactory.eINSTANCE.getIndicatorsPackage();
+        ReportsFactory.eINSTANCE.getReportsPackage();
 
         PatternFactory.eINSTANCE.getEPackage();
         CategoryFactory.eINSTANCE.getEPackage();
@@ -106,11 +115,13 @@ public final class FactoriesUtil {
         extensions.add(IndicatorsPackage.eNAME);
         extensions.add(DomainPackage.eNAME);
         extensions.add(CategoryPackage.eNAME);
+        extensions.add(ReportsPackage.eNAME);
 
         // --- add specific extensions
         extensions.add(PROV);
         extensions.add(ANA);
         extensions.add(CAT);
+        extensions.add(REP);
 
         // --- CWM generated packages
         extensions.add(CorePackage.eNAME);

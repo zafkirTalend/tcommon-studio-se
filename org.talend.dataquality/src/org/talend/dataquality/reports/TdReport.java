@@ -7,6 +7,7 @@
 package org.talend.dataquality.reports;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.dataquality.analysis.Analysis;
 import orgomg.cwmx.analysis.informationreporting.Report;
 
 /**
@@ -42,4 +43,12 @@ public interface TdReport extends Report {
      * @generated
      */
     EList<PresentationParameter> getPresentationParams();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model
+     * @generated
+     */
+    boolean addAnalysis(Analysis analysis);
 } // TdReport

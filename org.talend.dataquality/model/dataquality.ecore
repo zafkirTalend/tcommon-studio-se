@@ -87,6 +87,9 @@
   </eSubpackages>
   <eSubpackages name="reports" nsURI="http://dataquality.reports" nsPrefix="dataquality.reports">
     <eClassifiers xsi:type="ecore:EClass" name="TdReport" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwmx/analysis/informationreporting/Report">
+      <eOperations name="addAnalysis" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="analysis" eType="#//analysis/Analysis"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="presentationParams" upperBound="-1"
           eType="#//reports/PresentationParameter" containment="true"/>
     </eClassifiers>
