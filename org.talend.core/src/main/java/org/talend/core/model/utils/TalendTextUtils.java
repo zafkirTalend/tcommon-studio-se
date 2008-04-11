@@ -19,6 +19,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
@@ -98,6 +99,9 @@ public class TalendTextUtils {
             newString = ANTI_QUOTE + checkStringQuotationMarks(text) + ANTI_QUOTE;
         } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
             newString = LBRACKET + checkStringQuotationMarks(text) + RBRACKET;
+        } else if (QueryUtil.isContextQuery) {
+            newString = text;
+            QueryUtil.isContextQuery = false;
         } else {
             if (tempText.startsWith(QUOTATION_MARK) && tempText.endsWith(QUOTATION_MARK)) {
                 newString = text;
