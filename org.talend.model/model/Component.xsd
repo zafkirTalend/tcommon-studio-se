@@ -7,14 +7,14 @@
 	<xs:element name="COMPONENT">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="HEADER" />
-				<xs:element ref="DOCUMENTATION" />
-				<xs:element ref="CONNECTORS" />
-				<xs:element ref="PARAMETERS" />
-				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0" />
-				<xs:element ref="CODEGENERATION" />
-				<xs:element ref="RETURNS" />
-				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0" />
+				<xs:element ref="HEADER"/>
+				<xs:element ref="DOCUMENTATION"/>
+				<xs:element ref="CONNECTORS"/>
+				<xs:element ref="PARAMETERS"/>
+				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0"/>
+				<xs:element ref="CODEGENERATION"/>
+				<xs:element ref="RETURNS"/>
+				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -30,43 +30,29 @@
 				</xs:element>
 				<xs:element name="FORMAT" minOccurs="0">
 					<xs:complexType>
-						<xs:attribute name="LABEL" type="xs:string" />
-						<xs:attribute name="HINT" type="xs:string" />
-						<xs:attribute name="CONNECTION"
-							type="xs:string" />
+						<xs:attribute name="LABEL" type="xs:string"/>
+						<xs:attribute name="HINT" type="xs:string"/>
+						<xs:attribute name="CONNECTION" type="xs:string"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="PLATEFORM" type="xs:string"
-				use="required" />
-			<xs:attribute name="SERIAL" type="xs:string" use="required" />
-			<xs:attribute name="VERSION" type="xs:decimal"
-				use="required" />
-			<xs:attribute name="STATUS" type="xs:string" use="required" />
-			<xs:attribute name="COMPATIBILITY" type="xs:string"
-				use="required" />
-			<xs:attribute name="AUTHOR" type="xs:string" use="required" />
-			<xs:attribute name="RELEASE_DATE" type="xs:string"
-				use="required" />
-			<xs:attribute name="STARTABLE" type="xs:boolean"
-				use="required" />
-			<xs:attribute name="EXTENSION" type="xs:string"
-				use="optional" />
-			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean"
-				use="optional" default="true" />
-			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean"
-				use="optional" default="true" />
-			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS"
-				type="xs:boolean" use="optional" />
-			<xs:attribute name="IS_MULTIPLYING_OUTPUTS"
-				type="xs:boolean" use="optional" />
-			<xs:attribute name="VISIBLE" type="xs:boolean"
-				use="optional" default="true" />
-			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean"
-				use="optional" default="false" />
-			<xs:attribute name="HASH_COMPONENT" type="xs:boolean"
-				use="optional" default="false" />
-			<xs:attribute name="IS_SUBTREE_WITH_LOOP" type="xs:boolean" use="optional"></xs:attribute>
+			<xs:attribute name="PLATEFORM" type="xs:string" use="required"/>
+			<xs:attribute name="SERIAL" type="xs:string" use="required"/>
+			<xs:attribute name="VERSION" type="xs:decimal" use="required"/>
+			<xs:attribute name="STATUS" type="xs:string" use="required"/>
+			<xs:attribute name="COMPATIBILITY" type="xs:string" use="required"/>
+			<xs:attribute name="AUTHOR" type="xs:string" use="required"/>
+			<xs:attribute name="RELEASE_DATE" type="xs:string" use="required"/>
+			<xs:attribute name="STARTABLE" type="xs:boolean" use="required"/>
+			<xs:attribute name="EXTENSION" type="xs:string" use="optional"/>
+			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
+			<xs:attribute name="IS_MULTIPLYING_OUTPUTS" type="xs:boolean" use="optional"/>
+			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="HASH_COMPONENT" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="IS_SUBTREE_WITH_LOOP" type="xs:boolean" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
@@ -108,7 +94,7 @@
 	<xs:element name="PARAMETERS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="PARAMETER" maxOccurs="unbounded"/>
+				<xs:element ref="PARAMETER" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -121,45 +107,31 @@
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="TEMPLATE"
-								maxOccurs="unbounded">
+							<xs:element name="TEMPLATE" maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="LINK_TO"
-											minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="LINK_TO" minOccurs="0" maxOccurs="unbounded">
 											<xs:complexType>
-												<xs:attribute
-													name="NAME" type="xs:string" />
-												<xs:attribute
-													name="CTYPE" type="xs:string" />
+												<xs:attribute name="NAME" type="xs:string"/>
+												<xs:attribute name="CTYPE" type="xs:string"/>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
-									<xs:attribute name="NAME"
-										type="xs:string" use="optional" />
-									<xs:attribute name="COMPONENT"
-										type="xs:string" use="optional" />
+									<xs:attribute name="NAME" type="xs:string" use="optional"/>
+									<xs:attribute name="COMPONENT" type="xs:string" use="optional"/>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="TEMPLATE_PARAM"
-								minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:attribute name="SOURCE"
-										type="xs:string" use="optional" />
-									<xs:attribute name="TARGET"
-										type="xs:string" />
-									<xs:attribute name="VALUE"
-										type="xs:string" use="optional" />
+									<xs:attribute name="SOURCE" type="xs:string" use="optional"/>
+									<xs:attribute name="TARGET" type="xs:string"/>
+									<xs:attribute name="VALUE" type="xs:string" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
-						<xs:attribute name="INPUT" type="xs:string"
-							use="optional" />
-						<xs:attribute name="OUTPUT" type="xs:string"
-							use="optional" />
-						<xs:attribute name="CONNECTOR"
-							type="xs:string">
-						</xs:attribute>
+						<xs:attribute name="INPUT" type="xs:string" use="optional"/>
+						<xs:attribute name="OUTPUT" type="xs:string" use="optional"/>
+						<xs:attribute name="CONNECTOR" type="xs:string"/>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="IMPORTS" minOccurs="0">
@@ -262,8 +234,7 @@ On CLOSED_LIST mode:
 	<xs:element name="PARAMETER">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="DEFAULT" minOccurs="0"
-					maxOccurs="unbounded">
+				<xs:element name="DEFAULT" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							Used for TEXT or CHECK field
@@ -272,10 +243,8 @@ On CLOSED_LIST mode:
 					<xs:complexType>
 						<xs:simpleContent>
 							<xs:extension base="xs:string">
-								<xs:attribute name="IF" type="xs:string"
-									use="optional" />
-								<xs:attribute name="NOT_IF"
-									type="xs:string" use="optional" />
+								<xs:attribute name="IF" type="xs:string" use="optional"/>
+								<xs:attribute name="NOT_IF" type="xs:string" use="optional"/>
 							</xs:extension>
 						</xs:simpleContent>
 					</xs:complexType>
@@ -287,8 +256,7 @@ On CLOSED_LIST mode:
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="TABLE" minOccurs="0"
-					maxOccurs="unbounded">
+				<xs:element name="TABLE" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							Used only for SCHEMA_TYPE field
@@ -296,68 +264,44 @@ On CLOSED_LIST mode:
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="COLUMN" minOccurs="0"
-								maxOccurs="unbounded">
+							<xs:element name="COLUMN" minOccurs="0" maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:attribute name="NAME"
-										type="xs:string" />
-									<xs:attribute name="TYPE"
-										type="xs:string" />
-									<xs:attribute name="LENGTH"
-										type="xs:int" />
-									<xs:attribute name="PRECISION"
-										type="xs:int" use="optional" default="0" />
-									<xs:attribute name="KEY"
-										type="xs:boolean" use="optional" default="false" />
-									<xs:attribute name="NULLABLE"
-										type="xs:boolean" use="optional" default="true" />
-									<xs:attribute name="DEFAULT"
-										type="xs:string" use="optional" />
-									<xs:attribute name="PATTERN"
-										type="xs:string" use="optional" />
-									<xs:attribute name="READONLY"
-										type="xs:boolean" use="optional" />
-									<xs:attribute name="CUSTOM"
-										type="xs:boolean" use="optional" default="false" />
-									<xs:attribute name="COMMENT"
-										type="xs:string" use="optional" />
+									<xs:attribute name="NAME" type="xs:string"/>
+									<xs:attribute name="TYPE" type="xs:string"/>
+									<xs:attribute name="LENGTH" type="xs:int"/>
+									<xs:attribute name="PRECISION" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="KEY" type="xs:boolean" use="optional" default="false"/>
+									<xs:attribute name="NULLABLE" type="xs:boolean" use="optional" default="true"/>
+									<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
+									<xs:attribute name="PATTERN" type="xs:string" use="optional"/>
+									<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
+									<xs:attribute name="CUSTOM" type="xs:boolean" use="optional" default="false"/>
+									<xs:attribute name="COMMENT" type="xs:string" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
-						<xs:attribute name="READONLY" type="xs:boolean"
-							use="optional" default="false" />
-						<xs:attribute name="IF" type="xs:string"
-							use="optional" />
-						<xs:attribute name="NOT_IF" type="xs:string"
-							use="optional" />
+						<xs:attribute name="READONLY" type="xs:boolean" use="optional" default="false"/>
+						<xs:attribute name="IF" type="xs:string" use="optional"/>
+						<xs:attribute name="NOT_IF" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
-
 			</xs:sequence>
-			<xs:attribute name="NAME" type="xs:string" use="required" />
-			<xs:attribute name="FIELD" type="xs:string" use="required" />
-			<xs:attribute name="NB_LINES" type="xs:int" use="optional"
-				default="3" />
-			<xs:attribute name="NUM_ROW" type="xs:int" use="required" />
-			<xs:attribute name="SHOW" type="xs:boolean" use="optional"
-				default="true" />
-			<xs:attribute name="REQUIRED" type="xs:boolean"
-				use="optional" default="false" />
-			<xs:attribute name="READONLY" type="xs:boolean"
-				use="optional" default="false" />
-			<xs:attribute name="REPOSITORY_VALUE" type="xs:string"
-				use="optional" />
-			<xs:attribute name="SHOW_IF" type="xs:string"
-				use="optional" />
-			<xs:attribute name="NOT_SHOW_IF" type="xs:string"
-				use="optional" />
-			<xs:attribute name="FILTER" type="xs:string" use="optional" />
-			<xs:attribute name="CONTEXT" type="xs:string"
-				use="optional" />
-			<xs:attribute name="GROUP" type="xs:string"></xs:attribute>
-			<xs:attribute name="CONTEXT_MODE" type="xs:boolean"></xs:attribute>
-			<xs:attribute name="COLOR" type="xs:string"></xs:attribute>
-			<xs:attribute name="BACKGROUND" type="xs:string"></xs:attribute>
+			<xs:attribute name="NAME" type="xs:string" use="required"/>
+			<xs:attribute name="FIELD" type="xs:string" use="required"/>
+			<xs:attribute name="NB_LINES" type="xs:int" use="optional" default="3"/>
+			<xs:attribute name="NUM_ROW" type="xs:int" use="required"/>
+			<xs:attribute name="SHOW" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="REQUIRED" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="READONLY" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="REPOSITORY_VALUE" type="xs:string" use="optional"/>
+			<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
+			<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>
+			<xs:attribute name="FILTER" type="xs:string" use="optional"/>
+			<xs:attribute name="CONTEXT" type="xs:string" use="optional"/>
+			<xs:attribute name="GROUP" type="xs:string"/>
+			<xs:attribute name="CONTEXT_MODE" type="xs:boolean"/>
+			<xs:attribute name="COLOR" type="xs:string"/>
+			<xs:attribute name="BACKGROUND" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
