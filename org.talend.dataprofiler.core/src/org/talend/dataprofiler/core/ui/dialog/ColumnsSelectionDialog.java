@@ -39,16 +39,22 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.EObjectHelper;
+import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewLabelProvider;
 import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
+
+import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
@@ -209,8 +215,7 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
             }
         };
         deselectButton.addSelectionListener(listener);
-    }    
-
+    }
 
     public void selectionChanged(SelectionChangedEvent event) {
         Object selectedObj = ((IStructuredSelection) event.getSelection()).getFirstElement();
@@ -297,6 +302,11 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
         return columnList;
     }
 
+    protected void okPressed() {
+        super.okPressed();
+        NeedSaveDataProviderHelper.saveAllDataProvider();
+    }
+
     /**
      * @author rli
      * 
@@ -334,7 +344,24 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
                 EObject eObj = (EObject) inputElement;
                 ColumnSet columnSet = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(eObj);
                 if (columnSet != null) {
-                    return ColumnSetHelper.getColumns(columnSet).toArray();
+                    TdColumn[] columns = EObjectHelper.getColumns(columnSet);
+                    if (columns.length <= 0) {
+                        Package parentCatalogOrSchema = ColumnSetHelper.getParentCatalogOrSchema(columnSet);
+                        if (parentCatalogOrSchema == null) {
+                            return null;
+                        }
+                        TdDataProvider provider = DataProviderHelper.getTdDataProvider(parentCatalogOrSchema);
+                        if (provider == null) {
+                            return null;
+                        }
+                        List<TdColumn> columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
+                        columns = columnList.toArray(new TdColumn[columnList.size()]);
+                        // store tables in catalog
+                        ColumnSetHelper.addColumns(columnSet, columnList);
+                        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()),
+                                provider);
+                    }
+                    return columns;
                 }
             }
             return null;

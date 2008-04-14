@@ -23,6 +23,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.part.FileEditorInput;
+import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataquality.analysis.AnalysisType;
 
@@ -69,6 +70,7 @@ public class AnalysisEditor extends FormEditor {
         }
         this.isDirty = false;
         firePropertyChange(IEditorPart.PROP_DIRTY);
+        CorePlugin.getDefault().refreshWorkSpace();
     }
 
     protected void firePropertyChange(final int propertyId) {

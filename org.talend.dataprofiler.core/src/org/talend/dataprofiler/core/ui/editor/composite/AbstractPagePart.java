@@ -23,7 +23,7 @@ import org.talend.dataprofiler.core.PluginConstant;
 public class AbstractPagePart {
 
     private boolean isDirty;
-    private PropertyChangeSupport propertyChangeSupport;
+    protected PropertyChangeSupport propertyChangeSupport;
 
     public AbstractPagePart() {
         propertyChangeSupport = new PropertyChangeSupport(this);

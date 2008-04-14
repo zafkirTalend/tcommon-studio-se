@@ -25,6 +25,8 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
  */
 public final class NeedSaveDataProviderHelper {
 
+    private static boolean isSaved;
+
     private NeedSaveDataProviderHelper() {
     }
 
@@ -33,6 +35,7 @@ public final class NeedSaveDataProviderHelper {
     public static void register(String providerName, TdDataProvider dataProvider) {
         // MODSCA 2008-03-19 removed ".prv" extension since it is not used in get() method
         needSaveProviderMap.put(providerName, dataProvider);
+        isSaved = false;
     }
 
     public static TdDataProvider get(String providerName) {
@@ -43,10 +46,15 @@ public final class NeedSaveDataProviderHelper {
      * Save all the data provider.
      */
     public static void saveAllDataProvider() {
+        if (isSaved) {
+            return;
+        }
         Iterator<String> it = needSaveProviderMap.keySet().iterator();
         while (it.hasNext()) {
             TdDataProvider provider = needSaveProviderMap.get(it.next());
             DqRepositoryViewService.saveOpenDataProvider(provider);
         }
+        isSaved = true;
+        needSaveProviderMap.clear();
     }
 }

@@ -38,4 +38,6 @@ public final class PluginConstant {
     public static final String PATH_SAVE = "PATH_SAVE";
     
     public static final String ISDIRTY_PROPERTY = "ISDIRTY_PROPERTY";
+    
+    public static final String DATAFILTER_PROPERTY = "DATAFILTER_PROPERTY";
 }

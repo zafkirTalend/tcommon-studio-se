@@ -176,9 +176,30 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             }
 
         };
-        nameText.addModifyListener(listener);
-        purposeText.addModifyListener(listener);
-        descriptionText.addModifyListener(listener);
+        nameText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+                analysisHandler.setName(nameText.getText());
+            }
+
+        });
+        purposeText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+                analysisHandler.setPurpose(purposeText.getText());
+            }
+
+        });
+        descriptionText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+                analysisHandler.setDescription(descriptionText.getText());
+            }
+
+        });
         section.setClient(labelButtonClient);
     }
 
@@ -307,11 +328,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 analysisHandler.setDatamingType(columnIndicator.getDataminingType().getLiteral(), columnIndicator.getTdColumn());
             }
         }
-//        analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
-//        analysisHandler.setName(this.nameText.getText() == null ? PluginConstant.EMPTY_STRING : this.nameText.getText());
-//        analysisHandler.setPurpose(this.purposeText.getText() == null ? PluginConstant.EMPTY_STRING : this.purposeText.getText());
-//        analysisHandler.setDescription(this.descriptionText.getText() == null ? PluginConstant.EMPTY_STRING
-//                : this.descriptionText.getText());
+        analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
         ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
@@ -366,6 +383,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     public void propertyChange(PropertyChangeEvent evt) {
         if (PluginConstant.ISDIRTY_PROPERTY.equals(evt.getPropertyName())) {
             ((AnalysisEditor) this.getEditor()).firePropertyChange(IEditorPart.PROP_DIRTY);
+        } else if (PluginConstant.DATAFILTER_PROPERTY.equals(evt.getPropertyName())) {
+            this.analysisHandler.setStringDataFilter((String) evt.getNewValue());
         }
 
     }

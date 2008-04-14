@@ -49,6 +49,7 @@ public class DataFilterComp extends AbstractPagePart {
 
             public void modifyText(ModifyEvent e) {
                 setDirty(true);
+                propertyChangeSupport.firePropertyChange(PluginConstant.DATAFILTER_PROPERTY, null, dataFilterText.getText());
             }
 
         });
