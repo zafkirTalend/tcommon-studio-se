@@ -14,8 +14,11 @@ package org.talend.dq.analysis;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.DescriptionHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
@@ -37,6 +40,11 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * This class helps to handle a Column analysis.
  */
 public class ColumnAnalysisHandler {
+
+    /**
+     * The resources that are connected to this analysis and that are potentially modified.
+     */
+    Collection<Resource> modifiedResources = new HashSet<Resource>();
 
     private Analysis analysis;
 
@@ -137,6 +145,12 @@ public class ColumnAnalysisHandler {
     public void setDatamingType(String dataminingTypeLiteral, TdColumn column) {
         DataminingType type = DataminingType.get(dataminingTypeLiteral);
         MetadataHelper.setDataminingType(type, column);
+        Resource resource = column.eResource();
+        if (resource != null) {
+            resource.setModified(true); // tell that the resource has been modified.
+            // it would be better to handle modifications with EMF Commands
+            this.modifiedResources.add(resource);
+        }
     }
 
     /**
@@ -218,5 +232,17 @@ public class ColumnAnalysisHandler {
         BooleanExpressionNode expressionNode = BooleanExpressionHelper.createBooleanExpressionNode(datafilterString);
         rangeRestriction.setExpressions(expressionNode);
         return domain;
+    }
+
+    public boolean saveModifiedResources() {
+        boolean allOk = true;
+        for (Resource resource : this.modifiedResources) {
+            if (resource.isModified()) {
+                if (!EMFUtil.saveResource(resource)) {
+                    allOk = false;
+                }
+            }
+        }
+        return allOk;
     }
 }

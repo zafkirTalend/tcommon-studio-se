@@ -329,6 +329,10 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             }
         }
         analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
+        boolean modifiedResourcesSaved = analysisHandler.saveModifiedResources();
+        if (!modifiedResourcesSaved) {
+            log.error("Problem when saving modified resource.");
+        }
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
         ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
