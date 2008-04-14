@@ -172,6 +172,7 @@ public final class UpdateContextVariablesHelper {
             String oldValue = eleParameterType.getValue();
             if (oldValue != null) {
                 String newValue = hasAndReplaceValue(oldValue, varScriptCodeMap, oldSyntax);
+
                 if (newValue != null && !oldValue.equals(newValue)) {
                     eleParameterType.setValue(newValue);
                     changed = true;
@@ -188,12 +189,34 @@ public final class UpdateContextVariablesHelper {
 
         String returnValue = value;
         for (String oldScriptCode : varScriptCodeMap.keySet()) {
+            String contextNameFullName = varScriptCodeMap.get(oldScriptCode);
 
             returnValue = hasAndReplaceValue(returnValue, replaceSpecialChar(oldScriptCode), varScriptCodeMap.get(oldScriptCode),
                     oldSyntax);
+            // add this for bug 3455
+            returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""), false);
 
         }
         return returnValue;
+    }
+
+    public static void main(String[] args) {
+    }
+
+    private static String migrateContextPropertySetter(String fullContent, String varName, boolean isExtension) {
+        String regex = "context.setProperty(\"" + varName + "\",";
+        regex = replaceSpecialChar(regex);
+        if (isExtension) {
+            regex = regex.replaceAll("\"", "&quot;");
+        }
+        regex = "(.*?)(" + regex + ")(.*?)\\);";
+
+        String out = "context." + varName + "=";
+        out = "$1" + out + "$3;";
+
+        String resultString = fullContent.replaceAll(regex, out);
+
+        return resultString;
     }
 
     private static String hasAndReplaceValue(final String value, final String oldScriptCode, final String newScriptCode,
@@ -254,6 +277,18 @@ public final class UpdateContextVariablesHelper {
             scriptCodeMap.put(oldScriptCode, newScriptCode);
 
         }
+
+        for (String newName : renamedMap.keySet()) {
+            String oldName = renamedMap.get(newName);
+
+            String oldScriptCode = ContextParameterUtils.getNewScriptCode(oldName, language);
+            String newScriptCode = ContextParameterUtils.getNewScriptCode(newName, language);
+            if (oldScriptCode == null || newScriptCode == null) {
+                continue;
+            }
+            scriptCodeMap.put(oldScriptCode, newScriptCode);
+
+        }
         return scriptCodeMap;
     }
 
@@ -286,7 +321,7 @@ public final class UpdateContextVariablesHelper {
         return varsScriptCodeMap;
     }
 
-    private static String replaceQuotStringData(final String data, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
+    private static String replaceQuotStringData(String data, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
         Map<String, String> varScriptCodeMapExt = new HashMap<String, String>();
 
         for (String oldScriptCode : varScriptCodeMap.keySet()) {
@@ -296,6 +331,9 @@ public final class UpdateContextVariablesHelper {
             }
             oldScriptCode = oldScriptCode.replaceAll("\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
             varScriptCodeMapExt.put(oldScriptCode, newScriptCode);
+
+            data = migrateContextPropertySetter(data, newScriptCode.replaceAll("context\\.", ""), true);
+
         }
         return hasAndReplaceValue(data, varScriptCodeMapExt, oldSyntax);
 
