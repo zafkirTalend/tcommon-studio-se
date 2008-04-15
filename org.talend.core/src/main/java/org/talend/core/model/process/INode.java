@@ -29,7 +29,7 @@ public interface INode extends IElement {
 
     public static final String RELOAD_PARAMETER_METADATA_LIST = "param.metadataList";
 
-    public static final String RELAOD_PARAMETER_ELEMENT_PARAMETERS = "param.elementParameters";
+    public static final String RELOAD_PARAMETER_ELEMENT_PARAMETERS = "param.elementParameters";
 
     public static final String RELOAD_PARAMETER_EXTERNAL_BYTES_DATA = "param.externalData";
 
