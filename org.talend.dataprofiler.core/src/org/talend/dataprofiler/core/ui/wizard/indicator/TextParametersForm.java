@@ -13,9 +13,11 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
 
@@ -29,7 +31,7 @@ public class TextParametersForm extends AbstractIndicatorForm {
     
     private Button caseBtn;
     
-    private String[] args = new String[] {"Exact Match", "Metaphone", "Double Metaphone", "Levenshtein", "Soundex", "Refined Soundex"};
+//    private String[] args = new String[] {"Exact Match", "Metaphone", "Double Metaphone", "Levenshtein", "Soundex", "Refined Soundex"};
     /**
      * DOC zqin TextParametersForm constructor comment.
      * @param parent
@@ -65,21 +67,23 @@ public class TextParametersForm extends AbstractIndicatorForm {
     protected void addFields() {
         this.setLayout(new GridLayout());
         
-        Label options = new Label(this, SWT.NONE);
-        options.setText("Options");
+        Group group = new Group(this, SWT.NONE);
+        group.setLayout(new GridLayout());
+        group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        group.setText("Options");
         
-        caseBtn = new Button(this, SWT.CHECK);
+        caseBtn = new Button(group, SWT.CHECK);
         caseBtn.setText("ignore case");
         
-        Label match = new Label(this, SWT.NONE);
-        match.setText("Matching Algorithm");
-        
-        Button btn = null;
-        
-        for (String str : args) {
-            btn = new Button(this, SWT.RADIO);
-            btn.setText(str);
-        }
+//        Label match = new Label(this, SWT.NONE);
+//        match.setText("Matching Algorithm");
+//        
+//        Button btn = null;
+//        
+//        for (String str : args) {
+//            btn = new Button(this, SWT.RADIO);
+//            btn.setText(str);
+//        }
     }
 
     /* (non-Javadoc)

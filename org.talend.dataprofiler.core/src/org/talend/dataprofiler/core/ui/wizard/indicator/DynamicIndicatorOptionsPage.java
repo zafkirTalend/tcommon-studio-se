@@ -54,7 +54,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
         Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new FillLayout());
         
-        tabFolder = new TabFolder(container, SWT.NONE);
+        tabFolder = new TabFolder(container, SWT.FLAT);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
        
         BinsDesignerForm binsForm = new BinsDesignerForm(tabFolder, SWT.NONE);

@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -23,7 +21,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
 
@@ -35,13 +32,7 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
 
     private final String formName = "Bins Designer";
     
-    private Text numberOfBins;
-    
-    private Button checkEquidistant;
-    
-    private TableViewer tableOfBins;
-    
-    private Button addSlice, deleteSlice;
+    private Text minValue, maxValue, numbOfBins;
     /**
      * DOC zqin BinsDesignerForm constructor comment.
      * @param parent
@@ -67,53 +58,24 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
     @Override
     protected void addFields() {        
         this.setLayout(new GridLayout(2, false));
-
-        Label labelOfNbumber = new Label(this, SWT.NONE);
-        labelOfNbumber.setText("Set number of slice");
-        numberOfBins = new Text(this, SWT.BORDER);
-        numberOfBins.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+ 
+        GridData gdText = new GridData(GridData.FILL_HORIZONTAL);
         
-        Label labelOfEquidistant = new Label(this, SWT.NONE);
-        labelOfEquidistant.setText("Equidistant    slices");
-        checkEquidistant = new Button(this, SWT.CHECK);
-
-        tableOfBins = new TableViewer(this, SWT.BORDER | SWT.V_SCROLL | SWT.FULL_SELECTION);
-        Table table = tableOfBins.getTable();
-        table.setHeaderVisible(true);
-        table.setLinesVisible(true);
+        Label minValueText = new Label(this, SWT.NONE);
+        minValueText.setText("minimal value");
+        minValue = new Text(this, SWT.BORDER);
+        minValue.setLayoutData(gdText);
         
-        GridData gdOfTable = new GridData(GridData.FILL_HORIZONTAL);
-        gdOfTable.horizontalSpan = 2;
-        table.setLayoutData(gdOfTable);
-
-        GridData gdOfContainer = new GridData(GridData.FILL_HORIZONTAL);
-        gdOfContainer.horizontalSpan = 2;
-        Composite bottomContiner = new Composite(this, SWT.NONE);
-        bottomContiner.setLayout(new RowLayout());
-        bottomContiner.setLayoutData(gdOfContainer);
-        addSlice = new Button(bottomContiner, SWT.BORDER);
-        addSlice.setText("add slice");
-        deleteSlice = new Button(bottomContiner, SWT.BORDER);
-        deleteSlice.setText("delete slice");
+        Label maxValueText = new Label(this, SWT.NONE);
+        maxValueText.setText("maximal value");
+        maxValue = new Text(this, SWT.BORDER);
+        maxValue.setLayoutData(gdText);
         
-        createTableHeader(table);
-        
+        Label numOfBinsText = new Label(this, SWT.NONE);
+        numOfBinsText.setText("number of bins");
+        numbOfBins = new Text(this, SWT.BORDER);
     }
-    
-    private void createTableHeader(Table table) {
-        TableLayout tLayout = new TableLayout();
-        table.setLayout(tLayout);
-        tLayout.addColumnData(new ColumnWeightData(33));
-        tLayout.addColumnData(new ColumnWeightData(33));
-        tLayout.addColumnData(new ColumnWeightData(33));
-        
-        TableColumn column1 = new TableColumn(table, SWT.CENTER);
-        column1.setText("Low");
-        TableColumn column2 = new TableColumn(table, SWT.CENTER);
-        column2.setText("Data");
-        TableColumn column3 = new TableColumn(table, SWT.CENTER);
-        column3.setText("High");
-    }
+
 
     /* (non-Javadoc)
      * @see org.talend.dataprofiler.core.ui.utils.AbstractForm#addFieldsListeners()

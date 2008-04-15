@@ -70,13 +70,17 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
         group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         group.setText("Set here the thresholds expected on the data");
         
+        GridData gdText = new GridData(GridData.FILL_HORIZONTAL);
+        
         Label lowerLabel = new Label(group, SWT.NONE);
         lowerLabel.setText("Lower thresholds");
         lowerText = new Text(group, SWT.BORDER);
+        lowerText.setLayoutData(gdText);
         
         Label higherLabel = new Label(group, SWT.NONE);
         higherLabel.setText("Higher thresholds");
         higherText = new Text(group, SWT.BORDER);
+        higherText.setLayoutData(gdText);
     }
 
     /* (non-Javadoc)

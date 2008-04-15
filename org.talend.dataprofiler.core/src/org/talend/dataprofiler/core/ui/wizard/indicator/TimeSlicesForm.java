@@ -13,9 +13,11 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
 
@@ -63,12 +65,14 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
     protected void addFields() {
         this.setLayout(new GridLayout());
         
-        Label title = new Label(this, SWT.NONE);
-        title.setText("Aggregate date by");
+        Group group = new Group(this, SWT.NONE);
+        group.setLayout(new GridLayout(4, true));
+        group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        group.setText("Aggregate date by");  
         
         Button btn = null;
         for (String str : args) {
-            btn = new Button(this, SWT.RADIO);
+            btn = new Button(group, SWT.RADIO);
             btn.setText(str);
         }
     }
