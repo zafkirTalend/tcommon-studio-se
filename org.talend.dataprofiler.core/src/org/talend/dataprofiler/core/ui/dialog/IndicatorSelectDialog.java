@@ -26,10 +26,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuilder;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataprofiler.core.ui.dialog.composite.TooltipTree;
+import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 
 /**
  * This dialog use to select the indictor object for different columns.
@@ -38,6 +41,8 @@ import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 public class IndicatorSelectDialog extends Dialog {
 
     // private Object[] tdColumns;
+
+    private static final String INDICATORITEM = "_INDICATORITEM";
 
     private ColumnIndicator[] columnIndicators;
 
@@ -51,7 +56,22 @@ public class IndicatorSelectDialog extends Dialog {
 
     protected Control createDialogArea(Composite parent) {
         Composite comp = (Composite) super.createDialogArea(parent);
-        Tree tree = new Tree(comp, SWT.BORDER);
+        Tree tree = new TooltipTree(comp, SWT.BORDER) {
+
+            // protected boolean isValidItem(TreeItem item) {
+            // return (item != null) && (item.getData(INDICATORITEM) != null);
+            // }
+
+            protected String getItemTooltipText(TreeItem item) {
+                if (item.getData(INDICATORITEM) == null) {
+                    return item.getText();
+                }
+                IndicatorEnum indicatorEnum = (IndicatorEnum) item.getData(INDICATORITEM);
+                String description = IndicatorDocumentationHandler.getLongDescription(indicatorEnum.getIndicatorClassifierId());
+                return description.equals(PluginConstant.EMPTY_STRING) ? item.getText() : description;
+            }
+
+        };
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
         ((GridData) tree.getLayoutData()).widthHint = 650;
         ((GridData) tree.getLayoutData()).heightHint = 360;
@@ -123,6 +143,9 @@ public class IndicatorSelectDialog extends Dialog {
             for (int j = 0; j < treeColumns.length; j++) {
                 if (j == 0) {
                     treeItem.setText(0, branchNodes[i].getLabel());
+                    if (branchNodes[i].getIndicatorEnum() != null) {
+                        treeItem.setData(INDICATORITEM, branchNodes[i].getIndicatorEnum());
+                    }
                     continue;
                 }
                 editor = new TreeEditor(tree);
@@ -141,6 +164,11 @@ public class IndicatorSelectDialog extends Dialog {
                 final IndicatorEnum indicatorEnum = branchNodes[i].getIndicatorEnum();
                 checkButton.addSelectionListener(new SelectionAdapter() {
 
+                    /*
+                     * (non-Javadoc)
+                     * 
+                     * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+                     */
                     public void widgetSelected(SelectionEvent e) {
                         boolean selection = ((Button) e.getSource()).getSelection();
                         if (treeItem.getParentItem() != null && selection) {

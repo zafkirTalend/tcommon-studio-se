@@ -20,29 +20,91 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * 
  */
 public enum IndicatorEnum {
-    RowCountIndicatorEnum(IndicatorsPackage.Literals.ROW_COUNT_INDICATOR, "row count", null),
-    NullCountIndicatorEnum(IndicatorsPackage.Literals.NULL_COUNT_INDICATOR, "null count", null),
-    DistinctCountIndicatorEnum(IndicatorsPackage.Literals.DISTINCT_COUNT_INDICATOR, "distinct count", null),
-    UniqueIndicatorEnum(IndicatorsPackage.Literals.UNIQUE_COUNT_INDICATOR, "unique count", null),
-    DuplicateCountIndicatorEnum(IndicatorsPackage.Literals.DUPLICATE_COUNT_INDICATOR, "duplicate count", null),
-    BlankCountIndicatorEnum(IndicatorsPackage.Literals.BLANK_COUNT_INDICATOR, "blank count", null),
+    RowCountIndicatorEnum(
+                          IndicatorsPackage.ROW_COUNT_INDICATOR,
+                          IndicatorsPackage.Literals.ROW_COUNT_INDICATOR,
+                          "row count",
+                          null),
+    NullCountIndicatorEnum(
+                           IndicatorsPackage.NULL_COUNT_INDICATOR,
+                           IndicatorsPackage.Literals.NULL_COUNT_INDICATOR,
+                           "null count",
+                           null),
+    DistinctCountIndicatorEnum(
+                               IndicatorsPackage.DISTINCT_COUNT_INDICATOR,
+                               IndicatorsPackage.Literals.DISTINCT_COUNT_INDICATOR,
+                               "distinct count",
+                               null),
+    UniqueIndicatorEnum(
+                        IndicatorsPackage.UNIQUE_COUNT_INDICATOR,
+                        IndicatorsPackage.Literals.UNIQUE_COUNT_INDICATOR,
+                        "unique count",
+                        null),
+    DuplicateCountIndicatorEnum(
+                                IndicatorsPackage.DUPLICATE_COUNT_INDICATOR,
+                                IndicatorsPackage.Literals.DUPLICATE_COUNT_INDICATOR,
+                                "duplicate count",
+                                null),
+    BlankCountIndicatorEnum(
+                            IndicatorsPackage.BLANK_COUNT_INDICATOR,
+                            IndicatorsPackage.Literals.BLANK_COUNT_INDICATOR,
+                            "blank count",
+                            null),
 
-    MinLengthIndicatorEnum(IndicatorsPackage.Literals.MIN_LENGTH_INDICATOR, "min length", null),
-    MaxLengthIndicatorEnum(IndicatorsPackage.Literals.MAX_LENGTH_INDICATOR, "max length", null),
-    AverageLengthIndicatorEnum(IndicatorsPackage.Literals.AVERAGE_LENGTH_INDICATOR, "average length", null),
+    MinLengthIndicatorEnum(
+                           IndicatorsPackage.MIN_LENGTH_INDICATOR,
+                           IndicatorsPackage.Literals.MIN_LENGTH_INDICATOR,
+                           "min length",
+                           null),
+    MaxLengthIndicatorEnum(
+                           IndicatorsPackage.MAX_LENGTH_INDICATOR,
+                           IndicatorsPackage.Literals.MAX_LENGTH_INDICATOR,
+                           "max length",
+                           null),
+    AverageLengthIndicatorEnum(
+                               IndicatorsPackage.AVERAGE_LENGTH_INDICATOR,
+                               IndicatorsPackage.Literals.AVERAGE_LENGTH_INDICATOR,
+                               "average length",
+                               null),
 
-    ModeIndicatorEnum(IndicatorsPackage.Literals.MODE_INDICATOR, "mode", null),
-    MeanIndicatorEnum(IndicatorsPackage.Literals.MEAN_INDICATOR, "mean", null),
-    MedianIndicatorEnum(IndicatorsPackage.Literals.MEDIAN_INDICATOR, "median", null),
-    MinValueIndicatorEnum(IndicatorsPackage.Literals.MIN_VALUE_INDICATOR, "min.value", null),
-    MaxValueIndicatorEnum(IndicatorsPackage.Literals.MAX_VALUE_INDICATOR, "max.value", null),
-    LowerQuartileIndicatorEnum(IndicatorsPackage.Literals.MIN_VALUE_INDICATOR, "lower quartile", null),
-    UpperQuartileIndicatorEnum(IndicatorsPackage.Literals.MAX_VALUE_INDICATOR, "upper quartile", null),
-    IQRIndicatorEnum(IndicatorsPackage.Literals.IQR_INDICATOR, "inter quartile range", new IndicatorEnum[] {
-            LowerQuartileIndicatorEnum, UpperQuartileIndicatorEnum }),
-    RangeIndicatorEnum(IndicatorsPackage.Literals.RANGE_INDICATOR, "range", new IndicatorEnum[] { MinValueIndicatorEnum,
-            MaxValueIndicatorEnum }),
-    FrequencyIndicatorEnum(IndicatorsPackage.Literals.FREQUENCY_INDICATOR, "frequency table", null);
+    ModeIndicatorEnum(IndicatorsPackage.MODE_INDICATOR, IndicatorsPackage.Literals.MODE_INDICATOR, "mode", null),
+    MeanIndicatorEnum(IndicatorsPackage.MEAN_INDICATOR, IndicatorsPackage.Literals.MEAN_INDICATOR, "mean", null),
+    MedianIndicatorEnum(IndicatorsPackage.MEDIAN_INDICATOR, IndicatorsPackage.Literals.MEDIAN_INDICATOR, "median", null),
+    MinValueIndicatorEnum(
+                          IndicatorsPackage.MIN_VALUE_INDICATOR,
+                          IndicatorsPackage.Literals.MIN_VALUE_INDICATOR,
+                          "min.value",
+                          null),
+    MaxValueIndicatorEnum(
+                          IndicatorsPackage.MAX_VALUE_INDICATOR,
+                          IndicatorsPackage.Literals.MAX_VALUE_INDICATOR,
+                          "max.value",
+                          null),
+    LowerQuartileIndicatorEnum(
+                               IndicatorsPackage.MIN_VALUE_INDICATOR,
+                               IndicatorsPackage.Literals.MIN_VALUE_INDICATOR,
+                               "lower quartile",
+                               null),
+    UpperQuartileIndicatorEnum(
+                               IndicatorsPackage.MAX_VALUE_INDICATOR,
+                               IndicatorsPackage.Literals.MAX_VALUE_INDICATOR,
+                               "upper quartile",
+                               null),
+    IQRIndicatorEnum(
+                     IndicatorsPackage.IQR_INDICATOR,
+                     IndicatorsPackage.Literals.IQR_INDICATOR,
+                     "inter quartile range",
+                     new IndicatorEnum[] { LowerQuartileIndicatorEnum, UpperQuartileIndicatorEnum }),
+    RangeIndicatorEnum(
+                       IndicatorsPackage.RANGE_INDICATOR,
+                       IndicatorsPackage.Literals.RANGE_INDICATOR,
+                       "range",
+                       new IndicatorEnum[] { MinValueIndicatorEnum, MaxValueIndicatorEnum }),
+    FrequencyIndicatorEnum(
+                           IndicatorsPackage.FREQUENCY_INDICATOR,
+                           IndicatorsPackage.Literals.FREQUENCY_INDICATOR,
+                           "frequency table",
+                           null);
 
     private EClass indicatorType;
 
@@ -50,7 +112,10 @@ public enum IndicatorEnum {
 
     private IndicatorEnum[] children;
 
-    IndicatorEnum(EClass indicatorType, String label, IndicatorEnum[] children) {
+    private final int indicatorClassifierId;
+
+    IndicatorEnum(int indicatorClassifierId, EClass indicatorType, String label, IndicatorEnum[] children) {
+        this.indicatorClassifierId = indicatorClassifierId;
         this.indicatorType = indicatorType;
         this.label = label;
         this.children = children;
@@ -75,6 +140,15 @@ public enum IndicatorEnum {
      */
     public IndicatorEnum[] getChildren() {
         return children;
+    }
+
+    
+    /**
+     * Getter for indicatorClassifierId.
+     * @return the indicatorClassifierId
+     */
+    public int getIndicatorClassifierId() {
+        return indicatorClassifierId;
     }
 
     public boolean hasChildren() {
