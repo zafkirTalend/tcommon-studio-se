@@ -36,9 +36,20 @@ public abstract class CopyPushButton extends ExtendedPushButton {
      * @param image
      */
     public CopyPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("CopyPushButton.CopyButton.Tip"), ImageProvider.getImage(EImage.COPY_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("CopyPushButton.CopyButton.Tip"), ImageProvider.getImage(EImage.COPY_ICON)); //$NON-NLS-1$
     }
 
     protected abstract Command getCommandToExecute();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
+     */
+    @Override
+    public boolean getEnabledState() {
+        return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
+    }
 
 }
