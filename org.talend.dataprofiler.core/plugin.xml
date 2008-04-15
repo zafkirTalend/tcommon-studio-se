@@ -133,7 +133,17 @@
             	<test property="org.eclipse.core.resources.name" value="*.ana"/>	            
 	        </and>
 			</enablement>
-		</actionProvider> 
+		</actionProvider>
+      <actionProvider
+            class="org.talend.dataprofiler.core.ui.action.provider.NewReportActionProvider"
+            id="org.talend.dataprofiler.core.ui.action.provider.NewReportActionProvider">
+         <enablement>
+            <or>
+               <adapt
+                     type="org.eclipse.core.resources.IFolder">
+               </adapt></or>
+         </enablement>
+      </actionProvider> 
        
   </extension>
     
