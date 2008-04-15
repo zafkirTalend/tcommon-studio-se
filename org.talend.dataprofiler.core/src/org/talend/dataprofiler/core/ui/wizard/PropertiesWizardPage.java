@@ -259,14 +259,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
         statusLab.setText("Status"); //$NON-NLS-1$
 
         statusText = new CCombo(parent, SWT.BORDER);
-        statusText.setText(DevelopmentStatus.DRAFT.getName());
+        statusText.setText(DevelopmentStatus.DRAFT.getLiteral());
         statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         statusText.setEditable(false);
         statusText.setEnabled(!readOnly);
         
         for (DevelopmentStatus status : DevelopmentStatus.values()) {
 
-            statusText.add(status.getName());
+            statusText.add(status.getLiteral());
         }
 
         // Path:

@@ -70,17 +70,17 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
     /** Version text. */
     protected Text versionText;
     
-    private Text typeText;
+    protected Button button;
     
-    private Text pathText;
     /** Status text. */
-    // protected Text statusText;
-    private CCombo statusText;
+    protected CCombo statusText;
+    
+    protected Text pathText;
 
-    /** Version upgrade major button. */
+    private Text typeText;
+
     private Button versionMajorBtn;
 
-    /** Version upgrade minor button. */
     private Button versionMinorBtn;
     
     private String path;
@@ -93,9 +93,13 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
     
     private HashMap<String, String> analysisMetadate;
     
+    private final String pageTitle = "New Analysis";
+    
+    private final String pageMessage = "Adds an analysis in the repository.";
+    
     public MetadataWizardPage() {
-        setTitle("New Analysis");
-        setDescription("Adds an analysis in the repository.");
+        setTitle(pageTitle);
+        setDescription(pageMessage);
         setPageComplete(false);
         
         analysisMetadate = new HashMap<String, String>();
@@ -179,14 +183,14 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         statusLab.setText("Status"); //$NON-NLS-1$
 
         statusText = new CCombo(container, SWT.BORDER);
-        statusText.setText(DevelopmentStatus.DRAFT.getName());
+        statusText.setText(DevelopmentStatus.DRAFT.getLiteral());
         statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         statusText.setEditable(false);
         statusText.setEnabled(!readOnly);
         
         for (DevelopmentStatus status : DevelopmentStatus.values()) {
 
-            statusText.add(status.getName());
+            statusText.add(status.getLiteral());
         }
 
         // Path:
@@ -205,42 +209,32 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         pathText.setEnabled(false);
         pathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        // MODSCA 2008-03-10 use DQStructureManager.DB_CONNECTIONS constant instead of hard coded "Db Connections"
-
-        if (editPath) {
-            Button button = new Button(pathContainer, SWT.PUSH);
-            button.setText("Select..");
-
-            button.addSelectionListener(new SelectionAdapter() {
-
-                @Override
-                public void widgetSelected(SelectionEvent e) {
-
-                    openFolderSelectionDialog(DQStructureManager.DATA_PROFILING, DQStructureManager.ANALYSIS);
-                }
-            });
-        }
+        button = new Button(pathContainer, SWT.PUSH);
+        button.setText("Select..");
         
         defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.DATA_PROFILING_PROJECTNAME).getFolder(
                 DQStructureManager.ANALYSIS);
         pathText.setText(defaultFolderProviderRes.getFullPath().toString());
 
-        Label typeLabel = new Label(container, SWT.NONE);
-        typeLabel.setText("Type");
+        createExtendedComponent(container);
+        addListeners();
 
-        typeText = new Text(container, SWT.BORDER);
-
+        setControl(container);        
+    }
+    
+    protected void createExtendedComponent(Composite container) {
         GridData dataForTypeText = new GridData();
         dataForTypeText.widthHint = 200;
+        
+        Label typeLabel = new Label(container, SWT.NONE);
+        typeLabel.setText("Type");
+        typeText = new Text(container, SWT.BORDER);
         typeText.setLayoutData(dataForTypeText);
         typeText.setEnabled(false);
-
-        setControl(container);
-        addListeners();
     }
     
     @SuppressWarnings("unchecked")
-    private void openFolderSelectionDialog(String projectName , String folderName) {
+    protected void openFolderSelectionDialog(String projectName , String folderName) {
         
         final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class }; 
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -294,10 +288,23 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
     }
     
     protected void addListeners() {
+        
+        if (editPath) {
+            
+            button.addSelectionListener(new SelectionAdapter() {
+
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+
+                    openFolderSelectionDialog(DQStructureManager.DATA_PROFILING, DQStructureManager.ANALYSIS);
+                }
+            });
+        }
+        
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_NAME, ((Text) e.getSource()).getText());
+                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_NAME, nameText.getText());
                 getConnectionParams().setAnalysisMetadate(analysisMetadate);
                 
                 setPageComplete(true);
@@ -307,8 +314,8 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         purposeText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                if (purposeText.getText().length() == 0) {
-                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_PURPOSE, ((Text) e.getSource()).getText());
+                if (purposeText.getText().length() != 0) {
+                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_PURPOSE, purposeText.getText());
                     getConnectionParams().setAnalysisMetadate(analysisMetadate);
                 }
             }
@@ -317,14 +324,24 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         descriptionText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                if (descriptionText.getText().length() == 0) {
-                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_DESCRIPTION, ((Text) e.getSource()).getText());
+                if (descriptionText.getText().length() != 0) {
+                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_DESCRIPTION, descriptionText.getText());
                     getConnectionParams().setAnalysisMetadate(analysisMetadate);
                 }
 
             }
         });
 
+        authorText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                if (authorText.getText().length() != 0) {
+                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_AUTHOR, authorText.getText());
+                    getConnectionParams().setAnalysisMetadate(analysisMetadate);
+                }
+            }
+            
+        });
 //        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
 //
 //            @Override
@@ -360,20 +377,22 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
     @Override
     public void setVisible(boolean visible) {
 
-        String typeName = getConnectionParams().getAnalysisTypeName();
-        if (typeName != null) {
-            typeText.setText(typeName);
+        if (getConnectionParams() != null) {
+            String typeName = getConnectionParams().getAnalysisTypeName();
+            if (typeName != null) {
+                typeText.setText(typeName);
+            }
+            
+            String status = statusText.getText();
+            if (status != null) {
+                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, status); 
+                getConnectionParams().setAnalysisMetadate(analysisMetadate);
+            }
+            
+            FolderProvider defaultFolder = new FolderProvider();
+            defaultFolder.setFolder(new File(defaultFolderProviderRes.getLocationURI()));
+            getConnectionParams().setFolderProvider(defaultFolder);
         }
-        
-        String status = statusText.getText();
-        if (status != null) {
-            analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, status); 
-            getConnectionParams().setAnalysisMetadate(analysisMetadate);
-        }
-        
-        FolderProvider defaultFolder = new FolderProvider();
-        defaultFolder.setFolder(new File(defaultFolderProviderRes.getLocationURI()));
-        getConnectionParams().setFolderProvider(defaultFolder);
 
         super.setVisible(visible);
     }

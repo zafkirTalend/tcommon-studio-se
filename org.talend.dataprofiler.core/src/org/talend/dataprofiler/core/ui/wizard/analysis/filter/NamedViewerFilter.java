@@ -37,8 +37,13 @@ public class NamedViewerFilter extends ViewerFilter {
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         // TODO Auto-generated method stub
         if (element instanceof AnalysisTypeNode) {
-            AnalysisTypeNode oneNode = (AnalysisTypeNode) element;
-            return oneNode.getName().startsWith(this.typeName);
+            AnalysisTypeNode sonNode = (AnalysisTypeNode) element;
+            if (parentElement != null && parentElement instanceof AnalysisTypeNode) {
+                AnalysisTypeNode parentNode = (AnalysisTypeNode) parentElement;
+                return parentNode.getName().toLowerCase().startsWith(typeName.toLowerCase());
+            }
+            
+            return sonNode.getName().toLowerCase().startsWith(this.typeName.toLowerCase());
         } else {
             return false;
         }

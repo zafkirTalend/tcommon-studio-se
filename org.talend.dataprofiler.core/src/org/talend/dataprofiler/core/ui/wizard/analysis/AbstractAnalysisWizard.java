@@ -18,6 +18,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IEditorPart;
+import org.talend.cwm.constants.DevelopmentStatus;
+import org.talend.cwm.helper.DescriptionHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -26,6 +30,9 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.AnalysisWriter;
+import org.talend.dq.analysis.parameters.AnalysisParameter;
+import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
+import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -49,16 +56,19 @@ public abstract class AbstractAnalysisWizard extends Wizard {
     public boolean performFinish() {
         // CorePlugin.getDefault().openEditor(folderProvider.getFolder());
         IEditorPart openEditor = null;
+
+        this.fillAnalysisEditorParam();
+        if (!checkAnalysisEditorParam()) {
+            return false;
+        }
         
         try {
-            this.fillAnalysisEditorParam();
-            if (!checkAnalysisEditorParam()) {
+            File file = createEmptyAnalysisFile();
+            if (file == null) {
                 return false;
             }
-
-            openEditor = CorePlugin.getDefault().openEditor(createEmptyAnalysisFile());
+            openEditor = CorePlugin.getDefault().openEditor(file);
         } catch (Exception e) {
-            e.printStackTrace();
             ExceptionHandler.process(e, Level.ERROR);
         }
         if (openEditor != null) {
@@ -93,18 +103,39 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         fillAnalysisBuilder(analysisBuilder);
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(this.pathName);
-        ReturnCode saved = writer.save(analysis, file);
-        if (saved.isOk()) {
-            log.info("Saved in  " + file.getAbsolutePath());
+        if (file.exists()) {
+            return null; 
         } else {
-            throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
+            ReturnCode saved = writer.save(analysis, file);
+            if (saved.isOk()) {
+                log.info("Saved in  " + file.getAbsolutePath());
+            } else {
+                throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
+            }
         }
+
         CorePlugin.getDefault().refreshWorkSpace();
         return file;
 
     }
 
     protected void fillAnalysisBuilder(AnalysisBuilder analysisBuilder) {
+        ConnectionAnalysisParameter parameters = (ConnectionAnalysisParameter) getAnalysisParameter();
+        String analysisStatue = parameters.getAnalysisStatus();
+        String analysisAuthor = parameters.getAnalysisAuthor();
+        String analysisPurpse = parameters.getAnalysisPurpose();
+        String analysisDescription = parameters.getAnalysisDescription();
+        
+        System.out.println(analysisStatue + " " + analysisAuthor + " " + analysisPurpse + " " + analysisDescription);
+        
+        Analysis analysis = analysisBuilder.getAnalysis();
+        TaggedValueHelper.setDevStatus(analysis, DevelopmentStatus.get(analysisStatue));
+        TaggedValueHelper.setAuthor(analysis, analysisAuthor);
+        DescriptionHelper.setPurpose(analysisPurpse, analysis);
+        DescriptionHelper.setDescription(analysisDescription, analysis);
     }
 
+    protected AnalysisParameter getAnalysisParameter() {
+        return AbstractAnalysisWizardPage.getConnectionParams();
+    }
 }

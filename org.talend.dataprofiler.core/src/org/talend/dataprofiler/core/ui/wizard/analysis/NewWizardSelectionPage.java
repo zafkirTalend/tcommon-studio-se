@@ -149,13 +149,13 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
                 AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection())
                         .getFirstElement();
 
-                if (node.getParent() != null) {
-                    setMessage(node.getLiteral());
-                    // set parameter
-                    getConnectionParams().setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
+                if (node != null) {
+                    if (node.getParent() != null) {
+                        setMessage(node.getLiteral());
+                        getConnectionParams().setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
+                    }
+                    updateSelectionNode(node);
                 }
-
-                updateSelectionNode(node);
             }
 
         });
