@@ -25,18 +25,22 @@ public class HashConfiguration implements IHashConfiguration {
 
     private IMatchingMode matchingMode;
 
+    private boolean persistent;
+    
     /**
      * DOC amaumont HashConfigurationForMapper constructor comment.
      * 
      * @param hashableColumns
      * @param hashableColumnsIndices
      * @param matchingMode
+     * @param b 
      */
     public HashConfiguration(List<IHashableColumn> hashableColumns,
-            IMatchingMode matchingMode) {
+            IMatchingMode matchingMode, boolean persistent) {
         super();
         this.hashableColumns = hashableColumns;
         this.matchingMode = matchingMode;
+        this.persistent = persistent;
     }
 
     /*
@@ -57,4 +61,15 @@ public class HashConfiguration implements IHashConfiguration {
         return this.matchingMode;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IHashConfiguration#isPersistent()
+     */
+    public boolean isPersistent() {
+        return persistent;
+    }
+
+    
+    
 }

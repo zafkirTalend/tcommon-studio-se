@@ -25,5 +25,7 @@ public interface IHashConfiguration {
     public List<IHashableColumn> getHashableColumns();
     
     public IMatchingMode getMatchingMode();
+
+    public boolean isPersistent();
     
 }
