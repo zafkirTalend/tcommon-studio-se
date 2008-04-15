@@ -20,10 +20,13 @@ import java.util.List;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.designer.rowgenerator.data.Function;
 import org.talend.designer.rowgenerator.data.FunctionManager;
 import org.talend.designer.rowgenerator.data.TalendType;
@@ -43,7 +46,6 @@ public class TalendProposalProvider implements IContentProposalProvider {
      */
     public TalendProposalProvider(IProcess process) {
         super();
-
         this.process = process;
     }
 
@@ -77,6 +79,19 @@ public class TalendProposalProvider implements IContentProposalProvider {
                 }
             }
 
+        } else {
+            List<ContextItem> allContextItem = ContextUtils.getAllContextItem();
+            List<IContextParameter> ctxParams = new ArrayList<IContextParameter>();
+            if (allContextItem != null) {
+                for (ContextItem item : allContextItem) {
+                    List<IContextParameter> tmpParams = new JobContextManager(item.getContext(), item.getDefaultContext())
+                            .getDefaultContext().getContextParameterList();
+                    ctxParams.addAll(tmpParams);
+                }
+            }
+            for (IContextParameter ctxParam : ctxParams) {
+                proposals.add(new ContextParameterProposal(ctxParam));
+            }
         }
 
         // Proposals based on global variables(only perl ).
