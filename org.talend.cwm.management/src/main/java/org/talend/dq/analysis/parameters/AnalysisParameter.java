@@ -49,16 +49,6 @@ public class AnalysisParameter {
     public void setAnalysisTypeName(String typeName) {
         analysisTypeName = typeName;
     }
-
-    
-    /**
-     * Getter for analysisMetadate.
-     * @return the analysisMetadate
-     */
-    public HashMap<String, String> getAnalysisMetadate() {
-        return this.analysisMetadate;
-    }
-
     
     /**
      * Sets the analysisMetadate.
@@ -68,7 +58,7 @@ public class AnalysisParameter {
         this.analysisMetadate = analysisMetadate;
     }
     
-    protected AnalysisType getAnalysiType() {
+    public AnalysisType getAnalysisType() {
         if (getAnalysisTypeName() != null) {
             
             return AnalysisType.get(getAnalysisTypeName());
@@ -78,22 +68,35 @@ public class AnalysisParameter {
         }
     }
     
-    protected String getAnalysisName() {
+    public String getAnalysisName() {
         
         return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_NAME);
     }
     
-    protected String getAnalysisPurpose() {
+    public String getAnalysisPurpose() {
         
         return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_PURPOSE);
     }
     
-    protected String getAnalysisDescription() {
+    public String getAnalysisDescription() {
         
         return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_DESCRIPTION);
     }
 
+    public String getAnalysisAuthor() {
+        
+        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_AUTHOR);
+    }
+    
+    public String getAnalysisStatus() {
+        
+        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_STATUS);
+    }
 
+    public String getAnalysisVersion() {
+        
+        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_VERSION);
+    }
     
     /**
      * Getter for folderProvider.
