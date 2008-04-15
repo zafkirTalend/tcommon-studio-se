@@ -169,10 +169,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     IRepositoryObject currentObject = null;
 
                     if (xmiResourceManager.isPropertyFile((IFile) current)) {
+                        Property property = null;
                         try {
-                            Property property = xmiResourceManager.loadProperty(current);
-                            currentObject = new RepositoryObject(property);
+                            property = xmiResourceManager.loadProperty(current);
                         } catch (RuntimeException e) {
+                            // property will be null
+                        }
+                        if (property != null) {
+                            currentObject = new RepositoryObject(property);
+                        } else {
                             log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                         }
                     }
@@ -264,11 +269,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
             if (current instanceof IFile) {
                 if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                    Property property = xmiResourceManager.loadProperty(current);
-                    if (id == null || property.getId().equals(id)) {
-                        if (withDeleted || !property.getItem().getState().isDeleted()) {
-                            toReturn.add(new RepositoryObject(property));
+                    Property property = null;
+                    try {
+                        property = xmiResourceManager.loadProperty(current);
+                    } catch (RuntimeException e) {
+                        // property will be null
+                    }
+                    if (property != null) {
+                        if (id == null || property.getId().equals(id)) {
+                            if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                toReturn.add(new RepositoryObject(property));
+                            }
                         }
+                    } else {
+                        log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                     }
                 }
             } else if (current instanceof IFolder) { // && (!current.getName().equals("bin"))) {
