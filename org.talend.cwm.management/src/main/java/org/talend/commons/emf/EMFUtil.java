@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 /**
  * @author scorreia This class creates the EMF resources and save them.
@@ -83,7 +82,7 @@ public final class EMFUtil {
         final Collection<String> fileExtensions = FactoriesUtil.getExtensions();
         Map<String, Object> m = reg.getExtensionToFactoryMap();
         for (String extension : fileExtensions) {
-            m.put(extension, new XMIResourceFactoryImpl());
+            m.put(extension, new CwmResourceFactory());
         }
     }
 

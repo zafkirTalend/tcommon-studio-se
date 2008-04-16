@@ -22,6 +22,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.commons.emf.CwmResource;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
@@ -47,14 +49,13 @@ import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.time.TimeTracer;
-
 import orgomg.cwm.foundation.datatypes.DatatypesFactory;
 import orgomg.cwm.foundation.datatypes.QueryExpression;
 
 /**
  * DOC scorreia class global comment. Detailled comment
  */
-public class IndicatorEvaluationMain {
+public final class IndicatorEvaluationMain {
 
     private static final char SEP = ',';
 
@@ -69,6 +70,9 @@ public class IndicatorEvaluationMain {
     private static final char DOT = '.';
 
     private static Evaluator<String> evaluator = new IndicatorEvaluator();
+
+    private IndicatorEvaluationMain() {
+    }
 
     /**
      * DOC scorreia Comment method "main".
@@ -179,9 +183,13 @@ public class IndicatorEvaluationMain {
             }
             tt.start("save");
             util.save();
-            tt.end("save");
+            tt.end("saved in " + file.getAbsolutePath());
             tt.end();
 
+            CwmResource cwmR = (CwmResource) resource;
+            String id = cwmR.getID(medianIndicator);
+            System.out.println("ecore util.getId= " + EcoreUtil.getID(medianIndicator));
+            System.out.println("uuId= " + id);
             // test reload this file
             // LoadSerialData.main(args);
 
