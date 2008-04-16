@@ -12,6 +12,12 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.composite;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -83,16 +89,29 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         return newTree;
     }
 
-    public void setInput(Object[] obj) {
-        if (obj != null && obj.length != 0) {
-            if (!(obj[0] instanceof TdColumn)) {
+    public void setInput(Object[] objs) {
+        if (objs != null && objs.length != 0) {
+            if (!(objs[0] instanceof TdColumn)) {
                 return;
             }
         }
-        this.columnIndicators = new ColumnIndicator[obj.length];
-        for (int i = 0; i < obj.length; i++) {
-            columnIndicators[i] = new ColumnIndicator((TdColumn) obj[i]);
+        Map<String, TdColumn> columnsMap = new HashMap<String, TdColumn>();
+        for (Object obj : objs) {
+            columnsMap.put(((TdColumn) obj).getName(), (TdColumn) obj);
         }
+        List<ColumnIndicator> columnIndicatorList = new ArrayList<ColumnIndicator>();
+        for (ColumnIndicator columnIndicator : columnIndicators) {
+            if (columnsMap.containsKey(columnIndicator.getTdColumn().getName())) {
+                columnIndicatorList.add(columnIndicator);
+                columnsMap.remove(columnIndicator.getTdColumn().getName());
+            }
+        }
+
+        Collection<TdColumn> values = columnsMap.values();
+        for (TdColumn column : values) {
+            columnIndicatorList.add(new ColumnIndicator(column));
+        }
+        this.columnIndicators = columnIndicatorList.toArray(new ColumnIndicator[columnIndicatorList.size()]);
         this.setElements(columnIndicators);
     }
 
@@ -126,6 +145,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 }
 
             });
+            combo.setEditable(false);
             // editor.grabHorizontal = true;
             editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);

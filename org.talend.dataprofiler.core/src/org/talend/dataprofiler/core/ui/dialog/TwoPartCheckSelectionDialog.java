@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -36,6 +37,7 @@ import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.TreeEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -349,9 +351,22 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
      */
     protected CheckboxTreeViewer createFirstPart(Composite parent) {
         if (fContainerMode) {
-            fViewer = new ContainerCheckedTreeViewer(parent, SWT.BORDER);
+            fViewer = new ContainerCheckedTreeViewer(parent, SWT.BORDER) {
+
+                protected void handleTreeExpand(TreeEvent event) {
+                    super.handleTreeExpand(event);
+                    checkElementChecked();
+                }
+            };
         } else {
-            fViewer = new CheckboxTreeViewer(parent, SWT.BORDER);
+            fViewer = new CheckboxTreeViewer(parent, SWT.BORDER) {
+
+                protected void handleTreeExpand(TreeEvent event) {
+                    super.handleTreeExpand(event);
+                    checkElementChecked();
+                }
+
+            };
         }
 
         fViewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -375,6 +390,10 @@ public abstract class TwoPartCheckSelectionDialog extends SelectionStatusDialog 
         fViewer.setInput(fInput);
         fViewer.addSelectionChangedListener(this);
         return fViewer;
+    }
+
+
+    protected void checkElementChecked() {
     }
 
     protected CheckboxTableViewer createSecondPart(Composite parent) {

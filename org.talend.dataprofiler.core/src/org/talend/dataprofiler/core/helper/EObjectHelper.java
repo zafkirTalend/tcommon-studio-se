@@ -15,8 +15,12 @@ package org.talend.dataprofiler.core.helper;
 import java.util.List;
 
 import org.talend.cwm.helper.ColumnSetHelper;
+import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdSchema;
 import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * @author rli
@@ -28,12 +32,22 @@ public final class EObjectHelper {
 
     }
 
-//    public static boolean isColumnSet(EObject eObj) {
-//        return (SwitchHelpers.TABLE_SWITCH.doSwitch(eObj) != null) || (SwitchHelpers.VIEW_SWITCH.doSwitch(eObj) != null);
-//    }
+    // public static boolean isColumnSet(EObject eObj) {
+    // return (SwitchHelpers.TABLE_SWITCH.doSwitch(eObj) != null) || (SwitchHelpers.VIEW_SWITCH.doSwitch(eObj) != null);
+    // }
 
     public static TdColumn[] getColumns(ColumnSet columnSet) {
         List<TdColumn> columns = ColumnSetHelper.getColumns(columnSet);
         return columns.toArray(new TdColumn[columns.size()]);
+    }
+
+    public static Package getParent(ColumnSet columnSet) {
+        TdCatalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(columnSet.eContainer());
+        if (catalog != null) {
+            return catalog;
+        } else {
+            TdSchema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(columnSet.eContainer());
+            return schema;
+        }
     }
 }

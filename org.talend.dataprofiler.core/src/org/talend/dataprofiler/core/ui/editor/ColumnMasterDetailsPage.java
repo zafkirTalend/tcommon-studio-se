@@ -237,7 +237,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      * 
      */
     private void openColumnsSelectionDialog() {
-        ColumnsSelectionDialog dialog = new ColumnsSelectionDialog(getSite().getShell(), "Column Selection");
+        ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
+        ColumnsSelectionDialog dialog = new ColumnsSelectionDialog(getSite().getShell(), columnIndicator, "Column Selection");
         if (dialog.open() == Window.OK) {
             Object[] columns = dialog.getResult();
             treeViewer.setInput(columns);

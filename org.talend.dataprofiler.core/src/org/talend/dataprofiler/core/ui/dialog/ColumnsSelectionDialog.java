@@ -14,14 +14,16 @@ package org.talend.dataprofiler.core.ui.dialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -43,19 +45,23 @@ import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.relational.TdTable;
+import org.talend.cwm.relational.TdView;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.EObjectHelper;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.NamedColumnSetFolderNode;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
-import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewLabelProvider;
 import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
-
+import org.talend.dataprofiler.core.ui.views.provider.DQRepositoryViewContentProvider;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.NamedColumnSet;
 
 /**
  * @author Select the special columns from this dialog.
@@ -63,18 +69,45 @@ import orgomg.cwm.resource.relational.ColumnSet;
  */
 public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
 
-    private Map<ColumnSet, ColumnCheckedMap> columnSetCheckedMap;
+    private static Logger log = Logger.getLogger(ColumnsSelectionDialog.class);
 
-    public ColumnsSelectionDialog(Shell parent, String message) {
+    private Map<ColumnSetKey, ColumnCheckedMap> columnSetCheckedMap;
+
+    private List<ColumnSet> currentCheckedColumnSet = new ArrayList<ColumnSet>();
+
+    public ColumnsSelectionDialog(Shell parent, ColumnIndicator[] columnIndicators, String message) {
         super(parent, message);
         addFirstPartFilters();
         this.setInput(ResourcesPlugin.getWorkspace().getRoot());
-        columnSetCheckedMap = new HashMap<ColumnSet, ColumnCheckedMap>();
+        columnSetCheckedMap = new HashMap<ColumnSetKey, ColumnCheckedMap>();
+        initCheckedColumn(columnIndicators);
+    }
+
+    private void initCheckedColumn(ColumnIndicator[] columnIndicators) {
+
+        for (int i = 0; i < columnIndicators.length; i++) {
+            columnIndicators[i].getTdColumn().eContainer();
+            ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(columnIndicators[i].getTdColumn());
+            ColumnSetKey columnSetKey = new ColumnSetKey(columnSetOwner);
+            ColumnCheckedMap columnCheckedMap = columnSetCheckedMap.get(columnSetKey);
+            if (columnCheckedMap == null) {
+                columnCheckedMap = new ColumnCheckedMap();
+                this.columnSetCheckedMap.put(columnSetKey, columnCheckedMap);
+            }
+            columnCheckedMap.putColumnChecked(columnIndicators[i].getTdColumn(), Boolean.TRUE);
+        }
+    }
+
+    protected void checkElementChecked() {
+        for (int i = 0; i < currentCheckedColumnSet.size(); i++) {
+            this.getTreeViewer().setChecked(this.currentCheckedColumnSet.get(i), true);
+        }
+        this.currentCheckedColumnSet.clear();
     }
 
     protected void initProvider() {
         fLabelProvider = new DBTablesViewLabelProvider();
-        fContentProvider = new DBTablesViewContentProvider();
+        fContentProvider = new DBTreeViewContentProvider();
         sLabelProvider = new ColumnLabelProvider();
         sContentProvider = new ColumnContentProvider();
     }
@@ -135,17 +168,18 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
     }
 
     private TdColumn[] getCheckedColumns(ColumnSet columnSet) {
-        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(columnSet);
+        ColumnSetKey columnSetKey = new ColumnSetKey(columnSet);
+        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(columnSetKey);
         if (columnCheckMap == null) {
             Boolean allCheckFlag = this.getTreeViewer().getChecked(columnSet);
             this.getTableViewer().setAllChecked(allCheckFlag);
             columnCheckMap = new ColumnCheckedMap();
             TdColumn[] columns = EObjectHelper.getColumns(columnSet);
             columnCheckMap.putAllChecked(columns, allCheckFlag);
-            columnSetCheckedMap.put(columnSet, columnCheckMap);
+            columnSetCheckedMap.put(columnSetKey, columnCheckMap);
             return allCheckFlag ? columns : null;
         } else {
-            return columnCheckMap.getCheckedColumns();
+            return columnCheckMap.getCheckedColumns(ColumnSetHelper.getColumns(columnSet));
         }
 
     }
@@ -155,7 +189,7 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
         if (checkedFlag) {
             getTreeViewer().setChecked(columnSetOwner, true);
         }
-        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(columnSetOwner);
+        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(new ColumnSetKey(columnSetOwner));
         if (columnCheckMap != null) {
             columnCheckMap.putColumnChecked(column, checkedFlag);
         }
@@ -163,16 +197,16 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
     }
 
     private void handleColumnsChecked(ColumnSet columnSet, Boolean checkedFlag) {
-        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(columnSet);
+        ColumnSetKey key = new ColumnSetKey(columnSet);
+        ColumnCheckedMap columnCheckMap = columnSetCheckedMap.get(key);
         if (columnCheckMap != null) {
             columnCheckMap.clear();
             columnCheckMap.putAllChecked(EObjectHelper.getColumns(columnSet), checkedFlag);
         } else {
             columnCheckMap = new ColumnCheckedMap();
             columnCheckMap.putAllChecked(EObjectHelper.getColumns(columnSet), checkedFlag);
-            columnSetCheckedMap.put(columnSet, columnCheckMap);
+            columnSetCheckedMap.put(key, columnCheckMap);
         }
-
         getTableViewer().setAllChecked(checkedFlag);
     }
 
@@ -230,45 +264,107 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
     }
 
     /**
+     * This class will combine catlogName and columnSetName as a key.
+     */
+    class ColumnSetKey {
+
+        private final String catalogName;
+
+        private final String columnSetName;
+
+        public ColumnSetKey(ColumnSet columnSetOwner) {
+            this.catalogName = EObjectHelper.getParent(columnSetOwner).getName();
+            this.columnSetName = columnSetOwner.getName();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((catalogName == null) ? 0 : catalogName.hashCode());
+            result = prime * result + ((columnSetName == null) ? 0 : columnSetName.hashCode());
+            return result;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final ColumnSetKey other = (ColumnSetKey) obj;
+            if (catalogName == null) {
+                if (other.catalogName != null) {
+                    return false;
+                }
+            } else if (!catalogName.equals(other.catalogName)) {
+                return false;
+            }
+            if (columnSetName == null) {
+                if (other.columnSetName != null) {
+                    return false;
+                }
+            } else if (!columnSetName.equals(other.columnSetName)) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    /**
      * @author rli
      * 
      */
     class ColumnCheckedMap {
 
-        Map<TdColumn, Boolean> columnMap = new HashMap<TdColumn, Boolean>();
+        Map<String, Boolean> columnNameMap = new HashMap<String, Boolean>();
 
         public void putColumnChecked(TdColumn column, Boolean isChecked) {
-            columnMap.put(column, isChecked);
+            columnNameMap.put(column.getName(), isChecked);
         }
 
-        public Boolean getColumnChecked(TdColumn key) {
-            return columnMap.get(key);
+        public Boolean getColumnChecked(TdColumn column) {
+            return columnNameMap.get(column.getName());
         }
 
         public void putAllChecked(TdColumn[] columns, Boolean isChecked) {
             for (int i = 0; i < columns.length; i++) {
-                columnMap.put(columns[i], isChecked);
+                columnNameMap.put(columns[i].getName(), isChecked);
             }
         }
 
-        public TdColumn[] getCheckedColumns() {
+        public TdColumn[] getCheckedColumns(List<TdColumn> columnList) {
             List<TdColumn> checkedColumns = new ArrayList<TdColumn>();
-            Iterator<TdColumn> it = columnMap.keySet().iterator();
-            while (it.hasNext()) {
-                TdColumn column = it.next();
-                if (columnMap.get(column)) {
+            for (TdColumn column : columnList) {
+                if (columnNameMap.containsKey(column.getName()) && columnNameMap.get(column.getName())) {
                     checkedColumns.add(column);
                 }
             }
             return checkedColumns.toArray(new TdColumn[checkedColumns.size()]);
         }
 
-        public List<TdColumn> getCheckedColumnList() {
+        public List<TdColumn> getCheckedColumnList(ColumnSet columnSet) {
             List<TdColumn> checkedColumns = new ArrayList<TdColumn>();
-            Iterator<TdColumn> it = columnMap.keySet().iterator();
-            while (it.hasNext()) {
-                TdColumn column = it.next();
-                if (columnMap.get(column)) {
+
+            List<TdColumn> columnList = ColumnSetHelper.getColumns(columnSet);
+
+            for (TdColumn column : columnList) {
+                if (columnNameMap.containsKey(column.getName()) && columnNameMap.get(column.getName())) {
                     checkedColumns.add(column);
                 }
             }
@@ -276,7 +372,7 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
         }
 
         public void clear() {
-            columnMap.clear();
+            columnNameMap.clear();
         }
 
     }
@@ -292,9 +388,10 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
             if (!(checkedNodes[i] instanceof ColumnSet)) {
                 continue;
             }
-            if (columnSetCheckedMap.containsKey(checkedNodes[i])) {
-                ColumnCheckedMap columnMap = columnSetCheckedMap.get(checkedNodes[i]);
-                columnList.addAll(columnMap.getCheckedColumnList());
+            ColumnSetKey columnSetKey = new ColumnSetKey((ColumnSet) checkedNodes[i]);
+            if (columnSetCheckedMap.containsKey(columnSetKey)) {
+                ColumnCheckedMap columnMap = columnSetCheckedMap.get(columnSetKey);
+                columnList.addAll(columnMap.getCheckedColumnList((ColumnSet) checkedNodes[i]));
             } else {
                 columnList.addAll(ColumnSetHelper.getColumns((ColumnSet) checkedNodes[i]));
             }
@@ -304,6 +401,8 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
 
     protected void okPressed() {
         super.okPressed();
+        this.columnSetCheckedMap = null;
+        this.currentCheckedColumnSet = null;
         NeedSaveDataProviderHelper.saveAllDataProvider();
     }
 
@@ -372,6 +471,53 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
 
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
+        }
+
+    }
+
+    /**
+     * DOC zqin ColumnsSelectionDialog class global comment. Detailled comment
+     */
+    class DBTreeViewContentProvider extends DQRepositoryViewContentProvider {
+
+        /**
+         * @param adapterFactory
+         */
+        public DBTreeViewContentProvider() {
+            super();
+        }
+
+        public Object[] getChildren(Object parentElement) {
+            if (parentElement instanceof IContainer) {
+                try {
+                    return ((IContainer) parentElement).members();
+                } catch (CoreException e) {
+                    log.error("Can't get the children of container:" + ((IContainer) parentElement).getLocation());
+                }
+            } else if (parentElement instanceof NamedColumnSet) {
+                return null;
+            } else if (parentElement instanceof NamedColumnSetFolderNode) {
+                NamedColumnSetFolderNode folerNode = (NamedColumnSetFolderNode) parentElement;
+                if (!(folerNode.isLoaded())) {
+                    folerNode.loadChildren();
+                }
+                Object[] children = folerNode.getChildren();
+                if (children != null && children[0] instanceof ColumnSet) {
+                    for (int i = 0; i < children.length; i++) {
+                        ColumnSet columnSet = (ColumnSet) children[i];
+                        ColumnSetKey key = new ColumnSetKey(columnSet);
+                        if (columnSetCheckedMap.containsKey(key)) {
+                            currentCheckedColumnSet.add(columnSet);
+                        }
+                    }
+                }
+                return children;
+            }
+            return super.getChildren(parentElement);
+        }
+
+        public boolean hasChildren(Object element) {
+            return !(element instanceof TdView || element instanceof TdTable);
         }
 
     }
