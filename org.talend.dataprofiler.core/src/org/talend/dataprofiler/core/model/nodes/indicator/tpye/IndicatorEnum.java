@@ -61,6 +61,7 @@ public enum IndicatorEnum {
                            IndicatorsPackage.Literals.MAX_LENGTH_INDICATOR,
                            "max length",
                            null),
+
     AverageLengthIndicatorEnum(
                                IndicatorsPackage.AVERAGE_LENGTH_INDICATOR,
                                IndicatorsPackage.Literals.AVERAGE_LENGTH_INDICATOR,
@@ -68,6 +69,12 @@ public enum IndicatorEnum {
                                null),
 
     ModeIndicatorEnum(IndicatorsPackage.MODE_INDICATOR, IndicatorsPackage.Literals.MODE_INDICATOR, "mode", null),
+    FrequencyIndicatorEnum(
+                           IndicatorsPackage.FREQUENCY_INDICATOR,
+                           IndicatorsPackage.Literals.FREQUENCY_INDICATOR,
+                           "frequency table",
+                           null),
+
     MeanIndicatorEnum(IndicatorsPackage.MEAN_INDICATOR, IndicatorsPackage.Literals.MEAN_INDICATOR, "mean", null),
     MedianIndicatorEnum(IndicatorsPackage.MEDIAN_INDICATOR, IndicatorsPackage.Literals.MEDIAN_INDICATOR, "median", null),
     MinValueIndicatorEnum(
@@ -100,11 +107,11 @@ public enum IndicatorEnum {
                        IndicatorsPackage.Literals.RANGE_INDICATOR,
                        "range",
                        new IndicatorEnum[] { MinValueIndicatorEnum, MaxValueIndicatorEnum }),
-    FrequencyIndicatorEnum(
-                           IndicatorsPackage.FREQUENCY_INDICATOR,
-                           IndicatorsPackage.Literals.FREQUENCY_INDICATOR,
-                           "frequency table",
-                           null);
+    BoxIIndicatorEnum(
+                      IndicatorsPackage.BOX_INDICATOR,
+                      IndicatorsPackage.Literals.INDICATOR,
+                      "Summary statistics",
+                      new IndicatorEnum[] { MeanIndicatorEnum, MedianIndicatorEnum, IQRIndicatorEnum, RangeIndicatorEnum });
 
     private EClass indicatorType;
 
@@ -142,9 +149,9 @@ public enum IndicatorEnum {
         return children;
     }
 
-    
     /**
      * Getter for indicatorClassifierId.
+     * 
      * @return the indicatorClassifierId
      */
     public int getIndicatorClassifierId() {

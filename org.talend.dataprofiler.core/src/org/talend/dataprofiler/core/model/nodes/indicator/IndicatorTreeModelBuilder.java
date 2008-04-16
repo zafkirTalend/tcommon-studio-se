@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes.indicator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.talend.dataprofiler.core.model.nodes.indicator.impl.IndicatorCategoryNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.impl.IndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
@@ -43,18 +40,18 @@ public class IndicatorTreeModelBuilder {
         createChildren(textCategoryNode, textIndicatorEnums);
 
         // build Summary Statistic categoryNode
-        IndicatorCategoryNode summaryCategoryNode = new IndicatorCategoryNode();
-        summaryCategoryNode.setLabel("Summary Statistics");
-        IndicatorEnum[] summaryIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.MeanIndicatorEnum,
-                IndicatorEnum.MedianIndicatorEnum, IndicatorEnum.IQRIndicatorEnum, IndicatorEnum.RangeIndicatorEnum };
-        createChildren(summaryCategoryNode, summaryIndicatorEnums);
+        // IndicatorCategoryNode summaryCategoryNode = new IndicatorCategoryNode();
+        // summaryCategoryNode.setLabel("Summary Statistics");
+        // IndicatorEnum[] summaryIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.MeanIndicatorEnum,
+        // IndicatorEnum.MedianIndicatorEnum, IndicatorEnum.IQRIndicatorEnum, IndicatorEnum.RangeIndicatorEnum};
+        // createChildren(summaryCategoryNode, summaryIndicatorEnums);
 
         // build Nominal Statistic categoryNode
         IndicatorCategoryNode advanceCategoryNode = new IndicatorCategoryNode();
         advanceCategoryNode.setLabel("Advanced statistics");
         IndicatorEnum[] advanceIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.ModeIndicatorEnum,
-                IndicatorEnum.FrequencyIndicatorEnum };
-        createChildren(advanceCategoryNode, advanceIndicatorEnums, new IndicatorCategoryNode[] { summaryCategoryNode });
+                IndicatorEnum.FrequencyIndicatorEnum, IndicatorEnum.BoxIIndicatorEnum };
+        createChildren(advanceCategoryNode, advanceIndicatorEnums);
 
         return new IndicatorCategoryNode[] { simpleCategoryNode, textCategoryNode, advanceCategoryNode };
     }
@@ -68,19 +65,19 @@ public class IndicatorTreeModelBuilder {
         parent.setChildren(leafNodes);
     }
 
-    private static void createChildren(IndicatorCategoryNode parent, IndicatorEnum[] fieldEnums,
-            IndicatorCategoryNode[] categoryNode) {
-        List<IIndicatorNode> leafNodeList = new ArrayList<IIndicatorNode>();
-        for (int i = 0; i < fieldEnums.length; i++) {
-            IndicatorNode leafNode = createLeafNode(fieldEnums[i]);
-            leafNodeList.add(leafNode);
-            leafNode.setParent(parent);
-        }
-        for (int i = 0; i < categoryNode.length; i++) {
-            leafNodeList.add(categoryNode[i]);
-        }
-        parent.setChildren(leafNodeList.toArray(new IIndicatorNode[leafNodeList.size()]));
-    }
+//    private static void createChildren(IndicatorCategoryNode parent, IndicatorEnum[] fieldEnums,
+//            IndicatorCategoryNode[] categoryNode) {
+//        List<IIndicatorNode> leafNodeList = new ArrayList<IIndicatorNode>();
+//        for (int i = 0; i < fieldEnums.length; i++) {
+//            IndicatorNode leafNode = createLeafNode(fieldEnums[i]);
+//            leafNodeList.add(leafNode);
+//            leafNode.setParent(parent);
+//        }
+//        for (int i = 0; i < categoryNode.length; i++) {
+//            leafNodeList.add(categoryNode[i]);
+//        }
+//        parent.setChildren(leafNodeList.toArray(new IIndicatorNode[leafNodeList.size()]));
+//    }
 
     private static IndicatorNode createLeafNode(IndicatorEnum indicatorEnum) {
         IndicatorNode node = new IndicatorNode();
