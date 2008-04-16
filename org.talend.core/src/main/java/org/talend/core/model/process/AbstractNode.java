@@ -69,8 +69,6 @@ public abstract class AbstractNode implements INode {
 
     private Boolean isMultiplyingOutputs = Boolean.FALSE;
 
-    private Boolean isSubtreeWithLoop = Boolean.FALSE;
-
     private List<BlockCode> blocksCodeToClose;
 
     private boolean isThereLinkWithHash;
@@ -297,24 +295,6 @@ public abstract class AbstractNode implements INode {
      */
     public void setIsMultiplyingOutputs(Boolean isMultiplyingOutputs) {
         this.isMultiplyingOutputs = isMultiplyingOutputs;
-    }
-
-    /**
-     * Getter for isSubtreeWithLoop.
-     * 
-     * @return the isSubtreeWithLoop
-     */
-    public Boolean isSubtreeWithLoop() {
-        return this.isSubtreeWithLoop;
-    }
-
-    /**
-     * Sets the isSubtreeWithLoop.
-     * 
-     * @param isSubtreeWithLoop the isSubtreeWithLoop to set
-     */
-    public void setIsSubtreeWithLoop(Boolean isSubtreeWithLoop) {
-        this.isSubtreeWithLoop = isSubtreeWithLoop;
     }
 
     /*

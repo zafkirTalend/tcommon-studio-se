@@ -94,8 +94,6 @@ public interface INode extends IElement {
 
     public Boolean isMultiplyingOutputs();
 
-    public Boolean isSubtreeWithLoop();
-
     /**
      * Set performance data on this node.
      * 
