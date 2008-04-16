@@ -14,6 +14,9 @@ package org.talend.dataquality.helpers;
 
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.util.AnalysisSwitch;
+import org.talend.dataquality.domain.RealNumberValue;
+import org.talend.dataquality.domain.TextValue;
+import org.talend.dataquality.domain.util.DomainSwitch;
 import org.talend.dataquality.indicators.schema.ConnectionIndicator;
 import org.talend.dataquality.indicators.schema.util.SchemaSwitch;
 
@@ -37,6 +40,24 @@ public class DataqualitySwitchHelper {
 
         @Override
         public Analysis caseAnalysis(Analysis object) {
+            return object;
+        }
+
+    };
+
+    public static final DomainSwitch<RealNumberValue> REAL_NB_VALUE_SWITCH = new DomainSwitch<RealNumberValue>() {
+
+        @Override
+        public RealNumberValue caseRealNumberValue(RealNumberValue object) {
+            return object;
+        }
+
+    };
+
+    public static final DomainSwitch<TextValue> TEXT_VALUE_SWITCH = new DomainSwitch<TextValue>() {
+
+        @Override
+        public TextValue caseTextValue(TextValue object) {
             return object;
         }
 

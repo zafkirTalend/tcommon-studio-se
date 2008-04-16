@@ -96,6 +96,7 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
             case IndicatorsPackage.MAX_LENGTH_INDICATOR: return createMaxLengthIndicator();
             case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR: return createAverageLengthIndicator();
             case IndicatorsPackage.LENGTH_INDICATOR: return createLengthIndicator();
+            case IndicatorsPackage.TEXT_PARAMETERS: return createTextParameters();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -115,6 +116,10 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return createDataminingTypeFromString(eDataType, initialValue);
             case IndicatorsPackage.DATATYPE:
                 return createDatatypeFromString(eDataType, initialValue);
+            case IndicatorsPackage.DATE_GRAIN:
+                return createDateGrainFromString(eDataType, initialValue);
+            case IndicatorsPackage.MATCHING_ALGORITHM:
+                return createMatchingAlgorithmFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_SET:
                 return createJavaSetFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -140,6 +145,10 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return convertDataminingTypeToString(eDataType, instanceValue);
             case IndicatorsPackage.DATATYPE:
                 return convertDatatypeToString(eDataType, instanceValue);
+            case IndicatorsPackage.DATE_GRAIN:
+                return convertDateGrainToString(eDataType, instanceValue);
+            case IndicatorsPackage.MATCHING_ALGORITHM:
+                return convertMatchingAlgorithmToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_SET:
                 return convertJavaSetToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -466,6 +475,16 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * <!-- end-user-doc -->
      * @generated
      */
+    public TextParameters createTextParameters() {
+        TextParametersImpl textParameters = new TextParametersImpl();
+        return textParameters;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EnumStatistics createEnumStatisticsFromString(EDataType eDataType, String initialValue) {
         EnumStatistics result = EnumStatistics.get(initialValue);
         if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -518,6 +537,46 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * @generated
      */
     public String convertDatatypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DateGrain createDateGrainFromString(EDataType eDataType, String initialValue) {
+        DateGrain result = DateGrain.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertDateGrainToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MatchingAlgorithm createMatchingAlgorithmFromString(EDataType eDataType, String initialValue) {
+        MatchingAlgorithm result = MatchingAlgorithm.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertMatchingAlgorithmToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

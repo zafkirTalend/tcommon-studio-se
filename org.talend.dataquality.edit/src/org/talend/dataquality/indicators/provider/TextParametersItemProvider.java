@@ -15,7 +15,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -25,22 +24,20 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
-import org.talend.dataquality.indicators.DateGrain;
-import org.talend.dataquality.indicators.IndicatorParameters;
-import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.TextParameters;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.indicators.IndicatorParameters} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.TextParameters} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class IndicatorParametersItemProvider
+public class TextParametersItemProvider
     extends ItemProviderAdapter
     implements	
         IEditingDomainItemProvider,	
@@ -54,7 +51,7 @@ public class IndicatorParametersItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public IndicatorParametersItemProvider(AdapterFactory adapterFactory) {
+    public TextParametersItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -69,94 +66,50 @@ public class IndicatorParametersItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addIndicatorValidDomainPropertyDescriptor(object);
-            addDataValidDomainPropertyDescriptor(object);
-            addBinsPropertyDescriptor(object);
-            addDateAggregationTypePropertyDescriptor(object);
+            addUseBlankPropertyDescriptor(object);
+            addMatchingAlgorithmPropertyDescriptor(object);
+            addIgnoreCasePropertyDescriptor(object);
+            addUseNullsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Indicator Valid Domain feature.
+     * This adds a property descriptor for the Use Blank feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addIndicatorValidDomainPropertyDescriptor(Object object) {
+    protected void addUseBlankPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_IndicatorParameters_indicatorValidDomain_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_IndicatorParameters_indicatorValidDomain_feature", "_UI_IndicatorParameters_type"),
-                 IndicatorsPackage.Literals.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN,
+                 getString("_UI_TextParameters_useBlank_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_TextParameters_useBlank_feature", "_UI_TextParameters_type"),
+                 IndicatorsPackage.Literals.TEXT_PARAMETERS__USE_BLANK,
                  true,
                  false,
-                 true,
-                 null,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                  null,
                  null));
     }
 
     /**
-     * This adds a property descriptor for the Data Valid Domain feature.
+     * This adds a property descriptor for the Matching Algorithm feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addDataValidDomainPropertyDescriptor(Object object) {
+    protected void addMatchingAlgorithmPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_IndicatorParameters_dataValidDomain_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_IndicatorParameters_dataValidDomain_feature", "_UI_IndicatorParameters_type"),
-                 IndicatorsPackage.Literals.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Bins feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addBinsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_IndicatorParameters_bins_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_IndicatorParameters_bins_feature", "_UI_IndicatorParameters_type"),
-                 IndicatorsPackage.Literals.INDICATOR_PARAMETERS__BINS,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Date Aggregation Type feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addDateAggregationTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_IndicatorParameters_dateAggregationType_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_IndicatorParameters_dateAggregationType_feature", "_UI_IndicatorParameters_type"),
-                 IndicatorsPackage.Literals.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE,
+                 getString("_UI_TextParameters_matchingAlgorithm_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_TextParameters_matchingAlgorithm_feature", "_UI_TextParameters_type"),
+                 IndicatorsPackage.Literals.TEXT_PARAMETERS__MATCHING_ALGORITHM,
                  true,
                  false,
                  false,
@@ -166,44 +119,58 @@ public class IndicatorParametersItemProvider
     }
 
     /**
-     * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-     * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+     * This adds a property descriptor for the Ignore Case feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
-    public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-        if (childrenFeatures == null) {
-            super.getChildrenFeatures(object);
-            childrenFeatures.add(IndicatorsPackage.Literals.INDICATOR_PARAMETERS__TEXT_PARAMETER);
-        }
-        return childrenFeatures;
+    protected void addIgnoreCasePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_TextParameters_ignoreCase_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_TextParameters_ignoreCase_feature", "_UI_TextParameters_type"),
+                 IndicatorsPackage.Literals.TEXT_PARAMETERS__IGNORE_CASE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
     }
 
     /**
+     * This adds a property descriptor for the Use Nulls feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
-    protected EStructuralFeature getChildFeature(Object object, Object child) {
-        // Check the type of the specified child object and return the proper feature to use for
-        // adding (see {@link AddCommand}) it as a child.
-
-        return super.getChildFeature(object, child);
+    protected void addUseNullsPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_TextParameters_useNulls_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_TextParameters_useNulls_feature", "_UI_TextParameters_type"),
+                 IndicatorsPackage.Literals.TEXT_PARAMETERS__USE_NULLS,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
     }
 
     /**
-     * This returns IndicatorParameters.gif.
+     * This returns TextParameters.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/IndicatorParameters"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/TextParameters"));
     }
 
     /**
@@ -214,11 +181,8 @@ public class IndicatorParametersItemProvider
      */
     @Override
     public String getText(Object object) {
-        DateGrain labelValue = ((IndicatorParameters)object).getDateAggregationType();
-        String label = labelValue == null ? null : labelValue.toString();
-        return label == null || label.length() == 0 ?
-            getString("_UI_IndicatorParameters_type") :
-            getString("_UI_IndicatorParameters_type") + " " + label;
+        TextParameters textParameters = (TextParameters)object;
+        return getString("_UI_TextParameters_type") + " " + textParameters.isUseBlank();
     }
 
     /**
@@ -232,12 +196,12 @@ public class IndicatorParametersItemProvider
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(IndicatorParameters.class)) {
-            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
+        switch (notification.getFeatureID(TextParameters.class)) {
+            case IndicatorsPackage.TEXT_PARAMETERS__USE_BLANK:
+            case IndicatorsPackage.TEXT_PARAMETERS__MATCHING_ALGORITHM:
+            case IndicatorsPackage.TEXT_PARAMETERS__IGNORE_CASE:
+            case IndicatorsPackage.TEXT_PARAMETERS__USE_NULLS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-            case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
         super.notifyChanged(notification);
@@ -253,11 +217,6 @@ public class IndicatorParametersItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-
-        newChildDescriptors.add
-            (createChildParameter
-                (IndicatorsPackage.Literals.INDICATOR_PARAMETERS__TEXT_PARAMETER,
-                 IndicatorsFactory.eINSTANCE.createTextParameters()));
     }
 
     /**

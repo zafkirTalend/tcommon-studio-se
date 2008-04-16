@@ -610,7 +610,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
         initEClass(executionInformationsEClass, ExecutionInformations.class, "ExecutionInformations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionInformations_ExecutionDate(), ecorePackage.getEDate(), "executionDate", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionInformations_ExecutionDuration(), ecorePackage.getELong(), "executionDuration", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionInformations_ExecutionDuration(), ecorePackage.getEInt(), "executionDuration", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(analysisTypeEEnum, AnalysisType.class, "AnalysisType");

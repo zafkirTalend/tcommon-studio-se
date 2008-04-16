@@ -20,6 +20,9 @@ import org.talend.dataquality.domain.Domain;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain <em>Indicator Valid Domain</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain <em>Data Valid Domain</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType <em>Date Aggregation Type</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getTextParameter <em>Text Parameter</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,5 +81,85 @@ public interface IndicatorParameters extends EObject {
      * @generated
      */
     void setDataValidDomain(Domain value);
+
+    /**
+     * Returns the value of the '<em><b>Bins</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * The bins definition (if any). Bins' definition is usually used for aggregating data into bins. 
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>Bins</em>' reference.
+     * @see #setBins(Domain)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_Bins()
+     * @model
+     * @generated
+     */
+    Domain getBins();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Bins</em>' reference.
+     * @see #getBins()
+     * @generated
+     */
+    void setBins(Domain value);
+
+    /**
+     * Returns the value of the '<em><b>Date Aggregation Type</b></em>' attribute.
+     * The literals are from the enumeration {@link org.talend.dataquality.indicators.DateGrain}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Date Aggregation Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Date Aggregation Type</em>' attribute.
+     * @see org.talend.dataquality.indicators.DateGrain
+     * @see #setDateAggregationType(DateGrain)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_DateAggregationType()
+     * @model
+     * @generated
+     */
+    DateGrain getDateAggregationType();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType <em>Date Aggregation Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Date Aggregation Type</em>' attribute.
+     * @see org.talend.dataquality.indicators.DateGrain
+     * @see #getDateAggregationType()
+     * @generated
+     */
+    void setDateAggregationType(DateGrain value);
+
+    /**
+     * Returns the value of the '<em><b>Text Parameter</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Text Parameter</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Text Parameter</em>' containment reference.
+     * @see #setTextParameter(TextParameters)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_TextParameter()
+     * @model containment="true"
+     * @generated
+     */
+    TextParameters getTextParameter();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getTextParameter <em>Text Parameter</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Text Parameter</em>' containment reference.
+     * @see #getTextParameter()
+     * @generated
+     */
+    void setTextParameter(TextParameters value);
 
 } // IndicatorParameters

@@ -495,13 +495,22 @@ public interface ReportsPackage extends EPackage {
     int TD_REPORT__PRESENTATION_PARAMS = InformationreportingPackage.REPORT_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Creation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_REPORT__CREATION_DATE = InformationreportingPackage.REPORT_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Td Report</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_REPORT_FEATURE_COUNT = InformationreportingPackage.REPORT_FEATURE_COUNT + 1;
+    int TD_REPORT_FEATURE_COUNT = InformationreportingPackage.REPORT_FEATURE_COUNT + 2;
 
 
     /**
@@ -562,6 +571,17 @@ public interface ReportsPackage extends EPackage {
      * @generated
      */
     EReference getTdReport_PresentationParams();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.reports.TdReport#getCreationDate <em>Creation Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Creation Date</em>'.
+     * @see org.talend.dataquality.reports.TdReport#getCreationDate()
+     * @see #getTdReport()
+     * @generated
+     */
+    EAttribute getTdReport_CreationDate();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.reports.PresentationParameter <em>Presentation Parameter</em>}'.
@@ -633,6 +653,13 @@ public interface ReportsPackage extends EPackage {
          * @generated
          */
         EReference TD_REPORT__PRESENTATION_PARAMS = eINSTANCE.getTdReport_PresentationParams();
+        /**
+         * The meta object literal for the '<em><b>Creation Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TD_REPORT__CREATION_DATE = eINSTANCE.getTdReport_CreationDate();
         /**
          * The meta object literal for the '{@link org.talend.dataquality.reports.impl.PresentationParameterImpl <em>Presentation Parameter</em>}' class.
          * <!-- begin-user-doc -->

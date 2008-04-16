@@ -789,6 +789,29 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.TextParameters} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TextParametersItemProvider textParametersItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.TextParameters}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createTextParametersAdapter() {
+        if (textParametersItemProvider == null) {
+            textParametersItemProvider = new TextParametersItemProvider(this);
+        }
+
+        return textParametersItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -918,6 +941,7 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (maxLengthIndicatorItemProvider != null) maxLengthIndicatorItemProvider.dispose();
         if (averageLengthIndicatorItemProvider != null) averageLengthIndicatorItemProvider.dispose();
         if (lengthIndicatorItemProvider != null) lengthIndicatorItemProvider.dispose();
+        if (textParametersItemProvider != null) textParametersItemProvider.dispose();
     }
 
 }

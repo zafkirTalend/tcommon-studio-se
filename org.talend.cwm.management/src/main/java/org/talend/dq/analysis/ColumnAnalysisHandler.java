@@ -44,7 +44,7 @@ public class ColumnAnalysisHandler {
     /**
      * The resources that are connected to this analysis and that are potentially modified.
      */
-    Collection<Resource> modifiedResources = new HashSet<Resource>();
+    private Collection<Resource> modifiedResources = new HashSet<Resource>();
 
     private Analysis analysis;
 

@@ -63,12 +63,12 @@ public interface ExecutionInformations extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Execution Duration</em>' attribute.
-     * @see #setExecutionDuration(long)
+     * @see #setExecutionDuration(int)
      * @see org.talend.dataquality.analysis.AnalysisPackage#getExecutionInformations_ExecutionDuration()
      * @model
      * @generated
      */
-    long getExecutionDuration();
+    int getExecutionDuration();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.analysis.ExecutionInformations#getExecutionDuration <em>Execution Duration</em>}' attribute.
@@ -78,6 +78,6 @@ public interface ExecutionInformations extends EObject {
      * @see #getExecutionDuration()
      * @generated
      */
-    void setExecutionDuration(long value);
+    void setExecutionDuration(int value);
 
 } // ExecutionInformations

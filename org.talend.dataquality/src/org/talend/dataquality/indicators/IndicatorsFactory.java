@@ -305,6 +305,15 @@ public interface IndicatorsFactory extends EFactory {
     LengthIndicator createLengthIndicator();
 
     /**
+     * Returns a new object of class '<em>Text Parameters</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Text Parameters</em>'.
+     * @generated
+     */
+    TextParameters createTextParameters();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

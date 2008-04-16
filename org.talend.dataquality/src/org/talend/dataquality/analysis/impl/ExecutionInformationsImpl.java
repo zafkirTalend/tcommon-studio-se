@@ -61,7 +61,7 @@ public class ExecutionInformationsImpl extends EObjectImpl implements ExecutionI
      * @generated
      * @ordered
      */
-    protected static final long EXECUTION_DURATION_EDEFAULT = 0L;
+    protected static final int EXECUTION_DURATION_EDEFAULT = 0;
 
     /**
      * The cached value of the '{@link #getExecutionDuration() <em>Execution Duration</em>}' attribute.
@@ -71,7 +71,7 @@ public class ExecutionInformationsImpl extends EObjectImpl implements ExecutionI
      * @generated
      * @ordered
      */
-    protected long executionDuration = EXECUTION_DURATION_EDEFAULT;
+    protected int executionDuration = EXECUTION_DURATION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -118,7 +118,7 @@ public class ExecutionInformationsImpl extends EObjectImpl implements ExecutionI
      * <!-- end-user-doc -->
      * @generated
      */
-    public long getExecutionDuration() {
+    public int getExecutionDuration() {
         return executionDuration;
     }
 
@@ -127,8 +127,8 @@ public class ExecutionInformationsImpl extends EObjectImpl implements ExecutionI
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setExecutionDuration(long newExecutionDuration) {
-        long oldExecutionDuration = executionDuration;
+    public void setExecutionDuration(int newExecutionDuration) {
+        int oldExecutionDuration = executionDuration;
         executionDuration = newExecutionDuration;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_DURATION, oldExecutionDuration, executionDuration));
@@ -145,7 +145,7 @@ public class ExecutionInformationsImpl extends EObjectImpl implements ExecutionI
             case AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_DATE:
                 return getExecutionDate();
             case AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_DURATION:
-                return new Long(getExecutionDuration());
+                return new Integer(getExecutionDuration());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -162,7 +162,7 @@ public class ExecutionInformationsImpl extends EObjectImpl implements ExecutionI
                 setExecutionDate((Date)newValue);
                 return;
             case AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_DURATION:
-                setExecutionDuration(((Long)newValue).longValue());
+                setExecutionDuration(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);

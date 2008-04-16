@@ -408,6 +408,12 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case IndicatorsPackage.TEXT_PARAMETERS: {
+                TextParameters textParameters = (TextParameters)theEObject;
+                T result = caseTextParameters(textParameters);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -889,6 +895,21 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseLengthIndicator(LengthIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Text Parameters</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Text Parameters</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTextParameters(TextParameters object) {
         return null;
     }
 

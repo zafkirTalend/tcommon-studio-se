@@ -68,7 +68,7 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
 
         // --- compute execution duration
         long endtime = System.currentTimeMillis();
-        resultMetadata.setExecutionDuration(endtime - startime);
+        resultMetadata.setExecutionDuration((int) (endtime - startime));
         return getReturnCode(ok);
     }
 

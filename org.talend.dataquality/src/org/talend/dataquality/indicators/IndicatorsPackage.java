@@ -4712,13 +4712,40 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR_PARAMETERS__DATA_VALID_DOMAIN = 1;
 
     /**
+     * The feature id for the '<em><b>Bins</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INDICATOR_PARAMETERS__BINS = 2;
+
+    /**
+     * The feature id for the '<em><b>Date Aggregation Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE = 3;
+
+    /**
+     * The feature id for the '<em><b>Text Parameter</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INDICATOR_PARAMETERS__TEXT_PARAMETER = 4;
+
+    /**
      * The number of structural features of the '<em>Indicator Parameters</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INDICATOR_PARAMETERS_FEATURE_COUNT = 2;
+    int INDICATOR_PARAMETERS_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MedianIndicatorImpl <em>Median Indicator</em>}' class.
@@ -8308,6 +8335,61 @@ public interface IndicatorsPackage extends EPackage {
     int AVERAGE_LENGTH_INDICATOR_FEATURE_COUNT = LENGTH_INDICATOR_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.TextParametersImpl <em>Text Parameters</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.TextParametersImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextParameters()
+     * @generated
+     */
+    int TEXT_PARAMETERS = 32;
+
+    /**
+     * The feature id for the '<em><b>Use Blank</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_PARAMETERS__USE_BLANK = 0;
+
+    /**
+     * The feature id for the '<em><b>Matching Algorithm</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_PARAMETERS__MATCHING_ALGORITHM = 1;
+
+    /**
+     * The feature id for the '<em><b>Ignore Case</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_PARAMETERS__IGNORE_CASE = 2;
+
+    /**
+     * The feature id for the '<em><b>Use Nulls</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_PARAMETERS__USE_NULLS = 3;
+
+    /**
+     * The number of structural features of the '<em>Text Parameters</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_PARAMETERS_FEATURE_COUNT = 4;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8315,7 +8397,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 32;
+    int ENUM_STATISTICS = 33;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -8325,7 +8407,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 33;
+    int DATAMINING_TYPE = 34;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
@@ -8335,7 +8417,27 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
      * @generated
      */
-    int DATATYPE = 34;
+    int DATATYPE = 35;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.DateGrain
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
+     * @generated
+     */
+    int DATE_GRAIN = 36;
+
+    /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.MatchingAlgorithm
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
+     * @generated
+     */
+    int MATCHING_ALGORITHM = 37;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -8345,7 +8447,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 35;
+    int JAVA_SET = 38;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -8355,7 +8457,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 36;
+    int JAVA_HASH_MAP = 39;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -8365,7 +8467,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 37;
+    int JAVA_TREE_MAP = 40;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -8890,6 +8992,39 @@ public interface IndicatorsPackage extends EPackage {
     EReference getIndicatorParameters_DataValidDomain();
 
     /**
+     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Bins</em>'.
+     * @see org.talend.dataquality.indicators.IndicatorParameters#getBins()
+     * @see #getIndicatorParameters()
+     * @generated
+     */
+    EReference getIndicatorParameters_Bins();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType <em>Date Aggregation Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Date Aggregation Type</em>'.
+     * @see org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType()
+     * @see #getIndicatorParameters()
+     * @generated
+     */
+    EAttribute getIndicatorParameters_DateAggregationType();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getTextParameter <em>Text Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Text Parameter</em>'.
+     * @see org.talend.dataquality.indicators.IndicatorParameters#getTextParameter()
+     * @see #getIndicatorParameters()
+     * @generated
+     */
+    EReference getIndicatorParameters_TextParameter();
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.MedianIndicator <em>Median Indicator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9117,6 +9252,60 @@ public interface IndicatorsPackage extends EPackage {
     EAttribute getLengthIndicator_Length();
 
     /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.TextParameters <em>Text Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Text Parameters</em>'.
+     * @see org.talend.dataquality.indicators.TextParameters
+     * @generated
+     */
+    EClass getTextParameters();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.TextParameters#isUseBlank <em>Use Blank</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Blank</em>'.
+     * @see org.talend.dataquality.indicators.TextParameters#isUseBlank()
+     * @see #getTextParameters()
+     * @generated
+     */
+    EAttribute getTextParameters_UseBlank();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.TextParameters#getMatchingAlgorithm <em>Matching Algorithm</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Matching Algorithm</em>'.
+     * @see org.talend.dataquality.indicators.TextParameters#getMatchingAlgorithm()
+     * @see #getTextParameters()
+     * @generated
+     */
+    EAttribute getTextParameters_MatchingAlgorithm();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.TextParameters#isIgnoreCase <em>Ignore Case</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Ignore Case</em>'.
+     * @see org.talend.dataquality.indicators.TextParameters#isIgnoreCase()
+     * @see #getTextParameters()
+     * @generated
+     */
+    EAttribute getTextParameters_IgnoreCase();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.TextParameters#isUseNulls <em>Use Nulls</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Nulls</em>'.
+     * @see org.talend.dataquality.indicators.TextParameters#isUseNulls()
+     * @see #getTextParameters()
+     * @generated
+     */
+    EAttribute getTextParameters_UseNulls();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9145,6 +9334,26 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EEnum getDatatype();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Date Grain</em>'.
+     * @see org.talend.dataquality.indicators.DateGrain
+     * @generated
+     */
+    EEnum getDateGrain();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Matching Algorithm</em>'.
+     * @see org.talend.dataquality.indicators.MatchingAlgorithm
+     * @generated
+     */
+    EEnum getMatchingAlgorithm();
 
     /**
      * Returns the meta object for data type '{@link java.util.Set <em>Java Set</em>}'.
@@ -9628,6 +9837,30 @@ public interface IndicatorsPackage extends EPackage {
         EReference INDICATOR_PARAMETERS__DATA_VALID_DOMAIN = eINSTANCE.getIndicatorParameters_DataValidDomain();
 
         /**
+         * The meta object literal for the '<em><b>Bins</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference INDICATOR_PARAMETERS__BINS = eINSTANCE.getIndicatorParameters_Bins();
+
+        /**
+         * The meta object literal for the '<em><b>Date Aggregation Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE = eINSTANCE.getIndicatorParameters_DateAggregationType();
+
+        /**
+         * The meta object literal for the '<em><b>Text Parameter</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference INDICATOR_PARAMETERS__TEXT_PARAMETER = eINSTANCE.getIndicatorParameters_TextParameter();
+
+        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MedianIndicatorImpl <em>Median Indicator</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -9834,6 +10067,48 @@ public interface IndicatorsPackage extends EPackage {
         EAttribute LENGTH_INDICATOR__LENGTH = eINSTANCE.getLengthIndicator_Length();
 
         /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.TextParametersImpl <em>Text Parameters</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.TextParametersImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextParameters()
+         * @generated
+         */
+        EClass TEXT_PARAMETERS = eINSTANCE.getTextParameters();
+
+        /**
+         * The meta object literal for the '<em><b>Use Blank</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEXT_PARAMETERS__USE_BLANK = eINSTANCE.getTextParameters_UseBlank();
+
+        /**
+         * The meta object literal for the '<em><b>Matching Algorithm</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEXT_PARAMETERS__MATCHING_ALGORITHM = eINSTANCE.getTextParameters_MatchingAlgorithm();
+
+        /**
+         * The meta object literal for the '<em><b>Ignore Case</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEXT_PARAMETERS__IGNORE_CASE = eINSTANCE.getTextParameters_IgnoreCase();
+
+        /**
+         * The meta object literal for the '<em><b>Use Nulls</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEXT_PARAMETERS__USE_NULLS = eINSTANCE.getTextParameters_UseNulls();
+
+        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -9862,6 +10137,26 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EEnum DATATYPE = eINSTANCE.getDatatype();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.DateGrain
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
+         * @generated
+         */
+        EEnum DATE_GRAIN = eINSTANCE.getDateGrain();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.MatchingAlgorithm
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
+         * @generated
+         */
+        EEnum MATCHING_ALGORITHM = eINSTANCE.getMatchingAlgorithm();
 
         /**
          * The meta object literal for the '<em>Java Set</em>' data type.

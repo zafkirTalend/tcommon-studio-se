@@ -25,9 +25,9 @@ import org.talend.dataquality.indicators.SumIndicator;
 public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
 
     /**
-     * The default value of the '{@link #getSumStr() <em>Sum Str</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSumStr() <em>Sum Str</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSumStr()
      * @generated
      * @ordered
@@ -35,9 +35,9 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
     protected static final String SUM_STR_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getSumStr() <em>Sum Str</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getSumStr() <em>Sum Str</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSumStr()
      * @generated
      * @ordered
@@ -45,9 +45,9 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
     protected String sumStr = SUM_STR_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDatatype() <em>Datatype</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getDatatype() <em>Datatype</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDatatype()
      * @generated
      * @ordered
@@ -55,9 +55,9 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
     protected static final Datatype DATATYPE_EDEFAULT = Datatype.INTEGER;
 
     /**
-     * The cached value of the '{@link #getDatatype() <em>Datatype</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDatatype() <em>Datatype</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDatatype()
      * @generated
      * @ordered
@@ -97,7 +97,6 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected SumIndicatorImpl() {
@@ -106,7 +105,6 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -116,7 +114,6 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getSumStr() {
@@ -125,20 +122,17 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setSumStr(String newSumStr) {
         String oldSumStr = sumStr;
         sumStr = newSumStr;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.SUM_INDICATOR__SUM_STR, oldSumStr,
-                    sumStr));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.SUM_INDICATOR__SUM_STR, oldSumStr, sumStr));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Datatype getDatatype() {
@@ -147,94 +141,86 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDatatype(Datatype newDatatype) {
         Datatype oldDatatype = datatype;
         datatype = newDatatype == null ? DATATYPE_EDEFAULT : newDatatype;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.SUM_INDICATOR__DATATYPE,
-                    oldDatatype, datatype));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.SUM_INDICATOR__DATATYPE, oldDatatype, datatype));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
-            return getSumStr();
-        case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
-            return getDatatype();
+            case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
+                return getSumStr();
+            case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
+                return getDatatype();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
-            setSumStr((String) newValue);
-            return;
-        case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
-            setDatatype((Datatype) newValue);
-            return;
+            case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
+                setSumStr((String)newValue);
+                return;
+            case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
+                setDatatype((Datatype)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
-            setSumStr(SUM_STR_EDEFAULT);
-            return;
-        case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
-            setDatatype(DATATYPE_EDEFAULT);
-            return;
+            case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
+                setSumStr(SUM_STR_EDEFAULT);
+                return;
+            case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
+                setDatatype(DATATYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
-            return SUM_STR_EDEFAULT == null ? sumStr != null : !SUM_STR_EDEFAULT.equals(sumStr);
-        case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
-            return datatype != DATATYPE_EDEFAULT;
+            case IndicatorsPackage.SUM_INDICATOR__SUM_STR:
+                return SUM_STR_EDEFAULT == null ? sumStr != null : !SUM_STR_EDEFAULT.equals(sumStr);
+            case IndicatorsPackage.SUM_INDICATOR__DATATYPE:
+                return datatype != DATATYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (sumStr: ");

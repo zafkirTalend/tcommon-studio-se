@@ -36,6 +36,7 @@ import org.talend.dataquality.indicators.BoxIndicator;
 import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Datatype;
+import org.talend.dataquality.indicators.DateGrain;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
 import org.talend.dataquality.indicators.DoubleMeanIndicator;
 import org.talend.dataquality.indicators.DoubleSumIndicator;
@@ -51,6 +52,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.IntegerMeanIndicator;
 import org.talend.dataquality.indicators.IntegerSumIndicator;
 import org.talend.dataquality.indicators.LengthIndicator;
+import org.talend.dataquality.indicators.MatchingAlgorithm;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
 import org.talend.dataquality.indicators.MaxValueIndicator;
 import org.talend.dataquality.indicators.MeanIndicator;
@@ -63,6 +65,7 @@ import org.talend.dataquality.indicators.RangeIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.SumIndicator;
 import org.talend.dataquality.indicators.TextIndicator;
+import org.talend.dataquality.indicators.TextParameters;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.ValueIndicator;
 import org.talend.dataquality.indicators.schema.SchemaPackage;
@@ -318,6 +321,13 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass textParametersEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EEnum enumStatisticsEEnum = null;
 
     /**
@@ -333,6 +343,20 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     private EEnum datatypeEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum dateGrainEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum matchingAlgorithmEEnum = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -886,6 +910,33 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getIndicatorParameters_Bins() {
+        return (EReference)indicatorParametersEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIndicatorParameters_DateAggregationType() {
+        return (EAttribute)indicatorParametersEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getIndicatorParameters_TextParameter() {
+        return (EReference)indicatorParametersEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1086,6 +1137,51 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getTextParameters() {
+        return textParametersEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTextParameters_UseBlank() {
+        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTextParameters_MatchingAlgorithm() {
+        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTextParameters_IgnoreCase() {
+        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTextParameters_UseNulls() {
+        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EEnum getEnumStatistics() {
         return enumStatisticsEEnum;
     }
@@ -1106,6 +1202,24 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      */
     public EEnum getDatatype() {
         return datatypeEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getDateGrain() {
+        return dateGrainEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getMatchingAlgorithm() {
+        return matchingAlgorithmEEnum;
     }
 
     /**
@@ -1225,6 +1339,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         indicatorParametersEClass = createEClass(INDICATOR_PARAMETERS);
         createEReference(indicatorParametersEClass, INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN);
         createEReference(indicatorParametersEClass, INDICATOR_PARAMETERS__DATA_VALID_DOMAIN);
+        createEReference(indicatorParametersEClass, INDICATOR_PARAMETERS__BINS);
+        createEAttribute(indicatorParametersEClass, INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE);
+        createEReference(indicatorParametersEClass, INDICATOR_PARAMETERS__TEXT_PARAMETER);
 
         medianIndicatorEClass = createEClass(MEDIAN_INDICATOR);
         createEAttribute(medianIndicatorEClass, MEDIAN_INDICATOR__MEDIAN);
@@ -1263,10 +1380,18 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         lengthIndicatorEClass = createEClass(LENGTH_INDICATOR);
         createEAttribute(lengthIndicatorEClass, LENGTH_INDICATOR__LENGTH);
 
+        textParametersEClass = createEClass(TEXT_PARAMETERS);
+        createEAttribute(textParametersEClass, TEXT_PARAMETERS__USE_BLANK);
+        createEAttribute(textParametersEClass, TEXT_PARAMETERS__MATCHING_ALGORITHM);
+        createEAttribute(textParametersEClass, TEXT_PARAMETERS__IGNORE_CASE);
+        createEAttribute(textParametersEClass, TEXT_PARAMETERS__USE_NULLS);
+
         // Create enums
         enumStatisticsEEnum = createEEnum(ENUM_STATISTICS);
         dataminingTypeEEnum = createEEnum(DATAMINING_TYPE);
         datatypeEEnum = createEEnum(DATATYPE);
+        dateGrainEEnum = createEEnum(DATE_GRAIN);
+        matchingAlgorithmEEnum = createEEnum(MATCHING_ALGORITHM);
 
         // Create data types
         javaSetEDataType = createEDataType(JAVA_SET);
@@ -1435,6 +1560,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(indicatorParametersEClass, IndicatorParameters.class, "IndicatorParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIndicatorParameters_IndicatorValidDomain(), theDomainPackage.getDomain(), null, "indicatorValidDomain", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicatorParameters_DataValidDomain(), theDomainPackage.getDomain(), null, "dataValidDomain", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicatorParameters_Bins(), theDomainPackage.getDomain(), null, "bins", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicatorParameters_DateAggregationType(), this.getDateGrain(), "dateAggregationType", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicatorParameters_TextParameter(), this.getTextParameters(), null, "textParameter", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(medianIndicatorEClass, MedianIndicator.class, "MedianIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getMedianIndicator_Median(), ecorePackage.getEDouble(), "median", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1485,6 +1613,12 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(lengthIndicatorEClass, LengthIndicator.class, "LengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLengthIndicator_Length(), ecorePackage.getEInt(), "length", null, 0, 1, LengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(textParametersEClass, TextParameters.class, "TextParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTextParameters_UseBlank(), ecorePackage.getEBoolean(), "useBlank", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTextParameters_MatchingAlgorithm(), this.getMatchingAlgorithm(), "matchingAlgorithm", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTextParameters_IgnoreCase(), ecorePackage.getEBoolean(), "ignoreCase", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTextParameters_UseNulls(), ecorePackage.getEBoolean(), "useNulls", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(enumStatisticsEEnum, EnumStatistics.class, "EnumStatistics");
         addEEnumLiteral(enumStatisticsEEnum, EnumStatistics.MIN_VALUE);
@@ -1520,6 +1654,23 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         addEEnumLiteral(datatypeEEnum, Datatype.DOUBLE);
         addEEnumLiteral(datatypeEEnum, Datatype.TEXT);
         addEEnumLiteral(datatypeEEnum, Datatype.BIGDECIMAL);
+
+        initEEnum(dateGrainEEnum, DateGrain.class, "DateGrain");
+        addEEnumLiteral(dateGrainEEnum, DateGrain.DAY);
+        addEEnumLiteral(dateGrainEEnum, DateGrain.WEEK);
+        addEEnumLiteral(dateGrainEEnum, DateGrain.MONTH);
+        addEEnumLiteral(dateGrainEEnum, DateGrain.QUARTER);
+        addEEnumLiteral(dateGrainEEnum, DateGrain.SEMESTER);
+        addEEnumLiteral(dateGrainEEnum, DateGrain.YEAR);
+        addEEnumLiteral(dateGrainEEnum, DateGrain.NONE);
+
+        initEEnum(matchingAlgorithmEEnum, MatchingAlgorithm.class, "MatchingAlgorithm");
+        addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.EXACT);
+        addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.METAPHONE);
+        addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.DOUBLE_METAPHONE);
+        addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.LEVENSHTEIN);
+        addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.SOUNDEX);
+        addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.REFINED_SOUNDEX);
 
         // Initialize data types
         initEDataType(javaSetEDataType, Set.class, "JavaSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Set<Object>");

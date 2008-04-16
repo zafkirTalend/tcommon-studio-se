@@ -130,7 +130,7 @@ public class ConnectionEvaluator extends Evaluator<DataProvider> {
         List<TdCatalog> catalogs = DataProviderHelper.getTdCatalogs(dataProvider);
         List<TdSchema> schemata = DataProviderHelper.getTdSchema(dataProvider);
 
-        String tablePattern = null;
+        String tablePattern = null; // TODO scorreia get pattern from analysis parameters
 
         TableBuilder tableBuilder = new TableBuilder(connection); // TODO generalize
 
@@ -140,13 +140,14 @@ public class ConnectionEvaluator extends Evaluator<DataProvider> {
         // alltables.addAll(tableBuilder.getColumnSets(null, schName, tablePattern));
         // }
         // }
+        // TODO scorreia generalize to other databases
         for (TdCatalog tdCatalog : catalogs) {
             String catName = tdCatalog.getName();
             connection.setCatalog(catName);
             if (schemata.isEmpty()) {
                 // --- create SchemaIndicator for each pair of catalog schema
                 SchemaIndicator schemaIndic = SchemaFactory.eINSTANCE.createSchemaIndicator();
-                // TODO add it to list of indicators
+                // add it to list of indicators
                 connectionIndicator.addSchemaIndicator(schemaIndic);
 
                 // this.storeIndicator(new CatalogSchema(catName, null), schemaIndic);
@@ -192,7 +193,9 @@ public class ConnectionEvaluator extends Evaluator<DataProvider> {
         // }
         // }
         // // TODO execute statement and set result into indicators
-        printCounts();
+        if (log.isInfoEnabled()) {
+            printCounts();
+        }
         return ok;
     }
 

@@ -56,7 +56,7 @@ public enum DataminingType implements Enumerator {
      * @generated
      * @ordered
      */
-    OTHER(0, "OTHER", "Other");
+    OTHER(3, "OTHER", "Other");
 
     /**
      * The '<em><b>NOMINAL</b></em>' literal value.
@@ -114,7 +114,7 @@ public enum DataminingType implements Enumerator {
      * @generated
      * @ordered
      */
-    public static final int OTHER_VALUE = 0;
+    public static final int OTHER_VALUE = 3;
 
     /**
      * An array of all the '<em><b>Datamining Type</b></em>' enumerators.
@@ -181,6 +181,7 @@ public enum DataminingType implements Enumerator {
             case NOMINAL_VALUE: return NOMINAL;
             case INTERVAL_VALUE: return INTERVAL;
             case UNSTRUCTURED_TEXT_VALUE: return UNSTRUCTURED_TEXT;
+            case OTHER_VALUE: return OTHER;
         }
         return null;
     }

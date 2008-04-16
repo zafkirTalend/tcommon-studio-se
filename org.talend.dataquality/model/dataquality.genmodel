@@ -66,6 +66,7 @@
         ecorePackage="dataquality.ecore#//reports">
       <genClasses ecoreClass="dataquality.ecore#//reports/TdReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//reports/TdReport/presentationParams"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//reports/TdReport/creationDate"/>
         <genOperations ecoreOperation="dataquality.ecore#//reports/TdReport/addAnalysis">
           <genParameters ecoreParameter="dataquality.ecore#//reports/TdReport/addAnalysis/analysis"/>
         </genOperations>
@@ -112,6 +113,23 @@
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/DOUBLE"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/TEXT"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/BIGDECIMAL"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//indicators/DateGrain">
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/DAY"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/WEEK"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/MONTH"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/QUARTER"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/SEMESTER"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/YEAR"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/NONE"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//indicators/MatchingAlgorithm">
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/EXACT"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/METAPHONE"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/DOUBLE_METAPHONE"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/LEVENSHTEIN"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/SOUNDEX"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/REFINED_SOUNDEX"/>
       </genEnums>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaSet"/>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaHashMap"/>
@@ -202,6 +220,10 @@
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/indicatorValidDomain"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/dataValidDomain"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/bins"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/IndicatorParameters/dateAggregationType"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/textParameter"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MedianIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/median"/>
@@ -238,6 +260,12 @@
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/LengthIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/LengthIndicator/length"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/TextParameters">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/TextParameters/useBlank"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/TextParameters/matchingAlgorithm"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/TextParameters/ignoreCase"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/TextParameters/useNulls"/>
       </genClasses>
       <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">

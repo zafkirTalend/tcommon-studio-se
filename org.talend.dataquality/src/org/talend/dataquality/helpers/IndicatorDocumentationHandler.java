@@ -30,7 +30,7 @@ public class IndicatorDocumentationHandler {
      * Method "getLongDescription".
      * 
      * @param indicatorClassifierId the id of the indicator (should be one of the IndicatorsPackage constants)
-     * @return the long description of the indicator represented by the given id.
+     * @return the long description of the indicator represented by the given id or the empty string if not found.
      */
     public static String getLongDescription(int indicatorClassifierId) {
         switch (indicatorClassifierId) {
@@ -76,7 +76,7 @@ public class IndicatorDocumentationHandler {
      * Method "getPurpose".
      * 
      * @param indicatorClassifierId the id of the indicator (should be one of the IndicatorsPackage constants)
-     * @return the long description of the indicator represented by the given id.
+     * @return the purpose of the indicator represented by the given id or the empty string if not found.
      */
     public static String getPurpose(int indicatorClassifierId) {
         switch (indicatorClassifierId) {

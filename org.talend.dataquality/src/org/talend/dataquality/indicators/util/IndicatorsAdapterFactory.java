@@ -209,6 +209,10 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createLengthIndicatorAdapter();
             }
             @Override
+            public Adapter caseTextParameters(TextParameters object) {
+                return createTextParametersAdapter();
+            }
+            @Override
             public Adapter caseElement(Element object) {
                 return createElementAdapter();
             }
@@ -689,6 +693,20 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLengthIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.TextParameters <em>Text Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.TextParameters
+     * @generated
+     */
+    public Adapter createTextParametersAdapter() {
         return null;
     }
 

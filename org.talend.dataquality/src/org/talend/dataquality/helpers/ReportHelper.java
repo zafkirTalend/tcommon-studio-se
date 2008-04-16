@@ -24,7 +24,13 @@ import orgomg.cwm.analysis.informationvisualization.RenderedObject;
 /**
  * DOC scorreia class global comment. Detailled comment
  */
-public class ReportHelper {
+public final class ReportHelper {
+
+    /**
+     * @deprecated use static access instead.
+     */
+    public ReportHelper() {
+    }
 
     /**
      * Method "getAnalyses".
@@ -32,7 +38,7 @@ public class ReportHelper {
      * @param report
      * @return a list of analyses or an empty list. Do not use this list to add analysis to the report.
      */
-    public List<Analysis> getAnalyses(TdReport report) {
+    public static List<Analysis> getAnalyses(TdReport report) {
         List<Analysis> analyses = new ArrayList<Analysis>();
         EList<RenderedObject> components = report.getComponent();
         for (RenderedObject renderedObject : components) {
@@ -51,7 +57,7 @@ public class ReportHelper {
      * @param analyses analyses to remove from the report
      * @return true if the analyses list of the report changed as a result of the call.
      */
-    public boolean removeAnalyses(TdReport report, Collection<Analysis> analyses) {
+    public static boolean removeAnalyses(TdReport report, Collection<Analysis> analyses) {
         return report.getComponent().removeAll(analyses);
     }
 
@@ -62,15 +68,15 @@ public class ReportHelper {
      * @param report a report (must not be null)
      * @return true if the analysis list changed as a result of the call.
      */
-    public boolean addAnalyses(Collection<Analysis> analyses, TdReport report) {
+    public static boolean addAnalyses(Collection<Analysis> analyses, TdReport report) {
         return report.getComponent().addAll(analyses);
     }
 
-    public void setHeader(TdReport report, String header) {
+    public static void setHeader(TdReport report, String header) {
         // TODO scorreia set header in the report
     }
 
-    public void setFooter(TdReport report, String footer) {
+    public static void setFooter(TdReport report, String footer) {
         // TODO scorreia set footer in the report
     }
 
@@ -80,7 +86,7 @@ public class ReportHelper {
      * @param report
      * @param refresh true if all analyses must be refreshed
      */
-    public void mustRefreshAllAnalyses(TdReport report, boolean refresh) {
+    public static void mustRefreshAllAnalyses(TdReport report, boolean refresh) {
         // TODO scorreia set boolean
     }
 }
