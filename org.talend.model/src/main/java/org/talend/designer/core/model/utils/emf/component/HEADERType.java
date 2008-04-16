@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -402,60 +401,6 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetISMULTIPLYINGOUTPUTS();
-
-    /**
-     * Returns the value of the '<em><b>ISSUBTREEWITHLOOP</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ISSUBTREEWITHLOOP</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ISSUBTREEWITHLOOP</em>' attribute.
-     * @see #isSetISSUBTREEWITHLOOP()
-     * @see #unsetISSUBTREEWITHLOOP()
-     * @see #setISSUBTREEWITHLOOP(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ISSUBTREEWITHLOOP()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='IS_SUBTREE_WITH_LOOP' namespace='##targetNamespace'"
-     * @generated
-     */
-    boolean isISSUBTREEWITHLOOP();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ISSUBTREEWITHLOOP</em>' attribute.
-     * @see #isSetISSUBTREEWITHLOOP()
-     * @see #unsetISSUBTREEWITHLOOP()
-     * @see #isISSUBTREEWITHLOOP()
-     * @generated
-     */
-    void setISSUBTREEWITHLOOP(boolean value);
-
-    /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isSetISSUBTREEWITHLOOP()
-     * @see #isISSUBTREEWITHLOOP()
-     * @see #setISSUBTREEWITHLOOP(boolean)
-     * @generated
-     */
-    void unsetISSUBTREEWITHLOOP();
-
-    /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return whether the value of the '<em>ISSUBTREEWITHLOOP</em>' attribute is set.
-     * @see #unsetISSUBTREEWITHLOOP()
-     * @see #isISSUBTREEWITHLOOP()
-     * @see #setISSUBTREEWITHLOOP(boolean)
-     * @generated
-     */
-    boolean isSetISSUBTREEWITHLOOP();
 
     /**
      * Returns the value of the '<em><b>PLATEFORM</b></em>' attribute.

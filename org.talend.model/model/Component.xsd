@@ -52,7 +52,6 @@
 			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
 			<xs:attribute name="HASH_COMPONENT" type="xs:boolean" use="optional" default="false"/>
-			<xs:attribute name="IS_SUBTREE_WITH_LOOP" type="xs:boolean" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">

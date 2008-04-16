@@ -34,7 +34,6 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isISSUBTREEWITHLOOP <em>ISSUBTREEWITHLOOP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -255,35 +254,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean iSMULTIPLYINGOUTPUTSESet;
-
-    /**
-     * The default value of the '{@link #isISSUBTREEWITHLOOP() <em>ISSUBTREEWITHLOOP</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isISSUBTREEWITHLOOP()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean ISSUBTREEWITHLOOP_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isISSUBTREEWITHLOOP() <em>ISSUBTREEWITHLOOP</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isISSUBTREEWITHLOOP()
-     * @generated
-     * @ordered
-     */
-    protected boolean iSSUBTREEWITHLOOP = ISSUBTREEWITHLOOP_EDEFAULT;
-
-    /**
-     * This is true if the ISSUBTREEWITHLOOP attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean iSSUBTREEWITHLOOPESet;
 
     /**
      * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
@@ -835,52 +805,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isISSUBTREEWITHLOOP() {
-        return iSSUBTREEWITHLOOP;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setISSUBTREEWITHLOOP(boolean newISSUBTREEWITHLOOP) {
-        boolean oldISSUBTREEWITHLOOP = iSSUBTREEWITHLOOP;
-        iSSUBTREEWITHLOOP = newISSUBTREEWITHLOOP;
-        boolean oldISSUBTREEWITHLOOPESet = iSSUBTREEWITHLOOPESet;
-        iSSUBTREEWITHLOOPESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP, oldISSUBTREEWITHLOOP, iSSUBTREEWITHLOOP, !oldISSUBTREEWITHLOOPESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetISSUBTREEWITHLOOP() {
-        boolean oldISSUBTREEWITHLOOP = iSSUBTREEWITHLOOP;
-        boolean oldISSUBTREEWITHLOOPESet = iSSUBTREEWITHLOOPESet;
-        iSSUBTREEWITHLOOP = ISSUBTREEWITHLOOP_EDEFAULT;
-        iSSUBTREEWITHLOOPESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP, oldISSUBTREEWITHLOOP, ISSUBTREEWITHLOOP_EDEFAULT, oldISSUBTREEWITHLOOPESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetISSUBTREEWITHLOOP() {
-        return iSSUBTREEWITHLOOPESet;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String getPLATEFORM() {
         return pLATEFORM;
     }
@@ -1203,8 +1127,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isHASHCOMPONENT() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 return isISMULTIPLYINGOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
-            case ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP:
-                return isISSUBTREEWITHLOOP() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return getPLATEFORM();
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1260,9 +1182,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 setISMULTIPLYINGOUTPUTS(((Boolean)newValue).booleanValue());
-                return;
-            case ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP:
-                setISSUBTREEWITHLOOP(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM((String)newValue);
@@ -1329,9 +1248,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 unsetISMULTIPLYINGOUTPUTS();
                 return;
-            case ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP:
-                unsetISSUBTREEWITHLOOP();
-                return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM(PLATEFORM_EDEFAULT);
                 return;
@@ -1388,8 +1304,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetHASHCOMPONENT();
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 return isSetISMULTIPLYINGOUTPUTS();
-            case ComponentPackage.HEADER_TYPE__ISSUBTREEWITHLOOP:
-                return isSetISSUBTREEWITHLOOP();
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1437,8 +1351,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (hASHCOMPONENTESet) result.append(hASHCOMPONENT); else result.append("<unset>");
         result.append(", iSMULTIPLYINGOUTPUTS: ");
         if (iSMULTIPLYINGOUTPUTSESet) result.append(iSMULTIPLYINGOUTPUTS); else result.append("<unset>");
-        result.append(", iSSUBTREEWITHLOOP: ");
-        if (iSSUBTREEWITHLOOPESet) result.append(iSSUBTREEWITHLOOP); else result.append("<unset>");
         result.append(", pLATEFORM: ");
         result.append(pLATEFORM);
         result.append(", rELEASEDATE: ");
