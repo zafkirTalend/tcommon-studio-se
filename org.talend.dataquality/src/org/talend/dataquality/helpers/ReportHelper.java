@@ -74,7 +74,13 @@ public class ReportHelper {
         // TODO scorreia set footer in the report
     }
 
-    public void mustRefreshAllAnalyses(TdReport report) {
+    /**
+     * Method "mustRefreshAllAnalyses".
+     * 
+     * @param report
+     * @param refresh true if all analyses must be refreshed
+     */
+    public void mustRefreshAllAnalyses(TdReport report, boolean refresh) {
         // TODO scorreia set boolean
     }
 }
