@@ -28,4 +28,6 @@ public interface IHashConfiguration {
 
     public boolean isPersistent();
     
+    public String getTemporaryDataDirectory();
+    
 }
