@@ -48,6 +48,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IWorkbenchAction saveAction;
     
     private IWorkbenchAction saveAllAction;
+
+    private IWorkbenchAction helpAction;
     
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -66,6 +68,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		preferenceAction = ActionFactory.PREFERENCES.create(window);
 		register(preferenceAction);
 
+		helpAction = ActionFactory.HELP_CONTENTS.create(window);
+		register(helpAction);
+		
 		aboutAction = ActionFactory.ABOUT.create(window);
 		register(aboutAction);
 	}
@@ -89,12 +94,13 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		// Window
 		
-		 MenuManager perspMenu = new PerspectiveMenuManager();
+		MenuManager perspMenu = new PerspectiveMenuManager();
 		menuBar.add(windowMenu);
 		windowMenu.add(perspMenu);
 		windowMenu.add(preferenceAction);
 		windowMenu.add(new ShowViewAction());
 		// Help
+		helpMenu.add(helpAction);
 		helpMenu.add(aboutAction);
 	}
 
