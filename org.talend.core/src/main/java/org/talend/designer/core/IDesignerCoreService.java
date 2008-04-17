@@ -25,6 +25,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -92,4 +93,6 @@ public interface IDesignerCoreService extends IService {
     public Boolean isRoutineCompilePass(String routineName);
 
     public boolean isTalendEditor(IEditorPart activeEditor);
+
+    public INode getRefrenceNode(String componentName);
 }

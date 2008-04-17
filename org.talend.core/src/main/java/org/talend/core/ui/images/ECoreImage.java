@@ -76,6 +76,7 @@ public enum ECoreImage implements IImage {
     METADATA_GENERIC_ICON("/icons/genericSchema_icon.png"), //$NON-NLS-1$
     METADATA_LDAP_SCHEMA_ICON("/icons/ldap_icon.png"), //$NON-NLS-1$
     METADATA_WSDL_SCHEMA_ICON("/icons/wsdl_icon.png"), //$NON-NLS-1$
+    METADATA_SALESFORCE_SCHEMA_ICON("/icons/salesforce_icon.png"), //$NON-NLS-1$
 
     MODULE_INSTALLED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$

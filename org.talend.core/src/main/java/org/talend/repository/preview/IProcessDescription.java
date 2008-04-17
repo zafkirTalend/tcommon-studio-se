@@ -296,4 +296,18 @@ public interface IProcessDescription {
      * @return
      */
     public ExcelSchemaBean getExcelSchemaBean();
+
+    /**
+     * Getter for salesforceSchemaBean.
+     * 
+     * @return the salesforceSchemaBean
+     */
+    public SalesforceSchemaBean getSalesforceSchemaBean();
+
+    /**
+     * Sets the salesforceSchemaBean.
+     * 
+     * @param salesforceSchemaBean the salesforceSchemaBean to set
+     */
+    public void setSalesforceSchemaBean(SalesforceSchemaBean salesforceSchemaBean);
 }

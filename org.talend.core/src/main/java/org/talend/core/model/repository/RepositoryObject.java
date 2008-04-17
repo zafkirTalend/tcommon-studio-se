@@ -47,6 +47,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
@@ -239,6 +240,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
                 return ERepositoryObjectType.METADATA_WSDL_SCHEMA;
+            }
+
+            public Object caseSalesforceSchemaConnectionItem(SalesforceSchemaConnectionItem object) {
+                return ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA;
             }
 
             @Override

@@ -78,6 +78,7 @@ public class StatusHelper {
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
             case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM:
+            case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;

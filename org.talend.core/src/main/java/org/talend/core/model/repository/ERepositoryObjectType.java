@@ -35,6 +35,7 @@ import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
@@ -67,6 +68,7 @@ public enum ERepositoryObjectType {
     METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_EXCEL("repository.metadataFileExcel", "repository.metadataFileExcel.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_SALESFORCE_SCHEMA("repository.metadataSalesforceSchema", "repository.metadataSalesforceSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
@@ -162,6 +164,8 @@ public enum ERepositoryObjectType {
             return "metadata/genericSchema";
         case METADATA_WSDL_SCHEMA:
             return "metadata/WSDLSchema";
+        case METADATA_SALESFORCE_SCHEMA:
+            return "metadata/SalesforceSchema";
         default:
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {
@@ -294,6 +298,10 @@ public enum ERepositoryObjectType {
 
             public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
                 return METADATA_GENERIC_SCHEMA;
+            }
+
+            public Object caseSalesforceSchemaConnectionItem(SalesforceSchemaConnectionItem object) {
+                return METADATA_SALESFORCE_SCHEMA;
             }
 
             public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {

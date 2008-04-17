@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -110,6 +111,32 @@ public class RepositoryToComponentProperty {
             return getExcelFileValue((FileExcelConnection) connection, value);
         }
 
+        if (connection instanceof SalesforceSchemaConnection) {
+            return getSalesforceSchemaValue((SalesforceSchemaConnection) connection, value);
+        }
+
+        return null;
+    }
+
+    /**
+     * DOC YeXiaowei Comment method "getSalesforceSchemaValue".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getSalesforceSchemaValue(SalesforceSchemaConnection connection, String value) {
+        if ("ENDPOINT".equals(value)) {
+            return TalendTextUtils.addQuotes(connection.getWebServiceUrl());
+        } else if ("USER_NAME".equals(value)) {
+            return TalendTextUtils.addQuotes(connection.getUserName());
+        } else if ("PASSWORD".equals(value)) {
+            return TalendTextUtils.addQuotes(connection.getPassword());
+        } else if ("MODULENAME".equals(value)) {
+            return connection.getModuleName();
+        } else if ("QUERY_CONDITION".equals(value)) {
+            return TalendTextUtils.addQuotes(connection.getQueryCondition());
+        }
         return null;
     }
 
