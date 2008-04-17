@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.reports.ReportsFactory;
 import org.talend.dataquality.reports.TdReport;
 import orgomg.cwm.analysis.informationvisualization.RenderedObject;
 
@@ -72,6 +73,12 @@ public final class ReportHelper {
         return report.getComponent().addAll(analyses);
     }
 
+    public static TdReport createReport(String name) {
+        TdReport report = ReportsFactory.eINSTANCE.createTdReport();
+        report.setName(name);
+        return report;
+    }
+    
     public static void setHeader(TdReport report, String header) {
         // TODO scorreia set header in the report
     }
