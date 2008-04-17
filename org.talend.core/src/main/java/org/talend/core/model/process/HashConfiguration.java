@@ -26,24 +26,32 @@ public class HashConfiguration implements IHashConfiguration {
     private IMatchingMode matchingMode;
 
     private boolean persistent;
-    
+
     private String temporaryDataDirectory;
-    
+
     /**
      * DOC amaumont HashConfigurationForMapper constructor comment.
      * 
      * @param hashableColumns
      * @param hashableColumnsIndices
      * @param matchingMode
-     * @param b 
+     * @param b
      */
-    public HashConfiguration(List<IHashableColumn> hashableColumns,
-            IMatchingMode matchingMode, boolean persistent, String temporaryDataDirectory) {
+    public HashConfiguration(List<IHashableColumn> hashableColumns, IMatchingMode matchingMode, boolean persistent,
+            String temporaryDataDirectory) {
         super();
         this.hashableColumns = hashableColumns;
         this.matchingMode = matchingMode;
         this.persistent = persistent;
         this.temporaryDataDirectory = temporaryDataDirectory;
+    }
+
+    public HashConfiguration(List<IHashableColumn> hashableColumns, IMatchingMode matchingMode, boolean persistent) {
+        super();
+        this.hashableColumns = hashableColumns;
+        this.matchingMode = matchingMode;
+        this.persistent = persistent;
+        this.temporaryDataDirectory = null;
     }
 
     /*
@@ -77,6 +85,4 @@ public class HashConfiguration implements IHashConfiguration {
         return temporaryDataDirectory;
     }
 
-    
-    
 }
