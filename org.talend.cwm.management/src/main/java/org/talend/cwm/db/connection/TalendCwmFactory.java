@@ -29,7 +29,6 @@ import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.management.api.FolderProvider;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.management.connection.JavaSqlFactory;
 import org.talend.cwm.relational.TdCatalog;
@@ -38,6 +37,7 @@ import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
+import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -180,7 +180,7 @@ public final class TalendCwmFactory {
         return connector.getSchemata();
     }
 
-    private static String getDriverClassName(ConnectionParameters connectionParams) {
+    private static String getDriverClassName(DBConnectionParameter connectionParams) {
         // TODO scorreia create the utility class for this
         return null;
     }

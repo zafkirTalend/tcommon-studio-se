@@ -21,8 +21,8 @@ import org.talend.cwm.db.connection.DBConnect;
 import org.talend.cwm.db.connection.TalendCwmFactory;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.DescriptionHelper;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -81,18 +81,18 @@ public final class ConnectionService {
      * with user/password). The name, description and purpose are also set in the Data provider.
      * @return the Data provider.
      */
-    public static TypedReturnCode<TdDataProvider> createConnection(ConnectionParameters connectionParameters) {
+    public static TypedReturnCode<TdDataProvider> createConnection(DBConnectionParameter connectionParameters) {
         DBConnect connector = new DBConnect(connectionParameters);
         TypedReturnCode<TdDataProvider> rc = new TypedReturnCode<TdDataProvider>();
         try {
             TdDataProvider dataProvider = TalendCwmFactory.createDataProvider(connector);
-            String connectionName = connectionParameters.getConnectionName();
+            String connectionName = connectionParameters.getName();
             dataProvider.setName(connectionName);
             // set technical name
             DataProviderHelper.setTechnicalName(dataProvider, DqRepositoryViewService
                     .createTechnicalName(connectionName));
-            DescriptionHelper.addFunctionalDescription(connectionParameters.getConnectionDescription(), dataProvider);
-            DescriptionHelper.addPurpose(connectionParameters.getConnectionPurpose(), dataProvider);
+            DescriptionHelper.addFunctionalDescription(connectionParameters.getDescription(), dataProvider);
+            DescriptionHelper.addPurpose(connectionParameters.getPurpose(), dataProvider);
             rc.setObject(dataProvider);
             return rc;
         } catch (SQLException e) {

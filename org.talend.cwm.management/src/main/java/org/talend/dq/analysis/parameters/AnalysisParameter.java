@@ -14,7 +14,6 @@ package org.talend.dq.analysis.parameters;
 
 import java.util.HashMap;
 
-import org.talend.cwm.management.api.FolderProvider;
 import org.talend.dataquality.analysis.AnalysisType;
 
 
@@ -25,13 +24,18 @@ import org.talend.dataquality.analysis.AnalysisType;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z zqin $
  *
  */
-public class AnalysisParameter {
+public class AnalysisParameter extends ConnectionParameter {
 
     private static String analysisTypeName;
     
-    private HashMap<String, String> analysisMetadate;
-
-    private FolderProvider folderProvider;
+    
+    /**
+     * Sets the analysisMetadate.
+     * @param analysisMetadate the analysisMetadate to set
+     */
+    public void setAnalysisMetadate(HashMap<String, String> analysisMetadate) {
+        super.setMetadate(analysisMetadate);
+    }
     
     /**
      * Getter for analysisTypeName.
@@ -50,14 +54,6 @@ public class AnalysisParameter {
         analysisTypeName = typeName;
     }
     
-    /**
-     * Sets the analysisMetadate.
-     * @param analysisMetadate the analysisMetadate to set
-     */
-    public void setAnalysisMetadate(HashMap<String, String> analysisMetadate) {
-        this.analysisMetadate = analysisMetadate;
-    }
-    
     public AnalysisType getAnalysisType() {
         if (getAnalysisTypeName() != null) {
             
@@ -70,50 +66,31 @@ public class AnalysisParameter {
     
     public String getAnalysisName() {
         
-        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_NAME);
+        return super.getName();
     }
     
     public String getAnalysisPurpose() {
         
-        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_PURPOSE);
+        return super.getPurpose();
     }
     
     public String getAnalysisDescription() {
         
-        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_DESCRIPTION);
+        return super.getDescription();
     }
 
     public String getAnalysisAuthor() {
         
-        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_AUTHOR);
+        return super.getAuthor();
     }
     
     public String getAnalysisStatus() {
         
-        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_STATUS);
+        return super.getStatus();
     }
 
     public String getAnalysisVersion() {
         
-        return analysisMetadate.get(IAnalysisParameterConstant.ANALYSIS_VERSION);
+        return super.getVersion();
     }
-    
-    /**
-     * Getter for folderProvider.
-     * @return the folderProvider
-     */
-    public FolderProvider getFolderProvider() {
-        return this.folderProvider;
-    }
-
-
-    
-    /**
-     * Sets the folderProvider.
-     * @param folderProvider the folderProvider to set
-     */
-    public void setFolderProvider(FolderProvider folderProvider) {
-        this.folderProvider = folderProvider;
-    }
-
 }

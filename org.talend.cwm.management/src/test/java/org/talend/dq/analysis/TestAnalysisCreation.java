@@ -13,6 +13,7 @@
 package org.talend.dq.analysis;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -22,7 +23,6 @@ import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.ConnectionService;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.management.api.FolderProvider;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
@@ -37,6 +37,8 @@ import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.RowCountIndicator;
+import org.talend.dq.analysis.parameters.DBConnectionParameter;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.dq.sql.converters.CwmZExpression;
 import org.talend.utils.properties.PropertiesLoader;
@@ -192,8 +194,10 @@ public class TestAnalysisCreation {
         String driverClassName = connectionParams.getProperty("driver");
         String dbUrl = connectionParams.getProperty("url");
 
-        ConnectionParameters params = new ConnectionParameters();
-        params.setConnectionName("My connection");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put(IParameterConstant.ANALYSIS_NAME, "My connection");
+        DBConnectionParameter params = new DBConnectionParameter();
+        params.setMetadate(metadata);
         params.setDriverClassName(driverClassName);
         params.setJdbcUrl(dbUrl);
         params.setParameters(connectionParams);

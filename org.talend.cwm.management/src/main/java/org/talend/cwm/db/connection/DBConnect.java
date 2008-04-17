@@ -28,13 +28,13 @@ import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.builders.CatalogBuilder;
 import org.talend.cwm.builders.DataProviderBuilder;
 import org.talend.cwm.builders.SoftwareSystemBuilder;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.management.connection.DatabaseContentRetriever;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
+import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
@@ -78,7 +78,7 @@ public class DBConnect {
      * @param connParams the connection parameters (must not be null). The connection parameters must have at least a
      * JDBC url, a driver classname and a user password (when needed) in its properties.
      */
-    public DBConnect(ConnectionParameters connParams) {
+    public DBConnect(DBConnectionParameter connParams) {
         this(connParams.getJdbcUrl(), connParams.getDriverClassName(), connParams.getParameters());
     }
 

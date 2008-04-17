@@ -20,7 +20,7 @@ package org.talend.dq.analysis.parameters;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z zqin $
  *
  */
-public interface IAnalysisParameterConstant {
+public interface IParameterConstant {
 
     public static final String ANALYSIS_NAME = "AnalysisName";
     
