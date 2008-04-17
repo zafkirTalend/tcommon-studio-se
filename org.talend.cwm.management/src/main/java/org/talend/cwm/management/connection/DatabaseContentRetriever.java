@@ -323,7 +323,7 @@ public final class DatabaseContentRetriever {
             dataType.setAutoIncrement(typeInfo.getBoolean(TypeInfoColumns.AUTO_INCREMENT.name()));
             dataType.setLocalTypeName(typeInfo.getString(TypeInfoColumns.LOCAL_TYPE_NAME.name()));
             dataType.setNumericPrecisionRadix(typeInfo.getInt(TypeInfoColumns.NUM_PREC_RADIX.name()));
-
+            dataType.setTypeNumber(typeInfo.getLong(TypeInfoColumns.DATA_TYPE.name()));
             // --- get the informations form the DB
             // TODO scorreia store these informations
             // String literalPrefix = typeInfo.getString(TypeInfoColumns.LITERAL_PREFIX.name());
@@ -361,13 +361,12 @@ public final class DatabaseContentRetriever {
      * @throws SQLException
      * @see DatabaseMetaData#getColumns(String, String, String, String)
      */
-    public static List<TdColumn> getColumns(String catalogName, String schemaPattern, String tablePattern,
-            String columnPattern, Connection connection) throws SQLException {
+    public static List<TdColumn> getColumns(String catalogName, String schemaPattern, String tablePattern, String columnPattern,
+            Connection connection) throws SQLException {
         List<TdColumn> tableColumns = new ArrayList<TdColumn>();
 
         // --- add columns to table
-        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
-                columnPattern);
+        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
         while (columns.next()) {
             TdColumn column = ColumnHelper.createTdColumn(columns.getString(GetColumn.COLUMN_NAME.name()));
             column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
@@ -396,19 +395,18 @@ public final class DatabaseContentRetriever {
     /**
      * Method "getDataType".
      * 
-     * @param catalogName the catalog
-     * @param schemaPattern the schema(s)
+     * @param catalogName the catalog (can be null)
+     * @param schemaPattern the schema(s) (can be null)
      * @param tablePattern the table(s)
      * @param columnPattern the column(s)
      * @param connection the connection
      * @return the list of datatypes of the given columns
      * @throws SQLException
      */
-    public List<TdSqlDataType> getDataType(String catalogName, String schemaPattern, String tablePattern,
+    public static List<TdSqlDataType> getDataType(String catalogName, String schemaPattern, String tablePattern,
             String columnPattern, Connection connection) throws SQLException {
         List<TdSqlDataType> sqlDatatypes = new ArrayList<TdSqlDataType>();
-        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern,
-                columnPattern);
+        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
         while (columns.next()) {
             sqlDatatypes.add(createDataType(columns));
         }

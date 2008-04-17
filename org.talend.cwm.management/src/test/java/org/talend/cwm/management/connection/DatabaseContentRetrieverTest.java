@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.talend.cwm.helper.TableHelper;
@@ -31,11 +32,14 @@ import org.talend.cwm.helper.ViewHelper;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sql.ConnectionUtils;
+import orgomg.cwm.foundation.typemapping.TypeSystem;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -135,8 +139,7 @@ public class DatabaseContentRetrieverTest {
     @Test
     public void testGetTablesWithColumns() {
         try {
-            List<TdTable> tables = DatabaseContentRetriever.getTablesWithColumns(CATALOG, null, TABLES_TO_MATCH,
-                    CONNECTION);
+            List<TdTable> tables = DatabaseContentRetriever.getTablesWithColumns(CATALOG, null, TABLES_TO_MATCH, CONNECTION);
             assertFalse(tables.isEmpty());
             for (TdTable tdTable : tables) {
                 log.info("Table " + tdTable.getName());
@@ -242,6 +245,20 @@ public class DatabaseContentRetrieverTest {
         fail("Not yet implemented");
     }
 
+    @Test
+    public void testGetDataType() {
+        try {
+            List<TdSqlDataType> dataType = DatabaseContentRetriever.getDataType("weka", null, null, null, getConnection());
+            Assert.assertFalse(dataType.isEmpty());
+            for (TdSqlDataType tdSqlDataType : dataType) {
+                System.out.println(tdSqlDataType);
+            }
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+
+    }
+
     /**
      * Test method for
      * {@link org.talend.cwm.management.connection.DatabaseContentRetriever#getSoftwareSystem(java.sql.Connection)}.
@@ -257,7 +274,18 @@ public class DatabaseContentRetrieverTest {
      */
     @Test
     public void testGetTypeSystem() {
-        fail("Not yet implemented");
+        try {
+            TypeSystem typeSystem = DatabaseContentRetriever.getTypeSystem(getConnection());
+            Assert.assertNotNull(typeSystem);
+            EList<ModelElement> ownedElement = typeSystem.getOwnedElement();
+            Assert.assertFalse(ownedElement.isEmpty());
+            for (ModelElement modelElement : ownedElement) {
+                System.out.println(modelElement);
+            }
+        } catch (SQLException e) {
+            fail(e.getMessage());
+        }
+
     }
 
     private static boolean showUnimplemented = false;
