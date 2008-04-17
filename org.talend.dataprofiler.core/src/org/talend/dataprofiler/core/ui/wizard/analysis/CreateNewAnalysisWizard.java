@@ -18,7 +18,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IWorkbench;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dq.analysis.parameters.AnalysisParameter;
+import org.talend.dq.analysis.parameters.ConnectionParameter;
 
 /**
  * @author zqin
@@ -32,7 +32,7 @@ public class CreateNewAnalysisWizard extends Wizard {
     
     private boolean creation;
 
-    private AnalysisParameter connectionParams;
+    private ConnectionParameter connectionParams;
     
     private NewWizardSelectionPage mainPage;
     
@@ -67,7 +67,7 @@ public class CreateNewAnalysisWizard extends Wizard {
         this.selection = selection;
         
         mainPage = new NewWizardSelectionPage();
-        mainPage.setConnectionParams(new AnalysisParameter());
+        mainPage.setConnectionParams(new ConnectionParameter());
  
     }
 

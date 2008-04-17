@@ -245,13 +245,19 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
                 public void widgetSelected(SelectionEvent e) {
 
+                    ColumnIndicator columnIndicator = (ColumnIndicator) treeItem.getData();
                     // open the wizard
-                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicatorEnum);
+                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(columnIndicator, indicatorEnum);
 
-                    WizardDialog dialog = new WizardDialog(null, wizard);
-                    dialog.setPageSize(300, 400);
-                    dialog.create();
-                    dialog.open();
+                    try {
+                        WizardDialog dialog = new WizardDialog(e.widget.getDisplay().getActiveShell(), wizard);
+                        dialog.setPageSize(300, 400);
+                        dialog.open();
+                        
+                    } catch (Exception ex) {
+                       ex.printStackTrace();
+                    }
+                    
                 }
             });
         }

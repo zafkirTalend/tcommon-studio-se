@@ -13,25 +13,21 @@
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.swt.widgets.Composite;
-import org.talend.dq.analysis.parameters.AnalysisParameter;
+import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 
 
 /**
- * @author huangssssx
+ * @author zqin
  *
  */
-public abstract class AbstractAnalysisWizardPage extends WizardPage {
+public abstract class AbstractAnalysisWizardPage extends AbstractWizardPage {
 
     private boolean canFinishEarly = false, hasPages = true;
     
-    private static AnalysisParameter connectionParams;
     /**
      * @param pageName
      */
     public AbstractAnalysisWizardPage() {
-        super("Wizard Page");
     }
     
     /**
@@ -60,6 +56,7 @@ public abstract class AbstractAnalysisWizardPage extends WizardPage {
         }
         
     }
+
     
     /**
      * @return the canFinishEarly
@@ -88,27 +85,6 @@ public abstract class AbstractAnalysisWizardPage extends WizardPage {
      */
     public void setHasPages(boolean hasPages) {
         this.hasPages = hasPages;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
-     */
-    public abstract void createControl(Composite parent);
-
-    
-    /**
-     * @return the connectionParams
-     */
-    public static AnalysisParameter getConnectionParams() {
-        return AbstractAnalysisWizardPage.connectionParams;
-    }
-
-    
-    /**
-     * @param connectionParams the connectionParams to set
-     */
-    public synchronized void setConnectionParams(AnalysisParameter connectionParams) {
-        AbstractAnalysisWizardPage.connectionParams = connectionParams;
     }
 
 }

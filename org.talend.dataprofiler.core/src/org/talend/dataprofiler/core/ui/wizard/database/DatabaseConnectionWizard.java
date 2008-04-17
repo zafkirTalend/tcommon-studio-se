@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.wizard;
+package org.talend.dataprofiler.core.ui.wizard.database;
 
 import java.util.Properties;
 
@@ -19,14 +19,14 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.actions.RefreshAction;
 import org.talend.cwm.management.api.ConnectionService;
 import org.talend.cwm.management.api.DqRepositoryViewService;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
+import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -36,9 +36,9 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
 
     private boolean creation;
 
-    private PropertiesWizardPage propertiesWizardPage;
+    private DatabaseMetadataWizardPage propertiesWizardPage;
 
-    private ConnectionParameters connectionProperty;
+    private DBConnectionParameter connectionProperty;
 
     private DatabaseWizardPage databaseWizardPage;
 
@@ -56,6 +56,10 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     }
 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
+        
+        connectionProperty = new DBConnectionParameter();
+        connectionProperty.setParameters(new Properties());
+        AbstractWizardPage.setConnectionParams(connectionProperty);
     }
 
     /**
@@ -64,11 +68,9 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     public void addPages() {
         setWindowTitle("Database Connection");
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
-        connectionProperty = new ConnectionParameters();
-        connectionProperty.setParameters(new Properties());
 
-        propertiesWizardPage = new Step0WizardPage(connectionProperty, null, false, creation);
-        databaseWizardPage = new DatabaseWizardPage("DatabaseParam Page", connectionProperty);
+        propertiesWizardPage = new DatabaseMetadataWizardPage();
+        databaseWizardPage = new DatabaseWizardPage();
 
         if (creation) {
             propertiesWizardPage.setTitle("New Database Connection on repository - Step 1/2");
@@ -89,8 +91,13 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
             // //$NON-NLS-1$
             // databaseWizardPage.setPageComplete(isRepositoryObjectEditable());
         }
-        addPage(propertiesWizardPage);
-        addPage(databaseWizardPage);
+        try {
+            addPage(propertiesWizardPage);
+            addPage(databaseWizardPage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -24,7 +24,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
-import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
+import org.talend.dataprofiler.core.ui.wizard.MetadataWizardPage;
 
 
 /**
@@ -35,8 +35,6 @@ public class NewReportMetadataWizardPage extends MetadataWizardPage {
     private final String pageTitle = "New Report Step 1/2";
     
     private final String pageMessage = "Adds an report in the repository.\nOptionnaly one or several analysis can be added to this report.";
-    
-    private IFolder defaultFolderProviderRes;
     
     /**
      * DOC zqin NewReportMetadataWizardPage constructor comment.
@@ -66,44 +64,7 @@ public class NewReportMetadataWizardPage extends MetadataWizardPage {
             }
         });
         
-        nameText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                System.out.println(nameText.getText());
-                setPageComplete(true);
-            }
-
-        });
-
-        purposeText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-
-            }
-        });
-
-        descriptionText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-
-            }
-        });
-
-        authorText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-
-            }
-            
-        });
-        
-        statusText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-
-            }
-
-        });
+        super.addListeners();
     }
 
     /* (non-Javadoc)
@@ -122,12 +83,14 @@ public class NewReportMetadataWizardPage extends MetadataWizardPage {
         setControl(container);
     }
 
+
     /* (non-Javadoc)
-     * @see org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage#createExtendedComponent(org.eclipse.swt.widgets.Composite)
+     * @see org.talend.dataprofiler.core.ui.wizard.MetadataWizardPage#createExtendedControl(org.eclipse.swt.widgets.Composite)
      */
     @Override
-    protected void createExtendedComponent(Composite container) {
-
+    protected void createExtendedControl(Composite container) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -10,13 +10,12 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.wizard;
+package org.talend.dataprofiler.core.ui.wizard.database;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -31,19 +30,20 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.api.ConnectionService;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.dburl.SupportDBUrlStore;
 import org.talend.dataprofiler.core.model.dburl.SupportDBUrlType;
+import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.urlsetup.URLSetupControl;
 import org.talend.dataprofiler.core.ui.wizard.urlsetup.URLSetupControlFactory;
+import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
  * This class reused the class in QuantumPlugin.
  * 
  */
-class DatabaseWizardPage extends WizardPage {
+class DatabaseWizardPage extends AbstractWizardPage {
 
     /* use this to paint a more helpful UI for the JDBC URL */
     private SupportDBUrlType lastTimeDBType;
@@ -64,7 +64,7 @@ class DatabaseWizardPage extends WizardPage {
 
     private Button checkButton;
 
-    private ConnectionParameters connectionParam;
+    private DBConnectionParameter connectionParam;
     
     private boolean dbTypeSwitchFlag = false;
 
@@ -83,9 +83,9 @@ class DatabaseWizardPage extends WizardPage {
      * 
      * @param pageName
      */
-    public DatabaseWizardPage(String pageName, ConnectionParameters connectionParam) {
-        super(pageName);
-        this.connectionParam = connectionParam;
+    public DatabaseWizardPage() {
+        
+        connectionParam = (DBConnectionParameter) getConnectionParams();
     }
 
     public void createControl(Composite parent) {

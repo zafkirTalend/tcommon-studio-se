@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.contexts"?>
+<contexts>
+    <context id="mycontexthelpid" >
+        <description>My wizard help.</description>
+        <topic label="Wizard help" href="html/help.html"/>
+        <topic label="aa" href="html/help.html"/>
+        <topic label="sss" href="html/help.html"/>
+        <topic label="dddd" href="html/help.html"/>
+        <topic label="fffff" href="html/help.html"/>
+    </context>
+</contexts>

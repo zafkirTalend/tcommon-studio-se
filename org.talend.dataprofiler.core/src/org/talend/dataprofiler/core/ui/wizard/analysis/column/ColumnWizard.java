@@ -14,16 +14,9 @@ package org.talend.dataprofiler.core.ui.wizard.analysis.column;
 
 import java.io.File;
 
-import org.talend.cwm.constants.DevelopmentStatus;
-import org.talend.cwm.helper.DescriptionHelper;
-import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
-import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
-import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
-import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dq.analysis.AnalysisBuilder;
+import org.talend.dataprofiler.core.ui.wizard.analysis.AnalysisMetadataWizardPage;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
-import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
 
 /**
  * @author zqin
@@ -31,7 +24,7 @@ import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
  */
 public class ColumnWizard extends AbstractAnalysisWizard {
 
-    private MetadataWizardPage metadataPage;
+    private AnalysisMetadataWizardPage metadataPage;
 
     /**
      * 
@@ -48,7 +41,7 @@ public class ColumnWizard extends AbstractAnalysisWizard {
     @Override
     public void addPages() {
 
-        metadataPage = new MetadataWizardPage();
+        metadataPage = new AnalysisMetadataWizardPage();
 
         addPage(metadataPage);
     }

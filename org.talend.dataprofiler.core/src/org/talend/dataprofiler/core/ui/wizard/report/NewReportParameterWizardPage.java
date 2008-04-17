@@ -12,28 +12,40 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.report;
 
-import org.eclipse.jface.viewers.TableViewer;
+import java.io.File;
+import java.util.Iterator;
+
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
+import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
+import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
+import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
+import org.talend.dataprofiler.core.ui.wizard.report.provider.ReportTableContentProvider;
+import org.talend.dataprofiler.core.ui.wizard.report.provider.ReportTableLabelProvider;
 
 
 /**
  * DOC zqin  class global comment. Detailled comment
  */
 public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
-
-    private final int textHight = 50;
     
     private final String pageTitle = "New Report Step 2/2";
     
@@ -45,9 +57,15 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
     
     private CCombo formatSelection;
     
-    private TableViewer analysisTable;
+    private ListViewer analysisFromDQ, analysisForReport;
     
     private Button addAnalysis, delAnalysis, moveToUp, moveToDown;
+    
+    private List listDQ, listReport;
+    
+    private java.util.List<AnalysisEntity> allAnalysises = new java.util.ArrayList<AnalysisEntity>();
+    
+    private java.util.List<AnalysisEntity> someAnalysises = new java.util.ArrayList<AnalysisEntity>();
     /**
      * DOC zqin NewReportParameterWizardPage constructor comment.
      */
@@ -60,11 +78,11 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
     /* (non-Javadoc)
      * @see org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage#createControl(org.eclipse.swt.widgets.Composite)
      */
-    @Override
     public void createControl(Composite parent) {
 
         Composite container = new Composite(parent, SWT.NONE);
-        container.setLayout(new GridLayout());
+        container.setLayout(new GridLayout(2, false));
+        container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         
         GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         gd.heightHint = 50;
@@ -75,44 +93,56 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
         headerText = new Text(container, SWT.BORDER | SWT.MULTI);
         headerText.setLayoutData(gd);
         
-        //table
+        //middle
+        GridData gdList = new GridData(GridData.FILL_HORIZONTAL);
+        gdList.heightHint = 100;
         Label analysisLabel = new Label(container, SWT.NONE);
-        analysisLabel.setText("Add one or serval analysis to this report");
-        analysisTable = new TableViewer(container, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
-        Table table = analysisTable.getTable();
-        table.setHeaderVisible(true);
-        table.setLinesVisible(true);
-        table.setLayoutData(gd);
+        analysisLabel.setText("Analysis");
+        ////left of middle
+        Composite listComp = new Composite(container, SWT.NONE);
+        listComp.setLayout(new GridLayout(3, false));
+        listComp.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        analysisFromDQ = new ListViewer(listComp, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+        analysisFromDQ.setContentProvider(new ReportTableContentProvider());
+        analysisFromDQ.setLabelProvider(new ReportTableLabelProvider());
+        listDQ = analysisFromDQ.getList();
+        listDQ.setLayoutData(gdList);
+        try {
+            createAnalysisTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
-        TableColumn analysisName = new TableColumn(table, SWT.NONE);
-        analysisName.setText("Analysis Name");
-        analysisName.setWidth(470);
+        ////middle of middle
+        Composite midSubComp = new Composite(listComp, SWT.NONE);
+        midSubComp.setLayout(new GridLayout());
+        moveToUp = new Button(midSubComp, SWT.ARROW | SWT.UP);
+        addAnalysis = new Button(midSubComp, SWT.ARROW | SWT.RIGHT);
+        delAnalysis = new Button(midSubComp, SWT.ARROW | SWT.LEFT);
+        moveToDown = new Button(midSubComp, SWT.ARROW | SWT.DOWN);
         
-        //button of table
-        Composite comp = new Composite(container, SWT.NONE);
-        comp.setLayout(new GridLayout(4, false));
-        addAnalysis = new Button(comp, SWT.PUSH);
-        addAnalysis.setText("add");
-        delAnalysis = new Button(comp, SWT.PUSH);
-        delAnalysis.setText("del");
-        moveToUp = new Button(comp, SWT.PUSH);
-        moveToUp.setText("up");
-        moveToDown = new Button(comp, SWT.PUSH);
-        moveToDown.setText("down");
+        ////right of middle
+        analysisForReport = new ListViewer(listComp, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+        analysisForReport.setContentProvider(new ReportTableContentProvider());
+        analysisForReport.setLabelProvider(new ReportTableLabelProvider());
+        listReport = analysisForReport.getList();
+        listReport.setLayoutData(gdList);
         
+        //checkbox
+        GridData grid = new GridData();
+        grid.horizontalSpan = 2;
         checkRefresh = new Button(container, SWT.CHECK);
         checkRefresh.setText("Refresh all analysis");
-        //footer
+        checkRefresh.setLayoutData(grid);
+        //buttom
         Label footerLabel = new Label(container, SWT.NONE);
         footerLabel.setText("Footer");
         footerText = new Text(container, SWT.BORDER | SWT.MULTI);
         footerText.setLayoutData(gd);
         
-        comp = new Composite(container, SWT.NONE);
-        comp.setLayout(new GridLayout(2, false));
-        Label formatLabel = new Label(comp, SWT.NONE);
+        Label formatLabel = new Label(container, SWT.NONE);
         formatLabel.setText("Format");
-        formatSelection = new CCombo(comp, SWT.BORDER);
+        formatSelection = new CCombo(container, SWT.BORDER);
         formatSelection.setText("pdf");
         GridData gdd = new GridData();
         gdd.widthHint = 150;
@@ -123,8 +153,122 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
         for (String str : formatOptions) {
             formatSelection.add(str);
         }
-       
+
+        addToolTips();
+        addListeners();
         setControl(container);
     }
 
+    protected void addListeners() {      
+        
+        addAnalysis.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                
+                Iterator<IStructuredSelection> it = ((IStructuredSelection) analysisFromDQ.getSelection()).iterator();
+                
+                while (it.hasNext()) {
+                    AnalysisEntity entity = (AnalysisEntity) it.next();
+                    someAnalysises.add(entity);
+                    allAnalysises.remove(entity);
+                }
+                analysisForReport.setInput(someAnalysises);
+                
+                analysisForReport.refresh();
+                analysisFromDQ.refresh();
+            }
+            
+        });
+        
+        delAnalysis.addSelectionListener(new SelectionAdapter() {
+            
+            public void widgetSelected(SelectionEvent e) {
+                
+                Iterator<IStructuredSelection> it = ((IStructuredSelection) analysisForReport.getSelection()).iterator();
+                
+                while (it.hasNext()) {
+                    AnalysisEntity entity = (AnalysisEntity) it.next();
+                    someAnalysises.remove(entity);
+                    allAnalysises.add(entity);
+                }
+                
+                analysisFromDQ.refresh();
+                analysisForReport.refresh();
+            }
+        });
+        
+        moveToUp.addSelectionListener(new SelectionAdapter() {
+            
+            public void widgetSelected(SelectionEvent e) {
+                
+                Iterator<IStructuredSelection> it = ((IStructuredSelection) analysisForReport.getSelection()).iterator();
+                int size = ((IStructuredSelection) analysisForReport.getSelection()).size();
+                
+                while (it.hasNext()) {
+                    AnalysisEntity entity = (AnalysisEntity) it.next();
+                    
+                    int index = someAnalysises.indexOf(entity);
+                    if (index == 0) {
+                        break;
+                    }
+                    someAnalysises.remove(index);
+                    someAnalysises.add(index - 1, entity);
+                    
+                    System.out.println(index);
+                }
+                
+                analysisForReport.refresh();
+            }
+        });
+        
+        moveToDown.addSelectionListener(new SelectionAdapter() {
+            
+            public void widgetSelected(SelectionEvent e) {
+                
+                Iterator<IStructuredSelection> it = ((IStructuredSelection) analysisForReport.getSelection()).iterator();
+                int size = ((IStructuredSelection) analysisForReport.getSelection()).size();
+                
+                while (it.hasNext()) {
+                    AnalysisEntity entity = (AnalysisEntity) it.next();
+                    
+                    int index = someAnalysises.indexOf(entity);
+                    if (index + size < someAnalysises.size()) {
+                        someAnalysises.remove(index);
+                        someAnalysises.add(index + size, entity);
+                    }
+                    System.out.println(index);
+                }
+                
+                analysisForReport.refresh();
+            }
+        });
+    }
+    
+    protected void addToolTips() {
+        moveToUp.setToolTipText("move the item in the right list up");
+        moveToDown.setToolTipText("move the item in the right list down");
+    }
+    
+    private void createAnalysisTable() {
+        IFolder defaultAnalysFolder = ResourcesPlugin.getWorkspace().getRoot().
+            getProject(PluginConstant.DATA_PROFILING_PROJECTNAME).getFolder(DQStructureManager.ANALYSIS);
+        
+        analysisFromDQ.setInput(searchAllAnalysis(defaultAnalysFolder));
+    }
+    
+    public java.util.List<AnalysisEntity> searchAllAnalysis(IFolder folder) {
+
+        for (File file : folder.getLocation().toFile().listFiles()) {
+            if (file.isDirectory()) {
+                searchAllAnalysis(folder.getFolder(file.getName()));
+            }
+            
+            AnalysisEditorInuput input = new AnalysisEditorInuput(file);
+            AnalysisEntity entity = new AnalysisEntity(input.getAnalysis());
+
+            allAnalysises.add(entity);
+        } 
+
+        return allAnalysises;
+    }
 }

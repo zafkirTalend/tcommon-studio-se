@@ -12,19 +12,21 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
+import java.sql.Types;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.PlatformUI;
+import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dataquality.indicators.DataminingType;
 
 
 /**
@@ -32,6 +34,8 @@ import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
  */
 public class DynamicIndicatorOptionsPage extends WizardPage {
 
+    private ColumnIndicator columnIndicator;
+    
     private IndicatorEnum indicatorEnum;
     
     private TabFolder tabFolder;
@@ -39,12 +43,14 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
      * DOC zqin DynamicIndicatorOptionsPage constructor comment.
      * @param pageName
      */
-    public DynamicIndicatorOptionsPage(IndicatorEnum indicatorEnum) {
+    public DynamicIndicatorOptionsPage(ColumnIndicator columnIndicator, IndicatorEnum indicatorEnum) {
         super("Indicator settings");
         
+        this.columnIndicator = columnIndicator;
         this.indicatorEnum = indicatorEnum;
         setTitle("Indicator settings");
         setMessage("In this wizard, parameter for the given indicator can be set");
+        
     }
 
     /* (non-Javadoc)
@@ -69,20 +75,35 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
             case DistinctCountIndicatorEnum:
             case UniqueIndicatorEnum:
             case DuplicateCountIndicatorEnum:
-                
+                if (columnIndicator.getTdColumn().getJavaType() == Types.VARCHAR) {
+                    setControl(createView(textForm));
+                }
+
                 break;
 
-            case MedianIndicatorEnum:
-            case MinValueIndicatorEnum:
-            case MaxValueIndicatorEnum:
-                
+            case MinLengthIndicatorEnum:
+            case MaxLengthIndicatorEnum:
+            case AverageLengthIndicatorEnum:
+                setControl(createView(textLengthForm));
                 break;
-            case FrequencyIndicatorEnum:      
+            case FrequencyIndicatorEnum:
+                if (columnIndicator.getDataminingType() == DataminingType.INTERVAL 
+                        && columnIndicator.getTdColumn().getJavaType() == Types.NUMERIC) {
+                    setControl(createView(binsForm));
+                } else if (columnIndicator.getDataminingType() == DataminingType.INTERVAL 
+                        && columnIndicator.getTdColumn().getJavaType() == Types.DATE) {
+                    setControl(createView(timeForm));
+                } else if (columnIndicator.getTdColumn().getJavaType() == Types.VARCHAR) {
+                    setControl(createView(textForm));
+                }
+
+                break;
             case ModeIndicatorEnum:
-                try {
-                    setControl(createView(binsForm, timeForm, textForm, textLengthForm, dataForm));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (columnIndicator.getDataminingType() == DataminingType.INTERVAL 
+                        && columnIndicator.getTdColumn().getJavaType() == Types.NUMERIC) {
+                    setControl(createView(binsForm));
+                } else if (columnIndicator.getTdColumn().getJavaType() == Types.VARCHAR) {
+                    setControl(createView(textForm));
                 }
 
                 break;
@@ -90,7 +111,13 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                 setControl(createView(binsForm, timeForm, textForm, textLengthForm, dataForm));
             }
         }
-
+        
+        setControl(createView(binsForm, timeForm, textForm, textLengthForm, dataForm));
+        
+        if (getControl() != null) {
+            PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), CorePlugin.PLUGIN_ID + ".mycontexthelpid");
+        }
+        
     }
 
     private Composite createView(AbstractIndicatorForm... forms) {

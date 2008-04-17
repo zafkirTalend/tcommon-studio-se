@@ -13,7 +13,8 @@
 package org.talend.dataprofiler.core.ui.wizard.report;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
+import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
+import org.talend.dq.analysis.parameters.ReportParameter;
 
 
 /**
@@ -21,11 +22,13 @@ import org.talend.dataprofiler.core.ui.wizard.analysis.MetadataWizardPage;
  */
 public class CreateNewReportWizard extends Wizard {
 
+    ReportParameter reportParameter;
     /**
      * DOC zqin CreateNewReportWizard constructor comment.
      */
     public CreateNewReportWizard() {
-        // TODO Auto-generated constructor stub
+        
+        reportParameter = new ReportParameter();
     }
 
     /* (non-Javadoc)
@@ -45,6 +48,7 @@ public class CreateNewReportWizard extends Wizard {
         
         try {
             NewReportMetadataWizardPage metadataPage = new NewReportMetadataWizardPage();
+            metadataPage.setConnectionParams(reportParameter);
             NewReportParameterWizardPage parameterPage = new NewReportParameterWizardPage();
             
             addPage(metadataPage);

@@ -21,7 +21,6 @@ import org.eclipse.ui.IEditorPart;
 import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.DescriptionHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.cwm.management.connection.ConnectionParameters;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -30,9 +29,9 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.AnalysisWriter;
-import org.talend.dq.analysis.parameters.AnalysisParameter;
+import org.talend.dq.analysis.parameters.ConnectionParameter;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
-import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 import org.talend.utils.sugars.ReturnCode;
 
 /**
@@ -126,8 +125,6 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         String analysisPurpse = parameters.getAnalysisPurpose();
         String analysisDescription = parameters.getAnalysisDescription();
         
-        System.out.println(analysisStatue + " " + analysisAuthor + " " + analysisPurpse + " " + analysisDescription);
-        
         Analysis analysis = analysisBuilder.getAnalysis();
         TaggedValueHelper.setDevStatus(analysis, DevelopmentStatus.get(analysisStatue));
         TaggedValueHelper.setAuthor(analysis, analysisAuthor);
@@ -135,7 +132,7 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         DescriptionHelper.setDescription(analysisDescription, analysis);
     }
 
-    protected AnalysisParameter getAnalysisParameter() {
+    protected ConnectionParameter getAnalysisParameter() {
         return AbstractAnalysisWizardPage.getConnectionParams();
     }
 }

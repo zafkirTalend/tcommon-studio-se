@@ -212,5 +212,12 @@
             id="org.talend.dataprofiler.core.ui.editor.DocumentEditorInput">
       </factory>
    </extension>
+  <extension
+        point="org.eclipse.help.contexts">
+     <contexts
+           file="HelpContext.xml"
+           plugin="org.talend.dataprofiler.core">
+     </contexts>
+  </extension>
 
 </plugin>

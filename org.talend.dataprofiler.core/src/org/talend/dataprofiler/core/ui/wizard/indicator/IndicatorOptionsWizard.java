@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.jface.wizard.Wizard;
+import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
 
@@ -22,12 +23,15 @@ import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 public class IndicatorOptionsWizard extends Wizard {
 
     private IndicatorEnum indicatorEnum;
+    
+    private ColumnIndicator columnIndicator;
     /**
      * DOC zqin IndicatorOptionsWizard constructor comment.
      */
-    public IndicatorOptionsWizard(IndicatorEnum indicatorEnum) {
+    public IndicatorOptionsWizard(ColumnIndicator columnIndicator, IndicatorEnum indicatorEnum) {
         setWindowTitle("Indicator");
         
+        this.columnIndicator = columnIndicator;
         this.indicatorEnum = indicatorEnum;
     }
 
@@ -46,7 +50,7 @@ public class IndicatorOptionsWizard extends Wizard {
     @Override
     public void addPages() {
         
-        DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(indicatorEnum);
+        DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(columnIndicator, indicatorEnum);
         
         addPage(indicatorPage);
     }

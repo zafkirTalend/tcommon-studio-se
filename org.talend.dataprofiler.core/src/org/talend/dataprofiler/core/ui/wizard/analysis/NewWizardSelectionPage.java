@@ -41,6 +41,7 @@ import org.talend.dataprofiler.core.ui.wizard.analysis.filter.NamedViewerFilter;
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeContentProvider;
 import org.talend.dataprofiler.core.ui.wizard.analysis.provider.AnalysisTypeLabelProvider;
 import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dq.analysis.parameters.AnalysisParameter;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
 
 /**
@@ -152,7 +153,8 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
                 if (node != null) {
                     if (node.getParent() != null) {
                         setMessage(node.getLiteral());
-                        getConnectionParams().setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
+                        ((AnalysisParameter) getConnectionParams()).
+                            setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
                     }
                     updateSelectionNode(node);
                 }

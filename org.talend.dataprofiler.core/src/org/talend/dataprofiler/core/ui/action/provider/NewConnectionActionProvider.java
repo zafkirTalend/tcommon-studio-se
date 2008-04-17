@@ -28,7 +28,7 @@ import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
-import org.talend.dataprofiler.core.ui.wizard.DatabaseConnectionWizard;
+import org.talend.dataprofiler.core.ui.wizard.database.DatabaseConnectionWizard;
 
 /**
  * @author rli

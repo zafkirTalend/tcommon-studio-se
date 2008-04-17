@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.wizard.analysis;
+package org.talend.dataprofiler.core.ui.wizard;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,71 +46,56 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.dialog.FolderSelectionDialog;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
-import org.talend.dq.analysis.parameters.IAnalysisParameterConstant;
+import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 
 /**
  * @author zqin
  * 
  */
-public class MetadataWizardPage extends AbstractAnalysisWizardPage {
+public abstract class MetadataWizardPage extends AbstractWizardPage {
 
-
-    /** Name text. */
+    //protected members
     protected Text nameText;
 
-    /** Purpose text. */
     protected Text purposeText;
 
-    /** Comment text. */
     protected Text descriptionText;
 
-    /** Author text. */
     protected Text authorText;
 
-    /** Version text. */
     protected Text versionText;
     
     protected Button button;
     
-    /** Status text. */
+    protected IFolder defaultFolderProviderRes;
+    
     protected CCombo statusText;
     
     protected Text pathText;
 
-    private Text typeText;
-
+    protected HashMap<String, String> metadata;
+    
+    //private members
     private Button versionMajorBtn;
 
     private Button versionMinorBtn;
-    
-    private String path;
 
     private boolean readOnly;
 
     private boolean editPath = true;
-
-    private IFolder defaultFolderProviderRes;
-    
-    private HashMap<String, String> analysisMetadate;
-    
-    private final String pageTitle = "New Analysis";
-    
-    private final String pageMessage = "Adds an analysis in the repository.";
     
     public MetadataWizardPage() {
-        setTitle(pageTitle);
-        setDescription(pageMessage);
-        setPageComplete(false);
         
-        analysisMetadate = new HashMap<String, String>();
+        metadata = new HashMap<String, String>();
+        setPageComplete(false);
     }
-
+    
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.dataprofiler.core.ui.wizard.PropertiesWizardPage#createControl(org.eclipse.swt.widgets.Composite)
      */
-    @Override
     public void createControl(Composite parent) {
         // TODO Auto-generated method stub
         Composite container = new Composite(parent, SWT.NONE);
@@ -211,26 +196,11 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
 
         button = new Button(pathContainer, SWT.PUSH);
         button.setText("Select..");
-        
-        defaultFolderProviderRes = ResourcesPlugin.getWorkspace().getRoot().getProject(PluginConstant.DATA_PROFILING_PROJECTNAME).getFolder(
-                DQStructureManager.ANALYSIS);
-        pathText.setText(defaultFolderProviderRes.getFullPath().toString());
 
-        createExtendedComponent(container);
+        createExtendedControl(container);
         addListeners();
 
         setControl(container);        
-    }
-    
-    protected void createExtendedComponent(Composite container) {
-        GridData dataForTypeText = new GridData();
-        dataForTypeText.widthHint = 200;
-        
-        Label typeLabel = new Label(container, SWT.NONE);
-        typeLabel.setText("Type");
-        typeText = new Text(container, SWT.BORDER);
-        typeText.setLayoutData(dataForTypeText);
-        typeText.setEnabled(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -287,25 +257,13 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
         }
     }
     
-    protected void addListeners() {
-        
-        if (editPath) {
-            
-            button.addSelectionListener(new SelectionAdapter() {
-
-                @Override
-                public void widgetSelected(SelectionEvent e) {
-
-                    openFolderSelectionDialog(DQStructureManager.DATA_PROFILING, DQStructureManager.ANALYSIS);
-                }
-            });
-        }
+    protected void addListeners() {      
         
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
-                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_NAME, nameText.getText());
-                getConnectionParams().setAnalysisMetadate(analysisMetadate);
+                metadata.put(IParameterConstant.ANALYSIS_NAME, nameText.getText());
+                getConnectionParams().setMetadate(metadata);
                 
                 setPageComplete(true);
             }
@@ -315,8 +273,8 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (purposeText.getText().length() != 0) {
-                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_PURPOSE, purposeText.getText());
-                    getConnectionParams().setAnalysisMetadate(analysisMetadate);
+                    metadata.put(IParameterConstant.ANALYSIS_PURPOSE, purposeText.getText());
+                    getConnectionParams().setMetadate(metadata);
                 }
             }
         });
@@ -325,8 +283,8 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() != 0) {
-                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_DESCRIPTION, descriptionText.getText());
-                    getConnectionParams().setAnalysisMetadate(analysisMetadate);
+                    metadata.put(IParameterConstant.ANALYSIS_DESCRIPTION, descriptionText.getText());
+                    getConnectionParams().setMetadate(metadata);
                 }
 
             }
@@ -336,8 +294,8 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (authorText.getText().length() != 0) {
-                    analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_AUTHOR, authorText.getText());
-                    getConnectionParams().setAnalysisMetadate(analysisMetadate);
+                    metadata.put(IParameterConstant.ANALYSIS_AUTHOR, authorText.getText());
+                    getConnectionParams().setMetadate(metadata);
                 }
             }
             
@@ -362,33 +320,27 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
 
             public void modifyText(ModifyEvent e) {
                 String selected = ((CCombo) e.getSource()).getText();
-                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, selected);
-                getConnectionParams().setAnalysisMetadate(analysisMetadate);
+                metadata.put(IParameterConstant.ANALYSIS_STATUS, selected);
+                getConnectionParams().setMetadate(metadata);
             }
 
         });
     }
-
-    /*
-     * (non-Javadoc)
-     * 
+    
+    
+    
+    /* (non-Javadoc)
      * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
      */
     @Override
     public void setVisible(boolean visible) {
-
-        if (getConnectionParams() != null) {
-            String typeName = getConnectionParams().getAnalysisTypeName();
-            if (typeName != null) {
-                typeText.setText(typeName);
-            }
-            
-            String status = statusText.getText();
-            if (status != null) {
-                analysisMetadate.put(IAnalysisParameterConstant.ANALYSIS_STATUS, status); 
-                getConnectionParams().setAnalysisMetadate(analysisMetadate);
-            }
-            
+        String status = statusText.getText();
+        if (status != null) {
+            metadata.put(IParameterConstant.ANALYSIS_STATUS, status); 
+            getConnectionParams().setMetadate(metadata);
+        }
+        
+        if (defaultFolderProviderRes != null) {
             FolderProvider defaultFolder = new FolderProvider();
             defaultFolder.setFolder(new File(defaultFolderProviderRes.getLocationURI()));
             getConnectionParams().setFolderProvider(defaultFolder);
@@ -396,5 +348,7 @@ public class MetadataWizardPage extends AbstractAnalysisWizardPage {
 
         super.setVisible(visible);
     }
+
+    protected abstract void createExtendedControl(Composite container);
     
 }
