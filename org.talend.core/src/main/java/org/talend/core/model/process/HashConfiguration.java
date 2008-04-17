@@ -46,14 +46,6 @@ public class HashConfiguration implements IHashConfiguration {
         this.temporaryDataDirectory = temporaryDataDirectory;
     }
 
-    public HashConfiguration(List<IHashableColumn> hashableColumns, IMatchingMode matchingMode, boolean persistent) {
-        super();
-        this.hashableColumns = hashableColumns;
-        this.matchingMode = matchingMode;
-        this.persistent = persistent;
-        this.temporaryDataDirectory = null;
-    }
-
     /*
      * (non-Javadoc)
      * 
