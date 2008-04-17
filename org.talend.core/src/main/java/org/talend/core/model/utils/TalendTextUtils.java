@@ -94,7 +94,11 @@ public class TalendTextUtils {
         tempText = tempText.replaceAll("\n", " ");
         tempText = tempText.trim();
         if (quoteStyle.equals(SINGLE_QUOTE)) {
-            newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
+            if (tempText.startsWith(SINGLE_QUOTE) || tempText.endsWith(SINGLE_QUOTE)) {
+                newString = text;
+            } else {
+                newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
+            }
         } else if (quoteStyle.equals(ANTI_QUOTE)) {
             newString = ANTI_QUOTE + checkStringQuotationMarks(text) + ANTI_QUOTE;
         } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
@@ -103,7 +107,7 @@ public class TalendTextUtils {
             newString = text;
             QueryUtil.isContextQuery = false;
         } else {
-            if (tempText.startsWith(QUOTATION_MARK) && tempText.endsWith(QUOTATION_MARK)) {
+            if (tempText.startsWith(QUOTATION_MARK) || tempText.endsWith(QUOTATION_MARK)) {
                 newString = text;
             } else {
                 newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
