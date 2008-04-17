@@ -178,6 +178,15 @@ public interface ConnectionFactory extends EFactory {
     WSDLSchemaConnection createWSDLSchemaConnection();
 
     /**
+     * Returns a new object of class '<em>Salesforce Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Salesforce Schema Connection</em>'.
+     * @generated
+     */
+    SalesforceSchemaConnection createSalesforceSchemaConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

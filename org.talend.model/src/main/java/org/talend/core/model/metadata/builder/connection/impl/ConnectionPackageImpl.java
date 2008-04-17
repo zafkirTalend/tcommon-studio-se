@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -173,6 +174,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass wsdlSchemaConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass salesforceSchemaConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1576,6 +1584,60 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSalesforceSchemaConnection() {
+        return salesforceSchemaConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_WebServiceUrl() {
+        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_UserName() {
+        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_Password() {
+        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_ModuleName() {
+        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSalesforceSchemaConnection_QueryCondition() {
+        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1835,6 +1897,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__ENDPOINT_URI);
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__ENCODING);
 
+        salesforceSchemaConnectionEClass = createEClass(SALESFORCE_SCHEMA_CONNECTION);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__USER_NAME);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__PASSWORD);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME);
+        createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -1885,6 +1954,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         genericSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         ldapSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         wsdlSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
+        salesforceSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2064,6 +2134,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getWSDLSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getWSDLSchemaConnection_EndpointURI(), ecorePackage.getEString(), "EndpointURI", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getWSDLSchemaConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(salesforceSchemaConnectionEClass, SalesforceSchemaConnection.class, "SalesforceSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSalesforceSchemaConnection_WebServiceUrl(), ecorePackage.getEString(), "webServiceUrl", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_UserName(), ecorePackage.getEString(), "userName", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_Password(), ecorePackage.getEString(), "password", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ModuleName(), ecorePackage.getEString(), "moduleName", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_QueryCondition(), ecorePackage.getEString(), "queryCondition", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

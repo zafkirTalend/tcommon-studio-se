@@ -212,6 +212,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserModuleAuthorization/type"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//LDAPSchemaConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//SalesforceSchemaConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//DashboardConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/label"/>

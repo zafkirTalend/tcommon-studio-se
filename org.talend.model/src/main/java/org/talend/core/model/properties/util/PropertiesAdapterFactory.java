@@ -184,6 +184,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseLDAPSchemaConnectionItem(LDAPSchemaConnectionItem object) {
                 return createLDAPSchemaConnectionItemAdapter();
             }
+            public Object caseSalesforceSchemaConnectionItem(SalesforceSchemaConnectionItem object) {
+                return createSalesforceSchemaConnectionItemAdapter();
+            }
             public Object caseDashboardConnection(DashboardConnection object) {
                 return createDashboardConnectionAdapter();
             }
@@ -779,6 +782,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLDAPSchemaConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SalesforceSchemaConnectionItem <em>Salesforce Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SalesforceSchemaConnectionItem
+     * @generated
+     */
+    public Adapter createSalesforceSchemaConnectionItemAdapter() {
         return null;
     }
 

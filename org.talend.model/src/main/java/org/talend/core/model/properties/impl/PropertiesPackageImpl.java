@@ -60,6 +60,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SchemaInformation;
 import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.SnippetItem;
@@ -310,6 +311,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass ldapSchemaConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass salesforceSchemaConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1767,6 +1775,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSalesforceSchemaConnectionItem() {
+        return salesforceSchemaConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2881,6 +2898,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         ldapSchemaConnectionItemEClass = createEClass(LDAP_SCHEMA_CONNECTION_ITEM);
 
+        salesforceSchemaConnectionItemEClass = createEClass(SALESFORCE_SCHEMA_CONNECTION_ITEM);
+
         dashboardConnectionEClass = createEClass(DASHBOARD_CONNECTION);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__ID);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__LABEL);
@@ -3058,6 +3077,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         contextItemEClass.getESuperTypes().add(this.getItem());
         genericSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ldapSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        salesforceSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         cronTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         cronUITalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         simpleTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
@@ -3263,6 +3283,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUserModuleAuthorization_Type(), this.getUserModuleAuthorizationType(), "type", "Scheduler", 0, 1, UserModuleAuthorization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(ldapSchemaConnectionItemEClass, LDAPSchemaConnectionItem.class, "LDAPSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(salesforceSchemaConnectionItemEClass, SalesforceSchemaConnectionItem.class, "SalesforceSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(dashboardConnectionEClass, DashboardConnection.class, "DashboardConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDashboardConnection_Id(), ecorePackage.getEInt(), "id", null, 1, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

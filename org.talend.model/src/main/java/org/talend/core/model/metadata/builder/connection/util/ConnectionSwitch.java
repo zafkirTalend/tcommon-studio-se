@@ -246,6 +246,14 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION: {
+                SalesforceSchemaConnection salesforceSchemaConnection = (SalesforceSchemaConnection)theEObject;
+                Object result = caseSalesforceSchemaConnection(salesforceSchemaConnection);
+                if (result == null) result = caseConnection(salesforceSchemaConnection);
+                if (result == null) result = caseAbstractMetadataObject(salesforceSchemaConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -527,6 +535,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseWSDLSchemaConnection(WSDLSchemaConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Salesforce Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Salesforce Schema Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
         return null;
     }
 

@@ -225,5 +225,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/EndpointURI"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Encoding"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SalesforceSchemaConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/webServiceUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/userName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/moduleName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/queryCondition"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

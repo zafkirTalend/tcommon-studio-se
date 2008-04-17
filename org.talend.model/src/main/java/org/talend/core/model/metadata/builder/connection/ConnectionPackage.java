@@ -3589,13 +3589,167 @@ public interface ConnectionPackage extends EPackage {
     int WSDL_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 14;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl <em>Salesforce Schema Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
+     * @generated
+     */
+    int SALESFORCE_SCHEMA_CONNECTION = 20;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Web Service Url</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>User Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__USER_NAME = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__PASSWORD = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Module Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Query Condition</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 20;
+    int DATABASE_PROPERTIES = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -3604,7 +3758,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 21;
+    int FILE_FORMAT = 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -3613,7 +3767,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 22;
+    int FIELD_SEPARATOR = 23;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -3622,7 +3776,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 23;
+    int ESCAPE = 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -3631,7 +3785,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 24;
+    int ROW_SEPARATOR = 25;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -3640,7 +3794,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 25;
+    int MAP = 26;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -3650,7 +3804,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 26;
+    int LIST = 27;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -5299,6 +5453,71 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getWSDLSchemaConnection_Encoding();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection <em>Salesforce Schema Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Salesforce Schema Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection
+     * @generated
+     */
+    EClass getSalesforceSchemaConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrl <em>Web Service Url</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Web Service Url</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrl()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_WebServiceUrl();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getUserName <em>User Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>User Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getUserName()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_UserName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getPassword()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModuleName <em>Module Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Module Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModuleName()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ModuleName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getQueryCondition <em>Query Condition</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Query Condition</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getQueryCondition()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_QueryCondition();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -6677,6 +6896,56 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__ENCODING = eINSTANCE.getWSDLSchemaConnection_Encoding();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl <em>Salesforce Schema Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
+         * @generated
+         */
+        EClass SALESFORCE_SCHEMA_CONNECTION = eINSTANCE.getSalesforceSchemaConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Web Service Url</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL = eINSTANCE.getSalesforceSchemaConnection_WebServiceUrl();
+
+        /**
+         * The meta object literal for the '<em><b>User Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__USER_NAME = eINSTANCE.getSalesforceSchemaConnection_UserName();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__PASSWORD = eINSTANCE.getSalesforceSchemaConnection_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Module Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME = eINSTANCE.getSalesforceSchemaConnection_ModuleName();
+
+        /**
+         * The meta object literal for the '<em><b>Query Condition</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION = eINSTANCE.getSalesforceSchemaConnection_QueryCondition();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

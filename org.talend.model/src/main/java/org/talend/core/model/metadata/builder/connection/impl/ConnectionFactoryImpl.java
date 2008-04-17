@@ -102,6 +102,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: return createGenericSchemaConnection();
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION: return createLDAPSchemaConnection();
             case ConnectionPackage.WSDL_SCHEMA_CONNECTION: return createWSDLSchemaConnection();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION: return createSalesforceSchemaConnection();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -318,6 +319,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public WSDLSchemaConnection createWSDLSchemaConnection() {
         WSDLSchemaConnectionImpl wsdlSchemaConnection = new WSDLSchemaConnectionImpl();
         return wsdlSchemaConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SalesforceSchemaConnection createSalesforceSchemaConnection() {
+        SalesforceSchemaConnectionImpl salesforceSchemaConnection = new SalesforceSchemaConnectionImpl();
+        return salesforceSchemaConnection;
     }
 
     /**

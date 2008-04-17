@@ -125,6 +125,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM: return createGenericSchemaConnectionItem();
             case PropertiesPackage.USER_MODULE_AUTHORIZATION: return createUserModuleAuthorization();
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM: return createLDAPSchemaConnectionItem();
+            case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM: return createSalesforceSchemaConnectionItem();
             case PropertiesPackage.DASHBOARD_CONNECTION: return createDashboardConnection();
             case PropertiesPackage.EXECUTION_SERVER: return createExecutionServer();
             case PropertiesPackage.EXECUTION_TASK: return createExecutionTask();
@@ -504,6 +505,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public LDAPSchemaConnectionItem createLDAPSchemaConnectionItem() {
         LDAPSchemaConnectionItemImpl ldapSchemaConnectionItem = new LDAPSchemaConnectionItemImpl();
         return ldapSchemaConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SalesforceSchemaConnectionItem createSalesforceSchemaConnectionItem() {
+        SalesforceSchemaConnectionItemImpl salesforceSchemaConnectionItem = new SalesforceSchemaConnectionItemImpl();
+        return salesforceSchemaConnectionItem;
     }
 
     /**

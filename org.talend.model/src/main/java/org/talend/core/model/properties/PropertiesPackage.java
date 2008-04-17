@@ -2262,6 +2262,52 @@ public interface PropertiesPackage extends EPackage {
     int LDAP_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SalesforceSchemaConnectionItemImpl <em>Salesforce Schema Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SalesforceSchemaConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSalesforceSchemaConnectionItem()
+     * @generated
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM = 38;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Salesforce Schema Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.DashboardConnectionImpl <em>Dashboard Connection</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2269,7 +2315,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getDashboardConnection()
      * @generated
      */
-    int DASHBOARD_CONNECTION = 38;
+    int DASHBOARD_CONNECTION = 39;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2387,7 +2433,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServer()
      * @generated
      */
-    int EXECUTION_SERVER = 39;
+    int EXECUTION_SERVER = 40;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2478,7 +2524,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionTask()
      * @generated
      */
-    int EXECUTION_TASK = 40;
+    int EXECUTION_TASK = 41;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2740,7 +2786,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
      * @generated
      */
-    int TALEND_TRIGGER = 41;
+    int TALEND_TRIGGER = 42;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2849,7 +2895,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
      * @generated
      */
-    int CRON_TALEND_TRIGGER = 42;
+    int CRON_TALEND_TRIGGER = 43;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2967,7 +3013,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
      * @generated
      */
-    int CRON_UI_TALEND_TRIGGER = 43;
+    int CRON_UI_TALEND_TRIGGER = 44;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3130,7 +3176,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
      * @generated
      */
-    int SIMPLE_TALEND_TRIGGER = 44;
+    int SIMPLE_TALEND_TRIGGER = 45;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3266,7 +3312,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
      * @generated
      */
-    int EXECUTION_VIRTUAL_SERVER = 45;
+    int EXECUTION_VIRTUAL_SERVER = 46;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3330,7 +3376,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
      * @generated
      */
-    int FILE_TRIGGER = 46;
+    int FILE_TRIGGER = 47;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3475,7 +3521,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
      * @generated
      */
-    int FILE_TRIGGER_MASK = 47;
+    int FILE_TRIGGER_MASK = 48;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3575,7 +3621,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
      * @generated
      */
-    int JOBLET_PROCESS_ITEM = 48;
+    int JOBLET_PROCESS_ITEM = 49;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3621,7 +3667,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
      * @generated
      */
-    int JOB_DOCUMENTATION_ITEM = 49;
+    int JOB_DOCUMENTATION_ITEM = 50;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3685,7 +3731,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
      * @generated
      */
-    int JOBLET_DOCUMENTATION_ITEM = 50;
+    int JOBLET_DOCUMENTATION_ITEM = 51;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3749,7 +3795,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getWSDLSchemaConnectionItem()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION_ITEM = 51;
+    int WSDL_SCHEMA_CONNECTION_ITEM = 52;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3795,7 +3841,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
      * @generated
      */
-    int SCHEMA_INFORMATION = 52;
+    int SCHEMA_INFORMATION = 53;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -3823,7 +3869,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
      * @generated
      */
-    int INFORMATION = 53;
+    int INFORMATION = 54;
 
     /**
      * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -3868,7 +3914,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 54;
+    int FOLDER_TYPE = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3878,7 +3924,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 55;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 56;
 
 
     /**
@@ -3889,7 +3935,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 56;
+    int USER_MODULE_AUTHORIZATION_TYPE = 57;
 
 
     /**
@@ -3900,7 +3946,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 57;
+    int INFORMATION_LEVEL = 58;
 
 
     /**
@@ -5485,6 +5531,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getLDAPSchemaConnectionItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SalesforceSchemaConnectionItem <em>Salesforce Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Salesforce Schema Connection Item</em>'.
+     * @see org.talend.core.model.properties.SalesforceSchemaConnectionItem
+     * @generated
+     */
+    EClass getSalesforceSchemaConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.DashboardConnection <em>Dashboard Connection</em>}'.
@@ -7974,6 +8030,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass LDAP_SCHEMA_CONNECTION_ITEM = eINSTANCE.getLDAPSchemaConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SalesforceSchemaConnectionItemImpl <em>Salesforce Schema Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SalesforceSchemaConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSalesforceSchemaConnectionItem()
+         * @generated
+         */
+        EClass SALESFORCE_SCHEMA_CONNECTION_ITEM = eINSTANCE.getSalesforceSchemaConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.DashboardConnectionImpl <em>Dashboard Connection</em>}' class.

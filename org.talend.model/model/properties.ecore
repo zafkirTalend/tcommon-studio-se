@@ -267,6 +267,7 @@
     <eLiterals name="Dashboard" value="2" literal="Dashboard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LDAPSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SalesforceSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="DashboardConnection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         iD="true"/>

@@ -320,6 +320,15 @@ public interface PropertiesFactory extends EFactory {
     LDAPSchemaConnectionItem createLDAPSchemaConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Salesforce Schema Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Salesforce Schema Connection Item</em>'.
+     * @generated
+     */
+    SalesforceSchemaConnectionItem createSalesforceSchemaConnectionItem();
+
+    /**
      * Returns a new object of class '<em>Dashboard Connection</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Dashboard Connection</em>'.
