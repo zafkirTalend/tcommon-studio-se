@@ -144,6 +144,7 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
         formatLabel.setText("Format");
         formatSelection = new CCombo(container, SWT.BORDER);
         formatSelection.setText("pdf");
+        formatSelection.setEditable(false);
         GridData gdd = new GridData();
         gdd.widthHint = 150;
         formatSelection.setLayoutData(gdd);
