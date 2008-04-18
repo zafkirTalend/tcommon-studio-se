@@ -169,13 +169,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
                 .getDescription());
-        ModifyListener listener = new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setDirty(true);
-            }
-
-        };
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {

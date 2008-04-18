@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Image;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.helper.FileResourceMapHelper;
+import org.talend.dataprofiler.core.helper.PrvFileMapHelper;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -79,7 +79,7 @@ public class DBTablesViewLabelProvider extends AdapterFactoryLabelProvider {
         String text = super.getText(element);
         if (text.endsWith(PluginConstant.PRV_SUFFIX)) {
             IFile file = (IFile) element;
-            TypedReturnCode<TdDataProvider> rc = FileResourceMapHelper.readFromFile(file);
+            TypedReturnCode<TdDataProvider> rc = PrvFileMapHelper.getInstance().readFromFile(file);
             String decorateText = PluginConstant.EMPTY_STRING;
             if (rc.isOk()) {
                 decorateText = rc.getObject().getName();

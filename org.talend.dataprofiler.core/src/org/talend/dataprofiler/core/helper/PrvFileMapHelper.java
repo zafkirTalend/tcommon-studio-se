@@ -17,57 +17,46 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.utils.sugars.TypedReturnCode;
 
-
 /**
  * This class help the '.prv' file to store the corresponding DataProvider value.
- *
+ * 
  */
-public final class FileResourceMapHelper {
-    
-    private FileResourceMapHelper() {
+public final class PrvFileMapHelper extends ResourceFileMap {
 
-    }
-
-    private static Map<IFile, Resource> registedResourceMap = new HashMap<IFile, Resource>();
-    
     private static Map<IFile, TypedReturnCode<TdDataProvider>> providerMap = new HashMap<IFile, TypedReturnCode<TdDataProvider>>();
 
-    public static void register(IFile file, Resource resource) {
-        registedResourceMap.put(file, resource);
+    private static PrvFileMapHelper instance;
+
+    private PrvFileMapHelper() {
+        super();
     }
 
-    public static Resource get(IFile file) {
-        return registedResourceMap.get(file);
+    public static PrvFileMapHelper getInstance() {
+        if (instance == null) {
+            instance = new PrvFileMapHelper();
+        }
+        return instance;
     }
-    
 
-    
     /**
      * Method "readFromFile".
      * 
      * @param file the file to read
      * @return the Data provider if found.
      */
-    public static TypedReturnCode<TdDataProvider> readFromFile(IFile file) {
+    public TypedReturnCode<TdDataProvider> readFromFile(IFile file) {
         TypedReturnCode<TdDataProvider> rc = providerMap.get(file);
         if (rc != null) {
             return rc;
         }
         rc = new TypedReturnCode<TdDataProvider>();
-        EMFUtil util = new EMFUtil();
-        String path = file.getFullPath().toString();
-        URI uri = URI.createPlatformResourceURI(path, true);
-        ResourceSet rs = util.getResourceSet();
-        Resource resource = rs.getResource(uri, true);
-        FileResourceMapHelper.register(file, resource);
+        Resource resource = getFileResource(file);
+        register(file, resource);
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(resource.getContents());
         if (tdDataProviders.isEmpty()) {
             rc.setReturnCode("No Data Provider found in " + file.getFullPath(), false);
@@ -80,5 +69,5 @@ public final class FileResourceMapHelper {
         providerMap.put(file, rc);
         return rc;
     }
-    
+
 }
