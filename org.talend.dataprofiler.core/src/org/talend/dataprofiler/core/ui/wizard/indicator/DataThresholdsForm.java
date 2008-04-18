@@ -27,7 +27,7 @@ import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
  */
 public class DataThresholdsForm extends AbstractIndicatorForm {
 
-    private final String formName = "Data thresholds";
+    private final String formName = "Data Thresholds";
     
     Text lowerText, higherText;
     /**
@@ -73,12 +73,12 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
         GridData gdText = new GridData(GridData.FILL_HORIZONTAL);
         
         Label lowerLabel = new Label(group, SWT.NONE);
-        lowerLabel.setText("Lower thresholds");
+        lowerLabel.setText("Lower threshold");
         lowerText = new Text(group, SWT.BORDER);
         lowerText.setLayoutData(gdText);
         
         Label higherLabel = new Label(group, SWT.NONE);
-        higherLabel.setText("Higher thresholds");
+        higherLabel.setText("Higher threshold");
         higherText = new Text(group, SWT.BORDER);
         higherText.setLayoutData(gdText);
     }

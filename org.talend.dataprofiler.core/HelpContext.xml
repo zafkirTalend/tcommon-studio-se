@@ -2,11 +2,11 @@
 <?NLS TYPE="org.eclipse.help.contexts"?>
 <contexts>
     <context id="mycontexthelpid" >
-        <description>My wizard help.</description>
-        <topic label="Wizard help" href="html/help.html"/>
-        <topic label="aa" href="html/help.html"/>
-        <topic label="sss" href="html/help.html"/>
-        <topic label="dddd" href="html/help.html"/>
-        <topic label="fffff" href="html/help.html"/>
+        <description>Description for the parameters of the indicators:</description>
+        <topic label="Bins designer" href="html/wizard/indicator/BinsDesigner.html"/>
+        <topic label="Time slice" href="html/wizard/indicator/TimeSlice.html"/>
+        <topic label="Text Parameter" href="html/wizard/indicator/TextParameter.html"/>
+        <topic label="Text Length" href="html/wizard/indicator/TextLength.html"/>
+        <topic label="Data Threshold" href="html/wizard/indicator/DataThreshold.html"/>
     </context>
 </contexts>

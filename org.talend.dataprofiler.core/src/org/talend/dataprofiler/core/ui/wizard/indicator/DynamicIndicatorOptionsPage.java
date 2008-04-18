@@ -49,7 +49,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
         this.columnIndicator = columnIndicator;
         this.indicatorEnum = indicatorEnum;
         setTitle("Indicator settings");
-        setMessage("In this wizard, parameter for the given indicator can be set");
+        setMessage("In this wizard, parameters for the given indicator can be set");
         
     }
 
@@ -79,13 +79,10 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                     setControl(createView(textForm));
                 }
 
-                break;
-
             case MinLengthIndicatorEnum:
             case MaxLengthIndicatorEnum:
             case AverageLengthIndicatorEnum:
                 setControl(createView(textLengthForm));
-                break;
             case FrequencyIndicatorEnum:
                 if (columnIndicator.getDataminingType() == DataminingType.INTERVAL 
                         && columnIndicator.getTdColumn().getJavaType() == Types.NUMERIC) {
@@ -97,7 +94,6 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                     setControl(createView(textForm));
                 }
 
-                break;
             case ModeIndicatorEnum:
                 if (columnIndicator.getDataminingType() == DataminingType.INTERVAL 
                         && columnIndicator.getTdColumn().getJavaType() == Types.NUMERIC) {
@@ -106,13 +102,12 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                     setControl(createView(textForm));
                 }
 
-                break;
             default:
-                setControl(createView(binsForm, timeForm, textForm, textLengthForm, dataForm));
+                if (getControl() == null) {
+                    setControl(createView(binsForm, timeForm, textForm, textLengthForm, dataForm));
+                }
             }
         }
-        
-        setControl(createView(binsForm, timeForm, textForm, textLengthForm, dataForm));
         
         if (getControl() != null) {
             PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), CorePlugin.PLUGIN_ID + ".mycontexthelpid");
@@ -134,4 +129,5 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
 
         return tabFolder;
     }
+    
 }
