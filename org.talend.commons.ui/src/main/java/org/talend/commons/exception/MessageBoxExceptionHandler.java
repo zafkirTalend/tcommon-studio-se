@@ -16,7 +16,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Priority;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.i18n.Messages;
 
 /**
@@ -46,6 +46,10 @@ public final class MessageBoxExceptionHandler {
 
     public static void process(Throwable ex, Shell shell) {
         ExceptionHandler.process(ex);
+
+        if (CommonsPlugin.isHeadless()) {
+            return;
+        }
 
         if (shell == null) {
             try {

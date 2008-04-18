@@ -35,8 +35,6 @@ public final class Context {
 
     private static final String BREAKPOINTS = "BREAKPOINTS"; //$NON-NLS-1$
 
-    private boolean headless = false;
-
     /**
      * Constructs a new Context.
      */
@@ -105,13 +103,5 @@ public final class Context {
                 }
             }
         }
-    }
-
-    public boolean isHeadless() {
-        return headless;
-    }
-
-    public void setHeadless(boolean headless) {
-        this.headless = headless;
     }
 }

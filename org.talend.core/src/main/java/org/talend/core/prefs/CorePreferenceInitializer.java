@@ -26,6 +26,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
@@ -109,7 +110,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
         final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
 
-        if (!CorePlugin.getContext().isHeadless()) {
+        if (!CommonsPlugin.isHeadless()) {
             IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
             store.setValue(editorLineNumberRuler, true);
             store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
