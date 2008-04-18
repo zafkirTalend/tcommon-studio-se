@@ -31,6 +31,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.update.UpdateResult;
 
 /**
  * Provides Designer core services for other components <br/>.
@@ -95,4 +96,6 @@ public interface IDesignerCoreService extends IService {
     public boolean isTalendEditor(IEditorPart activeEditor);
 
     public INode getRefrenceNode(String componentName);
+
+    public boolean executeUpdatesManager(List<UpdateResult> results);
 }

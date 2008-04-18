@@ -20,6 +20,7 @@ import org.talend.core.i18n.Messages;
 public enum EUpdateResult {
     BUIL_IN(Messages.getString("EUpdateResult.BuiltIn")), //$NON-NLS-1$
     UPDATE(Messages.getString("EUpdateResult.Update")), //$NON-NLS-1$
+    RENAME(Messages.getString("EUpdateResult.Rename")), //$NON-NLS-1$
     RELOAD(Messages.getString("EUpdateResult.Reload")), //$NON-NLS-1$
     // for joblet
     JOBLET_UPDATE(Messages.getString("EUpdateResult.JobletUpdate")); //$NON-NLS-1$

@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.update;
 
+import org.talend.core.model.process.IProcess2;
+
 /**
  * ggu class global comment. Detailled comment
  */
@@ -19,7 +21,7 @@ public abstract class UpdateResult {
 
     private boolean checked = true;
 
-    private Object item = null;
+    private Object object = null;
 
     private EUpdateResult resultType = null;
 
@@ -29,14 +31,23 @@ public abstract class UpdateResult {
 
     private String remark = null;
 
+    private Object job = null;
+
+    private boolean readOnly = false;
+
+    /**
+     * only for repository item update.
+     */
+    private IProcess2 process2 = null;
+
     /**
      * ggu UpdateCheckResult constructor comment.
      * 
      * @param item
      */
-    public UpdateResult(Object item) {
+    public UpdateResult(Object object) {
         super();
-        this.item = item;
+        this.object = object;
     }
 
     /**
@@ -55,12 +66,11 @@ public abstract class UpdateResult {
         this.remark = remark;
         // must initialize the checked==true, so it will show in the dialog
         switch (resultType) {
-        case BUIL_IN:
-        case RELOAD:
-        case JOBLET_UPDATE:
-            setChecked(true);
+        case UPDATE:
             break;
         default:
+            setChecked(true);
+            setReadOnly(true);
         }
     }
 
@@ -72,6 +82,30 @@ public abstract class UpdateResult {
         setResult(updateType, resultType, null);
     }
 
+    public void setJob(Object job) {
+        this.job = job;
+    }
+
+    public Object getJob() {
+        return this.job;
+    }
+
+    public IProcess2 getItemProcess() {
+        return this.process2;
+    }
+
+    public void setItemProcess(IProcess2 process2) {
+        this.process2 = process2;
+    }
+
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
     public boolean isChecked() {
         return this.checked;
     }
@@ -81,7 +115,7 @@ public abstract class UpdateResult {
     }
 
     public Object getUpdateObject() {
-        return this.item;
+        return this.object;
     }
 
     public EUpdateResult getResultType() {
@@ -100,19 +134,26 @@ public abstract class UpdateResult {
         return this.remark;
     }
 
+    public abstract String getJobInfor();
+
     public String toString() {
-        // the sequence is very important, it will sort with it
         StringBuffer sb = new StringBuffer();
-        sb.append(getCategory());
+        sb.append(checkValues(getJobInfor()));
         sb.append(UpdatesConstants.SPACE);
-        sb.append(getName());
+        sb.append(checkValues(getCategory()));
         sb.append(UpdatesConstants.SPACE);
-        sb.append(getUpdateType());
+        sb.append(checkValues(getName()));
         sb.append(UpdatesConstants.SPACE);
-        sb.append(getResultType());
+        sb.append(checkValues(getResultType()));
         sb.append(UpdatesConstants.SPACE);
-        sb.append(getRemark());
+        sb.append(checkValues(getRemark()));
+
         return sb.toString();
+    }
+
+    private Object checkValues(Object obj) {
+        return obj == null ? UpdatesConstants.EMPTY : obj;
+
     }
 
     public abstract String getName();

@@ -49,12 +49,12 @@ public final class UpdateRunJobComponentContextHelper {
     private static final String TRUN_JOB = "tRunJob"; //$NON-NLS-1$
 
     public static synchronized void updateOpenedJobRunJobComponentReference(final List<IProcess> openedProcesses,
-            final Map<String, String> nameMap, final String refJobName, final Set<String> varNameSet) {
-        if (openedProcesses == null || refJobName == null) {
+            final Map<String, String> nameMap, final String refJobId, final Set<String> varNameSet) {
+        if (openedProcesses == null || refJobId == null) {
             return;
         }
         for (IProcess process : openedProcesses) {
-            if (process.getLabel().equals(refJobName)) {
+            if (process.getLabel().equals(refJobId)) {
                 // ignore self
                 continue;
             }
@@ -62,7 +62,7 @@ public final class UpdateRunJobComponentContextHelper {
             for (INode node : foundRunJobNode(process)) {
                 IElementParameter eleParam = node.getElementParameter(PROCESS_TYPE_PROCESS);
                 // found type
-                if (eleParam != null && refJobName.equals(eleParam.getValue())) {
+                if (eleParam != null && refJobId.equals(eleParam.getValue())) {
                     IElementParameter contextParam = node.getElementParameter(CONTEXTPARAMS);
                     if (contextParam != null) {
                         List<Map> valuesList = (List<Map>) contextParam.getValue();
@@ -116,8 +116,8 @@ public final class UpdateRunJobComponentContextHelper {
     }
 
     public static synchronized void updateItemRunJobComponentReference(final IProxyRepositoryFactory factory,
-            final Map<String, String> nameMap, final String refJobName, final Set<String> varNameSet) throws PersistenceException {
-        if (factory == null || refJobName == null) {
+            final Map<String, String> nameMap, final String refJobId, final Set<String> varNameSet) throws PersistenceException {
+        if (factory == null || refJobId == null) {
             return;
         }
         List<IRepositoryObject> repositoryObjectList = factory.getAll(ERepositoryObjectType.PROCESS, true);
@@ -127,12 +127,12 @@ public final class UpdateRunJobComponentContextHelper {
                 Item item = object.getProperty().getItem();
                 if (item instanceof ProcessItem) {
                     ProcessItem processItem = (ProcessItem) item;
-                    if (processItem.getProperty().getLabel().equals(refJobName)) {
+                    if (processItem.getProperty().getId().equals(refJobId)) {
                         // ignore self
                         continue;
                     }
                     boolean modified = false;
-                    modified = updateRunJobComponent(processItem, nameMap, refJobName, varNameSet);
+                    modified = updateRunJobComponent(processItem, nameMap, refJobId, varNameSet);
 
                     if (modified) {
                         factory.save(processItem);
@@ -167,14 +167,14 @@ public final class UpdateRunJobComponentContextHelper {
     }
 
     private static boolean updateRunJobComponent(final ProcessItem processItem, final Map<String, String> nameMap,
-            final String refJobName, final Set<String> varNameSet) {
+            final String refJobId, final Set<String> varNameSet) {
 
         boolean modified = false;
         for (NodeType foundNode : foundRunJobNodeType(processItem)) {
             // found tRunJob node
             boolean found = false;
             for (ElementParameterType paramType : (List<ElementParameterType>) foundNode.getElementParameter()) {
-                if (PROCESS_TYPE_PROCESS.equals(paramType.getName()) && paramType.getValue().equals(refJobName)) {
+                if (PROCESS_TYPE_PROCESS.equals(paramType.getName()) && paramType.getValue().equals(refJobId)) {
                     found = true;
                     continue;
                 }

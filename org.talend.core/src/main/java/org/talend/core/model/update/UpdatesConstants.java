@@ -32,11 +32,15 @@ public final class UpdatesConstants {
 
     public static final String SEGMENT = "/"; //$NON-NLS-1$
 
+    public static final String START = "*"; //$NON-NLS-1$
+
     public static final String SEGMENT_LINE = " - "; //$NON-NLS-1$
 
     public static final String LEFT_BRACKETS = "("; //$NON-NLS-1$
 
     public static final String RIGHT_BRACKETS = ")"; //$NON-NLS-1$
+
+    public static final String RENAME_SIGN = " => "; //$NON-NLS-1$
 
     /*
      * Category
@@ -48,14 +52,49 @@ public final class UpdatesConstants {
 
     public static final String JOBLET = Messages.getString("UpdatesConstants.Joblet"); //$NON-NLS-1$
 
+    public static final String JOB = "Job";
+
+    /*
+     * parameter name.
+     */
+
+    public static final String PROPERTY = "PROPERTY"; //$NON-NLS-1$
+
+    public static final String QUERYSTORE = "QUERYSTORE"; //$NON-NLS-1$
+
+    public static final String SCHEMA = "SCHEMA"; //$NON-NLS-1$
+
+    public static final String PROCESS = "PROCESS"; //$NON-NLS-1$
+
+    public static final String UNIQUE_NAME = "UNIQUE_NAME";
+
     /*
      * repository value.
      */
     public static final String TYPE = "TYPE"; //$NON-NLS-1$
+
+    public static final String PORT = "PORT"; //$NON-NLS-1$
+
+    public static final String USERNAME = "USERNAME";
+
+    public static final String PASSWORD = "PASSWORD";
+
+    public static final String FILE = "FILE";
+
+    public static final String SID = "SID";
+
+    public static final String DATASOURCE = "DATASOURCE";;
+
+    public static final String PROPERTIES_STRING = "PROPERTIES_STRING";
+
+    public static final String FRAMEWORK_TYPE = "FRAMEWORK_TYPE";
+
+    public static final String DIRECTORY = "DIRECTORY";
 
     public static final String QUERY = "QUERY"; //$NON-NLS-1$
 
     public static final String XML_MAPPING = "XML_MAPPING"; //$NON-NLS-1$
 
     public static final String SERVER_NAME = "SERVER_NAME"; //$NON-NLS-1$
+
 }

@@ -384,9 +384,9 @@ public class ContextUtils {
             return true;
         }
         if (targetParamType != null && sourceParam != null) {
-            if (!sourceParam.getName().equals(targetParamType.getName())) {
-                return false;
-            }
+            // if (!sourceParam.getName().equals(targetParamType.getName())) {
+            // return false;
+            // }
             if (!sourceParam.getComment().equals(targetParamType.getComment())) {
                 return false;
             }
