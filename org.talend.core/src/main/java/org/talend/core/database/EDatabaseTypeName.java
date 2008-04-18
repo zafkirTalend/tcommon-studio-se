@@ -19,6 +19,7 @@ package org.talend.core.database;
 public enum EDatabaseTypeName {
     MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"),
     PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL"),
+    PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS"),
     ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE"),
     ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE"),
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "MSODBC"),

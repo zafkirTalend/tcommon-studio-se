@@ -54,6 +54,8 @@ public class RepositoryToComponentProperty {
 
     public static final String POSTGRESQL = "POSTGRESQL"; //$NON-NLS-1$
 
+    public static final String POSTGRESPLUS = "POSTGRESPLUS"; //$NON-NLS-1$
+
     public static final String ODBC = "ODBC"; //$NON-NLS-1$
 
     public static final String ORACLE = "ORACLE"; //$NON-NLS-1$
@@ -194,6 +196,9 @@ public class RepositoryToComponentProperty {
         }
         if (dbType.equals(EDatabaseTypeName.PSQL.getDisplayName())) {
             return POSTGRESQL;
+        }
+        if (dbType.equals(EDatabaseTypeName.PLUSPSQL.getDisplayName())) {
+            return POSTGRESPLUS;
         }
         if (dbType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
             return ORACLE;
