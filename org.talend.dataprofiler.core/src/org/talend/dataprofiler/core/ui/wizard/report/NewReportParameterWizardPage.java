@@ -17,15 +17,14 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -40,6 +39,7 @@ import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPag
 import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.ReportTableContentProvider;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.ReportTableLabelProvider;
+import org.talend.dq.analysis.parameters.ReportParameter;
 
 
 /**
@@ -213,8 +213,6 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
                     }
                     someAnalysises.remove(index);
                     someAnalysises.add(index - 1, entity);
-                    
-                    System.out.println(index);
                 }
                 
                 analysisForReport.refresh();
@@ -236,11 +234,50 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
                         someAnalysises.remove(index);
                         someAnalysises.add(index + size, entity);
                     }
-                    System.out.println(index);
                 }
                 
                 analysisForReport.refresh();
             }
+        });
+        
+        headerText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                
+                ((ReportParameter) getConnectionParams()).setHeader(headerText.getText());
+            }
+            
+        });
+        
+        footerText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                
+                ((ReportParameter) getConnectionParams()).setFooter(footerText.getText());
+            }
+            
+        });
+        
+        checkRefresh.addSelectionListener(new SelectionAdapter() {
+
+            /* (non-Javadoc)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+             */
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                
+                ((ReportParameter) getConnectionParams()).setRefresh(checkRefresh.getSelection());
+            }
+            
+        });
+        
+        formatSelection.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                
+                ((ReportParameter) getConnectionParams()).setFormat(formatSelection.getText());
+            }
+            
         });
     }
     
@@ -270,5 +307,14 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
         } 
 
         return allAnalysises;
+    }
+
+    
+    /**
+     * Getter for someAnalysises.
+     * @return the someAnalysises
+     */
+    public java.util.List<AnalysisEntity> getSomeAnalysises() {
+        return this.someAnalysises;
     }
 }

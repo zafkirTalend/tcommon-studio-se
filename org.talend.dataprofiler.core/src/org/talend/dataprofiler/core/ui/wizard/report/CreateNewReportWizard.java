@@ -12,9 +12,27 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.report;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
+import org.talend.cwm.constants.DevelopmentStatus;
+import org.talend.cwm.helper.DescriptionHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
+import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
+import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
+import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.helpers.ReportHelper;
+import org.talend.dataquality.reports.TdReport;
+import org.talend.dq.analysis.ReportBuilder;
+import org.talend.dq.analysis.ReportWriter;
 import org.talend.dq.analysis.parameters.ReportParameter;
+import org.talend.utils.sugars.ReturnCode;
 
 
 /**
@@ -22,13 +40,20 @@ import org.talend.dq.analysis.parameters.ReportParameter;
  */
 public class CreateNewReportWizard extends Wizard {
 
-    ReportParameter reportParameter;
+    private static Logger log = Logger.getLogger(AbstractAnalysisWizard.class);
+    
+    private ReportParameter reportParameter;
+    
+    private NewReportMetadataWizardPage metadataPage;
+    
+    private NewReportParameterWizardPage parameterPage;
     /**
      * DOC zqin CreateNewReportWizard constructor comment.
      */
     public CreateNewReportWizard() {
         
         reportParameter = new ReportParameter();
+        AbstractWizardPage.setConnectionParams(reportParameter);
     }
 
     /* (non-Javadoc)
@@ -36,8 +61,70 @@ public class CreateNewReportWizard extends Wizard {
      */
     @Override
     public boolean performFinish() {
-        // TODO Auto-generated method stub
-        return false;
+        
+        if (reportParameter == null) {
+            System.out.println("Exception: parameter is null!");
+            return false;
+        }
+        
+        List<Analysis> selectedAnalysises = new ArrayList<Analysis>();
+        for (AnalysisEntity entity : parameterPage.getSomeAnalysises()) {
+            
+            selectedAnalysises.add(entity.getAnalysis());
+        }
+        
+        reportParameter.setAnalysises(selectedAnalysises);
+        
+        //build an tdReport Object
+        try {
+            ReportBuilder builder = new ReportBuilder();
+            if (builder.initializeTdReport(reportParameter.getName())) {
+                TdReport report = builder.getReport();
+                
+                //set metada information
+                String purpose = reportParameter.getPurpose();
+                String description = reportParameter.getDescription();
+                String status = reportParameter.getStatus();
+                String author = reportParameter.getAuthor();
+                
+                TaggedValueHelper.setAuthor(report, author);
+                TaggedValueHelper.setDevStatus(report, DevelopmentStatus.get(status));
+                DescriptionHelper.setPurpose(purpose, report);
+                DescriptionHelper.setDescription(description, report);
+                
+                //set report information
+                String header = reportParameter.getHeader();
+                String footer = reportParameter.getFooter();
+                boolean refresh = reportParameter.isRefresh();
+                ReportHelper.setHeader(report, header);
+                ReportHelper.setFooter(report, footer);
+                ReportHelper.mustRefreshAllAnalyses(report, refresh);
+                
+                ReportHelper.addAnalyses(reportParameter.getAnalysises(), report);
+                
+                // write this object to file
+                ReportWriter writer = new ReportWriter();
+                String path = reportParameter.getFolderProvider().getFolder() + File.separator + reportParameter.getName() + ".rep";
+                File file = new File(path);
+                
+                if (file.exists()) {
+                    return false;
+                } else {
+                    ReturnCode saved = writer.save(report, file);
+                    if (saved.isOk()) {
+                        log.info("Saved in  " + file.getAbsolutePath());
+                    } else {
+                        throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
+                    }
+                    
+                    CorePlugin.getDefault().refreshWorkSpace();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     /* (non-Javadoc)
@@ -47,9 +134,8 @@ public class CreateNewReportWizard extends Wizard {
     public void addPages() {
         
         try {
-            NewReportMetadataWizardPage metadataPage = new NewReportMetadataWizardPage();
-            metadataPage.setConnectionParams(reportParameter);
-            NewReportParameterWizardPage parameterPage = new NewReportParameterWizardPage();
+            metadataPage = new NewReportMetadataWizardPage();
+            parameterPage = new NewReportParameterWizardPage();
             
             addPage(metadataPage);
             addPage(parameterPage);

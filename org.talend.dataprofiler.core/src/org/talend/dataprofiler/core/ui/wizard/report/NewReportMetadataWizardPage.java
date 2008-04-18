@@ -43,7 +43,6 @@ public class NewReportMetadataWizardPage extends MetadataWizardPage {
         setTitle(pageTitle);
         setDescription(pageMessage);
         
-        setConnectionParams(null);
     }
 
     /* (non-Javadoc)
