@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Management Plug-in
-Bundle-SymbolicName: org.talend.cwm.management
+Bundle-SymbolicName: org.talend.cwm.management;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.mysql;resolution:=optional,
