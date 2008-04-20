@@ -53,6 +53,10 @@ public class StringUtils {
         return "`" + colname + "`";
     }
 
+    public static String getPostgresqlProtectedColumnName(String colname) {
+        return "\"" + colname + "\"";
+    }
+
     /**
      * Extract string between the first delimiter and the second delimiter.
      * 
