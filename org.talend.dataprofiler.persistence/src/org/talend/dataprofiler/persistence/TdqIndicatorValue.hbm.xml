@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.talend.dataprofiler.persistence.TdqIndicatorValue" table="TDQ_INDICATOR_VALUE" catalog="talend_dq">
+        <composite-id name="id" class="org.talend.dataprofiler.persistence.TdqIndicatorValueId">
+            <key-property name="anPk" type="int">
+                <column name="AN_PK" />
+            </key-property>
+            <key-property name="eltPk" type="int">
+                <column name="ELT_PK" />
+            </key-property>
+            <key-property name="indPk" type="int">
+                <column name="IND_PK" />
+            </key-property>
+            <key-property name="timePk" type="int">
+                <column name="TIME_PK" />
+            </key-property>
+            <key-property name="calPk" type="int">
+                <column name="CAL_PK" />
+            </key-property>
+            <key-property name="valPk" type="int">
+                <column name="VAL_PK" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tdqDayTime" class="org.talend.dataprofiler.persistence.TdqDayTime" update="false" insert="false" fetch="select">
+            <column name="TIME_PK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tdqValues" class="org.talend.dataprofiler.persistence.TdqValues" update="false" insert="false" fetch="select">
+            <column name="VAL_PK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tdqCalendar" class="org.talend.dataprofiler.persistence.TdqCalendar" update="false" insert="false" fetch="select">
+            <column name="CAL_PK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tdqAnalyzedElement" class="org.talend.dataprofiler.persistence.TdqAnalyzedElement" update="false" insert="false" fetch="select">
+            <column name="ELT_PK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tdqAnalysis" class="org.talend.dataprofiler.persistence.TdqAnalysis" update="false" insert="false" fetch="select">
+            <column name="AN_PK" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tdqIndicatorDefinition" class="org.talend.dataprofiler.persistence.TdqIndicatorDefinition" update="false" insert="false" fetch="select">
+            <column name="IND_PK" not-null="true" />
+        </many-to-one>
+        <property name="anExecutionTime" type="timestamp">
+            <column name="AN_EXECUTION_TIME" length="0" not-null="true" />
+        </property>
+        <property name="anDuration" type="int">
+            <column name="AN_DURATION" not-null="true" />
+        </property>
+        <property name="indvRealValue" type="java.lang.Double">
+            <column name="INDV_REAL_VALUE" precision="22" scale="0" />
+        </property>
+        <property name="indvIntValue" type="java.lang.Integer">
+            <column name="INDV_INT_VALUE" />
+        </property>
+        <property name="indvRowCount" type="java.lang.Integer">
+            <column name="INDV_ROW_COUNT" />
+        </property>
+        <property name="indvRealValueIndicator" type="char">
+            <column name="INDV_REAL_VALUE_INDICATOR" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

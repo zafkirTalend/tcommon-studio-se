@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.talend.dataprofiler.persistence.TdqAnalyzedElement" table="TDQ_ANALYZED_ELEMENT" catalog="talend_dq">
+        <id name="eltPk" type="java.lang.Integer">
+            <column name="ELT_PK" />
+            <generator class="identity" />
+        </id>
+        <property name="eltUuid" type="string">
+            <column name="ELT_UUID" length="50" not-null="true" />
+        </property>
+        <property name="eltConnectionName" type="string">
+            <column name="ELT_CONNECTION_NAME" length="50" not-null="true" />
+        </property>
+        <property name="eltCatalogName" type="string">
+            <column name="ELT_CATALOG_NAME" length="50" not-null="true" />
+        </property>
+        <property name="eltSchemaName" type="string">
+            <column name="ELT_SCHEMA_NAME" length="50" not-null="true" />
+        </property>
+        <property name="eltTableName" type="string">
+            <column name="ELT_TABLE_NAME" length="50" not-null="true" />
+        </property>
+        <property name="eltColumnName" type="string">
+            <column name="ELT_COLUMN_NAME" length="50" not-null="true" />
+        </property>
+        <property name="eltBeginDate" type="timestamp">
+            <column name="ELT_BEGIN_DATE" length="0" not-null="true" />
+        </property>
+        <property name="eltEndDate" type="timestamp">
+            <column name="ELT_END_DATE" length="0" not-null="true" />
+        </property>
+        <property name="eltIsLast" type="char">
+            <column name="ELT_IS_LAST" length="1" not-null="true" />
+        </property>
+        <property name="eltVersion" type="int">
+            <column name="ELT_VERSION" not-null="true" />
+        </property>
+        <set name="tdqIndicatorValues" inverse="true">
+            <key>
+                <column name="ELT_PK" not-null="true" />
+            </key>
+            <one-to-many class="org.talend.dataprofiler.persistence.TdqIndicatorValue" />
+        </set>
+    </class>
+</hibernate-mapping>
