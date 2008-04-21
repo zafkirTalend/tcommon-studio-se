@@ -55,6 +55,10 @@ public class SqlConstants {
      */
     public static final String NULL_VALUE = "#### TALEND NULL VALUE ####";
 
+    public static final String DEFAULT_SUBCATEGORY = "None";
+
+    public static final String DEFAULT_CATEGORY = "None";
+
     /**
      * @return 01/01/3000 0h00:00
      */
