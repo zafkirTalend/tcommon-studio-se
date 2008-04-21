@@ -14,7 +14,6 @@ package org.talend.repository.preview;
 
 import org.eclipse.core.runtime.CoreException;
 import org.talend.core.utils.CsvArray;
-import org.talend.core.utils.XmlArray;
 import org.talend.designer.runprocess.ProcessorException;
 
 /**
@@ -34,6 +33,18 @@ public interface IPreview {
      * @throws ProcessorException
      */
     CsvArray preview(IProcessDescription description, String type) throws CoreException;
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "preview".
+     * 
+     * @param description
+     * @param type
+     * @param errorOutputAsException
+     * @return
+     * @throws CoreException
+     */
+    CsvArray preview(IProcessDescription description, String type, boolean errorOutputAsException) throws CoreException;
 
     /**
      * Stop loading preview.
