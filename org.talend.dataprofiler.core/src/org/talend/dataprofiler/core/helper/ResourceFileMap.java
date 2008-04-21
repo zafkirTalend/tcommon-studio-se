@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.helper;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +29,10 @@ public class ResourceFileMap {
 
     private Map<IFile, Resource> registedResourceMap = new HashMap<IFile, Resource>();
 
-//    private ResourceFileMapHelper instance = new ResourceFileMapHelper();
+    // private ResourceFileMapHelper instance = new ResourceFileMapHelper();
 
     public void register(IFile file, Resource resource) {
         registedResourceMap.put(file, resource);
-    }
-
-    public Resource get(IFile file) {
-        return registedResourceMap.get(file);
     }
 
     /**
@@ -44,10 +41,23 @@ public class ResourceFileMap {
      * @param file
      * @return
      */
-    protected Resource getFileResource(IFile file) {
+    public Resource getFileResource(IFile file) {
+        Resource res = registedResourceMap.get(file);
+        if (res != null) {
+            return res;
+        }
         EMFUtil util = new EMFUtil();
         String path = file.getFullPath().toString();
         URI uri = URI.createPlatformResourceURI(path, true);
+        ResourceSet rs = util.getResourceSet();
+        Resource resource = rs.getResource(uri, true);
+        this.registedResourceMap.put(file, resource);
+        return resource;
+    }
+
+    protected Resource getFileResource(File file) {
+        EMFUtil util = new EMFUtil();
+        URI uri = URI.createFileURI(file.getPath());
         ResourceSet rs = util.getResourceSet();
         Resource resource = rs.getResource(uri, true);
         return resource;

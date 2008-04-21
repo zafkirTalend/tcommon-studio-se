@@ -26,19 +26,19 @@ import org.talend.utils.sugars.TypedReturnCode;
  * This class help the '.prv' file to store the corresponding DataProvider value.
  * 
  */
-public final class PrvFileMapHelper extends ResourceFileMap {
+public final class PrvResourceFileHelper extends ResourceFileMap {
 
     private static Map<IFile, TypedReturnCode<TdDataProvider>> providerMap = new HashMap<IFile, TypedReturnCode<TdDataProvider>>();
 
-    private static PrvFileMapHelper instance;
+    private static PrvResourceFileHelper instance;
 
-    private PrvFileMapHelper() {
+    private PrvResourceFileHelper() {
         super();
     }
 
-    public static PrvFileMapHelper getInstance() {
+    public static PrvResourceFileHelper getInstance() {
         if (instance == null) {
-            instance = new PrvFileMapHelper();
+            instance = new PrvResourceFileHelper();
         }
         return instance;
     }
@@ -56,7 +56,6 @@ public final class PrvFileMapHelper extends ResourceFileMap {
         }
         rc = new TypedReturnCode<TdDataProvider>();
         Resource resource = getFileResource(file);
-        register(file, resource);
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(resource.getContents());
         if (tdDataProviders.isEmpty()) {
             rc.setReturnCode("No Data Provider found in " + file.getFullPath(), false);

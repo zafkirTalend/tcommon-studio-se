@@ -19,8 +19,8 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.dataprofiler.core.helper.PrvFileMapHelper;
 import org.talend.dataprofiler.core.helper.FolderNodeHelper;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 
 /**
@@ -39,7 +39,7 @@ public class DQRepositoryViewContentProvider extends
 
 	public Object[] getChildren(Object parentElement) {
         if (parentElement instanceof IFile) {
-            parentElement = PrvFileMapHelper.getInstance().get((IFile) parentElement);
+            parentElement = PrvResourceFileHelper.getInstance().getFileResource((IFile) parentElement);
         } else if (parentElement instanceof IFolderNode) {
             IFolderNode folerNode = (IFolderNode) parentElement;
             if (!(folerNode.isLoaded())) {

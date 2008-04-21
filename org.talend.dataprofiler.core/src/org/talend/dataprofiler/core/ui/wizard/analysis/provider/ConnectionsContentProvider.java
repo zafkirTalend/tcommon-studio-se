@@ -18,7 +18,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.talend.dataprofiler.core.helper.PrvFileMapHelper;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
 import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
 

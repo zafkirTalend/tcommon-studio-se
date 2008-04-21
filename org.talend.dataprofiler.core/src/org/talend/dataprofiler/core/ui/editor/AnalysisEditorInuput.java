@@ -18,24 +18,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
-import org.talend.commons.emf.EMFUtil;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dataquality.analysis.util.AnalysisSwitch;
 import org.talend.dataquality.helpers.AnalysisHelper;
 
 /**
@@ -44,7 +37,7 @@ import org.talend.dataquality.helpers.AnalysisHelper;
  */
 public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableElement {
 
-    private static Logger log = Logger.getLogger(AnalysisEditorInuput.class);
+//    private static Logger log = Logger.getLogger(AnalysisEditorInuput.class);
 
     private IStorage fStorage;
 
@@ -145,25 +138,7 @@ public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableEl
         if (analysis != null) {
             return analysis;
         }
-        EMFUtil util = new EMFUtil();
-        log.info("Loading file " + fFile.getAbsolutePath());
-        ResourceSet rs = util.getResourceSet();
-        Resource r = rs.getResource(URI.createFileURI(fFile.getAbsolutePath()), true);
-
-        EList<EObject> contents = r.getContents();
-        if (contents.isEmpty()) {
-            log.error("No content in " + r);
-        }
-        log.info("Nb elements in contents " + contents.size());
-        AnalysisSwitch<Analysis> mySwitch = new AnalysisSwitch<Analysis>() {
-
-            public Analysis caseAnalysis(Analysis object) {
-                return object;
-            }
-        };
-        if (contents != null) {
-            analysis = mySwitch.doSwitch(contents.get(0));
-        }
+        analysis = AnaResourceFileHelper.getInstance().getAnalysis(fFile);
         return analysis;
     }
 

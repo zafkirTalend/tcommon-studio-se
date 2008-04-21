@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.views;
 
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -20,10 +21,12 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
-import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.helper.PrvFileMapHelper;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
+import org.talend.dataprofiler.core.utils.DateFormatUtils;
+import org.talend.dataquality.analysis.Analysis;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -55,7 +58,7 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
     protected String decorateText(String input, Object element) {
         if (input.endsWith(PluginConstant.PRV_SUFFIX)) {
             IFile file = (IFile) element;
-            TypedReturnCode<TdDataProvider> rc = PrvFileMapHelper.getInstance().readFromFile(file);
+            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().readFromFile(file);
             String decorateText = PluginConstant.EMPTY_STRING;
             if (rc.isOk()) {
                 decorateText = rc.getObject().getName();
@@ -64,26 +67,14 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
             }
             return decorateText;
         } else if (input.endsWith(PluginConstant.ANA_SUFFIX)) {
-            EMFUtil util = new EMFUtil();
             log.info("Loading file " + ((IFile) element).getLocation());
-            // ResourceSet rs = util.getResourceSet();
-            // Resource r = rs.getResource(URI.createFileURI(fFile.getAbsolutePath()), true);
-            //
-            // EList<EObject> contents = r.getContents();
-            // if (contents.isEmpty()) {
-            // log.error("No content in " + r);
-            // }
-            // log.info("Nb elements in contents " + contents.size());
-            // AnalysisSwitch<Analysis> mySwitch = new AnalysisSwitch<Analysis>() {
-            //
-            // public Analysis caseAnalysis(Analysis object) {
-            // return object;
-            // }
-            // };
-            // if (contents != null) {
-            // analysis = mySwitch.doSwitch(contents.get(0));
-            // }
-            // return analysis;
+            Analysis analysis = AnaResourceFileHelper.getInstance().getAnalysis((IFile) element);
+            if (analysis != null) {
+                Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
+                String executeInfo = executionDate == null ? "(Not executed yet)" : "("
+                        + DateFormatUtils.getSimpleDateString(executionDate) + ")";
+                return analysis.getName() + PluginConstant.SPACE_STRING + executeInfo;
+            }
         }
         return input;
     }
