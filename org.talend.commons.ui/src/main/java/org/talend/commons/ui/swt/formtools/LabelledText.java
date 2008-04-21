@@ -408,4 +408,14 @@ public class LabelledText {
 
     }
 
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getTextControl".
+     * 
+     * @return
+     */
+    public Text getTextControl() {
+        return this.text;
+    }
+
 }
