@@ -14,7 +14,9 @@ package org.talend.core.model.update;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ggu class global comment. Detailled comment
@@ -28,6 +30,9 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
     // for joblet changed
     private List<PropertyChangeEvent> nodesChangerList = new ArrayList<PropertyChangeEvent>();
 
+    // for repository schema rename
+    private Map<String, String> schemaRenamedMap = new HashMap<String, String>();
+
     /**
      * ggu AbstractUpdateManager constructor comment.
      * 
@@ -39,6 +44,27 @@ public abstract class AbstractUpdateManager implements IUpdateManager {
 
     public List<PropertyChangeEvent> getNodePropertyChanger() {
         return this.nodesChangerList;
+    }
+
+    /**
+     * 
+     * ggu Comment method "getSchemaRenamedMap".
+     * 
+     * used for repository renamed schema update.
+     */
+    public Map<String, String> getSchemaRenamedMap() {
+        return this.schemaRenamedMap;
+    }
+
+    public void setSchemaRenamedMap(Map<String, String> schemaRenamedMap) {
+        this.schemaRenamedMap.clear();
+        if (schemaRenamedMap == null) {
+            return;
+        }
+        for (String old : schemaRenamedMap.keySet()) {
+            this.schemaRenamedMap.put(old, schemaRenamedMap.get(old));
+        }
+
     }
 
     /**
