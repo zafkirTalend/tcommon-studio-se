@@ -12,26 +12,45 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.provider;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.ui.wizard.analysis.CreateNewAnalysisWizard;
+import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
+import org.talend.dataprofiler.core.ui.progress.ProgressUI;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dataquality.helpers.AnalysisHelper;
+import org.talend.dq.analysis.AnalysisExecutor;
+import org.talend.dq.analysis.ColumnAnalysisExecutor;
+import org.talend.dq.analysis.ConnectionAnalysisExecutor;
+import org.talend.utils.sugars.ReturnCode;
 
 /**
  * DOC rli class global comment. Detailled comment
  */
 public class RunAnalysisActionProvider extends CommonActionProvider {
 
+    private IAction runAnalysisAction;
+
+    private IFile currentSelection;
+
     public RunAnalysisActionProvider() {
     }
-
-    private IAction runAnalysisAction;
 
     public void init(ICommonActionExtensionSite anExtensionSite) {
 
@@ -44,6 +63,10 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
      * Adds a submenu to the given menu with the name "New Component".
      */
     public void fillContextMenu(IMenuManager menu) {
+        Object obj = ((TreeSelection) this.getContext().getSelection()).getFirstElement();
+        if (obj instanceof IFile) {
+            currentSelection = (IFile) obj;
+        }
         menu.add(runAnalysisAction);
     }
 
@@ -62,18 +85,45 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
          * (non-Javadoc) Method declared on IAction.
          */
         public void run() {
-            try {
-                CreateNewAnalysisWizard wizard = new CreateNewAnalysisWizard(PlatformUI.getWorkbench(), true, null, null);
-                wizard.setForcePreviousAndNextButtons(true);
-
-                WizardDialog dialog = new WizardDialog(null, wizard);
-                dialog.setPageSize(500, 340);
-                dialog.create();
-
-                dialog.open();
-            } catch (Exception e) {
-                e.printStackTrace();
+            Analysis analysis = null;
+            if (currentSelection.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
+                analysis = AnaResourceFileHelper.getInstance().getAnalysis(currentSelection);
             }
+            AnalysisType analysisType = AnalysisHelper.getAnalysisType(analysis);
+            AnalysisExecutor exec = null;
+            switch (analysisType) {
+            case COLUMN:
+                exec = new ColumnAnalysisExecutor();
+                break;
+            case CONNECTION:
+                exec = new ConnectionAnalysisExecutor();
+                break;
+            default:
+                exec = new ColumnAnalysisExecutor();
+            }
+            
+            final Analysis finalAnalysis = analysis;
+            final AnalysisExecutor finalExec = exec;
+            
+            final Shell  shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+            IRunnableWithProgress op = new IRunnableWithProgress() {
+
+                public void run(IProgressMonitor monitor) throws InvocationTargetException {
+                    ReturnCode executed = finalExec.execute(finalAnalysis);
+//                    if(executed.isOk()){
+//                        throw new InvocationTargetException(executed.);
+//                    }
+                }
+            };
+            try {
+                ProgressUI.popProgressDialog(op, shell);
+            } catch (InvocationTargetException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }            
 
         }
     }

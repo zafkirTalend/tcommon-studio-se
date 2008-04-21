@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
@@ -300,12 +301,11 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
             if (file.isDirectory()) {
                 searchAllAnalysis(folder.getFolder(file.getName()));
             }
-            
-            AnalysisEditorInuput input = new AnalysisEditorInuput(file);
-            AnalysisEntity entity = new AnalysisEntity(input.getAnalysis());
+
+            AnalysisEntity entity = new AnalysisEntity(AnaResourceFileHelper.getInstance().getAnalysis(file));
 
             allAnalysises.add(entity);
-        } 
+        }
 
         return allAnalysises;
     }
