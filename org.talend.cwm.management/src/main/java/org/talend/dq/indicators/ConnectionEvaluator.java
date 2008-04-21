@@ -87,7 +87,8 @@ public class ConnectionEvaluator extends Evaluator<DataProvider> {
      */
     @Override
     protected ReturnCode executeSqlQuery(String sqlStatement) throws SQLException {
-        assert this.getAnalyzedElements().size() == 1;
+        assert this.getAnalyzedElements().size() == 1 : "Invalid number of analyzed elements: "
+                + this.getAnalyzedElements().size();
         ReturnCode ok = new ReturnCode(true);
         // --- preconditions
         DataProvider dataProvider = this.getAnalyzedElements().iterator().next();
@@ -249,8 +250,8 @@ public class ConnectionEvaluator extends Evaluator<DataProvider> {
      * @param ok
      * @throws SQLException
      */
-    private void getRowCount(String catalog, String schemaPattern, String table, SchemaIndicator schemaIndic,
-            ReturnCode ok) throws SQLException {
+    private void getRowCount(String catalog, String schemaPattern, String table, SchemaIndicator schemaIndic, ReturnCode ok)
+            throws SQLException {
         String sqlStatement = SELECT_COUNT_FROM + table;
         Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,
                 ResultSet.CLOSE_CURSORS_AT_COMMIT);

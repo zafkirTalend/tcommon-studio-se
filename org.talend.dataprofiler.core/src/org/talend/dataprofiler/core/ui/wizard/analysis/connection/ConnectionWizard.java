@@ -17,6 +17,8 @@ import java.io.File;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AnalysisMetadataWizardPage;
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.schema.SchemaFactory;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
 
@@ -77,7 +79,9 @@ public class ConnectionWizard extends AbstractAnalysisWizard {
         this.pathName = parameters.getFolderProvider().getFolder() + File.separator + analysisName + ".ana";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard#fillAnalysisBuilder(org.talend.dq.analysis.AnalysisBuilder)
      */
     @Override
@@ -85,7 +89,9 @@ public class ConnectionWizard extends AbstractAnalysisWizard {
         ConnectionAnalysisParameter parameters = (ConnectionAnalysisParameter) getAnalysisParameter();
         TdDataProvider tdProvider = parameters.getTdDataProvider();
         analysisBuilder.setAnalysisConnection(tdProvider);
-        
+        Indicator indicator = SchemaFactory.eINSTANCE.createConnectionIndicator();
+        indicator.setAnalyzedElement(tdProvider);
+        analysisBuilder.addElementToAnalyze(tdProvider, indicator);
         super.fillAnalysisBuilder(analysisBuilder);
     }
 

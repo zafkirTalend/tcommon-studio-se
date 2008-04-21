@@ -127,12 +127,17 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
         TypedReturnCode<Connection> rc = new TypedReturnCode<Connection>();
 
         DataManager datamanager = analysis.getContext().getConnection();
+        if (datamanager == null) {
+            rc.setReturnCode("Data manager is null for analysis " + analysis.getName(), false);
+            return rc;
+        }
         TdDataProvider dataprovider = SwitchHelpers.TDDATAPROVIDER_SWITCH.doSwitch(datamanager);
         if (dataprovider == null) {
-            return null;
+            rc.setReturnCode("Data provider is null for data manager " + datamanager.getName() + " in analysis "
+                    + analysis.getName(), false);
+            return rc;
         }
-        TypedReturnCode<TdProviderConnection> providerConnection = DataProviderHelper
-                .getTdProviderConnection(dataprovider);
+        TypedReturnCode<TdProviderConnection> providerConnection = DataProviderHelper.getTdProviderConnection(dataprovider);
         if (!providerConnection.isOk()) {
             rc.setReturnCode(providerConnection.getMessage(), false);
             return rc;
