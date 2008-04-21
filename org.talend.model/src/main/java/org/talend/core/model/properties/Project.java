@@ -38,6 +38,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getSpagoBiServer <em>Spago Bi Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getProductVersion <em>Product Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -334,6 +335,32 @@ public interface Project extends EObject {
      * @generated
      */
     EList getSpagoBiServer();
+
+    /**
+     * Returns the value of the '<em><b>Product Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Product Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Product Version</em>' attribute.
+     * @see #setProductVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ProductVersion()
+     * @model
+     * @generated
+     */
+    String getProductVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getProductVersion <em>Product Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Product Version</em>' attribute.
+     * @see #getProductVersion()
+     * @generated
+     */
+    void setProductVersion(String value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

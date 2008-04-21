@@ -248,13 +248,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__SPAGO_BI_SERVER = 19;
 
     /**
+     * The feature id for the '<em><b>Product Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__PRODUCT_VERSION = 20;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 20;
+    int PROJECT_FEATURE_COUNT = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -4138,6 +4147,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_SpagoBiServer();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getProductVersion <em>Product Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Product Version</em>'.
+     * @see org.talend.core.model.properties.Project#getProductVersion()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_ProductVersion();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -6892,6 +6912,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__SPAGO_BI_SERVER = eINSTANCE.getProject_SpagoBiServer();
+
+        /**
+         * The meta object literal for the '<em><b>Product Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__PRODUCT_VERSION = eINSTANCE.getProject_ProductVersion();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.

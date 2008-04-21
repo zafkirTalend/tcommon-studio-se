@@ -41,6 +41,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="masterJobId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="spagoBiServer" ordered="false"
         upperBound="-1" eType="#//SpagoBiServer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="productVersion" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"

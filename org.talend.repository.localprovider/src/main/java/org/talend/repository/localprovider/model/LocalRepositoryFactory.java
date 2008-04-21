@@ -1398,4 +1398,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         return false;
     }
+
+    protected void saveProject() throws PersistenceException {
+        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
+        xmiResourceManager.saveResource(loadProject.eResource());
+    }
 }

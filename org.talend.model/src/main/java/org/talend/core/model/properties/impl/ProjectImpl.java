@@ -54,6 +54,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTasks <em>Migration Tasks</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMasterJobId <em>Master Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getSpagoBiServer <em>Spago Bi Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getProductVersion <em>Product Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -359,6 +360,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList spagoBiServer;
 
     /**
+     * The default value of the '{@link #getProductVersion() <em>Product Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProductVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final String PRODUCT_VERSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getProductVersion() <em>Product Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProductVersion()
+     * @generated
+     * @ordered
+     */
+    protected String productVersion = PRODUCT_VERSION_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -593,6 +614,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getProductVersion() {
+        return productVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setProductVersion(String newProductVersion) {
+        String oldProductVersion = productVersion;
+        productVersion = newProductVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__PRODUCT_VERSION, oldProductVersion, productVersion));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -789,6 +831,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getMasterJobId();
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
                 return getSpagoBiServer();
+            case PropertiesPackage.PROJECT__PRODUCT_VERSION:
+                return getProductVersion();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -868,6 +912,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getSpagoBiServer().clear();
                 getSpagoBiServer().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__PRODUCT_VERSION:
+                setProductVersion((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -938,6 +985,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
                 getSpagoBiServer().clear();
                 return;
+            case PropertiesPackage.PROJECT__PRODUCT_VERSION:
+                setProductVersion(PRODUCT_VERSION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -988,6 +1038,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return MASTER_JOB_ID_EDEFAULT == null ? masterJobId != null : !MASTER_JOB_ID_EDEFAULT.equals(masterJobId);
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
                 return spagoBiServer != null && !spagoBiServer.isEmpty();
+            case PropertiesPackage.PROJECT__PRODUCT_VERSION:
+                return PRODUCT_VERSION_EDEFAULT == null ? productVersion != null : !PRODUCT_VERSION_EDEFAULT.equals(productVersion);
         }
         return super.eIsSet(featureID);
     }
@@ -1022,6 +1074,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(migrationTasks);
         result.append(", masterJobId: ");
         result.append(masterJobId);
+        result.append(", productVersion: ");
+        result.append(productVersion);
         result.append(')');
         return result.toString();
     }
