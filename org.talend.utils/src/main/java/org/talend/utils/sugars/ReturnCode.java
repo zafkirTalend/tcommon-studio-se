@@ -98,4 +98,10 @@ public class ReturnCode {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return ok ? "OK" : "KO: " + message;
+    }
+
 }
