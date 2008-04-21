@@ -124,8 +124,8 @@ public final class UpdateContextVariablesHelper {
             return false;
         }
         // get old syntax map of the context variables.
-        Map<String, String> replacedScriptCodeMap = retrieveReplacedScriptCodeMap((List<ContextType>) processType.getContext(),
-                processType.getDefaultContext());
+        Map<String, String> replacedScriptCodeMap = retrieveReplacedScriptCodeMap((List<ContextType>) processType
+                .getContext(), processType.getDefaultContext());
         if (replacedScriptCodeMap.isEmpty()) {
             return false;
         }
@@ -134,20 +134,22 @@ public final class UpdateContextVariablesHelper {
     }
 
     @SuppressWarnings("unchecked")
-    private static boolean updateProcess(ProcessType processType, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
+    private static boolean updateProcess(ProcessType processType, final Map<String, String> varScriptCodeMap,
+            boolean oldSyntax) {
         if (processType == null || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
             return false;
         }
 
         boolean changed = false;
         // update process parameter
-        changed = updateElementParameter((List<ElementParameterType>) processType.getParameters().getElementParameter(),
-                varScriptCodeMap, oldSyntax);
+        changed = updateElementParameter(
+                (List<ElementParameterType>) processType.getParameters().getElementParameter(), varScriptCodeMap,
+                oldSyntax);
         // update nodes parameter
         for (NodeType node : (List<NodeType>) processType.getNode()) {
             // update parameter
-            changed |= updateElementParameter((List<ElementParameterType>) node.getElementParameter(), varScriptCodeMap,
-                    oldSyntax);
+            changed |= updateElementParameter((List<ElementParameterType>) node.getElementParameter(),
+                    varScriptCodeMap, oldSyntax);
 
             // update extend node data
             String strdata = node.getStringData();
@@ -164,7 +166,8 @@ public final class UpdateContextVariablesHelper {
 
     private static boolean updateElementParameter(List<ElementParameterType> eleParameterList,
             final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
-        if (eleParameterList == null || eleParameterList.isEmpty() || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
+        if (eleParameterList == null || eleParameterList.isEmpty() || varScriptCodeMap == null
+                || varScriptCodeMap.isEmpty()) {
             return false;
         }
         boolean changed = false;
@@ -182,7 +185,8 @@ public final class UpdateContextVariablesHelper {
         return changed;
     }
 
-    private static String hasAndReplaceValue(final String value, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
+    private static String hasAndReplaceValue(final String value, final Map<String, String> varScriptCodeMap,
+            boolean oldSyntax) {
         if (value == null || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
             return value; // keep original value
         }
@@ -191,10 +195,11 @@ public final class UpdateContextVariablesHelper {
         for (String oldScriptCode : varScriptCodeMap.keySet()) {
             String contextNameFullName = varScriptCodeMap.get(oldScriptCode);
 
-            returnValue = hasAndReplaceValue(returnValue, replaceSpecialChar(oldScriptCode), varScriptCodeMap.get(oldScriptCode),
-                    oldSyntax);
+            returnValue = hasAndReplaceValue(returnValue, replaceSpecialChar(oldScriptCode), varScriptCodeMap
+                    .get(oldScriptCode), oldSyntax);
             // add this for bug 3455
-            returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""), false);
+            returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""),
+                    false);
 
         }
         return returnValue;
@@ -214,13 +219,15 @@ public final class UpdateContextVariablesHelper {
         String out = "context." + varName + "=";
         out = "$1" + out + "$3;";
 
-        String resultString = fullContent.replaceAll(regex, out);
-
-        return resultString;
+        if (java.util.regex.Pattern.compile(regex).matcher(fullContent).matches()) {
+            return fullContent.replaceAll(regex, out);
+        } else {
+            return fullContent;
+        }
     }
 
-    private static String hasAndReplaceValue(final String value, final String oldScriptCode, final String newScriptCode,
-            boolean oldSyntax) {
+    private static String hasAndReplaceValue(final String value, final String oldScriptCode,
+            final String newScriptCode, boolean oldSyntax) {
         if (value == null || oldScriptCode == null || newScriptCode == null) {
             return value; // keep original value
         }
@@ -299,7 +306,8 @@ public final class UpdateContextVariablesHelper {
      * retrieve the new and old variables script code map.
      */
     @SuppressWarnings("unchecked")
-    private static Map<String, String> retrieveReplacedScriptCodeMap(List<ContextType> contextsList, final String contextName) {
+    private static Map<String, String> retrieveReplacedScriptCodeMap(List<ContextType> contextsList,
+            final String contextName) {
 
         if (contextsList == null || contextsList.isEmpty() || contextName == null) {
             return Collections.emptyMap();
@@ -321,7 +329,8 @@ public final class UpdateContextVariablesHelper {
         return varsScriptCodeMap;
     }
 
-    private static String replaceQuotStringData(String data, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
+    private static String replaceQuotStringData(String data, final Map<String, String> varScriptCodeMap,
+            boolean oldSyntax) {
         Map<String, String> varScriptCodeMapExt = new HashMap<String, String>();
 
         for (String oldScriptCode : varScriptCodeMap.keySet()) {
