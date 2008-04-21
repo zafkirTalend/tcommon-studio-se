@@ -7,7 +7,7 @@
 			<xs:sequence>
 				<xs:element maxOccurs="unbounded" name="column"
 					type="column" />
-				<xs:element maxOccurs="unbounded" name="custom"
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="custom"
 					type="custom" />
 			</xs:sequence>
 			<xs:attribute name="dbmsId" type="xs:string" use="optional" />
