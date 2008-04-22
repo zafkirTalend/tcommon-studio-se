@@ -22,6 +22,7 @@ import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.DescriptionHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
@@ -104,7 +105,8 @@ public class CreateNewReportWizard extends Wizard {
                 
                 // write this object to file
                 ReportWriter writer = new ReportWriter();
-                String path = reportParameter.getFolderProvider().getFolder() + File.separator + reportParameter.getName() + ".rep";
+                String path = reportParameter.getFolderProvider().getFolder() + File.separator 
+                    + reportParameter.getName() + PluginConstant.REP_SUFFIX;
                 File file = new File(path);
                 
                 if (file.exists()) {

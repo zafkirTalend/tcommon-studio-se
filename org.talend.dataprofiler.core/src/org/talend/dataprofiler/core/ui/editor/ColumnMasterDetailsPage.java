@@ -43,9 +43,15 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.events.IHyperlinkListener;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.PluginConstant;
@@ -53,6 +59,7 @@ import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
+import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
 import org.talend.dataquality.indicators.DataminingType;
@@ -207,19 +214,33 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         ((GridData) tree.getLayoutData()).widthHint = 500;
         tree.setLayout(new GridLayout());
 
-        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators);
+        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators , analysisHandler.getAnalysis());
         treeViewer.setDirty(false);
         treeViewer.addPropertyChangeListener(this);
         Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
         buttonsComp.setLayout(new GridLayout(1, true));
-        Button button = toolkit.createButton(buttonsComp, "Add..", SWT.None);
-        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(button);
-        button.addSelectionListener(new SelectionAdapter() {
 
-            public void widgetSelected(SelectionEvent e) {
+        Hyperlink clmnBtn = toolkit.createHyperlink(buttonsComp, "columns to analyze", SWT.NONE);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(clmnBtn);
+        clmnBtn.addHyperlinkListener(new HyperlinkAdapter() {
+
+            public void linkActivated(HyperlinkEvent e) {
+                // TODO Auto-generated method stub
                 openColumnsSelectionDialog();
             }
+            
+        });
+
+        Hyperlink indcBtn = toolkit.createHyperlink(buttonsComp, "Select indicators for each column", SWT.NONE);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(indcBtn);
+        indcBtn.addHyperlinkListener(new HyperlinkAdapter() {
+
+            public void linkActivated(HyperlinkEvent e) {
+                // TODO Auto-generated method stub
+                treeViewer.openIndicatorSelectDialog();
+            }
+            
         });
 
         section.setClient(topComp);

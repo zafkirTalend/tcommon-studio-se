@@ -13,6 +13,8 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -20,6 +22,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
@@ -88,8 +91,24 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
      */
     @Override
     protected void addFieldsListeners() {
-        // TODO Auto-generated method stub
+        
+        lowerText.addModifyListener(new ModifyListener() {
 
+            public void modifyText(ModifyEvent e) {
+               
+                parameters.put(IParameterConstant.INDICATOR_LOWER_THRESHOLD, lowerText.getText());
+            }
+            
+        });
+        
+        higherText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+               
+                parameters.put(IParameterConstant.INDICATOR_HIGHER_THRESHOLD, higherText.getText());
+            }
+            
+        });
     }
 
     /* (non-Javadoc)

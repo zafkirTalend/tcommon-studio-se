@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.AssertionFailedException;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -29,6 +31,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -37,7 +40,10 @@ import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
+import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.indicators.DataminingType;
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.IndicatorsFactory;
 
 /**
  * @author rli
@@ -54,14 +60,21 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     private Tree tree;
 
     private ColumnIndicator[] columnIndicators;
+    
+    private IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
+    
+    private Button modButton;
+    
+    private Analysis analysis;
 
     public AnasisColumnTreeViewer(Composite parent) {
         parentComp = parent;
         this.tree = createTree(parent);
     }
 
-    public AnasisColumnTreeViewer(Composite parent, ColumnIndicator[] columnIndicators) {
+    public AnasisColumnTreeViewer(Composite parent, ColumnIndicator[] columnIndicators , Analysis analysis) {
         this(parent);
+        this.analysis = analysis;
         this.setElements(columnIndicators);
         this.setDirty(false);
     }
@@ -146,10 +159,12 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             });
             combo.setEditable(false);
-            // editor.grabHorizontal = true;
+            
+            
             editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);
 
+            /**
             editor = new TreeEditor(tree);
             Button addButton = new Button(tree, SWT.NONE);
             addButton.setText("Add");
@@ -165,6 +180,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 }
 
             });
+            
 
             editor = new TreeEditor(tree);
             Button modButton = new Button(tree, SWT.NONE);
@@ -174,9 +190,10 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             // editor.minimumWidth = modButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, treeItem, 3);
+            **/
 
             editor = new TreeEditor(tree);
-            Button delButton = new Button(tree, SWT.NONE);
+            Button delButton = new Button(tree, SWT.FLAT);
             delButton.setText("Del");
             delButton.pack();
             delButton.addSelectionListener(new SelectionAdapter() {
@@ -216,9 +233,11 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             indicatorItem.setText(0, indicatorEnums[i].getLabel());
 
             TreeEditor editor = new TreeEditor(tree);
-            Button modButton = new Button(tree, SWT.NONE);
+            modButton = new Button(tree, SWT.FLAT);
             modButton.setText("Options");
             modButton.pack();
+            Indicator indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
+            modButton.setData(indicator);
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, indicatorItem, 1);
@@ -245,17 +264,18 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
                 public void widgetSelected(SelectionEvent e) {
 
+                    Indicator indicator = (Indicator) modButton.getData();
                     ColumnIndicator columnIndicator = (ColumnIndicator) treeItem.getData();
-                    // open the wizard
-                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(columnIndicator, indicatorEnum);
+                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(columnIndicator, indicator, indicatorEnum, analysis);
 
                     try {
-                        WizardDialog dialog = new WizardDialog(e.widget.getDisplay().getActiveShell(), wizard);
+                        // open the dialog
+                        WizardDialog dialog = new WizardDialog(null, wizard);
                         dialog.setPageSize(300, 400);
                         dialog.open();
                         
-                    } catch (Exception ex) {
-                       ex.printStackTrace();
+                    } catch (AssertionFailedException ex) {
+                       MessageDialogWithToggle.openInformation(null, "Indicator Option", "No optiones to set!");
                     }
                     
                 }
@@ -263,7 +283,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         }
     }
 
-    private void openIndicatorSelectDialog() {
+    public void openIndicatorSelectDialog() {
         IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector", columnIndicators);
         if (dialog.open() == Window.OK) {
             ColumnIndicator[] result = dialog.getResult();

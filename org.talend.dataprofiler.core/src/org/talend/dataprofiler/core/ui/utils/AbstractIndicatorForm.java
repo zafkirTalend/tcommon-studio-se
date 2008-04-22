@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.swt.widgets.Composite;
 
 
@@ -21,6 +24,8 @@ import org.eclipse.swt.widgets.Composite;
 public abstract class AbstractIndicatorForm extends AbstractForm {
 
     private String formName;
+    
+    public static Map<String, String> parameters = new HashMap<String, String>();
     /**
      * DOC zqin AbstractIndicatorForm constructor comment.
      * @param parent

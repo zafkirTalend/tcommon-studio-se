@@ -13,6 +13,8 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -20,6 +22,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
@@ -77,6 +80,7 @@ public class TextLengthForm extends AbstractIndicatorForm {
         
         blankBtn = new Button(group, SWT.CHECK);
         blankBtn.setText("count blanks");
+        
     }
 
     /* (non-Javadoc)
@@ -84,8 +88,32 @@ public class TextLengthForm extends AbstractIndicatorForm {
      */
     @Override
     protected void addFieldsListeners() {
-        // TODO Auto-generated method stub
 
+        nullBtn.addSelectionListener(new SelectionAdapter() {
+
+            /* (non-Javadoc)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+             */
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                
+                parameters.put(IParameterConstant.INDICATOR_COUNT_NULLS, String.valueOf(nullBtn.getSelection()));
+            }
+            
+        });
+        
+        blankBtn.addSelectionListener(new SelectionAdapter() {
+
+            /* (non-Javadoc)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+             */
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                
+                parameters.put(IParameterConstant.INDICATOR_COUNT_BLANKS, String.valueOf(blankBtn.getSelection()));
+            }
+            
+        });
     }
 
     /* (non-Javadoc)
@@ -111,8 +139,9 @@ public class TextLengthForm extends AbstractIndicatorForm {
      */
     @Override
     protected void initialize() {
-        // TODO Auto-generated method stub
 
+        parameters.put(IParameterConstant.INDICATOR_COUNT_NULLS, "false");
+        parameters.put(IParameterConstant.INDICATOR_COUNT_BLANKS, "false");
     }
 
 }

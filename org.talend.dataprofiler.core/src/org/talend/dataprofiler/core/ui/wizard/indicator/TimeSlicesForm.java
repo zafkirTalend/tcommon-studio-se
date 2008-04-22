@@ -13,13 +13,16 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dataquality.indicators.DateGrain;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
@@ -29,7 +32,7 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
 
     private final String formName = "Time Slices";
     
-    private String[] args = new String[] {"day", "week", "month", "quarter", "semester", "year", "none"};
+    private Button btn;
     /**
      * DOC zqin TimeSlicesForm constructor comment.
      * @param parent
@@ -70,10 +73,21 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
         group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         group.setText("Aggregate date by");  
         
-        Button btn = null;
-        for (String str : args) {
+        for (DateGrain oneDate : DateGrain.VALUES) {
             btn = new Button(group, SWT.RADIO);
-            btn.setText(str);
+            btn.setText(oneDate.getLiteral());
+            btn.addSelectionListener(new SelectionAdapter() {
+
+                /* (non-Javadoc)
+                 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+                 */
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    
+                    parameters.put(IParameterConstant.INDICATOR_TIME_SLICES, ((Button) e.getSource()).getText());
+                }
+                
+            });
         }
     }
 
@@ -82,7 +96,6 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
      */
     @Override
     protected void addFieldsListeners() {
-        // TODO Auto-generated method stub
 
     }
 

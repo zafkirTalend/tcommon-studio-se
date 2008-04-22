@@ -57,6 +57,8 @@ public class DataFilterComp extends AbstractPagePart {
         Composite buttonsComp = new Composite(parent, SWT.None);
         GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
         buttonsComp.setLayout(new GridLayout(1, true));
+        
+        buttonsComp.setVisible(false);
 
         Button button = new Button(buttonsComp, SWT.None);
         button.setText("Edit..");

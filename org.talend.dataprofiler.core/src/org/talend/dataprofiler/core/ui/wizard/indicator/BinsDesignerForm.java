@@ -14,6 +14,8 @@ package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -23,6 +25,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
@@ -82,8 +85,33 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
      */
     @Override
     protected void addFieldsListeners() {
-        // TODO Auto-generated method stub
+        
+        minValue.addModifyListener(new ModifyListener() {
 
+            public void modifyText(ModifyEvent e) {
+               
+                parameters.put(IParameterConstant.INDICATOR_MIN_VALUE, minValue.getText());
+            }
+            
+        });
+        
+        maxValue.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+               
+                parameters.put(IParameterConstant.INDICATOR_MAX_VALUE, maxValue.getText());
+            }
+            
+        });
+        
+        numbOfBins.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+               
+                parameters.put(IParameterConstant.INDICATOR_NUM_OF_BIN, numbOfBins.getText());
+            }
+            
+        });
     }
 
     /* (non-Javadoc)

@@ -13,6 +13,8 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -20,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
@@ -91,8 +94,19 @@ public class TextParametersForm extends AbstractIndicatorForm {
      */
     @Override
     protected void addFieldsListeners() {
-        // TODO Auto-generated method stub
+        
+        caseBtn.addSelectionListener(new SelectionAdapter() {
 
+            /* (non-Javadoc)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+             */
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                
+                parameters.put(IParameterConstant.INDICATOR_IGNORE_CASE, String.valueOf(caseBtn.getSelection()));
+            }
+            
+        });
     }
 
     /* (non-Javadoc)
@@ -118,8 +132,8 @@ public class TextParametersForm extends AbstractIndicatorForm {
      */
     @Override
     protected void initialize() {
-        // TODO Auto-generated method stub
 
+        parameters.put(IParameterConstant.INDICATOR_IGNORE_CASE, "false");
     }
 
 }

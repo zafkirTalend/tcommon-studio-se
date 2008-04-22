@@ -34,6 +34,8 @@ public final class PluginConstant {
     public static final String PRV_SUFFIX = "." + FactoriesUtil.PROV;
 
     public static final String ANA_SUFFIX = "." + FactoriesUtil.ANA;
+    
+    public static final String REP_SUFFIX = "." + FactoriesUtil.REP;
 
     public static final String METADATA_PROJECTNAME = DQStructureManager.METADATA;
 
