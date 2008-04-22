@@ -140,10 +140,10 @@ public class ImportItemUtil {
                 User author = itemRecord.getProperty().getAuthor();
                 if (author != null) {
                     if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
-                        tmpItem.getProperty().setAuthor(null); //author will be the logged user in create method
+                        tmpItem.getProperty().setAuthor(null); // author will be the logged user in create method
                     }
                 }
-                
+
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
                 } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
@@ -274,10 +274,10 @@ public class ImportItemUtil {
         if (!projectMigrationTasks.containsAll(itemMigrationTasks)) {
             itemMigrationTasks.removeAll(projectMigrationTasks);
 
-            itemRecord.addError(" " //$NON-NLS-1$
-                    + Messages.getString("RepositoryUtil.DifferentVersion")); //$NON-NLS-1$
-
-            log.debug("Cannot import item " + itemRecord.getItemName() + " -> unknow task(s) " + itemMigrationTasks);
+            String message = "Cannot import item " + itemRecord.getItemName() + " -> unknow task(s) "
+                    + itemMigrationTasks;
+            itemRecord.addError(message);
+            log.info(message);
 
             return false;
         }
