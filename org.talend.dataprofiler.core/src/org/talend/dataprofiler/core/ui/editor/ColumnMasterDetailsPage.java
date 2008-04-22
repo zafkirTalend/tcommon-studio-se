@@ -28,11 +28,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -45,21 +42,23 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
-import org.eclipse.ui.forms.events.IHyperlinkListener;
-import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
+import org.talend.dataprofiler.core.helper.EObjectHelper;
+import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
-import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
 import org.talend.dataquality.indicators.DataminingType;
@@ -337,10 +336,16 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
 
         analysisHandler.clearAnalysis();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
+        List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();
         if (columnIndicators != null) {
+            TdDataProvider tdProvider = null;
             for (ColumnIndicator columnIndicator : columnIndicators) {
                 analysisHandler.addIndicator(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
                 analysisHandler.setDatamingType(columnIndicator.getDataminingType().getLiteral(), columnIndicator.getTdColumn());
+                tdProvider = EObjectHelper.getTdDataProvider(columnIndicator.getTdColumn());
+                if (!providerList.contains(tdProvider)) {
+                    providerList.add(tdProvider);
+                }
             }
         }
         analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
@@ -352,6 +357,13 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
         ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
         if (saved.isOk()) {
+            for (TdDataProvider provider : providerList) {
+                TaggedValueHelper.setTaggedValue(provider, analysisHandler.getName() + PluginConstant.ANA_TAG_SUFFIX,
+                        PluginConstant.EMPTY_STRING);
+                NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()),
+                        provider);
+            }
+            AnaResourceFileHelper.getInstance().setResourceChanged(true);
             log.info("Saved in  " + file.getAbsolutePath() + " successful");
         } else {
             throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
@@ -365,6 +377,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         // folderProvider.setFolder(new File(outputFolder));
         // DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
     }
+
 
     public void setDirty(boolean isDirty) {
         if (this.isDirty != isDirty) {

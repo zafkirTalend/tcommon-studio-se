@@ -28,7 +28,7 @@ import org.talend.utils.sugars.TypedReturnCode;
  */
 public final class PrvResourceFileHelper extends ResourceFileMap {
 
-    private static Map<IFile, TypedReturnCode<TdDataProvider>> providerMap = new HashMap<IFile, TypedReturnCode<TdDataProvider>>();
+    private Map<IFile, TypedReturnCode<TdDataProvider>> providerMap = new HashMap<IFile, TypedReturnCode<TdDataProvider>>();
 
     private static PrvResourceFileHelper instance;
 
@@ -67,6 +67,11 @@ public final class PrvResourceFileHelper extends ResourceFileMap {
         rc.setObject(prov);
         providerMap.put(file, rc);
         return rc;
+    }
+
+    public void remove(IFile file) {
+        super.remove(file);
+        this.providerMap.remove(file);
     }
 
 }

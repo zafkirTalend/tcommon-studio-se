@@ -24,6 +24,7 @@ import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
@@ -103,16 +104,16 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         AnalysisWriter writer = new AnalysisWriter();
         File file = new File(this.pathName);
         if (file.exists()) {
-            return null; 
+            return null;
         } else {
             ReturnCode saved = writer.save(analysis, file);
             if (saved.isOk()) {
                 log.info("Saved in  " + file.getAbsolutePath());
+                AnaResourceFileHelper.getInstance().setResourceChanged(true);
             } else {
                 throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
             }
         }
-
         CorePlugin.getDefault().refreshWorkSpace();
         return file;
 

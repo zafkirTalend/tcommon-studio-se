@@ -29,10 +29,16 @@ public class ResourceFileMap {
 
     private Map<IFile, Resource> registedResourceMap = new HashMap<IFile, Resource>();
 
+    protected boolean resourceChanged = true;
+
     // private ResourceFileMapHelper instance = new ResourceFileMapHelper();
 
     public void register(IFile file, Resource resource) {
         registedResourceMap.put(file, resource);
+    }
+
+    public void remove(IFile file) {
+        this.registedResourceMap.remove(file);
     }
 
     /**
@@ -61,6 +67,24 @@ public class ResourceFileMap {
         ResourceSet rs = util.getResourceSet();
         Resource resource = rs.getResource(uri, true);
         return resource;
+    }
+
+    /**
+     * Getter for resourceChanged.
+     * 
+     * @return the resourceChanged
+     */
+    public boolean isResourceChanged() {
+        return resourceChanged;
+    }
+
+    /**
+     * Sets the resourceChanged.
+     * 
+     * @param resourceChanged the resourceChanged to set
+     */
+    public void setResourceChanged(boolean resourceChanged) {
+        this.resourceChanged = resourceChanged;
     }
 
 }

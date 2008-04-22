@@ -14,11 +14,15 @@ package org.talend.dataprofiler.core.helper;
 
 import java.util.List;
 
+import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
+
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.objectmodel.core.Package;
 
@@ -49,5 +53,12 @@ public final class EObjectHelper {
             TdSchema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(columnSet.eContainer());
             return schema;
         }
+    }
+
+    public static TdDataProvider getTdDataProvider(TdColumn column) {
+        ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(column);
+        Package parentCatalogOrSchema = ColumnSetHelper.getParentCatalogOrSchema(columnSetOwner);
+        return DataProviderHelper.getTdDataProvider(parentCatalogOrSchema);
+
     }
 }

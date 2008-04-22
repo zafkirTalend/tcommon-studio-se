@@ -12,7 +12,13 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.provider;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -20,11 +26,21 @@ import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
+import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
+import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
+import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
  * DOC rli class global comment. Detailled comment
  */
 public class DeleteResourceProvider extends CommonActionProvider {
+
+    private IFile selectedFile;
 
     public DeleteResourceProvider() {
     }
@@ -43,6 +59,10 @@ public class DeleteResourceProvider extends CommonActionProvider {
      */
     public void fillContextMenu(IMenuManager menu) {
         IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
+        Object firstElement = selection.getFirstElement();
+        if (firstElement instanceof IFile) {
+            selectedFile = (IFile) firstElement;
+        }
         deleteResourceAction.selectionChanged(selection);
         menu.add(deleteResourceAction);
     }
@@ -60,6 +80,22 @@ public class DeleteResourceProvider extends CommonActionProvider {
          * (non-Javadoc) Method declared on IAction.
          */
         public void run() {
+            List<String> impactNames = new ArrayList<String>();
+            if (selectedFile.getName().endsWith(PluginConstant.PRV_SUFFIX)) {
+                TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(selectedFile);
+                for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
+                    EList<TaggedValue> taggedValues = returnValue.getObject().getTaggedValue();
+                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(entity.getAnalysisName()
+                            + PluginConstant.ANA_TAG_SUFFIX, taggedValues);
+                    if (taggedValue != null) {
+                        impactNames.add(entity.getAnalysisName());
+                    }
+                }
+                if (impactNames.size() != 0) {
+                    MessageDialog
+                            .openWarning(null, "Impacted  analysises", "The following analysis will be unusable!\n" + impactNames);
+                }
+            }
             super.run();
         }
     }
