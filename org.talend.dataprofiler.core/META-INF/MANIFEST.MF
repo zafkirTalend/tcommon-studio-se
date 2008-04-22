@@ -21,7 +21,7 @@ Require-Bundle: org.talend.dataprofiler.libraries,
  org.eclipse.ui.forms,
  org.talend.dataquality,
  org.talend.cwm.management,
- org.eclipse.help
+ org.talend.dataprofiler.help
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core.i18n,
  org.talend.dataprofiler.core.ui.perspective,
