@@ -282,8 +282,7 @@ class ExportItemWizardPage extends WizardPage {
 
     public boolean performFinish() {
         IRepositoryView repositoryView = RepositoryView.show();
-        IStructuredSelection selection = (IStructuredSelection) repositoryView.getSite().getSelectionProvider()
-                .getSelection();
+        IStructuredSelection selection = (IStructuredSelection) repositoryView.getSite().getSelectionProvider().getSelection();
 
         Collection<Item> items = new ArrayList<Item>();
         if (selection.isEmpty()) {
@@ -295,7 +294,7 @@ class ExportItemWizardPage extends WizardPage {
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
             items = exportItemUtil.getAllVersions(items);
-			exportItemUtil.exportItems(new File(lastPath), items);
+            exportItemUtil.exportItems(new File(lastPath), items);
         } catch (Exception e) {
             MessageBoxExceptionHandler.process(e);
         }
@@ -313,8 +312,12 @@ class ExportItemWizardPage extends WizardPage {
 
     private void collectNodes(Collection<Item> items, RepositoryNode repositoryNode) {
         IRepositoryObject repositoryObject = repositoryNode.getObject();
-        if (repositoryObject != null && repositoryObject.getType().isResourceItem()) {
-            items.add(repositoryObject.getProperty().getItem());
+        if (repositoryObject != null) {
+            if (repositoryObject.getType().isResourceItem()) {
+                items.add(repositoryObject.getProperty().getItem());
+            }
+        } else {
+            items.add(repositoryNode.getParent().getObject().getProperty().getItem());
         }
         collectNodes(items, repositoryNode.getChildren().iterator());
     }
