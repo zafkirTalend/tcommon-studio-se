@@ -1,6 +1,6 @@
 package org.talend.dataprofiler.persistence;
 
-// Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1
+// Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class TdqDayTime implements java.io.Serializable {
 
-	private int timePk;
+	private Integer timePk;
 	private int timeHour;
 	private int timeMinute;
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
@@ -19,25 +19,23 @@ public class TdqDayTime implements java.io.Serializable {
 	public TdqDayTime() {
 	}
 
-	public TdqDayTime(int timePk, int timeHour, int timeMinute) {
-		this.timePk = timePk;
+	public TdqDayTime(int timeHour, int timeMinute) {
 		this.timeHour = timeHour;
 		this.timeMinute = timeMinute;
 	}
 
-	public TdqDayTime(int timePk, int timeHour, int timeMinute,
+	public TdqDayTime(int timeHour, int timeMinute,
 			Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.timePk = timePk;
 		this.timeHour = timeHour;
 		this.timeMinute = timeMinute;
 		this.tdqIndicatorValues = tdqIndicatorValues;
 	}
 
-	public int getTimePk() {
+	public Integer getTimePk() {
 		return this.timePk;
 	}
 
-	public void setTimePk(int timePk) {
+	public void setTimePk(Integer timePk) {
 		this.timePk = timePk;
 	}
 

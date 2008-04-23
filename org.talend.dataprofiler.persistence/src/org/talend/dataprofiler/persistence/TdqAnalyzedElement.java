@@ -1,6 +1,6 @@
 package org.talend.dataprofiler.persistence;
 
-// Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1
+// Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -13,6 +13,7 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 
 	private Integer eltPk;
 	private String eltUuid;
+	private String eltConnectionUuid;
 	private String eltConnectionName;
 	private String eltCatalogName;
 	private String eltSchemaName;
@@ -20,7 +21,6 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 	private String eltColumnName;
 	private Date eltBeginDate;
 	private Date eltEndDate;
-	private char eltIsLast;
 	private int eltVersion;
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
 			0);
@@ -28,11 +28,12 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 	public TdqAnalyzedElement() {
 	}
 
-	public TdqAnalyzedElement(String eltUuid, String eltConnectionName,
-			String eltCatalogName, String eltSchemaName, String eltTableName,
-			String eltColumnName, Date eltBeginDate, Date eltEndDate,
-			char eltIsLast, int eltVersion) {
+	public TdqAnalyzedElement(String eltUuid, String eltConnectionUuid,
+			String eltConnectionName, String eltCatalogName,
+			String eltSchemaName, String eltTableName, String eltColumnName,
+			Date eltBeginDate, Date eltEndDate, int eltVersion) {
 		this.eltUuid = eltUuid;
+		this.eltConnectionUuid = eltConnectionUuid;
 		this.eltConnectionName = eltConnectionName;
 		this.eltCatalogName = eltCatalogName;
 		this.eltSchemaName = eltSchemaName;
@@ -40,16 +41,16 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 		this.eltColumnName = eltColumnName;
 		this.eltBeginDate = eltBeginDate;
 		this.eltEndDate = eltEndDate;
-		this.eltIsLast = eltIsLast;
 		this.eltVersion = eltVersion;
 	}
 
-	public TdqAnalyzedElement(String eltUuid, String eltConnectionName,
-			String eltCatalogName, String eltSchemaName, String eltTableName,
-			String eltColumnName, Date eltBeginDate, Date eltEndDate,
-			char eltIsLast, int eltVersion,
+	public TdqAnalyzedElement(String eltUuid, String eltConnectionUuid,
+			String eltConnectionName, String eltCatalogName,
+			String eltSchemaName, String eltTableName, String eltColumnName,
+			Date eltBeginDate, Date eltEndDate, int eltVersion,
 			Set<TdqIndicatorValue> tdqIndicatorValues) {
 		this.eltUuid = eltUuid;
+		this.eltConnectionUuid = eltConnectionUuid;
 		this.eltConnectionName = eltConnectionName;
 		this.eltCatalogName = eltCatalogName;
 		this.eltSchemaName = eltSchemaName;
@@ -57,7 +58,6 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 		this.eltColumnName = eltColumnName;
 		this.eltBeginDate = eltBeginDate;
 		this.eltEndDate = eltEndDate;
-		this.eltIsLast = eltIsLast;
 		this.eltVersion = eltVersion;
 		this.tdqIndicatorValues = tdqIndicatorValues;
 	}
@@ -76,6 +76,14 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 
 	public void setEltUuid(String eltUuid) {
 		this.eltUuid = eltUuid;
+	}
+
+	public String getEltConnectionUuid() {
+		return this.eltConnectionUuid;
+	}
+
+	public void setEltConnectionUuid(String eltConnectionUuid) {
+		this.eltConnectionUuid = eltConnectionUuid;
 	}
 
 	public String getEltConnectionName() {
@@ -132,14 +140,6 @@ public class TdqAnalyzedElement implements java.io.Serializable {
 
 	public void setEltEndDate(Date eltEndDate) {
 		this.eltEndDate = eltEndDate;
-	}
-
-	public char getEltIsLast() {
-		return this.eltIsLast;
-	}
-
-	public void setEltIsLast(char eltIsLast) {
-		this.eltIsLast = eltIsLast;
 	}
 
 	public int getEltVersion() {

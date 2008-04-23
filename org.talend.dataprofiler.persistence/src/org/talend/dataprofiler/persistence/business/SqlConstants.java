@@ -33,6 +33,11 @@ public class SqlConstants {
      */
     public static final char NO = 'N';
 
+    /**
+     * To be used when boolean data is undefined.
+     */
+    public static final char UNDEFINED = 'U';
+
     public static final Date END_DATE = getDefaultEndDate();
 
     /**

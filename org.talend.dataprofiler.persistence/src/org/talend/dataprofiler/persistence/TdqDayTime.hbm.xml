@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1 -->
+<!-- Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1 -->
 <hibernate-mapping>
     <class name="org.talend.dataprofiler.persistence.TdqDayTime" table="TDQ_DAY_TIME" catalog="talend_dq">
-        <id name="timePk" type="int">
+        <id name="timePk" type="java.lang.Integer">
             <column name="TIME_PK" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="timeHour" type="int">
             <column name="TIME_HOUR" not-null="true" />

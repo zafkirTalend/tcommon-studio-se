@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.talend.dataprofiler.persistence.TdqInterval" table="TDQ_INTERVAL" catalog="talend_dq">
+        <id name="intPk" type="java.lang.Integer">
+            <column name="INT_PK" />
+            <generator class="identity" />
+        </id>
+        <property name="intLowerReal" type="double">
+            <column name="INT_LOWER_REAL" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intUpperReal" type="double">
+            <column name="INT_UPPER_REAL" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intLowerInt" type="int">
+            <column name="INT_LOWER_INT" not-null="true" />
+        </property>
+        <property name="intUpperInt" type="int">
+            <column name="INT_UPPER_INT" not-null="true" />
+        </property>
+        <property name="intDataFlag" type="char">
+            <column name="INT_DATA_FLAG" length="1" not-null="true" />
+        </property>
+        <property name="intLabel" type="string">
+            <column name="INT_LABEL" length="50" not-null="true" />
+        </property>
+        <set name="tdqIndicatorValues" inverse="true">
+            <key>
+                <column name="INTERVAL_PK" not-null="true" />
+            </key>
+            <one-to-many class="org.talend.dataprofiler.persistence.TdqIndicatorValue" />
+        </set>
+    </class>
+</hibernate-mapping>

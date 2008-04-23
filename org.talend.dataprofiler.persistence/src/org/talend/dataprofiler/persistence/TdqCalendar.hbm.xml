@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1 -->
+<!-- Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1 -->
 <hibernate-mapping>
     <class name="org.talend.dataprofiler.persistence.TdqCalendar" table="TDQ_CALENDAR" catalog="talend_dq">
         <id name="calPk" type="java.lang.Integer">
@@ -11,8 +11,8 @@
         <property name="calDate" type="date">
             <column name="CAL_DATE" length="0" not-null="true" />
         </property>
-        <property name="calDayInMinth" type="int">
-            <column name="CAL_DAY_IN_MINTH" not-null="true" />
+        <property name="calDayInMonth" type="int">
+            <column name="CAL_DAY_IN_MONTH" not-null="true" />
         </property>
         <property name="calDayInYear" type="int">
             <column name="CAL_DAY_IN_YEAR" not-null="true" />
@@ -64,7 +64,7 @@
         </property>
         <set name="tdqIndicatorValues" inverse="true">
             <key>
-                <column name="CAL_PK" not-null="true" />
+                <column name="CALENDAR_PK" not-null="true" />
             </key>
             <one-to-many class="org.talend.dataprofiler.persistence.TdqIndicatorValue" />
         </set>

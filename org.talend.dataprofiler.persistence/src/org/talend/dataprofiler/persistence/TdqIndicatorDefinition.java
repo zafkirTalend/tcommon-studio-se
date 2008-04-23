@@ -1,6 +1,6 @@
 package org.talend.dataprofiler.persistence;
 
-// Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1
+// Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -18,7 +18,6 @@ public class TdqIndicatorDefinition implements java.io.Serializable {
 	private String indSubcategory;
 	private Date indBeginDate;
 	private Date indEndDate;
-	private char indIsLast;
 	private int indVersion;
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
 			0);
@@ -28,20 +27,19 @@ public class TdqIndicatorDefinition implements java.io.Serializable {
 
 	public TdqIndicatorDefinition(String indLabel, String indType,
 			String indCategory, String indSubcategory, Date indBeginDate,
-			Date indEndDate, char indIsLast, int indVersion) {
+			Date indEndDate, int indVersion) {
 		this.indLabel = indLabel;
 		this.indType = indType;
 		this.indCategory = indCategory;
 		this.indSubcategory = indSubcategory;
 		this.indBeginDate = indBeginDate;
 		this.indEndDate = indEndDate;
-		this.indIsLast = indIsLast;
 		this.indVersion = indVersion;
 	}
 
 	public TdqIndicatorDefinition(String indLabel, String indType,
 			String indCategory, String indSubcategory, Date indBeginDate,
-			Date indEndDate, char indIsLast, int indVersion,
+			Date indEndDate, int indVersion,
 			Set<TdqIndicatorValue> tdqIndicatorValues) {
 		this.indLabel = indLabel;
 		this.indType = indType;
@@ -49,7 +47,6 @@ public class TdqIndicatorDefinition implements java.io.Serializable {
 		this.indSubcategory = indSubcategory;
 		this.indBeginDate = indBeginDate;
 		this.indEndDate = indEndDate;
-		this.indIsLast = indIsLast;
 		this.indVersion = indVersion;
 		this.tdqIndicatorValues = tdqIndicatorValues;
 	}
@@ -108,14 +105,6 @@ public class TdqIndicatorDefinition implements java.io.Serializable {
 
 	public void setIndEndDate(Date indEndDate) {
 		this.indEndDate = indEndDate;
-	}
-
-	public char getIndIsLast() {
-		return this.indIsLast;
-	}
-
-	public void setIndIsLast(char indIsLast) {
-		this.indIsLast = indIsLast;
 	}
 
 	public int getIndVersion() {

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1 -->
+<!-- Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1 -->
 <hibernate-mapping>
     <class name="org.talend.dataprofiler.persistence.TdqAnalysis" table="TDQ_ANALYSIS" catalog="talend_dq">
         <id name="anPk" type="java.lang.Integer">
@@ -47,15 +47,12 @@
         <property name="anEndDate" type="timestamp">
             <column name="AN_END_DATE" length="0" not-null="true" />
         </property>
-        <property name="anIsLast" type="char">
-            <column name="AN_IS_LAST" length="1" not-null="true" />
-        </property>
         <property name="anVersion" type="int">
             <column name="AN_VERSION" not-null="true" />
         </property>
         <set name="tdqIndicatorValues" inverse="true">
             <key>
-                <column name="AN_PK" not-null="true" />
+                <column name="ANALYSIS_PK" not-null="true" />
             </key>
             <one-to-many class="org.talend.dataprofiler.persistence.TdqIndicatorValue" />
         </set>

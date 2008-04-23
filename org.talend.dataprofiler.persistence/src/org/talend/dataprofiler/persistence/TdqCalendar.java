@@ -1,6 +1,6 @@
 package org.talend.dataprofiler.persistence;
 
-// Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1
+// Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ public class TdqCalendar implements java.io.Serializable {
 
 	private Integer calPk;
 	private Date calDate;
-	private int calDayInMinth;
+	private int calDayInMonth;
 	private int calDayInYear;
 	private int calLastWeekDay;
 	private int calLastMonthDay;
@@ -36,14 +36,14 @@ public class TdqCalendar implements java.io.Serializable {
 	public TdqCalendar() {
 	}
 
-	public TdqCalendar(Date calDate, int calDayInMinth, int calDayInYear,
+	public TdqCalendar(Date calDate, int calDayInMonth, int calDayInYear,
 			int calLastWeekDay, int calLastMonthDay, int calWeekDay,
 			String calDayName, int calWeekNum, int calMonth,
 			String calMonthName, int calYear, String calMonthPeriod,
 			int calQuarter, String calQuarterPeriod, int calSemester,
 			char calDayOff, char calSpecialDay, String calSpecDayLabel) {
 		this.calDate = calDate;
-		this.calDayInMinth = calDayInMinth;
+		this.calDayInMonth = calDayInMonth;
 		this.calDayInYear = calDayInYear;
 		this.calLastWeekDay = calLastWeekDay;
 		this.calLastMonthDay = calLastMonthDay;
@@ -62,7 +62,7 @@ public class TdqCalendar implements java.io.Serializable {
 		this.calSpecDayLabel = calSpecDayLabel;
 	}
 
-	public TdqCalendar(Date calDate, int calDayInMinth, int calDayInYear,
+	public TdqCalendar(Date calDate, int calDayInMonth, int calDayInYear,
 			int calLastWeekDay, int calLastMonthDay, int calWeekDay,
 			String calDayName, int calWeekNum, int calMonth,
 			String calMonthName, int calYear, String calMonthPeriod,
@@ -70,7 +70,7 @@ public class TdqCalendar implements java.io.Serializable {
 			char calDayOff, char calSpecialDay, String calSpecDayLabel,
 			Set<TdqIndicatorValue> tdqIndicatorValues) {
 		this.calDate = calDate;
-		this.calDayInMinth = calDayInMinth;
+		this.calDayInMonth = calDayInMonth;
 		this.calDayInYear = calDayInYear;
 		this.calLastWeekDay = calLastWeekDay;
 		this.calLastMonthDay = calLastMonthDay;
@@ -106,12 +106,12 @@ public class TdqCalendar implements java.io.Serializable {
 		this.calDate = calDate;
 	}
 
-	public int getCalDayInMinth() {
-		return this.calDayInMinth;
+	public int getCalDayInMonth() {
+		return this.calDayInMonth;
 	}
 
-	public void setCalDayInMinth(int calDayInMinth) {
-		this.calDayInMinth = calDayInMinth;
+	public void setCalDayInMonth(int calDayInMonth) {
+		this.calDayInMonth = calDayInMonth;
 	}
 
 	public int getCalDayInYear() {

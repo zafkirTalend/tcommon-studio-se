@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.hibernate.Session;
 import org.talend.dataprofiler.persistence.TdqAnalysis;
-import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 
 /**
@@ -34,7 +33,6 @@ public class MyTest {
         analysis.setAnCreationDate(new Date(System.currentTimeMillis()));
         analysis.setAnAuthor("me");
         analysis.setAnDataFilter("");
-        analysis.setAnIsLast(SqlConstants.YES);
         analysis.setAnEndDate(new Date(System.currentTimeMillis()));
         analysis.setAnVersion(2);
         analysis.setAnUuid("XMI id of analysis");

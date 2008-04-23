@@ -1,6 +1,6 @@
 package org.talend.dataprofiler.persistence;
 
-// Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1
+// Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class TdqValues implements java.io.Serializable {
 
-	private int valPk;
+	private Integer valPk;
 	private String valString;
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
 			0);
@@ -18,23 +18,20 @@ public class TdqValues implements java.io.Serializable {
 	public TdqValues() {
 	}
 
-	public TdqValues(int valPk, String valString) {
-		this.valPk = valPk;
+	public TdqValues(String valString) {
 		this.valString = valString;
 	}
 
-	public TdqValues(int valPk, String valString,
-			Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.valPk = valPk;
+	public TdqValues(String valString, Set<TdqIndicatorValue> tdqIndicatorValues) {
 		this.valString = valString;
 		this.tdqIndicatorValues = tdqIndicatorValues;
 	}
 
-	public int getValPk() {
+	public Integer getValPk() {
 		return this.valPk;
 	}
 
-	public void setValPk(int valPk) {
+	public void setValPk(Integer valPk) {
 		this.valPk = valPk;
 	}
 

@@ -1,6 +1,6 @@
 package org.talend.dataprofiler.persistence;
 
-// Generated Apr 21, 2008 5:00:51 PM by Hibernate Tools 3.2.0.CR1
+// Generated Apr 23, 2008 1:33:52 PM by Hibernate Tools 3.2.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,7 +25,6 @@ public class TdqAnalysis implements java.io.Serializable {
 	private String repStatus;
 	private Date anBeginDate;
 	private Date anEndDate;
-	private char anIsLast;
 	private int anVersion;
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
 			0);
@@ -37,7 +36,7 @@ public class TdqAnalysis implements java.io.Serializable {
 			String anAuthor, String anDataFilter, String anStatus,
 			String repUuid, Date repCreationDate, String repLabel,
 			String repAuthor, String repStatus, Date anBeginDate,
-			Date anEndDate, char anIsLast, int anVersion) {
+			Date anEndDate, int anVersion) {
 		this.anUuid = anUuid;
 		this.anLabel = anLabel;
 		this.anCreationDate = anCreationDate;
@@ -51,7 +50,6 @@ public class TdqAnalysis implements java.io.Serializable {
 		this.repStatus = repStatus;
 		this.anBeginDate = anBeginDate;
 		this.anEndDate = anEndDate;
-		this.anIsLast = anIsLast;
 		this.anVersion = anVersion;
 	}
 
@@ -59,7 +57,7 @@ public class TdqAnalysis implements java.io.Serializable {
 			String anAuthor, String anDataFilter, String anStatus,
 			String repUuid, Date repCreationDate, String repLabel,
 			String repAuthor, String repStatus, Date anBeginDate,
-			Date anEndDate, char anIsLast, int anVersion,
+			Date anEndDate, int anVersion,
 			Set<TdqIndicatorValue> tdqIndicatorValues) {
 		this.anUuid = anUuid;
 		this.anLabel = anLabel;
@@ -74,7 +72,6 @@ public class TdqAnalysis implements java.io.Serializable {
 		this.repStatus = repStatus;
 		this.anBeginDate = anBeginDate;
 		this.anEndDate = anEndDate;
-		this.anIsLast = anIsLast;
 		this.anVersion = anVersion;
 		this.tdqIndicatorValues = tdqIndicatorValues;
 	}
@@ -189,14 +186,6 @@ public class TdqAnalysis implements java.io.Serializable {
 
 	public void setAnEndDate(Date anEndDate) {
 		this.anEndDate = anEndDate;
-	}
-
-	public char getAnIsLast() {
-		return this.anIsLast;
-	}
-
-	public void setAnIsLast(char anIsLast) {
-		this.anIsLast = anIsLast;
 	}
 
 	public int getAnVersion() {
