@@ -44,7 +44,7 @@ public abstract class AbstractConnection implements IConnection {
 
     private String uniqueName;
 
-    private List<? extends IElementParameter> elementParameters;
+    private List<? extends IElementParameter> elementParameters = new ArrayList<IElementParameter>();
 
     private String connectorName;
 
@@ -211,7 +211,7 @@ public abstract class AbstractConnection implements IConnection {
         return "{Name=" + getName() + ", Table=" + getMetadataTable() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-	public List<? extends IElementParameter> getElementParametersWithChildrens() {
+    public List<? extends IElementParameter> getElementParametersWithChildrens() {
         List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(this.elementParameters);
 
         for (IElementParameter curParam : elementParameters) {
@@ -221,5 +221,5 @@ public abstract class AbstractConnection implements IConnection {
             }
         }
         return fullListParam;
-	}
+    }
 }
