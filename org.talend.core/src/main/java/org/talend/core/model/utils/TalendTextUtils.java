@@ -50,6 +50,14 @@ public class TalendTextUtils {
 
     private static final int LINE_MAX_NUM = 100;
 
+    private static final String JAVA_DECLARE_STRING = "\"";
+
+    private static final String PERL_DECLARE_STRING = "'";
+
+    private static final String JAVA_CONNECT_STRING = "+";
+
+    private static final String PERL_CONNECT_STRING = ".";
+
     public static String addQuotes(String text) {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
 
@@ -59,6 +67,21 @@ public class TalendTextUtils {
         default: // PERL
             return addQuotes(text, SINGLE_QUOTE);
         }
+    }
+
+    public static String declareString(String input) {
+        if (input == null) {
+            return null;
+        }
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+
+        switch (language) {
+        case JAVA:
+            return JAVA_DECLARE_STRING + input + JAVA_DECLARE_STRING;
+        default: // PERL
+            return PERL_DECLARE_STRING + input + PERL_DECLARE_STRING;
+        }
+
     }
 
     public static String addQuotes(String text, String quoteStyle) {
@@ -88,11 +111,15 @@ public class TalendTextUtils {
     }
 
     private static String addSQLQuotes(String text, String quoteStyle) {
+
         String newString;
+
         String tempText = text;
+
         tempText = tempText.replaceAll("\r", " ");
         tempText = tempText.replaceAll("\n", " ");
         tempText = tempText.trim();
+
         if (quoteStyle.equals(SINGLE_QUOTE)) {
             if (tempText.startsWith(SINGLE_QUOTE) || tempText.endsWith(SINGLE_QUOTE)) {
                 newString = text;
@@ -211,7 +238,7 @@ public class TalendTextUtils {
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
-            if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
+            if (isCheck && !name.equals(EDatabaseTypeName.PSQL) && !name.equals(EDatabaseTypeName.PLUSPSQL)) {
                 return fieldName;
             }
         }
@@ -221,6 +248,71 @@ public class TalendTextUtils {
             newFieldName = addQuotes(newFieldName, quote);
         }
         return newFieldName;
+    }
+
+    public static String addQuotesWithSpaceFieldForSQLString(String fieldName, String dbType) {
+        if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
+            return fieldName;
+        }
+        boolean b = true;
+        for (int i = 0; i < fieldName.length(); i++) {
+            char c = fieldName.charAt(i);
+            b = b && c >= '0' && c <= '9';
+        }
+        EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
+        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        if (!b) {
+            if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
+                return fieldName;
+            }
+        }
+        String newFieldName = fieldName;
+        String quote = getQuoteByDBType(name);
+        if (!newFieldName.contains(quote)) {
+            newFieldName = addQuotesForSQLString(newFieldName, quote);
+        }
+        return newFieldName;
+    }
+
+    public static String addQuotesWithSpaceFieldForSQLStringForce(String fieldName, String dbType) {
+
+        boolean b = true;
+        for (int i = 0; i < fieldName.length(); i++) {
+            char c = fieldName.charAt(i);
+            b = b && c >= '0' && c <= '9';
+        }
+        EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
+        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        if (!b) {
+            if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
+                return fieldName;
+            }
+        }
+        String newFieldName = fieldName;
+        String quote = getQuoteByDBType(name);
+        newFieldName = addQuotesForSQLString(newFieldName, quote);
+        return newFieldName;
+    }
+
+    private static String addQuotesForSQLString(String text, String quoteStyle) {
+
+        String con = isPerlProject() ? PERL_CONNECT_STRING : JAVA_CONNECT_STRING;
+
+        String newString;
+
+        if (quoteStyle.equals(SINGLE_QUOTE)) {
+            newString = declareString(SINGLE_QUOTE) + con + text + con + declareString(SINGLE_QUOTE);
+        } else if (quoteStyle.equals(ANTI_QUOTE)) {
+            newString = declareString(ANTI_QUOTE) + con + text + con + declareString(ANTI_QUOTE);
+        } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
+            newString = declareString(LBRACKET) + con + text + con + declareString(RBRACKET);
+        } else {
+            /*
+             * quote is specific
+             */
+            newString = declareString("\\" + QUOTATION_MARK) + con + text + con + declareString("\\" + QUOTATION_MARK);
+        }
+        return newString;
     }
 
     private static boolean isLeft = true;
@@ -373,5 +465,20 @@ public class TalendTextUtils {
             }
         }
         return text;
+    }
+
+    private static boolean isPerlProject() {
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+
+        switch (language) {
+        case JAVA:
+            return false;
+        default: // PERL
+            return true;
+        }
+    }
+
+    public static String getStringConnect() {
+        return isPerlProject() ? PERL_CONNECT_STRING : JAVA_CONNECT_STRING;
     }
 }
