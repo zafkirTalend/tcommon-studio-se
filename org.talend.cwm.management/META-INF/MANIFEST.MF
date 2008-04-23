@@ -16,9 +16,7 @@ Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.oracle;resolution:=optional,
  org.talend.libraries.jdbc.db2;resolution:=optional,
  org.talend.libraries.jdbc.postgresql;resolution:=optional,
- org.talend.libraries.jdbc.sybase;resolution:=optional,
- org.talend.dataprofiler.persistence,
- org.talend.libraries.hibernate
+ org.talend.libraries.jdbc.sybase;resolution:=optional
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.emf,
  org.talend.cwm.management.api,
