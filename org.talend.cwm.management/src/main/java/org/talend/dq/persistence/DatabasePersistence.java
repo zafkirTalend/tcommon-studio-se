@@ -23,7 +23,6 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.persistence.TdqAnalysis;
 import org.talend.dataprofiler.persistence.TdqAnalyzedElement;
 import org.talend.dataprofiler.persistence.TdqIndicatorDefinition;
-import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisResult;
@@ -47,16 +46,22 @@ import org.talend.dataquality.reports.TdReport;
  * analysis).<br>
  * END_DATE: the end of the validity of the row (A new row for this couple must have been created). When a row is
  * created, this date is set to the future date defined in SqlConstants.END_DATE. <br>
- * IS_LAST: a boolean that tells that the couple (report, analysis) is the last instance or not. When set to true
- * (SqlConstants.YES), the END_DATE should be the future date.<br>
  * VERSION: an integer that is incremented each time a new couple (report, analysis) is created.<br>
  * 
  * Each row of the table TDQ_ANALYSIS is an instance of the couple (TdReport, Analysis). <br>
  * Analyzed elements and analysis have universal identifiers (UUIDs). These UUIDs can be retrieved with
  * ResourceHelper.getId().<br>
  * 
- * Simple indicators such as count indicators
+ * Simple indicators such as count indicators belong to "Simple Statistics" category, "Count" subcategory. <br>
+ * Text indicators belong to "Text Statistics" category.<br>
+ * Mean, Median, Lower quartile, Upper quartile, min value, max value belong to "Summary Statistics" category. <br>
+ * Mode belong to "Advanced Statistics" category and "Mode" subcategory. <br>
+ * Frequency table belong to "Advanced Statistics" category and "Frequencies" subcategory.<br>
  * 
+ * The column "IND_TYPE" is the datamining type of the indicator.<br>
+ * 
+ * The column INDV_REAL_VALUE_INDICATOR of table TDQ_INDICATOR_VALUE is set to 'Y' when the indicator are the Mean,
+ * Median, Lower quartile, Upper quartile, Min and Max indicators. For the other indicators, it is set to 'N'.
  */
 public class DatabasePersistence {
 
@@ -155,7 +160,6 @@ public class DatabasePersistence {
     private TdqIndicatorDefinition createTdqIndicatorDefinition(Indicator indicator) {
         TdqIndicatorDefinition dbIndicatorDefinition = new TdqIndicatorDefinition();
         dbIndicatorDefinition.setIndBeginDate(new Date(System.currentTimeMillis()));
-        dbIndicatorDefinition.setIndIsLast(SqlConstants.YES);
 
         // TODO implement me
         return dbIndicatorDefinition;
