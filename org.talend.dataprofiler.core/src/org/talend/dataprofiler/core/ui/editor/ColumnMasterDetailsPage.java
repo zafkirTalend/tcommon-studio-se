@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.ui.editor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -213,7 +214,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         ((GridData) tree.getLayoutData()).widthHint = 500;
         tree.setLayout(new GridLayout());
 
-        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators , analysisHandler.getAnalysis());
+        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators, analysisHandler.getAnalysis());
         treeViewer.setDirty(false);
         treeViewer.addPropertyChangeListener(this);
         Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
@@ -225,10 +226,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         clmnBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
             public void linkActivated(HyperlinkEvent e) {
-                // TODO Auto-generated method stub
                 openColumnsSelectionDialog();
             }
-            
+
         });
 
         Hyperlink indcBtn = toolkit.createHyperlink(buttonsComp, "Select indicators for each column", SWT.NONE);
@@ -239,7 +239,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 // TODO Auto-generated method stub
                 treeViewer.openIndicatorSelectDialog();
             }
-            
+
         });
 
         section.setClient(topComp);
@@ -335,6 +335,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         String fileName = editorInput.getName();
 
         analysisHandler.clearAnalysis();
+        AnaResourceFileHelper.getInstance().clear();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
         List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();
         if (columnIndicators != null) {
@@ -348,25 +349,36 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 }
             }
         }
+        if (providerList.size() != 0) {
+            analysisHandler.getAnalysis().getContext().setConnection(providerList.get(0));
+        }
         analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
         boolean modifiedResourcesSaved = analysisHandler.saveModifiedResources();
         if (!modifiedResourcesSaved) {
             log.error("Problem when saving modified resource.");
         }
-        AnalysisWriter writer = new AnalysisWriter();
-        File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
-        ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
+//        AnalysisWriter writer = new AnalysisWriter();
+
+        String urlString = PluginConstant.EMPTY_STRING;
+        try {
+            urlString = editorInput.getFile().toURL().getFile();
+            analysisHandler.getAnalysis().setUrl(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+//        File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
+//        ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
+        ReturnCode saved = AnaResourceFileHelper.getInstance().save(analysisHandler.getAnalysis());
         if (saved.isOk()) {
             for (TdDataProvider provider : providerList) {
                 TaggedValueHelper.setTaggedValue(provider, analysisHandler.getName() + PluginConstant.ANA_TAG_SUFFIX,
                         PluginConstant.EMPTY_STRING);
-                NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()),
-                        provider);
+                NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()), provider);
             }
             AnaResourceFileHelper.getInstance().setResourceChanged(true);
-            log.info("Saved in  " + file.getAbsolutePath() + " successful");
+            log.info("Saved in  " + urlString + " successful");
         } else {
-            throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
+            throw new DataprofilerCoreException("Problem saving file: " + urlString + ": " + saved.getMessage());
         }
 
         // TODO get the domain constraint, we will see later.
@@ -377,7 +389,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         // folderProvider.setFolder(new File(outputFolder));
         // DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
     }
-
 
     public void setDirty(boolean isDirty) {
         if (this.isDirty != isDirty) {

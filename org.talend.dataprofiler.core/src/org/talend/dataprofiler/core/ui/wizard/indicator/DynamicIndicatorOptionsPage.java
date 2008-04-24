@@ -157,8 +157,8 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
         case Types.VARCHAR:
         case Types.LONGVARCHAR:
         case Types.CLOB:
-        case Types.NCHAR:
-        case Types.LONGNVARCHAR:
+//        case Types.NCHAR:
+//        case Types.LONGNVARCHAR:
             
             return true;
         default:

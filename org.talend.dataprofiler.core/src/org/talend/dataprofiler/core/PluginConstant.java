@@ -38,6 +38,8 @@ public final class PluginConstant {
     public static final String REP_SUFFIX = "." + FactoriesUtil.REP;
     
     public static final String ANA_TAG_SUFFIX = "_ANA";
+    
+    public static final String REP_TAG_SUFFIX = "_REP";
 
     public static final String METADATA_PROJECTNAME = DQStructureManager.METADATA;
 

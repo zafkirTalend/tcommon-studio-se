@@ -31,6 +31,8 @@ import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.util.AnalysisSwitch;
+import org.talend.dq.analysis.AnalysisWriter;
+import org.talend.utils.sugars.ReturnCode;
 
 /**
  * DOC rli class global comment. Detailled comment
@@ -75,24 +77,26 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
                 searchAllAnalysis(folder.getFolder(resource.getName()));
             }
             IFile file = (IFile) resource;
-
-            AnalysisEntity entity = new AnalysisEntity(getAnalysis(file));
-
-            allAnalysisMap.put(file, entity);
+            findAnalysis(file);
+            
         }
     }
 
-    public Analysis getAnalysis(IFile file) {
+    public Analysis findAnalysis(IFile file) {
         AnalysisEntity analysisEntity = allAnalysisMap.get(file);
         if (analysisEntity != null) {
             return analysisEntity.getAnalysis();
         }
         Resource fileResource = getFileResource(file);
         Analysis analysis = retireAnalysis(fileResource);
+        if (analysis != null) {
+            AnalysisEntity entity = new AnalysisEntity(analysis);
+            allAnalysisMap.put(file, entity);
+        }
         return analysis;
     }
 
-    public Analysis getAnalysis(File file) {
+    public Analysis findAnalysis(File file) {
         Resource fileResource = getFileResource(file);
         Analysis analysis = retireAnalysis(fileResource);
         return analysis;
@@ -117,7 +121,7 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
             }
         };
         Analysis analysis = null;
-        if (contents != null) {
+        if (contents != null && contents.size() != 0) {
             analysis = mySwitch.doSwitch(contents.get(0));
         }
         return analysis;
@@ -126,5 +130,20 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
     public void remove(IFile file) {
         super.remove(file);
         this.allAnalysisMap.remove(file);
+    }
+
+    public void clear() {
+        super.clear();
+        this.allAnalysisMap.clear();
+    }
+
+    public ReturnCode save(Analysis analysis) {
+        AnalysisWriter writer = new AnalysisWriter();
+        File file = new File(analysis.getUrl());
+        ReturnCode saved = writer.save(analysis, file);
+        if (saved.isOk()) {
+            setResourceChanged(true);
+        }
+        return saved;
     }
 }

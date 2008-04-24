@@ -37,5 +37,11 @@ public class DQRespositoryView extends CommonNavigator {
         this.getCommonViewer().addFilter(new EMFObjFilter());
     }
     
+    
+//    public static void resfresh(){
+//        if(){
+//            
+//        }
+//    }
   
 }

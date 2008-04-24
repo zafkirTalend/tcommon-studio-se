@@ -17,6 +17,7 @@ import java.io.File;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -120,7 +121,7 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public void refreshWorkSpace() {
         if (refreshAction == null) {
-            refreshAction = new RefreshAction(this.getWorkbench().getActiveWorkbenchWindow().getShell());
+            refreshAction = new RefreshAction(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 
         }
         refreshAction.run();

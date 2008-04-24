@@ -138,7 +138,7 @@ public class AnalysisEditorInuput implements IStorageEditorInput, IPersistableEl
         if (analysis != null) {
             return analysis;
         }
-        analysis = AnaResourceFileHelper.getInstance().getAnalysis(fFile);
+        analysis = AnaResourceFileHelper.getInstance().findAnalysis(fFile);
         return analysis;
     }
 

@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.report.provider;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -26,10 +26,11 @@ public class ReportTableContentProvider implements IStructuredContentProvider {
     /* (non-Javadoc)
      * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
      */
+    @SuppressWarnings("unchecked")
     public Object[] getElements(Object inputElement) {
         
-        if (inputElement instanceof List) {
-            return ((List) inputElement).toArray();
+        if (inputElement instanceof Collection) {
+            return ((Collection) inputElement).toArray();
         } else {
             return new Object[0];
         }

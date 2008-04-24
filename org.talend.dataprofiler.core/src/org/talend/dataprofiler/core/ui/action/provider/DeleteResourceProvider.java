@@ -31,7 +31,11 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
+import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.helpers.ReportHelper;
+import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
@@ -92,9 +96,34 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     }
                 }
                 if (impactNames.size() != 0) {
-                    MessageDialog
-                            .openWarning(null, "Impacted  analysises", "The following analysis will be unusable!\n" + impactNames);
+                    MessageDialog.openWarning(null, "Impacted  analysises", "The following analysis will be unusable!\n"
+                            + impactNames);
                 }
+                PrvResourceFileHelper.getInstance().clear();
+            } else if (selectedFile.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
+//                Analysis returnValue = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
+                for (TdReport report : RepResourceFileHelper.getInstance().getAllReports()) {
+                    String analysisName = selectedFile.getName();
+                    List<Analysis> analyses = ReportHelper.getAnalyses(report);
+                    for (Analysis analysis : analyses) {
+                        if (analysisName.equals(analysis.getName() + PluginConstant.ANA_SUFFIX)) {
+                            impactNames.add(report.getName());
+                        }
+                    }
+                    
+//                    EList<TaggedValue> taggedValues = returnValue.getTaggedValue();
+//                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(report.getName() + PluginConstant.REP_TAG_SUFFIX,
+//                            taggedValues);
+//                    if (taggedValue != null) {
+//                        impactNames.add(report.getName());
+//                    }
+                }
+                if (impactNames.size() != 0) {
+                    MessageDialog.openWarning(null, "Impacted  reports", "The following reports will be unusable!\n"
+                            + impactNames);
+                }
+                AnaResourceFileHelper.getInstance().clear();
+
             }
             super.run();
         }

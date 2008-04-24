@@ -22,7 +22,9 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
@@ -52,12 +54,19 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
 
     private IFile currentSelection;
 
+    private TreeViewer treeViewer;
+
     public RunAnalysisActionProvider() {
     }
 
     public void init(ICommonActionExtensionSite anExtensionSite) {
 
         if (anExtensionSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
+            ISelectionProvider selectionProvider = anExtensionSite.getViewSite().getSelectionProvider();
+            if (selectionProvider instanceof TreeViewer) {
+                treeViewer = (TreeViewer) selectionProvider;
+
+            }
             runAnalysisAction = new RunAnalysisAction();
         }
     }
@@ -90,12 +99,12 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
         public void run() {
             Analysis analysis = null;
             if (currentSelection.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                analysis = AnaResourceFileHelper.getInstance().getAnalysis(currentSelection);
+                analysis = AnaResourceFileHelper.getInstance().findAnalysis(currentSelection);
             }
             AnalysisType analysisType = AnalysisHelper.getAnalysisType(analysis);
             AnalysisExecutor exec = null;
             switch (analysisType) {
-            case COLUMN:
+            case MULTIPLE_COLUMN:
                 exec = new ColumnAnalysisExecutor();
                 break;
             case CONNECTION:
@@ -107,7 +116,6 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
 
             final Analysis finalAnalysis = analysis;
             final AnalysisExecutor finalExec = exec;
-
             final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
@@ -119,21 +127,20 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
                     if (executed.isOk()) {
                         Resource resource = finalAnalysis.eResource();
                         if (resource != null) {
+
                             EMFUtil.saveResource(resource);
                         }
                     }
-                    // if(executed.isOk()){
-                    // throw new InvocationTargetException(executed.);
-                    // }
                 }
             };
             try {
                 ProgressUI.popProgressDialog(op, shell);
+                if (treeViewer != null) {
+                    treeViewer.refresh();
+                }
             } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 

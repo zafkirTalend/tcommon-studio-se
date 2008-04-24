@@ -12,11 +12,9 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.report;
 
-import java.io.File;
+import java.util.Collection;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
@@ -32,10 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
-import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
-import org.talend.dataprofiler.core.manager.DQStructureManager;
-import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.ReportTableContentProvider;
@@ -289,26 +284,27 @@ public class NewReportParameterWizardPage extends AbstractAnalysisWizardPage {
     }
     
     private void createAnalysisTable() {
-        IFolder defaultAnalysFolder = ResourcesPlugin.getWorkspace().getRoot().
-            getProject(PluginConstant.DATA_PROFILING_PROJECTNAME).getFolder(DQStructureManager.ANALYSIS);
-        
-        analysisFromDQ.setInput(searchAllAnalysis(defaultAnalysFolder));
+//        IFolder defaultAnalysFolder = ResourcesPlugin.getWorkspace().getRoot().
+//            getProject(PluginConstant.DATA_PROFILING_PROJECTNAME).getFolder(DQStructureManager.ANALYSIS);
+        Collection<AnalysisEntity> allAnalysis = AnaResourceFileHelper.getInstance().getAllAnalysis();
+        analysisFromDQ.setInput(allAnalysis);
+        allAnalysises.addAll(allAnalysis);
     }
     
-    public java.util.List<AnalysisEntity> searchAllAnalysis(IFolder folder) {
-
-        for (File file : folder.getLocation().toFile().listFiles()) {
-            if (file.isDirectory()) {
-                searchAllAnalysis(folder.getFolder(file.getName()));
-            }
-
-            AnalysisEntity entity = new AnalysisEntity(AnaResourceFileHelper.getInstance().getAnalysis(file));
-
-            allAnalysises.add(entity);
-        }
-
-        return allAnalysises;
-    }
+//    public java.util.List<AnalysisEntity> searchAllAnalysis(IFolder folder) {
+//
+//        for (File file : folder.getLocation().toFile().listFiles()) {
+//            if (file.isDirectory()) {
+//                searchAllAnalysis(folder.getFolder(file.getName()));
+//            }
+//
+//            AnalysisEntity entity = new AnalysisEntity(AnaResourceFileHelper.getInstance().getAnalysis(file));
+//
+//            allAnalysises.add(entity);
+//        }
+//
+//        return allAnalysises;
+//    }
 
     
     /**

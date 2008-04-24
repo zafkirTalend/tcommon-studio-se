@@ -25,8 +25,10 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
+import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
 import org.talend.dataprofiler.core.utils.DateFormatUtils;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**
@@ -68,13 +70,16 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
             return decorateText;
         } else if (input.endsWith(PluginConstant.ANA_SUFFIX)) {
             log.info("Loading file " + ((IFile) element).getLocation());
-            Analysis analysis = AnaResourceFileHelper.getInstance().getAnalysis((IFile) element);
+            Analysis analysis = AnaResourceFileHelper.getInstance().findAnalysis((IFile) element);
             if (analysis != null) {
                 Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
                 String executeInfo = executionDate == null ? "(Not executed yet)" : "("
                         + DateFormatUtils.getSimpleDateString(executionDate) + ")";
                 return analysis.getName() + PluginConstant.SPACE_STRING + executeInfo;
             }
+        } else if (input.endsWith(PluginConstant.REP_SUFFIX)) {
+            TdReport findReport = RepResourceFileHelper.getInstance().findReport((IFile) element);
+            return findReport.getName();
         }
         return input;
     }

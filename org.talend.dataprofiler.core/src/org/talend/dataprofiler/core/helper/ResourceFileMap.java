@@ -40,6 +40,10 @@ public class ResourceFileMap {
     public void remove(IFile file) {
         this.registedResourceMap.remove(file);
     }
+    
+    public void clear() {
+        this.registedResourceMap.clear();
+    }
 
     /**
      * DOC zqin Comment method "getFileResource".
