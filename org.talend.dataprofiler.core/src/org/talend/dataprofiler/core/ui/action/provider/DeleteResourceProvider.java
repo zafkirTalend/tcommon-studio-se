@@ -96,12 +96,12 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     }
                 }
                 if (impactNames.size() != 0) {
-                    MessageDialog.openWarning(null, "Impacted  analysises", "The following analysis will be unusable!\n"
+                    MessageDialog.openWarning(null, "Impacted  analyses", "The following analyses will be unusable!\n"
                             + impactNames);
                 }
                 PrvResourceFileHelper.getInstance().clear();
             } else if (selectedFile.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-//                Analysis returnValue = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
+                // Analysis returnValue = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
                 for (TdReport report : RepResourceFileHelper.getInstance().getAllReports()) {
                     String analysisName = selectedFile.getName();
                     List<Analysis> analyses = ReportHelper.getAnalyses(report);
@@ -110,13 +110,13 @@ public class DeleteResourceProvider extends CommonActionProvider {
                             impactNames.add(report.getName());
                         }
                     }
-                    
-//                    EList<TaggedValue> taggedValues = returnValue.getTaggedValue();
+
+                    // EList<TaggedValue> taggedValues = returnValue.getTaggedValue();
 //                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(report.getName() + PluginConstant.REP_TAG_SUFFIX,
-//                            taggedValues);
-//                    if (taggedValue != null) {
-//                        impactNames.add(report.getName());
-//                    }
+                    // taggedValues);
+                    // if (taggedValue != null) {
+                    // impactNames.add(report.getName());
+                    // }
                 }
                 if (impactNames.size() != 0) {
                     MessageDialog.openWarning(null, "Impacted  reports", "The following reports will be unusable!\n"

@@ -16,21 +16,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
-import org.talend.cwm.helper.DescriptionHelper;
+import org.talend.cwm.helper.DataProviderHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
+import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.BooleanExpressionHelper;
 import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
+
+import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -40,6 +45,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * This class helps to handle a Column analysis.
  */
 public class ColumnAnalysisHandler {
+
+    private static Logger log = Logger.getLogger(ColumnAnalysisHandler.class);
 
     /**
      * The resources that are connected to this analysis and that are potentially modified.
@@ -78,22 +85,22 @@ public class ColumnAnalysisHandler {
 
     public String getPurpose() {
         assert analysis != null;
-        return DescriptionHelper.getPurpose(analysis);
+        return TaggedValueHelper.getPurpose(analysis);
     }
 
     public void setPurpose(String purpose) {
         assert analysis != null;
-        DescriptionHelper.setPurpose(purpose, analysis);
+        TaggedValueHelper.setPurpose(purpose, analysis);
     }
 
     public String getDescription() {
         assert analysis != null;
-        return DescriptionHelper.getDescription(analysis);
+        return TaggedValueHelper.getDescription(analysis);
     }
 
     public void setDescription(String description) {
         assert analysis != null;
-        DescriptionHelper.setDescription(description, analysis);
+        TaggedValueHelper.setDescription(description, analysis);
     }
 
     /**
@@ -124,8 +131,22 @@ public class ColumnAnalysisHandler {
         }
         for (Indicator indicator : indicators) {
             indicator.setAnalyzedElement(column);
+            // ADDED MODSCA 2008-04-24 set the default indicator definitions
+            // // FIXME following code should be executed as soon as an indicator is created, not here.
+            // boolean definitionSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
+            // if (log.isDebugEnabled()) {
+            // log.debug("Definition set for " + indicator.getName() + ": " + definitionSet);
+            // }
             analysis.getResults().getIndicators().add(indicator);
         }
+        DataManager connection = analysis.getContext().getConnection();
+        if (connection == null) {
+            // try to get one
+            log.error("Connection has not been set in analysis Context");
+            connection = DataProviderHelper.getTdDataProvider(column);
+            analysis.getContext().setConnection(connection);
+        }
+        AnalysisHelper.createUsageDependencyOn(analysis, connection);
         return true;
     }
 

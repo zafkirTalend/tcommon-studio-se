@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.cwm.relational.TdCatalog;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -28,6 +29,7 @@ import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 import orgomg.cwm.foundation.softwaredeployment.ProviderConnection;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
  * @author scorreia
@@ -87,6 +89,44 @@ public final class DataProviderHelper {
     }
 
     /**
+     * Method "getTdDataProvider".
+     * 
+     * @param column
+     * @return the data provider or null
+     */
+    public static TdDataProvider getTdDataProvider(TdColumn column) {
+        ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(column);
+        if (columnSetOwner == null) {
+            return null;
+        }
+        return getDataProvider(columnSetOwner);
+    }
+
+    /**
+     * Method "getDataProvider".
+     * 
+     * @param columnSetOwner
+     * @return the data provider or null
+     */
+    public static TdDataProvider getDataProvider(ColumnSet columnSetOwner) {
+        Namespace schemaOrCatalog = columnSetOwner.getNamespace();
+        if (schemaOrCatalog == null) {
+            return null;
+        }
+        TdSchema schema = SwitchHelpers.SCHEMA_SWITCH.doSwitch(schemaOrCatalog);
+        if (schema != null) {
+            return getTdDataProvider(schema);
+        }
+        // else
+        TdCatalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(schemaOrCatalog);
+        if (catalog != null) {
+            return getTdDataProvider(catalog);
+        }
+        // else
+        return null;
+    }
+
+    /**
      * Method "getTdDataProviders".
      * 
      * @param objects a collection of objects
@@ -105,8 +145,7 @@ public final class DataProviderHelper {
      * @param resultingCollection the collection in which the TdDataProviders are added (must not be null).
      * @return true if resulting collection is not empty.
      */
-    public static boolean getTdDataProvider(Collection<? extends EObject> objects,
-            Collection<TdDataProvider> resultingCollection) {
+    public static boolean getTdDataProvider(Collection<? extends EObject> objects, Collection<TdDataProvider> resultingCollection) {
         assert objects != null;
         assert resultingCollection != null;
         for (EObject object : objects) {

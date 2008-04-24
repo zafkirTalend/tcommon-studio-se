@@ -43,8 +43,7 @@ public class ReportWriter {
 
         ReturnCode rc = new ReturnCode();
         if (!checkFileExtension(file)) {
-            rc.setReturnCode("Bad file extension for " + file.getAbsolutePath() + ". Should be " + VALID_EXTENSION,
-                    false);
+            rc.setReturnCode("Bad file extension for " + file.getAbsolutePath() + ". Should be " + VALID_EXTENSION, false);
             return rc;
         }
         EMFUtil util = new EMFUtil();
@@ -54,7 +53,7 @@ public class ReportWriter {
         boolean added = util.addPoolToResourceSet(file, report);
 
         if (!added) {
-            rc.setReturnCode("Analysis won't be saved. " + util.getLastErrorMessage(), added);
+            rc.setReturnCode("Report  " + report.getName() + " won't be saved. " + util.getLastErrorMessage(), added);
             return rc;
         }
 
@@ -64,8 +63,7 @@ public class ReportWriter {
 
         boolean saved = util.save();
         if (!saved) {
-            rc.setReturnCode("Problem while saving report " + report.getName() + ". " + util.getLastErrorMessage(),
-                    saved);
+            rc.setReturnCode("Problem while saving report " + report.getName() + ". " + util.getLastErrorMessage(), saved);
         }
         return rc;
     }

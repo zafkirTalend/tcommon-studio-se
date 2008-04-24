@@ -1,0 +1,75 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.cwm.helper;
+
+import org.eclipse.emf.common.util.EList;
+
+import orgomg.cwm.objectmodel.core.CoreFactory;
+import orgomg.cwm.objectmodel.core.Dependency;
+import orgomg.cwm.objectmodel.core.ModelElement;
+
+/**
+ * DOC scorreia class global comment. Detailled comment
+ */
+public class ModelElementHelper {
+
+    /**
+     * As specified in CWM document at p. 67, the dependency kind can be of two types "Usage" or "Abstraction", but can
+     * also be of other types.
+     */
+    public static final String USAGE = "Usage";
+
+    public static final String ANALYSIS_DATAPROVIDER = "ANALYSIS_DATAPROVIDER";
+
+    public static final String REPORT_ANALYSIS = "REPORT_ANALYSIS";
+
+    /**
+     * Method "createUsageDependencyOn".
+     * 
+     * Example Analysis depends on the exitence of a DataProvider. This method must be called
+     * createUsageDependencyOn(Analysis, DataProvider). The created dependency is added to the DataProvider in its
+     * "client dependencies" and to the Analysis in its "supplier dependencies". See OMG CWM spec paragraph 4.3.2.7.
+     * 
+     * @param kind the kind of dependency
+     * @param clientElement the element that requires the requiredElement
+     * @param supplierElement the required element
+     * @return the Dependency of clientElement on requiredElement
+     */
+    public static Dependency createDependencyOn(String kind, ModelElement clientElement, ModelElement supplierElement) {
+        Dependency dependency = CoreFactory.eINSTANCE.createDependency();
+        dependency.setKind(kind);
+        dependency.getClient().add(clientElement);
+        dependency.getSupplier().add(supplierElement);
+        return dependency;
+    }
+
+    /**
+     * Method "removeSupplierDependencies". The given element (supplier) is an element required by other elements (the
+     * clients). This method gets all the dependencies that link the supplier to the clients. Then for each client, the
+     * dependency toward the supplier is removed. And finally the list of dependencies that link the supplier to its
+     * clients is suppressed.
+     * 
+     * @param supplierElement an element that is required by other elements
+     * @return
+     */
+    public static boolean removeSupplierDependencies(ModelElement supplierElement) {
+        boolean ok = true;
+        EList<Dependency> supplierDependencies = supplierElement.getSupplierDependency();
+        for (Dependency dependency : supplierDependencies) {
+            // first remove each dependency object from the clients elements that depend on the supplier
+            dependency.getClient().clear();
+        }
+        supplierDependencies.clear();
+        return ok;
+    }
+}
