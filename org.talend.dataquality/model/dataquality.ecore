@@ -128,6 +128,8 @@
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="analyzedElement" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataminingType" eType="#//indicators/DataminingType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorDefinition"
+          eType="#//indicators/definition/IndicatorDefinition"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RowCountIndicator" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MeanIndicator" abstract="true" interface="true"
@@ -380,6 +382,42 @@
         <eOperations name="addSchemaIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
           <eParameters name="schemaIndicator" eType="#//indicators/schema/SchemaIndicator"/>
         </eOperations>
+      </eClassifiers>
+    </eSubpackages>
+    <eSubpackages name="definition" nsURI="http://dataquality.indicators.definition"
+        nsPrefix="dataquality.indicators.definition">
+      <eClassifiers xsi:type="ecore:EClass" name="IndicatorsDefinitions" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorDefinitions"
+            upperBound="-1" eType="#//indicators/definition/IndicatorDefinition" containment="true"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
+            eType="#//indicators/definition/IndicatorCategory" containment="true"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="IndicatorDefinition" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
+            eType="#//indicators/definition/IndicatorCategory"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedDefinitions"
+            upperBound="-1" eType="#//indicators/definition/IndicatorDefinition"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+            iD="true"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" upperBound="-1"
+            eType="#//indicators/definition/IndicatorCategory"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="sqlGenericExpression"
+            upperBound="-1" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"
+            containment="true"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="IndicatorCategory" eSuperTypes="../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/ModelElement">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+            iD="true"/>
+      </eClassifiers>
+    </eSubpackages>
+    <eSubpackages name="sql" nsURI="http://dataquality.indicators.sql" nsPrefix="dataquality.indicators.sql">
+      <eClassifiers xsi:type="ecore:EClass" name="SqlIndicator" eSuperTypes="#//indicators/Indicator">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModificationDate"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="instantiatedExpressions"
+            upperBound="-1" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"
+            containment="true"/>
       </eClassifiers>
     </eSubpackages>
   </eSubpackages>

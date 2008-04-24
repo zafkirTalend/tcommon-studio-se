@@ -25,92 +25,80 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  */
 public final class DescriptionHelper {
 
-    public static final String DESCRIPTION = "Description";
+    /**
+     * @deprecated use TaggedValueHelper.DESCRIPTION instead.
+     */
+    public static final String DESCRIPTION = TaggedValueHelper.DESCRIPTION;
 
-    public static final String PURPOSE = "Purpose";
+    /**
+     * @deprecated use TaggedValueHelper.PURPOSE instead.
+     */
+    public static final String PURPOSE = TaggedValueHelper.PURPOSE;
 
     private DescriptionHelper() {
     }
 
     /**
-     * Method "addFunctionalDescription".
+     * @deprecated use TaggedValueHelper.getDescription(element) instead.
      * 
-     * @param description the body of the Description to add to the element
-     * @param element the described element
-     * @return the added Description (its type is {@value DescriptionHelper#DESCRIPTION})
-     */
-    public static Description addFunctionalDescription(String description, ModelElement element) {
-        Description descriptionObject = createDescription(DESCRIPTION, description);
-        element.getDescription().add(descriptionObject);
-        return descriptionObject;
-    }
-
-    /**
-     * Method "addPurpose".
-     * 
-     * @param purpose the body of the Description to add to the element
-     * @param element the described element
-     * @return the added Description (its type is {@value DescriptionHelper#PURPOSE})
-     */
-    public static Description addPurpose(String purpose, ModelElement element) {
-        Description descriptionObject = createDescription(PURPOSE, purpose);
-        element.getDescription().add(descriptionObject);
-        return descriptionObject;
-    }
-
-    /**
      * Method "getDescription".
      * 
      * @param element a CWM element
      * @return the description of the element or null
      */
     public static String getDescription(ModelElement element) {
-        return getTypedDescriptionString(DESCRIPTION, element);
+        return TaggedValueHelper.getDescription(element);
     }
 
     /**
+     * @deprecated use {@link TaggedValueHelper#setDescription(String, ModelElement)} instead.
+     * 
      * Method "setDescription".
      * 
      * @param description the functional description to set or create
      * @param element a CWM element
      */
     public static void setDescription(String description, ModelElement element) {
-        setTypedDescription(DESCRIPTION, description, element);
+        TaggedValueHelper.setDescription(description, element);
     }
 
     /**
+     * @deprecated use {@link TaggedValueHelper#setPurpose(String, ModelElement)} instead.
+     * 
      * Method "setPurpose".
      * 
      * @param purpose the purpose to set or create
      * @param element a CWM element
      */
     public static void setPurpose(String purpose, ModelElement element) {
-        setTypedDescription(PURPOSE, purpose, element);
+        TaggedValueHelper.setPurpose(purpose, element);
     }
 
     /**
+     * @deprecated use {@link TaggedValueHelper#getPurpose(ModelElement)} instead.
+     * 
      * Method "getPurpose".
      * 
      * @param element a CWM element
      * @return the purpose or null
      */
     public static String getPurpose(ModelElement element) {
-        return getTypedDescriptionString(PURPOSE, element);
+        return TaggedValueHelper.getPurpose(element);
     }
 
     /**
-     * Method "getTaggedDescription".
+     * Method "getTypedDescriptionString".
      * 
      * @param type the type of the searched description
      * @param element a CWM element
      * @return the description or null
      */
-    private static String getTypedDescriptionString(String type, ModelElement element) {
+    public static String getTypedDescriptionString(String type, ModelElement element) {
         Description descr = getTypedDescription(type, element);
         return (descr != null) ? descr.getBody() : null;
     }
 
-    private static Description getTypedDescription(String type, ModelElement element) {
+    public static Description getTypedDescription(String type, ModelElement element) {
         assert type != null;
         EList<Description> descriptions = element.getDescription();
         for (Description description : descriptions) {
@@ -121,7 +109,7 @@ public final class DescriptionHelper {
         return null;
     }
 
-    private static void setTypedDescription(String type, String description, ModelElement element) {
+    public static void setTypedDescription(String type, String description, ModelElement element) {
         assert type != null;
         Description descr = getTypedDescription(type, element);
         if (descr != null) {

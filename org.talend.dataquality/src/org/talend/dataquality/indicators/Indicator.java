@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.dataquality.domain.LiteralValue;
 
@@ -26,6 +27,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportField;
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getAnalyzedElement <em>Analyzed Element</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getDataminingType <em>Datamining Type</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.Indicator#getIndicatorDefinition <em>Indicator Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -192,6 +194,32 @@ public interface Indicator extends ModelElement {
      * @generated
      */
     void setDataminingType(DataminingType value);
+
+    /**
+     * Returns the value of the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Indicator Definition</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Indicator Definition</em>' reference.
+     * @see #setIndicatorDefinition(IndicatorDefinition)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_IndicatorDefinition()
+     * @model
+     * @generated
+     */
+    IndicatorDefinition getIndicatorDefinition();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getIndicatorDefinition <em>Indicator Definition</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Indicator Definition</em>' reference.
+     * @see #getIndicatorDefinition()
+     * @generated
+     */
+    void setIndicatorDefinition(IndicatorDefinition value);
 
     /**
      * <!-- begin-user-doc -->

@@ -59,11 +59,11 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     private Tree tree;
 
     private ColumnIndicator[] columnIndicators;
-    
+
     private IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
-    
+
     private Button modButton;
-    
+
     private Analysis analysis;
 
     public AnasisColumnTreeViewer(Composite parent) {
@@ -71,7 +71,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         this.tree = createTree(parent);
     }
 
-    public AnasisColumnTreeViewer(Composite parent, ColumnIndicator[] columnIndicators , Analysis analysis) {
+    public AnasisColumnTreeViewer(Composite parent, ColumnIndicator[] columnIndicators, Analysis analysis) {
         this(parent);
         this.analysis = analysis;
         this.setElements(columnIndicators);
@@ -158,8 +158,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             });
             combo.setEditable(false);
-            
-            
+
             editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);
 
@@ -272,11 +271,11 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                         WizardDialog dialog = new WizardDialog(null, wizard);
                         dialog.setPageSize(300, 400);
                         dialog.open();
-                        
+
                     } catch (AssertionFailedException ex) {
-                       MessageDialogWithToggle.openInformation(null, "Indicator Option", "No optiones to set!");
+                        MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");
                     }
-                    
+
                 }
             });
         }

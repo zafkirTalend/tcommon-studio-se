@@ -28,6 +28,10 @@ import org.talend.dataquality.domain.pattern.PatternFactory;
 import org.talend.dataquality.domain.pattern.PatternPackage;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.definition.DefinitionFactory;
+import org.talend.dataquality.indicators.definition.DefinitionPackage;
+import org.talend.dataquality.indicators.sql.IndicatorSqlFactory;
+import org.talend.dataquality.indicators.sql.IndicatorSqlPackage;
 import org.talend.dataquality.reports.ReportsFactory;
 import org.talend.dataquality.reports.ReportsPackage;
 
@@ -81,6 +85,8 @@ public final class FactoriesUtil {
         DomainFactory.eINSTANCE.getDomainPackage();
         IndicatorsFactory.eINSTANCE.getIndicatorsPackage();
         ReportsFactory.eINSTANCE.getReportsPackage();
+        DefinitionFactory.eINSTANCE.getDefinitionPackage();
+        IndicatorSqlFactory.eINSTANCE.getIndicatorSqlPackage();
 
         PatternFactory.eINSTANCE.getEPackage();
         CategoryFactory.eINSTANCE.getEPackage();
@@ -116,6 +122,8 @@ public final class FactoriesUtil {
         extensions.add(DomainPackage.eNAME);
         extensions.add(CategoryPackage.eNAME);
         extensions.add(ReportsPackage.eNAME);
+        extensions.add(DefinitionPackage.eNAME);
+        extensions.add(IndicatorSqlPackage.eNAME);
 
         // --- add specific extensions
         extensions.add(PROV);
@@ -147,6 +155,8 @@ public final class FactoriesUtil {
         CategoryPackage.eINSTANCE.getEFactoryInstance();
         org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE.getEFactoryInstance();
         org.talend.dataquality.reports.ReportsPackage.eINSTANCE.getEFactoryInstance();
+        DefinitionPackage.eINSTANCE.getEFactoryInstance();
+        IndicatorSqlPackage.eINSTANCE.getEFactoryInstance();
 
         // CWM generated packages
         // TODO scorreia add other packages

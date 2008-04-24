@@ -89,10 +89,9 @@ public final class ConnectionService {
             String connectionName = connectionParameters.getName();
             dataProvider.setName(connectionName);
             // set technical name
-            DataProviderHelper.setTechnicalName(dataProvider, DqRepositoryViewService
-                    .createTechnicalName(connectionName));
-            DescriptionHelper.addFunctionalDescription(connectionParameters.getDescription(), dataProvider);
-            DescriptionHelper.addPurpose(connectionParameters.getPurpose(), dataProvider);
+            DataProviderHelper.setTechnicalName(dataProvider, DqRepositoryViewService.createTechnicalName(connectionName));
+            DescriptionHelper.setDescription(connectionParameters.getDescription(), dataProvider);
+            DescriptionHelper.setPurpose(connectionParameters.getPurpose(), dataProvider);
             rc.setObject(dataProvider);
             return rc;
         } catch (SQLException e) {

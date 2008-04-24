@@ -42,10 +42,14 @@ import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
+import org.talend.dataquality.indicators.definition.DefinitionPackage;
+import org.talend.dataquality.indicators.definition.impl.DefinitionPackageImpl;
 import org.talend.dataquality.indicators.impl.IndicatorsPackageImpl;
 
 import org.talend.dataquality.indicators.schema.SchemaPackage;
 import org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl;
+import org.talend.dataquality.indicators.sql.IndicatorSqlPackage;
+import org.talend.dataquality.indicators.sql.impl.IndicatorSqlPackageImpl;
 import org.talend.dataquality.reports.ReportsPackage;
 
 import org.talend.dataquality.reports.impl.ReportsPackageImpl;
@@ -284,6 +288,8 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI) : IndicatorsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
+        DefinitionPackageImpl theDefinitionPackage = (DefinitionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI) instanceof DefinitionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI) : DefinitionPackage.eINSTANCE);
+        IndicatorSqlPackageImpl theIndicatorSqlPackage = (IndicatorSqlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI) instanceof IndicatorSqlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI) : IndicatorSqlPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
         SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
@@ -295,6 +301,8 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         theReportsPackage.createPackageContents();
         theIndicatorsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
+        theDefinitionPackage.createPackageContents();
+        theIndicatorSqlPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         thePatternPackage.createPackageContents();
         theSQLPackage.createPackageContents();
@@ -306,6 +314,8 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         theReportsPackage.initializePackageContents();
         theIndicatorsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
+        theDefinitionPackage.initializePackageContents();
+        theIndicatorSqlPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         thePatternPackage.initializePackageContents();
         theSQLPackage.initializePackageContents();

@@ -300,13 +300,22 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR__DATAMINING_TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 5;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INDICATOR__INDICATOR_DEFINITION = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 6;
+
+    /**
      * The number of structural features of the '<em>Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INDICATOR_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 6;
+    int INDICATOR_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 7;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.
@@ -542,6 +551,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int ROW_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROW_COUNT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The number of structural features of the '<em>Row Count Indicator</em>' class.
@@ -788,6 +806,15 @@ public interface IndicatorsPackage extends EPackage {
     int MEAN_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The number of structural features of the '<em>Mean Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1030,6 +1057,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int SUM_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUM_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
@@ -1294,6 +1330,15 @@ public interface IndicatorsPackage extends EPackage {
     int COMPOSITE_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPOSITE_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1545,6 +1590,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int RANGE_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RANGE_INDICATOR__INDICATOR_DEFINITION = COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -1834,6 +1888,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int BOX_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOX_INDICATOR__INDICATOR_DEFINITION = COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -2461,6 +2524,15 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_SUM_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2731,6 +2803,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DOUBLE_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_SUM_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
@@ -3004,6 +3085,15 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3273,6 +3363,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int FREQUENCY_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FREQUENCY_INDICATOR__INDICATOR_DEFINITION = COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -3609,6 +3708,15 @@ public interface IndicatorsPackage extends EPackage {
     int INTEGER_MEAN_INDICATOR__DATAMINING_TYPE = INTEGER_SUM_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_MEAN_INDICATOR__INDICATOR_DEFINITION = INTEGER_SUM_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3878,6 +3986,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DOUBLE_MEAN_INDICATOR__DATAMINING_TYPE = DOUBLE_SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_MEAN_INDICATOR__INDICATOR_DEFINITION = DOUBLE_SUM_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
@@ -4151,6 +4268,15 @@ public interface IndicatorsPackage extends EPackage {
     int BIG_DECIMAL_MEAN_INDICATOR__DATAMINING_TYPE = BIG_DECIMAL_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIG_DECIMAL_MEAN_INDICATOR__INDICATOR_DEFINITION = BIG_DECIMAL_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Sum Str</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4422,6 +4548,15 @@ public interface IndicatorsPackage extends EPackage {
     int TEXT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The number of structural features of the '<em>Text Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4664,6 +4799,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int BLANK_COUNT_INDICATOR__DATAMINING_TYPE = TEXT_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BLANK_COUNT_INDICATOR__INDICATOR_DEFINITION = TEXT_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Blank Count</b></em>' attribute.
@@ -4983,6 +5127,15 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEDIAN_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Median</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5243,6 +5396,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int VALUE_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VALUE_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -5507,6 +5669,15 @@ public interface IndicatorsPackage extends EPackage {
     int MIN_VALUE_INDICATOR__DATAMINING_TYPE = VALUE_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_VALUE_INDICATOR__INDICATOR_DEFINITION = VALUE_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5767,6 +5938,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int MAX_VALUE_INDICATOR__DATAMINING_TYPE = VALUE_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_VALUE_INDICATOR__INDICATOR_DEFINITION = VALUE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -6031,6 +6211,15 @@ public interface IndicatorsPackage extends EPackage {
     int MODE_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODE_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Mode</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6284,6 +6473,15 @@ public interface IndicatorsPackage extends EPackage {
     int NULL_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NULL_COUNT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The number of structural features of the '<em>Null Count Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6526,6 +6724,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int DISTINCT_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISTINCT_COUNT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The number of structural features of the '<em>Distinct Count Indicator</em>' class.
@@ -6772,6 +6979,15 @@ public interface IndicatorsPackage extends EPackage {
     int UNIQUE_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNIQUE_COUNT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The number of structural features of the '<em>Unique Count Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7016,6 +7232,15 @@ public interface IndicatorsPackage extends EPackage {
     int DUPLICATE_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DUPLICATE_COUNT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The number of structural features of the '<em>Duplicate Count Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7258,6 +7483,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int IQR_INDICATOR__DATAMINING_TYPE = RANGE_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IQR_INDICATOR__INDICATOR_DEFINITION = RANGE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
@@ -7549,6 +7783,15 @@ public interface IndicatorsPackage extends EPackage {
     int LENGTH_INDICATOR__DATAMINING_TYPE = TEXT_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LENGTH_INDICATOR__INDICATOR_DEFINITION = TEXT_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7800,6 +8043,15 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int MIN_LENGTH_INDICATOR__DATAMINING_TYPE = LENGTH_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MIN_LENGTH_INDICATOR__INDICATOR_DEFINITION = LENGTH_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
@@ -8055,6 +8307,15 @@ public interface IndicatorsPackage extends EPackage {
     int MAX_LENGTH_INDICATOR__DATAMINING_TYPE = LENGTH_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MAX_LENGTH_INDICATOR__INDICATOR_DEFINITION = LENGTH_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8308,6 +8569,15 @@ public interface IndicatorsPackage extends EPackage {
     int AVERAGE_LENGTH_INDICATOR__DATAMINING_TYPE = LENGTH_INDICATOR__DATAMINING_TYPE;
 
     /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int AVERAGE_LENGTH_INDICATOR__INDICATOR_DEFINITION = LENGTH_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8544,6 +8814,17 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EAttribute getIndicator_DataminingType();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.Indicator#getIndicatorDefinition <em>Indicator Definition</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Indicator Definition</em>'.
+     * @see org.talend.dataquality.indicators.Indicator#getIndicatorDefinition()
+     * @see #getIndicator()
+     * @generated
+     */
+    EReference getIndicator_IndicatorDefinition();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.RowCountIndicator <em>Row Count Indicator</em>}'.
@@ -9467,6 +9748,14 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EAttribute INDICATOR__DATAMINING_TYPE = eINSTANCE.getIndicator_DataminingType();
+
+        /**
+         * The meta object literal for the '<em><b>Indicator Definition</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference INDICATOR__INDICATOR_DEFINITION = eINSTANCE.getIndicator_IndicatorDefinition();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.

@@ -27,10 +27,7 @@ import orgomg.cwm.analysis.informationvisualization.RenderedObject;
  */
 public final class ReportHelper {
 
-    /**
-     * @deprecated use static access instead.
-     */
-    public ReportHelper() {
+    private ReportHelper() {
     }
 
     /**
@@ -78,7 +75,7 @@ public final class ReportHelper {
         report.setName(name);
         return report;
     }
-    
+
     public static void setHeader(TdReport report, String header) {
         // TODO scorreia set header in the report
     }

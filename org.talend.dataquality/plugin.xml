@@ -19,6 +19,13 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
+       uri = "http://org.talend.dataquality.category" 
+       class = "org.talend.dataquality.analysis.category.CategoryPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
        uri = "http://dataquality.reports" 
        class = "org.talend.dataquality.reports.ReportsPackage"
        genModel = "model/dataquality.genmodel" /> 
@@ -26,8 +33,22 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http://.dataquality.indicators" 
+       uri = "http://dataquality.indicators" 
        class = "org.talend.dataquality.indicators.IndicatorsPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.indicators.schema" 
+       class = "org.talend.dataquality.indicators.schema.SchemaPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.indicators.definition" 
+       class = "org.talend.dataquality.indicators.definition.DefinitionPackage"
        genModel = "model/dataquality.genmodel" /> 
   </extension>
 
@@ -42,6 +63,20 @@
     <package 
        uri = "http://dataquality.domain" 
        class = "org.talend.dataquality.domain.DomainPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.domain.pattern" 
+       class = "org.talend.dataquality.domain.pattern.PatternPackage"
+       genModel = "model/dataquality.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://dataquality.domain.sql" 
+       class = "org.talend.dataquality.domain.sql.SQLPackage"
        genModel = "model/dataquality.genmodel" /> 
   </extension>
 

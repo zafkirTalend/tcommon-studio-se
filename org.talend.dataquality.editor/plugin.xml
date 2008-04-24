@@ -158,6 +158,34 @@
       name="%_UI_Wizard_category">
     </category>
     <wizard
+      id = "org.talend.dataquality.indicators.definition.presentation.DefinitionModelWizardID"
+      name = "%_UI_DefinitionModelWizard_label"
+      class = "org.talend.dataquality.indicators.definition.presentation.DefinitionModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/DefinitionModelFile.gif">
+      <description>%_UI_DefinitionModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "org.talend.dataquality.indicators.definition.presentation.DefinitionEditorID"
+        name = "%_UI_DefinitionEditor_label"
+        icon = "icons/full/obj16/DefinitionModelFile.gif"
+        extensions = "definition"
+        class = "org.talend.dataquality.indicators.definition.presentation.DefinitionEditor" 
+        contributorClass="org.talend.dataquality.indicators.definition.presentation.DefinitionActionBarContributor" >
+    </editor>
+  </extension>    
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
       id = "org.talend.dataquality.expressions.presentation.ExpressionsModelWizardID"
       name = "%_UI_ExpressionsModelWizard_label"
       class = "org.talend.dataquality.expressions.presentation.ExpressionsModelWizard"

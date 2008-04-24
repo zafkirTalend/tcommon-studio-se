@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package orgomg.cwm.objectmodel.core.provider;
-
 
 import java.util.Collection;
 import java.util.List;
@@ -24,45 +22,46 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
- * This is the item provider adapter for a {@link orgomg.cwm.objectmodel.core.Element} object.
- * <!-- begin-user-doc -->
+ * This is the item provider adapter for a {@link orgomg.cwm.objectmodel.core.Element} object. <!-- begin-user-doc -->
  * <!-- end-user-doc -->
+ * 
  * @generated
  */
-public class ElementItemProvider
-    extends ItemProviderAdapter
-    implements	
-        IEditingDomainItemProvider,	
-        IStructuredItemContentProvider,	
-        ITreeItemContentProvider,	
-        IItemLabelProvider,	
-        IItemPropertySource {
+public class ElementItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+        IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ElementItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
-    
-   
 
-    /* (non-Javadoc) ADDED
+    /*
+     * (non-Javadoc) ADDED rli
+     * 
+     * @generated NOT
+     * 
      * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getString(java.lang.String)
      * 
      */
     public String getString(String key) {
+        // ADDED MODSCA 2008-04-23 use a system property for enabling the default presentation (useful when using EMF
+        // generated editors for debug purpose)
+        String property = System.getProperty("USE_CWM_LABELS", "false");
+        boolean useCwmLabels = Boolean.parseBoolean(property);
+        if (useCwmLabels) {
+            return super.getString(key);
+        }
+        // else
         return "";
     }
 
-
-
     /**
-     * This returns the property descriptors for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -75,9 +74,8 @@ public class ElementItemProvider
     }
 
     /**
-     * This returns the label text for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -86,10 +84,10 @@ public class ElementItemProvider
     }
 
     /**
-     * This handles model notifications by calling {@link #updateChildren} to update any cached
-     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This handles model notifications by calling {@link #updateChildren} to update any cached children and by creating
+     * a viewer notification, which it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      */
     @Override
@@ -99,10 +97,9 @@ public class ElementItemProvider
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
+     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -111,9 +108,8 @@ public class ElementItemProvider
     }
 
     /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override

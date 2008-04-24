@@ -75,6 +75,7 @@ public class IndicatorItemProvider
             addNullCountPropertyDescriptor(object);
             addAnalyzedElementPropertyDescriptor(object);
             addDataminingTypePropertyDescriptor(object);
+            addIndicatorDefinitionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -185,6 +186,28 @@ public class IndicatorItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Indicator Definition feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addIndicatorDefinitionPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Indicator_indicatorDefinition_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Indicator_indicatorDefinition_feature", "_UI_Indicator_type"),
+                 IndicatorsPackage.Literals.INDICATOR__INDICATOR_DEFINITION,
+                 true,
+                 false,
+                 true,
+                 null,
                  null,
                  null));
     }

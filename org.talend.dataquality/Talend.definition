@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataquality.indicators.definition:IndicatorsDefinitions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:dataquality.indicators.definition="http://dataquality.indicators.definition" xmi:id="_cb-g4BF2Ed2PKb6nEJEvhw" name="Talend's default indicators' definitions">
+  <indicatorDefinitions xmi:id="_ccFOkBF2Ed2PKb6nEJEvhw" name="Row Count" label="Row Count">
+    <taggedValue tag="Description" value="counts the number of rows"/>
+    <taggedValue tag="Purpose" value="Evaluate the number of rows"/>
+    <sqlGenericExpression xmi:id="_ccHDwBF2Ed2PKb6nEJEvhw" body="select count({0}) from {1}" language="SQL"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHDwRF2Ed2PKb6nEJEvhw" name="Total Row Count" label="Total Row Count">
+    <sqlGenericExpression xmi:id="_ccHDwhF2Ed2PKb6nEJEvhw" body="select count(*) from {1}" language="SQL"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHq0BF2Ed2PKb6nEJEvhw" name="Distinct Count" label="Distinct Count"/>
+  <indicatorDefinitions xmi:id="_ccHq0RF2Ed2PKb6nEJEvhw" name="Unique Count" label="Unique Count"/>
+  <indicatorDefinitions xmi:id="_ccHq0hF2Ed2PKb6nEJEvhw" name="Duplicate Count" label="Duplicate Count"/>
+  <indicatorDefinitions xmi:id="_ccHq0xF2Ed2PKb6nEJEvhw" name="Blank Count" label="Blank Count"/>
+  <indicatorDefinitions xmi:id="_ccHq1BF2Ed2PKb6nEJEvhw" name="Minimal Length" label="Minimal Length"/>
+  <indicatorDefinitions xmi:id="_ccHq1RF2Ed2PKb6nEJEvhw" name="Maximal Length" label="Maximal Length"/>
+  <indicatorDefinitions xmi:id="_ccIR4BF2Ed2PKb6nEJEvhw" name="Average Length" label="Average Length"/>
+  <indicatorDefinitions xmi:id="_ccIR4RF2Ed2PKb6nEJEvhw" name="Mode" label="Mode"/>
+  <indicatorDefinitions xmi:id="_ccIR4hF2Ed2PKb6nEJEvhw" name="Frequency Table" label="Frequency Table"/>
+  <indicatorDefinitions xmi:id="_ccI48BF2Ed2PKb6nEJEvhw" name="Summary Statistics" label="Summary Statistics"/>
+  <indicatorDefinitions xmi:id="_ccI48RF2Ed2PKb6nEJEvhw" name="Mean" label="Mean"/>
+  <indicatorDefinitions xmi:id="_ccI48hF2Ed2PKb6nEJEvhw" name="Median" label="Median"/>
+  <indicatorDefinitions xmi:id="_ccI48xF2Ed2PKb6nEJEvhw" name="Inter Quartile Range" label="IQR"/>
+  <indicatorDefinitions xmi:id="_ccI49BF2Ed2PKb6nEJEvhw" name="Lower Quartile" label="Lower Quartile"/>
+  <indicatorDefinitions xmi:id="_ccI49RF2Ed2PKb6nEJEvhw" name="Upper Quartile" label="Upper Quartile"/>
+  <indicatorDefinitions xmi:id="_ccI49hF2Ed2PKb6nEJEvhw" name="Range" label="Range"/>
+  <indicatorDefinitions xmi:id="_ccJgABF2Ed2PKb6nEJEvhw" name="Minimum" label="Minimum"/>
+  <indicatorDefinitions xmi:id="_ccJgARF2Ed2PKb6nEJEvhw" name="Maximum" label="Maximum"/>
+  <indicatorDefinitions xmi:id="_ccJgAhF2Ed2PKb6nEJEvhw" name="Sum" label="Sum"/>
+  <categories xmi:id="_ccKHEBF2Ed2PKb6nEJEvhw" name="Simple Statistics" label="Simple Statistics"/>
+  <categories xmi:id="_ccKHERF2Ed2PKb6nEJEvhw" name="Text Statistics" label="Text Statistics"/>
+  <categories xmi:id="_ccKuIBF2Ed2PKb6nEJEvhw" name="Summary Statistics" label="Summary Statistics"/>
+  <categories xmi:id="_ccKuIRF2Ed2PKb6nEJEvhw" name="Advanced Statistics" label="Advanced Statistics"/>
+  <categories xmi:id="_ccKuIhF2Ed2PKb6nEJEvhw" name="Mode" label="Mode"/>
+  <categories xmi:id="_ccKuIxF2Ed2PKb6nEJEvhw" name="Frequency" label="Frequency"/>
+  <categories xmi:id="_ccKuJBF2Ed2PKb6nEJEvhw" name="Count" label="Count"/>
+</dataquality.indicators.definition:IndicatorsDefinitions>

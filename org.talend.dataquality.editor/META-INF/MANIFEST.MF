@@ -13,6 +13,7 @@ Export-Package: org.talend.dataquality.analysis.category.presentation,
  org.talend.dataquality.domain.pattern.presentation,
  org.talend.dataquality.domain.presentation,
  org.talend.dataquality.expressions.presentation,
+ org.talend.dataquality.indicators.definition.presentation,
  org.talend.dataquality.indicators.presentation,
  org.talend.dataquality.indicators.schema.presentation,
  org.talend.dataquality.reports.presentation

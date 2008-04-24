@@ -143,7 +143,6 @@ public class IndicatorDocumentationHandler {
         case IndicatorsPackage.MEAN_INDICATOR:
         case IndicatorsPackage.MEDIAN_INDICATOR:
         case IndicatorsPackage.IQR_INDICATOR:
-        case IndicatorsPackage.IQR_INDICATOR__UPPER_VALUE:
         case IndicatorsPackage.RANGE_INDICATOR:
 
             break;

@@ -48,6 +48,50 @@ public final class TaggedValueHelper {
 
     private static final String EMPTY_STRING = "";
 
+    public static final String DESCRIPTION = "Description";
+
+    public static final String PURPOSE = "Purpose";
+
+    /**
+     * Method "getDescription".
+     * 
+     * @param element a CWM element
+     * @return the description of the element or null
+     */
+    public static String getDescription(ModelElement element) {
+        return getValue(DESCRIPTION, element.getTaggedValue());
+    }
+
+    /**
+     * Method "setDescription".
+     * 
+     * @param description the functional description to set or create
+     * @param element a CWM element
+     */
+    public static void setDescription(String description, ModelElement element) {
+        setTaggedValue(element, DESCRIPTION, description);
+    }
+
+    /**
+     * Method "setPurpose".
+     * 
+     * @param purpose the purpose to set or create
+     * @param element a CWM element
+     */
+    public static void setPurpose(String purpose, ModelElement element) {
+        setTaggedValue(element, PURPOSE, purpose);
+    }
+
+    /**
+     * Method "getPurpose".
+     * 
+     * @param element a CWM element
+     * @return the purpose or null
+     */
+    public static String getPurpose(ModelElement element) {
+        return getValue(PURPOSE, element);
+    }
+
     private TaggedValueHelper() {
     }
 
@@ -186,5 +230,20 @@ public final class TaggedValueHelper {
             currentValue.setValue(value);
         }
         return create;
+    }
+
+    /**
+     * Method "getValue".
+     * 
+     * @param tag the key to find the value
+     * @param element the element
+     * @return the value of the tagged valued of the element
+     */
+    public static String getValue(String tag, ModelElement element) {
+        TaggedValue tv = getTaggedValue(tag, element.getTaggedValue());
+        if (tv == null) {
+            return EMPTY_STRING;
+        }
+        return tv.getValue();
     }
 }

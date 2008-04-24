@@ -45,8 +45,7 @@ public class AnalysisWriter {
 
         ReturnCode rc = new ReturnCode();
         if (!checkFileExtension(file)) {
-            rc.setReturnCode("Bad file extension for " + file.getAbsolutePath() + ". Should be " + VALID_EXTENSION,
-                    false);
+            rc.setReturnCode("Bad file extension for " + file.getAbsolutePath() + ". Should be " + VALID_EXTENSION, false);
             return rc;
         }
         EMFUtil util = new EMFUtil();
@@ -62,7 +61,7 @@ public class AnalysisWriter {
 
         // --- store descriptions (description and purpose) in the same resource
         EList<EObject> resourceContents = analysis.eResource().getContents();
-        resourceContents.addAll(analysis.getDescription());
+        // resourceContents.addAll(analysis.getDescription());
         // --- store the data filter in the same resource
         EList<Domain> dataFilter = AnalysisHelper.getDataFilter(analysis);
         if (dataFilter != null) {
@@ -72,8 +71,7 @@ public class AnalysisWriter {
 
         boolean saved = util.save();
         if (!saved) {
-            rc.setReturnCode("Problem while saving analysis " + analysis.getName() + ". " + util.getLastErrorMessage(),
-                    saved);
+            rc.setReturnCode("Problem while saving analysis " + analysis.getName() + ". " + util.getLastErrorMessage(), saved);
         }
         return rc;
     }

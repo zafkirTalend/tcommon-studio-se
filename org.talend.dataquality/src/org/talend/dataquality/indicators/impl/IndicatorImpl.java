@@ -19,6 +19,7 @@ import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorType;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
@@ -33,6 +34,7 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getAnalyzedElement <em>Analyzed Element</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getDataminingType <em>Datamining Type</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getIndicatorDefinition <em>Indicator Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,6 +131,16 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @ordered
      */
     protected DataminingType dataminingType = DATAMINING_TYPE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getIndicatorDefinition() <em>Indicator Definition</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIndicatorDefinition()
+     * @generated
+     * @ordered
+     */
+    protected IndicatorDefinition indicatorDefinition;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -337,6 +349,44 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public IndicatorDefinition getIndicatorDefinition() {
+        if (indicatorDefinition != null && indicatorDefinition.eIsProxy()) {
+            InternalEObject oldIndicatorDefinition = (InternalEObject)indicatorDefinition;
+            indicatorDefinition = (IndicatorDefinition)eResolveProxy(oldIndicatorDefinition);
+            if (indicatorDefinition != oldIndicatorDefinition) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION, oldIndicatorDefinition, indicatorDefinition));
+            }
+        }
+        return indicatorDefinition;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public IndicatorDefinition basicGetIndicatorDefinition() {
+        return indicatorDefinition;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setIndicatorDefinition(IndicatorDefinition newIndicatorDefinition) {
+        IndicatorDefinition oldIndicatorDefinition = indicatorDefinition;
+        indicatorDefinition = newIndicatorDefinition;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION, oldIndicatorDefinition, indicatorDefinition));
+    }
+
+    /**
      * <!-- begin-user-doc --> Increments counts for each given data. <!-- end-user-doc -->
      * 
      * @generated NOT
@@ -430,6 +480,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
                 return basicGetAnalyzedElement();
             case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
                 return getDataminingType();
+            case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
+                if (resolve) return getIndicatorDefinition();
+                return basicGetIndicatorDefinition();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -458,6 +511,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
                 return;
             case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
                 setDataminingType((DataminingType)newValue);
+                return;
+            case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
+                setIndicatorDefinition((IndicatorDefinition)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -488,6 +544,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
             case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
                 setDataminingType(DATAMINING_TYPE_EDEFAULT);
                 return;
+            case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
+                setIndicatorDefinition((IndicatorDefinition)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -511,6 +570,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
                 return analyzedElement != null;
             case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:
                 return dataminingType != DATAMINING_TYPE_EDEFAULT;
+            case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
+                return indicatorDefinition != null;
         }
         return super.eIsSet(featureID);
     }

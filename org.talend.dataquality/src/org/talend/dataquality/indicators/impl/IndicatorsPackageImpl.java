@@ -68,8 +68,12 @@ import org.talend.dataquality.indicators.TextIndicator;
 import org.talend.dataquality.indicators.TextParameters;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.ValueIndicator;
+import org.talend.dataquality.indicators.definition.DefinitionPackage;
+import org.talend.dataquality.indicators.definition.impl.DefinitionPackageImpl;
 import org.talend.dataquality.indicators.schema.SchemaPackage;
 import org.talend.dataquality.indicators.schema.impl.SchemaPackageImpl;
+import org.talend.dataquality.indicators.sql.IndicatorSqlPackage;
+import org.talend.dataquality.indicators.sql.impl.IndicatorSqlPackageImpl;
 import org.talend.dataquality.reports.ReportsPackage;
 import org.talend.dataquality.reports.impl.ReportsPackageImpl;
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
@@ -470,6 +474,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
         ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
         SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
+        DefinitionPackageImpl theDefinitionPackage = (DefinitionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI) instanceof DefinitionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI) : DefinitionPackage.eINSTANCE);
+        IndicatorSqlPackageImpl theIndicatorSqlPackage = (IndicatorSqlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI) instanceof IndicatorSqlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI) : IndicatorSqlPackage.eINSTANCE);
         ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
         DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
         PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
@@ -481,6 +487,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         theCategoryPackage.createPackageContents();
         theReportsPackage.createPackageContents();
         theSchemaPackage.createPackageContents();
+        theDefinitionPackage.createPackageContents();
+        theIndicatorSqlPackage.createPackageContents();
         theExpressionsPackage_1.createPackageContents();
         theDomainPackage.createPackageContents();
         thePatternPackage.createPackageContents();
@@ -492,6 +500,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         theCategoryPackage.initializePackageContents();
         theReportsPackage.initializePackageContents();
         theSchemaPackage.initializePackageContents();
+        theDefinitionPackage.initializePackageContents();
+        theIndicatorSqlPackage.initializePackageContents();
         theExpressionsPackage_1.initializePackageContents();
         theDomainPackage.initializePackageContents();
         thePatternPackage.initializePackageContents();
@@ -558,6 +568,15 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      */
     public EAttribute getIndicator_DataminingType() {
         return (EAttribute)indicatorEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getIndicator_IndicatorDefinition() {
+        return (EReference)indicatorEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1281,6 +1300,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         createEReference(indicatorEClass, INDICATOR__PARAMETERS);
         createEReference(indicatorEClass, INDICATOR__ANALYZED_ELEMENT);
         createEAttribute(indicatorEClass, INDICATOR__DATAMINING_TYPE);
+        createEReference(indicatorEClass, INDICATOR__INDICATOR_DEFINITION);
 
         rowCountIndicatorEClass = createEClass(ROW_COUNT_INDICATOR);
 
@@ -1422,11 +1442,15 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         // Obtain other dependent packages
         SchemaPackage theSchemaPackage = (SchemaPackage)EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI);
+        DefinitionPackage theDefinitionPackage = (DefinitionPackage)EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI);
+        IndicatorSqlPackage theIndicatorSqlPackage = (IndicatorSqlPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI);
         CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
         DomainPackage theDomainPackage = (DomainPackage)EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI);
 
         // Add subpackages
         getESubpackages().add(theSchemaPackage);
+        getESubpackages().add(theDefinitionPackage);
+        getESubpackages().add(theIndicatorSqlPackage);
 
         // Create type parameters
 
@@ -1476,6 +1500,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEReference(getIndicator_Parameters(), this.getIndicatorParameters(), null, "parameters", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicator_AnalyzedElement(), theCorePackage.getModelElement(), null, "analyzedElement", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIndicator_DataminingType(), this.getDataminingType(), "dataminingType", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicator_IndicatorDefinition(), theDefinitionPackage.getIndicatorDefinition(), null, "indicatorDefinition", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         EOperation op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "handle", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEJavaObject(), "data", 0, 1, IS_UNIQUE, IS_ORDERED);

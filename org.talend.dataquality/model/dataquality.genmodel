@@ -142,6 +142,8 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/analyzedElement"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/dataminingType"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/indicatorDefinition"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/handle">
           <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/handle/data"/>
         </genOperations>
@@ -287,6 +289,34 @@
           <genOperations ecoreOperation="dataquality.ecore#//indicators/schema/ConnectionIndicator/addSchemaIndicator">
             <genParameters ecoreParameter="dataquality.ecore#//indicators/schema/ConnectionIndicator/addSchemaIndicator/schemaIndicator"/>
           </genOperations>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Definition" basePackage="org.talend.dataquality.indicators"
+          disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/definition">
+        <genClasses ecoreClass="dataquality.ecore#//indicators/definition/IndicatorsDefinitions">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/definition/IndicatorsDefinitions/indicatorDefinitions"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/definition/IndicatorsDefinitions/categories"/>
+        </genClasses>
+        <genClasses ecoreClass="dataquality.ecore#//indicators/definition/IndicatorDefinition">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dataquality.ecore#//indicators/definition/IndicatorDefinition/categories"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dataquality.ecore#//indicators/definition/IndicatorDefinition/aggregatedDefinitions"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/definition/IndicatorDefinition/label"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dataquality.ecore#//indicators/definition/IndicatorDefinition/subCategories"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/definition/IndicatorDefinition/sqlGenericExpression"/>
+        </genClasses>
+        <genClasses ecoreClass="dataquality.ecore#//indicators/definition/IndicatorCategory">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/definition/IndicatorCategory/label"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="IndicatorSql" basePackage="org.talend.dataquality.indicators"
+          disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/sql">
+        <genClasses ecoreClass="dataquality.ecore#//indicators/sql/SqlIndicator">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/sql/SqlIndicator/creationDate"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/sql/SqlIndicator/lastModificationDate"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/sql/SqlIndicator/instantiatedExpressions"/>
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>
