@@ -195,5 +195,22 @@ public interface INode extends IElement {
     public boolean isDesignSubjobStartNode();
 
     // if the node is generated from the virtual component, there return true
+    // This function is used
+
+    /**
+     * This function is used only in the generation part to know if the node is virtual or not.
+     * 
+     * @return
+     */
     public boolean isVirtualGenerateNode();
+
+    // if the node should be generated as a virtual component or not.
+    // true if the template part of the component is used
+
+    /**
+     * This function is only used before the generation part, to know if the component can generate virtual or not.
+     * 
+     * @return
+     */
+    public boolean isGeneratedAsVirtualComponent();
 }

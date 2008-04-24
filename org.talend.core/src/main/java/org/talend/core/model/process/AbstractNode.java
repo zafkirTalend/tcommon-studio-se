@@ -26,6 +26,7 @@ import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
 import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.components.IMultipleComponentManager;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
 import org.talend.core.model.metadata.IMetadataTable;
 
@@ -692,5 +693,10 @@ public abstract class AbstractNode implements INode {
             }
         }
         return fullListParam;
+    }
+
+    public boolean isGeneratedAsVirtualComponent() {
+        List<IMultipleComponentManager> multipleComponentManagers = getComponent().getMultipleComponentManagers();
+        return multipleComponentManagers.size() > 0;
     }
 }
