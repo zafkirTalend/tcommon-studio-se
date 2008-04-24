@@ -12,9 +12,13 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -23,6 +27,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.login.LoginDialog;
 
 /**
@@ -34,6 +39,11 @@ public class Application implements IApplication {
         Display display = PlatformUI.createDisplay();
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
+
+            // If we cannot get the workspace lock, pop up an error dialog and then exit the application.
+            if (!acquireWorkspaceLock(shell)) {
+                return IApplication.EXIT_OK;
+            }
 
             CorePlugin.getDefault().getRepositoryService().setRCPMode();
 
@@ -60,8 +70,41 @@ public class Application implements IApplication {
             }
         } finally {
             display.dispose();
+            // release workspace lock
+            releaseWorkspaceLock();
         }
 
+    }
+
+    /**
+     * Return <code>true</code> if the lock could be acquired.
+     * 
+     * @param shell
+     * @throws IOException
+     */
+    private boolean acquireWorkspaceLock(Shell shell) {
+        Location instanceLoc = Platform.getInstanceLocation();
+        try {
+            // try to lock the workspace
+            if (instanceLoc.lock()) {
+                return true;
+            }
+        } catch (Throwable t) {
+            // do nothing
+        }
+        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), Messages //$NON-NLS-1$
+                .getString("Application.workspaceInUse")); //$NON-NLS-1$
+        return false;
+    }
+
+    /**
+     * Release the workspace lock before we exit the application.
+     */
+    private void releaseWorkspaceLock() {
+        Location instanceLoc = Platform.getInstanceLocation();
+        if (instanceLoc != null) {
+            instanceLoc.release();
+        }
     }
 
     private boolean logUserOnProject(Shell shell) {
