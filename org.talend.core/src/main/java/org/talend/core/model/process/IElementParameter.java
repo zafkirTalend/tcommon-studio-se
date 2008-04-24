@@ -135,6 +135,10 @@ public interface IElementParameter extends Cloneable {
 
     public void setBasedOnSchema(boolean basedOnSchema);
 
+    public boolean isBasedOnSubjobStarts();
+
+    public void setBasedOnSubjobStarts(boolean basedOnSubjobStarts);
+
     public String getFilter();
 
     public void setFilter(String filter);

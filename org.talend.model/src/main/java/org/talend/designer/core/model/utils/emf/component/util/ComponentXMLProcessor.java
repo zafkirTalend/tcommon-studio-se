@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 
@@ -37,6 +38,7 @@ public class ComponentXMLProcessor extends XMLProcessor {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     protected Map getRegistrations() {
         if (registrations == null) {

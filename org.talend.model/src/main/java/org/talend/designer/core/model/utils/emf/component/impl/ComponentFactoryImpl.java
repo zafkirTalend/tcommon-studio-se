@@ -77,6 +77,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case ComponentPackage.ADVANCEDPARAMETERS_TYPE: return createADVANCEDPARAMETERSType();
@@ -396,6 +397,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      * @deprecated
      * @generated
      */
+    @Deprecated
     public static ComponentPackage getPackage() {
         return ComponentPackage.eINSTANCE;
     }

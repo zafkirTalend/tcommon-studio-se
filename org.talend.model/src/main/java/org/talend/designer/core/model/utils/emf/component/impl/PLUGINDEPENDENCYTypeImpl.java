@@ -64,6 +64,7 @@ public class PLUGINDEPENDENCYTypeImpl extends EObjectImpl implements PLUGINDEPEN
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.PLUGINDEPENDENCY_TYPE;
     }
@@ -94,6 +95,7 @@ public class PLUGINDEPENDENCYTypeImpl extends EObjectImpl implements PLUGINDEPEN
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.PLUGINDEPENDENCY_TYPE__ID:
@@ -107,6 +109,7 @@ public class PLUGINDEPENDENCYTypeImpl extends EObjectImpl implements PLUGINDEPEN
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.PLUGINDEPENDENCY_TYPE__ID:
@@ -121,6 +124,7 @@ public class PLUGINDEPENDENCYTypeImpl extends EObjectImpl implements PLUGINDEPEN
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.PLUGINDEPENDENCY_TYPE__ID:
@@ -135,6 +139,7 @@ public class PLUGINDEPENDENCYTypeImpl extends EObjectImpl implements PLUGINDEPEN
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.PLUGINDEPENDENCY_TYPE__ID:
@@ -148,6 +153,7 @@ public class PLUGINDEPENDENCYTypeImpl extends EObjectImpl implements PLUGINDEPEN
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

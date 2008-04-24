@@ -1223,8 +1223,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMSType_DEFAULT() {
+    public EAttribute getITEMSType_BASEDONSUBJOBSTARTS() {
         return (EAttribute)itemsTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getITEMSType_DEFAULT() {
+        return (EAttribute)itemsTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1955,6 +1964,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         itemsTypeEClass = createEClass(ITEMS_TYPE);
         createEReference(itemsTypeEClass, ITEMS_TYPE__ITEM);
         createEAttribute(itemsTypeEClass, ITEMS_TYPE__BASEDONSCHEMA);
+        createEAttribute(itemsTypeEClass, ITEMS_TYPE__BASEDONSUBJOBSTARTS);
         createEAttribute(itemsTypeEClass, ITEMS_TYPE__DEFAULT);
 
         itemTypeEClass = createEClass(ITEM_TYPE);
@@ -2177,8 +2187,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getINSTALLType_OS(), theXMLTypePackage.getString(), "oS", null, 0, 1, INSTALLType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(itemsTypeEClass, ITEMSType.class, "ITEMSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getITEMSType_ITEM(), this.getITEMType(), null, "iTEM", null, 1, -1, ITEMSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getITEMSType_ITEM(), this.getITEMType(), null, "iTEM", null, 0, -1, ITEMSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMSType_BASEDONSCHEMA(), theXMLTypePackage.getBoolean(), "bASEDONSCHEMA", "false", 0, 1, ITEMSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getITEMSType_BASEDONSUBJOBSTARTS(), theXMLTypePackage.getBoolean(), "bASEDONSUBJOBSTARTS", "false", 0, 1, ITEMSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMSType_DEFAULT(), theXMLTypePackage.getString(), "dEFAULT", null, 0, 1, ITEMSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(itemTypeEClass, ITEMType.class, "ITEMType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3067,6 +3078,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "BASED_ON_SCHEMA",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getITEMSType_BASEDONSUBJOBSTARTS(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "BASED_ON_SUBJOB_STARTS",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

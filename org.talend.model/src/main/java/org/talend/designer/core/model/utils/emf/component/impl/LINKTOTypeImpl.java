@@ -82,6 +82,7 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.LINKTO_TYPE;
     }
@@ -133,6 +134,7 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.LINKTO_TYPE__CTYPE:
@@ -148,6 +150,7 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.LINKTO_TYPE__CTYPE:
@@ -165,6 +168,7 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.LINKTO_TYPE__CTYPE:
@@ -182,6 +186,7 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.LINKTO_TYPE__CTYPE:
@@ -197,6 +202,7 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

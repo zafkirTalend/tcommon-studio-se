@@ -355,6 +355,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.CONNECTOR_TYPE;
     }
@@ -791,6 +792,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
@@ -826,6 +828,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
@@ -873,6 +876,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
@@ -920,6 +924,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
@@ -955,6 +960,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

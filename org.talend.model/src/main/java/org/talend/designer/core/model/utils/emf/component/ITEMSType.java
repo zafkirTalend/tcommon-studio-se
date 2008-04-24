@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getITEM <em>ITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -48,7 +49,7 @@ public interface ITEMSType extends EObject {
      * <!-- end-model-doc -->
      * @return the value of the '<em>ITEM</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_ITEM()
-     * @model type="org.talend.designer.core.model.utils.emf.component.ITEMType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.component.ITEMType" containment="true"
      *        extendedMetaData="kind='element' name='ITEM' namespace='##targetNamespace'"
      * @generated
      */
@@ -108,6 +109,61 @@ public interface ITEMSType extends EObject {
      * @generated
      */
     boolean isSetBASEDONSCHEMA();
+
+    /**
+     * Returns the value of the '<em><b>BASEDONSUBJOBSTARTS</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>BASEDONSUBJOBSTARTS</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>BASEDONSUBJOBSTARTS</em>' attribute.
+     * @see #isSetBASEDONSUBJOBSTARTS()
+     * @see #unsetBASEDONSUBJOBSTARTS()
+     * @see #setBASEDONSUBJOBSTARTS(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_BASEDONSUBJOBSTARTS()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='BASED_ON_SUBJOB_STARTS' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isBASEDONSUBJOBSTARTS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>BASEDONSUBJOBSTARTS</em>' attribute.
+     * @see #isSetBASEDONSUBJOBSTARTS()
+     * @see #unsetBASEDONSUBJOBSTARTS()
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @generated
+     */
+    void setBASEDONSUBJOBSTARTS(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetBASEDONSUBJOBSTARTS()
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @see #setBASEDONSUBJOBSTARTS(boolean)
+     * @generated
+     */
+    void unsetBASEDONSUBJOBSTARTS();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>BASEDONSUBJOBSTARTS</em>' attribute is set.
+     * @see #unsetBASEDONSUBJOBSTARTS()
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @see #setBASEDONSUBJOBSTARTS(boolean)
+     * @generated
+     */
+    boolean isSetBASEDONSUBJOBSTARTS();
 
     /**
      * Returns the value of the '<em><b>DEFAULT</b></em>' attribute.

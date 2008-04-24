@@ -178,7 +178,7 @@
 	<xs:element name="ITEMS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ITEM" maxOccurs="unbounded">
+				<xs:element name="ITEM" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>On TABLE mode:
    - FIELD can be either TEXT, CHECK, CLOSED_LIST, COLUMN_LIST or PREV_COLUMN_LIST
@@ -210,6 +210,7 @@ On CLOSED_LIST mode:
 			</xs:sequence>
 			<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
 			<xs:attribute name="BASED_ON_SCHEMA" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="BASED_ON_SUBJOB_STARTS" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PLUGINDEPENDENCIES">

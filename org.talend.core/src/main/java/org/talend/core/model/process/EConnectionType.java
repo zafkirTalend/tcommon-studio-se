@@ -105,7 +105,14 @@ public enum EConnectionType implements IConnectionCategory {
                 MAIN | USE_ITERATE,
                 "OnRowsEnd", Messages.getString("EConnectionType.onRowsEndMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                 new Integer(Graphics.LINE_SOLID),
-                new RGB(0, 150, 0));
+                new RGB(0, 150, 0)),
+
+    SUBJOB_START_ORDER(12, "SUBJOB_START_ORDER", //$NON-NLS-1$
+                       EConnectionCategory.MAIN,
+                       EXECUTION_ORDER,
+                       "SubjobStartOrder", Messages.getString("EConnectionType.SubjobStartOrder"), //$NON-NLS-1$ //$NON-NLS-2$
+                       new Integer(Graphics.LINE_DASH),
+                       new RGB(0, 50, 150));
 
     private String name;
 

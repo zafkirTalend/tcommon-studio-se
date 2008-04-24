@@ -49,6 +49,7 @@ public class ComponentResourceFactoryImpl extends ResourceFactoryImpl {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     public Resource createResource(URI uri) {
         XMLResource result = new ComponentResourceImpl(uri);

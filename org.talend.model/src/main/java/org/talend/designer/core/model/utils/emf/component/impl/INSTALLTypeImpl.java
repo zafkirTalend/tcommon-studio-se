@@ -85,6 +85,7 @@ public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.INSTALL_TYPE;
     }
@@ -136,6 +137,7 @@ public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.INSTALL_TYPE__COMMAND:
@@ -151,6 +153,7 @@ public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.INSTALL_TYPE__COMMAND:
@@ -168,6 +171,7 @@ public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.INSTALL_TYPE__COMMAND:
@@ -185,6 +189,7 @@ public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.INSTALL_TYPE__COMMAND:
@@ -200,6 +205,7 @@ public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

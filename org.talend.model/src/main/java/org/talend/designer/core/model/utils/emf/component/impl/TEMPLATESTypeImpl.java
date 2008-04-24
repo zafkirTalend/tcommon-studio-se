@@ -134,6 +134,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.TEMPLATES_TYPE;
     }
@@ -230,6 +231,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
@@ -245,6 +247,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
@@ -267,6 +270,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * @generated
      */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
@@ -295,6 +299,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
@@ -321,6 +326,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
@@ -342,6 +348,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getITEM <em>ITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -77,6 +78,35 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
     protected boolean bASEDONSCHEMAESet;
 
     /**
+     * The default value of the '{@link #isBASEDONSUBJOBSTARTS() <em>BASEDONSUBJOBSTARTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean BASEDONSUBJOBSTARTS_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isBASEDONSUBJOBSTARTS() <em>BASEDONSUBJOBSTARTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @generated
+     * @ordered
+     */
+    protected boolean bASEDONSUBJOBSTARTS = BASEDONSUBJOBSTARTS_EDEFAULT;
+
+    /**
+     * This is true if the BASEDONSUBJOBSTARTS attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean bASEDONSUBJOBSTARTSESet;
+
+    /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -110,6 +140,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.ITEMS_TYPE;
     }
@@ -177,6 +208,52 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isBASEDONSUBJOBSTARTS() {
+        return bASEDONSUBJOBSTARTS;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBASEDONSUBJOBSTARTS(boolean newBASEDONSUBJOBSTARTS) {
+        boolean oldBASEDONSUBJOBSTARTS = bASEDONSUBJOBSTARTS;
+        bASEDONSUBJOBSTARTS = newBASEDONSUBJOBSTARTS;
+        boolean oldBASEDONSUBJOBSTARTSESet = bASEDONSUBJOBSTARTSESet;
+        bASEDONSUBJOBSTARTSESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS, oldBASEDONSUBJOBSTARTS, bASEDONSUBJOBSTARTS, !oldBASEDONSUBJOBSTARTSESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetBASEDONSUBJOBSTARTS() {
+        boolean oldBASEDONSUBJOBSTARTS = bASEDONSUBJOBSTARTS;
+        boolean oldBASEDONSUBJOBSTARTSESet = bASEDONSUBJOBSTARTSESet;
+        bASEDONSUBJOBSTARTS = BASEDONSUBJOBSTARTS_EDEFAULT;
+        bASEDONSUBJOBSTARTSESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS, oldBASEDONSUBJOBSTARTS, BASEDONSUBJOBSTARTS_EDEFAULT, oldBASEDONSUBJOBSTARTSESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetBASEDONSUBJOBSTARTS() {
+        return bASEDONSUBJOBSTARTSESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getDEFAULT() {
         return dEFAULT;
     }
@@ -198,6 +275,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -211,12 +289,15 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return getITEM();
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 return isBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                return isBASEDONSUBJOBSTARTS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return getDEFAULT();
         }
@@ -229,6 +310,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @generated
      */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -237,6 +319,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
                 return;
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 setBASEDONSCHEMA(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                setBASEDONSUBJOBSTARTS(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT((String)newValue);
@@ -250,6 +335,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -257,6 +343,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
                 return;
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 unsetBASEDONSCHEMA();
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                unsetBASEDONSUBJOBSTARTS();
                 return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT(DEFAULT_EDEFAULT);
@@ -270,12 +359,15 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return iTEM != null && !iTEM.isEmpty();
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 return isSetBASEDONSCHEMA();
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                return isSetBASEDONSUBJOBSTARTS();
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
         }
@@ -287,12 +379,15 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (bASEDONSCHEMA: ");
         if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
+        result.append(", bASEDONSUBJOBSTARTS: ");
+        if (bASEDONSUBJOBSTARTSESet) result.append(bASEDONSUBJOBSTARTS); else result.append("<unset>");
         result.append(", dEFAULT: ");
         result.append(dEFAULT);
         result.append(')');

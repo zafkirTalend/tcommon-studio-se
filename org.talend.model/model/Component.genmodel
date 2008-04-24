@@ -124,6 +124,7 @@
     <genClasses ecoreClass="Component.ecore#//ITEMSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//ITEMSType/iTEM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/bASEDONSCHEMA"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/bASEDONSUBJOBSTARTS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/dEFAULT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//ITEMType">
