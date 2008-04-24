@@ -25,7 +25,7 @@ public final class ZQueryHelper {
     private ZQueryHelper() {
     }
 
-    public static Vector<ZSelectItem> createSelectVector(String[] f) {
+    public static Vector<ZSelectItem> createSelectVector(String... f) {
         Vector<ZSelectItem> v = new Vector<ZSelectItem>();
         if (f == null) {
             return v;
@@ -38,7 +38,7 @@ public final class ZQueryHelper {
         return v;
     }
 
-    public static Vector<ZFromItem> createFromVector(String[] f) {
+    public static Vector<ZFromItem> createFromVector(String... f) {
         Vector<ZFromItem> v = new Vector<ZFromItem>();
         if (f == null) {
             return v;
