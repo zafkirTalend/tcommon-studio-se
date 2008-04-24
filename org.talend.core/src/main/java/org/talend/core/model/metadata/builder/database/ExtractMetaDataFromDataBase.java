@@ -291,6 +291,7 @@ public class ExtractMetaDataFromDataBase {
                     }
 
                     String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
+                    dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType); //$NON-NLS-1$
 
                     metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
@@ -653,6 +654,13 @@ public class ExtractMetaDataFromDataBase {
             itemTablesName.add(resultSet.getString(1));
         }
         return itemTablesName;
+    }
+
+    private static String handleDBtype(String dbtype) {
+        if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) {
+            dbtype = "TIMESTAMP";
+        }
+        return dbtype;
     }
 
     /**
