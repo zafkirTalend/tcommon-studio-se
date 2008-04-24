@@ -67,18 +67,13 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
         switch (eClass.getClassifierID()) {
             case IndicatorsPackage.INDICATOR: return createIndicator();
             case IndicatorsPackage.ROW_COUNT_INDICATOR: return createRowCountIndicator();
+            case IndicatorsPackage.MEAN_INDICATOR: return createMeanIndicator();
             case IndicatorsPackage.SUM_INDICATOR: return createSumIndicator();
             case IndicatorsPackage.COMPOSITE_INDICATOR: return createCompositeIndicator();
             case IndicatorsPackage.RANGE_INDICATOR: return createRangeIndicator();
             case IndicatorsPackage.BOX_INDICATOR: return createBoxIndicator();
             case IndicatorsPackage.INDICATOR_TYPE: return createIndicatorType();
-            case IndicatorsPackage.INTEGER_SUM_INDICATOR: return createIntegerSumIndicator();
-            case IndicatorsPackage.DOUBLE_SUM_INDICATOR: return createDoubleSumIndicator();
-            case IndicatorsPackage.BIG_DECIMAL_INDICATOR: return createBigDecimalIndicator();
             case IndicatorsPackage.FREQUENCY_INDICATOR: return createFrequencyIndicator();
-            case IndicatorsPackage.INTEGER_MEAN_INDICATOR: return createIntegerMeanIndicator();
-            case IndicatorsPackage.DOUBLE_MEAN_INDICATOR: return createDoubleMeanIndicator();
-            case IndicatorsPackage.BIG_DECIMAL_MEAN_INDICATOR: return createBigDecimalMeanIndicator();
             case IndicatorsPackage.BLANK_COUNT_INDICATOR: return createBlankCountIndicator();
             case IndicatorsPackage.INDICATOR_PARAMETERS: return createIndicatorParameters();
             case IndicatorsPackage.MEDIAN_INDICATOR: return createMedianIndicator();
@@ -185,6 +180,16 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * <!-- end-user-doc -->
      * @generated
      */
+    public MeanIndicator createMeanIndicator() {
+        MeanIndicatorImpl meanIndicator = new MeanIndicatorImpl();
+        return meanIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public SumIndicator createSumIndicator() {
         SumIndicatorImpl sumIndicator = new SumIndicatorImpl();
         return sumIndicator;
@@ -235,69 +240,9 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * <!-- end-user-doc -->
      * @generated
      */
-    public IntegerSumIndicator createIntegerSumIndicator() {
-        IntegerSumIndicatorImpl integerSumIndicator = new IntegerSumIndicatorImpl();
-        return integerSumIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public DoubleSumIndicator createDoubleSumIndicator() {
-        DoubleSumIndicatorImpl doubleSumIndicator = new DoubleSumIndicatorImpl();
-        return doubleSumIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public BigDecimalIndicator createBigDecimalIndicator() {
-        BigDecimalIndicatorImpl bigDecimalIndicator = new BigDecimalIndicatorImpl();
-        return bigDecimalIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public FrequencyIndicator createFrequencyIndicator() {
         FrequencyIndicatorImpl frequencyIndicator = new FrequencyIndicatorImpl();
         return frequencyIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public IntegerMeanIndicator createIntegerMeanIndicator() {
-        IntegerMeanIndicatorImpl integerMeanIndicator = new IntegerMeanIndicatorImpl();
-        return integerMeanIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public DoubleMeanIndicator createDoubleMeanIndicator() {
-        DoubleMeanIndicatorImpl doubleMeanIndicator = new DoubleMeanIndicatorImpl();
-        return doubleMeanIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public BigDecimalMeanIndicator createBigDecimalMeanIndicator() {
-        BigDecimalMeanIndicatorImpl bigDecimalMeanIndicator = new BigDecimalMeanIndicatorImpl();
-        return bigDecimalMeanIndicator;
     }
 
     /**

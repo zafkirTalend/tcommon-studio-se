@@ -28,22 +28,21 @@ import org.talend.commons.emf.EMFUtil;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
-import org.talend.dataquality.indicators.DoubleMeanIndicator;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
-import org.talend.dataquality.indicators.IntegerMeanIndicator;
-import org.talend.dataquality.indicators.IntegerSumIndicator;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
+import org.talend.dataquality.indicators.MeanIndicator;
 import org.talend.dataquality.indicators.MedianIndicator;
 import org.talend.dataquality.indicators.MinLengthIndicator;
 import org.talend.dataquality.indicators.ModeIndicator;
 import org.talend.dataquality.indicators.NullCountIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
+import org.talend.dataquality.indicators.SumIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
-import org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl;
+import org.talend.dataquality.indicators.impl.SumIndicatorImpl;
 import org.talend.dataquality.indicators.util.IndicatorsSwitch;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
@@ -59,10 +58,10 @@ public final class IndicatorEvaluationMain {
 
     private static final char SEP = ',';
 
-    private static final IndicatorsSwitch<IntegerSumIndicator> MY_SWITCH = new IndicatorsSwitch<IntegerSumIndicator>() {
+    private static final IndicatorsSwitch<SumIndicator> MY_SWITCH = new IndicatorsSwitch<SumIndicator>() {
 
         @Override
-        public IntegerSumIndicator caseIntegerSumIndicator(IntegerSumIndicator object) {
+        public SumIndicator caseSumIndicator(SumIndicator object) {
             return object;
         }
     };
@@ -118,8 +117,7 @@ public final class IndicatorEvaluationMain {
             DistinctCountIndicator distinctCountIndicator = IndicatorsFactory.eINSTANCE.createDistinctCountIndicator();
             DistinctCountIndicator distinctCountIndicator2 = IndicatorsFactory.eINSTANCE.createDistinctCountIndicator();
             UniqueCountIndicator uniqueCountIndicator = IndicatorsFactory.eINSTANCE.createUniqueCountIndicator();
-            DuplicateCountIndicator duplicateCountIndicator = IndicatorsFactory.eINSTANCE
-                    .createDuplicateCountIndicator();
+            DuplicateCountIndicator duplicateCountIndicator = IndicatorsFactory.eINSTANCE.createDuplicateCountIndicator();
 
             BlankCountIndicator blankCountIndicator = IndicatorsFactory.eINSTANCE.createBlankCountIndicator();
 
@@ -137,11 +135,11 @@ public final class IndicatorEvaluationMain {
             textFrequencyIndicator.setDuplicateCountIndicator(duplicateCountIndicator);
             textFrequencyIndicator.setModeIndicator(modeIndicator);
 
-            DoubleMeanIndicator doubleMeanIndicator = IndicatorsFactory.eINSTANCE.createDoubleMeanIndicator();
-            IntegerMeanIndicator integerMeanIndicator = IndicatorsFactory.eINSTANCE.createIntegerMeanIndicator();
+            MeanIndicator doubleMeanIndicator = IndicatorsFactory.eINSTANCE.createMeanIndicator();
+            MeanIndicator integerMeanIndicator = IndicatorsFactory.eINSTANCE.createMeanIndicator();
             MedianIndicator medianIndicator = IndicatorsFactory.eINSTANCE.createMedianIndicator();
 
-            IntegerSumIndicator integerSumIndicator = IndicatorsFactory.eINSTANCE.createIntegerSumIndicator();
+            SumIndicator integerSumIndicator = IndicatorsFactory.eINSTANCE.createSumIndicator();
 
             addIndicator(columnsArray[0], medianIndicator);
             addIndicator(columnsArray[1], doubleMeanIndicator);
@@ -225,7 +223,7 @@ public final class IndicatorEvaluationMain {
             System.out.println(indicator);
             Object intIndic = MY_SWITCH.doSwitch(indicator);
             if (intIndic != null) {
-                System.out.println(((IntegerSumIndicatorImpl) intIndic).getSum());
+                System.out.println(((SumIndicatorImpl) intIndic).getSumStr());
             }
         }
     }

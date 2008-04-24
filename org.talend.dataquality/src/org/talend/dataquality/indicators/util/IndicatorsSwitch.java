@@ -116,6 +116,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.MEAN_INDICATOR: {
                 MeanIndicator meanIndicator = (MeanIndicator)theEObject;
                 T result = caseMeanIndicator(meanIndicator);
+                if (result == null) result = caseSumIndicator(meanIndicator);
                 if (result == null) result = caseIndicator(meanIndicator);
                 if (result == null) result = caseModelElement(meanIndicator);
                 if (result == null) result = caseElement(meanIndicator);
@@ -170,36 +171,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case IndicatorsPackage.INTEGER_SUM_INDICATOR: {
-                IntegerSumIndicator integerSumIndicator = (IntegerSumIndicator)theEObject;
-                T result = caseIntegerSumIndicator(integerSumIndicator);
-                if (result == null) result = caseSumIndicator(integerSumIndicator);
-                if (result == null) result = caseIndicator(integerSumIndicator);
-                if (result == null) result = caseModelElement(integerSumIndicator);
-                if (result == null) result = caseElement(integerSumIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case IndicatorsPackage.DOUBLE_SUM_INDICATOR: {
-                DoubleSumIndicator doubleSumIndicator = (DoubleSumIndicator)theEObject;
-                T result = caseDoubleSumIndicator(doubleSumIndicator);
-                if (result == null) result = caseSumIndicator(doubleSumIndicator);
-                if (result == null) result = caseIndicator(doubleSumIndicator);
-                if (result == null) result = caseModelElement(doubleSumIndicator);
-                if (result == null) result = caseElement(doubleSumIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case IndicatorsPackage.BIG_DECIMAL_INDICATOR: {
-                BigDecimalIndicator bigDecimalIndicator = (BigDecimalIndicator)theEObject;
-                T result = caseBigDecimalIndicator(bigDecimalIndicator);
-                if (result == null) result = caseSumIndicator(bigDecimalIndicator);
-                if (result == null) result = caseIndicator(bigDecimalIndicator);
-                if (result == null) result = caseModelElement(bigDecimalIndicator);
-                if (result == null) result = caseElement(bigDecimalIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case IndicatorsPackage.FREQUENCY_INDICATOR: {
                 FrequencyIndicator frequencyIndicator = (FrequencyIndicator)theEObject;
                 T result = caseFrequencyIndicator(frequencyIndicator);
@@ -207,42 +178,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseIndicator(frequencyIndicator);
                 if (result == null) result = caseModelElement(frequencyIndicator);
                 if (result == null) result = caseElement(frequencyIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case IndicatorsPackage.INTEGER_MEAN_INDICATOR: {
-                IntegerMeanIndicator integerMeanIndicator = (IntegerMeanIndicator)theEObject;
-                T result = caseIntegerMeanIndicator(integerMeanIndicator);
-                if (result == null) result = caseIntegerSumIndicator(integerMeanIndicator);
-                if (result == null) result = caseMeanIndicator(integerMeanIndicator);
-                if (result == null) result = caseSumIndicator(integerMeanIndicator);
-                if (result == null) result = caseIndicator(integerMeanIndicator);
-                if (result == null) result = caseModelElement(integerMeanIndicator);
-                if (result == null) result = caseElement(integerMeanIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case IndicatorsPackage.DOUBLE_MEAN_INDICATOR: {
-                DoubleMeanIndicator doubleMeanIndicator = (DoubleMeanIndicator)theEObject;
-                T result = caseDoubleMeanIndicator(doubleMeanIndicator);
-                if (result == null) result = caseDoubleSumIndicator(doubleMeanIndicator);
-                if (result == null) result = caseMeanIndicator(doubleMeanIndicator);
-                if (result == null) result = caseSumIndicator(doubleMeanIndicator);
-                if (result == null) result = caseIndicator(doubleMeanIndicator);
-                if (result == null) result = caseModelElement(doubleMeanIndicator);
-                if (result == null) result = caseElement(doubleMeanIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case IndicatorsPackage.BIG_DECIMAL_MEAN_INDICATOR: {
-                BigDecimalMeanIndicator bigDecimalMeanIndicator = (BigDecimalMeanIndicator)theEObject;
-                T result = caseBigDecimalMeanIndicator(bigDecimalMeanIndicator);
-                if (result == null) result = caseBigDecimalIndicator(bigDecimalMeanIndicator);
-                if (result == null) result = caseMeanIndicator(bigDecimalMeanIndicator);
-                if (result == null) result = caseSumIndicator(bigDecimalMeanIndicator);
-                if (result == null) result = caseIndicator(bigDecimalMeanIndicator);
-                if (result == null) result = caseModelElement(bigDecimalMeanIndicator);
-                if (result == null) result = caseElement(bigDecimalMeanIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -539,51 +474,6 @@ public class IndicatorsSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Integer Sum Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Integer Sum Indicator</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseIntegerSumIndicator(IntegerSumIndicator object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Double Sum Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Double Sum Indicator</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseDoubleSumIndicator(DoubleSumIndicator object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Big Decimal Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Big Decimal Indicator</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseBigDecimalIndicator(BigDecimalIndicator object) {
-        return null;
-    }
-
-    /**
      * Returns the result of interpreting the object as an instance of '<em>Frequency Indicator</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -595,51 +485,6 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseFrequencyIndicator(FrequencyIndicator object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Integer Mean Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Integer Mean Indicator</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseIntegerMeanIndicator(IntegerMeanIndicator object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Double Mean Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Double Mean Indicator</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseDoubleMeanIndicator(DoubleMeanIndicator object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Big Decimal Mean Indicator</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Big Decimal Mean Indicator</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseBigDecimalMeanIndicator(BigDecimalMeanIndicator object) {
         return null;
     }
 

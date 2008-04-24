@@ -21,18 +21,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
-import org.talend.dataquality.indicators.BigDecimalIndicator;
-import org.talend.dataquality.indicators.BigDecimalMeanIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.BoxIndicator;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
-import org.talend.dataquality.indicators.DoubleMeanIndicator;
-import org.talend.dataquality.indicators.DoubleSumIndicator;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
-import org.talend.dataquality.indicators.IntegerMeanIndicator;
 import org.talend.dataquality.indicators.LengthIndicator;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
 import org.talend.dataquality.indicators.MaxValueIndicator;
@@ -272,12 +267,6 @@ public final class DefinitionHandler {
         }
 
         @Override
-        public Boolean caseIntegerMeanIndicator(IntegerMeanIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseIntegerMeanIndicator(object);
-        }
-
-        @Override
         public Boolean caseFrequencyIndicator(FrequencyIndicator object) {
             // TODO Auto-generated method stub
             return super.caseFrequencyIndicator(object);
@@ -295,18 +284,6 @@ public final class DefinitionHandler {
         }
 
         @Override
-        public Boolean caseDoubleSumIndicator(DoubleSumIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseDoubleSumIndicator(object);
-        }
-
-        @Override
-        public Boolean caseDoubleMeanIndicator(DoubleMeanIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseDoubleMeanIndicator(object);
-        }
-
-        @Override
         public Boolean caseDistinctCountIndicator(DistinctCountIndicator object) {
             return setIndicatorDefinition(object, "Distinct Count");
         }
@@ -320,18 +297,6 @@ public final class DefinitionHandler {
         @Override
         public Boolean caseBlankCountIndicator(BlankCountIndicator object) {
             return setIndicatorDefinition(object, "Blank Count");
-        }
-
-        @Override
-        public Boolean caseBigDecimalMeanIndicator(BigDecimalMeanIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseBigDecimalMeanIndicator(object);
-        }
-
-        @Override
-        public Boolean caseBigDecimalIndicator(BigDecimalIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseBigDecimalIndicator(object);
         }
 
         @Override

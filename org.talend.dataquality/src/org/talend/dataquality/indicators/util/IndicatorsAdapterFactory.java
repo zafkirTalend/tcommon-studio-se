@@ -113,32 +113,8 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createIndicatorTypeAdapter();
             }
             @Override
-            public Adapter caseIntegerSumIndicator(IntegerSumIndicator object) {
-                return createIntegerSumIndicatorAdapter();
-            }
-            @Override
-            public Adapter caseDoubleSumIndicator(DoubleSumIndicator object) {
-                return createDoubleSumIndicatorAdapter();
-            }
-            @Override
-            public Adapter caseBigDecimalIndicator(BigDecimalIndicator object) {
-                return createBigDecimalIndicatorAdapter();
-            }
-            @Override
             public Adapter caseFrequencyIndicator(FrequencyIndicator object) {
                 return createFrequencyIndicatorAdapter();
-            }
-            @Override
-            public Adapter caseIntegerMeanIndicator(IntegerMeanIndicator object) {
-                return createIntegerMeanIndicatorAdapter();
-            }
-            @Override
-            public Adapter caseDoubleMeanIndicator(DoubleMeanIndicator object) {
-                return createDoubleMeanIndicatorAdapter();
-            }
-            @Override
-            public Adapter caseBigDecimalMeanIndicator(BigDecimalMeanIndicator object) {
-                return createBigDecimalMeanIndicatorAdapter();
             }
             @Override
             public Adapter caseBlankCountIndicator(BlankCountIndicator object) {
@@ -361,48 +337,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.IntegerSumIndicator <em>Integer Sum Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.IntegerSumIndicator
-     * @generated
-     */
-    public Adapter createIntegerSumIndicatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.DoubleSumIndicator <em>Double Sum Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.DoubleSumIndicator
-     * @generated
-     */
-    public Adapter createDoubleSumIndicatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.BigDecimalIndicator <em>Big Decimal Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.BigDecimalIndicator
-     * @generated
-     */
-    public Adapter createBigDecimalIndicatorAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.FrequencyIndicator <em>Frequency Indicator</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -413,48 +347,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createFrequencyIndicatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.IntegerMeanIndicator <em>Integer Mean Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.IntegerMeanIndicator
-     * @generated
-     */
-    public Adapter createIntegerMeanIndicatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.DoubleMeanIndicator <em>Double Mean Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.DoubleMeanIndicator
-     * @generated
-     */
-    public Adapter createDoubleMeanIndicatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.BigDecimalMeanIndicator <em>Big Decimal Mean Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.BigDecimalMeanIndicator
-     * @generated
-     */
-    public Adapter createBigDecimalMeanIndicatorAdapter() {
         return null;
     }
 

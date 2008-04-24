@@ -6,9 +6,9 @@
 package org.talend.dataquality.indicators.impl;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -29,8 +29,6 @@ import org.talend.dataquality.domain.sql.SQLPackage;
 import org.talend.dataquality.domain.sql.impl.SQLPackageImpl;
 import org.talend.dataquality.expressions.impl.ExpressionsPackageImpl;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
-import org.talend.dataquality.indicators.BigDecimalIndicator;
-import org.talend.dataquality.indicators.BigDecimalMeanIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.BoxIndicator;
 import org.talend.dataquality.indicators.CompositeIndicator;
@@ -38,8 +36,6 @@ import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Datatype;
 import org.talend.dataquality.indicators.DateGrain;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
-import org.talend.dataquality.indicators.DoubleMeanIndicator;
-import org.talend.dataquality.indicators.DoubleSumIndicator;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.EnumStatistics;
 import org.talend.dataquality.indicators.FrequencyIndicator;
@@ -49,8 +45,6 @@ import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorType;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
-import org.talend.dataquality.indicators.IntegerMeanIndicator;
-import org.talend.dataquality.indicators.IntegerSumIndicator;
 import org.talend.dataquality.indicators.LengthIndicator;
 import org.talend.dataquality.indicators.MatchingAlgorithm;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
@@ -110,275 +104,252 @@ import orgomg.mof.model.ModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass indicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass rowCountIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass meanIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass sumIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass compositeIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass rangeIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass boxIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass indicatorTypeEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass integerSumIndicatorEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass doubleSumIndicatorEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass bigDecimalIndicatorEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass frequencyIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass integerMeanIndicatorEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass doubleMeanIndicatorEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass bigDecimalMeanIndicatorEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass blankCountIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass indicatorParametersEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass medianIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass valueIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass minValueIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass maxValueIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass modeIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass nullCountIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass distinctCountIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass uniqueCountIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass duplicateCountIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass iqrIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass textIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass minLengthIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass maxLengthIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass averageLengthIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass lengthIndicatorEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EClass textParametersEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EEnum enumStatisticsEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EEnum dataminingTypeEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EEnum datatypeEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EEnum dateGrainEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EEnum matchingAlgorithmEEnum = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EDataType javaSetEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EDataType javaHashMapEDataType = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private EDataType javaTreeMapEDataType = null;
@@ -402,37 +373,37 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private static boolean isInited = false;
 
     /**
-     * Creates, registers, and initializes the <b>Package</b> for this
-     * model, and for any others upon which it depends.  Simple
-     * dependencies are satisfied by calling this method on all
-     * dependent packages before doing anything else.  This method drives
-     * initialization for interdependent packages directly, in parallel
-     * with this package, itself.
-     * <p>Of this package and its interdependencies, all packages which
-     * have not yet been registered by their URI values are first created
-     * and registered.  The packages are then initialized in two steps:
-     * meta-model objects for all of the packages are created before any
-     * are initialized, since one package's meta-model objects may refer to
-     * those of another.
-     * <p>Invocation of this method will not affect any packages that have
-     * already been initialized.
-     * <!-- begin-user-doc
+     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+     * Simple dependencies are satisfied by calling this method on all dependent packages before doing anything else.
+     * This method drives initialization for interdependent packages directly, in parallel with this package, itself.
+     * <p>
+     * Of this package and its interdependencies, all packages which have not yet been registered by their URI values
+     * are first created and registered. The packages are then initialized in two steps: meta-model objects for all of
+     * the packages are created before any are initialized, since one package's meta-model objects may refer to those of
+     * another.
+     * <p>
+     * Invocation of this method will not affect any packages that have already been initialized. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
+     * 
      * @see #eNS_URI
      * @see #createPackageContents()
      * @see #initializePackageContents()
      * @generated
      */
     public static IndicatorsPackage init() {
-        if (isInited) return (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
+        if (isInited)
+            return (IndicatorsPackage) EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
 
         // Obtain or create and register package
-        IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new IndicatorsPackageImpl());
+        IndicatorsPackageImpl theIndicatorsPackage = (IndicatorsPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof IndicatorsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(eNS_URI)
+                : new IndicatorsPackageImpl());
 
         isInited = true;
 
@@ -470,16 +441,37 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         ModelPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
-        AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
-        ReportsPackageImpl theReportsPackage = (ReportsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
-        SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) : SchemaPackage.eINSTANCE);
-        DefinitionPackageImpl theDefinitionPackage = (DefinitionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI) instanceof DefinitionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI) : DefinitionPackage.eINSTANCE);
-        IndicatorSqlPackageImpl theIndicatorSqlPackage = (IndicatorSqlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI) instanceof IndicatorSqlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI) : IndicatorSqlPackage.eINSTANCE);
-        ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
-        DomainPackageImpl theDomainPackage = (DomainPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) : DomainPackage.eINSTANCE);
-        PatternPackageImpl thePatternPackage = (PatternPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
-        SQLPackageImpl theSQLPackage = (SQLPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) : SQLPackage.eINSTANCE);
+        AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
+        CategoryPackageImpl theCategoryPackage = (CategoryPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(CategoryPackage.eNS_URI) instanceof CategoryPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(CategoryPackage.eNS_URI) : CategoryPackage.eINSTANCE);
+        ReportsPackageImpl theReportsPackage = (ReportsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ReportsPackage.eNS_URI) instanceof ReportsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ReportsPackage.eNS_URI) : ReportsPackage.eINSTANCE);
+        SchemaPackageImpl theSchemaPackage = (SchemaPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI) instanceof SchemaPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(SchemaPackage.eNS_URI)
+                : SchemaPackage.eINSTANCE);
+        DefinitionPackageImpl theDefinitionPackage = (DefinitionPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(DefinitionPackage.eNS_URI) instanceof DefinitionPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DefinitionPackage.eNS_URI) : DefinitionPackage.eINSTANCE);
+        IndicatorSqlPackageImpl theIndicatorSqlPackage = (IndicatorSqlPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(IndicatorSqlPackage.eNS_URI) instanceof IndicatorSqlPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(IndicatorSqlPackage.eNS_URI) : IndicatorSqlPackage.eINSTANCE);
+        ExpressionsPackageImpl theExpressionsPackage_1 = (ExpressionsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI) instanceof ExpressionsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.dataquality.expressions.ExpressionsPackage.eNS_URI)
+                : org.talend.dataquality.expressions.ExpressionsPackage.eINSTANCE);
+        DomainPackageImpl theDomainPackage = (DomainPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI) instanceof DomainPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(DomainPackage.eNS_URI)
+                : DomainPackage.eINSTANCE);
+        PatternPackageImpl thePatternPackage = (PatternPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(PatternPackage.eNS_URI) instanceof PatternPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(PatternPackage.eNS_URI) : PatternPackage.eINSTANCE);
+        SQLPackageImpl theSQLPackage = (SQLPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SQLPackage.eNS_URI) instanceof SQLPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(SQLPackage.eNS_URI)
+                : SQLPackage.eINSTANCE);
 
         // Create package meta-data objects
         theIndicatorsPackage.createPackageContents();
@@ -515,6 +507,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getIndicator() {
@@ -523,64 +516,70 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getIndicator_IndicatorType() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(0);
+        return (EReference) indicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getIndicator_Count() {
-        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) indicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getIndicator_NullCount() {
-        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) indicatorEClass.getEStructuralFeatures().get(2);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getIndicator_Parameters() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(3);
+        return (EReference) indicatorEClass.getEStructuralFeatures().get(3);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getIndicator_AnalyzedElement() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getIndicator_DataminingType() {
-        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getIndicator_IndicatorDefinition() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(6);
+        return (EReference) indicatorEClass.getEStructuralFeatures().get(4);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getIndicator_DataminingType() {
+        return (EAttribute) indicatorEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getIndicator_IndicatorDefinition() {
+        return (EReference) indicatorEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getRowCountIndicator() {
@@ -589,6 +588,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getMeanIndicator() {
@@ -597,6 +597,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getSumIndicator() {
@@ -604,25 +605,26 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getSumIndicator_SumStr() {
-        return (EAttribute)sumIndicatorEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getSumIndicator_Datatype() {
-        return (EAttribute)sumIndicatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) sumIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getSumIndicator_Datatype() {
+        return (EAttribute) sumIndicatorEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getCompositeIndicator() {
@@ -631,14 +633,16 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getCompositeIndicator_Indicators() {
-        return (EReference)compositeIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EReference) compositeIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getRangeIndicator() {
@@ -647,40 +651,43 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getRangeIndicator_LowerValue() {
-        return (EReference)rangeIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EReference) rangeIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getRangeIndicator_UpperValue() {
-        return (EReference)rangeIndicatorEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getRangeIndicator_Datatype() {
-        return (EAttribute)rangeIndicatorEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getRangeIndicator_Range() {
-        return (EAttribute)rangeIndicatorEClass.getEStructuralFeatures().get(3);
+        return (EReference) rangeIndicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getRangeIndicator_Datatype() {
+        return (EAttribute) rangeIndicatorEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getRangeIndicator_Range() {
+        return (EAttribute) rangeIndicatorEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getBoxIndicator() {
@@ -689,41 +696,43 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getBoxIndicator_IQR() {
-        return (EReference)boxIndicatorEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getBoxIndicator_RangeIndicator() {
-        return (EReference)boxIndicatorEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getBoxIndicator_MeanIndicator() {
-        return (EReference)boxIndicatorEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getBoxIndicator_MedianIndicator() {
-        return (EReference)boxIndicatorEClass.getEStructuralFeatures().get(3);
+        return (EReference) boxIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getBoxIndicator_RangeIndicator() {
+        return (EReference) boxIndicatorEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getBoxIndicator_MeanIndicator() {
+        return (EReference) boxIndicatorEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getBoxIndicator_MedianIndicator() {
+        return (EReference) boxIndicatorEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getIndicatorType() {
@@ -732,54 +741,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getIntegerSumIndicator() {
-        return integerSumIndicatorEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getIntegerSumIndicator_Sum() {
-        return (EAttribute)integerSumIndicatorEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getDoubleSumIndicator() {
-        return doubleSumIndicatorEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getDoubleSumIndicator_Sum() {
-        return (EAttribute)doubleSumIndicatorEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getBigDecimalIndicator() {
-        return bigDecimalIndicatorEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getBigDecimalIndicator_Sum() {
-        return (EAttribute)bigDecimalIndicatorEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getFrequencyIndicator() {
@@ -788,108 +750,88 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getFrequencyIndicator_UniqueValues() {
-        return (EAttribute)frequencyIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) frequencyIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getFrequencyIndicator_DistinctValueCount() {
-        return (EAttribute)frequencyIndicatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) frequencyIndicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getFrequencyIndicator_UniqueValueCount() {
-        return (EAttribute)frequencyIndicatorEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) frequencyIndicatorEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getFrequencyIndicator_DuplicateValueCount() {
-        return (EAttribute)frequencyIndicatorEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) frequencyIndicatorEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getFrequencyIndicator_ValueToFreq() {
-        return (EAttribute)frequencyIndicatorEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) frequencyIndicatorEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getFrequencyIndicator_ModeIndicator() {
-        return (EReference)frequencyIndicatorEClass.getEStructuralFeatures().get(5);
+        return (EReference) frequencyIndicatorEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getFrequencyIndicator_DistinctCountIndicator() {
-        return (EReference)frequencyIndicatorEClass.getEStructuralFeatures().get(6);
+        return (EReference) frequencyIndicatorEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getFrequencyIndicator_UniqueCountIndicator() {
-        return (EReference)frequencyIndicatorEClass.getEStructuralFeatures().get(7);
+        return (EReference) frequencyIndicatorEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getFrequencyIndicator_DuplicateCountIndicator() {
-        return (EReference)frequencyIndicatorEClass.getEStructuralFeatures().get(8);
+        return (EReference) frequencyIndicatorEClass.getEStructuralFeatures().get(8);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getIntegerMeanIndicator() {
-        return integerMeanIndicatorEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getDoubleMeanIndicator() {
-        return doubleMeanIndicatorEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getBigDecimalMeanIndicator() {
-        return bigDecimalMeanIndicatorEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getBlankCountIndicator() {
@@ -898,14 +840,16 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getBlankCountIndicator_BlankCount() {
-        return (EAttribute)blankCountIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) blankCountIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getIndicatorParameters() {
@@ -914,49 +858,52 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getIndicatorParameters_IndicatorValidDomain() {
-        return (EReference)indicatorParametersEClass.getEStructuralFeatures().get(0);
+        return (EReference) indicatorParametersEClass.getEStructuralFeatures().get(0);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EReference getIndicatorParameters_DataValidDomain() {
-        return (EReference)indicatorParametersEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getIndicatorParameters_Bins() {
-        return (EReference)indicatorParametersEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getIndicatorParameters_DateAggregationType() {
-        return (EAttribute)indicatorParametersEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getIndicatorParameters_TextParameter() {
-        return (EReference)indicatorParametersEClass.getEStructuralFeatures().get(4);
+        return (EReference) indicatorParametersEClass.getEStructuralFeatures().get(1);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getIndicatorParameters_Bins() {
+        return (EReference) indicatorParametersEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getIndicatorParameters_DateAggregationType() {
+        return (EAttribute) indicatorParametersEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getIndicatorParameters_TextParameter() {
+        return (EReference) indicatorParametersEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getMedianIndicator() {
@@ -965,24 +912,25 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getMedianIndicator_Median() {
-        return (EAttribute)medianIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) medianIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getMedianIndicator_FrequenceTable() {
-        return (EAttribute)medianIndicatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) medianIndicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getValueIndicator() {
@@ -990,26 +938,26 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getValueIndicator_Value() {
-        return (EAttribute)valueIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) valueIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getValueIndicator_Datatype() {
-        return (EAttribute)valueIndicatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) valueIndicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getMinValueIndicator() {
@@ -1017,8 +965,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getMaxValueIndicator() {
@@ -1026,8 +974,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getModeIndicator() {
@@ -1035,17 +983,17 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getModeIndicator_Mode() {
-        return (EAttribute)modeIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) modeIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getNullCountIndicator() {
@@ -1053,8 +1001,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getDistinctCountIndicator() {
@@ -1062,8 +1010,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getUniqueCountIndicator() {
@@ -1071,8 +1019,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getDuplicateCountIndicator() {
@@ -1080,8 +1028,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getIQRIndicator() {
@@ -1089,8 +1037,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getTextIndicator() {
@@ -1098,8 +1046,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getMinLengthIndicator() {
@@ -1107,8 +1055,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getMaxLengthIndicator() {
@@ -1116,8 +1064,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getAverageLengthIndicator() {
@@ -1125,17 +1073,17 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getAverageLengthIndicator_SumLength() {
-        return (EAttribute)averageLengthIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) averageLengthIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getLengthIndicator() {
@@ -1143,17 +1091,17 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getLengthIndicator_Length() {
-        return (EAttribute)lengthIndicatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) lengthIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EClass getTextParameters() {
@@ -1161,44 +1109,44 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getTextParameters_UseBlank() {
-        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) textParametersEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getTextParameters_MatchingAlgorithm() {
-        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) textParametersEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getTextParameters_IgnoreCase() {
-        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) textParametersEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EAttribute getTextParameters_UseNulls() {
-        return (EAttribute)textParametersEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) textParametersEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EEnum getEnumStatistics() {
@@ -1206,8 +1154,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EEnum getDataminingType() {
@@ -1215,8 +1163,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EEnum getDatatype() {
@@ -1224,8 +1172,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EEnum getDateGrain() {
@@ -1233,8 +1181,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EEnum getMatchingAlgorithm() {
@@ -1242,8 +1190,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EDataType getJavaSet() {
@@ -1251,8 +1199,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EDataType getJavaHashMap() {
@@ -1260,8 +1208,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EDataType getJavaTreeMap() {
@@ -1270,26 +1218,29 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public IndicatorsFactory getIndicatorsFactory() {
-        return (IndicatorsFactory)getEFactoryInstance();
+        return (IndicatorsFactory) getEFactoryInstance();
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private boolean isCreated = false;
 
     /**
-     * Creates the meta-model objects for the package.  This method is
-     * guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Creates the meta-model objects for the package. This method is guarded to have no affect on any invocation but
+     * its first. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void createPackageContents() {
-        if (isCreated) return;
+        if (isCreated)
+            return;
         isCreated = true;
 
         // Create classes and their features
@@ -1327,15 +1278,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         indicatorTypeEClass = createEClass(INDICATOR_TYPE);
 
-        integerSumIndicatorEClass = createEClass(INTEGER_SUM_INDICATOR);
-        createEAttribute(integerSumIndicatorEClass, INTEGER_SUM_INDICATOR__SUM);
-
-        doubleSumIndicatorEClass = createEClass(DOUBLE_SUM_INDICATOR);
-        createEAttribute(doubleSumIndicatorEClass, DOUBLE_SUM_INDICATOR__SUM);
-
-        bigDecimalIndicatorEClass = createEClass(BIG_DECIMAL_INDICATOR);
-        createEAttribute(bigDecimalIndicatorEClass, BIG_DECIMAL_INDICATOR__SUM);
-
         frequencyIndicatorEClass = createEClass(FREQUENCY_INDICATOR);
         createEAttribute(frequencyIndicatorEClass, FREQUENCY_INDICATOR__UNIQUE_VALUES);
         createEAttribute(frequencyIndicatorEClass, FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT);
@@ -1346,12 +1288,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         createEReference(frequencyIndicatorEClass, FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR);
         createEReference(frequencyIndicatorEClass, FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR);
         createEReference(frequencyIndicatorEClass, FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR);
-
-        integerMeanIndicatorEClass = createEClass(INTEGER_MEAN_INDICATOR);
-
-        doubleMeanIndicatorEClass = createEClass(DOUBLE_MEAN_INDICATOR);
-
-        bigDecimalMeanIndicatorEClass = createEClass(BIG_DECIMAL_MEAN_INDICATOR);
 
         blankCountIndicatorEClass = createEClass(BLANK_COUNT_INDICATOR);
         createEAttribute(blankCountIndicatorEClass, BLANK_COUNT_INDICATOR__BLANK_COUNT);
@@ -1421,18 +1357,20 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private boolean isInitialized = false;
 
     /**
-     * Complete the initialization of the package and its meta-model.  This
-     * method is guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Complete the initialization of the package and its meta-model. This method is guarded to have no affect on any
+     * invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void initializePackageContents() {
-        if (isInitialized) return;
+        if (isInitialized)
+            return;
         isInitialized = true;
 
         // Initialize package
@@ -1441,11 +1379,13 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        SchemaPackage theSchemaPackage = (SchemaPackage)EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI);
-        DefinitionPackage theDefinitionPackage = (DefinitionPackage)EPackage.Registry.INSTANCE.getEPackage(DefinitionPackage.eNS_URI);
-        IndicatorSqlPackage theIndicatorSqlPackage = (IndicatorSqlPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorSqlPackage.eNS_URI);
-        CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
-        DomainPackage theDomainPackage = (DomainPackage)EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI);
+        SchemaPackage theSchemaPackage = (SchemaPackage) EPackage.Registry.INSTANCE.getEPackage(SchemaPackage.eNS_URI);
+        DefinitionPackage theDefinitionPackage = (DefinitionPackage) EPackage.Registry.INSTANCE
+                .getEPackage(DefinitionPackage.eNS_URI);
+        IndicatorSqlPackage theIndicatorSqlPackage = (IndicatorSqlPackage) EPackage.Registry.INSTANCE
+                .getEPackage(IndicatorSqlPackage.eNS_URI);
+        CorePackage theCorePackage = (CorePackage) EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+        DomainPackage theDomainPackage = (DomainPackage) EPackage.Registry.INSTANCE.getEPackage(DomainPackage.eNS_URI);
 
         // Add subpackages
         getESubpackages().add(theSchemaPackage);
@@ -1459,22 +1399,13 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         // Add supertypes to classes
         indicatorEClass.getESuperTypes().add(theCorePackage.getModelElement());
         rowCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
-        meanIndicatorEClass.getESuperTypes().add(this.getIndicator());
+        meanIndicatorEClass.getESuperTypes().add(this.getSumIndicator());
         sumIndicatorEClass.getESuperTypes().add(this.getIndicator());
         compositeIndicatorEClass.getESuperTypes().add(this.getIndicator());
         rangeIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
         boxIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
         indicatorTypeEClass.getESuperTypes().add(theCorePackage.getClassifier());
-        integerSumIndicatorEClass.getESuperTypes().add(this.getSumIndicator());
-        doubleSumIndicatorEClass.getESuperTypes().add(this.getSumIndicator());
-        bigDecimalIndicatorEClass.getESuperTypes().add(this.getSumIndicator());
         frequencyIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
-        integerMeanIndicatorEClass.getESuperTypes().add(this.getIntegerSumIndicator());
-        integerMeanIndicatorEClass.getESuperTypes().add(this.getMeanIndicator());
-        doubleMeanIndicatorEClass.getESuperTypes().add(this.getDoubleSumIndicator());
-        doubleMeanIndicatorEClass.getESuperTypes().add(this.getMeanIndicator());
-        bigDecimalMeanIndicatorEClass.getESuperTypes().add(this.getBigDecimalIndicator());
-        bigDecimalMeanIndicatorEClass.getESuperTypes().add(this.getMeanIndicator());
         blankCountIndicatorEClass.getESuperTypes().add(this.getTextIndicator());
         medianIndicatorEClass.getESuperTypes().add(this.getIndicator());
         valueIndicatorEClass.getESuperTypes().add(this.getIndicator());
@@ -1494,13 +1425,24 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         // Initialize classes and features; add operations and parameters
         initEClass(indicatorEClass, Indicator.class, "Indicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getIndicator_IndicatorType(), this.getIndicatorType(), null, "indicatorType", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIndicator_Count(), ecorePackage.getELong(), "count", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIndicator_NullCount(), ecorePackage.getELong(), "nullCount", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getIndicator_Parameters(), this.getIndicatorParameters(), null, "parameters", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getIndicator_AnalyzedElement(), theCorePackage.getModelElement(), null, "analyzedElement", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIndicator_DataminingType(), this.getDataminingType(), "dataminingType", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getIndicator_IndicatorDefinition(), theDefinitionPackage.getIndicatorDefinition(), null, "indicatorDefinition", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicator_IndicatorType(), this.getIndicatorType(), null, "indicatorType", null, 0, 1, Indicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicator_Count(), ecorePackage.getELong(), "count", null, 0, 1, Indicator.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicator_NullCount(), ecorePackage.getELong(), "nullCount", null, 0, 1, Indicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicator_Parameters(), this.getIndicatorParameters(), null, "parameters", null, 0, 1, Indicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicator_AnalyzedElement(), theCorePackage.getModelElement(), null, "analyzedElement", null, 0, 1,
+                Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicator_DataminingType(), this.getDataminingType(), "dataminingType", null, 0, 1, Indicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicator_IndicatorDefinition(), theDefinitionPackage.getIndicatorDefinition(), null,
+                "indicatorDefinition", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         EOperation op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "handle", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEJavaObject(), "data", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1515,55 +1457,90 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "finalizeComputation", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(meanIndicatorEClass, MeanIndicator.class, "MeanIndicator", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(meanIndicatorEClass, MeanIndicator.class, "MeanIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
         addEOperation(meanIndicatorEClass, ecorePackage.getEDouble(), "getMean", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         op = addEOperation(meanIndicatorEClass, ecorePackage.getEDouble(), "getMeanWithNulls", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEDouble(), "valueForNull", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(sumIndicatorEClass, SumIndicator.class, "SumIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSumIndicator_SumStr(), ecorePackage.getEString(), "sumStr", null, 0, 1, SumIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSumIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, SumIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sumIndicatorEClass, SumIndicator.class, "SumIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSumIndicator_SumStr(), ecorePackage.getEString(), "sumStr", null, 0, 1, SumIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSumIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, SumIndicator.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(compositeIndicatorEClass, CompositeIndicator.class, "CompositeIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCompositeIndicator_Indicators(), this.getIndicator(), null, "indicators", null, 0, -1, CompositeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(compositeIndicatorEClass, CompositeIndicator.class, "CompositeIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCompositeIndicator_Indicators(), this.getIndicator(), null, "indicators", null, 0, -1,
+                CompositeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(rangeIndicatorEClass, RangeIndicator.class, "RangeIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getRangeIndicator_LowerValue(), this.getMinValueIndicator(), null, "lowerValue", null, 0, 1, RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getRangeIndicator_UpperValue(), this.getMaxValueIndicator(), null, "upperValue", null, 0, 1, RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getRangeIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getRangeIndicator_Range(), ecorePackage.getEString(), "range", null, 0, 1, RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(rangeIndicatorEClass, RangeIndicator.class, "RangeIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getRangeIndicator_LowerValue(), this.getMinValueIndicator(), null, "lowerValue", null, 0, 1,
+                RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getRangeIndicator_UpperValue(), this.getMaxValueIndicator(), null, "upperValue", null, 0, 1,
+                RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getRangeIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, RangeIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getRangeIndicator_Range(), ecorePackage.getEString(), "range", null, 0, 1, RangeIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(boxIndicatorEClass, BoxIndicator.class, "BoxIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getBoxIndicator_IQR(), this.getIQRIndicator(), null, "IQR", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getBoxIndicator_RangeIndicator(), this.getRangeIndicator(), null, "rangeIndicator", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getBoxIndicator_MeanIndicator(), this.getMeanIndicator(), null, "meanIndicator", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getBoxIndicator_MedianIndicator(), this.getMedianIndicator(), null, "medianIndicator", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(boxIndicatorEClass, BoxIndicator.class, "BoxIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getBoxIndicator_IQR(), this.getIQRIndicator(), null, "IQR", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getBoxIndicator_RangeIndicator(), this.getRangeIndicator(), null, "rangeIndicator", null, 0, 1,
+                BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBoxIndicator_MeanIndicator(), this.getMeanIndicator(), null, "meanIndicator", null, 0, 1,
+                BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBoxIndicator_MedianIndicator(), this.getMedianIndicator(), null, "medianIndicator", null, 0, 1,
+                BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(indicatorTypeEClass, IndicatorType.class, "IndicatorType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(indicatorTypeEClass, IndicatorType.class, "IndicatorType", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(integerSumIndicatorEClass, IntegerSumIndicator.class, "IntegerSumIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getIntegerSumIndicator_Sum(), ecorePackage.getELong(), "sum", null, 0, 1, IntegerSumIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(doubleSumIndicatorEClass, DoubleSumIndicator.class, "DoubleSumIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDoubleSumIndicator_Sum(), ecorePackage.getEDouble(), "sum", null, 0, 1, DoubleSumIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(bigDecimalIndicatorEClass, BigDecimalIndicator.class, "BigDecimalIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getBigDecimalIndicator_Sum(), ecorePackage.getEBigDecimal(), "sum", null, 0, 1, BigDecimalIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(frequencyIndicatorEClass, FrequencyIndicator.class, "FrequencyIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getFrequencyIndicator_UniqueValues(), ecorePackage.getEJavaObject(), "uniqueValues", null, 0, -1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_DistinctValueCount(), ecorePackage.getEInt(), "distinctValueCount", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_UniqueValueCount(), ecorePackage.getEInt(), "uniqueValueCount", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_DuplicateValueCount(), ecorePackage.getEInt(), "duplicateValueCount", null, 0, 1, FrequencyIndicator.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_ValueToFreq(), this.getJavaHashMap(), "valueToFreq", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFrequencyIndicator_ModeIndicator(), this.getModeIndicator(), null, "modeIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFrequencyIndicator_DistinctCountIndicator(), this.getDistinctCountIndicator(), null, "distinctCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFrequencyIndicator_UniqueCountIndicator(), this.getUniqueCountIndicator(), null, "uniqueCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFrequencyIndicator_DuplicateCountIndicator(), this.getDuplicateCountIndicator(), null, "duplicateCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(frequencyIndicatorEClass, FrequencyIndicator.class, "FrequencyIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFrequencyIndicator_UniqueValues(), ecorePackage.getEJavaObject(), "uniqueValues", null, 0, -1,
+                FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_DistinctValueCount(), ecorePackage.getEInt(), "distinctValueCount", null, 0, 1,
+                FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_UniqueValueCount(), ecorePackage.getEInt(), "uniqueValueCount", null, 0, 1,
+                FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_DuplicateValueCount(), ecorePackage.getEInt(), "duplicateValueCount", null, 0, 1,
+                FrequencyIndicator.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_ValueToFreq(), this.getJavaHashMap(), "valueToFreq", null, 0, 1,
+                FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getFrequencyIndicator_ModeIndicator(), this.getModeIndicator(), null, "modeIndicator", null, 0, 1,
+                FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFrequencyIndicator_DistinctCountIndicator(), this.getDistinctCountIndicator(), null,
+                "distinctCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFrequencyIndicator_UniqueCountIndicator(), this.getUniqueCountIndicator(), null,
+                "uniqueCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFrequencyIndicator_DuplicateCountIndicator(), this.getDuplicateCountIndicator(), null,
+                "duplicateCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         op = addEOperation(frequencyIndicatorEClass, ecorePackage.getELong(), "getCount", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEJavaObject(), "dataValue", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1573,76 +1550,116 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         addEOperation(frequencyIndicatorEClass, this.getJavaSet(), "getDistinctValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(integerMeanIndicatorEClass, IntegerMeanIndicator.class, "IntegerMeanIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(blankCountIndicatorEClass, BlankCountIndicator.class, "BlankCountIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getBlankCountIndicator_BlankCount(), ecorePackage.getEInt(), "blankCount", null, 0, 1,
+                BlankCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(doubleMeanIndicatorEClass, DoubleMeanIndicator.class, "DoubleMeanIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(indicatorParametersEClass, IndicatorParameters.class, "IndicatorParameters", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getIndicatorParameters_IndicatorValidDomain(), theDomainPackage.getDomain(), null, "indicatorValidDomain",
+                null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicatorParameters_DataValidDomain(), theDomainPackage.getDomain(), null, "dataValidDomain", null, 0,
+                1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicatorParameters_Bins(), theDomainPackage.getDomain(), null, "bins", null, 0, 1,
+                IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicatorParameters_DateAggregationType(), this.getDateGrain(), "dateAggregationType", null, 0, 1,
+                IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getIndicatorParameters_TextParameter(), this.getTextParameters(), null, "textParameter", null, 0, 1,
+                IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(bigDecimalMeanIndicatorEClass, BigDecimalMeanIndicator.class, "BigDecimalMeanIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(blankCountIndicatorEClass, BlankCountIndicator.class, "BlankCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getBlankCountIndicator_BlankCount(), ecorePackage.getEInt(), "blankCount", null, 0, 1, BlankCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(indicatorParametersEClass, IndicatorParameters.class, "IndicatorParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getIndicatorParameters_IndicatorValidDomain(), theDomainPackage.getDomain(), null, "indicatorValidDomain", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getIndicatorParameters_DataValidDomain(), theDomainPackage.getDomain(), null, "dataValidDomain", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getIndicatorParameters_Bins(), theDomainPackage.getDomain(), null, "bins", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIndicatorParameters_DateAggregationType(), this.getDateGrain(), "dateAggregationType", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getIndicatorParameters_TextParameter(), this.getTextParameters(), null, "textParameter", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(medianIndicatorEClass, MedianIndicator.class, "MedianIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMedianIndicator_Median(), ecorePackage.getEDouble(), "median", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMedianIndicator_FrequenceTable(), this.getJavaTreeMap(), "frequenceTable", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(medianIndicatorEClass, MedianIndicator.class, "MedianIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMedianIndicator_Median(), ecorePackage.getEDouble(), "median", null, 0, 1, MedianIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMedianIndicator_FrequenceTable(), this.getJavaTreeMap(), "frequenceTable", null, 0, 1,
+                MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         addEOperation(medianIndicatorEClass, ecorePackage.getEBoolean(), "computeMedian", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(valueIndicatorEClass, ValueIndicator.class, "ValueIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getValueIndicator_Value(), ecorePackage.getEString(), "value", null, 0, 1, ValueIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getValueIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, ValueIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(valueIndicatorEClass, ValueIndicator.class, "ValueIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getValueIndicator_Value(), ecorePackage.getEString(), "value", null, 0, 1, ValueIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getValueIndicator_Datatype(), this.getDatatype(), "datatype", null, 0, 1, ValueIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(minValueIndicatorEClass, MinValueIndicator.class, "MinValueIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(minValueIndicatorEClass, MinValueIndicator.class, "MinValueIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(maxValueIndicatorEClass, MaxValueIndicator.class, "MaxValueIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(maxValueIndicatorEClass, MaxValueIndicator.class, "MaxValueIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(modeIndicatorEClass, ModeIndicator.class, "ModeIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getModeIndicator_Mode(), ecorePackage.getEJavaObject(), "mode", null, 0, 1, ModeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(modeIndicatorEClass, ModeIndicator.class, "ModeIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getModeIndicator_Mode(), ecorePackage.getEJavaObject(), "mode", null, 0, 1, ModeIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(nullCountIndicatorEClass, NullCountIndicator.class, "NullCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(nullCountIndicatorEClass, NullCountIndicator.class, "NullCountIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(distinctCountIndicatorEClass, DistinctCountIndicator.class, "DistinctCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(distinctCountIndicatorEClass, DistinctCountIndicator.class, "DistinctCountIndicator", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         addEOperation(distinctCountIndicatorEClass, this.getJavaSet(), "getDistinctValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(uniqueCountIndicatorEClass, UniqueCountIndicator.class, "UniqueCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(uniqueCountIndicatorEClass, UniqueCountIndicator.class, "UniqueCountIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
         addEOperation(uniqueCountIndicatorEClass, this.getJavaSet(), "getUniqueValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         addEOperation(uniqueCountIndicatorEClass, ecorePackage.getEInt(), "getUniqueValueCount", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(duplicateCountIndicatorEClass, DuplicateCountIndicator.class, "DuplicateCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(duplicateCountIndicatorEClass, DuplicateCountIndicator.class, "DuplicateCountIndicator", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         addEOperation(duplicateCountIndicatorEClass, this.getJavaSet(), "getDuplicateValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        addEOperation(duplicateCountIndicatorEClass, ecorePackage.getEInt(), "getDuplicateValueCount", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEOperation(duplicateCountIndicatorEClass, ecorePackage.getEInt(), "getDuplicateValueCount", 0, 1, IS_UNIQUE,
+                IS_ORDERED);
 
-        initEClass(iqrIndicatorEClass, IQRIndicator.class, "IQRIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(iqrIndicatorEClass, IQRIndicator.class, "IQRIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(textIndicatorEClass, TextIndicator.class, "TextIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(textIndicatorEClass, TextIndicator.class, "TextIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(minLengthIndicatorEClass, MinLengthIndicator.class, "MinLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(minLengthIndicatorEClass, MinLengthIndicator.class, "MinLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(maxLengthIndicatorEClass, MaxLengthIndicator.class, "MaxLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(maxLengthIndicatorEClass, MaxLengthIndicator.class, "MaxLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(averageLengthIndicatorEClass, AverageLengthIndicator.class, "AverageLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getELong(), "sumLength", null, 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(averageLengthIndicatorEClass, AverageLengthIndicator.class, "AverageLengthIndicator", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getELong(), "sumLength", null, 0, 1,
+                AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(lengthIndicatorEClass, LengthIndicator.class, "LengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getLengthIndicator_Length(), ecorePackage.getEInt(), "length", null, 0, 1, LengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(lengthIndicatorEClass, LengthIndicator.class, "LengthIndicator", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLengthIndicator_Length(), ecorePackage.getEInt(), "length", null, 0, 1, LengthIndicator.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(textParametersEClass, TextParameters.class, "TextParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getTextParameters_UseBlank(), ecorePackage.getEBoolean(), "useBlank", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTextParameters_MatchingAlgorithm(), this.getMatchingAlgorithm(), "matchingAlgorithm", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTextParameters_IgnoreCase(), ecorePackage.getEBoolean(), "ignoreCase", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTextParameters_UseNulls(), ecorePackage.getEBoolean(), "useNulls", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(textParametersEClass, TextParameters.class, "TextParameters", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTextParameters_UseBlank(), ecorePackage.getEBoolean(), "useBlank", null, 0, 1, TextParameters.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTextParameters_MatchingAlgorithm(), this.getMatchingAlgorithm(), "matchingAlgorithm", null, 0, 1,
+                TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getTextParameters_IgnoreCase(), ecorePackage.getEBoolean(), "ignoreCase", null, 0, 1,
+                TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getTextParameters_UseNulls(), ecorePackage.getEBoolean(), "useNulls", null, 0, 1, TextParameters.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(enumStatisticsEEnum, EnumStatistics.class, "EnumStatistics");
@@ -1698,9 +1715,12 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.REFINED_SOUNDEX);
 
         // Initialize data types
-        initEDataType(javaSetEDataType, Set.class, "JavaSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Set<Object>");
-        initEDataType(javaHashMapEDataType, HashMap.class, "JavaHashMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.HashMap<Object, java.lang.Long>");
-        initEDataType(javaTreeMapEDataType, TreeMap.class, "JavaTreeMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.TreeMap<Object, java.lang.Long>");
+        initEDataType(javaSetEDataType, Set.class, "JavaSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS,
+                "java.util.Set<Object>");
+        initEDataType(javaHashMapEDataType, HashMap.class, "JavaHashMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS,
+                "java.util.HashMap<Object, java.lang.Long>");
+        initEDataType(javaTreeMapEDataType, TreeMap.class, "JavaTreeMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS,
+                "java.util.TreeMap<Object, java.lang.Long>");
 
         // Create resource
         createResource(eNS_URI);

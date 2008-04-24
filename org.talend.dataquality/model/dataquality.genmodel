@@ -184,15 +184,6 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/BoxIndicator/medianIndicator"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IndicatorType"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/IntegerSumIndicator">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/IntegerSumIndicator/sum"/>
-      </genClasses>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/DoubleSumIndicator">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/DoubleSumIndicator/sum"/>
-      </genClasses>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/BigDecimalIndicator">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/BigDecimalIndicator/sum"/>
-      </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/FrequencyIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/uniqueValues"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/distinctValueCount"/>
@@ -211,9 +202,6 @@
         </genOperations>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getDistinctValues"/>
       </genClasses>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/IntegerMeanIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/DoubleMeanIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/BigDecimalMeanIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/BlankCountIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/BlankCountIndicator/blankCount"/>
       </genClasses>

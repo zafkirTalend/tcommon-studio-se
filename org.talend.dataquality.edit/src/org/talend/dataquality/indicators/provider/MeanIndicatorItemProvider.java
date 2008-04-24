@@ -15,28 +15,24 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
-import org.talend.dataquality.indicators.BigDecimalIndicator;
-import org.talend.dataquality.indicators.IndicatorsPackage;
+import org.talend.dataquality.indicators.MeanIndicator;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.indicators.BigDecimalIndicator} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.MeanIndicator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BigDecimalIndicatorItemProvider
+public class MeanIndicatorItemProvider
     extends SumIndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
@@ -50,7 +46,7 @@ public class BigDecimalIndicatorItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public BigDecimalIndicatorItemProvider(AdapterFactory adapterFactory) {
+    public MeanIndicatorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -65,42 +61,19 @@ public class BigDecimalIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addSumPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Sum feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addSumPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_BigDecimalIndicator_sum_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BigDecimalIndicator_sum_feature", "_UI_BigDecimalIndicator_type"),
-                 IndicatorsPackage.Literals.BIG_DECIMAL_INDICATOR__SUM,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This returns BigDecimalIndicator.gif.
+     * This returns MeanIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/BigDecimalIndicator"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/MeanIndicator"));
     }
 
     /**
@@ -111,10 +84,10 @@ public class BigDecimalIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        String label = ((BigDecimalIndicator)object).getName();
+        String label = ((MeanIndicator)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_BigDecimalIndicator_type") :
-            getString("_UI_BigDecimalIndicator_type") + " " + label;
+            getString("_UI_MeanIndicator_type") :
+            getString("_UI_MeanIndicator_type") + " " + label;
     }
 
     /**
@@ -127,12 +100,6 @@ public class BigDecimalIndicatorItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
-
-        switch (notification.getFeatureID(BigDecimalIndicator.class)) {
-            case IndicatorsPackage.BIG_DECIMAL_INDICATOR__SUM:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-        }
         super.notifyChanged(notification);
     }
 

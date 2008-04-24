@@ -195,17 +195,7 @@ public class BoxIndicatorItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (IndicatorsPackage.Literals.BOX_INDICATOR__MEAN_INDICATOR,
-                 IndicatorsFactory.eINSTANCE.createIntegerMeanIndicator()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (IndicatorsPackage.Literals.BOX_INDICATOR__MEAN_INDICATOR,
-                 IndicatorsFactory.eINSTANCE.createDoubleMeanIndicator()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (IndicatorsPackage.Literals.BOX_INDICATOR__MEAN_INDICATOR,
-                 IndicatorsFactory.eINSTANCE.createBigDecimalMeanIndicator()));
+                 IndicatorsFactory.eINSTANCE.createMeanIndicator()));
 
         newChildDescriptors.add
             (createChildParameter

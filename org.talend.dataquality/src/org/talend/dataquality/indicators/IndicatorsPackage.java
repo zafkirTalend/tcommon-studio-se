@@ -571,257 +571,14 @@ public interface IndicatorsPackage extends EPackage {
     int ROW_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.MeanIndicator <em>Mean Indicator</em>}' class.
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MeanIndicatorImpl <em>Mean Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.MeanIndicator
+     * @see org.talend.dataquality.indicators.impl.MeanIndicatorImpl
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMeanIndicator()
      * @generated
      */
     int MEAN_INDICATOR = 2;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__NAME = INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__SET = INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__COUNT = INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The number of structural features of the '<em>Mean Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.SumIndicatorImpl <em>Sum Indicator</em>}' class.
@@ -1093,6 +850,267 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int SUM_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__NAME = SUM_INDICATOR__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__VISIBILITY = SUM_INDICATOR__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__CLIENT_DEPENDENCY = SUM_INDICATOR__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__SUPPLIER_DEPENDENCY = SUM_INDICATOR__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__CONSTRAINT = SUM_INDICATOR__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__NAMESPACE = SUM_INDICATOR__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__IMPORTER = SUM_INDICATOR__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__STEREOTYPE = SUM_INDICATOR__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__TAGGED_VALUE = SUM_INDICATOR__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__DOCUMENT = SUM_INDICATOR__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__DESCRIPTION = SUM_INDICATOR__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__RESPONSIBLE_PARTY = SUM_INDICATOR__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__ELEMENT_NODE = SUM_INDICATOR__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__SET = SUM_INDICATOR__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__RENDERED_OBJECT = SUM_INDICATOR__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__VOCABULARY_ELEMENT = SUM_INDICATOR__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__MEASUREMENT = SUM_INDICATOR__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__CHANGE_REQUEST = SUM_INDICATOR__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__DASDL_PROPERTY = SUM_INDICATOR__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__INDICATOR_TYPE = SUM_INDICATOR__INDICATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__COUNT = SUM_INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__NULL_COUNT = SUM_INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__PARAMETERS = SUM_INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
+     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
+
+    /**
+     * The feature id for the '<em><b>Datatype</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
+
+    /**
+     * The number of structural features of the '<em>Mean Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEAN_INDICATOR_FEATURE_COUNT = SUM_INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.CompositeIndicatorImpl <em>Composite Indicator</em>}' class.
@@ -2289,847 +2307,6 @@ public interface IndicatorsPackage extends EPackage {
 
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl <em>Integer Sum Indicator</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIntegerSumIndicator()
-     * @generated
-     */
-    int INTEGER_SUM_INDICATOR = 8;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__NAME = SUM_INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__VISIBILITY = SUM_INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__CLIENT_DEPENDENCY = SUM_INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__SUPPLIER_DEPENDENCY = SUM_INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__CONSTRAINT = SUM_INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__NAMESPACE = SUM_INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__IMPORTER = SUM_INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__STEREOTYPE = SUM_INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__TAGGED_VALUE = SUM_INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__DOCUMENT = SUM_INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__DESCRIPTION = SUM_INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__RESPONSIBLE_PARTY = SUM_INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__ELEMENT_NODE = SUM_INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__SET = SUM_INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__RENDERED_OBJECT = SUM_INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__VOCABULARY_ELEMENT = SUM_INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__MEASUREMENT = SUM_INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__CHANGE_REQUEST = SUM_INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__DASDL_PROPERTY = SUM_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__INDICATOR_TYPE = SUM_INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__COUNT = SUM_INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__NULL_COUNT = SUM_INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__PARAMETERS = SUM_INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
-
-    /**
-     * The feature id for the '<em><b>Datatype</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
-
-    /**
-     * The feature id for the '<em><b>Sum</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR__SUM = SUM_INDICATOR_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Integer Sum Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_SUM_INDICATOR_FEATURE_COUNT = SUM_INDICATOR_FEATURE_COUNT + 1;
-
-
-    /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.DoubleSumIndicatorImpl <em>Double Sum Indicator</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.DoubleSumIndicatorImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDoubleSumIndicator()
-     * @generated
-     */
-    int DOUBLE_SUM_INDICATOR = 9;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__NAME = SUM_INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__VISIBILITY = SUM_INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__CLIENT_DEPENDENCY = SUM_INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__SUPPLIER_DEPENDENCY = SUM_INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__CONSTRAINT = SUM_INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__NAMESPACE = SUM_INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__IMPORTER = SUM_INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__STEREOTYPE = SUM_INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__TAGGED_VALUE = SUM_INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__DOCUMENT = SUM_INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__DESCRIPTION = SUM_INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__RESPONSIBLE_PARTY = SUM_INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__ELEMENT_NODE = SUM_INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__SET = SUM_INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__RENDERED_OBJECT = SUM_INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__VOCABULARY_ELEMENT = SUM_INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__MEASUREMENT = SUM_INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__CHANGE_REQUEST = SUM_INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__DASDL_PROPERTY = SUM_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__INDICATOR_TYPE = SUM_INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__COUNT = SUM_INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__NULL_COUNT = SUM_INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__PARAMETERS = SUM_INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
-
-    /**
-     * The feature id for the '<em><b>Datatype</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
-
-    /**
-     * The feature id for the '<em><b>Sum</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR__SUM = SUM_INDICATOR_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Double Sum Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_SUM_INDICATOR_FEATURE_COUNT = SUM_INDICATOR_FEATURE_COUNT + 1;
-
-    /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.BigDecimalIndicatorImpl <em>Big Decimal Indicator</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.BigDecimalIndicatorImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getBigDecimalIndicator()
-     * @generated
-     */
-    int BIG_DECIMAL_INDICATOR = 10;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__NAME = SUM_INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__VISIBILITY = SUM_INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__CLIENT_DEPENDENCY = SUM_INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__SUPPLIER_DEPENDENCY = SUM_INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__CONSTRAINT = SUM_INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__NAMESPACE = SUM_INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__IMPORTER = SUM_INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__STEREOTYPE = SUM_INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__TAGGED_VALUE = SUM_INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__DOCUMENT = SUM_INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__DESCRIPTION = SUM_INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__RESPONSIBLE_PARTY = SUM_INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__ELEMENT_NODE = SUM_INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__SET = SUM_INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__RENDERED_OBJECT = SUM_INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__VOCABULARY_ELEMENT = SUM_INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__MEASUREMENT = SUM_INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__CHANGE_REQUEST = SUM_INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__DASDL_PROPERTY = SUM_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__INDICATOR_TYPE = SUM_INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__COUNT = SUM_INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__NULL_COUNT = SUM_INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__PARAMETERS = SUM_INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__ANALYZED_ELEMENT = SUM_INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__DATAMINING_TYPE = SUM_INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__INDICATOR_DEFINITION = SUM_INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__SUM_STR = SUM_INDICATOR__SUM_STR;
-
-    /**
-     * The feature id for the '<em><b>Datatype</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__DATATYPE = SUM_INDICATOR__DATATYPE;
-
-    /**
-     * The feature id for the '<em><b>Sum</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR__SUM = SUM_INDICATOR_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Big Decimal Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_INDICATOR_FEATURE_COUNT = SUM_INDICATOR_FEATURE_COUNT + 1;
-
-    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl <em>Frequency Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3137,7 +2314,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getFrequencyIndicator()
      * @generated
      */
-    int FREQUENCY_INDICATOR = 11;
+    int FREQUENCY_INDICATOR = 8;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3473,846 +2650,6 @@ public interface IndicatorsPackage extends EPackage {
     int FREQUENCY_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 9;
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IntegerMeanIndicatorImpl <em>Integer Mean Indicator</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.IntegerMeanIndicatorImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIntegerMeanIndicator()
-     * @generated
-     */
-    int INTEGER_MEAN_INDICATOR = 12;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__NAME = INTEGER_SUM_INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__VISIBILITY = INTEGER_SUM_INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__CLIENT_DEPENDENCY = INTEGER_SUM_INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__SUPPLIER_DEPENDENCY = INTEGER_SUM_INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__CONSTRAINT = INTEGER_SUM_INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__NAMESPACE = INTEGER_SUM_INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__IMPORTER = INTEGER_SUM_INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__STEREOTYPE = INTEGER_SUM_INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__TAGGED_VALUE = INTEGER_SUM_INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__DOCUMENT = INTEGER_SUM_INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__DESCRIPTION = INTEGER_SUM_INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__RESPONSIBLE_PARTY = INTEGER_SUM_INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__ELEMENT_NODE = INTEGER_SUM_INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__SET = INTEGER_SUM_INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__RENDERED_OBJECT = INTEGER_SUM_INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__VOCABULARY_ELEMENT = INTEGER_SUM_INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__MEASUREMENT = INTEGER_SUM_INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__CHANGE_REQUEST = INTEGER_SUM_INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__DASDL_PROPERTY = INTEGER_SUM_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__INDICATOR_TYPE = INTEGER_SUM_INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__COUNT = INTEGER_SUM_INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__NULL_COUNT = INTEGER_SUM_INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__PARAMETERS = INTEGER_SUM_INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__ANALYZED_ELEMENT = INTEGER_SUM_INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__DATAMINING_TYPE = INTEGER_SUM_INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__INDICATOR_DEFINITION = INTEGER_SUM_INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__SUM_STR = INTEGER_SUM_INDICATOR__SUM_STR;
-
-    /**
-     * The feature id for the '<em><b>Datatype</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__DATATYPE = INTEGER_SUM_INDICATOR__DATATYPE;
-
-    /**
-     * The feature id for the '<em><b>Sum</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR__SUM = INTEGER_SUM_INDICATOR__SUM;
-
-    /**
-     * The number of structural features of the '<em>Integer Mean Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INTEGER_MEAN_INDICATOR_FEATURE_COUNT = INTEGER_SUM_INDICATOR_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.DoubleMeanIndicatorImpl <em>Double Mean Indicator</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.DoubleMeanIndicatorImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDoubleMeanIndicator()
-     * @generated
-     */
-    int DOUBLE_MEAN_INDICATOR = 13;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__NAME = DOUBLE_SUM_INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__VISIBILITY = DOUBLE_SUM_INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__CLIENT_DEPENDENCY = DOUBLE_SUM_INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__SUPPLIER_DEPENDENCY = DOUBLE_SUM_INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__CONSTRAINT = DOUBLE_SUM_INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__NAMESPACE = DOUBLE_SUM_INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__IMPORTER = DOUBLE_SUM_INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__STEREOTYPE = DOUBLE_SUM_INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__TAGGED_VALUE = DOUBLE_SUM_INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__DOCUMENT = DOUBLE_SUM_INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__DESCRIPTION = DOUBLE_SUM_INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__RESPONSIBLE_PARTY = DOUBLE_SUM_INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__ELEMENT_NODE = DOUBLE_SUM_INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__SET = DOUBLE_SUM_INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__RENDERED_OBJECT = DOUBLE_SUM_INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__VOCABULARY_ELEMENT = DOUBLE_SUM_INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__MEASUREMENT = DOUBLE_SUM_INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__CHANGE_REQUEST = DOUBLE_SUM_INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__DASDL_PROPERTY = DOUBLE_SUM_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__INDICATOR_TYPE = DOUBLE_SUM_INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__COUNT = DOUBLE_SUM_INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__NULL_COUNT = DOUBLE_SUM_INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__PARAMETERS = DOUBLE_SUM_INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__ANALYZED_ELEMENT = DOUBLE_SUM_INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__DATAMINING_TYPE = DOUBLE_SUM_INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__INDICATOR_DEFINITION = DOUBLE_SUM_INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__SUM_STR = DOUBLE_SUM_INDICATOR__SUM_STR;
-
-    /**
-     * The feature id for the '<em><b>Datatype</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__DATATYPE = DOUBLE_SUM_INDICATOR__DATATYPE;
-
-    /**
-     * The feature id for the '<em><b>Sum</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR__SUM = DOUBLE_SUM_INDICATOR__SUM;
-
-    /**
-     * The number of structural features of the '<em>Double Mean Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DOUBLE_MEAN_INDICATOR_FEATURE_COUNT = DOUBLE_SUM_INDICATOR_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.BigDecimalMeanIndicatorImpl <em>Big Decimal Mean Indicator</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.BigDecimalMeanIndicatorImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getBigDecimalMeanIndicator()
-     * @generated
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR = 14;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__NAME = BIG_DECIMAL_INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__VISIBILITY = BIG_DECIMAL_INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__CLIENT_DEPENDENCY = BIG_DECIMAL_INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__SUPPLIER_DEPENDENCY = BIG_DECIMAL_INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__CONSTRAINT = BIG_DECIMAL_INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__NAMESPACE = BIG_DECIMAL_INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__IMPORTER = BIG_DECIMAL_INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__STEREOTYPE = BIG_DECIMAL_INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__TAGGED_VALUE = BIG_DECIMAL_INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__DOCUMENT = BIG_DECIMAL_INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__DESCRIPTION = BIG_DECIMAL_INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__RESPONSIBLE_PARTY = BIG_DECIMAL_INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__ELEMENT_NODE = BIG_DECIMAL_INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__SET = BIG_DECIMAL_INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__RENDERED_OBJECT = BIG_DECIMAL_INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__VOCABULARY_ELEMENT = BIG_DECIMAL_INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__MEASUREMENT = BIG_DECIMAL_INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__CHANGE_REQUEST = BIG_DECIMAL_INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__DASDL_PROPERTY = BIG_DECIMAL_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__INDICATOR_TYPE = BIG_DECIMAL_INDICATOR__INDICATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__COUNT = BIG_DECIMAL_INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__NULL_COUNT = BIG_DECIMAL_INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__PARAMETERS = BIG_DECIMAL_INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__ANALYZED_ELEMENT = BIG_DECIMAL_INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__DATAMINING_TYPE = BIG_DECIMAL_INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__INDICATOR_DEFINITION = BIG_DECIMAL_INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Sum Str</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__SUM_STR = BIG_DECIMAL_INDICATOR__SUM_STR;
-
-    /**
-     * The feature id for the '<em><b>Datatype</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__DATATYPE = BIG_DECIMAL_INDICATOR__DATATYPE;
-
-    /**
-     * The feature id for the '<em><b>Sum</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR__SUM = BIG_DECIMAL_INDICATOR__SUM;
-
-    /**
-     * The number of structural features of the '<em>Big Decimal Mean Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BIG_DECIMAL_MEAN_INDICATOR_FEATURE_COUNT = BIG_DECIMAL_INDICATOR_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.TextIndicatorImpl <em>Text Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4320,7 +2657,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextIndicator()
      * @generated
      */
-    int TEXT_INDICATOR = 27;
+    int TEXT_INDICATOR = 21;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4573,7 +2910,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getBlankCountIndicator()
      * @generated
      */
-    int BLANK_COUNT_INDICATOR = 15;
+    int BLANK_COUNT_INDICATOR = 9;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4835,7 +3172,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorParameters()
      * @generated
      */
-    int INDICATOR_PARAMETERS = 16;
+    int INDICATOR_PARAMETERS = 10;
 
     /**
      * The feature id for the '<em><b>Indicator Valid Domain</b></em>' reference.
@@ -4899,7 +3236,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMedianIndicator()
      * @generated
      */
-    int MEDIAN_INDICATOR = 17;
+    int MEDIAN_INDICATOR = 11;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5170,7 +3507,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getValueIndicator()
      * @generated
      */
-    int VALUE_INDICATOR = 18;
+    int VALUE_INDICATOR = 12;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5441,7 +3778,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinValueIndicator()
      * @generated
      */
-    int MIN_VALUE_INDICATOR = 19;
+    int MIN_VALUE_INDICATOR = 13;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5712,7 +4049,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxValueIndicator()
      * @generated
      */
-    int MAX_VALUE_INDICATOR = 20;
+    int MAX_VALUE_INDICATOR = 14;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5983,7 +4320,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getModeIndicator()
      * @generated
      */
-    int MODE_INDICATOR = 21;
+    int MODE_INDICATOR = 15;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6245,7 +4582,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getNullCountIndicator()
      * @generated
      */
-    int NULL_COUNT_INDICATOR = 22;
+    int NULL_COUNT_INDICATOR = 16;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6498,7 +4835,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDistinctCountIndicator()
      * @generated
      */
-    int DISTINCT_COUNT_INDICATOR = 23;
+    int DISTINCT_COUNT_INDICATOR = 17;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6751,7 +5088,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getUniqueCountIndicator()
      * @generated
      */
-    int UNIQUE_COUNT_INDICATOR = 24;
+    int UNIQUE_COUNT_INDICATOR = 18;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7004,7 +5341,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDuplicateCountIndicator()
      * @generated
      */
-    int DUPLICATE_COUNT_INDICATOR = 25;
+    int DUPLICATE_COUNT_INDICATOR = 19;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7257,7 +5594,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIQRIndicator()
      * @generated
      */
-    int IQR_INDICATOR = 26;
+    int IQR_INDICATOR = 20;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7555,7 +5892,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getLengthIndicator()
      * @generated
      */
-    int LENGTH_INDICATOR = 31;
+    int LENGTH_INDICATOR = 25;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7817,7 +6154,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinLengthIndicator()
      * @generated
      */
-    int MIN_LENGTH_INDICATOR = 28;
+    int MIN_LENGTH_INDICATOR = 22;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8079,7 +6416,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxLengthIndicator()
      * @generated
      */
-    int MAX_LENGTH_INDICATOR = 29;
+    int MAX_LENGTH_INDICATOR = 23;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8341,7 +6678,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getAverageLengthIndicator()
      * @generated
      */
-    int AVERAGE_LENGTH_INDICATOR = 30;
+    int AVERAGE_LENGTH_INDICATOR = 24;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8612,7 +6949,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextParameters()
      * @generated
      */
-    int TEXT_PARAMETERS = 32;
+    int TEXT_PARAMETERS = 26;
 
     /**
      * The feature id for the '<em><b>Use Blank</b></em>' attribute.
@@ -8667,7 +7004,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 33;
+    int ENUM_STATISTICS = 27;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -8677,7 +7014,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 34;
+    int DATAMINING_TYPE = 28;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
@@ -8687,7 +7024,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
      * @generated
      */
-    int DATATYPE = 35;
+    int DATATYPE = 29;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
@@ -8697,7 +7034,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
      * @generated
      */
-    int DATE_GRAIN = 36;
+    int DATE_GRAIN = 30;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
@@ -8707,7 +7044,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
      * @generated
      */
-    int MATCHING_ALGORITHM = 37;
+    int MATCHING_ALGORITHM = 31;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -8717,7 +7054,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 38;
+    int JAVA_SET = 32;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -8727,7 +7064,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 39;
+    int JAVA_HASH_MAP = 33;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -8737,7 +7074,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 40;
+    int JAVA_TREE_MAP = 34;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -9018,69 +7355,6 @@ public interface IndicatorsPackage extends EPackage {
     EClass getIndicatorType();
 
     /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.IntegerSumIndicator <em>Integer Sum Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Integer Sum Indicator</em>'.
-     * @see org.talend.dataquality.indicators.IntegerSumIndicator
-     * @generated
-     */
-    EClass getIntegerSumIndicator();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.IntegerSumIndicator#getSum <em>Sum</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Sum</em>'.
-     * @see org.talend.dataquality.indicators.IntegerSumIndicator#getSum()
-     * @see #getIntegerSumIndicator()
-     * @generated
-     */
-    EAttribute getIntegerSumIndicator_Sum();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.DoubleSumIndicator <em>Double Sum Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Double Sum Indicator</em>'.
-     * @see org.talend.dataquality.indicators.DoubleSumIndicator
-     * @generated
-     */
-    EClass getDoubleSumIndicator();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.DoubleSumIndicator#getSum <em>Sum</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Sum</em>'.
-     * @see org.talend.dataquality.indicators.DoubleSumIndicator#getSum()
-     * @see #getDoubleSumIndicator()
-     * @generated
-     */
-    EAttribute getDoubleSumIndicator_Sum();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.BigDecimalIndicator <em>Big Decimal Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Big Decimal Indicator</em>'.
-     * @see org.talend.dataquality.indicators.BigDecimalIndicator
-     * @generated
-     */
-    EClass getBigDecimalIndicator();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.BigDecimalIndicator#getSum <em>Sum</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Sum</em>'.
-     * @see org.talend.dataquality.indicators.BigDecimalIndicator#getSum()
-     * @see #getBigDecimalIndicator()
-     * @generated
-     */
-    EAttribute getBigDecimalIndicator_Sum();
-
-    /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.FrequencyIndicator <em>Frequency Indicator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9188,36 +7462,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EReference getFrequencyIndicator_DuplicateCountIndicator();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.IntegerMeanIndicator <em>Integer Mean Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Integer Mean Indicator</em>'.
-     * @see org.talend.dataquality.indicators.IntegerMeanIndicator
-     * @generated
-     */
-    EClass getIntegerMeanIndicator();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.DoubleMeanIndicator <em>Double Mean Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Double Mean Indicator</em>'.
-     * @see org.talend.dataquality.indicators.DoubleMeanIndicator
-     * @generated
-     */
-    EClass getDoubleMeanIndicator();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.BigDecimalMeanIndicator <em>Big Decimal Mean Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Big Decimal Mean Indicator</em>'.
-     * @see org.talend.dataquality.indicators.BigDecimalMeanIndicator
-     * @generated
-     */
-    EClass getBigDecimalMeanIndicator();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.BlankCountIndicator <em>Blank Count Indicator</em>}'.
@@ -9768,10 +8012,10 @@ public interface IndicatorsPackage extends EPackage {
         EClass ROW_COUNT_INDICATOR = eINSTANCE.getRowCountIndicator();
 
         /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.MeanIndicator <em>Mean Indicator</em>}' class.
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MeanIndicatorImpl <em>Mean Indicator</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.MeanIndicator
+         * @see org.talend.dataquality.indicators.impl.MeanIndicatorImpl
          * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMeanIndicator()
          * @generated
          */
@@ -9916,60 +8160,6 @@ public interface IndicatorsPackage extends EPackage {
         EClass INDICATOR_TYPE = eINSTANCE.getIndicatorType();
 
         /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl <em>Integer Sum Indicator</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.IntegerSumIndicatorImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIntegerSumIndicator()
-         * @generated
-         */
-        EClass INTEGER_SUM_INDICATOR = eINSTANCE.getIntegerSumIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Sum</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute INTEGER_SUM_INDICATOR__SUM = eINSTANCE.getIntegerSumIndicator_Sum();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.DoubleSumIndicatorImpl <em>Double Sum Indicator</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.DoubleSumIndicatorImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDoubleSumIndicator()
-         * @generated
-         */
-        EClass DOUBLE_SUM_INDICATOR = eINSTANCE.getDoubleSumIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Sum</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute DOUBLE_SUM_INDICATOR__SUM = eINSTANCE.getDoubleSumIndicator_Sum();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.BigDecimalIndicatorImpl <em>Big Decimal Indicator</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.BigDecimalIndicatorImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getBigDecimalIndicator()
-         * @generated
-         */
-        EClass BIG_DECIMAL_INDICATOR = eINSTANCE.getBigDecimalIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Sum</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute BIG_DECIMAL_INDICATOR__SUM = eINSTANCE.getBigDecimalIndicator_Sum();
-
-        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl <em>Frequency Indicator</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -10050,36 +8240,6 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EReference FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_DuplicateCountIndicator();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.IntegerMeanIndicatorImpl <em>Integer Mean Indicator</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.IntegerMeanIndicatorImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIntegerMeanIndicator()
-         * @generated
-         */
-        EClass INTEGER_MEAN_INDICATOR = eINSTANCE.getIntegerMeanIndicator();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.DoubleMeanIndicatorImpl <em>Double Mean Indicator</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.DoubleMeanIndicatorImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDoubleMeanIndicator()
-         * @generated
-         */
-        EClass DOUBLE_MEAN_INDICATOR = eINSTANCE.getDoubleMeanIndicator();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.BigDecimalMeanIndicatorImpl <em>Big Decimal Mean Indicator</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.BigDecimalMeanIndicatorImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getBigDecimalMeanIndicator()
-         * @generated
-         */
-        EClass BIG_DECIMAL_MEAN_INDICATOR = eINSTANCE.getBigDecimalMeanIndicator();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.BlankCountIndicatorImpl <em>Blank Count Indicator</em>}' class.

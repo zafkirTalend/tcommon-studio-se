@@ -10,10 +10,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  *
  * @see org.talend.dataquality.indicators.IndicatorsPackage#getMeanIndicator()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
-public interface MeanIndicator extends Indicator {
+public interface MeanIndicator extends SumIndicator {
     /**
      * <!-- begin-user-doc -->
      * <p>

@@ -122,6 +122,29 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.MeanIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected MeanIndicatorItemProvider meanIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.MeanIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createMeanIndicatorAdapter() {
+        if (meanIndicatorItemProvider == null) {
+            meanIndicatorItemProvider = new MeanIndicatorItemProvider(this);
+        }
+
+        return meanIndicatorItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.SumIndicator} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -237,75 +260,6 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.IntegerSumIndicator} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected IntegerSumIndicatorItemProvider integerSumIndicatorItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.IntegerSumIndicator}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createIntegerSumIndicatorAdapter() {
-        if (integerSumIndicatorItemProvider == null) {
-            integerSumIndicatorItemProvider = new IntegerSumIndicatorItemProvider(this);
-        }
-
-        return integerSumIndicatorItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.DoubleSumIndicator} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected DoubleSumIndicatorItemProvider doubleSumIndicatorItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.DoubleSumIndicator}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createDoubleSumIndicatorAdapter() {
-        if (doubleSumIndicatorItemProvider == null) {
-            doubleSumIndicatorItemProvider = new DoubleSumIndicatorItemProvider(this);
-        }
-
-        return doubleSumIndicatorItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.BigDecimalIndicator} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected BigDecimalIndicatorItemProvider bigDecimalIndicatorItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.BigDecimalIndicator}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createBigDecimalIndicatorAdapter() {
-        if (bigDecimalIndicatorItemProvider == null) {
-            bigDecimalIndicatorItemProvider = new BigDecimalIndicatorItemProvider(this);
-        }
-
-        return bigDecimalIndicatorItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.FrequencyIndicator} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -326,75 +280,6 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         }
 
         return frequencyIndicatorItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.IntegerMeanIndicator} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected IntegerMeanIndicatorItemProvider integerMeanIndicatorItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.IntegerMeanIndicator}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createIntegerMeanIndicatorAdapter() {
-        if (integerMeanIndicatorItemProvider == null) {
-            integerMeanIndicatorItemProvider = new IntegerMeanIndicatorItemProvider(this);
-        }
-
-        return integerMeanIndicatorItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.DoubleMeanIndicator} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected DoubleMeanIndicatorItemProvider doubleMeanIndicatorItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.DoubleMeanIndicator}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createDoubleMeanIndicatorAdapter() {
-        if (doubleMeanIndicatorItemProvider == null) {
-            doubleMeanIndicatorItemProvider = new DoubleMeanIndicatorItemProvider(this);
-        }
-
-        return doubleMeanIndicatorItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.BigDecimalMeanIndicator} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected BigDecimalMeanIndicatorItemProvider bigDecimalMeanIndicatorItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.BigDecimalMeanIndicator}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createBigDecimalMeanIndicatorAdapter() {
-        if (bigDecimalMeanIndicatorItemProvider == null) {
-            bigDecimalMeanIndicatorItemProvider = new BigDecimalMeanIndicatorItemProvider(this);
-        }
-
-        return bigDecimalMeanIndicatorItemProvider;
     }
 
     /**
@@ -912,18 +797,13 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     public void dispose() {
         if (indicatorItemProvider != null) indicatorItemProvider.dispose();
         if (rowCountIndicatorItemProvider != null) rowCountIndicatorItemProvider.dispose();
+        if (meanIndicatorItemProvider != null) meanIndicatorItemProvider.dispose();
         if (sumIndicatorItemProvider != null) sumIndicatorItemProvider.dispose();
         if (compositeIndicatorItemProvider != null) compositeIndicatorItemProvider.dispose();
         if (rangeIndicatorItemProvider != null) rangeIndicatorItemProvider.dispose();
         if (boxIndicatorItemProvider != null) boxIndicatorItemProvider.dispose();
         if (indicatorTypeItemProvider != null) indicatorTypeItemProvider.dispose();
-        if (integerSumIndicatorItemProvider != null) integerSumIndicatorItemProvider.dispose();
-        if (doubleSumIndicatorItemProvider != null) doubleSumIndicatorItemProvider.dispose();
-        if (bigDecimalIndicatorItemProvider != null) bigDecimalIndicatorItemProvider.dispose();
         if (frequencyIndicatorItemProvider != null) frequencyIndicatorItemProvider.dispose();
-        if (integerMeanIndicatorItemProvider != null) integerMeanIndicatorItemProvider.dispose();
-        if (doubleMeanIndicatorItemProvider != null) doubleMeanIndicatorItemProvider.dispose();
-        if (bigDecimalMeanIndicatorItemProvider != null) bigDecimalMeanIndicatorItemProvider.dispose();
         if (blankCountIndicatorItemProvider != null) blankCountIndicatorItemProvider.dispose();
         if (indicatorParametersItemProvider != null) indicatorParametersItemProvider.dispose();
         if (medianIndicatorItemProvider != null) medianIndicatorItemProvider.dispose();
