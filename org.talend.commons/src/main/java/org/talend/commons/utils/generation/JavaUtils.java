@@ -37,6 +37,9 @@ public final class JavaUtils {
 
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java";
+    
+    /** Java sqlpattern Extension. */
+    public static final String JAVA_SQLPATTERN_EXTENSION = ".sqlpattern";
 
     /** Java Context Extension. */
     public static final String JAVA_CONTEXT_EXTENSION = ".properties";
@@ -46,6 +49,9 @@ public final class JavaUtils {
 
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines";
+    
+    /** Java SQLPattern Directory. */
+    public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqlpatterns";
 
     /** Java Routines Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system";

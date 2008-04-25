@@ -12,12 +12,10 @@
 // ============================================================================
 package org.talend.commons.utils.io;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.zip.Adler32;
-import java.util.zip.CheckedInputStream;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -44,9 +40,8 @@ import org.talend.commons.exception.CommonExceptionHandler;
  */
 public class FilesUtils {
 
-    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy,
-            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder)
-            throws IOException {
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
+            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
         if (!target.exists()) {
             target.mkdirs();
         }
@@ -158,6 +153,26 @@ public class FilesUtils {
     }
 
     public static List<URL> getFilesFromFolder(Bundle bundle, String path, String extension) {
+//        List<URL> toReturn = new ArrayList<URL>();
+//
+//        Enumeration entryPaths = bundle.getEntryPaths(path);
+//        for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
+//            String fileName = (String) enumer.nextElement();
+//            if (fileName.endsWith(extension)) {
+//                URL url = bundle.getEntry(fileName);
+//                try {
+//                    toReturn.add(FileLocator.toFileURL(url));
+//                } catch (IOException e) {
+//                    CommonExceptionHandler.process(e);
+//                }
+//            }
+//        }
+//        return toReturn;
+        
+        return getFilesFromFolder(bundle, path, extension, true, false);
+    }
+
+    public static List<URL> getFilesFromFolder(Bundle bundle, String path, String extension, boolean absoluteURL, boolean nested) {
         List<URL> toReturn = new ArrayList<URL>();
 
         Enumeration entryPaths = bundle.getEntryPaths(path);
@@ -165,10 +180,19 @@ public class FilesUtils {
             String fileName = (String) enumer.nextElement();
             if (fileName.endsWith(extension)) {
                 URL url = bundle.getEntry(fileName);
-                try {
-                    toReturn.add(FileLocator.toFileURL(url));
-                } catch (IOException e) {
-                	CommonExceptionHandler.process(e);
+                if (absoluteURL) {
+                    try {
+                        toReturn.add(FileLocator.toFileURL(url));
+                    } catch (IOException e) {
+                        CommonExceptionHandler.process(e);
+                    }
+                } else {
+                    toReturn.add(url);
+                }
+            } else {
+                if (nested) {
+                    List<URL> subResult = getFilesFromFolder(bundle, fileName, extension, absoluteURL, nested);
+                    toReturn.addAll(subResult);
                 }
             }
         }
