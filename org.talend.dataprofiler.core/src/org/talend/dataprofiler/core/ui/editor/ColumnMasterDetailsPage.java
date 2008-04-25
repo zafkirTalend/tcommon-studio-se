@@ -14,7 +14,6 @@ package org.talend.dataprofiler.core.ui.editor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,8 +42,10 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -52,6 +53,7 @@ import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -64,7 +66,6 @@ import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
-import org.talend.dq.analysis.AnalysisWriter;
 import org.talend.dq.analysis.ColumnAnalysisHandler;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -136,19 +137,24 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         form.setText("Analysis Settings");
 
         // TableWrapLayout layout = new TableWrapLayout();
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 2;
-        body.setLayout(layout);
+        body.setLayout(new GridLayout(2, false));
 
         Composite anasisDataComp = toolkit.createComposite(body);
         GridData anasisData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
-        anasisData.horizontalSpan = 1;
+
         anasisDataComp.setLayoutData(anasisData);
-        anasisDataComp.setLayout(new GridLayout(1, true));
+        anasisDataComp.setLayout(new GridLayout(1, false));
 
         createAnalysisMetadataSection(form, toolkit, anasisDataComp);
         createAnalysisColumnsSection(form, toolkit, anasisDataComp);
         createDataFilterSection(form, toolkit, anasisDataComp);
+        
+        Composite previewComp = toolkit.createComposite(body);
+        GridData previewData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
+
+        previewComp.setLayoutData(previewData);
+        previewComp.setLayout(new GridLayout());
+        createPreviewSection(form, toolkit, previewComp);
     }
 
     private void createAnalysisMetadataSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
@@ -207,21 +213,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true, "Select the columns to analyze:");
 
         Composite topComp = toolkit.createComposite(section);
-        topComp.setLayout(new GridLayout(2, false));
-
-        Composite tree = toolkit.createComposite(topComp, SWT.BORDER);
-        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
-        ((GridData) tree.getLayoutData()).widthHint = 500;
-        tree.setLayout(new GridLayout());
-
-        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators, analysisHandler.getAnalysis());
-        treeViewer.setDirty(false);
-        treeViewer.addPropertyChangeListener(this);
-        Composite buttonsComp = toolkit.createComposite(topComp, SWT.None);
-        GridDataFactory.fillDefaults().span(1, 1).applyTo(buttonsComp);
-        buttonsComp.setLayout(new GridLayout(1, true));
-
-        Hyperlink clmnBtn = toolkit.createHyperlink(buttonsComp, "columns to analyze", SWT.NONE);
+        topComp.setLayout(new GridLayout());
+        
+        Hyperlink clmnBtn = toolkit.createHyperlink(topComp, "columns to analyze", SWT.NONE);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(clmnBtn);
         clmnBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
@@ -231,7 +225,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
 
         });
 
-        Hyperlink indcBtn = toolkit.createHyperlink(buttonsComp, "Select indicators for each column", SWT.NONE);
+        Hyperlink indcBtn = toolkit.createHyperlink(topComp, "Select indicators for each column", SWT.NONE);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(indcBtn);
         indcBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
@@ -241,6 +235,15 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             }
 
         });
+
+        Composite tree = toolkit.createComposite(topComp, SWT.BORDER);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
+        tree.setLayout(new GridLayout());
+        ((GridData) tree.getLayoutData()).heightHint = 400;
+
+        treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators, analysisHandler.getAnalysis());
+        treeViewer.setDirty(false);
+        treeViewer.addPropertyChangeListener(this);
 
         section.setClient(topComp);
 
@@ -257,6 +260,48 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             treeViewer.setInput(columns);
             return;
         }
+    }
+    
+    private void createPreviewSection(final ScrolledForm form, FormToolkit toolkit, Composite parent) {
+
+        Section section = createSection(form, toolkit, parent, "Preview", false, "");
+
+        Composite sectionClient = toolkit.createComposite(section);
+        sectionClient.setLayout(new GridLayout());
+        sectionClient.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
+        
+        for (ColumnIndicator column : columnIndicator) {
+            
+            ExpandableComposite oneComp = toolkit.createExpandableComposite(sectionClient, ExpandableComposite.TREE_NODE
+                    | ExpandableComposite.CLIENT_INDENT);
+
+            oneComp.setText("Column: " + column.getTdColumn().getName());
+            oneComp.setLayoutData(new GridData(GridData.FILL_BOTH));
+            oneComp.setLayout(new GridLayout());
+            final ImageHyperlink image = toolkit.createImageHyperlink(oneComp, SWT.WRAP);
+            image.setImage(new ImageLib().getImage(ImageLib.REFRESH_IMAGE));
+            oneComp.setClient(image);
+            
+            oneComp.addExpansionListener(new ExpansionAdapter() {
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.ui.forms.events.ExpansionAdapter#expansionStateChanged(org.eclipse.ui.forms.events.ExpansionEvent)
+                 */
+                @Override
+                public void expansionStateChanged(ExpansionEvent e) {
+                    
+                    
+                    form.reflow(true);
+                }
+
+            });
+        }
+
+        section.setClient(sectionClient);
     }
 
     /**
