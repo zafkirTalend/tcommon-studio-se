@@ -112,7 +112,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     }
                 }
                 if (impactNames.size() != 0) {
-                    MessageDialog.openWarning(null, "Impacted  analysises", "The following analysises will be unusable!\n"
+                    MessageDialog.openWarning(null, "Impacted  analyses", "The following analyses will be unusable!\n"
                             + impactNames);
                 }
                 PrvResourceFileHelper.getInstance().clear();

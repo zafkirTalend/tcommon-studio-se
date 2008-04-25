@@ -12,27 +12,40 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.views.filters;
 
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import orgomg.cwm.foundation.businessinformation.Description;
+import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.PluginConstant;
 
+import orgomg.cwm.foundation.businessinformation.Description;
 
 /**
  * @author rli
- *
+ * 
  */
 public class EMFObjFilter extends ViewerFilter {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object,
+     * java.lang.Object)
      */
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         if ((element instanceof Description) || (element instanceof TdDataProvider)) {
             return false;
         }
+        if ((!CorePlugin.getDefault().getPreferenceStore().getDefaultBoolean(PluginConstant.REPORTINGENABLE))
+                && (element instanceof IFolder)) {
+            IPath projectRelativePath = ((IFolder) element).getFullPath();
+            if (projectRelativePath.toString().equals(PluginConstant.REPORT_FOLDER_PATH)) {
+                return false;
+            }
+        }
         return true;
     }
-
 }

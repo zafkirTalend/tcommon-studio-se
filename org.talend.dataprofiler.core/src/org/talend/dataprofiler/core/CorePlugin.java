@@ -54,6 +54,7 @@ public class CorePlugin extends AbstractUIPlugin {
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
+        getPreferenceStore().setValue(PluginConstant.REPORTINGENABLE, false);
     }
 
     /*

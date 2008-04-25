@@ -50,4 +50,8 @@ public final class PluginConstant {
     public static final String ISDIRTY_PROPERTY = "ISDIRTY_PROPERTY";
 
     public static final String DATAFILTER_PROPERTY = "DATAFILTER_PROPERTY";
+    
+    public static final String REPORTINGENABLE = "REPORTINGENABLE";
+    
+    public static final String REPORT_FOLDER_PATH = "/Data Profiling/Reports"; 
 }

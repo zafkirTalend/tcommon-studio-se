@@ -375,8 +375,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      */
     private void saveAnalysis() throws DataprofilerCoreException {
         AnalysisEditorInuput editorInput = (AnalysisEditorInuput) this.getEditorInput();
-        String fileName = editorInput.getName();
-
         analysisHandler.clearAnalysis();
         AnaResourceFileHelper.getInstance().clear();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
