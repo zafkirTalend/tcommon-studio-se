@@ -71,6 +71,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
@@ -307,6 +308,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.BUSINESS_PROCESS);
         needsBinFolder.add(ERepositoryObjectType.DOCUMENTATION);
         needsBinFolder.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_SQLPATTERNS);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
@@ -386,6 +388,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         ResourceUtils.deleteResource(f1);
 
         createSystemRoutines();
+    }
+    
+    public void synchronizeSqlpatterns(IProject prj) throws PersistenceException {
+        if (prj == null) {
+            Project project = getRepositoryContext().getProject();
+            prj = ResourceModelUtils.getProject(project);
+        }
+        
+        // Purge old sqlpatterns :
+        // 1. old built-in:
+//        IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_SQLPATTERNS)
+//                + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
+//        ResourceUtils.deleteResource(f1);
+        
+        createSystemSQLPatterns();;
     }
 
     /**
@@ -1085,6 +1102,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
             case PropertiesPackage.ROUTINE_ITEM:
+            case PropertiesPackage.SQL_PATTERN_ITEM:
                 itemResource = save((FileItem) item);
                 break;
             case PropertiesPackage.PROCESS_ITEM:
@@ -1227,6 +1245,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.ROUTINE_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.ROUTINES);
                 break;
+            case PropertiesPackage.SQL_PATTERN_ITEM:
+                itemResource = create((FileItem) item, path, ERepositoryObjectType.METADATA_SQLPATTERNS);
+                break;
             case PropertiesPackage.PROCESS_ITEM:
                 itemResource = create((ProcessItem) item, path);
                 break;
@@ -1316,6 +1337,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject project2 = ResourceModelUtils.getProject(project);
         createFolders(project2, project.getEmfProject());
         synchronizeRoutines(project2);
+        synchronizeSqlpatterns(project2);
         synchronizeFolders(project2, project.getEmfProject());
     }
 
@@ -1343,6 +1365,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             if (item instanceof RoutineItem) {
                 if (((RoutineItem) item).isBuiltIn()) {
+                    return ERepositoryStatus.READ_ONLY;
+                }
+            }
+            if (item instanceof SQLPatternItem) {
+                if (((SQLPatternItem) item).isSystem()) {
                     return ERepositoryStatus.READ_ONLY;
                 }
             }
