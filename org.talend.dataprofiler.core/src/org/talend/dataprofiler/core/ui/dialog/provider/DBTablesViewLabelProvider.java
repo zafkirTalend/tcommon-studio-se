@@ -79,7 +79,7 @@ public class DBTablesViewLabelProvider extends AdapterFactoryLabelProvider {
         String text = super.getText(element);
         if (text.endsWith(PluginConstant.PRV_SUFFIX)) {
             IFile file = (IFile) element;
-            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().readFromFile(file);
+            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().getTdProvider(file);
             String decorateText = PluginConstant.EMPTY_STRING;
             if (rc.isOk()) {
                 decorateText = rc.getObject().getName();

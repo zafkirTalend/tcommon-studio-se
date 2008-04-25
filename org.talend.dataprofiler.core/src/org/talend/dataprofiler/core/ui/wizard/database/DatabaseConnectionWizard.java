@@ -111,7 +111,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
             return false;
         }
         TdDataProvider dataProvider = rc.getObject();
-        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(dataProvider.getName()), dataProvider);
+        NeedSaveDataProviderHelper.register(dataProvider.getName(), dataProvider);
         // MODSCA 2008-03-10 save the provider
         if (DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, this.connectionProperty.getFolderProvider())) {
             CorePlugin.getDefault().refreshWorkSpace();

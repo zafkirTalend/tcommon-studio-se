@@ -30,9 +30,8 @@ import orgomg.cwm.resource.relational.NamedColumnSet;
  */
 public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> extends AbstractFolderNode {
 
-
     private static Logger log = Logger.getLogger(NamedColumnSetFolderNode.class);
-    
+
     /**
      * @param name
      */
@@ -40,8 +39,8 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
         super(name);
     }
 
-    protected <T extends List<COLSET>> void loadChildrenLow(orgomg.cwm.objectmodel.core.Package pack,
-            TdCatalog catalog, TdSchema schema, final T columnSets) {
+    protected <T extends List<COLSET>> void loadChildrenLow(orgomg.cwm.objectmodel.core.Package pack, TdCatalog catalog,
+            TdSchema schema, final T columnSets) {
         assert pack != null;
         columnSets.addAll(getColumnSets(catalog, schema));
         if (columnSets.size() > 0) {
@@ -62,7 +61,7 @@ public abstract class NamedColumnSetFolderNode<COLSET extends NamedColumnSet> ex
         // store views in catalog or schema
         pack.getOwnedElement().addAll(columnSets);
         this.setChildren(columnSets.toArray());
-        NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()), provider);
+        NeedSaveDataProviderHelper.register(provider.getName(), provider);
         this.setLoaded(true);
     }
 

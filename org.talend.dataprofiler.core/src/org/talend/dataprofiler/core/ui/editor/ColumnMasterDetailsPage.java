@@ -418,8 +418,10 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             for (TdDataProvider provider : providerList) {
                 TaggedValueHelper.setTaggedValue(provider, analysisHandler.getName() + PluginConstant.ANA_TAG_SUFFIX,
                         PluginConstant.EMPTY_STRING);
-                NeedSaveDataProviderHelper.register(DqRepositoryViewService.createTechnicalName(provider.getName()), provider);
+//                org.talend.dataquality.helpers.AnalysisHelper.createUsageDependencyOn(analysisHandler.getAnalysis(), provider);
+                NeedSaveDataProviderHelper.register(provider.getName(), provider);
             }
+            NeedSaveDataProviderHelper.saveAllDataProvider();
             AnaResourceFileHelper.getInstance().setResourceChanged(true);
             log.info("Saved in  " + urlString + " successful");
         } else {

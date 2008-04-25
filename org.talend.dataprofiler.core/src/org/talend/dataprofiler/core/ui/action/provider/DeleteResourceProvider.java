@@ -87,6 +87,22 @@ public class DeleteResourceProvider extends CommonActionProvider {
             List<String> impactNames = new ArrayList<String>();
             if (selectedFile.getName().endsWith(PluginConstant.PRV_SUFFIX)) {
                 TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(selectedFile);
+//                TdDataProvider provider = returnValue.getObject();
+//                AnalysisSwitch<Analysis> mySwitch = new AnalysisSwitch<Analysis>() {
+//
+//                    public Analysis caseAnalysis(Analysis object) {
+//                        return object;
+//                    }
+//                };
+//                for (Dependency dependency : provider.getClientDependency()) {
+//                    for (ModelElement element : dependency.getClient()) {
+//                        Analysis value = mySwitch.doSwitch(element);
+//                        if (value == null || impactNames.contains(value.getName())) {
+//                            continue;
+//                        }
+//                        impactNames.add(value.getName());
+//                    }
+//                }
                 for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
                     EList<TaggedValue> taggedValues = returnValue.getObject().getTaggedValue();
                     TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(entity.getAnalysisName()
@@ -96,12 +112,11 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     }
                 }
                 if (impactNames.size() != 0) {
-                    MessageDialog.openWarning(null, "Impacted  analyses", "The following analyses will be unusable!\n"
+                    MessageDialog.openWarning(null, "Impacted  analysises", "The following analysises will be unusable!\n"
                             + impactNames);
                 }
                 PrvResourceFileHelper.getInstance().clear();
             } else if (selectedFile.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                // Analysis returnValue = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
                 for (TdReport report : RepResourceFileHelper.getInstance().getAllReports()) {
                     String analysisName = selectedFile.getName();
                     List<Analysis> analyses = ReportHelper.getAnalyses(report);
@@ -110,13 +125,6 @@ public class DeleteResourceProvider extends CommonActionProvider {
                             impactNames.add(report.getName());
                         }
                     }
-
-                    // EList<TaggedValue> taggedValues = returnValue.getTaggedValue();
-//                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(report.getName() + PluginConstant.REP_TAG_SUFFIX,
-                    // taggedValues);
-                    // if (taggedValue != null) {
-                    // impactNames.add(report.getName());
-                    // }
                 }
                 if (impactNames.size() != 0) {
                     MessageDialog.openWarning(null, "Impacted  reports", "The following reports will be unusable!\n"
@@ -129,3 +137,4 @@ public class DeleteResourceProvider extends CommonActionProvider {
         }
     }
 }
+

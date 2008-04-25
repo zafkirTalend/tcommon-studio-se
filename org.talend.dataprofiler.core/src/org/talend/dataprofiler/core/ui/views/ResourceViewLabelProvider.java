@@ -60,7 +60,7 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
     protected String decorateText(String input, Object element) {
         if (input.endsWith(PluginConstant.PRV_SUFFIX)) {
             IFile file = (IFile) element;
-            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().readFromFile(file);
+            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().getTdProvider(file);
             String decorateText = PluginConstant.EMPTY_STRING;
             if (rc.isOk()) {
                 decorateText = rc.getObject().getName();

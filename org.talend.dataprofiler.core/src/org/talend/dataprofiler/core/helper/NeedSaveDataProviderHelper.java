@@ -33,8 +33,8 @@ public final class NeedSaveDataProviderHelper {
     private static Map<String, TdDataProvider> needSaveProviderMap = new HashMap<String, TdDataProvider>();
 
     public static void register(String providerName, TdDataProvider dataProvider) {
-        // MODSCA 2008-03-19 removed ".prv" extension since it is not used in get() method
-        needSaveProviderMap.put(providerName, dataProvider);
+        String createTechnicalName = DqRepositoryViewService.createTechnicalName(providerName);
+        needSaveProviderMap.put(createTechnicalName, dataProvider);
         isSaved = false;
     }
 

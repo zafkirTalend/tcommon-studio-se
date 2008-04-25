@@ -147,7 +147,7 @@ public class ConnAnalysisPageStep0 extends AbstractAnalysisWizardPage {
                 ConnectionAnalysisParameter connPanameter = (ConnectionAnalysisParameter) getConnectionParams();
                 if (object instanceof IFile) {
                     IFile file = (IFile) object;
-                    TypedReturnCode<TdDataProvider> tdProvider = PrvResourceFileHelper.getInstance().readFromFile(file);
+                    TypedReturnCode<TdDataProvider> tdProvider = PrvResourceFileHelper.getInstance().getTdProvider(file);
                     
                     if (tdProvider != null && connPanameter != null) {
                         

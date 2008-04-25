@@ -49,11 +49,21 @@ public final class PrvResourceFileHelper extends ResourceFileMap {
      * @param file the file to read
      * @return the Data provider if found.
      */
-    public TypedReturnCode<TdDataProvider> readFromFile(IFile file) {
+    public TypedReturnCode<TdDataProvider> getTdProvider(IFile file) {
         TypedReturnCode<TdDataProvider> rc = providerMap.get(file);
         if (rc != null) {
             return rc;
         }
+        return readFromFile(file);
+    }
+
+    /**
+     * DOC rli Comment method "readFromFile".
+     * @param file
+     * @return
+     */
+    public TypedReturnCode<TdDataProvider> readFromFile(IFile file) {
+        TypedReturnCode<TdDataProvider> rc;
         rc = new TypedReturnCode<TdDataProvider>();
         Resource resource = getFileResource(file);
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(resource.getContents());

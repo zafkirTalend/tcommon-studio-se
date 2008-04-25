@@ -24,11 +24,9 @@ import java.util.Map;
  */
 public final class DateFormatUtils {
 
-    public static final String[] DATEFORMATS_SAVE = new String[] { "KK:mm a", "MM dd", "MM/dd/yy" }; //$NON-NLS-1$ //$NON-NLS-2$
+    public static final String[] DATEFORMATS_SAVE = new String[] { "KK:mm a", "MMM dd", "MM/dd/yy" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     private static Map<String, DateFormat> dateFormatMap = null;
-
-    private DateFormatUtils instance;
 
     private DateFormatUtils() {
     }
@@ -53,7 +51,7 @@ public final class DateFormatUtils {
         GregorianCalendar currentCal = new GregorianCalendar();
         currentCal.setTime(new Date());
         GregorianCalendar paremCal = new GregorianCalendar();
-        paremCal.setTime(new Date());
+        paremCal.setTime(date);
         if (currentCal.get(GregorianCalendar.YEAR) == paremCal.get(GregorianCalendar.YEAR)) {
             if (currentCal.get(GregorianCalendar.DAY_OF_YEAR) == paremCal.get(GregorianCalendar.DAY_OF_YEAR)) {
                 returnStr = dateFormatMap.get(DATEFORMATS_SAVE[0]).format(date).toString();
