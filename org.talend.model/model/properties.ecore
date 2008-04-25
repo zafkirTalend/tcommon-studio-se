@@ -407,4 +407,9 @@
     <eLiterals name="WARN" value="30"/>
     <eLiterals name="ERROR" value="40"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SQLPatternItem" eSuperTypes="#//FileItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="system" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eltName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

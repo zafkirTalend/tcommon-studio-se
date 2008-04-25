@@ -233,6 +233,24 @@ public interface ComponentFactory extends EFactory {
     RETURNType createRETURNType();
 
     /**
+     * Returns a new object of class '<em>SQLPATTERNS Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SQLPATTERNS Type</em>'.
+     * @generated
+     */
+    SQLPATTERNSType createSQLPATTERNSType();
+
+    /**
+     * Returns a new object of class '<em>SQLPATTERN Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SQLPATTERN Type</em>'.
+     * @generated
+     */
+    SQLPATTERNType createSQLPATTERNType();
+
+    /**
      * Returns a new object of class '<em>TABLE Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

@@ -3917,13 +3917,95 @@ public interface PropertiesPackage extends EPackage {
     int INFORMATION_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SQLPatternItemImpl <em>SQL Pattern Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SQLPatternItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSQLPatternItem()
+     * @generated
+     */
+    int SQL_PATTERN_ITEM = 55;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The feature id for the '<em><b>System</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__SYSTEM = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Elt Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__ELT_NAME = FILE_ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>SQL Pattern Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 55;
+    int FOLDER_TYPE = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3933,7 +4015,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 56;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 57;
 
 
     /**
@@ -3944,7 +4026,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 57;
+    int USER_MODULE_AUTHORIZATION_TYPE = 58;
 
 
     /**
@@ -3955,7 +4037,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 58;
+    int INFORMATION_LEVEL = 59;
 
 
     /**
@@ -6669,6 +6751,38 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getInformation_Text();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SQLPatternItem <em>SQL Pattern Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SQL Pattern Item</em>'.
+     * @see org.talend.core.model.properties.SQLPatternItem
+     * @generated
+     */
+    EClass getSQLPatternItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SQLPatternItem#isSystem <em>System</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>System</em>'.
+     * @see org.talend.core.model.properties.SQLPatternItem#isSystem()
+     * @see #getSQLPatternItem()
+     * @generated
+     */
+    EAttribute getSQLPatternItem_System();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SQLPatternItem#getEltName <em>Elt Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Elt Name</em>'.
+     * @see org.talend.core.model.properties.SQLPatternItem#getEltName()
+     * @see #getSQLPatternItem()
+     * @generated
+     */
+    EAttribute getSQLPatternItem_EltName();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -8916,6 +9030,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute INFORMATION__TEXT = eINSTANCE.getInformation_Text();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SQLPatternItemImpl <em>SQL Pattern Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SQLPatternItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSQLPatternItem()
+         * @generated
+         */
+        EClass SQL_PATTERN_ITEM = eINSTANCE.getSQLPatternItem();
+
+        /**
+         * The meta object literal for the '<em><b>System</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SQL_PATTERN_ITEM__SYSTEM = eINSTANCE.getSQLPatternItem_System();
+
+        /**
+         * The meta object literal for the '<em><b>Elt Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SQL_PATTERN_ITEM__ELT_NAME = eINSTANCE.getSQLPatternItem_EltName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

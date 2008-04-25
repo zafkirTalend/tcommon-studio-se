@@ -60,6 +60,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SchemaInformation;
 import org.talend.core.model.properties.SimpleTalendTrigger;
@@ -419,6 +420,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass informationEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sqlPatternItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2622,6 +2630,33 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSQLPatternItem() {
+        return sqlPatternItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSQLPatternItem_System() {
+        return (EAttribute)sqlPatternItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSQLPatternItem_EltName() {
+        return (EAttribute)sqlPatternItemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3028,6 +3063,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(informationEClass, INFORMATION__TYPE);
         createEAttribute(informationEClass, INFORMATION__TEXT);
 
+        sqlPatternItemEClass = createEClass(SQL_PATTERN_ITEM);
+        createEAttribute(sqlPatternItemEClass, SQL_PATTERN_ITEM__SYSTEM);
+        createEAttribute(sqlPatternItemEClass, SQL_PATTERN_ITEM__ELT_NAME);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -3096,6 +3135,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         jobDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         jobletDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         wsdlSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        sqlPatternItemEClass.getESuperTypes().add(this.getFileItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3414,6 +3454,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getInformation_Level(), this.getInformationLevel(), "level", null, 1, 1, Information.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInformation_Type(), theEcorePackage.getEString(), "type", null, 0, 1, Information.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInformation_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Information.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sqlPatternItemEClass, SQLPatternItem.class, "SQLPatternItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSQLPatternItem_System(), ecorePackage.getEBoolean(), "system", "false", 0, 1, SQLPatternItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSQLPatternItem_EltName(), theEcorePackage.getEString(), "eltName", null, 0, 1, SQLPatternItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

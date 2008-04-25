@@ -103,6 +103,8 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.PLUGINDEPENDENCY_TYPE: return createPLUGINDEPENDENCYType();
             case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
             case ComponentPackage.RETURN_TYPE: return createRETURNType();
+            case ComponentPackage.SQLPATTERNS_TYPE: return createSQLPATTERNSType();
+            case ComponentPackage.SQLPATTERN_TYPE: return createSQLPATTERNType();
             case ComponentPackage.TABLE_TYPE: return createTABLEType();
             case ComponentPackage.TEMPLATEPARAM_TYPE: return createTEMPLATEPARAMType();
             case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
@@ -340,6 +342,26 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public RETURNType createRETURNType() {
         RETURNTypeImpl returnType = new RETURNTypeImpl();
         return returnType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SQLPATTERNSType createSQLPATTERNSType() {
+        SQLPATTERNSTypeImpl sqlpatternsType = new SQLPATTERNSTypeImpl();
+        return sqlpatternsType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SQLPATTERNType createSQLPATTERNType() {
+        SQLPATTERNTypeImpl sqlpatternType = new SQLPATTERNTypeImpl();
+        return sqlpatternType;
     }
 
     /**

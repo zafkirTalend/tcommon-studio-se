@@ -33,6 +33,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/hEADER"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/dOCUMENTATION"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cONNECTORS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/sQLPATTERNS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pARAMETERS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/aDVANCEDPARAMETERS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cODEGENERATION"/>
@@ -79,6 +80,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pARAMETERS"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pLUGINDEPENDENCIES"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/rETURNS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/sQLPATTERNS"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//FORMATType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//FORMATType/cONNECTION"/>
@@ -180,6 +182,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/aVAILABILITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/tYPE"/>
+    </genClasses>
+    <genClasses ecoreClass="Component.ecore#//SQLPATTERNSType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//SQLPATTERNSType/sQLPATTERN"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLPATTERNSType/dB"/>
+    </genClasses>
+    <genClasses ecoreClass="Component.ecore#//SQLPATTERNType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLPATTERNType/cONTENT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLPATTERNType/nAME"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TABLEType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TABLEType/cOLUMN"/>

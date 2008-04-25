@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCONNECTORS <em>CONNECTORS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getSQLPATTERNS <em>SQLPATTERNS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCODEGENERATION <em>CODEGENERATION</em>}</li>
@@ -114,6 +115,33 @@ public interface COMPONENTType extends EObject {
      * @generated
      */
     void setCONNECTORS(CONNECTORSType value);
+
+    /**
+     * Returns the value of the '<em><b>SQLPATTERNS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SQLPATTERNS</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SQLPATTERNS</em>' containment reference.
+     * @see #setSQLPATTERNS(SQLPATTERNSType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_SQLPATTERNS()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='SQLPATTERNS' namespace='##targetNamespace'"
+     * @generated
+     */
+    SQLPATTERNSType getSQLPATTERNS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getSQLPATTERNS <em>SQLPATTERNS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SQLPATTERNS</em>' containment reference.
+     * @see #getSQLPATTERNS()
+     * @generated
+     */
+    void setSQLPATTERNS(SQLPATTERNSType value);
 
     /**
      * Returns the value of the '<em><b>PARAMETERS</b></em>' containment reference.

@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "component"; //$NON-NLS-1$
+    String eNS_PREFIX = "Component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.
@@ -281,13 +281,22 @@ public interface ComponentPackage extends EPackage {
     int COMPONENT_TYPE__CONNECTORS = 2;
 
     /**
+     * The feature id for the '<em><b>SQLPATTERNS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_TYPE__SQLPATTERNS = 3;
+
+    /**
      * The feature id for the '<em><b>PARAMETERS</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__PARAMETERS = 3;
+    int COMPONENT_TYPE__PARAMETERS = 4;
 
     /**
      * The feature id for the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference.
@@ -296,7 +305,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__ADVANCEDPARAMETERS = 4;
+    int COMPONENT_TYPE__ADVANCEDPARAMETERS = 5;
 
     /**
      * The feature id for the '<em><b>CODEGENERATION</b></em>' containment reference.
@@ -305,7 +314,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__CODEGENERATION = 5;
+    int COMPONENT_TYPE__CODEGENERATION = 6;
 
     /**
      * The feature id for the '<em><b>RETURNS</b></em>' containment reference.
@@ -314,7 +323,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__RETURNS = 6;
+    int COMPONENT_TYPE__RETURNS = 7;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference.
@@ -323,7 +332,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__PLUGINDEPENDENCIES = 7;
+    int COMPONENT_TYPE__PLUGINDEPENDENCIES = 8;
 
     /**
      * The number of structural features of the '<em>COMPONENT Type</em>' class.
@@ -332,7 +341,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE_FEATURE_COUNT = 8;
+    int COMPONENT_TYPE_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORSTypeImpl <em>CONNECTORS Type</em>}' class.
@@ -700,13 +709,22 @@ public interface ComponentPackage extends EPackage {
     int DOCUMENT_ROOT__RETURNS = 13;
 
     /**
+     * The feature id for the '<em><b>SQLPATTERNS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__SQLPATTERNS = 14;
+
+    /**
      * The number of structural features of the '<em>Document Root</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 14;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl <em>FORMAT Type</em>}' class.
@@ -1632,6 +1650,80 @@ public interface ComponentPackage extends EPackage {
     int RETURN_TYPE_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNSTypeImpl <em>SQLPATTERNS Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNSTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getSQLPATTERNSType()
+     * @generated
+     */
+    int SQLPATTERNS_TYPE = 23;
+
+    /**
+     * The feature id for the '<em><b>SQLPATTERN</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQLPATTERNS_TYPE__SQLPATTERN = 0;
+
+    /**
+     * The feature id for the '<em><b>DB</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQLPATTERNS_TYPE__DB = 1;
+
+    /**
+     * The number of structural features of the '<em>SQLPATTERNS Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQLPATTERNS_TYPE_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNTypeImpl <em>SQLPATTERN Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getSQLPATTERNType()
+     * @generated
+     */
+    int SQLPATTERN_TYPE = 24;
+
+    /**
+     * The feature id for the '<em><b>CONTENT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQLPATTERN_TYPE__CONTENT = 0;
+
+    /**
+     * The feature id for the '<em><b>NAME</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQLPATTERN_TYPE__NAME = 1;
+
+    /**
+     * The number of structural features of the '<em>SQLPATTERN Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQLPATTERN_TYPE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl <em>TABLE Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1639,7 +1731,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTABLEType()
      * @generated
      */
-    int TABLE_TYPE = 23;
+    int TABLE_TYPE = 25;
 
     /**
      * The feature id for the '<em><b>COLUMN</b></em>' containment reference list.
@@ -1694,7 +1786,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 24;
+    int TEMPLATEPARAM_TYPE = 26;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -1740,7 +1832,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 25;
+    int TEMPLATES_TYPE = 27;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1804,7 +1896,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 26;
+    int TEMPLATE_TYPE = 28;
 
     /**
      * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
@@ -2069,6 +2161,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getCOMPONENTType_CONNECTORS();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getSQLPATTERNS <em>SQLPATTERNS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>SQLPATTERNS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getSQLPATTERNS()
+     * @see #getCOMPONENTType()
+     * @generated
+     */
+    EReference getCOMPONENTType_SQLPATTERNS();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPARAMETERS <em>PARAMETERS</em>}'.
@@ -2515,6 +2618,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getDocumentRoot_RETURNS();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getSQLPATTERNS <em>SQLPATTERNS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>SQLPATTERNS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getSQLPATTERNS()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_SQLPATTERNS();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.FORMATType <em>FORMAT Type</em>}'.
@@ -3460,6 +3574,70 @@ public interface ComponentPackage extends EPackage {
     EAttribute getRETURNType_TYPE();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType <em>SQLPATTERNS Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SQLPATTERNS Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType
+     * @generated
+     */
+    EClass getSQLPATTERNSType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType#getSQLPATTERN <em>SQLPATTERN</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>SQLPATTERN</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType#getSQLPATTERN()
+     * @see #getSQLPATTERNSType()
+     * @generated
+     */
+    EReference getSQLPATTERNSType_SQLPATTERN();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType#getDB <em>DB</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DB</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType#getDB()
+     * @see #getSQLPATTERNSType()
+     * @generated
+     */
+    EAttribute getSQLPATTERNSType_DB();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNType <em>SQLPATTERN Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SQLPATTERN Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNType
+     * @generated
+     */
+    EClass getSQLPATTERNType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNType#getCONTENT <em>CONTENT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CONTENT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNType#getCONTENT()
+     * @see #getSQLPATTERNType()
+     * @generated
+     */
+    EAttribute getSQLPATTERNType_CONTENT();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNType#getNAME <em>NAME</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NAME</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNType#getNAME()
+     * @see #getSQLPATTERNType()
+     * @generated
+     */
+    EAttribute getSQLPATTERNType_NAME();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TABLEType <em>TABLE Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3863,6 +4041,14 @@ public interface ComponentPackage extends EPackage {
         EReference COMPONENT_TYPE__CONNECTORS = eINSTANCE.getCOMPONENTType_CONNECTORS();
 
         /**
+         * The meta object literal for the '<em><b>SQLPATTERNS</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COMPONENT_TYPE__SQLPATTERNS = eINSTANCE.getCOMPONENTType_SQLPATTERNS();
+
+        /**
          * The meta object literal for the '<em><b>PARAMETERS</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4199,6 +4385,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference DOCUMENT_ROOT__RETURNS = eINSTANCE.getDocumentRoot_RETURNS();
+
+        /**
+         * The meta object literal for the '<em><b>SQLPATTERNS</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__SQLPATTERNS = eINSTANCE.getDocumentRoot_SQLPATTERNS();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl <em>FORMAT Type</em>}' class.
@@ -4923,6 +5117,58 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute RETURN_TYPE__TYPE = eINSTANCE.getRETURNType_TYPE();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNSTypeImpl <em>SQLPATTERNS Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNSTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getSQLPATTERNSType()
+         * @generated
+         */
+        EClass SQLPATTERNS_TYPE = eINSTANCE.getSQLPATTERNSType();
+
+        /**
+         * The meta object literal for the '<em><b>SQLPATTERN</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SQLPATTERNS_TYPE__SQLPATTERN = eINSTANCE.getSQLPATTERNSType_SQLPATTERN();
+
+        /**
+         * The meta object literal for the '<em><b>DB</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SQLPATTERNS_TYPE__DB = eINSTANCE.getSQLPATTERNSType_DB();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNTypeImpl <em>SQLPATTERN Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.SQLPATTERNTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getSQLPATTERNType()
+         * @generated
+         */
+        EClass SQLPATTERN_TYPE = eINSTANCE.getSQLPATTERNType();
+
+        /**
+         * The meta object literal for the '<em><b>CONTENT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SQLPATTERN_TYPE__CONTENT = eINSTANCE.getSQLPATTERNType_CONTENT();
+
+        /**
+         * The meta object literal for the '<em><b>NAME</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SQLPATTERN_TYPE__NAME = eINSTANCE.getSQLPATTERNType_NAME();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl <em>TABLE Type</em>}' class.

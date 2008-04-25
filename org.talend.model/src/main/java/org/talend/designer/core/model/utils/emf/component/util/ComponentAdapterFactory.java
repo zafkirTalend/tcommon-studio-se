@@ -159,6 +159,12 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseRETURNType(RETURNType object) {
                 return createRETURNTypeAdapter();
             }
+            public Object caseSQLPATTERNSType(SQLPATTERNSType object) {
+                return createSQLPATTERNSTypeAdapter();
+            }
+            public Object caseSQLPATTERNType(SQLPATTERNType object) {
+                return createSQLPATTERNTypeAdapter();
+            }
             public Object caseTABLEType(TABLEType object) {
                 return createTABLETypeAdapter();
             }
@@ -509,6 +515,34 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createRETURNTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType <em>SQLPATTERNS Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType
+     * @generated
+     */
+    public Adapter createSQLPATTERNSTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.SQLPATTERNType <em>SQLPATTERN Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.SQLPATTERNType
+     * @generated
+     */
+    public Adapter createSQLPATTERNTypeAdapter() {
         return null;
     }
 

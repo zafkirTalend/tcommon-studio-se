@@ -329,5 +329,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Information/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Information/text"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//SQLPatternItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SQLPatternItem/system"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SQLPatternItem/eltName"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

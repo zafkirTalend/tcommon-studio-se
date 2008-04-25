@@ -472,6 +472,15 @@ public interface PropertiesFactory extends EFactory {
     Information createInformation();
 
     /**
+     * Returns a new object of class '<em>SQL Pattern Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SQL Pattern Item</em>'.
+     * @generated
+     */
+    SQLPatternItem createSQLPatternItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

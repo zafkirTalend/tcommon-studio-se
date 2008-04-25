@@ -142,6 +142,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM: return createWSDLSchemaConnectionItem();
             case PropertiesPackage.SCHEMA_INFORMATION: return createSchemaInformation();
             case PropertiesPackage.INFORMATION: return createInformation();
+            case PropertiesPackage.SQL_PATTERN_ITEM: return createSQLPatternItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -674,6 +675,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public Information createInformation() {
         InformationImpl information = new InformationImpl();
         return information;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SQLPatternItem createSQLPatternItem() {
+        SQLPatternItemImpl sqlPatternItem = new SQLPatternItemImpl();
+        return sqlPatternItem;
     }
 
     /**
