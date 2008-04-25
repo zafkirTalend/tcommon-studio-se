@@ -176,6 +176,9 @@ public class FilesUtils {
         List<URL> toReturn = new ArrayList<URL>();
 
         Enumeration entryPaths = bundle.getEntryPaths(path);
+        if(entryPaths==null){
+            return toReturn;
+        }
         for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
             String fileName = (String) enumer.nextElement();
             if (fileName.endsWith(extension)) {
