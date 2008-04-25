@@ -35,6 +35,7 @@ import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
@@ -62,6 +63,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_SQLPATTERNS("repository.metadataSQLPatterns","repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -146,6 +148,8 @@ public enum ERepositoryObjectType {
             return "metadata"; //$NON-NLS-1$
         case METADATA_CONNECTIONS:
             return "metadata/connections"; //$NON-NLS-1$
+        case METADATA_SQLPATTERNS:
+            return "metadata/sqlPatterns"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
             return "metadata/fileDelimited"; //$NON-NLS-1$
         case METADATA_FILE_POSITIONAL:
@@ -228,6 +232,14 @@ public enum ERepositoryObjectType {
 
             public Object caseRoutineItem(RoutineItem object) {
                 return ROUTINES;
+            }
+            
+            /* (non-Javadoc)
+             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseSQLPatternItem(org.talend.core.model.properties.SQLPatternItem)
+             */
+            @Override
+            public Object caseSQLPatternItem(SQLPatternItem object) {
+               return METADATA_SQLPATTERNS;
             }
 
             public Object caseProcessItem(ProcessItem object) {

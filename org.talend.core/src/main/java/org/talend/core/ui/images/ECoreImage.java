@@ -56,6 +56,10 @@ public enum ECoreImage implements IImage {
     METADATA_ICON("/icons/metadata.png"), //$NON-NLS-1$
     METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
+    
+    METADATA_SQLPATTERN_ICON("platform://org.talend.commons.ui/icons/unknown.gif"), //$NON-NLS-1$
+    METADATA_SQLPATTERN_WIZ("/icons/defaultWizard.png"), //$NON-NLS-1$
+    
     METADATA_TABLE_ICON("/icons/table.gif"), //$NON-NLS-1$
     METADATA_TABLE_WIZ("/icons/table_wiz.png"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons/view.gif"), //$NON-NLS-1$

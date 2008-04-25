@@ -33,7 +33,13 @@ public interface ILibrariesService extends IService {
 
     public static final String SOURCE_PERL_ROUTINES_FOLDER = "routines";
 
+    public static final String SOURCE_SQLPATTERN_FOLDER = "sqlpatterns";
+
+    public static final String SQLPATTERN_FILE_SUFFIX = ".sqlpattern";
+
     public List<URL> getSystemRoutines();
+
+    public List<URL> getSystemSQLPatterns();
 
     public URL getTalendRoutinesFolder() throws IOException;
 

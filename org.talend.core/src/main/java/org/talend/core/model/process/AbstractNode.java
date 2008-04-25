@@ -699,4 +699,10 @@ public abstract class AbstractNode implements INode {
         List<IMultipleComponentManager> multipleComponentManagers = getComponent().getMultipleComponentManagers();
         return multipleComponentManagers.size() > 0;
     }
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#isELTComponent()
+     */
+    public boolean isELTComponent() {
+        return false;
+    }
 }
