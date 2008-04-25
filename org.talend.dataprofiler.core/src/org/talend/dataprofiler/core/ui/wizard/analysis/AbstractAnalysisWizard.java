@@ -30,10 +30,9 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
 import org.talend.dq.analysis.AnalysisWriter;
-import org.talend.dq.analysis.parameters.ConnectionParameter;
 import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
-import org.talend.dq.analysis.parameters.IParameterConstant;
-import org.talend.utils.sugars.ReturnCode;
+import org.talend.dq.analysis.parameters.ConnectionParameter;
+import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * AbstractAnalysisWizard can creat a empty analysis file.
@@ -46,6 +45,9 @@ public abstract class AbstractAnalysisWizard extends Wizard {
 
     protected AnalysisType analysisType;
 
+    /**
+     * The folder where to save the analysis.
+     */
     protected String pathName;
 
     public AbstractAnalysisWizard() {
@@ -61,7 +63,7 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         if (!checkAnalysisEditorParam()) {
             return false;
         }
-        
+
         try {
             File file = createEmptyAnalysisFile();
             if (file == null) {
@@ -102,20 +104,20 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         Analysis analysis = analysisBuilder.getAnalysis();
         fillAnalysisBuilder(analysisBuilder);
         AnalysisWriter writer = new AnalysisWriter();
-        File file = new File(this.pathName);
-        if (file.exists()) {
-            return null;
+        File folder = new File(this.pathName);
+        // if (folder.exists()) {
+        // return null;
+        // } else {
+        TypedReturnCode<File> saved = writer.createAnalysisFile(analysis, folder);
+        if (saved.isOk()) {
+            log.info("Saved in  " + folder.getAbsolutePath());
+            AnaResourceFileHelper.getInstance().setResourceChanged(true);
         } else {
-            ReturnCode saved = writer.save(analysis, file);
-            if (saved.isOk()) {
-                log.info("Saved in  " + file.getAbsolutePath());
-                AnaResourceFileHelper.getInstance().setResourceChanged(true);
-            } else {
-                throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": " + saved.getMessage());
-            }
+            throw new DataprofilerCoreException("Problem saving file: " + folder.getAbsolutePath() + ": " + saved.getMessage());
         }
+
         CorePlugin.getDefault().refreshWorkSpace();
-        return file;
+        return saved.getObject();
 
     }
 
@@ -125,7 +127,7 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         String analysisAuthor = parameters.getAnalysisAuthor();
         String analysisPurpse = parameters.getAnalysisPurpose();
         String analysisDescription = parameters.getAnalysisDescription();
-        
+
         Analysis analysis = analysisBuilder.getAnalysis();
         TaggedValueHelper.setDevStatus(analysis, DevelopmentStatus.get(analysisStatue));
         TaggedValueHelper.setAuthor(analysis, analysisAuthor);

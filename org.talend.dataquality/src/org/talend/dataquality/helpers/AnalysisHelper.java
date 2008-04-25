@@ -13,16 +13,11 @@
 package org.talend.dataquality.helpers;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.talend.cwm.helper.ModelElementHelper;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisFactory;
 import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.domain.Domain;
-import org.talend.utils.sugars.TypedReturnCode;
-import orgomg.cwm.foundation.softwaredeployment.DataManager;
-import orgomg.cwm.objectmodel.core.Dependency;
 
 /**
  * @author scorreia
@@ -88,30 +83,5 @@ public class AnalysisHelper {
             return null;
         }
         return parameters.getDataFilter();
-    }
-
-    /**
-     * Method "createUsageDependencyOn".
-     * 
-     * @param clientElement the analysis that depends on the data provider.
-     * @param dataManager the data provider
-     * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
-     * Return false otherwise. In any case, the dependency is created and the getObject() method returns it.
-     */
-    public static TypedReturnCode<Dependency> createUsageDependencyOn(Analysis clientElement, DataManager dataManager) {
-        assert dataManager != null;
-        Dependency dependency = ModelElementHelper.createDependencyOn(ModelElementHelper.ANALYSIS_DATAPROVIDER,
-                clientElement, dataManager);
-        TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
-        rc.setObject(dependency);
-        // store dependency in supplier's resource
-        Resource resource = dataManager.eResource();
-        if (resource == null) {
-            rc.setReturnCode("No resource found in given " + dataManager.getName(), false);
-            return rc;
-        }
-        // else
-        resource.getContents().add(dependency);
-        return rc;
     }
 }

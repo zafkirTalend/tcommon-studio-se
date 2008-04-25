@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
+import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
@@ -28,14 +29,14 @@ import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
-import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.BooleanExpressionHelper;
 import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
-
+import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
+import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -146,7 +147,11 @@ public class ColumnAnalysisHandler {
             connection = DataProviderHelper.getTdDataProvider(column);
             analysis.getContext().setConnection(connection);
         }
-        AnalysisHelper.createUsageDependencyOn(analysis, connection);
+        TypedReturnCode<Dependency> rc = DependenciesHandler.getInstance().setDependencyOn(analysis, connection);
+        if (rc.isOk()) {
+            // DependenciesHandler.getInstance().addDependency(rc.getObject());
+            this.modifiedResources.add(DependenciesHandler.getInstance().getDependencyResource());
+        }
         return true;
     }
 
@@ -206,12 +211,35 @@ public class ColumnAnalysisHandler {
         return indics;
     }
 
+    /**
+     * Method "setStringDataFilter".
+     * 
+     * @param datafilterString
+     * @return true when a new data filter is created, false if it is only updated
+     */
     public boolean setStringDataFilter(String datafilterString) {
         EList<Domain> dataFilters = analysis.getParameters().getDataFilter();
-        // remove existing filters
+        // update existing filters
         if (!dataFilters.isEmpty()) {
-            dataFilters.clear();
+            Domain domain = dataFilters.get(0);
+            EList<RangeRestriction> ranges = domain.getRanges();
+            RangeRestriction rangeRestriction = (ranges.isEmpty()) ? DomainHelper.addRangeRestriction(domain) : ranges.get(0);
+            BooleanExpressionNode expressions = rangeRestriction.getExpressions();
+            if (expressions == null) {
+                expressions = BooleanExpressionHelper.createBooleanExpressionNode(datafilterString);
+                rangeRestriction.setExpressions(expressions);
+            } else {
+                Expression expression = expressions.getExpression();
+                if (expression == null) {
+                    expression = BooleanExpressionHelper.createExpression("SQL", datafilterString);
+                    expressions.setExpression(expression);
+                } else {
+                    expression.setBody(datafilterString);
+                }
+            }
+            return false;
         }
+        // else
         return dataFilters.add(createDomain(datafilterString));
     }
 
@@ -256,14 +284,8 @@ public class ColumnAnalysisHandler {
     }
 
     public boolean saveModifiedResources() {
-        boolean allOk = true;
-        for (Resource resource : this.modifiedResources) {
-            if (resource.isModified()) {
-                if (!EMFUtil.saveResource(resource)) {
-                    allOk = false;
-                }
-            }
-        }
-        return allOk;
+        EMFUtil util = new EMFUtil();
+        util.getResourceSet().getResources().addAll(this.modifiedResources);
+        return util.save();
     }
 }

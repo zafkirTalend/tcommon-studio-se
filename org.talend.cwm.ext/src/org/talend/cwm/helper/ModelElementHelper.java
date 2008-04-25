@@ -13,7 +13,6 @@
 package org.talend.cwm.helper;
 
 import org.eclipse.emf.common.util.EList;
-
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -29,10 +28,7 @@ public class ModelElementHelper {
      */
     public static final String USAGE = "Usage";
 
-    public static final String ANALYSIS_DATAPROVIDER = "ANALYSIS_DATAPROVIDER";
-
-    public static final String REPORT_ANALYSIS = "REPORT_ANALYSIS";
-
+  
     /**
      * Method "createUsageDependencyOn".
      * 
@@ -72,4 +68,53 @@ public class ModelElementHelper {
         supplierDependencies.clear();
         return ok;
     }
+
+    /**
+     * Method "getDependencyBetween" the dependency that relates the supplier to the client. This method looks into the
+     * list of dependencies of both the supplier and the client.
+     * 
+     * @param kind the kind of dependency looked for (could be null)
+     * @param clientElement
+     * @param supplierElement
+     * @return the dependency that relates the supplier to the client or null if none is found.
+     */
+    public static Dependency getDependencyBetween(String kind, ModelElement clientElement, ModelElement supplierElement) {
+        EList<Dependency> supplierDependencies = supplierElement.getSupplierDependency();
+        for (Dependency dependency : supplierDependencies) {
+            String depKind = dependency.getKind();
+            if (dependency.getClient().contains(clientElement)) {
+                if (kind == null) {
+                    if (depKind == null) { // both null
+                        return dependency;
+                    } else {
+                        continue; // not both are null
+                    }
+                }
+                // else kind is not null and can be compared
+                if (kind.compareTo(dependency.getKind()) == 0) {
+                    return dependency;
+                }
+            }
+        }
+        // not found in the supplier, look into the client
+        EList<Dependency> clientDependencies = clientElement.getClientDependency();
+        for (Dependency dependency : clientDependencies) {
+            String depKind = dependency.getKind();
+            if (dependency.getSupplier().contains(supplierElement)) {
+                if (kind == null) {
+                    if (depKind == null) { // both null
+                        return dependency;
+                    } else {
+                        continue; // not both are null
+                    }
+                }
+                // else kind is not null and can be compared
+                if (kind.compareTo(dependency.getKind()) == 0) {
+                    return dependency;
+                }
+            }
+        }
+        return null;
+    }
+
 }

@@ -204,7 +204,12 @@ public final class EMFUtil {
      * @return true if no problem
      */
     public static boolean saveResource(Resource resource) {
+        ResourceSet resourceSet = resource.getResourceSet();
         EMFUtil util = new EMFUtil();
+        if (resourceSet != null) {
+            util.setResourceSet(resourceSet);
+            return util.save();
+        }
         util.getResourceSet().getResources().add(resource);
         return util.save();
     }

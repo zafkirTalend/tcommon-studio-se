@@ -12,10 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis.connection;
 
-import java.io.File;
-
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AnalysisMetadataWizardPage;
 import org.talend.dataquality.indicators.Indicator;
@@ -77,7 +74,7 @@ public class ConnectionWizard extends AbstractAnalysisWizard {
         ConnectionAnalysisParameter parameters = (ConnectionAnalysisParameter) getAnalysisParameter();
         this.analysisName = parameters.getAnalysisName();
         this.analysisType = parameters.getAnalysisType();
-        this.pathName = parameters.getFolderProvider().getFolder() + File.separator + analysisName + PluginConstant.ANA_SUFFIX;
+        this.pathName = parameters.getFolderProvider().getFolder().getAbsolutePath();
     }
 
     /*

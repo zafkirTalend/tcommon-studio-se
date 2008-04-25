@@ -12,7 +12,12 @@
 // ============================================================================
 package org.talend.dataquality.helpers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.DomainFactory;
 import org.talend.dataquality.domain.LiteralValue;
@@ -200,5 +205,22 @@ public class DomainHelper {
             return null;
         }
         return textValue.getValue();
+    }
+
+    /**
+     * Method "getDomains".
+     * 
+     * @param objects some objects
+     * @return only the Domain objects
+     */
+    public static List<Domain> getDomains(Collection<EObject> objects) {
+        List<Domain> domains = new ArrayList<Domain>();
+        for (EObject object : objects) {
+            Domain domain = DataqualitySwitchHelper.DOMAIN_SWITCH.doSwitch(object);
+            if (domain != null) {
+                domains.add(domain);
+            }
+        }
+        return domains;
     }
 }

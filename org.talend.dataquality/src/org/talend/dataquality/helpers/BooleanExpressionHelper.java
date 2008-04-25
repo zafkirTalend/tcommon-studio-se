@@ -32,10 +32,15 @@ public class BooleanExpressionHelper {
      */
     public static BooleanExpressionNode createBooleanExpressionNode(String body) {
         BooleanExpressionNode expr = ExpressionsFactory.eINSTANCE.createBooleanExpressionNode();
+        Expression expression = createExpression("SQL", body);
+        expr.setExpression(expression);
+        return expr;
+    }
+
+    public static Expression createExpression(String language, String body) {
         Expression expression = CoreFactory.eINSTANCE.createExpression();
         expression.setBody(body);
         expression.setLanguage("SQL");
-        expr.setExpression(expression);
-        return expr;
+        return expression;
     }
 }

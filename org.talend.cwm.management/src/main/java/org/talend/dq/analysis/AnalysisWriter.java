@@ -13,15 +13,21 @@
 package org.talend.dq.analysis;
 
 import java.io.File;
+import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.commons.emf.FactoriesUtil;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.helpers.AnalysisHelper;
+import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * @author scorreia
@@ -30,16 +36,63 @@ import org.talend.utils.sugars.ReturnCode;
  */
 public class AnalysisWriter {
 
+    private static Logger log = Logger.getLogger(AnalysisWriter.class);
+
     public static final String VALID_EXTENSION = FactoriesUtil.ANA;
 
     /**
      * Method "save".
      * 
      * @param analysis the analysis to save
+     * @return true if no problem, false with a message if a problem occured.
+     */
+    public ReturnCode save(Analysis analysis) {
+        assert analysis != null : "No analysis to save (null)";
+        ReturnCode rc = new ReturnCode();
+        Resource resource = analysis.eResource();
+        if (resource == null) {
+            rc.setReturnCode("Error: No resource found! A file must be defined in which the analysis " + analysis.getName()
+                    + " will be saved.", false);
+            return rc;
+        }
+        // --- store descriptions (description and purpose) in the same resource
+        EList<EObject> resourceContents = resource.getContents();
+        // resourceContents.addAll(analysis.getDescription());
+        // --- store the data filter in the same resource
+        EList<Domain> dataFilter = AnalysisHelper.getDataFilter(analysis);
+
+        // FIXME scorreia remove any existing domain (and replace by the new domain)
+        List<Domain> domains = DomainHelper.getDomains(resourceContents);
+        resourceContents.removeAll(domains);
+
+        if (dataFilter != null) {
+            // TODO scorreia save them in their own file?
+            for (Domain domain : dataFilter) {
+                if (!resourceContents.contains(domain)) {
+                    resourceContents.add(domain);
+                }
+            }
+        }
+
+        // save the resource and related resources (when needed)
+        boolean saved = EMFUtil.saveResource(resource);
+
+        if (!saved) {
+            rc.setReturnCode("Problem while saving analysis " + analysis.getName() + ". ", saved);
+        }
+        return rc;
+
+    }
+
+    /**
+     * Method "save" writes the analysis in the given file. If the file already exists, it is overridden. This method
+     * should not be for saving an analysis already saved. In this case, use save(Analysis).
+     * 
+     * @param analysis the analysis to save
      * @param file the file in which the analysis will be save
      * @return whether everything is ok
      */
-    public ReturnCode save(Analysis analysis, File file) {
+    protected ReturnCode save(Analysis analysis, File file) {
         assert file != null : "Cannot save analysis: No file name given.";
         assert analysis != null : "No analysis to save (null)";
 
@@ -59,19 +112,30 @@ public class AnalysisWriter {
             return rc;
         }
 
-        // --- store descriptions (description and purpose) in the same resource
-        EList<EObject> resourceContents = analysis.eResource().getContents();
-        // resourceContents.addAll(analysis.getDescription());
-        // --- store the data filter in the same resource
-        EList<Domain> dataFilter = AnalysisHelper.getDataFilter(analysis);
-        if (dataFilter != null) {
-            // TODO scorreia save them in their own file?
-            resourceContents.addAll(dataFilter);
-        }
+        return save(analysis);
+    }
 
-        boolean saved = util.save();
-        if (!saved) {
-            rc.setReturnCode("Problem while saving analysis " + analysis.getName() + ". " + util.getLastErrorMessage(), saved);
+    /**
+     * Method "createAnalysisFile" creates a new file (or overwrite the existing file) with the analysis data. This
+     * method must not be used to update an existing analysis. The file is created by
+     * {@link DqRepositoryViewService#createFilename(String, String, String)}.
+     * 
+     * @param analysis the analysis to save
+     * @param folder the folder where to save the analysis
+     * @return the return code and the created file.
+     */
+    public TypedReturnCode<File> createAnalysisFile(Analysis analysis, File folder) {
+        assert analysis != null;
+        TypedReturnCode<File> rc = new TypedReturnCode<File>();
+        String filename = DqRepositoryViewService.createFilename(folder.getAbsolutePath(), analysis.getName(), FactoriesUtil.ANA);
+        File file = new File(filename);
+        ReturnCode saved = save(analysis, file);
+        if (saved.isOk()) {
+            log.info("Saved in  " + file.getAbsolutePath());
+            rc.setObject(file);
+            analysis.setFileName(file.getAbsolutePath());
+        } else {
+            rc.setReturnCode("Failed to save analysis " + analysis.getName() + " into " + filename, false);
         }
         return rc;
     }

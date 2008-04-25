@@ -78,7 +78,7 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
             }
             IFile file = (IFile) resource;
             findAnalysis(file);
-            
+
         }
     }
 
@@ -139,8 +139,9 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
 
     public ReturnCode save(Analysis analysis) {
         AnalysisWriter writer = new AnalysisWriter();
-        File file = new File(analysis.getUrl());
-        ReturnCode saved = writer.save(analysis, file);
+        // MODSCA 20080425 do not overwrite existing file.
+        // File file = new File(analysis.getUrl());
+        ReturnCode saved = writer.save(analysis);
         if (saved.isOk()) {
             setResourceChanged(true);
         }
