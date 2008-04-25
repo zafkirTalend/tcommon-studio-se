@@ -31,6 +31,10 @@ import org.talend.repository.model.ERepositoryStatus;
  */
 public class OverlayImageProvider {
 
+    private static final int BUTTOM_RIGHT = 0;
+
+    private static final int BUTTOM_LEFT = 1;
+
     public static ImageDescriptor getImageWithNew(Image source) {
         ImageDescriptor img = ImageProvider.getImageDesc(ECoreImage.NEW_OVERLAY);
         EPosition position = EPosition.TOP_RIGHT;
@@ -71,6 +75,8 @@ public class OverlayImageProvider {
 
     public static ImageDescriptor getImageWithStatus(Image source, ERepositoryStatus status) {
         IImage statusOverlay;
+        int p = BUTTOM_RIGHT;
+
         switch (status) {
         case NEW:
             statusOverlay = ECoreImage.NEW_OVERLAY;
@@ -81,12 +87,26 @@ public class OverlayImageProvider {
         case LOCK_BY_USER:
             statusOverlay = ECoreImage.LOCKED_USER_OVERLAY;
             break;
+        case WARN:
+            statusOverlay = ECoreImage.WARN_OVERLAY;
+            p = BUTTOM_LEFT;
+            break;
+        case ERROR:
+            statusOverlay = ECoreImage.ERROR_OVERLAY;
+            p = BUTTOM_LEFT;
+            break;
         default:
             statusOverlay = EImage.EMPTY;
             break;
         }
+
         ImageDescriptor img = ImageProvider.getImageDesc(statusOverlay);
-        EPosition position = EPosition.BOTTOM_RIGHT;
+        EPosition position = null;
+        if (p == BUTTOM_RIGHT) {
+            position = EPosition.BOTTOM_RIGHT;
+        } else if (p == BUTTOM_LEFT) {
+            position = EPosition.BOTTOM_LEFT;
+        }
         OverlayImage overlayImage = new OverlayImage(source, img, position);
         return overlayImage;
     }

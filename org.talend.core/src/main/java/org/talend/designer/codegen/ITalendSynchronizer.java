@@ -13,8 +13,8 @@
 package org.talend.designer.codegen;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.talend.commons.exception.SystemException;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 
 /**
@@ -23,7 +23,7 @@ import org.talend.core.model.properties.RoutineItem;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public interface IRoutineSynchronizer {
+public interface ITalendSynchronizer {
 
     public final static String TEMPLATE = "__TEMPLATE__";
 
@@ -31,5 +31,5 @@ public interface IRoutineSynchronizer {
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
-    public IFile getRoutineFile(RoutineItem routineItem) throws SystemException;
+    public IFile getFile(Item item) throws SystemException;
 }

@@ -95,10 +95,11 @@ public enum ECoreImage implements IImage {
     DOC_WORD_OVERLAY("/icons/docs/doc_word_overlay.gif"), //$NON-NLS-1$
     RECYCLE_BIN_OVERLAY("/icons/recycle_bin_overlay.gif"), //$NON-NLS-1$
     DELETED_OVERLAY("/icons/deleted_overlay.gif"), //$NON-NLS-1$
-    IMPORT_JAR("/icons/importjar.gif"),
+    IMPORT_JAR("/icons/importjar.gif"), //$NON-NLS-1$
     REFERENCED_ICON("/icons/referenced.png"), //$NON-NLS-1$
 
-    ERROR_OVERLAY("/icons/error_co.gif"); //$NON-NLS-1$
+    ERROR_OVERLAY("/icons/error_co.gif"), //$NON-NLS-1$
+    WARN_OVERLAY("/icons/warning_co.gif"); //$NON-NLS-1$
 
     private String path;
 

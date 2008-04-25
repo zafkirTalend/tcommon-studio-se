@@ -27,7 +27,10 @@ public enum ERepositoryStatus {
     DELETED(false, false),
     READ_ONLY(false, false),
     // PTODO SML [FOLDERS++] Only to manage folders: temporary code
-    EDITABLE(true, false);
+    EDITABLE(true, false),
+    // be used by information level in Property.
+    WARN(false, true),
+    ERROR(false, true);
 
     private boolean editable;
 

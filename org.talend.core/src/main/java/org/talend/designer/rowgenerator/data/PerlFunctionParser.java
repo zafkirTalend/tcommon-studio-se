@@ -26,8 +26,6 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.emf.common.CommonPlugin;
-import org.eclipse.emf.common.util.URI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.data.container.Container;
@@ -41,7 +39,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.codegen.ICodeGeneratorService;
-import org.talend.designer.codegen.IRoutineSynchronizer;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
@@ -68,9 +66,10 @@ public class PerlFunctionParser extends AbstractFunctionParser {
         // TODO find a better way to find routine files
 
         try {
-            ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
-            IRoutineSynchronizer routineSynchronizer = service.createRoutineSynchronizer();
-            
+            ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                    ICodeGeneratorService.class);
+            ITalendSynchronizer routineSynchronizer = service.createRoutineSynchronizer();
+
             RootContainer<String, IRepositoryObject> routineContainer = factory.getRoutine();
             ContentList<String, IRepositoryObject> routineAbsoluteMembers = routineContainer.getAbsoluteMembers();
             final List<Container<String, IRepositoryObject>> subContainer = routineContainer.getSubContainer();
@@ -107,13 +106,12 @@ public class PerlFunctionParser extends AbstractFunctionParser {
         this.files = filesList.toArray(new File[filesList.size()]);
     }
 
-    private IFile getRoutineFile(IRoutineSynchronizer routineSynchronizer, IRepositoryObject object)
-            throws SystemException {
+    private IFile getRoutineFile(ITalendSynchronizer routineSynchronizer, IRepositoryObject object) throws SystemException {
         Item item = object.getProperty().getItem();
         if (item.eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
             RoutineItem routineItem = (RoutineItem) item;
             routineSynchronizer.syncRoutine(routineItem, true);
-            return routineSynchronizer.getRoutineFile(routineItem);
+            return routineSynchronizer.getFile(routineItem);
         }
         return null;
     }

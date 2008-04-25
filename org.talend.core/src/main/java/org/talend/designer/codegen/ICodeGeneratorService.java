@@ -57,7 +57,7 @@ public interface ICodeGeneratorService extends IService {
      * 
      * @return
      */
-    public IRoutineSynchronizer createPerlRoutineSynchronizer();
+    public ITalendSynchronizer createPerlRoutineSynchronizer();
 
     /**
      * Create the routine synchronizer for Java project.
@@ -66,9 +66,9 @@ public interface ICodeGeneratorService extends IService {
      * 
      * @return
      */
-    public IRoutineSynchronizer createJavaRoutineSynchronizer();
+    public ITalendSynchronizer createJavaRoutineSynchronizer();
 
-    public IRoutineSynchronizer createRoutineSynchronizer();
+    public ITalendSynchronizer createRoutineSynchronizer();
 
     public void generationInit();
 }

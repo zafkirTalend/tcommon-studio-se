@@ -28,6 +28,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SpagoBiServer;
@@ -412,6 +413,8 @@ public interface IProxyRepositoryFactory {
     public abstract ERepositoryStatus getStatus(IRepositoryObject obj);
 
     public abstract ERepositoryStatus getStatus(Item item);
+
+    public abstract ERepositoryStatus getStatus(InformationLevel level);
 
     /*
      * (non-Javadoc)

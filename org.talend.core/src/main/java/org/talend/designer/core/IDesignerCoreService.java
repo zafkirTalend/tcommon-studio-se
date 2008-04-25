@@ -91,8 +91,6 @@ public interface IDesignerCoreService extends IService {
      */
     public List<PaletteEntry> createJobletEtnry();
 
-    public Boolean isRoutineCompilePass(String routineName);
-
     public boolean isTalendEditor(IEditorPart activeEditor);
 
     public INode getRefrenceNode(String componentName);

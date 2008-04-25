@@ -18,7 +18,7 @@ import org.eclipse.core.resources.IMarker;
  * DOC xhuang class global comment. Detailled comment <br/>
  * 
  */
-public class RoutineProblem extends Problem {
+public class TalendProblem extends Problem {
 
     private IMarker marker;
 
@@ -30,8 +30,8 @@ public class RoutineProblem extends Problem {
 
     private Integer charEnd;
 
-    public RoutineProblem(ProblemStatus status, String javaUnitName, IMarker marker, String markerErrorMessage,
-            Integer lineNumber, Integer charStart, Integer charEnd) {
+    public TalendProblem(ProblemStatus status, String javaUnitName, IMarker marker, String markerErrorMessage,
+            Integer lineNumber, Integer charStart, Integer charEnd, ProblemType type) {
         super();
         setDescription(markerErrorMessage);
         setStatus(status);
@@ -40,7 +40,7 @@ public class RoutineProblem extends Problem {
         this.lineNumber = lineNumber;
         this.charStart = charStart;
         this.charEnd = charEnd;
-        setType(ProblemType.ROUTINE);
+        setType(type);
     }
 
     private String getName() {
@@ -64,7 +64,7 @@ public class RoutineProblem extends Problem {
     }
 
     public String getProblemResource() {
-        return "Routine:" + this.getName() + " (line:" + this.getLineNumber() + ")";
+        return this.type.getTypeName() + ":" + this.getName() + " (line:" + this.getLineNumber() + ")";
     }
 
     //    
@@ -106,7 +106,7 @@ public class RoutineProblem extends Problem {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final RoutineProblem other = (RoutineProblem) obj;
+        final TalendProblem other = (TalendProblem) obj;
         if (this.javaUnitName == null) {
             if (other.javaUnitName != null) {
                 return false;

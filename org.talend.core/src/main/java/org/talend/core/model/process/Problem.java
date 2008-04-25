@@ -44,9 +44,19 @@ public class Problem {
      * bqian Problem class global comment. Detailled comment <br/>
      */
     public enum ProblemType {
-        JOB,
-        ROUTINE,
-        NONE;
+        JOB("Job"),
+        ROUTINE("Routine"),
+        NONE("");
+
+        private String typeName;
+
+        ProblemType(String typeName) {
+            this.typeName = typeName;
+        }
+
+        public String getTypeName() {
+            return this.typeName;
+        }
     }
 
     /**
@@ -62,7 +72,7 @@ public class Problem {
 
     private ProblemStatus status;
 
-    private ProblemType type = ProblemType.NONE;
+    protected ProblemType type = ProblemType.NONE;
 
     private String key;
 
