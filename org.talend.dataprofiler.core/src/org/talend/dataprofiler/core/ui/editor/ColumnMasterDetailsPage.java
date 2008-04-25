@@ -50,7 +50,6 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
@@ -148,7 +147,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         createAnalysisMetadataSection(form, toolkit, anasisDataComp);
         createAnalysisColumnsSection(form, toolkit, anasisDataComp);
         createDataFilterSection(form, toolkit, anasisDataComp);
-        
+
         Composite previewComp = toolkit.createComposite(body);
         GridData previewData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
 
@@ -210,12 +209,12 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     }
 
     private void createAnalysisColumnsSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true, "Select the columns to analyze:");
+        Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true, null);
 
         Composite topComp = toolkit.createComposite(section);
         topComp.setLayout(new GridLayout());
-        
-        Hyperlink clmnBtn = toolkit.createHyperlink(topComp, "columns to analyze", SWT.NONE);
+
+        Hyperlink clmnBtn = toolkit.createHyperlink(topComp, "Select columns to analyze", SWT.NONE);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(clmnBtn);
         clmnBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
@@ -261,7 +260,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             return;
         }
     }
-    
+
     private void createPreviewSection(final ScrolledForm form, FormToolkit toolkit, Composite parent) {
 
         Section section = createSection(form, toolkit, parent, "Preview", false, "");
@@ -271,9 +270,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         sectionClient.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
-        
+
         for (ColumnIndicator column : columnIndicator) {
-            
+
             ExpandableComposite oneComp = toolkit.createExpandableComposite(sectionClient, ExpandableComposite.TREE_NODE
                     | ExpandableComposite.CLIENT_INDENT);
 
@@ -283,7 +282,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             final ImageHyperlink image = toolkit.createImageHyperlink(oneComp, SWT.WRAP);
             image.setImage(new ImageLib().getImage(ImageLib.REFRESH_IMAGE));
             oneComp.setClient(image);
-            
+
             oneComp.addExpansionListener(new ExpansionAdapter() {
 
                 /*
@@ -293,8 +292,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                  */
                 @Override
                 public void expansionStateChanged(ExpansionEvent e) {
-                    
-                    
+
                     form.reflow(true);
                 }
 
@@ -329,9 +327,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      */
     private Section createSection(final ScrolledForm form, FormToolkit toolkit, Composite parent, String title, boolean expanded,
             String discription) {
-        Section section = toolkit.createSection(parent, Section.DESCRIPTION
-
-        | Section.TWISTIE | Section.TITLE_BAR);
+        final int style = (discription == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
+                | Section.TITLE_BAR;
+        Section section = toolkit.createSection(parent, style);
 
         section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING));
 
@@ -402,7 +400,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         if (!modifiedResourcesSaved) {
             log.error("Problem when saving modified resource.");
         }
-//        AnalysisWriter writer = new AnalysisWriter();
+        // AnalysisWriter writer = new AnalysisWriter();
 
         String urlString = PluginConstant.EMPTY_STRING;
         try {
@@ -411,8 +409,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-//        File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
-//        ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
+        // File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
+        // ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
         ReturnCode saved = AnaResourceFileHelper.getInstance().save(analysisHandler.getAnalysis());
         if (saved.isOk()) {
             for (TdDataProvider provider : providerList) {
