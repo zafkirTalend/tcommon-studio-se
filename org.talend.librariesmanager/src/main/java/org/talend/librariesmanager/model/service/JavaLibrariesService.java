@@ -75,17 +75,24 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
-        List<URL> toReturn = new ArrayList<URL>();
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER,
+                ".java", false, false);
 
-        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER);
-        for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
-            String routine = (String) enumer.nextElement();
-            if (routine.endsWith(".java")) {
-                URL url = Activator.BUNDLE.getEntry(routine);
-                toReturn.add(url);
-            }
-        }
+        // Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER);
+        // for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
+        // String routine = (String) enumer.nextElement();
+        // if (routine.endsWith(".java")) {
+        // URL url = Activator.BUNDLE.getEntry(routine);
+        // toReturn.add(url);
+        // }
+        // }
         return toReturn;
+    }
+
+    public List<URL> getSystemSQLPatterns() {
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER,
+                SQLPATTERN_FILE_SUFFIX, false, true);
+
     }
 
     /*

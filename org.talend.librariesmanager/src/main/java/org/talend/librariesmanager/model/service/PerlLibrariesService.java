@@ -74,6 +74,11 @@ public class PerlLibrariesService extends AbstractLibrariesService {
                 ".pm");
     }
 
+    public List<URL> getSystemSQLPatterns() {
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_SQLPATTERN_FOLDER,
+                SQLPATTERN_FILE_SUFFIX, false, true);
+    }
+
     /*
      * (non-Javadoc)
      * 

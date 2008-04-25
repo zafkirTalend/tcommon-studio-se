@@ -132,4 +132,12 @@ public class LibrariesService implements ILibrariesService {
         return this.getLibrariesService().isLibSynchronized();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#getSystemSQLPatterns()
+     */
+    public List<URL> getSystemSQLPatterns() {
+        return this.getLibrariesService().getSystemSQLPatterns();
+    }
 }
