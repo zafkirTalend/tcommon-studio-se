@@ -70,7 +70,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.designer.codegen.ICodeGeneratorService;
-import org.talend.designer.codegen.IRoutineSynchronizer;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.i18n.Messages;
 
@@ -650,7 +650,7 @@ class ImportItemWizardPage extends WizardPage {
 
                     repositoryUtil.setErrors(false);
 
-                    IRoutineSynchronizer routineSynchronizer = getRoutineSynchronizer();
+                    ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
 
                     for (int i = 0; i < checkedElements.length; i++) {
                         if (!monitor.isCanceled()) {
@@ -676,7 +676,7 @@ class ImportItemWizardPage extends WizardPage {
                                 if (importItem != null && importItem instanceof RoutineItem) {
                                     RoutineItem item = (RoutineItem) importItem;
                                     routineSynchronizer.syncRoutine(item, true);
-                                    routineSynchronizer.getRoutineFile(item);
+                                    routineSynchronizer.getFile(item);
                                 }
 
                             } catch (Exception e) {
@@ -710,14 +710,14 @@ class ImportItemWizardPage extends WizardPage {
         return true;
     }
 
-    private IRoutineSynchronizer getRoutineSynchronizer() {
+    private ITalendSynchronizer getRoutineSynchronizer() {
 
         ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
 
         ECodeLanguage lang = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
                 .getProject().getLanguage();
-        IRoutineSynchronizer routineSynchronizer = null;
+        ITalendSynchronizer routineSynchronizer = null;
         switch (lang) {
         case JAVA:
             routineSynchronizer = service.createJavaRoutineSynchronizer();
