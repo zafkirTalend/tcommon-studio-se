@@ -41,4 +41,6 @@ public interface IComponentsFactory {
     public IComponent get(String name);
 
     public URL getComponentPath() throws IOException;
+
+    public List<String> getSkeletons();
 }
