@@ -18,8 +18,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.commons.emf.FactoriesUtil;
+import org.talend.cwm.dependencies.DependenciesHandler;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.Dependency;
 
 /**
  * @author scorreia
@@ -60,7 +65,14 @@ public class ReportWriter {
         // --- store descriptions (description and purpose) in the same resource
         EList<EObject> resourceContents = report.eResource().getContents();
         resourceContents.addAll(report.getDescription());
-
+        
+        for (Analysis ana : ReportHelper.getAnalyses(report)) {
+            TypedReturnCode<Dependency> dependencyReturn = DependenciesHandler.getInstance().setDependencyOn(report, ana);
+            if (dependencyReturn.isOk()) {
+                util.getResourceSet().getResources().add(DependenciesHandler.getInstance().getDependencyResource());
+                util.getResourceSet().getResources().add(ana.eResource());
+            }
+        }
         boolean saved = util.save();
         if (!saved) {
             rc.setReturnCode("Problem while saving report " + report.getName() + ". " + util.getLastErrorMessage(), saved);

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.ModelElementHelper;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.Dependency;
@@ -218,6 +219,22 @@ public final class DependenciesHandler {
         rc.setObject(dependency);
         return rc;
     }
+    
+    /**
+     * Method "createUsageDependencyOn".
+     * 
+     * @param report the analysis that depends on the data provider.
+     * @param analysis the data provider
+     * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
+     * Return false otherwise. In any case, the dependency is created and the getObject() method returns it.
+     */
+    public TypedReturnCode<Dependency> createUsageDependencyOn(TdReport report, Analysis analysis) {
+        assert analysis != null;
+        Dependency dependency = createDependencyOn(REPORT_ANALYSIS, report, analysis);
+        TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
+        rc.setObject(dependency);
+        return rc;
+    }
 
     /**
      * Method "setDependencyOn" sets the dependency between the analysis and the data manager.
@@ -237,6 +254,25 @@ public final class DependenciesHandler {
         rc.setObject(dependency);
         return rc;
     }
+    
+    /**
+     * Method "setDependencyOn" sets the dependency between the report and the analysis.
+     * 
+     * @param report
+     * @param analysis
+     * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
+     * Return false otherwise. The dependency is created only if needed and the getObject() method returns it.
+     */
+    public TypedReturnCode<Dependency> setDependencyOn(TdReport report, Analysis analysis) {
+        Dependency dependency = getDependencyBetween(report, analysis);
+        if (dependency == null) {
+            return createUsageDependencyOn(report, analysis);
+        }
+        // else
+        TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
+        rc.setObject(dependency);
+        return rc;
+    }
 
     /**
      * Method "getDependencyBetween".
@@ -247,6 +283,17 @@ public final class DependenciesHandler {
      */
     public Dependency getDependencyBetween(Analysis clientElement, DataManager dataManager) {
         return getDependencyBetween(ANALYSIS_DATAPROVIDER, clientElement, dataManager);
+    }
+    
+    /**
+     * Method "getDependencyBetween".
+     * 
+     * @param report
+     * @param analysis
+     * @return the dependency between the given elements or null.
+     */
+    public Dependency getDependencyBetween(TdReport report, Analysis analysis) {
+        return getDependencyBetween(ANALYSIS_DATAPROVIDER, report, analysis);
     }
 
 }
