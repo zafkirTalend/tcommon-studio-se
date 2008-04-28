@@ -26,6 +26,7 @@ import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
+import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
@@ -37,6 +38,7 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -88,22 +90,14 @@ public class DeleteResourceProvider extends CommonActionProvider {
             if (selectedFile.getName().endsWith(PluginConstant.PRV_SUFFIX)) {
                 TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(selectedFile);
 //                TdDataProvider provider = returnValue.getObject();
-//                AnalysisSwitch<Analysis> mySwitch = new AnalysisSwitch<Analysis>() {
-//
-//                    public Analysis caseAnalysis(Analysis object) {
-//                        return object;
-//                    }
-//                };
-//                for (Dependency dependency : provider.getClientDependency()) {
-//                    for (ModelElement element : dependency.getClient()) {
-//                        Analysis value = mySwitch.doSwitch(element);
-//                        if (value == null || impactNames.contains(value.getName())) {
-//                            continue;
-//                        }
-//                        impactNames.add(value.getName());
+//                for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
+//                    Dependency dependencyBetween = DependenciesHandler.getInstance().getDependencyBetween(entity.getAnalysis(),
+//                            provider);
+//                    if (dependencyBetween != null) {
+//                        impactNames.add(entity.getAnalysisName());
 //                    }
 //                }
-                for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
+                 for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
                     EList<TaggedValue> taggedValues = returnValue.getObject().getTaggedValue();
                     TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(entity.getAnalysisName()
                             + PluginConstant.ANA_TAG_SUFFIX, taggedValues);
@@ -137,4 +131,3 @@ public class DeleteResourceProvider extends CommonActionProvider {
         }
     }
 }
-

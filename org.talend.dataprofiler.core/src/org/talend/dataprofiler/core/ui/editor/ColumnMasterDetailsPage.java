@@ -280,7 +280,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             oneComp.setLayoutData(new GridData(GridData.FILL_BOTH));
             oneComp.setLayout(new GridLayout());
             final ImageHyperlink image = toolkit.createImageHyperlink(oneComp, SWT.WRAP);
-            image.setImage(new ImageLib().getImage(ImageLib.REFRESH_IMAGE));
+            image.setImage(ImageLib.getImage(ImageLib.REFRESH_IMAGE));
             oneComp.setClient(image);
 
             oneComp.addExpansionListener(new ExpansionAdapter() {
@@ -412,9 +412,14 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         ReturnCode saved = AnaResourceFileHelper.getInstance().save(analysisHandler.getAnalysis());
         if (saved.isOk()) {
             for (TdDataProvider provider : providerList) {
-                TaggedValueHelper.setTaggedValue(provider, analysisHandler.getName() + PluginConstant.ANA_TAG_SUFFIX,
-                        PluginConstant.EMPTY_STRING);
-//                org.talend.dataquality.helpers.AnalysisHelper.createUsageDependencyOn(analysisHandler.getAnalysis(), provider);
+                 TaggedValueHelper.setTaggedValue(provider, analysisHandler.getName() + PluginConstant.ANA_TAG_SUFFIX,
+                 PluginConstant.EMPTY_STRING);
+//                TypedReturnCode<Dependency> dependencyCreated = DependenciesHandler.getInstance().createUsageDependencyOn(
+//                        analysisHandler.getAnalysis(), provider);
+//                if (!dependencyCreated.isOk()) {
+//                    throw new DataprofilerCoreException("Problem creating dependency for analysis: "
+//                            + analysisHandler.getAnalysis().getName() + ": " + saved.getMessage());
+//                }
                 NeedSaveDataProviderHelper.register(provider.getName(), provider);
             }
             NeedSaveDataProviderHelper.saveAllDataProvider();
