@@ -310,13 +310,31 @@ public interface ConnectionPackage extends EPackage {
     int CONNECTION__QUERIES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION__CONTEXT_MODE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION__CONTEXT_ID = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
+
+    /**
      * The number of structural features of the '<em>Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTION_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+    int CONNECTION_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 5;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.
@@ -713,6 +731,24 @@ public interface ConnectionPackage extends EPackage {
     int FILE_CONNECTION__QUERIES = CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -986,6 +1022,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__CONTEXT_MODE = FILE_CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__CONTEXT_ID = FILE_CONNECTION__CONTEXT_ID;
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
@@ -1272,6 +1326,24 @@ public interface ConnectionPackage extends EPackage {
     int POSITIONAL_FILE_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION__CONTEXT_MODE = FILE_CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION__CONTEXT_ID = FILE_CONNECTION__CONTEXT_ID;
+
+    /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1545,6 +1617,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int DATABASE_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
 
     /**
      * The feature id for the '<em><b>Database Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1831,6 +1921,24 @@ public interface ConnectionPackage extends EPackage {
     int REGEXP_FILE_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REGEXP_FILE_CONNECTION__CONTEXT_MODE = FILE_CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REGEXP_FILE_CONNECTION__CONTEXT_ID = FILE_CONNECTION__CONTEXT_ID;
+
+    /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2113,6 +2221,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int XML_FILE_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
 
     /**
      * The feature id for the '<em><b>Xsd File Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2459,6 +2585,24 @@ public interface ConnectionPackage extends EPackage {
     int LDIF_FILE_CONNECTION__QUERIES = CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
      * The feature id for the '<em><b>Value</b></em>' attribute list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2611,6 +2755,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__CONTEXT_MODE = FILE_CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_EXCEL_CONNECTION__CONTEXT_ID = FILE_CONNECTION__CONTEXT_ID;
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
@@ -3038,6 +3200,24 @@ public interface ConnectionPackage extends EPackage {
     int GENERIC_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
      * The feature id for the '<em><b>Mapping Type Used</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3163,6 +3343,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
 
     /**
      * The feature id for the '<em><b>Host</b></em>' attribute.
@@ -3481,6 +3679,24 @@ public interface ConnectionPackage extends EPackage {
     int WSDL_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
      * The feature id for the '<em><b>WSDL</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3714,6 +3930,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
 
     /**
      * The feature id for the '<em><b>Web Service Url</b></em>' attribute.
@@ -4182,6 +4416,28 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getConnection_Queries();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Mode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Connection#isContextMode()
+     * @see #getConnection()
+     * @generated
+     */
+    EAttribute getConnection_ContextMode();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Id</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Connection#getContextId()
+     * @see #getConnection()
+     * @generated
+     */
+    EAttribute getConnection_ContextId();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
@@ -6101,6 +6357,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference CONNECTION__QUERIES = eINSTANCE.getConnection_Queries();
+
+        /**
+         * The meta object literal for the '<em><b>Context Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTION__CONTEXT_MODE = eINSTANCE.getConnection_ContextMode();
+
+        /**
+         * The meta object literal for the '<em><b>Context Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTION__CONTEXT_ID = eINSTANCE.getConnection_ContextId();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.

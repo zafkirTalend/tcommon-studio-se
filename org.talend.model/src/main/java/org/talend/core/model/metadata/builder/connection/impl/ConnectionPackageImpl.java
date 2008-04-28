@@ -363,6 +363,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConnection_ContextMode() {
+        return (EAttribute)connectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConnection_ContextId() {
+        return (EAttribute)connectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1858,6 +1876,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(connectionEClass, CONNECTION__VERSION);
         createEReference(connectionEClass, CONNECTION__TABLES);
         createEReference(connectionEClass, CONNECTION__QUERIES);
+        createEAttribute(connectionEClass, CONNECTION__CONTEXT_MODE);
+        createEAttribute(connectionEClass, CONNECTION__CONTEXT_ID);
 
         metadataColumnEClass = createEClass(METADATA_COLUMN);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__SOURCE_TYPE);
@@ -2113,6 +2133,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getConnection_Version(), ecorePackage.getEString(), "version", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConnection_Tables(), this.getMetadataTable(), this.getMetadataTable_Connection(), "tables", null, 0, -1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConnection_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Connection(), "queries", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConnection_ContextMode(), ecorePackage.getEBoolean(), "ContextMode", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConnection_ContextId(), ecorePackage.getEString(), "ContextId", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(metadataColumnEClass, MetadataColumn.class, "MetadataColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getMetadataColumn_SourceType(), ecorePackage.getEString(), "sourceType", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

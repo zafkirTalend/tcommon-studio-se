@@ -40,6 +40,7 @@ import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 
 /**
@@ -285,40 +286,94 @@ public class RepositoryToComponentProperty {
             return getStandardDbTypeFromConnection(connection.getDatabaseType());
         }
         if (value.equals("SERVER_NAME")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getServerName());
+            if (isConetxtMode(connection, connection.getServerName())) {
+                return connection.getServerName();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getServerName());
+            }
         }
         if (value.equals("PORT")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getPort());
+            if (isConetxtMode(connection, connection.getPort())) {
+                return connection.getPort();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getPort());
+            }
         }
         if (value.equals("SID")) { //$NON-NLS-1$
             if (("").equals(connection.getSID())) { //$NON-NLS-1$
-                return TalendTextUtils.addQuotes(connection.getDatasourceName());
+                if (isConetxtMode(connection, connection.getDatasourceName())) {
+                    return connection.getDatasourceName();
+                } else {
+                    return TalendTextUtils.addQuotes(connection.getDatasourceName());
+                }
             } else {
-                return TalendTextUtils.addQuotes(connection.getSID());
+                if (isConetxtMode(connection, connection.getSID())) {
+                    return connection.getSID();
+                } else {
+                    return TalendTextUtils.addQuotes(connection.getSID());
+                }
             }
         }
         if (value.equals("DATASOURCE")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getDatasourceName());
+            if (isConetxtMode(connection, connection.getDatasourceName())) {
+                return connection.getDatasourceName();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDatasourceName());
+            }
         }
         if (value.equals("USERNAME")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getUsername());
+            if (isConetxtMode(connection, connection.getUsername())) {
+                return connection.getUsername();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getUsername());
+            }
         }
         if (value.equals("PASSWORD")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getPassword());
+            if (isConetxtMode(connection, connection.getPassword())) {
+                return connection.getPassword();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getPassword());
+            }
         }
         if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getNullChar());
+            if (isConetxtMode(connection, connection.getNullChar())) {
+                return connection.getNullChar();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getNullChar());
+            }
         }
         if (value.equals("SCHEMA")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getSchema());
+            if (isConetxtMode(connection, connection.getSchema())) {
+                return connection.getSchema();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getSchema());
+            }
         }
         if (value.equals("FILE")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getFileFieldName());
+            if (isConetxtMode(connection, connection.getFileFieldName())) {
+                return connection.getFileFieldName();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getFileFieldName());
+            }
         }
         if (value.equals("PROPERTIES_STRING")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getAdditionalParams());
+            if (isConetxtMode(connection, connection.getAdditionalParams())) {
+                return connection.getAdditionalParams();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getAdditionalParams());
+            }
         }
         return null;
+    }
+
+    private static boolean isConetxtMode(Connection connection, String value) {
+        if (connection == null || value == null) {
+            return false;
+        }
+        if (connection.isContextMode() && ContextParameterUtils.isContainContextParam(value)) {
+            return true;
+        }
+        return false;
     }
 
     /**

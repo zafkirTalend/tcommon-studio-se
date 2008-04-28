@@ -33,6 +33,8 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getTables <em>Tables</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getQueries <em>Queries</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#isContextMode <em>Context Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getContextId <em>Context Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +81,46 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * @ordered
      */
     protected QueriesConnection queries;
+
+    /**
+     * The default value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isContextMode()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CONTEXT_MODE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isContextMode()
+     * @generated
+     * @ordered
+     */
+    protected boolean contextMode = CONTEXT_MODE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getContextId()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONTEXT_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getContextId()
+     * @generated
+     * @ordered
+     */
+    protected String contextId = CONTEXT_ID_EDEFAULT;
 
     protected boolean readOnly = false;
 
@@ -189,6 +231,48 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isContextMode() {
+        return contextMode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setContextMode(boolean newContextMode) {
+        boolean oldContextMode = contextMode;
+        contextMode = newContextMode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_MODE, oldContextMode, contextMode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getContextId() {
+        return contextId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setContextId(String newContextId) {
+        String oldContextId = contextId;
+        contextId = newContextId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__CONTEXT_ID, oldContextId, contextId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.CONNECTION__TABLES:
@@ -229,6 +313,10 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
                 return getTables();
             case ConnectionPackage.CONNECTION__QUERIES:
                 return getQueries();
+            case ConnectionPackage.CONNECTION__CONTEXT_MODE:
+                return isContextMode() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.CONNECTION__CONTEXT_ID:
+                return getContextId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -250,6 +338,12 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
             case ConnectionPackage.CONNECTION__QUERIES:
                 setQueries((QueriesConnection)newValue);
                 return;
+            case ConnectionPackage.CONNECTION__CONTEXT_MODE:
+                setContextMode(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.CONNECTION__CONTEXT_ID:
+                setContextId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -270,6 +364,12 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
             case ConnectionPackage.CONNECTION__QUERIES:
                 setQueries((QueriesConnection)null);
                 return;
+            case ConnectionPackage.CONNECTION__CONTEXT_MODE:
+                setContextMode(CONTEXT_MODE_EDEFAULT);
+                return;
+            case ConnectionPackage.CONNECTION__CONTEXT_ID:
+                setContextId(CONTEXT_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -287,6 +387,10 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
                 return tables != null && !tables.isEmpty();
             case ConnectionPackage.CONNECTION__QUERIES:
                 return queries != null;
+            case ConnectionPackage.CONNECTION__CONTEXT_MODE:
+                return contextMode != CONTEXT_MODE_EDEFAULT;
+            case ConnectionPackage.CONNECTION__CONTEXT_ID:
+                return CONTEXT_ID_EDEFAULT == null ? contextId != null : !CONTEXT_ID_EDEFAULT.equals(contextId);
         }
         return super.eIsSet(featureID);
     }
@@ -302,6 +406,10 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (version: ");
         result.append(version);
+        result.append(", ContextMode: ");
+        result.append(contextMode);
+        result.append(", ContextId: ");
+        result.append(contextId);
         result.append(')');
         return result.toString();
     }

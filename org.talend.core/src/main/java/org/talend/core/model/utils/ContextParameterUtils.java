@@ -21,6 +21,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.process.IContext;
@@ -303,4 +304,68 @@ public final class ContextParameterUtils {
         }
         return code;
     }
+
+    /**
+     * 
+     * ggu Comment method "getVariableFromCode".
+     * 
+     * only for new script code. and if there is no variable in code, return null.
+     */
+    public static String getVariableFromCode(String code) {
+        if (code == null) {
+            return null;
+        }
+        if (isContainContextParam(code)) {
+            String pattern = null;
+            String varPattern = "(.+?)"; //$NON-NLS-1$
+            switch (LanguageManager.getCurrentLanguage()) {
+            case JAVA:
+                String wordPattern = "\\b"; //$NON-NLS-1$
+                pattern = wordPattern + replaceCharForRegex(JAVA_NEW_CONTEXT_PREFIX) + varPattern + wordPattern;
+                break;
+            case PERL:
+            default:
+                pattern = replaceCharForRegex(PERL_STARTWITH) + varPattern + replaceCharForRegex(PERL_ENDWITH);
+            }
+            if (pattern != null) {
+                Pattern regex = Pattern.compile(pattern, Pattern.CANON_EQ);
+                Matcher regexMatcher = regex.matcher(code);
+                if (regexMatcher.find()) {
+                    try {
+                        String var = regexMatcher.group(1);
+                        if (var != null) {
+                            return var;
+                        }
+                    } catch (RuntimeException re) {
+                        // not match
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private static String replaceCharForRegex(String pattern) {
+        if (pattern == null) {
+            return null;
+        }
+        pattern = pattern.replaceAll("\\(", "\\\\("); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replaceAll("\\)", "\\\\)"); //$NON-NLS-1$ //$NON-NLS-2$
+        // for java
+        pattern = pattern.replaceAll("\\.", "\\\\."); //$NON-NLS-1$ //$NON-NLS-2$
+        // for perl
+        pattern = pattern.replaceAll("\\{", "\\\\{"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replaceAll("\\}", "\\\\}"); //$NON-NLS-1$ //$NON-NLS-2$
+        // error??
+        // pattern = pattern.replaceAll("\\$", "\\\\$"); //$NON-NLS-1$ //$NON-NLS-2$
+        int index = pattern.indexOf("$"); //$NON-NLS-1$
+        if (index > -1) { // found
+            String str1 = pattern.substring(0, index);
+            String str2 = pattern.substring(index + 1);
+            pattern = str1 + "\\$" + str2; //$NON-NLS-1$
+
+        }
+        return pattern;
+    }
+
 }

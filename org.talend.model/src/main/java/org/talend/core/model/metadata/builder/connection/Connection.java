@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getTables <em>Tables</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,5 +100,57 @@ public interface Connection extends AbstractMetadataObject {
      * @generated
      */
     void setQueries(QueriesConnection value);
+
+    /**
+     * Returns the value of the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Context Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Context Mode</em>' attribute.
+     * @see #setContextMode(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextMode()
+     * @model
+     * @generated
+     */
+    boolean isContextMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Context Mode</em>' attribute.
+     * @see #isContextMode()
+     * @generated
+     */
+    void setContextMode(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Context Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Context Id</em>' attribute.
+     * @see #setContextId(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextId()
+     * @model
+     * @generated
+     */
+    String getContextId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Context Id</em>' attribute.
+     * @see #getContextId()
+     * @generated
+     */
+    void setContextId(String value);
 
 } // Connection

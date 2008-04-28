@@ -193,7 +193,7 @@ public class ConextTemplateComposite extends Composite {
 
         TreeColumn column = new TreeColumn(tree, SWT.NONE);
         column.setText(NAME_COLUMN_NAME);
-        column.setWidth(80);
+        column.setWidth(120);
 
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             column = new TreeColumn(tree, SWT.NONE);
@@ -207,11 +207,11 @@ public class ConextTemplateComposite extends Composite {
 
         column = new TreeColumn(tree, SWT.NONE);
         column.setText(SCRIPTCODE_COLUMN_NAME);
-        column.setWidth(400);
+        column.setWidth(250);
 
         column = new TreeColumn(tree, SWT.NONE);
         column.setText(COMMENT_COLUMN_NAME);
-        column.setWidth(400);
+        column.setWidth(300);
 
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
@@ -220,8 +220,10 @@ public class ConextTemplateComposite extends Composite {
             String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
             comboBoxCellEditor = new ComboBoxCellEditor(tree, values);
         }
+        boolean isRepositoryContext = (modelManager instanceof ContextComposite)
+                && ((ContextComposite) modelManager).isRepositoryContext();
 
-        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+        if (!isRepositoryContext) {
             viewer.setColumnProperties(GROUP_BY_SOURCE_COLUMN_PROPERTIES);
             viewer.setCellEditors(new CellEditor[] { new TextCellEditor(tree), null, comboBoxCellEditor,
                     new TextCellEditor(tree), new TextCellEditor(tree) });
@@ -237,8 +239,8 @@ public class ConextTemplateComposite extends Composite {
         viewer.setCellModifier(cellModifier);
 
         provider = new ViewerProvier();
-        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
-        if (value) {
+
+        if (isGroupBySource()) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
             provider.setProvider(new GroupByNothingProvier());
@@ -559,14 +561,24 @@ public class ConextTemplateComposite extends Composite {
         }
     };
 
+    private boolean isGroupBySource() {
+        boolean isRepositoryContext = false;
+        if (modelManager != null) {
+            isRepositoryContext = (modelManager instanceof ContextComposite)
+                    && ((ContextComposite) modelManager).isRepositoryContext();
+        }
+        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
+        return value && !isRepositoryContext;
+
+    }
+
     /**
      * zwang Comment method "setContexts".
      * 
      * @param jobContextManager2
      */
     public void refresh() {
-        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
-        if (value) {
+        if (isGroupBySource()) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
             provider.setProvider(new GroupByNothingProvier());
@@ -971,8 +983,7 @@ public class ConextTemplateComposite extends Composite {
             IContextParameter para = null;
             IContext context = getContextManager().getDefaultContext();
 
-            boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
-            if (value) {
+            if (isGroupBySource()) {
                 if (element instanceof GroupBySourceProvier.Parent) {
                     if (BUILT_IN.equals(((GroupBySourceProvier.Parent) element).sourceName)) {
                         para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter

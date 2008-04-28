@@ -55,6 +55,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/version"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Connection/tables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Connection/queries"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/ContextMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/ContextId"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//MetadataColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/sourceType"/>
