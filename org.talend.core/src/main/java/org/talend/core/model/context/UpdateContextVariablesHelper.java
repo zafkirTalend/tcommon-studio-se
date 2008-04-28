@@ -197,10 +197,11 @@ public final class UpdateContextVariablesHelper {
 
             returnValue = hasAndReplaceValue(returnValue, replaceSpecialChar(oldScriptCode), varScriptCodeMap
                     .get(oldScriptCode), oldSyntax);
-            // add this for bug 3455
-            returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""),
-                    false);
-
+            if(LanguageManager.getCurrentLanguage()==ECodeLanguage.JAVA){
+                // add this for bug 3455
+                returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""),
+                        false);
+            }
         }
         return returnValue;
     }
