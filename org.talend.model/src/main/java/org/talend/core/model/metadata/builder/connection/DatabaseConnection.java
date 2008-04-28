@@ -37,6 +37,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams <em>Additional Params</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL <em>Standard SQL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}</li>
  * </ul>
  * </p>
  *
@@ -566,5 +567,33 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setSystemSQL(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Cdc Conns</b></em>' containment reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection <em>Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Cdc Conns</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Cdc Conns</em>' containment reference.
+     * @see #setCdcConns(CDCConnection)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_CdcConns()
+     * @see org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection
+     * @model opposite="connection" containment="true"
+     * @generated
+     */
+    CDCConnection getCdcConns();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Cdc Conns</em>' containment reference.
+     * @see #getCdcConns()
+     * @generated
+     */
+    void setCdcConns(CDCConnection value);
 
 } // DatabaseConnection

@@ -187,6 +187,33 @@ public interface ConnectionFactory extends EFactory {
     SalesforceSchemaConnection createSalesforceSchemaConnection();
 
     /**
+     * Returns a new object of class '<em>CDC Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>CDC Connection</em>'.
+     * @generated
+     */
+    CDCConnection createCDCConnection();
+
+    /**
+     * Returns a new object of class '<em>CDC Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>CDC Type</em>'.
+     * @generated
+     */
+    CDCType createCDCType();
+
+    /**
+     * Returns a new object of class '<em>Subscriber Table</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Subscriber Table</em>'.
+     * @generated
+     */
+    SubscriberTable createSubscriberTable();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -47,6 +48,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getAdditionalParams <em>Additional Params</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isStandardSQL <em>Standard SQL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSystemSQL <em>System SQL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcConns <em>Cdc Conns</em>}</li>
  * </ul>
  * </p>
  *
@@ -453,6 +455,16 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected boolean systemSQL = SYSTEM_SQL_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getCdcConns() <em>Cdc Conns</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCdcConns()
+     * @generated
+     * @ordered
+     */
+    protected CDCConnection cdcConns;
 
     /**
      * <!-- begin-user-doc -->
@@ -897,6 +909,77 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public CDCConnection getCdcConns() {
+        return cdcConns;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetCdcConns(CDCConnection newCdcConns, NotificationChain msgs) {
+        CDCConnection oldCdcConns = cdcConns;
+        cdcConns = newCdcConns;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, oldCdcConns, newCdcConns);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCdcConns(CDCConnection newCdcConns) {
+        if (newCdcConns != cdcConns) {
+            NotificationChain msgs = null;
+            if (cdcConns != null)
+                msgs = ((InternalEObject)cdcConns).eInverseRemove(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
+            if (newCdcConns != null)
+                msgs = ((InternalEObject)newCdcConns).eInverseAdd(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
+            msgs = basicSetCdcConns(newCdcConns, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, newCdcConns, newCdcConns));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+                if (cdcConns != null)
+                    msgs = ((InternalEObject)cdcConns).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, null, msgs);
+                return basicSetCdcConns((CDCConnection)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+                return basicSetCdcConns(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -939,6 +1022,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return isStandardSQL() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
                 return isSystemSQL() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+                return getCdcConns();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1009,6 +1094,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
                 setSystemSQL(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+                setCdcConns((CDCConnection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1081,6 +1169,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
                 setSystemSQL(SYSTEM_SQL_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+                setCdcConns((CDCConnection)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1132,6 +1223,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return standardSQL != STANDARD_SQL_EDEFAULT;
             case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
                 return systemSQL != SYSTEM_SQL_EDEFAULT;
+            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+                return cdcConns != null;
         }
         return super.eIsSet(featureID);
     }

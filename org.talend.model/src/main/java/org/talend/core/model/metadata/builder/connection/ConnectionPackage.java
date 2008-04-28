@@ -593,13 +593,31 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_TABLE__TABLE_TYPE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
 
     /**
+     * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TABLE__ATTACHED_CDC = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TABLE__ACTIVATED_CDC = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 5;
+
+    /**
      * The number of structural features of the '<em>Metadata Table</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TABLE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
+    int METADATA_TABLE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 6;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
@@ -1702,13 +1720,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__SYSTEM_SQL = CONNECTION_FEATURE_COUNT + 19;
 
     /**
+     * The feature id for the '<em><b>Cdc Conns</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__CDC_CONNS = CONNECTION_FEATURE_COUNT + 20;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 20;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
@@ -3743,13 +3770,304 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
+     * @generated
+     */
+    int CDC_CONNECTION = 21;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_CONNECTION__CONNECTION = 0;
+
+    /**
+     * The feature id for the '<em><b>Cdc Types</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_CONNECTION__CDC_TYPES = 1;
+
+    /**
+     * The number of structural features of the '<em>CDC Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_CONNECTION_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl <em>CDC Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
+     * @generated
+     */
+    int CDC_TYPE = 22;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__PROPERTIES = ABSTRACT_METADATA_OBJECT__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__ID = ABSTRACT_METADATA_OBJECT__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__COMMENT = ABSTRACT_METADATA_OBJECT__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__LABEL = ABSTRACT_METADATA_OBJECT__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Link DB</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__LINK_DB = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Subscribers</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__SUBSCRIBERS = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Cdc Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__CDC_CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>CDC Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl <em>Subscriber Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
+     * @generated
+     */
+    int SUBSCRIBER_TABLE = 23;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__PROPERTIES = METADATA_TABLE__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__ID = METADATA_TABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__COMMENT = METADATA_TABLE__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__LABEL = METADATA_TABLE__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__READ_ONLY = METADATA_TABLE__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__SYNCHRONISED = METADATA_TABLE__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__DIVERGENCY = METADATA_TABLE__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Source Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__SOURCE_NAME = METADATA_TABLE__SOURCE_NAME;
+
+    /**
+     * The feature id for the '<em><b>Columns</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__COLUMNS = METADATA_TABLE__COLUMNS;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__CONNECTION = METADATA_TABLE__CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Table Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__TABLE_TYPE = METADATA_TABLE__TABLE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__ATTACHED_CDC = METADATA_TABLE__ATTACHED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__ACTIVATED_CDC = METADATA_TABLE__ACTIVATED_CDC;
+
+    /**
+     * The feature id for the '<em><b>System</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE__SYSTEM = METADATA_TABLE_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Subscriber Table</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSCRIBER_TABLE_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 21;
+    int DATABASE_PROPERTIES = 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -3758,7 +4076,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 22;
+    int FILE_FORMAT = 25;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -3767,7 +4085,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 23;
+    int FIELD_SEPARATOR = 26;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -3776,7 +4094,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 24;
+    int ESCAPE = 27;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -3785,7 +4103,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 25;
+    int ROW_SEPARATOR = 28;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -3794,7 +4112,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 26;
+    int MAP = 29;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -3804,7 +4122,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 27;
+    int LIST = 30;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -3914,6 +4232,28 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getMetadataTable_TableType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC <em>Attached CDC</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Attached CDC</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC()
+     * @see #getMetadataTable()
+     * @generated
+     */
+    EAttribute getMetadataTable_AttachedCDC();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC <em>Activated CDC</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Activated CDC</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC()
+     * @see #getMetadataTable()
+     * @generated
+     */
+    EAttribute getMetadataTable_ActivatedCDC();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn <em>Metadata Column</em>}'.
@@ -4570,6 +4910,17 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getDatabaseConnection_SystemSQL();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Cdc Conns</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EReference getDatabaseConnection_CdcConns();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
@@ -5518,6 +5869,102 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceSchemaConnection_QueryCondition();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>CDC Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCConnection
+     * @generated
+     */
+    EClass getCDCConnection();
+
+    /**
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection <em>Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection()
+     * @see #getCDCConnection()
+     * @generated
+     */
+    EReference getCDCConnection_Connection();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.CDCConnection#getCdcTypes <em>Cdc Types</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Cdc Types</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCConnection#getCdcTypes()
+     * @see #getCDCConnection()
+     * @generated
+     */
+    EReference getCDCConnection_CdcTypes();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCType <em>CDC Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>CDC Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCType
+     * @generated
+     */
+    EClass getCDCType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.CDCType#getLinkDB <em>Link DB</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Link DB</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCType#getLinkDB()
+     * @see #getCDCType()
+     * @generated
+     */
+    EAttribute getCDCType_LinkDB();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.CDCType#getSubscribers <em>Subscribers</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Subscribers</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCType#getSubscribers()
+     * @see #getCDCType()
+     * @generated
+     */
+    EReference getCDCType_Subscribers();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.CDCType#getCdcConnection <em>Cdc Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Cdc Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCType#getCdcConnection()
+     * @see #getCDCType()
+     * @generated
+     */
+    EReference getCDCType_CdcConnection();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SubscriberTable <em>Subscriber Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Subscriber Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SubscriberTable
+     * @generated
+     */
+    EClass getSubscriberTable();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SubscriberTable#isSystem <em>System</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>System</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SubscriberTable#isSystem()
+     * @see #getSubscriberTable()
+     * @generated
+     */
+    EAttribute getSubscriberTable_System();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -5695,6 +6142,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_TABLE__TABLE_TYPE = eINSTANCE.getMetadataTable_TableType();
+
+        /**
+         * The meta object literal for the '<em><b>Attached CDC</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_TABLE__ATTACHED_CDC = eINSTANCE.getMetadataTable_AttachedCDC();
+
+        /**
+         * The meta object literal for the '<em><b>Activated CDC</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_TABLE__ACTIVATED_CDC = eINSTANCE.getMetadataTable_ActivatedCDC();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl <em>Metadata Column</em>}' class.
@@ -6221,6 +6684,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__SYSTEM_SQL = eINSTANCE.getDatabaseConnection_SystemSQL();
+
+        /**
+         * The meta object literal for the '<em><b>Cdc Conns</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DATABASE_CONNECTION__CDC_CONNS = eINSTANCE.getDatabaseConnection_CdcConns();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
@@ -6946,6 +7417,84 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION = eINSTANCE.getSalesforceSchemaConnection_QueryCondition();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
+         * @generated
+         */
+        EClass CDC_CONNECTION = eINSTANCE.getCDCConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CDC_CONNECTION__CONNECTION = eINSTANCE.getCDCConnection_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Cdc Types</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CDC_CONNECTION__CDC_TYPES = eINSTANCE.getCDCConnection_CdcTypes();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl <em>CDC Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
+         * @generated
+         */
+        EClass CDC_TYPE = eINSTANCE.getCDCType();
+
+        /**
+         * The meta object literal for the '<em><b>Link DB</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CDC_TYPE__LINK_DB = eINSTANCE.getCDCType_LinkDB();
+
+        /**
+         * The meta object literal for the '<em><b>Subscribers</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CDC_TYPE__SUBSCRIBERS = eINSTANCE.getCDCType_Subscribers();
+
+        /**
+         * The meta object literal for the '<em><b>Cdc Connection</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CDC_TYPE__CDC_CONNECTION = eINSTANCE.getCDCType_CdcConnection();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl <em>Subscriber Table</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
+         * @generated
+         */
+        EClass SUBSCRIBER_TABLE = eINSTANCE.getSubscriberTable();
+
+        /**
+         * The meta object literal for the '<em><b>System</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SUBSCRIBER_TABLE__SYSTEM = eINSTANCE.getSubscriberTable_System();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

@@ -143,6 +143,15 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
                 return createSalesforceSchemaConnectionAdapter();
             }
+            public Object caseCDCConnection(CDCConnection object) {
+                return createCDCConnectionAdapter();
+            }
+            public Object caseCDCType(CDCType object) {
+                return createCDCTypeAdapter();
+            }
+            public Object caseSubscriberTable(SubscriberTable object) {
+                return createSubscriberTableAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -414,6 +423,48 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSalesforceSchemaConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.CDCConnection
+     * @generated
+     */
+    public Adapter createCDCConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.CDCType <em>CDC Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.CDCType
+     * @generated
+     */
+    public Adapter createCDCTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SubscriberTable <em>Subscriber Table</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.SubscriberTable
+     * @generated
+     */
+    public Adapter createSubscriberTableAdapter() {
         return null;
     }
 

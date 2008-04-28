@@ -54,6 +54,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//Connection"
         eOpposite="#//Connection/tables"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attachedCDC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="activatedCDC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Map" instanceClassName="java.util.HashMap"/>
   <eClassifiers xsi:type="ecore:EEnum" name="DatabaseProperties">
@@ -153,6 +155,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="AdditionalParams" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="StandardSQL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemSQL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cdcConns" eType="#//CDCConnection"
+        containment="true" eOpposite="#//CDCConnection/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RegexpFileConnection" eSuperTypes="#//FileConnection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="FieldSeparatorType" lowerBound="1"
@@ -273,4 +277,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryCondition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="List" instanceClassName="java.util.ArrayList"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDCConnection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//DatabaseConnection"
+        eOpposite="#//DatabaseConnection/cdcConns"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cdcTypes" upperBound="-1"
+        eType="#//CDCType" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CDCType" eSuperTypes="#//AbstractMetadataObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="linkDB" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subscribers" upperBound="-1"
+        eType="#//SubscriberTable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cdcConnection" eType="#//CDCConnection"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubscriberTable" eSuperTypes="#//MetadataTable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="system" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
 </ecore:EPackage>

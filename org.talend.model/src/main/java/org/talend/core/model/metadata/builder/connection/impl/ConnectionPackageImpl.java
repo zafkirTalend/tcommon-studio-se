@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.CDCConnection;
+import org.talend.core.model.metadata.builder.connection.CDCType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -43,6 +45,7 @@ import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
@@ -181,6 +184,27 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass salesforceSchemaConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass cdcConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass cdcTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass subscriberTableEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -376,6 +400,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EAttribute getMetadataTable_TableType() {
         return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataTable_AttachedCDC() {
+        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataTable_ActivatedCDC() {
+        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -900,6 +942,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EAttribute getDatabaseConnection_SystemSQL() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(19);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDatabaseConnection_CdcConns() {
+        return (EReference)databaseConnectionEClass.getEStructuralFeatures().get(20);
     }
 
     /**
@@ -1638,6 +1689,87 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCDCConnection() {
+        return cdcConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCDCConnection_Connection() {
+        return (EReference)cdcConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCDCConnection_CdcTypes() {
+        return (EReference)cdcConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCDCType() {
+        return cdcTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCDCType_LinkDB() {
+        return (EAttribute)cdcTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCDCType_Subscribers() {
+        return (EReference)cdcTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCDCType_CdcConnection() {
+        return (EReference)cdcTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSubscriberTable() {
+        return subscriberTableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSubscriberTable_System() {
+        return (EAttribute)subscriberTableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1754,6 +1886,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(metadataTableEClass, METADATA_TABLE__COLUMNS);
         createEReference(metadataTableEClass, METADATA_TABLE__CONNECTION);
         createEAttribute(metadataTableEClass, METADATA_TABLE__TABLE_TYPE);
+        createEAttribute(metadataTableEClass, METADATA_TABLE__ATTACHED_CDC);
+        createEAttribute(metadataTableEClass, METADATA_TABLE__ACTIVATED_CDC);
 
         fileConnectionEClass = createEClass(FILE_CONNECTION);
         createEAttribute(fileConnectionEClass, FILE_CONNECTION__SERVER);
@@ -1803,6 +1937,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__ADDITIONAL_PARAMS);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__STANDARD_SQL);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SYSTEM_SQL);
+        createEReference(databaseConnectionEClass, DATABASE_CONNECTION__CDC_CONNS);
 
         regexpFileConnectionEClass = createEClass(REGEXP_FILE_CONNECTION);
         createEAttribute(regexpFileConnectionEClass, REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE);
@@ -1904,6 +2039,18 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME);
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION);
 
+        cdcConnectionEClass = createEClass(CDC_CONNECTION);
+        createEReference(cdcConnectionEClass, CDC_CONNECTION__CONNECTION);
+        createEReference(cdcConnectionEClass, CDC_CONNECTION__CDC_TYPES);
+
+        cdcTypeEClass = createEClass(CDC_TYPE);
+        createEAttribute(cdcTypeEClass, CDC_TYPE__LINK_DB);
+        createEReference(cdcTypeEClass, CDC_TYPE__SUBSCRIBERS);
+        createEReference(cdcTypeEClass, CDC_TYPE__CDC_CONNECTION);
+
+        subscriberTableEClass = createEClass(SUBSCRIBER_TABLE);
+        createEAttribute(subscriberTableEClass, SUBSCRIBER_TABLE__SYSTEM);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -1955,6 +2102,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         ldapSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         wsdlSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         salesforceSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
+        cdcTypeEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        subscriberTableEClass.getESuperTypes().add(this.getMetadataTable());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1992,6 +2141,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getMetadataTable_Columns(), this.getMetadataColumn(), this.getMetadataColumn_Table(), "columns", null, 0, -1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getMetadataTable_Connection(), this.getConnection(), this.getConnection_Tables(), "connection", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataTable_TableType(), ecorePackage.getEString(), "tableType", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataTable_AttachedCDC(), ecorePackage.getEBoolean(), "attachedCDC", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataTable_ActivatedCDC(), ecorePackage.getEBoolean(), "activatedCDC", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(fileConnectionEClass, FileConnection.class, "FileConnection", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2041,6 +2192,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getDatabaseConnection_AdditionalParams(), ecorePackage.getEString(), "AdditionalParams", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_StandardSQL(), ecorePackage.getEBoolean(), "StandardSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_SystemSQL(), ecorePackage.getEBoolean(), "SystemSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDatabaseConnection_CdcConns(), this.getCDCConnection(), this.getCDCConnection_Connection(), "cdcConns", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(regexpFileConnectionEClass, RegexpFileConnection.class, "RegexpFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getRegexpFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType", null, 1, 1, RegexpFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2141,6 +2293,18 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getSalesforceSchemaConnection_Password(), ecorePackage.getEString(), "password", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSalesforceSchemaConnection_ModuleName(), ecorePackage.getEString(), "moduleName", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSalesforceSchemaConnection_QueryCondition(), ecorePackage.getEString(), "queryCondition", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(cdcConnectionEClass, CDCConnection.class, "CDCConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCDCConnection_Connection(), this.getDatabaseConnection(), this.getDatabaseConnection_CdcConns(), "connection", null, 0, 1, CDCConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCDCConnection_CdcTypes(), this.getCDCType(), null, "cdcTypes", null, 0, -1, CDCConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(cdcTypeEClass, CDCType.class, "CDCType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCDCType_LinkDB(), ecorePackage.getEString(), "linkDB", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCDCType_Subscribers(), this.getSubscriberTable(), null, "subscribers", null, 0, -1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCDCType_CdcConnection(), this.getCDCConnection(), null, "cdcConnection", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(subscriberTableEClass, SubscriberTable.class, "SubscriberTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSubscriberTable_System(), ecorePackage.getEBoolean(), "system", null, 0, 1, SubscriberTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

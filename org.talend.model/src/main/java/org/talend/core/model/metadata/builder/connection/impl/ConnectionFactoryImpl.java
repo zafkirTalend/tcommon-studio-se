@@ -103,6 +103,9 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION: return createLDAPSchemaConnection();
             case ConnectionPackage.WSDL_SCHEMA_CONNECTION: return createWSDLSchemaConnection();
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION: return createSalesforceSchemaConnection();
+            case ConnectionPackage.CDC_CONNECTION: return createCDCConnection();
+            case ConnectionPackage.CDC_TYPE: return createCDCType();
+            case ConnectionPackage.SUBSCRIBER_TABLE: return createSubscriberTable();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -329,6 +332,36 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public SalesforceSchemaConnection createSalesforceSchemaConnection() {
         SalesforceSchemaConnectionImpl salesforceSchemaConnection = new SalesforceSchemaConnectionImpl();
         return salesforceSchemaConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CDCConnection createCDCConnection() {
+        CDCConnectionImpl cdcConnection = new CDCConnectionImpl();
+        return cdcConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CDCType createCDCType() {
+        CDCTypeImpl cdcType = new CDCTypeImpl();
+        return cdcType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SubscriberTable createSubscriberTable() {
+        SubscriberTableImpl subscriberTable = new SubscriberTableImpl();
+        return subscriberTable;
     }
 
     /**

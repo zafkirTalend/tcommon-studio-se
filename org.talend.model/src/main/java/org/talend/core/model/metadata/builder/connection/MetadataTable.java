@@ -20,6 +20,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC <em>Attached CDC</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC <em>Activated CDC</em>}</li>
  * </ul>
  * </p>
  *
@@ -125,5 +127,57 @@ public interface MetadataTable extends AbstractMetadataObject {
      * @generated
      */
     void setTableType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Attached CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Attached CDC</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Attached CDC</em>' attribute.
+     * @see #setAttachedCDC(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_AttachedCDC()
+     * @model
+     * @generated
+     */
+    boolean isAttachedCDC();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC <em>Attached CDC</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Attached CDC</em>' attribute.
+     * @see #isAttachedCDC()
+     * @generated
+     */
+    void setAttachedCDC(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Activated CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Activated CDC</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Activated CDC</em>' attribute.
+     * @see #setActivatedCDC(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_ActivatedCDC()
+     * @model
+     * @generated
+     */
+    boolean isActivatedCDC();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC <em>Activated CDC</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Activated CDC</em>' attribute.
+     * @see #isActivatedCDC()
+     * @generated
+     */
+    void setActivatedCDC(boolean value);
 
 } // MetadataTable

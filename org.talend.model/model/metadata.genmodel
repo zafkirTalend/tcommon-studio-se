@@ -83,6 +83,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/columns"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/connection"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/tableType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/attachedCDC"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/activatedCDC"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//FileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/Server"/>
@@ -131,6 +133,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/AdditionalParams"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/StandardSQL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SystemSQL"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//DatabaseConnection/cdcConns"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//RegexpFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//RegexpFileConnection/FieldSeparatorType"/>
@@ -231,6 +234,18 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/password"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/moduleName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/queryCondition"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//CDCConnection">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//CDCConnection/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//CDCConnection/cdcTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//CDCType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//CDCType/linkDB"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//CDCType/subscribers"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//CDCType/cdcConnection"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SubscriberTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SubscriberTable/system"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

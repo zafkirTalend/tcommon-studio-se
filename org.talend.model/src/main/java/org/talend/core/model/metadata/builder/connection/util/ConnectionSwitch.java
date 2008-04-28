@@ -254,6 +254,27 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.CDC_CONNECTION: {
+                CDCConnection cdcConnection = (CDCConnection)theEObject;
+                Object result = caseCDCConnection(cdcConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.CDC_TYPE: {
+                CDCType cdcType = (CDCType)theEObject;
+                Object result = caseCDCType(cdcType);
+                if (result == null) result = caseAbstractMetadataObject(cdcType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.SUBSCRIBER_TABLE: {
+                SubscriberTable subscriberTable = (SubscriberTable)theEObject;
+                Object result = caseSubscriberTable(subscriberTable);
+                if (result == null) result = caseMetadataTable(subscriberTable);
+                if (result == null) result = caseAbstractMetadataObject(subscriberTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -550,6 +571,51 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>CDC Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>CDC Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCDCConnection(CDCConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>CDC Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>CDC Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCDCType(CDCType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Subscriber Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Subscriber Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSubscriberTable(SubscriberTable object) {
         return null;
     }
 

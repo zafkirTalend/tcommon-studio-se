@@ -33,6 +33,8 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getTableType <em>Table Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isAttachedCDC <em>Attached CDC</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isActivatedCDC <em>Activated CDC</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,6 +91,46 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * @ordered
      */
     protected String tableType = TABLE_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isAttachedCDC()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ATTACHED_CDC_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isAttachedCDC() <em>Attached CDC</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isAttachedCDC()
+     * @generated
+     * @ordered
+     */
+    protected boolean attachedCDC = ATTACHED_CDC_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isActivatedCDC()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ACTIVATED_CDC_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isActivatedCDC() <em>Activated CDC</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isActivatedCDC()
+     * @generated
+     * @ordered
+     */
+    protected boolean activatedCDC = ACTIVATED_CDC_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -213,6 +255,48 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isAttachedCDC() {
+        return attachedCDC;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAttachedCDC(boolean newAttachedCDC) {
+        boolean oldAttachedCDC = attachedCDC;
+        attachedCDC = newAttachedCDC;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__ATTACHED_CDC, oldAttachedCDC, attachedCDC));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isActivatedCDC() {
+        return activatedCDC;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setActivatedCDC(boolean newActivatedCDC) {
+        boolean oldActivatedCDC = activatedCDC;
+        activatedCDC = newActivatedCDC;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC, oldActivatedCDC, activatedCDC));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.METADATA_TABLE__COLUMNS:
@@ -268,6 +352,10 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
                 return getConnection();
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 return getTableType();
+            case ConnectionPackage.METADATA_TABLE__ATTACHED_CDC:
+                return isAttachedCDC() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
+                return isActivatedCDC() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -292,6 +380,12 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 setTableType((String)newValue);
                 return;
+            case ConnectionPackage.METADATA_TABLE__ATTACHED_CDC:
+                setAttachedCDC(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
+                setActivatedCDC(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -315,6 +409,12 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 setTableType(TABLE_TYPE_EDEFAULT);
                 return;
+            case ConnectionPackage.METADATA_TABLE__ATTACHED_CDC:
+                setAttachedCDC(ATTACHED_CDC_EDEFAULT);
+                return;
+            case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
+                setActivatedCDC(ACTIVATED_CDC_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -334,6 +434,10 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
                 return getConnection() != null;
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 return TABLE_TYPE_EDEFAULT == null ? tableType != null : !TABLE_TYPE_EDEFAULT.equals(tableType);
+            case ConnectionPackage.METADATA_TABLE__ATTACHED_CDC:
+                return attachedCDC != ATTACHED_CDC_EDEFAULT;
+            case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
+                return activatedCDC != ACTIVATED_CDC_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -351,6 +455,10 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         result.append(sourceName);
         result.append(", tableType: ");
         result.append(tableType);
+        result.append(", attachedCDC: ");
+        result.append(attachedCDC);
+        result.append(", activatedCDC: ");
+        result.append(activatedCDC);
         result.append(')');
         return result.toString();
     }
