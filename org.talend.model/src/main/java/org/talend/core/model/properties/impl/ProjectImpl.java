@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.core.model.properties.ComponentSetting;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectComponentAuthorisation;
@@ -55,6 +56,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMasterJobId <em>Master Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getProductVersion <em>Product Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getComponentsSettings <em>Components Settings</em>}</li>
  * </ul>
  * </p>
  *
@@ -380,6 +382,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String productVersion = PRODUCT_VERSION_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getComponentsSettings() <em>Components Settings</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComponentsSettings()
+     * @generated
+     * @ordered
+     */
+    protected EList componentsSettings;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -635,6 +647,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getComponentsSettings() {
+        if (componentsSettings == null) {
+            componentsSettings = new EObjectContainmentEList(ComponentSetting.class, this, PropertiesPackage.PROJECT__COMPONENTS_SETTINGS);
+        }
+        return componentsSettings;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -780,6 +804,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getAvailableRefProject()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
                 return ((InternalEList)getSpagoBiServer()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
+                return ((InternalEList)getComponentsSettings()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -833,6 +859,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getSpagoBiServer();
             case PropertiesPackage.PROJECT__PRODUCT_VERSION:
                 return getProductVersion();
+            case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
+                return getComponentsSettings();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -915,6 +943,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__PRODUCT_VERSION:
                 setProductVersion((String)newValue);
                 return;
+            case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
+                getComponentsSettings().clear();
+                getComponentsSettings().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -988,6 +1020,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__PRODUCT_VERSION:
                 setProductVersion(PRODUCT_VERSION_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
+                getComponentsSettings().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1040,6 +1075,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return spagoBiServer != null && !spagoBiServer.isEmpty();
             case PropertiesPackage.PROJECT__PRODUCT_VERSION:
                 return PRODUCT_VERSION_EDEFAULT == null ? productVersion != null : !PRODUCT_VERSION_EDEFAULT.equals(productVersion);
+            case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
+                return componentsSettings != null && !componentsSettings.isEmpty();
         }
         return super.eIsSet(featureID);
     }

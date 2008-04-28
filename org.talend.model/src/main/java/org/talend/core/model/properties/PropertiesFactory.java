@@ -481,6 +481,15 @@ public interface PropertiesFactory extends EFactory {
     SQLPatternItem createSQLPatternItem();
 
     /**
+     * Returns a new object of class '<em>Component Setting</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Component Setting</em>'.
+     * @generated
+     */
+    ComponentSetting createComponentSetting();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

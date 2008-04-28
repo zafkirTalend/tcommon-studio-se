@@ -238,6 +238,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseSQLPatternItem(SQLPatternItem object) {
                 return createSQLPatternItemAdapter();
             }
+            public Object caseComponentSetting(ComponentSetting object) {
+                return createComponentSettingAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1037,6 +1040,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSQLPatternItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ComponentSetting <em>Component Setting</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ComponentSetting
+     * @generated
+     */
+    public Adapter createComponentSettingAdapter() {
         return null;
     }
 

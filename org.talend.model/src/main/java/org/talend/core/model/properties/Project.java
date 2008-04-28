@@ -39,6 +39,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getProductVersion <em>Product Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getComponentsSettings <em>Components Settings</em>}</li>
  * </ul>
  * </p>
  *
@@ -361,6 +362,22 @@ public interface Project extends EObject {
      * @generated
      */
     void setProductVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Components Settings</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ComponentSetting}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Components Settings</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Components Settings</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ComponentsSettings()
+     * @model type="org.talend.core.model.properties.ComponentSetting" containment="true" ordered="false"
+     * @generated
+     */
+    EList getComponentsSettings();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

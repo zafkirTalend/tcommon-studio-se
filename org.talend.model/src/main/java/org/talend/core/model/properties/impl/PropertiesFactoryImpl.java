@@ -143,6 +143,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.SCHEMA_INFORMATION: return createSchemaInformation();
             case PropertiesPackage.INFORMATION: return createInformation();
             case PropertiesPackage.SQL_PATTERN_ITEM: return createSQLPatternItem();
+            case PropertiesPackage.COMPONENT_SETTING: return createComponentSetting();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -685,6 +686,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public SQLPatternItem createSQLPatternItem() {
         SQLPatternItemImpl sqlPatternItem = new SQLPatternItemImpl();
         return sqlPatternItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ComponentSetting createComponentSetting() {
+        ComponentSettingImpl componentSetting = new ComponentSettingImpl();
+        return componentSetting;
     }
 
     /**

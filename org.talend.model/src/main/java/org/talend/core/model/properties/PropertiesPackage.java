@@ -257,13 +257,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__PRODUCT_VERSION = 20;
 
     /**
+     * The feature id for the '<em><b>Components Settings</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__COMPONENTS_SETTINGS = 21;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 21;
+    int PROJECT_FEATURE_COUNT = 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -3999,13 +4008,50 @@ public interface PropertiesPackage extends EPackage {
     int SQL_PATTERN_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ComponentSettingImpl <em>Component Setting</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ComponentSettingImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponentSetting()
+     * @generated
+     */
+    int COMPONENT_SETTING = 56;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_SETTING__NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Hidden</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_SETTING__HIDDEN = 1;
+
+    /**
+     * The number of structural features of the '<em>Component Setting</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_SETTING_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 56;
+    int FOLDER_TYPE = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -4015,7 +4061,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 57;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 58;
 
 
     /**
@@ -4026,7 +4072,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 58;
+    int USER_MODULE_AUTHORIZATION_TYPE = 59;
 
 
     /**
@@ -4037,7 +4083,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 59;
+    int INFORMATION_LEVEL = 60;
 
 
     /**
@@ -4238,6 +4284,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_ProductVersion();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Project#getComponentsSettings <em>Components Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Components Settings</em>'.
+     * @see org.talend.core.model.properties.Project#getComponentsSettings()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_ComponentsSettings();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
@@ -6783,6 +6840,38 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSQLPatternItem_EltName();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ComponentSetting <em>Component Setting</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Component Setting</em>'.
+     * @see org.talend.core.model.properties.ComponentSetting
+     * @generated
+     */
+    EClass getComponentSetting();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ComponentSetting#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.ComponentSetting#getName()
+     * @see #getComponentSetting()
+     * @generated
+     */
+    EAttribute getComponentSetting_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ComponentSetting#isHidden <em>Hidden</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Hidden</em>'.
+     * @see org.talend.core.model.properties.ComponentSetting#isHidden()
+     * @see #getComponentSetting()
+     * @generated
+     */
+    EAttribute getComponentSetting_Hidden();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -7034,6 +7123,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__PRODUCT_VERSION = eINSTANCE.getProject_ProductVersion();
+
+        /**
+         * The meta object literal for the '<em><b>Components Settings</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__COMPONENTS_SETTINGS = eINSTANCE.getProject_ComponentsSettings();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
@@ -9056,6 +9153,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SQL_PATTERN_ITEM__ELT_NAME = eINSTANCE.getSQLPatternItem_EltName();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ComponentSettingImpl <em>Component Setting</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ComponentSettingImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponentSetting()
+         * @generated
+         */
+        EClass COMPONENT_SETTING = eINSTANCE.getComponentSetting();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_SETTING__NAME = eINSTANCE.getComponentSetting_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Hidden</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_SETTING__HIDDEN = eINSTANCE.getComponentSetting_Hidden();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
