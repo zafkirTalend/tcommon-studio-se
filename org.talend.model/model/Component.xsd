@@ -53,6 +53,7 @@
 			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
 			<xs:attribute name="HASH_COMPONENT" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="TECHNICAL" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
@@ -91,11 +92,10 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
 	<xs:element name="SQLPATTERNS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" minOccurs="0" name="SQLPATTERN">
+				<xs:element name="SQLPATTERN" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:attribute name="NAME" type="xs:string"/>
 						<xs:attribute name="CONTENT" type="xs:string"/>
@@ -105,7 +105,6 @@
 			<xs:attribute name="DB" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
-	
 	<xs:element name="PARAMETERS">
 		<xs:complexType>
 			<xs:sequence>

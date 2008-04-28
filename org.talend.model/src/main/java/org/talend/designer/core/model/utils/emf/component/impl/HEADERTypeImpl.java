@@ -40,6 +40,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSERIAL <em>SERIAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTECHNICAL <em>TECHNICAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
@@ -392,6 +393,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String sTATUS = STATUS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTECHNICAL()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean TECHNICAL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTECHNICAL()
+     * @generated
+     * @ordered
+     */
+    protected boolean tECHNICAL = TECHNICAL_EDEFAULT;
+
+    /**
+     * This is true if the TECHNICAL attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean tECHNICALESet;
 
     /**
      * The default value of the '{@link #isTSTATCATCHERSTATS() <em>TSTATCATCHERSTATS</em>}' attribute.
@@ -982,6 +1012,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isTECHNICAL() {
+        return tECHNICAL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTECHNICAL(boolean newTECHNICAL) {
+        boolean oldTECHNICAL = tECHNICAL;
+        tECHNICAL = newTECHNICAL;
+        boolean oldTECHNICALESet = tECHNICALESet;
+        tECHNICALESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, tECHNICAL, !oldTECHNICALESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetTECHNICAL() {
+        boolean oldTECHNICAL = tECHNICAL;
+        boolean oldTECHNICALESet = tECHNICALESet;
+        tECHNICAL = TECHNICAL_EDEFAULT;
+        tECHNICALESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, TECHNICAL_EDEFAULT, oldTECHNICALESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetTECHNICAL() {
+        return tECHNICALESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isTSTATCATCHERSTATS() {
         return tSTATCATCHERSTATS;
     }
@@ -1142,6 +1218,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSTARTABLE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__STATUS:
                 return getSTATUS();
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                return isTECHNICAL() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 return isTSTATCATCHERSTATS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__VERSION:
@@ -1204,6 +1282,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__STATUS:
                 setSTATUS((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                setTECHNICAL(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 setTSTATCATCHERSTATS(((Boolean)newValue).booleanValue());
@@ -1271,6 +1352,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__STATUS:
                 setSTATUS(STATUS_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                unsetTECHNICAL();
+                return;
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 unsetTSTATCATCHERSTATS();
                 return;
@@ -1322,6 +1406,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetSTARTABLE();
             case ComponentPackage.HEADER_TYPE__STATUS:
                 return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                return isSetTECHNICAL();
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 return isSetTSTATCATCHERSTATS();
             case ComponentPackage.HEADER_TYPE__VERSION:
@@ -1370,6 +1456,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
         result.append(", sTATUS: ");
         result.append(sTATUS);
+        result.append(", tECHNICAL: ");
+        if (tECHNICALESet) result.append(tECHNICAL); else result.append("<unset>");
         result.append(", tSTATCATCHERSTATS: ");
         if (tSTATCATCHERSTATSESet) result.append(tSTATCATCHERSTATS); else result.append("<unset>");
         result.append(", vERSION: ");

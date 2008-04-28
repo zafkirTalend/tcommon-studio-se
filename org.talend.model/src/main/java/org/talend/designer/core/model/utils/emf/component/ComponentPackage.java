@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "Component"; //$NON-NLS-1$
+    String eNS_PREFIX = "component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.
@@ -918,13 +918,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__STATUS = 14;
 
     /**
+     * The feature id for the '<em><b>TECHNICAL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__TECHNICAL = 15;
+
+    /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 15;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 16;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -933,7 +942,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 16;
+    int HEADER_TYPE__VERSION = 17;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -942,7 +951,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 17;
+    int HEADER_TYPE__VISIBLE = 18;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -951,7 +960,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 18;
+    int HEADER_TYPE_FEATURE_COUNT = 19;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2849,6 +2858,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_STATUS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>TECHNICAL</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_TECHNICAL();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4557,6 +4577,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__STATUS = eINSTANCE.getHEADERType_STATUS();
+
+        /**
+         * The meta object literal for the '<em><b>TECHNICAL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__TECHNICAL = eINSTANCE.getHEADERType_TECHNICAL();
 
         /**
          * The meta object literal for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute feature.

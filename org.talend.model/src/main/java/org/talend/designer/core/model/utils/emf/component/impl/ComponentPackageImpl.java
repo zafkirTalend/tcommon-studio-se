@@ -1086,7 +1086,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_TSTATCATCHERSTATS() {
+    public EAttribute getHEADERType_TECHNICAL() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(15);
     }
 
@@ -1095,7 +1095,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VERSION() {
+    public EAttribute getHEADERType_TSTATCATCHERSTATS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(16);
     }
 
@@ -1104,8 +1104,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VISIBLE() {
+    public EAttribute getHEADERType_VERSION() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(17);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_VISIBLE() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -2031,6 +2040,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__SERIAL);
         createEAttribute(headerTypeEClass, HEADER_TYPE__STARTABLE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__STATUS);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__TECHNICAL);
         createEAttribute(headerTypeEClass, HEADER_TYPE__TSTATCATCHERSTATS);
         createEAttribute(headerTypeEClass, HEADER_TYPE__VERSION);
         createEAttribute(headerTypeEClass, HEADER_TYPE__VISIBLE);
@@ -2266,6 +2276,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_SERIAL(), theXMLTypePackage.getString(), "sERIAL", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_STARTABLE(), theXMLTypePackage.getBoolean(), "sTARTABLE", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_STATUS(), theXMLTypePackage.getString(), "sTATUS", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_TECHNICAL(), theXMLTypePackage.getBoolean(), "tECHNICAL", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_TSTATCATCHERSTATS(), theXMLTypePackage.getBoolean(), "tSTATCATCHERSTATS", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_VERSION(), theXMLTypePackage.getDecimal(), "vERSION", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_VISIBLE(), theXMLTypePackage.getBoolean(), "vISIBLE", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3054,6 +3065,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "STATUS",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getHEADERType_TECHNICAL(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TECHNICAL",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
