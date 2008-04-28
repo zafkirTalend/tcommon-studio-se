@@ -49,7 +49,6 @@ import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.helper.SwitchHelpers;
-import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
@@ -412,14 +411,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         ReturnCode saved = AnaResourceFileHelper.getInstance().save(analysisHandler.getAnalysis());
         if (saved.isOk()) {
             for (TdDataProvider provider : providerList) {
-                 TaggedValueHelper.setTaggedValue(provider, analysisHandler.getName() + PluginConstant.ANA_TAG_SUFFIX,
-                 PluginConstant.EMPTY_STRING);
-//                TypedReturnCode<Dependency> dependencyCreated = DependenciesHandler.getInstance().createUsageDependencyOn(
-//                        analysisHandler.getAnalysis(), provider);
-//                if (!dependencyCreated.isOk()) {
-//                    throw new DataprofilerCoreException("Problem creating dependency for analysis: "
-//                            + analysisHandler.getAnalysis().getName() + ": " + saved.getMessage());
-//                }
                 NeedSaveDataProviderHelper.register(provider.getName(), provider);
             }
             NeedSaveDataProviderHelper.saveAllDataProvider();

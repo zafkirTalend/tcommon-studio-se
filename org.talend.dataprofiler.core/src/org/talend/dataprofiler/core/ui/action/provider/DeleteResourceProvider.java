@@ -30,10 +30,7 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
-import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
 import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.helpers.ReportHelper;
-import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -91,38 +88,27 @@ public class DeleteResourceProvider extends CommonActionProvider {
                 for (Dependency dependency : supplierDependencies) {
                     EList<ModelElement> clients = dependency.getClient();
                     for (ModelElement modelElement : clients) {
+                        if (impactNames.contains(modelElement.getName())) {
+                            continue;
+                        }
                         impactNames.add(modelElement.getName());
                     }
                 }
-                // for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
-                // Dependency dependencyBetween =
-                // DependenciesHandler.getInstance().getDependencyBetween(entity.getAnalysis(),
-                // provider);
-                // if (dependencyBetween != null) {
-                // impactNames.add(entity.getAnalysisName());
-                // }
-                // }
-                // for (AnalysisEntity entity : AnaResourceFileHelper.getInstance().getAllAnalysis()) {
-                // EList<TaggedValue> taggedValues = returnValue.getObject().getTaggedValue();
-                // TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(entity.getAnalysisName()
-                // + PluginConstant.ANA_TAG_SUFFIX, taggedValues);
-                // if (taggedValue != null) {
-                // impactNames.add(entity.getAnalysisName());
-                // }
-                // }
                 if (impactNames.size() != 0) {
                     MessageDialog.openWarning(null, "Impacted  analyses", "The following analyses will be unusable!\n"
                             + impactNames);
                 }
                 PrvResourceFileHelper.getInstance().clear();
             } else if (selectedFile.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                for (TdReport report : RepResourceFileHelper.getInstance().getAllReports()) {
-                    String analysisName = selectedFile.getName();
-                    List<Analysis> analyses = ReportHelper.getAnalyses(report);
-                    for (Analysis analysis : analyses) {
-                        if (analysisName.equals(analysis.getName() + PluginConstant.ANA_SUFFIX)) {
-                            impactNames.add(report.getName());
+                Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
+                EList<Dependency> clientDependency = findAnalysis.getSupplierDependency();
+                for (Dependency dependency : clientDependency) {
+                    EList<ModelElement> clients = dependency.getClient();
+                    for (ModelElement modelElement : clients) {
+                        if (impactNames.contains(modelElement.getName()) || modelElement.getName() == null) {
+                            continue;
                         }
+                        impactNames.add(modelElement.getName());
                     }
                 }
                 if (impactNames.size() != 0) {
