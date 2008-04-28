@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.pref.PreferenceConstant;
 
 import orgomg.cwm.foundation.businessinformation.Description;
 
@@ -39,7 +40,7 @@ public class EMFObjFilter extends ViewerFilter {
         if ((element instanceof Description) || (element instanceof TdDataProvider)) {
             return false;
         }
-        if ((!CorePlugin.getDefault().getPreferenceStore().getDefaultBoolean(PluginConstant.REPORTINGENABLE))
+        if ((!CorePlugin.getDefault().getPreferenceStore().getBoolean(PreferenceConstant.REPORTINGENABLE))
                 && (element instanceof IFolder)) {
             IPath projectRelativePath = ((IFolder) element).getFullPath();
             if (projectRelativePath.toString().equals(PluginConstant.REPORT_FOLDER_PATH)) {

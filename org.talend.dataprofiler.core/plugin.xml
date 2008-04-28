@@ -245,5 +245,13 @@
             id="org.talend.dataprofiler.core.ui.editor.DocumentEditorInput">
       </factory>
    </extension>
+   
+      <extension point="org.eclipse.ui.preferencePages">
+       <page 
+         name="Dataprofiler"
+         class="org.talend.dataprofiler.core.ui.pref.DataprofilerSettingPage"
+         id="org.talend.dataprofiler.core.ui.pref.DataprofilerSettingPage">
+       </page>     
+   </extension>
 
 </plugin>

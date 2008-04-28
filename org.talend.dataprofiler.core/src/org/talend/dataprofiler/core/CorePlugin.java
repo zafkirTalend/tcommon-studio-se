@@ -14,8 +14,11 @@ package org.talend.dataprofiler.core;
 
 import java.io.File;
 
+import org.apache.log4j.Level;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RefreshAction;
@@ -54,7 +57,6 @@ public class CorePlugin extends AbstractUIPlugin {
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
-        getPreferenceStore().setValue(PluginConstant.REPORTINGENABLE, false);
     }
 
     /*
@@ -118,6 +120,29 @@ public class CorePlugin extends AbstractUIPlugin {
             ExceptionHandler.process(e);
             return null;
         }
+    }
+
+    /**
+     * Get viewPart with special partId. If the active page doesn't exsit, the method will return null; Else, it will
+     * get the viewPart and focus it. if the viewPart closed, it will be opened.
+     * 
+     * @param viewId the identifier of viewPart
+     * @return
+     */
+    public IViewPart findView(String viewId) {
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (page == null) {
+            return null;
+        }
+        IViewPart part = page.findView(viewId);
+        if (part == null) {
+            try {
+                part = page.showView(viewId);
+            } catch (Exception e) {
+                ExceptionHandler.process(e, Level.ERROR);
+            }
+        }
+        return part;
     }
 
     public void refreshWorkSpace() {
