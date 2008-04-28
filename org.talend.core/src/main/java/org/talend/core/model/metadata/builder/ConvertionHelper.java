@@ -55,6 +55,7 @@ public final class ConvertionHelper {
         result.setSqlSyntax(connection.getSqlSynthax());
         result.setStringQuote(connection.getStringQuote());
         result.setUrl(connection.getURL());
+        result.setAdditionalParams(connection.getAdditionalParams());
         result.setUsername(connection.getUsername());
         result.setMapping(connection.getDbmsId());
         result.setProduct(connection.getProductId());

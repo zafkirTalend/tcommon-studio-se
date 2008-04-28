@@ -64,6 +64,8 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
 
     private String dbRootPath;
 
+    private String additionalParams;
+
     /*
      * (non-Javadoc)
      * 
@@ -395,6 +397,24 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
      */
     public void setDbRootPath(String dbRootPath) {
         this.dbRootPath = dbRootPath;
+    }
+
+    /**
+     * Getter for additionalParams.
+     * 
+     * @return the additionalParams
+     */
+    public String getAdditionalParams() {
+        return this.additionalParams;
+    }
+
+    /**
+     * Sets the additionalParams.
+     * 
+     * @param additionalParams the additionalParams to set
+     */
+    public void setAdditionalParams(String additionalParams) {
+        this.additionalParams = additionalParams;
     }
 
 }

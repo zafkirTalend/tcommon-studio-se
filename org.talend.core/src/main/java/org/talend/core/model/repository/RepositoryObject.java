@@ -327,6 +327,7 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
                 conn.setVersion(connection.getVersion());
                 conn.setDbmsId(connection.getDbmsId());
                 conn.setProductId(connection.getProductId());
+                conn.setAdditionalParams(connection.getAdditionalParams());
                 final QueriesConnection queries = connection.getQueries();
                 QueriesConnection newQ = null;
                 if (queries != null) {

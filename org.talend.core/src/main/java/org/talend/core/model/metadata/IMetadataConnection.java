@@ -93,4 +93,8 @@ public interface IMetadataConnection extends IMetadata {
     public String getDbRootPath();
 
     public void setDbRootPath(String dbRootPath);
+
+    public String getAdditionalParams();
+
+    public void setAdditionalParams(String additionalParams);
 }
