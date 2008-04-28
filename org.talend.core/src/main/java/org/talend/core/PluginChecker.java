@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.core;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.Bundle;
@@ -32,6 +29,8 @@ public class PluginChecker {
     private static final String JOBLET_PLUGIN_ID = "org.talend.designer.joblet";
 
     private static final String WSDL_PLUGIN_ID = "org.talend.wsdl.advancement";
+
+    private static final String CDC_PLUGIN_ID = "org.talend.designer.cdc";
 
     /**
      * Check if specific plug-in is loaded.
@@ -82,4 +81,12 @@ public class PluginChecker {
         return isPluginLoaded(JOBLET_PLUGIN_ID);
     }
 
+    /**
+     * DOC qzhang Comment method "containJoblet".
+     * 
+     * @return
+     */
+    public static boolean isCDCPluginLoaded() {
+        return Platform.getBundle(CDC_PLUGIN_ID) != null;
+    }
 }
