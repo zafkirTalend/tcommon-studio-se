@@ -146,8 +146,7 @@ public class ImportItemUtil {
 
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
-                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
-                        .getVersion()) < 0) {
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
                 } else {
                     logError(new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist."));
@@ -157,8 +156,7 @@ public class ImportItemUtil {
                 newItem = lastVersion.getProperty().getItem();
 
                 Context ctx = CorePlugin.getContext();
-                RepositoryContext repositoryContext = (RepositoryContext) ctx
-                        .getProperty(Context.REPOSITORY_CONTEXT_KEY);
+                RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
                 for (String taskId : itemRecord.getMigrationTasksToApply()) {
                     IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
                     if (task == null) {
@@ -166,8 +164,8 @@ public class ImportItemUtil {
                     } else {
                         ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
                         if (executionResult == ExecutionResult.FAILURE) {
-                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task "
-                                    + task.getName() + " failed)");
+                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
+                                    + " failed)");
                             // TODO smallet add a warning/error to the job using model
                         }
                     }
@@ -253,9 +251,8 @@ public class ImportItemUtil {
                     checkProject = true;
                 }
             } else {
-                itemRecord.addError(Messages.getString(
-                        "RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
-                                .getLanguage()));
+                itemRecord.addError(Messages.getString("RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
+                        .getLanguage()));
             }
         } else {
             itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
@@ -264,18 +261,27 @@ public class ImportItemUtil {
         return checkProject;
     }
 
+    private List<String> getOptionnalMigrationTasks() {
+        List<String> toReturn = new ArrayList<String>();
+
+        toReturn.add("org.talend.repository.documentation.migrationtask.generatejobdocmigrationtask");
+
+        return toReturn;
+    }
+
     @SuppressWarnings("unchecked")
     private boolean checkMigrationTasks(Project project, ItemRecord itemRecord, Project currentProject) {
         List<String> itemMigrationTasks = new ArrayList(project.getMigrationTasks());
         List<String> projectMigrationTasks = new ArrayList(currentProject.getMigrationTasks());
+
+        itemMigrationTasks.removeAll(getOptionnalMigrationTasks());
 
         // 1. Check if all the migration tasks of the items are done in the project:
         // if not, the item use a more recent version of TOS: impossible to import (forward compatibility)
         if (!projectMigrationTasks.containsAll(itemMigrationTasks)) {
             itemMigrationTasks.removeAll(projectMigrationTasks);
 
-            String message = "Cannot import item " + itemRecord.getItemName() + " -> unknow task(s) "
-                    + itemMigrationTasks;
+            String message = "Cannot import item " + itemRecord.getItemName() + " -> unknow task(s) " + itemMigrationTasks;
             itemRecord.addError(message);
             log.info(message);
 
@@ -334,8 +340,7 @@ public class ImportItemUtil {
             stream = manager.getStream(path);
             Resource resource = createResource(resourceSet, path, false);
             resource.load(stream, null);
-            return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
-                    .getProperty());
+            return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
         } catch (IOException e) {
             // ignore
         } finally {
@@ -389,8 +394,7 @@ public class ImportItemUtil {
             stream = manager.getStream(path);
             Resource resource = createResource(resourceSet, path, false);
             resource.load(stream, null);
-            return (Project) EcoreUtil
-                    .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
+            return (Project) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
         } catch (IOException e) {
             // ignore
         } finally {
@@ -405,8 +409,7 @@ public class ImportItemUtil {
         return null;
     }
 
-    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource)
-            throws FileNotFoundException {
+    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource) throws FileNotFoundException {
         Resource resource;
         if (byteArrayResource) {
             resource = new ByteArrayResource(getURI(path));
