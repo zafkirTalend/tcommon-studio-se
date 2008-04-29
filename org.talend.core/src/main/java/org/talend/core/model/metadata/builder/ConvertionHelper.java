@@ -15,6 +15,7 @@ package org.talend.core.model.metadata.builder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -34,9 +35,18 @@ public final class ConvertionHelper {
      * @param connection
      * @return
      */
-    public static IMetadataConnection convert(DatabaseConnection connection) {
-        if (connection == null) {
+    public static IMetadataConnection convert(DatabaseConnection sourceConnection) {
+        if (sourceConnection == null) {
             return null;
+        }
+        // if sourceConnection is not context mode, will be same as before.
+        DatabaseConnection connection = null;
+        DatabaseConnection originalValueConnection = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(
+                sourceConnection);
+        if (originalValueConnection == null) {
+            connection = sourceConnection;
+        } else {
+            connection = originalValueConnection;
         }
         IMetadataConnection result = new org.talend.core.model.metadata.MetadataConnection();
         result.setDescription(connection.getComment());

@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -198,8 +199,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
                 return ERepositoryObjectType.METADATA_CONNECTIONS;
             }
-            
-            /* (non-Javadoc)
+
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.talend.core.model.properties.util.PropertiesSwitch#caseSQLPatternItem(org.talend.core.model.properties.SQLPatternItem)
              */
             @Override
@@ -302,32 +305,9 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
                 newItem.setState(state);
 
                 final DatabaseConnection connection = (DatabaseConnection) item.getConnection();
-                DatabaseConnection conn = ConnectionFactory.eINSTANCE.createDatabaseConnection();
-                conn.setProperties(connection.getProperties());
-                conn.setDatabaseType(connection.getDatabaseType());
-                conn.setUsername(connection.getUsername());
-                conn.setPort(connection.getPort());
-                conn.setPassword(connection.getPassword());
-                conn.setSID(connection.getSID());
-                conn.setLabel(connection.getLabel());
-                conn.setDatasourceName(connection.getDatasourceName());
-                conn.setSchema(connection.getSchema());
-                conn.setURL(connection.getURL());
-                conn.setDriverClass(connection.getDriverClass());
-                conn.setComment(connection.getComment());
-                conn.setDivergency(connection.isDivergency());
-                conn.setFileFieldName(connection.getFileFieldName());
-                conn.setId(connection.getId());
-                conn.setNullChar(connection.getNullChar());
-                // conn.setReadOnly(connection.isReadOnly());
-                conn.setServerName(connection.getServerName());
-                conn.setSqlSynthax(connection.getSqlSynthax());
-                conn.setStringQuote(connection.getStringQuote());
-                conn.setSynchronised(connection.isSynchronised());
-                conn.setVersion(connection.getVersion());
-                conn.setDbmsId(connection.getDbmsId());
-                conn.setProductId(connection.getProductId());
-                conn.setAdditionalParams(connection.getAdditionalParams());
+
+                DatabaseConnection conn = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(connection);
+
                 final QueriesConnection queries = connection.getQueries();
                 QueriesConnection newQ = null;
                 if (queries != null) {

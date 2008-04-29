@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.IRepositoryChangedListener;
@@ -83,4 +84,6 @@ public interface IRepositoryService extends IService {
     public boolean isFromRecycleBin(RepositoryNode node);
 
     public void openMetadataConnection(IRepositoryObject o);
+
+    public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn);
 }
