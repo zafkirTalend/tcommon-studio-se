@@ -16,14 +16,19 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.io.FilesUtils;
 
 /***/
 public abstract class AbstractComponentsProvider {
+
+    private static Logger logger = Logger.getLogger(AbstractComponentsProvider.class);
 
     private String id;
 
@@ -47,8 +52,29 @@ public abstract class AbstractComponentsProvider {
     }
 
     public void preComponentsLoad() throws IOException {
+        File installationFolder = getInstallationFolder();
 
+        // clean folder
+        if (installationFolder.exists()) {
+            FilesUtils.removeFolder(installationFolder, true);
+        }
+        FilesUtils.createFoldersIfNotExists(installationFolder.getAbsolutePath(), false);
+
+        File externalComponentsLocation = getExternalComponentsLocation();
+        if (externalComponentsLocation != null) {
+            if (externalComponentsLocation.exists()) {
+                try {
+                    FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
+                }
+            } else {
+                logger.warn("Folder " + externalComponentsLocation.toString() + " does not exist.");
+            }
+        }
     }
+
+    protected abstract File getExternalComponentsLocation();
 
     public File getInstallationFolder() throws IOException {
         Bundle b = Platform.getBundle(IComponentsFactory.COMPONENTS_LOCATION);
