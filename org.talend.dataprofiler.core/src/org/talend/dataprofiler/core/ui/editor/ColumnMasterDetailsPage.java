@@ -14,6 +14,8 @@ package org.talend.dataprofiler.core.ui.editor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,14 +25,19 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
@@ -51,7 +58,6 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -62,6 +68,7 @@ import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorChartFactory;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dq.analysis.ColumnAnalysisHandler;
@@ -260,29 +267,39 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         }
     }
 
-    private void createPreviewSection(final ScrolledForm form, FormToolkit toolkit, Composite parent) {
+    private void createPreviewSection(final ScrolledForm form, final FormToolkit toolkit, Composite parent) {
 
         Section section = createSection(form, toolkit, parent, "Preview", false, "");
 
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout());
         sectionClient.setLayoutData(new GridData(GridData.FILL_BOTH));
+        
+        Hyperlink refreshBtn = toolkit.createHyperlink(sectionClient, "Refresh the preview", SWT.NONE);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(sectionClient);
+        refreshBtn.addHyperlinkListener(new HyperlinkAdapter() {
+
+            public void linkActivated(HyperlinkEvent e) {
+               //
+            }
+
+        });
 
         ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
 
-        for (ColumnIndicator column : columnIndicator) {
+        for (final ColumnIndicator column : columnIndicator) {
 
-            ExpandableComposite oneComp = toolkit.createExpandableComposite(sectionClient, ExpandableComposite.TREE_NODE
+            ExpandableComposite exComp = toolkit.createExpandableComposite(sectionClient, ExpandableComposite.TREE_NODE
                     | ExpandableComposite.CLIENT_INDENT);
 
-            oneComp.setText("Column: " + column.getTdColumn().getName());
-            oneComp.setLayoutData(new GridData(GridData.FILL_BOTH));
-            oneComp.setLayout(new GridLayout());
-            final ImageHyperlink image = toolkit.createImageHyperlink(oneComp, SWT.WRAP);
-            image.setImage(ImageLib.getImage(ImageLib.REFRESH_IMAGE));
-            oneComp.setClient(image);
-
-            oneComp.addExpansionListener(new ExpansionAdapter() {
+            exComp.setText("Column: " + column.getTdColumn().getName());
+            exComp.setLayout(new GridLayout());
+            final Composite comp = toolkit.createComposite(exComp);
+            comp.setLayout(new GridLayout());
+            comp.setLayoutData(new GridData(GridData.FILL_BOTH));
+            exComp.setClient(comp);
+            
+            exComp.addExpansionListener(new ExpansionAdapter() {
 
                 /*
                  * (non-Javadoc)
@@ -291,8 +308,28 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                  */
                 @Override
                 public void expansionStateChanged(ExpansionEvent e) {
+                    
+                    Display.getDefault().asyncExec(new Runnable() {
 
-                    form.reflow(true);
+                        public void run() {
+                            if (column.getIndicators().length != 0) {
+                                if (comp.getChildren() != null) {
+                                    for (Control control : comp.getChildren()) {
+                                        control.dispose();
+                                    }
+                                }
+                                for (File file : IndicatorChartFactory.createChart(column)) {
+                                   
+                                    ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
+                                    image.setImage(new Image(Display.getDefault(), file.getName()));
+                                    comp.layout();
+                                }
+                                
+                                form.reflow(true);                             
+                            }
+                        }
+                        
+                    });
                 }
 
             });

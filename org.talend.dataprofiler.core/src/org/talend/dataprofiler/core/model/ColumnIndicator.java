@@ -13,10 +13,14 @@
 package org.talend.dataprofiler.core.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
@@ -147,6 +151,24 @@ public class ColumnIndicator {
         }
         this.indicators = indicatorList.toArray(new Indicator[indicatorList.size()]);
         return this.indicators;
+    }
+    
+    public List<IndicatorTypeMapping> getIndicatorForMap() {
+        if (indicatorEnums == null) {
+            return Collections.emptyList();
+        }
+        
+        List<IndicatorTypeMapping> list = new ArrayList<IndicatorTypeMapping>();
+        
+        IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
+        Indicator indicator = null;
+        for (IndicatorEnum indicatorEnum : indicatorEnums) {
+            indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
+            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, indicator);
+            list.add(one);
+        }
+        
+        return list;
     }
 
     public void setIndicators(Indicator[] indicators) {
