@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataquality.indicators.definition:IndicatorsDefinitions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:dataquality.indicators.definition="http://dataquality.indicators.definition" xmi:id="_cb-g4BF2Ed2PKb6nEJEvhw" name="Talend's default indicators' definitions">
-  <indicatorDefinitions xmi:id="_ccFOkBF2Ed2PKb6nEJEvhw" name="Row Count" label="Row Count">
+  <indicatorDefinitions xmi:id="_ccFOkBF2Ed2PKb6nEJEvhw" name="Row Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Row Count">
     <taggedValue tag="Description" value="counts the number of rows"/>
     <taggedValue tag="Purpose" value="Evaluate the number of rows"/>
     <sqlGenericExpression xmi:id="_ccHDwBF2Ed2PKb6nEJEvhw" body="select count({0}) from {1}" language="SQL"/>
@@ -8,30 +8,108 @@
   <indicatorDefinitions xmi:id="_ccHDwRF2Ed2PKb6nEJEvhw" name="Total Row Count" label="Total Row Count">
     <sqlGenericExpression xmi:id="_ccHDwhF2Ed2PKb6nEJEvhw" body="select count(*) from {1}" language="SQL"/>
   </indicatorDefinitions>
-  <indicatorDefinitions xmi:id="_ccHq0BF2Ed2PKb6nEJEvhw" name="Distinct Count" label="Distinct Count"/>
-  <indicatorDefinitions xmi:id="_ccHq0RF2Ed2PKb6nEJEvhw" name="Unique Count" label="Unique Count"/>
-  <indicatorDefinitions xmi:id="_ccHq0hF2Ed2PKb6nEJEvhw" name="Duplicate Count" label="Duplicate Count"/>
-  <indicatorDefinitions xmi:id="_ccHq0xF2Ed2PKb6nEJEvhw" name="Blank Count" label="Blank Count"/>
-  <indicatorDefinitions xmi:id="_ccHq1BF2Ed2PKb6nEJEvhw" name="Minimal Length" label="Minimal Length"/>
-  <indicatorDefinitions xmi:id="_ccHq1RF2Ed2PKb6nEJEvhw" name="Maximal Length" label="Maximal Length"/>
-  <indicatorDefinitions xmi:id="_ccIR4BF2Ed2PKb6nEJEvhw" name="Average Length" label="Average Length"/>
-  <indicatorDefinitions xmi:id="_ccIR4RF2Ed2PKb6nEJEvhw" name="Mode" label="Mode"/>
-  <indicatorDefinitions xmi:id="_ccIR4hF2Ed2PKb6nEJEvhw" name="Frequency Table" label="Frequency Table"/>
-  <indicatorDefinitions xmi:id="_ccI48BF2Ed2PKb6nEJEvhw" name="Summary Statistics" label="Summary Statistics"/>
-  <indicatorDefinitions xmi:id="_ccI48RF2Ed2PKb6nEJEvhw" name="Mean" label="Mean"/>
-  <indicatorDefinitions xmi:id="_ccI48hF2Ed2PKb6nEJEvhw" name="Median" label="Median"/>
-  <indicatorDefinitions xmi:id="_ccI48xF2Ed2PKb6nEJEvhw" name="Inter Quartile Range" label="IQR"/>
-  <indicatorDefinitions xmi:id="_ccI49BF2Ed2PKb6nEJEvhw" name="Lower Quartile" label="Lower Quartile"/>
-  <indicatorDefinitions xmi:id="_ccI49RF2Ed2PKb6nEJEvhw" name="Upper Quartile" label="Upper Quartile"/>
-  <indicatorDefinitions xmi:id="_ccI49hF2Ed2PKb6nEJEvhw" name="Range" label="Range"/>
-  <indicatorDefinitions xmi:id="_ccJgABF2Ed2PKb6nEJEvhw" name="Minimum" label="Minimum"/>
-  <indicatorDefinitions xmi:id="_ccJgARF2Ed2PKb6nEJEvhw" name="Maximum" label="Maximum"/>
-  <indicatorDefinitions xmi:id="_ccJgAhF2Ed2PKb6nEJEvhw" name="Sum" label="Sum"/>
-  <categories xmi:id="_ccKHEBF2Ed2PKb6nEJEvhw" name="Simple Statistics" label="Simple Statistics"/>
-  <categories xmi:id="_ccKHERF2Ed2PKb6nEJEvhw" name="Text Statistics" label="Text Statistics"/>
-  <categories xmi:id="_ccKuIBF2Ed2PKb6nEJEvhw" name="Summary Statistics" label="Summary Statistics"/>
-  <categories xmi:id="_ccKuIRF2Ed2PKb6nEJEvhw" name="Advanced Statistics" label="Advanced Statistics"/>
-  <categories xmi:id="_ccKuIhF2Ed2PKb6nEJEvhw" name="Mode" label="Mode"/>
-  <categories xmi:id="_ccKuIxF2Ed2PKb6nEJEvhw" name="Frequency" label="Frequency"/>
-  <categories xmi:id="_ccKuJBF2Ed2PKb6nEJEvhw" name="Count" label="Count"/>
+  <indicatorDefinitions xmi:id="_ccHq0BF2Ed2PKb6nEJEvhw" name="Distinct Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Distinct Count">
+    <taggedValue tag="Description" value="counts the number of distinct instances"/>
+    <taggedValue tag="Purpose" value="evaluate the number of distinct data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHq0RF2Ed2PKb6nEJEvhw" name="Unique Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Unique Count">
+    <taggedValue tag="Description" value="counts the number of unique instances (i.e. instances that are not duplicated)"/>
+    <taggedValue tag="Purpose" value="evaluate the number of unique data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHq0hF2Ed2PKb6nEJEvhw" name="Duplicate Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Duplicate Count">
+    <taggedValue tag="Description" value="counts the number of duplicates. this number and the number of unique data equals the number of rows"/>
+    <taggedValue tag="Purpose" value="evaluate the number of duplicated data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHq0xF2Ed2PKb6nEJEvhw" name="Blank Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Blank Count">
+    <taggedValue tag="Description" value="counts the number of blank instances. A blank is a non null textual data that contains only white spaces (or nothing)"/>
+    <taggedValue tag="Purpose" value="evaluate the number of blank data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHq1BF2Ed2PKb6nEJEvhw" name="Minimal Length" categories="_ccKHERF2Ed2PKb6nEJEvhw" label="Minimal Length">
+    <taggedValue tag="Description" value="computes the minimal length of a text field. Parameters can be set to avoid counting blank data or null data."/>
+    <taggedValue tag="Purpose" value="evaluate the length of the smallest textual data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccHq1RF2Ed2PKb6nEJEvhw" name="Maximal Length" categories="_ccKHERF2Ed2PKb6nEJEvhw" label="Maximal Length">
+    <taggedValue tag="Description" value="computes the maximal length of a text field. Parameters can be set to avoid counting blank data or null data."/>
+    <taggedValue tag="Purpose" value="evaluate the length of the longest textual data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccIR4BF2Ed2PKb6nEJEvhw" name="Average Length" categories="_ccKHERF2Ed2PKb6nEJEvhw" label="Average Length">
+    <taggedValue tag="Description" value="computes the average length of the field. Parameters can be set to avoid counting blank data or null data."/>
+    <taggedValue tag="Purpose" value="evaluate the average length of the textual data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccIR4RF2Ed2PKb6nEJEvhw" name="Mode" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Mode">
+    <taggedValue tag="Description" value="computes the mode (most probable value). For numerical data or continuous data, bins can be set in the parameters of this indicator. It is different from the average and from the median. Generalization of it is an histogram. It is good for addressing categorical attributes."/>
+    <taggedValue tag="Purpose" value="evaluate the most frequent value"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccIR4hF2Ed2PKb6nEJEvhw" name="Frequency Table" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Frequency Table">
+    <taggedValue tag="Description" value="for each distinct instance, counts the number of instances."/>
+    <taggedValue tag="Purpose" value="evaluate the count of each distinct value"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI48BF2Ed2PKb6nEJEvhw" name="Summary Statistics" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Summary Statistics">
+    <taggedValue tag="Description" value="computes the average, the median and the extent of the data"/>
+    <taggedValue tag="Purpose" value="gives a simple overview of the distribution of the data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI48RF2Ed2PKb6nEJEvhw" name="Mean" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Mean">
+    <taggedValue tag="Description" value="computes the mean (average) of the instances"/>
+    <taggedValue tag="Purpose" value="evaluate the mean value of the data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI48hF2Ed2PKb6nEJEvhw" name="Median" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Median">
+    <taggedValue tag="Description" value="computes the median. The median is the value separating the higher half of a sample, a population, or a probability distribution, from the lower half. "/>
+    <taggedValue tag="Purpose" value="evaluate the median of the data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI48xF2Ed2PKb6nEJEvhw" name="Inter Quartile Range" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="IQR">
+    <taggedValue tag="Description" value="the number separating the higher half of a sample, a population, or a probability distribution, from the lower half. It gives the spread of the main half data and is more stable than the range."/>
+    <taggedValue tag="Purpose" value="measure the dispersion of the main half of the data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI49BF2Ed2PKb6nEJEvhw" name="Lower Quartile" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Lower Quartile">
+    <taggedValue tag="Description" value="Lower Quartile"/>
+    <taggedValue tag="Purpose" value="Evaluate the number of rows"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI49RF2Ed2PKb6nEJEvhw" name="Upper Quartile" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Upper Quartile">
+    <taggedValue tag="Description" value="counts the number of duplicates. this number and the number of unique data equals the number of rows"/>
+    <taggedValue tag="Purpose" value="Upper Quartile"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccI49hF2Ed2PKb6nEJEvhw" name="Range" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Range">
+    <taggedValue tag="Description" value="difference between max and min, gives the extent of the data"/>
+    <taggedValue tag="Purpose" value="measure the dispersion of data"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccJgABF2Ed2PKb6nEJEvhw" name="Minimum" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Minimum">
+    <taggedValue tag="Description" value="Minimum"/>
+    <taggedValue tag="Purpose" value="Minimum"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccJgARF2Ed2PKb6nEJEvhw" name="Maximum" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Maximum">
+    <taggedValue tag="Description" value="Maximum"/>
+    <taggedValue tag="Purpose" value="Maximum"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions xmi:id="_ccJgAhF2Ed2PKb6nEJEvhw" name="Sum" label="Sum">
+    <taggedValue tag="Description" value="Sum"/>
+    <taggedValue tag="Purpose" value="Sum"/>
+  </indicatorDefinitions>
+  <categories xmi:id="_ccKHEBF2Ed2PKb6nEJEvhw" name="Simple Statistics" label="Simple Statistics">
+    <taggedValue tag="Description" value="Simple Statistics"/>
+    <taggedValue tag="Purpose" value="Simple Statistics"/>
+  </categories>
+  <categories xmi:id="_ccKHERF2Ed2PKb6nEJEvhw" name="Text Statistics" label="Text Statistics">
+    <taggedValue tag="Description" value="Text Statistics"/>
+    <taggedValue tag="Purpose" value="Text Statistics"/>
+  </categories>
+  <categories xmi:id="_ccKuIBF2Ed2PKb6nEJEvhw" name="Summary Statistics" label="Summary Statistics">
+    <taggedValue tag="Description" value="Summary Statistics"/>
+    <taggedValue tag="Purpose" value="Summary Statistics"/>
+  </categories>
+  <categories xmi:id="_ccKuIRF2Ed2PKb6nEJEvhw" name="Advanced Statistics" label="Advanced Statistics">
+    <taggedValue tag="Description" value="Advanced Statistics"/>
+    <taggedValue tag="Purpose" value="Advanced Statistics"/>
+  </categories>
+  <categories xmi:id="_ccKuIhF2Ed2PKb6nEJEvhw" name="Mode" label="Mode">
+    <taggedValue tag="Description" value="Mode"/>
+    <taggedValue tag="Purpose" value="Mode"/>
+  </categories>
+  <categories xmi:id="_ccKuIxF2Ed2PKb6nEJEvhw" name="Frequency" label="Frequency">
+    <taggedValue tag="Description" value="Frequency"/>
+    <taggedValue tag="Purpose" value="Frequency"/>
+  </categories>
+  <categories xmi:id="_ccKuJBF2Ed2PKb6nEJEvhw" name="Count" label="Count">
+    <taggedValue tag="Description" value="Count"/>
+    <taggedValue tag="Purpose" value="Count"/>
+  </categories>
 </dataquality.indicators.definition:IndicatorsDefinitions>
