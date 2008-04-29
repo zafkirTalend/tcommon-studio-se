@@ -6,7 +6,9 @@
  */
 package org.talend.dataquality.indicators;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
+import orgomg.cwm.objectmodel.core.Expression;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.dataquality.domain.LiteralValue;
 
@@ -28,6 +30,7 @@ import orgomg.cwmx.analysis.informationreporting.ReportField;
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getAnalyzedElement <em>Analyzed Element</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getDataminingType <em>Datamining Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.Indicator#getIndicatorDefinition <em>Indicator Definition</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.Indicator#getInstantiatedExpressions <em>Instantiated Expressions</em>}</li>
  * </ul>
  * </p>
  *
@@ -222,6 +225,22 @@ public interface Indicator extends ModelElement {
     void setIndicatorDefinition(IndicatorDefinition value);
 
     /**
+     * Returns the value of the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Expression}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Instantiated Expressions</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Instantiated Expressions</em>' containment reference list.
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_InstantiatedExpressions()
+     * @model containment="true"
+     * @generated
+     */
+    EList<Expression> getInstantiatedExpressions();
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @model
@@ -274,5 +293,16 @@ public interface Indicator extends ModelElement {
      * @generated
      */
     boolean finalizeComputation();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Stores the given query and the associated results.
+     * <!-- end-model-doc -->
+     * @model objectsDataType="org.talend.dataquality.indicators.ObjectArray"
+     * @generated
+     */
+    boolean storeSqlResults(String query, Object[] objects);
 
 } // Indicator

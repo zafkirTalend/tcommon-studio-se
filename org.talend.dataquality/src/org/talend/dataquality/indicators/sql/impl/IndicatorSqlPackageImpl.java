@@ -296,15 +296,6 @@ public class IndicatorSqlPackageImpl extends EPackageImpl implements IndicatorSq
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getSqlIndicator_InstantiatedExpressions() {
-        return (EReference)sqlIndicatorEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public IndicatorSqlFactory getIndicatorSqlFactory() {
         return (IndicatorSqlFactory)getEFactoryInstance();
     }
@@ -331,7 +322,6 @@ public class IndicatorSqlPackageImpl extends EPackageImpl implements IndicatorSq
         sqlIndicatorEClass = createEClass(SQL_INDICATOR);
         createEAttribute(sqlIndicatorEClass, SQL_INDICATOR__CREATION_DATE);
         createEAttribute(sqlIndicatorEClass, SQL_INDICATOR__LAST_MODIFICATION_DATE);
-        createEReference(sqlIndicatorEClass, SQL_INDICATOR__INSTANTIATED_EXPRESSIONS);
     }
 
     /**
@@ -359,7 +349,6 @@ public class IndicatorSqlPackageImpl extends EPackageImpl implements IndicatorSq
 
         // Obtain other dependent packages
         IndicatorsPackage theIndicatorsPackage = (IndicatorsPackage)EPackage.Registry.INSTANCE.getEPackage(IndicatorsPackage.eNS_URI);
-        CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
 
         // Create type parameters
 
@@ -372,7 +361,6 @@ public class IndicatorSqlPackageImpl extends EPackageImpl implements IndicatorSq
         initEClass(sqlIndicatorEClass, SqlIndicator.class, "SqlIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSqlIndicator_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 0, 1, SqlIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSqlIndicator_LastModificationDate(), ecorePackage.getEDate(), "lastModificationDate", null, 0, 1, SqlIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSqlIndicator_InstantiatedExpressions(), theCorePackage.getExpression(), null, "instantiatedExpressions", null, 0, -1, SqlIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     }
 
 } //IndicatorSqlPackageImpl

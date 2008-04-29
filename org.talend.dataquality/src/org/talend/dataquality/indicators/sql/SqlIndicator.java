@@ -24,7 +24,6 @@ import orgomg.cwm.objectmodel.core.Expression;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.sql.SqlIndicator#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.sql.SqlIndicator#getLastModificationDate <em>Last Modification Date</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.sql.SqlIndicator#getInstantiatedExpressions <em>Instantiated Expressions</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,21 +83,5 @@ public interface SqlIndicator extends Indicator {
      * @generated
      */
     void setLastModificationDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Instantiated Expressions</b></em>' containment reference list.
-     * The list contents are of type {@link orgomg.cwm.objectmodel.core.Expression}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Instantiated Expressions</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Instantiated Expressions</em>' containment reference list.
-     * @see org.talend.dataquality.indicators.sql.IndicatorSqlPackage#getSqlIndicator_InstantiatedExpressions()
-     * @model containment="true"
-     * @generated
-     */
-    EList<Expression> getInstantiatedExpressions();
 
 } // SqlIndicator

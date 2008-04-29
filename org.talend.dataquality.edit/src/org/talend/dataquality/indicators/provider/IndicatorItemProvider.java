@@ -33,6 +33,8 @@ import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
+import orgomg.cwm.foundation.datatypes.DatatypesFactory;
+import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.provider.ModelElementItemProvider;
 
 /**
@@ -225,6 +227,7 @@ public class IndicatorItemProvider
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
             childrenFeatures.add(IndicatorsPackage.Literals.INDICATOR__PARAMETERS);
+            childrenFeatures.add(IndicatorsPackage.Literals.INDICATOR__INSTANTIATED_EXPRESSIONS);
         }
         return childrenFeatures;
     }
@@ -275,6 +278,7 @@ public class IndicatorItemProvider
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case IndicatorsPackage.INDICATOR__PARAMETERS:
+            case IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -296,6 +300,26 @@ public class IndicatorItemProvider
             (createChildParameter
                 (IndicatorsPackage.Literals.INDICATOR__PARAMETERS,
                  IndicatorsFactory.eINSTANCE.createIndicatorParameters()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.INDICATOR__INSTANTIATED_EXPRESSIONS,
+                 CoreFactory.eINSTANCE.createExpression()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.INDICATOR__INSTANTIATED_EXPRESSIONS,
+                 CoreFactory.eINSTANCE.createBooleanExpression()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.INDICATOR__INSTANTIATED_EXPRESSIONS,
+                 CoreFactory.eINSTANCE.createProcedureExpression()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.INDICATOR__INSTANTIATED_EXPRESSIONS,
+                 DatatypesFactory.eINSTANCE.createQueryExpression()));
     }
 
     /**

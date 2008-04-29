@@ -121,6 +121,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return createJavaHashMapFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_TREE_MAP:
                 return createJavaTreeMapFromString(eDataType, initialValue);
+            case IndicatorsPackage.OBJECT_ARRAY:
+                return createObjectArrayFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -150,6 +152,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return convertJavaHashMapToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_TREE_MAP:
                 return convertJavaTreeMapToString(eDataType, instanceValue);
+            case IndicatorsPackage.OBJECT_ARRAY:
+                return convertObjectArrayToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -579,6 +583,24 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * @generated
      */
     public String convertJavaTreeMapToString(EDataType eDataType, Object instanceValue) {
+        return super.convertToString(instanceValue);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Object[] createObjectArrayFromString(EDataType eDataType, String initialValue) {
+        return (Object[])super.createFromString(initialValue);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertObjectArrayToString(EDataType eDataType, Object instanceValue) {
         return super.convertToString(instanceValue);
     }
 

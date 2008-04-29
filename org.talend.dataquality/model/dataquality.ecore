@@ -121,6 +121,13 @@
           <details key="documentation" value="can be called after having given all objects to handle. Subclasses can use this method for doing some computation that must be done at the end only."/>
         </eAnnotations>
       </eOperations>
+      <eOperations name="storeSqlResults" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Stores the given query and the associated results."/>
+        </eAnnotations>
+        <eParameters name="query" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="objects" eType="#//indicators/ObjectArray"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -130,6 +137,9 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataminingType" eType="#//indicators/DataminingType"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorDefinition"
           eType="#//indicators/definition/IndicatorDefinition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="instantiatedExpressions"
+          upperBound="-1" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RowCountIndicator" eSuperTypes="#//indicators/Indicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MeanIndicator" eSuperTypes="#//indicators/SumIndicator">
@@ -308,14 +318,16 @@
           <details key="documentation" value="Returns the set of distinct values. (This set is larger than the Unique values set)."/>
         </eAnnotations>
       </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinctValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="UniqueCountIndicator" eSuperTypes="#//indicators/Indicator">
       <eOperations name="getUniqueValues" eType="#//indicators/JavaSet"/>
-      <eOperations name="getUniqueValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DuplicateCountIndicator" eSuperTypes="#//indicators/Indicator">
       <eOperations name="getDuplicateValues" eType="#//indicators/JavaSet"/>
-      <eOperations name="getDuplicateValueCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="duplicateValueCount"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IQRIndicator" eSuperTypes="#//indicators/RangeIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/Indicator"/>
@@ -350,6 +362,7 @@
       <eLiterals name="SOUNDEX" value="4" literal="Soundex"/>
       <eLiterals name="REFINED_SOUNDEX" value="5" literal="Refined Soundex"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EDataType" name="ObjectArray" instanceClassName="Object[]"/>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -402,9 +415,6 @@
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModificationDate"
             eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="instantiatedExpressions"
-            upperBound="-1" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"
-            containment="true"/>
       </eClassifiers>
     </eSubpackages>
   </eSubpackages>

@@ -14,6 +14,12 @@ import java.util.Set;
  * A representation of the model object '<em><b>Unique Count Indicator</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.dataquality.indicators.UniqueCountIndicator#getUniqueValueCount <em>Unique Value Count</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see org.talend.dataquality.indicators.IndicatorsPackage#getUniqueCountIndicator()
  * @model
@@ -30,10 +36,24 @@ public interface UniqueCountIndicator extends Indicator {
     Set<Object> getUniqueValues();
 
     /**
+     * Returns the value of the '<em><b>Unique Value Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @model kind="operation"
+     * @return the value of the '<em>Unique Value Count</em>' attribute.
+     * @see #setUniqueValueCount(int)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getUniqueCountIndicator_UniqueValueCount()
+     * @model
      * @generated
      */
     int getUniqueValueCount();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.UniqueCountIndicator#getUniqueValueCount <em>Unique Value Count</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Unique Value Count</em>' attribute.
+     * @see #getUniqueValueCount()
+     * @generated
+     */
+    void setUniqueValueCount(int value);
 } // UniqueCountIndicator

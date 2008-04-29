@@ -65,8 +65,31 @@ public class UniqueCountIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addUniqueValueCountPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Unique Value Count feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addUniqueValueCountPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_UniqueCountIndicator_uniqueValueCount_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_UniqueCountIndicator_uniqueValueCount_feature", "_UI_UniqueCountIndicator_type"),
+                 IndicatorsPackage.Literals.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
     }
 
     /**
@@ -104,6 +127,12 @@ public class UniqueCountIndicatorItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(UniqueCountIndicator.class)) {
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 

@@ -134,6 +134,7 @@
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaSet"/>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaHashMap"/>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaTreeMap"/>
+      <genDataTypes ecoreDataType="dataquality.ecore#//indicators/ObjectArray"/>
       <genClasses image="false" ecoreClass="dataquality.ecore#//indicators/Indicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/indicatorType"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/count"/>
@@ -144,6 +145,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/dataminingType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/indicatorDefinition"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/instantiatedExpressions"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/handle">
           <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/handle/data"/>
         </genOperations>
@@ -152,6 +154,10 @@
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getLongDescription"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/prepare"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/finalizeComputation"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/storeSqlResults">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/storeSqlResults/query"/>
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/storeSqlResults/objects"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RowCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MeanIndicator">
@@ -231,15 +237,16 @@
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/NullCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/DistinctCountIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/DistinctCountIndicator/distinctValueCount"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/DistinctCountIndicator/getDistinctValues"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/UniqueCountIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/UniqueCountIndicator/uniqueValueCount"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/UniqueCountIndicator/getUniqueValues"/>
-        <genOperations ecoreOperation="dataquality.ecore#//indicators/UniqueCountIndicator/getUniqueValueCount"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/DuplicateCountIndicator">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/DuplicateCountIndicator/duplicateValueCount"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/DuplicateCountIndicator/getDuplicateValues"/>
-        <genOperations ecoreOperation="dataquality.ecore#//indicators/DuplicateCountIndicator/getDuplicateValueCount"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IQRIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/TextIndicator"/>
@@ -304,7 +311,6 @@
         <genClasses ecoreClass="dataquality.ecore#//indicators/sql/SqlIndicator">
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/sql/SqlIndicator/creationDate"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/sql/SqlIndicator/lastModificationDate"/>
-          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/sql/SqlIndicator/instantiatedExpressions"/>
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>

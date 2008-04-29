@@ -306,6 +306,15 @@ public interface IndicatorSqlPackage extends EPackage {
     int SQL_INDICATOR__INDICATOR_DEFINITION = IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION;
 
     /**
+     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_INDICATOR__INSTANTIATED_EXPRESSIONS = IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS;
+
+    /**
      * The feature id for the '<em><b>Creation Date</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -324,22 +333,13 @@ public interface IndicatorSqlPackage extends EPackage {
     int SQL_INDICATOR__LAST_MODIFICATION_DATE = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SQL_INDICATOR__INSTANTIATED_EXPRESSIONS = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 2;
-
-    /**
      * The number of structural features of the '<em>Sql Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SQL_INDICATOR_FEATURE_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 3;
+    int SQL_INDICATOR_FEATURE_COUNT = IndicatorsPackage.INDICATOR_FEATURE_COUNT + 2;
 
 
     /**
@@ -373,17 +373,6 @@ public interface IndicatorSqlPackage extends EPackage {
      * @generated
      */
     EAttribute getSqlIndicator_LastModificationDate();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link org.talend.dataquality.indicators.sql.SqlIndicator#getInstantiatedExpressions <em>Instantiated Expressions</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Instantiated Expressions</em>'.
-     * @see org.talend.dataquality.indicators.sql.SqlIndicator#getInstantiatedExpressions()
-     * @see #getSqlIndicator()
-     * @generated
-     */
-    EReference getSqlIndicator_InstantiatedExpressions();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -432,14 +421,6 @@ public interface IndicatorSqlPackage extends EPackage {
          * @generated
          */
         EAttribute SQL_INDICATOR__LAST_MODIFICATION_DATE = eINSTANCE.getSqlIndicator_LastModificationDate();
-
-        /**
-         * The meta object literal for the '<em><b>Instantiated Expressions</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference SQL_INDICATOR__INSTANTIATED_EXPRESSIONS = eINSTANCE.getSqlIndicator_InstantiatedExpressions();
 
     }
 

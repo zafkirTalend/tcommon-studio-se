@@ -65,8 +65,31 @@ public class DistinctCountIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addDistinctValueCountPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Distinct Value Count feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDistinctValueCountPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_DistinctCountIndicator_distinctValueCount_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_DistinctCountIndicator_distinctValueCount_feature", "_UI_DistinctCountIndicator_type"),
+                 IndicatorsPackage.Literals.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
     }
 
     /**
@@ -104,6 +127,12 @@ public class DistinctCountIndicatorItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(DistinctCountIndicator.class)) {
+            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 

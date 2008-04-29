@@ -38,7 +38,6 @@ import orgomg.cwm.objectmodel.core.Expression;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.sql.impl.SqlIndicatorImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.sql.impl.SqlIndicatorImpl#getLastModificationDate <em>Last Modification Date</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.sql.impl.SqlIndicatorImpl#getInstantiatedExpressions <em>Instantiated Expressions</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,16 +83,6 @@ public class SqlIndicatorImpl extends IndicatorImpl implements SqlIndicator {
      * @ordered
      */
     protected Date lastModificationDate = LAST_MODIFICATION_DATE_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getInstantiatedExpressions() <em>Instantiated Expressions</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getInstantiatedExpressions()
-     * @generated
-     * @ordered
-     */
-    protected EList<Expression> instantiatedExpressions;
 
     /**
      * <!-- begin-user-doc -->
@@ -161,32 +150,6 @@ public class SqlIndicatorImpl extends IndicatorImpl implements SqlIndicator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Expression> getInstantiatedExpressions() {
-        if (instantiatedExpressions == null) {
-            instantiatedExpressions = new EObjectContainmentEList<Expression>(Expression.class, this, IndicatorSqlPackage.SQL_INDICATOR__INSTANTIATED_EXPRESSIONS);
-        }
-        return instantiatedExpressions;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case IndicatorSqlPackage.SQL_INDICATOR__INSTANTIATED_EXPRESSIONS:
-                return ((InternalEList<?>)getInstantiatedExpressions()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -194,8 +157,6 @@ public class SqlIndicatorImpl extends IndicatorImpl implements SqlIndicator {
                 return getCreationDate();
             case IndicatorSqlPackage.SQL_INDICATOR__LAST_MODIFICATION_DATE:
                 return getLastModificationDate();
-            case IndicatorSqlPackage.SQL_INDICATOR__INSTANTIATED_EXPRESSIONS:
-                return getInstantiatedExpressions();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -215,10 +176,6 @@ public class SqlIndicatorImpl extends IndicatorImpl implements SqlIndicator {
             case IndicatorSqlPackage.SQL_INDICATOR__LAST_MODIFICATION_DATE:
                 setLastModificationDate((Date)newValue);
                 return;
-            case IndicatorSqlPackage.SQL_INDICATOR__INSTANTIATED_EXPRESSIONS:
-                getInstantiatedExpressions().clear();
-                getInstantiatedExpressions().addAll((Collection<? extends Expression>)newValue);
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -237,9 +194,6 @@ public class SqlIndicatorImpl extends IndicatorImpl implements SqlIndicator {
             case IndicatorSqlPackage.SQL_INDICATOR__LAST_MODIFICATION_DATE:
                 setLastModificationDate(LAST_MODIFICATION_DATE_EDEFAULT);
                 return;
-            case IndicatorSqlPackage.SQL_INDICATOR__INSTANTIATED_EXPRESSIONS:
-                getInstantiatedExpressions().clear();
-                return;
         }
         super.eUnset(featureID);
     }
@@ -256,8 +210,6 @@ public class SqlIndicatorImpl extends IndicatorImpl implements SqlIndicator {
                 return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
             case IndicatorSqlPackage.SQL_INDICATOR__LAST_MODIFICATION_DATE:
                 return LAST_MODIFICATION_DATE_EDEFAULT == null ? lastModificationDate != null : !LAST_MODIFICATION_DATE_EDEFAULT.equals(lastModificationDate);
-            case IndicatorSqlPackage.SQL_INDICATOR__INSTANTIATED_EXPRESSIONS:
-                return instantiatedExpressions != null && !instantiatedExpressions.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -5,11 +5,15 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
@@ -20,6 +24,7 @@ import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorType;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
+import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
@@ -35,6 +40,7 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getAnalyzedElement <em>Analyzed Element</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getDataminingType <em>Datamining Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getIndicatorDefinition <em>Indicator Definition</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getInstantiatedExpressions <em>Instantiated Expressions</em>}</li>
  * </ul>
  * </p>
  *
@@ -141,6 +147,16 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @ordered
      */
     protected IndicatorDefinition indicatorDefinition;
+
+    /**
+     * The cached value of the '{@link #getInstantiatedExpressions() <em>Instantiated Expressions</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getInstantiatedExpressions()
+     * @generated
+     * @ordered
+     */
+    protected EList<Expression> instantiatedExpressions;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -387,6 +403,18 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<Expression> getInstantiatedExpressions() {
+        if (instantiatedExpressions == null) {
+            instantiatedExpressions = new EObjectContainmentEList<Expression>(Expression.class, this, IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS);
+        }
+        return instantiatedExpressions;
+    }
+
+    /**
      * <!-- begin-user-doc --> Increments counts for each given data. <!-- end-user-doc -->
      * 
      * @generated NOT
@@ -447,6 +475,17 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean storeSqlResults(String query, Object[] objects) {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -455,6 +494,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
         switch (featureID) {
             case IndicatorsPackage.INDICATOR__PARAMETERS:
                 return basicSetParameters(null, msgs);
+            case IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS:
+                return ((InternalEList<?>)getInstantiatedExpressions()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -483,6 +524,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
             case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
                 if (resolve) return getIndicatorDefinition();
                 return basicGetIndicatorDefinition();
+            case IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS:
+                return getInstantiatedExpressions();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -491,6 +534,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
@@ -514,6 +558,10 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
                 return;
             case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
                 setIndicatorDefinition((IndicatorDefinition)newValue);
+                return;
+            case IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS:
+                getInstantiatedExpressions().clear();
+                getInstantiatedExpressions().addAll((Collection<? extends Expression>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -547,6 +595,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
             case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
                 setIndicatorDefinition((IndicatorDefinition)null);
                 return;
+            case IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS:
+                getInstantiatedExpressions().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -572,6 +623,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
                 return dataminingType != DATAMINING_TYPE_EDEFAULT;
             case IndicatorsPackage.INDICATOR__INDICATOR_DEFINITION:
                 return indicatorDefinition != null;
+            case IndicatorsPackage.INDICATOR__INSTANTIATED_EXPRESSIONS:
+                return instantiatedExpressions != null && !instantiatedExpressions.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -65,8 +65,31 @@ public class DuplicateCountIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addDuplicateValueCountPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Duplicate Value Count feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDuplicateValueCountPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_DuplicateCountIndicator_duplicateValueCount_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_DuplicateCountIndicator_duplicateValueCount_feature", "_UI_DuplicateCountIndicator_type"),
+                 IndicatorsPackage.Literals.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
     }
 
     /**
@@ -104,6 +127,12 @@ public class DuplicateCountIndicatorItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(DuplicateCountIndicator.class)) {
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 

@@ -306,6 +306,15 @@ public interface SchemaPackage extends EPackage {
     int SCHEMA_INDICATOR__INDICATOR_DEFINITION = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
+     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCHEMA_INDICATOR__INSTANTIATED_EXPRESSIONS = IndicatorsPackage.COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
+
+    /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -623,6 +632,15 @@ public interface SchemaPackage extends EPackage {
     int TABLE_INDICATOR__INDICATOR_DEFINITION = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
+     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_INDICATOR__INSTANTIATED_EXPRESSIONS = IndicatorsPackage.COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
+
+    /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -892,6 +910,15 @@ public interface SchemaPackage extends EPackage {
      * @ordered
      */
     int CONNECTION_INDICATOR__INDICATOR_DEFINITION = SCHEMA_INDICATOR__INDICATOR_DEFINITION;
+
+    /**
+     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_INDICATOR__INSTANTIATED_EXPRESSIONS = SCHEMA_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
      * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
