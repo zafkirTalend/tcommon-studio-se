@@ -40,4 +40,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowStatusLine(false);
         configurer.setTitle("DataProfiler RCP Product");
     }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
+     */
+    @Override
+    public void postWindowOpen() {
+        
+        this.getWindowConfigurer().getWindow().getShell().setMaximized(true);
+        super.postWindowOpen();
+    }
+    
+    
 }
