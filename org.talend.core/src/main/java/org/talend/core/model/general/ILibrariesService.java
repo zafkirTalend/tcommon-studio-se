@@ -37,6 +37,8 @@ public interface ILibrariesService extends IService {
 
     public static final String SQLPATTERN_FILE_SUFFIX = ".sqlpattern";
 
+    public static final String TEMPLATE_SUFFIX = ".template";
+
     public List<URL> getSystemRoutines();
 
     public List<URL> getSystemSQLPatterns();
@@ -56,6 +58,8 @@ public interface ILibrariesService extends IService {
     public void undeployLibrary(String path) throws IOException;
 
     public URL getRoutineTemplate();
+
+    public URL getSqlPatternTemplate();
 
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException;
 

@@ -57,7 +57,7 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_ICON;
         case METADATA_CONNECTIONS:
             return ECoreImage.METADATA_CONNECTION_ICON;
-        case METADATA_SQLPATTERNS:
+        case SQLPATTERNS:
             return EImage.DEFAULT_IMAGE;
 //            return ECoreImage.METADATA_SQLPATTERN_ICON;
         case METADATA_CON_TABLE:

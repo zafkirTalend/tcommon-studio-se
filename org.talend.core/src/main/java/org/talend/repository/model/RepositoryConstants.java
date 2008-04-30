@@ -31,10 +31,12 @@ public class RepositoryConstants {
     public static final String IMG_DIRECTORY_OF_JOBLET_OUTLINE = "images/joblet_outlines"; //$NON-NLS-1$
 
     public static final String JOB_DOCUMENTATION_PATH = "documentations/generated/jobs";
-    
+
     public static final String JOBLET_DOCUMENTATION_PATH = "documentations/generated/joblets";
 
     public static final String SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
+
+    public static final String USER_DEFINED = "UserDefined"; //$NON-NLS-1$
 
     public static final String CONTEXT_AND_VARIABLE_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 

@@ -27,7 +27,10 @@ import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNode.ENodeType;
+import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -276,5 +279,25 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
         }
         return null;
+    }
+
+    /**
+     * yzhang Comment method "isUnderUserDefined".
+     * 
+     * @param node
+     * @return
+     */
+    protected boolean isUnderUserDefined(RepositoryNode node) {
+        if (node.getType() == ENodeType.SYSTEM_FOLDER) {
+            return false;
+        }
+        Object obj = node.getProperties(EProperties.LABEL);
+        if (obj instanceof String) {
+            if (((String) obj).equals(RepositoryConstants.USER_DEFINED)) {
+                return true;
+            }
+        }
+
+        return isUnderUserDefined(node.getParent());
     }
 }

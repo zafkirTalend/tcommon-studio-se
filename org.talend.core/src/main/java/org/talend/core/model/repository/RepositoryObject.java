@@ -207,7 +207,7 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
              */
             @Override
             public Object caseSQLPatternItem(SQLPatternItem object) {
-                return ERepositoryObjectType.METADATA_SQLPATTERNS;
+                return ERepositoryObjectType.SQLPATTERNS;
             }
 
             public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
