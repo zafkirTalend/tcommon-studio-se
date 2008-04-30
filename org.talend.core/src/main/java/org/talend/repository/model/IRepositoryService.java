@@ -18,11 +18,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
@@ -86,4 +88,8 @@ public interface IRepositoryService extends IService {
     public void openMetadataConnection(IRepositoryObject o);
 
     public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn);
+
+    public IEditorPart openSQLPatternEditor(SQLPatternItem item, boolean readOnly);
+
+    public void createSqlpattern(String path, boolean isFromSqlPatternComposite);
 }
