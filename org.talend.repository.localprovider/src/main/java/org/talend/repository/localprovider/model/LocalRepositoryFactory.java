@@ -94,8 +94,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -308,7 +308,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.BUSINESS_PROCESS);
         needsBinFolder.add(ERepositoryObjectType.DOCUMENTATION);
         needsBinFolder.add(ERepositoryObjectType.METADATA_CONNECTIONS);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_SQLPATTERNS);
+        needsBinFolder.add(ERepositoryObjectType.SQLPATTERNS);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
@@ -389,20 +389,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         createSystemRoutines();
     }
-    
+
     public void synchronizeSqlpatterns(IProject prj) throws PersistenceException {
         if (prj == null) {
             Project project = getRepositoryContext().getProject();
             prj = ResourceModelUtils.getProject(project);
         }
-        
+
         // Purge old sqlpatterns :
         // 1. old built-in:
-//        IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_SQLPATTERNS)
-//                + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
-//        ResourceUtils.deleteResource(f1);
-        
-        createSystemSQLPatterns();;
+        // IFolder f1 = ResourceUtils.getFolder(prj,
+        // ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_SQLPATTERNS)
+        // + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
+        // ResourceUtils.deleteResource(f1);
+
+        createSystemSQLPatterns();
+        ;
     }
 
     /**
@@ -585,7 +587,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
-        ResourceUtils.createFolder(folder);
+        if (!folder.exists()) {
+            ResourceUtils.createFolder(folder);
+        }
 
         return new Folder(folderItem.getProperty(), type);
     }
@@ -1246,7 +1250,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.ROUTINES);
                 break;
             case PropertiesPackage.SQL_PATTERN_ITEM:
-                itemResource = create((FileItem) item, path, ERepositoryObjectType.METADATA_SQLPATTERNS);
+                itemResource = create((FileItem) item, path, ERepositoryObjectType.SQLPATTERNS);
                 break;
             case PropertiesPackage.PROCESS_ITEM:
                 itemResource = create((ProcessItem) item, path);
