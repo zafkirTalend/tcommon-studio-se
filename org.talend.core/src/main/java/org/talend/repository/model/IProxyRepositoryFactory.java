@@ -18,7 +18,6 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -90,6 +89,8 @@ public interface IProxyRepositoryFactory {
      */
     public abstract Project createProject(String label, String description, ECodeLanguage language, User author)
             throws PersistenceException;
+
+    public abstract void saveProject(Project project) throws PersistenceException;
 
     /**
      * @param project
@@ -195,7 +196,9 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.core.model.repository.factories.IRoutineFactory#getRoutine(org.talend.core.model.general.Project)
      */
     public abstract RootContainer<String, IRepositoryObject> getRoutine() throws PersistenceException;
-    public abstract RootContainer<String, IRepositoryObject>  getMetadataSQLPattern() throws PersistenceException;
+
+    public abstract RootContainer<String, IRepositoryObject> getMetadataSQLPattern() throws PersistenceException;
+
     public abstract RootContainer<String, IRepositoryObject> getSnippets() throws PersistenceException;
 
     /**
@@ -462,5 +465,5 @@ public interface IProxyRepositoryFactory {
     public void createParentFoldersRecursively(ERepositoryObjectType itemType, IPath path) throws PersistenceException;
 
     public void forceDeleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
-    
+
 }
