@@ -132,7 +132,8 @@ public final class ElementParameterParser {
         List<IElementParameter> params = (List<IElementParameter>) element.getElementParametersWithChildrens();
         for (int i = 0; i < params.size(); i++) {
             param = params.get(i);
-            if (text.indexOf(param.getVariableName()) != -1) {
+            if (text.indexOf(param.getVariableName()) != -1
+                    || (param.getVariableName() != null && param.getVariableName().contains(text))) {
                 if (param.getField() == EParameterFieldType.TABLE) {
                     return createTableValues((List<Map<String, Object>>) param.getValue(), param);
                 }
