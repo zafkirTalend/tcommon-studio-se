@@ -340,9 +340,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         String technicalLabel = Project.createTechnicalName(label);
         IProject prj = root.getProject(technicalLabel);
-        Project project = new Project();
-        Resource projectResource = xmiResourceManager.createProjectResource(prj);
-        projectResource.getContents().add(project.getEmfProject());
 
         final IWorkspace workspace = ResourcesPlugin.getWorkspace();
         final IProjectDescription desc = workspace.newProjectDescription(label);
@@ -356,6 +353,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new PersistenceException(e);
         }
 
+        Project project = new Project();
         // Fill project object
         project.setLabel(label);
         project.setDescription(description);
@@ -364,10 +362,29 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         project.setLocal(true);
         project.setTechnicalLabel(technicalLabel);
 
-        projectResource.getContents().add(author);
-        xmiResourceManager.saveResource(projectResource);
+        saveProject(prj, project);
 
         return project;
+    }
+
+    public void saveProject(Project project) throws PersistenceException {
+        Resource projectResource = project.getEmfProject().eResource();
+        xmiResourceManager.saveResource(projectResource);
+    }
+
+    /**
+     * DOC qwei Comment method "saveProjectf".
+     * 
+     * @param author
+     * @param prj
+     * @param project
+     * @throws PersistenceException
+     */
+    private void saveProject(IProject prj, Project project) throws PersistenceException {
+        Resource projectResource = xmiResourceManager.createProjectResource(prj);
+        projectResource.getContents().add(project.getEmfProject());
+        projectResource.getContents().add(project.getAuthor());
+        xmiResourceManager.saveResource(projectResource);
     }
 
     /**
@@ -831,7 +848,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    private XmiResourceManager xmiResourceManager = new XmiResourceManager();;
+    private XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
