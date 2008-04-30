@@ -62,37 +62,34 @@ public final class DefinitionHandler {
     private IndicatorsDefinitions indicatorDefinitions;
 
     /**
+     * true if a copy from the file in the plugin directory to the workspace directory is needed.
+     */
+    private boolean needCopy = false;
+
+    /**
      * plugin relative path to the default file.
      */
-    private static final String FILENAME = "Talend.definition";
+    private static final String FILENAME = ".Talend.definition";
 
-    private static final String PATH_NAME = "/org.talend.dataquality/" + FILENAME;
+    private static final String PLUGIN_PATH = "/org.talend.dataquality/" + FILENAME;
+
+    private static final String WORKSPACE_PATH = "Libraries/";
 
     private DefinitionHandler() {
         this.indicatorDefinitions = loadFromFile();
     }
 
     private IndicatorsDefinitions loadFromFile() {
-        EMFUtil util = new EMFUtil();
-        Resource definitionsFile = null;
-        URI uri = URI.createPlatformPluginURI(PATH_NAME, false);
-        try { // load from plugin path
-            definitionsFile = util.getResourceSet().getResource(uri, true);
-        } catch (RuntimeException e) {
-            log.error(e.getMessage());
-        }
 
-        if (definitionsFile == null) {
-            // try to load from a local file
-            definitionsFile = util.getResourceSet().getResource(URI.createFileURI(".." + File.separator + PATH_NAME), true);
-        }
-        if (definitionsFile == null) {
-            log.error("No resource found at " + PATH_NAME + " URI= " + uri);
-            return null;
-        }
+        Resource definitionsFile = getResourceFromFile();
+
         EList<EObject> contents = definitionsFile.getContents();
         if (contents == null) {
-            log.error("No content found in given resource: " + uri);
+            log.error("No content found in given resource: " + definitionsFile.getURI());
+            return null;
+        }
+        if (contents.isEmpty()) {
+            log.error("No content found in given resource: " + definitionsFile.getURI());
             return null;
         }
         DefinitionSwitch<IndicatorsDefinitions> catSwitch = new DefinitionSwitch<IndicatorsDefinitions>() {
@@ -105,6 +102,44 @@ public final class DefinitionHandler {
         };
 
         return catSwitch.doSwitch(contents.get(0));
+    }
+
+    private Resource getResourceFromFile() {
+        EMFUtil util = new EMFUtil();
+        Resource definitionsFile = null;
+        URI uri = URI.createPlatformResourceURI(WORKSPACE_PATH + FILENAME, false);
+        try { // load from plugin path
+            definitionsFile = util.getResourceSet().getResource(uri, true);
+            if (log.isDebugEnabled()) {
+                log.debug("Definition of indicators loaded from " + uri);
+            }
+        } catch (RuntimeException e) {
+            if (log.isDebugEnabled()) {
+                log.error(e.getMessage());
+            }
+        }
+        if (definitionsFile == null) {
+            needCopy = true;
+            uri = URI.createPlatformPluginURI(PLUGIN_PATH, false);
+            try { // load from plugin path
+                definitionsFile = util.getResourceSet().getResource(uri, true);
+                if (log.isDebugEnabled()) {
+                    log.debug("Definition of indicators loaded from " + uri);
+                }
+            } catch (RuntimeException e) {
+                log.error(e.getMessage());
+            }
+        }
+
+        if (definitionsFile == null) {
+            // try to load from a local file
+            definitionsFile = util.getResourceSet().getResource(URI.createFileURI(".." + File.separator + PLUGIN_PATH), true);
+        }
+        if (definitionsFile == null) {
+            log.error("No resource found at " + PLUGIN_PATH + " URI= " + uri);
+            return null;
+        }
+        return definitionsFile;
     }
 
     /**
@@ -142,9 +177,26 @@ public final class DefinitionHandler {
         return resource;
     }
 
+    public Resource copyDefinitionsIntoFolder(URI destinationUri) {
+        Resource resource = getIndicatorsDefinitions().eResource();
+        EMFUtil.changeUri(resource, destinationUri);
+        if (EMFUtil.saveResource(resource)) {
+            if (log.isInfoEnabled()) {
+                log.info("Indicator default definitions correctly saved in " + resource.getURI());
+            } else {
+                log.warn("Failed to save default indicator definitions in " + resource.getURI());
+            }
+        }
+        return resource;
+    }
+
     public static DefinitionHandler getInstance() {
         if (instance == null) {
             instance = new DefinitionHandler();
+            // try to copy in workspace
+            if (instance.needCopy) {
+                instance.copyDefinitionsIntoFolder(URI.createPlatformResourceURI(WORKSPACE_PATH, false));
+            }
         }
         return instance;
     }

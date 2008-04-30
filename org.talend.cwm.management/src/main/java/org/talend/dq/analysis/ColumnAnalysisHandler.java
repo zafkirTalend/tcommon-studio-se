@@ -34,6 +34,7 @@ import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
+import org.talend.dq.indicators.definitions.DefinitionHandler;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.Dependency;
@@ -134,10 +135,10 @@ public class ColumnAnalysisHandler {
             indicator.setAnalyzedElement(column);
             // ADDED MODSCA 2008-04-24 set the default indicator definitions
             // // FIXME following code should be executed as soon as an indicator is created, not here.
-            // boolean definitionSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
-            // if (log.isDebugEnabled()) {
-            // log.debug("Definition set for " + indicator.getName() + ": " + definitionSet);
-            // }
+            boolean definitionSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
+            if (log.isDebugEnabled()) {
+                log.debug("Definition set for " + indicator.getName() + ": " + definitionSet);
+            }
             analysis.getResults().getIndicators().add(indicator);
         }
         DataManager connection = analysis.getContext().getConnection();
