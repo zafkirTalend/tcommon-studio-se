@@ -12,10 +12,15 @@
 // ============================================================================
 package org.talend.sqltools;
 
+import java.io.ByteArrayInputStream;
 import java.util.Vector;
 
+import Zql.ParseException;
+import Zql.ZExp;
+import Zql.ZExpression;
 import Zql.ZFromItem;
 import Zql.ZSelectItem;
+import Zql.ZqlParser;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -33,6 +38,34 @@ public final class ZQueryHelper {
         for (String string : f) {
             if (string != null) {
                 v.add(new ZSelectItem(string));
+            }
+        }
+        return v;
+    }
+
+    /**
+     * DOC scorreia Comment method "createWhereVector".
+     * 
+     * @param f a list of where clauses
+     * @return
+     */
+    public static Vector<ZExp> createWhereVector(String... f) {
+        Vector<ZExp> v = new Vector<ZExp>();
+        if (f == null) {
+            return v;
+        }
+        for (String string : f) {
+            if (string != null) {
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(string.getBytes());
+                ZqlParser parser = new ZqlParser();
+                parser.initParser(byteArrayInputStream);
+
+                try {
+                    ZExpression expr = (ZExpression) parser.readStatement();
+                    v.add(expr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return v;
