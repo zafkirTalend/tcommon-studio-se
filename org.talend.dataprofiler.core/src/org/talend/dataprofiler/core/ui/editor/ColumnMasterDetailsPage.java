@@ -14,7 +14,6 @@ package org.talend.dataprofiler.core.ui.editor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -24,10 +23,12 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -58,6 +59,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -100,10 +102,15 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     private boolean isDirty = false;
 
     private String stringDataFilter;
+    
+    private final FormToolkit toolkit;
+    
+    private static final int TREE_MAX_LENGTH = 500;
 
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
         this.initAnalysis(editor);
+        this.toolkit = this.getEditor().getToolkit();
     }
 
     private void initAnalysis(FormEditor editor) {
@@ -137,7 +144,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     @Override
     protected void createFormContent(IManagedForm managedForm) {
         final ScrolledForm form = managedForm.getForm();
-        FormToolkit toolkit = this.getEditor().getToolkit();
         Composite body = form.getBody();
         form.setText("Analysis Settings");
 
@@ -150,20 +156,20 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         anasisDataComp.setLayoutData(anasisData);
         anasisDataComp.setLayout(new GridLayout(1, false));
 
-        createAnalysisMetadataSection(form, toolkit, anasisDataComp);
-        createAnalysisColumnsSection(form, toolkit, anasisDataComp);
-        createDataFilterSection(form, toolkit, anasisDataComp);
+        createAnalysisMetadataSection(form, anasisDataComp);
+        createAnalysisColumnsSection(form, anasisDataComp);
+        createDataFilterSection(form, anasisDataComp);
 
         Composite previewComp = toolkit.createComposite(body);
         GridData previewData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
 
         previewComp.setLayoutData(previewData);
         previewComp.setLayout(new GridLayout());
-        createPreviewSection(form, toolkit, previewComp);
+        createPreviewSection(form, previewComp);
     }
 
-    private void createAnalysisMetadataSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Analysis metadata", false,
+    private void createAnalysisMetadataSection(final ScrolledForm form, Composite anasisDataComp) {
+        Section section = createSection(form, anasisDataComp, "Analysis metadata", false,
                 "Set the properties of analysis.");
         Composite labelButtonClient = toolkit.createComposite(section);
 
@@ -214,8 +220,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         section.setClient(labelButtonClient);
     }
 
-    private void createAnalysisColumnsSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Analyzed Columns", true, null);
+    private void createAnalysisColumnsSection(final ScrolledForm form, Composite anasisDataComp) {
+        Section section = createSection(form, anasisDataComp, "Analyzed Columns", true, null);
 
         Composite topComp = toolkit.createComposite(section);
         topComp.setLayout(new GridLayout());
@@ -235,7 +241,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         indcBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
             public void linkActivated(HyperlinkEvent e) {
-                // TODO Auto-generated method stub
+
                 treeViewer.openIndicatorSelectDialog();
             }
 
@@ -244,7 +250,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         Composite tree = toolkit.createComposite(topComp, SWT.BORDER);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(tree);
         tree.setLayout(new GridLayout());
-        ((GridData) tree.getLayoutData()).heightHint = 400;
+        ((GridData) tree.getLayoutData()).heightHint = TREE_MAX_LENGTH;
 
         treeViewer = new AnasisColumnTreeViewer(tree, currentColumnIndicators, analysisHandler.getAnalysis());
         treeViewer.setDirty(false);
@@ -267,9 +273,10 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         }
     }
 
-    private void createPreviewSection(final ScrolledForm form, final FormToolkit toolkit, Composite parent) {
+    boolean isShow = false;
+    private void createPreviewSection(final ScrolledForm form, Composite parent) {
 
-        Section section = createSection(form, toolkit, parent, "Preview", false, "");
+        Section section = createSection(form, parent, "Preview", false, "");
 
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout());
@@ -277,65 +284,95 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         
         Hyperlink refreshBtn = toolkit.createHyperlink(sectionClient, "Refresh the preview", SWT.NONE);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(sectionClient);
+        
+        final Composite composite  = toolkit.createComposite(sectionClient);
+        composite.setLayout(new GridLayout());
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        
         refreshBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
             public void linkActivated(HyperlinkEvent e) {
-               //
+               //execture analysis
+               //refresh the controls
+                
+                for (Control control : composite.getChildren()) {
+                    control.dispose();
+                }
+                
+                isShow = true;
+                
+                createPreviewCharts(form, composite, isShow);
+                
+                composite.layout();
+                form.reflow(isShow);
             }
 
         });
 
-        ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
-
-        for (final ColumnIndicator column : columnIndicator) {
-
-            ExpandableComposite exComp = toolkit.createExpandableComposite(sectionClient, ExpandableComposite.TREE_NODE
-                    | ExpandableComposite.CLIENT_INDENT);
-
-            exComp.setText("Column: " + column.getTdColumn().getName());
-            exComp.setLayout(new GridLayout());
-            final Composite comp = toolkit.createComposite(exComp);
-            comp.setLayout(new GridLayout());
-            comp.setLayoutData(new GridData(GridData.FILL_BOTH));
-            exComp.setClient(comp);
+        section.setClient(sectionClient);
+    }
+    
+    private void createPreviewCharts(final ScrolledForm form, final Composite composite, boolean isShow) {
+        if (isShow) {
+            ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
             
-            exComp.addExpansionListener(new ExpansionAdapter() {
+            for (final ColumnIndicator column : columnIndicator) {
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see org.eclipse.ui.forms.events.ExpansionAdapter#expansionStateChanged(org.eclipse.ui.forms.events.ExpansionEvent)
-                 */
-                @Override
-                public void expansionStateChanged(ExpansionEvent e) {
-                    
-                    Display.getDefault().asyncExec(new Runnable() {
+                ExpandableComposite exComp = toolkit.createExpandableComposite(composite, ExpandableComposite.TREE_NODE
+                        | ExpandableComposite.CLIENT_INDENT);
 
-                        public void run() {
-                            if (column.getIndicators().length != 0) {
-                                if (comp.getChildren() != null) {
-                                    for (Control control : comp.getChildren()) {
-                                        control.dispose();
+                exComp.setText("Column: " + column.getTdColumn().getName());
+                exComp.setLayout(new GridLayout());
+                final Composite comp = toolkit.createComposite(exComp);
+                comp.setLayout(new GridLayout());
+                comp.setLayoutData(new GridData(GridData.FILL_BOTH));
+                
+                if (column.getIndicators().length != 0) {
+
+                    IRunnableWithProgress rwp = new IRunnableWithProgress() {
+
+                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                            
+                            monitor.beginTask("Creating preview for " + column.getTdColumn().getName(), IProgressMonitor.UNKNOWN);
+                            
+                            Display.getDefault().asyncExec(new Runnable() {
+
+                                public void run() {
+
+                                    for (ImageDescriptor descriptor : IndicatorChartFactory.createChart(column)) {
+                                        
+                                        ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
+                                        image.setImage(descriptor.createImage());
                                     }
                                 }
-                                for (File file : IndicatorChartFactory.createChart(column)) {
-                                   
-                                    ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
-                                    image.setImage(new Image(Display.getDefault(), file.getName()));
-                                    comp.layout();
-                                }
                                 
-                                form.reflow(true);                             
-                            }
+                            });
+                            //Thread.sleep(3000);
+                            monitor.done();
                         }
                         
-                    });
+                    };
+
+                    try {
+                        new ProgressMonitorDialog(null).run(true, false, rwp);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                    exComp.setExpanded(true);
                 }
+                
+                exComp.setClient(comp);
+                
+                exComp.addExpansionListener(new ExpansionAdapter() {
 
-            });
+                    public void expansionStateChanged(ExpansionEvent e) {
+                        form.reflow(true); 
+                    }
+
+                });
+            }
         }
-
-        section.setClient(sectionClient);
     }
 
     /**
@@ -343,8 +380,8 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      * @param toolkit
      * @param anasisDataComp
      */
-    private void createDataFilterSection(final ScrolledForm form, FormToolkit toolkit, Composite anasisDataComp) {
-        Section section = createSection(form, toolkit, anasisDataComp, "Data Filter", false, "Edit the data filter:");
+    private void createDataFilterSection(final ScrolledForm form, Composite anasisDataComp) {
+        Section section = createSection(form, anasisDataComp, "Data Filter", false, "Edit the data filter:");
 
         Composite sectionClient = toolkit.createComposite(section);
         dataFilterComp = new DataFilterComp(sectionClient, stringDataFilter);
@@ -361,7 +398,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      * @param discription
      * @return
      */
-    private Section createSection(final ScrolledForm form, FormToolkit toolkit, Composite parent, String title, boolean expanded,
+    private Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded,
             String discription) {
         final int style = (discription == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
                 | Section.TITLE_BAR;

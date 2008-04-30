@@ -84,8 +84,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     private Tree createTree(Composite parent) {
         Tree newTree = new Tree(parent, SWT.NONE);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(newTree);
-        ((GridData) newTree.getLayoutData()).heightHint = 300;
-        ((GridData) newTree.getLayoutData()).widthHint = 500;
+        
         newTree.setHeaderVisible(false);
         TreeColumn column1 = new TreeColumn(newTree, SWT.CENTER);
         column1.setWidth(160);

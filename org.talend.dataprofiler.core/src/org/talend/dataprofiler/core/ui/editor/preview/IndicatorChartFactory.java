@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -29,6 +30,7 @@ import org.jfree.data.statistics.BoxAndWhiskerItem;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataprofiler.core.ui.utils.ChartUtils;
 
 
 /**
@@ -40,25 +42,16 @@ import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
  */
 public class IndicatorChartFactory {
     
-    private static final  int CHART_WIDTH = 400;
+    private static final  int CHART_WIDTH = 420;
     
-    private static final  int CHART_HEIGHT = 300;
+    private static final  int CHART_HEIGHT = 230;
     
-    private static final String FILE_NAME_SEPARATOR = "_";
-    
-    private static final String SIMEPLE_FILE_NAME = "simple.jpeg";
-    
-    private static final String TEXT_FILE_NAME = "text.jpeg";
-    
-    private static final String FREQUENCE_FILE_NAME = "frequence.jpeg";
-    
-    private static final String SUMMARY_FILE_NAME = "summary.jpeg";
 
-    public static File createSimpleChart(String titile, CategoryDataset dataset, File file) {
+    public static ImageDescriptor createSimpleChart(String titile, CategoryDataset dataset) {
         
         JFreeChart chart = ChartFactory.createBarChart3D(
-                titile,
-                "Indicators", // 目录轴的显示标签
+                null,
+                titile, // 目录轴的显示标签
                 "Value", // 数值轴的显示标签
                 dataset, // 数据集
                 PlotOrientation.VERTICAL, // 图表方向：水平、垂直
@@ -69,8 +62,7 @@ public class IndicatorChartFactory {
         
         try {
             
-            ChartUtilities.saveChartAsJPEG(file, chart, CHART_WIDTH, CHART_HEIGHT);
-            return file;
+            return ChartUtils.convertToImage(chart, CHART_WIDTH, CHART_HEIGHT);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,18 +75,43 @@ public class IndicatorChartFactory {
         
     }
     
-    public static void createFrequencyChart() {
+    public static ImageDescriptor createFrequencyChart(String titile, CategoryDataset dataset) {
         
-    }
-    
-    public static File createSummaryChart(String title, BoxAndWhiskerCategoryDataset dataset, File file) {
-        
-        JFreeChart chart = ChartFactory.createBoxAndWhiskerChart(title, "category label", "value label", dataset, false);
+        JFreeChart chart = ChartFactory.createBarChart3D(
+                null,
+                titile, 
+                "Value", 
+                dataset, 
+                PlotOrientation.HORIZONTAL, // 图表方向：水平、垂直
+                false,   
+                false,  
+                false   
+                );
         
         try {
             
-            ChartUtilities.saveChartAsJPEG(file, chart, CHART_WIDTH, CHART_HEIGHT);
-            return file;
+            return ChartUtils.convertToImage(chart, CHART_WIDTH, CHART_HEIGHT);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    public static ImageDescriptor createSummaryChart(String title, BoxAndWhiskerCategoryDataset dataset) {
+        
+        JFreeChart chart = ChartFactory.createBoxAndWhiskerChart(
+                null, 
+                title, 
+                "value label", 
+                dataset, 
+                false
+                );
+        
+        try {
+            
+            return ChartUtils.convertToImage(chart, CHART_WIDTH, CHART_HEIGHT);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,7 +164,6 @@ public class IndicatorChartFactory {
             try {
                 object = IndicatorCommonUtil.getIndicatorValue(indicator.getType(), indicator.getIndicator());
             } catch (Exception ue) {
-//                ue.printStackTrace();
                 object = null;
             }
             
@@ -160,18 +176,29 @@ public class IndicatorChartFactory {
             }
         }
         
+//        BoxAndWhiskerItem item = new BoxAndWhiskerItem(
+//                map.get(IndicatorEnum.MeanIndicatorEnum),
+//                map.get(IndicatorEnum.MedianIndicatorEnum),
+//                null,
+//                null,
+//                map.get(IndicatorEnum.MinValueIndicatorEnum),
+//                map.get(IndicatorEnum.MaxValueIndicatorEnum),
+//                null,
+//                null,
+//                null
+//                );
         BoxAndWhiskerItem item = new BoxAndWhiskerItem(
-                map.get(IndicatorEnum.MeanIndicatorEnum),
-                map.get(IndicatorEnum.MedianIndicatorEnum),
-                null,
-                null,
-                map.get(IndicatorEnum.MinValueIndicatorEnum),
-                map.get(IndicatorEnum.MaxValueIndicatorEnum),
-                null,
-                null,
+                50,
+                55,
+                20,
+                40,
+                5,
+                80,
+                1,
+                100,
                 null
                 );
-        dataset.add(item, null, null);
+        dataset.add(item, "", "");
 
         return dataset;
         
@@ -192,6 +219,12 @@ public class IndicatorChartFactory {
             if (object != null) {
                 Map<Object, Double> map = (Map<Object, Double>) object;
                 
+                if (map.size() == 0) {
+                    map.put("season1", 123.0);
+                    map.put("season2", 341.12);
+                    map.put("season3", 300.58);
+                    map.put("season4", 450.62);
+                }
                 for (Object o : map.keySet()) {
                     dataset.addValue(map.get(o), "", String.valueOf(o));
                 }
@@ -201,44 +234,35 @@ public class IndicatorChartFactory {
         return dataset;
     }
     
-    public static List<File> createChart(ColumnIndicator column) {
+    public static List<ImageDescriptor> createChart(ColumnIndicator column) {
         
         CompositeIndicator compositeIndicator = new CompositeIndicator(column);
         Map<String, List<IndicatorTypeMapping>> separatedMap = compositeIndicator.getIndicatorComposite();
-        List<File> returnFiles = new ArrayList<File>();
-        String columnName = column.getTdColumn().getName();
+        List<ImageDescriptor> returnFiles = new ArrayList<ImageDescriptor>();
         
         if (separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS).size() != 0) {
-            
-            File file = new File(columnName + FILE_NAME_SEPARATOR + SIMEPLE_FILE_NAME);
-                
+
             CategoryDataset dataset = createSimpleDataset(separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS));
-            returnFiles.add(createSimpleChart(CompositeIndicator.SIMPLE_STATISTICS, dataset, file));
+            returnFiles.add(createSimpleChart(CompositeIndicator.SIMPLE_STATISTICS, dataset));
 
         }
         
         if (separatedMap.get(CompositeIndicator.TEXT_STATISTICS).size() != 0) {
-            
-            File file = new File(columnName + FILE_NAME_SEPARATOR + TEXT_FILE_NAME);
                 
             CategoryDataset dataset = createSimpleDataset(separatedMap.get(CompositeIndicator.TEXT_STATISTICS));
-            returnFiles.add(createSimpleChart(CompositeIndicator.TEXT_STATISTICS, dataset, file));
+            returnFiles.add(createSimpleChart(CompositeIndicator.TEXT_STATISTICS, dataset));
         }
         
         if (separatedMap.get(CompositeIndicator.FREQUENCE_STATISTICS).size() != 0) {
             
-            File file = new File(columnName + FILE_NAME_SEPARATOR + FREQUENCE_FILE_NAME);
-            
             CategoryDataset dataset = createFrequenceDataset(separatedMap.get(CompositeIndicator.FREQUENCE_STATISTICS));
-            returnFiles.add(createSimpleChart(CompositeIndicator.FREQUENCE_STATISTICS, dataset, file));
+            returnFiles.add(createFrequencyChart(CompositeIndicator.FREQUENCE_STATISTICS, dataset));
         }
         
         if (separatedMap.get(CompositeIndicator.SUMMARY_STATISTICS).size() != 0) {
-            
-            File file = new File(columnName + FILE_NAME_SEPARATOR + SUMMARY_FILE_NAME);
    
             BoxAndWhiskerCategoryDataset dataset = createSummaryDataset(separatedMap.get(CompositeIndicator.SUMMARY_STATISTICS));
-            returnFiles.add(createSummaryChart(CompositeIndicator.SUMMARY_STATISTICS, dataset, file));
+            returnFiles.add(createSummaryChart(CompositeIndicator.SUMMARY_STATISTICS, dataset));
         }
 
         return returnFiles;
