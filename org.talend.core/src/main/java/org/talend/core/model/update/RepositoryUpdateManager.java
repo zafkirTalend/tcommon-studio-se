@@ -113,11 +113,19 @@ public abstract class RepositoryUpdateManager {
     }
 
     public boolean doWork() {
+        return doWork(true);
+    }
+
+    public boolean doWork(boolean show) {
         // check the dialog.
         boolean checked = true;
         boolean showed = false;
-        if (parameter != null && getContextRenamedMap().isEmpty() && getSchemaRenamedMap().isEmpty()) {
-            checked = openPropagationDialog();
+        if (show) {
+            if (parameter != null && getContextRenamedMap().isEmpty() && getSchemaRenamedMap().isEmpty()) {
+                checked = openPropagationDialog();
+                showed = true;
+            }
+        } else {
             showed = true;
         }
         if (checked) {
@@ -208,12 +216,14 @@ public abstract class RepositoryUpdateManager {
             }
 
         }
-        // schema ignore
-        if (parameter instanceof org.talend.core.model.metadata.builder.connection.MetadataTable) {
-            return true;
-        }
-        if (object instanceof org.talend.core.model.metadata.MetadataTable) {
-            return true;
+        // schema
+        if (parameter instanceof org.talend.core.model.metadata.builder.connection.MetadataTable
+                && object instanceof org.talend.core.model.metadata.MetadataTable) {
+            org.talend.core.model.metadata.builder.connection.MetadataTable table1 = (org.talend.core.model.metadata.builder.connection.MetadataTable) parameter;
+            org.talend.core.model.metadata.MetadataTable table2 = (org.talend.core.model.metadata.MetadataTable) object;
+            if (table1.getId().equals(table2.getId())) {
+                return true;
+            }
         }
         return false;
     }
@@ -557,5 +567,26 @@ public abstract class RepositoryUpdateManager {
 
         };
         return repositoryUpdateManager.doWork();
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateSchema".
+     * 
+     * for context menu action.
+     */
+    public static boolean updateSchema(final MetadataTable metadataTable) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(metadataTable) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_SCHEMA);
+                return types;
+            }
+
+        };
+
+        return repositoryUpdateManager.doWork(false);
     }
 }
