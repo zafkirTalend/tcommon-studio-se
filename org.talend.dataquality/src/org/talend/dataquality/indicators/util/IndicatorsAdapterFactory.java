@@ -165,10 +165,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createIQRIndicatorAdapter();
             }
             @Override
-            public Adapter caseTextIndicator(TextIndicator object) {
-                return createTextIndicatorAdapter();
-            }
-            @Override
             public Adapter caseMinLengthIndicator(MinLengthIndicator object) {
                 return createMinLengthIndicatorAdapter();
             }
@@ -187,10 +183,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
             @Override
             public Adapter caseTextParameters(TextParameters object) {
                 return createTextParametersAdapter();
-            }
-            @Override
-            public Adapter caseElement(Element object) {
-                return createElementAdapter();
             }
             @Override
             public Adapter caseModelElement(ModelElement object) {

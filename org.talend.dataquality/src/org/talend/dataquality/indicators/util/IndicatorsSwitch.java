@@ -100,7 +100,6 @@ public class IndicatorsSwitch<T> {
                 Indicator indicator = (Indicator)theEObject;
                 T result = caseIndicator(indicator);
                 if (result == null) result = caseModelElement(indicator);
-                if (result == null) result = caseElement(indicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -109,7 +108,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseRowCountIndicator(rowCountIndicator);
                 if (result == null) result = caseIndicator(rowCountIndicator);
                 if (result == null) result = caseModelElement(rowCountIndicator);
-                if (result == null) result = caseElement(rowCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -119,7 +117,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseSumIndicator(meanIndicator);
                 if (result == null) result = caseIndicator(meanIndicator);
                 if (result == null) result = caseModelElement(meanIndicator);
-                if (result == null) result = caseElement(meanIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -128,7 +125,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseSumIndicator(sumIndicator);
                 if (result == null) result = caseIndicator(sumIndicator);
                 if (result == null) result = caseModelElement(sumIndicator);
-                if (result == null) result = caseElement(sumIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -137,7 +133,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseCompositeIndicator(compositeIndicator);
                 if (result == null) result = caseIndicator(compositeIndicator);
                 if (result == null) result = caseModelElement(compositeIndicator);
-                if (result == null) result = caseElement(compositeIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -147,7 +142,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseCompositeIndicator(rangeIndicator);
                 if (result == null) result = caseIndicator(rangeIndicator);
                 if (result == null) result = caseModelElement(rangeIndicator);
-                if (result == null) result = caseElement(rangeIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -157,7 +151,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseCompositeIndicator(boxIndicator);
                 if (result == null) result = caseIndicator(boxIndicator);
                 if (result == null) result = caseModelElement(boxIndicator);
-                if (result == null) result = caseElement(boxIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -167,7 +160,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseClassifier(indicatorType);
                 if (result == null) result = caseNamespace(indicatorType);
                 if (result == null) result = caseModelElement(indicatorType);
-                if (result == null) result = caseElement(indicatorType);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -177,17 +169,14 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseCompositeIndicator(frequencyIndicator);
                 if (result == null) result = caseIndicator(frequencyIndicator);
                 if (result == null) result = caseModelElement(frequencyIndicator);
-                if (result == null) result = caseElement(frequencyIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
             case IndicatorsPackage.BLANK_COUNT_INDICATOR: {
                 BlankCountIndicator blankCountIndicator = (BlankCountIndicator)theEObject;
                 T result = caseBlankCountIndicator(blankCountIndicator);
-                if (result == null) result = caseTextIndicator(blankCountIndicator);
                 if (result == null) result = caseIndicator(blankCountIndicator);
                 if (result == null) result = caseModelElement(blankCountIndicator);
-                if (result == null) result = caseElement(blankCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -202,7 +191,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseMedianIndicator(medianIndicator);
                 if (result == null) result = caseIndicator(medianIndicator);
                 if (result == null) result = caseModelElement(medianIndicator);
-                if (result == null) result = caseElement(medianIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -211,7 +199,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseValueIndicator(valueIndicator);
                 if (result == null) result = caseIndicator(valueIndicator);
                 if (result == null) result = caseModelElement(valueIndicator);
-                if (result == null) result = caseElement(valueIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -221,7 +208,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseValueIndicator(minValueIndicator);
                 if (result == null) result = caseIndicator(minValueIndicator);
                 if (result == null) result = caseModelElement(minValueIndicator);
-                if (result == null) result = caseElement(minValueIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -231,7 +217,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseValueIndicator(maxValueIndicator);
                 if (result == null) result = caseIndicator(maxValueIndicator);
                 if (result == null) result = caseModelElement(maxValueIndicator);
-                if (result == null) result = caseElement(maxValueIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -240,7 +225,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseModeIndicator(modeIndicator);
                 if (result == null) result = caseIndicator(modeIndicator);
                 if (result == null) result = caseModelElement(modeIndicator);
-                if (result == null) result = caseElement(modeIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -249,7 +233,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseNullCountIndicator(nullCountIndicator);
                 if (result == null) result = caseIndicator(nullCountIndicator);
                 if (result == null) result = caseModelElement(nullCountIndicator);
-                if (result == null) result = caseElement(nullCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -258,7 +241,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseDistinctCountIndicator(distinctCountIndicator);
                 if (result == null) result = caseIndicator(distinctCountIndicator);
                 if (result == null) result = caseModelElement(distinctCountIndicator);
-                if (result == null) result = caseElement(distinctCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -267,7 +249,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseUniqueCountIndicator(uniqueCountIndicator);
                 if (result == null) result = caseIndicator(uniqueCountIndicator);
                 if (result == null) result = caseModelElement(uniqueCountIndicator);
-                if (result == null) result = caseElement(uniqueCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -276,7 +257,6 @@ public class IndicatorsSwitch<T> {
                 T result = caseDuplicateCountIndicator(duplicateCountIndicator);
                 if (result == null) result = caseIndicator(duplicateCountIndicator);
                 if (result == null) result = caseModelElement(duplicateCountIndicator);
-                if (result == null) result = caseElement(duplicateCountIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -287,16 +267,6 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseCompositeIndicator(iqrIndicator);
                 if (result == null) result = caseIndicator(iqrIndicator);
                 if (result == null) result = caseModelElement(iqrIndicator);
-                if (result == null) result = caseElement(iqrIndicator);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case IndicatorsPackage.TEXT_INDICATOR: {
-                TextIndicator textIndicator = (TextIndicator)theEObject;
-                T result = caseTextIndicator(textIndicator);
-                if (result == null) result = caseIndicator(textIndicator);
-                if (result == null) result = caseModelElement(textIndicator);
-                if (result == null) result = caseElement(textIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -304,10 +274,8 @@ public class IndicatorsSwitch<T> {
                 MinLengthIndicator minLengthIndicator = (MinLengthIndicator)theEObject;
                 T result = caseMinLengthIndicator(minLengthIndicator);
                 if (result == null) result = caseLengthIndicator(minLengthIndicator);
-                if (result == null) result = caseTextIndicator(minLengthIndicator);
                 if (result == null) result = caseIndicator(minLengthIndicator);
                 if (result == null) result = caseModelElement(minLengthIndicator);
-                if (result == null) result = caseElement(minLengthIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -315,10 +283,8 @@ public class IndicatorsSwitch<T> {
                 MaxLengthIndicator maxLengthIndicator = (MaxLengthIndicator)theEObject;
                 T result = caseMaxLengthIndicator(maxLengthIndicator);
                 if (result == null) result = caseLengthIndicator(maxLengthIndicator);
-                if (result == null) result = caseTextIndicator(maxLengthIndicator);
                 if (result == null) result = caseIndicator(maxLengthIndicator);
                 if (result == null) result = caseModelElement(maxLengthIndicator);
-                if (result == null) result = caseElement(maxLengthIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -326,20 +292,16 @@ public class IndicatorsSwitch<T> {
                 AverageLengthIndicator averageLengthIndicator = (AverageLengthIndicator)theEObject;
                 T result = caseAverageLengthIndicator(averageLengthIndicator);
                 if (result == null) result = caseLengthIndicator(averageLengthIndicator);
-                if (result == null) result = caseTextIndicator(averageLengthIndicator);
                 if (result == null) result = caseIndicator(averageLengthIndicator);
                 if (result == null) result = caseModelElement(averageLengthIndicator);
-                if (result == null) result = caseElement(averageLengthIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
             case IndicatorsPackage.LENGTH_INDICATOR: {
                 LengthIndicator lengthIndicator = (LengthIndicator)theEObject;
                 T result = caseLengthIndicator(lengthIndicator);
-                if (result == null) result = caseTextIndicator(lengthIndicator);
                 if (result == null) result = caseIndicator(lengthIndicator);
                 if (result == null) result = caseModelElement(lengthIndicator);
-                if (result == null) result = caseElement(lengthIndicator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -667,19 +629,32 @@ public class IndicatorsSwitch<T> {
     public T caseIQRIndicator(IQRIndicator object) {
         return null;
     }
-
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Text Indicator</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>UpperQuartile Indicator</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Text Indicator</em>'.
+     * @return the result of interpreting the object as an instance of '<em>UpperQuartile Indicator</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
+     *  MODRLI
      */
-    public T caseTextIndicator(TextIndicator object) {
+    public T caseUpperQuartileIndicator(UpperQuartileIndicator object) {
+        return null;
+    }
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>LowerQuartile Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>LowerQuartile Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * MODRLI
+     */
+    public T caseLowerQuartileIndicator(LowerQuartileIndicator object) {
         return null;
     }
 
@@ -755,21 +730,6 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseTextParameters(TextParameters object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Element</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseElement(Element object) {
         return null;
     }
 
