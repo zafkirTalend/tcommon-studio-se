@@ -86,6 +86,15 @@ public class LibrariesService implements ILibrariesService {
         return this.getLibrariesService().getRoutineTemplate();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
+     */
+    public URL getSqlPatternTemplate() {
+        return this.getLibrariesService().getSqlPatternTemplate();
+    }
+
     public List<URL> getSystemRoutines() {
         return this.getLibrariesService().getSystemRoutines();
     }

@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -67,6 +66,15 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     @Override
     public URL getRoutineTemplate() {
         return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java");
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
+     */
+    public URL getSqlPatternTemplate() {
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX);
     }
 
     /*

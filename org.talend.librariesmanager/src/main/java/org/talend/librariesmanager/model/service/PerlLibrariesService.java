@@ -67,6 +67,15 @@ public class PerlLibrariesService extends AbstractLibrariesService {
     /*
      * (non-Javadoc)
      * 
+     * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
+     */
+    public URL getSqlPatternTemplate() {
+        return Activator.BUNDLE.getEntry("resources/perl/" + SOURCE_SQLPATTERN_FOLDER + "/Template" + TEMPLATE_SUFFIX);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
