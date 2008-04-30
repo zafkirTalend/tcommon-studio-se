@@ -92,6 +92,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
             case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR: return createAverageLengthIndicator();
             case IndicatorsPackage.LENGTH_INDICATOR: return createLengthIndicator();
             case IndicatorsPackage.TEXT_PARAMETERS: return createTextParameters();
+            case IndicatorsPackage.LOWER_QUARTILE_INDICATOR: return createLowerQuartileIndicator();
+            case IndicatorsPackage.UPPER_QUARTILE_INDICATOR: return createUpperQuartileIndicator();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -427,6 +429,26 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     public TextParameters createTextParameters() {
         TextParametersImpl textParameters = new TextParametersImpl();
         return textParameters;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LowerQuartileIndicator createLowerQuartileIndicator() {
+        LowerQuartileIndicatorImpl lowerQuartileIndicator = new LowerQuartileIndicatorImpl();
+        return lowerQuartileIndicator;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UpperQuartileIndicator createUpperQuartileIndicator() {
+        UpperQuartileIndicatorImpl upperQuartileIndicator = new UpperQuartileIndicatorImpl();
+        return upperQuartileIndicator;
     }
 
     /**

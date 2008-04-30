@@ -264,6 +264,8 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/TextParameters/ignoreCase"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/TextParameters/useNulls"/>
       </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/LowerQuartileIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/UpperQuartileIndicator"/>
       <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">
         <genClasses ecoreClass="dataquality.ecore#//indicators/schema/SchemaIndicator">

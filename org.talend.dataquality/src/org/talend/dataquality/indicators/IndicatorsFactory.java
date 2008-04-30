@@ -269,6 +269,24 @@ public interface IndicatorsFactory extends EFactory {
     TextParameters createTextParameters();
 
     /**
+     * Returns a new object of class '<em>Lower Quartile Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Lower Quartile Indicator</em>'.
+     * @generated
+     */
+    LowerQuartileIndicator createLowerQuartileIndicator();
+
+    /**
+     * Returns a new object of class '<em>Upper Quartile Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Upper Quartile Indicator</em>'.
+     * @generated
+     */
+    UpperQuartileIndicator createUpperQuartileIndicator();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

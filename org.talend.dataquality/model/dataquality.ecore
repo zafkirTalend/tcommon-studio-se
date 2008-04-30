@@ -363,6 +363,8 @@
       <eLiterals name="REFINED_SOUNDEX" value="5" literal="Refined Soundex"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EDataType" name="ObjectArray" instanceClassName="Object[]"/>
+    <eClassifiers xsi:type="ecore:EClass" name="LowerQuartileIndicator" eSuperTypes="#//indicators/MinValueIndicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="UpperQuartileIndicator" eSuperTypes="#//indicators/MaxValueIndicator"/>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

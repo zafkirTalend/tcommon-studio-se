@@ -697,6 +697,52 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.LowerQuartileIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected LowerQuartileIndicatorItemProvider lowerQuartileIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.LowerQuartileIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createLowerQuartileIndicatorAdapter() {
+        if (lowerQuartileIndicatorItemProvider == null) {
+            lowerQuartileIndicatorItemProvider = new LowerQuartileIndicatorItemProvider(this);
+        }
+
+        return lowerQuartileIndicatorItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.UpperQuartileIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected UpperQuartileIndicatorItemProvider upperQuartileIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.UpperQuartileIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createUpperQuartileIndicatorAdapter() {
+        if (upperQuartileIndicatorItemProvider == null) {
+            upperQuartileIndicatorItemProvider = new UpperQuartileIndicatorItemProvider(this);
+        }
+
+        return upperQuartileIndicatorItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -822,6 +868,8 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (averageLengthIndicatorItemProvider != null) averageLengthIndicatorItemProvider.dispose();
         if (lengthIndicatorItemProvider != null) lengthIndicatorItemProvider.dispose();
         if (textParametersItemProvider != null) textParametersItemProvider.dispose();
+        if (lowerQuartileIndicatorItemProvider != null) lowerQuartileIndicatorItemProvider.dispose();
+        if (upperQuartileIndicatorItemProvider != null) upperQuartileIndicatorItemProvider.dispose();
     }
 
 }

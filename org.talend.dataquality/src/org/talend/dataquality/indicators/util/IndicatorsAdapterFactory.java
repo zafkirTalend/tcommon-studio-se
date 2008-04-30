@@ -165,6 +165,10 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createIQRIndicatorAdapter();
             }
             @Override
+            public Adapter caseTextIndicator(TextIndicator object) {
+                return createTextIndicatorAdapter();
+            }
+            @Override
             public Adapter caseMinLengthIndicator(MinLengthIndicator object) {
                 return createMinLengthIndicatorAdapter();
             }
@@ -183,6 +187,18 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
             @Override
             public Adapter caseTextParameters(TextParameters object) {
                 return createTextParametersAdapter();
+            }
+            @Override
+            public Adapter caseLowerQuartileIndicator(LowerQuartileIndicator object) {
+                return createLowerQuartileIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseUpperQuartileIndicator(UpperQuartileIndicator object) {
+                return createUpperQuartileIndicatorAdapter();
+            }
+            @Override
+            public Adapter caseElement(Element object) {
+                return createElementAdapter();
             }
             @Override
             public Adapter caseModelElement(ModelElement object) {
@@ -591,6 +607,34 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTextParametersAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.LowerQuartileIndicator <em>Lower Quartile Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.LowerQuartileIndicator
+     * @generated
+     */
+    public Adapter createLowerQuartileIndicatorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.UpperQuartileIndicator <em>Upper Quartile Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.dataquality.indicators.UpperQuartileIndicator
+     * @generated
+     */
+    public Adapter createUpperQuartileIndicatorAdapter() {
         return null;
     }
 
