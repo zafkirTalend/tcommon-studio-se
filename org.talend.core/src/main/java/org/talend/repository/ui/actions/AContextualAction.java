@@ -245,6 +245,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         if (selection == null) {
             return null;
         }
+
         return (RepositoryNode) selection.getFirstElement();
     }
 
