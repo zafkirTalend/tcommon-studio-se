@@ -73,7 +73,7 @@ public class OverlayImageProvider {
         return source;
     }
 
-    public static ImageDescriptor getImageWithStatus(Image source, ERepositoryStatus status) {
+    public static Image getImageWithStatus(Image source, ERepositoryStatus status) {
         IImage statusOverlay;
         int p = BUTTOM_RIGHT;
 
@@ -108,7 +108,7 @@ public class OverlayImageProvider {
             position = EPosition.BOTTOM_LEFT;
         }
         OverlayImage overlayImage = new OverlayImage(source, img, position);
-        return overlayImage;
+        return ImageProvider.getImage(overlayImage);
     }
 
     public static ImageDescriptor getImageWithError(Image source) {

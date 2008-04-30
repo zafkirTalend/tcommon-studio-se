@@ -115,4 +115,37 @@ public class OverlayImage extends CompositeImageDescriptor {
     protected Point getSize() {
         return new Point(16, 16);
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.mOverlay == null) ? 0 : this.mOverlay.hashCode());
+        result = prime * result + ((this.mimage == null) ? 0 : this.mimage.hashCode());
+        result = prime * result + (this.mleft ? 1231 : 1237);
+        result = prime * result + (this.mtop ? 1231 : 1237);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getClass() != obj.getClass())
+            return false;
+        final OverlayImage other = (OverlayImage) obj;
+        if (this.mOverlay == null) {
+            if (other.mOverlay != null)
+                return false;
+        } else if (!this.mOverlay.equals(other.mOverlay))
+            return false;
+        if (this.mimage == null) {
+            if (other.mimage != null)
+                return false;
+        } else if (!this.mimage.equals(other.mimage))
+            return false;
+        if (this.mleft != other.mleft)
+            return false;
+        if (this.mtop != other.mtop)
+            return false;
+        return true;
+    }
 }
