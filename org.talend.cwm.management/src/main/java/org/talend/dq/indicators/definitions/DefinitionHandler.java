@@ -29,6 +29,7 @@ import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.LengthIndicator;
+import org.talend.dataquality.indicators.LowerQuartileIndicator;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
 import org.talend.dataquality.indicators.MaxValueIndicator;
 import org.talend.dataquality.indicators.MeanIndicator;
@@ -40,14 +41,12 @@ import org.talend.dataquality.indicators.NullCountIndicator;
 import org.talend.dataquality.indicators.RangeIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.SumIndicator;
-import org.talend.dataquality.indicators.TextIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
-import org.talend.dataquality.indicators.ValueIndicator;
+import org.talend.dataquality.indicators.UpperQuartileIndicator;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import org.talend.dataquality.indicators.definition.IndicatorsDefinitions;
 import org.talend.dataquality.indicators.definition.util.DefinitionSwitch;
 import org.talend.dataquality.indicators.util.IndicatorsSwitch;
-import orgomg.cwm.objectmodel.core.Element;
 
 /**
  * @author scorreia
@@ -179,26 +178,14 @@ public final class DefinitionHandler {
 
     private final IndicatorsSwitch<Boolean> mySwitch = new IndicatorsSwitch<Boolean>() {
 
-        // TODO rli complete all definitions
         @Override
         public Boolean defaultCase(EObject object) {
             return false;
         }
 
         @Override
-        public Boolean caseValueIndicator(ValueIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseValueIndicator(object);
-        }
-
-        @Override
         public Boolean caseUniqueCountIndicator(UniqueCountIndicator object) {
             return setIndicatorDefinition(object, "Unique Count");
-        }
-
-        @Override
-        public Boolean caseTextIndicator(TextIndicator object) {
-            return super.caseTextIndicator(object);
         }
 
         @Override
@@ -268,14 +255,7 @@ public final class DefinitionHandler {
 
         @Override
         public Boolean caseFrequencyIndicator(FrequencyIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseFrequencyIndicator(object);
-        }
-
-        @Override
-        public Boolean caseElement(Element object) {
-            // TODO Auto-generated method stub
-            return super.caseElement(object);
+            return setIndicatorDefinition(object, "Frequency Table");
         }
 
         @Override
@@ -290,8 +270,7 @@ public final class DefinitionHandler {
 
         @Override
         public Boolean caseBoxIndicator(BoxIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseBoxIndicator(object);
+            return setIndicatorDefinition(object, "Summary Statistics");
         }
 
         @Override
@@ -301,8 +280,17 @@ public final class DefinitionHandler {
 
         @Override
         public Boolean caseAverageLengthIndicator(AverageLengthIndicator object) {
-            // TODO Auto-generated method stub
-            return super.caseAverageLengthIndicator(object);
+            return setIndicatorDefinition(object, "Average Length");
+        }
+
+        @Override
+        public Boolean caseLowerQuartileIndicator(LowerQuartileIndicator object) {
+            return setIndicatorDefinition(object, "Lower Quartile");
+        }
+        
+        @Override
+        public Boolean caseUpperQuartileIndicator(UpperQuartileIndicator object) {
+            return setIndicatorDefinition(object, "Upper Quartile");
         }
 
         private Boolean setIndicatorDefinition(Indicator indicator, String definitionLabel) {
