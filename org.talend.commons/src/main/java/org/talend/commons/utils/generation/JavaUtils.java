@@ -37,7 +37,7 @@ public final class JavaUtils {
 
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java";
-    
+
     /** Java sqlpattern Extension. */
     public static final String JAVA_SQLPATTERN_EXTENSION = ".sqlpattern";
 
@@ -49,12 +49,15 @@ public final class JavaUtils {
 
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines";
-    
+
     /** Java SQLPattern Directory. */
     public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqlpatterns";
 
     /** Java Routines Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system";
+
+    /** Java UserDefined Directory */
+    public static final String JAVA_USER_DEFINED = "user defined";
 
     /** Java Classes Directory. */
     public static final String JAVA_CLASSES_DIRECTORY = "classes";
@@ -66,6 +69,5 @@ public final class JavaUtils {
     public static final String JAVA_SRC_DIRECTORY = "src";
 
     /** Java ClassPath Separator. */
-    public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";"
-            : ":";
+    public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":";
 }
