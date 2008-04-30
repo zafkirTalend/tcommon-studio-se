@@ -98,7 +98,7 @@
 				<xs:element name="SQLPATTERN" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:attribute name="NAME" type="xs:string"/>
-						<xs:attribute name="CONTENT" type="xs:string"/>
+						<xs:attribute name="CONTENT" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
