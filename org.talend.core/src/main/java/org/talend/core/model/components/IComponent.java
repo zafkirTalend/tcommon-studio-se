@@ -107,4 +107,10 @@ public interface IComponent {
 
     public EComponentType getComponentType();
 
+    /**
+     * Return true if this component is technical, means should not be displayed in the palette but must be generated
+     * 
+     * @return
+     */
+    public boolean isTechnical();
 }
