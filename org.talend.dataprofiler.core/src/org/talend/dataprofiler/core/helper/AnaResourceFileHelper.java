@@ -113,7 +113,9 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
         if (contents.isEmpty()) {
             log.error("No content in " + fileResource);
         }
-        log.info("Nb elements in contents " + contents.size());
+        if (log.isDebugEnabled()) {
+            log.debug("Nb elements in contents " + contents.size());
+        }
         AnalysisSwitch<Analysis> mySwitch = new AnalysisSwitch<Analysis>() {
 
             public Analysis caseAnalysis(Analysis object) {

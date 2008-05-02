@@ -69,7 +69,9 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
             }
             return decorateText;
         } else if (input.endsWith(PluginConstant.ANA_SUFFIX)) {
-            log.info("Loading file " + ((IFile) element).getLocation());
+            if (log.isDebugEnabled()) {
+                log.debug("Loading file " + ((IFile) element).getLocation());
+            }
             Analysis analysis = AnaResourceFileHelper.getInstance().findAnalysis((IFile) element);
             if (analysis != null) {
                 Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
