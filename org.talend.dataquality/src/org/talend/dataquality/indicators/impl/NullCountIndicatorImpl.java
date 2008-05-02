@@ -5,6 +5,8 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
@@ -16,13 +18,14 @@ import org.talend.dataquality.indicators.NullCountIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected NullCountIndicatorImpl() {
@@ -31,6 +34,7 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -49,6 +53,23 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
         buf.append("= ");
         buf.append(this.nullCount);
         return buf.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#storeSqlResults(java.util.List)
+     * 
+     * ADDED scorreia 2008-04-30 storeSqlResults(List<Object[]> objects)
+     */
+    @Override
+    public boolean storeSqlResults(List<Object[]> objects) {
+        if (!checkResults(objects, 1)) {
+            return false;
+        }
+        String c = String.valueOf(objects.get(0)[0]);
+        this.setNullCount(Integer.valueOf(c));
+        return true;
     }
 
 } // NullCountIndicatorImpl

@@ -5,6 +5,9 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -17,18 +20,20 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl#getSumLength <em>Sum Length</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl#getSumLength <em>Sum Length</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements AverageLengthIndicator {
 
+    private static Logger log = Logger.getLogger(AverageLengthIndicatorImpl.class);
+
     /**
-     * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getSumLength()
      * @generated
      * @ordered
@@ -36,9 +41,9 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     protected static final long SUM_LENGTH_EDEFAULT = 0L;
 
     /**
-     * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getSumLength()
      * @generated
      * @ordered
@@ -47,6 +52,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected AverageLengthIndicatorImpl() {
@@ -55,6 +61,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -64,6 +71,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public long getSumLength() {
@@ -72,65 +80,82 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setSumLength(long newSumLength) {
         long oldSumLength = sumLength;
         sumLength = newSumLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH, oldSumLength, sumLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH,
+                    oldSumLength, sumLength));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public double getAverageLength() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                return new Long(getSumLength());
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            return new Long(getSumLength());
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                setSumLength(((Long)newValue).longValue());
-                return;
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            setSumLength(((Long) newValue).longValue());
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                setSumLength(SUM_LENGTH_EDEFAULT);
-                return;
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            setSumLength(SUM_LENGTH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                return sumLength != SUM_LENGTH_EDEFAULT;
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            return sumLength != SUM_LENGTH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -173,6 +198,23 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
         }
         // else
         return (int) (sumLength / count); // CAST in int
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.LengthIndicatorImpl#storeSqlResults(java.lang.Object[]) ADDED
+     * scorreia 2008-04-30 storeSqlResults(List<Object[]> objects)
+     */
+    @Override
+    public boolean storeSqlResults(List<Object[]> objects) {
+
+        if (!checkResults(objects, 2)) {
+            return false;
+        }
+        this.setCount((Integer) objects.get(0)[1]);
+        this.setSumLength((Long) objects.get(0)[0]);
+        return true;
     }
 
 } // AverageLengthIndicatorImpl

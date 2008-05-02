@@ -123,10 +123,21 @@
       </eOperations>
       <eOperations name="storeSqlResults" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="Stores the given query and the associated results."/>
+          <details key="documentation" value="Stores the results of an SQL query."/>
         </eAnnotations>
-        <eParameters name="query" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
         <eParameters name="objects" eType="#//indicators/ObjectArray"/>
+      </eOperations>
+      <eOperations name="getInstantiatedExpressions" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns the instantiated expression for the given language or null."/>
+        </eAnnotations>
+        <eParameters name="language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setInstantiatedExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Sets the expression in the list of instantiated expressions. If an expression for the given language already exists, it is updated. Otherwise the expression is added to the list."/>
+        </eAnnotations>
+        <eParameters name="expression" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"/>
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -334,6 +345,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="MinLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MaxLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="AverageLengthIndicator" eSuperTypes="#//indicators/LengthIndicator">
+      <eOperations name="getAverageLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="LengthIndicator" eSuperTypes="#//indicators/TextIndicator">
@@ -362,7 +374,7 @@
       <eLiterals name="SOUNDEX" value="4" literal="Soundex"/>
       <eLiterals name="REFINED_SOUNDEX" value="5" literal="Refined Soundex"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EDataType" name="ObjectArray" instanceClassName="Object[]"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ObjectArray" instanceClassName="java.util.List&lt;Object[]>"/>
     <eClassifiers xsi:type="ecore:EClass" name="LowerQuartileIndicator" eSuperTypes="#//indicators/MinValueIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="UpperQuartileIndicator" eSuperTypes="#//indicators/MaxValueIndicator"/>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">

@@ -5,12 +5,11 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.LengthIndicator;
@@ -21,18 +20,18 @@ import org.talend.dataquality.indicators.LengthIndicator;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.LengthIndicatorImpl#getLength <em>Length</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.LengthIndicatorImpl#getLength <em>Length</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndicator {
 
     /**
-     * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getLength() <em>Length</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getLength()
      * @generated
      * @ordered
@@ -40,9 +39,9 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
     protected static final int LENGTH_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getLength() <em>Length</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getLength()
      * @generated
      * @ordered
@@ -51,6 +50,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected LengthIndicatorImpl() {
@@ -59,6 +59,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -68,6 +69,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public int getLength() {
@@ -76,6 +78,7 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setLength(int newLength) {
@@ -87,54 +90,58 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
-                return new Integer(getLength());
+        case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
+            return new Integer(getLength());
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
-                setLength(((Integer)newValue).intValue());
-                return;
+        case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
+            setLength(((Integer) newValue).intValue());
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
-                setLength(LENGTH_EDEFAULT);
-                return;
+        case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
+            setLength(LENGTH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
-                return length != LENGTH_EDEFAULT;
+        case IndicatorsPackage.LENGTH_INDICATOR__LENGTH:
+            return length != LENGTH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -151,4 +158,23 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
         buf.append(this.getLength());
         return buf.toString();
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#storeSqlResults(java.lang.Object[])
+     * 
+     * ADDED scorreia 2008-04-30 storeSqlResults(List<Object[]> objects)
+     */
+    @Override
+    public boolean storeSqlResults(List<Object[]> objects) {
+        final int expectedSize = 1;
+        if (!checkResults(objects, expectedSize)) {
+            return false;
+        }
+        Integer c = (Integer) objects.get(0)[0];
+        this.setLength(c);
+        return true;
+    }
+
 } // LengthIndicatorImpl

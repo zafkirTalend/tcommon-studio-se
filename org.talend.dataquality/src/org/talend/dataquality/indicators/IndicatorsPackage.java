@@ -8794,7 +8794,7 @@ public interface IndicatorsPackage extends EPackage {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for data type '<em>Object Array</em>'.
-     * @model instanceClass="java.lang.Object[]"
+     * @model instanceClass="java.util.List<java.lang.Object[]>"
      * @generated
      */
     EDataType getObjectArray();

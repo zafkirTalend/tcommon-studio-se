@@ -155,8 +155,13 @@
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/prepare"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/finalizeComputation"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/storeSqlResults">
-          <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/storeSqlResults/query"/>
           <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/storeSqlResults/objects"/>
+        </genOperations>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getInstantiatedExpressions">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/getInstantiatedExpressions/language"/>
+        </genOperations>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/setInstantiatedExpression">
+          <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/setInstantiatedExpression/expression"/>
         </genOperations>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RowCountIndicator"/>
@@ -254,6 +259,7 @@
       <genClasses ecoreClass="dataquality.ecore#//indicators/MaxLengthIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/AverageLengthIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/AverageLengthIndicator/sumLength"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/AverageLengthIndicator/getAverageLength"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/LengthIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/LengthIndicator/length"/>

@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -298,11 +299,33 @@ public interface Indicator extends ModelElement {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Stores the given query and the associated results.
+     * Stores the results of an SQL query.
      * <!-- end-model-doc -->
      * @model objectsDataType="org.talend.dataquality.indicators.ObjectArray"
      * @generated
      */
-    boolean storeSqlResults(String query, Object[] objects);
+    boolean storeSqlResults(List<Object[]> objects);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Returns the instantiated expression for the given language or null.
+     * <!-- end-model-doc -->
+     * @model
+     * @generated
+     */
+    Expression getInstantiatedExpressions(String language);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Sets the expression in the list of instantiated expressions. If an expression for the given language already exists, it is updated. Otherwise the expression is added to the list.
+     * <!-- end-model-doc -->
+     * @model
+     * @generated
+     */
+    boolean setInstantiatedExpression(Expression expression);
 
 } // Indicator

@@ -5,7 +5,8 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import org.apache.log4j.Logger;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.RowCountIndicator;
@@ -15,15 +16,14 @@ import org.talend.dataquality.indicators.RowCountIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class RowCountIndicatorImpl extends IndicatorImpl implements RowCountIndicator {
 
-    private static Logger log = Logger.getLogger(RowCountIndicatorImpl.class);
-
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected RowCountIndicatorImpl() {
@@ -32,6 +32,7 @@ public class RowCountIndicatorImpl extends IndicatorImpl implements RowCountIndi
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -54,21 +55,16 @@ public class RowCountIndicatorImpl extends IndicatorImpl implements RowCountIndi
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#storeSqlResults(java.lang.String, java.lang.Object[])
-     * @generated NOT
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#storeSqlResults(java.lang.Object[])
+     * 
+     * ADDED scorreia 2008-04-30 storeSqlResults(List<Object[]> objects)
      */
     @Override
-    public boolean storeSqlResults(String query, Object[] objects) {
-        if (objects == null || objects.length != 1) {
-            log.error("unexpected result for query " + query + ": " + objects);
+    public boolean storeSqlResults(List<Object[]> objects) {
+        if (!checkResults(objects, 1)) {
             return false;
         }
-        Long c = (Long) objects[0];
-        if (c == null) {
-            log.error("unexpected result for query " + query + ". Count is null!!");
-            return false;
-        }
-        // TODO store query in instantiated expression
+        Long c = (Long) objects.get(0)[0];
         this.setCount(c);
         return true;
     }

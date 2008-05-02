@@ -50,4 +50,12 @@ public interface AverageLengthIndicator extends LengthIndicator {
      */
     void setSumLength(long value);
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    double getAverageLength();
+
 } // AverageLengthIndicator

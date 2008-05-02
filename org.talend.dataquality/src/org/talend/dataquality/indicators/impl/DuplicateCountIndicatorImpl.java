@@ -1,46 +1,47 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.util.List;
 import java.util.Set;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Duplicate Count Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Duplicate Count Indicator</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl#getDuplicateValueCount <em>Duplicate Value Count</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl#getDuplicateValueCount <em>Duplicate Value Count</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class DuplicateCountIndicatorImpl extends IndicatorImpl implements DuplicateCountIndicator {
+
     /**
-     * The default value of the '{@link #getDuplicateValueCount() <em>Duplicate Value Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getDuplicateValueCount() <em>Duplicate Value Count</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getDuplicateValueCount()
      * @generated
      * @ordered
      */
     protected static final int DUPLICATE_VALUE_COUNT_EDEFAULT = 0;
+
     /**
-     * The cached value of the '{@link #getDuplicateValueCount() <em>Duplicate Value Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getDuplicateValueCount() <em>Duplicate Value Count</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getDuplicateValueCount()
      * @generated
      * @ordered
@@ -48,8 +49,8 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
     protected int duplicateValueCount = DUPLICATE_VALUE_COUNT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected DuplicateCountIndicatorImpl() {
@@ -57,8 +58,8 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -67,8 +68,8 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public Set<Object> getDuplicateValues() {
@@ -78,71 +79,72 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-                return new Integer(getDuplicateValueCount());
+        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+            return new Integer(getDuplicateValueCount());
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-                setDuplicateValueCount(((Integer)newValue).intValue());
-                return;
+        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+            setDuplicateValueCount(((Integer) newValue).intValue());
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-                setDuplicateValueCount(DUPLICATE_VALUE_COUNT_EDEFAULT);
-                return;
+        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+            setDuplicateValueCount(DUPLICATE_VALUE_COUNT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-                return duplicateValueCount != DUPLICATE_VALUE_COUNT_EDEFAULT;
+        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+            return duplicateValueCount != DUPLICATE_VALUE_COUNT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (duplicateValueCount: ");
@@ -152,8 +154,8 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public int getDuplicateValueCount() {
@@ -161,15 +163,34 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDuplicateValueCount(int newDuplicateValueCount) {
         int oldDuplicateValueCount = duplicateValueCount;
         duplicateValueCount = newDuplicateValueCount;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT, oldDuplicateValueCount, duplicateValueCount));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT, oldDuplicateValueCount,
+                    duplicateValueCount));
     }
 
-} //DuplicateCountIndicatorImpl
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#storeSqlResults(java.lang.Object[])
+     * 
+     * ADDED scorreia 2008-04-30 storeSqlResults(List<Object[]> objects)
+     */
+    @Override
+    public boolean storeSqlResults(List<Object[]> objects) {
+        if (!checkResults(objects, 1)) {
+            return false;
+        }
+        String c = String.valueOf(objects.get(0)[0]);
+        this.setDuplicateValueCount(Integer.valueOf(c));
+        return true;
+    }
+
+} // DuplicateCountIndicatorImpl

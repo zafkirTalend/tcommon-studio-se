@@ -7,6 +7,7 @@
 package org.talend.dataquality.indicators.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -613,8 +614,9 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * <!-- end-user-doc -->
      * @generated
      */
-    public Object[] createObjectArrayFromString(EDataType eDataType, String initialValue) {
-        return (Object[])super.createFromString(initialValue);
+    @SuppressWarnings("unchecked")
+    public List createObjectArrayFromString(EDataType eDataType, String initialValue) {
+        return (List)super.createFromString(initialValue);
     }
 
     /**

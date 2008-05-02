@@ -6,6 +6,7 @@
 package org.talend.dataquality.indicators.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -1402,8 +1403,13 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "finalizeComputation", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "storeSqlResults", 0, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, ecorePackage.getEString(), "query", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, this.getObjectArray(), "objects", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        op = addEOperation(indicatorEClass, theCorePackage.getExpression(), "getInstantiatedExpressions", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEString(), "language", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "setInstantiatedExpression", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theCorePackage.getExpression(), "expression", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1509,6 +1515,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(averageLengthIndicatorEClass, AverageLengthIndicator.class, "AverageLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getELong(), "sumLength", null, 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        addEOperation(averageLengthIndicatorEClass, ecorePackage.getEDouble(), "getAverageLength", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(lengthIndicatorEClass, LengthIndicator.class, "LengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLengthIndicator_Length(), ecorePackage.getEInt(), "length", null, 0, 1, LengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1579,7 +1587,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEDataType(javaSetEDataType, Set.class, "JavaSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Set<Object>");
         initEDataType(javaHashMapEDataType, HashMap.class, "JavaHashMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.HashMap<Object, java.lang.Long>");
         initEDataType(javaTreeMapEDataType, TreeMap.class, "JavaTreeMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.TreeMap<Object, java.lang.Long>");
-        initEDataType(objectArrayEDataType, Object[].class, "ObjectArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+        initEDataType(objectArrayEDataType, List.class, "ObjectArray", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.List<Object[]>");
 
         // Create resource
         createResource(eNS_URI);

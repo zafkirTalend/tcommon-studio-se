@@ -13,12 +13,12 @@
   <indicatorDefinitions xmi:id="_ccHq0RF2Ed2PKb6nEJEvhw" name="Unique Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Unique Count">
     <taggedValue tag="Description" value="counts the number of unique instances (i.e. instances that are not duplicated)"/>
     <taggedValue tag="Purpose" value="evaluate the number of unique data"/>
-    <sqlGenericExpression body="select count(*) from (SELECT {0}, count(*) mycount FROM {1}  group by {0} having mycount = 1) t" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0}, count(*) mycount FROM {1}  group by {0} having mycount = 1" language="SQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccHq0hF2Ed2PKb6nEJEvhw" name="Duplicate Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Duplicate Count">
     <taggedValue tag="Description" value="counts the number of duplicates. this number and the number of unique data equals the number of rows"/>
     <taggedValue tag="Purpose" value="evaluate the number of duplicated data"/>
-    <sqlGenericExpression body="select count(*) from (SELECT {0} col, count(*) mycount FROM {1}  m group by col having mycount > 1) t" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0} col, count(*) mycount FROM {1}  m group by col having mycount > 1" language="SQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccHq0xF2Ed2PKb6nEJEvhw" name="Blank Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Blank Count">
     <taggedValue tag="Description" value="counts the number of blank instances. A blank is a non null textual data that contains only white spaces (or nothing)"/>
@@ -43,6 +43,7 @@
   <indicatorDefinitions xmi:id="_ccIR4RF2Ed2PKb6nEJEvhw" name="Mode" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Mode">
     <taggedValue tag="Description" value="computes the mode (most probable value). For numerical data or continuous data, bins can be set in the parameters of this indicator. It is different from the average and from the median. Generalization of it is an histogram. It is good for addressing categorical attributes."/>
     <taggedValue tag="Purpose" value="evaluate the most frequent value"/>
+    <sqlGenericExpression body="SELECT  {0}, count(*) FROM {1} m group by 1 order by 2 desc  limit 1" language="SQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccIR4hF2Ed2PKb6nEJEvhw" name="Frequency Table" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Frequency Table">
     <taggedValue tag="Description" value="for each distinct instance, counts the number of instances."/>
@@ -56,10 +57,12 @@
   <indicatorDefinitions xmi:id="_ccI48RF2Ed2PKb6nEJEvhw" name="Mean" categories="_ccKuIBF2Ed2PKb6nEJEvhw" aggregatedDefinitions="_ccFOkBF2Ed2PKb6nEJEvhw _ccJgAhF2Ed2PKb6nEJEvhw" label="Mean">
     <taggedValue tag="Description" value="computes the mean (average) of the instances"/>
     <taggedValue tag="Purpose" value="evaluate the mean value of the data"/>
+    <sqlGenericExpression body="select sum({0}), count({0}) from {1}" language="SQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccI48hF2Ed2PKb6nEJEvhw" name="Median" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Median">
     <taggedValue tag="Description" value="computes the median. The median is the value separating the higher half of a sample, a population, or a probability distribution, from the lower half. "/>
     <taggedValue tag="Purpose" value="evaluate the median of the data"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1} order by {0} LIMIT {2},{3}" language="SQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccI48xF2Ed2PKb6nEJEvhw" name="Inter Quartile Range" categories="_ccKuIBF2Ed2PKb6nEJEvhw" aggregatedDefinitions="_ccI49BF2Ed2PKb6nEJEvhw _ccI49RF2Ed2PKb6nEJEvhw" label="IQR">
     <taggedValue tag="Description" value="the number separating the higher half of a sample, a population, or a probability distribution, from the lower half. It gives the spread of the main half data and is more stable than the range."/>
