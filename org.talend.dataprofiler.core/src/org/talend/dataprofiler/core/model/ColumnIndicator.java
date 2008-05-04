@@ -14,9 +14,7 @@ package org.talend.dataprofiler.core.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
@@ -33,11 +31,13 @@ public class ColumnIndicator {
 
     private TdColumn tdColumn;
 
-    private List<IndicatorEnum> indicatorEnums;
+    private List<IndicatorEnum> indicatorEnums = new ArrayList<IndicatorEnum>();
 
-    private Indicator[] indicators;
+    private List<Indicator> indicatorList = new ArrayList<Indicator>(0);
 
     private DataminingType dataminingType = DataminingType.NOMINAL;
+
+    private List<IndicatorTypeMapping> indicatorMappingTypeList = new ArrayList<IndicatorTypeMapping>();
 
     public ColumnIndicator(TdColumn tdColumn) {
         this.tdColumn = tdColumn;
@@ -50,12 +50,18 @@ public class ColumnIndicator {
         if (indicatorEnum == null) {
             return;
         }
-        if (indicatorEnums == null) {
-            indicatorEnums = new ArrayList<IndicatorEnum>();
-        }
         if (!this.indicatorEnums.contains(indicatorEnum)) {
             indicatorEnums.add(indicatorEnum);
+            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, createIndicator(indicatorEnum));
+            this.indicatorMappingTypeList.add(one);
         }
+    }
+
+    private Indicator createIndicator(IndicatorEnum indicatorEnum) {
+        IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
+        Indicator indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
+        indicatorList.add(indicator);
+        return indicator;
     }
 
     public boolean contains(IndicatorEnum indicatorEnum) {
@@ -67,20 +73,22 @@ public class ColumnIndicator {
      */
     public void removeIndicatorEnum(IndicatorEnum indicatorEnum) {
         this.indicatorEnums.remove(indicatorEnum);
+        for (IndicatorTypeMapping indicatorMapping : this.indicatorMappingTypeList) {
+            if (indicatorMapping.getType() == indicatorEnum) {
+                this.indicatorList.remove(indicatorMapping.getIndicator());
+            }
+        }
     }
 
     /**
      * @param indicatorEnums the indicatorEnums to set
      */
     public IndicatorEnum[] getIndicatorEnums() {
-        if (indicatorEnums == null) {
-            return null;
-        }
         return this.indicatorEnums.toArray(new IndicatorEnum[indicatorEnums.size()]);
     }
 
     public boolean hasIndicators() {
-        return !(this.indicatorEnums == null || this.indicatorEnums.size() == 0);
+        return !(this.indicatorEnums.size() == 0 || this.indicatorEnums.size() == 0);
     }
 
     /**
@@ -91,88 +99,19 @@ public class ColumnIndicator {
     }
 
     public Indicator[] getIndicators() {
-        if (indicatorEnums == null) {
-            return new Indicator[0];
-        }
-        IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
-        List<Indicator> indicatorList = new ArrayList<Indicator>();
-        Indicator indicator = null;
-        for (IndicatorEnum indicatorEnum : indicatorEnums) {
-            indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
-            // switch (indicatorEnum) {
-            // case RowCountIndicatorEnum:
-            // indicator = factory.createRowCountIndicator();
-            // break;
-            // case NullCountIndicatorEnum:
-            // indicator = factory.createNullCountIndicator();
-            // break;
-            // case DistinctCountIndicatorEnum:
-            // indicator = factory.createDistinctCountIndicator();
-            // break;
-            // case UniqueIndicatorEnum:
-            // indicator = factory.createUniqueCountIndicator();
-            // break;
-            // case DuplicateCountIndicatorEnum:
-            // indicator = factory.createUniqueCountIndicator();
-            // break;
-            // case BlankCountIndicatorEnum:
-            // indicator = factory.createBlankCountIndicator();
-            // break;
-            //
-            // case ModeIndicatorEnum:
-            // indicator = factory.createModeIndicator();
-            // break;
-            //
-            // // TODO MeanIndicator only corresponding DoubleMeanIndicator?
-            // case MeanIndicatorEnum:
-            // indicator = factory.createDoubleMeanIndicator();
-            // break;
-            // case MedianIndicatorEnum:
-            // indicator = factory.createMedianIndicator();
-            // break;
-            // case IQRIndicatorEnum:
-            // indicator = factory.createIQRIndicator();
-            // break;
-            // case RangeIndicatorEnum:
-            // indicator = factory.createRangeIndicator();
-            // break;
-            // case MinValueIndicatorEnum:
-            // indicator = factory.createMinValueIndicator();
-            // break;
-            // case MaxValueIndicatorEnum:
-            // indicator = factory.createMaxValueIndicator();
-            // break;
-            // case FrequencyIndicatorEnum:
-            // indicator = factory.createFrequencyIndicator();
-            // break;
-            // default:
-            // }
-            indicatorList.add(indicator);
-        }
-        this.indicators = indicatorList.toArray(new Indicator[indicatorList.size()]);
-        return this.indicators;
+        return this.indicatorList.toArray(new Indicator[indicatorList.size()]);
     }
-    
+
     public List<IndicatorTypeMapping> getIndicatorForMap() {
-        if (indicatorEnums == null) {
+        if (indicatorEnums.size() == 0) {
             return Collections.emptyList();
         }
-        
-        List<IndicatorTypeMapping> list = new ArrayList<IndicatorTypeMapping>();
-        
-        IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
-        Indicator indicator = null;
-        for (IndicatorEnum indicatorEnum : indicatorEnums) {
-            indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
-            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, indicator);
-            list.add(one);
-        }
-        
-        return list;
+        return indicatorMappingTypeList;
     }
 
     public void setIndicators(Indicator[] indicators) {
-        this.indicators = indicators;
+        indicatorEnums.clear();
+        indicatorList.clear();
         for (int i = 0; i < indicators.length; i++) {
             addIndicatorEnum(IndicatorEnum.findIndicatorEnum(indicators[i].eClass()));
         }

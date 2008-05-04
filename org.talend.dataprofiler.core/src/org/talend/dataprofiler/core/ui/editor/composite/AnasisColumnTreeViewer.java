@@ -28,7 +28,6 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
@@ -92,10 +91,10 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         column2.setWidth(80);
         TreeColumn column3 = new TreeColumn(newTree, SWT.CENTER);
         column3.setWidth(120);
-        TreeColumn column4 = new TreeColumn(newTree, SWT.CENTER);
-        column4.setWidth(120);
-        TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
-        column5.setWidth(120);
+//        TreeColumn column4 = new TreeColumn(newTree, SWT.CENTER);
+//        column4.setWidth(120);
+//        TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
+//        column5.setWidth(120);
         parent.layout();
         return newTree;
     }
@@ -211,10 +210,10 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 }
 
             });
-            editor.minimumWidth = WIDTH2_CELL;
+            editor.minimumWidth = WIDTH1_CELL;
             // editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(delButton, treeItem, 4);
+            editor.setEditor(delButton, treeItem, 2);
             if (columnIndicator.hasIndicators()) {
                 createIndicatorItems(treeItem, columnIndicator.getIndicatorEnums());
             }

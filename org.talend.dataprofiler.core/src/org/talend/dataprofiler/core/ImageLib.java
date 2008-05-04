@@ -39,6 +39,8 @@ public class ImageLib {
     
     public static final String PROJECT_ACTIVE = "prject_active.gif"; //$NON-NLS-1$
     
+    public static final String REPORT_HISTORIZE = "sample.gif"; //$NON-NLS-1$
+    
     
 
     /**
