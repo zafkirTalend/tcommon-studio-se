@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -153,22 +155,22 @@ public class FilesUtils {
     }
 
     public static List<URL> getFilesFromFolder(Bundle bundle, String path, String extension) {
-//        List<URL> toReturn = new ArrayList<URL>();
-//
-//        Enumeration entryPaths = bundle.getEntryPaths(path);
-//        for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
-//            String fileName = (String) enumer.nextElement();
-//            if (fileName.endsWith(extension)) {
-//                URL url = bundle.getEntry(fileName);
-//                try {
-//                    toReturn.add(FileLocator.toFileURL(url));
-//                } catch (IOException e) {
-//                    CommonExceptionHandler.process(e);
-//                }
-//            }
-//        }
-//        return toReturn;
-        
+        // List<URL> toReturn = new ArrayList<URL>();
+        //
+        // Enumeration entryPaths = bundle.getEntryPaths(path);
+        // for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
+        // String fileName = (String) enumer.nextElement();
+        // if (fileName.endsWith(extension)) {
+        // URL url = bundle.getEntry(fileName);
+        // try {
+        // toReturn.add(FileLocator.toFileURL(url));
+        // } catch (IOException e) {
+        // CommonExceptionHandler.process(e);
+        // }
+        // }
+        // }
+        // return toReturn;
+
         return getFilesFromFolder(bundle, path, extension, true, false);
     }
 
@@ -176,7 +178,7 @@ public class FilesUtils {
         List<URL> toReturn = new ArrayList<URL>();
 
         Enumeration entryPaths = bundle.getEntryPaths(path);
-        if(entryPaths==null){
+        if (entryPaths == null) {
             return toReturn;
         }
         for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
@@ -300,9 +302,10 @@ public class FilesUtils {
 
     public static void main(String[] args) {
         try {
-            createFoldersIfNotExists("c:\\test\\test1/test2", false);
-            createFoldersIfNotExists("c:\\test10\\test11/test20/test.pl", true);
-        } catch (IOException e) {
+            // createFoldersIfNotExists("c:\\test\\test1/test2", false);
+            // createFoldersIfNotExists("c:\\test10\\test11/test20/test.pl", true);
+            unzip("d:/tFileOutputPDF.zip", "d:/temp");
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -361,6 +364,68 @@ public class FilesUtils {
     public static String extractPathFolderFromFilePath(String filePath) {
         Path completePath = new Path(filePath);
         return completePath.removeLastSegments(1).toOSString();
+    }
+
+    /**
+     * Unzip the component file to the user folder.
+     * 
+     * @param zipFile The component zip file
+     * @param targetFolder The user folder
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public static void unzip(String zipFile, String targetFolder) throws Exception {
+        Exception exception = null;
+        ZipFile zip = new ZipFile(zipFile);
+        byte[] buf = new byte[8192];
+
+        try {
+            Enumeration<ZipEntry> enumeration = (Enumeration<ZipEntry>) zip.entries();
+            while (enumeration.hasMoreElements()) {
+                ZipEntry entry = enumeration.nextElement();
+
+                File file = new File(targetFolder, entry.getName());
+
+                if (entry.isDirectory()) {
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
+                } else {
+
+                    InputStream zin = zip.getInputStream(entry);
+                    OutputStream fout = new FileOutputStream(file);
+
+                    try {
+                        while (true) {
+                            int bytesRead = zin.read(buf);
+                            if (bytesRead == -1) { // end of file
+                                break;
+                            }
+                            fout.write(buf, 0, bytesRead);
+
+                        }
+                        fout.flush();
+                    } catch (Exception e) {
+                        exception = e;
+                        // stop looping
+                        return;
+                    } finally {
+                        zin.close();
+                        fout.close();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            exception = e;
+        } finally {
+            zip.close();
+
+            if (exception != null) {
+                // notify caller with exception
+                throw exception;
+            }
+        }
     }
 
 }
