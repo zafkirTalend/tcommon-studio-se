@@ -433,7 +433,23 @@ public abstract class RepositoryUpdateManager {
 
     }
 
+    /**
+     * 
+     * ggu Comment method "updateSchema".
+     * 
+     * for repository wizard.
+     */
     public static boolean updateDBConnection(Connection connection) {
+        return updateDBConnection(connection, true);
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateQuery".
+     * 
+     * if show is false, will work for context menu action.
+     */
+    public static boolean updateDBConnection(Connection connection, boolean show) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connection) {
 
             @Override
@@ -446,10 +462,26 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork();
+        return repositoryUpdateManager.doWork(show);
     }
 
+    /**
+     * 
+     * ggu Comment method "updateSchema".
+     * 
+     * for repository wizard.
+     */
     public static boolean updateFileConnection(Connection connection) {
+        return updateFileConnection(connection, true);
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateQuery".
+     * 
+     * if show is false, will work for context menu action.
+     */
+    public static boolean updateFileConnection(Connection connection, boolean show) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connection) {
 
             @Override
@@ -461,7 +493,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork();
+        return repositoryUpdateManager.doWork(show);
     }
 
     @SuppressWarnings("unchecked")//$NON-NLS-1$
@@ -501,7 +533,30 @@ public abstract class RepositoryUpdateManager {
         return schemaRenamedMap;
     }
 
+    /**
+     * 
+     * ggu Comment method "updateSchema".
+     * 
+     * for repository wizard.
+     */
     public static boolean updateSchema(final MetadataTable metadataTable, ConnectionItem connItem, Map<String, String> oldTableMap) {
+
+        return updateSchema(metadataTable, connItem, oldTableMap, true);
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateSchema".
+     * 
+     * if show is false, will work for context menu action.
+     */
+    public static boolean updateSchema(final MetadataTable metadataTable, boolean show) {
+
+        return updateSchema(metadataTable, null, null, show);
+    }
+
+    private static boolean updateSchema(final MetadataTable metadataTable, ConnectionItem connItem,
+            Map<String, String> oldTableMap, boolean show) {
         Map<String, String> schemaRenamedMap = getSchemaRenamedMap(connItem, oldTableMap);
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(metadataTable) {
 
@@ -517,10 +572,27 @@ public abstract class RepositoryUpdateManager {
         // set renamed schema
         repositoryUpdateManager.setSchemaRenamedMap(schemaRenamedMap);
 
-        return repositoryUpdateManager.doWork();
+        return repositoryUpdateManager.doWork(show);
     }
 
+    /**
+     * 
+     * ggu Comment method "updateQuery".
+     * 
+     * for repository wizard.
+     */
     public static boolean updateQuery(Query query) {
+
+        return updateQuery(query, true);
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateQuery".
+     * 
+     * if show is false, will work for context menu action.
+     */
+    public static boolean updateQuery(Query query, boolean show) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(query) {
 
             @Override
@@ -531,10 +603,31 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork();
+        return repositoryUpdateManager.doWork(show);
     }
 
+    /**
+     * 
+     * ggu Comment method "updateContext".
+     * 
+     * if show is false, will work for context menu action.
+     */
+    public static boolean updateContext(ContextItem item, boolean show) {
+        return updateContext(null, item, show);
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateContext".
+     * 
+     * for repository wizard.
+     */
     public static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item) {
+
+        return updateContext(repositoryContextManager, item, true);
+    }
+
+    private static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item, boolean show) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item) {
 
             @Override
@@ -545,12 +638,14 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        Map<ContextItem, Map<String, String>> repositoryRenamedMap = new HashMap<ContextItem, Map<String, String>>();
-        if (!repositoryContextManager.getNameMap().isEmpty()) {
-            repositoryRenamedMap.put(item, repositoryContextManager.getNameMap());
+        if (repositoryContextManager != null) {
+            Map<ContextItem, Map<String, String>> repositoryRenamedMap = new HashMap<ContextItem, Map<String, String>>();
+            if (!repositoryContextManager.getNameMap().isEmpty()) {
+                repositoryRenamedMap.put(item, repositoryContextManager.getNameMap());
+            }
+            repositoryUpdateManager.setContextRenamedMap(repositoryRenamedMap);
         }
-        repositoryUpdateManager.setContextRenamedMap(repositoryRenamedMap);
-        return repositoryUpdateManager.doWork();
+        return repositoryUpdateManager.doWork(show);
     }
 
     public static boolean updateAllJob() {
@@ -569,24 +664,4 @@ public abstract class RepositoryUpdateManager {
         return repositoryUpdateManager.doWork();
     }
 
-    /**
-     * 
-     * ggu Comment method "updateSchema".
-     * 
-     * for context menu action.
-     */
-    public static boolean updateSchema(final MetadataTable metadataTable) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(metadataTable) {
-
-            @Override
-            public Set<EUpdateItemType> getTypes() {
-                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
-                types.add(EUpdateItemType.NODE_SCHEMA);
-                return types;
-            }
-
-        };
-
-        return repositoryUpdateManager.doWork(false);
-    }
 }
