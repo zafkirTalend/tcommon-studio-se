@@ -84,6 +84,11 @@ public class Application implements IApplication {
      */
     private boolean acquireWorkspaceLock(Shell shell) {
         Location instanceLoc = Platform.getInstanceLocation();
+        // It may be the first time for user to use tos, and we haven't create workspace yet.
+        if (instanceLoc == null || instanceLoc.getURL() == null) {
+            return true;
+        }
+
         try {
             // try to lock the workspace
             if (instanceLoc.lock()) {
