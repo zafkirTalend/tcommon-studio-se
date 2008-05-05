@@ -77,7 +77,7 @@ public class GlobalServiceRegister {
         if (serviceGroup == null) {
             serviceGroup = findServiceGroup(klass);
             if (serviceGroup == null) {
-                return null; 
+                return new ArrayList<IService>(); 
             }
             serviceGroups.put(klass, serviceGroup);
         }

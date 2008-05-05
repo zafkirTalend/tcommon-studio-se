@@ -56,9 +56,6 @@ public class DQRespositoryView extends CommonNavigator {
 
     private void adjustFilter() {
         List<IService> filterList = GlobalServiceRegister.getDefault().getServiceGroup(IViewerFilterService.class);
-        if (filterList == null) {
-            return;
-        }
         for (IService service : filterList) {
             if (service instanceof IViewerFilterService) {
                 IViewerFilterService filterService = (IViewerFilterService) service;
