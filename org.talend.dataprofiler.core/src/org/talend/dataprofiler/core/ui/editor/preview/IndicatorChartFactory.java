@@ -42,7 +42,7 @@ import org.talend.dataprofiler.core.ui.utils.ChartUtils;
  */
 public class IndicatorChartFactory {
     
-    private static final  int CHART_WIDTH = 420;
+    private static final  int CHART_WIDTH = 430;
     
     private static final  int CHART_HEIGHT = 230;
     
@@ -143,7 +143,7 @@ public class IndicatorChartFactory {
                 try {
                     String valueStr = String.valueOf(object);
                     int value = Integer.parseInt(valueStr);
-                    dataset.addValue(50, "", indicator.getType().getLabel());
+                    dataset.addValue(500, "", indicator.getType().getLabel().split(" ")[0]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
