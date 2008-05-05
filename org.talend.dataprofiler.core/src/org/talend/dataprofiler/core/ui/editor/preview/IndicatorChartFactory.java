@@ -46,6 +46,9 @@ public class IndicatorChartFactory {
     
     private static final  int CHART_HEIGHT = 230;
     
+    private static final  int CHART_WIDTH2 = 100;
+    
+    private static final  int CHART_HEIGHT2 = 380;
 
     public static ImageDescriptor createSimpleChart(String titile, CategoryDataset dataset) {
         
@@ -77,7 +80,7 @@ public class IndicatorChartFactory {
     
     public static ImageDescriptor createFrequencyChart(String titile, CategoryDataset dataset) {
         
-        JFreeChart chart = ChartFactory.createBarChart3D(
+        JFreeChart chart = ChartFactory.createBarChart(
                 null,
                 titile, 
                 "Value", 
@@ -103,15 +106,15 @@ public class IndicatorChartFactory {
         
         JFreeChart chart = ChartFactory.createBoxAndWhiskerChart(
                 null, 
-                title, 
-                "value label", 
+                null, 
+                "value", 
                 dataset, 
                 false
                 );
         
         try {
             
-            return ChartUtils.convertToImage(chart, CHART_WIDTH, CHART_HEIGHT);
+            return ChartUtils.convertToImage(chart, CHART_WIDTH2, CHART_HEIGHT2);
             
         } catch (Exception e) {
             e.printStackTrace();
