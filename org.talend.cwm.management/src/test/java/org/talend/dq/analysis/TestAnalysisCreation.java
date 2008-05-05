@@ -13,6 +13,7 @@
 package org.talend.dq.analysis;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,10 +37,10 @@ import org.talend.dataquality.domain.sql.SqlPredicate;
 import org.talend.dataquality.expressions.BooleanExpressionNode;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
-import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.dq.analysis.parameters.IParameterConstant;
 import org.talend.dq.indicators.IndicatorEvaluator;
+import org.talend.dq.indicators.definitions.DefinitionHandler;
 import org.talend.dq.sql.converters.CwmZExpression;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
@@ -92,11 +93,10 @@ public class TestAnalysisCreation {
 
         // run analysis
         Analysis analysis = analysisBuilder.getAnalysis();
-        IAnalysisExecutor exec = new ColumnAnalysisExecutor();
+        final boolean useSql = true;
+        IAnalysisExecutor exec = useSql ? new ColumnAnalysisSqlExecutor() : new ColumnAnalysisExecutor();
         ReturnCode executed = exec.execute(analysis);
-        Assert
-                .assertTrue("Problem executing analysis: " + analysisName + ": " + executed.getMessage(), executed
-                        .isOk());
+        Assert.assertTrue("Problem executing analysis: " + analysisName + ": " + executed.getMessage(), executed.isOk());
 
         // save data provider
         DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
@@ -149,9 +149,27 @@ public class TestAnalysisCreation {
      * @return
      */
     private static Indicator[] getIndicators(ModelElement column) {
-        RowCountIndicator rowCountIndicator = IndicatorsFactory.eINSTANCE.createRowCountIndicator();
-        rowCountIndicator.setAnalyzedElement(column);
-        return new Indicator[] { rowCountIndicator };
+        List<Indicator> allIndicators = new ArrayList<Indicator>();
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createRowCountIndicator());
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createUniqueCountIndicator());
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createDistinctCountIndicator());
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createDuplicateCountIndicator());
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createNullCountIndicator());
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createMinLengthIndicator());
+        // allIndicators.add(IndicatorsFactory.eINSTANCE.createLowerQuartileIndicator());
+        // allIndicators.add(IndicatorsFactory.eINSTANCE.createUpperQuartileIndicator());
+        // allIndicators.add(IndicatorsFactory.eINSTANCE.createMedianIndicator());
+        allIndicators.add(IndicatorsFactory.eINSTANCE.createAverageLengthIndicator());
+
+        for (Indicator indicator : allIndicators) {
+            indicator.setAnalyzedElement(column);
+            boolean definitionSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
+            if (log.isDebugEnabled()) {
+                log.debug("Definition set for " + indicator.getName() + ": " + definitionSet);
+            }
+        }
+
+        return allIndicators.toArray(new Indicator[allIndicators.size()]);
     }
 
     /**

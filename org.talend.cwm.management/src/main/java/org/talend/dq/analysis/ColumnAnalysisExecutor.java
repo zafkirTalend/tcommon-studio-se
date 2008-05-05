@@ -13,7 +13,9 @@
 package org.talend.dq.analysis;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -28,6 +30,8 @@ import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.dq.sql.converters.CwmZQuery;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
+import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -41,10 +45,9 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
 
     private static Logger log = Logger.getLogger(ColumnAnalysisExecutor.class);
 
-    protected boolean runAnalysis(Analysis analysis, String sqlStatement) {
-        // --- the catalog or schema
-        Set<orgomg.cwm.objectmodel.core.Package> schemata = new HashSet<orgomg.cwm.objectmodel.core.Package>();
+    protected Map<ModelElement, orgomg.cwm.objectmodel.core.Package> schemata = new HashMap<ModelElement, orgomg.cwm.objectmodel.core.Package>();
 
+    protected boolean runAnalysis(Analysis analysis, String sqlStatement) {
         IndicatorEvaluator eval = new IndicatorEvaluator();
         // --- add indicators
         EList<Indicator> indicators = analysis.getResults().getIndicators();
@@ -55,7 +58,7 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
                 continue;
             }
             // --- get the schema owner
-            if (!belongToSameSchemata(tdColumn, schemata)) {
+            if (!belongToSameSchemata(tdColumn)) {
                 return false;
             }
             String columnName = ColumnHelper.getFullName(tdColumn);
@@ -74,7 +77,7 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         eval.setConnection(connection.getObject());
         // when to close connection
         boolean closeAtTheEnd = true;
-        Package catalog = schemata.iterator().next();
+        Package catalog = schemata.values().iterator().next();
         if (!eval.selectCatalog(catalog.getName())) {
             log.warn("Failed to select catalog " + catalog.getName() + " for connection.");
         }
@@ -93,8 +96,11 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
      * @param schemata
      * @return
      */
-    private boolean belongToSameSchemata(final TdColumn tdColumn, final Set<Package> schemata) {
+    protected boolean belongToSameSchemata(final TdColumn tdColumn) {
         assert tdColumn != null;
+        if (schemata.get(tdColumn) != null) {
+            return true;
+        }
         ColumnSet owner = ColumnHelper.getColumnSetOwner(tdColumn);
         if (owner == null) {
             this.errorMessage = "No owner found for this column: " + tdColumn.getName();
@@ -102,12 +108,11 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         }
         Package schema = ColumnSetHelper.getParentCatalogOrSchema(owner);
         if (schema == null) {
-            this.errorMessage = "No schema or catalog found for this column: " + owner.getName() + "."
-                    + tdColumn.getName();
+            this.errorMessage = "No schema or catalog found for this column: " + owner.getName() + "." + tdColumn.getName();
             return false;
         }
 
-        schemata.add(schema);
+        schemata.put(tdColumn, schema);
         if (schemata.size() != 1) {
             this.errorMessage = "given columns do not belong all to the same schema (or catalog). Cannot run this kind of analysis!";
             return false;
@@ -137,7 +142,11 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
                 this.errorMessage = "Given element is not a column: " + modelElement;
                 return null;
             }
-            ColumnSet colSet = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(col.getOwner());
+            Classifier owner = col.getOwner();
+            if (owner == null) {
+                this.errorMessage = "No owner found for given column: " + col.getName();
+            }
+            ColumnSet colSet = SwitchHelpers.COLUMN_SET_SWITCH.doSwitch(owner);
             if (colSet == null) {
                 this.errorMessage = "No container found for given column: " + col.getName() + ". Container= " + colSet;
                 return null;
@@ -150,6 +159,8 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
             }
             // add from
             fromPart.add(colSet);
+
+            // TODO add where part
 
         }
 

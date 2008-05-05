@@ -108,8 +108,9 @@ public final class DefinitionHandler {
         EMFUtil util = new EMFUtil();
         Resource definitionsFile = null;
         URI uri = URI.createPlatformResourceURI(WORKSPACE_PATH + FILENAME, false);
-        try { // load from plugin path
-            definitionsFile = util.getResourceSet().getResource(uri, true);
+        try { // load from workspace path
+            // do not create it here if it does not exist.
+            definitionsFile = util.getResourceSet().getResource(uri, false);
             if (log.isDebugEnabled()) {
                 log.debug("Definition of indicators loaded from " + uri);
             }
@@ -183,9 +184,10 @@ public final class DefinitionHandler {
         if (EMFUtil.saveResource(resource)) {
             if (log.isInfoEnabled()) {
                 log.info("Indicator default definitions correctly saved in " + resource.getURI());
-            } else {
-                log.warn("Failed to save default indicator definitions in " + resource.getURI());
             }
+        } else {
+            log.error("Failed to save default indicator definitions in " + resource.getURI());
+
         }
         return resource;
     }
@@ -339,7 +341,7 @@ public final class DefinitionHandler {
         public Boolean caseLowerQuartileIndicator(LowerQuartileIndicator object) {
             return setIndicatorDefinition(object, "Lower Quartile");
         }
-        
+
         @Override
         public Boolean caseUpperQuartileIndicator(UpperQuartileIndicator object) {
             return setIndicatorDefinition(object, "Upper Quartile");

@@ -59,9 +59,6 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
         if (sql == null) {
             return getReturnCode(false);
         }
-        if (log.isDebugEnabled()) {
-            log.debug("Generated SQL: " + sql);
-        }
 
         // --- run analysis
         boolean ok = runAnalysis(analysis, sql);
