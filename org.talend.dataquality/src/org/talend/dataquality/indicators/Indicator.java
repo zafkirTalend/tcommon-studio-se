@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
@@ -68,6 +69,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Returns the value of the '<em><b>Count</b></em>' attribute.
+     * The default value is <code>"0"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Count</em>' attribute isn't clear,
@@ -75,12 +77,12 @@ public interface Indicator extends ModelElement {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Count</em>' attribute.
-     * @see #setCount(long)
+     * @see #setCount(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_Count()
-     * @model
+     * @model default="0"
      * @generated
      */
-    long getCount();
+    BigInteger getCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getCount <em>Count</em>}' attribute.
@@ -90,10 +92,11 @@ public interface Indicator extends ModelElement {
      * @see #getCount()
      * @generated
      */
-    void setCount(long value);
+    void setCount(BigInteger value);
 
     /**
      * Returns the value of the '<em><b>Null Count</b></em>' attribute.
+     * The default value is <code>"0"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Null Count</em>' attribute isn't clear,
@@ -101,12 +104,12 @@ public interface Indicator extends ModelElement {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Null Count</em>' attribute.
-     * @see #setNullCount(long)
+     * @see #setNullCount(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_NullCount()
-     * @model
+     * @model default="0"
      * @generated
      */
-    long getNullCount();
+    BigInteger getNullCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getNullCount <em>Null Count</em>}' attribute.
@@ -116,7 +119,7 @@ public interface Indicator extends ModelElement {
      * @see #getNullCount()
      * @generated
      */
-    void setNullCount(long value);
+    void setNullCount(BigInteger value);
 
     /**
      * Returns the value of the '<em><b>Parameters</b></em>' containment reference.

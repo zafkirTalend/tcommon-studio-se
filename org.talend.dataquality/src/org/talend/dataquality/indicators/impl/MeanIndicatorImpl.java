@@ -1,5 +1,7 @@
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -11,14 +13,13 @@ import org.talend.dataquality.indicators.MeanIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected MeanIndicatorImpl() {
@@ -27,7 +28,6 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -40,25 +40,25 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
      * 
      * @generated NOT
      */
-    public double getMean() {
-        long c = getCount();
-        if (super.genericSum == null) {// TODO scorreia check that this work
-            if (c == 0) {
-                throw new RuntimeException("Invalid mean!!");
-            }
-            Double sum = Double.valueOf(getSumStr());
-            if (sum == null) {
-                throw new RuntimeException("Invalid sum in mean computation!!");
-            }
-            return sum / c;
-            // throw new RuntimeException("Problem when computing mean!!");
-        }
-
-        Double mean = super.genericSum.getMean(c);
-        if (mean == null) {
+    public BigDecimal getMean() {
+        BigInteger c = getCount();
+        // if (super.genericSum == null) {// TODO scorreia check that this work
+        if (c.compareTo(BigInteger.ZERO) == 0) {
             throw new RuntimeException("Invalid mean!!");
         }
-        return mean;
+        BigDecimal sum = new BigDecimal(getSumStr());
+        if (sum == null) {
+            throw new RuntimeException("Invalid sum in mean computation!!");
+        }
+        return sum.divide(new BigDecimal(c));
+        // throw new RuntimeException("Problem when computing mean!!");
+        // }
+        //
+        // Double mean = super.genericSum.getMean(c);
+        // if (mean == null) {
+        // throw new RuntimeException("Invalid mean!!");
+        // }
+        // return mean;
     }
 
     /*
@@ -76,7 +76,6 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public double getMeanWithNulls(double valueForNull) {
@@ -100,7 +99,7 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
         String s = String.valueOf(objects.get(0)[0]);
         String c = String.valueOf(objects.get(0)[1]);
         this.setSumStr(s);
-        this.setCount(Long.valueOf(c));
+        this.setCount(new BigInteger(c));
         return true;
     }
 

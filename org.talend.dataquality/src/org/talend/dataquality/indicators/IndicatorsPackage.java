@@ -3265,7 +3265,7 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR_PARAMETERS = 10;
 
     /**
-     * The feature id for the '<em><b>Indicator Valid Domain</b></em>' reference.
+     * The feature id for the '<em><b>Indicator Valid Domain</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3274,7 +3274,7 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN = 0;
 
     /**
-     * The feature id for the '<em><b>Data Valid Domain</b></em>' reference.
+     * The feature id for the '<em><b>Data Valid Domain</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3283,7 +3283,7 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR_PARAMETERS__DATA_VALID_DOMAIN = 1;
 
     /**
-     * The feature id for the '<em><b>Bins</b></em>' reference.
+     * The feature id for the '<em><b>Bins</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -8318,10 +8318,10 @@ public interface IndicatorsPackage extends EPackage {
     EClass getIndicatorParameters();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain <em>Indicator Valid Domain</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain <em>Indicator Valid Domain</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Indicator Valid Domain</em>'.
+     * @return the meta object for the containment reference '<em>Indicator Valid Domain</em>'.
      * @see org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain()
      * @see #getIndicatorParameters()
      * @generated
@@ -8329,10 +8329,10 @@ public interface IndicatorsPackage extends EPackage {
     EReference getIndicatorParameters_IndicatorValidDomain();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain <em>Data Valid Domain</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain <em>Data Valid Domain</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Data Valid Domain</em>'.
+     * @return the meta object for the containment reference '<em>Data Valid Domain</em>'.
      * @see org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain()
      * @see #getIndicatorParameters()
      * @generated
@@ -8340,10 +8340,10 @@ public interface IndicatorsPackage extends EPackage {
     EReference getIndicatorParameters_DataValidDomain();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Bins</em>'.
+     * @return the meta object for the containment reference '<em>Bins</em>'.
      * @see org.talend.dataquality.indicators.IndicatorParameters#getBins()
      * @see #getIndicatorParameters()
      * @generated
@@ -9164,7 +9164,7 @@ public interface IndicatorsPackage extends EPackage {
         EClass INDICATOR_PARAMETERS = eINSTANCE.getIndicatorParameters();
 
         /**
-         * The meta object literal for the '<em><b>Indicator Valid Domain</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Indicator Valid Domain</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -9172,7 +9172,7 @@ public interface IndicatorsPackage extends EPackage {
         EReference INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN = eINSTANCE.getIndicatorParameters_IndicatorValidDomain();
 
         /**
-         * The meta object literal for the '<em><b>Data Valid Domain</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Data Valid Domain</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -9180,7 +9180,7 @@ public interface IndicatorsPackage extends EPackage {
         EReference INDICATOR_PARAMETERS__DATA_VALID_DOMAIN = eINSTANCE.getIndicatorParameters_DataValidDomain();
 
         /**
-         * The meta object literal for the '<em><b>Bins</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Bins</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

@@ -20,10 +20,10 @@ import org.talend.dataquality.indicators.UniqueCountIndicator;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.dataquality.indicators.impl.UniqueCountIndicatorImpl#getUniqueValueCount <em>Unique Value Count</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.UniqueCountIndicatorImpl#getUniqueValueCount <em>Unique Value Count</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCountIndicator {
@@ -50,7 +50,6 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected UniqueCountIndicatorImpl() {
@@ -59,7 +58,6 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -69,7 +67,6 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Set<Object> getUniqueValues() {
@@ -80,71 +77,65 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
-            return new Integer(getUniqueValueCount());
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
+                return new Integer(getUniqueValueCount());
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
-            setUniqueValueCount(((Integer) newValue).intValue());
-            return;
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
+                setUniqueValueCount(((Integer)newValue).intValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
-            setUniqueValueCount(UNIQUE_VALUE_COUNT_EDEFAULT);
-            return;
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
+                setUniqueValueCount(UNIQUE_VALUE_COUNT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
-            return uniqueValueCount != UNIQUE_VALUE_COUNT_EDEFAULT;
+            case IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT:
+                return uniqueValueCount != UNIQUE_VALUE_COUNT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (uniqueValueCount: ");
@@ -155,7 +146,6 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public int getUniqueValueCount() {
@@ -164,15 +154,13 @@ public class UniqueCountIndicatorImpl extends IndicatorImpl implements UniqueCou
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setUniqueValueCount(int newUniqueValueCount) {
         int oldUniqueValueCount = uniqueValueCount;
         uniqueValueCount = newUniqueValueCount;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT,
-                    oldUniqueValueCount, uniqueValueCount));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.UNIQUE_COUNT_INDICATOR__UNIQUE_VALUE_COUNT, oldUniqueValueCount, uniqueValueCount));
     }
 
     /*

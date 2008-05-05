@@ -6,6 +6,8 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigInteger;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -26,6 +28,7 @@ package org.talend.dataquality.indicators;
 public interface BlankCountIndicator extends TextIndicator {
     /**
      * Returns the value of the '<em><b>Blank Count</b></em>' attribute.
+     * The default value is <code>"0"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Blank Count</em>' attribute isn't clear,
@@ -33,12 +36,12 @@ public interface BlankCountIndicator extends TextIndicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Blank Count</em>' attribute.
-     * @see #setBlankCount(int)
+     * @see #setBlankCount(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getBlankCountIndicator_BlankCount()
-     * @model
+     * @model default="0"
      * @generated
      */
-    int getBlankCount();
+    BigInteger getBlankCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.BlankCountIndicator#getBlankCount <em>Blank Count</em>}' attribute.
@@ -48,6 +51,6 @@ public interface BlankCountIndicator extends TextIndicator {
      * @see #getBlankCount()
      * @generated
      */
-    void setBlankCount(int value);
+    void setBlankCount(BigInteger value);
 
 } // BlankCountIndicator

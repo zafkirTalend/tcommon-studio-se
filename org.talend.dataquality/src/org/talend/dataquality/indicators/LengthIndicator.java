@@ -6,6 +6,8 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigInteger;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -33,12 +35,12 @@ public interface LengthIndicator extends TextIndicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Length</em>' attribute.
-     * @see #setLength(int)
+     * @see #setLength(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getLengthIndicator_Length()
      * @model
      * @generated
      */
-    int getLength();
+    BigInteger getLength();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.LengthIndicator#getLength <em>Length</em>}' attribute.
@@ -48,6 +50,6 @@ public interface LengthIndicator extends TextIndicator {
      * @see #getLength()
      * @generated
      */
-    void setLength(int value);
+    void setLength(BigInteger value);
 
 } // LengthIndicator

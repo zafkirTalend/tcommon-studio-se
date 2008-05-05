@@ -41,7 +41,7 @@ import org.talend.dataquality.indicators.TextParameters;
  */
 public class IndicatorParametersImpl extends EObjectImpl implements IndicatorParameters {
     /**
-     * The cached value of the '{@link #getIndicatorValidDomain() <em>Indicator Valid Domain</em>}' reference.
+     * The cached value of the '{@link #getIndicatorValidDomain() <em>Indicator Valid Domain</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getIndicatorValidDomain()
@@ -51,7 +51,7 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     protected Domain indicatorValidDomain;
 
     /**
-     * The cached value of the '{@link #getDataValidDomain() <em>Data Valid Domain</em>}' reference.
+     * The cached value of the '{@link #getDataValidDomain() <em>Data Valid Domain</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getDataValidDomain()
@@ -61,7 +61,7 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     protected Domain dataValidDomain;
 
     /**
-     * The cached value of the '{@link #getBins() <em>Bins</em>}' reference.
+     * The cached value of the '{@link #getBins() <em>Bins</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getBins()
@@ -125,14 +125,6 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @generated
      */
     public Domain getIndicatorValidDomain() {
-        if (indicatorValidDomain != null && indicatorValidDomain.eIsProxy()) {
-            InternalEObject oldIndicatorValidDomain = (InternalEObject)indicatorValidDomain;
-            indicatorValidDomain = (Domain)eResolveProxy(oldIndicatorValidDomain);
-            if (indicatorValidDomain != oldIndicatorValidDomain) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN, oldIndicatorValidDomain, indicatorValidDomain));
-            }
-        }
         return indicatorValidDomain;
     }
 
@@ -141,8 +133,14 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * <!-- end-user-doc -->
      * @generated
      */
-    public Domain basicGetIndicatorValidDomain() {
-        return indicatorValidDomain;
+    public NotificationChain basicSetIndicatorValidDomain(Domain newIndicatorValidDomain, NotificationChain msgs) {
+        Domain oldIndicatorValidDomain = indicatorValidDomain;
+        indicatorValidDomain = newIndicatorValidDomain;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN, oldIndicatorValidDomain, newIndicatorValidDomain);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -151,10 +149,17 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @generated
      */
     public void setIndicatorValidDomain(Domain newIndicatorValidDomain) {
-        Domain oldIndicatorValidDomain = indicatorValidDomain;
-        indicatorValidDomain = newIndicatorValidDomain;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN, oldIndicatorValidDomain, indicatorValidDomain));
+        if (newIndicatorValidDomain != indicatorValidDomain) {
+            NotificationChain msgs = null;
+            if (indicatorValidDomain != null)
+                msgs = ((InternalEObject)indicatorValidDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN, null, msgs);
+            if (newIndicatorValidDomain != null)
+                msgs = ((InternalEObject)newIndicatorValidDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN, null, msgs);
+            msgs = basicSetIndicatorValidDomain(newIndicatorValidDomain, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN, newIndicatorValidDomain, newIndicatorValidDomain));
     }
 
     /**
@@ -163,14 +168,6 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @generated
      */
     public Domain getDataValidDomain() {
-        if (dataValidDomain != null && dataValidDomain.eIsProxy()) {
-            InternalEObject oldDataValidDomain = (InternalEObject)dataValidDomain;
-            dataValidDomain = (Domain)eResolveProxy(oldDataValidDomain);
-            if (dataValidDomain != oldDataValidDomain) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN, oldDataValidDomain, dataValidDomain));
-            }
-        }
         return dataValidDomain;
     }
 
@@ -179,8 +176,14 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * <!-- end-user-doc -->
      * @generated
      */
-    public Domain basicGetDataValidDomain() {
-        return dataValidDomain;
+    public NotificationChain basicSetDataValidDomain(Domain newDataValidDomain, NotificationChain msgs) {
+        Domain oldDataValidDomain = dataValidDomain;
+        dataValidDomain = newDataValidDomain;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN, oldDataValidDomain, newDataValidDomain);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -189,10 +192,17 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @generated
      */
     public void setDataValidDomain(Domain newDataValidDomain) {
-        Domain oldDataValidDomain = dataValidDomain;
-        dataValidDomain = newDataValidDomain;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN, oldDataValidDomain, dataValidDomain));
+        if (newDataValidDomain != dataValidDomain) {
+            NotificationChain msgs = null;
+            if (dataValidDomain != null)
+                msgs = ((InternalEObject)dataValidDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN, null, msgs);
+            if (newDataValidDomain != null)
+                msgs = ((InternalEObject)newDataValidDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN, null, msgs);
+            msgs = basicSetDataValidDomain(newDataValidDomain, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN, newDataValidDomain, newDataValidDomain));
     }
 
     /**
@@ -201,14 +211,6 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @generated
      */
     public Domain getBins() {
-        if (bins != null && bins.eIsProxy()) {
-            InternalEObject oldBins = (InternalEObject)bins;
-            bins = (Domain)eResolveProxy(oldBins);
-            if (bins != oldBins) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.INDICATOR_PARAMETERS__BINS, oldBins, bins));
-            }
-        }
         return bins;
     }
 
@@ -217,8 +219,14 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * <!-- end-user-doc -->
      * @generated
      */
-    public Domain basicGetBins() {
-        return bins;
+    public NotificationChain basicSetBins(Domain newBins, NotificationChain msgs) {
+        Domain oldBins = bins;
+        bins = newBins;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__BINS, oldBins, newBins);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -227,10 +235,17 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @generated
      */
     public void setBins(Domain newBins) {
-        Domain oldBins = bins;
-        bins = newBins;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__BINS, oldBins, bins));
+        if (newBins != bins) {
+            NotificationChain msgs = null;
+            if (bins != null)
+                msgs = ((InternalEObject)bins).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__BINS, null, msgs);
+            if (newBins != null)
+                msgs = ((InternalEObject)newBins).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__BINS, null, msgs);
+            msgs = basicSetBins(newBins, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__BINS, newBins, newBins));
     }
 
     /**
@@ -305,6 +320,12 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN:
+                return basicSetIndicatorValidDomain(null, msgs);
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN:
+                return basicSetDataValidDomain(null, msgs);
+            case IndicatorsPackage.INDICATOR_PARAMETERS__BINS:
+                return basicSetBins(null, msgs);
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
                 return basicSetTextParameter(null, msgs);
         }
@@ -320,14 +341,11 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case IndicatorsPackage.INDICATOR_PARAMETERS__INDICATOR_VALID_DOMAIN:
-                if (resolve) return getIndicatorValidDomain();
-                return basicGetIndicatorValidDomain();
+                return getIndicatorValidDomain();
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATA_VALID_DOMAIN:
-                if (resolve) return getDataValidDomain();
-                return basicGetDataValidDomain();
+                return getDataValidDomain();
             case IndicatorsPackage.INDICATOR_PARAMETERS__BINS:
-                if (resolve) return getBins();
-                return basicGetBins();
+                return getBins();
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
                 return getDateAggregationType();
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:

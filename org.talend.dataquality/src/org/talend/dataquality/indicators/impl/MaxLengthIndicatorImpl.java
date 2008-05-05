@@ -5,6 +5,8 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigInteger;
+
 import org.eclipse.emf.ecore.EClass;
 
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -47,12 +49,11 @@ public class MaxLengthIndicatorImpl extends LengthIndicatorImpl implements MaxLe
         boolean ok = super.handle(data);
         if (data != null) {
             String str = (String) data;
-            if (length < str.length()) {
-                length = str.length();
+            if (length.intValue() < str.length()) {
+                length = new BigInteger(String.valueOf(str.length()));
             }
         }
         // TODO scorreia handle null data
         return ok;
     }
-
 } // MaxLengthIndicatorImpl

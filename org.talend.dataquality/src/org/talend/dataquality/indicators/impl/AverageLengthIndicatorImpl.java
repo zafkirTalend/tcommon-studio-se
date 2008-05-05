@@ -5,6 +5,8 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -20,10 +22,10 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl#getSumLength <em>Sum Length</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl#getSumLength <em>Sum Length</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements AverageLengthIndicator {
@@ -31,28 +33,27 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     private static Logger log = Logger.getLogger(AverageLengthIndicatorImpl.class);
 
     /**
-     * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSumLength()
      * @generated
      * @ordered
      */
-    protected static final long SUM_LENGTH_EDEFAULT = 0L;
+    protected static final BigDecimal SUM_LENGTH_EDEFAULT = new BigDecimal("0");
 
     /**
-     * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getSumLength()
      * @generated
      * @ordered
      */
-    protected long sumLength = SUM_LENGTH_EDEFAULT;
+    protected BigDecimal sumLength = SUM_LENGTH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected AverageLengthIndicatorImpl() {
@@ -61,7 +62,6 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -71,29 +71,25 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
-    public long getSumLength() {
+    public BigDecimal getSumLength() {
         return sumLength;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
-    public void setSumLength(long newSumLength) {
-        long oldSumLength = sumLength;
+    public void setSumLength(BigDecimal newSumLength) {
+        BigDecimal oldSumLength = sumLength;
         sumLength = newSumLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH,
-                    oldSumLength, sumLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH, oldSumLength, sumLength));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public double getAverageLength() {
@@ -104,58 +100,54 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-            return new Long(getSumLength());
+            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+                return getSumLength();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-            setSumLength(((Long) newValue).longValue());
-            return;
+            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+                setSumLength((BigDecimal)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-            setSumLength(SUM_LENGTH_EDEFAULT);
-            return;
+            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+                setSumLength(SUM_LENGTH_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-            return sumLength != SUM_LENGTH_EDEFAULT;
+            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+                return SUM_LENGTH_EDEFAULT == null ? sumLength != null : !SUM_LENGTH_EDEFAULT.equals(sumLength);
         }
         return super.eIsSet(featureID);
     }
@@ -180,25 +172,25 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
         boolean ok = super.handle(data);
         if (data != null) {
             String str = (String) data;
-            sumLength += str.length();
+            sumLength.add(new BigDecimal(str.length()));
         }
         // TODO scorreia handle case when data is null and should be replaced by empty string
         return ok;
     }
 
-    /*
-     * (non-Javadoc) ADDED scorreia 2008-04-08 get average length
-     * 
-     * @see org.talend.dataquality.indicators.impl.LengthIndicatorImpl#getLength()
-     */
-    @Override
-    public int getLength() {
-        if (count == 0) {
-            return 0;
-        }
-        // else
-        return (int) (sumLength / count); // CAST in int
-    }
+    // /*
+    // * (non-Javadoc) ADDED scorreia 2008-04-08 get average length
+    // *
+    // * @see org.talend.dataquality.indicators.impl.LengthIndicatorImpl#getLength()
+    // */
+    // @Override
+    // public int getLength() {
+    // if (count == 0) {
+    // return 0;
+    // }
+    // // else
+    // return (int) (sumLength / count); // CAST in int
+    // }
 
     /*
      * (non-Javadoc)
@@ -212,8 +204,11 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
         if (!checkResults(objects, 2)) {
             return false;
         }
-        this.setCount((Integer) objects.get(0)[1]);
-        this.setSumLength((Long) objects.get(0)[0]);
+        String c = String.valueOf(objects.get(0)[1]);
+        String s = String.valueOf(objects.get(0)[0]);
+
+        this.setCount(new BigInteger(c));
+        this.setSumLength(new BigDecimal(s));
         return true;
     }
 

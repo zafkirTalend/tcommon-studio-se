@@ -1,5 +1,6 @@
 package org.talend.dataquality.indicators;
 
+import java.math.BigDecimal;
 import org.eclipse.emf.ecore.EObject;
 
 
@@ -24,7 +25,7 @@ public interface MeanIndicator extends SumIndicator {
      * @model kind="operation"
      * @generated
      */
-    double getMean();
+    BigDecimal getMean();
 
     /**
      * <!-- begin-user-doc -->

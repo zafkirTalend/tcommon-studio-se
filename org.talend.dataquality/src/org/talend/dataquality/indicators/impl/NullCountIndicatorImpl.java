@@ -5,10 +5,10 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.NullCountIndicator;
@@ -18,14 +18,13 @@ import org.talend.dataquality.indicators.NullCountIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected NullCountIndicatorImpl() {
@@ -34,7 +33,6 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -68,7 +66,7 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
             return false;
         }
         String c = String.valueOf(objects.get(0)[0]);
-        this.setNullCount(Integer.valueOf(c));
+        this.setNullCount(new BigInteger(c));
         return true;
     }
 

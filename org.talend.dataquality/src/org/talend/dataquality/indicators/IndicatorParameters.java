@@ -32,76 +32,76 @@ import org.talend.dataquality.domain.Domain;
  */
 public interface IndicatorParameters extends EObject {
     /**
-     * Returns the value of the '<em><b>Indicator Valid Domain</b></em>' reference.
+     * Returns the value of the '<em><b>Indicator Valid Domain</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Thresholds (or patterns) on indicators. Indicator that do not respect these thresholds are used to compute a quality indicator.
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Indicator Valid Domain</em>' reference.
+     * @return the value of the '<em>Indicator Valid Domain</em>' containment reference.
      * @see #setIndicatorValidDomain(Domain)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_IndicatorValidDomain()
-     * @model
+     * @model containment="true"
      * @generated
      */
     Domain getIndicatorValidDomain();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain <em>Indicator Valid Domain</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain <em>Indicator Valid Domain</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Indicator Valid Domain</em>' reference.
+     * @param value the new value of the '<em>Indicator Valid Domain</em>' containment reference.
      * @see #getIndicatorValidDomain()
      * @generated
      */
     void setIndicatorValidDomain(Domain value);
 
     /**
-     * Returns the value of the '<em><b>Data Valid Domain</b></em>' reference.
+     * Returns the value of the '<em><b>Data Valid Domain</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The domain that defines the valid data. It can be patterns or thresholds, or more complex validation function. 
      * This is not a filter. Data that do not respect these domain are counted in the analysis but are used to compute a quality indicator.
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Data Valid Domain</em>' reference.
+     * @return the value of the '<em>Data Valid Domain</em>' containment reference.
      * @see #setDataValidDomain(Domain)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_DataValidDomain()
-     * @model
+     * @model containment="true"
      * @generated
      */
     Domain getDataValidDomain();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain <em>Data Valid Domain</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain <em>Data Valid Domain</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Data Valid Domain</em>' reference.
+     * @param value the new value of the '<em>Data Valid Domain</em>' containment reference.
      * @see #getDataValidDomain()
      * @generated
      */
     void setDataValidDomain(Domain value);
 
     /**
-     * Returns the value of the '<em><b>Bins</b></em>' reference.
+     * Returns the value of the '<em><b>Bins</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * The bins definition (if any). Bins' definition is usually used for aggregating data into bins. 
      * <!-- end-model-doc -->
-     * @return the value of the '<em>Bins</em>' reference.
+     * @return the value of the '<em>Bins</em>' containment reference.
      * @see #setBins(Domain)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_Bins()
-     * @model
+     * @model containment="true"
      * @generated
      */
     Domain getBins();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Bins</em>' reference.
+     * @param value the new value of the '<em>Bins</em>' containment reference.
      * @see #getBins()
      * @generated
      */

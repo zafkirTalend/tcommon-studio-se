@@ -5,6 +5,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigDecimal;
 import java.util.TreeMap;
 
 /**
@@ -38,23 +39,24 @@ public interface MedianIndicator extends Indicator {
      * @return the value of the '<em>Median</em>' attribute.
      * @see #isSetMedian()
      * @see #unsetMedian()
-     * @see #setMedian(double)
+     * @see #setMedian(BigDecimal)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getMedianIndicator_Median()
      * @model unsettable="true"
      * @generated
      */
-    double getMedian();
+    BigDecimal getMedian();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.MedianIndicator#getMedian <em>Median</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Median</em>' attribute.
      * @see #isSetMedian()
      * @see #unsetMedian()
      * @see #getMedian()
      * @generated
      */
-    void setMedian(double value);
+    void setMedian(BigDecimal value);
 
     /**
      * Unsets the value of the '{@link org.talend.dataquality.indicators.MedianIndicator#getMedian <em>Median</em>}' attribute.
@@ -62,7 +64,7 @@ public interface MedianIndicator extends Indicator {
      * <!-- end-user-doc -->
      * @see #isSetMedian()
      * @see #getMedian()
-     * @see #setMedian(double)
+     * @see #setMedian(BigDecimal)
      * @generated
      */
     void unsetMedian();
@@ -74,7 +76,7 @@ public interface MedianIndicator extends Indicator {
      * @return whether the value of the '<em>Median</em>' attribute is set.
      * @see #unsetMedian()
      * @see #getMedian()
-     * @see #setMedian(double)
+     * @see #setMedian(BigDecimal)
      * @generated
      */
     boolean isSetMedian();

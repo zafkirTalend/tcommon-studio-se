@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigInteger;
 import java.util.Set;
 
 
@@ -40,12 +41,12 @@ public interface DuplicateCountIndicator extends Indicator {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the value of the '<em>Duplicate Value Count</em>' attribute.
-     * @see #setDuplicateValueCount(int)
+     * @see #setDuplicateValueCount(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getDuplicateCountIndicator_DuplicateValueCount()
      * @model
      * @generated
      */
-    int getDuplicateValueCount();
+    BigInteger getDuplicateValueCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.DuplicateCountIndicator#getDuplicateValueCount <em>Duplicate Value Count</em>}' attribute.
@@ -55,5 +56,5 @@ public interface DuplicateCountIndicator extends Indicator {
      * @see #getDuplicateValueCount()
      * @generated
      */
-    void setDuplicateValueCount(int value);
+    void setDuplicateValueCount(BigInteger value);
 } // DuplicateCountIndicator
