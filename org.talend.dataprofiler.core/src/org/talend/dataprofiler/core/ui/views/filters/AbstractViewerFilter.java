@@ -10,12 +10,15 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.pref;
+package org.talend.dataprofiler.core.ui.views.filters;
+
+import org.eclipse.jface.viewers.ViewerFilter;
 
 /**
  * DOC rli class global comment. Detailled comment
  */
-public class PreferenceConstant {
+public abstract class AbstractViewerFilter extends ViewerFilter {
 
-    public static final String REPORTINGENABLE = "REPORTINGENABLE";
+    public abstract int getId();
+
 }

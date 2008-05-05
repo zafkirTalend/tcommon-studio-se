@@ -2,6 +2,7 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="dataprofilerperspectives" name="Dataprofiler Perspectives" schema="schema/Dataprofilerperspectives.exsd"/>
+   <extension-point id="service" name="Dataprofiler Service" schema="schema/service.exsd"/>
      
      <extension
          point="org.eclipse.ui.views">
@@ -254,14 +255,6 @@
            class="org.talend.dataprofiler.core.ui.editor.DocumentEditorInputFactory"
             id="org.talend.dataprofiler.core.ui.editor.DocumentEditorInput">
       </factory>
-   </extension>
-   
-      <extension point="org.eclipse.ui.preferencePages">
-       <page 
-         name="Dataprofiler"
-         class="org.talend.dataprofiler.core.ui.pref.DataprofilerSettingPage"
-         id="org.talend.dataprofiler.core.ui.pref.DataprofilerSettingPage">
-       </page>     
    </extension>
 
 </plugin>

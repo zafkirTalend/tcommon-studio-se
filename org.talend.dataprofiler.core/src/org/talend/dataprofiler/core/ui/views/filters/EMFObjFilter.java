@@ -12,22 +12,21 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.views.filters;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import org.talend.dataprofiler.core.CorePlugin;
-import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.pref.PreferenceConstant;
-
 import orgomg.cwm.foundation.businessinformation.Description;
 
 /**
  * @author rli
  * 
  */
-public class EMFObjFilter extends ViewerFilter {
+public class EMFObjFilter extends AbstractViewerFilter {    
+
+   public static final int FILTER_ID = 1;
+    
+    public int getId() {
+        return FILTER_ID;
+    }
 
     /*
      * (non-Javadoc)
@@ -39,13 +38,6 @@ public class EMFObjFilter extends ViewerFilter {
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         if ((element instanceof Description) || (element instanceof TdDataProvider)) {
             return false;
-        }
-        if ((!CorePlugin.getDefault().getPreferenceStore().getBoolean(PreferenceConstant.REPORTINGENABLE))
-                && (element instanceof IFolder)) {
-            IPath projectRelativePath = ((IFolder) element).getFullPath();
-            if (projectRelativePath.toString().equals(PluginConstant.REPORT_FOLDER_PATH)) {
-                return false;
-            }
         }
         return true;
     }

@@ -10,32 +10,19 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.pref;
-
+package org.talend.dataprofiler.core.service;
 
 /**
- * DOC rli  class global comment. Detailled comment
+ * DOC rli class global comment. Detailled comment
  */
-public class PrefParameterBean {
-    
-    private boolean reportEnable;
+public interface IViewerFilterService extends IService {
 
-    
+    public int getViwerFilterId();
+
     /**
-     * Getter for reportEnable.
-     * @return the reportEnable
+     * Judge add or delete the filter corresponding the special viewerfilterId.
+     * 
+     * @return if return true, will add the filter; else will delete the filter.
      */
-    public boolean isReportEnable() {
-        return reportEnable;
-    }
-
-    
-    /**
-     * Sets the reportEnable.
-     * @param reportEnable the reportEnable to set
-     */
-    public void setReportEnable(boolean reportEnable) {
-        this.reportEnable = reportEnable;
-    }
-
+    public boolean isAddOrDel();
 }
