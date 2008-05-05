@@ -30,6 +30,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
@@ -54,6 +55,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -70,8 +72,6 @@ import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorChartFactory;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
-import org.talend.dataquality.indicators.IndicatorParameters;
-import org.talend.dataquality.indicators.TextParameters;
 import org.talend.dq.analysis.ColumnAnalysisHandler;
 import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -89,6 +89,10 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     private Text purposeText;
 
     private Text descriptionText;
+    
+    private Text authorText;
+    
+    private CCombo statusCombo;
 
     private AnasisColumnTreeViewer treeViewer;
 
@@ -192,6 +196,22 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
                 .getDescription());
+        
+        label = toolkit.createLabel(labelButtonClient, "Analysis Author:");
+        authorText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(authorText);
+        authorText.setText(analysisHandler.getAuthor() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getAuthor());
+        
+        label = toolkit.createLabel(labelButtonClient, "Analysis Status:");
+        statusCombo = new CCombo(labelButtonClient, SWT.BORDER);
+        statusCombo.setText(analysisHandler.getStatus() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getStatus());
+        statusCombo.setEditable(false);
+        for (DevelopmentStatus status : DevelopmentStatus.values()) {
+
+            statusCombo.add(status.getLiteral());
+        }
+        
+        
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -216,6 +236,24 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             }
 
         });
+        
+        authorText.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+                analysisHandler.setAuthor(authorText.getText());
+            }
+        });
+        
+        statusCombo.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                setDirty(true);
+                analysisHandler.setStatus(statusCombo.getText());
+            }
+
+        });
+        
         section.setClient(labelButtonClient);
     }
 
