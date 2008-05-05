@@ -77,7 +77,7 @@ public class GlobalServiceRegister {
         if (serviceGroup == null) {
             serviceGroup = findServiceGroup(klass);
             if (serviceGroup == null) {
-                throw new RuntimeException("The service can't find:" + klass.getName()); 
+                return null; 
             }
             serviceGroups.put(klass, serviceGroup);
         }
