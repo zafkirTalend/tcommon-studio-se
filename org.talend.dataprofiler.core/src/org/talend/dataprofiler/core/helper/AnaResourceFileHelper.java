@@ -43,7 +43,7 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
 
     private static AnaResourceFileHelper instance;
 
-    private Map<IFile, AnalysisEntity> allAnalysisMap = new HashMap<IFile, AnalysisEntity>();
+    private Map<String, AnalysisEntity> allAnalysisMap = new HashMap<String, AnalysisEntity>();
 
     private AnaResourceFileHelper() {
         super();
@@ -83,23 +83,33 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
     }
 
     public Analysis findAnalysis(IFile file) {
-        AnalysisEntity analysisEntity = allAnalysisMap.get(file);
+        String absolutePath = file.getLocation().toFile().getAbsolutePath();
+        return findPathAnalysis(absolutePath);
+    }
+
+    /**
+     * DOC xy Comment method "findPathAnalysis".
+     * 
+     * @param absolutePath
+     * @return
+     */
+    public Analysis findPathAnalysis(String absolutePath) {
+        AnalysisEntity analysisEntity = allAnalysisMap.get(absolutePath);
         if (analysisEntity != null) {
             return analysisEntity.getAnalysis();
         }
-        Resource fileResource = getFileResource(file);
+        Resource fileResource = getPathResource(absolutePath);
         Analysis analysis = retireAnalysis(fileResource);
         if (analysis != null) {
             AnalysisEntity entity = new AnalysisEntity(analysis);
-            allAnalysisMap.put(file, entity);
+            allAnalysisMap.put(absolutePath, entity);
         }
         return analysis;
     }
 
     public Analysis findAnalysis(File file) {
-        Resource fileResource = getFileResource(file);
-        Analysis analysis = retireAnalysis(fileResource);
-        return analysis;
+        String absolutePath = file.getAbsolutePath();
+        return findPathAnalysis(absolutePath);
     }
 
     /**
@@ -131,7 +141,7 @@ public final class AnaResourceFileHelper extends ResourceFileMap {
 
     public void remove(IFile file) {
         super.remove(file);
-        this.allAnalysisMap.remove(file);
+        this.allAnalysisMap.remove(file.getLocation().toFile().getAbsoluteFile());
     }
 
     public void clear() {

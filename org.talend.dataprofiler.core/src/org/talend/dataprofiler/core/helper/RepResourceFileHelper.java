@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.helper;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,12 +82,6 @@ public final class RepResourceFileHelper extends ResourceFileMap {
         Resource fileResource = getFileResource(file);
         report = retireReport(fileResource);
         allRepMap.put(file, report);
-        return report;
-    }
-
-    public TdReport getReport(File file) {
-        Resource fileResource = getFileResource(file);
-        TdReport report = retireReport(fileResource);
         return report;
     }
 

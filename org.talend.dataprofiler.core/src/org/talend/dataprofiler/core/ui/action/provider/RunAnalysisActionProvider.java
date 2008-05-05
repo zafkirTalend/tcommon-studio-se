@@ -126,11 +126,7 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
                         log.info("Analysis " + finalAnalysis.getName() + "execution code: " + executed);
                     }
                     if (executed.isOk()) {
-                        Resource resource = finalAnalysis.eResource();
-                        if (resource != null) {
-
-                            EMFUtil.saveResource(resource);
-                        }
+                        AnaResourceFileHelper.getInstance().save(finalAnalysis);
                     }
                 }
             };

@@ -27,20 +27,21 @@ import org.talend.commons.emf.EMFUtil;
  */
 public class ResourceFileMap {
 
-    private Map<IFile, Resource> registedResourceMap = new HashMap<IFile, Resource>();
+    private Map<String, Resource> registedResourceMap = new HashMap<String, Resource>();
 
     protected boolean resourceChanged = true;
 
     // private ResourceFileMapHelper instance = new ResourceFileMapHelper();
 
     public void register(IFile file, Resource resource) {
-        registedResourceMap.put(file, resource);
+        String absolutePath = file.getLocation().toFile().getAbsolutePath();
+        registedResourceMap.put(absolutePath, resource);
     }
 
     public void remove(IFile file) {
-        this.registedResourceMap.remove(file);
+        this.registedResourceMap.remove(file.getLocation().toFile().getAbsolutePath());
     }
-    
+
     public void clear() {
         this.registedResourceMap.clear();
     }
@@ -52,24 +53,32 @@ public class ResourceFileMap {
      * @return
      */
     public Resource getFileResource(IFile file) {
-        Resource res = registedResourceMap.get(file);
+        String absolutePath = file.getLocation().toFile().getAbsolutePath();
+        return getPathResource(absolutePath);
+    }
+
+    protected Resource getFileResource(File file) {
+        String absolutePath = file.getAbsolutePath();
+        return getPathResource(absolutePath);
+    }
+
+
+    /**
+     * DOC xy Comment method "createResource".
+     * 
+     * @param absolutePath
+     * @return
+     */
+    protected Resource getPathResource(String absolutePath) {
+        Resource res = registedResourceMap.get(absolutePath);
         if (res != null) {
             return res;
         }
         EMFUtil util = new EMFUtil();
-        String path = file.getFullPath().toString();
-        URI uri = URI.createPlatformResourceURI(path, true);
+        URI uri = URI.createFileURI(absolutePath);
         ResourceSet rs = util.getResourceSet();
         Resource resource = rs.getResource(uri, true);
-        this.registedResourceMap.put(file, resource);
-        return resource;
-    }
-
-    protected Resource getFileResource(File file) {
-        EMFUtil util = new EMFUtil();
-        URI uri = URI.createFileURI(file.getPath());
-        ResourceSet rs = util.getResourceSet();
-        Resource resource = rs.getResource(uri, true);
+        this.registedResourceMap.put(absolutePath, resource);
         return resource;
     }
 

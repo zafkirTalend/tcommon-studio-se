@@ -501,7 +501,10 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
                     folerNode.loadChildren();
                 }
                 Object[] children = folerNode.getChildren();
-                if (children != null && children[0] instanceof ColumnSet) {
+                if (children != null && children.length > 0) {
+                    if (!(children[0] instanceof ColumnSet)) {
+                        return children;
+                    }
                     for (int i = 0; i < children.length; i++) {
                         ColumnSet columnSet = (ColumnSet) children[i];
                         ColumnSetKey key = new ColumnSetKey(columnSet);
