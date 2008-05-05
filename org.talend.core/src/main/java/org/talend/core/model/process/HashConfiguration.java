@@ -29,6 +29,8 @@ public class HashConfiguration implements IHashConfiguration {
 
     private String temporaryDataDirectory;
 
+    private String rowsBufferSize;
+
     /**
      * DOC amaumont HashConfigurationForMapper constructor comment.
      * 
@@ -38,12 +40,13 @@ public class HashConfiguration implements IHashConfiguration {
      * @param b
      */
     public HashConfiguration(List<IHashableColumn> hashableColumns, IMatchingMode matchingMode, boolean persistent,
-            String temporaryDataDirectory) {
+            String temporaryDataDirectory, String rowsBufferSize) {
         super();
         this.hashableColumns = hashableColumns;
         this.matchingMode = matchingMode;
         this.persistent = persistent;
         this.temporaryDataDirectory = temporaryDataDirectory;
+        this.rowsBufferSize = rowsBufferSize;
     }
 
     /*
@@ -77,4 +80,8 @@ public class HashConfiguration implements IHashConfiguration {
         return temporaryDataDirectory;
     }
 
+    public String getRowsBufferSize() {
+        return rowsBufferSize;
+    }
+    
 }

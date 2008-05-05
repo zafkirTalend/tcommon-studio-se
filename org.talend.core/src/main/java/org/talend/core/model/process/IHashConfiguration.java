@@ -29,5 +29,7 @@ public interface IHashConfiguration {
     public boolean isPersistent();
     
     public String getTemporaryDataDirectory();
+ 
+    public String getRowsBufferSize();
     
 }
