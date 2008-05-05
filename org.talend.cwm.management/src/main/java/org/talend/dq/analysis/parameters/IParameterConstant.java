@@ -35,27 +35,4 @@ public interface IParameterConstant {
     
     public static final String ANALYSIS_STATUS = "Status";
     
-    //indicator parameter
-        //bins
-    public static final String INDICATOR_MIN_VALUE = "BinsMinValue";
-    
-    public static final String INDICATOR_MAX_VALUE = "BinsMaxValue";
-    
-    public static final String INDICATOR_NUM_OF_BIN = "NumOfBin";
-    
-        //time
-    public static final String INDICATOR_TIME_SLICES = "TimeSlices";
-    
-        //text
-    public static final String INDICATOR_IGNORE_CASE = "TextIgnoreCase";
-    
-        //text length
-    public static final String INDICATOR_COUNT_NULLS = "CountNulls";
-    
-    public static final String INDICATOR_COUNT_BLANKS = "CountBlanks";
-    
-        //data thresholds
-    public static final String INDICATOR_LOWER_THRESHOLD = "LowerThreshold";
-    
-    public static final String INDICATOR_HIGHER_THRESHOLD = "HigherThreshold";
 }
