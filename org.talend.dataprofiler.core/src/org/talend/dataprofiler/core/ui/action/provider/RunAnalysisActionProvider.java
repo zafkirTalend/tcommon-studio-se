@@ -40,6 +40,7 @@ import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dq.analysis.AnalysisExecutor;
 import org.talend.dq.analysis.ColumnAnalysisExecutor;
+import org.talend.dq.analysis.ColumnAnalysisSqlExecutor;
 import org.talend.dq.analysis.ConnectionAnalysisExecutor;
 import org.talend.utils.sugars.ReturnCode;
 
@@ -105,7 +106,7 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
             AnalysisExecutor exec = null;
             switch (analysisType) {
             case MULTIPLE_COLUMN:
-                exec = new ColumnAnalysisExecutor();
+                exec = new ColumnAnalysisSqlExecutor();
                 break;
             case CONNECTION:
                 exec = new ConnectionAnalysisExecutor();
