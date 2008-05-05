@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
 import java.sql.Types;
+import java.util.Map;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -23,8 +24,9 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.PlatformUI;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
-import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
 import org.talend.dataprofiler.help.HelpPlugin;
 import org.talend.dataquality.indicators.DataminingType;
 
@@ -34,20 +36,23 @@ import org.talend.dataquality.indicators.DataminingType;
  */
 public class DynamicIndicatorOptionsPage extends WizardPage {
 
-    private ColumnIndicator columnIndicator;
+    private IndicatorTypeMapping indicator;
     
-    private IndicatorEnum indicatorEnum;
+    private ColumnIndicator parentColumn;
     
     private TabFolder tabFolder;
+    
+    private Map<String, AbstractIndicatorParameter> paramMap;
     /**
      * DOC zqin DynamicIndicatorOptionsPage constructor comment.
      * @param pageName
      */
-    public DynamicIndicatorOptionsPage(ColumnIndicator columnIndicator, IndicatorEnum indicatorEnum) {
+    public DynamicIndicatorOptionsPage(IndicatorTypeMapping indicator, Map<String, AbstractIndicatorParameter> paramMap) {
         super("Indicator settings");
         
-        this.columnIndicator = columnIndicator;
-        this.indicatorEnum = indicatorEnum;
+        this.indicator = indicator;
+        this.paramMap = paramMap;
+        this.parentColumn = indicator.getParentColumn();
         setTitle("Indicator settings");
         setMessage("In this wizard, parameters for the given indicator can be set");
         
@@ -63,12 +68,12 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
         tabFolder = new TabFolder(container, SWT.FLAT);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
         
-        if (indicatorEnum != null) {
+        if (indicator != null) {
             
-            int sqlType = columnIndicator.getTdColumn().getJavaType();
+            int sqlType = parentColumn.getTdColumn().getJavaType();
             //System.out.println(sqlType);
             
-            switch (indicatorEnum) {
+            switch (indicator.getType()) {
 
             case DistinctCountIndicatorEnum:
             case UniqueIndicatorEnum:
@@ -87,7 +92,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                 
                 break;
             case FrequencyIndicatorEnum:
-                if (columnIndicator.getDataminingType() == DataminingType.INTERVAL) {
+                if (parentColumn.getDataminingType() == DataminingType.INTERVAL) {
                     if (isNumbericInSQL(sqlType)) {
 
                         setControl(createView(new BinsDesignerForm(tabFolder, SWT.NONE)));
@@ -104,7 +109,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                 
                 break;
             case ModeIndicatorEnum:
-                if (columnIndicator.getDataminingType() == DataminingType.INTERVAL) {
+                if (parentColumn.getDataminingType() == DataminingType.INTERVAL) {
                     if (isNumbericInSQL(sqlType)) {
 
                         setControl(createView(new BinsDesignerForm(tabFolder, SWT.NONE)));
@@ -140,8 +145,14 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
             for (AbstractIndicatorForm form : forms) {
                 TabItem item = new TabItem(tabFolder, SWT.NONE);
                 item.setText(form.getFormName());
-                
                 item.setControl(form);
+                
+                if (paramMap == null) {
+                    form.injectTheParameter(null);
+                } else {
+                    form.injectTheParameter(paramMap.get(form.getFormName()));
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,8 +168,6 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
         case Types.VARCHAR:
         case Types.LONGVARCHAR:
         case Types.CLOB:
-//        case Types.NCHAR:
-//        case Types.LONGNVARCHAR:
             
             return true;
         default:
@@ -167,7 +176,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
     }
     
     public boolean isNumbericInSQL(int type) {
-        switch (columnIndicator.getTdColumn().getJavaType()) {
+        switch (parentColumn.getTdColumn().getJavaType()) {
         case Types.DOUBLE:
         case Types.REAL:
         case Types.FLOAT:
@@ -185,7 +194,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
     }
     
     public boolean isDateInSQL(int type) {
-        switch (columnIndicator.getTdColumn().getJavaType()) {
+        switch (parentColumn.getTdColumn().getJavaType()) {
         case Types.DATE:
         case Types.TIME:
         case Types.TIMESTAMP:

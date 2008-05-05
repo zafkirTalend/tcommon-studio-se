@@ -12,30 +12,27 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
-import org.talend.dq.analysis.parameters.IParameterConstant;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.BinsDesignerParameter;
 
 
 /**
  * DOC zqin  class global comment. Detailled comment
  */
 public class BinsDesignerForm extends AbstractIndicatorForm {
-
-    private final String formName = "Bins Designer";
     
     private Text minValue, maxValue, numbOfBins;
+    
+    private BinsDesignerParameter parameter;
     /**
      * DOC zqin BinsDesignerForm constructor comment.
      * @param parent
@@ -43,6 +40,7 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
      */
     public BinsDesignerForm(Composite parent, int style) {
         super(parent, style);
+        
         setupForm();
     }
 
@@ -90,7 +88,7 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
 
             public void modifyText(ModifyEvent e) {
                
-                parameters.put(IParameterConstant.INDICATOR_MIN_VALUE, minValue.getText());
+                parameter.setMinValue(Double.valueOf(minValue.getText()));
             }
             
         });
@@ -99,7 +97,7 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
 
             public void modifyText(ModifyEvent e) {
                
-                parameters.put(IParameterConstant.INDICATOR_MAX_VALUE, maxValue.getText());
+                parameter.setMaxValue(Double.valueOf(maxValue.getText()));
             }
             
         });
@@ -108,7 +106,7 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
 
             public void modifyText(ModifyEvent e) {
                
-                parameters.put(IParameterConstant.INDICATOR_NUM_OF_BIN, numbOfBins.getText());
+                parameter.setNumOfBins(Integer.parseInt(numbOfBins.getText()));
             }
             
         });
@@ -137,8 +135,15 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
      */
     @Override
     protected void initialize() {
-        // TODO Auto-generated method stub
-
+        
+        if (parameter == null) {
+            parameter = new BinsDesignerParameter();
+        } else {
+            
+            minValue.setText(String.valueOf(parameter.getMinValue()));
+            maxValue.setText(String.valueOf(parameter.getMaxValue()));
+            numbOfBins.setText(String.valueOf(parameter.getNumOfBins()));
+        }
     }
 
     /* (non-Javadoc)
@@ -147,7 +152,28 @@ public class BinsDesignerForm extends AbstractIndicatorForm {
     @Override
     public String getFormName() {
         
-        return this.formName;
+        return AbstractIndicatorForm.BINS_DESIGNER_FORM;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#getParameter()
+     */
+    @Override
+    public AbstractIndicatorParameter getParameter() {
+        
+        return this.parameter;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#setParameter
+     * (org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter)
+     */
+    @Override
+    public void setParameter(AbstractIndicatorParameter parameter) {
+
+        this.parameter = (BinsDesignerParameter) parameter;
+        
+        this.initialize();
     }
 
 }

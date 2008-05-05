@@ -12,15 +12,19 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.PlatformUI;
-import org.talend.dataprofiler.core.CorePlugin;
-import org.talend.dataprofiler.core.model.ColumnIndicator;
-import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
-import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.BinsDesignerParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.DataThresholdsParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TextLengthParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TextParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TimeSlicesParameter;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.helpers.DomainHelper;
@@ -30,32 +34,84 @@ import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.TextParameters;
-import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
  * DOC zqin  class global comment. Detailled comment
  */
 public class IndicatorOptionsWizard extends Wizard {
-
-    private IndicatorEnum indicatorEnum;
     
-    private ColumnIndicator columnIndicator;
+    private Analysis analysis;
+    
+    private IndicatorTypeMapping indicatorMap;
     
     private Indicator indicator;
     
-    private Analysis analysis;
+    private Map<String, AbstractIndicatorParameter> paramMap;
     /**
      * DOC zqin IndicatorOptionsWizard constructor comment.
      */
-    public IndicatorOptionsWizard(ColumnIndicator columnIndicator, Indicator indicator, IndicatorEnum indicatorEnum, Analysis analysis) {
+    public IndicatorOptionsWizard(IndicatorTypeMapping indicatorMap, Analysis analysis) {
         setWindowTitle("Indicator");
-        
-        AbstractIndicatorForm.parameters.clear();
-        this.columnIndicator = columnIndicator;
-        this.indicatorEnum = indicatorEnum;
-        this.indicator = indicator;
+       
+        this.indicatorMap = indicatorMap;
         this.analysis = analysis;
+        this.indicator = indicatorMap.getIndicator();
+        
+        initWizard();
+    }
+    
+    private void initWizard() {
+        
+        if (!AbstractIndicatorForm.getTheParameter().isEmpty()) {
+            AbstractIndicatorForm.emptyParameterList();
+        }
+        
+        IndicatorParameters indicatorParam = indicatorMap.getIndicator().getParameters();
+        if (indicatorParam != null) {
+        
+            paramMap = new HashMap<String, AbstractIndicatorParameter>();
+            
+            TextParameters textParameters = indicatorParam.getTextParameter();
+            
+            if (textParameters != null) {
+
+                TextParameter textParam = new TextParameter();
+                textParam.setIngoreCase(textParameters.isIgnoreCase());
+                
+                TextLengthParameter textLengthParam = new TextLengthParameter();
+                textLengthParam.setUseBlank(textParameters.isUseBlank());
+                textLengthParam.setUseNull(textParameters.isUseNulls());
+                
+                paramMap.put(AbstractIndicatorForm.TEXT_PARAMETERS_FORM, textParam);
+                paramMap.put(AbstractIndicatorForm.TEXT_LENGTH_FORM, textLengthParam);
+            }
+
+            
+            if (IndicatorHelper.getDataThreshold(indicator) != null) {
+
+                DataThresholdsParameter dataParam = new DataThresholdsParameter();
+                dataParam.setMinThreshold(IndicatorHelper.getDataThreshold(indicator)[0]);
+                dataParam.setMaxThreshold(IndicatorHelper.getDataThreshold(indicator)[1]);
+                
+                paramMap.put(AbstractIndicatorForm.DATA_THRESHOLDS_FORM, dataParam);
+            }
+            
+            if (indicatorParam.getBins() != null) {
+
+                BinsDesignerParameter binsParam = new BinsDesignerParameter();
+                binsParam.setMaxValue(DomainHelper.getMaxBinValue(indicatorParam.getBins()));
+                binsParam.setMinValue(DomainHelper.getMinBinValue(indicatorParam.getBins()));
+                binsParam.setNumOfBins(DomainHelper.getNumberOfBins(indicatorParam.getBins()));
+                
+                paramMap.put(AbstractIndicatorForm.BINS_DESIGNER_FORM, binsParam);
+            }
+
+            TimeSlicesParameter timeParam = new TimeSlicesParameter();
+            timeParam.setDataUnit(indicatorParam.getDateAggregationType().getLiteral());
+
+            paramMap.put(AbstractIndicatorForm.TIME_SLICES_FROM, timeParam);
+        }
     }
 
     /* (non-Javadoc)
@@ -65,66 +121,64 @@ public class IndicatorOptionsWizard extends Wizard {
     public boolean performFinish() {
         
         try {
-            if (!AbstractIndicatorForm.parameters.isEmpty()) {
-                
-                String minStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_MIN_VALUE);
-                String maxStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_MAX_VALUE);
-                String numOfBinStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_NUM_OF_BIN);
-                String ignoreCaseStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_IGNORE_CASE);
-                String useBlankStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_COUNT_BLANKS);
-                String useNullStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_COUNT_NULLS);
-                String dateStr = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_TIME_SLICES);
-                String dataThresholdMin = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_LOWER_THRESHOLD);
-                String dataThresholdMax = AbstractIndicatorForm.parameters.get(IParameterConstant.INDICATOR_HIGHER_THRESHOLD);
-                
-                IndicatorParameters paramters = indicator.getParameters();
-                
-                if (paramters == null) {
-                    paramters = IndicatorsFactory.eINSTANCE.createIndicatorParameters();
-                    indicator.setParameters(paramters);
-                }
-                
-                TextParameters textParameters = paramters.getTextParameter();
-                
-                if (textParameters == null) {
-                    textParameters = IndicatorsFactory.eINSTANCE.createTextParameters();
-                    paramters.setTextParameter(textParameters);
-                }
-                
-                if (minStr != null && maxStr != null && numOfBinStr != null) {
-                    Double min = Double.valueOf(minStr);
-                    Double max = Double.valueOf(maxStr);
-                    int numOfBin = Integer.parseInt(numOfBinStr);
+
+            IndicatorParameters paramters = indicatorMap.getIndicator().getParameters();
+
+            if (paramters == null) {
+                paramters = IndicatorsFactory.eINSTANCE.createIndicatorParameters();
+                indicatorMap.getIndicator().setParameters(paramters);
+            }
+
+            TextParameters textParameters = paramters.getTextParameter();
+
+            if (textParameters == null) {
+                textParameters = IndicatorsFactory.eINSTANCE.createTextParameters();
+                paramters.setTextParameter(textParameters);
+            }
+            
+            for (AbstractIndicatorParameter parameter : AbstractIndicatorForm.getTheParameter()) {
+
+                if (parameter instanceof BinsDesignerParameter) {
+
+                    BinsDesignerParameter tempParam = (BinsDesignerParameter) parameter;
+                    int numOfBin = tempParam.getNumOfBins();
+                    double min = tempParam.getMinValue();
+                    double max = tempParam.getMaxValue();
                     Domain domain = DomainHelper.createContiguousClosedBinsIntoDomain("test", numOfBin, min, max);
-                    paramters.setBins(domain);
                     
-                    //save the domain
                     Resource resource = analysis.eResource();
                     resource.getContents().add(domain);
-                    return true;
-                } else if (dateStr != null) {
-                    paramters.setDateAggregationType(DateGrain.get(dateStr));
-                    return true;
-                } else if (ignoreCaseStr != null) {
-                    boolean isIgnoreCase = Boolean.valueOf(ignoreCaseStr);
-                    textParameters.setIgnoreCase(isIgnoreCase);
-                    return true;
-                } else if (useBlankStr != null && useNullStr != null) {
-                    boolean isUseBlank = Boolean.valueOf(useBlankStr);
-                    boolean isUseNull = Boolean.valueOf(useNullStr);
-                    textParameters.setUseBlank(isUseBlank);
-                    textParameters.setUseNulls(isUseNull);
-                    return true;
-                } else if (dataThresholdMin != null && dataThresholdMax != null) {
-                    IndicatorHelper.setDataThreshold(indicator, dataThresholdMin, dataThresholdMax);
-                    return true;
-                } else {
-                    return false;
+                    
+                    paramters.setBins(domain);
+                }
+
+                if (parameter instanceof TextParameter) {
+
+                    TextParameter tempParam = (TextParameter) parameter;
+                    textParameters.setIgnoreCase(tempParam.isIngoreCase());
+                }
+
+                if (parameter instanceof TextLengthParameter) {
+
+                    TextLengthParameter tempParam = (TextLengthParameter) parameter;
+                    textParameters.setUseBlank(tempParam.isUseBlank());
+                    textParameters.setUseNulls(tempParam.isUseNull());
+                }
+
+                if (parameter instanceof DataThresholdsParameter) {
+
+                    DataThresholdsParameter tempParam = (DataThresholdsParameter) parameter;
+                    IndicatorHelper.setDataThreshold(indicatorMap.getIndicator(), tempParam.getMinThreshold(), tempParam.getMaxThreshold());
+                }
+
+                if (parameter instanceof TimeSlicesParameter) {
+
+                    TimeSlicesParameter tempParam = (TimeSlicesParameter) parameter;
+                    paramters.setDateAggregationType(DateGrain.get(tempParam.getDataUnit()));
                 }
             }
-        } catch (NumberFormatException e) {
             
-            MessageDialogWithToggle.openError(null, "indicator setting", e.getMessage() + ", it's invalid");
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,7 +192,7 @@ public class IndicatorOptionsWizard extends Wizard {
     @Override
     public void addPages() {
         
-        DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(columnIndicator, indicatorEnum);
+        DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(indicatorMap, paramMap);
         
         addPage(indicatorPage);
     }

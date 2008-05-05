@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -21,8 +23,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TimeSlicesParameter;
 import org.talend.dataquality.indicators.DateGrain;
-import org.talend.dq.analysis.parameters.IParameterConstant;
 
 
 /**
@@ -30,9 +33,11 @@ import org.talend.dq.analysis.parameters.IParameterConstant;
  */
 public class TimeSlicesForm extends AbstractIndicatorForm {
 
-    private final String formName = "Time Slices";
-    
     private Button btn;
+    
+    private ArrayList<Button> allBtns = new ArrayList<Button>();
+    
+    private TimeSlicesParameter parameter;
     /**
      * DOC zqin TimeSlicesForm constructor comment.
      * @param parent
@@ -49,7 +54,7 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
      */
     @Override
     public String getFormName() {
-        return this.formName;
+        return AbstractIndicatorForm.TIME_SLICES_FROM;
     }
 
     /* (non-Javadoc)
@@ -76,6 +81,7 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
         for (DateGrain oneDate : DateGrain.VALUES) {
             btn = new Button(group, SWT.RADIO);
             btn.setText(oneDate.getLiteral());
+
             btn.addSelectionListener(new SelectionAdapter() {
 
                 /* (non-Javadoc)
@@ -84,10 +90,12 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     
-                    parameters.put(IParameterConstant.INDICATOR_TIME_SLICES, ((Button) e.getSource()).getText());
+                    parameter.setDataUnit(btn.getText());
                 }
                 
             });
+            
+            allBtns.add(btn);
         }
     }
 
@@ -123,6 +131,39 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
     @Override
     protected void initialize() {
 
+        if (parameter == null) {
+            
+            parameter = new TimeSlicesParameter();
+        } else {
+            
+            for (Button oneBtn : allBtns) {
+                if (oneBtn.getText().equals(parameter.getDataUnit())) {
+                    
+                    oneBtn.setSelection(true);
+                }
+            }
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#getParameter()
+     */
+    @Override
+    public AbstractIndicatorParameter getParameter() {
+
+        return this.parameter;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#
+     * setParameter(org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter)
+     */
+    @Override
+    public void setParameter(AbstractIndicatorParameter parameter) {
+
+        this.parameter = (TimeSlicesParameter) parameter;
+        
+        this.initialize();
     }
 
 }

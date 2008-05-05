@@ -20,21 +20,20 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
-import org.talend.dq.analysis.parameters.IParameterConstant;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TextParameter;
 
 
 /**
  * DOC zqin  class global comment. Detailled comment
  */
 public class TextParametersForm extends AbstractIndicatorForm {
-
-    private final String formName = "Text Parameter";
     
     private Button caseBtn;
     
-//    private String[] args = new String[] {"Exact Match", "Metaphone", "Double Metaphone", "Levenshtein", "Soundex", "Refined Soundex"};
+    private TextParameter parameter;
+    
     /**
      * DOC zqin TextParametersForm constructor comment.
      * @param parent
@@ -51,7 +50,8 @@ public class TextParametersForm extends AbstractIndicatorForm {
      */
     @Override
     public String getFormName() {
-        return this.formName;
+        
+        return AbstractIndicatorForm.TEXT_PARAMETERS_FORM;
     }
 
     /* (non-Javadoc)
@@ -77,16 +77,7 @@ public class TextParametersForm extends AbstractIndicatorForm {
         
         caseBtn = new Button(group, SWT.CHECK);
         caseBtn.setText("ignore case");
-        
-//        Label match = new Label(this, SWT.NONE);
-//        match.setText("Matching Algorithm");
-//        
-//        Button btn = null;
-//        
-//        for (String str : args) {
-//            btn = new Button(this, SWT.RADIO);
-//            btn.setText(str);
-//        }
+
     }
 
     /* (non-Javadoc)
@@ -103,7 +94,7 @@ public class TextParametersForm extends AbstractIndicatorForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 
-                parameters.put(IParameterConstant.INDICATOR_IGNORE_CASE, String.valueOf(caseBtn.getSelection()));
+                parameter.setIngoreCase(caseBtn.getSelection());
             }
             
         });
@@ -133,7 +124,34 @@ public class TextParametersForm extends AbstractIndicatorForm {
     @Override
     protected void initialize() {
 
-        parameters.put(IParameterConstant.INDICATOR_IGNORE_CASE, "false");
+        if (parameter == null) {
+            
+            parameter = new TextParameter();
+        } else {
+            
+            caseBtn.setSelection(parameter.isIngoreCase());
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#getParameter()
+     */
+    @Override
+    public AbstractIndicatorParameter getParameter() {
+
+        return this.parameter;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#setParameter
+     * (org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter)
+     */
+    @Override
+    public void setParameter(AbstractIndicatorParameter parameter) {
+
+        this.parameter = (TextParameter) parameter;
+        
+        this.initialize();
     }
 
 }

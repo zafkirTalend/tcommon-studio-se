@@ -37,11 +37,10 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.indicators.DataminingType;
-import org.talend.dataquality.indicators.Indicator;
-import org.talend.dataquality.indicators.IndicatorsFactory;
 
 /**
  * @author rli
@@ -58,8 +57,6 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     private Tree tree;
 
     private ColumnIndicator[] columnIndicators;
-
-    private IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
 
     private Button modButton;
 
@@ -215,25 +212,25 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 2);
             if (columnIndicator.hasIndicators()) {
-                createIndicatorItems(treeItem, columnIndicator.getIndicatorEnums());
+                createIndicatorItems(treeItem, columnIndicator.getIndicatorForMap());
             }
             treeItem.setExpanded(true);
         }
         this.setDirty(true);
     }
 
-    private void createIndicatorItems(final TreeItem treeItem, IndicatorEnum[] indicatorEnums) {
-        for (int i = 0; i < indicatorEnums.length; i++) {
+    private void createIndicatorItems(final TreeItem treeItem, List<IndicatorTypeMapping> indicatoryMap) {
+        for (IndicatorTypeMapping indicator : indicatoryMap) {
             final TreeItem indicatorItem = new TreeItem(treeItem, SWT.NONE);
-            final IndicatorEnum indicatorEnum = indicatorEnums[i];
-            indicatorItem.setText(0, indicatorEnums[i].getLabel());
+            final IndicatorEnum indicatorEnum = indicator.getType();
+            indicatorItem.setText(0, indicator.getType().getLabel());
 
             TreeEditor editor = new TreeEditor(tree);
             modButton = new Button(tree, SWT.FLAT);
             modButton.setText("Options");
             modButton.pack();
-            Indicator indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
             modButton.setData(indicator);
+            
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, indicatorItem, 1);
@@ -259,16 +256,18 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             modButton.addSelectionListener(new SelectionAdapter() {
 
                 public void widgetSelected(SelectionEvent e) {
-
-                    Indicator indicator = (Indicator) modButton.getData();
-                    ColumnIndicator columnIndicator = (ColumnIndicator) treeItem.getData();
-                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(columnIndicator, indicator, indicatorEnum, analysis);
+                    
+                    IndicatorTypeMapping indicator = (IndicatorTypeMapping) ((Button) e.getSource()).getData();
+                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis);
 
                     try {
                         // open the dialog
                         WizardDialog dialog = new WizardDialog(null, wizard);
                         dialog.setPageSize(300, 400);
-                        dialog.open();
+                        if (Window.OK == dialog.open()) {
+                            
+                            setDirty(true);
+                        }
 
                     } catch (AssertionFailedException ex) {
                         MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");

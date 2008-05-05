@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.preview;
 
+import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataquality.indicators.Indicator;
 
@@ -29,9 +30,12 @@ public class IndicatorTypeMapping {
     
     private Indicator indicator;
     
-    public IndicatorTypeMapping(IndicatorEnum type, Indicator indicator) {
+    private ColumnIndicator parentColumn;
+    
+    public IndicatorTypeMapping(IndicatorEnum type, Indicator indicator, ColumnIndicator parentColumn) {
         this.type = type;
         this.indicator = indicator;
+        this.parentColumn = parentColumn;
     }
 
     
@@ -50,6 +54,16 @@ public class IndicatorTypeMapping {
      */
     public Indicator getIndicator() {
         return this.indicator;
+    }
+
+
+    
+    /**
+     * Getter for parentColumn.
+     * @return the parentColumn
+     */
+    public ColumnIndicator getParentColumn() {
+        return this.parentColumn;
     }
     
     

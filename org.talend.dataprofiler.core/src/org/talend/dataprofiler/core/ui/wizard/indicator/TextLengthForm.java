@@ -15,24 +15,24 @@ package org.talend.dataprofiler.core.ui.wizard.indicator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
-import org.talend.dq.analysis.parameters.IParameterConstant;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TextLengthParameter;
 
 
 /**
  * DOC zqin  class global comment. Detailled comment
  */
 public class TextLengthForm extends AbstractIndicatorForm {
-
-    private final String formName = "Text Length";
     
     private Button nullBtn, blankBtn;
+    
+    private TextLengthParameter parameter;
     /**
      * DOC zqin TextLengthForm constructor comment.
      * @param parent
@@ -50,7 +50,7 @@ public class TextLengthForm extends AbstractIndicatorForm {
     @Override
     public String getFormName() {
         
-        return this.formName;
+        return AbstractIndicatorForm.TEXT_LENGTH_FORM;
     }
 
     /* (non-Javadoc)
@@ -97,7 +97,7 @@ public class TextLengthForm extends AbstractIndicatorForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 
-                parameters.put(IParameterConstant.INDICATOR_COUNT_NULLS, String.valueOf(nullBtn.getSelection()));
+                parameter.setUseNull(nullBtn.getSelection());
             }
             
         });
@@ -110,7 +110,7 @@ public class TextLengthForm extends AbstractIndicatorForm {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 
-                parameters.put(IParameterConstant.INDICATOR_COUNT_BLANKS, String.valueOf(blankBtn.getSelection()));
+                parameter.setUseBlank(blankBtn.getSelection());
             }
             
         });
@@ -140,8 +140,34 @@ public class TextLengthForm extends AbstractIndicatorForm {
     @Override
     protected void initialize() {
 
-        parameters.put(IParameterConstant.INDICATOR_COUNT_NULLS, "false");
-        parameters.put(IParameterConstant.INDICATOR_COUNT_BLANKS, "false");
+        if (parameter == null) {
+            parameter = new TextLengthParameter();
+        } else {
+            
+            nullBtn.setSelection(parameter.isUseNull());
+            blankBtn.setSelection(parameter.isUseBlank());
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#getParameter()
+     */
+    @Override
+    public AbstractIndicatorParameter getParameter() {
+
+        return this.parameter;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#setParameter
+     * (org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter)
+     */
+    @Override
+    public void setParameter(AbstractIndicatorParameter parameter) {
+
+        this.parameter = (TextLengthParameter) parameter;
+        
+        this.initialize();
     }
 
 }

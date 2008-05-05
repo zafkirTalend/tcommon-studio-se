@@ -22,7 +22,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
-import org.talend.dq.analysis.parameters.IParameterConstant;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.DataThresholdsParameter;
 
 
 /**
@@ -30,9 +31,9 @@ import org.talend.dq.analysis.parameters.IParameterConstant;
  */
 public class DataThresholdsForm extends AbstractIndicatorForm {
 
-    private final String formName = "Data Thresholds";
-    
     Text lowerText, higherText;
+    
+    private DataThresholdsParameter parameter;
     /**
      * DOC zqin DataThresholdsForm constructor comment.
      * @param parent
@@ -50,7 +51,7 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
     @Override
     public String getFormName() {
         
-        return this.formName;
+        return AbstractIndicatorForm.DATA_THRESHOLDS_FORM;
     }
 
     /* (non-Javadoc)
@@ -96,7 +97,7 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
 
             public void modifyText(ModifyEvent e) {
                
-                parameters.put(IParameterConstant.INDICATOR_LOWER_THRESHOLD, lowerText.getText());
+                parameter.setMinThreshold(lowerText.getText());
             }
             
         });
@@ -105,7 +106,7 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
 
             public void modifyText(ModifyEvent e) {
                
-                parameters.put(IParameterConstant.INDICATOR_HIGHER_THRESHOLD, higherText.getText());
+                parameter.setMaxThreshold(higherText.getText());
             }
             
         });
@@ -134,8 +135,36 @@ public class DataThresholdsForm extends AbstractIndicatorForm {
      */
     @Override
     protected void initialize() {
-        // TODO Auto-generated method stub
+        
+        if (parameter == null) {
+            parameter = new DataThresholdsParameter();
+        } else {
+            
+            lowerText.setText(parameter.getMinThreshold());
+            
+            higherText.setText(parameter.getMaxThreshold());
+        }
+    }
 
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#getParameter()
+     */
+    @Override
+    public AbstractIndicatorParameter getParameter() {
+
+        return this.parameter;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm#
+     * setParameter(org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter)
+     */
+    @Override
+    public void setParameter(AbstractIndicatorParameter parameter) {
+
+        this.parameter = (DataThresholdsParameter) parameter;
+        
+        this.initialize();
     }
 
 }

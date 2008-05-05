@@ -52,7 +52,7 @@ public class ColumnIndicator {
         }
         if (!this.indicatorEnums.contains(indicatorEnum)) {
             indicatorEnums.add(indicatorEnum);
-            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, createIndicator(indicatorEnum));
+            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, createIndicator(indicatorEnum), this);
             this.indicatorMappingTypeList.add(one);
         }
     }
@@ -76,6 +76,8 @@ public class ColumnIndicator {
         for (IndicatorTypeMapping indicatorMapping : this.indicatorMappingTypeList) {
             if (indicatorMapping.getType() == indicatorEnum) {
                 this.indicatorList.remove(indicatorMapping.getIndicator());
+                indicatorMappingTypeList.remove(indicatorMapping);
+                break;
             }
         }
     }
