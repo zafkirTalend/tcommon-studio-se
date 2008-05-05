@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
+import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
@@ -104,7 +105,30 @@ public class ColumnAnalysisHandler {
         assert analysis != null;
         TaggedValueHelper.setDescription(description, analysis);
     }
+    
+    public String getAuthor() {
+        
+        assert analysis != null;
+        return TaggedValueHelper.getAuthor(analysis);
+    }
+    
+    public void setAuthor(String anthor) {
+        
+        assert analysis != null;
+        TaggedValueHelper.setAuthor(analysis, anthor);
+    }
+    
+    public String getStatus() {
+        
+        assert analysis != null;
+        return TaggedValueHelper.getDevStatus(analysis).getLiteral();
+    }
 
+    public void setStatus(String status) {
+        
+        assert analysis != null;
+        TaggedValueHelper.setDevStatus(analysis, DevelopmentStatus.get(status));
+    }
     /**
      * Method "addColumnToAnalyze".
      * 
