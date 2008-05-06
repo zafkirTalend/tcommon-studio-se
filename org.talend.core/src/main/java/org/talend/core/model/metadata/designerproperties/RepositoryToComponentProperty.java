@@ -51,46 +51,6 @@ import org.talend.core.model.utils.TalendTextUtils;
  */
 public class RepositoryToComponentProperty {
 
-    public static final String MYSQL = "MYSQL"; //$NON-NLS-1$
-
-    public static final String POSTGRESQL = "POSTGRESQL"; //$NON-NLS-1$
-
-    public static final String POSTGRESPLUS = "POSTGRESPLUS"; //$NON-NLS-1$
-
-    public static final String ODBC = "ODBC"; //$NON-NLS-1$
-
-    public static final String ORACLE = "ORACLE"; //$NON-NLS-1$
-
-    public static final String IBM_DB2 = "IBM_DB2"; //$NON-NLS-1$
-
-    public static final String SYBASE = "SYBASE"; //$NON-NLS-1$
-
-    public static final String SQL_SERVER = "SQL_SERVER"; //$NON-NLS-1$
-
-    public static final String MS_ACCESS = "MS_ACCESS"; //$NON-NLS-1$
-
-    public static final String INGRES = "INGRES"; //$NON-NLS-1$
-
-    public static final String INTERBASE = "INTERBASE"; //$NON-NLS-1$
-
-    public static final String SQLITE = "SQLITE"; //$NON-NLS-1$
-
-    public static final String FIREBIRD = "FIREBIRD"; //$NON-NLS-1$
-
-    public static final String INFORMIX = "INFORMIX"; //$NON-NLS-1$
-
-    public static final String ACCESS = "ACCESS"; //$NON-NLS-1$
-
-    public static final String TERADATA = "TERADATA"; //$NON-NLS-1$
-
-    public static final String AS400 = "AS400"; //$NON-NLS-1$
-
-    public static final String HSQLDB = "HSQLDB"; //$NON-NLS-1$
-
-    public static final String JAVADB = "JAVADB"; //$NON-NLS-1$
-
-    public static final String MAXDB = "MAXDB"; //$NON-NLS-1$
-
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
             return getFileValue((FileConnection) connection, value);
@@ -189,89 +149,23 @@ public class RepositoryToComponentProperty {
     }
 
     private static String getStandardDbTypeFromConnection(String dbType) {
-        if (dbType.equals(EDatabaseTypeName.MYSQL.getDisplayName())) {
-            return MYSQL;
-        }
-        if (dbType.equals(EDatabaseTypeName.MAXDB.getDisplayName())) {
-            return MAXDB;
-        }
-        if (dbType.equals(EDatabaseTypeName.PSQL.getDisplayName())) {
-            return POSTGRESQL;
-        }
-        if (dbType.equals(EDatabaseTypeName.PLUSPSQL.getDisplayName())) {
-            return POSTGRESPLUS;
-        }
-        if (dbType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
-            return ORACLE;
-        }
-        if (dbType.equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
-            return ORACLE;
-        }
-        if (dbType.equals(EDatabaseTypeName.GODBC.getDisplayName())) {
-            return ODBC;
-        }
-        if (dbType.equals(EDatabaseTypeName.MSODBC.getDisplayName())) {
-            return ODBC;
-        }
-        if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-            return SQL_SERVER;
-        }
-        if (dbType.equals(EDatabaseTypeName.IBMDB2.getDisplayName())) {
-            return IBM_DB2;
-        }
-        if (dbType.equals(EDatabaseTypeName.SYBASEASE.getDisplayName())) {
-            return SYBASE;
-        }
-        if (dbType.equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
-            return SYBASE;
-        }
-        if (dbType.equals(EDatabaseTypeName.INGRES.getDisplayName())) {
-            return INGRES;
-        }
-        if (dbType.equals(EDatabaseTypeName.INTERBASE.getDisplayName())) {
-            return INTERBASE;
-        }
-        if (dbType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
-            return SQLITE;
-        }
-        if (dbType.equals(EDatabaseTypeName.FIREBIRD.getDisplayName())) {
-            return FIREBIRD;
-        }
-        if (dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) {
-            return INFORMIX;
-        }
-        if (dbType.equals(EDatabaseTypeName.ACCESS.getDisplayName())) {
-            return ACCESS;
-        }
-        if (dbType.equals(EDatabaseTypeName.TERADATA.getDisplayName())) {
-            return TERADATA;
-        }
-        if (dbType.equals(EDatabaseTypeName.AS400.getDisplayName())) {
-            return AS400;
-        }
-        if (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())) {
-            return HSQLDB;
-        }
 
-        if (dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())) {
-            return HSQLDB;
-        }
-        if (dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
-            return HSQLDB;
-        }
-        if (dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
-            return HSQLDB;
-        }
-        if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
-            return JAVADB;
-        }
-        if (dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())) {
-            return JAVADB;
-        }
-        if (dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())) {
-            return JAVADB;
-        }
-        return ""; //$NON-NLS-1$
+        // if (dbType.equals(EDatabaseTypeName.GODBC.getDisplayName())) {
+        // return ODBC; MSODBC
+        // }
+        // if (dbType.equals(EDatabaseTypeName.MSODBC.getDisplayName())) {
+        // return ODBC; MSODBC
+        // }
+        // if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+        // return SQL_SERVER; MSSQL
+        // }
+
+        // if (dbType.equals(EDatabaseTypeName.INTERBASE.getDisplayName())) {
+        // return INTERBASE; Interbase
+        // }
+
+        return EDatabaseTypeName.getTypeFromDbType(dbType).getProduct();
+
     }
 
     /**

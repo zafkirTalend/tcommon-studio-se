@@ -22,14 +22,14 @@ public enum EDatabaseTypeName {
     PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS"),
     ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE"),
     ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE"),
-    GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "MSODBC"),
-    MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "MSODBC"),
+    GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"),
+    MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"),
     IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "IBMDB2"),
     SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"),
 
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"),
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "MSSQL"),
+    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER"),
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"),
     HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"),
@@ -38,7 +38,7 @@ public enum EDatabaseTypeName {
 
     JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"),
     INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"),
-    INTERBASE("Interbase", "Interbase", new Boolean(false), "Interbase"), // "INTERBASE"),
+    INTERBASE("Interbase", "Interbase", new Boolean(false), "INTERBASE"), // "INTERBASE"),
     SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"),
     FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),
     INFORMIX("Informix", "Informix", new Boolean(false), "INFORMIX"), // "INFORMIX");
