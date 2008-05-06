@@ -36,12 +36,12 @@ public class Perspective implements IPerspectiveFactory {
         String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
         String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
         String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
-        String epicPerlDocId = "org.epic.perleditor.views.PerlDocView"; //$NON-NLS-1$
+        // String epicPerlDocId = "org.epic.perleditor.views.PerlDocView"; //$NON-NLS-1$
         // String epicExplainErrorsViewId = "org.epic.perleditor.views.ExplainErrorsView";
         // String epicBrowserViewId = "org.epic.core.views.browser.BrowserView";
-        String epicRegExpViewId = "org.epic.regexp.views.RegExpView"; //$NON-NLS-1$
-        String pdeErrorViewId = "org.eclipse.pde.runtime.LogView"; //$NON-NLS-1$
-        String pdeTaskViewId = "org.eclipse.ui.views.TaskList"; //$NON-NLS-1$
+        // String epicRegExpViewId = "org.epic.regexp.views.RegExpView"; //$NON-NLS-1$
+        // String pdeErrorViewId = "org.eclipse.pde.runtime.LogView"; //$NON-NLS-1$
+        // String pdeTaskViewId = "org.eclipse.ui.views.TaskList"; //$NON-NLS-1$
         String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
         String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
         String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
@@ -72,13 +72,13 @@ public class Perspective implements IPerspectiveFactory {
         bottomLayout.addView(propertyId);
         bottomLayout.addView(componentSettingViewerId);
         bottomLayout.addView(jobSettingsViewId);
-        bottomLayout.addView(epicPerlDocId);
-        bottomLayout.addView(epicRegExpViewId);
+        // bottomLayout.addView(epicPerlDocId);
+        // bottomLayout.addView(epicRegExpViewId);
         // bottomLayout.addView(epicExplainErrorsViewId);
         // bottomLayout.addView(epicBrowserViewId);
         // bottomLayout.addView(pdeErrorViewId);
         bottomLayout.addView(contextsViewId);
-        bottomLayout.addView(pdeTaskViewId);
+        // bottomLayout.addView(pdeTaskViewId);
         bottomLayout.addView(runProcessViewId);
         bottomLayout.addView(problemsViewId);
         bottomLayout.addView(modulesViewId);
