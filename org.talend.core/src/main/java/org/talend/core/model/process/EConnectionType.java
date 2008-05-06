@@ -107,12 +107,18 @@ public enum EConnectionType implements IConnectionCategory {
                 new Integer(Graphics.LINE_SOLID),
                 new RGB(0, 150, 0)),
 
-    SUBJOB_START_ORDER(12, "SUBJOB_START_ORDER", //$NON-NLS-1$
-                       EConnectionCategory.MAIN,
-                       EXECUTION_ORDER,
-                       "SubjobStartOrder", Messages.getString("EConnectionType.SubjobStartOrder"), //$NON-NLS-1$ //$NON-NLS-2$
-                       new Integer(Graphics.LINE_DASH),
-                       new RGB(0, 50, 150));
+    SYNCHRONIZE(12, "SYNCHRONIZE", //$NON-NLS-1$
+                EConnectionCategory.MAIN,
+                EXECUTION_ORDER,
+                "Synchronize", Messages.getString("EConnectionType.synchronize"), //$NON-NLS-1$ //$NON-NLS-2$
+                new Integer(Graphics.LINE_DASH),
+                new RGB(0, 50, 150)),
+    PARALLELIZE(13, "PARALLELIZE", //$NON-NLS-1$
+                EConnectionCategory.MAIN,
+                EXECUTION_ORDER,
+                "Parallelize", Messages.getString("EConnectionType.parallelize"), //$NON-NLS-1$ //$NON-NLS-2$
+                new Integer(Graphics.LINE_DASH),
+                new RGB(0, 50, 150));
 
     private String name;
 
