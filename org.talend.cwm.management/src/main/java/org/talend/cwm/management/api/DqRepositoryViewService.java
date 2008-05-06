@@ -225,8 +225,7 @@ public final class DqRepositoryViewService {
      * catalog.
      * @return the list of tables. Theses tables are not added to the given catalog. It must be done by the caller.
      */
-    public static List<TdTable> getTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern,
-            boolean loadFromDB) {
+    public static List<TdTable> getTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB) {
         if (loadFromDB) {
             return loadTables(dataProvider, catalog, tablePattern);
         } else {
@@ -234,8 +233,7 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdTable> getTables(TdDataProvider dataProvider, Schema schema, String tablePattern,
-            boolean loadFromDB) {
+    public static List<TdTable> getTables(TdDataProvider dataProvider, Schema schema, String tablePattern, boolean loadFromDB) {
         if (loadFromDB) {
             return loadTables(dataProvider, schema, tablePattern);
         } else {
@@ -243,8 +241,7 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdView> getViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern,
-            boolean loadFromDB) {
+    public static List<TdView> getViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB) {
         if (loadFromDB) {
             return loadViews(dataProvider, catalog, viewPattern);
         } else {
@@ -252,8 +249,7 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdView> getViews(TdDataProvider dataProvider, Schema schema, String viewPattern,
-            boolean loadFromDB) {
+    public static List<TdView> getViews(TdDataProvider dataProvider, Schema schema, String viewPattern, boolean loadFromDB) {
         if (loadFromDB) {
             return loadViews(dataProvider, schema, viewPattern);
         } else {
@@ -309,11 +305,6 @@ public final class DqRepositoryViewService {
         boolean ok = resource.getContents().add(dataProvider);
         if (log.isDebugEnabled()) {
             log.debug("Data provider added " + ok);
-        }
-
-        ok = resource.getContents().addAll(dataProvider.getDescription());
-        if (log.isDebugEnabled()) {
-            log.debug("Data provider descriptions added " + ok);
         }
 
         // The provider connection is stored in the dataprovider because of the containment relation.
@@ -476,8 +467,7 @@ public final class DqRepositoryViewService {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, Schema schema,
-            String tablePattern) {
+    private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, Schema schema, String tablePattern) {
         List<TdTable> tables = new ArrayList<TdTable>();
         // PTODO scorreia check return code
         loadColumnSets(dataProvider, catalog, schema, tablePattern, RelationalPackage.TD_TABLE, tables);
@@ -608,8 +598,8 @@ public final class DqRepositoryViewService {
             rc.setReturnCode("No Data Provider found in " + file.getAbsolutePath(), false);
         }
         if (tdDataProviders.size() > 1) {
-            rc.setReturnCode("Found too many DataProvider (" + tdDataProviders.size() + ") in file "
-                    + file.getAbsolutePath(), false);
+            rc.setReturnCode("Found too many DataProvider (" + tdDataProviders.size() + ") in file " + file.getAbsolutePath(),
+                    false);
         }
         TdDataProvider prov = tdDataProviders.iterator().next();
         rc.setObject(prov);
@@ -624,8 +614,7 @@ public final class DqRepositoryViewService {
      * @param util used for linking elements to each other and to their container
      * @return true if added.
      */
-    private static boolean addElementsToOwnResources(Collection<? extends ModelElement> elements, String folder,
-            EMFUtil util) {
+    private static boolean addElementsToOwnResources(Collection<? extends ModelElement> elements, String folder, EMFUtil util) {
         boolean ok = true;
         for (ModelElement modelElement : elements) {
             String uuid = EcoreUtil.generateUUID();

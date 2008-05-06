@@ -42,6 +42,7 @@ import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
 import org.talend.utils.sugars.TypedReturnCode;
 import org.talend.utils.time.TimeTracer;
+import orgomg.cwm.objectmodel.core.Classifier;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -270,8 +271,8 @@ public final class TalendCwmFactory {
                     List<TdTable> tables = SchemaHelper.getTables(tdSchema);
                     if (tables.isEmpty()) {
                         // TODO try to load them from DB.
-                        List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithColumns(tdCatalog
-                                .getName(), tdSchema.getName(), null, connection);
+                        List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithColumns(tdCatalog.getName(),
+                                tdSchema.getName(), null, connection);
                         ok = SchemaHelper.addTables(tablesWithAllColumns, tdSchema);
                     }
                 }
@@ -279,8 +280,8 @@ public final class TalendCwmFactory {
                 List<TdTable> tables = CatalogHelper.getTables(tdCatalog);
                 if (tables.isEmpty()) {
                     // TODO try to load them from DB.
-                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithColumns(tdCatalog
-                            .getName(), null, null, connection);
+                    List<TdTable> tablesWithAllColumns = DatabaseContentRetriever.getTablesWithColumns(tdCatalog.getName(), null,
+                            null, connection);
                     ok = CatalogHelper.addTables(tablesWithAllColumns, tdCatalog);
 
                     // --- get the resource of the catalog
@@ -293,7 +294,10 @@ public final class TalendCwmFactory {
                         List<TdColumn> columns = TableHelper.getColumns(tdTable);
                         for (TdColumn tdColumn : columns) {
                             if (resource != null) {
-                                resource.getContents().add(tdColumn.getType());
+                                Classifier type = tdColumn.getType();
+                                if (type != null) {
+                                    resource.getContents().add(type);
+                                }
                             }
 
                         }
