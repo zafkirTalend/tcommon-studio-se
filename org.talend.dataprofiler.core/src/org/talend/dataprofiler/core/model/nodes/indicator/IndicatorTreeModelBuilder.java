@@ -40,20 +40,20 @@ public class IndicatorTreeModelBuilder {
         createChildren(textCategoryNode, textIndicatorEnums);
 
         // build Summary Statistic categoryNode
-        // IndicatorCategoryNode summaryCategoryNode = new IndicatorCategoryNode();
-        // summaryCategoryNode.setLabel("Summary Statistics");
-        // IndicatorEnum[] summaryIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.MeanIndicatorEnum,
-        // IndicatorEnum.MedianIndicatorEnum, IndicatorEnum.IQRIndicatorEnum, IndicatorEnum.RangeIndicatorEnum};
-        // createChildren(summaryCategoryNode, summaryIndicatorEnums);
+         IndicatorCategoryNode summaryCategoryNode = new IndicatorCategoryNode();
+         summaryCategoryNode.setLabel("Summary Statistics");
+         IndicatorEnum[] summaryIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.MeanIndicatorEnum,
+         IndicatorEnum.MedianIndicatorEnum, IndicatorEnum.IQRIndicatorEnum, IndicatorEnum.RangeIndicatorEnum};
+         createChildren(summaryCategoryNode, summaryIndicatorEnums);
 
         // build Nominal Statistic categoryNode
         IndicatorCategoryNode advanceCategoryNode = new IndicatorCategoryNode();
         advanceCategoryNode.setLabel("Advanced statistics");
         IndicatorEnum[] advanceIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.ModeIndicatorEnum,
-                IndicatorEnum.FrequencyIndicatorEnum, IndicatorEnum.BoxIIndicatorEnum };
+                IndicatorEnum.FrequencyIndicatorEnum };
         createChildren(advanceCategoryNode, advanceIndicatorEnums);
 
-        return new IndicatorCategoryNode[] { simpleCategoryNode, textCategoryNode, advanceCategoryNode };
+        return new IndicatorCategoryNode[] { simpleCategoryNode, textCategoryNode, summaryCategoryNode, advanceCategoryNode };
     }
 
     private static void createChildren(IndicatorCategoryNode parent, IndicatorEnum[] fieldEnums) {
