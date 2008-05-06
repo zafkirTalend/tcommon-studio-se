@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tdq Plug-in
+Bundle-SymbolicName: org.talend.dataprofiler.core.tdq; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.talend.dataprofiler.core.tdq.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.talend.dataprofiler.core,
+ org.eclipse.ui.navigator
+Eclipse-LazyStart: true
