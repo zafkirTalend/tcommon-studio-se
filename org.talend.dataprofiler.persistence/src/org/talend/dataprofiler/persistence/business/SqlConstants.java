@@ -69,7 +69,7 @@ public class SqlConstants {
      */
     private static Date getDefaultEndDate() {
         Calendar cal = new GregorianCalendar();
-        cal.set(3000, 01, 01, 0, 0, 0);
+        cal.set(2020, 01, 01, 0, 0, 0);
         return cal.getTime();
     }
 }

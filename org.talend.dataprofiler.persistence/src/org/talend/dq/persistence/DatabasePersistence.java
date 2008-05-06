@@ -15,20 +15,26 @@ package org.talend.dq.persistence;
 import java.util.Date;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Expression;
 import org.talend.commons.emf.ResourceHelper;
+import org.talend.cwm.helper.ColumnHelper;
+import org.talend.cwm.helper.ColumnSetHelper;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.persistence.TdqAnalysis;
 import org.talend.dataprofiler.persistence.TdqAnalyzedElement;
 import org.talend.dataprofiler.persistence.TdqIndicatorDefinition;
+import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.reports.TdReport;
+import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.resource.relational.ColumnSet;
 
 /**
  * @author scorreia
@@ -69,7 +75,7 @@ public class DatabasePersistence {
 
     public boolean persist(TdReport report) {
         boolean ok = true;
-        // create a session transaction
+        // // create a session transaction
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
@@ -93,27 +99,42 @@ public class DatabasePersistence {
      * @param dbReport
      */
     private void persist(TdReport report, Analysis analysis) {
-
-        // TODO rli get the last instance of TdqAnalysis from DB
+        // Get the last instance of TdqAnalysis from DB
         // get row from DB with report's UUID, analysis' UUID and IS_LAST=SqlConstants.YES
         String reportUuid = ResourceHelper.getUUID(report);
         String analysisUuid = ResourceHelper.getUUID(analysis);
+        List list = session.createCriteria(TdqAnalysis.class).add(Expression.eq("anUuid", analysisUuid)).add(
+                Expression.eq("repUuid", reportUuid)).add(Expression.eq("isLast", SqlConstants.YES)).list();
 
-        // TODO rli create a current TdqAnalysis from analysis and report
-        // TODO rli check whether a new TdqAnalysis must be created
+        //Create a current TdqAnalysis from analysis and report
+        TdqAnalysis createTdqAnalysis = createTdqAnalysis(report, analysis);
+
+        //check whether a new TdqAnalysis must be created
         // (compare values of TdqAnalysis with current TdqAnalysis
-
-        // TODO rli if the new instance TdqAnalysis has changes, then
-        // update the last instance (end date = now, is_last = SqlCosntants.NO)
-        // and persist the new instance of TdqAnalysis with a new version number
+        TdqAnalysis dbTdqAnalysis = null;
+        if (list.size() > 0) {
+            dbTdqAnalysis = (TdqAnalysis) list.get(0);
+            
+            // If the new instance TdqAnalysis has changes, then
+            // update the last instance (end date = now, is_last = SqlCosntants.NO)
+            // and persist the new instance of TdqAnalysis with a new version number
+            if (!dbTdqAnalysis.valueEqual(createTdqAnalysis)) {
+                dbTdqAnalysis.setAnEndDate(new Date(System.currentTimeMillis()));
+                dbTdqAnalysis.setIsLast(SqlConstants.NO);
+                session.update(dbTdqAnalysis);
+                session.save(createTdqAnalysis);
+            }
+        } else {
+            session.save(createTdqAnalysis);
+        }
 
         // if no changes exist, continue
         // TODO save indicators
-        AnalysisResult results = analysis.getResults();
-        EList<Indicator> indicators = results.getIndicators();
-        for (Indicator indicator : indicators) {
-            persist(indicator);
-        }
+        // AnalysisResult results = analysis.getResults();
+        // EList<Indicator> indicators = results.getIndicators();
+        // for (Indicator indicator : indicators) {
+        // persist(indicator);
+        // }
 
     }
 
@@ -123,12 +144,20 @@ public class DatabasePersistence {
      * @param indicator
      */
     private void persist(Indicator indicator) {
-        indicator.getAnalyzedElement();
         // TODO persist analyzed element (try to get it first before creating it with its UUID)
         // update row only when something has changed (then update END_DATE, VERSION, and IS_LAST columns)
+        createTdqAnalyzedElement((TdColumn) indicator.getAnalyzedElement());
+        List list = session.createQuery("from TDQ_ANALYZED_ELEMENT as a where a.eltUuid:uuid").setString("uuid",
+                ResourceHelper.getUUID(indicator.getAnalyzedElement())).list();
+
+        org.hibernate.classic.Session session2 = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx2 = session2.beginTransaction();
 
         // TODO do the same for TdqIndicatorDefinition (get the definition with its LABEL which identifies a row)
         // update only if something has changed (then update END_DATE, VERSION, and IS_LAST columns)
+        createTdqIndicatorDefinition(indicator);
+
+        tx2.commit();
 
         // TODO get the tdqCalendar object and the TdqDayTime from the database given the
         // date analysis.getResults().getResultMetadata().getExecutionDate()
@@ -146,22 +175,49 @@ public class DatabasePersistence {
         dbAnalysis.setAnLabel(analysis.getName());
         dbAnalysis.setAnAuthor(TaggedValueHelper.getAuthor(analysis));
         dbAnalysis.setAnCreationDate(analysis.getCreationDate());
+        dbAnalysis.setAnBeginDate(new Date(System.currentTimeMillis()));
+        dbAnalysis.setAnEndDate(SqlConstants.END_DATE);
+        dbAnalysis.setAnDataFilter("filter");
+        dbAnalysis.setAnStatus(TaggedValueHelper.getDevStatus(analysis).getLiteral());
+        // dbAnalysis.setAnVersion(0);
+        dbAnalysis.setAnUuid(ResourceHelper.getUUID(analysis));
 
-        // TODO complete code here
+        dbAnalysis.setRepLabel(report.getName());
+        dbAnalysis.setRepAuthor(TaggedValueHelper.getAuthor(report));
+        dbAnalysis.setRepCreationDate(report.getCreationDate());
+        dbAnalysis.setRepStatus(TaggedValueHelper.getDevStatus(report).getLiteral());
+        dbAnalysis.setRepUuid(ResourceHelper.getUUID(report));
+        dbAnalysis.setIsLast(SqlConstants.YES);
         return dbAnalysis;
     }
 
     private TdqAnalyzedElement createTdqAnalyzedElement(TdColumn column) {
         TdqAnalyzedElement dbAnalyzedElement = new TdqAnalyzedElement();
-        // TODO implement me
+        // dbAnalyzedElement.setEltBeginDate(eltBeginDate);
+        dbAnalyzedElement.setEltCatalogName(column.getName());
+        ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(column);
+        Package parentCatalogOrSchema = ColumnSetHelper.getParentCatalogOrSchema(columnSetOwner);
+        ;
+        dbAnalyzedElement.setEltConnectionName(DataProviderHelper.getTdDataProvider(parentCatalogOrSchema).getName());
+        dbAnalyzedElement.setEltConnectionUuid(ResourceHelper.getUUID(column));
+        // dbAnalyzedElement.setEltEndDate(eltEndDate);
+        dbAnalyzedElement.setEltSchemaName(parentCatalogOrSchema.getName());
+        dbAnalyzedElement.setEltCatalogName(parentCatalogOrSchema.getName());
+        dbAnalyzedElement.setEltTableName(columnSetOwner.getName());
+        // dbAnalyzedElement.setEltVersion(eltVersion)
         return dbAnalyzedElement;
     }
 
     private TdqIndicatorDefinition createTdqIndicatorDefinition(Indicator indicator) {
         TdqIndicatorDefinition dbIndicatorDefinition = new TdqIndicatorDefinition();
         dbIndicatorDefinition.setIndBeginDate(new Date(System.currentTimeMillis()));
+        dbIndicatorDefinition.setIndCategory(indicator.getIndicatorDefinition().getCategories().get(0).getLabel());
+        // dbIndicatorDefinition.setIndEndDate(indicator.)
+        dbIndicatorDefinition.setIndLabel(indicator.getName());
+        dbIndicatorDefinition.setIndType(indicator.getIndicatorType().getName());
+        dbIndicatorDefinition.setIndSubcategory(indicator.getIndicatorDefinition().getSubCategories().get(0).getLabel());
+        // dbIndicatorDefinition.setTdqIndicatorValues(tdqIndicatorValues)
 
-        // TODO implement me
         return dbIndicatorDefinition;
     }
 

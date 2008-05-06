@@ -11,197 +11,250 @@ import java.util.Set;
  */
 public class TdqAnalysis implements java.io.Serializable {
 
-	private Integer anPk;
-	private String anUuid;
-	private String anLabel;
-	private Date anCreationDate;
-	private String anAuthor;
-	private String anDataFilter;
-	private String anStatus;
-	private String repUuid;
-	private Date repCreationDate;
-	private String repLabel;
-	private String repAuthor;
-	private String repStatus;
-	private Date anBeginDate;
-	private Date anEndDate;
-	private int anVersion;
-	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
-			0);
+    private Integer anPk;
 
-	public TdqAnalysis() {
-	}
+    private String anUuid;
 
-	public TdqAnalysis(String anUuid, String anLabel, Date anCreationDate,
-			String anAuthor, String anDataFilter, String anStatus,
-			String repUuid, Date repCreationDate, String repLabel,
-			String repAuthor, String repStatus, Date anBeginDate,
-			Date anEndDate, int anVersion) {
-		this.anUuid = anUuid;
-		this.anLabel = anLabel;
-		this.anCreationDate = anCreationDate;
-		this.anAuthor = anAuthor;
-		this.anDataFilter = anDataFilter;
-		this.anStatus = anStatus;
-		this.repUuid = repUuid;
-		this.repCreationDate = repCreationDate;
-		this.repLabel = repLabel;
-		this.repAuthor = repAuthor;
-		this.repStatus = repStatus;
-		this.anBeginDate = anBeginDate;
-		this.anEndDate = anEndDate;
-		this.anVersion = anVersion;
-	}
+    private String anLabel;
 
-	public TdqAnalysis(String anUuid, String anLabel, Date anCreationDate,
-			String anAuthor, String anDataFilter, String anStatus,
-			String repUuid, Date repCreationDate, String repLabel,
-			String repAuthor, String repStatus, Date anBeginDate,
-			Date anEndDate, int anVersion,
-			Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.anUuid = anUuid;
-		this.anLabel = anLabel;
-		this.anCreationDate = anCreationDate;
-		this.anAuthor = anAuthor;
-		this.anDataFilter = anDataFilter;
-		this.anStatus = anStatus;
-		this.repUuid = repUuid;
-		this.repCreationDate = repCreationDate;
-		this.repLabel = repLabel;
-		this.repAuthor = repAuthor;
-		this.repStatus = repStatus;
-		this.anBeginDate = anBeginDate;
-		this.anEndDate = anEndDate;
-		this.anVersion = anVersion;
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    private Date anCreationDate;
 
-	public Integer getAnPk() {
-		return this.anPk;
-	}
+    private String anAuthor;
 
-	public void setAnPk(Integer anPk) {
-		this.anPk = anPk;
-	}
+    private String anDataFilter;
 
-	public String getAnUuid() {
-		return this.anUuid;
-	}
+    private String anStatus;
 
-	public void setAnUuid(String anUuid) {
-		this.anUuid = anUuid;
-	}
+    private String repUuid;
 
-	public String getAnLabel() {
-		return this.anLabel;
-	}
+    private Date repCreationDate;
 
-	public void setAnLabel(String anLabel) {
-		this.anLabel = anLabel;
-	}
+    private String repLabel;
 
-	public Date getAnCreationDate() {
-		return this.anCreationDate;
-	}
+    private String repAuthor;
 
-	public void setAnCreationDate(Date anCreationDate) {
-		this.anCreationDate = anCreationDate;
-	}
+    private String repStatus;
 
-	public String getAnAuthor() {
-		return this.anAuthor;
-	}
+    private Date anBeginDate;
 
-	public void setAnAuthor(String anAuthor) {
-		this.anAuthor = anAuthor;
-	}
+    private Date anEndDate;
 
-	public String getAnDataFilter() {
-		return this.anDataFilter;
-	}
+    private int anVersion;
+    
+    private char isLast;
 
-	public void setAnDataFilter(String anDataFilter) {
-		this.anDataFilter = anDataFilter;
-	}
+    private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(0);
 
-	public String getAnStatus() {
-		return this.anStatus;
-	}
+    public TdqAnalysis() {
+    }
 
-	public void setAnStatus(String anStatus) {
-		this.anStatus = anStatus;
-	}
+    public TdqAnalysis(String anUuid, String anLabel, Date anCreationDate, String anAuthor, String anDataFilter, String anStatus,
+            String repUuid, Date repCreationDate, String repLabel, String repAuthor, String repStatus, Date anBeginDate,
+            Date anEndDate, int anVersion) {
+        this.anUuid = anUuid;
+        this.anLabel = anLabel;
+        this.anCreationDate = anCreationDate;
+        this.anAuthor = anAuthor;
+        this.anDataFilter = anDataFilter;
+        this.anStatus = anStatus;
+        this.repUuid = repUuid;
+        this.repCreationDate = repCreationDate;
+        this.repLabel = repLabel;
+        this.repAuthor = repAuthor;
+        this.repStatus = repStatus;
+        this.anBeginDate = anBeginDate;
+        this.anEndDate = anEndDate;
+        this.anVersion = anVersion;
+    }
 
-	public String getRepUuid() {
-		return this.repUuid;
-	}
+    public TdqAnalysis(String anUuid, String anLabel, Date anCreationDate, String anAuthor, String anDataFilter, String anStatus,
+            String repUuid, Date repCreationDate, String repLabel, String repAuthor, String repStatus, Date anBeginDate,
+            Date anEndDate, int anVersion, Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.anUuid = anUuid;
+        this.anLabel = anLabel;
+        this.anCreationDate = anCreationDate;
+        this.anAuthor = anAuthor;
+        this.anDataFilter = anDataFilter;
+        this.anStatus = anStatus;
+        this.repUuid = repUuid;
+        this.repCreationDate = repCreationDate;
+        this.repLabel = repLabel;
+        this.repAuthor = repAuthor;
+        this.repStatus = repStatus;
+        this.anBeginDate = anBeginDate;
+        this.anEndDate = anEndDate;
+        this.anVersion = anVersion;
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
 
-	public void setRepUuid(String repUuid) {
-		this.repUuid = repUuid;
-	}
+    public Integer getAnPk() {
+        return this.anPk;
+    }
 
-	public Date getRepCreationDate() {
-		return this.repCreationDate;
-	}
+    public void setAnPk(Integer anPk) {
+        this.anPk = anPk;
+    }
 
-	public void setRepCreationDate(Date repCreationDate) {
-		this.repCreationDate = repCreationDate;
-	}
+    public String getAnUuid() {
+        return this.anUuid;
+    }
 
-	public String getRepLabel() {
-		return this.repLabel;
-	}
+    public void setAnUuid(String anUuid) {
+        this.anUuid = anUuid;
+    }
 
-	public void setRepLabel(String repLabel) {
-		this.repLabel = repLabel;
-	}
+    public String getAnLabel() {
+        return this.anLabel;
+    }
 
-	public String getRepAuthor() {
-		return this.repAuthor;
-	}
+    public void setAnLabel(String anLabel) {
+        this.anLabel = anLabel;
+    }
 
-	public void setRepAuthor(String repAuthor) {
-		this.repAuthor = repAuthor;
-	}
+    public Date getAnCreationDate() {
+        return this.anCreationDate;
+    }
 
-	public String getRepStatus() {
-		return this.repStatus;
-	}
+    public void setAnCreationDate(Date anCreationDate) {
+        this.anCreationDate = anCreationDate;
+    }
 
-	public void setRepStatus(String repStatus) {
-		this.repStatus = repStatus;
-	}
+    public String getAnAuthor() {
+        return this.anAuthor;
+    }
 
-	public Date getAnBeginDate() {
-		return this.anBeginDate;
-	}
+    public void setAnAuthor(String anAuthor) {
+        this.anAuthor = anAuthor;
+    }
 
-	public void setAnBeginDate(Date anBeginDate) {
-		this.anBeginDate = anBeginDate;
-	}
+    public String getAnDataFilter() {
+        return this.anDataFilter;
+    }
 
-	public Date getAnEndDate() {
-		return this.anEndDate;
-	}
+    public void setAnDataFilter(String anDataFilter) {
+        this.anDataFilter = anDataFilter;
+    }
 
-	public void setAnEndDate(Date anEndDate) {
-		this.anEndDate = anEndDate;
-	}
+    public String getAnStatus() {
+        return this.anStatus;
+    }
 
-	public int getAnVersion() {
-		return this.anVersion;
-	}
+    public void setAnStatus(String anStatus) {
+        this.anStatus = anStatus;
+    }
 
-	public void setAnVersion(int anVersion) {
-		this.anVersion = anVersion;
-	}
+    public String getRepUuid() {
+        return this.repUuid;
+    }
 
-	public Set<TdqIndicatorValue> getTdqIndicatorValues() {
-		return this.tdqIndicatorValues;
-	}
+    public void setRepUuid(String repUuid) {
+        this.repUuid = repUuid;
+    }
 
-	public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    public Date getRepCreationDate() {
+        return this.repCreationDate;
+    }
+
+    public void setRepCreationDate(Date repCreationDate) {
+        this.repCreationDate = repCreationDate;
+    }
+
+    public String getRepLabel() {
+        return this.repLabel;
+    }
+
+    public void setRepLabel(String repLabel) {
+        this.repLabel = repLabel;
+    }
+
+    public String getRepAuthor() {
+        return this.repAuthor;
+    }
+
+    public void setRepAuthor(String repAuthor) {
+        this.repAuthor = repAuthor;
+    }
+
+    public String getRepStatus() {
+        return this.repStatus;
+    }
+
+    public void setRepStatus(String repStatus) {
+        this.repStatus = repStatus;
+    }
+
+    public Date getAnBeginDate() {
+        return this.anBeginDate;
+    }
+
+    public void setAnBeginDate(Date anBeginDate) {
+        this.anBeginDate = anBeginDate;
+    }
+
+    public Date getAnEndDate() {
+        return this.anEndDate;
+    }
+
+    public void setAnEndDate(Date anEndDate) {
+        this.anEndDate = anEndDate;
+    }
+
+    public int getAnVersion() {
+        return this.anVersion;
+    }
+
+    public void setAnVersion(int anVersion) {
+        this.anVersion = anVersion;
+    }
+
+    public Set<TdqIndicatorValue> getTdqIndicatorValues() {
+        return this.tdqIndicatorValues;
+    }
+
+    public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
+
+    public boolean valueEqual(TdqAnalysis tdqAnalysis) {
+        if ((anAuthor != tdqAnalysis.getAnAuthor())
+                && (this.anAuthor == null ? tdqAnalysis.getAnAuthor() != null
+                        : (!this.anAuthor.equals(tdqAnalysis.getAnAuthor())))) {
+            return false;
+        } else if ((anDataFilter != tdqAnalysis.getAnDataFilter())
+                && (this.anDataFilter == null ? tdqAnalysis.getAnDataFilter() != null : (!this.anDataFilter.equals(tdqAnalysis
+                        .getAnDataFilter())))) {
+            return false;
+        } else if ((anLabel != tdqAnalysis.getAnLabel())
+                && (this.anLabel == null ? tdqAnalysis.getAnLabel() != null : (!this.anLabel.equals(tdqAnalysis.getAnLabel())))) {
+            return false;
+        } else if ((anStatus != tdqAnalysis.getAnStatus())
+                && (this.anStatus == null ? tdqAnalysis.getAnStatus() != null
+                        : (!this.anStatus.equals(tdqAnalysis.getAnStatus())))) {
+            return false;
+        } else if ((repAuthor != tdqAnalysis.getRepAuthor())
+                && (this.repAuthor == null ? tdqAnalysis.getRepAuthor() != null : (!this.repAuthor.equals(tdqAnalysis
+                        .getRepAuthor())))) {
+            return false;
+        } else if ((repLabel != tdqAnalysis.getRepLabel())
+                && (this.repLabel == null ? tdqAnalysis.getRepLabel() != null
+                        : (!this.repLabel.equals(tdqAnalysis.getRepLabel())))) {
+            return false;
+        } else if ((repStatus != tdqAnalysis.getRepStatus())
+                && (this.repStatus == null ? tdqAnalysis.getRepStatus() != null : (!this.repStatus.equals(tdqAnalysis
+                        .getRepStatus())))) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    public char getIsLast() {
+        return isLast;
+    }
+
+    
+    public void setIsLast(char isLast) {
+        this.isLast = isLast;
+    }
 
 }
