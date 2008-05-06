@@ -32,6 +32,7 @@ import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuilder;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.composite.TooltipTree;
+import org.talend.dataprofiler.core.ui.utils.ColumnIndicatorRule;
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 
 /**
@@ -151,6 +152,7 @@ public class IndicatorSelectDialog extends Dialog {
                 editor = new TreeEditor(tree);
                 Button checkButton = new Button(tree, SWT.CHECK);
                 checkButton.setData(branchNodes[i].getIndicatorEnum());
+                
                 if (((ColumnIndicator) treeColumns[j].getData()).contains(branchNodes[i].getIndicatorEnum())) {
                     checkButton.setSelection(true);
                 }
@@ -162,6 +164,7 @@ public class IndicatorSelectDialog extends Dialog {
                 final int index = j;
                 final ColumnIndicator currentColumnIndicator = (ColumnIndicator) treeColumns[j].getData();
                 final IndicatorEnum indicatorEnum = branchNodes[i].getIndicatorEnum();
+                checkButton.setEnabled(ColumnIndicatorRule.match(indicatorEnum, currentColumnIndicator));
                 checkButton.addSelectionListener(new SelectionAdapter() {
 
                     /*
@@ -186,10 +189,18 @@ public class IndicatorSelectDialog extends Dialog {
                             final ColumnIndicator currentColumnIndicator, final IndicatorEnum indicatorEnum, boolean selection) {
                         Button childrenButton;
                         if (selection) {
-                            currentColumnIndicator.addIndicatorEnum(indicatorEnum);
+                            
+                            childrenButton = treeItem.getButton(index);
+                            if (childrenButton.isEnabled()) {
+                                currentColumnIndicator.addIndicatorEnum(indicatorEnum);
+                            }
+                            
                             for (TreeItem children : treeItem.getItems()) {
                                 childrenButton = ((TreeItemContainer) children).getButton(index);
-                                childrenButton.setSelection(selection);
+                                if (childrenButton.isEnabled()) {
+                                    childrenButton.setSelection(selection);
+                                } 
+                                
                                 handleSelection((TreeItemContainer) children, index, currentColumnIndicator,
                                         (IndicatorEnum) childrenButton.getData(), selection);
                             }

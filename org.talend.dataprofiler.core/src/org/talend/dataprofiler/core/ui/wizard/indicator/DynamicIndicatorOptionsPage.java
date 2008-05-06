@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.indicator;
 
-import java.sql.Types;
 import java.util.Map;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -26,6 +25,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
+import org.talend.dataprofiler.core.ui.utils.ColumnIndicatorRule;
 import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
 import org.talend.dataprofiler.help.HelpPlugin;
 import org.talend.dataquality.indicators.DataminingType;
@@ -79,7 +79,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
             case UniqueIndicatorEnum:
             case DuplicateCountIndicatorEnum:
 
-                if (isTextInSQL(sqlType)) {
+                if (ColumnIndicatorRule.isTextInSQL(sqlType)) {
                     
                     setControl(createView(new TextParametersForm(tabFolder, SWT.NONE)));
                 }
@@ -93,16 +93,16 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                 break;
             case FrequencyIndicatorEnum:
                 if (parentColumn.getDataminingType() == DataminingType.INTERVAL) {
-                    if (isNumbericInSQL(sqlType)) {
+                    if (ColumnIndicatorRule.isNumbericInSQL(sqlType)) {
 
                         setControl(createView(new BinsDesignerForm(tabFolder, SWT.NONE)));
                     }
                     
-                    if (isDateInSQL(sqlType)) {
+                    if (ColumnIndicatorRule.isDateInSQL(sqlType)) {
 
                         setControl(createView(new TimeSlicesForm(tabFolder, SWT.NONE)));
                     }
-                } else if (isTextInSQL(sqlType)) {
+                } else if (ColumnIndicatorRule.isTextInSQL(sqlType)) {
 
                     setControl(createView(new TextParametersForm(tabFolder, SWT.NONE)));
                 }
@@ -110,11 +110,11 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
                 break;
             case ModeIndicatorEnum:
                 if (parentColumn.getDataminingType() == DataminingType.INTERVAL) {
-                    if (isNumbericInSQL(sqlType)) {
+                    if (ColumnIndicatorRule.isNumbericInSQL(sqlType)) {
 
                         setControl(createView(new BinsDesignerForm(tabFolder, SWT.NONE)));
                     }
-                } else if (isTextInSQL(sqlType)) {
+                } else if (ColumnIndicatorRule.isTextInSQL(sqlType)) {
  
                     setControl(createView(new TextParametersForm(tabFolder, SWT.NONE)));
                 }
@@ -161,47 +161,4 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
         return tabFolder;
     }
     
-    public boolean isTextInSQL(int type) {
-        
-        switch (type) {
-        case Types.CHAR:
-        case Types.VARCHAR:
-        case Types.LONGVARCHAR:
-        case Types.CLOB:
-            
-            return true;
-        default:
-            return false;
-        }
-    }
-    
-    public boolean isNumbericInSQL(int type) {
-        switch (parentColumn.getTdColumn().getJavaType()) {
-        case Types.DOUBLE:
-        case Types.REAL:
-        case Types.FLOAT:
-        case Types.INTEGER:
-        case Types.TINYINT:
-        case Types.SMALLINT:
-        case Types.BIGINT:
-        case Types.DECIMAL:
-        case Types.NUMERIC:
-            
-            return true;
-        default:
-            return false;
-        }
-    }
-    
-    public boolean isDateInSQL(int type) {
-        switch (parentColumn.getTdColumn().getJavaType()) {
-        case Types.DATE:
-        case Types.TIME:
-        case Types.TIMESTAMP:
-            
-            return true;
-        default:
-            return false;
-        }
-    }
 }
