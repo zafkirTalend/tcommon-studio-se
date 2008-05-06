@@ -48,7 +48,7 @@ public class HorizontalTabFactory {
 
     public void initComposite(Composite parent) {
 
-        Composite panel = new Composite(parent, SWT.BORDER);
+        Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(GridData.FILL_BOTH));
         panel.setLayout(new FormLayout());
 
@@ -68,7 +68,6 @@ public class HorizontalTabFactory {
         tabbedPropertyViewer.setLabelProvider(new TabbedPropertySheetPageLabelProvider());
 
         title = tabbedPropertyComposite.getTitle();
-
     }
 
     public Composite getTabComposite() {

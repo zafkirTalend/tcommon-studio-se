@@ -40,6 +40,8 @@ public enum ECoreImage implements IImage {
     BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"), //$NON-NLS-1$
     PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
+    PROCESS_TEMPLATE_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
+    PROCESS_TEMPLATE_WIZ("/icons/process_template_wiz.png"), //$NON-NLS-1$
     JOBLET_ICON("/icons/joblet_icon.png"), //$NON-NLS-1$
     CONTEXT_ICON("/icons/context_icon.gif"), //$NON-NLS-1$
     CONTEXT_CONF_ICON("/icons/context_conf_icon.gif"), //$NON-NLS-1$
@@ -56,10 +58,10 @@ public enum ECoreImage implements IImage {
     METADATA_ICON("/icons/metadata.png"), //$NON-NLS-1$
     METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
-    
+
     METADATA_SQLPATTERN_ICON("platform://org.talend.commons.ui/icons/unknown.gif"), //$NON-NLS-1$
     METADATA_SQLPATTERN_WIZ("/icons/defaultWizard.png"), //$NON-NLS-1$
-    
+
     METADATA_TABLE_ICON("/icons/table.gif"), //$NON-NLS-1$
     METADATA_TABLE_WIZ("/icons/table_wiz.png"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons/view.gif"), //$NON-NLS-1$
