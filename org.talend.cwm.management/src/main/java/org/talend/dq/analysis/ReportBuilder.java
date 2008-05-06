@@ -44,7 +44,9 @@ public class ReportBuilder {
         }
         
         report = ReportHelper.createReport(analysisName);
-        
+        // set the creation date
+        Date date = new Date(System.currentTimeMillis());
+        report.setCreationDate(date);
         initialized = true;
         return initialized;
     }
