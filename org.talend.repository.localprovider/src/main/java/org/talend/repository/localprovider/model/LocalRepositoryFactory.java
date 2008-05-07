@@ -94,8 +94,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -1173,6 +1173,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public Item copy(Item originalItem, IPath path) throws PersistenceException, BusinessException {
+        return copy(originalItem, path, true);
+    }
+
+    public Item copy(Item originalItem, IPath path, boolean changeLabelWithCopyPrefix) throws PersistenceException,
+            BusinessException {
         Resource resource = originalItem.eResource();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
@@ -1180,7 +1185,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
-            Item newItem = copyFromResource(createResource);
+            Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
             create(newItem, path);
             return newItem;
         } catch (IOException e) {
