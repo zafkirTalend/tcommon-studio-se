@@ -113,10 +113,6 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         }
 
         schemata.put(tdColumn, schema);
-        if (schemata.size() != 1) {
-            this.errorMessage = "given columns do not belong all to the same schema (or catalog). Cannot run this kind of analysis!";
-            return false;
-        }
         return true;
     }
 
