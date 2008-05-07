@@ -59,6 +59,7 @@ import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
@@ -70,6 +71,7 @@ import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorChartFactory;
+import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dq.analysis.ColumnAnalysisHandler;
@@ -310,7 +312,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         }
     }
 
-    boolean isShow = false;
     private void createPreviewSection(final ScrolledForm form, Composite parent) {
 
         Section section = createSection(form, parent, "Preview", false, "");
@@ -319,96 +320,104 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         sectionClient.setLayout(new GridLayout());
         sectionClient.setLayoutData(new GridData(GridData.FILL_BOTH));
         
-        Hyperlink refreshBtn = toolkit.createHyperlink(sectionClient, "Refresh the preview", SWT.NONE);
+        ImageHyperlink refreshBtn = toolkit.createImageHyperlink(sectionClient, SWT.NONE);
+        refreshBtn.setText("Refresh the preview");
+        refreshBtn.setImage(ImageLib.getImage(ImageLib.SECTION_PREVIEW));
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(sectionClient);
         
         final Composite composite  = toolkit.createComposite(sectionClient);
         composite.setLayout(new GridLayout());
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         
+        final Analysis analysis = analysisHandler.getAnalysis();
+        
         refreshBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
             public void linkActivated(HyperlinkEvent e) {
-               //execture analysis
-               //refresh the controls
                 
                 for (Control control : composite.getChildren()) {
                     control.dispose();
                 }
                 
-                isShow = true;
-                
-                createPreviewCharts(form, composite, isShow);
+                if (analysis.getResults().getResultMetadata() != null 
+                        && analysis.getResults().getResultMetadata().getExecutionDate() != null) {
+
+                   //createRealChart
+                    createPreviewCharts(form, composite, true);
+                } else {
+                    
+                  //createEmptyChart
+                    createPreviewCharts(form, composite, false);
+                }
                 
                 composite.layout();
-                form.reflow(isShow);
+                form.reflow(true);
             }
 
         });
-
+        
         section.setClient(sectionClient);
     }
     
-    private void createPreviewCharts(final ScrolledForm form, final Composite composite, boolean isShow) {
-        if (isShow) {
-            ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
+    private void createPreviewCharts(final ScrolledForm form, final Composite composite, final boolean isCreate) {
+
+        ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
+        
+        for (final ColumnIndicator column : columnIndicator) {
+
+            ExpandableComposite exComp = toolkit.createExpandableComposite(composite, ExpandableComposite.TREE_NODE
+                    | ExpandableComposite.CLIENT_INDENT);
+
+            exComp.setText("Column: " + column.getTdColumn().getName());
+            exComp.setLayout(new GridLayout());
+            final Composite comp = toolkit.createComposite(exComp);
+            comp.setLayout(new GridLayout());
+            comp.setLayoutData(new GridData(GridData.FILL_BOTH));
             
-            for (final ColumnIndicator column : columnIndicator) {
+            if (column.getIndicators().length != 0) {
 
-                ExpandableComposite exComp = toolkit.createExpandableComposite(composite, ExpandableComposite.TREE_NODE
-                        | ExpandableComposite.CLIENT_INDENT);
+                IRunnableWithProgress rwp = new IRunnableWithProgress() {
 
-                exComp.setText("Column: " + column.getTdColumn().getName());
-                exComp.setLayout(new GridLayout());
-                final Composite comp = toolkit.createComposite(exComp);
-                comp.setLayout(new GridLayout());
-                comp.setLayoutData(new GridData(GridData.FILL_BOTH));
-                
-                if (column.getIndicators().length != 0) {
-
-                    IRunnableWithProgress rwp = new IRunnableWithProgress() {
-
-                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                            
-                            monitor.beginTask("Creating preview for " + column.getTdColumn().getName(), IProgressMonitor.UNKNOWN);
-                            
-                            Display.getDefault().asyncExec(new Runnable() {
-
-                                public void run() {
-
-                                    for (ImageDescriptor descriptor : IndicatorChartFactory.createChart(column)) {
-                                        
-                                        ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
-                                        image.setImage(descriptor.createImage());
-                                    }
-                                }
-                                
-                            });
-                            //Thread.sleep(3000);
-                            monitor.done();
-                        }
+                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         
-                    };
+                        monitor.beginTask("Creating preview for " + column.getTdColumn().getName(), IProgressMonitor.UNKNOWN);
+                        
+                        Display.getDefault().asyncExec(new Runnable() {
 
-                    try {
-                        new ProgressMonitorDialog(null).run(true, false, rwp);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                            public void run() {
+
+                                for (ImageDescriptor descriptor : IndicatorChartFactory.createChart(column, isCreate)) {
+                                    
+                                    ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
+                                    image.setImage(descriptor.createImage());
+                                }
+                            }
+                            
+                        });
+
+                        monitor.done();
                     }
                     
-                    exComp.setExpanded(true);
+                };
+
+                try {
+                    new ProgressMonitorDialog(null).run(true, false, rwp);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
                 
-                exComp.setClient(comp);
-                
-                exComp.addExpansionListener(new ExpansionAdapter() {
-
-                    public void expansionStateChanged(ExpansionEvent e) {
-                        form.reflow(true); 
-                    }
-
-                });
+                exComp.setExpanded(true);
             }
+            
+            exComp.setClient(comp);
+            
+            exComp.addExpansionListener(new ExpansionAdapter() {
+
+                public void expansionStateChanged(ExpansionEvent e) {
+                    form.reflow(true); 
+                }
+
+            });
         }
     }
 

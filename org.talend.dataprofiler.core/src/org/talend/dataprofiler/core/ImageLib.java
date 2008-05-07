@@ -41,6 +41,13 @@ public class ImageLib {
     
     public static final String REPORT_HISTORIZE = "sample.gif"; //$NON-NLS-1$
     
+    public static final String NEW_CONNECTION = "new_alias.gif"; //$NON-NLS-1$
+    
+    public static final String ACTION_DELETE = "cross.png"; //$NON-NLS-1$
+    
+    public static final String SECTION_PREVIEW = "eye.png"; //$NON-NLS-1$
+    
+    public static final String ACTION_NEW_REPORT = "report_add.png"; //$NON-NLS-1$
     
 
     /**

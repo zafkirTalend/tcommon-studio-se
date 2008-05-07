@@ -90,7 +90,7 @@ public class NewConnectionActionProvider extends CommonActionProvider {
 
         public CreateConnectionAction() {
             super("Create a new connection");
-            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
+            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.NEW_CONNECTION));
         }
 
         /*

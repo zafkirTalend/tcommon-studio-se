@@ -88,7 +88,7 @@ public class NewReportActionProvider extends CommonActionProvider {
     private class CreateNewReportAction extends Action {
         public CreateNewReportAction() {
             super("New Report");
-            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
+            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.ACTION_NEW_REPORT));
         }
         
         /*

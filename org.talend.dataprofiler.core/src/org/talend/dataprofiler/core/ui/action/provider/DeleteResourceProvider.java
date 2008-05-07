@@ -27,6 +27,7 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
@@ -74,6 +75,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
 
         public DeleteDataResourceAction(Shell shell) {
             super(shell);
+            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.ACTION_DELETE));
         }
 
         /*
