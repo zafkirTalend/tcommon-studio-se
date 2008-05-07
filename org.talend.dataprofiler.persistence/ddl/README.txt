@@ -1,0 +1,2 @@
+- convert_to_innodb.sh: shell script for converting generated database DDL into a DDL for InnoDB database.
+- create_talend_dq.sql: DDL for creating the "talend_dq" database

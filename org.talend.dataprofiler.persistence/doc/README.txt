@@ -106,10 +106,10 @@ TDQ_INDICATOR_OPTIONS
 TDQ_CALENDAR
   - CAL_PK: the primary key
   - CAL_DATE 
-  - CAL_DAY_IN_MINTH 
-  - CAL_DAY_IN_YEAR 
-  - CAL_LAST_WEEK_DAY 
-  - CAL_LAST_MONTH_DAY: the 
+  - CAL_DAY_IN_MONTH: the date
+  - CAL_DAY_IN_YEAR: the day number in the year
+  - CAL_LAST_WEEK_DAY:  the day number in year of the last day of the current week  
+  - CAL_LAST_MONTH_DAY: the day number in year of the last day of the current month  
   - CAL_WEEK_DAY: the day number in the week
   - CAL_DAY_NAME: the name of the day
   - CAL_WEEK_NUM: the week number
