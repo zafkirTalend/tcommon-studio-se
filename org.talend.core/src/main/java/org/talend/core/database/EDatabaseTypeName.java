@@ -53,7 +53,9 @@ public enum EDatabaseTypeName {
 
     VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA"),
 
-    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB");
+    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB"),
+
+    Mckoil("Mckoi", "Mckoi", new Boolean(false), "MCKOI"); // "SQLITE"),
 
     // displayName is used in Java code.
     private String displayName;
