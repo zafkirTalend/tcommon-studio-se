@@ -15,8 +15,8 @@ package org.talend.dq.persistence;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.talend.commons.emf.ResourceHelper;
 import org.talend.cwm.helper.ColumnHelper;
@@ -30,8 +30,10 @@ import org.talend.dataprofiler.persistence.TdqIndicatorDefinition;
 import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.definition.IndicatorCategory;
 import org.talend.dataquality.reports.TdReport;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -98,30 +100,35 @@ public class DatabasePersistence {
      * @param analysis
      * @param dbReport
      */
+    @SuppressWarnings("unchecked")
     private void persist(TdReport report, Analysis analysis) {
         // Get the last instance of TdqAnalysis from DB
-        // get row from DB with report's UUID, analysis' UUID and IS_LAST=SqlConstants.YES
+        // get row from DB with report's UUID, analysis' UUID and the max(beginDate)
         String reportUuid = ResourceHelper.getUUID(report);
         String analysisUuid = ResourceHelper.getUUID(analysis);
-        List list = session.createCriteria(TdqAnalysis.class).add(Expression.eq("anUuid", analysisUuid)).add(
-                Expression.eq("repUuid", reportUuid)).add(Expression.eq("isLast", SqlConstants.YES)).list();
+        List maxVersionList = session.createQuery(
+                "select MAX(anVersion) from TdqAnalysis where anUuid='" + analysisUuid + "' and repUuid='" + reportUuid + "'")
+                .list();
+        Integer maxversion = (Integer) maxVersionList.get(0);
 
-        //Create a current TdqAnalysis from analysis and report
+        // Create a current TdqAnalysis from analysis and report
         TdqAnalysis createTdqAnalysis = createTdqAnalysis(report, analysis);
 
-        //check whether a new TdqAnalysis must be created
+        // check whether a new TdqAnalysis must be created
         // (compare values of TdqAnalysis with current TdqAnalysis
         TdqAnalysis dbTdqAnalysis = null;
-        if (list.size() > 0) {
+        if (maxversion != null) {
+            List list = session.createCriteria(TdqAnalysis.class).add(Expression.eq("anUuid", analysisUuid)).add(
+                    Expression.eq("repUuid", reportUuid)).add(Expression.eq("anVersion", maxversion)).list();
             dbTdqAnalysis = (TdqAnalysis) list.get(0);
-            
+
             // If the new instance TdqAnalysis has changes, then
-            // update the last instance (end date = now, is_last = SqlCosntants.NO)
+            // update the last instance (end date = now)
             // and persist the new instance of TdqAnalysis with a new version number
             if (!dbTdqAnalysis.valueEqual(createTdqAnalysis)) {
                 dbTdqAnalysis.setAnEndDate(new Date(System.currentTimeMillis()));
-                dbTdqAnalysis.setIsLast(SqlConstants.NO);
                 session.update(dbTdqAnalysis);
+                createTdqAnalysis.setAnVersion(dbTdqAnalysis.getAnVersion() + 1);
                 session.save(createTdqAnalysis);
             }
         } else {
@@ -129,35 +136,65 @@ public class DatabasePersistence {
         }
 
         // if no changes exist, continue
-        // TODO save indicators
-        // AnalysisResult results = analysis.getResults();
-        // EList<Indicator> indicators = results.getIndicators();
-        // for (Indicator indicator : indicators) {
-        // persist(indicator);
-        // }
+        // save indicators
+        AnalysisResult results = analysis.getResults();
+        EList<Indicator> indicators = results.getIndicators();
+        for (Indicator indicator : indicators) {
+            persist(indicator);
+        }
 
     }
 
     /**
-     * DOC scorreia Comment method "persist".
+     * persist the indicator object.
      * 
      * @param indicator
      */
+    @SuppressWarnings("unchecked")
     private void persist(Indicator indicator) {
-        // TODO persist analyzed element (try to get it first before creating it with its UUID)
-        // update row only when something has changed (then update END_DATE, VERSION, and IS_LAST columns)
-        createTdqAnalyzedElement((TdColumn) indicator.getAnalyzedElement());
-        List list = session.createQuery("from TDQ_ANALYZED_ELEMENT as a where a.eltUuid:uuid").setString("uuid",
-                ResourceHelper.getUUID(indicator.getAnalyzedElement())).list();
+        // Persist analyzed element (try to get it first before creating it with its UUID)
+        // update row only when something has changed (then update END_DATE, VERSION)
+        String uuid = ResourceHelper.getUUID(indicator.getAnalyzedElement());
+        List analyzedEleVersionList = session.createQuery(
+                "select MAX(eltVersion) from TdqAnalyzedElement where eltUuid='" + uuid + "'").list();
+        Integer analyzedEleVersion = (Integer) analyzedEleVersionList.get(0);
 
-        org.hibernate.classic.Session session2 = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx2 = session2.beginTransaction();
+        TdqAnalyzedElement createTdqAnalyzedElement = createTdqAnalyzedElement((TdColumn) indicator.getAnalyzedElement());
+        if (analyzedEleVersion != null) {
+            List list = session.createCriteria(TdqAnalyzedElement.class).add(Expression.eq("eltUuid", uuid)).add(
+                    Expression.eq("eltVersion", analyzedEleVersion)).list();
+            TdqAnalyzedElement dbAnalyzedElement = (TdqAnalyzedElement) list.get(0);
+            if (!dbAnalyzedElement.valueEqual(createTdqAnalyzedElement)) {
+                dbAnalyzedElement.setEltEndDate(new Date(System.currentTimeMillis()));
+                session.update(dbAnalyzedElement);
+                createTdqAnalyzedElement.setEltVersion(dbAnalyzedElement.getEltVersion() + 1);
+                session.save(createTdqAnalyzedElement);
+            }
+        } else {
+            session.save(createTdqAnalyzedElement);
+        }
 
-        // TODO do the same for TdqIndicatorDefinition (get the definition with its LABEL which identifies a row)
-        // update only if something has changed (then update END_DATE, VERSION, and IS_LAST columns)
-        createTdqIndicatorDefinition(indicator);
+        // Do the same for TdqIndicatorDefinition (get the definition with its LABEL which identifies a row)
+        // update only if something has changed (then update END_DATE, VERSION)
+        String indLabel = indicator.getName();
 
-        tx2.commit();
+        List indDefinitionVersionList = session.createQuery(
+                "select MAX(indVersion) from TdqIndicatorDefinition where indLabel='" + indLabel + "'").list();
+        Integer indDefinitionVersion = (Integer) indDefinitionVersionList.get(0);
+        TdqIndicatorDefinition createTdqIndicatorDefinition = createTdqIndicatorDefinition(indicator);
+        if (indDefinitionVersion != null) {
+            List list = session.createCriteria(TdqIndicatorDefinition.class).add(Expression.eq("indLabel", indLabel)).add(
+                    Expression.eq("indVersion", indDefinitionVersion)).list();
+            TdqIndicatorDefinition dbIndDefinition = (TdqIndicatorDefinition) list.get(0);
+            if (!dbIndDefinition.valueEqual(createTdqIndicatorDefinition)) {
+                dbIndDefinition.setIndEndDate(new Date(System.currentTimeMillis()));
+                session.update(dbIndDefinition);
+                createTdqIndicatorDefinition.setIndVersion(dbIndDefinition.getIndVersion() + 1);
+                session.save(createTdqIndicatorDefinition);
+            }
+        } else {
+            session.save(createTdqIndicatorDefinition);
+        }
 
         // TODO get the tdqCalendar object and the TdqDayTime from the database given the
         // date analysis.getResults().getResultMetadata().getExecutionDate()
@@ -173,38 +210,40 @@ public class DatabasePersistence {
     private TdqAnalysis createTdqAnalysis(TdReport report, Analysis analysis) {
         TdqAnalysis dbAnalysis = new TdqAnalysis();
         dbAnalysis.setAnLabel(analysis.getName());
-        dbAnalysis.setAnAuthor(TaggedValueHelper.getAuthor(analysis));
+        String anaAuthor = TaggedValueHelper.getAuthor(analysis);
+        dbAnalysis.setAnAuthor(anaAuthor == null ? SqlConstants.NULL_VALUE : anaAuthor);
         dbAnalysis.setAnCreationDate(analysis.getCreationDate());
         dbAnalysis.setAnBeginDate(new Date(System.currentTimeMillis()));
         dbAnalysis.setAnEndDate(SqlConstants.END_DATE);
         dbAnalysis.setAnDataFilter("filter");
-        dbAnalysis.setAnStatus(TaggedValueHelper.getDevStatus(analysis).getLiteral());
-        // dbAnalysis.setAnVersion(0);
+        String anaStatus = TaggedValueHelper.getDevStatus(analysis).getLiteral();
+        dbAnalysis.setAnStatus(anaStatus == null ? SqlConstants.NULL_VALUE : anaStatus);
         dbAnalysis.setAnUuid(ResourceHelper.getUUID(analysis));
 
-        dbAnalysis.setRepLabel(report.getName());
-        dbAnalysis.setRepAuthor(TaggedValueHelper.getAuthor(report));
+        dbAnalysis.setRepLabel(report.getName() == null ? SqlConstants.NULL_VALUE : report.getName());
+        String repAuthor = TaggedValueHelper.getAuthor(report);
+        dbAnalysis.setRepAuthor(repAuthor == null ? SqlConstants.NULL_VALUE : repAuthor);
         dbAnalysis.setRepCreationDate(report.getCreationDate());
-        dbAnalysis.setRepStatus(TaggedValueHelper.getDevStatus(report).getLiteral());
+        String repStatus = TaggedValueHelper.getDevStatus(report).getLiteral();
+        dbAnalysis.setRepStatus(repStatus == null ? SqlConstants.NULL_VALUE : repStatus);
         dbAnalysis.setRepUuid(ResourceHelper.getUUID(report));
-        dbAnalysis.setIsLast(SqlConstants.YES);
         return dbAnalysis;
     }
 
     private TdqAnalyzedElement createTdqAnalyzedElement(TdColumn column) {
         TdqAnalyzedElement dbAnalyzedElement = new TdqAnalyzedElement();
-        // dbAnalyzedElement.setEltBeginDate(eltBeginDate);
-        dbAnalyzedElement.setEltCatalogName(column.getName());
+        dbAnalyzedElement.setEltUuid(ResourceHelper.getUUID(column));
+        dbAnalyzedElement.setEltColumnName(column.getName());
+        dbAnalyzedElement.setEltBeginDate(new Date(System.currentTimeMillis()));
         ColumnSet columnSetOwner = ColumnHelper.getColumnSetOwner(column);
         Package parentCatalogOrSchema = ColumnSetHelper.getParentCatalogOrSchema(columnSetOwner);
         ;
         dbAnalyzedElement.setEltConnectionName(DataProviderHelper.getTdDataProvider(parentCatalogOrSchema).getName());
         dbAnalyzedElement.setEltConnectionUuid(ResourceHelper.getUUID(column));
-        // dbAnalyzedElement.setEltEndDate(eltEndDate);
+        dbAnalyzedElement.setEltEndDate(SqlConstants.END_DATE);
         dbAnalyzedElement.setEltSchemaName(parentCatalogOrSchema.getName());
         dbAnalyzedElement.setEltCatalogName(parentCatalogOrSchema.getName());
         dbAnalyzedElement.setEltTableName(columnSetOwner.getName());
-        // dbAnalyzedElement.setEltVersion(eltVersion)
         return dbAnalyzedElement;
     }
 
@@ -212,11 +251,13 @@ public class DatabasePersistence {
         TdqIndicatorDefinition dbIndicatorDefinition = new TdqIndicatorDefinition();
         dbIndicatorDefinition.setIndBeginDate(new Date(System.currentTimeMillis()));
         dbIndicatorDefinition.setIndCategory(indicator.getIndicatorDefinition().getCategories().get(0).getLabel());
-        // dbIndicatorDefinition.setIndEndDate(indicator.)
+        dbIndicatorDefinition.setIndEndDate(SqlConstants.END_DATE);
         dbIndicatorDefinition.setIndLabel(indicator.getName());
-        dbIndicatorDefinition.setIndType(indicator.getIndicatorType().getName());
-        dbIndicatorDefinition.setIndSubcategory(indicator.getIndicatorDefinition().getSubCategories().get(0).getLabel());
-        // dbIndicatorDefinition.setTdqIndicatorValues(tdqIndicatorValues)
+        dbIndicatorDefinition.setIndType(indicator.getIndicatorType() == null ? SqlConstants.NULL_VALUE : indicator
+                .getIndicatorType().getName());
+        EList<IndicatorCategory> subCategories = indicator.getIndicatorDefinition().getSubCategories();
+        IndicatorCategory subCategory = subCategories.size() > 0 ? subCategories.get(0) : null;
+        dbIndicatorDefinition.setIndSubcategory(subCategory == null ? SqlConstants.NULL_VALUE : subCategory.getLabel());
 
         return dbIndicatorDefinition;
     }

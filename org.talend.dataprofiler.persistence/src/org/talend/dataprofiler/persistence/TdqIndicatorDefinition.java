@@ -11,116 +11,131 @@ import java.util.Set;
  */
 public class TdqIndicatorDefinition implements java.io.Serializable {
 
-	private Integer indPk;
-	private String indLabel;
-	private String indType;
-	private String indCategory;
-	private String indSubcategory;
-	private Date indBeginDate;
-	private Date indEndDate;
-	private int indVersion;
-	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
-			0);
+    private Integer indPk;
 
-	public TdqIndicatorDefinition() {
-	}
+    private String indLabel;
 
-	public TdqIndicatorDefinition(String indLabel, String indType,
-			String indCategory, String indSubcategory, Date indBeginDate,
-			Date indEndDate, int indVersion) {
-		this.indLabel = indLabel;
-		this.indType = indType;
-		this.indCategory = indCategory;
-		this.indSubcategory = indSubcategory;
-		this.indBeginDate = indBeginDate;
-		this.indEndDate = indEndDate;
-		this.indVersion = indVersion;
-	}
+    private String indType;
 
-	public TdqIndicatorDefinition(String indLabel, String indType,
-			String indCategory, String indSubcategory, Date indBeginDate,
-			Date indEndDate, int indVersion,
-			Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.indLabel = indLabel;
-		this.indType = indType;
-		this.indCategory = indCategory;
-		this.indSubcategory = indSubcategory;
-		this.indBeginDate = indBeginDate;
-		this.indEndDate = indEndDate;
-		this.indVersion = indVersion;
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    private String indCategory;
 
-	public Integer getIndPk() {
-		return this.indPk;
-	}
+    private String indSubcategory;
 
-	public void setIndPk(Integer indPk) {
-		this.indPk = indPk;
-	}
+    private Date indBeginDate;
 
-	public String getIndLabel() {
-		return this.indLabel;
-	}
+    private Date indEndDate;
 
-	public void setIndLabel(String indLabel) {
-		this.indLabel = indLabel;
-	}
+    private int indVersion;
 
-	public String getIndType() {
-		return this.indType;
-	}
+    private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(0);
 
-	public void setIndType(String indType) {
-		this.indType = indType;
-	}
+    public TdqIndicatorDefinition() {
+    }
 
-	public String getIndCategory() {
-		return this.indCategory;
-	}
+    public TdqIndicatorDefinition(String indLabel, String indType, String indCategory, String indSubcategory, Date indBeginDate,
+            Date indEndDate, int indVersion) {
+        this.indLabel = indLabel;
+        this.indType = indType;
+        this.indCategory = indCategory;
+        this.indSubcategory = indSubcategory;
+        this.indBeginDate = indBeginDate;
+        this.indEndDate = indEndDate;
+        this.indVersion = indVersion;
+    }
 
-	public void setIndCategory(String indCategory) {
-		this.indCategory = indCategory;
-	}
+    public TdqIndicatorDefinition(String indLabel, String indType, String indCategory, String indSubcategory, Date indBeginDate,
+            Date indEndDate, int indVersion, Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.indLabel = indLabel;
+        this.indType = indType;
+        this.indCategory = indCategory;
+        this.indSubcategory = indSubcategory;
+        this.indBeginDate = indBeginDate;
+        this.indEndDate = indEndDate;
+        this.indVersion = indVersion;
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
 
-	public String getIndSubcategory() {
-		return this.indSubcategory;
-	}
+    public Integer getIndPk() {
+        return this.indPk;
+    }
 
-	public void setIndSubcategory(String indSubcategory) {
-		this.indSubcategory = indSubcategory;
-	}
+    public void setIndPk(Integer indPk) {
+        this.indPk = indPk;
+    }
 
-	public Date getIndBeginDate() {
-		return this.indBeginDate;
-	}
+    public String getIndLabel() {
+        return this.indLabel;
+    }
 
-	public void setIndBeginDate(Date indBeginDate) {
-		this.indBeginDate = indBeginDate;
-	}
+    public void setIndLabel(String indLabel) {
+        this.indLabel = indLabel;
+    }
 
-	public Date getIndEndDate() {
-		return this.indEndDate;
-	}
+    public String getIndType() {
+        return this.indType;
+    }
 
-	public void setIndEndDate(Date indEndDate) {
-		this.indEndDate = indEndDate;
-	}
+    public void setIndType(String indType) {
+        this.indType = indType;
+    }
 
-	public int getIndVersion() {
-		return this.indVersion;
-	}
+    public String getIndCategory() {
+        return this.indCategory;
+    }
 
-	public void setIndVersion(int indVersion) {
-		this.indVersion = indVersion;
-	}
+    public void setIndCategory(String indCategory) {
+        this.indCategory = indCategory;
+    }
 
-	public Set<TdqIndicatorValue> getTdqIndicatorValues() {
-		return this.tdqIndicatorValues;
-	}
+    public String getIndSubcategory() {
+        return this.indSubcategory;
+    }
 
-	public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    public void setIndSubcategory(String indSubcategory) {
+        this.indSubcategory = indSubcategory;
+    }
+
+    public Date getIndBeginDate() {
+        return this.indBeginDate;
+    }
+
+    public void setIndBeginDate(Date indBeginDate) {
+        this.indBeginDate = indBeginDate;
+    }
+
+    public Date getIndEndDate() {
+        return this.indEndDate;
+    }
+
+    public void setIndEndDate(Date indEndDate) {
+        this.indEndDate = indEndDate;
+    }
+
+    public int getIndVersion() {
+        return this.indVersion;
+    }
+
+    public void setIndVersion(int indVersion) {
+        this.indVersion = indVersion;
+    }
+
+    public Set<TdqIndicatorValue> getTdqIndicatorValues() {
+        return this.tdqIndicatorValues;
+    }
+
+    public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
+
+    public boolean valueEqual(TdqIndicatorDefinition tdqIndicatorDefinition) {
+        if (!this.indCategory.equals(tdqIndicatorDefinition.getIndCategory())) {
+            return false;
+        } else if (!this.indSubcategory.equals(tdqIndicatorDefinition.getIndSubcategory())) {
+            return false;
+        } else if (!this.indType.equals(tdqIndicatorDefinition.getIndType())) {
+            return false;
+        }
+        return true;
+    }
 
 }

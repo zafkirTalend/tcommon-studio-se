@@ -40,8 +40,6 @@ public class TdqAnalysis implements java.io.Serializable {
     private Date anEndDate;
 
     private int anVersion;
-    
-    private char isLast;
 
     private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(0);
 
@@ -216,45 +214,21 @@ public class TdqAnalysis implements java.io.Serializable {
     }
 
     public boolean valueEqual(TdqAnalysis tdqAnalysis) {
-        if ((anAuthor != tdqAnalysis.getAnAuthor())
-                && (this.anAuthor == null ? tdqAnalysis.getAnAuthor() != null
-                        : (!this.anAuthor.equals(tdqAnalysis.getAnAuthor())))) {
+        if (!this.anAuthor.equals(tdqAnalysis.getAnAuthor())) {
             return false;
-        } else if ((anDataFilter != tdqAnalysis.getAnDataFilter())
-                && (this.anDataFilter == null ? tdqAnalysis.getAnDataFilter() != null : (!this.anDataFilter.equals(tdqAnalysis
-                        .getAnDataFilter())))) {
+        } else if (!this.anDataFilter.equals(tdqAnalysis.getAnDataFilter())) {
             return false;
-        } else if ((anLabel != tdqAnalysis.getAnLabel())
-                && (this.anLabel == null ? tdqAnalysis.getAnLabel() != null : (!this.anLabel.equals(tdqAnalysis.getAnLabel())))) {
+        } else if (!this.anLabel.equals(tdqAnalysis.getAnLabel())) {
             return false;
-        } else if ((anStatus != tdqAnalysis.getAnStatus())
-                && (this.anStatus == null ? tdqAnalysis.getAnStatus() != null
-                        : (!this.anStatus.equals(tdqAnalysis.getAnStatus())))) {
+        } else if (!this.anStatus.equals(tdqAnalysis.getAnStatus())) {
             return false;
-        } else if ((repAuthor != tdqAnalysis.getRepAuthor())
-                && (this.repAuthor == null ? tdqAnalysis.getRepAuthor() != null : (!this.repAuthor.equals(tdqAnalysis
-                        .getRepAuthor())))) {
+        } else if (!this.repAuthor.equals(tdqAnalysis.getRepAuthor())) {
             return false;
-        } else if ((repLabel != tdqAnalysis.getRepLabel())
-                && (this.repLabel == null ? tdqAnalysis.getRepLabel() != null
-                        : (!this.repLabel.equals(tdqAnalysis.getRepLabel())))) {
+        } else if (!this.repLabel.equals(tdqAnalysis.getRepLabel())) {
             return false;
-        } else if ((repStatus != tdqAnalysis.getRepStatus())
-                && (this.repStatus == null ? tdqAnalysis.getRepStatus() != null : (!this.repStatus.equals(tdqAnalysis
-                        .getRepStatus())))) {
+        } else if (!this.repStatus.equals(tdqAnalysis.getRepStatus())) {
             return false;
         }
         return true;
     }
-
-    
-    public char getIsLast() {
-        return isLast;
-    }
-
-    
-    public void setIsLast(char isLast) {
-        this.isLast = isLast;
-    }
-
 }

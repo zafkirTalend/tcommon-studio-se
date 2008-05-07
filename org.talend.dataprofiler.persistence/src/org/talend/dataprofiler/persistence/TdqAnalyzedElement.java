@@ -11,151 +11,174 @@ import java.util.Set;
  */
 public class TdqAnalyzedElement implements java.io.Serializable {
 
-	private Integer eltPk;
-	private String eltUuid;
-	private String eltConnectionUuid;
-	private String eltConnectionName;
-	private String eltCatalogName;
-	private String eltSchemaName;
-	private String eltTableName;
-	private String eltColumnName;
-	private Date eltBeginDate;
-	private Date eltEndDate;
-	private int eltVersion;
-	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
-			0);
+    private Integer eltPk;
 
-	public TdqAnalyzedElement() {
-	}
+    private String eltUuid;
 
-	public TdqAnalyzedElement(String eltUuid, String eltConnectionUuid,
-			String eltConnectionName, String eltCatalogName,
-			String eltSchemaName, String eltTableName, String eltColumnName,
-			Date eltBeginDate, Date eltEndDate, int eltVersion) {
-		this.eltUuid = eltUuid;
-		this.eltConnectionUuid = eltConnectionUuid;
-		this.eltConnectionName = eltConnectionName;
-		this.eltCatalogName = eltCatalogName;
-		this.eltSchemaName = eltSchemaName;
-		this.eltTableName = eltTableName;
-		this.eltColumnName = eltColumnName;
-		this.eltBeginDate = eltBeginDate;
-		this.eltEndDate = eltEndDate;
-		this.eltVersion = eltVersion;
-	}
+    private String eltConnectionUuid;
 
-	public TdqAnalyzedElement(String eltUuid, String eltConnectionUuid,
-			String eltConnectionName, String eltCatalogName,
-			String eltSchemaName, String eltTableName, String eltColumnName,
-			Date eltBeginDate, Date eltEndDate, int eltVersion,
-			Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.eltUuid = eltUuid;
-		this.eltConnectionUuid = eltConnectionUuid;
-		this.eltConnectionName = eltConnectionName;
-		this.eltCatalogName = eltCatalogName;
-		this.eltSchemaName = eltSchemaName;
-		this.eltTableName = eltTableName;
-		this.eltColumnName = eltColumnName;
-		this.eltBeginDate = eltBeginDate;
-		this.eltEndDate = eltEndDate;
-		this.eltVersion = eltVersion;
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    private String eltConnectionName;
 
-	public Integer getEltPk() {
-		return this.eltPk;
-	}
+    private String eltCatalogName;
 
-	public void setEltPk(Integer eltPk) {
-		this.eltPk = eltPk;
-	}
+    private String eltSchemaName;
 
-	public String getEltUuid() {
-		return this.eltUuid;
-	}
+    private String eltTableName;
 
-	public void setEltUuid(String eltUuid) {
-		this.eltUuid = eltUuid;
-	}
+    private String eltColumnName;
 
-	public String getEltConnectionUuid() {
-		return this.eltConnectionUuid;
-	}
+    private Date eltBeginDate;
 
-	public void setEltConnectionUuid(String eltConnectionUuid) {
-		this.eltConnectionUuid = eltConnectionUuid;
-	}
+    private Date eltEndDate;
 
-	public String getEltConnectionName() {
-		return this.eltConnectionName;
-	}
+    private int eltVersion;
 
-	public void setEltConnectionName(String eltConnectionName) {
-		this.eltConnectionName = eltConnectionName;
-	}
+    private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(0);
 
-	public String getEltCatalogName() {
-		return this.eltCatalogName;
-	}
+    public TdqAnalyzedElement() {
+    }
 
-	public void setEltCatalogName(String eltCatalogName) {
-		this.eltCatalogName = eltCatalogName;
-	}
+    public TdqAnalyzedElement(String eltUuid, String eltConnectionUuid, String eltConnectionName, String eltCatalogName,
+            String eltSchemaName, String eltTableName, String eltColumnName, Date eltBeginDate, Date eltEndDate, int eltVersion) {
+        this.eltUuid = eltUuid;
+        this.eltConnectionUuid = eltConnectionUuid;
+        this.eltConnectionName = eltConnectionName;
+        this.eltCatalogName = eltCatalogName;
+        this.eltSchemaName = eltSchemaName;
+        this.eltTableName = eltTableName;
+        this.eltColumnName = eltColumnName;
+        this.eltBeginDate = eltBeginDate;
+        this.eltEndDate = eltEndDate;
+        this.eltVersion = eltVersion;
+    }
 
-	public String getEltSchemaName() {
-		return this.eltSchemaName;
-	}
+    public TdqAnalyzedElement(String eltUuid, String eltConnectionUuid, String eltConnectionName, String eltCatalogName,
+            String eltSchemaName, String eltTableName, String eltColumnName, Date eltBeginDate, Date eltEndDate, int eltVersion,
+            Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.eltUuid = eltUuid;
+        this.eltConnectionUuid = eltConnectionUuid;
+        this.eltConnectionName = eltConnectionName;
+        this.eltCatalogName = eltCatalogName;
+        this.eltSchemaName = eltSchemaName;
+        this.eltTableName = eltTableName;
+        this.eltColumnName = eltColumnName;
+        this.eltBeginDate = eltBeginDate;
+        this.eltEndDate = eltEndDate;
+        this.eltVersion = eltVersion;
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
 
-	public void setEltSchemaName(String eltSchemaName) {
-		this.eltSchemaName = eltSchemaName;
-	}
+    public Integer getEltPk() {
+        return this.eltPk;
+    }
 
-	public String getEltTableName() {
-		return this.eltTableName;
-	}
+    public void setEltPk(Integer eltPk) {
+        this.eltPk = eltPk;
+    }
 
-	public void setEltTableName(String eltTableName) {
-		this.eltTableName = eltTableName;
-	}
+    public String getEltUuid() {
+        return this.eltUuid;
+    }
 
-	public String getEltColumnName() {
-		return this.eltColumnName;
-	}
+    public void setEltUuid(String eltUuid) {
+        this.eltUuid = eltUuid;
+    }
 
-	public void setEltColumnName(String eltColumnName) {
-		this.eltColumnName = eltColumnName;
-	}
+    public String getEltConnectionUuid() {
+        return this.eltConnectionUuid;
+    }
 
-	public Date getEltBeginDate() {
-		return this.eltBeginDate;
-	}
+    public void setEltConnectionUuid(String eltConnectionUuid) {
+        this.eltConnectionUuid = eltConnectionUuid;
+    }
 
-	public void setEltBeginDate(Date eltBeginDate) {
-		this.eltBeginDate = eltBeginDate;
-	}
+    public String getEltConnectionName() {
+        return this.eltConnectionName;
+    }
 
-	public Date getEltEndDate() {
-		return this.eltEndDate;
-	}
+    public void setEltConnectionName(String eltConnectionName) {
+        this.eltConnectionName = eltConnectionName;
+    }
 
-	public void setEltEndDate(Date eltEndDate) {
-		this.eltEndDate = eltEndDate;
-	}
+    public String getEltCatalogName() {
+        return this.eltCatalogName;
+    }
 
-	public int getEltVersion() {
-		return this.eltVersion;
-	}
+    public void setEltCatalogName(String eltCatalogName) {
+        this.eltCatalogName = eltCatalogName;
+    }
 
-	public void setEltVersion(int eltVersion) {
-		this.eltVersion = eltVersion;
-	}
+    public String getEltSchemaName() {
+        return this.eltSchemaName;
+    }
 
-	public Set<TdqIndicatorValue> getTdqIndicatorValues() {
-		return this.tdqIndicatorValues;
-	}
+    public void setEltSchemaName(String eltSchemaName) {
+        this.eltSchemaName = eltSchemaName;
+    }
 
-	public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    public String getEltTableName() {
+        return this.eltTableName;
+    }
+
+    public void setEltTableName(String eltTableName) {
+        this.eltTableName = eltTableName;
+    }
+
+    public String getEltColumnName() {
+        return this.eltColumnName;
+    }
+
+    public void setEltColumnName(String eltColumnName) {
+        this.eltColumnName = eltColumnName;
+    }
+
+    public Date getEltBeginDate() {
+        return this.eltBeginDate;
+    }
+
+    public void setEltBeginDate(Date eltBeginDate) {
+        this.eltBeginDate = eltBeginDate;
+    }
+
+    public Date getEltEndDate() {
+        return this.eltEndDate;
+    }
+
+    public void setEltEndDate(Date eltEndDate) {
+        this.eltEndDate = eltEndDate;
+    }
+
+    public int getEltVersion() {
+        return this.eltVersion;
+    }
+
+    public void setEltVersion(int eltVersion) {
+        this.eltVersion = eltVersion;
+    }
+
+    public Set<TdqIndicatorValue> getTdqIndicatorValues() {
+        return this.tdqIndicatorValues;
+    }
+
+    public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
+
+    public boolean valueEqual(TdqAnalyzedElement analyzedElement) {
+        if (!this.eltCatalogName.equals(analyzedElement.getEltCatalogName())) {
+            return false;
+        } else if (!this.eltColumnName.equals(analyzedElement.eltColumnName)) {
+            return false;
+        } else if (!this.eltConnectionName.equals(analyzedElement.eltConnectionName)) {
+            return false;
+        } else if (!this.eltSchemaName.equals(analyzedElement.getEltSchemaName())) {
+            return false;
+        } else if (!this.eltTableName.equals(analyzedElement.getEltTableName())) {
+            return false;
+        } else if (!this.eltConnectionUuid.equals(analyzedElement.getEltConnectionUuid())) {
+            return false;
+        }
+        return true;
+    }
 
 }

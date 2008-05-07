@@ -18,13 +18,13 @@
             <column name="AN_CREATION_DATE" length="0" not-null="true" />
         </property>
         <property name="anAuthor" type="string">
-            <column name="AN_AUTHOR" length="50" not-null="false" />
+            <column name="AN_AUTHOR" length="50" not-null="true" />
         </property>
         <property name="anDataFilter" type="string">
-            <column name="AN_DATA_FILTER" not-null="false" />
+            <column name="AN_DATA_FILTER" not-null="true" />
         </property>
         <property name="anStatus" type="string">
-            <column name="AN_STATUS" length="20" not-null="false" />
+            <column name="AN_STATUS" length="20" not-null="true" />
         </property>
         <property name="repUuid" type="string">
             <column name="REP_UUID" length="50" not-null="true" />
@@ -36,7 +36,7 @@
             <column name="REP_LABEL" length="50" not-null="true" />
         </property>
         <property name="repAuthor" type="string">
-            <column name="REP_AUTHOR" length="50" not-null="false" />
+            <column name="REP_AUTHOR" length="50" not-null="true" />
         </property>
         <property name="repStatus" type="string">
             <column name="REP_STATUS" length="20" not-null="true" />
@@ -49,9 +49,6 @@
         </property>
         <property name="anVersion" type="int">
             <column name="AN_VERSION" not-null="true" />
-        </property>
-        <property name="isLast" type="char">
-            <column name="IS_LAST" not-null="true" />
         </property>
         <set name="tdqIndicatorValues" inverse="true">
             <key>

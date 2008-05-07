@@ -15,7 +15,6 @@ CREATE TABLE talend_dq.TDQ_ANALYSIS (
                 AN_BEGIN_DATE TIMESTAMP NOT NULL,
                 AN_END_DATE TIMESTAMP NOT NULL,
                 AN_VERSION INT(10) NOT NULL,
-                IS_LAST char(1) NOT NULL,
                 PRIMARY KEY (AN_PK)
 ) ENGINE=InnoDB;
 
