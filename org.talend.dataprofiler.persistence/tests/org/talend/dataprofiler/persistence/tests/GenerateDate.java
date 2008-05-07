@@ -83,7 +83,7 @@ public class GenerateDate {
         int q = getQuarter(m);
         String quarterPeriod = String.valueOf(y) + q;
         int s = getSemester(q);
-        char dayOff = 'N';
+        char dayOff = getDayOff(dayOfWeek);
         char specialDay = 'N';
 
         String row = "" + key + "," + date + "," + dayOfMonth + "," + dayOfYear + "," + lastWeekDay + "," + lastMonthDay + ","
@@ -92,6 +92,29 @@ public class GenerateDate {
         output.write(row);
 
         System.out.print(row);
+    }
+
+    /**
+     * DOC scorreia Comment method "getDayOff".
+     * 
+     * @param dayOfWeek
+     * @return
+     */
+    private static char getDayOff(int dayOfWeek) {
+        switch (dayOfWeek) {
+        case GregorianCalendar.MONDAY:
+        case GregorianCalendar.TUESDAY:
+        case GregorianCalendar.WEDNESDAY:
+        case GregorianCalendar.THURSDAY:
+        case GregorianCalendar.FRIDAY:
+            return SqlConstants.NO;
+        case GregorianCalendar.SATURDAY:
+        case GregorianCalendar.SUNDAY:
+            return SqlConstants.YES;
+        default:
+            break;
+        }
+        return SqlConstants.NO;
     }
 
     /**
