@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="Interbase" id="interbase_id" label="Mapping Interbase"
+	<dbms product="INTERBASE" id="interbase_id" label="Mapping Interbase"
 		default="true">
 		<dbTypes>
 			<dbType type="BLOB" ignorePre="true" />

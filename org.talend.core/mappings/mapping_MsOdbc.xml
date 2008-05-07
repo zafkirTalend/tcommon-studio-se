@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="MSODBC" id="MSODBC" label="Mapping MSODBC" default="true">
+	<dbms product="ODBC" id="MSODBC" label="Mapping MSODBC" default="true">
 		<dbTypes>
 			<dbType type="ANSIDATE" />
 			<dbType type="BIGINT"/>
