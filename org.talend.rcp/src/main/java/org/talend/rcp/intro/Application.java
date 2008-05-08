@@ -13,7 +13,9 @@
 package org.talend.rcp.intro;
 
 import java.io.IOException;
+import java.util.Map;
 
+import org.eclipse.core.commands.contexts.Context;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
@@ -44,7 +46,7 @@ public class Application implements IApplication {
             if (!acquireWorkspaceLock(shell)) {
                 return IApplication.EXIT_OK;
             }
-
+            setSqlpatternUsibility(context);
             CorePlugin.getDefault().getRepositoryService().setRCPMode();
 
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
@@ -74,6 +76,28 @@ public class Application implements IApplication {
             releaseWorkspaceLock();
         }
 
+    }
+
+    /**
+     * TODO This method should be removed after finishing the sqlpattern
+     * 
+     * @param context
+     */
+    private void setSqlpatternUsibility(IApplicationContext context) {
+        Map map = context.getArguments();
+        String[] args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS);
+        if (args == null) {
+            return;
+        }
+
+        boolean use = false;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-useSQLPattern")) {
+                use = Boolean.parseBoolean(args[i + 1]);
+                break;
+            }
+        }
+        CorePlugin.getContext().putProperty("useSQLPattern", use);
     }
 
     /**
