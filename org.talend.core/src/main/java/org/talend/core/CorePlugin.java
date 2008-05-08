@@ -176,4 +176,9 @@ public class CorePlugin extends AbstractUIPlugin {
     public IRcpService getRcpService() {
         return (IRcpService) GlobalServiceRegister.getDefault().getService(IRcpService.class);
     }
+    
+    public boolean useSQLPattern() {
+        return (Boolean) CorePlugin.getContext().getProperty("useSQLPattern");
+    }
+    
 }
