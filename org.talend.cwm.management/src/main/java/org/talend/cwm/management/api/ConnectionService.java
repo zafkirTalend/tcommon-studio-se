@@ -17,10 +17,11 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.db.connection.DBConnect;
 import org.talend.cwm.db.connection.TalendCwmFactory;
 import org.talend.cwm.helper.DataProviderHelper;
-import org.talend.cwm.helper.DescriptionHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.sql.ConnectionUtils;
@@ -90,8 +91,10 @@ public final class ConnectionService {
             dataProvider.setName(connectionName);
             // set technical name
             DataProviderHelper.setTechnicalName(dataProvider, DqRepositoryViewService.createTechnicalName(connectionName));
-            DescriptionHelper.setDescription(connectionParameters.getDescription(), dataProvider);
-            DescriptionHelper.setPurpose(connectionParameters.getPurpose(), dataProvider);
+            TaggedValueHelper.setDescription(connectionParameters.getDescription(), dataProvider);
+            TaggedValueHelper.setPurpose(connectionParameters.getPurpose(), dataProvider);
+            TaggedValueHelper.setDevStatus(dataProvider, DevelopmentStatus.get(connectionParameters.getStatus()));
+            TaggedValueHelper.setAuthor(dataProvider, connectionParameters.getAuthor());
             rc.setObject(dataProvider);
             return rc;
         } catch (SQLException e) {
