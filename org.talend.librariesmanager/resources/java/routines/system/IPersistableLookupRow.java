@@ -5,13 +5,13 @@ import java.io.DataOutputStream;
 
 public interface IPersistableLookupRow<R> {
 
-    public void toKeysData(DataOutputStream dos);
+    public void writeKeysData(DataOutputStream dos);
     
-    public void loadKeysData(DataInputStream dis);
+    public void readKeysData(DataInputStream dis);
     
-    public int toValuesData(DataOutputStream dos);
+    public int writeValuesData(DataOutputStream dos);
     
-    public void loadValuesData(DataInputStream dis);
+    public void readValuesData(DataInputStream dis);
     
     public void copyDataTo(R other);
     
