@@ -51,6 +51,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     private IWorkbenchAction helpAction;
     
+    private IWorkbenchAction resetPerspectiveAction;
+    
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
 	}
@@ -73,6 +75,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		
 		aboutAction = ActionFactory.ABOUT.create(window);
 		register(aboutAction);
+		
+		resetPerspectiveAction = ActionFactory.RESET_PERSPECTIVE.create(window);
+		register(resetPerspectiveAction);
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
@@ -98,6 +103,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		menuBar.add(windowMenu);
 		windowMenu.add(perspMenu);
 		windowMenu.add(preferenceAction);
+		windowMenu.add(resetPerspectiveAction);
 		windowMenu.add(new ShowViewAction());
 		// Help
 		helpMenu.add(helpAction);
