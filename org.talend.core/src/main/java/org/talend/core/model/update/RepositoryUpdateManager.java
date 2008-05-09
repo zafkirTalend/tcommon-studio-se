@@ -35,6 +35,9 @@ import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.JobContextManager;
+import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.Query;
@@ -50,6 +53,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -174,7 +178,7 @@ public abstract class RepositoryUpdateManager {
         }
         List<UpdateResult> checkedResults = new ArrayList<UpdateResult>();
         for (UpdateResult result : results) {
-            if (filterForType(result.getParameter())) {
+            if (filterForType(result)) {
                 checkedResults.add(result);
             } else {
                 // for context
@@ -200,29 +204,60 @@ public abstract class RepositoryUpdateManager {
     }
 
     @SuppressWarnings("unchecked")//$NON-NLS-1$
-    private boolean filterForType(Object object) {
-        if (object == null || parameter == null) {
+    private boolean filterForType(UpdateResult result) {
+        if (result == null || parameter == null) {
+            return false;
+        }
+        Object object = result.getParameter();
+        if (object == null) {
             return false;
         }
         if (object == parameter) {
             return true;
         }
-        if (object instanceof List) { // for context rename
+        if (object instanceof List) {
             List list = ((List) object);
             if (!list.isEmpty()) {
-                if (parameter == list.get(0)) {
+                Object firstObj = list.get(0);
+                if (parameter == firstObj) { // for context rename
                     return true;
                 }
+
+                // schema
+                if (checkResultSchema(result, firstObj, parameter)) {
+                    return true;
+                }
+
             }
 
         }
         // schema
-        if (parameter instanceof org.talend.core.model.metadata.builder.connection.MetadataTable
-                && object instanceof org.talend.core.model.metadata.MetadataTable) {
-            org.talend.core.model.metadata.builder.connection.MetadataTable table1 = (org.talend.core.model.metadata.builder.connection.MetadataTable) parameter;
-            org.talend.core.model.metadata.MetadataTable table2 = (org.talend.core.model.metadata.MetadataTable) object;
-            if (table1.getId().equals(table2.getId())) {
-                return true;
+        if (checkResultSchema(result, object, parameter)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean checkResultSchema(UpdateResult result, Object object, Object parameter) {
+        if (object == null || parameter == null) {
+            return false;
+        }
+        // schema
+        if (object instanceof IMetadataTable) { // 
+            if (parameter instanceof ConnectionItem) { //
+                String source = UpdateRepositoryUtils.getRepositorySourceName((ConnectionItem) parameter);
+                if (result.getRemark() != null && result.getRemark().startsWith(source)) {
+                    return true;
+                }
+            } else if (parameter instanceof org.talend.core.model.metadata.builder.connection.MetadataTable) {
+                IMetadataTable table1 = ((IMetadataTable) object);
+                MetadataTable table2 = (org.talend.core.model.metadata.builder.connection.MetadataTable) parameter;
+                if (table1.getId() == null || table2.getId() == null) {
+                    return table1.getLabel().equals(table2.getLabel());
+                } else {
+                    return table1.getId().equals(table2.getId());
+                }
             }
         }
         return false;
@@ -511,8 +546,17 @@ public abstract class RepositoryUpdateManager {
         return idAndNameMap;
     }
 
+    public static Map<String, String> getOldTableIdAndNameMap(ConnectionItem connItem, MetadataTable metadataTable,
+            boolean creation) {
+        Map<String, String> oldTableMap = getTableIdAndNameMap(connItem);
+        if (creation && metadataTable != null) {
+            oldTableMap.remove(metadataTable.getId());
+        }
+        return oldTableMap;
+    }
+
     @SuppressWarnings("unchecked")//$NON-NLS-1$
-    private static Map<String, String> getSchemaRenamedMap(ConnectionItem connItem, Map<String, String> oldTableMap) {
+    public static Map<String, String> getSchemaRenamedMap(ConnectionItem connItem, Map<String, String> oldTableMap) {
         if (connItem == null || oldTableMap == null) {
             return Collections.emptyMap();
         }
@@ -539,9 +583,82 @@ public abstract class RepositoryUpdateManager {
      * 
      * for repository wizard.
      */
-    public static boolean updateSchema(final MetadataTable metadataTable, ConnectionItem connItem, Map<String, String> oldTableMap) {
+    public static boolean updateSingleSchema(ConnectionItem connItem, final MetadataTable newTable,
+            final IMetadataTable oldMetadataTable, Map<String, String> oldTableMap) {
+        if (connItem == null) {
+            return false;
+        }
+        Map<String, String> schemaRenamedMap = RepositoryUpdateManager.getSchemaRenamedMap(connItem, oldTableMap);
+        boolean update = !schemaRenamedMap.isEmpty();
 
-        return updateSchema(metadataTable, connItem, oldTableMap, true);
+        if (!update) {
+            if (newTable != null && oldMetadataTable != null && oldTableMap.containsKey(newTable.getId())) {
+                IMetadataTable newMetadataTable = ConvertionHelper.convert(newTable);
+                update = !oldMetadataTable.sameMetadataAs(newMetadataTable, IMetadataColumn.OPTIONS_NONE);
+            }
+        }
+        if (update) {
+            // update
+            return updateSchema(newTable, connItem, schemaRenamedMap, true);
+        }
+        return false;
+    }
+
+    public static boolean updateMultiSchema(ConnectionItem connItem, List<IMetadataTable> oldMetadataTable,
+            Map<String, String> oldTableMap) {
+        if (connItem == null) {
+            return false;
+        }
+        Map<String, String> schemaRenamedMap = RepositoryUpdateManager.getSchemaRenamedMap(connItem, oldTableMap);
+        boolean update = !schemaRenamedMap.isEmpty();
+
+        if (!update) {
+            if (oldMetadataTable != null) {
+                List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connItem
+                        .getConnection());
+                update = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
+            }
+        }
+        // update
+        if (update) {
+            return updateSchema(connItem, connItem, schemaRenamedMap, true);
+        }
+        return false;
+
+    }
+
+    private static boolean sameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
+            Map<String, String> oldTableMap) {
+        if (newTables == null || oldTables == null) {
+            return false;
+        }
+
+        for (IMetadataTable newTable : newTables) {
+            IMetadataTable oldTable = searchMetadatTableById(oldTables, newTable.getId());
+            if (oldTableMap.containsKey(newTable.getId())) { // not a new created table.
+                if (oldTable == null) {
+                    return false;
+                } else {
+                    if (!newTable.sameMetadataAs(oldTable, IMetadataColumn.OPTIONS_NONE)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+
+    }
+
+    private static IMetadataTable searchMetadatTableById(List<IMetadataTable> tables, String id) {
+        if (tables == null || id == null) {
+            return null;
+        }
+        for (IMetadataTable table : tables) {
+            if (id.equals(table.getId())) {
+                return table;
+            }
+        }
+        return null;
     }
 
     /**
@@ -555,10 +672,9 @@ public abstract class RepositoryUpdateManager {
         return updateSchema(metadataTable, null, null, show);
     }
 
-    private static boolean updateSchema(final MetadataTable metadataTable, ConnectionItem connItem,
-            Map<String, String> oldTableMap, boolean show) {
-        Map<String, String> schemaRenamedMap = getSchemaRenamedMap(connItem, oldTableMap);
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(metadataTable) {
+    private static boolean updateSchema(final Object table, ConnectionItem connItem, Map<String, String> schemaRenamedMap,
+            boolean show) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -662,6 +778,24 @@ public abstract class RepositoryUpdateManager {
 
         };
         return repositoryUpdateManager.doWork();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<IMetadataTable> getConversionMetadataTables(Connection conn) {
+        if (conn == null) {
+            return Collections.emptyList();
+        }
+        List<IMetadataTable> tables = new ArrayList<IMetadataTable>();
+
+        EList tables2 = conn.getTables();
+        if (tables2 != null) {
+            for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (List<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
+                IMetadataTable conversionTable = ConvertionHelper.convert(originalTable);
+                tables.add(conversionTable);
+            }
+        }
+
+        return tables;
     }
 
 }
