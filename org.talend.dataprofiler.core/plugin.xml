@@ -13,6 +13,7 @@
             allowMultiple="false"
             category="org.talend.dataprofiler.view.category"
             class="org.talend.dataprofiler.core.ui.views.CheatSheetView"
+            icon="icons/TdTable.gif"
             id="org.talend.dataprofiler.core.ui.views.CheatSheetView"
             name="Cheat Sheet">
       </view>
@@ -20,18 +21,21 @@
             allowMultiple="false"
             category="org.talend.dataprofiler.view.category"
             class="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
+            icon="icons/TdTable.gif"
             id="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
             name="DQ Repository">
       </view>
       <view
             category="org.talend.dataprofiler.view.category"
             class="org.talend.dataprofiler.core.ui.views.GraphsView"
+            icon="icons/TdTable.gif"
             id="org.talend.dataprofiler.core.ui.views.GraphsView"
             name="Graphs"/>
       <view
             allowMultiple="false"
             category="org.talend.dataprofiler.view.category"
             class="org.talend.dataprofiler.core.ui.views.QuanlityView"
+            icon="icons/TdTable.gif"
             id="org.talend.dataprofiler.core.ui.views.QuanlityView"
             name="Quality Indicator">
       </view>

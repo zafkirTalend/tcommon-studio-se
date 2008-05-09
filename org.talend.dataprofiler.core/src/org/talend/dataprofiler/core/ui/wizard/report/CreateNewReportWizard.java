@@ -96,8 +96,8 @@ public class CreateNewReportWizard extends Wizard {
 
                 TaggedValueHelper.setAuthor(report, author);
                 TaggedValueHelper.setDevStatus(report, DevelopmentStatus.get(status));
-                DescriptionHelper.setPurpose(purpose, report);
-                DescriptionHelper.setDescription(description, report);
+                TaggedValueHelper.setPurpose(purpose, report);
+                TaggedValueHelper.setDescription(description, report);
 
                 // set report information
                 String header = reportParameter.getHeader();

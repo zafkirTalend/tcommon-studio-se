@@ -26,10 +26,13 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TreeEditor;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -56,8 +59,6 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     private Tree tree;
 
     private ColumnIndicator[] columnIndicators;
-
-    private Button modButton;
 
     private Analysis analysis;
 
@@ -185,30 +186,34 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             **/
 
             editor = new TreeEditor(tree);
-            Button delButton = new Button(tree, SWT.NONE);
+            Label delButton = new Label(tree, SWT.NONE);
+            delButton.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
             delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
             delButton.setToolTipText("delete");
             delButton.pack();
-            delButton.addSelectionListener(new SelectionAdapter() {
+            delButton.addMouseListener(new MouseAdapter() {
 
-                public void widgetSelected(SelectionEvent e) {
-                    // remove the corresponding columnIndicator object, set the input element with new value to recreate
-                    // the tree.
-                    ColumnIndicator[] leaves = new ColumnIndicator[columnIndicators.length - 1];
-                    int j = 0;
-                    for (int i = 0; i < columnIndicators.length; i++) {
-                        if (columnIndicators[i] == columnIndicator) {
-                            continue;
-                        }
-                        leaves[j] = columnIndicators[i];
-                        j++;
-                    }
-                    setElements(leaves);
+                /* (non-Javadoc)
+                 * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
+                 */
+                @Override
+                public void mouseDown(MouseEvent e) {
+
+                  ColumnIndicator[] leaves = new ColumnIndicator[columnIndicators.length - 1];
+                  int j = 0;
+                  for (int i = 0; i < columnIndicators.length; i++) {
+                      if (columnIndicators[i] == columnIndicator) {
+                          continue;
+                      }
+                      leaves[j] = columnIndicators[i];
+                      j++;
+                  }
+                  setElements(leaves);
                 }
-
+                
             });
+
             editor.minimumWidth = WIDTH1_CELL;
-            // editor.minimumWidth = delButton.getSize().x;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 2);
             if (columnIndicator.hasIndicators()) {
@@ -226,40 +231,21 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             indicatorItem.setText(0, indicator.getType().getLabel());
 
             TreeEditor editor = new TreeEditor(tree);
-            modButton = new Button(tree, SWT.NONE);
-            modButton.setImage(ImageLib.getImage(ImageLib.NEW_CONNECTION));
-            modButton.setToolTipText("delete");
+            Label modButton = new Label(tree, SWT.NONE);
+            modButton.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+            modButton.setImage(ImageLib.getImage(ImageLib.INDICATOR_OPTION));
+            modButton.setToolTipText("Options");
             modButton.pack();
             modButton.setData(indicator);
-            
-            editor.minimumWidth = WIDTH1_CELL;
-            editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(modButton, indicatorItem, 1);
+            modButton.addMouseListener(new MouseAdapter() {
 
-            editor = new TreeEditor(tree);
-            Button delButton = new Button(tree, SWT.NONE);
-            delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
-            delButton.setToolTipText("delete");
-            delButton.pack();
-            editor.minimumWidth = WIDTH1_CELL;
-            // editor.minimumWidth = delButton.getSize().x;
-            editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(delButton, indicatorItem, 2);
-            delButton.addSelectionListener(new SelectionAdapter() {
+                /* (non-Javadoc)
+                 * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
+                 */
+                @Override
+                public void mouseDown(MouseEvent e) {
 
-                public void widgetSelected(SelectionEvent e) {
-                    // remove the corresponding indicatorEnum object, set the input element and recreate the tree.
-                    ((ColumnIndicator) treeItem.getData()).removeIndicatorEnum(indicatorEnum);
-                    setElements(columnIndicators);
-                }
-
-            });
-
-            modButton.addSelectionListener(new SelectionAdapter() {
-
-                public void widgetSelected(SelectionEvent e) {
-                    
-                    IndicatorTypeMapping indicator = (IndicatorTypeMapping) ((Button) e.getSource()).getData();
+                    IndicatorTypeMapping indicator = (IndicatorTypeMapping) ((Label) e.getSource()).getData();
                     IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis);
 
                     try {
@@ -274,14 +260,46 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                     } catch (AssertionFailedException ex) {
                         MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");
                     }
-
                 }
+                
             });
+            
+            
+            editor.minimumWidth = WIDTH1_CELL;
+            editor.horizontalAlignment = SWT.CENTER;
+            editor.setEditor(modButton, indicatorItem, 1);
+
+            editor = new TreeEditor(tree);
+            Label delButton = new Label(tree, SWT.NONE);
+            delButton.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+            delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
+            delButton.setToolTipText("delete");
+            delButton.pack();
+            delButton.addMouseListener(new MouseAdapter() {
+
+                /* (non-Javadoc)
+                 * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
+                 */
+                @Override
+                public void mouseDown(MouseEvent e) {
+
+                    ((ColumnIndicator) treeItem.getData()).removeIndicatorEnum(indicatorEnum);
+                    setElements(columnIndicators);
+                }
+                
+            });
+            
+            editor.minimumWidth = WIDTH1_CELL;
+            editor.horizontalAlignment = SWT.CENTER;
+            editor.setEditor(delButton, indicatorItem, 2);
+
         }
     }
 
     public void openIndicatorSelectDialog() {
-        IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector", columnIndicators);
+        IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector", 
+
+columnIndicators);
         if (dialog.open() == Window.OK) {
             ColumnIndicator[] result = dialog.getResult();
             this.setElements(result);

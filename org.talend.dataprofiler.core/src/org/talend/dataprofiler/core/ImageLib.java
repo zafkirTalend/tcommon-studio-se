@@ -49,7 +49,13 @@ public class ImageLib {
     
     public static final String ACTION_NEW_REPORT = "report_add.png"; //$NON-NLS-1$
     
+    public static final String ACTION_NEW_ANALYSIS = "chart_bar_add.png"; //$NON-NLS-1$
+    
+    public static final String INDICATOR_OPTION = "page_white_gear.png"; //$NON-NLS-1$
 
+    public static final String ANALYSIS_OBJECT = "chart_bar.png"; //$NON-NLS-1$
+    
+    public static final String REPORT_OBJECT = "report.png"; //$NON-NLS-1$
     /**
      * get <code>ImageDescriptor</code> with special imageName.
      * 

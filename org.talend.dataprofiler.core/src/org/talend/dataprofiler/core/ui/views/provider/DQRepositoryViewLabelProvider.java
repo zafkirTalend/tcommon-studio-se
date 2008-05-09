@@ -16,6 +16,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
+import org.talend.dataquality.analysis.Analysis;
 
 /**
  * @author rli
@@ -30,6 +31,10 @@ public class DQRepositoryViewLabelProvider extends AdapterFactoryLabelProvider {
 	    if (element instanceof IFolderNode) {
             return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
         }
+	    
+	    if (element instanceof Analysis) {
+	        return ImageLib.getImage(ImageLib.ANALYSIS_OBJECT);
+	    }
 		return super.getImage(element);
 	}
 

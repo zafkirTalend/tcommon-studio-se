@@ -68,7 +68,7 @@ public class NewAnalysisActionProvider extends CommonActionProvider {
 
         public CreateNewAnalysisAction() {
             super("New Analysis");
-            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
+            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.ACTION_NEW_ANALYSIS));
         }
 
         /*
