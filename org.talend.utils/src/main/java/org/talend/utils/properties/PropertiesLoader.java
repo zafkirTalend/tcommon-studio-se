@@ -14,8 +14,12 @@ package org.talend.utils.properties;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -98,6 +102,25 @@ public final class PropertiesLoader {
             }
         }
         return prop;
+    }
+
+    public static synchronized void setProperties(Class<?> clazz, String propertiesFilename, TypedProperties properties) {
+        URL resource = clazz.getClassLoader().getResource(propertiesFilename);
+        File file;
+        try {
+            file = new File(resource.toURI());
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            properties.store(fileOutputStream, propertiesFilename);
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
