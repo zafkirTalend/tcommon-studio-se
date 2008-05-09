@@ -14,6 +14,7 @@ package org.talend.dataquality.helpers;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.indicators.DataminingType;
+import org.talend.utils.sql.Java2SqlType;
 
 /**
  * @author scorreia
@@ -40,5 +41,26 @@ public class MetadataHelper {
      */
     public static DataminingType getDataminingType(TdColumn column) {
         return DataminingType.get(column.getContentType());
+    }
+    
+    public static DataminingType getDefaultDataminingType (int javaSqlType) {
+        
+        if (Java2SqlType.isTextInSQL(javaSqlType)) {
+            return DataminingType.NOMINAL;
+        }
+        
+        if (Java2SqlType.isNumbericInSQL(javaSqlType)) {
+            return DataminingType.INTERVAL;
+        }
+        
+        if (Java2SqlType.isDateInSQL(javaSqlType)) {
+            return DataminingType.INTERVAL;
+        }
+        
+        if (Java2SqlType.isOtheTypeInSQL(javaSqlType)) {
+            return DataminingType.OTHER;
+        }
+        
+        return null;
     }
 }
