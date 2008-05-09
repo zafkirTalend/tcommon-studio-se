@@ -99,9 +99,6 @@ public abstract class AbstractNode implements INode {
     }
 
     public void setElementParameters(List<? extends IElementParameter> elementParameters) {
-        if (elementParameters.size() < 30) {
-            System.out.println();
-        }
         this.elementParameters = elementParameters;
     }
 
