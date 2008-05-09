@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.dq.persistence;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -26,7 +28,10 @@ import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.persistence.TdqAnalysis;
 import org.talend.dataprofiler.persistence.TdqAnalyzedElement;
+import org.talend.dataprofiler.persistence.TdqCalendar;
+import org.talend.dataprofiler.persistence.TdqDayTime;
 import org.talend.dataprofiler.persistence.TdqIndicatorDefinition;
+import org.talend.dataprofiler.persistence.TdqIndicatorValue;
 import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
@@ -74,6 +79,7 @@ import orgomg.cwm.resource.relational.ColumnSet;
 public class DatabasePersistence {
 
     private Session session;
+    private static SimpleDateFormat simpleDateFormat;
 
     public boolean persist(TdReport report) {
         boolean ok = true;
@@ -117,6 +123,7 @@ public class DatabasePersistence {
         // check whether a new TdqAnalysis must be created
         // (compare values of TdqAnalysis with current TdqAnalysis
         TdqAnalysis dbTdqAnalysis = null;
+        boolean isNeedSave = false;
         if (maxversion != null) {
             List list = session.createCriteria(TdqAnalysis.class).add(Expression.eq("anUuid", analysisUuid)).add(
                     Expression.eq("repUuid", reportUuid)).add(Expression.eq("anVersion", maxversion)).list();
@@ -130,17 +137,24 @@ public class DatabasePersistence {
                 session.update(dbTdqAnalysis);
                 createTdqAnalysis.setAnVersion(dbTdqAnalysis.getAnVersion() + 1);
                 session.save(createTdqAnalysis);
+                isNeedSave = true;
             }
         } else {
             session.save(createTdqAnalysis);
+            isNeedSave = true;
         }
 
         // if no changes exist, continue
         // save indicators
         AnalysisResult results = analysis.getResults();
+        Date executionDate = results.getResultMetadata().getExecutionDate();
         EList<Indicator> indicators = results.getIndicators();
         for (Indicator indicator : indicators) {
-            persist(indicator);
+            if (isNeedSave) {
+                persist(indicator, createTdqAnalysis, executionDate);
+            } else {
+                persist(indicator, dbTdqAnalysis, executionDate);
+            }
         }
 
     }
@@ -151,7 +165,7 @@ public class DatabasePersistence {
      * @param indicator
      */
     @SuppressWarnings("unchecked")
-    private void persist(Indicator indicator) {
+    private void persist(Indicator indicator, TdqAnalysis tdqAnalysis, Date executionDate) {
         // Persist analyzed element (try to get it first before creating it with its UUID)
         // update row only when something has changed (then update END_DATE, VERSION)
         String uuid = ResourceHelper.getUUID(indicator.getAnalyzedElement());
@@ -160,19 +174,24 @@ public class DatabasePersistence {
         Integer analyzedEleVersion = (Integer) analyzedEleVersionList.get(0);
 
         TdqAnalyzedElement createTdqAnalyzedElement = createTdqAnalyzedElement((TdColumn) indicator.getAnalyzedElement());
+        boolean isAnalyzedEleSaved = false;
+        TdqAnalyzedElement dbAnalyzedElement = null;
         if (analyzedEleVersion != null) {
             List list = session.createCriteria(TdqAnalyzedElement.class).add(Expression.eq("eltUuid", uuid)).add(
                     Expression.eq("eltVersion", analyzedEleVersion)).list();
-            TdqAnalyzedElement dbAnalyzedElement = (TdqAnalyzedElement) list.get(0);
+            dbAnalyzedElement = (TdqAnalyzedElement) list.get(0);
             if (!dbAnalyzedElement.valueEqual(createTdqAnalyzedElement)) {
                 dbAnalyzedElement.setEltEndDate(new Date(System.currentTimeMillis()));
                 session.update(dbAnalyzedElement);
                 createTdqAnalyzedElement.setEltVersion(dbAnalyzedElement.getEltVersion() + 1);
                 session.save(createTdqAnalyzedElement);
+                isAnalyzedEleSaved = true;
             }
         } else {
             session.save(createTdqAnalyzedElement);
+            isAnalyzedEleSaved = true;
         }
+        TdqAnalyzedElement persistAnalyzedElement = isAnalyzedEleSaved ? createTdqAnalyzedElement : dbAnalyzedElement;
 
         // Do the same for TdqIndicatorDefinition (get the definition with its LABEL which identifies a row)
         // update only if something has changed (then update END_DATE, VERSION)
@@ -182,22 +201,69 @@ public class DatabasePersistence {
                 "select MAX(indVersion) from TdqIndicatorDefinition where indLabel='" + indLabel + "'").list();
         Integer indDefinitionVersion = (Integer) indDefinitionVersionList.get(0);
         TdqIndicatorDefinition createTdqIndicatorDefinition = createTdqIndicatorDefinition(indicator);
+        boolean isIndicatorSaved = false;
+        TdqIndicatorDefinition dbIndDefinition = null;
         if (indDefinitionVersion != null) {
             List list = session.createCriteria(TdqIndicatorDefinition.class).add(Expression.eq("indLabel", indLabel)).add(
                     Expression.eq("indVersion", indDefinitionVersion)).list();
-            TdqIndicatorDefinition dbIndDefinition = (TdqIndicatorDefinition) list.get(0);
+            dbIndDefinition = (TdqIndicatorDefinition) list.get(0);
             if (!dbIndDefinition.valueEqual(createTdqIndicatorDefinition)) {
                 dbIndDefinition.setIndEndDate(new Date(System.currentTimeMillis()));
                 session.update(dbIndDefinition);
                 createTdqIndicatorDefinition.setIndVersion(dbIndDefinition.getIndVersion() + 1);
                 session.save(createTdqIndicatorDefinition);
+                isIndicatorSaved = true;
             }
         } else {
             session.save(createTdqIndicatorDefinition);
+            isIndicatorSaved = true;
         }
+        TdqIndicatorDefinition persistIndicatorDefinition = isIndicatorSaved ? createTdqIndicatorDefinition : dbIndDefinition;
 
-        // TODO get the tdqCalendar object and the TdqDayTime from the database given the
-        // date analysis.getResults().getResultMetadata().getExecutionDate()
+        // TODO get the tdqCalendar object and the TdqDayTime from the database given the date
+        if (executionDate != null) {
+            TdqIndicatorValue createTdqindicatorValue = createTdqindicatorValue(tdqAnalysis, persistAnalyzedElement,
+                    persistIndicatorDefinition, executionDate);
+            List list = session.createCriteria(TdqCalendar.class).add(Expression.eq("calDate", executionDate)).list();
+            TdqCalendar dbCalendar = (TdqCalendar) list.get(0);
+            list = session.createCriteria(TdqDayTime.class).add(Expression.eq("timeLabel",getSimpleDateString(executionDate))).list();
+            TdqDayTime dbDayTime = (TdqDayTime) list.get(0);
+            createTdqindicatorValue.setTdqCalendar(dbCalendar);
+            createTdqindicatorValue.setTdqDayTime(dbDayTime);
+            session.save(createTdqindicatorValue);
+        }
+    }
+
+    /**
+     * Get the Hour:Minute display string.
+     */
+    public static String getSimpleDateString(Date date) {
+        GregorianCalendar paremCal = new GregorianCalendar();
+        paremCal.setTime(date);
+        if(simpleDateFormat==null){
+            simpleDateFormat = new SimpleDateFormat("KK:mm");
+        }
+        return simpleDateFormat.format(date);
+
+    }
+
+    private TdqIndicatorValue createTdqindicatorValue(TdqAnalysis tdqAnalysis, TdqAnalyzedElement tdqAnalyzedElement,
+            TdqIndicatorDefinition tdqIndicatorDefinition, Date executionDate) {
+        TdqIndicatorValue indicatorValue = new TdqIndicatorValue();
+        indicatorValue.setTdqAnalysis(tdqAnalysis);
+        indicatorValue.setTdqAnalyzedElement(tdqAnalyzedElement);
+        indicatorValue.setTdqIndicatorDefinition(tdqIndicatorDefinition);
+        // TODO SCorreia decide how to get these data and set it.
+        // indicatorValue.setAnDuration(anDuration);
+        // indicatorValue.setIndvIntValue(indvIntValue);
+        // indicatorValue.setIndvRealValue(indvRealValue);
+        // indicatorValue.setIndvRowCount(indvRowCount);
+        // indicatorValue.setIndvValueTypeIndicator(indvValueTypeIndicator);
+        // indicatorValue.setTdqIndicatorOptions(tdqIndicatorOptions);
+        // indicatorValue.setTdqInterval(tdqInterval);
+        // indicatorValue.setTdqValues(tdqValues);
+        return indicatorValue;
+
     }
 
     /**
@@ -215,7 +281,7 @@ public class DatabasePersistence {
         dbAnalysis.setAnCreationDate(analysis.getCreationDate());
         dbAnalysis.setAnBeginDate(new Date(System.currentTimeMillis()));
         dbAnalysis.setAnEndDate(SqlConstants.END_DATE);
-        dbAnalysis.setAnDataFilter("filter");
+        dbAnalysis.setAnDataFilter("filter");// TODO How to get the filter string?
         String anaStatus = TaggedValueHelper.getDevStatus(analysis).getLiteral();
         dbAnalysis.setAnStatus(anaStatus == null ? SqlConstants.NULL_VALUE : anaStatus);
         dbAnalysis.setAnUuid(ResourceHelper.getUUID(analysis));

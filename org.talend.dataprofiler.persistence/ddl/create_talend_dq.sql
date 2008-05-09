@@ -90,6 +90,7 @@ CREATE TABLE talend_dq.TDQ_DAY_TIME (
                 TIME_PK INT(12) AUTO_INCREMENT NOT NULL,
                 TIME_HOUR INT(10) NOT NULL,
                 TIME_MINUTE INT(10) NOT NULL,
+                TIME_LABEL varchar(10) NOT NULL,
                 PRIMARY KEY (TIME_PK)
 ) ENGINE=InnoDB;
 
