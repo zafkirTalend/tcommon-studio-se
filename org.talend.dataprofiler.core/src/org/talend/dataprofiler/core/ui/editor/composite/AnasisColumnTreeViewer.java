@@ -41,7 +41,6 @@ import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 
 /**
@@ -228,7 +227,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             TreeEditor editor = new TreeEditor(tree);
             modButton = new Button(tree, SWT.NONE);
-            modButton.setImage(ImageLib.getImage(ImageLib.INDICATOR_OPTION));
+            modButton.setImage(ImageLib.getImage(ImageLib.NEW_CONNECTION));
             modButton.setToolTipText("delete");
             modButton.pack();
             modButton.setData(indicator);

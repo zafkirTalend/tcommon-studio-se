@@ -26,8 +26,12 @@ Require-Bundle: org.talend.dataprofiler.libraries,
  org.talend.dataprofiler.persistence
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core,
+ org.talend.dataprofiler.core.helper,
  org.talend.dataprofiler.core.i18n,
+ org.talend.dataprofiler.core.manager,
  org.talend.dataprofiler.core.service,
  org.talend.dataprofiler.core.ui.perspective,
+ org.talend.dataprofiler.core.ui.progress,
  org.talend.dataprofiler.core.ui.views,
- org.talend.dataprofiler.core.ui.views.filters
+ org.talend.dataprofiler.core.ui.views.filters,
+ org.talend.dataprofiler.core.ui.wizard.report
