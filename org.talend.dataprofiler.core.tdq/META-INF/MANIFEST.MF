@@ -7,5 +7,8 @@ Bundle-Activator: org.talend.dataprofiler.core.tdq.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.talend.dataprofiler.core,
- org.eclipse.ui.navigator
+ org.eclipse.ui.navigator,
+ org.eclipse.core.resources,
+ org.talend.dataprofiler.persistence,
+ org.talend.dataquality
 Eclipse-LazyStart: true
