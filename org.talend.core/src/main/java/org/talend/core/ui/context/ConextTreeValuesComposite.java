@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -47,7 +46,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -72,7 +70,7 @@ import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvi
  * DOC bqian class global comment. Detailled comment <br/>
  * 
  */
-public class ConextTreeValuesComposite extends Composite {
+public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
 
     /**
      * 
@@ -805,19 +803,20 @@ public class ConextTreeValuesComposite extends Composite {
                 }
                 para.setPromptNeeded((Boolean) value);
             }
-            Command command = new Command() {
+
+            viewer.update(object, null);
+
+            // make sure the refresh() will not refresh this composite to avoid losting composite selection
+            setNeedRefresh(false);
+
+            // refresh operation
+            runCommand(new Command() {
 
                 public void execute() {
                     modelManager.refresh();
-                    Display.getDefault().asyncExec(new Runnable() {
-
-                        public void run() {
-                            viewer.setSelection(new StructuredSelection(object));
-                        }
-                    });
                 }
-            };
-            runCommand(command);
+            });
+
             // set updated flag.
             if (modelManager != null) {
                 IContextManager manager = modelManager.getContextManager();

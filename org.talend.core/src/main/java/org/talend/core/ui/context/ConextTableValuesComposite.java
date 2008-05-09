@@ -26,7 +26,6 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -43,7 +42,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ToolBar;
@@ -63,7 +61,7 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
  * DOC zwang class global comment. Detailled comment <br/>
  * 
  */
-public class ConextTableValuesComposite extends Composite {
+public class ConextTableValuesComposite extends AbstractContextTabEditComposite {
 
     private static final String COLUMN_NAME_PROPERTY = "Name";
 
@@ -234,7 +232,6 @@ public class ConextTableValuesComposite extends Composite {
                         return getComparator().compare(columnText, columnText2) * direction;
                     }
                 });
-                viewer2.expandAll();
             }
         };
         table.getColumn(0).addListener(SWT.Selection, sortListener);
@@ -554,18 +551,18 @@ public class ConextTableValuesComposite extends Composite {
                     para.setValue((String) value);
                 }
             }
+
+            viewer.update(object, null);
+
+            setNeedRefresh(false);
+
             Command command = new Command() {
 
                 public void execute() {
                     modelManager.refresh();
-                    Display.getDefault().asyncExec(new Runnable() {
-
-                        public void run() {
-                            viewer.setSelection(new StructuredSelection(object));
-                        }
-                    });
                 }
             };
+
             runCommand(command);
             // set updated flag.
             if (modelManager != null) {

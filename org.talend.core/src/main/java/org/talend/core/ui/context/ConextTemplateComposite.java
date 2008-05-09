@@ -28,7 +28,6 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -47,7 +46,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
@@ -87,7 +85,7 @@ import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
  * zwang class global comment. Detailled comment <br/>
  * 
  */
-public class ConextTemplateComposite extends Composite {
+public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
     /**
      * 
@@ -338,7 +336,7 @@ public class ConextTemplateComposite extends Composite {
                         return getComparator().compare(columnText, columnText2) * direction;
                     }
                 });
-                viewer2.expandAll();
+                // viewer2.expandAll();
             }
         };
         table.getColumn(0).addListener(SWT.Selection, sortListener);
@@ -578,6 +576,7 @@ public class ConextTemplateComposite extends Composite {
      * @param jobContextManager2
      */
     public void refresh() {
+
         if (isGroupBySource()) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
@@ -586,6 +585,7 @@ public class ConextTemplateComposite extends Composite {
 
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
+
         IContextManager cm = modelManager.getContextManager();
         viewer.setInput(cm.getListContext());
         viewer.expandAll();
@@ -1074,19 +1074,19 @@ public class ConextTemplateComposite extends Composite {
                     }
                 }
             }
+
+            viewer.update(object, null);
+            setNeedRefresh(false);
+
             Command command = new Command() {
 
                 public void execute() {
                     modelManager.refresh();
-                    Display.getDefault().asyncExec(new Runnable() {
-
-                        public void run() {
-                            viewer.setSelection(new StructuredSelection(object));
-                        }
-                    });
                 }
             };
+
             runCommand(command);
+
             // set updated flag.
             if (modelManager != null) {
                 IContextManager manager = modelManager.getContextManager();

@@ -68,9 +68,10 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     private void setTabEnable(boolean enable) {
-        template.setEnabled(enable);
+
         // no need to set the ConextTreeValuesComposite and ConextTableValuesComposite. They can take care of
         // themselvies.
+        template.setEnabled(enable);
         tableValues.setEnabled(enable);
         treeValues.setEnabled(enable);
         contextCombo.setEnabled(enable);
@@ -99,11 +100,27 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * @param jobContextManager
      */
     public void refreshChildrenUI() {
-        // template.setCommandStack(getCommandStack());
-        template.refresh();
-        treeValues.refresh();
-        tableValues.refresh();
+        toolgeRefreshContextRelitiveComposite(template);
+        toolgeRefreshContextRelitiveComposite(treeValues);
+        toolgeRefreshContextRelitiveComposite(tableValues);
+    }
 
+    /**
+     * 
+     * DOC YeXiaowei Comment method "refreshContextEditComposite".
+     * 
+     * @param composite
+     */
+    private void toolgeRefreshContextRelitiveComposite(AbstractContextTabEditComposite composite) {
+        if (composite == null) {
+            return;
+        }
+        if (composite.isNeedRefresh()) {
+            composite.refresh();
+        }
+
+        // set need refresh back to true
+        composite.setNeedRefresh(true);
     }
 
     /**
@@ -112,11 +129,9 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * @param jobContextManager
      */
     public void clearChildrenUI() {
-        // template.setCommandStack(null);
         template.clear();
         treeValues.clear();
         tableValues.clear();
-
     }
 
     public abstract IContextManager getContextManager();
