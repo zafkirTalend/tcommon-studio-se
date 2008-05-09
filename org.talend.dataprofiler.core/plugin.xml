@@ -209,9 +209,9 @@
     	<view id="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
         	relative="org.eclipse.ui.editorss"
     		relationship="left"
-    		ratio="0.45"
+    		ratio="0.25"
     		/>	
-        <view id="org.talend.dataprofiler.core.ui.views.GraphsView"
+       <!-- <view id="org.talend.dataprofiler.core.ui.views.GraphsView"
              relative="org.eclipse.ui.editorss"
              relationship="bottom"
              ratio="0.4"
@@ -224,7 +224,7 @@
         <view id="org.talend.dataprofiler.core.ui.views.QuanlityView"
               relative="org.talend.dataprofiler.core.ui.views.CheatSheetView"
               relationship="bottom"
-              />
+              /> -->
   </perspectiveExtension>  
 </extension>
   
