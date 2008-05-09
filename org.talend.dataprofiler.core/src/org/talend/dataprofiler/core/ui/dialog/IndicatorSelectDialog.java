@@ -53,6 +53,7 @@ public class IndicatorSelectDialog extends Dialog {
     public IndicatorSelectDialog(Shell parentShell, String title, ColumnIndicator[] columnIndicators) {
         super(parentShell);
         this.columnIndicators = columnIndicators;
+        this.setShellStyle(SWT.MAX | SWT.RESIZE);
     }
 
     protected Control createDialogArea(Composite parent) {
