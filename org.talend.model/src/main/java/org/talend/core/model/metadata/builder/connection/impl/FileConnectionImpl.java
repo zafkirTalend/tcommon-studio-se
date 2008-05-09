@@ -235,7 +235,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected static final int HEADER_VALUE_EDEFAULT = 0;
+    protected static final String HEADER_VALUE_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getHeaderValue() <em>Header Value</em>}' attribute.
@@ -245,7 +245,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected int headerValue = HEADER_VALUE_EDEFAULT;
+    protected String headerValue = HEADER_VALUE_EDEFAULT;
 
     /**
      * The default value of the '{@link #isUseFooter() <em>Use Footer</em>}' attribute.
@@ -275,7 +275,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected static final int FOOTER_VALUE_EDEFAULT = 0;
+    protected static final String FOOTER_VALUE_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getFooterValue() <em>Footer Value</em>}' attribute.
@@ -285,7 +285,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected int footerValue = FOOTER_VALUE_EDEFAULT;
+    protected String footerValue = FOOTER_VALUE_EDEFAULT;
 
     /**
      * The default value of the '{@link #isUseLimit() <em>Use Limit</em>}' attribute.
@@ -315,7 +315,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected static final int LIMIT_VALUE_EDEFAULT = 0;
+    protected static final String LIMIT_VALUE_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getLimitValue() <em>Limit Value</em>}' attribute.
@@ -325,7 +325,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected int limitValue = LIMIT_VALUE_EDEFAULT;
+    protected String limitValue = LIMIT_VALUE_EDEFAULT;
 
     /**
      * The default value of the '{@link #isFirstLineCaption() <em>First Line Caption</em>}' attribute.
@@ -659,7 +659,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getHeaderValue() {
+    public String getHeaderValue() {
         return headerValue;
     }
 
@@ -668,8 +668,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setHeaderValue(int newHeaderValue) {
-        int oldHeaderValue = headerValue;
+    public void setHeaderValue(String newHeaderValue) {
+        String oldHeaderValue = headerValue;
         headerValue = newHeaderValue;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_CONNECTION__HEADER_VALUE, oldHeaderValue, headerValue));
@@ -701,7 +701,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getFooterValue() {
+    public String getFooterValue() {
         return footerValue;
     }
 
@@ -710,8 +710,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setFooterValue(int newFooterValue) {
-        int oldFooterValue = footerValue;
+    public void setFooterValue(String newFooterValue) {
+        String oldFooterValue = footerValue;
         footerValue = newFooterValue;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_CONNECTION__FOOTER_VALUE, oldFooterValue, footerValue));
@@ -743,7 +743,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getLimitValue() {
+    public String getLimitValue() {
         return limitValue;
     }
 
@@ -752,8 +752,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setLimitValue(int newLimitValue) {
-        int oldLimitValue = limitValue;
+    public void setLimitValue(String newLimitValue) {
+        String oldLimitValue = limitValue;
         limitValue = newLimitValue;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_CONNECTION__LIMIT_VALUE, oldLimitValue, limitValue));
@@ -911,15 +911,15 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
             case ConnectionPackage.FILE_CONNECTION__USE_HEADER:
                 return isUseHeader() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.FILE_CONNECTION__HEADER_VALUE:
-                return new Integer(getHeaderValue());
+                return getHeaderValue();
             case ConnectionPackage.FILE_CONNECTION__USE_FOOTER:
                 return isUseFooter() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.FILE_CONNECTION__FOOTER_VALUE:
-                return new Integer(getFooterValue());
+                return getFooterValue();
             case ConnectionPackage.FILE_CONNECTION__USE_LIMIT:
                 return isUseLimit() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.FILE_CONNECTION__LIMIT_VALUE:
-                return new Integer(getLimitValue());
+                return getLimitValue();
             case ConnectionPackage.FILE_CONNECTION__FIRST_LINE_CAPTION:
                 return isFirstLineCaption() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.FILE_CONNECTION__REMOVE_EMPTY_ROW:
@@ -971,19 +971,19 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
                 setUseHeader(((Boolean)newValue).booleanValue());
                 return;
             case ConnectionPackage.FILE_CONNECTION__HEADER_VALUE:
-                setHeaderValue(((Integer)newValue).intValue());
+                setHeaderValue((String)newValue);
                 return;
             case ConnectionPackage.FILE_CONNECTION__USE_FOOTER:
                 setUseFooter(((Boolean)newValue).booleanValue());
                 return;
             case ConnectionPackage.FILE_CONNECTION__FOOTER_VALUE:
-                setFooterValue(((Integer)newValue).intValue());
+                setFooterValue((String)newValue);
                 return;
             case ConnectionPackage.FILE_CONNECTION__USE_LIMIT:
                 setUseLimit(((Boolean)newValue).booleanValue());
                 return;
             case ConnectionPackage.FILE_CONNECTION__LIMIT_VALUE:
-                setLimitValue(((Integer)newValue).intValue());
+                setLimitValue((String)newValue);
                 return;
             case ConnectionPackage.FILE_CONNECTION__FIRST_LINE_CAPTION:
                 setFirstLineCaption(((Boolean)newValue).booleanValue());
@@ -1104,15 +1104,15 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
             case ConnectionPackage.FILE_CONNECTION__USE_HEADER:
                 return useHeader != USE_HEADER_EDEFAULT;
             case ConnectionPackage.FILE_CONNECTION__HEADER_VALUE:
-                return headerValue != HEADER_VALUE_EDEFAULT;
+                return HEADER_VALUE_EDEFAULT == null ? headerValue != null : !HEADER_VALUE_EDEFAULT.equals(headerValue);
             case ConnectionPackage.FILE_CONNECTION__USE_FOOTER:
                 return useFooter != USE_FOOTER_EDEFAULT;
             case ConnectionPackage.FILE_CONNECTION__FOOTER_VALUE:
-                return footerValue != FOOTER_VALUE_EDEFAULT;
+                return FOOTER_VALUE_EDEFAULT == null ? footerValue != null : !FOOTER_VALUE_EDEFAULT.equals(footerValue);
             case ConnectionPackage.FILE_CONNECTION__USE_LIMIT:
                 return useLimit != USE_LIMIT_EDEFAULT;
             case ConnectionPackage.FILE_CONNECTION__LIMIT_VALUE:
-                return limitValue != LIMIT_VALUE_EDEFAULT;
+                return LIMIT_VALUE_EDEFAULT == null ? limitValue != null : !LIMIT_VALUE_EDEFAULT.equals(limitValue);
             case ConnectionPackage.FILE_CONNECTION__FIRST_LINE_CAPTION:
                 return firstLineCaption != FIRST_LINE_CAPTION_EDEFAULT;
             case ConnectionPackage.FILE_CONNECTION__REMOVE_EMPTY_ROW:

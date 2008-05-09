@@ -294,12 +294,12 @@ public interface FileConnection extends Connection {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Header Value</em>' attribute.
-     * @see #setHeaderValue(int)
+     * @see #setHeaderValue(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_HeaderValue()
      * @model
      * @generated
      */
-    int getHeaderValue();
+    String getHeaderValue();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getHeaderValue <em>Header Value</em>}' attribute.
@@ -309,7 +309,7 @@ public interface FileConnection extends Connection {
      * @see #getHeaderValue()
      * @generated
      */
-    void setHeaderValue(int value);
+    void setHeaderValue(String value);
 
     /**
      * Returns the value of the '<em><b>Use Footer</b></em>' attribute.
@@ -346,12 +346,12 @@ public interface FileConnection extends Connection {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Footer Value</em>' attribute.
-     * @see #setFooterValue(int)
+     * @see #setFooterValue(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_FooterValue()
      * @model
      * @generated
      */
-    int getFooterValue();
+    String getFooterValue();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getFooterValue <em>Footer Value</em>}' attribute.
@@ -361,7 +361,7 @@ public interface FileConnection extends Connection {
      * @see #getFooterValue()
      * @generated
      */
-    void setFooterValue(int value);
+    void setFooterValue(String value);
 
     /**
      * Returns the value of the '<em><b>Use Limit</b></em>' attribute.
@@ -398,12 +398,12 @@ public interface FileConnection extends Connection {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Limit Value</em>' attribute.
-     * @see #setLimitValue(int)
+     * @see #setLimitValue(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_LimitValue()
      * @model
      * @generated
      */
-    int getLimitValue();
+    String getLimitValue();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getLimitValue <em>Limit Value</em>}' attribute.
@@ -413,7 +413,7 @@ public interface FileConnection extends Connection {
      * @see #getLimitValue()
      * @generated
      */
-    void setLimitValue(int value);
+    void setLimitValue(String value);
 
     /**
      * Returns the value of the '<em><b>First Line Caption</b></em>' attribute.
