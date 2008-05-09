@@ -12,12 +12,11 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.utils;
 
-import java.sql.Types;
-
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataquality.indicators.DataminingType;
+import org.talend.utils.sql.Java2SqlType;
 
 
 /**
@@ -61,7 +60,7 @@ public class ColumnIndicatorRule {
         case MaxLengthIndicatorEnum:
         case AverageLengthIndicatorEnum:
             
-            if (isTextInSQL(javaType)) {
+            if (Java2SqlType.isTextInSQL(javaType)) {
                 if (dataminingType == DataminingType.NOMINAL || dataminingType == DataminingType.UNSTRUCTURED_TEXT) {
                     return true;
                 }
@@ -84,7 +83,7 @@ public class ColumnIndicatorRule {
         case UpperQuartileIndicatorEnum:
         case RangeIndicatorEnum:
             
-            if (isNumbericInSQL(javaType) || isDateInSQL(javaType)) {
+            if (Java2SqlType.isNumbericInSQL(javaType) || Java2SqlType.isDateInSQL(javaType)) {
                 if (dataminingType == DataminingType.INTERVAL) {
                     return true;
                 }
@@ -106,48 +105,5 @@ public class ColumnIndicatorRule {
         
         return false;
     }
-    
-    public static boolean isTextInSQL(int type) {
-        
-        switch (type) {
-        case Types.CHAR:
-        case Types.VARCHAR:
-        case Types.LONGVARCHAR:
-        case Types.CLOB:
-            
-            return true;
-        default:
-            return false;
-        }
-    }
-    
-    public static boolean isNumbericInSQL(int type) {
-        switch (type) {
-        case Types.DOUBLE:
-        case Types.REAL:
-        case Types.FLOAT:
-        case Types.INTEGER:
-        case Types.TINYINT:
-        case Types.SMALLINT:
-        case Types.BIGINT:
-        case Types.DECIMAL:
-        case Types.NUMERIC:
-            
-            return true;
-        default:
-            return false;
-        }
-    }
-    
-    public static boolean isDateInSQL(int type) {
-        switch (type) {
-        case Types.DATE:
-        case Types.TIME:
-        case Types.TIMESTAMP:
-            
-            return true;
-        default:
-            return false;
-        }
-    }
+
 }

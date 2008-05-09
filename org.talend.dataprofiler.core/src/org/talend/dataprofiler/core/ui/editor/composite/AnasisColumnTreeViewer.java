@@ -34,12 +34,14 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.cwm.relational.TdColumn;
+import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 
 /**
@@ -49,8 +51,6 @@ import org.talend.dataquality.indicators.DataminingType;
 public class AnasisColumnTreeViewer extends AbstractPagePart {
 
     private static final int WIDTH1_CELL = 75;
-
-    private static final int WIDTH2_CELL = 65;
 
     private Composite parentComp;
 
@@ -186,8 +186,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             **/
 
             editor = new TreeEditor(tree);
-            Button delButton = new Button(tree, SWT.FLAT);
-            delButton.setText("Del");
+            Button delButton = new Button(tree, SWT.NONE);
+            delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
+            delButton.setToolTipText("delete");
             delButton.pack();
             delButton.addSelectionListener(new SelectionAdapter() {
 
@@ -226,8 +227,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             indicatorItem.setText(0, indicator.getType().getLabel());
 
             TreeEditor editor = new TreeEditor(tree);
-            modButton = new Button(tree, SWT.FLAT);
-            modButton.setText("Options");
+            modButton = new Button(tree, SWT.NONE);
+            modButton.setImage(ImageLib.getImage(ImageLib.INDICATOR_OPTION));
+            modButton.setToolTipText("delete");
             modButton.pack();
             modButton.setData(indicator);
             
@@ -237,7 +239,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             editor = new TreeEditor(tree);
             Button delButton = new Button(tree, SWT.NONE);
-            delButton.setText("Del");
+            delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
+            delButton.setToolTipText("delete");
             delButton.pack();
             editor.minimumWidth = WIDTH1_CELL;
             // editor.minimumWidth = delButton.getSize().x;
