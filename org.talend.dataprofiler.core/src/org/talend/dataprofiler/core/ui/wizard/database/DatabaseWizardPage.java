@@ -17,11 +17,13 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -91,11 +93,16 @@ class DatabaseWizardPage extends AbstractWizardPage {
     public void createControl(Composite parent) {
         setPageComplete(false);
 
-        Composite comp = new Composite(parent, SWT.NULL);
+        ScrolledComposite composite = new ScrolledComposite(parent, SWT.BORDER | SWT.V_SCROLL);
+        composite.setLayout(new FillLayout());
+        
+        Composite comp = new Composite(composite, SWT.NULL);
         GridLayout layout = new GridLayout();
         comp.setLayout(layout);
+        comp.setSize(550, 337);
         layout.numColumns = 1;
         layout.verticalSpacing = 9;
+        composite.setContent(comp);
 
         GridData data = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
         data.horizontalSpan = 1;
