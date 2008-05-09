@@ -99,6 +99,9 @@ public abstract class AbstractNode implements INode {
     }
 
     public void setElementParameters(List<? extends IElementParameter> elementParameters) {
+        if (elementParameters.size() < 30) {
+            System.out.println();
+        }
         this.elementParameters = elementParameters;
     }
 
@@ -699,10 +702,13 @@ public abstract class AbstractNode implements INode {
         List<IMultipleComponentManager> multipleComponentManagers = getComponent().getMultipleComponentManagers();
         return multipleComponentManagers.size() > 0;
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.INode#isELTComponent()
      */
     public boolean isELTComponent() {
-        return false;
+        return getComponent().getFamily().startsWith("ELT");
     }
 }
