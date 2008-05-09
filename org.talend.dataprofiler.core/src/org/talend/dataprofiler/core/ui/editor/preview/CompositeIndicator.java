@@ -79,10 +79,11 @@ public class CompositeIndicator {
                 frequencyList.add(one);
                 break;
             case MeanIndicatorEnum:
-            case IQRIndicatorEnum:
             case MinValueIndicatorEnum:
             case MaxValueIndicatorEnum:
             case MedianIndicatorEnum:
+            case LowerQuartileIndicatorEnum:
+            case UpperQuartileIndicatorEnum:
                 summaryList.add(one);
                 break;
                 

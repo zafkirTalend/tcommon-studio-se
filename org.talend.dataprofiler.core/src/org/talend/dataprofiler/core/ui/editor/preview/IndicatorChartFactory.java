@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.preview;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
@@ -42,7 +40,7 @@ import org.talend.dataprofiler.core.ui.utils.ChartUtils;
  */
 public class IndicatorChartFactory {
     
-    private static final  int CHART_WIDTH = 430;
+    private static final  int CHART_WIDTH = 400;
     
     private static final  int CHART_HEIGHT = 230;
     
@@ -50,17 +48,18 @@ public class IndicatorChartFactory {
     
     private static final  int CHART_HEIGHT2 = 380;
 
+    //start to create kinds of chart
     public static ImageDescriptor createSimpleChart(String titile, CategoryDataset dataset) {
         
         JFreeChart chart = ChartFactory.createBarChart3D(
                 null,
-                titile, // 目录轴的显示标签
-                "Value", // 数值轴的显示标签
-                dataset, // 数据集
-                PlotOrientation.VERTICAL, // 图表方向：水平、垂直
-                false,   // 是否显示图例(对于简单的柱状图必须是false)
-                false,  // 是否生成工具
-                false   // 是否生成URL链接
+                titile, 
+                "Value", 
+                dataset, 
+                PlotOrientation.VERTICAL,
+                false,  
+                false,  
+                false   
                 );
         
         try {
@@ -74,8 +73,9 @@ public class IndicatorChartFactory {
         return null;
     }
     
-    public static void createTextChart() {
+    public static ImageDescriptor createTextChart(String titile, CategoryDataset dataset) {
         
+        return createSimpleChart(titile, dataset);
     }
     
     public static ImageDescriptor createFrequencyChart(String titile, CategoryDataset dataset) {
@@ -85,7 +85,7 @@ public class IndicatorChartFactory {
                 titile, 
                 "Value", 
                 dataset, 
-                PlotOrientation.HORIZONTAL, // 图表方向：水平、垂直
+                PlotOrientation.HORIZONTAL, 
                 false,   
                 false,  
                 false   
@@ -123,91 +123,103 @@ public class IndicatorChartFactory {
         return null;
     }
     
-    private static CategoryDataset createSimpleDataset(List<IndicatorTypeMapping> indicatorTypeMapping) {
+    //end creating kinds of chart
+    
+    //start to create kinds of dataset with real value
+    
+    private static CategoryDataset createSimpleDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
-        for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
-            
-            Object object = null;
-            try {
-                object = IndicatorCommonUtil.getIndicatorValue(indicator.getType(), indicator.getIndicator());
-            } catch (UnsupportedOperationException ue) {
-                object = null;
-            }
-            
-            
-            if (object == null) {
-                dataset.addValue(0, "", indicator.getType().getLabel());
-            } else {
+        if (isCreate) {
+            for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
+                
+                Object object = null;
                 try {
-                    String valueStr = String.valueOf(object);
-                    int value = Integer.parseInt(valueStr);
-                    dataset.addValue(500, "", indicator.getType().getLabel().split(" ")[0]);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    object = IndicatorCommonUtil.getIndicatorValue(indicator.getType(), indicator.getIndicator());
+                } catch (UnsupportedOperationException ue) {
+                    object = null;
                 }
                 
+                
+                if (object == null) {
+                    dataset.addValue(0, "", indicator.getType().getLabel());
+                } else {
+                    try {
+                        String valueStr = String.valueOf(object);
+                        int value = Integer.parseInt(valueStr);
+                        dataset.addValue(value, "", indicator.getType().getLabel().split(" ")[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    
+                }
+            }
+        } else {
+            for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
+                
+                dataset.addValue(150, "", indicator.getType().getLabel().split(" ")[0]);
             }
         }
+
 
         return dataset;
         
     }
     
-    private static BoxAndWhiskerCategoryDataset createSummaryDataset(List<IndicatorTypeMapping> indicatorTypeMapping) {
+    private static CategoryDataset createTextedDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
+        
+        return createSimpleDataset(indicatorTypeMapping, isCreate);
+    }
+    
+    private static BoxAndWhiskerCategoryDataset createSummaryDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
 
         DefaultBoxAndWhiskerCategoryDataset dataset = new DefaultBoxAndWhiskerCategoryDataset();
         
-        Map<IndicatorEnum, Double> map = new HashMap<IndicatorEnum, Double>();
-        
-        for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
+        if (isCreate) {
+            Map<IndicatorEnum, Double> map = new HashMap<IndicatorEnum, Double>();
             
-            Object object = null;
-            try {
-                object = IndicatorCommonUtil.getIndicatorValue(indicator.getType(), indicator.getIndicator());
-            } catch (Exception ue) {
-                object = null;
+            for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
+                
+                Object object = null;
+                try {
+                    object = IndicatorCommonUtil.getIndicatorValue(indicator.getType(), indicator.getIndicator());
+                } catch (Exception ue) {
+                    object = null;
+                }
+                
+                if (object != null) {
+                    String strValue = String.valueOf(object);
+                    double doubleValue = Double.valueOf(strValue);
+                    map.put(indicator.getType(), doubleValue);
+                } else {
+                    map.put(indicator.getType(), 0.0);
+                }
             }
             
-            if (object != null) {
-                String strValue = String.valueOf(object);
-                double doubleValue = Double.valueOf(strValue);
-                map.put(indicator.getType(), doubleValue);
-            } else {
-                map.put(indicator.getType(), 0.0);
-            }
+            BoxAndWhiskerItem item = new BoxAndWhiskerItem(
+                    map.get(IndicatorEnum.MeanIndicatorEnum),
+                    map.get(IndicatorEnum.MedianIndicatorEnum),
+                    null,
+                    null,
+                    map.get(IndicatorEnum.MinValueIndicatorEnum),
+                    map.get(IndicatorEnum.MaxValueIndicatorEnum),
+                    map.get(IndicatorEnum.LowerQuartileIndicatorEnum),
+                    map.get(IndicatorEnum.UpperQuartileIndicatorEnum),
+                    null
+                    );
+
+            dataset.add(item, "", "");
+        } else {
+            BoxAndWhiskerItem item = new BoxAndWhiskerItem(40, 45, 30, 60, 15 , 75, 1, 100, null);
+            dataset.add(item, "", "");
         }
-        
-//        BoxAndWhiskerItem item = new BoxAndWhiskerItem(
-//                map.get(IndicatorEnum.MeanIndicatorEnum),
-//                map.get(IndicatorEnum.MedianIndicatorEnum),
-//                null,
-//                null,
-//                map.get(IndicatorEnum.MinValueIndicatorEnum),
-//                map.get(IndicatorEnum.MaxValueIndicatorEnum),
-//                null,
-//                null,
-//                null
-//                );
-        BoxAndWhiskerItem item = new BoxAndWhiskerItem(
-                50,
-                55,
-                20,
-                40,
-                5,
-                80,
-                1,
-                100,
-                null
-                );
-        dataset.add(item, "", "");
 
         return dataset;
         
     }
     
-    private static CategoryDataset createFrequenceDataset(List<IndicatorTypeMapping> indicatorTypeMapping) {
+    private static CategoryDataset createFrequenceDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
@@ -222,14 +234,17 @@ public class IndicatorChartFactory {
             if (object != null) {
                 Map<Object, Double> map = (Map<Object, Double>) object;
                 
-                if (map.size() == 0) {
-                    map.put("season1", 123.0);
-                    map.put("season2", 341.12);
-                    map.put("season3", 300.58);
-                    map.put("season4", 450.62);
-                }
-                for (Object o : map.keySet()) {
-                    dataset.addValue(map.get(o), "", String.valueOf(o));
+                if (isCreate) {
+                    for (Object obj : map.keySet()) {
+                        dataset.addValue(map.get(obj), "", String.valueOf(obj));
+                    }
+                } else {
+                    
+                    dataset.addValue(70, "", "one");
+                    dataset.addValue(150, "", "two");
+                    dataset.addValue(40, "", "three");
+                    dataset.addValue(125, "", "four");
+                    dataset.addValue(174, "", "five");
                 }
             }
         }
@@ -237,7 +252,9 @@ public class IndicatorChartFactory {
         return dataset;
     }
     
-    public static List<ImageDescriptor> createChart(ColumnIndicator column) {
+    //end create dataset with real value
+    
+    public static List<ImageDescriptor> createChart(ColumnIndicator column, boolean isCreate) {
         
         CompositeIndicator compositeIndicator = new CompositeIndicator(column);
         Map<String, List<IndicatorTypeMapping>> separatedMap = compositeIndicator.getIndicatorComposite();
@@ -245,29 +262,34 @@ public class IndicatorChartFactory {
         
         if (separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS).size() != 0) {
 
-            CategoryDataset dataset = createSimpleDataset(separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS));
+            CategoryDataset dataset = createSimpleDataset(separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS), isCreate);
+            
             returnFiles.add(createSimpleChart(CompositeIndicator.SIMPLE_STATISTICS, dataset));
 
         }
         
         if (separatedMap.get(CompositeIndicator.TEXT_STATISTICS).size() != 0) {
                 
-            CategoryDataset dataset = createSimpleDataset(separatedMap.get(CompositeIndicator.TEXT_STATISTICS));
-            returnFiles.add(createSimpleChart(CompositeIndicator.TEXT_STATISTICS, dataset));
+            CategoryDataset dataset = createTextedDataset(separatedMap.get(CompositeIndicator.TEXT_STATISTICS), isCreate);
+             
+            returnFiles.add(createTextChart(CompositeIndicator.TEXT_STATISTICS, dataset));
         }
         
         if (separatedMap.get(CompositeIndicator.FREQUENCE_STATISTICS).size() != 0) {
             
-            CategoryDataset dataset = createFrequenceDataset(separatedMap.get(CompositeIndicator.FREQUENCE_STATISTICS));
+            CategoryDataset dataset = createFrequenceDataset(separatedMap.get(CompositeIndicator.FREQUENCE_STATISTICS), isCreate);
+             
             returnFiles.add(createFrequencyChart(CompositeIndicator.FREQUENCE_STATISTICS, dataset));
         }
         
         if (separatedMap.get(CompositeIndicator.SUMMARY_STATISTICS).size() != 0) {
-   
-            BoxAndWhiskerCategoryDataset dataset = createSummaryDataset(separatedMap.get(CompositeIndicator.SUMMARY_STATISTICS));
+
+            BoxAndWhiskerCategoryDataset dataset = createSummaryDataset(separatedMap.get(CompositeIndicator.SUMMARY_STATISTICS), isCreate);
+             
             returnFiles.add(createSummaryChart(CompositeIndicator.SUMMARY_STATISTICS, dataset));
         }
 
         return returnFiles;
     }
+    
 }

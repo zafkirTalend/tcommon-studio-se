@@ -131,8 +131,8 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         Analysis analysis = analysisBuilder.getAnalysis();
         TaggedValueHelper.setDevStatus(analysis, DevelopmentStatus.get(analysisStatue));
         TaggedValueHelper.setAuthor(analysis, analysisAuthor);
-        DescriptionHelper.setPurpose(analysisPurpse, analysis);
-        DescriptionHelper.setDescription(analysisDescription, analysis);
+        TaggedValueHelper.setPurpose(analysisPurpse, analysis);
+        TaggedValueHelper.setDescription(analysisDescription, analysis);
     }
 
     protected ConnectionParameter getAnalysisParameter() {

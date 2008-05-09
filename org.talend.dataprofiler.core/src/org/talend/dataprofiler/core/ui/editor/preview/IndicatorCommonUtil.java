@@ -25,6 +25,7 @@ import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.LowerQuartileIndicator;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
 import org.talend.dataquality.indicators.MaxValueIndicator;
 import org.talend.dataquality.indicators.MeanIndicator;
@@ -84,7 +85,7 @@ public class IndicatorCommonUtil {
             Set<Object> valueSet = frequency.getDistinctValues();
             Map<Object, Double> returnMap = new HashMap<Object, Double>();
             for (Object o : valueSet) {
-//                Long value = frequency.getCount(o);
+
                 returnMap.put(o, frequency.getFrequency(o));
             }
             
@@ -93,8 +94,8 @@ public class IndicatorCommonUtil {
         case MeanIndicatorEnum:
             return ((MeanIndicator) indicator).getMean();
             
-        case IQRIndicatorEnum:
-            return ((IQRIndicator) indicator).getRange();
+        case MedianIndicatorEnum:
+            return ((MedianIndicator) indicator).getMedian();
             
         case MinValueIndicatorEnum:
             return ((MinValueIndicator) indicator).getValue();
@@ -102,8 +103,11 @@ public class IndicatorCommonUtil {
         case MaxValueIndicatorEnum:
             return ((MaxValueIndicator) indicator).getValue();
             
-        case MedianIndicatorEnum:
-            return ((MedianIndicator) indicator).getMedian();
+        case LowerQuartileIndicatorEnum:
+            return ((RangeIndicator) indicator).getLowerValue().getValue();
+            
+        case UpperQuartileIndicatorEnum:
+            return ((RangeIndicator) indicator).getUpperValue().getValue();
             
         default:
             
@@ -111,47 +115,4 @@ public class IndicatorCommonUtil {
         }
     }
     
-
-//    class FrequencyComposite {
-//        
-//        private long count;
-//        
-//        private Set distinctValues;
-//        
-//        private double frequency;
-//        
-//        public FrequencyComposite(long count,Set distinctValues, double frequency){
-//            
-//            this.count = count;
-//            this.distinctValues = distinctValues;
-//            this.frequency = frequency;
-//        }
-//
-//        
-//        /**
-//         * Getter for count.
-//         * @return the count
-//         */
-//        public long getCount() {
-//            return this.count;
-//        }
-//
-//        
-//        /**
-//         * Getter for distinctValues.
-//         * @return the distinctValues
-//         */
-//        public Set getDistinctValues() {
-//            return this.distinctValues;
-//        }
-//
-//        
-//        /**
-//         * Getter for frequency.
-//         * @return the frequency
-//         */
-//        public double getFrequency() {
-//            return this.frequency;
-//        }
-//    }
 }
