@@ -23,8 +23,6 @@ import java.util.GregorianCalendar;
  */
 public class SqlConstants {
 
-    private static final Calendar GREGORIAN_CAL = new GregorianCalendar();
-
     /**
      * Character to use as database values for boolean field.
      */
@@ -67,11 +65,12 @@ public class SqlConstants {
     public static final String DEFAULT_CATEGORY = "None";
 
     /**
-     * @return 01/01/3000 0h00:00
+     * @return 2035-12-31 0h00:00
      */
     private static Date getDefaultEndDate() {
-        GREGORIAN_CAL.set(2035, GregorianCalendar.DECEMBER, 31, 0, 0, 0);
-        return GREGORIAN_CAL.getTime();
+        Calendar cal = new GregorianCalendar();
+        cal.set(2035, GregorianCalendar.DECEMBER, 31, 0, 0, 0);
+        return cal.getTime();
     }
 
 }
