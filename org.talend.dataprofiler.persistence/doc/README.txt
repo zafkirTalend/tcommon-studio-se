@@ -145,7 +145,7 @@ all foreign keys to the dimension tables
   - INDV_REAL_VALUE: the real value of the indicator (or a default value when not applicable)
   - INDV_INT_VALUE: the integer value of the indicator (or a default value when not applicable)
   - INDV_ROW_COUNT: the number of rows when evaluating this indicator
-  - INDV_VALUE_TYPE_INDICATOR: a flag to tell whether it is a real value indicator 'R', 'I'.
+  - INDV_VALUE_TYPE_INDICATOR: a flag to tell whether it is a real value indicator 'R', an integer value 'I' or an instance value 'V'.
   
   
   

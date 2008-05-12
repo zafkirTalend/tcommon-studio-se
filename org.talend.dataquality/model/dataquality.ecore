@@ -139,6 +139,14 @@
         </eAnnotations>
         <eParameters name="expression" eType="ecore:EClass ../../org.talend.cwm.mip/model/CWM.ecore#//cwm/objectmodel/core/Expression"/>
       </eOperations>
+      <eOperations name="getIntegerValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+      <eOperations name="getRealValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
+      <eOperations name="getValueType" eType="#//indicators/IndicatorValueType"/>
+      <eOperations name="getInstanceValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Return the instance value of the indicator or null when not applicable."/>
+        </eAnnotations>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicatorType" eType="#//indicators/IndicatorType"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"
           defaultValueLiteral="0"/>
@@ -351,7 +359,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="MaxLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="AverageLengthIndicator" eSuperTypes="#//indicators/LengthIndicator">
       <eOperations name="getAverageLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"
           defaultValueLiteral="0"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="LengthIndicator" eSuperTypes="#//indicators/TextIndicator">
@@ -383,6 +391,26 @@
     <eClassifiers xsi:type="ecore:EDataType" name="ObjectArray" instanceClassName="java.util.List&lt;Object[]>"/>
     <eClassifiers xsi:type="ecore:EClass" name="LowerQuartileIndicator" eSuperTypes="#//indicators/MinValueIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="UpperQuartileIndicator" eSuperTypes="#//indicators/MaxValueIndicator"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="IndicatorValueType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The indicator content values (useful for historization of indicator in the TALEND_DQ data mart)."/>
+      </eAnnotations>
+      <eLiterals name="INTEGER_VALUE" literal="I">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Tells that the indicator contains integer values (for example, row count, distinct count, text length...)"/>
+        </eAnnotations>
+      </eLiterals>
+      <eLiterals name="REAL_VALUE" value="1" literal="R">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Tells that the indicator contains real values (for example when computing a mean on float data)"/>
+        </eAnnotations>
+      </eLiterals>
+      <eLiterals name="INSTANCE_VALUE" value="2" literal="V">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="This type of value is for indicators when the content of the indicator is an instance of the data (For example for the ModeIndicator). "/>
+        </eAnnotations>
+      </eLiterals>
+    </eClassifiers>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

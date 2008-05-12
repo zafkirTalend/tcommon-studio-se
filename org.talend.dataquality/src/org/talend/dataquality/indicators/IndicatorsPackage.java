@@ -7850,6 +7850,16 @@ public interface IndicatorsPackage extends EPackage {
     int MATCHING_ALGORITHM = 33;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.IndicatorValueType
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorValueType()
+     * @generated
+     */
+    int INDICATOR_VALUE_TYPE = 34;
+
+    /**
      * The meta object id for the '<em>Java Set</em>' data type.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7857,7 +7867,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 34;
+    int JAVA_SET = 35;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -7867,7 +7877,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 35;
+    int JAVA_HASH_MAP = 36;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -7877,7 +7887,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 36;
+    int JAVA_TREE_MAP = 37;
 
     /**
      * The meta object id for the '<em>Object Array</em>' data type.
@@ -7886,7 +7896,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getObjectArray()
      * @generated
      */
-    int OBJECT_ARRAY = 37;
+    int OBJECT_ARRAY = 38;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -8757,6 +8767,16 @@ public interface IndicatorsPackage extends EPackage {
     EEnum getMatchingAlgorithm();
 
     /**
+     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Indicator Value Type</em>'.
+     * @see org.talend.dataquality.indicators.IndicatorValueType
+     * @generated
+     */
+    EEnum getIndicatorValueType();
+
+    /**
      * Returns the meta object for data type '{@link java.util.Set <em>Java Set</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9544,6 +9564,16 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EEnum MATCHING_ALGORITHM = eINSTANCE.getMatchingAlgorithm();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.IndicatorValueType
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorValueType()
+         * @generated
+         */
+        EEnum INDICATOR_VALUE_TYPE = eINSTANCE.getIndicatorValueType();
 
         /**
          * The meta object literal for the '<em>Java Set</em>' data type.

@@ -131,6 +131,11 @@
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/SOUNDEX"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/MatchingAlgorithm/REFINED_SOUNDEX"/>
       </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//indicators/IndicatorValueType">
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/IndicatorValueType/INTEGER_VALUE"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/IndicatorValueType/REAL_VALUE"/>
+        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/IndicatorValueType/INSTANCE_VALUE"/>
+      </genEnums>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaSet"/>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaHashMap"/>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaTreeMap"/>
@@ -163,6 +168,10 @@
         <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/setInstantiatedExpression">
           <genParameters ecoreParameter="dataquality.ecore#//indicators/Indicator/setInstantiatedExpression/expression"/>
         </genOperations>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getIntegerValue"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getRealValue"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getValueType"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/Indicator/getInstanceValue"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RowCountIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MeanIndicator">

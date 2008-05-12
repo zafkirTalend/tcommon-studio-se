@@ -37,7 +37,7 @@ public final class TaggedValueHelper {
     /**
      * The tag used when setting a column content type.
      */
-    public static final String DATA_CONTENT_TYPE_TAGGED_VAL = "Content Nype";
+    public static final String DATA_CONTENT_TYPE_TAGGED_VAL = "Content Type";
 
     /**
      * The tag used when setting the development status of an object such as analysis, connection...

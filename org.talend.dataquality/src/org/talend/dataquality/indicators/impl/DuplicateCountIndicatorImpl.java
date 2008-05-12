@@ -181,4 +181,16 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#getIntegerValue()
+     * 
+     * ADDED scorreia 2008-05-12 getIntegerValue()
+     */
+    @Override
+    public BigInteger getIntegerValue() {
+        return this.getDuplicateValueCount();
+    }
+
 } // DuplicateCountIndicatorImpl

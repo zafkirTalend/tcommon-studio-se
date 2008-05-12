@@ -118,6 +118,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return createDateGrainFromString(eDataType, initialValue);
             case IndicatorsPackage.MATCHING_ALGORITHM:
                 return createMatchingAlgorithmFromString(eDataType, initialValue);
+            case IndicatorsPackage.INDICATOR_VALUE_TYPE:
+                return createIndicatorValueTypeFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_SET:
                 return createJavaSetFromString(eDataType, initialValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -149,6 +151,8 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return convertDateGrainToString(eDataType, instanceValue);
             case IndicatorsPackage.MATCHING_ALGORITHM:
                 return convertMatchingAlgorithmToString(eDataType, instanceValue);
+            case IndicatorsPackage.INDICATOR_VALUE_TYPE:
+                return convertIndicatorValueTypeToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_SET:
                 return convertJavaSetToString(eDataType, instanceValue);
             case IndicatorsPackage.JAVA_HASH_MAP:
@@ -549,6 +553,26 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * @generated
      */
     public String convertMatchingAlgorithmToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public IndicatorValueType createIndicatorValueTypeFromString(EDataType eDataType, String initialValue) {
+        IndicatorValueType result = IndicatorValueType.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertIndicatorValueTypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

@@ -5,7 +5,6 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
      * @generated
      * @ordered
      */
-    protected static final BigDecimal SUM_LENGTH_EDEFAULT = new BigDecimal("0");
+    protected static final BigInteger SUM_LENGTH_EDEFAULT = new BigInteger("0");
 
     /**
      * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
@@ -50,7 +49,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
      * @generated
      * @ordered
      */
-    protected BigDecimal sumLength = SUM_LENGTH_EDEFAULT;
+    protected BigInteger sumLength = SUM_LENGTH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -73,7 +72,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public BigDecimal getSumLength() {
+    public BigInteger getSumLength() {
         return sumLength;
     }
 
@@ -81,8 +80,8 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setSumLength(BigDecimal newSumLength) {
-        BigDecimal oldSumLength = sumLength;
+    public void setSumLength(BigInteger newSumLength) {
+        BigInteger oldSumLength = sumLength;
         sumLength = newSumLength;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH, oldSumLength, sumLength));
@@ -119,7 +118,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                setSumLength((BigDecimal)newValue);
+                setSumLength((BigInteger)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -172,7 +171,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
         boolean ok = super.handle(data);
         if (data != null) {
             String str = (String) data;
-            sumLength.add(new BigDecimal(str.length()));
+            sumLength.add(BigInteger.valueOf(str.length()));
         }
         // TODO scorreia handle case when data is null and should be replaced by empty string
         return ok;
@@ -207,9 +206,21 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
         String c = String.valueOf(objects.get(0)[1]);
         String s = String.valueOf(objects.get(0)[0]);
 
-        this.setCount(new BigInteger(c));
-        this.setSumLength(new BigDecimal(s));
+        this.setCount(BigInteger.valueOf(Long.valueOf(c)));
+        this.setSumLength(BigInteger.valueOf(Long.valueOf(s)));
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#getIntegerValue()
+     * 
+     * ADDED scorreia 2008-05-12 getIntegerValue()
+     */
+    @Override
+    public BigInteger getIntegerValue() {
+        return this.getSumLength();
     }
 
 } // AverageLengthIndicatorImpl

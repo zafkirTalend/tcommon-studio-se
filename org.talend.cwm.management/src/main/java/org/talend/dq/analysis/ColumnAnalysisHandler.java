@@ -26,12 +26,7 @@ import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.analysis.AnalysisParameters;
-import org.talend.dataquality.domain.Domain;
-import org.talend.dataquality.domain.RangeRestriction;
-import org.talend.dataquality.expressions.BooleanExpressionNode;
-import org.talend.dataquality.helpers.BooleanExpressionHelper;
-import org.talend.dataquality.helpers.DomainHelper;
+import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
@@ -39,7 +34,6 @@ import org.talend.dq.indicators.definitions.DefinitionHandler;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.Dependency;
-import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -105,30 +99,31 @@ public class ColumnAnalysisHandler {
         assert analysis != null;
         TaggedValueHelper.setDescription(description, analysis);
     }
-    
+
     public String getAuthor() {
-        
+
         assert analysis != null;
         return TaggedValueHelper.getAuthor(analysis);
     }
-    
+
     public void setAuthor(String anthor) {
-        
+
         assert analysis != null;
         TaggedValueHelper.setAuthor(analysis, anthor);
     }
-    
+
     public String getStatus() {
-        
+
         assert analysis != null;
         return TaggedValueHelper.getDevStatus(analysis).getLiteral();
     }
 
     public void setStatus(String status) {
-        
+
         assert analysis != null;
         TaggedValueHelper.setDevStatus(analysis, DevelopmentStatus.get(status));
     }
+
     /**
      * Method "addColumnToAnalyze".
      * 
@@ -243,69 +238,11 @@ public class ColumnAnalysisHandler {
      * @return true when a new data filter is created, false if it is only updated
      */
     public boolean setStringDataFilter(String datafilterString) {
-        EList<Domain> dataFilters = analysis.getParameters().getDataFilter();
-        // update existing filters
-        if (!dataFilters.isEmpty()) {
-            Domain domain = dataFilters.get(0);
-            EList<RangeRestriction> ranges = domain.getRanges();
-            RangeRestriction rangeRestriction = (ranges.isEmpty()) ? DomainHelper.addRangeRestriction(domain) : ranges.get(0);
-            BooleanExpressionNode expressions = rangeRestriction.getExpressions();
-            if (expressions == null) {
-                expressions = BooleanExpressionHelper.createBooleanExpressionNode(datafilterString);
-                rangeRestriction.setExpressions(expressions);
-            } else {
-                Expression expression = expressions.getExpression();
-                if (expression == null) {
-                    expression = BooleanExpressionHelper.createExpression("SQL", datafilterString);
-                    expressions.setExpression(expression);
-                } else {
-                    expression.setBody(datafilterString);
-                }
-            }
-            return false;
-        }
-        // else
-        return dataFilters.add(createDomain(datafilterString));
+        return AnalysisHelper.setStringDataFilter(analysis, datafilterString);
     }
 
     public String getStringDataFilter() {
-        AnalysisParameters parameters = analysis.getParameters();
-        if (parameters == null) {
-            return null;
-        }
-        EList<Domain> dataFilters = parameters.getDataFilter();
-        // remove existing filters
-        if (dataFilters.isEmpty()) {
-            return null;
-        }
-
-        for (Domain domain : dataFilters) {
-            if (domain == null) {
-                continue;
-            }
-            EList<RangeRestriction> ranges = domain.getRanges();
-            for (RangeRestriction rangeRestriction : ranges) {
-                BooleanExpressionNode expressions = rangeRestriction.getExpressions();
-                if (expressions == null) {
-                    continue;
-                }
-                Expression expression = expressions.getExpression();
-                if (expression == null) {
-                    continue;
-                }
-                return expression.getBody();
-            }
-        }
-        return null;
-    }
-
-    private Domain createDomain(String datafilterString) {
-        // by default use same name as the analysis. This is ok as long as there is only one datafilter.
-        Domain domain = DomainHelper.createDomain(getName());
-        RangeRestriction rangeRestriction = DomainHelper.addRangeRestriction(domain);
-        BooleanExpressionNode expressionNode = BooleanExpressionHelper.createBooleanExpressionNode(datafilterString);
-        rangeRestriction.setExpressions(expressionNode);
-        return domain;
+        return AnalysisHelper.getStringDataFilter(analysis);
     }
 
     public boolean saveModifiedResources() {

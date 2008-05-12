@@ -14,14 +14,13 @@ import org.talend.dataquality.indicators.UpperQuartileIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class UpperQuartileIndicatorImpl extends MaxValueIndicatorImpl implements UpperQuartileIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected UpperQuartileIndicatorImpl() {
@@ -30,7 +29,6 @@ public class UpperQuartileIndicatorImpl extends MaxValueIndicatorImpl implements
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

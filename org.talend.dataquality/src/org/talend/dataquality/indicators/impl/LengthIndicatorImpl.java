@@ -170,4 +170,16 @@ public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndi
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#getIntegerValue()
+     * 
+     * ADDED scorreia 2008-05-12 getIntegerValue()
+     */
+    @Override
+    public BigInteger getIntegerValue() {
+        return this.getLength();
+    }
+
 } // LengthIndicatorImpl

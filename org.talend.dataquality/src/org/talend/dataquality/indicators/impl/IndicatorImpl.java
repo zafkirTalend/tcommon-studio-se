@@ -5,6 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorType;
+import org.talend.dataquality.indicators.IndicatorValueType;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -527,6 +529,44 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
             getInstantiatedExpressions().add(expression);
         }
         return true;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    public BigInteger getIntegerValue() {
+        return null;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    public BigDecimal getRealValue() {
+        return null;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    public IndicatorValueType getValueType() {
+        return IndicatorValueType.INTEGER_VALUE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getInstanceValue() {
+        // TODO: implement this method
+        // Ensure that you remove @generated or mark it @generated NOT
+        throw new UnsupportedOperationException();
     }
 
     /*

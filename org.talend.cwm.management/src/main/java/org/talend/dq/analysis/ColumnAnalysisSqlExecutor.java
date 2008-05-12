@@ -248,7 +248,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug(completedSqlString);
+            log.debug("Completed SQL expression for language " + language + ": " + completedSqlString);
         }
 
         // LIMIT clause is specific to MySQL, it is not understood by ZQL. remove it and add only at the end

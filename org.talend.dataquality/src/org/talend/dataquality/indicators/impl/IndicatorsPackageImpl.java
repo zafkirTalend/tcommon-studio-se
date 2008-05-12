@@ -44,6 +44,7 @@ import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorType;
+import org.talend.dataquality.indicators.IndicatorValueType;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.LengthIndicator;
@@ -316,6 +317,13 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     private EEnum matchingAlgorithmEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum indicatorValueTypeEEnum = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1135,6 +1143,15 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getIndicatorValueType() {
+        return indicatorValueTypeEEnum;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1304,6 +1321,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         datatypeEEnum = createEEnum(DATATYPE);
         dateGrainEEnum = createEEnum(DATE_GRAIN);
         matchingAlgorithmEEnum = createEEnum(MATCHING_ALGORITHM);
+        indicatorValueTypeEEnum = createEEnum(INDICATOR_VALUE_TYPE);
 
         // Create data types
         javaSetEDataType = createEDataType(JAVA_SET);
@@ -1411,6 +1429,14 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "setInstantiatedExpression", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, theCorePackage.getExpression(), "expression", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+        addEOperation(indicatorEClass, ecorePackage.getEBigInteger(), "getIntegerValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(indicatorEClass, ecorePackage.getEBigDecimal(), "getRealValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(indicatorEClass, this.getIndicatorValueType(), "getValueType", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(indicatorEClass, ecorePackage.getEString(), "getInstanceValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(rowCountIndicatorEClass, RowCountIndicator.class, "RowCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(meanIndicatorEClass, MeanIndicator.class, "MeanIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1513,7 +1539,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(maxLengthIndicatorEClass, MaxLengthIndicator.class, "MaxLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(averageLengthIndicatorEClass, AverageLengthIndicator.class, "AverageLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getEBigDecimal(), "sumLength", "0", 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getEBigInteger(), "sumLength", "0", 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(averageLengthIndicatorEClass, ecorePackage.getEDouble(), "getAverageLength", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1582,6 +1608,11 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.LEVENSHTEIN);
         addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.SOUNDEX);
         addEEnumLiteral(matchingAlgorithmEEnum, MatchingAlgorithm.REFINED_SOUNDEX);
+
+        initEEnum(indicatorValueTypeEEnum, IndicatorValueType.class, "IndicatorValueType");
+        addEEnumLiteral(indicatorValueTypeEEnum, IndicatorValueType.INTEGER_VALUE);
+        addEEnumLiteral(indicatorValueTypeEEnum, IndicatorValueType.REAL_VALUE);
+        addEEnumLiteral(indicatorValueTypeEEnum, IndicatorValueType.INSTANCE_VALUE);
 
         // Initialize data types
         initEDataType(javaSetEDataType, Set.class, "JavaSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Set<Object>");

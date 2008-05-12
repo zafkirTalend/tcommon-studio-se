@@ -5,6 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 
@@ -178,6 +179,18 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
         String c = String.valueOf(objects.get(0)[0]);
         this.setDistinctValueCount(Integer.valueOf(c));
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#getIntegerValue()
+     * 
+     * ADDED scorreia 2008-05-12 getIntegerValue()
+     */
+    @Override
+    public BigInteger getIntegerValue() {
+        return BigInteger.valueOf(this.getDistinctValueCount());
     }
 
 } // DistinctCountIndicatorImpl

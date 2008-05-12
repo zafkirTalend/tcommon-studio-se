@@ -1,26 +1,21 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import orgomg.cwm.objectmodel.core.Expression;
-import org.eclipse.emf.ecore.EObject;
-import org.talend.dataquality.domain.LiteralValue;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
-import orgomg.cwmx.analysis.informationreporting.ReportField;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Indicator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Indicator</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -41,12 +36,13 @@ import orgomg.cwmx.analysis.informationreporting.ReportField;
  * @generated
  */
 public interface Indicator extends ModelElement {
+
     /**
      * Returns the value of the '<em><b>Indicator Type</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Indicator Type</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Indicator Type</em>' attribute isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Indicator Type</em>' reference.
@@ -59,8 +55,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getIndicatorType <em>Indicator Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Indicator Type</em>' reference.
      * @see #getIndicatorType()
      * @generated
@@ -68,14 +63,14 @@ public interface Indicator extends ModelElement {
     void setIndicatorType(IndicatorType value);
 
     /**
-     * Returns the value of the '<em><b>Count</b></em>' attribute.
-     * The default value is <code>"0"</code>.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Count</b></em>' attribute. The default value is <code>"0"</code>. <!--
+     * begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Count</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Count</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
+     * 
      * @return the value of the '<em>Count</em>' attribute.
      * @see #setCount(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_Count()
@@ -86,8 +81,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getCount <em>Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Count</em>' attribute.
      * @see #getCount()
      * @generated
@@ -99,8 +93,8 @@ public interface Indicator extends ModelElement {
      * The default value is <code>"0"</code>.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Null Count</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Null Count</em>' attribute isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Null Count</em>' attribute.
@@ -113,8 +107,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getNullCount <em>Null Count</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Null Count</em>' attribute.
      * @see #getNullCount()
      * @generated
@@ -125,8 +118,8 @@ public interface Indicator extends ModelElement {
      * Returns the value of the '<em><b>Parameters</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Parameters</em>' containment reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Parameters</em>' containment reference isn't clear, there really should be more of
+     * a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Parameters</em>' containment reference.
@@ -139,8 +132,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getParameters <em>Parameters</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Parameters</em>' containment reference.
      * @see #getParameters()
      * @generated
@@ -151,8 +143,8 @@ public interface Indicator extends ModelElement {
      * Returns the value of the '<em><b>Analyzed Element</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Analyzed Element</em>' reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Analyzed Element</em>' reference isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Analyzed Element</em>' reference.
@@ -165,8 +157,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getAnalyzedElement <em>Analyzed Element</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Analyzed Element</em>' reference.
      * @see #getAnalyzedElement()
      * @generated
@@ -178,8 +169,8 @@ public interface Indicator extends ModelElement {
      * The literals are from the enumeration {@link org.talend.dataquality.indicators.DataminingType}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Datamining Type</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Datamining Type</em>' attribute isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Datamining Type</em>' attribute.
@@ -193,8 +184,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getDataminingType <em>Datamining Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Datamining Type</em>' attribute.
      * @see org.talend.dataquality.indicators.DataminingType
      * @see #getDataminingType()
@@ -206,8 +196,8 @@ public interface Indicator extends ModelElement {
      * Returns the value of the '<em><b>Indicator Definition</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Indicator Definition</em>' reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Indicator Definition</em>' reference isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Indicator Definition</em>' reference.
@@ -220,8 +210,7 @@ public interface Indicator extends ModelElement {
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getIndicatorDefinition <em>Indicator Definition</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Indicator Definition</em>' reference.
      * @see #getIndicatorDefinition()
      * @generated
@@ -233,8 +222,8 @@ public interface Indicator extends ModelElement {
      * The list contents are of type {@link orgomg.cwm.objectmodel.core.Expression}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Instantiated Expressions</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Instantiated Expressions</em>' containment reference list isn't clear, there
+     * really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Instantiated Expressions</em>' containment reference list.
@@ -245,90 +234,120 @@ public interface Indicator extends ModelElement {
     EList<Expression> getInstantiatedExpressions();
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @model
      * @generated
      */
     boolean handle(Object data);
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @model
      * @generated
      */
     boolean reset();
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @model kind="operation"
      * @generated
      */
     String getPurpose();
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @model kind="operation"
      * @generated
      */
     String getLongDescription();
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Prepares this indicator for a computation. This method can be used for initialization some internal state data from parameters. Or initializing some internal values before handling data. 
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Prepares this indicator for a computation.
+     * This method can be used for initialization some internal state data from parameters. Or initializing some
+     * internal values before handling data. <!-- end-model-doc -->
+     * 
      * @model
      * @generated
      */
     boolean prepare();
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * can be called after having given all objects to handle. Subclasses can use this method for doing some computation that must be done at the end only.
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> can be called after having given all
+     * objects to handle. Subclasses can use this method for doing some computation that must be done at the end only.
      * <!-- end-model-doc -->
+     * 
      * @model
      * @generated
      */
     boolean finalizeComputation();
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Stores the results of an SQL query.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Stores the results of an SQL query. <!--
+     * end-model-doc -->
+     * 
      * @model objectsDataType="org.talend.dataquality.indicators.ObjectArray"
      * @generated
      */
     boolean storeSqlResults(List<Object[]> objects);
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Returns the instantiated expression for the given language or null.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Returns the instantiated expression for
+     * the given language or null. <!-- end-model-doc -->
+     * 
      * @model
      * @generated
      */
     Expression getInstantiatedExpressions(String language);
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Sets the expression in the list of instantiated expressions. If an expression for the given language already exists, it is updated. Otherwise the expression is added to the list.
-     * <!-- end-model-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Sets the expression in the list of
+     * instantiated expressions. If an expression for the given language already exists, it is updated. Otherwise the
+     * expression is added to the list. <!-- end-model-doc -->
+     * 
      * @model
      * @generated
      */
     boolean setInstantiatedExpression(Expression expression);
+
+    /**
+     * <!-- begin-user-doc -->
+     * 
+     * Returns the integer value if the indicator is an integer valued indicator. Can return null.
+     * 
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    BigInteger getIntegerValue();
+
+    /**
+     * <!-- begin-user-doc -->
+     * 
+     * Returns the real value if the indicator is a real valued indicator. Can return null.
+     * 
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    BigDecimal getRealValue();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    IndicatorValueType getValueType();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Return the instance value of the indicator or null when not applicable.
+     * <!-- end-model-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    String getInstanceValue();
 
 } // Indicator

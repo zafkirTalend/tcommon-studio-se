@@ -18,6 +18,9 @@ import org.talend.dataquality.analysis.AnalysisFactory;
 import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.domain.RangeRestriction;
+import org.talend.dataquality.expressions.BooleanExpressionNode;
+import orgomg.cwm.objectmodel.core.Expression;
 
 /**
  * @author scorreia
@@ -83,5 +86,77 @@ public class AnalysisHelper {
             return null;
         }
         return parameters.getDataFilter();
+    }
+
+    /**
+     * Method "getStringDataFilter".
+     * 
+     * @param analysis
+     * @return the data filter as a string or null if none.
+     */
+    public static String getStringDataFilter(Analysis analysis) {
+        AnalysisParameters parameters = analysis.getParameters();
+        if (parameters == null) {
+            return null;
+        }
+        EList<Domain> dataFilters = parameters.getDataFilter();
+        // remove existing filters
+        if (dataFilters.isEmpty()) {
+            return null;
+        }
+
+        for (Domain domain : dataFilters) {
+            if (domain == null) {
+                continue;
+            }
+            EList<RangeRestriction> ranges = domain.getRanges();
+            for (RangeRestriction rangeRestriction : ranges) {
+                BooleanExpressionNode expressions = rangeRestriction.getExpressions();
+                if (expressions == null) {
+                    continue;
+                }
+                Expression expression = expressions.getExpression();
+                if (expression == null) {
+                    continue;
+                }
+                return expression.getBody();
+            }
+        }
+        return null;
+    }
+
+    public static boolean setStringDataFilter(Analysis analysis, String datafilterString) {
+        EList<Domain> dataFilters = analysis.getParameters().getDataFilter();
+        // update existing filters
+        if (!dataFilters.isEmpty()) {
+            Domain domain = dataFilters.get(0);
+            EList<RangeRestriction> ranges = domain.getRanges();
+            RangeRestriction rangeRestriction = (ranges.isEmpty()) ? DomainHelper.addRangeRestriction(domain) : ranges.get(0);
+            BooleanExpressionNode expressions = rangeRestriction.getExpressions();
+            if (expressions == null) {
+                expressions = BooleanExpressionHelper.createBooleanExpressionNode(datafilterString);
+                rangeRestriction.setExpressions(expressions);
+            } else {
+                Expression expression = expressions.getExpression();
+                if (expression == null) {
+                    expression = BooleanExpressionHelper.createExpression("SQL", datafilterString);
+                    expressions.setExpression(expression);
+                } else {
+                    expression.setBody(datafilterString);
+                }
+            }
+            return false;
+        }
+        // else
+        return dataFilters.add(createDomain(analysis, datafilterString));
+    }
+
+    private static Domain createDomain(Analysis analysis, String datafilterString) {
+        // by default use same name as the analysis. This is ok as long as there is only one datafilter.
+        Domain domain = DomainHelper.createDomain(analysis.getName());
+        RangeRestriction rangeRestriction = DomainHelper.addRangeRestriction(domain);
+        BooleanExpressionNode expressionNode = BooleanExpressionHelper.createBooleanExpressionNode(datafilterString);
+        rangeRestriction.setExpressions(expressionNode);
+        return domain;
     }
 }

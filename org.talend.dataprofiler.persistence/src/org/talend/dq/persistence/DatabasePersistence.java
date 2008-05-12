@@ -36,6 +36,7 @@ import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisResult;
+import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.definition.IndicatorCategory;
@@ -79,6 +80,7 @@ import orgomg.cwm.resource.relational.ColumnSet;
 public class DatabasePersistence {
 
     private Session session;
+
     private static SimpleDateFormat simpleDateFormat;
 
     public boolean persist(TdReport report) {
@@ -226,7 +228,8 @@ public class DatabasePersistence {
                     persistIndicatorDefinition, executionDate);
             List list = session.createCriteria(TdqCalendar.class).add(Expression.eq("calDate", executionDate)).list();
             TdqCalendar dbCalendar = (TdqCalendar) list.get(0);
-            list = session.createCriteria(TdqDayTime.class).add(Expression.eq("timeLabel",getSimpleDateString(executionDate))).list();
+            list = session.createCriteria(TdqDayTime.class).add(Expression.eq("timeLabel", getSimpleDateString(executionDate)))
+                    .list();
             TdqDayTime dbDayTime = (TdqDayTime) list.get(0);
             createTdqindicatorValue.setTdqCalendar(dbCalendar);
             createTdqindicatorValue.setTdqDayTime(dbDayTime);
@@ -240,7 +243,7 @@ public class DatabasePersistence {
     public static String getSimpleDateString(Date date) {
         GregorianCalendar paremCal = new GregorianCalendar();
         paremCal.setTime(date);
-        if(simpleDateFormat==null){
+        if (simpleDateFormat == null) {
             simpleDateFormat = new SimpleDateFormat("KK:mm");
         }
         return simpleDateFormat.format(date);
@@ -254,13 +257,30 @@ public class DatabasePersistence {
         indicatorValue.setTdqAnalyzedElement(tdqAnalyzedElement);
         indicatorValue.setTdqIndicatorDefinition(tdqIndicatorDefinition);
         // TODO SCorreia decide how to get these data and set it.
+        // TODO rli Analysis.getResults().getResultMetadata().getExecutionDuration();
         // indicatorValue.setAnDuration(anDuration);
+
+        // TODO rli call Indicator.getIntegerValue()
+        // TODO rli FrequencyIndicator.getCount(obj) for each object in FrequencyIndicator.getDistinctValues()
         // indicatorValue.setIndvIntValue(indvIntValue);
+
+        // TODO rli lower upper quartiles:
         // indicatorValue.setIndvRealValue(indvRealValue);
+
+        // TODO rli for all indicators Indicator.getCount()
         // indicatorValue.setIndvRowCount(indvRowCount);
+
+        // TODO rli Indicator.getValueType().getLiteral()
         // indicatorValue.setIndvValueTypeIndicator(indvValueTypeIndicator);
+
+        // TODO scorreia get options
         // indicatorValue.setTdqIndicatorOptions(tdqIndicatorOptions);
+
+        // TODO scorreia getbins()
         // indicatorValue.setTdqInterval(tdqInterval);
+
+        // TODO rli for each value in FrequencyIndicator.getDistinctValues()
+        // TODO rli for ModeIndicator getInstanceValue()
         // indicatorValue.setTdqValues(tdqValues);
         return indicatorValue;
 
@@ -281,7 +301,9 @@ public class DatabasePersistence {
         dbAnalysis.setAnCreationDate(analysis.getCreationDate());
         dbAnalysis.setAnBeginDate(new Date(System.currentTimeMillis()));
         dbAnalysis.setAnEndDate(SqlConstants.END_DATE);
-        dbAnalysis.setAnDataFilter("filter");// TODO How to get the filter string?
+
+        String dataFilter = AnalysisHelper.getStringDataFilter(analysis);
+        dbAnalysis.setAnDataFilter(dataFilter == null ? SqlConstants.NULL_VALUE : dataFilter);
         String anaStatus = TaggedValueHelper.getDevStatus(analysis).getLiteral();
         dbAnalysis.setAnStatus(anaStatus == null ? SqlConstants.NULL_VALUE : anaStatus);
         dbAnalysis.setAnUuid(ResourceHelper.getUUID(analysis));

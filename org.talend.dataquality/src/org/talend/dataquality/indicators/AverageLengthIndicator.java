@@ -6,6 +6,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.math.BigInteger;
 import java.math.BigDecimal;
 
 
@@ -36,12 +37,12 @@ public interface AverageLengthIndicator extends LengthIndicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Sum Length</em>' attribute.
-     * @see #setSumLength(BigDecimal)
+     * @see #setSumLength(BigInteger)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getAverageLengthIndicator_SumLength()
      * @model default="0"
      * @generated
      */
-    BigDecimal getSumLength();
+    BigInteger getSumLength();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.AverageLengthIndicator#getSumLength <em>Sum Length</em>}' attribute.
@@ -51,7 +52,7 @@ public interface AverageLengthIndicator extends LengthIndicator {
      * @see #getSumLength()
      * @generated
      */
-    void setSumLength(BigDecimal value);
+    void setSumLength(BigInteger value);
 
     /**
      * <!-- begin-user-doc -->

@@ -11,6 +11,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.talend.dataquality.indicators.Datatype;
+import org.talend.dataquality.indicators.IndicatorValueType;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.SumIndicator;
 
@@ -345,6 +346,30 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
         }
         this.sumStr = genericSum.getAsString();
         return ok;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#getRealValue()
+     * 
+     * ADDED scorreia 2008-05-12
+     */
+    @Override
+    public BigDecimal getRealValue() {
+        return new BigDecimal(this.getSumStr());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.IndicatorImpl#getValueType()
+     * 
+     * ADDED scorreia 2008-05-12
+     */
+    @Override
+    public IndicatorValueType getValueType() {
+        return IndicatorValueType.REAL_VALUE;
     }
 
 } // SumIndicatorImpl
