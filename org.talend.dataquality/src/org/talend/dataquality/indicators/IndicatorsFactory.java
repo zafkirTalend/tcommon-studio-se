@@ -89,15 +89,6 @@ public interface IndicatorsFactory extends EFactory {
     BoxIndicator createBoxIndicator();
 
     /**
-     * Returns a new object of class '<em>Indicator Type</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Indicator Type</em>'.
-     * @generated
-     */
-    IndicatorType createIndicatorType();
-
-    /**
      * Returns a new object of class '<em>Frequency Indicator</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

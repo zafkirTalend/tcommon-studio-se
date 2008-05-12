@@ -243,15 +243,6 @@ public interface IndicatorSqlPackage extends EPackage {
     int SQL_INDICATOR__DASDL_PROPERTY = IndicatorsPackage.INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SQL_INDICATOR__INDICATOR_TYPE = IndicatorsPackage.INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

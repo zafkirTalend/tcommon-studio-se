@@ -39,7 +39,6 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getIndicatorType <em>Indicator Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getCount <em>Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getNullCount <em>Null Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorImpl#getParameters <em>Parameters</em>}</li>
@@ -55,16 +54,6 @@ import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 public class IndicatorImpl extends ModelElementImpl implements Indicator {
 
     private static Logger log = Logger.getLogger(IndicatorImpl.class);
-
-    /**
-     * The cached value of the '{@link #getIndicatorType() <em>Indicator Type</em>}' reference.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * @see #getIndicatorType()
-     * @generated
-     * @ordered
-     */
-    protected IndicatorType indicatorType;
 
     /**
      * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
@@ -180,41 +169,6 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     @Override
     protected EClass eStaticClass() {
         return IndicatorsPackage.Literals.INDICATOR;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public IndicatorType getIndicatorType() {
-        if (indicatorType != null && indicatorType.eIsProxy()) {
-            InternalEObject oldIndicatorType = (InternalEObject)indicatorType;
-            indicatorType = (IndicatorType)eResolveProxy(oldIndicatorType);
-            if (indicatorType != oldIndicatorType) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IndicatorsPackage.INDICATOR__INDICATOR_TYPE, oldIndicatorType, indicatorType));
-            }
-        }
-        return indicatorType;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public IndicatorType basicGetIndicatorType() {
-        return indicatorType;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setIndicatorType(IndicatorType newIndicatorType) {
-        IndicatorType oldIndicatorType = indicatorType;
-        indicatorType = newIndicatorType;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__INDICATOR_TYPE, oldIndicatorType, indicatorType));
     }
 
     /**
@@ -637,9 +591,6 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
-                if (resolve) return getIndicatorType();
-                return basicGetIndicatorType();
             case IndicatorsPackage.INDICATOR__COUNT:
                 return getCount();
             case IndicatorsPackage.INDICATOR__NULL_COUNT:
@@ -668,9 +619,6 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
-                setIndicatorType((IndicatorType)newValue);
-                return;
             case IndicatorsPackage.INDICATOR__COUNT:
                 setCount((BigInteger)newValue);
                 return;
@@ -704,9 +652,6 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
-                setIndicatorType((IndicatorType)null);
-                return;
             case IndicatorsPackage.INDICATOR__COUNT:
                 setCount(COUNT_EDEFAULT);
                 return;
@@ -739,8 +684,6 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
-                return indicatorType != null;
             case IndicatorsPackage.INDICATOR__COUNT:
                 return COUNT_EDEFAULT == null ? count != null : !COUNT_EDEFAULT.equals(count);
             case IndicatorsPackage.INDICATOR__NULL_COUNT:

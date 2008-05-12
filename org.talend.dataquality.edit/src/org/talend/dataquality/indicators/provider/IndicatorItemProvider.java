@@ -72,7 +72,6 @@ public class IndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addIndicatorTypePropertyDescriptor(object);
             addCountPropertyDescriptor(object);
             addNullCountPropertyDescriptor(object);
             addAnalyzedElementPropertyDescriptor(object);
@@ -80,28 +79,6 @@ public class IndicatorItemProvider
             addIndicatorDefinitionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
-    }
-
-    /**
-     * This adds a property descriptor for the Indicator Type feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addIndicatorTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Indicator_indicatorType_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Indicator_indicatorType_feature", "_UI_Indicator_type"),
-                 IndicatorsPackage.Literals.INDICATOR__INDICATOR_TYPE,
-                 true,
-                 false,
-                 false,
-                 null,
-                 null,
-                 null));
     }
 
     /**
@@ -271,7 +248,6 @@ public class IndicatorItemProvider
         updateChildren(notification);
 
         switch (notification.getFeatureID(Indicator.class)) {
-            case IndicatorsPackage.INDICATOR__INDICATOR_TYPE:
             case IndicatorsPackage.INDICATOR__COUNT:
             case IndicatorsPackage.INDICATOR__NULL_COUNT:
             case IndicatorsPackage.INDICATOR__DATAMINING_TYPE:

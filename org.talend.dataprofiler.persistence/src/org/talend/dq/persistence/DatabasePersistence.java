@@ -38,6 +38,7 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.ReportHelper;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.definition.IndicatorCategory;
 import org.talend.dataquality.reports.TdReport;
@@ -341,8 +342,8 @@ public class DatabasePersistence {
         dbIndicatorDefinition.setIndCategory(indicator.getIndicatorDefinition().getCategories().get(0).getLabel());
         dbIndicatorDefinition.setIndEndDate(SqlConstants.END_DATE);
         dbIndicatorDefinition.setIndLabel(indicator.getName());
-        dbIndicatorDefinition.setIndType(indicator.getIndicatorType() == null ? SqlConstants.NULL_VALUE : indicator
-                .getIndicatorType().getName());
+        DataminingType dataminingType = indicator.getDataminingType();
+        dbIndicatorDefinition.setIndType(dataminingType == null ? SqlConstants.NULL_VALUE : dataminingType.getLiteral());
         EList<IndicatorCategory> subCategories = indicator.getIndicatorDefinition().getSubCategories();
         IndicatorCategory subCategory = subCategories.size() > 0 ? subCategories.get(0) : null;
         dbIndicatorDefinition.setIndSubcategory(subCategory == null ? SqlConstants.NULL_VALUE : subCategory.getLabel());

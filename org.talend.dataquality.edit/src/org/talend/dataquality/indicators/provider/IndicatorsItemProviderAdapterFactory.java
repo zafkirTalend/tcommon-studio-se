@@ -237,29 +237,6 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.IndicatorType} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected IndicatorTypeItemProvider indicatorTypeItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.dataquality.indicators.IndicatorType}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createIndicatorTypeAdapter() {
-        if (indicatorTypeItemProvider == null) {
-            indicatorTypeItemProvider = new IndicatorTypeItemProvider(this);
-        }
-
-        return indicatorTypeItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.FrequencyIndicator} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -848,7 +825,6 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (compositeIndicatorItemProvider != null) compositeIndicatorItemProvider.dispose();
         if (rangeIndicatorItemProvider != null) rangeIndicatorItemProvider.dispose();
         if (boxIndicatorItemProvider != null) boxIndicatorItemProvider.dispose();
-        if (indicatorTypeItemProvider != null) indicatorTypeItemProvider.dispose();
         if (frequencyIndicatorItemProvider != null) frequencyIndicatorItemProvider.dispose();
         if (blankCountIndicatorItemProvider != null) blankCountIndicatorItemProvider.dispose();
         if (indicatorParametersItemProvider != null) indicatorParametersItemProvider.dispose();

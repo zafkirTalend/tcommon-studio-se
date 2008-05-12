@@ -109,10 +109,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
                 return createBoxIndicatorAdapter();
             }
             @Override
-            public Adapter caseIndicatorType(IndicatorType object) {
-                return createIndicatorTypeAdapter();
-            }
-            @Override
             public Adapter caseFrequencyIndicator(FrequencyIndicator object) {
                 return createFrequencyIndicatorAdapter();
             }
@@ -203,14 +199,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
             @Override
             public Adapter caseModelElement(ModelElement object) {
                 return createModelElementAdapter();
-            }
-            @Override
-            public Adapter caseNamespace(Namespace object) {
-                return createNamespaceAdapter();
-            }
-            @Override
-            public Adapter caseClassifier(Classifier object) {
-                return createClassifierAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -327,20 +315,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createBoxIndicatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.dataquality.indicators.IndicatorType <em>Indicator Type</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.dataquality.indicators.IndicatorType
-     * @generated
-     */
-    public Adapter createIndicatorTypeAdapter() {
         return null;
     }
 
@@ -663,34 +637,6 @@ public class IndicatorsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createModelElementAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see orgomg.cwm.objectmodel.core.Namespace
-     * @generated
-     */
-    public Adapter createNamespaceAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see orgomg.cwm.objectmodel.core.Classifier
-     * @generated
-     */
-    public Adapter createClassifierAdapter() {
         return null;
     }
 

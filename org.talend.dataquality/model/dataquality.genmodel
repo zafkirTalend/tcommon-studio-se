@@ -141,7 +141,6 @@
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/JavaTreeMap"/>
       <genDataTypes ecoreDataType="dataquality.ecore#//indicators/ObjectArray"/>
       <genClasses image="false" ecoreClass="dataquality.ecore#//indicators/Indicator">
-        <genFeatures createChild="false" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/indicatorType"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/count"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/Indicator/nullCount"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/Indicator/parameters"/>
@@ -203,7 +202,6 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/BoxIndicator/meanIndicator"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/BoxIndicator/medianIndicator"/>
       </genClasses>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/IndicatorType"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/FrequencyIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/uniqueValues"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/distinctValueCount"/>

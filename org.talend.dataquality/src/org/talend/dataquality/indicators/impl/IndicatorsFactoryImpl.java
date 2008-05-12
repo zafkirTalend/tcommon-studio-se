@@ -73,7 +73,6 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
             case IndicatorsPackage.COMPOSITE_INDICATOR: return createCompositeIndicator();
             case IndicatorsPackage.RANGE_INDICATOR: return createRangeIndicator();
             case IndicatorsPackage.BOX_INDICATOR: return createBoxIndicator();
-            case IndicatorsPackage.INDICATOR_TYPE: return createIndicatorType();
             case IndicatorsPackage.FREQUENCY_INDICATOR: return createFrequencyIndicator();
             case IndicatorsPackage.BLANK_COUNT_INDICATOR: return createBlankCountIndicator();
             case IndicatorsPackage.INDICATOR_PARAMETERS: return createIndicatorParameters();
@@ -234,16 +233,6 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     public BoxIndicator createBoxIndicator() {
         BoxIndicatorImpl boxIndicator = new BoxIndicatorImpl();
         return boxIndicator;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public IndicatorType createIndicatorType() {
-        IndicatorTypeImpl indicatorType = new IndicatorTypeImpl();
-        return indicatorType;
     }
 
     /**

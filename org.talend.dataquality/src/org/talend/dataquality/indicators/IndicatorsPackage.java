@@ -246,22 +246,13 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR__INDICATOR_TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 0;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INDICATOR__COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 1;
+    int INDICATOR__COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -270,7 +261,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__NULL_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 2;
+    int INDICATOR__NULL_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -279,7 +270,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__PARAMETERS = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 3;
+    int INDICATOR__PARAMETERS = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -288,7 +279,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__ANALYZED_ELEMENT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 4;
+    int INDICATOR__ANALYZED_ELEMENT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
@@ -297,7 +288,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__DATAMINING_TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 5;
+    int INDICATOR__DATAMINING_TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
@@ -306,7 +297,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__INDICATOR_DEFINITION = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 6;
+    int INDICATOR__INDICATOR_DEFINITION = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
@@ -315,7 +306,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR__INSTANTIATED_EXPRESSIONS = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 7;
+    int INDICATOR__INSTANTIATED_EXPRESSIONS = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 6;
 
     /**
      * The number of structural features of the '<em>Indicator</em>' class.
@@ -324,7 +315,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INDICATOR_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 8;
+    int INDICATOR_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 7;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.RowCountIndicatorImpl <em>Row Count Indicator</em>}' class.
@@ -506,15 +497,6 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int ROW_COUNT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROW_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -780,15 +762,6 @@ public interface IndicatorsPackage extends EPackage {
     int SUM_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SUM_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1048,15 +1021,6 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int MEAN_INDICATOR__DASDL_PROPERTY = SUM_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEAN_INDICATOR__INDICATOR_TYPE = SUM_INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1330,15 +1294,6 @@ public interface IndicatorsPackage extends EPackage {
     int COMPOSITE_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPOSITE_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1599,15 +1554,6 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int RANGE_INDICATOR__DASDL_PROPERTY = COMPOSITE_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int RANGE_INDICATOR__INDICATOR_TYPE = COMPOSITE_INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1908,15 +1854,6 @@ public interface IndicatorsPackage extends EPackage {
     int BOX_INDICATOR__DASDL_PROPERTY = COMPOSITE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BOX_INDICATOR__INDICATOR_TYPE = COMPOSITE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2034,342 +1971,6 @@ public interface IndicatorsPackage extends EPackage {
     int BOX_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IndicatorTypeImpl <em>Indicator Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.impl.IndicatorTypeImpl
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorType()
-     * @generated
-     */
-    int INDICATOR_TYPE = 7;
-
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__NAME = CorePackage.CLASSIFIER__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__VISIBILITY = CorePackage.CLASSIFIER__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__CLIENT_DEPENDENCY = CorePackage.CLASSIFIER__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__SUPPLIER_DEPENDENCY = CorePackage.CLASSIFIER__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__CONSTRAINT = CorePackage.CLASSIFIER__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__NAMESPACE = CorePackage.CLASSIFIER__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__IMPORTER = CorePackage.CLASSIFIER__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__STEREOTYPE = CorePackage.CLASSIFIER__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__TAGGED_VALUE = CorePackage.CLASSIFIER__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__DOCUMENT = CorePackage.CLASSIFIER__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__DESCRIPTION = CorePackage.CLASSIFIER__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__RESPONSIBLE_PARTY = CorePackage.CLASSIFIER__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__ELEMENT_NODE = CorePackage.CLASSIFIER__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__SET = CorePackage.CLASSIFIER__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__RENDERED_OBJECT = CorePackage.CLASSIFIER__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__VOCABULARY_ELEMENT = CorePackage.CLASSIFIER__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__MEASUREMENT = CorePackage.CLASSIFIER__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__CHANGE_REQUEST = CorePackage.CLASSIFIER__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__DASDL_PROPERTY = CorePackage.CLASSIFIER__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__OWNED_ELEMENT = CorePackage.CLASSIFIER__OWNED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__IS_ABSTRACT = CorePackage.CLASSIFIER__IS_ABSTRACT;
-
-    /**
-     * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__FEATURE = CorePackage.CLASSIFIER__FEATURE;
-
-    /**
-     * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__STRUCTURAL_FEATURE = CorePackage.CLASSIFIER__STRUCTURAL_FEATURE;
-
-    /**
-     * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__PARAMETER = CorePackage.CLASSIFIER__PARAMETER;
-
-    /**
-     * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__GENERALIZATION = CorePackage.CLASSIFIER__GENERALIZATION;
-
-    /**
-     * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__SPECIALIZATION = CorePackage.CLASSIFIER__SPECIALIZATION;
-
-    /**
-     * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__INSTANCE = CorePackage.CLASSIFIER__INSTANCE;
-
-    /**
-     * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__ALIAS = CorePackage.CLASSIFIER__ALIAS;
-
-    /**
-     * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__EXPRESSION_NODE = CorePackage.CLASSIFIER__EXPRESSION_NODE;
-
-    /**
-     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__MAPPING_FROM = CorePackage.CLASSIFIER__MAPPING_FROM;
-
-    /**
-     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__MAPPING_TO = CorePackage.CLASSIFIER__MAPPING_TO;
-
-    /**
-     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__CLASSIFIER_MAP = CorePackage.CLASSIFIER__CLASSIFIER_MAP;
-
-    /**
-     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__CF_MAP = CorePackage.CLASSIFIER__CF_MAP;
-
-    /**
-     * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__DOMAIN = CorePackage.CLASSIFIER__DOMAIN;
-
-    /**
-     * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE__SIMPLE_DIMENSION = CorePackage.CLASSIFIER__SIMPLE_DIMENSION;
-
-    /**
-     * The number of structural features of the '<em>Indicator Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_TYPE_FEATURE_COUNT = CorePackage.CLASSIFIER_FEATURE_COUNT + 0;
-
-
-    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl <em>Frequency Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2377,7 +1978,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getFrequencyIndicator()
      * @generated
      */
-    int FREQUENCY_INDICATOR = 8;
+    int FREQUENCY_INDICATOR = 7;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2551,15 +2152,6 @@ public interface IndicatorsPackage extends EPackage {
     int FREQUENCY_INDICATOR__DASDL_PROPERTY = COMPOSITE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__INDICATOR_TYPE = COMPOSITE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2729,7 +2321,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextIndicator()
      * @generated
      */
-    int TEXT_INDICATOR = 21;
+    int TEXT_INDICATOR = 20;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2903,15 +2495,6 @@ public interface IndicatorsPackage extends EPackage {
     int TEXT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2991,7 +2574,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getBlankCountIndicator()
      * @generated
      */
-    int BLANK_COUNT_INDICATOR = 9;
+    int BLANK_COUNT_INDICATOR = 8;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3165,15 +2748,6 @@ public interface IndicatorsPackage extends EPackage {
     int BLANK_COUNT_INDICATOR__DASDL_PROPERTY = TEXT_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BLANK_COUNT_INDICATOR__INDICATOR_TYPE = TEXT_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3262,7 +2836,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorParameters()
      * @generated
      */
-    int INDICATOR_PARAMETERS = 10;
+    int INDICATOR_PARAMETERS = 9;
 
     /**
      * The feature id for the '<em><b>Indicator Valid Domain</b></em>' containment reference.
@@ -3326,7 +2900,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMedianIndicator()
      * @generated
      */
-    int MEDIAN_INDICATOR = 11;
+    int MEDIAN_INDICATOR = 10;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3500,15 +3074,6 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MEDIAN_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3606,7 +3171,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getValueIndicator()
      * @generated
      */
-    int VALUE_INDICATOR = 12;
+    int VALUE_INDICATOR = 11;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3780,15 +3345,6 @@ public interface IndicatorsPackage extends EPackage {
     int VALUE_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int VALUE_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3886,7 +3442,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinValueIndicator()
      * @generated
      */
-    int MIN_VALUE_INDICATOR = 13;
+    int MIN_VALUE_INDICATOR = 12;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4060,15 +3616,6 @@ public interface IndicatorsPackage extends EPackage {
     int MIN_VALUE_INDICATOR__DASDL_PROPERTY = VALUE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MIN_VALUE_INDICATOR__INDICATOR_TYPE = VALUE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4166,7 +3713,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxValueIndicator()
      * @generated
      */
-    int MAX_VALUE_INDICATOR = 14;
+    int MAX_VALUE_INDICATOR = 13;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4340,15 +3887,6 @@ public interface IndicatorsPackage extends EPackage {
     int MAX_VALUE_INDICATOR__DASDL_PROPERTY = VALUE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MAX_VALUE_INDICATOR__INDICATOR_TYPE = VALUE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4446,7 +3984,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getModeIndicator()
      * @generated
      */
-    int MODE_INDICATOR = 15;
+    int MODE_INDICATOR = 14;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4620,15 +4158,6 @@ public interface IndicatorsPackage extends EPackage {
     int MODE_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MODE_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4717,7 +4246,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getNullCountIndicator()
      * @generated
      */
-    int NULL_COUNT_INDICATOR = 16;
+    int NULL_COUNT_INDICATOR = 15;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4891,15 +4420,6 @@ public interface IndicatorsPackage extends EPackage {
     int NULL_COUNT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NULL_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4979,7 +4499,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDistinctCountIndicator()
      * @generated
      */
-    int DISTINCT_COUNT_INDICATOR = 17;
+    int DISTINCT_COUNT_INDICATOR = 16;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5153,15 +4673,6 @@ public interface IndicatorsPackage extends EPackage {
     int DISTINCT_COUNT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DISTINCT_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5250,7 +4761,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getUniqueCountIndicator()
      * @generated
      */
-    int UNIQUE_COUNT_INDICATOR = 18;
+    int UNIQUE_COUNT_INDICATOR = 17;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5424,15 +4935,6 @@ public interface IndicatorsPackage extends EPackage {
     int UNIQUE_COUNT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int UNIQUE_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5521,7 +5023,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDuplicateCountIndicator()
      * @generated
      */
-    int DUPLICATE_COUNT_INDICATOR = 19;
+    int DUPLICATE_COUNT_INDICATOR = 18;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5695,15 +5197,6 @@ public interface IndicatorsPackage extends EPackage {
     int DUPLICATE_COUNT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DUPLICATE_COUNT_INDICATOR__INDICATOR_TYPE = INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5792,7 +5285,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIQRIndicator()
      * @generated
      */
-    int IQR_INDICATOR = 20;
+    int IQR_INDICATOR = 19;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5966,15 +5459,6 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR__DASDL_PROPERTY = RANGE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IQR_INDICATOR__INDICATOR_TYPE = RANGE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6099,7 +5583,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getLengthIndicator()
      * @generated
      */
-    int LENGTH_INDICATOR = 25;
+    int LENGTH_INDICATOR = 24;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6273,15 +5757,6 @@ public interface IndicatorsPackage extends EPackage {
     int LENGTH_INDICATOR__DASDL_PROPERTY = TEXT_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LENGTH_INDICATOR__INDICATOR_TYPE = TEXT_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6370,7 +5845,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMinLengthIndicator()
      * @generated
      */
-    int MIN_LENGTH_INDICATOR = 22;
+    int MIN_LENGTH_INDICATOR = 21;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6544,15 +6019,6 @@ public interface IndicatorsPackage extends EPackage {
     int MIN_LENGTH_INDICATOR__DASDL_PROPERTY = LENGTH_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MIN_LENGTH_INDICATOR__INDICATOR_TYPE = LENGTH_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6641,7 +6107,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMaxLengthIndicator()
      * @generated
      */
-    int MAX_LENGTH_INDICATOR = 23;
+    int MAX_LENGTH_INDICATOR = 22;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6815,15 +6281,6 @@ public interface IndicatorsPackage extends EPackage {
     int MAX_LENGTH_INDICATOR__DASDL_PROPERTY = LENGTH_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MAX_LENGTH_INDICATOR__INDICATOR_TYPE = LENGTH_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6912,7 +6369,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getAverageLengthIndicator()
      * @generated
      */
-    int AVERAGE_LENGTH_INDICATOR = 24;
+    int AVERAGE_LENGTH_INDICATOR = 23;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7086,15 +6543,6 @@ public interface IndicatorsPackage extends EPackage {
     int AVERAGE_LENGTH_INDICATOR__DASDL_PROPERTY = LENGTH_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int AVERAGE_LENGTH_INDICATOR__INDICATOR_TYPE = LENGTH_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7192,7 +6640,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getTextParameters()
      * @generated
      */
-    int TEXT_PARAMETERS = 26;
+    int TEXT_PARAMETERS = 25;
 
     /**
      * The feature id for the '<em><b>Use Blank</b></em>' attribute.
@@ -7247,7 +6695,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getLowerQuartileIndicator()
      * @generated
      */
-    int LOWER_QUARTILE_INDICATOR = 27;
+    int LOWER_QUARTILE_INDICATOR = 26;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7421,15 +6869,6 @@ public interface IndicatorsPackage extends EPackage {
     int LOWER_QUARTILE_INDICATOR__DASDL_PROPERTY = MIN_VALUE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LOWER_QUARTILE_INDICATOR__INDICATOR_TYPE = MIN_VALUE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7527,7 +6966,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getUpperQuartileIndicator()
      * @generated
      */
-    int UPPER_QUARTILE_INDICATOR = 28;
+    int UPPER_QUARTILE_INDICATOR = 27;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7701,15 +7140,6 @@ public interface IndicatorsPackage extends EPackage {
     int UPPER_QUARTILE_INDICATOR__DASDL_PROPERTY = MAX_VALUE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int UPPER_QUARTILE_INDICATOR__INDICATOR_TYPE = MAX_VALUE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7807,7 +7237,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 29;
+    int ENUM_STATISTICS = 28;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -7817,7 +7247,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 30;
+    int DATAMINING_TYPE = 29;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
@@ -7827,7 +7257,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
      * @generated
      */
-    int DATATYPE = 31;
+    int DATATYPE = 30;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
@@ -7837,7 +7267,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
      * @generated
      */
-    int DATE_GRAIN = 32;
+    int DATE_GRAIN = 31;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
@@ -7847,7 +7277,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
      * @generated
      */
-    int MATCHING_ALGORITHM = 33;
+    int MATCHING_ALGORITHM = 32;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}' enum.
@@ -7857,7 +7287,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorValueType()
      * @generated
      */
-    int INDICATOR_VALUE_TYPE = 34;
+    int INDICATOR_VALUE_TYPE = 33;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -7867,7 +7297,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 35;
+    int JAVA_SET = 34;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -7877,7 +7307,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 36;
+    int JAVA_HASH_MAP = 35;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -7887,7 +7317,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 37;
+    int JAVA_TREE_MAP = 36;
 
     /**
      * The meta object id for the '<em>Object Array</em>' data type.
@@ -7896,7 +7326,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getObjectArray()
      * @generated
      */
-    int OBJECT_ARRAY = 38;
+    int OBJECT_ARRAY = 37;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -7907,17 +7337,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EClass getIndicator();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.Indicator#getIndicatorType <em>Indicator Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Indicator Type</em>'.
-     * @see org.talend.dataquality.indicators.Indicator#getIndicatorType()
-     * @see #getIndicator()
-     * @generated
-     */
-    EReference getIndicator_IndicatorType();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.Indicator#getCount <em>Count</em>}'.
@@ -8176,16 +7595,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EReference getBoxIndicator_MedianIndicator();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.dataquality.indicators.IndicatorType <em>Indicator Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Indicator Type</em>'.
-     * @see org.talend.dataquality.indicators.IndicatorType
-     * @generated
-     */
-    EClass getIndicatorType();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.FrequencyIndicator <em>Frequency Indicator</em>}'.
@@ -8852,14 +8261,6 @@ public interface IndicatorsPackage extends EPackage {
         EClass INDICATOR = eINSTANCE.getIndicator();
 
         /**
-         * The meta object literal for the '<em><b>Indicator Type</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference INDICATOR__INDICATOR_TYPE = eINSTANCE.getIndicator_IndicatorType();
-
-        /**
          * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -9062,16 +8463,6 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EReference BOX_INDICATOR__MEDIAN_INDICATOR = eINSTANCE.getBoxIndicator_MedianIndicator();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.IndicatorTypeImpl <em>Indicator Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.impl.IndicatorTypeImpl
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorType()
-         * @generated
-         */
-        EClass INDICATOR_TYPE = eINSTANCE.getIndicatorType();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.FrequencyIndicatorImpl <em>Frequency Indicator</em>}' class.

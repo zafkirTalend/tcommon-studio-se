@@ -158,12 +158,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private EClass indicatorTypeEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     private EClass frequencyIndicatorEClass = null;
 
     /**
@@ -492,16 +486,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getIndicator_IndicatorType() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getIndicator_Count() {
-        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -509,7 +495,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     public EAttribute getIndicator_NullCount() {
-        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -517,7 +503,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     public EReference getIndicator_Parameters() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(3);
+        return (EReference)indicatorEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -525,7 +511,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     public EReference getIndicator_AnalyzedElement() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(4);
+        return (EReference)indicatorEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -533,7 +519,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     public EAttribute getIndicator_DataminingType() {
-        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)indicatorEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -541,7 +527,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     public EReference getIndicator_IndicatorDefinition() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(6);
+        return (EReference)indicatorEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -550,7 +536,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     public EReference getIndicator_InstantiatedExpressions() {
-        return (EReference)indicatorEClass.getEStructuralFeatures().get(7);
+        return (EReference)indicatorEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -687,14 +673,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      */
     public EReference getBoxIndicator_MedianIndicator() {
         return (EReference)boxIndicatorEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getIndicatorType() {
-        return indicatorTypeEClass;
     }
 
     /**
@@ -1210,7 +1188,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         // Create classes and their features
         indicatorEClass = createEClass(INDICATOR);
-        createEReference(indicatorEClass, INDICATOR__INDICATOR_TYPE);
         createEAttribute(indicatorEClass, INDICATOR__COUNT);
         createEAttribute(indicatorEClass, INDICATOR__NULL_COUNT);
         createEReference(indicatorEClass, INDICATOR__PARAMETERS);
@@ -1241,8 +1218,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         createEReference(boxIndicatorEClass, BOX_INDICATOR__RANGE_INDICATOR);
         createEReference(boxIndicatorEClass, BOX_INDICATOR__MEAN_INDICATOR);
         createEReference(boxIndicatorEClass, BOX_INDICATOR__MEDIAN_INDICATOR);
-
-        indicatorTypeEClass = createEClass(INDICATOR_TYPE);
 
         frequencyIndicatorEClass = createEClass(FREQUENCY_INDICATOR);
         createEAttribute(frequencyIndicatorEClass, FREQUENCY_INDICATOR__UNIQUE_VALUES);
@@ -1375,7 +1350,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         compositeIndicatorEClass.getESuperTypes().add(this.getIndicator());
         rangeIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
         boxIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
-        indicatorTypeEClass.getESuperTypes().add(theCorePackage.getClassifier());
         frequencyIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
         blankCountIndicatorEClass.getESuperTypes().add(this.getTextIndicator());
         medianIndicatorEClass.getESuperTypes().add(this.getIndicator());
@@ -1398,7 +1372,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         // Initialize classes and features; add operations and parameters
         initEClass(indicatorEClass, Indicator.class, "Indicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getIndicator_IndicatorType(), this.getIndicatorType(), null, "indicatorType", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIndicator_Count(), ecorePackage.getEBigInteger(), "count", "0", 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIndicator_NullCount(), ecorePackage.getEBigInteger(), "nullCount", "0", 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicator_Parameters(), this.getIndicatorParameters(), null, "parameters", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1464,8 +1437,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEReference(getBoxIndicator_RangeIndicator(), this.getRangeIndicator(), null, "rangeIndicator", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getBoxIndicator_MeanIndicator(), this.getMeanIndicator(), null, "meanIndicator", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getBoxIndicator_MedianIndicator(), this.getMedianIndicator(), null, "medianIndicator", null, 0, 1, BoxIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(indicatorTypeEClass, IndicatorType.class, "IndicatorType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(frequencyIndicatorEClass, FrequencyIndicator.class, "FrequencyIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFrequencyIndicator_UniqueValues(), ecorePackage.getEJavaObject(), "uniqueValues", null, 0, -1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -243,15 +243,6 @@ public interface SchemaPackage extends EPackage {
     int SCHEMA_INDICATOR__DASDL_PROPERTY = IndicatorsPackage.COMPOSITE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SCHEMA_INDICATOR__INDICATOR_TYPE = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -569,15 +560,6 @@ public interface SchemaPackage extends EPackage {
     int TABLE_INDICATOR__DASDL_PROPERTY = IndicatorsPackage.COMPOSITE_INDICATOR__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TABLE_INDICATOR__INDICATOR_TYPE = IndicatorsPackage.COMPOSITE_INDICATOR__INDICATOR_TYPE;
-
-    /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -847,15 +829,6 @@ public interface SchemaPackage extends EPackage {
      * @ordered
      */
     int CONNECTION_INDICATOR__DASDL_PROPERTY = SCHEMA_INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Indicator Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONNECTION_INDICATOR__INDICATOR_TYPE = SCHEMA_INDICATOR__INDICATOR_TYPE;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.

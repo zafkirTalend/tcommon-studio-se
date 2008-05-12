@@ -27,8 +27,8 @@
   <indicatorDefinitions xmi:id="_ccHq0xF2Ed2PKb6nEJEvhw" name="Blank Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Blank Count">
     <taggedValue tag="Description" value="counts the number of blank instances. A blank is a non null textual data that contains only white spaces (or nothing)"/>
     <taggedValue tag="Purpose" value="evaluate the number of blank data"/>
-    <sqlGenericExpression body="SELECT COUNT({0}) FROM my_test  WHERE TRIM({0}) = ''" language="SQL"/>
-    <sqlGenericExpression body="SELECT COUNT({0}) FROM my_test  WHERE TRIM({0}) = ''" language="MySQL"/>
+    <sqlGenericExpression body="SELECT COUNT({0}) FROM {1}  WHERE TRIM({0}) = ''" language="SQL"/>
+    <sqlGenericExpression body="SELECT COUNT({0}) FROM {1}  WHERE TRIM({0}) = ''" language="MySQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccHq1BF2Ed2PKb6nEJEvhw" name="Minimal Length" categories="_ccKHERF2Ed2PKb6nEJEvhw" label="Minimal Length">
     <taggedValue tag="Description" value="computes the minimal length of a text field. Parameters can be set to avoid counting blank data or null data."/>
