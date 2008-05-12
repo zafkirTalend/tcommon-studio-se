@@ -706,11 +706,9 @@ public abstract class AbstractNode implements INode {
      * @see org.talend.core.model.process.INode#isELTComponent()
      */
     public boolean isELTComponent() {
-        try {
+        if (getComponent() != null) {
             return getComponent().getFamily().startsWith("ELT");
-        } catch (NullPointerException npe) {
-            // temporary fix Null pointer exception for tMap component
-            return false;
         }
+        return false;
     }
 }
