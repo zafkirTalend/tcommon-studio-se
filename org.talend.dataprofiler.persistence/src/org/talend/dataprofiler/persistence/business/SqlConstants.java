@@ -23,6 +23,8 @@ import java.util.GregorianCalendar;
  */
 public class SqlConstants {
 
+    private static final Calendar GREGORIAN_CAL = new GregorianCalendar();
+
     /**
      * Character to use as database values for boolean field.
      */
@@ -51,14 +53,14 @@ public class SqlConstants {
     public static final Integer DEFAULT_INT = null;
 
     /**
-     * The value to set when the indicator has no value to set.
+     * The value to set when the indicator has no value to set (not applicable).
      */
-    public static final String NO_MEANING_VALUE = "--- DEFAULT VALUE FOR NOT APPLICABLE CONTEXT ---";
+    public static final String NOT_APPLICABLE_VALUE = "N/A TALEND";
 
     /**
-     * The value to set when the data is null.
+     * The value to set when the data is null (missing).
      */
-    public static final String NULL_VALUE = "#### TALEND NULL VALUE ####";
+    public static final String NULL_VALUE = "NULL TALEND";
 
     public static final String DEFAULT_SUBCATEGORY = "None";
 
@@ -68,8 +70,8 @@ public class SqlConstants {
      * @return 01/01/3000 0h00:00
      */
     private static Date getDefaultEndDate() {
-        Calendar cal = new GregorianCalendar();
-        cal.set(3000, 01, 01, 0, 0, 0);
-        return cal.getTime();
+        GREGORIAN_CAL.set(2035, GregorianCalendar.DECEMBER, 31, 0, 0, 0);
+        return GREGORIAN_CAL.getTime();
     }
+
 }
