@@ -14,6 +14,8 @@ package org.talend.core.model.general;
 
 import java.util.List;
 
+import org.talend.core.model.utils.TalendTextUtils;
+
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
  * 
@@ -140,6 +142,9 @@ public class ModuleNeeded {
     }
 
     public String getModuleName() {
+        if (moduleName != null) {
+            return moduleName.replaceAll(TalendTextUtils.QUOTATION_MARK, "").replaceAll(TalendTextUtils.SINGLE_QUOTE, "");
+        }
         return this.moduleName;
     }
 
