@@ -115,8 +115,7 @@ public class TalendDate {
      */
     public synchronized static Date parseDateLocale(String pattern, String stringDate, String languageOrCountyCode) {
         try {
-            return FastDateParser.getInstance(pattern, LocaleProvider.getLocale(languageOrCountyCode))
-                    .parse(stringDate);
+            return FastDateParser.getInstance(pattern, LocaleProvider.getLocale(languageOrCountyCode)).parse(stringDate);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -193,15 +192,19 @@ public class TalendDate {
         int maxMonth = Integer.parseInt(maxDate.substring(5, 7));
         int maxDay = Integer.parseInt(maxDate.substring(8, 10));
 
-        int yy = minYear + (int) ((maxYear - minYear + 1) * Math.random());
-        int mm = minMonth + (int) ((maxMonth - minMonth + 1) * Math.random());
-        int dd = minDay + (int) ((maxDay - minDay + 1) * Math.random());
+        Calendar minCal = Calendar.getInstance();
+        minCal.set(Calendar.YEAR, minYear);
+        minCal.set(Calendar.MONTH, minMonth - 1);
+        minCal.set(Calendar.DAY_OF_MONTH, minDay);
 
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, yy);
-        cal.set(Calendar.MONTH, mm - 1);
-        cal.set(Calendar.DAY_OF_MONTH, dd);
-        return cal.getTime();
+        Calendar maxCal = Calendar.getInstance();
+        maxCal.set(Calendar.YEAR, maxYear);
+        maxCal.set(Calendar.MONTH, maxMonth - 1);
+        maxCal.set(Calendar.DAY_OF_MONTH, maxDay);
+
+        long random = minCal.getTimeInMillis()
+                + (long) ((maxCal.getTimeInMillis() - minCal.getTimeInMillis() + 1) * Math.random());
+        return new Date(random);
     }
 
     /**
@@ -224,8 +227,8 @@ public class TalendDate {
                     String date = TalendDate.formatDate("yyyy-MM-dd MMM HH:mm", dateCalendar);
                     // System.out.println("Test1:" + date + " # " + dateTimeRef_Test1);
                     if (!dateTimeRef_Test1.equals(date)) {
-                        throw new IllegalStateException("Test1: Date ref : '" + dateTimeRef_Test1
-                                + "' is different of '" + date + "'");
+                        throw new IllegalStateException("Test1: Date ref : '" + dateTimeRef_Test1 + "' is different of '" + date
+                                + "'");
                     }
                 }
                 System.out.println("test1 ok");
@@ -243,8 +246,8 @@ public class TalendDate {
                     String date = TalendDate.formatDate("yyyy-MM-dd MMM HH:mm", dateCalendar);
                     // System.out.println("Test2:" + date + " # " + dateTimeRef_Test2);
                     if (!dateTimeRef_Test2.equals(date)) {
-                        throw new IllegalStateException("Test2: Date ref : '" + dateTimeRef_Test2
-                                + "' is different of '" + date + "'");
+                        throw new IllegalStateException("Test2: Date ref : '" + dateTimeRef_Test2 + "' is different of '" + date
+                                + "'");
                     }
                 }
                 System.out.println("test2 ok");
@@ -263,8 +266,8 @@ public class TalendDate {
                     String date = TalendDate.formatDateLocale("yyyy-MM-dd MMM HH:mm", dateCalendar, "FR");
                     // System.out.println("Test3:" + date + " # " + dateTimeRef_Test3);
                     if (!dateTimeRef_Test3.equals(date)) {
-                        throw new IllegalStateException("Test3: Date ref : '" + dateTimeRef_Test3
-                                + "' is different of '" + date + "'");
+                        throw new IllegalStateException("Test3: Date ref : '" + dateTimeRef_Test3 + "' is different of '" + date
+                                + "'");
                     }
                 }
                 System.out.println("test3 ok");
@@ -282,8 +285,8 @@ public class TalendDate {
                     String date = TalendDate.formatDateLocale("yyyy-MM-dd MMM HH:mm", dateCalendar, "EN");
                     // System.out.println("Test4:" + date + " # " + dateTimeRef_Test4);
                     if (!dateTimeRef_Test4.equals(date)) {
-                        throw new IllegalStateException("Test4: Date ref : '" + dateTimeRef_Test4
-                                + "' is different of '" + date + "'");
+                        throw new IllegalStateException("Test4: Date ref : '" + dateTimeRef_Test4 + "' is different of '" + date
+                                + "'");
                     }
                 }
                 System.out.println("test4 ok");
@@ -302,8 +305,8 @@ public class TalendDate {
                     String date = TalendDate.formatDate("yyyy-MM-dd", dateCalendar);
                     // System.out.println("Test5:" + date + " # " + dateTimeRef_Test5);
                     if (!dateTimeRef_Test5.equals(date)) {
-                        throw new IllegalStateException("Test5: Date ref : '" + dateTimeRef_Test5
-                                + "' is different of '" + date + "'");
+                        throw new IllegalStateException("Test5: Date ref : '" + dateTimeRef_Test5 + "' is different of '" + date
+                                + "'");
                     }
 
                 }
