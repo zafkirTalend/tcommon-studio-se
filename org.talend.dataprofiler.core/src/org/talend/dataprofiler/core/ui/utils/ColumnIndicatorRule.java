@@ -14,6 +14,7 @@ package org.talend.dataprofiler.core.ui.utils;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
+import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.utils.sql.Java2SqlType;
@@ -28,15 +29,23 @@ import org.talend.utils.sql.Java2SqlType;
  */
 public class ColumnIndicatorRule {
 
-    public static boolean match(IndicatorEnum indicatorType, ColumnIndicator columnIndicator) {
+    public static boolean match(IIndicatorNode node, ColumnIndicator columnIndicator) {
         
+        IndicatorEnum indicatorType = node.getIndicatorEnum();
         TdColumn column = columnIndicator.getTdColumn();
         int javaType = column.getJavaType();
         
         DataminingType dataminingType = columnIndicator.getDataminingType();
         
         if (indicatorType == null) {
-            return true;
+            
+            for (IIndicatorNode one : node.getChildren()) {
+                if (match(one, columnIndicator)) {
+                    return true;
+                }
+            }
+            
+            return false;
         }
         
         switch (indicatorType) {

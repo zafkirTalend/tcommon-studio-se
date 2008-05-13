@@ -165,7 +165,7 @@ public class IndicatorSelectDialog extends Dialog {
                 final int index = j;
                 final ColumnIndicator currentColumnIndicator = (ColumnIndicator) treeColumns[j].getData();
                 final IndicatorEnum indicatorEnum = branchNodes[i].getIndicatorEnum();
-                checkButton.setEnabled(ColumnIndicatorRule.match(indicatorEnum, currentColumnIndicator));
+                checkButton.setEnabled(ColumnIndicatorRule.match(branchNodes[i], currentColumnIndicator));
                 checkButton.addSelectionListener(new SelectionAdapter() {
 
                     /*
