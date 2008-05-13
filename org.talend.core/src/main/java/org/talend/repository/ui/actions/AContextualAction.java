@@ -14,15 +14,28 @@ package org.talend.repository.ui.actions;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.ISaveablePart2;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.views.properties.PropertySheet;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -198,7 +211,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                 return (IRepositoryView) workbenchPart;
             }
         }
-        IViewPart viewPart = (IViewPart) getActivePage().findView(IRepositoryView.VIEW_ID);
+        IViewPart viewPart = getActivePage().findView(IRepositoryView.VIEW_ID);
         return (IRepositoryView) viewPart;
     }
 
@@ -301,4 +314,60 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
         return isUnderUserDefined(node.getParent());
     }
+
+    /**
+     * Display a "Save job" prompt dialog if the job eidtor of the selectedNode is unsaved.
+     */
+    protected void promptForSavingIfNecessary(RepositoryNode selectedNode) {
+        try {
+            IEditorReference[] references = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                    .getEditorReferences();
+            if (references == null || references.length == 0) {
+                return;
+            }
+
+            String label = selectedNode.getObject().getProperty().getLabel();
+
+            for (int i = 0; i < references.length; i++) {
+                IEditorPart part = references[i].getEditor(false);
+                // find unsaved dialog
+                if (part == null || part.isDirty() == false) {
+                    continue;
+                }
+
+                IEditorInput input = part.getEditorInput();
+
+                if (label.equals(input.getName())) {
+                    // we have found an unsaved editor that matches the selected repository node
+                    if (promptForSavingDialog(part) == ISaveablePart2.YES) {
+                        part.doSave(new NullProgressMonitor());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    /**
+     * Display a prompt dialog to ask the user if we should save the job before duplicating.
+     * 
+     * @param part
+     * @return
+     */
+    @SuppressWarnings("restriction")
+    protected int promptForSavingDialog(IEditorPart part) {
+        String[] buttons = new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL };
+        String message = NLS.bind(WorkbenchMessages.EditorManager_saveChangesQuestion, part.getTitle());
+        Dialog dialog = new MessageDialog(Display.getCurrent().getActiveShell(), WorkbenchMessages.Save_Resource, null, message,
+                MessageDialog.QUESTION, buttons, 0) {
+
+            @Override
+            protected int getShellStyle() {
+                return SWT.NONE | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | getDefaultOrientation();
+            }
+        };
+        return dialog.open();
+    }
+
 }
