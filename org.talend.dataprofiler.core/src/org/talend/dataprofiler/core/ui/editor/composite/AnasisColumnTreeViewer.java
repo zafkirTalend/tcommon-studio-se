@@ -131,6 +131,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             final ColumnIndicator columnIndicator = (ColumnIndicator) columnIndicators[i];
 
+            treeItem.setImage(ImageLib.getImage(ImageLib.TD_COLUMN));
             treeItem.setText(0, columnIndicator.getTdColumn().getName());
             treeItem.setData(columnIndicator);
 

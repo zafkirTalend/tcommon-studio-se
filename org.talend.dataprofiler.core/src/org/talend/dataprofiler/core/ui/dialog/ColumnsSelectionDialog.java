@@ -418,7 +418,7 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
          * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
          */
         public Image getImage(Object element) {
-            return ImageLib.getImage(ImageLib.REFRESH_IMAGE);
+            return ImageLib.getImage(ImageLib.TD_COLUMN);
         }
 
         /*

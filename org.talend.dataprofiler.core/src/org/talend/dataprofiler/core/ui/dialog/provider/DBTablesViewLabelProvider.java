@@ -66,6 +66,8 @@ public class DBTablesViewLabelProvider extends AdapterFactoryLabelProvider {
             return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
         } else if (element instanceof IFolderNode) {
             return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
+        } else if (element instanceof IFile) {
+            return ImageLib.getImage(ImageLib.TD_DATAPROVIDER);
         }
         return super.getImage(element);
     }
