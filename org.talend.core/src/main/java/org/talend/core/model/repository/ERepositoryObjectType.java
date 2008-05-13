@@ -62,7 +62,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
-    METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
+    METADATA_CON_CDC("repository.CDC"), //$NON-NLS-1$
 
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
