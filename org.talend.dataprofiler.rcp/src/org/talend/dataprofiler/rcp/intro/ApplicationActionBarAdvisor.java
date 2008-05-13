@@ -12,14 +12,11 @@
 // ============================================================================
 package org.talend.dataprofiler.rcp.intro;
 
-import java.awt.Menu;
-import java.awt.MenuItem;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jface.action.GroupMarker;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
