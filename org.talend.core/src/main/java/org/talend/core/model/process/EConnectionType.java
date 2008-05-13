@@ -74,7 +74,7 @@ public enum EConnectionType implements IConnectionCategory {
 
     ITERATE(7, "ITERATE", //$NON-NLS-1$
             EConnectionCategory.MAIN,
-            MAIN | USE_ITERATE,
+            MAIN | USE_ITERATE | UNIQUE_NAME | CUSTOM_NAME,
             "Iterate", Messages.getString("EConnectionType.iteratorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
             new Integer(Graphics.LINE_SOLID),
             new RGB(100, 230, 0)),
@@ -186,6 +186,7 @@ public enum EConnectionType implements IConnectionCategory {
      * @return the category
      * @deprecated
      */
+    @Deprecated
     public EConnectionCategory getCategory() {
         return this.category;
     }
