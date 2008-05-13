@@ -91,9 +91,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     private Text purposeText;
 
     private Text descriptionText;
-    
+
     private Text authorText;
-    
+
     private CCombo statusCombo;
 
     private AnasisColumnTreeViewer treeViewer;
@@ -107,9 +107,9 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     private boolean isDirty = false;
 
     private String stringDataFilter;
-    
+
     private final FormToolkit toolkit;
-    
+
     private static final int TREE_MAX_LENGTH = 500;
 
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
@@ -174,8 +174,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     }
 
     private void createAnalysisMetadataSection(final ScrolledForm form, Composite anasisDataComp) {
-        Section section = createSection(form, anasisDataComp, "Analysis metadata", false,
-                "Set the properties of analysis.");
+        Section section = createSection(form, anasisDataComp, "Analysis metadata", false, "Set the properties of analysis.");
         Composite labelButtonClient = toolkit.createComposite(section);
 
         labelButtonClient.setLayout(new GridLayout(2, false));
@@ -198,12 +197,12 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
                 .getDescription());
-        
+
         label = toolkit.createLabel(labelButtonClient, "Analysis Author:");
         authorText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(authorText);
         authorText.setText(analysisHandler.getAuthor() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getAuthor());
-        
+
         label = toolkit.createLabel(labelButtonClient, "Analysis Status:");
         statusCombo = new CCombo(labelButtonClient, SWT.BORDER);
         statusCombo.setText(analysisHandler.getStatus() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getStatus());
@@ -212,8 +211,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
 
             statusCombo.add(status.getLiteral());
         }
-        
-        
+
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -238,7 +236,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             }
 
         });
-        
+
         authorText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -246,7 +244,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 analysisHandler.setAuthor(authorText.getText());
             }
         });
-        
+
         statusCombo.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -255,7 +253,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             }
 
         });
-        
+
         section.setClient(labelButtonClient);
     }
 
@@ -319,50 +317,50 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout());
         sectionClient.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         ImageHyperlink refreshBtn = toolkit.createImageHyperlink(sectionClient, SWT.NONE);
         refreshBtn.setText("Refresh the preview");
         refreshBtn.setImage(ImageLib.getImage(ImageLib.SECTION_PREVIEW));
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(sectionClient);
-        
-        final Composite composite  = toolkit.createComposite(sectionClient);
+
+        final Composite composite = toolkit.createComposite(sectionClient);
         composite.setLayout(new GridLayout());
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         final Analysis analysis = analysisHandler.getAnalysis();
-        
+
         refreshBtn.addHyperlinkListener(new HyperlinkAdapter() {
 
             public void linkActivated(HyperlinkEvent e) {
-                
+
                 for (Control control : composite.getChildren()) {
                     control.dispose();
                 }
-                
-                if (analysis.getResults().getResultMetadata() != null 
+
+                if (analysis.getResults().getResultMetadata() != null
                         && analysis.getResults().getResultMetadata().getExecutionDate() != null) {
 
-                   //createRealChart
+                    // createRealChart
                     createPreviewCharts(form, composite, true);
                 } else {
-                    
-                  //createEmptyChart
+
+                    // createEmptyChart
                     createPreviewCharts(form, composite, false);
                 }
-                
+
                 composite.layout();
                 form.reflow(true);
             }
 
         });
-        
+
         section.setClient(sectionClient);
     }
-    
+
     private void createPreviewCharts(final ScrolledForm form, final Composite composite, final boolean isCreate) {
 
         ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
-        
+
         for (final ColumnIndicator column : columnIndicator) {
 
             ExpandableComposite exComp = toolkit.createExpandableComposite(composite, ExpandableComposite.TREE_NODE
@@ -373,31 +371,31 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
             final Composite comp = toolkit.createComposite(exComp);
             comp.setLayout(new GridLayout());
             comp.setLayoutData(new GridData(GridData.FILL_BOTH));
-            
+
             if (column.getIndicators().length != 0) {
 
                 IRunnableWithProgress rwp = new IRunnableWithProgress() {
 
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                        
+
                         monitor.beginTask("Creating preview for " + column.getTdColumn().getName(), IProgressMonitor.UNKNOWN);
-                        
+
                         Display.getDefault().asyncExec(new Runnable() {
 
                             public void run() {
 
                                 for (ImageDescriptor descriptor : IndicatorChartFactory.createChart(column, isCreate)) {
-                                    
+
                                     ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
                                     image.setImage(descriptor.createImage());
                                 }
                             }
-                            
+
                         });
 
                         monitor.done();
                     }
-                    
+
                 };
 
                 try {
@@ -405,16 +403,16 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                
+
                 exComp.setExpanded(true);
             }
-            
+
             exComp.setClient(comp);
-            
+
             exComp.addExpansionListener(new ExpansionAdapter() {
 
                 public void expansionStateChanged(ExpansionEvent e) {
-                    form.reflow(true); 
+                    form.reflow(true);
                 }
 
             });
@@ -444,8 +442,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      * @param discription
      * @return
      */
-    private Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded,
-            String discription) {
+    private Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded, String discription) {
         final int style = (discription == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
                 | Section.TITLE_BAR;
         Section section = toolkit.createSection(parent, style);
@@ -497,21 +494,21 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         analysisHandler.clearAnalysis();
         AnaResourceFileHelper.getInstance().clear();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
-        List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();
+        // List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();
+        TdDataProvider tdProvider = null;
         if (columnIndicators != null) {
-            TdDataProvider tdProvider = null;
+            if (columnIndicators.length != 0) {
+                tdProvider = EObjectHelper.getTdDataProvider(columnIndicators[0].getTdColumn());
+                analysisHandler.getAnalysis().getContext().setConnection(tdProvider);
+            }
             for (ColumnIndicator columnIndicator : columnIndicators) {
                 analysisHandler.addIndicator(columnIndicator.getTdColumn(), columnIndicator.getIndicators());
                 analysisHandler.setDatamingType(columnIndicator.getDataminingType().getLiteral(), columnIndicator.getTdColumn());
-                tdProvider = EObjectHelper.getTdDataProvider(columnIndicator.getTdColumn());
-                if (!providerList.contains(tdProvider)) {
-                    providerList.add(tdProvider);
-                }
             }
         }
-        if (providerList.size() != 0) {
-            analysisHandler.getAnalysis().getContext().setConnection(providerList.get(0));
-        }
+        // if (providerList.size() != 0) {
+        //           
+        // }
         analysisHandler.setStringDataFilter(dataFilterComp.getDataFilterString());
         boolean modifiedResourcesSaved = analysisHandler.saveModifiedResources();
         if (!modifiedResourcesSaved) {
@@ -526,16 +523,14 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        
-        //FIXME  after i set the options of bins designer, and when saving the file, it cause a exception. 
-        
+
+        // FIXME after i set the options of bins designer, and when saving the file, it cause a exception.
+
         // File file = new File(editorInput.getFile().getParent() + File.separator + fileName);
         // ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
         ReturnCode saved = AnaResourceFileHelper.getInstance().save(analysisHandler.getAnalysis());
         if (saved.isOk()) {
-            for (TdDataProvider provider : providerList) {
-                NeedSaveDataProviderHelper.register(provider.getName(), provider);
-            }
+            NeedSaveDataProviderHelper.register(tdProvider.getName(), tdProvider);
             NeedSaveDataProviderHelper.saveAllDataProvider();
             AnaResourceFileHelper.getInstance().setResourceChanged(true);
             log.info("Saved in  " + urlString + " successful");

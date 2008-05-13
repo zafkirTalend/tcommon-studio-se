@@ -36,6 +36,7 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.eclipse.ui.progress.WorkbenchJob;
+import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
@@ -88,11 +89,13 @@ public class DeleteResourceProvider extends CommonActionProvider {
      */
     class DeleteDataResourceAction extends DeleteResourceAction {
 
-        private static final String COMMA = ",";
-
         private static final String REPORTS = "reports";
 
+        private static final String REPORT = "report";
+
         private static final String ANALYSES = "analyses";
+
+        private static final String ANALYSIS = "analysis";
 
         protected boolean isDeleteContent = false;
 
@@ -152,6 +155,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
             };
 
             deletionCheckJob.schedule();
+            removeDependencys();
         }
 
         /**
@@ -185,14 +189,14 @@ public class DeleteResourceProvider extends CommonActionProvider {
                         impactNames.add(modelElement.getName());
                     }
                 }
-                popConfirmDialog(impactNames, provider.getName(), ANALYSES);
+                popConfirmDialog(impactNames, provider.getName(), impactNames.size() > 1 ? ANALYSES : ANALYSIS);
                 if (isDeleteContent) {
                     PrvResourceFileHelper.getInstance().clear();
                 }
             } else if (selectedFile.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
                 Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
-                EList<Dependency> clientDependency = findAnalysis.getSupplierDependency();
-                for (Dependency dependency : clientDependency) {
+                EList<Dependency> supplierDependencies = findAnalysis.getSupplierDependency();
+                for (Dependency dependency : supplierDependencies) {
                     EList<ModelElement> clients = dependency.getClient();
                     for (ModelElement modelElement : clients) {
                         if (impactNames.contains(modelElement.getName()) || modelElement.getName() == null) {
@@ -201,7 +205,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
                         impactNames.add(modelElement.getName());
                     }
                 }
-                popConfirmDialog(impactNames, findAnalysis.getName(), REPORTS);
+                popConfirmDialog(impactNames, findAnalysis.getName(), impactNames.size() > 1 ? REPORTS : REPORT);
                 if (isDeleteContent) {
                     AnaResourceFileHelper.getInstance().clear();
                 }
@@ -218,6 +222,29 @@ public class DeleteResourceProvider extends CommonActionProvider {
             return isDeleteContent;
         }
 
+        private void removeDependencys() {
+            for (Object selectedObj : selectedObjects) {
+                String fileName = ((IFile) selectedObj).getName();
+                EList<Dependency> supplierDependencies = null;
+                if (fileName.endsWith(PluginConstant.PRV_SUFFIX)) {
+                    TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(selectedFile);
+                    TdDataProvider provider = returnValue.getObject();
+                    supplierDependencies = provider.getSupplierDependency();
+                } else if (fileName.endsWith(PluginConstant.ANA_SUFFIX)) {
+                    Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
+                    supplierDependencies = findAnalysis.getSupplierDependency();
+                }
+                if (supplierDependencies != null) {
+                    for (Dependency dependency : supplierDependencies) {
+                        //TODO Whatever I use the follows two statement, I can't remove the dependency from .TDP_dependencies.core file.
+//                        DependenciesHandler.getInstance().removeSupplierDependencies(dependency);
+                        DependenciesHandler.getInstance().removeDependency(dependency);
+                    }
+                }
+            }
+
+        }
+
         /**
          * DOC rli Comment method "popConfirmDialog".
          * 
@@ -227,8 +254,8 @@ public class DeleteResourceProvider extends CommonActionProvider {
         private void popConfirmDialog(List<String> impactNames, String resourceName, String relatedResourceType) {
             if (impactNames.size() != 0) {
                 isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete", "The following "
-                        + relatedResourceType + " will be unusable!\n" + impactNames + "\n\n" + "Are you sure you want to delele "
-                        + "\"" + resourceName + "\"?");
+                        + relatedResourceType + " will be unusable!\n" + impactNames + "\n\n"
+                        + "Are you sure you want to delele " + "\"" + resourceName + "\"?");
             } else {
                 if (selectedObjects.length > 1) {
                     isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
