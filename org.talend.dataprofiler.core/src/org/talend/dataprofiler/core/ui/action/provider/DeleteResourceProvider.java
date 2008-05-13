@@ -55,6 +55,8 @@ public class DeleteResourceProvider extends CommonActionProvider {
 
     private IFile selectedFile;
 
+    private Object[] selectedObjects;
+
     public DeleteResourceProvider() {
     }
 
@@ -75,6 +77,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
         Object firstElement = selection.getFirstElement();
         if (firstElement instanceof IFile) {
             selectedFile = (IFile) firstElement;
+            selectedObjects = selection.toArray();
         }
         deleteResourceAction.selectionChanged(selection);
         menu.add(deleteResourceAction);
@@ -84,6 +87,8 @@ public class DeleteResourceProvider extends CommonActionProvider {
      * DOC rli DeleteResourceProvider class global comment. Detailled comment
      */
     class DeleteDataResourceAction extends DeleteResourceAction {
+
+        private static final String COMMA = ",";
 
         private static final String REPORTS = "reports";
 
@@ -208,8 +213,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     AnaResourceFileHelper.getInstance().clear();
                 }
             } else {
-                isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete", "Are you sure you want to delele"
-                        + "\"" + selectedFile.getName() + "\"?");
+                popConfirmDialog(impactNames, selectedFile.getName(), null);
             }
             return isDeleteContent;
         }
@@ -223,11 +227,16 @@ public class DeleteResourceProvider extends CommonActionProvider {
         private void popConfirmDialog(List<String> impactNames, String resourceName, String relatedResourceType) {
             if (impactNames.size() != 0) {
                 isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete", "The following "
-                        + relatedResourceType + " will be unusable!\n" + impactNames + "\n\n" + "Are you sure you want to delele"
+                        + relatedResourceType + " will be unusable!\n" + impactNames + "\n\n" + "Are you sure you want to delele "
                         + "\"" + resourceName + "\"?");
             } else {
-                isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete", "Are you sure you want to delele"
-                        + "\"" + resourceName + "\"?");
+                if (selectedObjects.length > 1) {
+                    isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
+                            "Are you sure you want to delele these " + selectedObjects.length + " resources from file system?");
+                } else {
+                    isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
+                            "Are you sure you want to delele " + "\"" + resourceName + "\" from file system??");
+                }
             }
         }
 
