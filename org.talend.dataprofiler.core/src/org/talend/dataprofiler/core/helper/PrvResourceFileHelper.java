@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.helper;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,7 @@ import org.talend.utils.sugars.TypedReturnCode;
  */
 public final class PrvResourceFileHelper extends ResourceFileMap {
 
-    private Map<IFile, TypedReturnCode<TdDataProvider>> providerMap = new HashMap<IFile, TypedReturnCode<TdDataProvider>>();
+    private Map<String, TypedReturnCode<TdDataProvider>> providerMap = new HashMap<String, TypedReturnCode<TdDataProvider>>();
 
     private static PrvResourceFileHelper instance;
 
@@ -49,12 +50,37 @@ public final class PrvResourceFileHelper extends ResourceFileMap {
      * @param file the file to read
      * @return the Data provider if found.
      */
-    public TypedReturnCode<TdDataProvider> getTdProvider(IFile file) {
-        TypedReturnCode<TdDataProvider> rc = providerMap.get(file);
+    public TypedReturnCode<TdDataProvider> getTdProvider(File file) {
+        String absolutePath = file.getAbsolutePath();
+        TypedReturnCode<TdDataProvider> rc = providerMap.get(absolutePath);
         if (rc != null) {
             return rc;
         }
         return readFromFile(file);
+    }
+    
+    /**
+     * Method "readFromFile".
+     * 
+     * @param file the file to read
+     * @return the Data provider if found.
+     */
+    public TypedReturnCode<TdDataProvider> getTdProvider(IFile file) {
+        String absolutePath = file.getLocation().toFile().getAbsolutePath();
+        TypedReturnCode<TdDataProvider> rc = providerMap.get(absolutePath);
+        if (rc != null) {
+            return rc;
+        }
+        return readFromFile(file);
+    }
+    
+    public TypedReturnCode<TdDataProvider> readFromFile(File file) {
+        TypedReturnCode<TdDataProvider> rc;
+        rc = new TypedReturnCode<TdDataProvider>();
+        Resource resource = getFileResource(file);
+        String absolutePath = file.getAbsolutePath();
+        findTdProvider(absolutePath, rc, resource);
+        return rc;
     }
 
     /**
@@ -66,22 +92,34 @@ public final class PrvResourceFileHelper extends ResourceFileMap {
         TypedReturnCode<TdDataProvider> rc;
         rc = new TypedReturnCode<TdDataProvider>();
         Resource resource = getFileResource(file);
+        String absolutePath = file.getLocation().toFile().getAbsolutePath();
+        findTdProvider(absolutePath, rc, resource);
+        return rc;
+    }
+
+    /**
+     * DOC rli Comment method "findTdProvider".
+     * @param file
+     * @param rc
+     * @param resource
+     */
+    private void findTdProvider(String absolutePath , TypedReturnCode<TdDataProvider> rc, Resource resource) {
         Collection<TdDataProvider> tdDataProviders = DataProviderHelper.getTdDataProviders(resource.getContents());
         if (tdDataProviders.isEmpty()) {
-            rc.setReturnCode("No Data Provider found in " + file.getFullPath(), false);
+            rc.setReturnCode("No Data Provider found in " + absolutePath, false);
         }
         if (tdDataProviders.size() > 1) {
-            rc.setReturnCode("Found too many DataProvider (" + tdDataProviders.size() + ") in file " + file.getFullPath(), false);
+            rc.setReturnCode("Found too many DataProvider (" + tdDataProviders.size() + ") in file " + absolutePath, false);
         }
         TdDataProvider prov = tdDataProviders.iterator().next();
         rc.setObject(prov);
-        providerMap.put(file, rc);
-        return rc;
+        providerMap.put(absolutePath, rc);
     }
 
     public void remove(IFile file) {
         super.remove(file);
-        this.providerMap.remove(file);
+        String absolutePath = file.getLocation().toFile().getAbsolutePath();
+        this.providerMap.remove(absolutePath);
     }
 
 }

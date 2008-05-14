@@ -30,32 +30,24 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
-import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -82,43 +74,28 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @author rli
  * 
  */
-public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeListener {
+public class ColumnMasterDetailsPage extends AbstractFormPage  implements PropertyChangeListener {
 
     private static Logger log = Logger.getLogger(ColumnMasterDetailsPage.class);
 
-    private Text nameText;
+    AnasisColumnTreeViewer treeViewer;
 
-    private Text purposeText;
+    DataFilterComp dataFilterComp;
 
-    private Text descriptionText;
-
-    private Text authorText;
-
-    private CCombo statusCombo;
-
-    private AnasisColumnTreeViewer treeViewer;
-
-    private DataFilterComp dataFilterComp;
-
-    private ColumnAnalysisHandler analysisHandler;
+    ColumnAnalysisHandler analysisHandler;
 
     private ColumnIndicator[] currentColumnIndicators;
 
-    private boolean isDirty = false;
-
     private String stringDataFilter;
-
-    private final FormToolkit toolkit;
 
     private static final int TREE_MAX_LENGTH = 500;
 
     public ColumnMasterDetailsPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
-        this.initAnalysis(editor);
-        this.toolkit = this.getEditor().getToolkit();
     }
 
-    private void initAnalysis(FormEditor editor) {
+    public void initialize(FormEditor editor) {
+        super.initialize(editor);
         IEditorInput input = editor.getEditorInput();
         analysisHandler = new ColumnAnalysisHandler();
         analysisHandler.setAnalysis(((AnalysisEditorInuput) input).getAnalysis());
@@ -141,30 +118,14 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         currentColumnIndicators = columnIndicatorList.toArray(new ColumnIndicator[columnIndicatorList.size()]);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.forms.editor.FormPage#createFormContent(org.eclipse.ui.forms.IManagedForm)
-     */
     @Override
     protected void createFormContent(IManagedForm managedForm) {
+        super.createFormContent(managedForm);
         final ScrolledForm form = managedForm.getForm();
+        createAnalysisMetadataSection(form, topComp, "Analysis metadata", "Set the properties of analysis.");
+        createAnalysisColumnsSection(form, topComp);
+        createDataFilterSection(form, topComp);
         Composite body = form.getBody();
-        form.setText("Analysis Settings");
-
-        // TableWrapLayout layout = new TableWrapLayout();
-        body.setLayout(new GridLayout(2, false));
-
-        Composite anasisDataComp = toolkit.createComposite(body);
-        GridData anasisData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
-
-        anasisDataComp.setLayoutData(anasisData);
-        anasisDataComp.setLayout(new GridLayout(1, false));
-
-        createAnalysisMetadataSection(form, anasisDataComp);
-        createAnalysisColumnsSection(form, anasisDataComp);
-        createDataFilterSection(form, anasisDataComp);
-
         Composite previewComp = toolkit.createComposite(body);
         GridData previewData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
 
@@ -173,91 +134,15 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         createPreviewSection(form, previewComp);
     }
 
-    private void createAnalysisMetadataSection(final ScrolledForm form, Composite anasisDataComp) {
-        Section section = createSection(form, anasisDataComp, "Analysis metadata", false, "Set the properties of analysis.");
-        Composite labelButtonClient = toolkit.createComposite(section);
-
-        labelButtonClient.setLayout(new GridLayout(2, false));
-
-        Label label = toolkit.createLabel(labelButtonClient, "Analysis Name:");
-        label.setLayoutData(new GridData());
-        nameText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(nameText);
-        nameText.setText(analysisHandler.getName() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getName());
-        label = toolkit.createLabel(labelButtonClient, "Analysis Purpose:");
-        label.setLayoutData(new GridData());
-        purposeText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        // purposeText.setLayoutData(new GridData());
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(purposeText);
-        purposeText.setText(analysisHandler.getPurpose() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getPurpose());
-        label = toolkit.createLabel(labelButtonClient, "Analysis Description:");
-        label.setLayoutData(new GridData());
-        descriptionText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        // descriptionText.setLayoutData(new GridData());
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
-        descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
-                .getDescription());
-
-        label = toolkit.createLabel(labelButtonClient, "Analysis Author:");
-        authorText = toolkit.createText(labelButtonClient, null, SWT.BORDER);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(authorText);
-        authorText.setText(analysisHandler.getAuthor() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getAuthor());
-
-        label = toolkit.createLabel(labelButtonClient, "Analysis Status:");
-        statusCombo = new CCombo(labelButtonClient, SWT.BORDER);
-        statusCombo.setText(analysisHandler.getStatus() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getStatus());
-        statusCombo.setEditable(false);
-        for (DevelopmentStatus status : DevelopmentStatus.values()) {
-
-            statusCombo.add(status.getLiteral());
-        }
-
-        nameText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setDirty(true);
-                analysisHandler.setName(nameText.getText());
-            }
-
-        });
-        purposeText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setDirty(true);
-                analysisHandler.setPurpose(purposeText.getText());
-            }
-
-        });
-        descriptionText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setDirty(true);
-                analysisHandler.setDescription(descriptionText.getText());
-            }
-
-        });
-
-        authorText.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setDirty(true);
-                analysisHandler.setAuthor(authorText.getText());
-            }
-        });
-
-        statusCombo.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setDirty(true);
-                analysisHandler.setStatus(statusCombo.getText());
-            }
-
-        });
-
-        section.setClient(labelButtonClient);
+    protected void fireTextChange() {
+        analysisHandler.setName(nameText.getText());
+        analysisHandler.setPurpose(purposeText.getText());
+        analysisHandler.setDescription(descriptionText.getText());
+        analysisHandler.setAuthor(authorText.getText());
+        analysisHandler.setStatus(statusCombo.getText());
     }
 
-    private void createAnalysisColumnsSection(final ScrolledForm form, Composite anasisDataComp) {
+    void createAnalysisColumnsSection(final ScrolledForm form, Composite anasisDataComp) {
         Section section = createSection(form, anasisDataComp, "Analyzed Columns", true, null);
 
         Composite topComp = toolkit.createComposite(section);
@@ -310,7 +195,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         }
     }
 
-    private void createPreviewSection(final ScrolledForm form, Composite parent) {
+    void createPreviewSection(final ScrolledForm form, Composite parent) {
 
         Section section = createSection(form, parent, "Preview", false, "");
 
@@ -424,7 +309,7 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
      * @param toolkit
      * @param anasisDataComp
      */
-    private void createDataFilterSection(final ScrolledForm form, Composite anasisDataComp) {
+    void createDataFilterSection(final ScrolledForm form, Composite anasisDataComp) {
         Section section = createSection(form, anasisDataComp, "Data Filter", false, "Edit the data filter:");
 
         Composite sectionClient = toolkit.createComposite(section);
@@ -434,62 +319,10 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
     }
 
     /**
-     * @param form
-     * @param toolkit
-     * @param anasisDataComp
-     * @param title
-     * @param expanded
-     * @param discription
-     * @return
-     */
-    private Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded, String discription) {
-        final int style = (discription == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
-                | Section.TITLE_BAR;
-        Section section = toolkit.createSection(parent, style);
-
-        section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING));
-
-        section.addExpansionListener(new ExpansionAdapter() {
-
-            public void expansionStateChanged(ExpansionEvent e) {
-                form.reflow(true);
-            }
-
-        });
-
-        section.setText(title);
-        section.setExpanded(expanded);
-
-        // toolkit.createCompositeSeparator(section);
-
-        section.setDescription(discription);
-        return section;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.forms.editor.FormPage#doSave(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public void doSave(IProgressMonitor monitor) {
-        super.doSave(monitor);
-        try {
-            saveAnalysis();
-            this.isDirty = false;
-            treeViewer.setDirty(false);
-            dataFilterComp.setDirty(false);
-        } catch (DataprofilerCoreException e) {
-            ExceptionHandler.process(e, Level.ERROR);
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * @param outputFolder
      * @throws DataprofilerCoreException
      */
-    private void saveAnalysis() throws DataprofilerCoreException {
+    void saveAnalysis() throws DataprofilerCoreException {
         AnalysisEditorInuput editorInput = (AnalysisEditorInuput) this.getEditorInput();
         analysisHandler.clearAnalysis();
         AnaResourceFileHelper.getInstance().clear();
@@ -547,6 +380,39 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         // DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
     }
 
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (PluginConstant.ISDIRTY_PROPERTY.equals(evt.getPropertyName())) {
+            ((AnalysisEditor) this.getEditor()).firePropertyChange(IEditorPart.PROP_DIRTY);
+        } else if (PluginConstant.DATAFILTER_PROPERTY.equals(evt.getPropertyName())) {
+            this.analysisHandler.setStringDataFilter((String) evt.getNewValue());
+        }
+
+    }
+
+    @Override
+    protected void initTextFied() {
+        nameText.setText(analysisHandler.getName() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getName());
+        purposeText.setText(analysisHandler.getPurpose() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getPurpose());
+        descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler
+                .getDescription());
+        authorText.setText(analysisHandler.getAuthor() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getAuthor());
+        statusCombo.setText(analysisHandler.getStatus() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getStatus());
+    }
+
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        super.doSave(monitor);
+        try {
+            saveAnalysis();
+            this.isDirty = false;
+            treeViewer.setDirty(false);
+            dataFilterComp.setDirty(false);
+        } catch (DataprofilerCoreException e) {
+            ExceptionHandler.process(e, Level.ERROR);
+            e.printStackTrace();
+        }
+    }
+
     public void setDirty(boolean isDirty) {
         if (this.isDirty != isDirty) {
             this.isDirty = isDirty;
@@ -554,21 +420,11 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.forms.editor.FormPage#isDirty()
-     */
     @Override
     public boolean isDirty() {
-        return super.isDirty() || isDirty || treeViewer.isDirty() || dataFilterComp.isDirty();
+        return super.isDirty() || treeViewer.isDirty() || dataFilterComp.isDirty();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.forms.editor.FormPage#dispose()
-     */
     @Override
     public void dispose() {
         super.dispose();
@@ -578,15 +434,6 @@ public class ColumnMasterDetailsPage extends FormPage implements PropertyChangeL
         if (dataFilterComp != null) {
             this.dataFilterComp.removePropertyChangeListener(this);
         }
-    }
-
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (PluginConstant.ISDIRTY_PROPERTY.equals(evt.getPropertyName())) {
-            ((AnalysisEditor) this.getEditor()).firePropertyChange(IEditorPart.PROP_DIRTY);
-        } else if (PluginConstant.DATAFILTER_PROPERTY.equals(evt.getPropertyName())) {
-            this.analysisHandler.setStringDataFilter((String) evt.getNewValue());
-        }
-
     }
 
 }

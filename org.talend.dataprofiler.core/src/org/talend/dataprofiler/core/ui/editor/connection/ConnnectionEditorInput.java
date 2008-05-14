@@ -10,40 +10,36 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.editor;
+package org.talend.dataprofiler.core.ui.editor.connection;
 
 import java.io.File;
 
-import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
-import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dataquality.helpers.AnalysisHelper;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
+import org.talend.dataprofiler.core.ui.editor.AbstractEditorInput;
+
 
 /**
- * @author rli
- * 
+ * DOC rli  class global comment. Detailled comment
  */
-public class AnalysisEditorInuput extends AbstractEditorInput {
+public class ConnnectionEditorInput extends AbstractEditorInput  {
 
-    private Analysis analysis;
+    private TdDataProvider analysis;
 
-    public AnalysisEditorInuput(String name) {
+    public ConnnectionEditorInput(String name) {
         super(name);
     }
 
-    public AnalysisEditorInuput(File file) {
+    public ConnnectionEditorInput(File file) {
         super(file);
     }
 
-    public Analysis getAnalysis() {
+    public TdDataProvider getAnalysis() {
         if (analysis != null) {
             return analysis;
         }
-        analysis = AnaResourceFileHelper.getInstance().findAnalysis(fFile);
+        analysis = PrvResourceFileHelper.getInstance().getTdProvider(fFile).getObject();
         return analysis;
     }
-
-    public AnalysisType getAnalysisType() {
-        return AnalysisHelper.getAnalysisType(getAnalysis());
-    }
+    
 }

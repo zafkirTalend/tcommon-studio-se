@@ -60,6 +60,8 @@ public class ImageLib {
     public static final String TD_COLUMN = "TdColumn.gif";
     
     public static final String TD_DATAPROVIDER = "TdDataProvider.gif";
+
+    public static final String EDITCONNECTION = "sample.gif";
     /**
      * get <code>ImageDescriptor</code> with special imageName.
      * 
