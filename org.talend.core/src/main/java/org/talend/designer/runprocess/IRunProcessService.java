@@ -42,6 +42,8 @@ public interface IRunProcessService extends IService {
      */
     public void setActiveProcess(IProcess activeProcess);
 
+    public void setActiveProcess(IProcess activeProcess, boolean refreshUI);
+
     public void removeProcess(IProcess activeProcess);
 
     /**
