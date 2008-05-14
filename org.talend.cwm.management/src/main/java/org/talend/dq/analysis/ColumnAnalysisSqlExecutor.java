@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -35,6 +36,8 @@ import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.domain.RangeRestriction;
+import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.DateGrain;
 import org.talend.dataquality.indicators.Indicator;
@@ -44,7 +47,6 @@ import org.talend.dataquality.indicators.TextParameters;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import org.talend.sqltools.ZQueryHelper;
 import org.talend.utils.sugars.TypedReturnCode;
-
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -60,6 +62,11 @@ import Zql.ZqlParser;
  * DOC scorreia class global comment. Detailled comment
  */
 public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
+
+    /**
+     * 
+     */
+    private static final int TOP_N = 20;
 
     /**
      * 
@@ -117,6 +124,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         return "";
     }
 
+    // TODO scorreia move this method in a utility class
     public static String toQualifiedName(String catalog, String schema, String name) {
         StringBuffer qualName = new StringBuffer();
         if (catalog != null && catalog.length() > 0) {
@@ -169,8 +177,8 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             return false;
         }
 
-        // TODO get correct language for current database
-        String language = getDatabaseSubtype(); // FIXME scorreia language should depend on the DBMS
+        // get correct language for current database
+        String language = getDatabaseSubtype();
         Expression sqlExpression = null; // SqlIndicatorHandler.getSqlCwmExpression(indicator, language);
 
         // TODO create select statement
@@ -209,12 +217,17 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         // --- get indicator parameters and convert them into sql expression
         List<String> whereExpression = new ArrayList<String>();
+        List<String> rangeStrings = null;
         IndicatorParameters parameters = indicator.getParameters();
         if (parameters != null) {
+            // handle bins
             Domain bins = parameters.getBins();
-            // TODO handle bins
+            if (bins != null) {
+                rangeStrings = getBinsAsGenericString(bins.getRanges());
+            }
             DateGrain dateAggregationType = parameters.getDateAggregationType();
             // TODO handle data grain
+
             TextParameters textParameter = parameters.getTextParameter();
             colName = quote(colName);
             if (textParameter != null) {
@@ -242,7 +255,15 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getMedianIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getLowerQuartileIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUpperQuartileIndicator())) {
-            completedSqlString = getCompletedString(indicator, sqlExpression, colName, table, dataFilterExpression);
+            completedSqlString = getCompletedStringForQuantiles(indicator, sqlExpression, colName, table, dataFilterExpression);
+        } else // case when frequency indicator with ranges
+        if ((rangeStrings != null) && (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator()))) {
+            completedSqlString = getUnionCompletedString(indicator, sqlExpression, colName, table, dataFilterExpression,
+                    rangeStrings);
+        } else // usual nominal frequencies
+        if ((rangeStrings == null) && (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator()))) {
+            completedSqlString = getCompletedSqlString(sqlExpression.getBody(), colName, quote(table)) + EOS;
+            completedSqlString = getTopN(completedSqlString, TOP_N);
         } else { // default
             completedSqlString = getCompletedSqlString(sqlExpression.getBody(), colName, quote(table)) + EOS;
         }
@@ -251,10 +272,50 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             log.debug("Completed SQL expression for language " + language + ": " + completedSqlString);
         }
 
+        // TODO scorreia completedSqlString should be the final query
+        String finalQuery = rangeStrings == null ? addWhereToSqlStringStatement(dataFilterExpression, whereExpression,
+                completedSqlString) : completedSqlString;
+
+        // --- handle case of unique and duplicate count
+        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())
+                || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
+
+            // for mysql TODO scorreia see how it should be handled in other DB
+            finalQuery = "SELECT COUNT(*) FROM (" + finalQuery + ") myquery";
+        }
+
+        Expression instantiateSqlExpression = instantiateSqlExpression(language, finalQuery);
+        indicator.setInstantiatedExpression(instantiateSqlExpression);
+        return true;
+    }
+
+    /**
+     * DOC scorreia Comment method "getTopN".
+     * 
+     * @param completedSqlString
+     * @param i
+     * @return
+     */
+    private String getTopN(String completedSqlString, int i) {
+        return completedSqlString + " LIMIT " + i;
+    }
+
+    /**
+     * DOC scorreia Comment method "getFinalSqlStringStatement".
+     * 
+     * @param dataFilterExpression
+     * @param whereExpression
+     * @param completedSqlString
+     * @return
+     * @throws ParseException
+     */
+    private String addWhereToSqlStringStatement(ZExp dataFilterExpression, List<String> whereExpression, String completedSqlString)
+            throws ParseException {
         // LIMIT clause is specific to MySQL, it is not understood by ZQL. remove it and add only at the end
         String[] withoutLimit = removeLimitClause(completedSqlString);
         String safeZqlString = (withoutLimit == null) ? completedSqlString : withoutLimit[0];
 
+        safeZqlString = closeStatement(safeZqlString);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(safeZqlString.getBytes());
         ZqlParser parser = new ZqlParser();
         // FIXME we should use a parser factory that creates a parser that depends on the DB
@@ -281,18 +342,89 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         if (withoutLimit != null) { // insert MySQL Limit clause at the end
             finalQuery = finalQuery + " " + withoutLimit[1];
         }
+        return finalQuery;
+    }
 
-        // --- handle case of unique and duplicate count
-        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())
-                || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
-
-            // for mysql TODO scorreia see how it should be handled in other DB
-            finalQuery = "SELECT COUNT(*) FROM (" + finalQuery + ") myquery";
+    /**
+     * Method "closeStatement" coses the statement with ';' if needed.
+     * 
+     * @param safeZqlString
+     * @return
+     */
+    private String closeStatement(String safeZqlString) {
+        if (!safeZqlString.trim().endsWith(EOS)) {
+            safeZqlString += EOS;
         }
+        return safeZqlString;
+    }
 
-        Expression instantiateSqlExpression = instantiateSqlExpression(language, finalQuery);
-        indicator.setInstantiatedExpression(instantiateSqlExpression);
-        return true;
+    /**
+     * DOC scorreia Comment method "getUnionCompletedString".
+     * 
+     * @param indicator
+     * @param sqlExpression
+     * @param colName
+     * @param table
+     * @param dataFilterExpression
+     * @param rangeStrings
+     * @return
+     * @throws ParseException
+     */
+    private String getUnionCompletedString(Indicator indicator, Expression sqlExpression, String colName, String table,
+            ZExp dataFilterExpression, List<String> rangeStrings) throws ParseException {
+        StringBuffer buf = new StringBuffer();
+        final int last = rangeStrings.size();
+        // remove unused LIMIT
+        String sqlGenericExpression = sqlExpression.getBody();
+        for (int i = 0; i < last; i++) {
+
+            String singleSelect = getCompletedSingleSelect(indicator, sqlGenericExpression, colName, table, dataFilterExpression,
+                    rangeStrings.get(i));
+            buf.append('(');
+            buf.append(singleSelect);
+            buf.append(')');
+            if (i != last - 1) {
+                buf.append(" UNION ALL ");
+            }
+        }
+        return buf.toString();
+    }
+
+    /**
+     * DOC scorreia Comment method "getCompletedSingleSelect".
+     * 
+     * @param indicator
+     * @param sqlExpression
+     * @param colName
+     * @param table
+     * @param dataFilterExpression
+     * @param range
+     * @return
+     * @throws ParseException
+     */
+    private String getCompletedSingleSelect(Indicator indicator, String sqlGenericExpression, String colName, String table,
+            ZExp dataFilterExpression, String range) throws ParseException {
+        String completedRange = getCompletedSqlString(range, colName, table);
+        String rangeColumn = "'" + completedRange + "'";
+        String completedSqlString = getCompletedSqlString(sqlGenericExpression, rangeColumn, table);
+        List<String> listOfWheres = Arrays.asList(completedRange);
+        return addWhereToSqlStringStatement(dataFilterExpression, listOfWheres, completedSqlString);
+    }
+
+    /**
+     * DOC scorreia Comment method "getBinsAsString".
+     * 
+     * @param ranges
+     * @return
+     */
+    private List<String> getBinsAsGenericString(EList<RangeRestriction> ranges) {
+        List<String> bins = new ArrayList<String>();
+        for (RangeRestriction rangeRestriction : ranges) {
+            String bin = "{0} >= " + DomainHelper.getMinValue(rangeRestriction) + " AND {0} < "
+                    + DomainHelper.getMaxValue(rangeRestriction);
+            bins.add(bin);
+        }
+        return bins;
     }
 
     /**
@@ -322,7 +454,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param table
      * @param dataFilterExpression
      */
-    private String getCompletedString(Indicator indicator, Expression sqlExpression, String colName, String table,
+    private String getCompletedStringForQuantiles(Indicator indicator, Expression sqlExpression, String colName, String table,
             ZExp dataFilterExpression) {
         // first, count nb lines
         String catalog = getCatalogName(indicator.getAnalyzedElement());
@@ -613,8 +745,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
             connection.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e, e);
         }
         return ok;
     }

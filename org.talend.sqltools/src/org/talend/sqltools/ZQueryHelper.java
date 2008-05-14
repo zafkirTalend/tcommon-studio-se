@@ -61,7 +61,7 @@ public final class ZQueryHelper {
                 parser.initParser(byteArrayInputStream);
 
                 try {
-                    ZExpression expr = (ZExpression) parser.readStatement();
+                    ZExpression expr = (ZExpression) parser.readExpression();
                     v.add(expr);
                 } catch (ParseException e) {
                     e.printStackTrace();

@@ -14,7 +14,9 @@ package org.talend.dataquality.helpers;
 
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.util.AnalysisSwitch;
+import org.talend.dataquality.domain.DateValue;
 import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.domain.IntegerValue;
 import org.talend.dataquality.domain.RealNumberValue;
 import org.talend.dataquality.domain.TextValue;
 import org.talend.dataquality.domain.util.DomainSwitch;
@@ -69,6 +71,30 @@ public class DataqualitySwitchHelper {
         @Override
         public Domain caseDomain(Domain object) {
             return object;
+        }
+
+    };
+
+    public static final DomainSwitch<String> LITTERAL_VALUE_AS_TEXT_SWITCH = new DomainSwitch<String>() {
+
+        @Override
+        public String caseDateValue(DateValue object) {
+            return String.valueOf(object.getValue());
+        }
+
+        @Override
+        public String caseIntegerValue(IntegerValue object) {
+            return String.valueOf(object.getValue());
+        }
+
+        @Override
+        public String caseRealNumberValue(RealNumberValue object) {
+            return String.valueOf(object.getValue());
+        }
+
+        @Override
+        public String caseTextValue(TextValue object) {
+            return String.valueOf(object.getValue());
         }
 
     };

@@ -184,11 +184,11 @@ public class DomainHelper {
     }
 
     public static String getMinValue(RangeRestriction range) {
-        return getTextValue(range.getLowerValue());
+        return getValueAsText(range.getLowerValue());
     }
 
     public static String getMaxValue(RangeRestriction range) {
-        return getTextValue(range.getUpperValue());
+        return getValueAsText(range.getUpperValue());
     }
 
     private static double getRealValue(LiteralValue object) {
@@ -199,12 +199,8 @@ public class DomainHelper {
         return upperValue.getValue();
     }
 
-    private static String getTextValue(LiteralValue object) {
-        TextValue textValue = DataqualitySwitchHelper.TEXT_VALUE_SWITCH.doSwitch(object);
-        if (textValue == null) {
-            return null;
-        }
-        return textValue.getValue();
+    private static String getValueAsText(LiteralValue object) {
+        return DataqualitySwitchHelper.LITTERAL_VALUE_AS_TEXT_SWITCH.doSwitch(object);
     }
 
     /**

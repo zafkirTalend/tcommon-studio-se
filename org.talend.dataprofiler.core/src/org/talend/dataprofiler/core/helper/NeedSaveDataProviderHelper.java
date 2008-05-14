@@ -33,7 +33,11 @@ public final class NeedSaveDataProviderHelper {
     private static Map<String, TdDataProvider> needSaveProviderMap = new HashMap<String, TdDataProvider>();
 
     public static void register(String providerName, TdDataProvider dataProvider) {
-        String createTechnicalName = DqRepositoryViewService.createTechnicalName(providerName);
+        // MOD scorreia 2008-05-13 DqRepositoryViewService.createTechnicalName() creates a new technical name each time
+        // it is called. It should not be called here. The following line is commented.
+        // String createTechnicalName = DqRepositoryViewService.createTechnicalName(providerName);
+
+        String createTechnicalName = providerName;
         needSaveProviderMap.put(createTechnicalName, dataProvider);
         isSaved = false;
     }
@@ -49,7 +53,8 @@ public final class NeedSaveDataProviderHelper {
         if (isSaved) {
             return;
         }
-        Iterator<String> it = needSaveProviderMap.keySet().iterator();
+
+                Iterator<String> it = needSaveProviderMap.keySet().iterator();
         while (it.hasNext()) {
             TdDataProvider provider = needSaveProviderMap.get(it.next());
             DqRepositoryViewService.saveOpenDataProvider(provider);

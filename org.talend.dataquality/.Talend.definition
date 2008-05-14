@@ -57,8 +57,8 @@
   <indicatorDefinitions xmi:id="_ccIR4hF2Ed2PKb6nEJEvhw" name="Frequency Table" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Frequency Table">
     <taggedValue tag="Description" value="for each distinct instance, counts the number of instances."/>
     <taggedValue tag="Purpose" value="evaluate the count of each distinct value"/>
-    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY c DESC LIMIT 10" language="SQL"/>
-    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY c DESC LIMIT 10" language="MySQL"/>
+    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY c DESC" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY c DESC" language="MySQL"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccI48BF2Ed2PKb6nEJEvhw" name="Summary Statistics" categories="_ccKuIRF2Ed2PKb6nEJEvhw" aggregatedDefinitions="_ccI48xF2Ed2PKb6nEJEvhw _ccI48RF2Ed2PKb6nEJEvhw _ccI48hF2Ed2PKb6nEJEvhw _ccI49hF2Ed2PKb6nEJEvhw" label="Summary Statistics">
     <taggedValue tag="Description" value="computes the average, the median and the extent of the data"/>

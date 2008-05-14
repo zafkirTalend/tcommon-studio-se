@@ -107,7 +107,7 @@ public final class DqRepositoryViewService {
      * @param functionalName the user friendly name
      * @return the technical name created from the user given name.
      */
-    public static String createTechnicalName(final String functionalName) {
+    static String createTechnicalName(final String functionalName) {
         String techname = "no_name";
         if (functionalName == null) {
             log.warn("A functional name should not be null");
@@ -503,7 +503,7 @@ public final class DqRepositoryViewService {
         List<TdColumn> columns = new ArrayList<TdColumn>();
         TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
         if (!rcConn.isOk()) {
-            log.error(rcConn.getMessage());
+            log.error(rcConn.getMessage()); // FIXME scorreia show error to the user
             return columns;
         }
         Connection connection = rcConn.getObject();

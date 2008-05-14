@@ -176,6 +176,16 @@ public final class TaggedValueHelper {
     }
 
     /**
+     * Method "getTechnicalName".
+     * 
+     * @param element a cwm element
+     * @return the technical name of the element (or null if none)
+     */
+    public static String getTechnicalName(ModelElement element) {
+        return getValue(TECH_NAME_TAGGED_VAL, element);
+    }
+
+    /**
      * Method "setDevStatus" sets the development status of the given element.
      * 
      * @param element
