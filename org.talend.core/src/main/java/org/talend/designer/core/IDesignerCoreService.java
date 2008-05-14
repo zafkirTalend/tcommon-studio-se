@@ -47,6 +47,8 @@ public interface IDesignerCoreService extends IService {
 
     public List<IProcess> getOpenedProcess(IEditorReference[] reference);
 
+    public List<IProcess> getProcessForJobTemplate();
+
     public Item getProcessItem(MultiPageEditorPart talendEditor);
 
     // Used for generating HTML only

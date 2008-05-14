@@ -263,6 +263,15 @@ public abstract class RepositoryUpdateManager {
         return false;
     }
 
+    private List<UpdateResult> checkItemsRefrences(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types) {
+
+        if (types == null || types.isEmpty()) {
+            return null;
+        }
+
+        return null;
+    }
+
     /**
      * 
      * ggu Comment method "checkJobItemsForUpdate".
@@ -326,6 +335,13 @@ public abstract class RepositoryUpdateManager {
                     resultList.addAll(resultFromProcess);
                 }
             }
+
+            // Ok, you also need to update the job setting in "create job with template"
+            List<UpdateResult> templateSetUpdate = checkSettingInJobTemplateWizard();
+            if (templateSetUpdate != null) {
+                resultList.addAll(templateSetUpdate);
+            }
+
             parentMonitor.done();
             return resultList;
         } catch (PersistenceException e) {
@@ -333,6 +349,32 @@ public abstract class RepositoryUpdateManager {
         }
 
         return null;
+    }
+
+    /**
+     * DOC YeXiaowei Comment method "checkSettingInJobTemplateWizard".
+     */
+    private List<UpdateResult> checkSettingInJobTemplateWizard() {
+        List<IProcess> processes = CorePlugin.getDefault().getDesignerCoreService().getProcessForJobTemplate();
+
+        if (processes == null || processes.isEmpty()) {
+            return null;
+        }
+
+        List<UpdateResult> result = new ArrayList<UpdateResult>();
+
+        for (IProcess process : processes) {
+            if (process instanceof IProcess2) {
+                IProcess2 nowProcess = (IProcess2) process;
+                nowProcess.getUpdateManager().checkAllModification();
+                List<UpdateResult> results = nowProcess.getUpdateManager().getUpdatesNeeded();
+                if (results != null) {
+                    result.addAll(results);
+                }
+            }
+        }
+
+        return result;
     }
 
     private boolean isOpenedItem(Item openedItem, List<IProcess> openedProcessList) {
