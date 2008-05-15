@@ -1,6 +1,5 @@
 package routines.system;
 
-
 public class TalendThreadPool {
 
     private ThreadQueue idleWorkers;
@@ -20,13 +19,13 @@ public class TalendThreadPool {
         ThreadPoolWorker worker = (ThreadPoolWorker) idleWorkers.remove();
         worker.process(target);
     }
- 
+
     public void waitForEndOfQueue() {
         try {
-            while(idleWorkers.getSize()>0) {
+            while (idleWorkers.getSize() != workerList.length) {
                 Thread.sleep(100);
             }
-            for (int i=0;i<workerList.length;i++) {
+            for (int i = 0; i < workerList.length; i++) {
                 workerList[i].stopRequest();
                 while (workerList[i].isAlive()) {
                     Thread.sleep(100);
@@ -120,10 +119,15 @@ class ThreadPoolWorker extends Object {
 }
 
 class ThreadQueue {
+
     private Object[] queue;
+
     private int maxSize;
+
     private int size;
+
     private int head;
+
     private int tail;
 
     public ThreadQueue(int cap) {
