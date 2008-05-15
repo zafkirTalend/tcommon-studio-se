@@ -245,13 +245,13 @@
         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
      <category
            id="org.talend.dataprofiler.core.category1"
-           name="My Fist Cheat View">
+           name="Talend - Cheat Sheets">
      </category>
      <cheatsheet
            category="org.talend.dataprofiler.core.category1"
            contentFile="usercheat.xml"
            id="org.talend.dataprofiler.core.cheatsheet1"
-           name="org.talend.dataprofiler.core.cheatsheet1">
+           name="Multiple Column Analysis Creation">
      </cheatsheet>
   </extension>
 
