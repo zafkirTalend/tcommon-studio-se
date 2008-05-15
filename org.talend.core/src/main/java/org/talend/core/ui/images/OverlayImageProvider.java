@@ -21,6 +21,7 @@ import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.image.OverlayImage;
 import org.talend.commons.ui.image.OverlayImage.EPosition;
+import org.talend.repository.model.ECDCStatus;
 import org.talend.repository.model.ERepositoryStatus;
 
 /**
@@ -116,6 +117,24 @@ public class OverlayImageProvider {
         ImageDescriptor img = ImageProvider.getImageDesc(statusOverlay);
         EPosition position = EPosition.BOTTOM_LEFT;
         OverlayImage overlayImage = new OverlayImage(source, img, position);
+        return overlayImage;
+    }
+
+    public static ImageDescriptor getImageWithCDCStatus(Image source, ECDCStatus status) {
+        IImage statusOverlay = EImage.EMPTY;
+        switch (status) {
+        case ADDED:
+            statusOverlay = ECoreImage.CDC_ADDED_OVERLAY;
+            break;
+        case ACTIVATED:
+            statusOverlay = ECoreImage.CDC_ACTIVATED_OVERLAY;
+            break;
+        case NONE:
+        default:
+            statusOverlay = EImage.EMPTY;
+        }
+        ImageDescriptor img = ImageProvider.getImageDesc(statusOverlay);
+        OverlayImage overlayImage = new OverlayImage(source, img, EPosition.BOTTOM_LEFT);
         return overlayImage;
     }
 }

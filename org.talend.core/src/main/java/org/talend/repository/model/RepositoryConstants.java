@@ -22,6 +22,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
  */
 public class RepositoryConstants {
 
+    public static final String TABLE = "TABLE"; //$NON-NLS-1$
+
     public static final String TEMP_DIRECTORY = "temp"; //$NON-NLS-1$
 
     public static final String IMG_DIRECTORY = "images"; //$NON-NLS-1$

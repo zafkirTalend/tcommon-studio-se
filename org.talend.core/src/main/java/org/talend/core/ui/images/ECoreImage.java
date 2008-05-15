@@ -105,6 +105,9 @@ public enum ECoreImage implements IImage {
     IMPORT_JAR("/icons/importjar.gif"), //$NON-NLS-1$
     REFERENCED_ICON("/icons/referenced.png"), //$NON-NLS-1$
 
+    CDC_ADDED_OVERLAY("/icons/cdc_added_overlay.png"),
+    CDC_ACTIVATED_OVERLAY("/icons/cdc_activated_overlay.png"),
+
     ERROR_OVERLAY("/icons/error_co.gif"), //$NON-NLS-1$
     WARN_OVERLAY("/icons/warning_co.gif"); //$NON-NLS-1$
 
