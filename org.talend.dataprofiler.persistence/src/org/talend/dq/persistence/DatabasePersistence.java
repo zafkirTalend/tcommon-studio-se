@@ -13,10 +13,13 @@
 package org.talend.dq.persistence;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.hibernate.Session;
@@ -89,6 +92,14 @@ public class DatabasePersistence {
 
     private static SimpleDateFormat simpleDateFormat;
 
+    private Map<String, TdqAnalysis> tdqAnalysisCache = new HashMap<String, TdqAnalysis>();
+
+    private Map<String, TdqAnalyzedElement> tdqAnaEleCache = new HashMap<String, TdqAnalyzedElement>();
+
+    private Map<String, TdqIndicatorDefinition> tdqIndDefinitionCache = new HashMap<String, TdqIndicatorDefinition>();
+    
+    private List<Object> needSaveObjects = new ArrayList<Object>();
+
     public boolean persist(TdReport report) {
         boolean ok = true;
         // // create a session transaction
@@ -100,11 +111,27 @@ public class DatabasePersistence {
         for (Analysis analysis : analyses) {
             persist(report, analysis);
         }
-
+        for(Object object:needSaveObjects){
+          session.save(object)  ;
+        }
+        
         // commit and close session
         session.getTransaction().commit();
+        clearCache();
         return ok;
     }
+    
+    
+
+    private void clearCache() {
+        tdqAnalysisCache.clear();
+        tdqAnaEleCache.clear();
+        tdqIndDefinitionCache.clear();
+        needSaveObjects.clear();
+        
+    }
+
+
 
     /**
      * DOC scorreia Comment method "persist".
@@ -118,8 +145,34 @@ public class DatabasePersistence {
     private void persist(TdReport report, Analysis analysis) {
         // Get the last instance of TdqAnalysis from DB
         // get row from DB with report's UUID, analysis' UUID and the max(beginDate)
+        TdqAnalysis useTdqAnalysis = getCacheTdqAnalysis(report, analysis);
+
+        // if no changes exist, continue
+        // save indicators
+        AnalysisResult results = analysis.getResults();
+        // Date executionDate = results.getResultMetadata().getExecutionDate();
+        EList<Indicator> indicators = results.getIndicators();
+        for (Indicator indicator : indicators) {
+            persist(indicator, useTdqAnalysis, analysis);
+        }
+
+    }
+
+    /**
+     * DOC rli Comment method "getCurrentTdqAnalysis".
+     * 
+     * @param report
+     * @param analysis
+     * @return
+     */
+    private TdqAnalysis getCacheTdqAnalysis(TdReport report, Analysis analysis) {
         String reportUuid = ResourceHelper.getUUID(report);
         String analysisUuid = ResourceHelper.getUUID(analysis);
+        String uniKey = reportUuid + analysisUuid;
+        TdqAnalysis cacheTdqAnalysis = tdqAnalysisCache.get(uniKey);
+        if (cacheTdqAnalysis != null) {
+            return cacheTdqAnalysis;
+        }
         List maxVersionList = session.createQuery(
                 "select MAX(anVersion) from TdqAnalysis where anUuid='" + analysisUuid + "' and repUuid='" + reportUuid + "'")
                 .list();
@@ -151,20 +204,9 @@ public class DatabasePersistence {
             session.save(createTdqAnalysis);
             isNeedSave = true;
         }
-
-        // if no changes exist, continue
-        // save indicators
-        AnalysisResult results = analysis.getResults();
-        // Date executionDate = results.getResultMetadata().getExecutionDate();
-        EList<Indicator> indicators = results.getIndicators();
-        for (Indicator indicator : indicators) {
-            if (isNeedSave) {
-                persist(indicator, createTdqAnalysis, analysis);
-            } else {
-                persist(indicator, dbTdqAnalysis, analysis);
-            }
-        }
-
+        cacheTdqAnalysis = isNeedSave ? createTdqAnalysis : dbTdqAnalysis;
+        tdqAnalysisCache.put(uniKey, cacheTdqAnalysis);
+        return cacheTdqAnalysis;
     }
 
     /**
@@ -176,7 +218,80 @@ public class DatabasePersistence {
     private void persist(Indicator indicator, TdqAnalysis tdqAnalysis, Analysis analysis) {
         // Persist analyzed element (try to get it first before creating it with its UUID)
         // update row only when something has changed (then update END_DATE, VERSION)
+        TdqAnalyzedElement persistAnalyzedElement = getCacheTdqAnalyzedElement(indicator);
+
+        // Do the same for TdqIndicatorDefinition (get the definition with its LABEL which identifies a row)
+        // update only if something has changed (then update END_DATE, VERSION)
+        TdqIndicatorDefinition persistIndicatorDefinition = getCacheTdqIndicatorDef(indicator);
+
+        // get the tdqCalendar object and the TdqDayTime from the database given the date
+        Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
+        if (executionDate != null) {
+            TdqIndicatorValue[] createTdqindicatorValues = createTdqindicatorValues(indicator, tdqAnalysis,
+                    persistAnalyzedElement, persistIndicatorDefinition, analysis);
+            List list = session.createCriteria(TdqCalendar.class).add(Expression.eq("calDate", executionDate)).list();
+            TdqCalendar dbCalendar = (TdqCalendar) list.get(0);
+            list = session.createCriteria(TdqDayTime.class).add(Expression.eq("timeLabel", getSimpleDateString(executionDate)))
+                    .list();
+            TdqDayTime dbDayTime = (TdqDayTime) list.get(0);
+            for (TdqIndicatorValue tdqIndicatorValue : createTdqindicatorValues) {
+                tdqIndicatorValue.setTdqCalendar(dbCalendar);
+                tdqIndicatorValue.setTdqDayTime(dbDayTime);
+                needSaveObjects.add(tdqIndicatorValue);
+            }
+        }
+    }
+
+    /**
+     * DOC rli Comment method "getCacheTdqIndicatorDef".
+     * 
+     * @param indicator
+     * @return
+     */
+    private TdqIndicatorDefinition getCacheTdqIndicatorDef(Indicator indicator) {
+        String indLabel = indicator.getName();
+        TdqIndicatorDefinition cacheIndicatorDefinition = tdqIndDefinitionCache.get(indLabel);
+        if (cacheIndicatorDefinition != null) {
+            return cacheIndicatorDefinition;
+        }
+        List indDefinitionVersionList = session.createQuery(
+                "select MAX(indVersion) from TdqIndicatorDefinition where indLabel='" + indLabel + "'").list();
+        Integer indDefinitionVersion = (Integer) indDefinitionVersionList.get(0);
+        TdqIndicatorDefinition createTdqIndicatorDefinition = createTdqIndicatorDefinition(indicator);
+        boolean isIndicatorSaved = false;
+        TdqIndicatorDefinition dbIndDefinition = null;
+        if (indDefinitionVersion != null) {
+            List list = session.createCriteria(TdqIndicatorDefinition.class).add(Expression.eq("indLabel", indLabel)).add(
+                    Expression.eq("indVersion", indDefinitionVersion)).list();
+            dbIndDefinition = (TdqIndicatorDefinition) list.get(0);
+            if (!dbIndDefinition.valueEqual(createTdqIndicatorDefinition)) {
+                dbIndDefinition.setIndEndDate(new Date(System.currentTimeMillis()));
+                session.update(dbIndDefinition);
+                createTdqIndicatorDefinition.setIndVersion(dbIndDefinition.getIndVersion() + 1);
+//                session.save(createTdqIndicatorDefinition);
+                needSaveObjects.add(createTdqIndicatorDefinition);
+                isIndicatorSaved = true;
+            }
+        } else {
+            isIndicatorSaved = true;
+        }
+        cacheIndicatorDefinition = isIndicatorSaved ? createTdqIndicatorDefinition : dbIndDefinition;
+        tdqIndDefinitionCache.put(indLabel, cacheIndicatorDefinition);
+        return cacheIndicatorDefinition;
+    }
+
+    /**
+     * DOC rli Comment method "getCurrentTdqAnalyzedElement".
+     * 
+     * @param indicator
+     * @return
+     */
+    private TdqAnalyzedElement getCacheTdqAnalyzedElement(Indicator indicator) {
         String uuid = ResourceHelper.getUUID(indicator.getAnalyzedElement());
+        TdqAnalyzedElement cacheAnalyzedElement = this.tdqAnaEleCache.get(uuid);
+        if (cacheAnalyzedElement != null) {
+            return cacheAnalyzedElement;
+        }
         List analyzedEleVersionList = session.createQuery(
                 "select MAX(eltVersion) from TdqAnalyzedElement where eltUuid='" + uuid + "'").list();
         Integer analyzedEleVersion = (Integer) analyzedEleVersionList.get(0);
@@ -199,51 +314,9 @@ public class DatabasePersistence {
             session.save(createTdqAnalyzedElement);
             isAnalyzedEleSaved = true;
         }
-        TdqAnalyzedElement persistAnalyzedElement = isAnalyzedEleSaved ? createTdqAnalyzedElement : dbAnalyzedElement;
-
-        // Do the same for TdqIndicatorDefinition (get the definition with its LABEL which identifies a row)
-        // update only if something has changed (then update END_DATE, VERSION)
-        String indLabel = indicator.getName();
-
-        List indDefinitionVersionList = session.createQuery(
-                "select MAX(indVersion) from TdqIndicatorDefinition where indLabel='" + indLabel + "'").list();
-        Integer indDefinitionVersion = (Integer) indDefinitionVersionList.get(0);
-        TdqIndicatorDefinition createTdqIndicatorDefinition = createTdqIndicatorDefinition(indicator);
-        boolean isIndicatorSaved = false;
-        TdqIndicatorDefinition dbIndDefinition = null;
-        if (indDefinitionVersion != null) {
-            List list = session.createCriteria(TdqIndicatorDefinition.class).add(Expression.eq("indLabel", indLabel)).add(
-                    Expression.eq("indVersion", indDefinitionVersion)).list();
-            dbIndDefinition = (TdqIndicatorDefinition) list.get(0);
-            if (!dbIndDefinition.valueEqual(createTdqIndicatorDefinition)) {
-                dbIndDefinition.setIndEndDate(new Date(System.currentTimeMillis()));
-                session.update(dbIndDefinition);
-                createTdqIndicatorDefinition.setIndVersion(dbIndDefinition.getIndVersion() + 1);
-                session.save(createTdqIndicatorDefinition);
-                isIndicatorSaved = true;
-            }
-        } else {
-            session.save(createTdqIndicatorDefinition);
-            isIndicatorSaved = true;
-        }
-        TdqIndicatorDefinition persistIndicatorDefinition = isIndicatorSaved ? createTdqIndicatorDefinition : dbIndDefinition;
-
-        //get the tdqCalendar object and the TdqDayTime from the database given the date
-        Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
-        if (executionDate != null) {
-            TdqIndicatorValue[] createTdqindicatorValues = createTdqindicatorValues(indicator, tdqAnalysis,
-                    persistAnalyzedElement, persistIndicatorDefinition, analysis);
-            List list = session.createCriteria(TdqCalendar.class).add(Expression.eq("calDate", executionDate)).list();
-            TdqCalendar dbCalendar = (TdqCalendar) list.get(0);
-            list = session.createCriteria(TdqDayTime.class).add(Expression.eq("timeLabel", getSimpleDateString(executionDate)))
-                    .list();
-            TdqDayTime dbDayTime = (TdqDayTime) list.get(0);
-            for (TdqIndicatorValue tdqIndicatorValue : createTdqindicatorValues) {
-                tdqIndicatorValue.setTdqCalendar(dbCalendar);
-                tdqIndicatorValue.setTdqDayTime(dbDayTime);
-                session.save(tdqIndicatorValue);
-            }
-        }
+        cacheAnalyzedElement = isAnalyzedEleSaved ? createTdqAnalyzedElement : dbAnalyzedElement;
+        tdqAnaEleCache.put(uuid, cacheAnalyzedElement);
+        return cacheAnalyzedElement;
     }
 
     /**
@@ -263,8 +336,8 @@ public class DatabasePersistence {
             TdqAnalyzedElement tdqAnalyzedElement, TdqIndicatorDefinition tdqIndicatorDefinition, Analysis analysis) {
         TdqIndicatorValue[] indicatorValues;
 
-        // for each value in FrequencyIndicator.getDistinctValues()?????????????
-        // for ModeIndicator getInstanceValue()
+        // for each value in FrequencyIndicator.getDistinctValues()
+        // for ModeIndicator modeIndicator.getMode()
         IndicatorsSwitch<FrequencyIndicator> frequencySwitch = new IndicatorsSwitch<FrequencyIndicator>() {
 
             public FrequencyIndicator caseFrequencyIndicator(FrequencyIndicator object) {

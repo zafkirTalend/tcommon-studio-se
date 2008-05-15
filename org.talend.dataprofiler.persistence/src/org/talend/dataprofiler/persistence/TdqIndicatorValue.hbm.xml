@@ -17,7 +17,7 @@
         <many-to-one name="tdqAnalysis" class="org.talend.dataprofiler.persistence.TdqAnalysis" fetch="select">
             <column name="ANALYSIS_PK" not-null="true" />
         </many-to-one>
-        <many-to-one name="tdqValues" class="org.talend.dataprofiler.persistence.TdqValues" fetch="select">
+        <many-to-one name="tdqValues" class="org.talend.dataprofiler.persistence.TdqValues" fetch="select"  cascade="save-update">
             <column name="VALUE_PK" not-null="false" />
         </many-to-one>
         <many-to-one name="tdqIndicatorOptions" class="org.talend.dataprofiler.persistence.TdqIndicatorOptions" fetch="select">
@@ -26,7 +26,7 @@
         <many-to-one name="tdqInterval" class="org.talend.dataprofiler.persistence.TdqInterval" fetch="select">
             <column name="INTERVAL_PK" not-null="false" />
         </many-to-one>
-        <many-to-one name="tdqIndicatorDefinition" class="org.talend.dataprofiler.persistence.TdqIndicatorDefinition" fetch="select">
+        <many-to-one name="tdqIndicatorDefinition" class="org.talend.dataprofiler.persistence.TdqIndicatorDefinition" fetch="select"  cascade="save-update">
             <column name="INDICATOR_PK" not-null="true" />
         </many-to-one>
         <many-to-one name="tdqCalendar" class="org.talend.dataprofiler.persistence.TdqCalendar" fetch="select">

@@ -20,8 +20,8 @@ CREATE TABLE talend_dq.TDQ_ANALYSIS (
 
 CREATE TABLE talend_dq.TDQ_INDICATOR_VALUE (
                 INDV_PK INT(12) AUTO_INCREMENT NOT NULL,
-                OPTION_PK INT(12) NOT NULL,
-                INTERVAL_PK INT(12) NOT NULL,
+                OPTION_PK INT(12),
+                INTERVAL_PK INT(12),
                 ANALYSIS_PK INT(12) NOT NULL,
                 ELEMENT_PK INT(12) NOT NULL,
                 INDICATOR_PK INT(12) NOT NULL,
