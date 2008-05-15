@@ -111,11 +111,19 @@ public class ColumnIndicator {
     }
 
     public void setIndicators(Indicator[] indicators) {
-        indicatorEnums.clear();
-        indicatorList.clear();
+        clear();
         for (int i = 0; i < indicators.length; i++) {
             addIndicatorEnum(IndicatorEnum.findIndicatorEnum(indicators[i].eClass()));
         }
+    }
+
+    /**
+     * DOC rli Comment method "clear".
+     */
+    private void clear() {
+        indicatorEnums.clear();
+        indicatorList.clear();
+        indicatorMappingTypeList.clear();
     }
 
     /**
