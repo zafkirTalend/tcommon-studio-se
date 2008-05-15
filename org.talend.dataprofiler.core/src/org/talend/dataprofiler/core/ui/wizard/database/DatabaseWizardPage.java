@@ -29,6 +29,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.api.ConnectionService;
@@ -92,17 +93,14 @@ class DatabaseWizardPage extends AbstractWizardPage {
 
     public void createControl(Composite parent) {
         setPageComplete(false);
-
-        ScrolledComposite composite = new ScrolledComposite(parent, SWT.BORDER | SWT.V_SCROLL);
-        composite.setLayout(new FillLayout());
         
-        Composite comp = new Composite(composite, SWT.NULL);
+        Composite comp = new Composite(parent, SWT.NULL);
+
+        comp.setLayoutData(new GridData(GridData.FILL_BOTH));
         GridLayout layout = new GridLayout();
         comp.setLayout(layout);
-        comp.setSize(550, 337);
         layout.numColumns = 1;
         layout.verticalSpacing = 9;
-        composite.setContent(comp);
 
         GridData data = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
         data.horizontalSpan = 1;
