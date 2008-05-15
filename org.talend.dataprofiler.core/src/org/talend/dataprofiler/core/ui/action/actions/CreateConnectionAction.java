@@ -44,7 +44,7 @@ public class CreateConnectionAction extends Action implements ICheatSheetAction 
         DatabaseConnectionWizard wizard = new DatabaseConnectionWizard(PlatformUI.getWorkbench(), true, null, null);
         wizard.init(PlatformUI.getWorkbench(), null);
         WizardDialog dialog = new WizardDialog(null, wizard);
-        dialog.setPageSize(600, 355);
+        dialog.setPageSize(600, 400);
         dialog.open();
     }
 
