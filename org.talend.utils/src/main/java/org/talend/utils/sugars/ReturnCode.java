@@ -19,7 +19,7 @@ package org.talend.utils.sugars;
  */
 public class ReturnCode {
 
-    private boolean ok;
+    private Boolean ok;
 
     private String message;
 
@@ -29,7 +29,7 @@ public class ReturnCode {
      * @param mess the message to return
      * @param retCode the boolean to return
      */
-    public ReturnCode(String mess, boolean retCode) {
+    public ReturnCode(String mess, Boolean retCode) {
         this.message = mess;
         this.ok = retCode;
     }
@@ -47,7 +47,7 @@ public class ReturnCode {
      * 
      * @param isOk the return boolean by default.
      */
-    public ReturnCode(boolean isOk) {
+    public ReturnCode(Boolean isOk) {
         this.message = null;
         this.ok = isOk;
     }
@@ -58,7 +58,7 @@ public class ReturnCode {
      * @param mess
      * @param retCode
      */
-    public void setReturnCode(String mess, boolean retCode) {
+    public void setReturnCode(String mess, Boolean retCode) {
         this.setMessage(mess);
         this.setOk(retCode);
     }
@@ -68,7 +68,7 @@ public class ReturnCode {
      * 
      * @return the ok
      */
-    public boolean isOk() {
+    public Boolean isOk() {
         return this.ok;
     }
 
@@ -77,7 +77,7 @@ public class ReturnCode {
      * 
      * @param ok the ok to set
      */
-    public void setOk(boolean ok) {
+    public void setOk(Boolean ok) {
         this.ok = ok;
     }
 
