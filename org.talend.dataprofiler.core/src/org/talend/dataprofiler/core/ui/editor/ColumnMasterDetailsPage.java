@@ -185,7 +185,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
     /**
      * 
      */
-    private void openColumnsSelectionDialog() {
+    public void openColumnsSelectionDialog() {
         ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
         ColumnsSelectionDialog dialog = new ColumnsSelectionDialog(getSite().getShell(), columnIndicator, "Column Selection");
         if (dialog.open() == Window.OK) {
@@ -434,6 +434,15 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
         if (dataFilterComp != null) {
             this.dataFilterComp.removePropertyChangeListener(this);
         }
+    }
+
+    
+    /**
+     * Getter for treeViewer.
+     * @return the treeViewer
+     */
+    public AnasisColumnTreeViewer getTreeViewer() {
+        return this.treeViewer;
     }
 
 }

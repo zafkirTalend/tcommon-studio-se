@@ -125,4 +125,13 @@ public class AnalysisEditor extends FormEditor {
         setPartName(input.getName());
     }
 
+    
+    /**
+     * Getter for masterPage.
+     * @return the masterPage
+     */
+    public IFormPage getMasterPage() {
+        return this.masterPage;
+    }
+
 }

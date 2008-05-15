@@ -16,19 +16,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
-import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
-import org.talend.dataprofiler.core.ui.wizard.database.DatabaseConnectionWizard;
+import org.talend.dataprofiler.core.ui.action.actions.CreateConnectionAction;
 
 /**
  * @author rli
@@ -81,28 +77,4 @@ public class NewConnectionActionProvider extends CommonActionProvider {
             }
         }
     }
-
-    /**
-     * @author rli
-     * 
-     */
-    class CreateConnectionAction extends Action {
-
-        public CreateConnectionAction() {
-            super("Create a new connection");
-            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.NEW_CONNECTION));
-        }
-
-        /*
-         * (non-Javadoc) Method declared on IAction.
-         */
-        public void run() {
-            DatabaseConnectionWizard wizard = new DatabaseConnectionWizard(PlatformUI.getWorkbench(), true, null, null);
-            wizard.init(PlatformUI.getWorkbench(), null);
-            WizardDialog dialog = new WizardDialog(null, wizard);
-            dialog.setPageSize(600, 355);
-            dialog.open();
-        }
-    }
-
 }

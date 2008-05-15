@@ -23,7 +23,8 @@ Require-Bundle: org.talend.dataprofiler.libraries,
  org.talend.cwm.management,
  org.talend.dataprofiler.help,
  org.talend.libraries.jfreechart,
- org.talend.platform.logging;resolution:=optional
+ org.talend.platform.logging;resolution:=optional,
+ org.eclipse.ui.cheatsheets
 Eclipse-LazyStart: true
 Export-Package: org.talend.dataprofiler.core,
  org.talend.dataprofiler.core.helper,

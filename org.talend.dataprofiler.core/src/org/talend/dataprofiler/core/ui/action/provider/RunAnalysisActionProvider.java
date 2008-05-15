@@ -12,46 +12,22 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.provider;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
-import org.talend.commons.emf.EMFUtil;
-import org.talend.dataprofiler.core.ImageLib;
-import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
-import org.talend.dataprofiler.core.ui.progress.ProgressUI;
-import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.analysis.AnalysisType;
-import org.talend.dataquality.helpers.AnalysisHelper;
-import org.talend.dq.analysis.AnalysisExecutor;
-import org.talend.dq.analysis.ColumnAnalysisExecutor;
-import org.talend.dq.analysis.ColumnAnalysisSqlExecutor;
-import org.talend.dq.analysis.ConnectionAnalysisExecutor;
-import org.talend.utils.sugars.ReturnCode;
+import org.talend.dataprofiler.core.ui.action.actions.RunAnalysisAction;
 
 /**
  * DOC rli class global comment. Detailled comment
  */
 public class RunAnalysisActionProvider extends CommonActionProvider {
 
-    private static Logger log = Logger.getLogger(RunAnalysisActionProvider.class);
-
-    private IAction runAnalysisAction;
+    private RunAnalysisAction runAnalysisAction;
 
     private IFile currentSelection;
 
@@ -69,6 +45,7 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
 
             }
             runAnalysisAction = new RunAnalysisAction();
+            runAnalysisAction.setTreeViewer(treeViewer);
         }
     }
 
@@ -80,68 +57,8 @@ public class RunAnalysisActionProvider extends CommonActionProvider {
         if (obj instanceof IFile) {
             currentSelection = (IFile) obj;
         }
+        runAnalysisAction.setCurrentSelection(currentSelection);
         menu.add(runAnalysisAction);
-    }
-
-    /**
-     * @author rli
-     * 
-     */
-    private class RunAnalysisAction extends Action {
-
-        public RunAnalysisAction() {
-            super("Run");
-            setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
-        }
-
-        /*
-         * (non-Javadoc) Method declared on IAction.
-         */
-        public void run() {
-            Analysis analysis = null;
-            if (currentSelection.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                analysis = AnaResourceFileHelper.getInstance().findAnalysis(currentSelection);
-            }
-            AnalysisType analysisType = AnalysisHelper.getAnalysisType(analysis);
-            AnalysisExecutor exec = null;
-            switch (analysisType) {
-            case MULTIPLE_COLUMN:
-                exec = new ColumnAnalysisSqlExecutor();
-                break;
-            case CONNECTION:
-                exec = new ConnectionAnalysisExecutor();
-                break;
-            default:
-                exec = new ColumnAnalysisExecutor();
-            }
-
-            final Analysis finalAnalysis = analysis;
-            final AnalysisExecutor finalExec = exec;
-            final Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-            IRunnableWithProgress op = new IRunnableWithProgress() {
-
-                public void run(IProgressMonitor monitor) throws InvocationTargetException {
-                    ReturnCode executed = finalExec.execute(finalAnalysis);
-                    if (log.isInfoEnabled()) {
-                        log.info("Analysis " + finalAnalysis.getName() + "execution code: " + executed);
-                    }
-                    if (executed.isOk()) {
-                        AnaResourceFileHelper.getInstance().save(finalAnalysis);
-                    }
-                }
-            };
-            try {
-                ProgressUI.popProgressDialog(op, shell);
-                if (treeViewer != null) {
-                    treeViewer.refresh();
-                }
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
     }
 
 }
