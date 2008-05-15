@@ -198,7 +198,8 @@ public final class EMFUtil {
     }
 
     /**
-     * Method "saveResource" saves the given resource. This method is a helper for saving quickly a given resource.
+     * Method "saveResource" saves the given resource. This method is a helper for saving quickly a given resource and
+     * all its related resources (if any).
      * 
      * @param resource the resource to save
      * @return true if no problem
@@ -210,7 +211,23 @@ public final class EMFUtil {
             util.setResourceSet(resourceSet);
             return util.save();
         }
+        // else
         util.getResourceSet().getResources().add(resource);
         return util.save();
     }
+
+    /**
+     * Method "saveSingleResource" saves the given resource only. This method is a helper for saving quickly a given
+     * resource. It does not saved the related resources. This could result in an exception when other related resources
+     * should be saved with this resource.
+     * 
+     * @param resource the resource to save
+     * @return true if no problem
+     */
+    public static boolean saveSingleResource(Resource resource) {
+        EMFUtil util = new EMFUtil();
+        util.getResourceSet().getResources().add(resource);
+        return util.save();
+    }
+
 }

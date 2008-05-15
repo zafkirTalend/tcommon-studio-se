@@ -419,6 +419,8 @@
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/IS_NOT_NULL"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/AND"/>
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/OR"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/UNION"/>
+          <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/SqlPredicate/ALL"/>
         </genEnums>
         <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//domain/sql/Bracket">
           <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//domain/sql/Bracket/LEFT"/>

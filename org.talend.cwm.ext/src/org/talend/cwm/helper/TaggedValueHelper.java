@@ -193,6 +193,9 @@ public final class TaggedValueHelper {
      * @return
      */
     public static boolean setDevStatus(ModelElement element, DevelopmentStatus status) {
+        if (status == null) {
+            return false;
+        }
         return setTaggedValue(element, DEV_STATUS, status.getLiteral());
     }
 

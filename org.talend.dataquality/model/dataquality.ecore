@@ -568,6 +568,8 @@
         <eLiterals name="IS_NOT_NULL" value="14" literal="IS NOT NULL"/>
         <eLiterals name="AND" value="15"/>
         <eLiterals name="OR" value="16"/>
+        <eLiterals name="UNION" value="17"/>
+        <eLiterals name="ALL" value="18"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EEnum" name="Bracket">
         <eLiterals name="LEFT" literal="("/>

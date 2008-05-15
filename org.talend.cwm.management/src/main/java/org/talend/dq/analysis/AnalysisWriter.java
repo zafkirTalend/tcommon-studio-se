@@ -74,7 +74,8 @@ public class AnalysisWriter {
             }
         }
 
-        // save the resource and related resources (when needed)
+        // save the resource and related resources (when needed, for example when we change the data mining type of a
+        // column)
         boolean saved = EMFUtil.saveResource(resource);
 
         if (!saved) {

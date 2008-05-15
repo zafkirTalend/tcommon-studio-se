@@ -175,7 +175,23 @@ public enum SqlPredicate implements Enumerator {
      * @generated
      * @ordered
      */
-    OR(16, "OR", "OR");
+    OR(16, "OR", "OR"), /**
+     * The '<em><b>UNION</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #UNION_VALUE
+     * @generated
+     * @ordered
+     */
+    UNION(17, "UNION", "UNION"), /**
+     * The '<em><b>ALL</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #ALL_VALUE
+     * @generated
+     * @ordered
+     */
+    ALL(18, "ALL", "ALL");
 
     /**
      * The '<em><b>EQUAL</b></em>' literal value.
@@ -431,6 +447,36 @@ public enum SqlPredicate implements Enumerator {
     public static final int OR_VALUE = 16;
 
     /**
+     * The '<em><b>UNION</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>UNION</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #UNION
+     * @model
+     * @generated
+     * @ordered
+     */
+    public static final int UNION_VALUE = 17;
+
+    /**
+     * The '<em><b>ALL</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>ALL</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #ALL
+     * @model
+     * @generated
+     * @ordered
+     */
+    public static final int ALL_VALUE = 18;
+
+    /**
      * An array of all the '<em><b>Sql Predicate</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -455,6 +501,8 @@ public enum SqlPredicate implements Enumerator {
             IS_NOT_NULL,
             AND,
             OR,
+            UNION,
+            ALL,
         };
 
     /**
@@ -522,6 +570,8 @@ public enum SqlPredicate implements Enumerator {
             case IS_NOT_NULL_VALUE: return IS_NOT_NULL;
             case AND_VALUE: return AND;
             case OR_VALUE: return OR;
+            case UNION_VALUE: return UNION;
+            case ALL_VALUE: return ALL;
         }
         return null;
     }

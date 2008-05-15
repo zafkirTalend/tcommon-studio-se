@@ -305,6 +305,8 @@ public class SQLPackageImpl extends EPackageImpl implements SQLPackage {
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.IS_NOT_NULL);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.AND);
         addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.OR);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.UNION);
+        addEEnumLiteral(sqlPredicateEEnum, SqlPredicate.ALL);
 
         initEEnum(bracketEEnum, Bracket.class, "Bracket");
         addEEnumLiteral(bracketEEnum, Bracket.LEFT);

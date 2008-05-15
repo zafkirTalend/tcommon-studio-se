@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="__kJ2QMgREdyG0LgpY5XOwg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_Nwj_4PQrEdyubdWj5a9KaA">
   <model href="dataquality.ecore#/"/>
   <subdiagrams xmi:id="_NJJ5YMROEdybWP_3i664pg">
     <model href="dataquality.ecore#//indicators"/>
@@ -5096,7 +5096,7 @@
     </subdiagrams>
     <subdiagrams xmi:id="_NvXtEPQrEdyubdWj5a9KaA">
       <model href="dataquality.ecore#//domain/sql"/>
-      <diagrams xmi:id="_Nwj_4PQrEdyubdWj5a9KaA" position="0,0" size="100,100" name="SQL" viewport="0,0">
+      <diagrams xmi:id="_Nwj_4PQrEdyubdWj5a9KaA" position="0,0" size="100,100" name="SQL" viewport="0,142">
         <property xmi:id="_NwyCUPQrEdyubdWj5a9KaA" key="pageFormatName" value="A4"/>
         <property xmi:id="_NwyCUfQrEdyubdWj5a9KaA" key="diagramWidth" value="840"/>
         <property xmi:id="_NwyCUvQrEdyubdWj5a9KaA" key="diagramHeight" value="1188"/>
@@ -5201,6 +5201,16 @@
             <contained xsi:type="di:GraphNode" xmi:id="_Nm6eoP_yEdyffZ31a-4v2g" position="0,0" size="-1,-1">
               <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Nm6eof_yEdyffZ31a-4v2g" presentation="default">
                 <element href="dataquality.ecore#//domain/sql/SqlPredicate/OR"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_rOZ-8CKDEd2BzqIYyE2Eog" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_rOZ-8SKDEd2BzqIYyE2Eog" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/UNION"/>
+              </semanticModel>
+            </contained>
+            <contained xsi:type="di:GraphNode" xmi:id="_uZZUQCKDEd2BzqIYyE2Eog" position="0,0" size="-1,-1">
+              <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_uZZUQSKDEd2BzqIYyE2Eog" presentation="default">
+                <element href="dataquality.ecore#//domain/sql/SqlPredicate/ALL"/>
               </semanticModel>
             </contained>
           </contained>

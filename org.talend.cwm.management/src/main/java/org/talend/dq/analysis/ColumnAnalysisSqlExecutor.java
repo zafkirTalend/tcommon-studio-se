@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.management.api.DbmsLanguage;
 import org.talend.cwm.management.api.SoftwareSystemManager;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -64,23 +65,16 @@ import Zql.ZqlParser;
 public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
     /**
-     * 
+     * TODO scorreia this constant must be replaced by a default preference and the possibility to the user to change it
+     * for each indicator.
      */
     private static final int TOP_N = 20;
-
-    /**
-     * 
-     */
-    private static final String DOT = ".";
-
-    /**
-     * End of SQL Statement.
-     */
-    private static final String EOS = ";";
 
     private static Logger log = Logger.getLogger(ColumnAnalysisSqlExecutor.class);
 
     private static final String DEFAULT_QUOTE_STRING = "";
+
+    private DbmsLanguage dbmsLanguage;
 
     private String dbQuote;
 
@@ -124,25 +118,6 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         return "";
     }
 
-    // TODO scorreia move this method in a utility class
-    public static String toQualifiedName(String catalog, String schema, String name) {
-        StringBuffer qualName = new StringBuffer();
-        if (catalog != null && catalog.length() > 0) {
-            qualName.append(catalog);
-            qualName.append(DOT);
-        }
-        if (schema != null && schema.length() > 0) {
-            qualName.append(schema);
-            qualName.append(DOT);
-        }
-
-        qualName.append(name);
-        if (log.isDebugEnabled()) {
-            log.debug(String.format("%s.%s.%s -> %s", catalog, schema, name, qualName));
-        }
-        return qualName.toString();
-    }
-
     /**
      * DOC scorreia Comment method "createSqlQuery".
      * 
@@ -178,38 +153,30 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         // get correct language for current database
-        String language = getDatabaseSubtype();
-        Expression sqlExpression = null; // SqlIndicatorHandler.getSqlCwmExpression(indicator, language);
+        String language = dbms().getDbmsName();
+        Expression sqlGenericExpression = null; // SqlIndicatorHandler.getSqlCwmExpression(indicator, language);
 
-        // TODO create select statement
-        // TODO get indicator's sql columnS (generate the real SQL statement from its definition)
-        // FIXME scorreia set indicator definition elsewhere
-        // boolean definitionIsSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
-        // if (log.isDebugEnabled()) {
-        // log.debug("Definition is set " + definitionIsSet);
-        // }
-        // if (!definitionIsSet) {
-        // log.warn("Uncorrectly defined indicator "
-        // + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
-        // }
+        // --- create select statement
+        // get indicator's sql columnS (generate the real SQL statement from its definition)
+
         IndicatorDefinition indicatorDefinition = indicator.getIndicatorDefinition();
         if (indicatorDefinition == null) {
             log.error("No indicator definition found for indicator "
                     + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
             return false;
         }
-        sqlExpression = getSqlExpression(indicatorDefinition, language);
-        if (sqlExpression == null) {
-            // try with default language
+        sqlGenericExpression = getSqlExpression(indicatorDefinition, language);
+        if (sqlGenericExpression == null) {
+            // try with default language (ANSI SQL)
             log.warn("The indicator definition has not been found for the database type " + language + " for the indicator"
                     + indicatorDefinition.getName());
             if (log.isInfoEnabled()) {
-                log.info("Trying to compute the indicator with the default language " + DEFAULT_SQL);
+                log.info("Trying to compute the indicator with the default language " + dbms().getDefaultLanguage());
             }
-            sqlExpression = getSqlExpression(indicatorDefinition, DEFAULT_SQL);
+            sqlGenericExpression = getSqlExpression(indicatorDefinition, dbms().getDefaultLanguage());
         }
 
-        if (sqlExpression == null || sqlExpression.getBody() == null) {
+        if (sqlGenericExpression == null || sqlGenericExpression.getBody() == null) {
             log.error("No SQL expression found for indicator "
                     + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
             return false;
@@ -218,6 +185,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         // --- get indicator parameters and convert them into sql expression
         List<String> whereExpression = new ArrayList<String>();
         List<String> rangeStrings = null;
+        DateGrain dateAggregationType = null;
         IndicatorParameters parameters = indicator.getParameters();
         if (parameters != null) {
             // handle bins
@@ -225,20 +193,20 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             if (bins != null) {
                 rangeStrings = getBinsAsGenericString(bins.getRanges());
             }
-            DateGrain dateAggregationType = parameters.getDateAggregationType();
+            dateAggregationType = parameters.getDateAggregationType();
             // TODO handle data grain
 
             TextParameters textParameter = parameters.getTextParameter();
             colName = quote(colName);
             if (textParameter != null) {
                 if (textParameter.isIgnoreCase()) {
-                    colName = getUpperCase(language, colName);
+                    colName = dbms().toUpperCase(colName);
                 }
                 if (!textParameter.isUseBlank()) {
-                    whereExpression.add(getWhereIsNotBlank(language, colName));
+                    whereExpression.add(dbms().isNotBlank(colName));
                 }
                 if (textParameter.isUseNulls()) {
-                    colName = replaceNullsWithEmptyString(language, colName);
+                    colName = dbms().replaceNullsWithString(colName, "''");
                 }
             }
         }
@@ -247,25 +215,49 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         // --- normalize table name
         String catalogName = getCatalogName(tdColumn);
-        table = toQualifiedName(catalogName, null, table);
+        table = dbms().toQualifiedName(catalogName, null, table);
 
+        // ### evaluate SQL Statement depending on indicators ###
         String completedSqlString = null;
 
-        // TODO handle case when indicator is median
+        // --- handle case when indicator is a quantile
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getMedianIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getLowerQuartileIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUpperQuartileIndicator())) {
-            completedSqlString = getCompletedStringForQuantiles(indicator, sqlExpression, colName, table, dataFilterExpression);
-        } else // case when frequency indicator with ranges
-        if ((rangeStrings != null) && (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator()))) {
-            completedSqlString = getUnionCompletedString(indicator, sqlExpression, colName, table, dataFilterExpression,
-                    rangeStrings);
-        } else // usual nominal frequencies
-        if ((rangeStrings == null) && (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator()))) {
-            completedSqlString = getCompletedSqlString(sqlExpression.getBody(), colName, quote(table)) + EOS;
-            completedSqlString = getTopN(completedSqlString, TOP_N);
-        } else { // default
-            completedSqlString = getCompletedSqlString(sqlExpression.getBody(), colName, quote(table)) + EOS;
+            completedSqlString = getCompletedStringForQuantiles(indicator, sqlGenericExpression, colName, table,
+                    dataFilterExpression);
+            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+        } else
+
+        // --- handle case when frequency indicator
+        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator())) {
+            // with ranges (frequencies of numerical intervals)
+            if (rangeStrings != null) {
+                completedSqlString = getUnionCompletedString(indicator, sqlGenericExpression, colName, table,
+                        dataFilterExpression, rangeStrings);
+            } else if (dateAggregationType != null) { // frequencies with date aggregation
+                // TODO scorreia handle date frequencies
+                completedSqlString = getDateAggregatedCompletedString(sqlGenericExpression, colName, table, dateAggregationType);
+                completedSqlString = getTopN(completedSqlString, TOP_N);
+                completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            } else { // usual nominal frequencies
+                completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+                completedSqlString = getTopN(completedSqlString, TOP_N);
+                completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            }
+        } else
+
+        // --- handle case of unique and duplicate count
+        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())
+                || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            completedSqlString = dbms().countRowInSubquery(completedSqlString, "myquery");
+        } else {
+
+            // --- default case
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
         }
 
         if (log.isDebugEnabled()) {
@@ -273,20 +265,57 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         // TODO scorreia completedSqlString should be the final query
-        String finalQuery = rangeStrings == null ? addWhereToSqlStringStatement(dataFilterExpression, whereExpression,
-                completedSqlString) : completedSqlString;
-
-        // --- handle case of unique and duplicate count
-        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())
-                || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
-
-            // for mysql TODO scorreia see how it should be handled in other DB
-            finalQuery = "SELECT COUNT(*) FROM (" + finalQuery + ") myquery";
-        }
+        String finalQuery = completedSqlString;
 
         Expression instantiateSqlExpression = instantiateSqlExpression(language, finalQuery);
         indicator.setInstantiatedExpression(instantiateSqlExpression);
         return true;
+    }
+
+    /**
+     * DOC scorreia Comment method "getDateAggregatedCompletedString".
+     * 
+     * @param indicator
+     * @param sqlExpression
+     * @param colName
+     * @param table
+     * @param dataFilterExpression
+     * @param dateAggregationType
+     * @return
+     */
+    private String getDateAggregatedCompletedString(Expression sqlExpression, String colName, String table,
+            DateGrain dateAggregationType) {
+        int nbExtractedColumns = 0;
+        String result = "";
+        switch (dateAggregationType) {
+        case DAY:
+            result += dbms().extractDay(colName);
+            nbExtractedColumns++;
+        case WEEK:
+            result = dbms().extractWeek(colName) + result;
+            nbExtractedColumns++;
+        case MONTH:
+            result = dbms().extractMonth(colName) + result;
+            nbExtractedColumns++;
+        case QUARTER:
+            result = dbms().extractQuarter(colName) + result;
+            nbExtractedColumns++;
+        case SEMESTER:
+            // FIXME scorreia semester not handled
+        case YEAR:
+            result = dbms().extractYear(colName) + result;
+            nbExtractedColumns++;
+            break;
+        case NONE:
+            result = colName;
+            nbExtractedColumns++;
+            break;
+        default:
+            break;
+        }
+
+        String sql = replaceVariables(sqlExpression.getBody(), result, table);
+        return sql;
     }
 
     /**
@@ -311,23 +340,8 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      */
     private String addWhereToSqlStringStatement(ZExp dataFilterExpression, List<String> whereExpression, String completedSqlString)
             throws ParseException {
-        // LIMIT clause is specific to MySQL, it is not understood by ZQL. remove it and add only at the end
-        String[] withoutLimit = removeLimitClause(completedSqlString);
-        String safeZqlString = (withoutLimit == null) ? completedSqlString : withoutLimit[0];
-
-        safeZqlString = closeStatement(safeZqlString);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(safeZqlString.getBytes());
-        ZqlParser parser = new ZqlParser();
-        // FIXME we should use a parser factory that creates a parser that depends on the DB
-        parser.addCustomFunction("TRIM", 1); // scorreia trim function for MySQL database
-        parser.addCustomFunction("CHAR_LENGTH", 1);
-        parser.addCustomFunction("SUM", 1);
-        parser.addCustomFunction("MIN", 1);
-        parser.addCustomFunction("MAX", 1);
-
-        parser.initParser(byteArrayInputStream);
-
-        ZQuery query = (ZQuery) parser.readStatement();
+        TypedReturnCode<ZQuery> trc = dbms().parseQuery(completedSqlString);
+        ZQuery query = trc.getObject();
         if (dataFilterExpression != null) {
             query.addWhere(dataFilterExpression);
         }
@@ -338,24 +352,8 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         // set the instantiated sql expression into the indicator.
-        String finalQuery = query.toString();
-        if (withoutLimit != null) { // insert MySQL Limit clause at the end
-            finalQuery = finalQuery + " " + withoutLimit[1];
-        }
+        String finalQuery = dbms().finalizeQuery(query);
         return finalQuery;
-    }
-
-    /**
-     * Method "closeStatement" coses the statement with ';' if needed.
-     * 
-     * @param safeZqlString
-     * @return
-     */
-    private String closeStatement(String safeZqlString) {
-        if (!safeZqlString.trim().endsWith(EOS)) {
-            safeZqlString += EOS;
-        }
-        return safeZqlString;
     }
 
     /**
@@ -384,7 +382,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             buf.append(singleSelect);
             buf.append(')');
             if (i != last - 1) {
-                buf.append(" UNION ALL ");
+                buf.append(dbms().unionAll());
             }
         }
         return buf.toString();
@@ -404,9 +402,9 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      */
     private String getCompletedSingleSelect(Indicator indicator, String sqlGenericExpression, String colName, String table,
             ZExp dataFilterExpression, String range) throws ParseException {
-        String completedRange = getCompletedSqlString(range, colName, table);
+        String completedRange = replaceVariables(range, colName, table);
         String rangeColumn = "'" + completedRange + "'";
-        String completedSqlString = getCompletedSqlString(sqlGenericExpression, rangeColumn, table);
+        String completedSqlString = replaceVariables(sqlGenericExpression, rangeColumn, table);
         List<String> listOfWheres = Arrays.asList(completedRange);
         return addWhereToSqlStringStatement(dataFilterExpression, listOfWheres, completedSqlString);
     }
@@ -438,7 +436,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
     private Expression getSqlExpression(IndicatorDefinition indicatorDefinition, String language) {
         EList<Expression> sqlGenericExpression = indicatorDefinition.getSqlGenericExpression();
         for (Expression sqlGenExpr : sqlGenericExpression) {
-            if (language.compareTo(sqlGenExpr.getLanguage()) == 0) {
+            if (StringUtils.equalsIgnoreCase(language, sqlGenExpr.getLanguage())) {
                 return sqlGenExpr; // language found
             }
         }
@@ -468,7 +466,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         Integer nbRow = getNbReturnedRows(indicator, count);
         return MessageFormat.format(sqlExpression.getBody(), quote(colName), quote(table), String.valueOf(midleCount), String
                 .valueOf(nbRow))
-                + EOS;
+                + dbms().eos();
     }
 
     /**
@@ -535,7 +533,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         Connection connection = trc.getObject();
         String whereExp = (dataFilterExpression == null || dataFilterExpression.toString().trim().length() == 0) ? "" : " where "
                 + dataFilterExpression.toString();
-        String queryStmt = "SELECT COUNT(" + colName + ") from " + table + whereExp + EOS;
+        String queryStmt = "SELECT COUNT(" + colName + ") from " + table + whereExp + dbms().eos();
 
         List<Object[]> myResultSet = executeQuery(catalogName, connection, queryStmt);
 
@@ -551,49 +549,36 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * 
      * @return
      */
-    private String getDatabaseSubtype() {
-        String language = DEFAULT_SQL; // FIXME use constant for a default language
-
+    private DbmsLanguage createDbmsLanguage() {
         DataManager connection = this.cachedAnalysis.getContext().getConnection();
         if (connection == null) {
-            return language;
+            return new DbmsLanguage();
         }
         TdDataProvider dataprovider = SwitchHelpers.TDDATAPROVIDER_SWITCH.doSwitch(connection);
         if (dataprovider == null) {
-            return language;
+            return new DbmsLanguage();
         }
 
         TdSoftwareSystem softwareSystem = SoftwareSystemManager.getInstance().getSoftwareSystem(dataprovider);
         if (softwareSystem == null) {
-            return language;
+            return new DbmsLanguage();
         }
-        return softwareSystem.getSubtype();
+        return new DbmsLanguage(softwareSystem.getSubtype());
     }
 
     /**
-     * DOC scorreia Comment method "removeLimitClause".
+     * Method "dbms".
      * 
-     * @param completedSqlString
-     * @return
+     * @return the DBMS language (not null)
      */
-    private String[] removeLimitClause(String completedSqlString) {
-        if (completedSqlString == null) {
-            return null;
+    private DbmsLanguage dbms() {
+        if (this.dbmsLanguage == null) {
+            this.dbmsLanguage = createDbmsLanguage();
         }
-        String upperCased = completedSqlString.toUpperCase();
-        if (upperCased.matches(LIMIT_REGEXP)) {
-            String[] res = new String[2];
-            int lastIndexOf = upperCased.lastIndexOf("LIMIT");
-            res[0] = completedSqlString.substring(0, lastIndexOf) + EOS;
-            res[1] = completedSqlString.substring(lastIndexOf);
-            return res;
-        }
-        return null;
+        return this.dbmsLanguage;
     }
 
-    private static final String LIMIT_REGEXP = ".*(LIMIT){1}\\p{Blank}+\\p{Digit}+,?\\p{Digit}?.*";
-
-    private static final String DEFAULT_SQL = "SQL";
+    // private static final String DEFAULT_SQL = "SQL";
 
     private Expression instantiateSqlExpression(String language, String body) {
         Expression expression = CoreFactory.eINSTANCE.createExpression();
@@ -603,14 +588,14 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
     }
 
     /**
-     * Method "getCompletedSqlString".
+     * Method "replaceVariables".
      * 
      * @param sqlGenericString a string with 2 parameters {0} and {1}
      * @param column the string that replaces the {0} parameter
      * @param table the string that replaces the {1} parameter
      * @return the string with the given parameters
      */
-    private String getCompletedSqlString(String sqlGenericString, String column, String table) {
+    private String replaceVariables(String sqlGenericString, String column, String table) {
         Object[] arguments = { column, table };
         String toFormat = surroundSingleQuotes(sqlGenericString);
 
@@ -630,40 +615,12 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
     }
 
     /**
-     * DOC scorreia Comment method "replaceNullsWithEmptyString".
-     * 
-     * @param language
-     * @param colName
-     * @return
-     */
-    private String replaceNullsWithEmptyString(String language, String colName) {
-        // TODO implement cases for different languages
-        return "IFNULL(" + colName + ",'')";
-    }
-
-    /**
-     * DOC scorreia Comment method "getWhereIsNotBlank".
-     * 
-     * @param language
-     * @param colName
-     * @return
-     */
-    private String getWhereIsNotBlank(String language, String colName) {
-        // TODO implement cases for different languages
-        return "TRIM(" + colName + ") <> '' ";
-    }
-
-    /**
      * DOC scorreia Comment method "getUpperCase".
      * 
      * @param language
      * @param colName
      * @return
      */
-    private String getUpperCase(String language, String colName) {
-        // TODO implement cases for different languages
-        return "UPPER(" + colName + ")";
-    }
 
     /**
      * Method "quote".
@@ -730,10 +687,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
                     connection.setCatalog(quote(catalogName));
                 }
 
-                Expression query = indicator.getInstantiatedExpressions(getDatabaseSubtype());
+                Expression query = indicator.getInstantiatedExpressions(dbms().getDbmsName());
                 if (query == null) {
                     // try to get a default sql expression
-                    query = indicator.getInstantiatedExpressions(DEFAULT_SQL);
+                    query = indicator.getInstantiatedExpressions(dbms().getDefaultLanguage());
                 }
                 if (query == null || !executeQuery(indicator, connection, query.getBody())) {
                     ok = false;
