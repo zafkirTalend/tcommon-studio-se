@@ -27,7 +27,7 @@ CREATE TABLE talend_dq.TDQ_INDICATOR_VALUE (
                 INDICATOR_PK INT(12) NOT NULL,
                 TIME_PK INT(12) NOT NULL,
                 CALENDAR_PK INT(12) NOT NULL,
-                VALUE_PK INT(12) NOT NULL,
+                VALUE_PK INT(12),
                 AN_DURATION INT(10) NOT NULL,
                 INDV_REAL_VALUE DOUBLE PRECISION NULL,
                 INDV_INT_VALUE INT(19) NULL,

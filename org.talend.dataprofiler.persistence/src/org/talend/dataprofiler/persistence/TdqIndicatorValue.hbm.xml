@@ -18,13 +18,13 @@
             <column name="ANALYSIS_PK" not-null="true" />
         </many-to-one>
         <many-to-one name="tdqValues" class="org.talend.dataprofiler.persistence.TdqValues" fetch="select">
-            <column name="VALUE_PK" not-null="true" />
+            <column name="VALUE_PK" not-null="false" />
         </many-to-one>
         <many-to-one name="tdqIndicatorOptions" class="org.talend.dataprofiler.persistence.TdqIndicatorOptions" fetch="select">
-            <column name="OPTION_PK" not-null="true" />
+            <column name="OPTION_PK" not-null="false" />
         </many-to-one>
         <many-to-one name="tdqInterval" class="org.talend.dataprofiler.persistence.TdqInterval" fetch="select">
-            <column name="INTERVAL_PK" not-null="true" />
+            <column name="INTERVAL_PK" not-null="false" />
         </many-to-one>
         <many-to-one name="tdqIndicatorDefinition" class="org.talend.dataprofiler.persistence.TdqIndicatorDefinition" fetch="select">
             <column name="INDICATOR_PK" not-null="true" />

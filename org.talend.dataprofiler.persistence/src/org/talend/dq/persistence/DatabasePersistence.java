@@ -15,6 +15,7 @@ package org.talend.dq.persistence;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -32,6 +33,7 @@ import org.talend.dataprofiler.persistence.TdqCalendar;
 import org.talend.dataprofiler.persistence.TdqDayTime;
 import org.talend.dataprofiler.persistence.TdqIndicatorDefinition;
 import org.talend.dataprofiler.persistence.TdqIndicatorValue;
+import org.talend.dataprofiler.persistence.TdqValues;
 import org.talend.dataprofiler.persistence.business.SqlConstants;
 import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
@@ -39,8 +41,11 @@ import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.indicators.DataminingType;
+import org.talend.dataquality.indicators.FrequencyIndicator;
 import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.ModeIndicator;
 import org.talend.dataquality.indicators.definition.IndicatorCategory;
+import org.talend.dataquality.indicators.util.IndicatorsSwitch;
 import org.talend.dataquality.reports.TdReport;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -150,13 +155,13 @@ public class DatabasePersistence {
         // if no changes exist, continue
         // save indicators
         AnalysisResult results = analysis.getResults();
-        Date executionDate = results.getResultMetadata().getExecutionDate();
+        // Date executionDate = results.getResultMetadata().getExecutionDate();
         EList<Indicator> indicators = results.getIndicators();
         for (Indicator indicator : indicators) {
             if (isNeedSave) {
-                persist(indicator, createTdqAnalysis, executionDate);
+                persist(indicator, createTdqAnalysis, analysis);
             } else {
-                persist(indicator, dbTdqAnalysis, executionDate);
+                persist(indicator, dbTdqAnalysis, analysis);
             }
         }
 
@@ -168,7 +173,7 @@ public class DatabasePersistence {
      * @param indicator
      */
     @SuppressWarnings("unchecked")
-    private void persist(Indicator indicator, TdqAnalysis tdqAnalysis, Date executionDate) {
+    private void persist(Indicator indicator, TdqAnalysis tdqAnalysis, Analysis analysis) {
         // Persist analyzed element (try to get it first before creating it with its UUID)
         // update row only when something has changed (then update END_DATE, VERSION)
         String uuid = ResourceHelper.getUUID(indicator.getAnalyzedElement());
@@ -223,18 +228,21 @@ public class DatabasePersistence {
         }
         TdqIndicatorDefinition persistIndicatorDefinition = isIndicatorSaved ? createTdqIndicatorDefinition : dbIndDefinition;
 
-        // TODO get the tdqCalendar object and the TdqDayTime from the database given the date
+        //get the tdqCalendar object and the TdqDayTime from the database given the date
+        Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
         if (executionDate != null) {
-            TdqIndicatorValue createTdqindicatorValue = createTdqindicatorValue(tdqAnalysis, persistAnalyzedElement,
-                    persistIndicatorDefinition, executionDate);
+            TdqIndicatorValue[] createTdqindicatorValues = createTdqindicatorValues(indicator, tdqAnalysis,
+                    persistAnalyzedElement, persistIndicatorDefinition, analysis);
             List list = session.createCriteria(TdqCalendar.class).add(Expression.eq("calDate", executionDate)).list();
             TdqCalendar dbCalendar = (TdqCalendar) list.get(0);
             list = session.createCriteria(TdqDayTime.class).add(Expression.eq("timeLabel", getSimpleDateString(executionDate)))
                     .list();
             TdqDayTime dbDayTime = (TdqDayTime) list.get(0);
-            createTdqindicatorValue.setTdqCalendar(dbCalendar);
-            createTdqindicatorValue.setTdqDayTime(dbDayTime);
-            session.save(createTdqindicatorValue);
+            for (TdqIndicatorValue tdqIndicatorValue : createTdqindicatorValues) {
+                tdqIndicatorValue.setTdqCalendar(dbCalendar);
+                tdqIndicatorValue.setTdqDayTime(dbDayTime);
+                session.save(tdqIndicatorValue);
+            }
         }
     }
 
@@ -251,40 +259,113 @@ public class DatabasePersistence {
 
     }
 
-    private TdqIndicatorValue createTdqindicatorValue(TdqAnalysis tdqAnalysis, TdqAnalyzedElement tdqAnalyzedElement,
-            TdqIndicatorDefinition tdqIndicatorDefinition, Date executionDate) {
+    private TdqIndicatorValue[] createTdqindicatorValues(Indicator indicator, TdqAnalysis tdqAnalysis,
+            TdqAnalyzedElement tdqAnalyzedElement, TdqIndicatorDefinition tdqIndicatorDefinition, Analysis analysis) {
+        TdqIndicatorValue[] indicatorValues;
+
+        // for each value in FrequencyIndicator.getDistinctValues()?????????????
+        // for ModeIndicator getInstanceValue()
+        IndicatorsSwitch<FrequencyIndicator> frequencySwitch = new IndicatorsSwitch<FrequencyIndicator>() {
+
+            public FrequencyIndicator caseFrequencyIndicator(FrequencyIndicator object) {
+                return object;
+            }
+        };
+        FrequencyIndicator frequencyIndicator = frequencySwitch.doSwitch(indicator);
+        if (frequencyIndicator != null) {
+            indicatorValues = new TdqIndicatorValue[frequencyIndicator.getDistinctValues().size()];
+            Iterator<Object> iterator = frequencyIndicator.getDistinctValues().iterator();
+            int i = 0;
+            while (iterator.hasNext()) {
+                Object next = iterator.next();
+                Long count = frequencyIndicator.getCount(next);
+                List list = session.createCriteria(TdqValues.class).add(Expression.eq("valString", next)).list();
+                TdqValues currentTdqValues = null;
+                if (list.size() > 0) {
+                    TdqValues dbTdqValues = (TdqValues) list.get(0);
+                    currentTdqValues = dbTdqValues;
+                } else {
+                    TdqValues createTdqValues = new TdqValues();
+                    createTdqValues.setValString((String) next);
+                    currentTdqValues = createTdqValues;
+                }
+
+                // create the new indicator value here
+                indicatorValues[i] = createPartTdqIndicatorValue(indicator, tdqAnalysis, tdqAnalyzedElement,
+                        tdqIndicatorDefinition, analysis);
+                indicatorValues[i].setTdqValues(currentTdqValues);
+                indicatorValues[i].setIndvIntValue(count.intValue());
+                i++;
+            }
+        } else {
+            TdqIndicatorValue createPartTdqIndicatorValue = createPartTdqIndicatorValue(indicator, tdqAnalysis,
+                    tdqAnalyzedElement, tdqIndicatorDefinition, analysis);
+            createPartTdqIndicatorValue.setIndvIntValue(indicator.getIntegerValue() == null ? SqlConstants.DEFAULT_INT
+                    : indicator.getIntegerValue().intValue());
+            indicatorValues = new TdqIndicatorValue[] { createPartTdqIndicatorValue };
+
+            // case ModeIndicator, still need to save TdqValues.
+            IndicatorsSwitch<ModeIndicator> modeSwitch = new IndicatorsSwitch<ModeIndicator>() {
+
+                public ModeIndicator caseModeIndicator(ModeIndicator object) {
+                    return object;
+                }
+            };
+            ModeIndicator modeIndicator = modeSwitch.doSwitch(indicator);
+            if (modeIndicator == null) {
+                return indicatorValues;
+            }
+            List list = session.createCriteria(TdqValues.class).add(Expression.eq("valString", modeIndicator.getMode())).list();
+            TdqValues currentTdqValues = null;
+            if (list.size() > 0) {
+                TdqValues dbTdqValues = (TdqValues) list.get(0);
+                currentTdqValues = dbTdqValues;
+            } else {
+                TdqValues createTdqValues = new TdqValues();
+                createTdqValues.setValString((String) modeIndicator.getMode());
+                currentTdqValues = createTdqValues;
+            }
+            createPartTdqIndicatorValue.setTdqValues(currentTdqValues);
+
+        }
+        return indicatorValues;
+
+    }
+
+    /**
+     * DOC rli Comment method "createPartTdqIndicatorValue".
+     * 
+     * @param indicator
+     * @param tdqAnalysis
+     * @param tdqAnalyzedElement
+     * @param tdqIndicatorDefinition
+     * @param analysis
+     * @return
+     */
+    private TdqIndicatorValue createPartTdqIndicatorValue(Indicator indicator, TdqAnalysis tdqAnalysis,
+            TdqAnalyzedElement tdqAnalyzedElement, TdqIndicatorDefinition tdqIndicatorDefinition, Analysis analysis) {
         TdqIndicatorValue indicatorValue = new TdqIndicatorValue();
         indicatorValue.setTdqAnalysis(tdqAnalysis);
         indicatorValue.setTdqAnalyzedElement(tdqAnalyzedElement);
         indicatorValue.setTdqIndicatorDefinition(tdqIndicatorDefinition);
-        // TODO SCorreia decide how to get these data and set it.
-        // TODO rli Analysis.getResults().getResultMetadata().getExecutionDuration();
-        // indicatorValue.setAnDuration(anDuration);
+        indicatorValue.setAnDuration(analysis.getResults().getResultMetadata().getExecutionDuration());
 
-        // TODO rli call Indicator.getIntegerValue()
-        // TODO rli FrequencyIndicator.getCount(obj) for each object in FrequencyIndicator.getDistinctValues()
-        // indicatorValue.setIndvIntValue(indvIntValue);
+        // lower upper quartiles:
+        indicatorValue.setIndvRealValue(indicator.getRealValue() == null ? SqlConstants.DEFAULT_REAL : indicator.getRealValue()
+                .doubleValue());
 
-        // TODO rli lower upper quartiles:
-        // indicatorValue.setIndvRealValue(indvRealValue);
+        // for all indicators Indicator.getCount()
+        indicatorValue.setIndvRowCount(indicator.getCount() == null ? SqlConstants.DEFAULT_INT : indicator.getCount().intValue());
 
-        // TODO rli for all indicators Indicator.getCount()
-        // indicatorValue.setIndvRowCount(indvRowCount);
-
-        // TODO rli Indicator.getValueType().getLiteral()
-        // indicatorValue.setIndvValueTypeIndicator(indvValueTypeIndicator);
+        // Indicator.getValueType().getLiteral()
+        indicatorValue.setIndvValueTypeIndicator(indicator.getValueType().getLiteral().charAt(0));
 
         // TODO scorreia get options
         // indicatorValue.setTdqIndicatorOptions(tdqIndicatorOptions);
 
         // TODO scorreia getbins()
         // indicatorValue.setTdqInterval(tdqInterval);
-
-        // TODO rli for each value in FrequencyIndicator.getDistinctValues()
-        // TODO rli for ModeIndicator getInstanceValue()
-        // indicatorValue.setTdqValues(tdqValues);
         return indicatorValue;
-
     }
 
     /**

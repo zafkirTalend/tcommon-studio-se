@@ -13,7 +13,7 @@ public class TdqDayTime implements java.io.Serializable {
 	private Integer timePk;
 	private int timeHour;
 	private int timeMinute;
-	private int timeLabel;
+	private String timeLabel;
 	
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
 			0);
@@ -65,11 +65,11 @@ public class TdqDayTime implements java.io.Serializable {
 		this.tdqIndicatorValues = tdqIndicatorValues;
 	}
 
-    public int getTimeLabel() {
+    public String getTimeLabel() {
         return timeLabel;
     }
 
-    public void setTimeLabel(int timeLabel) {
+    public void setTimeLabel(String timeLabel) {
         this.timeLabel = timeLabel;
     }
 

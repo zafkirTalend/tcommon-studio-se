@@ -43,12 +43,12 @@ public class SqlConstants {
     /**
      * The default value to set in TDQ_INDICATOR_VALUE.INDV_REAL_VALUE column.
      */
-    public static final Double DEFAULT_REAL = null;
+    public static final Double DEFAULT_REAL = -1.0;
 
     /**
      * The default value to set in TDQ_INDICATOR_VALUE.INDV_INT_VALUE column.
      */
-    public static final Integer DEFAULT_INT = null;
+    public static final Integer DEFAULT_INT = -1;
 
     /**
      * The value to set when the indicator has no value to set (not applicable).
