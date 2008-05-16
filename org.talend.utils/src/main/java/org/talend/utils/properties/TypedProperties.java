@@ -70,10 +70,24 @@ public class TypedProperties extends Properties {
      * @param defaultValue the default value if none is found
      * @return the value
      */
-    public boolean getBooleanValue(String key, Boolean defaultValue) {
+    public boolean getBooleanValue(String key, boolean defaultValue) {
         String value = this.getProperty(key);
         if (value == null) {
             return defaultValue;
+        } // else
+        return Boolean.parseBoolean(value.trim());
+    }
+
+    /**
+     * Method "getBooleanValue".
+     * 
+     * @param key the full key
+     * @return the value or null when not found
+     */
+    public Boolean getBooleanValue(String key) {
+        String value = this.getProperty(key);
+        if (value == null) {
+            return null;
         } // else
         return Boolean.parseBoolean(value.trim());
     }
