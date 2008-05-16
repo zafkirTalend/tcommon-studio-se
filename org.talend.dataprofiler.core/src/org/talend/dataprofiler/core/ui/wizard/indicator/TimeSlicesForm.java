@@ -105,6 +105,21 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
     @Override
     protected void addFieldsListeners() {
 
+        for (final Button oneBTN : allBtns) {
+            
+            oneBTN.addSelectionListener(new SelectionAdapter() {
+
+                /* (non-Javadoc)
+                 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+                 */
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+
+                    parameter.setDataUnit(oneBTN.getText());
+                }
+                
+            });
+        }
     }
 
     /* (non-Javadoc)
