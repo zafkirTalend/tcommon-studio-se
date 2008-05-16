@@ -20,7 +20,6 @@ import org.eclipse.ui.cheatsheets.ICheatSheetManager;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.ui.wizard.database.DatabaseConnectionWizard;
 
-
 /**
  * DOC zqin  class global comment. Detailled comment
  * <br/>
@@ -30,11 +29,15 @@ import org.talend.dataprofiler.core.ui.wizard.database.DatabaseConnectionWizard;
  */
 public class CreateConnectionAction extends Action implements ICheatSheetAction {
 
+    private static final int WIDTH = 600;
+
+    private static final int HEIGHT = 450;
+
     public CreateConnectionAction() {
         super("Create a new connection");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.NEW_CONNECTION));
     }
-    
+
     /* (non-Javadoc)
      * @see org.eclipse.jface.action.Action#run()
      */
@@ -44,7 +47,7 @@ public class CreateConnectionAction extends Action implements ICheatSheetAction 
         DatabaseConnectionWizard wizard = new DatabaseConnectionWizard(PlatformUI.getWorkbench(), true, null, null);
         wizard.init(PlatformUI.getWorkbench(), null);
         WizardDialog dialog = new WizardDialog(null, wizard);
-        dialog.setPageSize(600, 400);
+        dialog.setPageSize(WIDTH, HEIGHT);
         dialog.open();
     }
 
@@ -52,7 +55,6 @@ public class CreateConnectionAction extends Action implements ICheatSheetAction 
      * @see org.eclipse.ui.cheatsheets.ICheatSheetAction#run(java.lang.String[], org.eclipse.ui.cheatsheets.ICheatSheetManager)
      */
     public void run(String[] params, ICheatSheetManager manager) {
-        // TODO Auto-generated method stub
         run();
     }
 
