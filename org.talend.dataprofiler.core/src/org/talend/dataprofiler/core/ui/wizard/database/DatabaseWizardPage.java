@@ -17,19 +17,16 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.cwm.management.api.ConnectionService;
@@ -68,7 +65,7 @@ class DatabaseWizardPage extends AbstractWizardPage {
     private Button checkButton;
 
     private DBConnectionParameter connectionParam;
-    
+
     private boolean dbTypeSwitchFlag = false;
 
     private PropertyChangeListener listener = new PropertyChangeListener() {
@@ -77,7 +74,7 @@ class DatabaseWizardPage extends AbstractWizardPage {
             if (PluginConstant.CONNECTION_URL_PROPERTY.equals(event.getPropertyName())) {
                 DatabaseWizardPage.this.setConnectionURL((String) event.getNewValue());
                 DatabaseWizardPage.this.updateButtonState();
-            } 
+            }
         }
     };
 
@@ -87,19 +84,19 @@ class DatabaseWizardPage extends AbstractWizardPage {
      * @param pageName
      */
     public DatabaseWizardPage() {
-        
+
         connectionParam = (DBConnectionParameter) getConnectionParams();
     }
 
     public void createControl(Composite parent) {
         setPageComplete(false);
-        
+
         Composite comp = new Composite(parent, SWT.NULL);
 
         comp.setLayoutData(new GridData(GridData.FILL_BOTH));
         GridLayout layout = new GridLayout();
         comp.setLayout(layout);
-        layout.numColumns = 1;
+        layout.numColumns = 2;
         layout.verticalSpacing = 9;
 
         GridData data = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
@@ -158,6 +155,28 @@ class DatabaseWizardPage extends AbstractWizardPage {
         dbTypeCombo.setText(defalutItem);
         setDBType(defalutItem);
         lastTimeDBType = SupportDBUrlStore.getInstance().getDBUrlType(dbTypeCombo.getText());
+
+        checkButton = new Button(comp, SWT.NULL);
+        GridData buttonData = new GridData(SWT.CENTER, SWT.CENTER, true, true);
+        buttonData.heightHint = 25;
+        buttonData.widthHint = 100;
+        checkButton.setLayoutData(buttonData);
+        checkButton.setText("Check");
+        checkButton.setToolTipText("Check the connection");
+        checkButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                ReturnCode code = checkDBConnection();
+                if (code.isOk()) {
+                    MessageDialog.openInformation(getShell(), "check connections", "Check connection successful.");
+                } else {
+                    MessageDialog.openInformation(getShell(), "check connections", "Check connection failure:"
+                            + code.getMessage());
+                }
+            }
+
+        });
+
         this.container = comp;
         setControl(comp);
 
@@ -244,34 +263,11 @@ class DatabaseWizardPage extends AbstractWizardPage {
 
         }
 
-
-        checkButton = new Button(container, SWT.NULL);
-        GridData buttonData = new GridData(SWT.CENTER, SWT.CENTER, true, true);
-        buttonData.heightHint = 25;
-        buttonData.widthHint = 100;
-        checkButton.setLayoutData(buttonData);
-        checkButton.setText("Check"); 
-        checkButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-            	ReturnCode code = checkDBConnection();
-                if (code.isOk()) {
-                    MessageDialog.openInformation(getShell(), "check connections", "Check connection successful.");
-                } else {
-                    MessageDialog.openInformation(getShell(),
-							"check connections", "Check connection failure:"
-									+ code.getMessage());
-                }
-            }
-
-        });
-
         this.container.layout();
         this.container.setVisible(true);
         this.container.redraw();
         updateButtonState();
     }
-    
 
     /**
      * @param windowSize
@@ -298,10 +294,10 @@ class DatabaseWizardPage extends AbstractWizardPage {
             this.urlSetupControl.dispose();
             this.urlSetupControl = null;
         }
-        if (this.checkButton != null) {
-            this.checkButton.dispose();
-            this.checkButton = null;
-        }
+        // if (this.checkButton != null) {
+        // this.checkButton.dispose();
+        // this.checkButton = null;
+        // }
     }
 
     /**
@@ -364,4 +360,13 @@ class DatabaseWizardPage extends AbstractWizardPage {
             this.connectionParam.getParameters().setProperty("password", password);
         }
     }
+
+    @Override
+    public void dispose() {
+        if (this.checkButton != null) {
+            this.checkButton.dispose();
+            this.checkButton = null;
+        }
+    }
+
 }
