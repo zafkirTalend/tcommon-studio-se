@@ -30,6 +30,7 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.constants.DevelopmentStatus;
+import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
@@ -103,7 +104,15 @@ public class ConnnectionInfoPage extends AbstractFormPage {
         String loginValue = TaggedValueHelper.getValue(USER_TAG, tdDataProvider);
         loginText.setText(loginValue == null ? PluginConstant.EMPTY_STRING : loginValue);
         String passwordValue = TaggedValueHelper.getValue(PASSWORD_TAG, tdDataProvider);
-        passwordText.setText(passwordValue == null ? PluginConstant.EMPTY_STRING : passwordValue);     
+        passwordText.setText(passwordValue == null ? PluginConstant.EMPTY_STRING : passwordValue);
+
+        Label urlLabel = new Label(sectionClient, SWT.NONE);
+        urlLabel.setText("Url:");
+        Text urlText = new Text(sectionClient, SWT.BORDER);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(urlText);
+        String urlValue = ""; //TODO tdDataProvider.getconnectionString????
+        urlText.setText(urlValue == null ? PluginConstant.EMPTY_STRING : urlValue);
+        urlText.setEnabled(false);
 
         ModifyListener listener = new ModifyListener() {
 
