@@ -65,24 +65,6 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
         
         super("Run");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
-        
-        if (currentSelection == null) {
-            AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-            ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
-            AnalysisEditorInuput input = (AnalysisEditorInuput) page.getEditorInput();
-            
-            File file = input.getFile();
-            
-            if (file.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                analysis = AnaResourceFileHelper.getInstance().findAnalysis(file);
-            }
-            
-        } else {
-            
-            if (currentSelection.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                analysis = AnaResourceFileHelper.getInstance().findAnalysis(currentSelection);
-            }
-        }
     }
     
     /* (non-Javadoc)
@@ -91,6 +73,26 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
     @Override
     public void run() {
 
+        if (currentSelection == null) {
+            AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+            if (editor != null) {
+                ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
+                AnalysisEditorInuput input = (AnalysisEditorInuput) page.getEditorInput();
+                
+                File file = input.getFile();
+                
+                if (file.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
+                    analysis = AnaResourceFileHelper.getInstance().findAnalysis(file);
+                }
+            }
+            
+        } else {
+            
+            if (currentSelection.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
+                analysis = AnaResourceFileHelper.getInstance().findAnalysis(currentSelection);
+            }
+        }
+        
         AnalysisType analysisType = AnalysisHelper.getAnalysisType(analysis);
         AnalysisExecutor exec = null;
         switch (analysisType) {
