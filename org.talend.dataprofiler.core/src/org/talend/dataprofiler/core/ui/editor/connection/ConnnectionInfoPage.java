@@ -34,11 +34,13 @@ import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.ui.editor.AbstractFormPage;
 import org.talend.utils.sugars.ReturnCode;
+import org.talend.utils.sugars.TypedReturnCode;
 
 /**
  * DOC rli class global comment. Detailled comment
@@ -110,7 +112,8 @@ public class ConnnectionInfoPage extends AbstractFormPage {
         urlLabel.setText("Url:");
         Text urlText = new Text(sectionClient, SWT.BORDER);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(urlText);
-        String urlValue = ""; //TODO tdDataProvider.getconnectionString????
+        TypedReturnCode<TdProviderConnection> trc = DataProviderHelper.getTdProviderConnection(tdDataProvider);
+        String urlValue = (trc.isOk()) ? trc.getObject().getConnectionString() : PluginConstant.EMPTY_STRING;
         urlText.setText(urlValue == null ? PluginConstant.EMPTY_STRING : urlValue);
         urlText.setEnabled(false);
 
