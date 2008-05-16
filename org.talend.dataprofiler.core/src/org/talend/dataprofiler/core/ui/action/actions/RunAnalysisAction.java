@@ -43,56 +43,57 @@ import org.talend.dq.analysis.ColumnAnalysisSqlExecutor;
 import org.talend.dq.analysis.ConnectionAnalysisExecutor;
 import org.talend.utils.sugars.ReturnCode;
 
-
 /**
- * DOC zqin  class global comment. Detailled comment
- * <br/>
- *
+ * DOC zqin class global comment. Detailled comment <br/>
+ * 
  * $Id: talend.epf 1 2006-09-29 17:06:40Z zqin $
- *
+ * 
  */
 public class RunAnalysisAction extends Action implements ICheatSheetAction {
 
     private static Logger log = Logger.getLogger(RunAnalysisAction.class);
-    
+
     private TreeViewer treeViewer;
-    
+
     private IFile currentSelection;
-    
+
     private Analysis analysis = null;
-    
+
     public RunAnalysisAction() {
-        
+
         super("Run");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.action.Action#run()
      */
     @Override
     public void run() {
 
         if (currentSelection == null) {
-            AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+            AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                    .getActiveEditor();
             if (editor != null) {
                 ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
                 AnalysisEditorInuput input = (AnalysisEditorInuput) page.getEditorInput();
-                
+
                 File file = input.getFile();
-                
+
                 if (file.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
                     analysis = AnaResourceFileHelper.getInstance().findAnalysis(file);
                 }
             }
-            
+
         } else {
-            
+
             if (currentSelection.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
                 analysis = AnaResourceFileHelper.getInstance().findAnalysis(currentSelection);
             }
         }
-        
+
         AnalysisType analysisType = AnalysisHelper.getAnalysisType(analysis);
         AnalysisExecutor exec = null;
         switch (analysisType) {
@@ -118,7 +119,10 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
                 }
                 if (executed.isOk()) {
                     AnaResourceFileHelper.getInstance().save(finalAnalysis);
+                } else {
+                    // TODO zqin open error dialog
                 }
+
             }
         };
         try {
@@ -136,24 +140,29 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.cheatsheets.ICheatSheetAction#run(java.lang.String[], org.eclipse.ui.cheatsheets.ICheatSheetManager)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.cheatsheets.ICheatSheetAction#run(java.lang.String[],
+     * org.eclipse.ui.cheatsheets.ICheatSheetManager)
      */
     public void run(String[] params, ICheatSheetManager manager) {
 
         run();
     }
-    
+
     /**
      * Sets the currentSelection.
+     * 
      * @param currentSelection the currentSelection to set
      */
     public void setCurrentSelection(IFile currentSelection) {
         this.currentSelection = currentSelection;
     }
-    
+
     /**
      * Sets the treeViewer.
+     * 
      * @param treeViewer the treeViewer to set
      */
     public void setTreeViewer(TreeViewer treeViewer) {
