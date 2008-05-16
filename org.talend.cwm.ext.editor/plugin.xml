@@ -54,16 +54,5 @@
       <description>%_UI_SoftwaredeploymentModelWizard_description</description>
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
-  </extension>
-
-  <extension point = "org.eclipse.ui.editors">
-    <editor
-        id = "org.talend.cwm.softwaredeployment.presentation.SoftwaredeploymentEditorID"
-        name = "%_UI_SoftwaredeploymentEditor_label"
-        icon = "icons/full/obj16/SoftwaredeploymentModelFile.gif"
-        extensions = "softwaredeployment,prv"
-        class = "org.talend.cwm.softwaredeployment.presentation.SoftwaredeploymentEditor" 
-        contributorClass="org.talend.cwm.softwaredeployment.presentation.SoftwaredeploymentActionBarContributor" >
-    </editor>
-  </extension>    
+  </extension>   
 </plugin>
