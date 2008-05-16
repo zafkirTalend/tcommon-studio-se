@@ -325,7 +325,6 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
     void saveAnalysis() throws DataprofilerCoreException {
         AnalysisEditorInuput editorInput = (AnalysisEditorInuput) this.getEditorInput();
         analysisHandler.clearAnalysis();
-        AnaResourceFileHelper.getInstance().clear();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
         // List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();
         TdDataProvider tdProvider = null;
