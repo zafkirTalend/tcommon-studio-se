@@ -122,7 +122,8 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
     protected void createFormContent(IManagedForm managedForm) {
         super.createFormContent(managedForm);
         final ScrolledForm form = managedForm.getForm();
-        createAnalysisMetadataSection(form, topComp, "Analysis metadata", "Set the properties of analysis.");
+        metadataSection.setText("Analysis metadata");
+        metadataSection.setDescription("Set the properties of analysis.");
         createAnalysisColumnsSection(form, topComp);
         createDataFilterSection(form, topComp);
         Composite body = form.getBody();
@@ -389,7 +390,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
     }
 
     @Override
-    protected void initTextFied() {
+    protected void initMetaTextFied() {
         nameText.setText(analysisHandler.getName() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getName());
         purposeText.setText(analysisHandler.getPurpose() == null ? PluginConstant.EMPTY_STRING : analysisHandler.getPurpose());
         descriptionText.setText(analysisHandler.getDescription() == null ? PluginConstant.EMPTY_STRING : analysisHandler

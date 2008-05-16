@@ -22,7 +22,7 @@ import org.talend.dataprofiler.core.manager.DQStructureManager;
 public final class PluginConstant {
 
     public static final String EMPTY_STRING = "";
-    
+
     public static final String SPACE_STRING = " ";
 
     public static final String PROJECTCREATED_FLAG = "PROJECTCREATED_FLAG";
@@ -34,11 +34,11 @@ public final class PluginConstant {
     public static final String PRV_SUFFIX = "." + FactoriesUtil.PROV;
 
     public static final String ANA_SUFFIX = "." + FactoriesUtil.ANA;
-    
+
     public static final String REP_SUFFIX = "." + FactoriesUtil.REP;
-    
+
     public static final String ANA_TAG_SUFFIX = "_ANA";
-    
+
     public static final String REP_TAG_SUFFIX = "_REP";
 
     public static final String METADATA_PROJECTNAME = DQStructureManager.METADATA;
@@ -47,11 +47,13 @@ public final class PluginConstant {
 
     public static final String PATH_SAVE = "PATH_SAVE";
 
+    public static final String FILE_SUFFIX = "FILE_SUFFIX";
+
     public static final String ISDIRTY_PROPERTY = "ISDIRTY_PROPERTY";
 
     public static final String DATAFILTER_PROPERTY = "DATAFILTER_PROPERTY";
-    
-    public static final String REPORT_FOLDER_PATH = "/Data Profiling/Reports"; 
-    
+
+    public static final String REPORT_FOLDER_PATH = "/Data Profiling/Reports";
+
     public static final String DQ_VIEW_ID = "org.talend.dataprofiler.core.ui.views.DQRespositoryView";
 }

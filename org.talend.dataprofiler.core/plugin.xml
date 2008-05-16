@@ -136,6 +136,7 @@
 	            <or>
             	    <test property="org.eclipse.core.resources.name" value="*.ana"/>
             	    <test property="org.eclipse.core.resources.name" value="*.sql"/>
+            	    <test property="org.eclipse.core.resources.name" value="*.prv"/>
                 </or>            
 	        </and>
 			</enablement>
@@ -231,6 +232,13 @@
             icon="icons/chart_bar.png"
             id="org.talend.dataprofiler.core.ui.editor.AnalysisEditor"
             name="AnalysisEditor">
+      </editor>
+      <editor
+            class="org.talend.dataprofiler.core.ui.editor.connection.ConnectionEditor"
+            extensions="prv"
+            icon="icons/TdDataProvider.gif"
+            id="org.talend.dataprofiler.core.ui.editor.connection.ConnectionEditor"
+            name="ConnectionEditor">
       </editor>
    </extension>
    

@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.IElementFactory;
 import org.eclipse.ui.IMemento;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.ui.editor.connection.ConnectionEditorInput;
 
 /**
  * @author rli
@@ -40,7 +41,15 @@ public class DocumentEditorInputFactory implements IElementFactory {
         String path = memento.getString(PluginConstant.PATH_SAVE);
         if (path != null) {
             try {
-                return new AnalysisEditorInuput(new File(path));
+                File file = new File(path);
+                AbstractEditorInput analysisEditorInuput = null;
+                String fileSuffix = memento.getString(PluginConstant.FILE_SUFFIX);
+                if (fileSuffix.equals(PluginConstant.ANA_SUFFIX)) {
+                    analysisEditorInuput = new AnalysisEditorInuput(file);
+                } else if (fileSuffix.equals(PluginConstant.PRV_SUFFIX)) {
+                    analysisEditorInuput = new ConnectionEditorInput(file);
+                }
+                return analysisEditorInuput;
             } catch (Throwable e) {
                 e.printStackTrace();
             }

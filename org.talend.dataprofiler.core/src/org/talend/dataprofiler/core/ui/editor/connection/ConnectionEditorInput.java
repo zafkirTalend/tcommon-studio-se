@@ -14,7 +14,9 @@ package org.talend.dataprofiler.core.ui.editor.connection;
 
 import java.io.File;
 
+import org.eclipse.ui.IMemento;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.ui.editor.AbstractEditorInput;
 
@@ -22,24 +24,29 @@ import org.talend.dataprofiler.core.ui.editor.AbstractEditorInput;
 /**
  * DOC rli  class global comment. Detailled comment
  */
-public class ConnnectionEditorInput extends AbstractEditorInput  {
+public class ConnectionEditorInput extends AbstractEditorInput  {
 
-    private TdDataProvider analysis;
+    private TdDataProvider tdDataProvider;
 
-    public ConnnectionEditorInput(String name) {
+    public ConnectionEditorInput(String name) {
         super(name);
     }
 
-    public ConnnectionEditorInput(File file) {
+    public ConnectionEditorInput(File file) {
         super(file);
     }
 
-    public TdDataProvider getAnalysis() {
-        if (analysis != null) {
-            return analysis;
+    public TdDataProvider getProvider() {
+        if (tdDataProvider != null) {
+            return tdDataProvider;
         }
-        analysis = PrvResourceFileHelper.getInstance().getTdProvider(fFile).getObject();
-        return analysis;
+        tdDataProvider = PrvResourceFileHelper.getInstance().getTdProvider(fFile).getObject();
+        return tdDataProvider;
+    }
+    
+    public void saveState(IMemento memento) {
+        super.saveState(memento);
+        memento.putString(PluginConstant.FILE_SUFFIX, PluginConstant.PRV_SUFFIX);
     }
     
 }

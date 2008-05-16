@@ -14,6 +14,8 @@ package org.talend.dataprofiler.core.ui.editor;
 
 import java.io.File;
 
+import org.eclipse.ui.IMemento;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
@@ -45,5 +47,10 @@ public class AnalysisEditorInuput extends AbstractEditorInput {
 
     public AnalysisType getAnalysisType() {
         return AnalysisHelper.getAnalysisType(getAnalysis());
+    }
+    
+    public void saveState(IMemento memento) {
+        super.saveState(memento);
+        memento.putString(PluginConstant.FILE_SUFFIX, PluginConstant.ANA_SUFFIX);
     }
 }

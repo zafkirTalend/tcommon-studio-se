@@ -54,6 +54,8 @@ public abstract class AbstractFormPage extends FormPage {
 
     protected Composite topComp;
 
+    protected Section metadataSection;
+
     public AbstractFormPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
         this.toolkit = this.getEditor().getToolkit();
@@ -73,11 +75,11 @@ public abstract class AbstractFormPage extends FormPage {
 
         topComp.setLayoutData(anasisData);
         topComp.setLayout(new GridLayout(1, false));
+        metadataSection = creatMetadataSection(form, topComp);
     }
 
-    protected void createAnalysisMetadataSection(final ScrolledForm form, Composite anasisDataComp, String title,
-            String sectionDescription) {
-        Section section = createSection(form, anasisDataComp, title, false, sectionDescription);
+    protected Section creatMetadataSection(final ScrolledForm form, Composite topComp) {
+        Section section = createSection(form, topComp, "Title", false, "");
         Composite labelButtonClient = toolkit.createComposite(section);
         labelButtonClient.setLayout(new GridLayout(2, false));
         Label label = toolkit.createLabel(labelButtonClient, "Name:");
@@ -99,12 +101,12 @@ public abstract class AbstractFormPage extends FormPage {
         GridDataFactory.fillDefaults().grab(true, true).applyTo(authorText);
         label = toolkit.createLabel(labelButtonClient, "Status:");
         statusCombo = new CCombo(labelButtonClient, SWT.BORDER);
-        statusCombo.setEditable(false);
+        statusCombo.setEnabled(false);
         for (DevelopmentStatus status : DevelopmentStatus.values()) {
 
             statusCombo.add(status.getLiteral());
         }
-        initTextFied();
+        initMetaTextFied();
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -148,9 +150,10 @@ public abstract class AbstractFormPage extends FormPage {
         });
 
         section.setClient(labelButtonClient);
+        return section;
     }
 
-    protected abstract void initTextFied();
+    protected abstract void initMetaTextFied();
 
     protected abstract void fireTextChange();
 
@@ -163,8 +166,8 @@ public abstract class AbstractFormPage extends FormPage {
      * @param discription
      * @return
      */
-    Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded, String discription) {
-        final int style = (discription == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
+    protected Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded, String description) {
+        final int style = (description == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
                 | Section.TITLE_BAR;
         Section section = toolkit.createSection(parent, style);
 
@@ -177,13 +180,9 @@ public abstract class AbstractFormPage extends FormPage {
             }
 
         });
-
-        section.setText(title);
         section.setExpanded(expanded);
-
-        // toolkit.createCompositeSeparator(section);
-
-        section.setDescription(discription);
+        section.setText(title);
+        section.setDescription(description);
         return section;
     }
 
@@ -193,6 +192,7 @@ public abstract class AbstractFormPage extends FormPage {
     }
 
     public abstract void setDirty(boolean isDirty);
+
     @Override
     public boolean isDirty() {
         return super.isDirty() || isDirty;

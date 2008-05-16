@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.connection;
 
+import java.io.File;
+import java.net.URI;
+
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
@@ -19,14 +22,14 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
+import org.eclipse.ui.part.FileEditorInput;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 
-
 /**
- * DOC rli  class global comment. Detailled comment
+ * DOC rli class global comment. Detailled comment
  */
-public class ConnectionEditor extends FormEditor  {
+public class ConnectionEditor extends FormEditor {
 
     private IFormPage masterPage;
 
@@ -39,7 +42,7 @@ public class ConnectionEditor extends FormEditor  {
     }
 
     protected void addPages() {
-            masterPage = new ConnnectionInfoPage(this, "MasterPage", "analysis settings");
+        masterPage = new ConnnectionInfoPage(this, "MasterPage", "analysis settings");
         try {
             addPage(masterPage);
         } catch (PartInitException e) {
@@ -93,7 +96,12 @@ public class ConnectionEditor extends FormEditor  {
         if (input == null) {
             return;
         }
-
+        IEditorInput connectionEditorInput = input;
+        if (connectionEditorInput instanceof FileEditorInput) {
+            URI uri = ((FileEditorInput) input).getFile().getLocationURI();
+            connectionEditorInput = new ConnectionEditorInput(new File(uri));
+        }
+        super.setInput(connectionEditorInput);
         setPartName(input.getName());
     }
 
