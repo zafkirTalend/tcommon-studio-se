@@ -18,7 +18,9 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -144,19 +146,38 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
 
         });
 
+        analysisTypes.addTreeListener(new ITreeViewerListener() {
+
+            public void treeCollapsed(TreeExpansionEvent event) {
+
+            }
+
+            public void treeExpanded(TreeExpansionEvent event) {
+
+                TreeViewer viewer = (TreeViewer) event.getSource();
+
+                if (viewer.getSelection() == null) {
+                    return;
+                }
+
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) viewer.getSelection()).getFirstElement();
+
+                updateAnalysisNode(node);
+
+            }
+
+        });
+
         analysisTypes.addSelectionChangedListener(new ISelectionChangedListener() {
 
             public void selectionChanged(SelectionChangedEvent event) {
-                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection())
-                        .getFirstElement();
+
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
 
                 if (node != null) {
-                    if (node.getParent() != null) {
-                        setMessage(node.getLiteral());
-                        ((AnalysisParameter) getConnectionParams()).
-                            setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
-                    }
-                    updateSelectionNode(node);
+
+                    updateAnalysisNode(node);
+
                 }
             }
 
@@ -166,8 +187,7 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
 
             public void doubleClick(DoubleClickEvent event) {
 
-                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection())
-                        .getFirstElement();
+                AnalysisTypeNode node = (AnalysisTypeNode) ((IStructuredSelection) event.getSelection()).getFirstElement();
                 if (node.getParent() == null) {
                     analysisTypes.expandToLevel(node, 1);
                 } else {
@@ -176,6 +196,21 @@ public class NewWizardSelectionPage extends AbstractAnalysisWizardPage {
             }
 
         });
+    }
+
+    /**
+     * DOC zqin Comment method "updateAnalysisNode".
+     * @param node
+     */
+    private void updateAnalysisNode(AnalysisTypeNode node) {
+        updateSelectionNode(node);
+
+        if (node.getParent() != null) {
+            setMessage(node.getLiteral());
+            ((AnalysisParameter) getConnectionParams()).setAnalysisTypeName(((AnalysisTypeNode) node.getParent()).getName());
+        }
+
+        updateSelectionNode(node);
     }
 
     public void updateSelectionNode(AnalysisTypeNode node) {
