@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.ui.action.provider;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -24,6 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -36,8 +38,10 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.eclipse.ui.progress.WorkbenchJob;
+import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
@@ -53,6 +57,8 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * DOC rli class global comment. Detailled comment
  */
 public class DeleteResourceProvider extends CommonActionProvider {
+
+    private static Logger log = Logger.getLogger(DeleteResourceProvider.class);
 
     private IFile selectedFile;
 
@@ -235,11 +241,17 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     supplierDependencies = findAnalysis.getSupplierDependency();
                 }
                 if (supplierDependencies != null) {
+                    EMFUtil util = new EMFUtil();
                     for (Dependency dependency : supplierDependencies) {
-                        //TODO Whatever I use the follows two statement, I can't remove the dependency from .TDP_dependencies.core file.
-//                        DependenciesHandler.getInstance().removeSupplierDependencies(dependency);
-                        DependenciesHandler.getInstance().removeDependency(dependency);
+                        List<Resource> modifiedResources = DependenciesHandler.getInstance().removeClientDependencies(dependency);                
+                        // save now modified resources
+                        util.getResourceSet().getResources().addAll(modifiedResources);
                     }
+                    if (!util.save()) {
+                        log.warn("Problem when saving resources " + util.getLastErrorMessage());
+                    }
+                    // refresh workspace in order to avoid unsynchronized resources
+                    CorePlugin.getDefault().refreshWorkSpace();
                 }
             }
 

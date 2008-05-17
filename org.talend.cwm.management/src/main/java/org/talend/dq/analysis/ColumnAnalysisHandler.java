@@ -166,11 +166,15 @@ public class ColumnAnalysisHandler {
             log.error("Connection has not been set in analysis Context");
             connection = DataProviderHelper.getTdDataProvider(column);
             analysis.getContext().setConnection(connection);
+            // FIXME connection should be set elsewhere
         }
         TypedReturnCode<Dependency> rc = DependenciesHandler.getInstance().setDependencyOn(analysis, connection);
         if (rc.isOk()) {
             // DependenciesHandler.getInstance().addDependency(rc.getObject());
-            this.modifiedResources.add(DependenciesHandler.getInstance().getDependencyResource());
+            Resource resource = connection.eResource();
+            if (resource != null) {
+                this.modifiedResources.add(resource);
+            }
         }
         return true;
     }

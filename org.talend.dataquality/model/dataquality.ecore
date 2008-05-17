@@ -368,7 +368,6 @@
       <eLiterals name="WEEK" value="1" literal="week"/>
       <eLiterals name="MONTH" value="2" literal="month"/>
       <eLiterals name="QUARTER" value="3" literal="quarter"/>
-      <eLiterals name="SEMESTER" value="4" literal="semester"/>
       <eLiterals name="YEAR" value="5" literal="year"/>
       <eLiterals name="NONE" literal="none"/>
     </eClassifiers>

@@ -119,7 +119,6 @@
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/WEEK"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/MONTH"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/QUARTER"/>
-        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/SEMESTER"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/YEAR"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/NONE"/>
       </genEnums>

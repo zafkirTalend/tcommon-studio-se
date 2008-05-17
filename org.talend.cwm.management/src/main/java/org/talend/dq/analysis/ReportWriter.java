@@ -65,11 +65,11 @@ public class ReportWriter {
         // --- store descriptions (description and purpose) in the same resource
         EList<EObject> resourceContents = report.eResource().getContents();
         resourceContents.addAll(report.getDescription());
-        
+
         for (Analysis ana : ReportHelper.getAnalyses(report)) {
             TypedReturnCode<Dependency> dependencyReturn = DependenciesHandler.getInstance().setDependencyOn(report, ana);
             if (dependencyReturn.isOk()) {
-                util.getResourceSet().getResources().add(DependenciesHandler.getInstance().getDependencyResource());
+                // util.getResourceSet().getResources().add(DependenciesHandler.getInstance().getDependencyResource());
                 util.getResourceSet().getResources().add(ana.eResource());
             }
         }

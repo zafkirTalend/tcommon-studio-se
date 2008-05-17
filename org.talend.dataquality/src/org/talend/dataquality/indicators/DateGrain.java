@@ -63,16 +63,6 @@ public enum DateGrain implements Enumerator {
     QUARTER(3, "QUARTER", "quarter"),
 
     /**
-     * The '<em><b>SEMESTER</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #SEMESTER_VALUE
-     * @generated
-     * @ordered
-     */
-    SEMESTER(4, "SEMESTER", "semester"),
-
-    /**
      * The '<em><b>YEAR</b></em>' literal object.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -153,21 +143,6 @@ public enum DateGrain implements Enumerator {
     public static final int QUARTER_VALUE = 3;
 
     /**
-     * The '<em><b>SEMESTER</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of '<em><b>SEMESTER</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @see #SEMESTER
-     * @model literal="semester"
-     * @generated
-     * @ordered
-     */
-    public static final int SEMESTER_VALUE = 4;
-
-    /**
      * The '<em><b>YEAR</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
@@ -209,7 +184,6 @@ public enum DateGrain implements Enumerator {
             WEEK,
             MONTH,
             QUARTER,
-            SEMESTER,
             YEAR,
             NONE,
         };
@@ -266,7 +240,6 @@ public enum DateGrain implements Enumerator {
             case WEEK_VALUE: return WEEK;
             case MONTH_VALUE: return MONTH;
             case QUARTER_VALUE: return QUARTER;
-            case SEMESTER_VALUE: return SEMESTER;
             case YEAR_VALUE: return YEAR;
             case NONE_VALUE: return NONE;
         }

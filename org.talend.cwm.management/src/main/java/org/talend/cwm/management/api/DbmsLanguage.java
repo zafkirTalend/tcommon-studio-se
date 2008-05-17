@@ -240,10 +240,14 @@ public class DbmsLanguage {
         withoutLimit = removeLimitClause(queryString);
         containsLimitClause = (withoutLimit != null);
         String safeZqlString = containsLimitClause ? withoutLimit[0] : queryString;
-        String queryCorrected = closeStatement(safeZqlString);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(queryCorrected.getBytes());
+        // extractClause = removeExtractFromClause(safeZqlString);
+        safeZqlString = closeStatement(safeZqlString);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(safeZqlString.getBytes());
         ZqlParser parser = getZqlParser();
         parser.initParser(byteArrayInputStream);
+        if (log.isDebugEnabled()) {
+            log.debug("Parsing query: " + safeZqlString);
+        }
         ZQuery zQuery = (ZQuery) parser.readStatement();
         TypedReturnCode<ZQuery> trc = new TypedReturnCode<ZQuery>();
         trc.setObject(zQuery);
@@ -355,6 +359,8 @@ public class DbmsLanguage {
     }
 
     private static final String LIMIT_REGEXP = ".*(LIMIT){1}\\p{Blank}+\\p{Digit}+,?\\p{Digit}?.*";
+
+    private static final String EXTRACT_REGEXP = ".*\\(\\p{Blank}(EXTRACT){1}\\p{Blank}+(FROM){1}\\p{BLANK}+\\)?\\p{Blank}?.*";
 
     private String[] withoutLimit;
 

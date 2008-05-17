@@ -28,7 +28,6 @@ public class ModelElementHelper {
      */
     public static final String USAGE = "Usage";
 
-  
     /**
      * Method "createUsageDependencyOn".
      * 
@@ -82,7 +81,9 @@ public class ModelElementHelper {
         EList<Dependency> supplierDependencies = supplierElement.getSupplierDependency();
         for (Dependency dependency : supplierDependencies) {
             String depKind = dependency.getKind();
-            if (dependency.getClient().contains(clientElement)) {
+            // 2008-04-28 scorreia instance of clientElement can be different from the client element inside the
+            // list of clients of the dependency => we should not use "contains" here, but rather the object id
+            if (ResourceHelper.resolveObject(dependency.getClient(), clientElement) != null) {
                 if (kind == null) {
                     if (depKind == null) { // both null
                         return dependency;
@@ -100,7 +101,9 @@ public class ModelElementHelper {
         EList<Dependency> clientDependencies = clientElement.getClientDependency();
         for (Dependency dependency : clientDependencies) {
             String depKind = dependency.getKind();
-            if (dependency.getSupplier().contains(supplierElement)) {
+            // 2008-04-28 scorreia instance of clientElement can be different from the client element inside the
+            // list of clients of the dependency => we should not use "contains" here, but rather the object id
+            if (ResourceHelper.resolveObject(dependency.getSupplier(), supplierElement) != null) {
                 if (kind == null) {
                     if (depKind == null) { // both null
                         return dependency;

@@ -776,8 +776,6 @@ public class FrequencyIndicatorImpl extends CompositeIndicatorImpl implements Fr
                 nbColumns++;
             case QUARTER:
                 nbColumns++;
-            case SEMESTER:
-                // FIXME semester not available
             case YEAR:
                 break;
             default:

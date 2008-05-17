@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_Nwj_4PQrEdyubdWj5a9KaA">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_wKbisOXrEdylk8vJWFuurQ">
   <model href="dataquality.ecore#/"/>
   <subdiagrams xmi:id="_NJJ5YMROEdybWP_3i664pg">
     <model href="dataquality.ecore#//indicators"/>
@@ -773,7 +773,7 @@
         <waypoints>[328, 13, 0, 80]</waypoints>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_wKbisOXrEdylk8vJWFuurQ" position="0,0" size="100,100" name="parameters" viewport="0,476">
+    <diagrams xmi:id="_wKbisOXrEdylk8vJWFuurQ" position="0,0" size="100,100" name="parameters" viewport="0,569">
       <property xmi:id="_wK6D0OXrEdylk8vJWFuurQ" key="pageFormatName" value="A4"/>
       <property xmi:id="_wK6D0eXrEdylk8vJWFuurQ" key="diagramWidth" value="840"/>
       <property xmi:id="_wK6D0uXrEdylk8vJWFuurQ" key="diagramHeight" value="1188"/>
@@ -860,6 +860,26 @@
           <contained xsi:type="di:GraphNode" xmi:id="_Vs791Bq9Ed2Juultp1VBZg" position="0,0" size="-1,-1">
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Vs791Rq9Ed2Juultp1VBZg" presentation="default">
               <element href="dataquality.ecore#//indicators/Indicator/setInstantiatedExpression"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_Cq5lsSMgEd2916QQtA_2SA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Cq5lsiMgEd2916QQtA_2SA" presentation="default">
+              <element href="dataquality.ecore#//indicators/Indicator/getIntegerValue"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_Cq6MwCMgEd2916QQtA_2SA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Cq6MwSMgEd2916QQtA_2SA" presentation="default">
+              <element href="dataquality.ecore#//indicators/Indicator/getRealValue"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_Cq6MwiMgEd2916QQtA_2SA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Cq6MwyMgEd2916QQtA_2SA" presentation="default">
+              <element href="dataquality.ecore#//indicators/Indicator/getValueType"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_Cq6MxCMgEd2916QQtA_2SA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Cq6MxSMgEd2916QQtA_2SA" presentation="default">
+              <element href="dataquality.ecore#//indicators/Indicator/getInstanceValue"/>
             </semanticModel>
           </contained>
         </contained>
@@ -1007,11 +1027,6 @@
           <contained xsi:type="di:GraphNode" xmi:id="_L3rnAAu2Ed2SYdVovv386A" position="0,0" size="-1,-1">
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_L3rnAQu2Ed2SYdVovv386A" presentation="default">
               <element href="dataquality.ecore#//indicators/DateGrain/QUARTER"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di:GraphNode" xmi:id="_NqWegAu2Ed2SYdVovv386A" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NqWegQu2Ed2SYdVovv386A" presentation="default">
-              <element href="dataquality.ecore#//indicators/DateGrain/SEMESTER"/>
             </semanticModel>
           </contained>
           <contained xsi:type="di:GraphNode" xmi:id="_O3j4gAu2Ed2SYdVovv386A" position="0,0" size="-1,-1">
@@ -5096,7 +5111,7 @@
     </subdiagrams>
     <subdiagrams xmi:id="_NvXtEPQrEdyubdWj5a9KaA">
       <model href="dataquality.ecore#//domain/sql"/>
-      <diagrams xmi:id="_Nwj_4PQrEdyubdWj5a9KaA" position="0,0" size="100,100" name="SQL" viewport="0,142">
+      <diagrams xmi:id="_Nwj_4PQrEdyubdWj5a9KaA" position="0,0" size="100,100" name="SQL" viewport="0,80">
         <property xmi:id="_NwyCUPQrEdyubdWj5a9KaA" key="pageFormatName" value="A4"/>
         <property xmi:id="_NwyCUfQrEdyubdWj5a9KaA" key="diagramWidth" value="840"/>
         <property xmi:id="_NwyCUvQrEdyubdWj5a9KaA" key="diagramHeight" value="1188"/>

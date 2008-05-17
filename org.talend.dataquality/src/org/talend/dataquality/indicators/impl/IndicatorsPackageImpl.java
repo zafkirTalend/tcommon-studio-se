@@ -1568,7 +1568,6 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         addEEnumLiteral(dateGrainEEnum, DateGrain.WEEK);
         addEEnumLiteral(dateGrainEEnum, DateGrain.MONTH);
         addEEnumLiteral(dateGrainEEnum, DateGrain.QUARTER);
-        addEEnumLiteral(dateGrainEEnum, DateGrain.SEMESTER);
         addEEnumLiteral(dateGrainEEnum, DateGrain.YEAR);
         addEEnumLiteral(dateGrainEEnum, DateGrain.NONE);
 

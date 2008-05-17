@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.ModelElementHelper;
+import org.talend.cwm.helper.ResourceHelper;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -33,7 +34,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 /**
  * @author scorreia
  * 
- * A singleton class to handle dependencies between objects.
+ * A singleton class to handle dependencies between objects. PTODO scorreia clean code of this class.
  */
 public final class DependenciesHandler {
 
@@ -45,9 +46,9 @@ public final class DependenciesHandler {
      */
     public static final String USAGE = "Usage";
 
-    public static final String ANALYSIS_DATAPROVIDER = "ANALYSIS_DATAPROVIDER";
+    // public static final String ANALYSIS_DATAPROVIDER = "ANALYSIS_DATAPROVIDER";
 
-    public static final String REPORT_ANALYSIS = "REPORT_ANALYSIS";
+    // public static final String REPORT_ANALYSIS = "REPORT_ANALYSIS";
 
     private static DependenciesHandler instance;
 
@@ -58,10 +59,10 @@ public final class DependenciesHandler {
 
     private static final String PATH_NAME = "/Libraries/" + FILENAME;
 
-    private final Resource dependencyResource;
+    // private final Resource dependencyResource;
 
     private DependenciesHandler() {
-        this.dependencyResource = loadFromFile(PATH_NAME);
+        // this.dependencyResource = loadFromFile(PATH_NAME);
     }
 
     private Resource loadFromFile(String path) {
@@ -110,33 +111,29 @@ public final class DependenciesHandler {
      * 
      * @return the existing dependencies
      */
-    private EList<EObject> getDependencies() {
-        return dependencyResource.getContents();
-    }
-
-    /**
-     * DOC scorreia Comment method "saveDependencies".
-     * 
-     * @param object
-     */
-    public boolean addDependency(Dependency object) {
-        getDependencies().add(object);
-        this.dependencyResource.setModified(true);
-        return true;
-    }
-
+    // private EList<EObject> getDependencies() {
+    // return dependencyResource.getContents();
+    // }
+    //
+    // /**
+    // * DOC scorreia Comment method "saveDependencies".
+    // *
+    // * @param object
+    // */
+    // boolean addDependency(Dependency object) {
+    // getDependencies().add(object);
+    // this.dependencyResource.setModified(true);
+    // return true;
+    // }
     /**
      * Method "removeDependency".
      * 
      * @param dependency the dependency to remove
-     * @return the list of modified resources. These resources should be saved together with a ResourceSet then.
+     * @return the list of modified resources of the client dependencies. These resources should be saved together with
+     * a ResourceSet then.
      */
-    public List<Resource> removeDependency(Dependency dependency) {
+    public List<Resource> removeClientDependencies(Dependency dependency) {
         List<Resource> modifiedResources = new ArrayList<Resource>();
-        Resource res = dependency.eResource();
-        if (res != null) {
-            modifiedResources.add(res);
-        }
         EList<ModelElement> clients = dependency.getClient();
         for (ModelElement client : clients) {
             Resource resource = client.eResource();
@@ -144,21 +141,45 @@ public final class DependenciesHandler {
                 modifiedResources.add(resource);
             }
         }
-        EList<ModelElement> suppliers = dependency.getSupplier();
-        for (ModelElement supplier : suppliers) {
-            Resource resource = supplier.eResource();
-            if (resource != null) {
-                modifiedResources.add(resource);
-            }
-        }
+        clients.clear();
+        // EList<ModelElement> suppliers = dependency.getSupplier();
+        // for (ModelElement supplier : suppliers) {
+        // Resource resource = supplier.eResource();
+        // if (resource != null) {
+        // modifiedResources.add(resource);
+        // }
+        // }
 
-        getDependencies().remove(dependency);
+        // if (getDependencies().remove(dependency)) {
+        // if (depResource != null) { // resource is modified
+        // modifiedResources.add(depResource);
+        // }
+        // } else {
+        // // try to remove it by id
+        // CwmResource depRes = getDependencyResource() instanceof CwmResource ? (CwmResource) getDependencyResource() :
+        // null;
+        // if (depRes != null) {
+        // String id = ResourceHelper.getUUID(dependency);
+        // if (id == null) {
+        // log.error("id is null for dependency " + dependency);
+        // }
+        // EObject depToRemove = depRes.getIDToEObjectMap().get(id);
+        // if (depToRemove != null) {
+        // if (getDependencies().remove(depToRemove)) {
+        // modifiedResources.add(depRes);
+        // } else {
+        // log.error("Not found dependency with id: " + id);
+        // }
+        // }
+        // }
+        // }
+
         return modifiedResources;
     }
 
-    public Resource getDependencyResource() {
-        return this.dependencyResource;
-    }
+    // public Resource getDependencyResource() {
+    // return this.dependencyResource;
+    // }
 
     /**
      * Method "createUsageDependencyOn".
@@ -172,9 +193,13 @@ public final class DependenciesHandler {
      * @param supplierElement the required element
      * @return the Dependency of clientElement on requiredElement
      */
-    public Dependency createDependencyOn(String kind, ModelElement clientElement, ModelElement supplierElement) {
+    Dependency createDependencyOn(String kind, ModelElement clientElement, ModelElement supplierElement) {
         Dependency dependency = ModelElementHelper.createDependencyOn(kind, clientElement, supplierElement);
-        getDependencies().add(dependency);
+        Resource supplierResource = supplierElement.eResource();
+        if (supplierResource != null) {
+            supplierResource.getContents().add(dependency);
+        }
+        // getDependencies().add(dependency);
         return dependency;
     }
 
@@ -187,7 +212,7 @@ public final class DependenciesHandler {
      * @param supplierElement an element that is required by other elements
      * @return
      */
-    public boolean removeSupplierDependencies(ModelElement supplierElement) {
+    boolean removeSupplierDependencies(ModelElement supplierElement) {
         return ModelElementHelper.removeSupplierDependencies(supplierElement);
     }
 
@@ -200,7 +225,7 @@ public final class DependenciesHandler {
      * @param supplierElement
      * @return the dependency that relates the supplier to the client or null if none is found.
      */
-    public Dependency getDependencyBetween(String kind, ModelElement clientElement, ModelElement supplierElement) {
+    Dependency getDependencyBetween(String kind, ModelElement clientElement, ModelElement supplierElement) {
         return ModelElementHelper.getDependencyBetween(kind, clientElement, supplierElement);
     }
 
@@ -212,49 +237,64 @@ public final class DependenciesHandler {
      * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
      * Return false otherwise. In any case, the dependency is created and the getObject() method returns it.
      */
-    public TypedReturnCode<Dependency> createUsageDependencyOn(Analysis clientElement, DataManager dataManager) {
+    TypedReturnCode<Dependency> createUsageDependencyOn(ModelElement clientElement, ModelElement dataManager) {
         assert dataManager != null;
-        Dependency dependency = createDependencyOn(ANALYSIS_DATAPROVIDER, clientElement, dataManager);
-        TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
-        rc.setObject(dependency);
-        return rc;
-    }
-    
-    /**
-     * Method "createUsageDependencyOn".
-     * 
-     * @param report the analysis that depends on the data provider.
-     * @param analysis the data provider
-     * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
-     * Return false otherwise. In any case, the dependency is created and the getObject() method returns it.
-     */
-    public TypedReturnCode<Dependency> createUsageDependencyOn(TdReport report, Analysis analysis) {
-        assert analysis != null;
-        Dependency dependency = createDependencyOn(REPORT_ANALYSIS, report, analysis);
+        Dependency dependency = createDependencyOn(USAGE, clientElement, dataManager);
         TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
         rc.setObject(dependency);
         return rc;
     }
 
+    // /**
+    // * Method "createUsageDependencyOn".
+    // *
+    // * @param report the analysis that depends on the data provider.
+    // * @param analysis the data provider
+    // * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
+    // * Return false otherwise. In any case, the dependency is created and the getObject() method returns it.
+    // */
+    // TypedReturnCode<Dependency> createUsageDependencyOn(TdReport report, Analysis analysis) {
+    // assert analysis != null;
+    // Dependency dependency = createDependencyOn(USAGE, report, analysis);
+    // TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
+    // rc.setObject(dependency);
+    // return rc;
+    // }
+
     /**
      * Method "setDependencyOn" sets the dependency between the analysis and the data manager.
      * 
-     * @param analysis
-     * @param dataManager
+     * @param analysis the analysis which requires the data manager
+     * @param dataManager the data manager required by the analysis
      * @return a true return code if the dependency has been correctly added to the resource of the supplier element.
      * Return false otherwise. The dependency is created only if needed and the getObject() method returns it.
      */
     public TypedReturnCode<Dependency> setDependencyOn(Analysis analysis, DataManager dataManager) {
-        Dependency dependency = getDependencyBetween(analysis, dataManager);
-        if (dependency == null) {
-            return createUsageDependencyOn(analysis, dataManager);
-        }
-        // else
-        TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
-        rc.setObject(dependency);
-        return rc;
+        return setUsageDependencyOn(analysis, dataManager);
     }
-    
+
+    public TypedReturnCode<Dependency> setUsageDependencyOn(ModelElement client, ModelElement supplier) {
+        // get data manager usage dependencies
+        EList<Dependency> supplierDependencies = supplier.getSupplierDependency();
+        // search for analysis into them
+        for (Dependency dependency : supplierDependencies) {
+            if (USAGE.compareTo(dependency.getKind()) == 0) {
+                // if exist return true with the dependency
+                EObject resolvedObject = ResourceHelper.resolveObject(dependency.getClient(), client);
+                if (resolvedObject == null) {
+                    // if not add analysis to the dependency
+                    dependency.getClient().add(client);
+                }
+
+                TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
+                rc.setObject(dependency);
+                return rc;
+            }
+        }
+        // if not exist create a usage dependency
+        return createUsageDependencyOn(client, supplier);
+    }
+
     /**
      * Method "setDependencyOn" sets the dependency between the report and the analysis.
      * 
@@ -264,14 +304,7 @@ public final class DependenciesHandler {
      * Return false otherwise. The dependency is created only if needed and the getObject() method returns it.
      */
     public TypedReturnCode<Dependency> setDependencyOn(TdReport report, Analysis analysis) {
-        Dependency dependency = getDependencyBetween(report, analysis);
-        if (dependency == null) {
-            return createUsageDependencyOn(report, analysis);
-        }
-        // else
-        TypedReturnCode<Dependency> rc = new TypedReturnCode<Dependency>();
-        rc.setObject(dependency);
-        return rc;
+        return setUsageDependencyOn(report, analysis);
     }
 
     /**
@@ -281,10 +314,10 @@ public final class DependenciesHandler {
      * @param dataManager
      * @return the dependency between the given elements or null.
      */
-    public Dependency getDependencyBetween(Analysis clientElement, DataManager dataManager) {
-        return getDependencyBetween(ANALYSIS_DATAPROVIDER, clientElement, dataManager);
+    Dependency getDependencyBetween(Analysis clientElement, DataManager dataManager) {
+        return getDependencyBetween(USAGE, clientElement, dataManager);
     }
-    
+
     /**
      * Method "getDependencyBetween".
      * 
@@ -292,8 +325,8 @@ public final class DependenciesHandler {
      * @param analysis
      * @return the dependency between the given elements or null.
      */
-    public Dependency getDependencyBetween(TdReport report, Analysis analysis) {
-        return getDependencyBetween(ANALYSIS_DATAPROVIDER, report, analysis);
+    Dependency getDependencyBetween(TdReport report, Analysis analysis) {
+        return getDependencyBetween(USAGE, report, analysis);
     }
 
 }

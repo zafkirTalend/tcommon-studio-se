@@ -27,6 +27,7 @@ import java.util.Vector;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.talend.cwm.exception.AnalysisExecutionException;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.management.api.DbmsLanguage;
@@ -113,6 +114,9 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         } catch (ParseException e) {
             log.error(e, e);
             return null;
+        } catch (AnalysisExecutionException e) {
+            log.error(e, e);
+            return null;
         }
 
         return "";
@@ -127,8 +131,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * 
      * @param indicator
      * @throws ParseException
+     * @throws AnalysisExecutionException
      */
-    private boolean createSqlQuery(ZExp dataFilterExpression, Indicator indicator) throws ParseException {
+    private boolean createSqlQuery(ZExp dataFilterExpression, Indicator indicator) throws ParseException,
+            AnalysisExecutionException {
         ModelElement analyzedElement = indicator.getAnalyzedElement();
         if (analyzedElement == null) {
             log.error("Analyzed element for indicator "
@@ -300,8 +306,6 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         case QUARTER:
             result = dbms().extractQuarter(colName) + result;
             nbExtractedColumns++;
-        case SEMESTER:
-            // FIXME scorreia semester not handled
         case YEAR:
             result = dbms().extractYear(colName) + result;
             nbExtractedColumns++;
@@ -451,15 +455,17 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param colName
      * @param table
      * @param dataFilterExpression
+     * @throws AnalysisExecutionException
      */
     private String getCompletedStringForQuantiles(Indicator indicator, Expression sqlExpression, String colName, String table,
-            ZExp dataFilterExpression) {
+            ZExp dataFilterExpression) throws AnalysisExecutionException {
         // first, count nb lines
         String catalog = getCatalogName(indicator.getAnalyzedElement());
+        // FIXME scorreia get schema
         long count = getCount(cachedAnalysis, colName, quote(table), catalog, dataFilterExpression);
         if (count == -1) {
-            log.error("Cannot count number of lines in table " + table);
-            return null;
+            throw new AnalysisExecutionException("Got an invalid result set when evaluating row count for column "
+                    + dbms().toQualifiedName(catalog, null, colName));
         }
 
         Long midleCount = getLimitFirstArg(indicator, count);
@@ -503,12 +509,13 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         return null;
     }
 
-    private Long getCount(Analysis analysis, String colName, String table, String catalog, ZExp dataFilterExpression) {
+    private Long getCount(Analysis analysis, String colName, String table, String catalog, ZExp dataFilterExpression)
+            throws AnalysisExecutionException {
         try {
             return getCountLow(analysis, colName, table, catalog, dataFilterExpression);
         } catch (SQLException e) {
-            log.error(e, e);
-            return -1L;
+            throw new AnalysisExecutionException("Cannot get count for " + analysis.getName() + " column "
+                    + dbms().toQualifiedName(catalog, null, colName), e);
         }
     }
 
@@ -520,15 +527,15 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param quote
      * @param dataFilterExpression
      * @param catalogName
-     * @return
+     * @return -1L when sql went ok, but obtained result set is invalid.
      * @throws SQLException
+     * @throws AnalysisExecutionException
      */
     private Long getCountLow(Analysis analysis, String colName, String table, String catalogName, ZExp dataFilterExpression)
-            throws SQLException {
+            throws SQLException, AnalysisExecutionException {
         TypedReturnCode<Connection> trc = this.getConnection(analysis);
         if (!trc.isOk()) {
-            log.error("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
-            return -1L;
+            throw new AnalysisExecutionException("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
         }
         Connection connection = trc.getObject();
         String whereExp = (dataFilterExpression == null || dataFilterExpression.toString().trim().length() == 0) ? "" : " where "
