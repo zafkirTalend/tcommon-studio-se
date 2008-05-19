@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.ws.WindowSystem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -245,11 +246,16 @@ public class MouseTableSelectionHelper {
         // searching current column index
         int currentColumnIndex = -1;
         TableColumn[] columns = table.getColumns();
+        int minY = 0;
+        int maxY = table.getHeaderHeight()
+        + (table.getItemCount()
+                * (table.getItemHeight() + table.getBorderWidth() + (WindowSystem.isGTK() ? 2 : 0)));
+
         for (int i = 0, width = 0; i < columns.length; i++) {
             TableColumn column = columns[i];
             int widthColumn = column.getWidth();
-            if (pointCursor.x >= width && pointCursor.x <= width + widthColumn && pointCursor.y > table.getHeaderHeight()
-                    && pointCursor.y < table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()) {
+            if (pointCursor.x >= width && pointCursor.x <= width + widthColumn && pointCursor.y > minY
+                    && pointCursor.y < maxY) {
                 currentColumnIndex = i;
                 break;
             }

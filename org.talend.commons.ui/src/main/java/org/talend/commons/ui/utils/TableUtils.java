@@ -130,7 +130,6 @@ public class TableUtils {
      */
     public static int getItemIndexWhereInsertFromPosition(Table table, Point cursorPositionPrm) {
         Point cursorPosition = new Point(cursorPositionPrm.x, cursorPositionPrm.y);
-        cursorPosition.y -= (WindowSystem.isGTK() ? table.getHeaderHeight() / 2 : 0);
         int startInsertAtThisIndex = 0;
         Point pointCursor = table.toControl(cursorPosition.x, cursorPosition.y);
         TableItem[] tableItems = table.getItems();

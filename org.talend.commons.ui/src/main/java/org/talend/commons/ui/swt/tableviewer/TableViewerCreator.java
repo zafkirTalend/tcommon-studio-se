@@ -76,7 +76,6 @@ import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.commons.utils.threading.AsynchronousThreading;
-import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * A concrete Table viewer based on the JFace <code>TableViewer</code> and the SWT <code>Table</code> control.
