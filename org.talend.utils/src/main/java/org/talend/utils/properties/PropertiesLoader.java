@@ -103,6 +103,9 @@ public final class PropertiesLoader {
 
     public static synchronized void setProperties(Class<?> clazz, String propertiesFilename, String key, String oldValue,
             String newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
         try {
             PropertiesReloader.setProperties(clazz, propertiesFilename, key, oldValue, newValue);
         } catch (IOException e) {
