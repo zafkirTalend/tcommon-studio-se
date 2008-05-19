@@ -83,7 +83,9 @@ public abstract class Element implements Cloneable, IElement {
             return;
         }
         IElementParameter param = this.getElementParameter(id);
-        param.setValue(value);
+        if (param != null) {
+            param.setValue(value);
+        }
     }
 
     public void addElementParameter(IElementParameter parameter) {
