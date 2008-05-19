@@ -317,7 +317,9 @@ class ExportItemWizardPage extends WizardPage {
                 items.add(repositoryObject.getProperty().getItem());
             }
         } else {
-            items.add(repositoryNode.getParent().getObject().getProperty().getItem());
+            if (repositoryNode.getParent() != null && repositoryNode.getParent().getObject() != null) {
+                items.add(repositoryNode.getParent().getObject().getProperty().getItem());
+            }
         }
         collectNodes(items, repositoryNode.getChildren().iterator());
     }
