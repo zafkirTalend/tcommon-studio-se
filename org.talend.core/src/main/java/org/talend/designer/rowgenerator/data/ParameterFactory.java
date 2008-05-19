@@ -150,16 +150,12 @@ public class ParameterFactory {
             parameter = new CharParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_SHORT)) {
             parameter = new ShortParameter();
+        } else {
+            parameter = new ObjectParameter();
         }
         if (parameter != null) {
             parameter.setType(type);
         }
         return parameter;
-    }
-
-    public static void main(String[] args) {
-        String s = "sdfdsf:";
-        String[] ss = s.split(":");
-        System.out.println(ss.length);
     }
 }
