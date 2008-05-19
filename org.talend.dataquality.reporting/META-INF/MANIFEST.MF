@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Reporting Plug-in
+Bundle-SymbolicName: org.talend.dataquality.reporting
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: .Talend SA.
+Require-Bundle: org.talend.libraries.jasperreport,
+ org.talend.utils,
+ org.talend.libraries.logging
+Eclipse-RegisterBuddy: org.talend.libraries.jasperreport
+Bundle-ClassPath: .
