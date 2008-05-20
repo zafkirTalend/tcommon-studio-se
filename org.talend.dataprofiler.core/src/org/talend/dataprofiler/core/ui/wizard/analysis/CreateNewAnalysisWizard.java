@@ -12,12 +12,12 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard.analysis;
 
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IWorkbench;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataquality.analysis.AnalysisType;
+import org.talend.dq.analysis.parameters.ConnectionAnalysisParameter;
 import org.talend.dq.analysis.parameters.ConnectionParameter;
 
 /**
@@ -26,49 +26,30 @@ import org.talend.dq.analysis.parameters.ConnectionParameter;
  */
 public class CreateNewAnalysisWizard extends Wizard {
     
-    private IWorkbench workbench;
-
-    private Object selection;
-    
     private boolean creation;
-
-    private ConnectionParameter connectionParams;
+    
+    private AnalysisType type;
+    
+    private IWizard wizard;
     
     private NewWizardSelectionPage mainPage;
     
-    public CreateNewAnalysisWizard(IWorkbench workbench, boolean creation, IStructuredSelection selection,
-            String[] existingNames) {
+    public CreateNewAnalysisWizard(boolean creation, AnalysisType type) {
         this.creation = creation;
-        this.init(workbench, selection);
+        this.type = type;
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.jface.wizard.Wizard#performFinish()
      */
     @Override
-    public boolean performFinish() {
-        
-        // if we're finishing from the main page then perform finish on the selected wizard.
-        if (getContainer().getCurrentPage() == mainPage) {
-            if (mainPage.isCanFinishEarly()) {
-                IWizard wizard = mainPage.getSelectedWizard();
-                wizard.setContainer(getContainer());
-                return wizard.performFinish();
-            }
+    public boolean performFinish() { 
+        if (type == null) {
+            wizard = mainPage.getSelectedWizard();
+            wizard.setContainer(getContainer());
         }
-        return true;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
-     */
-    public void init(IWorkbench workbench, IStructuredSelection selection) {
-        this.workbench = workbench;
-        this.selection = selection;
         
-        mainPage = new NewWizardSelectionPage();
-        mainPage.setConnectionParams(new ConnectionParameter());
- 
+        return wizard.performFinish();
     }
 
     /* (non-Javadoc)
@@ -81,18 +62,29 @@ public class CreateNewAnalysisWizard extends Wizard {
         setDefaultPageImageDescriptor(ImageLib.getImageDescriptor(ImageLib.REFRESH_IMAGE));
 
         if (creation) {
-            addPage(mainPage);
-        } else {
-            Wizard wizard = WizardFactory.createConnectionWizard();
-            wizard.addPages();
-            
-            IWizardPage[] pages = wizard.getPages();
-            
-            for (IWizardPage page : pages) {
-                addPage(page);
+            if (type == null) {
+                
+                AbstractAnalysisWizardPage.setConnectionParams(new ConnectionParameter());
+                mainPage = new NewWizardSelectionPage();
+                addPage(mainPage);
+            } else {
+                
+                ConnectionAnalysisParameter analysisParameter = new ConnectionAnalysisParameter();
+                AbstractAnalysisWizardPage.setConnectionParams(analysisParameter);
+                if (type == AnalysisType.MULTIPLE_COLUMN) {
+                    analysisParameter.setAnalysisTypeName(AnalysisType.MULTIPLE_COLUMN.getLiteral());
+                    wizard = WizardFactory.createColumnWizard();
+                    wizard.addPages();
+                }
+                
+                if (wizard != null) {
+                    IWizardPage[] pages = wizard.getPages();
+                    for (IWizardPage page : pages) {
+                        addPage(page);
+                    }
+                }
             }
-        }
-        
+        } 
     }
 
     /* (non-Javadoc)
@@ -100,7 +92,6 @@ public class CreateNewAnalysisWizard extends Wizard {
      */
     @Override
     public boolean canFinish() {
-        // TODO Auto-generated method stub
         if (mainPage != null) {
             return mainPage.isCanFinishEarly();
         }
