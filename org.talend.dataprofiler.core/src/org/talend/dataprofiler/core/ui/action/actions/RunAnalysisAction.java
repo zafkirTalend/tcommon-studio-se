@@ -131,6 +131,7 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
                 DQRespositoryView view = (DQRespositoryView) CorePlugin.getDefault().findView(PluginConstant.DQ_VIEW_ID);
                 view.refresh();
             } else {
+                CorePlugin.getDefault().refreshWorkSpace();
                 treeViewer.refresh();
             }
         } catch (InvocationTargetException e) {
