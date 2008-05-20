@@ -90,6 +90,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
     private ERepositoryObjectType repositoryObjectType;
 
+    private static Map<Integer, ByteArrayOutputStream> logoImageCache = new HashMap<Integer, ByteArrayOutputStream>();
+
     public HTMLDocGenerator(ERepositoryObjectType repositoryObjectType) {
         this.designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
         this.mapList = designerCoreService.getMaps();
@@ -148,7 +150,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
             Set keySet = picFilePathMap.keySet();
             for (Object key : keySet) {
-                String value = (String) picFilePathMap.get(key);
+                String value = picFilePathMap.get(key);
                 FileCopyUtils.copy(value, picFolderPath + File.separatorChar + key);
                 picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
             }
@@ -234,7 +236,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
         Set keySet = picFilePathMap.keySet();
         for (Object key : keySet) {
-            String value = (String) picFilePathMap.get(key);
+            String value = picFilePathMap.get(key);
             FileCopyUtils.copy(value, picFolderPath + File.separatorChar + key);
             picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
         }
@@ -755,15 +757,22 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     }
 
     protected void saveLogoImage(int type, File file) throws IOException {
-        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
-                IBrandingService.class);
-        ImageData imageData = brandingService.getLoginHImage().getImageData();
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        // get image from cache
+        ByteArrayOutputStream result = logoImageCache.get(type);
+        if (result == null) {
+            result = new ByteArrayOutputStream(3072);
+            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                    IBrandingService.class);
+            ImageData imageData = brandingService.getLoginHImage().getImageData();
+            new ByteArrayOutputStream();
 
-        ImageLoader imageLoader = new ImageLoader();
-        imageLoader.data = new ImageData[] { imageData };
+            ImageLoader imageLoader = new ImageLoader();
+            imageLoader.data = new ImageData[] { imageData };
 
-        imageLoader.save(result, type);
+            imageLoader.save(result, type);
+            // put image to cache, no need to generate next time
+            logoImageCache.put(type, result);
+        }
 
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(result.toByteArray());

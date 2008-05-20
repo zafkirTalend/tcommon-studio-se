@@ -23,8 +23,14 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+
+import org.apache.commons.collections.map.LRUMap;
+import org.apache.commons.io.FileUtils;
 import org.talend.commons.exception.ExceptionHandler;
 
 /**
@@ -34,6 +40,14 @@ import org.talend.commons.exception.ExceptionHandler;
  * 
  */
 public class HTMLHandler {
+
+    // create an instance of TransformerFactory
+    private static TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+    private static Map<String, Transformer> transformerCache = new HashMap<String, Transformer>();
+
+    // fixed size
+    private static LRUMap externalNodeFileCache = new LRUMap(10);
 
     /**
      * This method is used for generating HTML file base on given folder, job name and xsl file name.
@@ -57,7 +71,7 @@ public class HTMLHandler {
 
         BufferedReader mainHTMLReader = null;
         BufferedWriter newMainHTMLWriter = null;
-        BufferedReader externalNodeHTMLReader = null;
+        // BufferedReader externalNodeHTMLReader = null;
         File newMainHTMLFile = null;
         try {
 
@@ -73,15 +87,14 @@ public class HTMLHandler {
                     String compareStr = "<!--" + key + "ended-->"; // tMap_1ended-->
                     if (lineStr.indexOf(compareStr) != -1) {
                         File externalNodeHTMLFile = new File(nodeHTMLMap.get(key).getPath());
-                        externalNodeHTMLReader = new BufferedReader(new FileReader(externalNodeHTMLFile));
-                        String tempLineStr = "";
-                        while ((tempLineStr = externalNodeHTMLReader.readLine()) != null) {
-                            newMainHTMLWriter.write(tempLineStr);
+
+                        String content = (String) externalNodeFileCache.get(externalNodeHTMLFile.getAbsolutePath());
+                        if (content == null) {
+                            content = FileUtils.readFileToString(externalNodeHTMLFile);
+                            // put file content into cache
+                            externalNodeFileCache.put(externalNodeHTMLFile.getAbsolutePath(), content);
                         }
-                        // resolved the problem:the tmp folder can't be deleted.
-                        if (externalNodeHTMLReader != null) {
-                            externalNodeHTMLReader.close();
-                        }
+                        newMainHTMLWriter.write(content);
                     }
                     // htmlFileMap.remove(key);
                 }
@@ -105,7 +118,7 @@ public class HTMLHandler {
             }
 
             originalHtmlFile.delete();
-            boolean isWorked = newMainHTMLFile.renameTo(new File(htmlFilePath));
+            newMainHTMLFile.renameTo(new File(htmlFilePath));
             // System.out.println("isWorked= " + isWorked);
 
             // copy(htmlFilePath + "temp", htmlFilePath);
@@ -128,23 +141,25 @@ public class HTMLHandler {
         Writer writer = null;
         try {
             File xmlFile = new File(xmlFilePath);
-            File xsltFile = new File(xslFilePath);
-
             javax.xml.transform.Source xmlSource = new javax.xml.transform.stream.StreamSource(xmlFile);
-            javax.xml.transform.Source xsltSource = new javax.xml.transform.stream.StreamSource(xsltFile);
 
             output = new FileOutputStream(htmlFilePath);
 
             // Note that if the are chinese in the file, should set the encoding
             // type to "UTF-8", this is caused by DOM4J.
-            writer = new OutputStreamWriter(output, "UTF-8");
+            writer = new BufferedWriter(new OutputStreamWriter(output, "UTF-8"));
 
             javax.xml.transform.Result result = new javax.xml.transform.stream.StreamResult(writer);
 
-            // create an instance of TransformerFactory
-            javax.xml.transform.TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance();
-
-            javax.xml.transform.Transformer trans = transFact.newTransformer(xsltSource);
+            // get transformer from cache
+            javax.xml.transform.Transformer trans = transformerCache.get(xslFilePath);
+            if (trans == null) {
+                File xsltFile = new File(xslFilePath);
+                javax.xml.transform.Source xsltSource = new javax.xml.transform.stream.StreamSource(xsltFile);
+                trans = transformerFactory.newTransformer(xsltSource);
+                // put transformer into cache
+                transformerCache.put(xslFilePath, trans);
+            }
 
             trans.transform(xmlSource, result);
 

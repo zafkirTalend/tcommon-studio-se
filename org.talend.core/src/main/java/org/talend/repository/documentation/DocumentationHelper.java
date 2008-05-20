@@ -133,7 +133,7 @@ public class DocumentationHelper {
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
             if ((repositoryObject.getProperty().getItem() instanceof Item)) {
-                Item baseItem = (Item) repositoryObject.getProperty().getItem();
+                Item baseItem = repositoryObject.getProperty().getItem();
                 Item jobOrJobletItem = null;
                 try {
                     jobOrJobletItem = getBaseItemFromDocItem(baseItem);
@@ -164,7 +164,7 @@ public class DocumentationHelper {
         if (node != null && node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
             if (repositoryObject.getProperty().getItem() instanceof Item) {
-                Item processItem = (Item) repositoryObject.getProperty().getItem();
+                Item processItem = repositoryObject.getProperty().getItem();
                 ExportFileResource resource = new ExportFileResource(processItem, path);
                 list.add(resource);
             }
@@ -351,7 +351,7 @@ public class DocumentationHelper {
      * @return - the repository biew
      */
     public static IRepositoryView getViewPart() {
-        IViewPart viewPart = (IViewPart) (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage())
+        IViewPart viewPart = (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage())
                 .findView(IRepositoryView.VIEW_ID);
         return (IRepositoryView) viewPart;
     }
