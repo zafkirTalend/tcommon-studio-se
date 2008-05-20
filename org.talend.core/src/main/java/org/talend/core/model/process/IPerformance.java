@@ -30,4 +30,9 @@ public interface IPerformance {
      * @param pefData
      */
     public void setPerformanceData(String pefData);
+
+    /**
+     * clear performance status for running next time.
+     */
+    public void resetStatus();
 }
