@@ -167,4 +167,10 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         return query.generateStatement();
     }
 
+    @Override
+    protected boolean check(Analysis analysis) {
+        // TODO rzqin add other checks specific to column analysis
+        return super.check(analysis);
+    }
+
 }
