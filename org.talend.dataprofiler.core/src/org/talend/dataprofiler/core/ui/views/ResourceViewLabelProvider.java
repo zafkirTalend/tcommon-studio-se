@@ -26,9 +26,9 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
-import org.talend.dataprofiler.core.utils.DateFormatUtils;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.reports.TdReport;
+import org.talend.dataquality.utils.DateFormatUtils;
 import org.talend.utils.sugars.TypedReturnCode;
 
 /**

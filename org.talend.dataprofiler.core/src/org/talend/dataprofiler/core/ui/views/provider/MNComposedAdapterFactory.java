@@ -19,6 +19,7 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.talend.cwm.relational.provider.RelationalItemProviderAdapterFactory;
+import org.talend.dataquality.analysis.provider.AnalysisItemProviderAdapterFactory;
 
 /**
  * @author rli
@@ -39,6 +40,7 @@ public class MNComposedAdapterFactory {
 		ArrayList<AdapterFactory> factories = new ArrayList<AdapterFactory>();
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new RelationalItemProviderAdapterFactory());
+        factories.add(new AnalysisItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
 		return factories;
 	}
