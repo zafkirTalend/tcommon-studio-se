@@ -144,7 +144,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
     }
 
     void createAnalysisColumnsSection(final ScrolledForm form, Composite anasisDataComp) {
-        Section section = createSection(form, anasisDataComp, "Analyzed Columns", true, null);
+        Section section = createSection(form, anasisDataComp, "Analyzed Columns", false, null);
 
         Composite topComp = toolkit.createComposite(section);
         topComp.setLayout(new GridLayout());
@@ -198,7 +198,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
 
     void createPreviewSection(final ScrolledForm form, Composite parent) {
 
-        Section section = createSection(form, parent, "Preview", true, "");
+        Section section = createSection(form, parent, "Preview", false, "");
 
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout());

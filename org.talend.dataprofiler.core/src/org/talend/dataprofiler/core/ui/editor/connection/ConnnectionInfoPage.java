@@ -89,7 +89,7 @@ public class ConnnectionInfoPage extends AbstractFormPage {
      * @param topComp
      */
     void createInformationSection(final ScrolledForm form, Composite topComp) {
-        Section section = createSection(form, topComp, "Connection informations", true, "The informations of connection.");
+        Section section = createSection(form, topComp, "Connection informations", false, "The informations of connection.");
 
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout(2, false));

@@ -79,7 +79,7 @@ public abstract class AbstractFormPage extends FormPage {
     }
 
     protected Section creatMetadataSection(final ScrolledForm form, Composite topComp) {
-        Section section = createSection(form, topComp, "Title", false, "");
+        Section section = createSection(form, topComp, "Title", true, "");
         Composite labelButtonClient = toolkit.createComposite(section);
         labelButtonClient.setLayout(new GridLayout(2, false));
         Label label = toolkit.createLabel(labelButtonClient, "Name:");
