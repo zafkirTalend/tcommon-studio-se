@@ -201,13 +201,13 @@
              relative="org.eclipse.ui.editorss"
              relationship="bottom"
              ratio="0.4"
-             />
-        <view id="org.talend.dataprofiler.core.ui.views.CheatSheetView"
+             />-->
+        <view id="org.eclipse.ui.cheatsheets.views.CheatSheetView"
               relative="org.eclipse.ui.editorss"
               relationship="right"
-              ratio="0.5"
+              ratio="0.6"
               />
-        <view id="org.talend.dataprofiler.core.ui.views.QuanlityView"
+      <!--  <view id="org.talend.dataprofiler.core.ui.views.QuanlityView"
               relative="org.talend.dataprofiler.core.ui.views.CheatSheetView"
               relationship="bottom"
               /> -->
