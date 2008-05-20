@@ -185,6 +185,7 @@ public class IndicatorChartFactory {
                 try {
                     object = IndicatorCommonUtil.getIndicatorValue(indicator.getType(), indicator.getIndicator());
                 } catch (Exception ue) {
+                    ue.printStackTrace();
                     object = null;
                 }
                 
@@ -200,8 +201,8 @@ public class IndicatorChartFactory {
             BoxAndWhiskerItem item = new BoxAndWhiskerItem(
                     map.get(IndicatorEnum.MeanIndicatorEnum),
                     map.get(IndicatorEnum.MedianIndicatorEnum),
-                    null,
-                    null,
+                    map.get(IndicatorEnum.LowerQuartileIndicatorEnum),
+                    map.get(IndicatorEnum.UpperQuartileIndicatorEnum),
                     map.get(IndicatorEnum.MinValueIndicatorEnum),
                     map.get(IndicatorEnum.MaxValueIndicatorEnum),
                     map.get(IndicatorEnum.LowerQuartileIndicatorEnum),

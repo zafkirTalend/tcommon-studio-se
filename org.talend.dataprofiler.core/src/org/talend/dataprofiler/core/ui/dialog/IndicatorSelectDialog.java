@@ -178,7 +178,7 @@ public class IndicatorSelectDialog extends Dialog {
                         if (treeItem.getParentItem() != null && selection) {
                             Button parentButton = ((TreeItemContainer) treeItem.getParentItem()).getButton(index);
                             parentButton.setSelection(selection);
-                            currentColumnIndicator.addIndicatorEnum((IndicatorEnum) parentButton.getData());
+                            currentColumnIndicator.addIndicatorEnum((IndicatorEnum) parentButton.getData(), null);
                         }
                         handleSelection(treeItem, index, currentColumnIndicator, indicatorEnum, selection);
                     }
@@ -193,7 +193,7 @@ public class IndicatorSelectDialog extends Dialog {
                             
                             childrenButton = treeItem.getButton(index);
                             if (childrenButton.isEnabled()) {
-                                currentColumnIndicator.addIndicatorEnum(indicatorEnum);
+                                currentColumnIndicator.addIndicatorEnum(indicatorEnum, null);
                             }
                             
                             for (TreeItem children : treeItem.getItems()) {

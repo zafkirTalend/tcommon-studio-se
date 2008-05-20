@@ -42,24 +42,27 @@ public class ColumnIndicator {
         this.tdColumn = tdColumn;
     }
 
-    /**
-     * @return the indicatorEnums
-     */
-    public void addIndicatorEnum(IndicatorEnum indicatorEnum) {
+    public void addIndicatorEnum(IndicatorEnum indicatorEnum, Indicator indicator) {
         if (indicatorEnum == null) {
             return;
         }
+        
         if (!this.indicatorEnums.contains(indicatorEnum)) {
+            
             indicatorEnums.add(indicatorEnum);
-            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, createIndicator(indicatorEnum), this);
+            if (indicator == null) {
+                indicator = createIndicator(indicatorEnum);
+            }
+            indicatorList.add(indicator);
+            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, indicator, this);
             this.indicatorMappingTypeList.add(one);
         }
+        
     }
 
     private Indicator createIndicator(IndicatorEnum indicatorEnum) {
         IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
         Indicator indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
-        indicatorList.add(indicator);
         return indicator;
     }
 
@@ -112,8 +115,9 @@ public class ColumnIndicator {
 
     public void setIndicators(Indicator[] indicators) {
         clear();
-        for (int i = 0; i < indicators.length; i++) {
-            addIndicatorEnum(IndicatorEnum.findIndicatorEnum(indicators[i].eClass()));
+        for (Indicator oneIndicator : indicators) {
+            
+            addIndicatorEnum(IndicatorEnum.findIndicatorEnum(oneIndicator.eClass()), oneIndicator);
         }
     }
 
@@ -133,11 +137,11 @@ public class ColumnIndicator {
      */
     public DataminingType getDataminingType() {
         DataminingType type = MetadataHelper.getDataminingType(tdColumn);
-        
+
         if (type == null) {
             return MetadataHelper.getDefaultDataminingType(tdColumn.getJavaType());
         }
-        
+
         return type;
     }
 

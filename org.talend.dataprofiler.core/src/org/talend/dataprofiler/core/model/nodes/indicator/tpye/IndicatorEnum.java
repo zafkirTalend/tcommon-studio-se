@@ -88,13 +88,13 @@ public enum IndicatorEnum {
                           "max.value",
                           null),
     LowerQuartileIndicatorEnum(
-                               IndicatorsPackage.MIN_VALUE_INDICATOR,
-                               IndicatorsPackage.Literals.MIN_VALUE_INDICATOR,
+                               IndicatorsPackage.LOWER_QUARTILE_INDICATOR,
+                               IndicatorsPackage.Literals.LOWER_QUARTILE_INDICATOR,
                                "lower quartile",
                                null),
     UpperQuartileIndicatorEnum(
-                               IndicatorsPackage.MAX_VALUE_INDICATOR,
-                               IndicatorsPackage.Literals.MAX_VALUE_INDICATOR,
+                               IndicatorsPackage.UPPER_QUARTILE_INDICATOR,
+                               IndicatorsPackage.Literals.UPPER_QUARTILE_INDICATOR,
                                "upper quartile",
                                null),
     IQRIndicatorEnum(

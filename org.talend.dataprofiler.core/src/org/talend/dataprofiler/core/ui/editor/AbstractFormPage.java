@@ -167,8 +167,8 @@ public abstract class AbstractFormPage extends FormPage {
      * @return
      */
     protected Section createSection(final ScrolledForm form, Composite parent, String title, boolean expanded, String description) {
-        final int style = (description == null) ? Section.TWISTIE | Section.TITLE_BAR : Section.DESCRIPTION | Section.TWISTIE
-                | Section.TITLE_BAR;
+        final int style = (description == null) ? (Section.TWISTIE | Section.TITLE_BAR)
+                : (Section.DESCRIPTION | Section.TWISTIE | Section.TITLE_BAR);
         Section section = toolkit.createSection(parent, style);
 
         section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING));
@@ -180,9 +180,10 @@ public abstract class AbstractFormPage extends FormPage {
             }
 
         });
-        section.setExpanded(expanded);
+
         section.setText(title);
         section.setDescription(description);
+        section.setExpanded(expanded);
         return section;
     }
 

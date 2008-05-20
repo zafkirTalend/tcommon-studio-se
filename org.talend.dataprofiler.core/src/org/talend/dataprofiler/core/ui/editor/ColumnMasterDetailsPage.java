@@ -198,7 +198,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
 
     void createPreviewSection(final ScrolledForm form, Composite parent) {
 
-        Section section = createSection(form, parent, "Preview", false, "");
+        Section section = createSection(form, parent, "Preview", true, "");
 
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout());

@@ -19,11 +19,9 @@ import java.util.Set;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
-import org.talend.dataquality.indicators.BoxIndicator;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
-import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.LowerQuartileIndicator;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
@@ -33,9 +31,9 @@ import org.talend.dataquality.indicators.MedianIndicator;
 import org.talend.dataquality.indicators.MinLengthIndicator;
 import org.talend.dataquality.indicators.MinValueIndicator;
 import org.talend.dataquality.indicators.NullCountIndicator;
-import org.talend.dataquality.indicators.RangeIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
+import org.talend.dataquality.indicators.UpperQuartileIndicator;
 
 
 /**
@@ -104,10 +102,10 @@ public class IndicatorCommonUtil {
             return ((MaxValueIndicator) indicator).getValue();
             
         case LowerQuartileIndicatorEnum:
-            return ((RangeIndicator) indicator).getLowerValue().getValue();
+            return ((LowerQuartileIndicator) indicator).getValue();
             
         case UpperQuartileIndicatorEnum:
-            return ((RangeIndicator) indicator).getUpperValue().getValue();
+            return ((UpperQuartileIndicator) indicator).getValue();
             
         default:
             
