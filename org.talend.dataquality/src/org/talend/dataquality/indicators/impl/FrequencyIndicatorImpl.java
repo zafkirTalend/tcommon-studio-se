@@ -786,7 +786,7 @@ public class FrequencyIndicatorImpl extends CompositeIndicatorImpl implements Fr
             return false;
         }
         HashMap<Object, Long> mapVal2Freq = new HashMap<Object, Long>();
-
+        boolean debug = log.isDebugEnabled();
         for (Object[] value2freq : objects) {
             if (value2freq.length != nbColumns) {
                 log.error("Problem with result for Frequency indicator");
@@ -795,6 +795,9 @@ public class FrequencyIndicatorImpl extends CompositeIndicatorImpl implements Fr
             Object value = getValueFields(value2freq);
             Long freq = (Long) value2freq[nbColumns - 1];
             mapVal2Freq.put(value, freq);
+            if (debug) {
+                log.debug("Freq Table: " + value + ": " + freq);
+            }
         }
         this.setValueToFreq(mapVal2Freq);
         return true;

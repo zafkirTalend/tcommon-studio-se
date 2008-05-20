@@ -5,6 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -21,10 +22,10 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl#getSumLength <em>Sum Length</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.AverageLengthIndicatorImpl#getSumLength <em>Sum Length</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements AverageLengthIndicator {
@@ -32,9 +33,9 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     private static Logger log = Logger.getLogger(AverageLengthIndicatorImpl.class);
 
     /**
-     * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getSumLength()
      * @generated
      * @ordered
@@ -42,9 +43,9 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
     protected static final BigInteger SUM_LENGTH_EDEFAULT = new BigInteger("0");
 
     /**
-     * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getSumLength() <em>Sum Length</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getSumLength()
      * @generated
      * @ordered
@@ -53,6 +54,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected AverageLengthIndicatorImpl() {
@@ -61,6 +63,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -70,6 +73,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public BigInteger getSumLength() {
@@ -78,75 +82,91 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setSumLength(BigInteger newSumLength) {
         BigInteger oldSumLength = sumLength;
         sumLength = newSumLength;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH, oldSumLength, sumLength));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH,
+                    oldSumLength, sumLength));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * 
+     * @generated NOT
      */
     public double getAverageLength() {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        if (getCount() == null) {
+            return 0.0;
+        }
+        if (BigInteger.ZERO.equals(getCount())) {
+            return 0.0;
+        }
+        BigInteger totalLength = getSumLength();
+        if (totalLength == null) {
+            return 0.0;
+        }
+        BigDecimal division = new BigDecimal(totalLength).divide(new BigDecimal(getCount()));
+        return division.doubleValue();
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                return getSumLength();
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            return getSumLength();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                setSumLength((BigInteger)newValue);
-                return;
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            setSumLength((BigInteger) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                setSumLength(SUM_LENGTH_EDEFAULT);
-                return;
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            setSumLength(SUM_LENGTH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
-                return SUM_LENGTH_EDEFAULT == null ? sumLength != null : !SUM_LENGTH_EDEFAULT.equals(sumLength);
+        case IndicatorsPackage.AVERAGE_LENGTH_INDICATOR__SUM_LENGTH:
+            return SUM_LENGTH_EDEFAULT == null ? sumLength != null : !SUM_LENGTH_EDEFAULT.equals(sumLength);
         }
         return super.eIsSet(featureID);
     }
