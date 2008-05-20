@@ -35,20 +35,18 @@ import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.UpperQuartileIndicator;
 
-
 /**
- * DOC zqin  class global comment. Detailled comment
- * <br/>
- *
+ * DOC zqin class global comment. Detailled comment <br/>
+ * 
  * $Id: talend.epf 1 2006-09-29 17:06:40Z zqin $
- *
+ * 
  */
 public class IndicatorCommonUtil {
 
     public IndicatorCommonUtil() {
-        
+
     }
-    
+
     public static Object getIndicatorValue(IndicatorEnum type, Indicator indicator) {
         switch (type) {
         case RowCountIndicatorEnum:
@@ -76,7 +74,8 @@ public class IndicatorCommonUtil {
             return ((MaxLengthIndicator) indicator).getLength();
 
         case AverageLengthIndicatorEnum:
-            return ((AverageLengthIndicator) indicator).getSumLength();
+        // bug 3845 fixed: scorreia 2008-05-20: get average instead of sum length
+            return ((AverageLengthIndicator) indicator).getAverageLength();
 
         case FrequencyIndicatorEnum:
             FrequencyIndicator frequency = (FrequencyIndicator) indicator;
@@ -86,31 +85,31 @@ public class IndicatorCommonUtil {
 
                 returnMap.put(o, frequency.getFrequency(o));
             }
-            
+
             return returnMap;
-            
+
         case MeanIndicatorEnum:
             return ((MeanIndicator) indicator).getMean();
-            
+
         case MedianIndicatorEnum:
             return ((MedianIndicator) indicator).getMedian();
-            
+
         case MinValueIndicatorEnum:
             return ((MinValueIndicator) indicator).getValue();
-            
+
         case MaxValueIndicatorEnum:
             return ((MaxValueIndicator) indicator).getValue();
-            
+
         case LowerQuartileIndicatorEnum:
             return ((LowerQuartileIndicator) indicator).getValue();
-            
+
         case UpperQuartileIndicatorEnum:
             return ((UpperQuartileIndicator) indicator).getValue();
-            
+
         default:
-            
+
             return null;
         }
     }
-    
+
 }
