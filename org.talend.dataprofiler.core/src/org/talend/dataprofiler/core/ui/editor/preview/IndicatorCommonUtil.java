@@ -74,16 +74,15 @@ public class IndicatorCommonUtil {
             return ((MaxLengthIndicator) indicator).getLength();
 
         case AverageLengthIndicatorEnum:
-        // bug 3845 fixed: scorreia 2008-05-20: get average instead of sum length
+            // bug 3845 fixed: scorreia 2008-05-20: get average instead of sum length
             return ((AverageLengthIndicator) indicator).getAverageLength();
 
         case FrequencyIndicatorEnum:
             FrequencyIndicator frequency = (FrequencyIndicator) indicator;
             Set<Object> valueSet = frequency.getDistinctValues();
-            Map<Object, Double> returnMap = new HashMap<Object, Double>();
+            Map<Object, Long> returnMap = new HashMap<Object, Long>();
             for (Object o : valueSet) {
-
-                returnMap.put(o, frequency.getFrequency(o));
+                returnMap.put(o, frequency.getCount(o));
             }
 
             return returnMap;
