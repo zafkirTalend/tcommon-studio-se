@@ -90,13 +90,13 @@ public class Application implements IApplication {
             return;
         }
 
-        boolean use = false;
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-useSQLPattern")) {
-                use = Boolean.parseBoolean(args[i + 1]);
-                break;
-            }
-        }
+        boolean use = true;
+//        for (int i = 0; i < args.length; i++) {
+//            if (args[i].equals("-useSQLPattern")) {
+//                use = Boolean.parseBoolean(args[i + 1]);
+//                break;
+//            }
+//        }
         CorePlugin.getContext().putProperty("useSQLPattern", use);
     }
 
