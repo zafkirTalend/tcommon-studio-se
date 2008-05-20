@@ -8,6 +8,7 @@ package org.talend.dataquality.analysis.provider;
 
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -30,6 +31,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisFactory;
 import org.talend.dataquality.analysis.AnalysisPackage;
+import org.talend.dataquality.utils.DateFormatUtils;
 
 import orgomg.cwm.objectmodel.core.CorePackage;
 
@@ -140,18 +142,20 @@ public class AnalysisItemProvider
         return overlayImage(object, getResourceLocator().getImage("full/obj16/Analysis"));
     }
 
-    /**
+    /**MODRLI
      * This returns the label text for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
      */
     @Override
     public String getText(Object object) {
-        String label = ((Analysis)object).getName();
+        Analysis analysis = ((Analysis)object);
+        String label = analysis.getName();
+        Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
+        String prefixDateString=null;
+        if (executionDate!=null) {
+            prefixDateString = DateFormatUtils.getSimpleDateString(executionDate);
+        }
         return label == null || label.length() == 0 ?
-            getString("_UI_Analysis_type") :
-            getString("_UI_Analysis_type") + " " + label;
+            getString("_UI_Analysis_type") :(prefixDateString==null?label:label+" "+"("+prefixDateString+")");
     }
 
     /**
