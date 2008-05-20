@@ -101,7 +101,7 @@ public abstract class AbstractFormPage extends FormPage {
         GridDataFactory.fillDefaults().grab(true, true).applyTo(authorText);
         label = toolkit.createLabel(labelButtonClient, "Status:");
         statusCombo = new CCombo(labelButtonClient, SWT.BORDER);
-        statusCombo.setEnabled(false);
+        statusCombo.setEditable(false);
         for (DevelopmentStatus status : DevelopmentStatus.values()) {
 
             statusCombo.add(status.getLiteral());
