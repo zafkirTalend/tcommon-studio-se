@@ -310,4 +310,6 @@ public interface IProcessDescription {
      * @param salesforceSchemaBean the salesforceSchemaBean to set
      */
     public void setSalesforceSchemaBean(SalesforceSchemaBean salesforceSchemaBean);
+
+    public boolean isSplitRecord();
 }

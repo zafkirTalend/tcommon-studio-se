@@ -16,6 +16,7 @@ package org.talend.core.model.metadata.builder.connection;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#getFieldSeparatorType <em>Field Separator Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#isSplitRecord <em>Split Record</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,5 +54,32 @@ public interface DelimitedFileConnection extends FileConnection {
      * @generated
      */
     void setFieldSeparatorType(FieldSeparator value);
+
+    /**
+     * Returns the value of the '<em><b>Split Record</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Split Record</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Split Record</em>' attribute.
+     * @see #setSplitRecord(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDelimitedFileConnection_SplitRecord()
+     * @model default="false"
+     * @generated
+     */
+    boolean isSplitRecord();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#isSplitRecord <em>Split Record</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Split Record</em>' attribute.
+     * @see #isSplitRecord()
+     * @generated
+     */
+    void setSplitRecord(boolean value);
 
 } // DelimitedFileConnection

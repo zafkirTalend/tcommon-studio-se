@@ -21,6 +21,7 @@ import org.talend.core.model.metadata.builder.connection.FieldSeparator;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl#getFieldSeparatorType <em>Field Separator Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl#isSplitRecord <em>Split Record</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +48,26 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * @ordered
      */
     protected FieldSeparator fieldSeparatorType = FIELD_SEPARATOR_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSplitRecord() <em>Split Record</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSplitRecord()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SPLIT_RECORD_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSplitRecord() <em>Split Record</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSplitRecord()
+     * @generated
+     * @ordered
+     */
+    protected boolean splitRecord = SPLIT_RECORD_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -92,10 +113,33 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isSplitRecord() {
+        return splitRecord;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSplitRecord(boolean newSplitRecord) {
+        boolean oldSplitRecord = splitRecord;
+        splitRecord = newSplitRecord;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD, oldSplitRecord, splitRecord));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
                 return getFieldSeparatorType();
+            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+                return isSplitRecord() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -109,6 +153,9 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
         switch (featureID) {
             case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
                 setFieldSeparatorType((FieldSeparator)newValue);
+                return;
+            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+                setSplitRecord(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -124,6 +171,9 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
             case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
                 setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
                 return;
+            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+                setSplitRecord(SPLIT_RECORD_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -137,6 +187,8 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
         switch (featureID) {
             case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
                 return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
+            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+                return splitRecord != SPLIT_RECORD_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -152,6 +204,8 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (FieldSeparatorType: ");
         result.append(fieldSeparatorType);
+        result.append(", splitRecord: ");
+        result.append(splitRecord);
         result.append(')');
         return result.toString();
     }

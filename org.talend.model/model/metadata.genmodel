@@ -112,6 +112,7 @@
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DelimitedFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DelimitedFileConnection/FieldSeparatorType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DelimitedFileConnection/splitRecord"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//PositionalFileConnection"/>
     <genClasses ecoreClass="metadata.ecore#//DatabaseConnection">

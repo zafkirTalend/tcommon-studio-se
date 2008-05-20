@@ -1224,13 +1224,22 @@ public interface ConnectionPackage extends EPackage {
     int DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE = FILE_CONNECTION_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Split Record</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__SPLIT_RECORD = FILE_CONNECTION_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Delimited File Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DELIMITED_FILE_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 1;
+    int DELIMITED_FILE_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.PositionalFileConnectionImpl <em>Positional File Connection</em>}' class.
@@ -4944,6 +4953,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDelimitedFileConnection_FieldSeparatorType();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#isSplitRecord <em>Split Record</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Split Record</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#isSplitRecord()
+     * @see #getDelimitedFileConnection()
+     * @generated
+     */
+    EAttribute getDelimitedFileConnection_SplitRecord();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection <em>Positional File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Positional File Connection</em>'.
@@ -6778,6 +6798,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE = eINSTANCE.getDelimitedFileConnection_FieldSeparatorType();
+
+        /**
+         * The meta object literal for the '<em><b>Split Record</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DELIMITED_FILE_CONNECTION__SPLIT_RECORD = eINSTANCE.getDelimitedFileConnection_SplitRecord();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.PositionalFileConnectionImpl <em>Positional File Connection</em>}' class.

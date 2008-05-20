@@ -109,6 +109,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="DelimitedFileConnection" eSuperTypes="#//FileConnection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="FieldSeparatorType" lowerBound="1"
         eType="#//FieldSeparator" defaultValueLiteral="Semicolon"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitRecord" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PositionalFileConnection" eSuperTypes="#//FileConnection"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FileFormat">

@@ -516,6 +516,10 @@ public class RepositoryToComponentProperty {
         if (value.equals("TEXT_ENCLOSURE")) { //$NON-NLS-1$
             return connection.getTextEnclosure();
         }
+
+        if (value.equals("SPLITRECORD")) { //$NON-NLS-1$           
+            return connection.isSplitRecord();
+        }
         return null;
     }
 

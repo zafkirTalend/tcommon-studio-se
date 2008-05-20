@@ -784,6 +784,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDelimitedFileConnection_SplitRecord() {
+        return (EAttribute)delimitedFileConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1933,6 +1942,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         delimitedFileConnectionEClass = createEClass(DELIMITED_FILE_CONNECTION);
         createEAttribute(delimitedFileConnectionEClass, DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE);
+        createEAttribute(delimitedFileConnectionEClass, DELIMITED_FILE_CONNECTION__SPLIT_RECORD);
 
         positionalFileConnectionEClass = createEClass(POSITIONAL_FILE_CONNECTION);
 
@@ -2190,6 +2200,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(delimitedFileConnectionEClass, DelimitedFileConnection.class, "DelimitedFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDelimitedFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType", "Semicolon", 1, 1, DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDelimitedFileConnection_SplitRecord(), ecorePackage.getEBoolean(), "splitRecord", "false", 0, 1, DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(positionalFileConnectionEClass, PositionalFileConnection.class, "PositionalFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
