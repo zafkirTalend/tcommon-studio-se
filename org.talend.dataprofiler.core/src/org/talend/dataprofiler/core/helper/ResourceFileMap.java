@@ -33,9 +33,8 @@ public class ResourceFileMap {
 
     // private ResourceFileMapHelper instance = new ResourceFileMapHelper();
 
-    public void register(IFile file, Resource resource) {
-        String absolutePath = file.getLocation().toFile().getAbsolutePath();
-        registedResourceMap.put(absolutePath, resource);
+    public void register(String fileString, Resource resource) {
+        registedResourceMap.put(fileString, resource);
     }
 
     public void remove(IFile file) {
@@ -61,7 +60,6 @@ public class ResourceFileMap {
         String absolutePath = file.getAbsolutePath();
         return getPathResource(absolutePath);
     }
-
 
     /**
      * DOC xy Comment method "createResource".

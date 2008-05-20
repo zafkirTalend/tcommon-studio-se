@@ -19,6 +19,7 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.lf5.LogLevel;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.Wizard;
 import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.DescriptionHelper;
@@ -28,6 +29,7 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
+import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
 import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
 import org.talend.dataprofiler.core.ui.wizard.report.provider.AnalysisEntity;
@@ -121,6 +123,8 @@ public class CreateNewReportWizard extends Wizard {
                     ReturnCode saved = writer.save(report, file);
                     if (saved.isOk()) {
                         log.info("Saved in  " + file.getAbsolutePath());
+                        Resource resource = report.eResource();
+                        RepResourceFileHelper.getInstance().register(resource.getURI().toFileString(), resource);
 //                        for (Analysis analysis : reportParameter.getAnalysises()) {
 //                            TaggedValueHelper.setTaggedValue(analysis, reportParameter.getName() + PluginConstant.REP_SUFFIX,
 //                                    PluginConstant.EMPTY_STRING);

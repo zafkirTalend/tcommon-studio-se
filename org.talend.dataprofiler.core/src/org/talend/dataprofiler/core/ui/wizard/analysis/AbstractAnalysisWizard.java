@@ -16,6 +16,7 @@ import java.io.File;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IEditorPart;
 import org.talend.cwm.constants.DevelopmentStatus;
@@ -111,6 +112,8 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         TypedReturnCode<File> saved = writer.createAnalysisFile(analysis, folder);
         if (saved.isOk()) {
             log.info("Saved in  " + folder.getAbsolutePath());
+            Resource anaResource = analysis.eResource();
+            AnaResourceFileHelper.getInstance().register(anaResource.getURI().toFileString(), anaResource);
             AnaResourceFileHelper.getInstance().setResourceChanged(true);
         } else {
             throw new DataprofilerCoreException("Problem saving file: " + folder.getAbsolutePath() + ": " + saved.getMessage());
