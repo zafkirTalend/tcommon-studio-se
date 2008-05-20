@@ -49,6 +49,7 @@ import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.ImageLib;
@@ -58,6 +59,7 @@ import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.EObjectHelper;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
@@ -74,7 +76,7 @@ import orgomg.cwm.objectmodel.core.ModelElement;
  * @author rli
  * 
  */
-public class ColumnMasterDetailsPage extends AbstractFormPage  implements PropertyChangeListener {
+public class ColumnMasterDetailsPage extends AbstractFormPage implements PropertyChangeListener {
 
     private static Logger log = Logger.getLogger(ColumnMasterDetailsPage.class);
 
@@ -363,8 +365,9 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
         // ReturnCode saved = writer.save(analysisHandler.getAnalysis(), file);
         ReturnCode saved = AnaResourceFileHelper.getInstance().save(analysisHandler.getAnalysis());
         if (saved.isOk()) {
-            NeedSaveDataProviderHelper.register(tdProvider.getName(), tdProvider);
-            NeedSaveDataProviderHelper.saveAllDataProvider();
+            if (tdProvider != null) {
+                DqRepositoryViewService.saveOpenDataProvider(tdProvider);
+            }
             AnaResourceFileHelper.getInstance().setResourceChanged(true);
             log.info("Saved in  " + urlString + " successful");
         } else {
@@ -436,9 +439,9 @@ public class ColumnMasterDetailsPage extends AbstractFormPage  implements Proper
         }
     }
 
-    
     /**
      * Getter for treeViewer.
+     * 
      * @return the treeViewer
      */
     public AnasisColumnTreeViewer getTreeViewer() {

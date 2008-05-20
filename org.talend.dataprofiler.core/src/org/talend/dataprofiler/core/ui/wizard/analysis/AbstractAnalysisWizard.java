@@ -74,9 +74,6 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         } catch (Exception e) {
             ExceptionHandler.process(e, Level.ERROR);
         }
-        if (openEditor != null) {
-            ((AnalysisEditor) openEditor).setDirty(true);
-        }
         return true;
     }
 
