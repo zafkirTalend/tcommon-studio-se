@@ -31,37 +31,40 @@ public class ImageLib {
 
     private static URL iconURL;
 
-//    public static final String REFRESH_IMAGE = "refresh.gif"; //$NON-NLS-1$
-    
+    // public static final String REFRESH_IMAGE = "refresh.gif"; //$NON-NLS-1$
+
     public static final String REFRESH_IMAGE = "sample.gif"; //$NON-NLS-1$
-    
+
     public static final String FOLDERNODE_IMAGE = "folder.gif"; //$NON-NLS-1$
-    
+
     public static final String PROJECT_ACTIVE = "prject_active.gif"; //$NON-NLS-1$
-    
+
     public static final String REPORT_HISTORIZE = "sample.gif"; //$NON-NLS-1$
-    
+
     public static final String NEW_CONNECTION = "new_alias.gif"; //$NON-NLS-1$
-    
+
     public static final String ACTION_DELETE = "cross.png"; //$NON-NLS-1$
-    
+
     public static final String SECTION_PREVIEW = "eye.png"; //$NON-NLS-1$
-    
+
     public static final String ACTION_NEW_REPORT = "report_add.png"; //$NON-NLS-1$
-    
+
     public static final String ACTION_NEW_ANALYSIS = "chart_bar_add.png"; //$NON-NLS-1$
-    
+
     public static final String INDICATOR_OPTION = "page_white_gear.png"; //$NON-NLS-1$
 
     public static final String ANALYSIS_OBJECT = "chart_bar.png"; //$NON-NLS-1$
-    
+
     public static final String REPORT_OBJECT = "report.png"; //$NON-NLS-1$
-    
+
     public static final String TD_COLUMN = "TdColumn.gif";
-    
+
     public static final String TD_DATAPROVIDER = "TdDataProvider.gif";
 
     public static final String EDITCONNECTION = "sample.gif";
+
+    public static final String CREATE_SQL_ACTION = "new_sqlEditor.gif";
+
     /**
      * get <code>ImageDescriptor</code> with special imageName.
      * 
@@ -105,7 +108,7 @@ public class ImageLib {
      * initialize the fieds.
      */
     static void initialize() {
-    	CorePlugin amcPlugin = CorePlugin.getDefault();
+        CorePlugin amcPlugin = CorePlugin.getDefault();
         if (amcPlugin != null) {
             imageRegistry = amcPlugin.getImageRegistry();
             iconURL = getIconLocation();

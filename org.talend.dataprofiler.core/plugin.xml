@@ -174,6 +174,23 @@
             	<test property="org.eclipse.core.resources.name" value="*.prv"/>	
 	        </and>
          </enablement>
+      </actionProvider>
+      <actionProvider
+            class="org.talend.dataprofiler.core.ui.action.provider.NewSourceFileActionProvider"
+            id="org.talend.dataprofiler.core.ui.action.provider.NewSourceFileActionProvider">
+         <enablement>
+            <or>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+               <adapt
+                     type="java.util.Collection">
+                  <count
+                        value="0">
+                  </count>
+               </adapt>
+            </or>
+         </enablement>
       </actionProvider>        
   </extension>
     
