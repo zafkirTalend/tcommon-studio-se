@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.rcp.intro;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
@@ -20,9 +21,8 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 
 /**
- * DOC rli  class global comment. Detailled comment
- * <br/>
- *
+ * DOC rli class global comment. Detailled comment <br/>
+ * 
  */
 public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
@@ -35,7 +35,10 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     public void initialize(IWorkbenchConfigurer configurer) {
         super.initialize(configurer);
         configurer.setSaveAndRestore(true);
-        PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
+        IPreferenceStore apiStore = PlatformUI.getPreferenceStore();
+        apiStore.setValue(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
+        // PTODO qzhang close the Sql editor, when start up the RCP.
+        apiStore.setValue(IWorkbenchPreferenceConstants.CLOSE_EDITORS_ON_EXIT, true);
     }
 
     public String getInitialWindowPerspectiveId() {
