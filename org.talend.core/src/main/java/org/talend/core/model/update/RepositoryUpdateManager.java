@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -203,7 +204,7 @@ public abstract class RepositoryUpdateManager {
         return false;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     private boolean filterForType(UpdateResult result) {
         if (result == null || parameter == null) {
             return false;
@@ -263,15 +264,6 @@ public abstract class RepositoryUpdateManager {
         return false;
     }
 
-    private List<UpdateResult> checkItemsRefrences(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types) {
-
-        if (types == null || types.isEmpty()) {
-            return null;
-        }
-
-        return null;
-    }
-
     /**
      * 
      * ggu Comment method "checkJobItemsForUpdate".
@@ -301,25 +293,39 @@ public abstract class RepositoryUpdateManager {
             if (jobletList != null) {
                 processList.addAll(jobletList);
             }
+            // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
+            boolean checkOnlyLastVersion = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService()
+                    .getPreferenceStore("checkOnlyLastVersion"));
             // get all version
-            List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>();
+            List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>((int) (processList.size() * 1.1));
             for (IRepositoryObject repositoryObj : processList) {
-                List<IRepositoryObject> allVersion = factory.getAllVersion(repositoryObj.getId());
-                for (IRepositoryObject object : allVersion) {
-                    if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
-                            && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
-                        allVersionList.add(object);
+                if (checkOnlyLastVersion == false) {
+                    List<IRepositoryObject> allVersion = factory.getAllVersion(repositoryObj.getId());
+                    for (IRepositoryObject object : allVersion) {
+                        if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
+                                && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
+                            allVersionList.add(object);
+                        }
+                    }
+                } else {
+                    // assume that repositoryObj is the last version, otherwise we should call
+                    // factory.getLastVersion(repositoryObj.getId());
+                    IRepositoryObject lastVersion = repositoryObj; // factory.getLastVersion(repositoryObj.getId());
+                    if (factory.getStatus(lastVersion) != ERepositoryStatus.LOCK_BY_OTHER
+                            && factory.getStatus(lastVersion) != ERepositoryStatus.LOCK_BY_USER) {
+                        allVersionList.add(lastVersion);
                     }
                 }
             }
             //
             int size = (allVersionList.size() + openedProcessList.size() + 1) * UpdatesConstants.SCALE;
             parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
+            MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
 
             for (IRepositoryObject repositoryObj : allVersionList) {
                 Item item = repositoryObj.getProperty().getItem();
                 // avoid the opened job
-                if (isOpenedItem(item, openedProcessList)) {
+                if (isOpenedItem(item, openProcessMap)) {
                     continue;
                 }
                 List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types);
@@ -377,18 +383,28 @@ public abstract class RepositoryUpdateManager {
         return result;
     }
 
-    private boolean isOpenedItem(Item openedItem, List<IProcess> openedProcessList) {
-        if (openedItem == null || openedProcessList == null) {
-            return false;
-        }
-        for (IProcess process : openedProcessList) {
-            Property property = openedItem.getProperty();
-            if (process.getId().equals(property.getId()) && process.getLabel().equals(property.getLabel())
-                    && process.getVersion().equals(property.getVersion())) {
-                return true;
+    /**
+     * Create a hashmap for fash lookup of the specified IProcess.
+     * 
+     * @param openedProcessList
+     * @return
+     */
+    private MultiKeyMap createOpenProcessMap(List<IProcess> openedProcessList) {
+        MultiKeyMap map = new MultiKeyMap();
+        if (openedProcessList != null) {
+            for (IProcess process : openedProcessList) {
+                map.put(process.getId(), process.getLabel(), process.getVersion(), process);
             }
         }
-        return false;
+        return map;
+    }
+
+    private boolean isOpenedItem(Item openedItem, MultiKeyMap openProcessMap) {
+        if (openedItem == null) {
+            return false;
+        }
+        Property property = openedItem.getProperty();
+        return (openProcessMap.get(property.getId(), property.getLabel(), property.getVersion()) != null);
     }
 
     private List<UpdateResult> getResultFromProcess(IProgressMonitor parentMonitor, IProcess process,
@@ -573,7 +589,7 @@ public abstract class RepositoryUpdateManager {
         return repositoryUpdateManager.doWork(show);
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static Map<String, String> getTableIdAndNameMap(ConnectionItem connItem) {
         if (connItem == null) {
             return Collections.emptyMap();
@@ -597,7 +613,7 @@ public abstract class RepositoryUpdateManager {
         return oldTableMap;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static Map<String, String> getSchemaRenamedMap(ConnectionItem connItem, Map<String, String> oldTableMap) {
         if (connItem == null || oldTableMap == null) {
             return Collections.emptyMap();
@@ -675,8 +691,13 @@ public abstract class RepositoryUpdateManager {
             return false;
         }
 
+        Map<String, IMetadataTable> id2TableMap = new HashMap<String, IMetadataTable>();
+        for (IMetadataTable oldTable : oldTables) {
+            id2TableMap.put(oldTable.getId(), oldTable);
+        }
+
         for (IMetadataTable newTable : newTables) {
-            IMetadataTable oldTable = searchMetadatTableById(oldTables, newTable.getId());
+            IMetadataTable oldTable = id2TableMap.get(newTable.getId());
             if (oldTableMap.containsKey(newTable.getId())) { // not a new created table.
                 if (oldTable == null) {
                     return false;
@@ -689,18 +710,6 @@ public abstract class RepositoryUpdateManager {
         }
         return true;
 
-    }
-
-    private static IMetadataTable searchMetadatTableById(List<IMetadataTable> tables, String id) {
-        if (tables == null || id == null) {
-            return null;
-        }
-        for (IMetadataTable table : tables) {
-            if (id.equals(table.getId())) {
-                return table;
-            }
-        }
-        return null;
     }
 
     /**
