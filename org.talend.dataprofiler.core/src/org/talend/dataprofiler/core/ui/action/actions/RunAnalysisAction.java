@@ -126,7 +126,8 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
                     Display.getDefault().asyncExec(new Runnable() {
 
                         public void run() {
-                            MessageDialogWithToggle.openError(null, "Run analysis error", executed.getMessage());
+                            MessageDialogWithToggle.openError(null, "Run analysis error", 
+                                    "Fail to run this analysis: " + executed.getMessage());
                         }
                         
                     });
