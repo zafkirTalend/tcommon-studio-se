@@ -19,8 +19,10 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
@@ -113,7 +115,7 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
         IRunnableWithProgress op = new IRunnableWithProgress() {
 
             public void run(IProgressMonitor monitor) throws InvocationTargetException {
-                ReturnCode executed = finalExec.execute(finalAnalysis);
+                final ReturnCode executed = finalExec.execute(finalAnalysis);
                 if (log.isInfoEnabled()) {
                     log.info("Analysis " + finalAnalysis.getName() + "execution code: " + executed);
                 }
@@ -121,6 +123,13 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
                     AnaResourceFileHelper.getInstance().save(finalAnalysis);
                 } else {
                     // TODO zqin open error dialog
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        public void run() {
+                            MessageDialogWithToggle.openError(null, "Run analysis error", executed.getMessage());
+                        }
+                        
+                    });
                 }
 
             }
