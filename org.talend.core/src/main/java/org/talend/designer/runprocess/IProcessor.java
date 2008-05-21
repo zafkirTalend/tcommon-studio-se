@@ -225,10 +225,25 @@ public interface IProcessor {
     public String getTargetPlatform();
 
     public void setTargetPlatform(String targetPlatform);
-    
+
     public void initPath() throws ProcessorException;
 
     public IProcess getProcess();
 
     public IContext getContext();
+
+    /**
+     * Check if the code has been generated at least once. Will be false if the code has never been generated.
+     * 
+     * @return boolean to tell if any code has been generated already or not for this job.
+     */
+    public boolean isCodeGenerated();
+
+    /**
+     * Add the possibility to force the flag for the code generated. <br>
+     * This can be usefull to force to generate the code.
+     * 
+     * @param codeGenerated boolean to tell if any code has been generated already or not for this job.
+     */
+    public void setCodeGenerated(boolean codeGenerated);
 }

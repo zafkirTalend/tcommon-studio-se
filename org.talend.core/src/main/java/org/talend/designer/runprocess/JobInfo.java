@@ -34,6 +34,8 @@ public class JobInfo {
 
     private ProcessItem processItem;
 
+    private JobInfo fatherJobInfo;
+
     public JobInfo(String jobId, String contextName, String version) {
         this.jobId = jobId;
         this.contextName = contextName;
@@ -188,5 +190,23 @@ public class JobInfo {
     @Override
     public String toString() {
         return "job:" + jobName + " / context:" + contextName + " / version:" + jobVersion; //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    /**
+     * Getter for fatherJobInfo.
+     * 
+     * @return the fatherJobInfo
+     */
+    public JobInfo getFatherJobInfo() {
+        return this.fatherJobInfo;
+    }
+
+    /**
+     * Sets the fatherJobInfo.
+     * 
+     * @param fatherJobInfo the fatherJobInfo to set
+     */
+    public void setFatherJobInfo(JobInfo fatherJobInfo) {
+        this.fatherJobInfo = fatherJobInfo;
     }
 }

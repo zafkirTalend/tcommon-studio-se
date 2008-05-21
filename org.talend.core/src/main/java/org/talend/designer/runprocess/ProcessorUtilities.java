@@ -33,6 +33,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -213,6 +214,36 @@ public class ProcessorUtilities {
         }
     }
 
+    private static boolean isCodeGenerationNeeded(JobInfo jobInfo) {
+
+        // if we do any export, the code generation will always be needed.
+        if (exportConfig && (!(jobInfo.getProcess() instanceof IProcess2))) {
+            return true;
+        }
+        IProcess2 attachedProcess = (IProcess2) jobInfo.getProcess();
+
+        if (jobInfo.getFatherJobInfo() != null) {
+            JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
+            IProcessor processorFromFather = null;
+            while (fatherJobInfo.getProcess().getProcessor() == null) {
+                fatherJobInfo = fatherJobInfo.getFatherJobInfo();
+            }
+            processorFromFather = fatherJobInfo.getProcess().getProcessor();
+            if (processorFromFather.isCodeGenerated()) {
+                // if the code has been generated already for the father, the code of the children should be up to date.
+                return false;
+            }
+        }
+
+        // if the code has never been generated or if the process has been modified, generate the code
+        if (attachedProcess.getProcessor() == null || !attachedProcess.getProcessor().isCodeGenerated()
+                || attachedProcess.isNeedRegenerateCode()) {
+            return true;
+        }
+
+        return false;
+    }
+
     private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
@@ -235,6 +266,7 @@ public class ProcessorUtilities {
             if (selectedProcessItem != null) {
                 IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
                 currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+                jobInfo.setProcess(currentProcess);
             }
             if (currentProcess == null) {
                 return false;
@@ -244,38 +276,6 @@ public class ProcessorUtilities {
         }
 
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess);
-
-        IContext currentContext;
-        if (jobInfo.getContext() == null) {
-            currentContext = getContext(currentProcess, jobInfo.getContextName());
-        } else {
-            currentContext = jobInfo.getContext();
-        }
-        IProcessor processor = getProcessor(currentProcess);
-
-        // See issue 2188
-        if (generateAllContexts) {
-            List<IContext> list = currentProcess.getContextManager().getListContext();
-            for (IContext context : list) {
-                if (context.getName().equals(currentContext.getName())) {
-                    continue;
-                }
-                processor.setContext(context);
-                try {
-                    // main job will use stats / traces
-                    processor.generateCode(statistics, trace, properties);
-                } catch (ProcessorException pe) {
-                    MessageBoxExceptionHandler.process(pe);
-                }
-            }
-        }
-        processor.setContext(currentContext);
-        try {
-            // main job will use stats / traces
-            processor.generateCode(statistics, trace, properties);
-        } catch (ProcessorException pe) {
-            MessageBoxExceptionHandler.process(pe);
-        }
 
         boolean toReturn = true;
         if (option != GENERATE_MAIN_ONLY) {
@@ -298,6 +298,7 @@ public class ProcessorUtilities {
                         subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
                         subJobInfo.setContextName(jobInfo.getContextName());
                     }
+                    subJobInfo.setFatherJobInfo(jobInfo);
 
                     if (!jobList.contains(subJobInfo)) {
                         // children won't have stats / traces
@@ -310,6 +311,48 @@ public class ProcessorUtilities {
                 }
             }
         }
+
+        // generate the code of the father after the childrens
+        // so the code won't have any error during the check, and it will help to check
+        // if the generation is really needed.
+        if (isCodeGenerationNeeded(jobInfo)) {
+            IContext currentContext;
+            if (jobInfo.getContext() == null) {
+                currentContext = getContext(currentProcess, jobInfo.getContextName());
+            } else {
+                currentContext = jobInfo.getContext();
+            }
+            IProcessor processor = getProcessor(currentProcess);
+
+            // See issue 2188
+            if (generateAllContexts) {
+                List<IContext> list = currentProcess.getContextManager().getListContext();
+                for (IContext context : list) {
+                    if (context.getName().equals(currentContext.getName())) {
+                        continue;
+                    }
+                    processor.setContext(context);
+                    try {
+                        // main job will use stats / traces
+                        processor.generateCode(statistics, trace, properties);
+                    } catch (ProcessorException pe) {
+                        MessageBoxExceptionHandler.process(pe);
+                    }
+                }
+            }
+            processor.setContext(currentContext);
+            try {
+                // main job will use stats / traces
+                processor.generateCode(statistics, trace, properties);
+            } catch (ProcessorException pe) {
+                MessageBoxExceptionHandler.process(pe);
+            }
+
+            if (currentProcess instanceof IProcess2) {
+                ((IProcess2) currentProcess).setNeedRegenerateCode(false);
+            }
+        }
+
         return toReturn;
     }
 

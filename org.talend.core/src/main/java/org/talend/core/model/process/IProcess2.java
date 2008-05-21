@@ -86,4 +86,13 @@ public interface IProcess2 extends IProcess {
     public List<? extends ISubjobContainer> getSubjobContainers();
 
     public IUpdateManager getUpdateManager();
+
+    /**
+     * if need to regenerate the code for the current process.
+     * 
+     * @return
+     */
+    public boolean isNeedRegenerateCode();
+
+    public void setNeedRegenerateCode(boolean regenerateCode);
 }
