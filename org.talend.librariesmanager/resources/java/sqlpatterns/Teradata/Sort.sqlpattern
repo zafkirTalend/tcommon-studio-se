@@ -1,0 +1,5 @@
+-- This pattern is just an example for the RC release, and will be modified in future version.
+
+-- SORT OF THE STAGGING TABLE
+select * from talend.cust_teradata_stagging
+order by 4 asc;
