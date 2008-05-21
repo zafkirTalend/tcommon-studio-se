@@ -107,12 +107,12 @@
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Character" default="true" />
-					<talendType type="id_String"/>
+					<talendType type="id_Character" />
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="NCHAR">
-					<talendType type="id_Character" default="true" />
-					<talendType type="id_String"/>
+					<talendType type="id_Character" />
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="DEC">
 					<talendType type="id_BigDecimal" default="true" />
