@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.preview;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,80 +36,143 @@ import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.UpperQuartileIndicator;
 
+
 /**
- * DOC zqin class global comment. Detailled comment <br/>
- * 
+ * DOC zqin  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id: talend.epf 1 2006-09-29 17:06:40Z zqin $
- * 
+ *
  */
 public class IndicatorCommonUtil {
 
+    //Color Constants
+    private static final  Color COLOR_ROW_COUNT = Color.RED;
+    
+    private static final  Color COLOR_NULL_COUNT = Color.GRAY;
+    
+    private static final  Color COLOR_DISTIN_CTCOUNT = Color.YELLOW;
+    
+    private static final  Color COLOR_UNIQUE_COUNT = Color.BLUE;
+    
+    private static final  Color COLOR_DUPLICATE_COUNT = Color.CYAN;
+    
+    private static final  Color COLOR_BLANKCOUNT = Color.GREEN;
+    
+    private static final  Color COLOR_MIN_LENGTH = Color.MAGENTA;
+    
+    private static final  Color COLOR_MAX_LENGTH = Color.ORANGE;
+    
+    private static final  Color COLOR_AVERAGE_LENGTH = Color.PINK;
+    
     public IndicatorCommonUtil() {
 
     }
-
-    public static Object getIndicatorValue(IndicatorEnum type, Indicator indicator) {
+    
+    public static void compositeIndicatorMap(IndicatorTypeMapping indicatorMap) {
+        
+        Color tempColor = null;
+        Object tempObject = null;
+        
+        IndicatorEnum type = indicatorMap.getType();
+        Indicator indicator = indicatorMap.getIndicator();
+        
+        
         switch (type) {
         case RowCountIndicatorEnum:
-            return ((RowCountIndicator) indicator).getCount();
-
+            tempColor = COLOR_ROW_COUNT;
+            tempObject = ((RowCountIndicator) indicator).getCount();
+            break;
+            
         case NullCountIndicatorEnum:
-            return ((NullCountIndicator) indicator).getNullCount();
+            tempColor = COLOR_NULL_COUNT;
+            tempObject = ((NullCountIndicator) indicator).getNullCount();
+            break;
 
         case DistinctCountIndicatorEnum:
-            return ((DistinctCountIndicator) indicator).getDistinctValueCount();
+            tempColor = COLOR_DISTIN_CTCOUNT;
+            tempObject = ((DistinctCountIndicator) indicator).getDistinctValueCount();
+            break;
 
         case UniqueIndicatorEnum:
-            return ((UniqueCountIndicator) indicator).getUniqueValueCount();
+            tempColor = COLOR_UNIQUE_COUNT;
+            tempObject = (((UniqueCountIndicator) indicator).getUniqueValueCount());
+            break;
 
         case DuplicateCountIndicatorEnum:
-            return ((DuplicateCountIndicator) indicator).getDuplicateValueCount();
+            tempColor = COLOR_DUPLICATE_COUNT;
+            tempObject = ((DuplicateCountIndicator) indicator).getDuplicateValueCount();
+            break;
 
         case BlankCountIndicatorEnum:
-            return ((BlankCountIndicator) indicator).getBlankCount();
+            tempColor = COLOR_BLANKCOUNT;
+            tempObject = ((BlankCountIndicator) indicator).getBlankCount();
+            break;
 
         case MinLengthIndicatorEnum:
-            return ((MinLengthIndicator) indicator).getLength();
+            tempColor = COLOR_MIN_LENGTH;
+            tempObject = ((MinLengthIndicator) indicator).getLength();
+            break;
 
         case MaxLengthIndicatorEnum:
-            return ((MaxLengthIndicator) indicator).getLength();
+            tempColor = COLOR_MAX_LENGTH;
+            tempObject = ((MaxLengthIndicator) indicator).getLength();
+            break;
 
         case AverageLengthIndicatorEnum:
-            // bug 3845 fixed: scorreia 2008-05-20: get average instead of sum length
-            return ((AverageLengthIndicator) indicator).getAverageLength();
+            tempColor = COLOR_AVERAGE_LENGTH;
+            tempObject = ((AverageLengthIndicator) indicator).getSumLength();
+            break;
 
         case FrequencyIndicatorEnum:
             FrequencyIndicator frequency = (FrequencyIndicator) indicator;
             Set<Object> valueSet = frequency.getDistinctValues();
-            Map<Object, Long> returnMap = new HashMap<Object, Long>();
+            Map<Object, Double> returnMap = new HashMap<Object, Double>();
             for (Object o : valueSet) {
-                returnMap.put(o, frequency.getCount(o));
+
+                returnMap.put(o, frequency.getFrequency(o));
             }
-
-            return returnMap;
-
+            
+            tempColor = null;
+            tempObject = returnMap;
+            break;
+            
         case MeanIndicatorEnum:
-            return ((MeanIndicator) indicator).getMean();
-
+            tempColor = null;
+            tempObject = ((MeanIndicator) indicator).getMean();
+            break;
+            
         case MedianIndicatorEnum:
-            return ((MedianIndicator) indicator).getMedian();
-
+            tempColor = null;
+            tempObject = ((MedianIndicator) indicator).getMedian();
+            break;
+            
         case MinValueIndicatorEnum:
-            return ((MinValueIndicator) indicator).getValue();
-
+            tempColor = null;
+            tempObject = ((MinValueIndicator) indicator).getValue();
+            break;
+            
         case MaxValueIndicatorEnum:
-            return ((MaxValueIndicator) indicator).getValue();
-
+            tempColor = null;
+            tempObject = ((MaxValueIndicator) indicator).getValue();
+            break;
+            
         case LowerQuartileIndicatorEnum:
-            return ((LowerQuartileIndicator) indicator).getValue();
-
+            tempColor = null;
+            tempObject = ((LowerQuartileIndicator) indicator).getValue();
+            break;
+            
         case UpperQuartileIndicatorEnum:
-            return ((UpperQuartileIndicator) indicator).getValue();
-
+            tempColor = null;
+            tempObject = ((UpperQuartileIndicator) indicator).getValue();
+            break;
+            
         default:
 
-            return null;
         }
+        
+        indicatorMap.setColor(tempColor);
+        indicatorMap.setValue(tempObject);
     }
-
+    
 }

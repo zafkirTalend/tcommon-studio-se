@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.preview;
 
+import java.awt.Color;
+
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataquality.indicators.Indicator;
@@ -25,16 +27,23 @@ import org.talend.dataquality.indicators.Indicator;
  *
  */
 public class IndicatorTypeMapping {
+    
+    private String indicatorName;
 
     private IndicatorEnum type;
     
     private Indicator indicator;
     
+    private Color color;
+    
     private ColumnIndicator parentColumn;
+    
+    private Object value;
     
     public IndicatorTypeMapping(IndicatorEnum type, Indicator indicator, ColumnIndicator parentColumn) {
         this.type = type;
         this.indicator = indicator;
+        this.indicatorName = indicator.getIndicatorDefinition().getLabel();
         this.parentColumn = parentColumn;
     }
 
@@ -65,6 +74,55 @@ public class IndicatorTypeMapping {
     public ColumnIndicator getParentColumn() {
         return this.parentColumn;
     }
+
+
     
+    /**
+     * Getter for color.
+     * @return the color
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+
+    
+    /**
+     * Sets the color.
+     * @param color the color to set
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+
+    
+    /**
+     * Getter for value.
+     * @return the value
+     */
+    public Object getValue() {
+        return this.value;
+    }
+
+
+    
+    /**
+     * Sets the value.
+     * @param value the value to set
+     */
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+
+    
+    /**
+     * Getter for indicatorName.
+     * @return the indicatorName
+     */
+    public String getIndicatorName() {
+        return this.indicatorName;
+    }
     
 }

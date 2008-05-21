@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.dataprofiler.core.model.ColumnIndicator;
-import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
-import org.talend.dataquality.indicators.Indicator;
 
 
 /**
