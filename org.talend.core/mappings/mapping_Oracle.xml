@@ -89,6 +89,8 @@
 					<dbType type="VARCHAR2" default="true"/>
 					<dbType type="NVARCHAR2"/>
 					<dbType type="VARCHAR"/>
+					<dbType type="CHAR"/>
+					<dbType type="NCHAR"/>
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
@@ -106,9 +108,11 @@
 				</dbType>
 				<dbType type="CHAR">
 					<talendType type="id_Character" default="true" />
+					<talendType type="id_String"/>
 				</dbType>
 				<dbType type="NCHAR">
 					<talendType type="id_Character" default="true" />
+					<talendType type="id_String"/>
 				</dbType>
 				<dbType type="DEC">
 					<talendType type="id_BigDecimal" default="true" />
