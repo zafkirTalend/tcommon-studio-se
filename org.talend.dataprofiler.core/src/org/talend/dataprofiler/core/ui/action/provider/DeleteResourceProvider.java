@@ -231,22 +231,19 @@ public class DeleteResourceProvider extends CommonActionProvider {
         private void removeDependencys() {
             for (Object selectedObj : selectedObjects) {
                 String fileName = ((IFile) selectedObj).getName();
-                EList<Dependency> supplierDependencies = null;
+                ModelElement elementToDelete = null;
                 if (fileName.endsWith(PluginConstant.PRV_SUFFIX)) {
                     TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(selectedFile);
-                    TdDataProvider provider = returnValue.getObject();
-                    supplierDependencies = provider.getSupplierDependency();
+                    elementToDelete = returnValue.getObject();
                 } else if (fileName.endsWith(PluginConstant.ANA_SUFFIX)) {
-                    Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
-                    supplierDependencies = findAnalysis.getSupplierDependency();
+                    elementToDelete = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
                 }
-                if (supplierDependencies != null) {
+                if (elementToDelete != null) {
+                    List<Resource> modifiedResources = DependenciesHandler.getInstance().clearDependencies(elementToDelete);
+
+                    // save now modified resources (that contain the Dependency objects)
                     EMFUtil util = new EMFUtil();
-                    for (Dependency dependency : supplierDependencies) {
-                        List<Resource> modifiedResources = DependenciesHandler.getInstance().removeClientDependencies(dependency);                
-                        // save now modified resources
-                        util.getResourceSet().getResources().addAll(modifiedResources);
-                    }
+                    util.getResourceSet().getResources().addAll(modifiedResources);
                     if (!util.save()) {
                         log.warn("Problem when saving resources " + util.getLastErrorMessage());
                     }

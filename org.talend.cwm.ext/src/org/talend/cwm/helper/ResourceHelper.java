@@ -51,6 +51,7 @@ public class ResourceHelper {
      * @param proxy the object to search by id
      * @return the found object or null
      */
+    @SuppressWarnings("deprecation")
     public static EObject resolveObject(Collection<? extends EObject> container, EObject proxy) {
         // get resource in which to look for the object
         if (container.isEmpty()) {
@@ -65,22 +66,24 @@ public class ResourceHelper {
             if (containerResource == null) {
                 continue;
             }
-            // // try to remove it by id
+            // try normal comparison first
+            if (container.contains(proxy)) {
+                return proxy;
+            }
+            // try to remove it by id
             XMLResource depRes = containerResource instanceof XMLResource ? (XMLResource) containerResource : null;
             if (depRes != null) {
                 String id = ResourceHelper.getUUID(proxy);
                 if (id == null) {
                     return null;
                 }
+                // scorreia: warning suppressed because no other method seem to render the same service
                 EObject resolvedObject = depRes.getIDToEObjectMap().get(id);
                 if (resolvedObject != null) {
                     return resolvedObject;
                 }
             }
-            // try normal comparison
-            if (container.contains(proxy)) {
-                return proxy;
-            }
+
         }
         return null;
     }

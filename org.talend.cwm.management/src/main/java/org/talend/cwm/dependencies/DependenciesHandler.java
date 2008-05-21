@@ -12,16 +12,12 @@
 // ============================================================================
 package org.talend.cwm.dependencies;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.helper.ModelElementHelper;
 import org.talend.cwm.helper.ResourceHelper;
 import org.talend.dataquality.analysis.Analysis;
@@ -34,11 +30,11 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 /**
  * @author scorreia
  * 
- * A singleton class to handle dependencies between objects. PTODO scorreia clean code of this class.
+ * A singleton class to handle dependencies between objects.
+ * 
+ * PTODO scorreia clean code of this class.
  */
 public final class DependenciesHandler {
-
-    private static Logger log = Logger.getLogger(DependenciesHandler.class);
 
     /**
      * As specified in CWM document at p. 67, the dependency kind can be of two types "Usage" or "Abstraction", but can
@@ -46,52 +42,10 @@ public final class DependenciesHandler {
      */
     public static final String USAGE = "Usage";
 
-    // public static final String ANALYSIS_DATAPROVIDER = "ANALYSIS_DATAPROVIDER";
-
-    // public static final String REPORT_ANALYSIS = "REPORT_ANALYSIS";
-
     private static DependenciesHandler instance;
-
-    /**
-     * workspace relative path to the default file.
-     */
-    private static final String FILENAME = ".TDP_dependencies.core";
-
-    private static final String PATH_NAME = "/Libraries/" + FILENAME;
-
-    // private final Resource dependencyResource;
 
     private DependenciesHandler() {
         // this.dependencyResource = loadFromFile(PATH_NAME);
-    }
-
-    private Resource loadFromFile(String path) {
-        EMFUtil util = new EMFUtil();
-        Resource resource = null;
-        URI uri = URI.createPlatformResourceURI(path, false);
-        try { // load from plugin path
-            resource = util.getResourceSet().getResource(uri, true);
-        } catch (RuntimeException e) {
-            log.error(e.getMessage());
-        }
-
-        if (resource == null) {
-            // try to create it
-            try {
-                resource = util.getResourceSet().createResource(uri);
-            } catch (RuntimeException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-        if (resource == null) {
-            // try to load from a local file
-            resource = util.getResourceSet().getResource(URI.createFileURI(".." + File.separator + path), true);
-        }
-        if (resource == null) {
-            log.error("No resource found at " + path + " URI= " + uri);
-            return null;
-        }
-        return resource;
     }
 
     public static DependenciesHandler getInstance() {
@@ -101,85 +55,45 @@ public final class DependenciesHandler {
         return instance;
     }
 
-    // scorreia: cannot save simply this resource, must save the dependent resources together
-    // public boolean saveDependencies() {
-    // return EMFUtil.saveResource(dependencyResource);
-    // }
-
     /**
-     * Method "getDependencies". This method can be used to add a new dependency.
+     * Method "clearDependencies" is to be used before a file is deleted. The root element is given as argument and the
+     * dependencies on this element are removed in all resources that depend on this element.
      * 
-     * @return the existing dependencies
+     * @param elementToDelete a root element which file will be deleted.
+     * @return the list of modified dependencies
      */
-    // private EList<EObject> getDependencies() {
-    // return dependencyResource.getContents();
-    // }
-    //
-    // /**
-    // * DOC scorreia Comment method "saveDependencies".
-    // *
-    // * @param object
-    // */
-    // boolean addDependency(Dependency object) {
-    // getDependencies().add(object);
-    // this.dependencyResource.setModified(true);
-    // return true;
-    // }
-    /**
-     * Method "removeDependency".
-     * 
-     * @param dependency the dependency to remove
-     * @return the list of modified resources of the client dependencies. These resources should be saved together with
-     * a ResourceSet then.
-     */
-    public List<Resource> removeClientDependencies(Dependency dependency) {
+    public List<Resource> clearDependencies(ModelElement elementToDelete) {
+        EList<Dependency> clientDependencies;
+        // get the client dependencies (
+        clientDependencies = elementToDelete.getClientDependency();
+        // locate resource of each Dependency object
         List<Resource> modifiedResources = new ArrayList<Resource>();
-        EList<ModelElement> clients = dependency.getClient();
-        for (ModelElement client : clients) {
-            Resource resource = client.eResource();
-            if (resource != null) {
-                modifiedResources.add(resource);
+        for (Dependency dependency : clientDependencies) {
+            Resource dependencyResource = dependency.eResource();
+            if (dependencyResource != null) {
+                modifiedResources.add(dependencyResource);
             }
         }
-        clients.clear();
-        // EList<ModelElement> suppliers = dependency.getSupplier();
-        // for (ModelElement supplier : suppliers) {
-        // Resource resource = supplier.eResource();
-        // if (resource != null) {
-        // modifiedResources.add(resource);
-        // }
-        // }
+        // this clears also the reverse dependencies: remove the elementToDelete from
+        // Dependency.getClient()
+        clientDependencies.clear();
 
-        // if (getDependencies().remove(dependency)) {
-        // if (depResource != null) { // resource is modified
-        // modifiedResources.add(depResource);
-        // }
-        // } else {
-        // // try to remove it by id
-        // CwmResource depRes = getDependencyResource() instanceof CwmResource ? (CwmResource) getDependencyResource() :
-        // null;
-        // if (depRes != null) {
-        // String id = ResourceHelper.getUUID(dependency);
-        // if (id == null) {
-        // log.error("id is null for dependency " + dependency);
-        // }
-        // EObject depToRemove = depRes.getIDToEObjectMap().get(id);
-        // if (depToRemove != null) {
-        // if (getDependencies().remove(depToRemove)) {
-        // modifiedResources.add(depRes);
-        // } else {
-        // log.error("Not found dependency with id: " + id);
-        // }
-        // }
-        // }
-        // }
-
+        // now get the objects that depend on the elementToDelete
+        EList<Dependency> supplierDependencies = elementToDelete.getSupplierDependency();
+        for (Dependency dependency : supplierDependencies) {
+            EList<ModelElement> client = dependency.getClient();
+            // get the resource of each client
+            for (ModelElement modelElement : client) {
+                Resource clientResource = modelElement.eResource();
+                modifiedResources.add(clientResource);
+            }
+            // clear the dependencies of all clients
+            // this clear the corresponding getClientDependency() of each client (objects that requires the
+            // elementToDelete)
+            client.clear();
+        }
         return modifiedResources;
     }
-
-    // public Resource getDependencyResource() {
-    // return this.dependencyResource;
-    // }
 
     /**
      * Method "createUsageDependencyOn".
@@ -187,6 +101,8 @@ public final class DependenciesHandler {
      * Example Analysis depends on the exitence of a DataProvider. This method must be called
      * createUsageDependencyOn(Analysis, DataProvider). The created dependency is added to the DataProvider in its
      * "client dependencies" and to the Analysis in its "supplier dependencies". See OMG CWM spec paragraph 4.3.2.7.
+     * 
+     * The resource in which the dependency is stored is the supplier's resource.
      * 
      * @param kind the kind of dependency
      * @param clientElement the element that requires the requiredElement
@@ -199,7 +115,6 @@ public final class DependenciesHandler {
         if (supplierResource != null) {
             supplierResource.getContents().add(dependency);
         }
-        // getDependencies().add(dependency);
         return dependency;
     }
 
@@ -212,10 +127,9 @@ public final class DependenciesHandler {
      * @param supplierElement an element that is required by other elements
      * @return
      */
-    boolean removeSupplierDependencies(ModelElement supplierElement) {
-        return ModelElementHelper.removeSupplierDependencies(supplierElement);
-    }
-
+    // boolean removeSupplierDependencies(ModelElement supplierElement) {
+    // return ModelElementHelper.removeSupplierDependencies(supplierElement);
+    // }
     /**
      * Method "getDependencyBetween" the dependency that relates the supplier to the client. This method looks into the
      * list of dependencies of both the supplier and the client.
@@ -225,10 +139,9 @@ public final class DependenciesHandler {
      * @param supplierElement
      * @return the dependency that relates the supplier to the client or null if none is found.
      */
-    Dependency getDependencyBetween(String kind, ModelElement clientElement, ModelElement supplierElement) {
-        return ModelElementHelper.getDependencyBetween(kind, clientElement, supplierElement);
-    }
-
+    // Dependency getDependencyBetween(String kind, ModelElement clientElement, ModelElement supplierElement) {
+    // return ModelElementHelper.getDependencyBetween(kind, clientElement, supplierElement);
+    // }
     /**
      * Method "createUsageDependencyOn".
      * 
@@ -274,9 +187,9 @@ public final class DependenciesHandler {
     }
 
     public TypedReturnCode<Dependency> setUsageDependencyOn(ModelElement client, ModelElement supplier) {
-        // get data manager usage dependencies
+        // get the supplier's usage dependencies
         EList<Dependency> supplierDependencies = supplier.getSupplierDependency();
-        // search for analysis into them
+        // search for clients into them
         for (Dependency dependency : supplierDependencies) {
             if (USAGE.compareTo(dependency.getKind()) == 0) {
                 // if exist return true with the dependency
@@ -307,26 +220,26 @@ public final class DependenciesHandler {
         return setUsageDependencyOn(report, analysis);
     }
 
-    /**
-     * Method "getDependencyBetween".
-     * 
-     * @param clientElement
-     * @param dataManager
-     * @return the dependency between the given elements or null.
-     */
-    Dependency getDependencyBetween(Analysis clientElement, DataManager dataManager) {
-        return getDependencyBetween(USAGE, clientElement, dataManager);
-    }
-
-    /**
-     * Method "getDependencyBetween".
-     * 
-     * @param report
-     * @param analysis
-     * @return the dependency between the given elements or null.
-     */
-    Dependency getDependencyBetween(TdReport report, Analysis analysis) {
-        return getDependencyBetween(USAGE, report, analysis);
-    }
+    // /**
+    // * Method "getDependencyBetween".
+    // *
+    // * @param clientElement
+    // * @param dataManager
+    // * @return the dependency between the given elements or null.
+    // */
+    // Dependency getDependencyBetween(Analysis clientElement, DataManager dataManager) {
+    // return getDependencyBetween(USAGE, clientElement, dataManager);
+    // }
+    //
+    // /**
+    // * Method "getDependencyBetween".
+    // *
+    // * @param report
+    // * @param analysis
+    // * @return the dependency between the given elements or null.
+    // */
+    // Dependency getDependencyBetween(TdReport report, Analysis analysis) {
+    // return getDependencyBetween(USAGE, report, analysis);
+    // }
 
 }
