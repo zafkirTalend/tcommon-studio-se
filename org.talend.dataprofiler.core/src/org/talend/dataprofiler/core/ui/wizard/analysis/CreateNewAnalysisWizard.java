@@ -47,9 +47,11 @@ public class CreateNewAnalysisWizard extends Wizard {
         if (type == null) {
             wizard = mainPage.getSelectedWizard();
             wizard.setContainer(getContainer());
+            
+            return true;
+        } else {
+            return wizard.performFinish();
         }
-        
-        return wizard.performFinish();
     }
 
     /* (non-Javadoc)
