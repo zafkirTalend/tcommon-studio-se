@@ -13,13 +13,18 @@
 package org.talend.dq.analysis;
 
 import java.io.File;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.commons.emf.FactoriesUtil;
 import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.helpers.AnalysisHelper;
+import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.ReturnCode;
@@ -78,6 +83,27 @@ public class ReportWriter {
             rc.setReturnCode("Problem while saving report " + report.getName() + ". " + util.getLastErrorMessage(), saved);
         }
         return rc;
+    }
+    
+    public ReturnCode save(TdReport report) {
+        assert report != null : "No report to save (null)";
+        ReturnCode rc = new ReturnCode();
+        Resource resource = report.eResource();
+        if (resource == null) {
+            rc.setReturnCode("Error: No resource found! A file must be defined in which the report " + report.getName()
+                    + " will be saved.", false);
+            return rc;
+        }
+
+        // save the resource and related resources (when needed, for example when we change the data mining type of a
+        // column)
+        boolean saved = EMFUtil.saveResource(resource);
+
+        if (!saved) {
+            rc.setReturnCode("Problem while saving analysis " + report.getName() + ". ", saved);
+        }
+        return rc;
+
     }
 
     private boolean checkFileExtension(File file) {
