@@ -97,7 +97,7 @@ public class DatabasePersistence {
     private Map<String, TdqAnalyzedElement> tdqAnaEleCache = new HashMap<String, TdqAnalyzedElement>();
 
     private Map<String, TdqIndicatorDefinition> tdqIndDefinitionCache = new HashMap<String, TdqIndicatorDefinition>();
-    
+
     private List<Object> needSaveObjects = new ArrayList<Object>();
 
     public boolean persist(TdReport report) {
@@ -111,27 +111,23 @@ public class DatabasePersistence {
         for (Analysis analysis : analyses) {
             persist(report, analysis);
         }
-        for(Object object:needSaveObjects){
-          session.save(object)  ;
+        for (Object object : needSaveObjects) {
+            session.save(object);
         }
-        
+
         // commit and close session
         session.getTransaction().commit();
         clearCache();
         return ok;
     }
-    
-    
 
     private void clearCache() {
         tdqAnalysisCache.clear();
         tdqAnaEleCache.clear();
         tdqIndDefinitionCache.clear();
         needSaveObjects.clear();
-        
+
     }
-
-
 
     /**
      * DOC scorreia Comment method "persist".
@@ -268,7 +264,7 @@ public class DatabasePersistence {
                 dbIndDefinition.setIndEndDate(new Date(System.currentTimeMillis()));
                 session.update(dbIndDefinition);
                 createTdqIndicatorDefinition.setIndVersion(dbIndDefinition.getIndVersion() + 1);
-//                session.save(createTdqIndicatorDefinition);
+                // session.save(createTdqIndicatorDefinition);
                 needSaveObjects.add(createTdqIndicatorDefinition);
                 isIndicatorSaved = true;
             }
@@ -433,10 +429,23 @@ public class DatabasePersistence {
         // Indicator.getValueType().getLiteral()
         indicatorValue.setIndvValueTypeIndicator(indicator.getValueType().getLiteral().charAt(0));
 
-        // TODO scorreia get options
+        // TODO rli set options
+        // TODO rli for text indicators get the options
+        // indicator.getParameters().getTextParameter().isIgnoreCase()
+        // indicator.getParameters().getTextParameter().isUseBlank()
+        // indicator.getParameters().getTextParameter().isUseNulls()
+        // TODO rli for non text indicators (indicator.getParameters().getTextParameter() == null) set all three option
+        // to SqlConstants.UNDEFINED
+        // TODO rli insert a new row only if the full row does not exists yet
         // indicatorValue.setTdqIndicatorOptions(tdqIndicatorOptions);
 
         // TODO scorreia getbins()
+        // EList<RangeRestriction> ranges = indicator.getParameters().getBins().getRanges();
+        // for (RangeRestriction rangeRestriction : ranges) {
+        // String minValue = DomainHelper.getMinValue(rangeRestriction);
+        // String maxValue = DomainHelper.getMaxValue(rangeRestriction);
+        // }
+        //        
         // indicatorValue.setTdqInterval(tdqInterval);
         return indicatorValue;
     }
