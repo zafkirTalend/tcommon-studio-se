@@ -331,6 +331,11 @@ public class DbmsLanguage {
         return " SELECT COUNT(*) FROM (" + subquery + ") AS " + alias;
     }
 
+    public String sumRowInSubquery(String colToSum, String subquery, String alias) {
+        // ANSI SQL, MySQL
+        return " SELECT SUM(" + colToSum + ") FROM (" + subquery + ") AS " + alias;
+    }
+
     private String extract(String field, String colName) {
 
         // ANSI SQL, MySQL, Oracle
