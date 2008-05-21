@@ -134,8 +134,7 @@ public enum EDriverName {
             plugins = "org.talend.libraries.jdbc.sybase";
             break;
         default:
-            plugins = "org.talend.libraries";
-            break;
+            return linkedList;
         }
         try {
             Bundle bundle = Platform.getBundle(plugins);
