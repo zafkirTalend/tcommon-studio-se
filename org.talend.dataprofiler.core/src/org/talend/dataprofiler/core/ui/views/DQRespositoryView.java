@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.service.GlobalServiceRegister;
@@ -36,6 +37,10 @@ public class DQRespositoryView extends CommonNavigator {
 
     private Map<String, AbstractViewerFilter> filterMap = new HashMap<String, AbstractViewerFilter>();
 
+
+    
+    private static final String VIEW_CONTEXT_ID = "org.talend.dataprofiler.core.ui.views.DQRespositoryView.viewScope"; //$NON-NLS-1$
+    
     public DQRespositoryView() {
         super();
         CorePlugin.getDefault().checkDQStructure();
@@ -52,7 +57,19 @@ public class DQRespositoryView extends CommonNavigator {
         this.addViewerFilter(EMFObjFilter.FILTER_ID);
         this.addViewerFilter(ReportingFilter.FILTER_ID);
         adjustFilter();
+        activateContext();
     }
+    
+    /**
+     * Activate a context that this view uses. It will be tied to this view
+     * activation events and will be removed when the view is disposed.
+     */
+    private void activateContext() {
+        IContextService contextService = (IContextService) getSite()
+                .getService(IContextService.class);
+        contextService.activateContext(VIEW_CONTEXT_ID);
+    }
+
 
     private void adjustFilter() {
         List<IService> filterList = GlobalServiceRegister.getDefault().getServiceGroup(IViewerFilterService.class);
@@ -66,10 +83,6 @@ public class DQRespositoryView extends CommonNavigator {
                 }
             }
         }
-    }
-
-    public void refresh() {
-        this.getCommonViewer().refresh();
     }
 
     public void addViewerFilter(int viewerFilterId) {

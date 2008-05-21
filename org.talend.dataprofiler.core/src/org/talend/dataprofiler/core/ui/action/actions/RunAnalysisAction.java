@@ -139,7 +139,7 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
             ProgressUI.popProgressDialog(op, shell);
             if (treeViewer == null) {
                 DQRespositoryView view = (DQRespositoryView) CorePlugin.getDefault().findView(PluginConstant.DQ_VIEW_ID);
-                view.refresh();
+                view.getCommonViewer().refresh();
             } else {
                 CorePlugin.getDefault().refreshWorkSpace();
                 treeViewer.refresh();

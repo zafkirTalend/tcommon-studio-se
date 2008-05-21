@@ -29,6 +29,9 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.dataquality.reports.util.ReportsSwitch;
+import org.talend.dq.analysis.AnalysisWriter;
+import org.talend.dq.analysis.ReportWriter;
+import org.talend.utils.sugars.ReturnCode;
 
 /**
  * DOC rli class global comment. Detailled comment
@@ -118,6 +121,15 @@ public final class RepResourceFileHelper extends ResourceFileMap {
     public void clear() {
         super.clear();
         this.allRepMap.clear();
+    }
+
+    public ReturnCode save(TdReport report) {
+        ReportWriter writer = new ReportWriter();
+        ReturnCode saved = writer.save(report);
+        if (saved.isOk()) {
+            setResourceChanged(true);
+        }
+        return saved;
     }
 
 }

@@ -176,6 +176,15 @@
          </enablement>
       </actionProvider>
       <actionProvider
+            class="org.talend.dataprofiler.core.ui.action.provider.RemoveAnalysisActionProvider"
+            id="org.talend.dataprofiler.core.ui.action.provider.RemoveAnalysisActionProvider">
+         <enablement>
+            <and>
+	            <instanceof value="org.talend.dataquality.analysis.Analysis"/>
+	        </and>
+         </enablement>
+      </actionProvider>
+      <actionProvider
             class="org.talend.dataprofiler.core.ui.action.provider.NewSourceFileActionProvider"
             id="org.talend.dataprofiler.core.ui.action.provider.NewSourceFileActionProvider">
          <enablement>
@@ -278,6 +287,48 @@
            id="org.talend.dataprofiler.core.cheatsheet1"
            name="Multiple Column Analysis Creation">
      </cheatsheet>
+  </extension>
+  
+  <extension point = "org.eclipse.ui.actionSets">
+	   <actionSet id="org.talend.dataprofiler.core..actionSet"
+		   label="Actions"
+		   visible="false">
+		   <action
+           class="org.talend.dataprofiler.core.ui.action.actions.RemoveAnalysisAction"
+           definitionId="org.talend.dataprofiler.core.removeAnalysis"
+           icon="icons/cross.png"
+           id="org.talend.dataprofiler.core.ui.action.actions.RemoveAnalysisAction"
+           label="Remove Analysis"
+           menubarPath="additions">
+		   </action>
+	   </actionSet>
+   </extension>
+   
+   <extension
+	point="org.eclipse.ui.contexts">
+	<context
+		name="DQ ViewScope"
+		description="The context of DQRespositoryView"
+		id="org.talend.dataprofiler.core.ui.views.DQRespositoryView.viewScope"
+		parentId="org.eclipse.ui.contexts.window">
+	</context>
+  </extension>  
+  
+  <extension
+        point="org.eclipse.ui.commands">
+     <command
+           id="org.talend.dataprofiler.core.removeAnalysis"
+           name="removeAnalysis">
+     </command>
+  </extension>
+  <extension
+        point="org.eclipse.ui.bindings">
+     <key
+           commandId="org.talend.dataprofiler.core.removeAnalysis"
+           contextId="org.talend.dataprofiler.core.ui.views.DQRespositoryView.viewScope"
+           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+           sequence="DEL">
+     </key>
   </extension>
 
 </plugin>

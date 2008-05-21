@@ -274,7 +274,7 @@ public class DeleteResourceProvider extends CommonActionProvider {
                             "Are you sure you want to delele these " + selectedObjects.length + " resources from file system?");
                 } else {
                     isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
-                            "Are you sure you want to delele " + "\"" + resourceName + "\" from file system??");
+                            "Are you sure you want to delele " + "\"" + resourceName + "\" from file system?");
                 }
             }
         }
