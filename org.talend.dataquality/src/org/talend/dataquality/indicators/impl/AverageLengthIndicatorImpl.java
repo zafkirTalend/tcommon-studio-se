@@ -5,7 +5,6 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -109,8 +108,7 @@ public class AverageLengthIndicatorImpl extends LengthIndicatorImpl implements A
         if (totalLength == null) {
             return 0.0;
         }
-        BigDecimal division = new BigDecimal(totalLength).divide(new BigDecimal(getCount()));
-        return division.doubleValue();
+        return totalLength.doubleValue() / getCount().doubleValue();
     }
 
     /**
