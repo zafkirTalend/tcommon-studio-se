@@ -225,8 +225,11 @@ public class ProcessorUtilities {
         if (jobInfo.getFatherJobInfo() != null) {
             JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
             IProcessor processorFromFather = null;
-            while (fatherJobInfo.getProcess().getProcessor() == null) {
+            while (fatherJobInfo != null && fatherJobInfo.getProcess().getProcessor() == null) {
                 fatherJobInfo = fatherJobInfo.getFatherJobInfo();
+            }
+            if (fatherJobInfo == null) {
+                return true;
             }
             processorFromFather = fatherJobInfo.getProcess().getProcessor();
             if (processorFromFather.isCodeGenerated()) {
