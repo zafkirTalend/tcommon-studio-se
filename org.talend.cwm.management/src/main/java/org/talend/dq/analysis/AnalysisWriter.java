@@ -130,6 +130,10 @@ public class AnalysisWriter {
         TypedReturnCode<File> rc = new TypedReturnCode<File>();
         String filename = DqRepositoryViewService.createFilename(folder.getAbsolutePath(), analysis.getName(), FactoriesUtil.ANA);
         File file = new File(filename);
+        if (file.exists()) {
+            rc.setReturnCode("Cannot save analysis " + analysis.getName() + ", file " + filename + " already exists!", false);
+            return rc;
+        }
         ReturnCode saved = save(analysis, file);
         if (saved.isOk()) {
             log.info("Saved in  " + file.getAbsolutePath());

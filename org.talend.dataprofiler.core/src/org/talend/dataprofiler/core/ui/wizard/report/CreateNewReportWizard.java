@@ -18,17 +18,15 @@ import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.LogLevel;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.Wizard;
 import org.talend.cwm.constants.DevelopmentStatus;
-import org.talend.cwm.helper.DescriptionHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
-import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
 import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 import org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard;
@@ -113,8 +111,9 @@ public class CreateNewReportWizard extends Wizard {
 
                 // write this object to file
                 ReportWriter writer = new ReportWriter();
-                String path = reportParameter.getFolderProvider().getFolder() + File.separator + reportParameter.getName()
-                        + PluginConstant.REP_SUFFIX;
+
+                String path = DqRepositoryViewService.createFilename(reportParameter.getFolderProvider().getFolder()
+                        .getAbsolutePath(), reportParameter.getName(), PluginConstant.REP_SUFFIX);
                 File file = new File(path);
 
                 if (file.exists()) {
@@ -125,17 +124,17 @@ public class CreateNewReportWizard extends Wizard {
                         log.info("Saved in  " + file.getAbsolutePath());
                         Resource resource = report.eResource();
                         RepResourceFileHelper.getInstance().register(resource.getURI().toFileString(), resource);
-//                        for (Analysis analysis : reportParameter.getAnalysises()) {
+                        // for (Analysis analysis : reportParameter.getAnalysises()) {
 //                            TaggedValueHelper.setTaggedValue(analysis, reportParameter.getName() + PluginConstant.REP_SUFFIX,
-//                                    PluginConstant.EMPTY_STRING);
-//                            ReturnCode save = AnaResourceFileHelper.getInstance().save(analysis);
-//                            if (save.isOk()) {
-//                                log.info("Saved in  " + analysis.getUrl() + " successful");
-//                            } else {
-//                                throw new DataprofilerCoreException("Problem saving file: " + analysis.getUrl() + ": "
-//                                        + saved.getMessage());
-//                            }
-//                        }
+                        // PluginConstant.EMPTY_STRING);
+                        // ReturnCode save = AnaResourceFileHelper.getInstance().save(analysis);
+                        // if (save.isOk()) {
+                        // log.info("Saved in " + analysis.getUrl() + " successful");
+                        // } else {
+                        // throw new DataprofilerCoreException("Problem saving file: " + analysis.getUrl() + ": "
+                        // + saved.getMessage());
+                        // }
+                        // }
                     } else {
                         throw new DataprofilerCoreException("Problem saving file: " + file.getAbsolutePath() + ": "
                                 + saved.getMessage());

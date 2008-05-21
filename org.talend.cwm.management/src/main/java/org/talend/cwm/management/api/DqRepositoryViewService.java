@@ -297,7 +297,13 @@ public final class DqRepositoryViewService {
         // --- add resources in resource set
         EMFUtil util = new EMFUtil();
         ResourceSet resourceSet = util.getResourceSet();
-        URI uri = URI.createFileURI(createFilename(folder, dataProvider.getName(), FactoriesUtil.PROV));
+        String dataproviderFilename = createFilename(folder, dataProvider.getName(), FactoriesUtil.PROV);
+        if (new File(dataproviderFilename).exists()) {
+            log.error("Cannot save data provider " + dataProvider.getName() + " into file " + dataproviderFilename
+                    + ". File already exists!");
+            return false;
+        }
+        URI uri = URI.createFileURI(dataproviderFilename);
         final Resource resource = resourceSet.createResource(uri);
         if (resource == null) {
             return false;
