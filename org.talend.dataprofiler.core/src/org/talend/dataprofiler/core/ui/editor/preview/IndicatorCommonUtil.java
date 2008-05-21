@@ -121,7 +121,7 @@ public class IndicatorCommonUtil {
 
         case AverageLengthIndicatorEnum:
             tempColor = COLOR_AVERAGE_LENGTH;
-            tempObject = ((AverageLengthIndicator) indicator).getSumLength();
+            tempObject = ((AverageLengthIndicator) indicator).getAverageLength();
             break;
 
         case FrequencyIndicatorEnum:

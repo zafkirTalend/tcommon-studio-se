@@ -43,7 +43,7 @@ public class IndicatorTypeMapping {
     public IndicatorTypeMapping(IndicatorEnum type, Indicator indicator, ColumnIndicator parentColumn) {
         this.type = type;
         this.indicator = indicator;
-        this.indicatorName = indicator.getIndicatorDefinition().getLabel();
+        this.indicatorName = type.getLabel().split(" ")[0];
         this.parentColumn = parentColumn;
     }
 

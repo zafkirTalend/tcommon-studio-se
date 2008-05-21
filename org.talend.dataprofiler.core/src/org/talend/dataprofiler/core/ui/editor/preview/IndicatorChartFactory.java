@@ -77,8 +77,8 @@ public class IndicatorChartFactory {
         renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         renderer.setBaseItemLabelFont(new Font("Arial", Font.PLAIN, 14));
         renderer.setMaximumBarWidth(0.09);
-        CategoryAxis axis = plot.getDomainAxis();
-        axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+//        CategoryAxis axis = plot.getDomainAxis();
+//        axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         
         plot.setRenderer(renderer);
         plot.setForegroundAlpha(0.6f);
@@ -163,7 +163,7 @@ public class IndicatorChartFactory {
                     dataset.addValue(0, "", indicatorMap.getType().getLabel());
                 } else {
                     String valueStr = String.valueOf(object);
-                    int value = Integer.parseInt(valueStr);
+                    double value = Double.parseDouble(valueStr);
                     
                     renderer.setSeriesPaint(index, indicatorMap.getColor());
                     dataset.addValue(value, label, label);
