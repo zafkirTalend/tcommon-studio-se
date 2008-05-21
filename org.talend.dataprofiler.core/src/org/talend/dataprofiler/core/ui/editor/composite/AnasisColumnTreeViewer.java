@@ -80,7 +80,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     private Tree createTree(Composite parent) {
         Tree newTree = new Tree(parent, SWT.NONE);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(newTree);
-        
+
         newTree.setHeaderVisible(false);
         TreeColumn column1 = new TreeColumn(newTree, SWT.CENTER);
         column1.setWidth(160);
@@ -88,10 +88,10 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         column2.setWidth(80);
         TreeColumn column3 = new TreeColumn(newTree, SWT.CENTER);
         column3.setWidth(120);
-//        TreeColumn column4 = new TreeColumn(newTree, SWT.CENTER);
-//        column4.setWidth(120);
-//        TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
-//        column5.setWidth(120);
+        // TreeColumn column4 = new TreeColumn(newTree, SWT.CENTER);
+        // column4.setWidth(120);
+        // TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
+        // column5.setWidth(120);
         parent.layout();
         return newTree;
     }
@@ -132,7 +132,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             final ColumnIndicator columnIndicator = (ColumnIndicator) columnIndicators[i];
 
             treeItem.setImage(ImageLib.getImage(ImageLib.TD_COLUMN));
-            treeItem.setText(0, columnIndicator.getTdColumn().getName());
+            String columnName = columnIndicator.getTdColumn().getName();
+            treeItem.setText(0, columnName != null ? columnName : "null");
             treeItem.setData(columnIndicator);
 
             TreeEditor editor = new TreeEditor(tree);
@@ -200,18 +201,18 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 @Override
                 public void mouseDown(MouseEvent e) {
 
-                  ColumnIndicator[] leaves = new ColumnIndicator[columnIndicators.length - 1];
-                  int j = 0;
-                  for (int i = 0; i < columnIndicators.length; i++) {
-                      if (columnIndicators[i] == columnIndicator) {
-                          continue;
-                      }
-                      leaves[j] = columnIndicators[i];
-                      j++;
-                  }
-                  setElements(leaves);
+                    ColumnIndicator[] leaves = new ColumnIndicator[columnIndicators.length - 1];
+                    int j = 0;
+                    for (int i = 0; i < columnIndicators.length; i++) {
+                        if (columnIndicators[i] == columnIndicator) {
+                            continue;
+                        }
+                        leaves[j] = columnIndicators[i];
+                        j++;
+                    }
+                    setElements(leaves);
                 }
-                
+
             });
 
             editor.minimumWidth = WIDTH1_CELL;
@@ -254,7 +255,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                         WizardDialog dialog = new WizardDialog(null, wizard);
                         dialog.setPageSize(300, 400);
                         if (Window.OK == dialog.open()) {
-                            
+
                             setDirty(true);
                         }
 
@@ -262,10 +263,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                         MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");
                     }
                 }
-                
+
             });
-            
-            
+
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(modButton, indicatorItem, 1);
@@ -287,9 +287,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                     ((ColumnIndicator) treeItem.getData()).removeIndicatorEnum(indicatorEnum);
                     setElements(columnIndicators);
                 }
-                
+
             });
-            
+
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, indicatorItem, 2);
@@ -298,9 +298,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     }
 
     public void openIndicatorSelectDialog() {
-        IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector", 
+        IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector",
 
-columnIndicators);
+        columnIndicators);
         if (dialog.open() == Window.OK) {
             ColumnIndicator[] result = dialog.getResult();
             this.setElements(result);
