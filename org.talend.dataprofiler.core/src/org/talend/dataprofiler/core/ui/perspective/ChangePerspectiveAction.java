@@ -84,7 +84,7 @@ public class ChangePerspectiveAction extends Action {
                 CorePlugin.getDefault().getLog().log(status);
             }
         }
-        // activeData();
+        activeData();
     }
 
     /**
