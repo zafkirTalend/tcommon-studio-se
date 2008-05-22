@@ -27,6 +27,8 @@ public class ZParserTest {
 
     private static final String SELECT_LIMIT = "SELECT * from TEST_TABLES.TEST_COUNT LIMIT 10;";
 
+    private static final String SELECT_WITH_QUOTES = "SELECT T.`INO_COUNT_NULLS` FROM TDQ_INDICATOR_OPTIONS T";
+
     /**
      * DOC scorreia Comment method "main".
      * 
@@ -34,7 +36,8 @@ public class ZParserTest {
      */
     public static void main(String[] args) {
         try {
-            String sqlString = SELECT_EXTRACT;
+            String sqlString = SELECT_WITH_QUOTES;
+            // String sqlString = SELECT_EXTRACT;
             // String sqlString = SELECT_LIMIT;
             ZParserTest myTest = new ZParserTest();
 
@@ -60,5 +63,6 @@ public class ZParserTest {
         parser.initParser(byteArrayInputStream);
         ZQuery zQuery = (ZQuery) parser.readStatement();
         System.out.println("Parsed Query : " + zQuery.toString());
+
     }
 }
