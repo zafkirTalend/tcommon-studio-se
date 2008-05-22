@@ -73,7 +73,7 @@ public class DataprofilerSettingPage extends PreferencePage implements IWorkbenc
             } else {
                 viewer.addViewerFilter(ReportingFilter.FILTER_ID);
             }
-            viewer.refresh();
+            viewer.getCommonViewer().refresh();
         }
         return true;
     }
