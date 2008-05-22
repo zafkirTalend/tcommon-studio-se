@@ -127,10 +127,10 @@ public class IndicatorCommonUtil {
         case FrequencyIndicatorEnum:
             FrequencyIndicator frequency = (FrequencyIndicator) indicator;
             Set<Object> valueSet = frequency.getDistinctValues();
-            Map<Object, Double> returnMap = new HashMap<Object, Double>();
+            Map<Object, Long> returnMap = new HashMap<Object, Long>();
             for (Object o : valueSet) {
 
-                returnMap.put(o, frequency.getFrequency(o));
+                returnMap.put(o, frequency.getCount(o));
             }
             
             tempColor = null;

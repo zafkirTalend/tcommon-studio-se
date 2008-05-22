@@ -21,8 +21,6 @@ import java.util.Map;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -76,9 +74,7 @@ public class IndicatorChartFactory {
         renderer.setBaseItemLabelsVisible(true);
         renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         renderer.setBaseItemLabelFont(new Font("Arial", Font.PLAIN, 14));
-        renderer.setMaximumBarWidth(0.09);
-//        CategoryAxis axis = plot.getDomainAxis();
-//        axis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        renderer.setMaximumBarWidth(0.15);
         
         plot.setRenderer(renderer);
         plot.setForegroundAlpha(0.6f);
@@ -250,7 +246,7 @@ public class IndicatorChartFactory {
             }
             
             if (object != null) {
-                Map<Object, Double> map = (Map<Object, Double>) object;
+                Map<Object, Long> map = (Map<Object, Long>) object;
                 
                 if (isCreate) {
                     for (Object obj : map.keySet()) {
