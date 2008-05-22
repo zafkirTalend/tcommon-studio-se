@@ -76,11 +76,7 @@ public class PerlResourcesHelper {
     public static String getJobFileName(String jobName, String version) {
         String jobFileName = getCurrentProjectName() + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
         if (USE_VERSIONING) {
-            if (version != null) {
-                version = "_" + version;
-                // version = version.replace(".", "_");
-            }
-            jobFileName += version;
+            jobFileName += "_" + version;
         }
         jobFileName += FILE_SUFFIX;
 
@@ -90,11 +86,7 @@ public class PerlResourcesHelper {
     public static String getContextFileName(String jobName, String version, String context) {
         String contextFileName = getCurrentProjectName() + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
         if (USE_VERSIONING) {
-            if (version != null) {
-                version = "_" + version;
-                // version = version.replace(".", "_");
-            }
-            contextFileName += version;
+            contextFileName += "_" + version;
         }
         contextFileName += "_" + escapeSpace(context);
         contextFileName += FILE_SUFFIX;
