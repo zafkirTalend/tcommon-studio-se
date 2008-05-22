@@ -116,7 +116,7 @@ CREATE TABLE talend_dq.TDQ_INDICATOR_OPTIONS (
                 INO_CASE_SENSITIVE CHAR(1) NOT NULL,
                 INO_REGEXP VARCHAR(255) NOT NULL,
                 INO_COUNT_NULLS CHAR(1) NOT NULL,
-                INO_COUNT_BLANKS INT(1) NOT NULL,
+                INO_COUNT_BLANKS CHAR(1) NOT NULL,
                 PRIMARY KEY (INO_PK)
 ) ENGINE=InnoDB;
 

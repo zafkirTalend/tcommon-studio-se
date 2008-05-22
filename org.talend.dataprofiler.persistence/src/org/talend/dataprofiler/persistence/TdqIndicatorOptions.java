@@ -14,7 +14,7 @@ public class TdqIndicatorOptions implements java.io.Serializable {
 	private char inoCaseSensitive;
 	private String inoRegexp;
 	private char inoCountNulls;
-	private int inoCountBlanks;
+	private char inoCountBlanks;
 	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
 			0);
 
@@ -22,7 +22,7 @@ public class TdqIndicatorOptions implements java.io.Serializable {
 	}
 
 	public TdqIndicatorOptions(char inoCaseSensitive, String inoRegexp,
-			char inoCountNulls, int inoCountBlanks) {
+			char inoCountNulls, char inoCountBlanks) {
 		this.inoCaseSensitive = inoCaseSensitive;
 		this.inoRegexp = inoRegexp;
 		this.inoCountNulls = inoCountNulls;
@@ -30,7 +30,7 @@ public class TdqIndicatorOptions implements java.io.Serializable {
 	}
 
 	public TdqIndicatorOptions(char inoCaseSensitive, String inoRegexp,
-			char inoCountNulls, int inoCountBlanks,
+			char inoCountNulls, char inoCountBlanks,
 			Set<TdqIndicatorValue> tdqIndicatorValues) {
 		this.inoCaseSensitive = inoCaseSensitive;
 		this.inoRegexp = inoRegexp;
@@ -71,11 +71,11 @@ public class TdqIndicatorOptions implements java.io.Serializable {
 		this.inoCountNulls = inoCountNulls;
 	}
 
-	public int getInoCountBlanks() {
+	public char getInoCountBlanks() {
 		return this.inoCountBlanks;
 	}
 
-	public void setInoCountBlanks(int inoCountBlanks) {
+	public void setInoCountBlanks(char inoCountBlanks) {
 		this.inoCountBlanks = inoCountBlanks;
 	}
 

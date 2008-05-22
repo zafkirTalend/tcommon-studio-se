@@ -17,7 +17,7 @@
         <property name="inoCountNulls" type="char">
             <column name="INO_COUNT_NULLS" length="1" not-null="true" />
         </property>
-        <property name="inoCountBlanks" type="int">
+        <property name="inoCountBlanks" type="char">
             <column name="INO_COUNT_BLANKS" not-null="true" />
         </property>
         <set name="tdqIndicatorValues" inverse="true">
