@@ -5,13 +5,12 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
 // ============================================================================
 package routines;
-
 
 public class StringHandling {
 
@@ -108,7 +107,7 @@ public class StringHandling {
      * 
      * {param} string("Hello") string: String
      * 
-     * {example} DOWNCASE("Hello") # HELLOW
+     * {example} UPCASE("Hello") # HELLO
      */
     public static String UPCASE(String string) {
         return string.toUpperCase();
@@ -226,10 +225,10 @@ public class StringHandling {
      * 
      * {param} int(2) i: amount of blank space need to generate.
      * 
-     * {example} SPACE(2) # "  "
+     * {example} SPACE(2) # " "
      */
-    public static String SPACE( int i) {
-        StringBuffer buffer = new StringBuffer();        
+    public static String SPACE(int i) {
+        StringBuffer buffer = new StringBuffer();
         for (int j = 0; j < i; j++) {
             buffer.append(" ");
         }
