@@ -113,4 +113,6 @@ public interface IComponent {
      * @return
      */
     public boolean isTechnical();
+
+    public boolean isVisibleInComponentDefinition();
 }

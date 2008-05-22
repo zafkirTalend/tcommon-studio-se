@@ -12,12 +12,21 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.IllegalPluginConfigurationException;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentFileNaming;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.properties.ComponentSetting;
+import org.talend.core.model.properties.PropertiesFactory;
 
 /**
  * Provides, using extension points, implementation of many factories.
@@ -61,4 +70,49 @@ public class ComponentsFactoryProvider {
         }
         return componentFileNaming;
     }
+
+    /**
+     * save the Component Visibility Status for pallete settings.
+     */
+    public static void saveComponentVisibilityStatus(boolean reset,boolean persist) {
+        IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
+        List<IComponent> components = componentsFactory.getComponents();
+
+        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
+                Context.REPOSITORY_CONTEXT_KEY);
+        EList list = repositoryContext.getProject().getEmfProject().getComponentsSettings();
+        if (!list.isEmpty()) {
+            if (reset) {
+                // if need to reset, clear the list
+                list.clear();
+            } else {
+                // no need to reset, so no need to computate again.
+                return;
+            }
+        }
+
+        for (IComponent component : components) {
+            ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
+            setting.setName(component.getName());
+            setting.setHidden(!component.isVisibleInComponentDefinition());
+            list.add(setting);
+        }
+        
+        if(persist){
+            IProxyRepositoryFactory prf = CorePlugin.getDefault().getProxyRepositoryFactory();
+
+            try {
+                prf.saveProject(repositoryContext.getProject());
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+    public static void saveComponentVisibilityStatus() {
+        saveComponentVisibilityStatus(false,true);
+    }
+    public static void restoreComponentVisibilityStatus() {
+        saveComponentVisibilityStatus(true,false);
+    }
+
 }
