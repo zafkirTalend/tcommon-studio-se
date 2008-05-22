@@ -62,11 +62,8 @@ public class CompositeIndicator {
             case DistinctCountIndicatorEnum:
             case UniqueIndicatorEnum:
             case DuplicateCountIndicatorEnum:
-                simpleList.add(one);
-                break;
             case BlankCountIndicatorEnum:
                 simpleList.add(one);
-                textList.add(one);
                 break;
             case MinLengthIndicatorEnum:
             case MaxLengthIndicatorEnum:
