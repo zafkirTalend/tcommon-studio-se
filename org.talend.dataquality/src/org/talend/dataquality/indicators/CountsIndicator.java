@@ -28,7 +28,7 @@ package org.talend.dataquality.indicators;
  * @model
  * @generated
  */
-public interface CountsIndicator extends Indicator {
+public interface CountsIndicator extends CompositeIndicator {
     /**
      * Returns the value of the '<em><b>Blank Count Indicator</b></em>' containment reference.
      * <!-- begin-user-doc -->

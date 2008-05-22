@@ -1433,14 +1433,14 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         uniqueCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
         duplicateCountIndicatorEClass.getESuperTypes().add(this.getIndicator());
         iqrIndicatorEClass.getESuperTypes().add(this.getRangeIndicator());
-        textIndicatorEClass.getESuperTypes().add(this.getIndicator());
+        textIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
         minLengthIndicatorEClass.getESuperTypes().add(this.getLengthIndicator());
         maxLengthIndicatorEClass.getESuperTypes().add(this.getLengthIndicator());
         averageLengthIndicatorEClass.getESuperTypes().add(this.getLengthIndicator());
         lengthIndicatorEClass.getESuperTypes().add(this.getIndicator());
         lowerQuartileIndicatorEClass.getESuperTypes().add(this.getMinValueIndicator());
         upperQuartileIndicatorEClass.getESuperTypes().add(this.getMaxValueIndicator());
-        countsIndicatorEClass.getESuperTypes().add(this.getIndicator());
+        countsIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
 
         // Initialize classes and features; add operations and parameters
         initEClass(indicatorEClass, Indicator.class, "Indicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

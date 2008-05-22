@@ -37,7 +37,7 @@ import org.talend.dataquality.indicators.TextIndicator;
  * @generated
  */
 public class TextIndicatorItemProvider
-    extends IndicatorItemProvider
+    extends CompositeIndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	

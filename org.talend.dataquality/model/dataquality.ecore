@@ -349,7 +349,7 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IQRIndicator" eSuperTypes="#//indicators/RangeIndicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/Indicator">
+    <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/CompositeIndicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="averageLengthIndicator"
           eType="#//indicators/AverageLengthIndicator" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="maxLengthIndicator" eType="#//indicators/MaxLengthIndicator"
@@ -412,7 +412,7 @@
         </eAnnotations>
       </eLiterals>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="CountsIndicator" eSuperTypes="#//indicators/Indicator">
+    <eClassifiers xsi:type="ecore:EClass" name="CountsIndicator" eSuperTypes="#//indicators/CompositeIndicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="blankCountIndicator"
           eType="#//indicators/BlankCountIndicator" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="RowCountIndicator" eType="#//indicators/RowCountIndicator"

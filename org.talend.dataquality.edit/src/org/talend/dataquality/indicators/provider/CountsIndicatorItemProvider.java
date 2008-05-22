@@ -38,7 +38,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * @generated
  */
 public class CountsIndicatorItemProvider
-    extends IndicatorItemProvider
+    extends CompositeIndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	

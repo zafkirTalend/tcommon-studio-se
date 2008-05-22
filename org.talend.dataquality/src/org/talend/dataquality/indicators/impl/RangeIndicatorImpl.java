@@ -6,9 +6,12 @@
 package org.talend.dataquality.indicators.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.MaxValueIndicator;
 import org.talend.dataquality.indicators.MinValueIndicator;
@@ -319,4 +322,18 @@ public class RangeIndicatorImpl extends CompositeIndicatorImpl implements RangeI
         return result.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataquality.indicators.impl.CompositeIndicatorImpl#getChildIndicators()
+     * 
+     * ADDED scorreia 2008-05-22 getChildIndicators()
+     */
+    @Override
+    public EList<Indicator> getChildIndicators() {
+        EList<Indicator> children = new BasicEList<Indicator>();
+        children.add(this.getLowerValue());
+        children.add(this.getUpperValue());
+        return children;
+    }
 } // RangeIndicatorImpl

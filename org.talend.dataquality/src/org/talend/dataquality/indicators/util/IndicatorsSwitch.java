@@ -283,6 +283,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.TEXT_INDICATOR: {
                 TextIndicator textIndicator = (TextIndicator)theEObject;
                 T result = caseTextIndicator(textIndicator);
+                if (result == null) result = caseCompositeIndicator(textIndicator);
                 if (result == null) result = caseIndicator(textIndicator);
                 if (result == null) result = caseModelElement(textIndicator);
                 if (result == null) result = caseElement(textIndicator);
@@ -359,6 +360,7 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.COUNTS_INDICATOR: {
                 CountsIndicator countsIndicator = (CountsIndicator)theEObject;
                 T result = caseCountsIndicator(countsIndicator);
+                if (result == null) result = caseCompositeIndicator(countsIndicator);
                 if (result == null) result = caseIndicator(countsIndicator);
                 if (result == null) result = caseModelElement(countsIndicator);
                 if (result == null) result = caseElement(countsIndicator);

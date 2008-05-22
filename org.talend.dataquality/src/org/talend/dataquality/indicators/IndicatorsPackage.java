@@ -5294,7 +5294,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__NAME = INDICATOR__NAME;
+    int TEXT_INDICATOR__NAME = COMPOSITE_INDICATOR__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -5303,7 +5303,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
+    int TEXT_INDICATOR__VISIBILITY = COMPOSITE_INDICATOR__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -5312,7 +5312,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
+    int TEXT_INDICATOR__CLIENT_DEPENDENCY = COMPOSITE_INDICATOR__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -5321,7 +5321,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
+    int TEXT_INDICATOR__SUPPLIER_DEPENDENCY = COMPOSITE_INDICATOR__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -5330,7 +5330,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
+    int TEXT_INDICATOR__CONSTRAINT = COMPOSITE_INDICATOR__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -5339,7 +5339,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
+    int TEXT_INDICATOR__NAMESPACE = COMPOSITE_INDICATOR__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -5348,7 +5348,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
+    int TEXT_INDICATOR__IMPORTER = COMPOSITE_INDICATOR__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -5357,7 +5357,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
+    int TEXT_INDICATOR__STEREOTYPE = COMPOSITE_INDICATOR__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -5366,7 +5366,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
+    int TEXT_INDICATOR__TAGGED_VALUE = COMPOSITE_INDICATOR__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -5375,7 +5375,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
+    int TEXT_INDICATOR__DOCUMENT = COMPOSITE_INDICATOR__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -5384,7 +5384,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
+    int TEXT_INDICATOR__DESCRIPTION = COMPOSITE_INDICATOR__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -5393,7 +5393,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
+    int TEXT_INDICATOR__RESPONSIBLE_PARTY = COMPOSITE_INDICATOR__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -5402,7 +5402,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
+    int TEXT_INDICATOR__ELEMENT_NODE = COMPOSITE_INDICATOR__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -5411,7 +5411,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__SET = INDICATOR__SET;
+    int TEXT_INDICATOR__SET = COMPOSITE_INDICATOR__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -5420,7 +5420,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
+    int TEXT_INDICATOR__RENDERED_OBJECT = COMPOSITE_INDICATOR__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -5429,7 +5429,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
+    int TEXT_INDICATOR__VOCABULARY_ELEMENT = COMPOSITE_INDICATOR__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -5438,7 +5438,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
+    int TEXT_INDICATOR__MEASUREMENT = COMPOSITE_INDICATOR__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -5447,7 +5447,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
+    int TEXT_INDICATOR__CHANGE_REQUEST = COMPOSITE_INDICATOR__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -5456,7 +5456,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
+    int TEXT_INDICATOR__DASDL_PROPERTY = COMPOSITE_INDICATOR__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -5465,7 +5465,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__COUNT = INDICATOR__COUNT;
+    int TEXT_INDICATOR__COUNT = COMPOSITE_INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -5474,7 +5474,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+    int TEXT_INDICATOR__NULL_COUNT = COMPOSITE_INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -5483,7 +5483,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+    int TEXT_INDICATOR__PARAMETERS = COMPOSITE_INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -5492,7 +5492,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+    int TEXT_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
@@ -5501,7 +5501,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+    int TEXT_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
@@ -5510,7 +5510,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+    int TEXT_INDICATOR__INDICATOR_DEFINITION = COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
@@ -5519,7 +5519,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
+    int TEXT_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
      * The feature id for the '<em><b>Average Length Indicator</b></em>' containment reference.
@@ -5528,7 +5528,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR = INDICATOR_FEATURE_COUNT + 0;
+    int TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Max Length Indicator</b></em>' containment reference.
@@ -5537,7 +5537,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__MAX_LENGTH_INDICATOR = INDICATOR_FEATURE_COUNT + 1;
+    int TEXT_INDICATOR__MAX_LENGTH_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Min Length Indicator</b></em>' containment reference.
@@ -5546,7 +5546,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR__MIN_LENGTH_INDICATOR = INDICATOR_FEATURE_COUNT + 2;
+    int TEXT_INDICATOR__MIN_LENGTH_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Text Indicator</em>' class.
@@ -5555,7 +5555,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEXT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 3;
+    int TEXT_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.LengthIndicatorImpl <em>Length Indicator</em>}' class.
@@ -7228,7 +7228,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__NAME = INDICATOR__NAME;
+    int COUNTS_INDICATOR__NAME = COMPOSITE_INDICATOR__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -7237,7 +7237,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
+    int COUNTS_INDICATOR__VISIBILITY = COMPOSITE_INDICATOR__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -7246,7 +7246,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
+    int COUNTS_INDICATOR__CLIENT_DEPENDENCY = COMPOSITE_INDICATOR__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -7255,7 +7255,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
+    int COUNTS_INDICATOR__SUPPLIER_DEPENDENCY = COMPOSITE_INDICATOR__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -7264,7 +7264,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
+    int COUNTS_INDICATOR__CONSTRAINT = COMPOSITE_INDICATOR__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -7273,7 +7273,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
+    int COUNTS_INDICATOR__NAMESPACE = COMPOSITE_INDICATOR__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -7282,7 +7282,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
+    int COUNTS_INDICATOR__IMPORTER = COMPOSITE_INDICATOR__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -7291,7 +7291,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
+    int COUNTS_INDICATOR__STEREOTYPE = COMPOSITE_INDICATOR__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -7300,7 +7300,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
+    int COUNTS_INDICATOR__TAGGED_VALUE = COMPOSITE_INDICATOR__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -7309,7 +7309,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
+    int COUNTS_INDICATOR__DOCUMENT = COMPOSITE_INDICATOR__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -7318,7 +7318,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
+    int COUNTS_INDICATOR__DESCRIPTION = COMPOSITE_INDICATOR__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -7327,7 +7327,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
+    int COUNTS_INDICATOR__RESPONSIBLE_PARTY = COMPOSITE_INDICATOR__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -7336,7 +7336,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
+    int COUNTS_INDICATOR__ELEMENT_NODE = COMPOSITE_INDICATOR__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -7345,7 +7345,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__SET = INDICATOR__SET;
+    int COUNTS_INDICATOR__SET = COMPOSITE_INDICATOR__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -7354,7 +7354,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
+    int COUNTS_INDICATOR__RENDERED_OBJECT = COMPOSITE_INDICATOR__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -7363,7 +7363,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
+    int COUNTS_INDICATOR__VOCABULARY_ELEMENT = COMPOSITE_INDICATOR__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -7372,7 +7372,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
+    int COUNTS_INDICATOR__MEASUREMENT = COMPOSITE_INDICATOR__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -7381,7 +7381,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
+    int COUNTS_INDICATOR__CHANGE_REQUEST = COMPOSITE_INDICATOR__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -7390,7 +7390,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
+    int COUNTS_INDICATOR__DASDL_PROPERTY = COMPOSITE_INDICATOR__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -7399,7 +7399,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__COUNT = INDICATOR__COUNT;
+    int COUNTS_INDICATOR__COUNT = COMPOSITE_INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -7408,7 +7408,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+    int COUNTS_INDICATOR__NULL_COUNT = COMPOSITE_INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -7417,7 +7417,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+    int COUNTS_INDICATOR__PARAMETERS = COMPOSITE_INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -7426,7 +7426,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+    int COUNTS_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
@@ -7435,7 +7435,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+    int COUNTS_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
@@ -7444,7 +7444,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+    int COUNTS_INDICATOR__INDICATOR_DEFINITION = COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
@@ -7453,7 +7453,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
+    int COUNTS_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
      * The feature id for the '<em><b>Blank Count Indicator</b></em>' containment reference.
@@ -7462,7 +7462,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__BLANK_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 0;
+    int COUNTS_INDICATOR__BLANK_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Row Count Indicator</b></em>' containment reference.
@@ -7471,7 +7471,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__ROW_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 1;
+    int COUNTS_INDICATOR__ROW_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Null Count Indicator</b></em>' containment reference.
@@ -7480,7 +7480,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__NULL_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 2;
+    int COUNTS_INDICATOR__NULL_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Unique Count Indicator</b></em>' containment reference.
@@ -7489,7 +7489,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 3;
+    int COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Distinct Count Indicator</b></em>' containment reference.
@@ -7498,7 +7498,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 4;
+    int COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Duplicate Count Indicator</b></em>' containment reference.
@@ -7507,7 +7507,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 5;
+    int COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 5;
 
     /**
      * The number of structural features of the '<em>Counts Indicator</em>' class.
@@ -7516,7 +7516,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COUNTS_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 6;
+    int COUNTS_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 6;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.

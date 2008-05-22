@@ -25,7 +25,7 @@ package org.talend.dataquality.indicators;
  * @model
  * @generated
  */
-public interface TextIndicator extends Indicator {
+public interface TextIndicator extends CompositeIndicator {
 
     /**
      * Returns the value of the '<em><b>Average Length Indicator</b></em>' containment reference.
