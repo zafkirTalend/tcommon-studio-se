@@ -20,7 +20,7 @@
         <many-to-one name="tdqValues" class="org.talend.dataprofiler.persistence.TdqValues" fetch="select"  cascade="save-update">
             <column name="VALUE_PK" not-null="false" />
         </many-to-one>
-        <many-to-one name="tdqIndicatorOptions" class="org.talend.dataprofiler.persistence.TdqIndicatorOptions" fetch="select">
+        <many-to-one name="tdqIndicatorOptions" class="org.talend.dataprofiler.persistence.TdqIndicatorOptions" fetch="select"  cascade="save-update">
             <column name="OPTION_PK" not-null="false" />
         </many-to-one>
         <many-to-one name="tdqInterval" class="org.talend.dataprofiler.persistence.TdqInterval" fetch="select">

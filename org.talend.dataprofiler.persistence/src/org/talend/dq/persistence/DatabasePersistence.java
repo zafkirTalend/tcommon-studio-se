@@ -35,6 +35,7 @@ import org.talend.dataprofiler.persistence.TdqAnalyzedElement;
 import org.talend.dataprofiler.persistence.TdqCalendar;
 import org.talend.dataprofiler.persistence.TdqDayTime;
 import org.talend.dataprofiler.persistence.TdqIndicatorDefinition;
+import org.talend.dataprofiler.persistence.TdqIndicatorOptions;
 import org.talend.dataprofiler.persistence.TdqIndicatorValue;
 import org.talend.dataprofiler.persistence.TdqValues;
 import org.talend.dataprofiler.persistence.business.SqlConstants;
@@ -50,6 +51,7 @@ import org.talend.dataquality.indicators.ModeIndicator;
 import org.talend.dataquality.indicators.definition.IndicatorCategory;
 import org.talend.dataquality.indicators.util.IndicatorsSwitch;
 import org.talend.dataquality.reports.TdReport;
+import org.talend.utils.sugars.ReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
 
@@ -98,10 +100,12 @@ public class DatabasePersistence {
 
     private Map<String, TdqIndicatorDefinition> tdqIndDefinitionCache = new HashMap<String, TdqIndicatorDefinition>();
 
+    private List<TdqIndicatorOptions> optionsList = new ArrayList<TdqIndicatorOptions>();
+
     private List<Object> needSaveObjects = new ArrayList<Object>();
 
-    public boolean persist(TdReport report) {
-        boolean ok = true;
+    public ReturnCode persist(TdReport report) {
+        ReturnCode rc = new ReturnCode();
         // // create a session transaction
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -109,6 +113,10 @@ public class DatabasePersistence {
         // persist in database
         List<Analysis> analyses = ReportHelper.getAnalyses(report);
         for (Analysis analysis : analyses) {
+            if (analysis.getResults().getResultMetadata().getExecutionDate() == null) {
+                rc.setReturnCode("Warning: The current analysis " + analysis.getName() + " haven't executed.", false);
+                return rc;
+            }
             persist(report, analysis);
         }
         for (Object object : needSaveObjects) {
@@ -118,7 +126,7 @@ public class DatabasePersistence {
         // commit and close session
         session.getTransaction().commit();
         clearCache();
-        return ok;
+        return rc;
     }
 
     private void clearCache() {
@@ -126,6 +134,7 @@ public class DatabasePersistence {
         tdqAnaEleCache.clear();
         tdqIndDefinitionCache.clear();
         needSaveObjects.clear();
+        optionsList.clear();
 
     }
 
@@ -429,15 +438,45 @@ public class DatabasePersistence {
         // Indicator.getValueType().getLiteral()
         indicatorValue.setIndvValueTypeIndicator(indicator.getValueType().getLiteral().charAt(0));
 
-        // TODO rli set options
-        // TODO rli for text indicators get the options
-        // indicator.getParameters().getTextParameter().isIgnoreCase()
-        // indicator.getParameters().getTextParameter().isUseBlank()
-        // indicator.getParameters().getTextParameter().isUseNulls()
-        // TODO rli for non text indicators (indicator.getParameters().getTextParameter() == null) set all three option
-        // to SqlConstants.UNDEFINED
-        // TODO rli insert a new row only if the full row does not exists yet
-        // indicatorValue.setTdqIndicatorOptions(tdqIndicatorOptions);
+        // set options
+        TdqIndicatorOptions createOptions = new TdqIndicatorOptions();
+        char isCaseSensitive = SqlConstants.NO;
+        char isCountNulls = SqlConstants.NO;
+        char isCountBlanks = SqlConstants.NO;
+        String regexp = SqlConstants.NULL_VALUE;
+        if (indicator.getParameters() != null && indicator.getParameters().getTextParameter() != null) {
+            isCaseSensitive = indicator.getParameters().getTextParameter().isIgnoreCase() ? SqlConstants.YES : SqlConstants.NO;
+            isCountNulls = indicator.getParameters().getTextParameter().isUseNulls() ? SqlConstants.YES : SqlConstants.NO;
+            isCountBlanks = indicator.getParameters().getTextParameter().isUseBlank() ? SqlConstants.YES : SqlConstants.NO;
+
+        } else {
+            isCaseSensitive = SqlConstants.UNDEFINED;
+            isCountNulls = SqlConstants.UNDEFINED;
+            isCountBlanks = SqlConstants.UNDEFINED;
+        }
+
+        createOptions.setInoCaseSensitive(isCaseSensitive);
+        createOptions.setInoCountNulls(isCountNulls);
+        createOptions.setInoCountBlanks(isCountBlanks);
+        createOptions.setInoRegexp(regexp); // TODO scorreia try to get the regexp string.
+
+        // insert a new row only if the full row does not exists yet
+        List list = session.createCriteria(TdqIndicatorOptions.class).add(Expression.eq("inoCaseSensitive", isCaseSensitive))
+                .add(Expression.eq("inoRegexp", regexp)).add(Expression.eq("inoCountNulls", isCountNulls)).add(
+                        Expression.eq("inoCountBlanks", isCountBlanks)).list();
+        TdqIndicatorOptions currentTdqOptions = null;
+        if (list.size() > 0) {
+            TdqIndicatorOptions dbTdqOptions = (TdqIndicatorOptions) list.get(0);
+            currentTdqOptions = dbTdqOptions;
+        } else {
+            if (optionsList.indexOf(createOptions) != -1) {
+                currentTdqOptions = optionsList.get(optionsList.indexOf(createOptions));
+            } else {
+                currentTdqOptions = createOptions;
+                optionsList.add(currentTdqOptions);
+            }
+        }
+        indicatorValue.setTdqIndicatorOptions(currentTdqOptions);
 
         // TODO scorreia getbins()
         // EList<RangeRestriction> ranges = indicator.getParameters().getBins().getRanges();

@@ -10,81 +10,136 @@ import java.util.Set;
  */
 public class TdqIndicatorOptions implements java.io.Serializable {
 
-	private Integer inoPk;
-	private char inoCaseSensitive;
-	private String inoRegexp;
-	private char inoCountNulls;
-	private char inoCountBlanks;
-	private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(
-			0);
+    private Integer inoPk;
 
-	public TdqIndicatorOptions() {
-	}
+    private char inoCaseSensitive;
 
-	public TdqIndicatorOptions(char inoCaseSensitive, String inoRegexp,
-			char inoCountNulls, char inoCountBlanks) {
-		this.inoCaseSensitive = inoCaseSensitive;
-		this.inoRegexp = inoRegexp;
-		this.inoCountNulls = inoCountNulls;
-		this.inoCountBlanks = inoCountBlanks;
-	}
+    private String inoRegexp;
 
-	public TdqIndicatorOptions(char inoCaseSensitive, String inoRegexp,
-			char inoCountNulls, char inoCountBlanks,
-			Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.inoCaseSensitive = inoCaseSensitive;
-		this.inoRegexp = inoRegexp;
-		this.inoCountNulls = inoCountNulls;
-		this.inoCountBlanks = inoCountBlanks;
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    private char inoCountNulls;
 
-	public Integer getInoPk() {
-		return this.inoPk;
-	}
+    private char inoCountBlanks;
 
-	public void setInoPk(Integer inoPk) {
-		this.inoPk = inoPk;
-	}
+    private Set<TdqIndicatorValue> tdqIndicatorValues = new HashSet<TdqIndicatorValue>(0);
 
-	public char getInoCaseSensitive() {
-		return this.inoCaseSensitive;
-	}
+    public TdqIndicatorOptions() {
+    }
 
-	public void setInoCaseSensitive(char inoCaseSensitive) {
-		this.inoCaseSensitive = inoCaseSensitive;
-	}
+    public TdqIndicatorOptions(char inoCaseSensitive, String inoRegexp, char inoCountNulls, char inoCountBlanks) {
+        this.inoCaseSensitive = inoCaseSensitive;
+        this.inoRegexp = inoRegexp;
+        this.inoCountNulls = inoCountNulls;
+        this.inoCountBlanks = inoCountBlanks;
+    }
 
-	public String getInoRegexp() {
-		return this.inoRegexp;
-	}
+    public TdqIndicatorOptions(char inoCaseSensitive, String inoRegexp, char inoCountNulls, char inoCountBlanks,
+            Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.inoCaseSensitive = inoCaseSensitive;
+        this.inoRegexp = inoRegexp;
+        this.inoCountNulls = inoCountNulls;
+        this.inoCountBlanks = inoCountBlanks;
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
 
-	public void setInoRegexp(String inoRegexp) {
-		this.inoRegexp = inoRegexp;
-	}
+    public Integer getInoPk() {
+        return this.inoPk;
+    }
 
-	public char getInoCountNulls() {
-		return this.inoCountNulls;
-	}
+    public void setInoPk(Integer inoPk) {
+        this.inoPk = inoPk;
+    }
 
-	public void setInoCountNulls(char inoCountNulls) {
-		this.inoCountNulls = inoCountNulls;
-	}
+    public char getInoCaseSensitive() {
+        return this.inoCaseSensitive;
+    }
 
-	public char getInoCountBlanks() {
-		return this.inoCountBlanks;
-	}
+    public void setInoCaseSensitive(char inoCaseSensitive) {
+        this.inoCaseSensitive = inoCaseSensitive;
+    }
 
-	public void setInoCountBlanks(char inoCountBlanks) {
-		this.inoCountBlanks = inoCountBlanks;
-	}
+    public String getInoRegexp() {
+        return this.inoRegexp;
+    }
 
-	public Set<TdqIndicatorValue> getTdqIndicatorValues() {
-		return this.tdqIndicatorValues;
-	}
+    public void setInoRegexp(String inoRegexp) {
+        this.inoRegexp = inoRegexp;
+    }
 
-	public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
-		this.tdqIndicatorValues = tdqIndicatorValues;
-	}
+    public char getInoCountNulls() {
+        return this.inoCountNulls;
+    }
+
+    public void setInoCountNulls(char inoCountNulls) {
+        this.inoCountNulls = inoCountNulls;
+    }
+
+    public char getInoCountBlanks() {
+        return this.inoCountBlanks;
+    }
+
+    public void setInoCountBlanks(char inoCountBlanks) {
+        this.inoCountBlanks = inoCountBlanks;
+    }
+
+    public Set<TdqIndicatorValue> getTdqIndicatorValues() {
+        return this.tdqIndicatorValues;
+    }
+
+    public void setTdqIndicatorValues(Set<TdqIndicatorValue> tdqIndicatorValues) {
+        this.tdqIndicatorValues = tdqIndicatorValues;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + inoCaseSensitive;
+        result = prime * result + inoCountBlanks;
+        result = prime * result + inoCountNulls;
+        result = prime * result + ((inoRegexp == null) ? 0 : inoRegexp.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final TdqIndicatorOptions other = (TdqIndicatorOptions) obj;
+        if (inoCaseSensitive != other.inoCaseSensitive)
+            return false;
+        if (inoCountBlanks != other.inoCountBlanks)
+            return false;
+        if (inoCountNulls != other.inoCountNulls)
+            return false;
+        if (inoRegexp == null) {
+            if (other.inoRegexp != null)
+                return false;
+        } else if (!inoRegexp.equals(other.inoRegexp))
+            return false;
+        return true;
+    }
+
+//    public boolean valueEqual(TdqIndicatorOptions tdqIndicatorOptions) {
+//        if (!(this.inoCaseSensitive == tdqIndicatorOptions.getInoCaseSensitive())) {
+//            return false;
+//        } else if (!(this.inoCountBlanks == tdqIndicatorOptions.getInoCountBlanks())) {
+//            return false;
+//        } else if (!(this.inoCountNulls == tdqIndicatorOptions.getInoCountNulls())) {
+//            return false;
+//        } else if (this.inoRegexp.equals(tdqIndicatorOptions.getInoRegexp())) {
+//            return false;
+//        }
+//        return true;
+//    }
 
 }
