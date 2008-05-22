@@ -13,7 +13,6 @@
 package org.talend.dataprofiler.core.tdq.ui.action.provider;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.concurrent.ThreadPoolExecutor.DiscardOldestPolicy;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
