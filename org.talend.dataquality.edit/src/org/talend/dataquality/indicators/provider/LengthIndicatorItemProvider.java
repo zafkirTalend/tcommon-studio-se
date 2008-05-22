@@ -37,7 +37,7 @@ import org.talend.dataquality.indicators.LengthIndicator;
  * @generated
  */
 public class LengthIndicatorItemProvider
-    extends TextIndicatorItemProvider
+    extends IndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	

@@ -16,27 +16,28 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.talend.dataquality.analysis.provider.DataqualityEditPlugin;
 
+import org.talend.dataquality.indicators.CountsIndicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
 import org.talend.dataquality.indicators.IndicatorsPackage;
-import org.talend.dataquality.indicators.TextIndicator;
 
 /**
- * This is the item provider adapter for a {@link org.talend.dataquality.indicators.TextIndicator} object.
+ * This is the item provider adapter for a {@link org.talend.dataquality.indicators.CountsIndicator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TextIndicatorItemProvider
+public class CountsIndicatorItemProvider
     extends IndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
@@ -50,7 +51,7 @@ public class TextIndicatorItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public TextIndicatorItemProvider(AdapterFactory adapterFactory) {
+    public CountsIndicatorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -81,9 +82,12 @@ public class TextIndicatorItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(IndicatorsPackage.Literals.TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR);
-            childrenFeatures.add(IndicatorsPackage.Literals.TEXT_INDICATOR__MAX_LENGTH_INDICATOR);
-            childrenFeatures.add(IndicatorsPackage.Literals.TEXT_INDICATOR__MIN_LENGTH_INDICATOR);
+            childrenFeatures.add(IndicatorsPackage.Literals.COUNTS_INDICATOR__BLANK_COUNT_INDICATOR);
+            childrenFeatures.add(IndicatorsPackage.Literals.COUNTS_INDICATOR__ROW_COUNT_INDICATOR);
+            childrenFeatures.add(IndicatorsPackage.Literals.COUNTS_INDICATOR__NULL_COUNT_INDICATOR);
+            childrenFeatures.add(IndicatorsPackage.Literals.COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR);
+            childrenFeatures.add(IndicatorsPackage.Literals.COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR);
+            childrenFeatures.add(IndicatorsPackage.Literals.COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR);
         }
         return childrenFeatures;
     }
@@ -102,14 +106,14 @@ public class TextIndicatorItemProvider
     }
 
     /**
-     * This returns TextIndicator.gif.
+     * This returns CountsIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/TextIndicator"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/CountsIndicator"));
     }
 
     /**
@@ -120,10 +124,10 @@ public class TextIndicatorItemProvider
      */
     @Override
     public String getText(Object object) {
-        String label = ((TextIndicator)object).getName();
+        String label = ((CountsIndicator)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_TextIndicator_type") :
-            getString("_UI_TextIndicator_type") + " " + label;
+            getString("_UI_CountsIndicator_type") :
+            getString("_UI_CountsIndicator_type") + " " + label;
     }
 
     /**
@@ -137,10 +141,13 @@ public class TextIndicatorItemProvider
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(TextIndicator.class)) {
-            case IndicatorsPackage.TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR:
-            case IndicatorsPackage.TEXT_INDICATOR__MAX_LENGTH_INDICATOR:
-            case IndicatorsPackage.TEXT_INDICATOR__MIN_LENGTH_INDICATOR:
+        switch (notification.getFeatureID(CountsIndicator.class)) {
+            case IndicatorsPackage.COUNTS_INDICATOR__BLANK_COUNT_INDICATOR:
+            case IndicatorsPackage.COUNTS_INDICATOR__ROW_COUNT_INDICATOR:
+            case IndicatorsPackage.COUNTS_INDICATOR__NULL_COUNT_INDICATOR:
+            case IndicatorsPackage.COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR:
+            case IndicatorsPackage.COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR:
+            case IndicatorsPackage.COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -160,18 +167,33 @@ public class TextIndicatorItemProvider
 
         newChildDescriptors.add
             (createChildParameter
-                (IndicatorsPackage.Literals.TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR,
-                 IndicatorsFactory.eINSTANCE.createAverageLengthIndicator()));
+                (IndicatorsPackage.Literals.COUNTS_INDICATOR__BLANK_COUNT_INDICATOR,
+                 IndicatorsFactory.eINSTANCE.createBlankCountIndicator()));
 
         newChildDescriptors.add
             (createChildParameter
-                (IndicatorsPackage.Literals.TEXT_INDICATOR__MAX_LENGTH_INDICATOR,
-                 IndicatorsFactory.eINSTANCE.createMaxLengthIndicator()));
+                (IndicatorsPackage.Literals.COUNTS_INDICATOR__ROW_COUNT_INDICATOR,
+                 IndicatorsFactory.eINSTANCE.createRowCountIndicator()));
 
         newChildDescriptors.add
             (createChildParameter
-                (IndicatorsPackage.Literals.TEXT_INDICATOR__MIN_LENGTH_INDICATOR,
-                 IndicatorsFactory.eINSTANCE.createMinLengthIndicator()));
+                (IndicatorsPackage.Literals.COUNTS_INDICATOR__NULL_COUNT_INDICATOR,
+                 IndicatorsFactory.eINSTANCE.createNullCountIndicator()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR,
+                 IndicatorsFactory.eINSTANCE.createUniqueCountIndicator()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR,
+                 IndicatorsFactory.eINSTANCE.createDistinctCountIndicator()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR,
+                 IndicatorsFactory.eINSTANCE.createDuplicateCountIndicator()));
     }
 
     /**

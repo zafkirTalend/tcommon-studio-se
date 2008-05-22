@@ -37,7 +37,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * @generated
  */
 public class BlankCountIndicatorItemProvider
-    extends TextIndicatorItemProvider
+    extends IndicatorItemProvider
     implements	
         IEditingDomainItemProvider,	
         IStructuredItemContentProvider,	

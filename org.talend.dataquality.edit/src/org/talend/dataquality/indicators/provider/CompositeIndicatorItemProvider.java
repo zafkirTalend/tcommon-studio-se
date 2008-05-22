@@ -63,31 +63,8 @@ public class CompositeIndicatorItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addIndicatorsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
-    }
-
-    /**
-     * This adds a property descriptor for the Indicators feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addIndicatorsPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_CompositeIndicator_indicators_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_CompositeIndicator_indicators_feature", "_UI_CompositeIndicator_type"),
-                 IndicatorsPackage.Literals.COMPOSITE_INDICATOR__INDICATORS,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
     }
 
     /**

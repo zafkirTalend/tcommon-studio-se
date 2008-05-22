@@ -720,6 +720,29 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.CountsIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected CountsIndicatorItemProvider countsIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.CountsIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createCountsIndicatorAdapter() {
+        if (countsIndicatorItemProvider == null) {
+            countsIndicatorItemProvider = new CountsIndicatorItemProvider(this);
+        }
+
+        return countsIndicatorItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -846,6 +869,7 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (textParametersItemProvider != null) textParametersItemProvider.dispose();
         if (lowerQuartileIndicatorItemProvider != null) lowerQuartileIndicatorItemProvider.dispose();
         if (upperQuartileIndicatorItemProvider != null) upperQuartileIndicatorItemProvider.dispose();
+        if (countsIndicatorItemProvider != null) countsIndicatorItemProvider.dispose();
     }
 
 }
