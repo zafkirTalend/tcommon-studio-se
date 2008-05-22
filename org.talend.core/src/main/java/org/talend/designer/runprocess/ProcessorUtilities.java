@@ -38,6 +38,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ERepositoryStatus;
@@ -247,7 +248,8 @@ public class ProcessorUtilities {
         return false;
     }
 
-    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
+    private static boolean generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
+            boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem;
@@ -278,7 +280,7 @@ public class ProcessorUtilities {
             currentProcess = jobInfo.getProcess();
         }
 
-        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess);
+        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
         boolean toReturn = true;
         if (option != GENERATE_MAIN_ONLY) {
@@ -296,19 +298,31 @@ public class ProcessorUtilities {
                         subJobInfo = new JobInfo(processItem, context);
                     } else {
                         subJobInfo = new JobInfo(jobId, context, version);
+                        // get processitem from job
+                        processItem = getProcessItem(jobId, version);
                     }
                     if (jobInfo.isApplyContextToChildren()) {
                         subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                        subJobInfo.setContextName(jobInfo.getContextName());
+                        // see bug 0003862: Export job with the flag "Apply to children" if the child don't have the
+                        // same context fails.
+                        if (checkIfContextExisted(processItem, selectedContextName)) {
+                            subJobInfo.setContextName(selectedContextName);
+                        } else {
+                            // use the default context of subjob
+                            String defaultContext = processItem.getProcess().getDefaultContext();
+                            Element element = (Element) node;
+                            element.setPropertyValue("PROCESS_TYPE_CONTEXT", defaultContext);
+                            subJobInfo.setContextName(defaultContext);
+                        }
                     }
                     subJobInfo.setFatherJobInfo(jobInfo);
 
                     if (!jobList.contains(subJobInfo)) {
                         // children won't have stats / traces
                         if (option == GENERATE_WITH_FIRST_CHILD) {
-                            toReturn = generateCode(subJobInfo, false, false, true, GENERATE_MAIN_ONLY);
+                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_MAIN_ONLY);
                         } else {
-                            toReturn = generateCode(subJobInfo, false, false, true, GENERATE_ALL_CHILDS);
+                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS);
                         }
                     }
                 }
@@ -360,12 +374,35 @@ public class ProcessorUtilities {
     }
 
     /**
+     * Return true if we can find a context name from the child job that matches the selected context name. see bug
+     * 0003862: Export job with the flag "Apply to children" if the child don't have the same context fails.
+     * 
+     * @param processItem
+     * @param selectedContextName
+     * @return
+     */
+    public static boolean checkIfContextExisted(ProcessItem processItem, String selectedContextName) {
+        for (Object o : processItem.getProcess().getContext()) {
+            if (o instanceof ContextType) {
+                ContextType context = (ContextType) o;
+                if (context.getName().equals(selectedContextName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * This method is used to reset the tRunJob component's context,see feature 1625.
      * 
      * @param jobInfo
      * @param currentProcess
+     * @param selectedContextName
      */
-    private static void resetRunJobComponentParameterForContextApply(JobInfo jobInfo, IProcess currentProcess) {
+    private static void resetRunJobComponentParameterForContextApply(JobInfo jobInfo, IProcess currentProcess,
+            String selectedContextName) {
+
         if (jobInfo.isApplyContextToChildren()) {
             for (Iterator<? extends INode> iter = currentProcess.getGraphicalNodes().iterator(); iter.hasNext();) {
                 INode node = iter.next();
@@ -373,7 +410,7 @@ public class ProcessorUtilities {
                     Element element = (Element) node;
                     // the corresponding parameter is
                     // EParameterName.PROCESS_TYPE_CONTEXT
-                    element.setPropertyValue("PROCESS_TYPE_CONTEXT", jobInfo.getContextName());
+                    element.setPropertyValue("PROCESS_TYPE_CONTEXT", selectedContextName);
                 }
             }
         }
@@ -391,7 +428,7 @@ public class ProcessorUtilities {
     public static boolean generateCode(String processName, String contextName, String version, boolean statistics, boolean trace) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName, version);
-        boolean genCode = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
         jobList.clear();
         return genCode;
     }
@@ -411,7 +448,7 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         generateAllContexts = true;
-        boolean result = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
         generateAllContexts = false;
         jobList.clear();
         return result;
@@ -423,7 +460,7 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(process, contextName);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         generateAllContexts = true;
-        boolean result = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
         generateAllContexts = false;
         jobList.clear();
         return result;
@@ -437,7 +474,7 @@ public class ProcessorUtilities {
             int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
-        boolean genCode = generateCode(jobInfo, statistics, trace, true, option);
+        boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, option);
         jobList.clear();
         return genCode;
     }
@@ -448,7 +485,7 @@ public class ProcessorUtilities {
         jobInfo.setProcess(process);
         jobInfo.setContext(context);
         boolean genCode = false;
-        genCode = generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
+        genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, GENERATE_ALL_CHILDS);
         jobList.clear();
         return genCode;
     }
@@ -457,7 +494,7 @@ public class ProcessorUtilities {
             int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, context);
-        boolean genCode = generateCode(jobInfo, statistics, trace, properties, option);
+        boolean genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, option);
         jobList.clear();
         return genCode;
     }
