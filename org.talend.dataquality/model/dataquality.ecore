@@ -173,7 +173,11 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SumIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumStr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="#//indicators/Datatype"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Java data type of the summed data"/>
+        </eAnnotations>
+      </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
@@ -182,7 +186,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="RangeIndicator" eSuperTypes="#//indicators/CompositeIndicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//indicators/MinValueIndicator"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" eType="#//indicators/MaxValueIndicator"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="#//indicators/Datatype"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="range" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BoxIndicator" eSuperTypes="#//indicators/CompositeIndicator">
@@ -316,16 +320,10 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ValueIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="#//indicators/Datatype"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MinValueIndicator" eSuperTypes="#//indicators/ValueIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MaxValueIndicator" eSuperTypes="#//indicators/ValueIndicator"/>
-    <eClassifiers xsi:type="ecore:EEnum" name="Datatype">
-      <eLiterals name="INTEGER" literal="Integer"/>
-      <eLiterals name="DOUBLE" value="1" literal="Double"/>
-      <eLiterals name="TEXT" value="2" literal="Text"/>
-      <eLiterals name="BIGDECIMAL" value="3" literal="Big Decimal"/>
-    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ModeIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

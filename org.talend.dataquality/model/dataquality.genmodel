@@ -108,12 +108,6 @@
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DataminingType/UNSTRUCTURED_TEXT"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DataminingType/OTHER"/>
       </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//indicators/Datatype">
-        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/INTEGER"/>
-        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/DOUBLE"/>
-        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/TEXT"/>
-        <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/Datatype/BIGDECIMAL"/>
-      </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="dataquality.ecore#//indicators/DateGrain">
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/DAY"/>
         <genEnumLiterals ecoreEnumLiteral="dataquality.ecore#//indicators/DateGrain/WEEK"/>

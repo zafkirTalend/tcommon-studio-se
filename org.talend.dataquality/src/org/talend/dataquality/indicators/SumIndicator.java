@@ -55,30 +55,30 @@ public interface SumIndicator extends Indicator {
 
     /**
      * Returns the value of the '<em><b>Datatype</b></em>' attribute.
-     * The literals are from the enumeration {@link org.talend.dataquality.indicators.Datatype}.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Datatype</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Java data type of the summed data
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Datatype</em>' attribute.
-     * @see org.talend.dataquality.indicators.Datatype
-     * @see #setDatatype(Datatype)
+     * @see #setDatatype(int)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getSumIndicator_Datatype()
      * @model
      * @generated
      */
-    Datatype getDatatype();
+    int getDatatype();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.SumIndicator#getDatatype <em>Datatype</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Datatype</em>' attribute.
-     * @see org.talend.dataquality.indicators.Datatype
      * @see #getDatatype()
      * @generated
      */
-    void setDatatype(Datatype value);
+    void setDatatype(int value);
 } // SumIndicator

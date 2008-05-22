@@ -11,9 +11,11 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.talend.dataquality.indicators.Datatype;
+import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.ValueIndicator;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Value Indicator</b></em>'. <!--
@@ -21,11 +23,11 @@ import org.talend.dataquality.indicators.ValueIndicator;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl#getDatatype <em>Datatype</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl#getDatatype <em>Datatype</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator {
@@ -33,9 +35,9 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
     private static Logger log = Logger.getLogger(ValueIndicatorImpl.class);
 
     /**
-     * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getValue()
      * @generated
      * @ordered
@@ -43,9 +45,9 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
     protected static final String VALUE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getValue()
      * @generated
      * @ordered
@@ -53,27 +55,28 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
     protected String value = VALUE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDatatype() <em>Datatype</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getDatatype() <em>Datatype</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDatatype()
      * @generated
      * @ordered
      */
-    protected static final Datatype DATATYPE_EDEFAULT = Datatype.INTEGER;
+    protected static final int DATATYPE_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getDatatype() <em>Datatype</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDatatype() <em>Datatype</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getDatatype()
      * @generated
      * @ordered
      */
-    protected Datatype datatype = DATATYPE_EDEFAULT;
+    protected int datatype = DATATYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ValueIndicatorImpl() {
@@ -82,6 +85,7 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -91,6 +95,7 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getValue() {
@@ -99,6 +104,7 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setValue(String newValue) {
@@ -110,94 +116,103 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public Datatype getDatatype() {
+    public int getDatatype() {
         return datatype;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public void setDatatype(Datatype newDatatype) {
-        Datatype oldDatatype = datatype;
-        datatype = newDatatype == null ? DATATYPE_EDEFAULT : newDatatype;
+    public void setDatatype(int newDatatype) {
+        int oldDatatype = datatype;
+        datatype = newDatatype;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.VALUE_INDICATOR__DATATYPE, oldDatatype, datatype));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.VALUE_INDICATOR__DATATYPE, oldDatatype,
+                    datatype));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.VALUE_INDICATOR__VALUE:
-                return getValue();
-            case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
-                return getDatatype();
+        case IndicatorsPackage.VALUE_INDICATOR__VALUE:
+            return getValue();
+        case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
+            return new Integer(getDatatype());
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.VALUE_INDICATOR__VALUE:
-                setValue((String)newValue);
-                return;
-            case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
-                setDatatype((Datatype)newValue);
-                return;
+        case IndicatorsPackage.VALUE_INDICATOR__VALUE:
+            setValue((String) newValue);
+            return;
+        case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
+            setDatatype(((Integer) newValue).intValue());
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.VALUE_INDICATOR__VALUE:
-                setValue(VALUE_EDEFAULT);
-                return;
-            case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
-                setDatatype(DATATYPE_EDEFAULT);
-                return;
+        case IndicatorsPackage.VALUE_INDICATOR__VALUE:
+            setValue(VALUE_EDEFAULT);
+            return;
+        case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
+            setDatatype(DATATYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.VALUE_INDICATOR__VALUE:
-                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-            case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
-                return datatype != DATATYPE_EDEFAULT;
+        case IndicatorsPackage.VALUE_INDICATOR__VALUE:
+            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+        case IndicatorsPackage.VALUE_INDICATOR__DATATYPE:
+            return datatype != DATATYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (value: ");
@@ -221,8 +236,6 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
             return false;
         }
 
-        // TODO scorreia should get the correct type of result from the analyzed element
-
         if (objects.size() == 1) {
             String med = String.valueOf(objects.get(0)[0]);
             if (med == null) {
@@ -230,7 +243,12 @@ public class ValueIndicatorImpl extends IndicatorImpl implements ValueIndicator 
                 return false;
             }
             this.setValue(med);
-            // FIXME scorreia (set datatype here ?)
+            // set datatype here
+            ModelElement elt = this.getAnalyzedElement();
+            if (elt != null) {
+                TdColumn column = SwitchHelpers.COLUMN_SWITCH.doSwitch(elt);
+                this.setDatatype(column.getJavaType());
+            }
             return true;
         }
         return false;

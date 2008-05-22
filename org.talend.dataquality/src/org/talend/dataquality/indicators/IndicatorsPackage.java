@@ -7250,16 +7250,6 @@ public interface IndicatorsPackage extends EPackage {
     int DATAMINING_TYPE = 29;
 
     /**
-     * The meta object id for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.dataquality.indicators.Datatype
-     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
-     * @generated
-     */
-    int DATATYPE = 30;
-
-    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7267,7 +7257,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
      * @generated
      */
-    int DATE_GRAIN = 31;
+    int DATE_GRAIN = 30;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
@@ -7277,7 +7267,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
      * @generated
      */
-    int MATCHING_ALGORITHM = 32;
+    int MATCHING_ALGORITHM = 31;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}' enum.
@@ -7287,7 +7277,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorValueType()
      * @generated
      */
-    int INDICATOR_VALUE_TYPE = 33;
+    int INDICATOR_VALUE_TYPE = 32;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -7297,7 +7287,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 34;
+    int JAVA_SET = 33;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -7307,7 +7297,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 35;
+    int JAVA_HASH_MAP = 34;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -7317,7 +7307,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 36;
+    int JAVA_TREE_MAP = 35;
 
     /**
      * The meta object id for the '<em>Object Array</em>' data type.
@@ -7326,7 +7316,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getObjectArray()
      * @generated
      */
-    int OBJECT_ARRAY = 37;
+    int OBJECT_ARRAY = 36;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -8146,16 +8136,6 @@ public interface IndicatorsPackage extends EPackage {
     EEnum getDataminingType();
 
     /**
-     * Returns the meta object for enum '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for enum '<em>Datatype</em>'.
-     * @see org.talend.dataquality.indicators.Datatype
-     * @generated
-     */
-    EEnum getDatatype();
-
-    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8925,16 +8905,6 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EEnum DATAMINING_TYPE = eINSTANCE.getDataminingType();
-
-        /**
-         * The meta object literal for the '{@link org.talend.dataquality.indicators.Datatype <em>Datatype</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.dataquality.indicators.Datatype
-         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDatatype()
-         * @generated
-         */
-        EEnum DATATYPE = eINSTANCE.getDatatype();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.

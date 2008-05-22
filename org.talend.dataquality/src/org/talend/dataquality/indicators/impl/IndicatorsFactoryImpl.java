@@ -111,8 +111,6 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return createEnumStatisticsFromString(eDataType, initialValue);
             case IndicatorsPackage.DATAMINING_TYPE:
                 return createDataminingTypeFromString(eDataType, initialValue);
-            case IndicatorsPackage.DATATYPE:
-                return createDatatypeFromString(eDataType, initialValue);
             case IndicatorsPackage.DATE_GRAIN:
                 return createDateGrainFromString(eDataType, initialValue);
             case IndicatorsPackage.MATCHING_ALGORITHM:
@@ -144,8 +142,6 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
                 return convertEnumStatisticsToString(eDataType, instanceValue);
             case IndicatorsPackage.DATAMINING_TYPE:
                 return convertDataminingTypeToString(eDataType, instanceValue);
-            case IndicatorsPackage.DATATYPE:
-                return convertDatatypeToString(eDataType, instanceValue);
             case IndicatorsPackage.DATE_GRAIN:
                 return convertDateGrainToString(eDataType, instanceValue);
             case IndicatorsPackage.MATCHING_ALGORITHM:
@@ -482,26 +478,6 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
      * @generated
      */
     public String convertDataminingTypeToString(EDataType eDataType, Object instanceValue) {
-        return instanceValue == null ? null : instanceValue.toString();
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Datatype createDatatypeFromString(EDataType eDataType, String initialValue) {
-        Datatype result = Datatype.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-        return result;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String convertDatatypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 
