@@ -177,8 +177,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/SumIndicator/datatype"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/CompositeIndicator">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CompositeIndicator/indicators"/>
+        <genOperations ecoreOperation="dataquality.ecore#//indicators/CompositeIndicator/getChildIndicators"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/RangeIndicator">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -254,7 +253,11 @@
         <genOperations ecoreOperation="dataquality.ecore#//indicators/DuplicateCountIndicator/getDuplicateValues"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/IQRIndicator"/>
-      <genClasses ecoreClass="dataquality.ecore#//indicators/TextIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/TextIndicator">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/TextIndicator/averageLengthIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/TextIndicator/maxLengthIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/TextIndicator/MinLengthIndicator"/>
+      </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MinLengthIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MaxLengthIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/AverageLengthIndicator">
@@ -272,6 +275,14 @@
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/LowerQuartileIndicator"/>
       <genClasses ecoreClass="dataquality.ecore#//indicators/UpperQuartileIndicator"/>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/CountsIndicator">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/blankCountIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/RowCountIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/NullCountIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/UniqueCountIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/distinctCountIndicator"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/duplicateCountIndicator"/>
+      </genClasses>
       <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">
         <genClasses ecoreClass="dataquality.ecore#//indicators/schema/SchemaIndicator">
@@ -281,6 +292,7 @@
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/viewCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/triggerCount"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/SchemaIndicator/totalRowCount"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/schema/SchemaIndicator/tableIndicators"/>
           <genOperations ecoreOperation="dataquality.ecore#//indicators/schema/SchemaIndicator/addTableIndicator">
             <genParameters ecoreParameter="dataquality.ecore#//indicators/schema/SchemaIndicator/addTableIndicator/tableIndicator"/>
           </genOperations>
@@ -289,6 +301,7 @@
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/schema/TableIndicator/rowCount"/>
         </genClasses>
         <genClasses ecoreClass="dataquality.ecore#//indicators/schema/ConnectionIndicator">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/schema/ConnectionIndicator/schemaIndicators"/>
           <genOperations ecoreOperation="dataquality.ecore#//indicators/schema/ConnectionIndicator/addSchemaIndicator">
             <genParameters ecoreParameter="dataquality.ecore#//indicators/schema/ConnectionIndicator/addSchemaIndicator/schemaIndicator"/>
           </genOperations>

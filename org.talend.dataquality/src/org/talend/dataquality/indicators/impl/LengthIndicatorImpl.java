@@ -27,7 +27,7 @@ import org.talend.dataquality.indicators.LengthIndicator;
  *
  * @generated
  */
-public class LengthIndicatorImpl extends TextIndicatorImpl implements LengthIndicator {
+public class LengthIndicatorImpl extends IndicatorImpl implements LengthIndicator {
 
     /**
      * The default value of the '{@link #getLength() <em>Length</em>}' attribute.

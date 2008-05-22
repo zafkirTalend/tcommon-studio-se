@@ -278,6 +278,15 @@ public interface IndicatorsFactory extends EFactory {
     UpperQuartileIndicator createUpperQuartileIndicator();
 
     /**
+     * Returns a new object of class '<em>Counts Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Counts Indicator</em>'.
+     * @generated
+     */
+    CountsIndicator createCountsIndicator();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

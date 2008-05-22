@@ -25,7 +25,7 @@ import java.math.BigInteger;
  * @model
  * @generated
  */
-public interface BlankCountIndicator extends TextIndicator {
+public interface BlankCountIndicator extends Indicator {
     /**
      * Returns the value of the '<em><b>Blank Count</b></em>' attribute.
      * The default value is <code>"0"</code>.

@@ -1357,22 +1357,13 @@ public interface IndicatorsPackage extends EPackage {
     int COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPOSITE_INDICATOR__INDICATORS = INDICATOR_FEATURE_COUNT + 0;
-
-    /**
      * The number of structural features of the '<em>Composite Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPOSITE_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 1;
+    int COMPOSITE_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.RangeIndicatorImpl <em>Range Indicator</em>}' class.
@@ -1617,15 +1608,6 @@ public interface IndicatorsPackage extends EPackage {
      * @ordered
      */
     int RANGE_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
-
-    /**
-     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int RANGE_INDICATOR__INDICATORS = COMPOSITE_INDICATOR__INDICATORS;
 
     /**
      * The feature id for the '<em><b>Lower Value</b></em>' reference.
@@ -1917,15 +1899,6 @@ public interface IndicatorsPackage extends EPackage {
     int BOX_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int BOX_INDICATOR__INDICATORS = COMPOSITE_INDICATOR__INDICATORS;
-
-    /**
      * The feature id for the '<em><b>IQR</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2215,15 +2188,6 @@ public interface IndicatorsPackage extends EPackage {
     int FREQUENCY_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__INDICATORS = COMPOSITE_INDICATOR__INDICATORS;
-
-    /**
      * The feature id for the '<em><b>Unique Values</b></em>' attribute list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2324,249 +2288,6 @@ public interface IndicatorsPackage extends EPackage {
     int TEXT_INDICATOR = 20;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__NAME = INDICATOR__NAME;
-
-    /**
-     * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
-
-    /**
-     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
-
-    /**
-     * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
-
-    /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
-
-    /**
-     * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
-
-    /**
-     * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
-
-    /**
-     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
-
-    /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
-
-    /**
-     * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__SET = INDICATOR__SET;
-
-    /**
-     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
-
-    /**
-     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
-
-    /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
-
-    /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__COUNT = INDICATOR__COUNT;
-
-    /**
-     * The feature id for the '<em><b>Null Count</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
-
-    /**
-     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
-
-    /**
-     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
-
-    /**
-     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
-
-    /**
-     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
-
-    /**
-     * The number of structural features of the '<em>Text Indicator</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEXT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.BlankCountIndicatorImpl <em>Blank Count Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2583,7 +2304,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__NAME = TEXT_INDICATOR__NAME;
+    int BLANK_COUNT_INDICATOR__NAME = INDICATOR__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -2592,7 +2313,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__VISIBILITY = TEXT_INDICATOR__VISIBILITY;
+    int BLANK_COUNT_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -2601,7 +2322,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__CLIENT_DEPENDENCY = TEXT_INDICATOR__CLIENT_DEPENDENCY;
+    int BLANK_COUNT_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -2610,7 +2331,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__SUPPLIER_DEPENDENCY = TEXT_INDICATOR__SUPPLIER_DEPENDENCY;
+    int BLANK_COUNT_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -2619,7 +2340,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__CONSTRAINT = TEXT_INDICATOR__CONSTRAINT;
+    int BLANK_COUNT_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -2628,7 +2349,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__NAMESPACE = TEXT_INDICATOR__NAMESPACE;
+    int BLANK_COUNT_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -2637,7 +2358,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__IMPORTER = TEXT_INDICATOR__IMPORTER;
+    int BLANK_COUNT_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -2646,7 +2367,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__STEREOTYPE = TEXT_INDICATOR__STEREOTYPE;
+    int BLANK_COUNT_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -2655,7 +2376,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__TAGGED_VALUE = TEXT_INDICATOR__TAGGED_VALUE;
+    int BLANK_COUNT_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -2664,7 +2385,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__DOCUMENT = TEXT_INDICATOR__DOCUMENT;
+    int BLANK_COUNT_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -2673,7 +2394,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__DESCRIPTION = TEXT_INDICATOR__DESCRIPTION;
+    int BLANK_COUNT_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -2682,7 +2403,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__RESPONSIBLE_PARTY = TEXT_INDICATOR__RESPONSIBLE_PARTY;
+    int BLANK_COUNT_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -2691,7 +2412,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__ELEMENT_NODE = TEXT_INDICATOR__ELEMENT_NODE;
+    int BLANK_COUNT_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -2700,7 +2421,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__SET = TEXT_INDICATOR__SET;
+    int BLANK_COUNT_INDICATOR__SET = INDICATOR__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -2709,7 +2430,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__RENDERED_OBJECT = TEXT_INDICATOR__RENDERED_OBJECT;
+    int BLANK_COUNT_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -2718,7 +2439,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__VOCABULARY_ELEMENT = TEXT_INDICATOR__VOCABULARY_ELEMENT;
+    int BLANK_COUNT_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -2727,7 +2448,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__MEASUREMENT = TEXT_INDICATOR__MEASUREMENT;
+    int BLANK_COUNT_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -2736,7 +2457,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__CHANGE_REQUEST = TEXT_INDICATOR__CHANGE_REQUEST;
+    int BLANK_COUNT_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -2745,7 +2466,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__DASDL_PROPERTY = TEXT_INDICATOR__DASDL_PROPERTY;
+    int BLANK_COUNT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2754,7 +2475,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__COUNT = TEXT_INDICATOR__COUNT;
+    int BLANK_COUNT_INDICATOR__COUNT = INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -2763,7 +2484,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__NULL_COUNT = TEXT_INDICATOR__NULL_COUNT;
+    int BLANK_COUNT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -2772,7 +2493,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__PARAMETERS = TEXT_INDICATOR__PARAMETERS;
+    int BLANK_COUNT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -2781,7 +2502,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__ANALYZED_ELEMENT = TEXT_INDICATOR__ANALYZED_ELEMENT;
+    int BLANK_COUNT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
@@ -2790,7 +2511,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__DATAMINING_TYPE = TEXT_INDICATOR__DATAMINING_TYPE;
+    int BLANK_COUNT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
@@ -2799,7 +2520,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__INDICATOR_DEFINITION = TEXT_INDICATOR__INDICATOR_DEFINITION;
+    int BLANK_COUNT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
@@ -2808,7 +2529,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__INSTANTIATED_EXPRESSIONS = TEXT_INDICATOR__INSTANTIATED_EXPRESSIONS;
+    int BLANK_COUNT_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
      * The feature id for the '<em><b>Blank Count</b></em>' attribute.
@@ -2817,7 +2538,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR__BLANK_COUNT = TEXT_INDICATOR_FEATURE_COUNT + 0;
+    int BLANK_COUNT_INDICATOR__BLANK_COUNT = INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Blank Count Indicator</em>' class.
@@ -2826,7 +2547,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int BLANK_COUNT_INDICATOR_FEATURE_COUNT = TEXT_INDICATOR_FEATURE_COUNT + 1;
+    int BLANK_COUNT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl <em>Indicator Parameters</em>}' class.
@@ -5522,15 +5243,6 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR__INSTANTIATED_EXPRESSIONS = RANGE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
-     * The feature id for the '<em><b>Indicators</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IQR_INDICATOR__INDICATORS = RANGE_INDICATOR__INDICATORS;
-
-    /**
      * The feature id for the '<em><b>Lower Value</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5576,6 +5288,276 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR_FEATURE_COUNT = RANGE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__NAME = INDICATOR__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__SET = INDICATOR__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
+     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
+
+    /**
+     * The feature id for the '<em><b>Average Length Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Max Length Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__MAX_LENGTH_INDICATOR = INDICATOR_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Min Length Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR__MIN_LENGTH_INDICATOR = INDICATOR_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Text Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEXT_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 3;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.LengthIndicatorImpl <em>Length Indicator</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5592,7 +5574,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__NAME = TEXT_INDICATOR__NAME;
+    int LENGTH_INDICATOR__NAME = INDICATOR__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -5601,7 +5583,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__VISIBILITY = TEXT_INDICATOR__VISIBILITY;
+    int LENGTH_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -5610,7 +5592,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__CLIENT_DEPENDENCY = TEXT_INDICATOR__CLIENT_DEPENDENCY;
+    int LENGTH_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -5619,7 +5601,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__SUPPLIER_DEPENDENCY = TEXT_INDICATOR__SUPPLIER_DEPENDENCY;
+    int LENGTH_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -5628,7 +5610,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__CONSTRAINT = TEXT_INDICATOR__CONSTRAINT;
+    int LENGTH_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -5637,7 +5619,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__NAMESPACE = TEXT_INDICATOR__NAMESPACE;
+    int LENGTH_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -5646,7 +5628,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__IMPORTER = TEXT_INDICATOR__IMPORTER;
+    int LENGTH_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -5655,7 +5637,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__STEREOTYPE = TEXT_INDICATOR__STEREOTYPE;
+    int LENGTH_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -5664,7 +5646,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__TAGGED_VALUE = TEXT_INDICATOR__TAGGED_VALUE;
+    int LENGTH_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -5673,7 +5655,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__DOCUMENT = TEXT_INDICATOR__DOCUMENT;
+    int LENGTH_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -5682,7 +5664,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__DESCRIPTION = TEXT_INDICATOR__DESCRIPTION;
+    int LENGTH_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -5691,7 +5673,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__RESPONSIBLE_PARTY = TEXT_INDICATOR__RESPONSIBLE_PARTY;
+    int LENGTH_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -5700,7 +5682,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__ELEMENT_NODE = TEXT_INDICATOR__ELEMENT_NODE;
+    int LENGTH_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -5709,7 +5691,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__SET = TEXT_INDICATOR__SET;
+    int LENGTH_INDICATOR__SET = INDICATOR__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -5718,7 +5700,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__RENDERED_OBJECT = TEXT_INDICATOR__RENDERED_OBJECT;
+    int LENGTH_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -5727,7 +5709,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__VOCABULARY_ELEMENT = TEXT_INDICATOR__VOCABULARY_ELEMENT;
+    int LENGTH_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -5736,7 +5718,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__MEASUREMENT = TEXT_INDICATOR__MEASUREMENT;
+    int LENGTH_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -5745,7 +5727,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__CHANGE_REQUEST = TEXT_INDICATOR__CHANGE_REQUEST;
+    int LENGTH_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -5754,7 +5736,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__DASDL_PROPERTY = TEXT_INDICATOR__DASDL_PROPERTY;
+    int LENGTH_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -5763,7 +5745,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__COUNT = TEXT_INDICATOR__COUNT;
+    int LENGTH_INDICATOR__COUNT = INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -5772,7 +5754,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__NULL_COUNT = TEXT_INDICATOR__NULL_COUNT;
+    int LENGTH_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -5781,7 +5763,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__PARAMETERS = TEXT_INDICATOR__PARAMETERS;
+    int LENGTH_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -5790,7 +5772,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__ANALYZED_ELEMENT = TEXT_INDICATOR__ANALYZED_ELEMENT;
+    int LENGTH_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
@@ -5799,7 +5781,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__DATAMINING_TYPE = TEXT_INDICATOR__DATAMINING_TYPE;
+    int LENGTH_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
@@ -5808,7 +5790,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__INDICATOR_DEFINITION = TEXT_INDICATOR__INDICATOR_DEFINITION;
+    int LENGTH_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
@@ -5817,7 +5799,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__INSTANTIATED_EXPRESSIONS = TEXT_INDICATOR__INSTANTIATED_EXPRESSIONS;
+    int LENGTH_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
@@ -5826,7 +5808,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR__LENGTH = TEXT_INDICATOR_FEATURE_COUNT + 0;
+    int LENGTH_INDICATOR__LENGTH = INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Length Indicator</em>' class.
@@ -5835,7 +5817,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LENGTH_INDICATOR_FEATURE_COUNT = TEXT_INDICATOR_FEATURE_COUNT + 1;
+    int LENGTH_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.MinLengthIndicatorImpl <em>Min Length Indicator</em>}' class.
@@ -7230,6 +7212,313 @@ public interface IndicatorsPackage extends EPackage {
     int UPPER_QUARTILE_INDICATOR_FEATURE_COUNT = MAX_VALUE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.CountsIndicatorImpl <em>Counts Indicator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.CountsIndicatorImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getCountsIndicator()
+     * @generated
+     */
+    int COUNTS_INDICATOR = 28;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__NAME = INDICATOR__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__SET = INDICATOR__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__COUNT = INDICATOR__COUNT;
+
+    /**
+     * The feature id for the '<em><b>Null Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
+
+    /**
+     * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
+
+    /**
+     * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
+
+    /**
+     * The feature id for the '<em><b>Blank Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__BLANK_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Row Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__ROW_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Null Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__NULL_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Unique Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Distinct Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Duplicate Count Indicator</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR = INDICATOR_FEATURE_COUNT + 5;
+
+    /**
+     * The number of structural features of the '<em>Counts Indicator</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COUNTS_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 6;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7237,7 +7526,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 28;
+    int ENUM_STATISTICS = 29;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -7247,7 +7536,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 29;
+    int DATAMINING_TYPE = 30;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
@@ -7257,7 +7546,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
      * @generated
      */
-    int DATE_GRAIN = 30;
+    int DATE_GRAIN = 31;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
@@ -7267,7 +7556,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
      * @generated
      */
-    int MATCHING_ALGORITHM = 31;
+    int MATCHING_ALGORITHM = 32;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}' enum.
@@ -7277,7 +7566,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorValueType()
      * @generated
      */
-    int INDICATOR_VALUE_TYPE = 32;
+    int INDICATOR_VALUE_TYPE = 33;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -7287,7 +7576,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 33;
+    int JAVA_SET = 34;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -7297,7 +7586,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 34;
+    int JAVA_HASH_MAP = 35;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -7307,7 +7596,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 35;
+    int JAVA_TREE_MAP = 36;
 
     /**
      * The meta object id for the '<em>Object Array</em>' data type.
@@ -7316,7 +7605,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getObjectArray()
      * @generated
      */
-    int OBJECT_ARRAY = 36;
+    int OBJECT_ARRAY = 37;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -7466,17 +7755,6 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EClass getCompositeIndicator();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link org.talend.dataquality.indicators.CompositeIndicator#getIndicators <em>Indicators</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Indicators</em>'.
-     * @see org.talend.dataquality.indicators.CompositeIndicator#getIndicators()
-     * @see #getCompositeIndicator()
-     * @generated
-     */
-    EReference getCompositeIndicator_Indicators();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.RangeIndicator <em>Range Indicator</em>}'.
@@ -7980,6 +8258,39 @@ public interface IndicatorsPackage extends EPackage {
     EClass getTextIndicator();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.TextIndicator#getAverageLengthIndicator <em>Average Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Average Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.TextIndicator#getAverageLengthIndicator()
+     * @see #getTextIndicator()
+     * @generated
+     */
+    EReference getTextIndicator_AverageLengthIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.TextIndicator#getMaxLengthIndicator <em>Max Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Max Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.TextIndicator#getMaxLengthIndicator()
+     * @see #getTextIndicator()
+     * @generated
+     */
+    EReference getTextIndicator_MaxLengthIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.TextIndicator#getMinLengthIndicator <em>Min Length Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Min Length Indicator</em>'.
+     * @see org.talend.dataquality.indicators.TextIndicator#getMinLengthIndicator()
+     * @see #getTextIndicator()
+     * @generated
+     */
+    EReference getTextIndicator_MinLengthIndicator();
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.MinLengthIndicator <em>Min Length Indicator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8114,6 +8425,82 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EClass getUpperQuartileIndicator();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.CountsIndicator <em>Counts Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Counts Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator
+     * @generated
+     */
+    EClass getCountsIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.CountsIndicator#getBlankCountIndicator <em>Blank Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Blank Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator#getBlankCountIndicator()
+     * @see #getCountsIndicator()
+     * @generated
+     */
+    EReference getCountsIndicator_BlankCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.CountsIndicator#getRowCountIndicator <em>Row Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Row Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator#getRowCountIndicator()
+     * @see #getCountsIndicator()
+     * @generated
+     */
+    EReference getCountsIndicator_RowCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.CountsIndicator#getNullCountIndicator <em>Null Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Null Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator#getNullCountIndicator()
+     * @see #getCountsIndicator()
+     * @generated
+     */
+    EReference getCountsIndicator_NullCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.CountsIndicator#getUniqueCountIndicator <em>Unique Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Unique Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator#getUniqueCountIndicator()
+     * @see #getCountsIndicator()
+     * @generated
+     */
+    EReference getCountsIndicator_UniqueCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.CountsIndicator#getDistinctCountIndicator <em>Distinct Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Distinct Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator#getDistinctCountIndicator()
+     * @see #getCountsIndicator()
+     * @generated
+     */
+    EReference getCountsIndicator_DistinctCountIndicator();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.CountsIndicator#getDuplicateCountIndicator <em>Duplicate Count Indicator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Duplicate Count Indicator</em>'.
+     * @see org.talend.dataquality.indicators.CountsIndicator#getDuplicateCountIndicator()
+     * @see #getCountsIndicator()
+     * @generated
+     */
+    EReference getCountsIndicator_DuplicateCountIndicator();
 
     /**
      * Returns the meta object for enum '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}'.
@@ -8351,14 +8738,6 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EClass COMPOSITE_INDICATOR = eINSTANCE.getCompositeIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Indicators</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference COMPOSITE_INDICATOR__INDICATORS = eINSTANCE.getCompositeIndicator_Indicators();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.RangeIndicatorImpl <em>Range Indicator</em>}' class.
@@ -8769,6 +9148,30 @@ public interface IndicatorsPackage extends EPackage {
         EClass TEXT_INDICATOR = eINSTANCE.getTextIndicator();
 
         /**
+         * The meta object literal for the '<em><b>Average Length Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference TEXT_INDICATOR__AVERAGE_LENGTH_INDICATOR = eINSTANCE.getTextIndicator_AverageLengthIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Max Length Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference TEXT_INDICATOR__MAX_LENGTH_INDICATOR = eINSTANCE.getTextIndicator_MaxLengthIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Min Length Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference TEXT_INDICATOR__MIN_LENGTH_INDICATOR = eINSTANCE.getTextIndicator_MinLengthIndicator();
+
+        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MinLengthIndicatorImpl <em>Min Length Indicator</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -8885,6 +9288,64 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EClass UPPER_QUARTILE_INDICATOR = eINSTANCE.getUpperQuartileIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.CountsIndicatorImpl <em>Counts Indicator</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.CountsIndicatorImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getCountsIndicator()
+         * @generated
+         */
+        EClass COUNTS_INDICATOR = eINSTANCE.getCountsIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Blank Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COUNTS_INDICATOR__BLANK_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_BlankCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Row Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COUNTS_INDICATOR__ROW_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_RowCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Null Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COUNTS_INDICATOR__NULL_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_NullCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Unique Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COUNTS_INDICATOR__UNIQUE_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_UniqueCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Distinct Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COUNTS_INDICATOR__DISTINCT_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_DistinctCountIndicator();
+
+        /**
+         * The meta object literal for the '<em><b>Duplicate Count Indicator</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_DuplicateCountIndicator();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.

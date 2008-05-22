@@ -297,6 +297,15 @@ public class SchemaPackageImpl extends EPackageImpl implements SchemaPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getSchemaIndicator_TableIndicators() {
+        return (EReference)schemaIndicatorEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getTableIndicator() {
         return tableIndicatorEClass;
     }
@@ -317,6 +326,15 @@ public class SchemaPackageImpl extends EPackageImpl implements SchemaPackage {
      */
     public EClass getConnectionIndicator() {
         return connectionIndicatorEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConnectionIndicator_SchemaIndicators() {
+        return (EReference)connectionIndicatorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -399,11 +417,13 @@ public class SchemaPackageImpl extends EPackageImpl implements SchemaPackage {
         createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__VIEW_COUNT);
         createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__TRIGGER_COUNT);
         createEAttribute(schemaIndicatorEClass, SCHEMA_INDICATOR__TOTAL_ROW_COUNT);
+        createEReference(schemaIndicatorEClass, SCHEMA_INDICATOR__TABLE_INDICATORS);
 
         tableIndicatorEClass = createEClass(TABLE_INDICATOR);
         createEAttribute(tableIndicatorEClass, TABLE_INDICATOR__ROW_COUNT);
 
         connectionIndicatorEClass = createEClass(CONNECTION_INDICATOR);
+        createEReference(connectionIndicatorEClass, CONNECTION_INDICATOR__SCHEMA_INDICATORS);
     }
 
     /**
@@ -449,6 +469,7 @@ public class SchemaPackageImpl extends EPackageImpl implements SchemaPackage {
         initEAttribute(getSchemaIndicator_ViewCount(), ecorePackage.getEInt(), "viewCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSchemaIndicator_TriggerCount(), ecorePackage.getEInt(), "triggerCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSchemaIndicator_TotalRowCount(), ecorePackage.getELong(), "totalRowCount", null, 0, 1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSchemaIndicator_TableIndicators(), this.getTableIndicator(), null, "tableIndicators", null, 0, -1, SchemaIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         EOperation op = addEOperation(schemaIndicatorEClass, ecorePackage.getEBoolean(), "addTableIndicator", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, this.getTableIndicator(), "tableIndicator", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -457,6 +478,7 @@ public class SchemaPackageImpl extends EPackageImpl implements SchemaPackage {
         initEAttribute(getTableIndicator_RowCount(), ecorePackage.getELong(), "rowCount", null, 0, 1, TableIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionIndicatorEClass, ConnectionIndicator.class, "ConnectionIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getConnectionIndicator_SchemaIndicators(), this.getSchemaIndicator(), null, "schemaIndicators", null, 0, -1, ConnectionIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         op = addEOperation(connectionIndicatorEClass, ecorePackage.getEBoolean(), "addSchemaIndicator", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, this.getSchemaIndicator(), "schemaIndicator", 0, 1, IS_UNIQUE, IS_ORDERED);

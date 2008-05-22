@@ -180,8 +180,7 @@
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeIndicator" eSuperTypes="#//indicators/Indicator">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="indicators" upperBound="-1"
-          eType="#//indicators/Indicator" containment="true"/>
+      <eOperations name="getChildIndicators" upperBound="-1" eType="#//indicators/Indicator"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RangeIndicator" eSuperTypes="#//indicators/CompositeIndicator">
       <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" eType="#//indicators/MinValueIndicator"/>
@@ -233,7 +232,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateCountIndicator"
           eType="#//indicators/DuplicateCountIndicator" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="BlankCountIndicator" eSuperTypes="#//indicators/TextIndicator">
+    <eClassifiers xsi:type="ecore:EClass" name="BlankCountIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="blankCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"
           defaultValueLiteral="0"/>
     </eClassifiers>
@@ -350,7 +349,14 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IQRIndicator" eSuperTypes="#//indicators/RangeIndicator"/>
-    <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/Indicator"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TextIndicator" eSuperTypes="#//indicators/Indicator">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="averageLengthIndicator"
+          eType="#//indicators/AverageLengthIndicator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="maxLengthIndicator" eType="#//indicators/MaxLengthIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="MinLengthIndicator" eType="#//indicators/MinLengthIndicator"
+          containment="true"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MinLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="MaxLengthIndicator" eSuperTypes="#//indicators/LengthIndicator"/>
     <eClassifiers xsi:type="ecore:EClass" name="AverageLengthIndicator" eSuperTypes="#//indicators/LengthIndicator">
@@ -358,7 +364,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"
           defaultValueLiteral="0"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LengthIndicator" eSuperTypes="#//indicators/TextIndicator">
+    <eClassifiers xsi:type="ecore:EClass" name="LengthIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="DateGrain">
@@ -406,6 +412,20 @@
         </eAnnotations>
       </eLiterals>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CountsIndicator" eSuperTypes="#//indicators/Indicator">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blankCountIndicator"
+          eType="#//indicators/BlankCountIndicator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="RowCountIndicator" eType="#//indicators/RowCountIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="NullCountIndicator" eType="#//indicators/NullCountIndicator"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="UniqueCountIndicator"
+          eType="#//indicators/UniqueCountIndicator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="distinctCountIndicator"
+          eType="#//indicators/DistinctCountIndicator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateCountIndicator"
+          eType="#//indicators/DuplicateCountIndicator" containment="true"/>
+    </eClassifiers>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eOperations name="addTableIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -417,6 +437,8 @@
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="triggerCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="tableIndicators" upperBound="-1"
+            eType="#//indicators/schema/TableIndicator" containment="true"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="TableIndicator" eSuperTypes="#//indicators/CompositeIndicator">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="rowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -425,6 +447,8 @@
         <eOperations name="addSchemaIndicator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
           <eParameters name="schemaIndicator" eType="#//indicators/schema/SchemaIndicator"/>
         </eOperations>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="schemaIndicators" upperBound="-1"
+            eType="#//indicators/schema/SchemaIndicator" containment="true"/>
       </eClassifiers>
     </eSubpackages>
     <eSubpackages name="definition" nsURI="http://dataquality.indicators.definition"

@@ -5,9 +5,15 @@
  */
 package org.talend.dataquality.indicators.schema.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.impl.CompositeIndicatorImpl;
 import org.talend.dataquality.indicators.schema.SchemaIndicator;
@@ -25,6 +31,7 @@ import org.talend.dataquality.indicators.schema.TableIndicator;
  *   <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getViewCount <em>View Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTriggerCount <em>Trigger Count</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTotalRowCount <em>Total Row Count</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.schema.impl.SchemaIndicatorImpl#getTableIndicators <em>Table Indicators</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,6 +160,15 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
     protected long totalRowCount = TOTAL_ROW_COUNT_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getTableIndicators() <em>Table Indicators</em>}' containment reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see #getTableIndicators()
+     * @generated
+     * @ordered
+     */
+    protected EList<TableIndicator> tableIndicators;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -190,11 +206,35 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<TableIndicator> getTableIndicators() {
+        if (tableIndicators == null) {
+            tableIndicators = new EObjectContainmentEList<TableIndicator>(TableIndicator.class, this, SchemaPackage.SCHEMA_INDICATOR__TABLE_INDICATORS);
+        }
+        return tableIndicators;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated NOT
      */
     public boolean addTableIndicator(TableIndicator tableIndicator) {
-        return this.getIndicators().add(tableIndicator);
+        return this.getTableIndicators().add(tableIndicator);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case SchemaPackage.SCHEMA_INDICATOR__TABLE_INDICATORS:
+                return ((InternalEList<?>)getTableIndicators()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
@@ -311,6 +351,8 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
                 return new Integer(getTriggerCount());
             case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
                 return new Long(getTotalRowCount());
+            case SchemaPackage.SCHEMA_INDICATOR__TABLE_INDICATORS:
+                return getTableIndicators();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -341,6 +383,10 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
             case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
                 setTotalRowCount(((Long)newValue).longValue());
                 return;
+            case SchemaPackage.SCHEMA_INDICATOR__TABLE_INDICATORS:
+                getTableIndicators().clear();
+                getTableIndicators().addAll((Collection<? extends TableIndicator>)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -370,6 +416,9 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
             case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
                 setTotalRowCount(TOTAL_ROW_COUNT_EDEFAULT);
                 return;
+            case SchemaPackage.SCHEMA_INDICATOR__TABLE_INDICATORS:
+                getTableIndicators().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -393,6 +442,8 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
                 return triggerCount != TRIGGER_COUNT_EDEFAULT;
             case SchemaPackage.SCHEMA_INDICATOR__TOTAL_ROW_COUNT:
                 return totalRowCount != TOTAL_ROW_COUNT_EDEFAULT;
+            case SchemaPackage.SCHEMA_INDICATOR__TABLE_INDICATORS:
+                return tableIndicators != null && !tableIndicators.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -436,7 +487,7 @@ public class SchemaIndicatorImpl extends CompositeIndicatorImpl implements Schem
         this.indexCount = INDEX_COUNT_EDEFAULT;
         this.totalRowCount = TOTAL_ROW_COUNT_EDEFAULT;
         this.triggerCount = TRIGGER_COUNT_EDEFAULT;
-        for (Indicator ind : this.getIndicators()) {
+        for (Indicator ind : this.getTableIndicators()) {
             if (ind != null) {
                 ind.reset();
             }

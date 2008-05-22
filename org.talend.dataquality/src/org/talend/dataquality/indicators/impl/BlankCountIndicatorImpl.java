@@ -28,7 +28,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  *
  * @generated
  */
-public class BlankCountIndicatorImpl extends TextIndicatorImpl implements BlankCountIndicator {
+public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCountIndicator {
 
     private static Logger log = Logger.getLogger(BlankCountIndicatorImpl.class);
 

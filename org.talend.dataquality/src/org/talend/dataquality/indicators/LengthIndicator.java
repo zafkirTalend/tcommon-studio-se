@@ -25,7 +25,7 @@ import java.math.BigInteger;
  * @model
  * @generated
  */
-public interface LengthIndicator extends TextIndicator {
+public interface LengthIndicator extends Indicator {
     /**
      * Returns the value of the '<em><b>Length</b></em>' attribute.
      * <!-- begin-user-doc -->
