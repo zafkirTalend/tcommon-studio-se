@@ -14,12 +14,14 @@ package org.talend.core.model.metadata;
 
 import java.util.List;
 
+import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
  * qzhang class global comment. Detailled comment <br/>
@@ -30,6 +32,12 @@ public class QueryUtil {
     public static final String DEFAULT_TABLE_NAME = "_MyTable_";
 
     public static final String CONTEXT = "context";
+
+    private static final String ENTER = "\n";
+
+    private static final String SPACE = " ";
+
+    private static final String CON = TalendTextUtils.getStringConnect();
 
     public static boolean isContextQuery = false;
 
@@ -66,39 +74,54 @@ public class QueryUtil {
             return "";
         }
 
-        StringBuffer query = new StringBuffer();
-        String enter = "\n";
-        String space = " ";
-        query.append("SELECT").append(space);
+        isContextQuery = false;
+        if (isContext(tableName)) {
+            isContextQuery = true;
+        }
 
-        String tableNameForColumnSuffix = TalendTextUtils.addQuotesWithSpaceFieldForSQLString(tableName, dbType) + ".";
-
+        String columnsQuery = "";
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
             String columnName = TalendTextUtils.addQuotesWithSpaceFieldForSQLString(metaDataColumn.getOriginalDbColumnName(),
-                    dbType);
-            if (i != index - 1) {
-                query.append(tableNameForColumnSuffix).append(columnName).append(",").append(space);
-            } else {
-                query.append(tableNameForColumnSuffix).append(columnName).append(space);
+                    dbType, true);
+            if (!isContainDeclareString(columnName, TalendTextUtils.getStringDeclare())) {
+                columnName = TalendTextUtils.declareString(columnName);
             }
+            String columnStr = columnName;
+
+            if (i != index - 1) {
+                columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE));
+            }
+            String declareString = TalendTextUtils.declareString("/");
+            if (standardSyntax) {
+                declareString = TalendTextUtils.declareString(".");
+            }
+            columnStr = checkAndConcatString(declareString, columnStr);
+            columnStr = checkAndConcatString(tableName, columnStr);
+
+            if ("".equals(columnsQuery.trim())) {
+                columnsQuery = columnStr;
+            } else {
+                columnsQuery = checkAndConcatString(columnsQuery, columnStr);
+            }
+
         }
-        query.append(enter).append("FROM").append(space).append(
-                TalendTextUtils.addQuotesWithSpaceFieldForSQLString(tableName, dbType));
-        if (!standardSyntax) {
-            return query.toString().replace(".", "/");
-        } else {
-            return query.toString();
-        }
+
+        String query = TalendTextUtils.declareString("SELECT ");
+        String end = ENTER
+                + CON
+                + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils
+                        .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
+
+        end = replaceTheSchemaString(end);
+
+        query = checkAndConcatString(query, columnsQuery) + end;
+
+        return query;
     }
 
     public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType,
             final String tableNameWithQuoteIfNeed) {
-
-        String con = TalendTextUtils.getStringConnect();
-
-        isContextQuery = false;
-
         if (repositoryMetadata == null) {
             return "";
         }
@@ -109,48 +132,60 @@ public class QueryUtil {
             return "";
         }
 
-        StringBuffer query = new StringBuffer();
-        String enter = "\n";
-        String space = " ";
-
-        if (tableNameWithQuoteIfNeed.indexOf(QueryUtil.CONTEXT) != -1) {
+        isContextQuery = false;
+        if (isContext(tableNameWithQuoteIfNeed)) {
             isContextQuery = true;
-            query.append(TalendTextUtils.declareString("SELECT ")).append(con);
-
-            String tableNameForColumnSuffix = tableNameWithQuoteIfNeed + con + TalendTextUtils.declareString(".") + con;
-
-            for (int i = 0; i < metaDataColumnList.size(); i++) {
-                IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
-                String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
-                if (i != index - 1) {
-                    query.append(tableNameForColumnSuffix).append(columnName).append(con).append(
-                            TalendTextUtils.declareString(",")).append(con).append(space);
-                } else {
-                    query.append(tableNameForColumnSuffix).append(columnName).append(space);
-                }
-            }
-            query.append(enter).append(con).append(TalendTextUtils.declareString(" FROM ")).append(con).append(
-                    tableNameWithQuoteIfNeed);
-        } else {
-            query.append(TalendTextUtils.declareString("SELECT ")).append(con);
-
-            String tableNameForColumnSuffix = tableNameWithQuoteIfNeed + con + TalendTextUtils.declareString(".") + con;
-
-            for (int i = 0; i < metaDataColumnList.size(); i++) {
-                IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
-                String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
-                if (i != index - 1) {
-                    query.append(tableNameForColumnSuffix).append(columnName).append(con).append(
-                            TalendTextUtils.declareString(",")).append(con).append(space);
-                } else {
-                    query.append(tableNameForColumnSuffix).append(columnName).append(space);
-                }
-            }
-            query.append(enter).append(con).append(TalendTextUtils.declareString(" FROM ")).append(con).append(
-                    tableNameWithQuoteIfNeed);
         }
 
-        return query.toString();
+
+        String columnsQuery = "";
+
+        for (int i = 0; i < metaDataColumnList.size(); i++) {
+            IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
+            String columnName = quoteStringValue(metaDataColumn.getOriginalDbColumnName(), dbType);
+
+            String columnStr = columnName;
+
+            if (i != index - 1) {
+                columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE));
+            }
+
+            columnStr = checkAndConcatString(TalendTextUtils.declareString("."), columnStr);
+            columnStr = checkAndConcatString(tableNameWithQuoteIfNeed, columnStr);
+
+            if ("".equals(columnsQuery.trim())) {
+                columnsQuery = columnStr;
+            } else {
+                columnsQuery = checkAndConcatString(columnsQuery, columnStr);
+            }
+
+        }
+
+        String query = TalendTextUtils.declareString("SELECT ");
+        String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed);
+
+        end = replaceTheSchemaString(end);
+
+        query = checkAndConcatString(query, columnsQuery) + end;
+
+        return query;
+    }
+
+    /*
+     * if there is no schema in table string and not add quote, It's no effect.
+     */
+    private static String replaceTheSchemaString(String schema) {
+        if (schema == null) {
+            return null;
+        }
+        if (isContextQuery) {
+            boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+            if (!isCheck) {
+                String addStr = TalendTextUtils.getStringDeclare();
+                return schema.replaceFirst(addStr + "\\" + CON + addStr, "");
+            }
+        }
+        return schema;
     }
 
     public static String getTableName(Element node, IMetadataTable repositoryMetadata, String schema, String dbType,
@@ -187,6 +222,9 @@ public class QueryUtil {
                     }
                 } else {
                     currentTableName = dbTableName;
+                    if (null != currentTableName && !("".equals(currentTableName))) {
+                        flag = true;
+                    }
                 }
             }
         }
@@ -201,7 +239,7 @@ public class QueryUtil {
             currentTableName = getSchemaName(schema, dbType, currentTableName);
         } else {
             // If no schema, you also need to add quote to table name
-            if (currentTableName.indexOf(QueryUtil.CONTEXT) != -1) {
+            if (isContext(currentTableName)) {
                 currentTableName = quoteVariableRefrence(currentTableName, dbType);
             } else {
                 currentTableName = quoteStringValue(currentTableName, dbType);
@@ -212,37 +250,36 @@ public class QueryUtil {
     }
 
     private static String getSchemaName(String schema, String dbType, String currentTableName) {
-        String con = TalendTextUtils.getStringConnect();
-
+        String prefix;
+        String suffix;
         if (EDatabaseTypeName.getTypeFromDbType(dbType).isNeedSchema()) {
-
-            if (schema.indexOf(QueryUtil.CONTEXT) != -1) {
-                if (currentTableName.indexOf(QueryUtil.CONTEXT) != -1) {
-                    currentTableName = quoteVariableRefrence(schema, dbType) + con + TalendTextUtils.declareString(".") + con
-                            + quoteVariableRefrence(currentTableName, dbType);
+            if (isContext(schema)) {
+                if (isContext(currentTableName)) {
+                    prefix = checkAndConcatString(quoteVariableRefrence(schema, dbType), TalendTextUtils.declareString("."));
+                    suffix = quoteVariableRefrence(currentTableName, dbType);
                 } else {
-                    currentTableName = quoteVariableRefrence(schema, dbType) + con + TalendTextUtils.declareString(".") + con
-                            + quoteStringValue(currentTableName, dbType);
+                    prefix = quoteVariableRefrence(schema, dbType);
+                    suffix = checkAndConcatString(TalendTextUtils.declareString("."), quoteStringValue(currentTableName, dbType));
                 }
             } else {
-                if (currentTableName.indexOf(QueryUtil.CONTEXT) != -1) {
-                    currentTableName = quoteStringValue(schema, dbType) + con + TalendTextUtils.declareString(".") + con
-                            + quoteVariableRefrence(currentTableName, dbType);
+                prefix = checkAndConcatString(quoteStringValue(schema, dbType), TalendTextUtils.declareString("."));
+                if (isContext(currentTableName)) {
+                    suffix = quoteVariableRefrence(currentTableName, dbType);
                 } else {
-                    currentTableName = quoteStringValue(schema, dbType) + con + TalendTextUtils.declareString(".") + con
-                            + quoteStringValue(currentTableName, dbType);
+                    suffix = quoteStringValue(currentTableName, dbType);
                 }
             }
+            currentTableName = checkAndConcatString(prefix, suffix);
         }
         return currentTableName;
     }
 
     private static String quoteVariableRefrence(String ref, String dbType) {
-        return TalendTextUtils.addQuotesWithSpaceFieldForSQLStringForce(ref, dbType);
+        return TalendTextUtils.addQuotesWithSpaceFieldForSQLStringForce(ref, dbType, false);
     }
 
     private static String quoteStringValue(String value, String dbType) {
-        return TalendTextUtils.addQuotesWithSpaceFieldForSQLStringForce(TalendTextUtils.declareString(value), dbType);
+        return TalendTextUtils.addQuotesWithSpaceFieldForSQLStringForce(TalendTextUtils.declareString(value), dbType, true);
     }
 
     private static String getDbTableName(Element node) {
@@ -253,5 +290,39 @@ public class QueryUtil {
             }
         }
         return null;
+    }
+
+    private static String checkAndConcatString(String str1, String str2) {
+        if (str1 == null) {
+            str1 = "";
+        }
+        if (str2 == null) {
+            str2 = "";
+        }
+
+        String declareString = TalendTextUtils.getStringDeclare();
+
+        if (isContainDeclareString(str1, declareString) && isContainDeclareString(str2, declareString)) {
+            str1 = TalendTextUtils.removeQuotes(str1, declareString);
+            str2 = TalendTextUtils.removeQuotes(str2, declareString);
+
+            return declareString + str1 + str2 + declareString;
+        }
+        return str1 + CON + str2;
+
+    }
+
+    private static boolean isContainDeclareString(String str, String declareString) {
+        if (str == null || declareString == null) {
+            return false;
+        }
+        return str.startsWith(declareString) && str.endsWith(declareString);
+    }
+
+    private static boolean isContext(String str) {
+        if (str == null) {
+            return false;
+        }
+        return str.indexOf(QueryUtil.CONTEXT) != -1; // maybe, it's not exact
     }
 }

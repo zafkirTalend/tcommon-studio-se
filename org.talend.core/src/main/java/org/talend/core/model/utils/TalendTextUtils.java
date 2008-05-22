@@ -250,7 +250,7 @@ public class TalendTextUtils {
         return newFieldName;
     }
 
-    public static String addQuotesWithSpaceFieldForSQLString(String fieldName, String dbType) {
+    public static String addQuotesWithSpaceFieldForSQLString(String fieldName, String dbType, boolean simple) {
         if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
             return fieldName;
         }
@@ -269,12 +269,12 @@ public class TalendTextUtils {
         String newFieldName = fieldName;
         String quote = getQuoteByDBType(name);
         if (!newFieldName.contains(quote)) {
-            newFieldName = addQuotesForSQLString(newFieldName, quote);
+            newFieldName = addQuotesForSQLString(newFieldName, quote, simple);
         }
         return newFieldName;
     }
 
-    public static String addQuotesWithSpaceFieldForSQLStringForce(String fieldName, String dbType) {
+    public static String addQuotesWithSpaceFieldForSQLStringForce(String fieldName, String dbType, boolean simple) {
 
         boolean b = true;
         for (int i = 0; i < fieldName.length(); i++) {
@@ -290,27 +290,52 @@ public class TalendTextUtils {
         }
         String newFieldName = fieldName;
         String quote = getQuoteByDBType(name);
-        newFieldName = addQuotesForSQLString(newFieldName, quote);
+        newFieldName = addQuotesForSQLString(newFieldName, quote, simple);
         return newFieldName;
     }
 
-    private static String addQuotesForSQLString(String text, String quoteStyle) {
+    /**
+     * 
+     * ggu Comment method "addQuotesForSQLString".
+     * 
+     * if simple is true, the text should not be the context or variables.
+     */
+    private static String addQuotesForSQLString(String text, String quoteStyle, boolean simple) {
 
-        String con = isPerlProject() ? PERL_CONNECT_STRING : JAVA_CONNECT_STRING;
-
+        String con = getStringConnect();
         String newString;
+        if (simple) {
+            String declare = getStringDeclare();
+            text = removeQuotes(text, declare);
+        }
 
         if (quoteStyle.equals(SINGLE_QUOTE)) {
-            newString = declareString(SINGLE_QUOTE) + con + text + con + declareString(SINGLE_QUOTE);
+            if (simple) {
+                newString = declareString(SINGLE_QUOTE + text + SINGLE_QUOTE);
+            } else {
+                newString = declareString(SINGLE_QUOTE) + con + text + con + declareString(SINGLE_QUOTE);
+            }
         } else if (quoteStyle.equals(ANTI_QUOTE)) {
-            newString = declareString(ANTI_QUOTE) + con + text + con + declareString(ANTI_QUOTE);
+            if (simple) {
+                newString = declareString(ANTI_QUOTE + text + ANTI_QUOTE);
+            } else {
+                newString = declareString(ANTI_QUOTE) + con + text + con + declareString(ANTI_QUOTE);
+            }
         } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
-            newString = declareString(LBRACKET) + con + text + con + declareString(RBRACKET);
+            if (simple) {
+                newString = declareString(LBRACKET + text + RBRACKET);
+            } else {
+                newString = declareString(LBRACKET) + con + text + con + declareString(RBRACKET);
+            }
         } else {
             /*
              * quote is specific
              */
-            newString = declareString("\\" + QUOTATION_MARK) + con + text + con + declareString("\\" + QUOTATION_MARK);
+            if (simple) {
+                newString = declareString("\\" + QUOTATION_MARK + text + "\\" + QUOTATION_MARK);
+            } else {
+                newString = declareString("\\" + QUOTATION_MARK) + con + text + con + declareString("\\" + QUOTATION_MARK);
+            }
         }
         return newString;
     }
@@ -480,5 +505,9 @@ public class TalendTextUtils {
 
     public static String getStringConnect() {
         return isPerlProject() ? PERL_CONNECT_STRING : JAVA_CONNECT_STRING;
+    }
+
+    public static String getStringDeclare() {
+        return isPerlProject() ? PERL_DECLARE_STRING : JAVA_DECLARE_STRING;
     }
 }
