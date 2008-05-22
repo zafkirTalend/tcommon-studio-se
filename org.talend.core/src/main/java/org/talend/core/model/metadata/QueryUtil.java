@@ -108,14 +108,22 @@ public class QueryUtil {
         }
 
         String query = TalendTextUtils.declareString("SELECT ");
-        String end = ENTER
-                + CON
-                + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils
-                        .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
+        if (isContextQuery) { // new line
+            String end = ENTER
+                    + CON
+                    + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils
+                            .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
 
-        end = replaceTheSchemaString(end);
+            end = replaceTheSchemaString(end);
 
-        query = checkAndConcatString(query, columnsQuery) + end;
+            query = checkAndConcatString(query, columnsQuery) + end;
+        } else {
+            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils
+                    .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
+            end = replaceTheSchemaString(end);
+
+            query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
+        }
 
         return query;
     }
@@ -136,7 +144,6 @@ public class QueryUtil {
         if (isContext(tableNameWithQuoteIfNeed)) {
             isContextQuery = true;
         }
-
 
         String columnsQuery = "";
 
@@ -162,12 +169,19 @@ public class QueryUtil {
         }
 
         String query = TalendTextUtils.declareString("SELECT ");
-        String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed);
+        if (isContextQuery) { // new line
+            String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed);
 
-        end = replaceTheSchemaString(end);
+            end = replaceTheSchemaString(end);
 
-        query = checkAndConcatString(query, columnsQuery) + end;
+            query = checkAndConcatString(query, columnsQuery) + end;
+        } else {
+            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed);
 
+            end = replaceTheSchemaString(end);
+
+            query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
+        }
         return query;
     }
 
