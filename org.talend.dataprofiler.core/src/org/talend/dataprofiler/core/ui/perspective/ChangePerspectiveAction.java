@@ -19,6 +19,7 @@ import java.util.Set;
 
 import net.sourceforge.sqlexplorer.EDriverName;
 import net.sourceforge.sqlexplorer.ExplorerException;
+import net.sourceforge.sqlexplorer.IConstants;
 import net.sourceforge.sqlexplorer.dbproduct.Alias;
 import net.sourceforge.sqlexplorer.dbproduct.AliasManager;
 import net.sourceforge.sqlexplorer.dbproduct.ManagedDriver;
@@ -83,6 +84,13 @@ public class ChangePerspectiveAction extends Action {
                 CorePlugin.getDefault().getLog().log(status);
             }
         }
+        // activeData();
+    }
+
+    /**
+     * DOC qzhang Comment method "activeData".
+     */
+    public void activeData() {
         // PTODO qzhang switch to DB Discovery
         if (SE_ID.equals(perspectiveId)) {
             IPath location = ResourcesPlugin.getWorkspace().getRoot().getLocation();
@@ -99,16 +107,16 @@ public class ChangePerspectiveAction extends Action {
                 e1.printStackTrace();
             }
             for (TdDataProvider tdDataProvider : listTdDataProviders) {
+                TypedReturnCode<TdProviderConnection> tdPc = DataProviderHelper.getTdProviderConnection(tdDataProvider);
+                TdProviderConnection providerConnection = tdPc.getObject();
+                String url = providerConnection.getConnectionString();
                 Alias alias = new Alias(tdDataProvider.getName());
-                String user = TaggedValueHelper.getValue("user", tdDataProvider);
-                String password = TaggedValueHelper.getValue("password", tdDataProvider);
+                String user = TaggedValueHelper.getValue("user", providerConnection);
+                String password = TaggedValueHelper.getValue("password", providerConnection);
                 User previousUser = new User(user, password);
                 alias.setDefaultUser(previousUser);
                 alias.setAutoLogon(true);
                 alias.setConnectAtStartup(true);
-                TypedReturnCode<TdProviderConnection> tdPc = DataProviderHelper.getTdProviderConnection(tdDataProvider);
-                TdProviderConnection providerConnection = tdPc.getObject();
-                String url = providerConnection.getConnectionString();
                 alias.setUrl(url);
                 ManagedDriver manDr = default1.getDriverModel().getDriver(
                         EDriverName.getId(providerConnection.getDriverClassName()));
@@ -121,6 +129,7 @@ public class ChangePerspectiveAction extends Action {
                 users.add(previousUser);
             }
             aliasManager.modelChanged();
+            SQLExplorerPlugin.getDefault().getPluginPreferences().setValue(IConstants.AUTO_OPEN_EDITOR, false);
             for (User user : users) {
                 OpenPasswordConnectDialogAction openDlgAction = new OpenPasswordConnectDialogAction(user.getAlias(), user, false);
                 openDlgAction.run();
