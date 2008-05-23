@@ -12,18 +12,32 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.views.filters;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.Viewer;
-import org.talend.cwm.softwaredeployment.TdDataProvider;
-import orgomg.cwm.foundation.businessinformation.Description;
+import org.talend.cwm.helper.SwitchHelpers;
+import orgomg.cwm.objectmodel.core.Dependency;
+import orgomg.cwm.objectmodel.core.util.CoreSwitch;
 
 /**
  * @author rli
  * 
  */
-public class EMFObjFilter extends AbstractViewerFilter {    
+public class EMFObjFilter extends AbstractViewerFilter {
 
-   public static final int FILTER_ID = 1;
-    
+    public static final int FILTER_ID = 1;
+
+    private CoreSwitch<Dependency> dependencySwitch;
+
+    public EMFObjFilter() {
+        super();
+        dependencySwitch = new CoreSwitch<Dependency>() {
+
+            public Dependency caseDependency(Dependency object) {
+                return object;
+            }
+        };
+    }
+
     public int getId() {
         return FILTER_ID;
     }
@@ -36,8 +50,11 @@ public class EMFObjFilter extends AbstractViewerFilter {
      */
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
-        if ((element instanceof Description) || (element instanceof TdDataProvider)) {
-            return false;
+        if (element instanceof EObject) {
+            EObject eObj = (EObject) element;
+            if (SwitchHelpers.TDDATAPROVIDER_SWITCH.doSwitch(eObj) != null || dependencySwitch.doSwitch(eObj) != null) {
+                return false;
+            }
         }
         return true;
     }
