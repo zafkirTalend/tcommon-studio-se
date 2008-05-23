@@ -137,4 +137,26 @@ public class OverlayImageProvider {
         OverlayImage overlayImage = new OverlayImage(source, img, EPosition.BOTTOM_LEFT);
         return overlayImage;
     }
+
+    public static Image getImageForOverlay(Image source, IImage overlay, EPosition position) {
+        if (source == null) {
+            return null;
+        }
+        if (position == null) {
+            position = EPosition.BOTTOM_LEFT;
+        }
+        if (overlay != null) {
+            ImageDescriptor img = ImageProvider.getImageDesc(overlay);
+            OverlayImage overlayImage = new OverlayImage(source, img, position);
+            return ImageProvider.getImage(overlayImage);
+        }
+        return source;
+    }
+
+    public static Image getImageForOverlay(IImage source, IImage overlay, EPosition position) {
+        if (source == null) {
+            return null;
+        }
+        return getImageForOverlay(ImageProvider.getImage(source), overlay, position);
+    }
 }
