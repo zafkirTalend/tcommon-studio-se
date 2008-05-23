@@ -214,7 +214,7 @@ public class JobContextManager implements IContextManager {
             return;
         }
         List<ContextItem> contextItemList = ContextUtils.getAllContextItem();
-
+        boolean setDefault = false;
         for (int i = 0; i < contextTypeList.size(); i++) {
             contextType = (ContextType) contextTypeList.get(i);
             context = new JobContext(contextType.getName());
@@ -272,8 +272,12 @@ public class JobContextManager implements IContextManager {
 
             if (context.getName().equals(defaultContextName)) {
                 setDefaultContext(context);
+                setDefault = true;
             }
             listContext.add(context);
+        }
+        if (!setDefault) {
+            setDefaultContext(listContext.get(0));
         }
     }
 
