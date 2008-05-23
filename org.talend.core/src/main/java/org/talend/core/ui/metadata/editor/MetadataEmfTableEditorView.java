@@ -141,69 +141,11 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
             public String get(MetadataColumn bean) {
                 String value = bean.getDefaultValue();
-
-                // Replaces all single quote mark and double quotes.
-                value = handleDefaultValue(bean, value);
-                bean.setDefaultValue(value);
                 return value;
             }
 
             public void set(MetadataColumn bean, String value) {
-
-                // Replaces all single quote mark and double quotes.
-                value = handleDefaultValue(bean, value);
                 bean.setDefaultValue(value);
-            }
-
-            /**
-             * Adds double quotes if Talend type is Date or String.
-             * 
-             * @param bean
-             * @param value
-             * @return
-             */
-            private String handleDefaultValue(MetadataColumn bean, String value) {
-                // Checks if Talend type is String or Date.
-
-                String returnValue = value;
-
-                switch (LanguageManager.getCurrentLanguage()) {
-                case JAVA:
-
-                    if (getCurrentDbms() != null) {
-                        if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
-                            if (returnValue == null || returnValue.length() == 0) {
-                                returnValue = null;
-                            } else if (returnValue.equalsIgnoreCase("null")) {
-                                returnValue = "null";
-                            } else {
-                                returnValue = returnValue.replaceAll("\"", "");
-                                returnValue = returnValue.replaceAll("\'", "");
-                                returnValue = "\"" + returnValue + "\"";
-                            }
-                        }
-                    }else{
-                       return returnValue;
-                    }
-                    
-                    
-                default:
-                    // if (bean.getTalendType() != null && bean.getTalendType().equals("string")
-                    // || bean.getTalendType().equals("date")) {
-                    // if (returnValue == null) {
-                    // returnValue = "null";
-                    // } else if (returnValue.length() == 0) {
-                    // returnValue = "\"" + "\"";
-                    // } else if (returnValue.equalsIgnoreCase("null")) {
-                    // returnValue = "null";
-                    // } else {
-                    // returnValue = returnValue.replaceAll("\"", "");
-                    // returnValue = returnValue.replaceAll("\'", "");
-                    // returnValue = "\"" + returnValue + "\"";
-                    // }
-                    // }
-                }
-                return returnValue;
             }
         };
     }
