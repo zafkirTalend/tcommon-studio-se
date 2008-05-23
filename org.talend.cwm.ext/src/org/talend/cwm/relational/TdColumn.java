@@ -17,6 +17,7 @@ import orgomg.cwm.resource.relational.Column;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.cwm.relational.TdColumn#getJavaType <em>Java Type</em>}</li>
+ *   <li>{@link org.talend.cwm.relational.TdColumn#getSqlDataType <em>Sql Data Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,6 +52,32 @@ public interface TdColumn extends Column {
      * @generated
      */
     void setJavaType(int value);
+
+    /**
+     * Returns the value of the '<em><b>Sql Data Type</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Sql Data Type</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Sql Data Type</em>' containment reference.
+     * @see #setSqlDataType(TdSqlDataType)
+     * @see org.talend.cwm.relational.RelationalPackage#getTdColumn_SqlDataType()
+     * @model containment="true"
+     * @generated
+     */
+    TdSqlDataType getSqlDataType();
+
+    /**
+     * Sets the value of the '{@link org.talend.cwm.relational.TdColumn#getSqlDataType <em>Sql Data Type</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Sql Data Type</em>' containment reference.
+     * @see #getSqlDataType()
+     * @generated
+     */
+    void setSqlDataType(TdSqlDataType value);
 
     /**
      * <!-- begin-user-doc -->

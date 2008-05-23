@@ -25,7 +25,6 @@ public class TdCatalogImpl extends CatalogImpl implements TdCatalog {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected TdCatalogImpl() {
@@ -34,7 +33,6 @@ public class TdCatalogImpl extends CatalogImpl implements TdCatalog {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

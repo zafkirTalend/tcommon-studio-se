@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.talend.cwm.constants.ConstantsPackage;
@@ -319,6 +320,15 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getTdColumn_SqlDataType() {
+        return (EReference)tdColumnEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getTdSqlDataType() {
         return tdSqlDataTypeEClass;
     }
@@ -442,6 +452,7 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
 
         tdColumnEClass = createEClass(TD_COLUMN);
         createEAttribute(tdColumnEClass, TD_COLUMN__JAVA_TYPE);
+        createEReference(tdColumnEClass, TD_COLUMN__SQL_DATA_TYPE);
 
         tdSqlDataTypeEClass = createEClass(TD_SQL_DATA_TYPE);
         createEAttribute(tdSqlDataTypeEClass, TD_SQL_DATA_TYPE__JAVA_DATA_TYPE);
@@ -512,6 +523,7 @@ public class RelationalPackageImpl extends EPackageImpl implements RelationalPac
 
         initEClass(tdColumnEClass, TdColumn.class, "TdColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTdColumn_JavaType(), ecorePackage.getEInt(), "javaType", null, 0, 1, TdColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTdColumn_SqlDataType(), this.getTdSqlDataType(), null, "sqlDataType", null, 0, 1, TdColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         op = addEOperation(tdColumnEClass, null, "setContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, theCorePackage.getString(), "contentType", 0, 1, IS_UNIQUE, IS_ORDERED);

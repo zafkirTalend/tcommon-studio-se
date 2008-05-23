@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_x4RGIJ5xEdyb0Z-YZ5spFw" activeDiagram="_h7GpYJ5yEdyb0Z-YZ5spFw">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_x4RGIJ5xEdyb0Z-YZ5spFw" activeDiagram="_3C_nMCjtEd2iG7PGRIygTA">
   <model href="org.talend.cwm.ext.ecore#/"/>
   <diagrams xmi:id="_4xqdULlAEdyVO9N2bdEv6g" position="0,0" size="100,100" name="analysis" viewport="0,0">
     <property xmi:id="_4yMo0LlAEdyVO9N2bdEv6g" key="pageFormatName" value="A2"/>
@@ -299,7 +299,7 @@
   </diagrams>
   <subdiagrams xmi:id="_h7C_AJ5yEdyb0Z-YZ5spFw">
     <model href="org.talend.cwm.ext.ecore#//relational"/>
-    <diagrams xmi:id="_h7GpYJ5yEdyb0Z-YZ5spFw" position="0,0" size="100,100" name="relational inheritance" viewport="0,29">
+    <diagrams xmi:id="_h7GpYJ5yEdyb0Z-YZ5spFw" position="0,0" size="100,100" name="relational inheritance" viewport="326,121">
       <property xmi:id="_h7mYoJ5yEdyb0Z-YZ5spFw" key="pageFormatName" value="A3"/>
       <property xmi:id="_h7mYoZ5yEdyb0Z-YZ5spFw" key="diagramWidth" value="1188"/>
       <property xmi:id="_h7mYop5yEdyb0Z-YZ5spFw" key="diagramHeight" value="1680"/>
@@ -701,7 +701,7 @@
         <semanticModel xsi:type="di:SimpleSemanticModelElement" xmi:id="_FzJocekqEdyVpdOPAXK9WQ" presentation="default" typeInfo="Inheritance"/>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_sJ_8kaznEdyiH-ntAHzhCA" position="0,0" size="100,100" name="sql datatype" viewport="0,0">
+    <diagrams xmi:id="_sJ_8kaznEdyiH-ntAHzhCA" position="0,0" size="100,100" name="sql datatype" viewport="0,360">
       <property xmi:id="_sKlycKznEdyiH-ntAHzhCA" key="pageFormatName" value="A4"/>
       <property xmi:id="_sKlycaznEdyiH-ntAHzhCA" key="diagramWidth" value="840"/>
       <property xmi:id="_sKlycqznEdyiH-ntAHzhCA" key="diagramHeight" value="1188"/>
@@ -935,6 +935,113 @@
       </contained>
       <contained xsi:type="di:GraphEdge" xmi:id="_Zch7YKzoEdyiH-ntAHzhCA" anchor="_ZcgtQKzoEdyiH-ntAHzhCA _FYSJ8qzoEdyiH-ntAHzhCA">
         <semanticModel xsi:type="di:SimpleSemanticModelElement" xmi:id="_Zch7YazoEdyiH-ntAHzhCA" presentation="default" typeInfo="Inheritance"/>
+      </contained>
+    </diagrams>
+    <diagrams xmi:id="_3C_nMCjtEd2iG7PGRIygTA" position="0,0" size="100,100" name="unnamed" viewport="0,0">
+      <property xmi:id="_3DjA0CjtEd2iG7PGRIygTA" key="pageFormatName" value="A4"/>
+      <property xmi:id="_3DjA0SjtEd2iG7PGRIygTA" key="diagramWidth" value="840"/>
+      <property xmi:id="_3DjA0ijtEd2iG7PGRIygTA" key="diagramHeight" value="1188"/>
+      <property xmi:id="_3DjA0yjtEd2iG7PGRIygTA" key="pageMarginName" value="Small Margin"/>
+      <property xmi:id="_3DjA1CjtEd2iG7PGRIygTA" key="diagramTopMargin" value="20"/>
+      <property xmi:id="_3DjA1SjtEd2iG7PGRIygTA" key="diagramBottomMargin" value="20"/>
+      <property xmi:id="_3DjA1ijtEd2iG7PGRIygTA" key="diagramLeftMargin" value="20"/>
+      <property xmi:id="_3DjA1yjtEd2iG7PGRIygTA" key="diagramRightMargin" value="20"/>
+      <property xmi:id="_3DjA2CjtEd2iG7PGRIygTA" key="orientation" value="portrait"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3C_nMSjtEd2iG7PGRIygTA" presentation="org.topcased.modeler.ecore.ediagram">
+        <element href="org.talend.cwm.ext.ecore#//relational"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_3mofwCjtEd2iG7PGRIygTA" position="105,50" size="198,-1">
+        <anchorage xmi:id="_4z2g0CjtEd2iG7PGRIygTA" graphEdge="_4z49ECjtEd2iG7PGRIygTA"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3mofwSjtEd2iG7PGRIygTA" presentation="default">
+          <element href="org.talend.cwm.ext.ecore#//relational/TdColumn"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_3mofwijtEd2iG7PGRIygTA">
+          <property xmi:id="_3mofwyjtEd2iG7PGRIygTA" key="eStructuralFeatureID" value="21"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3mofxCjtEd2iG7PGRIygTA" presentation="default">
+            <element href="org.talend.cwm.ext.ecore#//relational/TdColumn"/>
+          </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_3mpt4CjtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3mpt4SjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/javaType"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_3mofxSjtEd2iG7PGRIygTA">
+          <property xmi:id="_3mofxijtEd2iG7PGRIygTA" key="eStructuralFeatureID" value="11"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3mofxyjtEd2iG7PGRIygTA" presentation="default">
+            <element href="org.talend.cwm.ext.ecore#//relational/TdColumn"/>
+          </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_3mqU8CjtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3mqU8SjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/setContentType"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_3mqU8ijtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3mqU8yjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/getContentType"/>
+            </semanticModel>
+          </contained>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_4B-X8CjtEd2iG7PGRIygTA" position="405,89" size="212,-1">
+        <anchorage xmi:id="_4z3H4CjtEd2iG7PGRIygTA" graphEdge="_4z49ECjtEd2iG7PGRIygTA"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B-_ACjtEd2iG7PGRIygTA" presentation="default">
+          <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_4B-_ASjtEd2iG7PGRIygTA">
+          <property xmi:id="_4B-_AijtEd2iG7PGRIygTA" key="eStructuralFeatureID" value="21"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B-_AyjtEd2iG7PGRIygTA" presentation="default">
+            <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType"/>
+          </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_4B_mECjtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B_mESjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/javaDataType"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_4B_mEijtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B_mEyjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/nullable"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_4B_mFCjtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B_mFSjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/unsignedAttribute"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_4B_mFijtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B_mFyjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/caseSensitive"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_4CANICjtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4CANISjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/autoIncrement"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_4CANIijtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4CANIyjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/localTypeName"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di:GraphNode" xmi:id="_4CANJCjtEd2iG7PGRIygTA" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4CANJSjtEd2iG7PGRIygTA" presentation="default">
+              <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType/searchable"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_4B-_BCjtEd2iG7PGRIygTA">
+          <property xmi:id="_4B-_BSjtEd2iG7PGRIygTA" key="eStructuralFeatureID" value="11"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4B-_BijtEd2iG7PGRIygTA" presentation="default">
+            <element href="org.talend.cwm.ext.ecore#//relational/TdSqlDataType"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphEdge" xmi:id="_4z49ECjtEd2iG7PGRIygTA" anchor="_4z2g0CjtEd2iG7PGRIygTA _4z3H4CjtEd2iG7PGRIygTA">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4z49ESjtEd2iG7PGRIygTA" presentation="default">
+          <element href="org.talend.cwm.ext.ecore#//relational/TdColumn/sqlDataType"/>
+        </semanticModel>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_4z49EijtEd2iG7PGRIygTA" id="nameLabel" uDistance="20" vDistance="20"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_4z49EyjtEd2iG7PGRIygTA" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
       </contained>
     </diagrams>
   </subdiagrams>

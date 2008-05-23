@@ -9,6 +9,7 @@ package org.talend.cwm.relational;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -1738,13 +1739,22 @@ public interface RelationalPackage extends EPackage {
     int TD_COLUMN__JAVA_TYPE = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Sql Data Type</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_COLUMN__SQL_DATA_TYPE = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Td Column</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_COLUMN_FEATURE_COUNT = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 1;
+    int TD_COLUMN_FEATURE_COUNT = orgomg.cwm.resource.relational.RelationalPackage.COLUMN_FEATURE_COUNT + 2;
 
 
     /**
@@ -2831,6 +2841,17 @@ public interface RelationalPackage extends EPackage {
     EAttribute getTdColumn_JavaType();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.cwm.relational.TdColumn#getSqlDataType <em>Sql Data Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Sql Data Type</em>'.
+     * @see org.talend.cwm.relational.TdColumn#getSqlDataType()
+     * @see #getTdColumn()
+     * @generated
+     */
+    EReference getTdColumn_SqlDataType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.cwm.relational.TdSqlDataType <em>Td Sql Data Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3016,6 +3037,14 @@ public interface RelationalPackage extends EPackage {
          * @generated
          */
         EAttribute TD_COLUMN__JAVA_TYPE = eINSTANCE.getTdColumn_JavaType();
+
+        /**
+         * The meta object literal for the '<em><b>Sql Data Type</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference TD_COLUMN__SQL_DATA_TYPE = eINSTANCE.getTdColumn_SqlDataType();
 
         /**
          * The meta object literal for the '{@link org.talend.cwm.relational.impl.TdSqlDataTypeImpl <em>Td Sql Data Type</em>}' class.
