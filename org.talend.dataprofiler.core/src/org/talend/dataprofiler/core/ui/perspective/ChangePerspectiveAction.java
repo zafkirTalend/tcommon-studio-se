@@ -18,12 +18,10 @@ import java.util.List;
 import java.util.Set;
 
 import net.sourceforge.sqlexplorer.ExplorerException;
-import net.sourceforge.sqlexplorer.IConstants;
 import net.sourceforge.sqlexplorer.dbproduct.Alias;
 import net.sourceforge.sqlexplorer.dbproduct.AliasManager;
 import net.sourceforge.sqlexplorer.dbproduct.User;
 import net.sourceforge.sqlexplorer.plugin.SQLExplorerPlugin;
-import net.sourceforge.sqlexplorer.plugin.actions.OpenPasswordConnectDialogAction;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -113,7 +111,7 @@ public class ChangePerspectiveAction extends Action {
                 String password = TaggedValueHelper.getValue("password", providerConnection);
                 User previousUser = new User(user, password);
                 alias.setDefaultUser(previousUser);
-                alias.setAutoLogon(true);
+                alias.setAutoLogon(false);
                 alias.setConnectAtStartup(true);
                 alias.setUrl(url);
 //                ManagedDriver manDr = default1.getDriverModel().getDriver(
@@ -127,11 +125,12 @@ public class ChangePerspectiveAction extends Action {
                 users.add(previousUser);
             }
             aliasManager.modelChanged();
-            SQLExplorerPlugin.getDefault().getPluginPreferences().setValue(IConstants.AUTO_OPEN_EDITOR, false);
-            for (User user : users) {
-                OpenPasswordConnectDialogAction openDlgAction = new OpenPasswordConnectDialogAction(user.getAlias(), user, false);
-                openDlgAction.run();
-            }
+            // SQLExplorerPlugin.getDefault().getPluginPreferences().setValue(IConstants.AUTO_OPEN_EDITOR, false);
+            // for (User user : users) {
+            // OpenPasswordConnectDialogAction openDlgAction = new OpenPasswordConnectDialogAction(user.getAlias(),
+            // user, false);
+            // openDlgAction.run();
+            // }
         }
     }
 }
