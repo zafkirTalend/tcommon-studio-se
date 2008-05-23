@@ -169,18 +169,24 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
                 switch (LanguageManager.getCurrentLanguage()) {
                 case JAVA:
-                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
-                        if (returnValue == null || returnValue.length() == 0) {
-                            returnValue = null;
-                        } else if (returnValue.equalsIgnoreCase("null")) {
-                            returnValue = "null";
-                        } else {
-                            returnValue = returnValue.replaceAll("\"", "");
-                            returnValue = returnValue.replaceAll("\'", "");
-                            returnValue = "\"" + returnValue + "\"";
-                        }
 
+                    if (getCurrentDbms() != null) {
+                        if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                            if (returnValue == null || returnValue.length() == 0) {
+                                returnValue = null;
+                            } else if (returnValue.equalsIgnoreCase("null")) {
+                                returnValue = "null";
+                            } else {
+                                returnValue = returnValue.replaceAll("\"", "");
+                                returnValue = returnValue.replaceAll("\'", "");
+                                returnValue = "\"" + returnValue + "\"";
+                            }
+                        }
+                    }else{
+                       return returnValue;
                     }
+                    
+                    
                 default:
                     // if (bean.getTalendType() != null && bean.getTalendType().equals("string")
                     // || bean.getTalendType().equals("date")) {
