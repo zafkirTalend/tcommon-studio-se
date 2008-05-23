@@ -48,6 +48,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.part.FileEditorInput;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
@@ -98,9 +99,9 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
 
     public void initialize(FormEditor editor) {
         super.initialize(editor);
-        IEditorInput input = editor.getEditorInput();
+        FileEditorInput input = (FileEditorInput) editor.getEditorInput();
         analysisHandler = new ColumnAnalysisHandler();
-        analysisHandler.setAnalysis(((AnalysisEditorInuput) input).getAnalysis());
+        analysisHandler.setAnalysis(AnaResourceFileHelper.getInstance().findAnalysis(input.getFile()));
         stringDataFilter = analysisHandler.getStringDataFilter();
         EList<ModelElement> analyzedColumns = analysisHandler.getAnalyzedColumns();
         List<ColumnIndicator> columnIndicatorList = new ArrayList<ColumnIndicator>();
@@ -326,7 +327,6 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
      * @throws DataprofilerCoreException
      */
     void saveAnalysis() throws DataprofilerCoreException {
-        AnalysisEditorInuput editorInput = (AnalysisEditorInuput) this.getEditorInput();
         analysisHandler.clearAnalysis();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
         // List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();
@@ -352,12 +352,12 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
         // AnalysisWriter writer = new AnalysisWriter();
 
         String urlString = PluginConstant.EMPTY_STRING;
-        try {
-            urlString = editorInput.getFile().toURL().getFile();
-            analysisHandler.getAnalysis().setUrl(urlString);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        // try {
+        // urlString = editorInput.getFile();
+        // analysisHandler.getAnalysis().setUrl(urlString);
+        // } catch (MalformedURLException e) {
+        // e.printStackTrace();
+        // }
 
         // FIXME after i set the options of bins designer, and when saving the file, it cause a exception.
 

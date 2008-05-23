@@ -29,6 +29,7 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.part.FileEditorInput;
 import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.TaggedValueHelper;
@@ -38,6 +39,7 @@ import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
+import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.ui.editor.AbstractFormPage;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -70,8 +72,8 @@ public class ConnnectionInfoPage extends AbstractFormPage {
      */
     public void initialize(FormEditor editor) {
         super.initialize(editor);
-        IEditorInput input = editor.getEditorInput();
-        tdDataProvider = ((ConnectionEditorInput) input).getProvider();
+        FileEditorInput input = (FileEditorInput) editor.getEditorInput();
+        tdDataProvider = PrvResourceFileHelper.getInstance().getTdProvider(input.getFile()).getObject();
     }
 
     @Override

@@ -62,7 +62,6 @@ public class ConnectionWizard extends AbstractAnalysisWizard {
      */
     @Override
     public boolean canFinish() {
-        // TODO Auto-generated method stub
         if (this.getContainer().getCurrentPage() != page1) {
             return false;
         }
@@ -74,15 +73,11 @@ public class ConnectionWizard extends AbstractAnalysisWizard {
         ConnectionAnalysisParameter parameters = (ConnectionAnalysisParameter) getAnalysisParameter();
         this.analysisName = parameters.getAnalysisName();
         this.analysisType = parameters.getAnalysisType();
-        this.pathName = parameters.getFolderProvider().getFolder().getAbsolutePath();
+        this.folderResource = parameters.getFolderProvider().getFolderResource();
     }
-
-    /*
-     * (non-Javadoc)
-     * 
+    /* (non-Javadoc)
      * @see org.talend.dataprofiler.core.ui.wizard.analysis.AbstractAnalysisWizard#fillAnalysisBuilder(org.talend.dq.analysis.AnalysisBuilder)
      */
-    @Override
     protected void fillAnalysisBuilder(AnalysisBuilder analysisBuilder) {
         ConnectionAnalysisParameter parameters = (ConnectionAnalysisParameter) getAnalysisParameter();
         TdDataProvider tdProvider = parameters.getTdDataProvider();

@@ -12,9 +12,8 @@
 // ============================================================================
 package org.talend.dataprofiler.core;
 
-import java.io.File;
-
 import org.apache.log4j.Level;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
@@ -22,13 +21,13 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RefreshAction;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
-import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -109,8 +108,8 @@ public class CorePlugin extends AbstractUIPlugin {
         }
     }
 
-    public IEditorPart openEditor(File file) {
-        AnalysisEditorInuput input = new AnalysisEditorInuput(file);
+    public IEditorPart openEditor(IFile file) {
+        FileEditorInput input = new FileEditorInput(file);
         // input.setUser(alias.getDefaultUser());
         try {
 

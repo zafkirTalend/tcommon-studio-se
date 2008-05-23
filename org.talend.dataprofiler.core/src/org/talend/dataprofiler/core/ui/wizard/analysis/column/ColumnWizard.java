@@ -49,7 +49,7 @@ public class ColumnWizard extends AbstractAnalysisWizard {
         ConnectionAnalysisParameter parameters = (ConnectionAnalysisParameter) getAnalysisParameter();
         this.analysisName = parameters.getAnalysisName();
         this.analysisType = parameters.getAnalysisType();
-        this.pathName = parameters.getFolderProvider().getFolder().getAbsolutePath();
+        this.folderResource = parameters.getFolderProvider().getFolderResource();
     }
 
 }

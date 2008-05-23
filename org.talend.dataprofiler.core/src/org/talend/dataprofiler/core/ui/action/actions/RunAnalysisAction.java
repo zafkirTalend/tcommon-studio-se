@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.actions;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.log4j.Logger;
@@ -27,12 +26,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
+import org.eclipse.ui.part.FileEditorInput;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
-import org.talend.dataprofiler.core.ui.editor.AnalysisEditorInuput;
 import org.talend.dataprofiler.core.ui.editor.ColumnMasterDetailsPage;
 import org.talend.dataprofiler.core.ui.progress.ProgressUI;
 import org.talend.dataprofiler.core.ui.views.DQRespositoryView;
@@ -80,10 +79,8 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
                     .getActiveEditor();
             if (editor != null) {
                 ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
-                AnalysisEditorInuput input = (AnalysisEditorInuput) page.getEditorInput();
-
-                File file = input.getFile();
-
+                FileEditorInput input = (FileEditorInput) page.getEditorInput();
+                IFile file = input.getFile();
                 if (file.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
                     analysis = AnaResourceFileHelper.getInstance().findAnalysis(file);
                 }
@@ -126,10 +123,10 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
                     Display.getDefault().asyncExec(new Runnable() {
 
                         public void run() {
-                            MessageDialogWithToggle.openError(null, "Run analysis error", 
-                                    "Fail to run this analysis: " + executed.getMessage());
+                            MessageDialogWithToggle.openError(null, "Run analysis error", "Fail to run this analysis: "
+                                    + executed.getMessage());
                         }
-                        
+
                     });
                 }
 

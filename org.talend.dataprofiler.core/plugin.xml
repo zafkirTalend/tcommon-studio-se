@@ -268,13 +268,13 @@
       </editor>
    </extension>
    
-  <extension
+  <!--<extension
          point="org.eclipse.ui.elementFactories">
       <factory
            class="org.talend.dataprofiler.core.ui.editor.DocumentEditorInputFactory"
             id="org.talend.dataprofiler.core.ui.editor.DocumentEditorInput">
       </factory>
-   </extension>
+   </extension>-->
   <extension
         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
      <category

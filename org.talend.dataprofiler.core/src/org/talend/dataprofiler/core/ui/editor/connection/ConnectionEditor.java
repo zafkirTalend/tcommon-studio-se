@@ -91,18 +91,18 @@ public class ConnectionEditor extends FormEditor {
      * 
      * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
      */
-    @Override
-    protected void setInput(IEditorInput input) {
-        if (input == null) {
-            return;
-        }
-        IEditorInput connectionEditorInput = input;
-        if (connectionEditorInput instanceof FileEditorInput) {
-            URI uri = ((FileEditorInput) input).getFile().getLocationURI();
-            connectionEditorInput = new ConnectionEditorInput(new File(uri));
-        }
-        super.setInput(connectionEditorInput);
-        setPartName(input.getName());
-    }
+//    @Override
+//    protected void setInput(IEditorInput input) {
+//        if (input == null) {
+//            return;
+//        }
+//        IEditorInput connectionEditorInput = input;
+//        if (connectionEditorInput instanceof FileEditorInput) {
+//            URI uri = ((FileEditorInput) input).getFile().getLocationURI();
+//            connectionEditorInput = new ConnectionEditorInput(new File(uri));
+//        }
+//        super.setInput(connectionEditorInput);
+//        setPartName(input.getName());
+//    }
 
 }

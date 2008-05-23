@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
-import java.io.File;
-import java.net.URI;
-
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
@@ -24,7 +21,10 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.talend.dataprofiler.core.CorePlugin;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
+import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
+import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 
 /**
@@ -37,7 +37,7 @@ public class AnalysisEditor extends FormEditor {
 
     private boolean isDirty = false;
 
-    private AnalysisType analysisType;
+    private AnalysisType analysisType = AnalysisType.COLUMN;
 
     /**
      * 
@@ -105,29 +105,36 @@ public class AnalysisEditor extends FormEditor {
      * 
      * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
      */
-    @Override
     protected void setInput(IEditorInput input) {
-        if (input == null) {
-            return;
+        // if (input == null) {
+        // return;
+        // }
+        super.setInput(input);
+
+        FileEditorInput fileEditorInput = (FileEditorInput) input;
+        String name = fileEditorInput.getFile().getName();
+        if (name.endsWith(PluginConstant.ANA_SUFFIX)) {
+            Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(fileEditorInput.getFile());
+            analysisType = findAnalysis.getParameters().getAnalysisType();
         }
 
-        AnalysisEditorInuput analysisInput = null;
-        if (input instanceof FileEditorInput) {
-            URI uri = ((FileEditorInput) input).getFile().getLocationURI();
-            analysisInput = new AnalysisEditorInuput(new File(uri));
-            analysisType = analysisInput.getAnalysisType();
-            super.setInput(analysisInput);
-        } else if (input instanceof AnalysisEditorInuput) {
-            analysisType = ((AnalysisEditorInuput) input).getAnalysisType();
-            super.setInput(input);
-        }
-
-        setPartName(input.getName());
+        // AnalysisEditorInuput analysisInput = null;
+        // if (input instanceof FileEditorInput) {
+        // URI uri = ((FileEditorInput) input).getFile().getLocationURI();
+        // analysisInput = new AnalysisEditorInuput(new File(uri));
+        // analysisType = analysisInput.getAnalysisType();
+        // super.setInput(analysisInput);
+        // } else if (input instanceof AnalysisEditorInuput) {
+        // analysisType = ((AnalysisEditorInuput) input).getAnalysisType();
+        // super.setInput(input);
+        // }
+        //
+         setPartName(input.getName());
     }
 
-    
     /**
      * Getter for masterPage.
+     * 
      * @return the masterPage
      */
     public IFormPage getMasterPage() {

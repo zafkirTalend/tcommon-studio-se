@@ -16,16 +16,16 @@ import java.io.File;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IEditorPart;
 import org.talend.cwm.constants.DevelopmentStatus;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.exception.DataprofilerCoreException;
 import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
-import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisType;
 import org.talend.dq.analysis.AnalysisBuilder;
@@ -48,7 +48,7 @@ public abstract class AbstractAnalysisWizard extends Wizard {
     /**
      * The folder where to save the analysis.
      */
-    protected String pathName;
+    protected IFolder folderResource;
 
     public AbstractAnalysisWizard() {
         super();
@@ -57,19 +57,17 @@ public abstract class AbstractAnalysisWizard extends Wizard {
     @Override
     public boolean performFinish() {
         // CorePlugin.getDefault().openEditor(folderProvider.getFolder());
-        IEditorPart openEditor = null;
-
         this.fillAnalysisEditorParam();
         if (!checkAnalysisEditorParam()) {
             return false;
         }
 
         try {
-            File file = createEmptyAnalysisFile();
+            IFile file = createEmptyAnalysisFile();
             if (file == null) {
                 return false;
             }
-            openEditor = CorePlugin.getDefault().openEditor(file);
+            CorePlugin.getDefault().openEditor(file);
         } catch (Exception e) {
             ExceptionHandler.process(e, Level.ERROR);
         }
@@ -85,14 +83,14 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         } else if (analysisName == null) {
             log.error("The field 'analysisName' haven't assigned a value.");
             return false;
-        } else if (pathName == null) {
+        } else if (folderResource == null) {
             log.error("The field 'fileURI' haven't assigned a value.");
             return false;
         }
         return true;
     }
 
-    private File createEmptyAnalysisFile() throws DataprofilerCoreException {
+    private IFile createEmptyAnalysisFile() throws DataprofilerCoreException {
         AnalysisBuilder analysisBuilder = new AnalysisBuilder();
         boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, analysisType);
         if (!analysisInitialized) {
@@ -101,7 +99,7 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         Analysis analysis = analysisBuilder.getAnalysis();
         fillAnalysisBuilder(analysisBuilder);
         AnalysisWriter writer = new AnalysisWriter();
-        File folder = new File(this.pathName);
+        File folder = folderResource.getLocation().toFile();
         // if (folder.exists()) {
         // return null;
         // } else {
@@ -116,7 +114,8 @@ public abstract class AbstractAnalysisWizard extends Wizard {
         }
 
         CorePlugin.getDefault().refreshWorkSpace();
-        return saved.getObject();
+        File object = saved.getObject();
+        return folderResource.getFile(object.getName());
 
     }
 

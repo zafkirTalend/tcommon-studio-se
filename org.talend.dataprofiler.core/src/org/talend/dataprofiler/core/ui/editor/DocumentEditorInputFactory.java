@@ -12,13 +12,9 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor;
 
-import java.io.File;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.IElementFactory;
 import org.eclipse.ui.IMemento;
-import org.talend.dataprofiler.core.PluginConstant;
-import org.talend.dataprofiler.core.ui.editor.connection.ConnectionEditorInput;
 
 /**
  * @author rli
@@ -38,24 +34,21 @@ public class DocumentEditorInputFactory implements IElementFactory {
      * @see org.eclipse.ui.IElementFactory#createElement(org.eclipse.ui.IMemento)
      */
     public IAdaptable createElement(IMemento memento) {
-        String path = memento.getString(PluginConstant.PATH_SAVE);
-        if (path != null) {
-            try {
-                File file = new File(path);
-                AbstractEditorInput analysisEditorInuput = null;
-                String fileSuffix = memento.getString(PluginConstant.FILE_SUFFIX);
-                if (fileSuffix.equals(PluginConstant.ANA_SUFFIX)) {
-                    analysisEditorInuput = new AnalysisEditorInuput(file);
-                } else if (fileSuffix.equals(PluginConstant.PRV_SUFFIX)) {
-                    analysisEditorInuput = new ConnectionEditorInput(file);
-                }
-                return analysisEditorInuput;
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
+//        String path = memento.getString(PluginConstant.PATH_SAVE);
+//
+//        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
+//        if (file != null) {
+//            AbstractEditorInput analysisEditorInuput = null;
+//            String fileSuffix = memento.getString(PluginConstant.FILE_SUFFIX);
+//            if (fileSuffix.equals(PluginConstant.ANA_SUFFIX)) {
+//                analysisEditorInuput = new AnalysisEditorInuput(file);
+//            } else if (fileSuffix.equals(PluginConstant.PRV_SUFFIX)) {
+//                analysisEditorInuput = new ConnectionEditorInput(file);
+//            }
+//            return analysisEditorInuput;
+//        } else {
+            return null;
+//        }
     }
 
 }

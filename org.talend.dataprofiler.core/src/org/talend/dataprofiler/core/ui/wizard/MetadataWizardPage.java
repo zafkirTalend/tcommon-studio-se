@@ -55,7 +55,7 @@ import org.talend.dq.analysis.parameters.IParameterConstant;
  */
 public abstract class MetadataWizardPage extends AbstractWizardPage {
 
-    //protected members
+    // protected members
     protected Text nameText;
 
     protected Text purposeText;
@@ -65,18 +65,18 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
     protected Text authorText;
 
     protected Text versionText;
-    
+
     protected Button button;
-    
+
     protected IFolder defaultFolderProviderRes;
-    
+
     protected CCombo statusText;
-    
+
     protected Text pathText;
 
     protected HashMap<String, String> metadata;
-    
-    //private members
+
+    // private members
     private Button versionMajorBtn;
 
     private Button versionMinorBtn;
@@ -84,13 +84,13 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
     private boolean readOnly;
 
     private boolean editPath = true;
-    
+
     public MetadataWizardPage() {
-        
+
         metadata = new HashMap<String, String>();
         setPageComplete(false);
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -140,28 +140,28 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
         authorText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // Version
-//        Label versionLab = new Label(container, SWT.NONE);
-//        versionLab.setText("Version");
-//
-//        Composite versionContainer = new Composite(container, SWT.NONE);
-//        versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//        GridLayout versionLayout = new GridLayout(3, false);
-//        versionLayout.marginHeight = 0;
-//        versionLayout.marginWidth = 0;
-//        versionLayout.horizontalSpacing = 0;
-//        versionContainer.setLayout(versionLayout);
-//
-//        versionText = new Text(versionContainer, SWT.BORDER);
-//        versionText.setEnabled(false);
-//        versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//
-//        versionMajorBtn = new Button(versionContainer, SWT.PUSH);
-//        versionMajorBtn.setText("M");
-//        versionMajorBtn.setEnabled(!readOnly);
-//
-//        versionMinorBtn = new Button(versionContainer, SWT.PUSH);
-//        versionMinorBtn.setText("m"); //$NON-NLS-1$
-//        versionMinorBtn.setEnabled(!readOnly);
+        // Label versionLab = new Label(container, SWT.NONE);
+        // versionLab.setText("Version");
+        //
+        // Composite versionContainer = new Composite(container, SWT.NONE);
+        // versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        // GridLayout versionLayout = new GridLayout(3, false);
+        // versionLayout.marginHeight = 0;
+        // versionLayout.marginWidth = 0;
+        // versionLayout.horizontalSpacing = 0;
+        // versionContainer.setLayout(versionLayout);
+        //
+        // versionText = new Text(versionContainer, SWT.BORDER);
+        // versionText.setEnabled(false);
+        // versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        //
+        // versionMajorBtn = new Button(versionContainer, SWT.PUSH);
+        // versionMajorBtn.setText("M");
+        // versionMajorBtn.setEnabled(!readOnly);
+        //
+        // versionMinorBtn = new Button(versionContainer, SWT.PUSH);
+        // versionMinorBtn.setText("m"); //$NON-NLS-1$
+        // versionMinorBtn.setEnabled(!readOnly);
 
         // Status
         Label statusLab = new Label(container, SWT.NONE);
@@ -172,7 +172,7 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
         statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         statusText.setEditable(false);
         statusText.setEnabled(!readOnly);
-        
+
         for (DevelopmentStatus status : DevelopmentStatus.values()) {
 
             statusText.add(status.getLiteral());
@@ -200,25 +200,25 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
         createExtendedControl(container);
         addListeners();
 
-        setControl(container);        
+        setControl(container);
     }
-    
+
     @SuppressWarnings("unchecked")
-    protected void openFolderSelectionDialog(String projectName , String folderName) {
-        
-        final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class }; 
+    protected void openFolderSelectionDialog(String projectName, String folderName) {
+
+        final Class[] acceptedClasses = new Class[] { IProject.class, IFolder.class };
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         ArrayList rejectedElements = new ArrayList();
-        
+
         if (projectName != null) {
             IProject theProject = root.getProject(projectName);
             IProject[] allProjects = root.getProjects();
-            for (int i = 0; i < allProjects.length; i++) {          
+            for (int i = 0; i < allProjects.length; i++) {
                 if (!allProjects[i].equals(theProject)) {
                     rejectedElements.add(allProjects[i]);
                 }
             }
-            
+
             if (folderName != null) {
                 try {
                     IResource[] resourse = theProject.members();
@@ -227,7 +227,8 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
                             rejectedElements.add(one);
                         }
                     }
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
         }
 
@@ -251,20 +252,20 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
                 pathText.setText(elem.getLocation().toString());
 
                 FolderProvider provider = new FolderProvider();
-                provider.setFolder(new File(elem.getLocationURI()));
+                provider.setFolderResource((IFolder) elem);
                 getConnectionParams().setFolderProvider(provider);
             }
         }
     }
-    
-    protected void addListeners() {      
-        
+
+    protected void addListeners() {
+
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
                 metadata.put(IParameterConstant.ANALYSIS_NAME, nameText.getText());
                 getConnectionParams().setMetadate(metadata);
-                
+
                 setPageComplete(true);
             }
         });
@@ -298,23 +299,23 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
                     getConnectionParams().setMetadate(metadata);
                 }
             }
-            
+
         });
-//        versionMajorBtn.addSelectionListener(new SelectionAdapter() {
-//
-//            @Override
-//            public void widgetSelected(SelectionEvent e) {
-//
-//            }
-//        });
-//
-//        versionMinorBtn.addSelectionListener(new SelectionAdapter() {
-//
-//            @Override
-//            public void widgetSelected(SelectionEvent e) {
-//
-//            }
-//        });
+        // versionMajorBtn.addSelectionListener(new SelectionAdapter() {
+        //
+        // @Override
+        // public void widgetSelected(SelectionEvent e) {
+        //
+        // }
+        // });
+        //
+        // versionMinorBtn.addSelectionListener(new SelectionAdapter() {
+        //
+        // @Override
+        // public void widgetSelected(SelectionEvent e) {
+        //
+        // }
+        // });
 
         statusText.addModifyListener(new ModifyListener() {
 
@@ -326,20 +327,20 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
 
         });
     }
-    
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
      */
     @Override
     public void setVisible(boolean visible) {
         String status = statusText.getText();
         if (status != null) {
-            metadata.put(IParameterConstant.ANALYSIS_STATUS, status); 
+            metadata.put(IParameterConstant.ANALYSIS_STATUS, status);
             getConnectionParams().setMetadate(metadata);
         }
-        
+
         if (defaultFolderProviderRes != null) {
             FolderProvider defaultFolder = new FolderProvider();
             defaultFolder.setFolder(new File(defaultFolderProviderRes.getLocationURI()));
@@ -350,5 +351,5 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
     }
 
     protected abstract void createExtendedControl(Composite container);
-    
+
 }
