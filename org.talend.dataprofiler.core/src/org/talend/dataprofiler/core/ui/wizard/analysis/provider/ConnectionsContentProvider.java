@@ -14,14 +14,10 @@ package org.talend.dataprofiler.core.ui.wizard.analysis.provider;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
 import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
-
 import orgomg.cwm.resource.relational.NamedColumnSet;
 
 

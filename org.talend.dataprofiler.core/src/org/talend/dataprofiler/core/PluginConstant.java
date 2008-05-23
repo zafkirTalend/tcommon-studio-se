@@ -37,15 +37,9 @@ public final class PluginConstant {
 
     public static final String REP_SUFFIX = "." + FactoriesUtil.REP;
 
-    public static final String ANA_TAG_SUFFIX = "_ANA";
-
-    public static final String REP_TAG_SUFFIX = "_REP";
-
     public static final String METADATA_PROJECTNAME = DQStructureManager.METADATA;
 
     public static final String DATA_PROFILING_PROJECTNAME = DQStructureManager.DATA_PROFILING;
-
-    public static final String PATH_SAVE = "PATH_SAVE";
 
     public static final String FILE_SUFFIX = "FILE_SUFFIX";
 

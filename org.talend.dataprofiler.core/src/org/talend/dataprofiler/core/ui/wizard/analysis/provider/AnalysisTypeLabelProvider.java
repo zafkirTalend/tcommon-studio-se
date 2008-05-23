@@ -50,7 +50,7 @@ public class AnalysisTypeLabelProvider implements ILabelProvider {
      * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
      */
     public String getText(Object element) {
-       return ((AnalysisTypeNode)element).getName();
+        return ((AnalysisTypeNode) element).getName();
     }
 
     /* (non-Javadoc)
