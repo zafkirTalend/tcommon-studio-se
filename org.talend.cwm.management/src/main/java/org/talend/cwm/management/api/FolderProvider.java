@@ -14,6 +14,8 @@ package org.talend.cwm.management.api;
 
 import java.io.File;
 
+import org.eclipse.core.resources.IFolder;
+
 /**
  * @author scorreia
  * 
@@ -22,6 +24,8 @@ import java.io.File;
 public class FolderProvider {
 
     private File folder;
+    
+    private IFolder folderResource;
 
     /**
      * Getter for folder.
@@ -39,5 +43,24 @@ public class FolderProvider {
      */
     public void setFolder(File folder) {
         this.folder = folder;
+    }
+
+    
+    /**
+     * Getter for folderResource.
+     * @return the folderResource
+     */
+    public IFolder getFolderResource() {
+        return folderResource;
+    }
+
+    
+    /**
+     * Sets the folderResource.
+     * @param folderResource the folderResource to set
+     */
+    public void setFolderResource(IFolder folderResource) {
+        this.folderResource = folderResource;
+        this.folder = folderResource.getLocation().toFile();
     }
 }
