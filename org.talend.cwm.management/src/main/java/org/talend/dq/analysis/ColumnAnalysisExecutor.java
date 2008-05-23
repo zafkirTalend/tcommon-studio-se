@@ -30,7 +30,6 @@ import org.talend.dq.indicators.IndicatorEvaluator;
 import org.talend.dq.sql.converters.CwmZQuery;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-
 import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -169,7 +168,32 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
 
     @Override
     protected boolean check(Analysis analysis) {
-        // TODO rzqin add other checks specific to column analysis
+        
+        if (analysis.getContext().getAnalysedElements().size() == 0) {
+            
+            if (analysis.getContext().getConnection() == null) {
+                this.errorMessage = "Data provider must exist , please create it!";
+                return false;
+            }
+            this.errorMessage = "An analysis must have at least one column, please add it!";
+            return false;
+        }
+        
+        
+        if (analysis != null) {
+            ColumnAnalysisHandler analysisHandler = new ColumnAnalysisHandler();
+            analysisHandler.setAnalysis(analysis);
+            
+            for (ModelElement node : analysis.getContext().getAnalysedElements()) {
+                TdColumn column = SwitchHelpers.COLUMN_SWITCH.doSwitch(node);
+                
+                if (analysisHandler.getIndicators(column).size() == 0) {
+                    this.errorMessage = "Each column must have at least one indicator, please add it!";
+                    return false;
+                }
+            }
+        }
+            
         return super.check(analysis);
     }
 
