@@ -168,32 +168,32 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
 
     @Override
     protected boolean check(Analysis analysis) {
-        
+
         if (analysis.getContext().getAnalysedElements().size() == 0) {
-            
+
             if (analysis.getContext().getConnection() == null) {
-                this.errorMessage = "Data provider must exist , please create it!";
+                this.errorMessage = "No connection has been set for this analysis, please select some column(s) to analyze!";
                 return false;
             }
-            this.errorMessage = "An analysis must have at least one column, please add it!";
+            this.errorMessage = "An analysis must have at least one column, please select some column(s) to analyze!";
             return false;
         }
-        
-        
+
         if (analysis != null) {
             ColumnAnalysisHandler analysisHandler = new ColumnAnalysisHandler();
             analysisHandler.setAnalysis(analysis);
-            
+
             for (ModelElement node : analysis.getContext().getAnalysedElements()) {
                 TdColumn column = SwitchHelpers.COLUMN_SWITCH.doSwitch(node);
-                
+
                 if (analysisHandler.getIndicators(column).size() == 0) {
-                    this.errorMessage = "Each column must have at least one indicator, please add it!";
+                    this.errorMessage = "Each column must have at least one indicator, "
+                            + "please select some indicator(s) to compute on each column!";
                     return false;
                 }
             }
         }
-            
+
         return super.check(analysis);
     }
 
