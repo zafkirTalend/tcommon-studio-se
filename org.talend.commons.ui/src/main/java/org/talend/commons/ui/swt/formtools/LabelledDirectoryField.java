@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.formtools;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -20,6 +21,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -136,6 +138,7 @@ public class LabelledDirectoryField {
     private void createFileField(final Composite composite, String string, final String[] extensions, int horizontalSpan,
             int styleField, boolean isFill) {
         label = new Label(composite, SWT.LEFT);
+        GridDataFactory.swtDefaults().applyTo(label);
         label.setText(string);
         label.addListener(SWT.MouseEnter, new Listener() {
 
@@ -166,6 +169,7 @@ public class LabelledDirectoryField {
         compositeButton.setLayout(gridLayout);
         compositeButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true));
         button = new Button(compositeButton, SWT.PUSH);
+        GridDataFactory.swtDefaults().applyTo(button);
         button.setText(Messages.getString("LabelledFileField.BrowseButton.Text")); //$NON-NLS-1$
 
         // The action of the button "Browse..."
@@ -298,6 +302,26 @@ public class LabelledDirectoryField {
         text.setVisible(visible);
         label.setVisible(visible);
         button.setVisible(visible);
+    }
+
+    public void hide() {
+        Control[] controls = new Control[] { label, text, compositeButton, button };
+        for (Control control : controls) {
+            control.setVisible(false);
+            if (control.getLayoutData() instanceof GridData) {
+                ((GridData) control.getLayoutData()).exclude = true;
+            }
+        }
+    }
+
+    public void show() {
+        Control[] controls = new Control[] { label, text, compositeButton, button };
+        for (Control control : controls) {
+            control.setVisible(true);
+            if (control.getLayoutData() instanceof GridData) {
+                ((GridData) control.getLayoutData()).exclude = false;
+            }
+        }
     }
 
     /**

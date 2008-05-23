@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.formtools;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyAdapter;
@@ -20,6 +21,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -149,6 +151,7 @@ public class LabelledText {
                 }
             }
         });
+        GridDataFactory.swtDefaults().applyTo(label);
 
         text = new Text(composite, styleField);
         text.selectAll(); // enable fast erase use
@@ -162,6 +165,7 @@ public class LabelledText {
 
         text.addKeyListener(new KeyAdapter() {
 
+            @Override
             public void keyPressed(KeyEvent e) {
                 lastSelection = text.getSelection();
                 if (Character.getType(e.character) != SWT.DEL) {
@@ -291,6 +295,26 @@ public class LabelledText {
     public void setVisible(final boolean visible) {
         text.setVisible(visible);
         label.setVisible(visible);
+    }
+
+    public void hide() {
+        Control[] controls = new Control[] { label, text };
+        for (Control control : controls) {
+            control.setVisible(false);
+            if (control.getLayoutData() instanceof GridData) {
+                ((GridData) control.getLayoutData()).exclude = true;
+            }
+        }
+    }
+
+    public void show() {
+        Control[] controls = new Control[] { label, text };
+        for (Control control : controls) {
+            control.setVisible(true);
+            if (control.getLayoutData() instanceof GridData) {
+                ((GridData) control.getLayoutData()).exclude = false;
+            }
+        }
     }
 
     /**

@@ -13,6 +13,7 @@
 package org.talend.commons.ui.swt.formtools;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -21,6 +22,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
@@ -144,6 +146,7 @@ public class LabelledFileField {
                 button.forceFocus();
             }
         });
+        GridDataFactory.swtDefaults().applyTo(label);
 
         text = new Text(composite, styleField);
         text.selectAll(); // enable fast erase use
@@ -167,6 +170,7 @@ public class LabelledFileField {
         compositeButton.setLayout(gridLayout);
         compositeButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true));
         button = new Button(compositeButton, SWT.PUSH);
+        GridDataFactory.swtDefaults().applyTo(button);
         button.setText(Messages.getString("LabelledFileField.BrowseButton.Text")); //$NON-NLS-1$
 
         // The action of the button "Browse..."
@@ -304,6 +308,26 @@ public class LabelledFileField {
         text.setVisible(visible);
         label.setVisible(visible);
         button.setVisible(visible);
+    }
+
+    public void hide() {
+        Control[] controls = new Control[] { label, text, compositeButton, button };
+        for (Control control : controls) {
+            control.setVisible(false);
+            if (control.getLayoutData() instanceof GridData) {
+                ((GridData) control.getLayoutData()).exclude = true;
+            }
+        }
+    }
+
+    public void show() {
+        Control[] controls = new Control[] { label, text, compositeButton, button };
+        for (Control control : controls) {
+            control.setVisible(true);
+            if (control.getLayoutData() instanceof GridData) {
+                ((GridData) control.getLayoutData()).exclude = false;
+            }
+        }
     }
 
     /**
