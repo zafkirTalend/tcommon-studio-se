@@ -30,6 +30,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.cwm.builders.CatalogBuilder;
+import org.talend.cwm.builders.ColumnBuilder;
 import org.talend.cwm.builders.TableBuilder;
 import org.talend.cwm.builders.ViewBuilder;
 import org.talend.cwm.constants.SoftwareSystemConstants;
@@ -57,7 +58,6 @@ import orgomg.cwm.foundation.typemapping.TypemappingFactory;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Column;
 import orgomg.cwm.resource.relational.QueryColumnSet;
-import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
  * @author scorreia
@@ -363,33 +363,7 @@ public final class DatabaseContentRetriever {
      */
     public static List<TdColumn> getColumns(String catalogName, String schemaPattern, String tablePattern, String columnPattern,
             Connection connection) throws SQLException {
-        List<TdColumn> tableColumns = new ArrayList<TdColumn>();
-
-        // --- add columns to table
-        ResultSet columns = getConnectionMetadata(connection).getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
-        while (columns.next()) {
-            TdColumn column = ColumnHelper.createTdColumn(columns.getString(GetColumn.COLUMN_NAME.name()));
-            column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
-            column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
-            column.setJavaType(columns.getInt(GetColumn.DATA_TYPE.name()));
-            // TODO columns.getString(GetColumn.TYPE_NAME.name());
-
-            // TODO get column description (comment)
-
-            // TODO scorreia other informations for columns can be retrieved here
-
-            // --- create and set type of column
-            // TODO scorreia get type of column on demand, not on creation of column
-            // TdSqlDataType sqlDataType = createDataType(columns);
-            // column.setType(sqlDataType);
-            tableColumns.add(column);
-        }
-
-        // release JDBC resources
-        columns.close();
-
-        return tableColumns;
-
+        return new ColumnBuilder(connection).getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
     }
 
     /**
@@ -420,9 +394,9 @@ public final class DatabaseContentRetriever {
         return connection.getMetaData();
     }
 
-    private static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
+    public static TdSqlDataType createDataType(ResultSet columns) throws SQLException {
         TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
-        sqlDataType.setName("datatype"); // FIXME set name?
+        sqlDataType.setName(columns.getString(GetColumn.TYPE_NAME.name()));
         sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
         sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
         sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
