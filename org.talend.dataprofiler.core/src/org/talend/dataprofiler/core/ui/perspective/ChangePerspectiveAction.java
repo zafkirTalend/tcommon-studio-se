@@ -17,9 +17,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.sourceforge.sqlexplorer.EDriverName;
 import net.sourceforge.sqlexplorer.ExplorerException;
 import net.sourceforge.sqlexplorer.dbproduct.Alias;
 import net.sourceforge.sqlexplorer.dbproduct.AliasManager;
+import net.sourceforge.sqlexplorer.dbproduct.ManagedDriver;
 import net.sourceforge.sqlexplorer.dbproduct.User;
 import net.sourceforge.sqlexplorer.plugin.SQLExplorerPlugin;
 
@@ -114,9 +116,9 @@ public class ChangePerspectiveAction extends Action {
                 alias.setAutoLogon(false);
                 alias.setConnectAtStartup(true);
                 alias.setUrl(url);
-//                ManagedDriver manDr = default1.getDriverModel().getDriver(
-//                        EDriverName.getId(providerConnection.getDriverClassName()));
-//                alias.setDriver(manDr);
+                ManagedDriver manDr = default1.getDriverModel().getDriver(
+                        EDriverName.getId(providerConnection.getDriverClassName()));
+                alias.setDriver(manDr);
                 try {
                     aliasManager.addAlias(alias);
                 } catch (ExplorerException e) {
