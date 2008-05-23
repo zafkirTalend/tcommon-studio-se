@@ -23,17 +23,20 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -58,6 +61,7 @@ import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.EObjectHelper;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
+import org.talend.dataprofiler.core.ui.action.actions.RunAnalysisAction;
 import org.talend.dataprofiler.core.ui.dialog.ColumnsSelectionDialog;
 import org.talend.dataprofiler.core.ui.editor.composite.AnasisColumnTreeViewer;
 import org.talend.dataprofiler.core.ui.editor.composite.DataFilterComp;
@@ -197,7 +201,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
 
     void createPreviewSection(final ScrolledForm form, Composite parent) {
 
-        Section section = createSection(form, parent, "Preview", false, "");
+        Section section = createSection(form, parent, "Preview", true, "");
 
         Composite sectionClient = toolkit.createComposite(section);
         sectionClient.setLayout(new GridLayout());
@@ -206,7 +210,11 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
         ImageHyperlink refreshBtn = toolkit.createImageHyperlink(sectionClient, SWT.NONE);
         refreshBtn.setText("Refresh the preview");
         refreshBtn.setImage(ImageLib.getImage(ImageLib.SECTION_PREVIEW));
+        final Label message = toolkit.createLabel(sectionClient, "");
+        message.setForeground(Display.getDefault().getSystemColor(SWT.COLOR_RED));
+        message.setVisible(false);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(sectionClient);
+
 
         final Composite composite = toolkit.createComposite(sectionClient);
         composite.setLayout(new GridLayout());
@@ -221,16 +229,27 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
                 for (Control control : composite.getChildren()) {
                     control.dispose();
                 }
-
-                if (analysis.getResults().getResultMetadata() != null
-                        && analysis.getResults().getResultMetadata().getExecutionDate() != null) {
-
-                    // createRealChart
-                    createPreviewCharts(form, composite, true);
+                
+                boolean analysisStatue = analysis.getResults().getResultMetadata() != null 
+                    && analysis.getResults().getResultMetadata().getExecutionDate() != null;
+                
+                if (!analysisStatue) {
+                    boolean returnCode = MessageDialog.openConfirm(null, "Preview the result of analyis", 
+                    "Do you want to run the analysis or simply see sample data?");
+                    
+                    if (returnCode) {
+                        RunAnalysisAction runAction = new RunAnalysisAction();
+                        runAction.run();
+                        createPreviewCharts(form, composite, true);
+                        message.setVisible(false);
+                    } else {
+                        createPreviewCharts(form, composite, false);
+                        message.setText("Warning: currently displayed values are only sample values. "
+                                + "Run the analysis to get the real values");
+                        message.setVisible(true);
+                    }
                 } else {
-
-                    // createEmptyChart
-                    createPreviewCharts(form, composite, false);
+                    createPreviewCharts(form, composite, true);
                 }
 
                 composite.layout();
