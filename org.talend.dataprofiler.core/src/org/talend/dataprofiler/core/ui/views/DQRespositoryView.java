@@ -16,13 +16,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.service.GlobalServiceRegister;
 import org.talend.dataprofiler.core.service.IService;
 import org.talend.dataprofiler.core.service.IViewerFilterService;
+import org.talend.dataprofiler.core.ui.action.actions.RemoveAnalysisAction;
 import org.talend.dataprofiler.core.ui.views.filters.AbstractViewerFilter;
 import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
 import org.talend.dataprofiler.core.ui.views.filters.ReportingFilter;
@@ -37,10 +40,8 @@ public class DQRespositoryView extends CommonNavigator {
 
     private Map<String, AbstractViewerFilter> filterMap = new HashMap<String, AbstractViewerFilter>();
 
-
-    
     private static final String VIEW_CONTEXT_ID = "org.talend.dataprofiler.core.ui.views.DQRespositoryView.viewScope"; //$NON-NLS-1$
-    
+
     public DQRespositoryView() {
         super();
         CorePlugin.getDefault().checkDQStructure();
@@ -59,17 +60,19 @@ public class DQRespositoryView extends CommonNavigator {
         adjustFilter();
         activateContext();
     }
-    
+
     /**
-     * Activate a context that this view uses. It will be tied to this view
-     * activation events and will be removed when the view is disposed.
+     * Activate a context that this view uses. It will be tied to this view activation events and will be removed when
+     * the view is disposed.
      */
     private void activateContext() {
-        IContextService contextService = (IContextService) getSite()
-                .getService(IContextService.class);
+        IContextService contextService = (IContextService) getSite().getService(IContextService.class);
         contextService.activateContext(VIEW_CONTEXT_ID);
-    }
 
+        RemoveAnalysisAction removeAnalysisAction = new RemoveAnalysisAction();
+        IHandlerService service = (IHandlerService) getViewSite().getService(IHandlerService.class);
+        service.activateHandler(removeAnalysisAction.getActionDefinitionId(), new ActionHandler(removeAnalysisAction));
+    }
 
     private void adjustFilter() {
         List<IService> filterList = GlobalServiceRegister.getDefault().getServiceGroup(IViewerFilterService.class);
