@@ -49,12 +49,15 @@ public class AnalysisEditor extends FormEditor {
         switch (analysisType) {
         case COLUMN:
             masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis settings");
+            setPartName("Column Analysis Editor");
             break;
         case CONNECTION:
             masterPage = new ConnectionMasterDetailsPage(this, "MasterPage", "analysis settings");
+            setPartName("Connection Analysis Editor");
             break;
         default:
             masterPage = new ColumnMasterDetailsPage(this, "MasterPage", "analysis settings");
+            setPartName("Column Analysis Editor");
             break;
         }
         try {
@@ -106,30 +109,13 @@ public class AnalysisEditor extends FormEditor {
      * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
      */
     protected void setInput(IEditorInput input) {
-        // if (input == null) {
-        // return;
-        // }
         super.setInput(input);
-
         FileEditorInput fileEditorInput = (FileEditorInput) input;
         String name = fileEditorInput.getFile().getName();
         if (name.endsWith(PluginConstant.ANA_SUFFIX)) {
             Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(fileEditorInput.getFile());
             analysisType = findAnalysis.getParameters().getAnalysisType();
         }
-
-        // AnalysisEditorInuput analysisInput = null;
-        // if (input instanceof FileEditorInput) {
-        // URI uri = ((FileEditorInput) input).getFile().getLocationURI();
-        // analysisInput = new AnalysisEditorInuput(new File(uri));
-        // analysisType = analysisInput.getAnalysisType();
-        // super.setInput(analysisInput);
-        // } else if (input instanceof AnalysisEditorInuput) {
-        // analysisType = ((AnalysisEditorInuput) input).getAnalysisType();
-        // super.setInput(input);
-        // }
-        //
-         setPartName(input.getName());
     }
 
     /**

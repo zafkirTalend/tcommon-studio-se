@@ -14,6 +14,7 @@ package org.talend.dataprofiler.core.ui.editor.connection;
 
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -86,18 +87,9 @@ public class ConnectionEditor extends FormEditor {
      * 
      * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
      */
-//    @Override
-//    protected void setInput(IEditorInput input) {
-//        if (input == null) {
-//            return;
-//        }
-//        IEditorInput connectionEditorInput = input;
-//        if (connectionEditorInput instanceof FileEditorInput) {
-//            URI uri = ((FileEditorInput) input).getFile().getLocationURI();
-//            connectionEditorInput = new ConnectionEditorInput(new File(uri));
-//        }
-//        super.setInput(connectionEditorInput);
-//        setPartName(input.getName());
-//    }
+    protected void setInput(IEditorInput input) {
+        super.setInput(input);
+        setPartName("Connection Editor");
+    }
 
 }
