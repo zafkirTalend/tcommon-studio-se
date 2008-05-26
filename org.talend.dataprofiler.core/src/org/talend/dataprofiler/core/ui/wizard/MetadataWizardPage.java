@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.wizard;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -244,7 +243,7 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
             Object elements = dialog.getResult()[0];
             IResource elem = (IResource) elements;
             if (elem instanceof IFolder) {
-                pathText.setText(elem.getLocation().toString());
+                pathText.setText(elem.getFullPath().toString());
 
                 FolderProvider provider = new FolderProvider();
                 provider.setFolderResource((IFolder) elem);
@@ -338,7 +337,7 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
 
         if (defaultFolderProviderRes != null) {
             FolderProvider defaultFolder = new FolderProvider();
-            defaultFolder.setFolder(new File(defaultFolderProviderRes.getLocationURI()));
+            defaultFolder.setFolderResource(defaultFolderProviderRes);
             getConnectionParams().setFolderProvider(defaultFolder);
         }
 
