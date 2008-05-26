@@ -136,17 +136,16 @@ public class TdColumnItemProvider
     }
 
     /**
-     * This returns the label text for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        String label = ((TdColumn)object).getName();
-        return label == null || label.length() == 0 ?
-            getString("_UI_TdColumn_type") :
-            getString("_UI_TdColumn_type") + " " + label;
+        TdColumn tdColumn = ((TdColumn) object);
+        String label = tdColumn.getName();
+        return label == null || label.length() == 0 ? getString("_UI_TdColumn_type") : getString("_UI_TdColumn_type") + label
+                + " (" + tdColumn.getSqlDataType().getName() + ")";
     }
 
     /**
