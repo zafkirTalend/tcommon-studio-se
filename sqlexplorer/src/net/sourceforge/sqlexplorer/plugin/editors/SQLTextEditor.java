@@ -26,7 +26,11 @@ import org.eclipse.core.filebuffers.ITextFileBuffer;
 import org.eclipse.core.filebuffers.ITextFileBufferManager;
 import org.eclipse.core.filebuffers.LocationKind;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -34,7 +38,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -43,6 +46,10 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
@@ -61,11 +68,13 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.editors.text.TextEditor;
+import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
+import org.eclipse.ui.views.navigator.ResourceComparator;
 
 /**
  * TextEditor specialisation; encapsulates functionality specific to editing SQL.
@@ -80,6 +89,8 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
  * 
  */
 public class SQLTextEditor extends TextEditor {
+
+    static int i = 0;
 
     private SQLEditor editor;
 
@@ -143,61 +154,94 @@ public class SQLTextEditor extends TextEditor {
             super.performSaveAs(progressMonitor);
             return;
         }
-        SaveAsDialog dialog = new SaveAsDialog(shell);
 
-        IFile original = (input instanceof IFileEditorInput) ? ((IFileEditorInput) input).getFile() : null;
-        if (original != null)
-            dialog.setOriginalFile(original);
+        // PTODO qzhang fixed bug 3907
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        ILabelProvider lp = new WorkbenchLabelProvider();
+        ITreeContentProvider cp = new WorkbenchContentProvider();
+        FolderSelectionDialog dialog = new FolderSelectionDialog(shell, lp, cp);
+        // dialog.setValidator(validator);
+        dialog.setTitle("Select folder");
+        dialog.setMessage("Select the folder in which the item will be created");
+        dialog.setInput(root);
+        dialog.addFilter(new ViewerFilter() {
 
-        dialog.create();
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object,
+             * java.lang.Object)
+             */
+            @Override
+            public boolean select(Viewer viewer, Object parentElement, Object element) {
+                if (IProject.class.isInstance(element)) {
+                    return "Libraries".equals(((IProject) element).getName());
+                } else if (IFolder.class.isInstance(element)) {
+                    return "Source Files".equals(((IFolder) element).getName());
+                }
+                return false;
+            }
+        });
+        dialog.setComparator(new ResourceComparator(ResourceComparator.NAME));
+        // SaveAsDialog dialog = new SaveAsDialog(shell);
+        // IFile original = (input instanceof IFileEditorInput) ? ((IFileEditorInput) input).getFile() : null;
+        // if (original != null)
+        // dialog.setOriginalFile(original);
 
-        if (provider.isDeleted(input) && original != null) {
-            String message = "The file is already deleted.";
-            dialog.setErrorMessage(null);
-            dialog.setMessage(message, IMessageProvider.WARNING);
-        }
+        // dialog.create();
+
+        // if (provider.isDeleted(input) && original != null) {
+        // String message = "The file is already deleted.";
+        // dialog.setErrorMessage(null);
+        // dialog.setMessage(message, IMessageProvider.WARNING);
+        // }
         if (dialog.open() == Window.CANCEL) {
             if (progressMonitor != null)
                 progressMonitor.setCanceled(true);
             return;
         }
 
-        IPath filePath = dialog.getResult();
-        if (filePath == null) {
-            if (progressMonitor != null)
-                progressMonitor.setCanceled(true);
-            return;
-        }
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        IFile file = workspace.getRoot().getFile(filePath);
-        newInput = new FileEditorInput(file);
-        if (provider == null) {
-            // editor has programmatically been closed while the dialog was open
-            return;
-        }
-
-        boolean success = false;
-        try {
-
-            provider.aboutToChange(newInput);
-            createIFile(progressMonitor, file, getViewer().getDocument().get());
-            success = true;
-
-        } catch (CoreException x) {
-            final IStatus status = x.getStatus();
-            if (status == null || status.getSeverity() != IStatus.CANCEL) {
-                String title = "The file save failure.";
-                String msg = "The file save failure.";
-                MessageDialog.openError(shell, title, msg);
+        Object elements = dialog.getResult()[0];
+        IResource elem = (IResource) elements;
+        if (elem instanceof IFolder) {
+            IPath filePath = ((IFolder) elem).getFullPath();
+            filePath = filePath.append(getTitle());
+            if (filePath == null) {
+                if (progressMonitor != null)
+                    progressMonitor.setCanceled(true);
+                return;
             }
-        } finally {
-            provider.changed(newInput);
-            if (success)
-                setInput(newInput);
-        }
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            IFile file = workspace.getRoot().getFile(filePath);
+            newInput = new FileEditorInput(file);
+            if (provider == null) {
+                // editor has programmatically been closed while the dialog was open
+                return;
+            }
 
-        if (progressMonitor != null)
-            progressMonitor.setCanceled(!success);
+            boolean success = false;
+            try {
+
+                provider.aboutToChange(newInput);
+                createIFile(progressMonitor, file, getViewer().getDocument().get());
+                success = true;
+
+            } catch (CoreException x) {
+                final IStatus status = x.getStatus();
+                if (status == null || status.getSeverity() != IStatus.CANCEL) {
+                    String title = "The file save failure.";
+                    String msg = "The file save failure.";
+                    MessageDialog.openError(shell, title, msg);
+                }
+            } finally {
+                provider.changed(newInput);
+                if (success)
+                    setInput(newInput);
+            }
+
+            if (progressMonitor != null)
+                progressMonitor.setCanceled(!success);
+        }
     }
 
     /**

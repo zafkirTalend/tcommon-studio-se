@@ -290,7 +290,8 @@ public class SQLExplorerPlugin extends AbstractUIPlugin {
         } catch (IllegalArgumentException e) {
             // Nothing
         }
-        return IConstants.Confirm.ASK;
+        // PTODO qzhang not ask.
+        return IConstants.Confirm.YES;
     }
 
     /**
