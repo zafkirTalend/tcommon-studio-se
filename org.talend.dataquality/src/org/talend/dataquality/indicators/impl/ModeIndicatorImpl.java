@@ -150,7 +150,7 @@ public class ModeIndicatorImpl extends IndicatorImpl implements ModeIndicator {
      */
     @Override
     public boolean storeSqlResults(List<Object[]> objects) {
-        if (!checkResults(objects, 1)) {
+        if (!checkResults(objects, 2)) {
             return false;
         }
         Object c = objects.get(0)[0];

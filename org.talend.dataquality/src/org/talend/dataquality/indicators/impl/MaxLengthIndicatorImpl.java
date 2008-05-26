@@ -5,10 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigInteger;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.MaxLengthIndicator;
 
@@ -17,13 +14,14 @@ import org.talend.dataquality.indicators.MaxLengthIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class MaxLengthIndicatorImpl extends LengthIndicatorImpl implements MaxLengthIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected MaxLengthIndicatorImpl() {
@@ -32,6 +30,7 @@ public class MaxLengthIndicatorImpl extends LengthIndicatorImpl implements MaxLe
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -50,7 +49,7 @@ public class MaxLengthIndicatorImpl extends LengthIndicatorImpl implements MaxLe
         if (data != null) {
             String str = (String) data;
             if (length.intValue() < str.length()) {
-                length = new BigInteger(String.valueOf(str.length()));
+                length = Long.valueOf(str.length());
             }
         }
         // TODO scorreia handle null data

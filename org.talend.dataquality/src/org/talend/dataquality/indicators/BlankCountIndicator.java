@@ -36,12 +36,12 @@ public interface BlankCountIndicator extends Indicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Blank Count</em>' attribute.
-     * @see #setBlankCount(BigInteger)
+     * @see #setBlankCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getBlankCountIndicator_BlankCount()
      * @model default="0"
      * @generated
      */
-    BigInteger getBlankCount();
+    Long getBlankCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.BlankCountIndicator#getBlankCount <em>Blank Count</em>}' attribute.
@@ -51,6 +51,6 @@ public interface BlankCountIndicator extends Indicator {
      * @see #getBlankCount()
      * @generated
      */
-    void setBlankCount(BigInteger value);
+    void setBlankCount(Long value);
 
 } // BlankCountIndicator

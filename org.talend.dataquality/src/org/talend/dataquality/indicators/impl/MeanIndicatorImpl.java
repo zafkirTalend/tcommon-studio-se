@@ -1,7 +1,5 @@
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -13,13 +11,14 @@ import org.talend.dataquality.indicators.MeanIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected MeanIndicatorImpl() {
@@ -28,6 +27,7 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -40,17 +40,17 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
      * 
      * @generated NOT
      */
-    public BigDecimal getMean() {
-        BigInteger c = getCount();
+    public Double getMean() {
+        Long c = getCount();
         // if (super.genericSum == null) {// TODO scorreia check that this work
-        if (c.compareTo(BigInteger.ZERO) == 0) {
+        if (c.compareTo(0L) == 0) {
             throw new RuntimeException("Invalid mean!!");
         }
-        BigDecimal sum = new BigDecimal(getSumStr());
+        Double sum = Double.valueOf(getSumStr());
         if (sum == null) {
             throw new RuntimeException("Invalid sum in mean computation!!");
         }
-        return sum.divide(new BigDecimal(c));
+        return sum / c;
         // throw new RuntimeException("Problem when computing mean!!");
         // }
         //
@@ -76,9 +76,10 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public double getMeanWithNulls(double valueForNull) {
+    public Double getMeanWithNulls(double valueForNull) {
         // TODO: implement this method
         // Ensure that you remove @generated or mark it @generated NOT
         throw new UnsupportedOperationException();
@@ -99,7 +100,7 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
         String s = String.valueOf(objects.get(0)[0]);
         String c = String.valueOf(objects.get(0)[1]);
         this.setSumStr(s);
-        this.setCount(new BigInteger(c));
+        this.setCount(Long.valueOf(c));
         return true;
     }
 

@@ -5,10 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigInteger;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.MinLengthIndicator;
 
@@ -17,13 +14,14 @@ import org.talend.dataquality.indicators.MinLengthIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class MinLengthIndicatorImpl extends LengthIndicatorImpl implements MinLengthIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected MinLengthIndicatorImpl() {
@@ -32,6 +30,7 @@ public class MinLengthIndicatorImpl extends LengthIndicatorImpl implements MinLe
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -50,7 +49,7 @@ public class MinLengthIndicatorImpl extends LengthIndicatorImpl implements MinLe
         if (data != null) {
             String str = (String) data;
             if (length.intValue() > str.length()) {
-                length = new BigInteger(String.valueOf(str.length()));
+                length = Long.valueOf(str.length());
             }
         }
         // TODO scorreia handle null data

@@ -66,7 +66,7 @@ public interface FrequencyIndicator extends CompositeIndicator {
      * @model
      * @generated
      */
-    long getCount(Object dataValue);
+    Long getCount(Object dataValue);
 
     /**
      * <!-- begin-user-doc -->
@@ -77,7 +77,7 @@ public interface FrequencyIndicator extends CompositeIndicator {
      * @model
      * @generated
      */
-    double getFrequency(Object dataValue);
+    Double getFrequency(Object dataValue);
 
     /**
      * <!-- begin-user-doc -->
@@ -92,12 +92,12 @@ public interface FrequencyIndicator extends CompositeIndicator {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the value of the '<em>Distinct Value Count</em>' attribute.
-     * @see #setDistinctValueCount(BigInteger)
+     * @see #setDistinctValueCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_DistinctValueCount()
      * @model
      * @generated
      */
-    BigInteger getDistinctValueCount();
+    Long getDistinctValueCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDistinctValueCount <em>Distinct Value Count</em>}' attribute.
@@ -107,19 +107,19 @@ public interface FrequencyIndicator extends CompositeIndicator {
      * @see #getDistinctValueCount()
      * @generated
      */
-    void setDistinctValueCount(BigInteger value);
+    void setDistinctValueCount(Long value);
 
     /**
      * Returns the value of the '<em><b>Unique Value Count</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the value of the '<em>Unique Value Count</em>' attribute.
-     * @see #setUniqueValueCount(BigInteger)
+     * @see #setUniqueValueCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getFrequencyIndicator_UniqueValueCount()
      * @model
      * @generated
      */
-    BigInteger getUniqueValueCount();
+    Long getUniqueValueCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueValueCount <em>Unique Value Count</em>}' attribute.
@@ -129,7 +129,7 @@ public interface FrequencyIndicator extends CompositeIndicator {
      * @see #getUniqueValueCount()
      * @generated
      */
-    void setUniqueValueCount(BigInteger value);
+    void setUniqueValueCount(Long value);
 
     /**
      * Returns the value of the '<em><b>Duplicate Value Count</b></em>' attribute.
@@ -144,7 +144,7 @@ public interface FrequencyIndicator extends CompositeIndicator {
      * @model transient="true" changeable="false" volatile="true"
      * @generated
      */
-    BigInteger getDuplicateValueCount();
+    Long getDuplicateValueCount();
 
     /**
      * Returns the value of the '<em><b>Value To Freq</b></em>' attribute.

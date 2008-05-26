@@ -5,6 +5,7 @@
  */
 package org.talend.dataquality.indicators;
 
+import java.util.Date;
 import java.math.BigDecimal;
 import java.util.TreeMap;
 
@@ -21,6 +22,7 @@ import java.util.TreeMap;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.MedianIndicator#getMedian <em>Median</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.MedianIndicator#getFrequenceTable <em>Frequence Table</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.MedianIndicator#getDateMedian <em>Date Median</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,12 +41,12 @@ public interface MedianIndicator extends Indicator {
      * @return the value of the '<em>Median</em>' attribute.
      * @see #isSetMedian()
      * @see #unsetMedian()
-     * @see #setMedian(BigDecimal)
+     * @see #setMedian(Double)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getMedianIndicator_Median()
      * @model unsettable="true"
      * @generated
      */
-    BigDecimal getMedian();
+    Double getMedian();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.MedianIndicator#getMedian <em>Median</em>}' attribute.
@@ -56,7 +58,7 @@ public interface MedianIndicator extends Indicator {
      * @see #getMedian()
      * @generated
      */
-    void setMedian(BigDecimal value);
+    void setMedian(Double value);
 
     /**
      * Unsets the value of the '{@link org.talend.dataquality.indicators.MedianIndicator#getMedian <em>Median</em>}' attribute.
@@ -64,7 +66,7 @@ public interface MedianIndicator extends Indicator {
      * <!-- end-user-doc -->
      * @see #isSetMedian()
      * @see #getMedian()
-     * @see #setMedian(BigDecimal)
+     * @see #setMedian(Double)
      * @generated
      */
     void unsetMedian();
@@ -76,7 +78,7 @@ public interface MedianIndicator extends Indicator {
      * @return whether the value of the '<em>Median</em>' attribute is set.
      * @see #unsetMedian()
      * @see #getMedian()
-     * @see #setMedian(BigDecimal)
+     * @see #setMedian(Double)
      * @generated
      */
     boolean isSetMedian();
@@ -106,6 +108,31 @@ public interface MedianIndicator extends Indicator {
      * @generated
      */
     void setFrequenceTable(TreeMap<Object, Long> value);
+
+    /**
+     * Returns the value of the '<em><b>Date Median</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * When computing median on date columns, this method returns the median as a date. The method this.getMedian() returns the date as a numeric value instead.
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>Date Median</em>' attribute.
+     * @see #setDateMedian(Date)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getMedianIndicator_DateMedian()
+     * @model
+     * @generated
+     */
+    Date getDateMedian();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.MedianIndicator#getDateMedian <em>Date Median</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Date Median</em>' attribute.
+     * @see #getDateMedian()
+     * @generated
+     */
+    void setDateMedian(Date value);
 
     /**
      * <!-- begin-user-doc -->

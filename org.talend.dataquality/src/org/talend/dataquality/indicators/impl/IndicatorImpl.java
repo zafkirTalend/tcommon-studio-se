@@ -5,8 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.sql.Types;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,7 +25,6 @@ import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
-import org.talend.dataquality.indicators.IndicatorType;
 import org.talend.dataquality.indicators.IndicatorValueType;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
@@ -63,7 +61,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @generated
      * @ordered
      */
-    protected static final BigInteger COUNT_EDEFAULT = new BigInteger("0");
+    protected static final Long COUNT_EDEFAULT = new Long(0L);
 
     /**
      * The cached value of the '{@link #getCount() <em>Count</em>}' attribute.
@@ -73,7 +71,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @generated
      * @ordered
      */
-    protected BigInteger count = COUNT_EDEFAULT;
+    protected Long count = COUNT_EDEFAULT;
 
     /**
      * The default value of the '{@link #getNullCount() <em>Null Count</em>}' attribute.
@@ -83,7 +81,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @generated
      * @ordered
      */
-    protected static final BigInteger NULL_COUNT_EDEFAULT = new BigInteger("0");
+    protected static final Long NULL_COUNT_EDEFAULT = new Long(0L);
 
     /**
      * The cached value of the '{@link #getNullCount() <em>Null Count</em>}' attribute.
@@ -93,7 +91,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @generated
      * @ordered
      */
-    protected BigInteger nullCount = NULL_COUNT_EDEFAULT;
+    protected Long nullCount = NULL_COUNT_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference. <!--
@@ -175,7 +173,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public BigInteger getCount() {
+    public Long getCount() {
         return count;
     }
 
@@ -183,8 +181,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setCount(BigInteger newCount) {
-        BigInteger oldCount = count;
+    public void setCount(Long newCount) {
+        Long oldCount = count;
         count = newCount;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__COUNT, oldCount, count));
@@ -194,7 +192,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public BigInteger getNullCount() {
+    public Long getNullCount() {
         return nullCount;
     }
 
@@ -202,8 +200,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setNullCount(BigInteger newNullCount) {
-        BigInteger oldNullCount = nullCount;
+    public void setNullCount(Long newNullCount) {
+        Long oldNullCount = nullCount;
         nullCount = newNullCount;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR__NULL_COUNT, oldNullCount, nullCount));
@@ -378,9 +376,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      */
     public boolean handle(Object data) {
         if (data == null) {
-            nullCount.add(BigInteger.ONE);
+            nullCount++;
         }
-        count.add(BigInteger.ONE);
+        count++;
         return true;
     }
 
@@ -490,7 +488,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * 
      * @generated NOT
      */
-    public BigInteger getIntegerValue() {
+    public Long getIntegerValue() {
         return null;
     }
 
@@ -499,7 +497,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * 
      * @generated NOT
      */
-    public BigDecimal getRealValue() {
+    public Double getRealValue() {
         return null;
     }
 
@@ -513,8 +511,7 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getInstanceValue() {
@@ -620,10 +617,10 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case IndicatorsPackage.INDICATOR__COUNT:
-                setCount((BigInteger)newValue);
+                setCount((Long)newValue);
                 return;
             case IndicatorsPackage.INDICATOR__NULL_COUNT:
-                setNullCount((BigInteger)newValue);
+                setNullCount((Long)newValue);
                 return;
             case IndicatorsPackage.INDICATOR__PARAMETERS:
                 setParameters((IndicatorParameters)newValue);
@@ -700,6 +697,24 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
                 return instantiatedExpressions != null && !instantiatedExpressions.isEmpty();
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * Method "getColumnType".
+     * 
+     * @return the column type of the analyzed object (when the analyzed object is a column). Otherwise, it returns
+     * Types.JAVA_OBJECT.
+     */
+    protected int getColumnType() {
+        int javaType = Types.JAVA_OBJECT; // default type
+        ModelElement elt = this.getAnalyzedElement();
+        if (elt != null) {
+            TdColumn col = SwitchHelpers.COLUMN_SWITCH.doSwitch(elt);
+            if (col != null) {
+                javaType = col.getJavaType();
+            }
+        }
+        return javaType;
     }
 
     /**

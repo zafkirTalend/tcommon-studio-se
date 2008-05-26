@@ -228,6 +228,7 @@
       <genClasses ecoreClass="dataquality.ecore#//indicators/MedianIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/median"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/frequenceTable"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/dateMedian"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/MedianIndicator/computeMedian"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/ValueIndicator">

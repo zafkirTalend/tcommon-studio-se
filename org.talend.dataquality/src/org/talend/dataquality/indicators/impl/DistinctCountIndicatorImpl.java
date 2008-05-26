@@ -5,7 +5,6 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 
@@ -21,10 +20,10 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.DistinctCountIndicatorImpl#getDistinctValueCount <em>Distinct Value Count</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.DistinctCountIndicatorImpl#getDistinctValueCount <em>Distinct Value Count</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class DistinctCountIndicatorImpl extends IndicatorImpl implements DistinctCountIndicator {
@@ -37,7 +36,7 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
      * @generated
      * @ordered
      */
-    protected static final int DISTINCT_VALUE_COUNT_EDEFAULT = 0;
+    protected static final Long DISTINCT_VALUE_COUNT_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getDistinctValueCount() <em>Distinct Value Count</em>}' attribute. <!--
@@ -47,10 +46,11 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
      * @generated
      * @ordered
      */
-    protected int distinctValueCount = DISTINCT_VALUE_COUNT_EDEFAULT;
+    protected Long distinctValueCount = DISTINCT_VALUE_COUNT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected DistinctCountIndicatorImpl() {
@@ -59,6 +59,7 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -68,6 +69,7 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public Set<Object> getDistinctValues() {
@@ -78,65 +80,72 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
-                return new Integer(getDistinctValueCount());
+        case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
+            return getDistinctValueCount();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
-                setDistinctValueCount(((Integer)newValue).intValue());
-                return;
+        case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
+            setDistinctValueCount((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
-                setDistinctValueCount(DISTINCT_VALUE_COUNT_EDEFAULT);
-                return;
+        case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
+            setDistinctValueCount(DISTINCT_VALUE_COUNT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
-                return distinctValueCount != DISTINCT_VALUE_COUNT_EDEFAULT;
+        case IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT:
+            return DISTINCT_VALUE_COUNT_EDEFAULT == null ? distinctValueCount != null : !DISTINCT_VALUE_COUNT_EDEFAULT
+                    .equals(distinctValueCount);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (distinctValueCount: ");
@@ -147,21 +156,24 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public int getDistinctValueCount() {
+    public Long getDistinctValueCount() {
         return distinctValueCount;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public void setDistinctValueCount(int newDistinctValueCount) {
-        int oldDistinctValueCount = distinctValueCount;
+    public void setDistinctValueCount(Long newDistinctValueCount) {
+        Long oldDistinctValueCount = distinctValueCount;
         distinctValueCount = newDistinctValueCount;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT, oldDistinctValueCount, distinctValueCount));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    IndicatorsPackage.DISTINCT_COUNT_INDICATOR__DISTINCT_VALUE_COUNT, oldDistinctValueCount, distinctValueCount));
     }
 
     /*
@@ -177,7 +189,7 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
             return false;
         }
         String c = String.valueOf(objects.get(0)[0]);
-        this.setDistinctValueCount(Integer.valueOf(c));
+        this.setDistinctValueCount(Long.valueOf(c));
         return true;
     }
 
@@ -189,8 +201,8 @@ public class DistinctCountIndicatorImpl extends IndicatorImpl implements Distinc
      * ADDED scorreia 2008-05-12 getIntegerValue()
      */
     @Override
-    public BigInteger getIntegerValue() {
-        return BigInteger.valueOf(this.getDistinctValueCount());
+    public Long getIntegerValue() {
+        return this.getDistinctValueCount();
     }
 
 } // DistinctCountIndicatorImpl

@@ -40,12 +40,12 @@ public interface UniqueCountIndicator extends Indicator {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the value of the '<em>Unique Value Count</em>' attribute.
-     * @see #setUniqueValueCount(int)
+     * @see #setUniqueValueCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getUniqueCountIndicator_UniqueValueCount()
      * @model
      * @generated
      */
-    int getUniqueValueCount();
+    Long getUniqueValueCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.UniqueCountIndicator#getUniqueValueCount <em>Unique Value Count</em>}' attribute.
@@ -55,5 +55,5 @@ public interface UniqueCountIndicator extends Indicator {
      * @see #getUniqueValueCount()
      * @generated
      */
-    void setUniqueValueCount(int value);
+    void setUniqueValueCount(Long value);
 } // UniqueCountIndicator

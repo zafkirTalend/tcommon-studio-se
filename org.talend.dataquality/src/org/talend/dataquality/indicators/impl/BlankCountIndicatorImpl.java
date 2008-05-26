@@ -5,7 +5,6 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -22,10 +21,10 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.dataquality.indicators.impl.BlankCountIndicatorImpl#getBlankCount <em>Blank Count</em>}</li>
+ * <li>{@link org.talend.dataquality.indicators.impl.BlankCountIndicatorImpl#getBlankCount <em>Blank Count</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCountIndicator {
@@ -33,27 +32,28 @@ public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCount
     private static Logger log = Logger.getLogger(BlankCountIndicatorImpl.class);
 
     /**
-     * The default value of the '{@link #getBlankCount() <em>Blank Count</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The default value of the '{@link #getBlankCount() <em>Blank Count</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getBlankCount()
      * @generated
      * @ordered
      */
-    protected static final BigInteger BLANK_COUNT_EDEFAULT = new BigInteger("0");
+    protected static final Long BLANK_COUNT_EDEFAULT = new Long(0L);
 
     /**
-     * The cached value of the '{@link #getBlankCount() <em>Blank Count</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getBlankCount() <em>Blank Count</em>}' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see #getBlankCount()
      * @generated
      * @ordered
      */
-    protected BigInteger blankCount = BLANK_COUNT_EDEFAULT;
+    protected Long blankCount = BLANK_COUNT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected BlankCountIndicatorImpl() {
@@ -62,6 +62,7 @@ public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCount
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -71,73 +72,80 @@ public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCount
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public BigInteger getBlankCount() {
+    public Long getBlankCount() {
         return blankCount;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
-    public void setBlankCount(BigInteger newBlankCount) {
-        BigInteger oldBlankCount = blankCount;
+    public void setBlankCount(Long newBlankCount) {
+        Long oldBlankCount = blankCount;
         blankCount = newBlankCount;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT, oldBlankCount, blankCount));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT,
+                    oldBlankCount, blankCount));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
-                return getBlankCount();
+        case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
+            return getBlankCount();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
-                setBlankCount((BigInteger)newValue);
-                return;
+        case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
+            setBlankCount((Long) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
-                setBlankCount(BLANK_COUNT_EDEFAULT);
-                return;
+        case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
+            setBlankCount(BLANK_COUNT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
-                return BLANK_COUNT_EDEFAULT == null ? blankCount != null : !BLANK_COUNT_EDEFAULT.equals(blankCount);
+        case IndicatorsPackage.BLANK_COUNT_INDICATOR__BLANK_COUNT:
+            return BLANK_COUNT_EDEFAULT == null ? blankCount != null : !BLANK_COUNT_EDEFAULT.equals(blankCount);
         }
         return super.eIsSet(featureID);
     }
@@ -166,7 +174,7 @@ public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCount
         assert data instanceof String : "Cannot check for blank on non string: " + data;
         String str = (String) data;
         if (StringUtils.isBlank(str)) {
-            this.blankCount.add(BigInteger.ONE);
+            this.blankCount++;
         }
         return ok;
     }
@@ -189,7 +197,7 @@ public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCount
         if (!super.checkResults(objects, 1)) {
             return false;
         }
-        BigInteger c = new BigInteger(String.valueOf(objects.get(0)[0]));
+        Long c = Long.valueOf(String.valueOf(objects.get(0)[0]));
         this.setBlankCount(c);
         return true;
     }
@@ -202,7 +210,7 @@ public class BlankCountIndicatorImpl extends IndicatorImpl implements BlankCount
      * ADDED scorreia 2008-05-12 getIntegerValue()
      */
     @Override
-    public BigInteger getIntegerValue() {
+    public Long getIntegerValue() {
         return this.getBlankCount();
     }
 

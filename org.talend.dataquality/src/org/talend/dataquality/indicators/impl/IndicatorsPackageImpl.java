@@ -831,6 +831,15 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMedianIndicator_DateMedian() {
+        return (EAttribute)medianIndicatorEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1304,6 +1313,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         medianIndicatorEClass = createEClass(MEDIAN_INDICATOR);
         createEAttribute(medianIndicatorEClass, MEDIAN_INDICATOR__MEDIAN);
         createEAttribute(medianIndicatorEClass, MEDIAN_INDICATOR__FREQUENCE_TABLE);
+        createEAttribute(medianIndicatorEClass, MEDIAN_INDICATOR__DATE_MEDIAN);
 
         valueIndicatorEClass = createEClass(VALUE_INDICATOR);
         createEAttribute(valueIndicatorEClass, VALUE_INDICATOR__VALUE);
@@ -1444,8 +1454,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         // Initialize classes and features; add operations and parameters
         initEClass(indicatorEClass, Indicator.class, "Indicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getIndicator_Count(), ecorePackage.getEBigInteger(), "count", "0", 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getIndicator_NullCount(), ecorePackage.getEBigInteger(), "nullCount", "0", 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicator_Count(), ecorePackage.getELongObject(), "count", "0", 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIndicator_NullCount(), ecorePackage.getELongObject(), "nullCount", "0", 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicator_Parameters(), this.getIndicatorParameters(), null, "parameters", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getIndicator_AnalyzedElement(), theCorePackage.getModelElement(), null, "analyzedElement", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIndicator_DataminingType(), this.getDataminingType(), "dataminingType", null, 0, 1, Indicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1474,9 +1484,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         op = addEOperation(indicatorEClass, ecorePackage.getEBoolean(), "setInstantiatedExpression", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, theCorePackage.getExpression(), "expression", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        addEOperation(indicatorEClass, ecorePackage.getEBigInteger(), "getIntegerValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEOperation(indicatorEClass, ecorePackage.getELongObject(), "getIntegerValue", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        addEOperation(indicatorEClass, ecorePackage.getEBigDecimal(), "getRealValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEOperation(indicatorEClass, ecorePackage.getEDoubleObject(), "getRealValue", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         addEOperation(indicatorEClass, this.getIndicatorValueType(), "getValueType", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1486,9 +1496,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         initEClass(meanIndicatorEClass, MeanIndicator.class, "MeanIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        addEOperation(meanIndicatorEClass, ecorePackage.getEBigDecimal(), "getMean", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEOperation(meanIndicatorEClass, ecorePackage.getEDoubleObject(), "getMean", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        op = addEOperation(meanIndicatorEClass, ecorePackage.getEDouble(), "getMeanWithNulls", 0, 1, IS_UNIQUE, IS_ORDERED);
+        op = addEOperation(meanIndicatorEClass, ecorePackage.getEDoubleObject(), "getMeanWithNulls", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEDouble(), "valueForNull", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(sumIndicatorEClass, SumIndicator.class, "SumIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1513,25 +1523,25 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         initEClass(frequencyIndicatorEClass, FrequencyIndicator.class, "FrequencyIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFrequencyIndicator_UniqueValues(), ecorePackage.getEJavaObject(), "uniqueValues", null, 0, -1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_DistinctValueCount(), ecorePackage.getEBigInteger(), "distinctValueCount", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_UniqueValueCount(), ecorePackage.getEBigInteger(), "uniqueValueCount", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFrequencyIndicator_DuplicateValueCount(), ecorePackage.getEBigInteger(), "duplicateValueCount", null, 0, 1, FrequencyIndicator.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_DistinctValueCount(), ecorePackage.getELongObject(), "distinctValueCount", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_UniqueValueCount(), ecorePackage.getELongObject(), "uniqueValueCount", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFrequencyIndicator_DuplicateValueCount(), ecorePackage.getELongObject(), "duplicateValueCount", null, 0, 1, FrequencyIndicator.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFrequencyIndicator_ValueToFreq(), this.getJavaHashMap(), "valueToFreq", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFrequencyIndicator_ModeIndicator(), this.getModeIndicator(), null, "modeIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFrequencyIndicator_DistinctCountIndicator(), this.getDistinctCountIndicator(), null, "distinctCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFrequencyIndicator_UniqueCountIndicator(), this.getUniqueCountIndicator(), null, "uniqueCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFrequencyIndicator_DuplicateCountIndicator(), this.getDuplicateCountIndicator(), null, "duplicateCountIndicator", null, 0, 1, FrequencyIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        op = addEOperation(frequencyIndicatorEClass, ecorePackage.getELong(), "getCount", 0, 1, IS_UNIQUE, IS_ORDERED);
+        op = addEOperation(frequencyIndicatorEClass, ecorePackage.getELongObject(), "getCount", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEJavaObject(), "dataValue", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        op = addEOperation(frequencyIndicatorEClass, ecorePackage.getEDouble(), "getFrequency", 0, 1, IS_UNIQUE, IS_ORDERED);
+        op = addEOperation(frequencyIndicatorEClass, ecorePackage.getEDoubleObject(), "getFrequency", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, ecorePackage.getEJavaObject(), "dataValue", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         addEOperation(frequencyIndicatorEClass, this.getJavaSet(), "getDistinctValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(blankCountIndicatorEClass, BlankCountIndicator.class, "BlankCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getBlankCountIndicator_BlankCount(), ecorePackage.getEBigInteger(), "blankCount", "0", 0, 1, BlankCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBlankCountIndicator_BlankCount(), ecorePackage.getELongObject(), "blankCount", "0", 0, 1, BlankCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(indicatorParametersEClass, IndicatorParameters.class, "IndicatorParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIndicatorParameters_IndicatorValidDomain(), theDomainPackage.getDomain(), null, "indicatorValidDomain", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1541,8 +1551,9 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEReference(getIndicatorParameters_TextParameter(), this.getTextParameters(), null, "textParameter", null, 0, 1, IndicatorParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(medianIndicatorEClass, MedianIndicator.class, "MedianIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMedianIndicator_Median(), ecorePackage.getEBigDecimal(), "median", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMedianIndicator_Median(), ecorePackage.getEDoubleObject(), "median", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMedianIndicator_FrequenceTable(), this.getJavaTreeMap(), "frequenceTable", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMedianIndicator_DateMedian(), ecorePackage.getEDate(), "dateMedian", null, 0, 1, MedianIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(medianIndicatorEClass, ecorePackage.getEBoolean(), "computeMedian", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1560,17 +1571,17 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(nullCountIndicatorEClass, NullCountIndicator.class, "NullCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(distinctCountIndicatorEClass, DistinctCountIndicator.class, "DistinctCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDistinctCountIndicator_DistinctValueCount(), ecorePackage.getEInt(), "distinctValueCount", null, 0, 1, DistinctCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDistinctCountIndicator_DistinctValueCount(), ecorePackage.getELongObject(), "distinctValueCount", null, 0, 1, DistinctCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(distinctCountIndicatorEClass, this.getJavaSet(), "getDistinctValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(uniqueCountIndicatorEClass, UniqueCountIndicator.class, "UniqueCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getUniqueCountIndicator_UniqueValueCount(), ecorePackage.getEInt(), "uniqueValueCount", null, 0, 1, UniqueCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUniqueCountIndicator_UniqueValueCount(), ecorePackage.getELongObject(), "uniqueValueCount", null, 0, 1, UniqueCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(uniqueCountIndicatorEClass, this.getJavaSet(), "getUniqueValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(duplicateCountIndicatorEClass, DuplicateCountIndicator.class, "DuplicateCountIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDuplicateCountIndicator_DuplicateValueCount(), ecorePackage.getEBigInteger(), "duplicateValueCount", null, 0, 1, DuplicateCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDuplicateCountIndicator_DuplicateValueCount(), ecorePackage.getELongObject(), "duplicateValueCount", null, 0, 1, DuplicateCountIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(duplicateCountIndicatorEClass, this.getJavaSet(), "getDuplicateValues", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1586,12 +1597,12 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(maxLengthIndicatorEClass, MaxLengthIndicator.class, "MaxLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(averageLengthIndicatorEClass, AverageLengthIndicator.class, "AverageLengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getEBigInteger(), "sumLength", "0", 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAverageLengthIndicator_SumLength(), ecorePackage.getEDoubleObject(), "sumLength", "0", 0, 1, AverageLengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         addEOperation(averageLengthIndicatorEClass, ecorePackage.getEDouble(), "getAverageLength", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(lengthIndicatorEClass, LengthIndicator.class, "LengthIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getLengthIndicator_Length(), ecorePackage.getEBigInteger(), "length", null, 0, 1, LengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLengthIndicator_Length(), ecorePackage.getELongObject(), "length", null, 0, 1, LengthIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(textParametersEClass, TextParameters.class, "TextParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTextParameters_UseBlank(), ecorePackage.getEBoolean(), "useBlank", null, 0, 1, TextParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

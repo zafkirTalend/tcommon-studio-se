@@ -16,14 +16,13 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class CompositeIndicatorImpl extends IndicatorImpl implements CompositeIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected CompositeIndicatorImpl() {
@@ -32,7 +31,6 @@ public class CompositeIndicatorImpl extends IndicatorImpl implements CompositeIn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -42,7 +40,6 @@ public class CompositeIndicatorImpl extends IndicatorImpl implements CompositeIn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<Indicator> getChildIndicators() {

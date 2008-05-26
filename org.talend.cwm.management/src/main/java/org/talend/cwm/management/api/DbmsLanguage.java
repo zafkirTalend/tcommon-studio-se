@@ -19,6 +19,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.dataquality.domain.sql.SqlPredicate;
+import org.talend.dataquality.indicators.DateGrain;
 import org.talend.utils.sugars.TypedReturnCode;
 
 import Zql.ParseException;
@@ -34,7 +35,7 @@ public class DbmsLanguage {
 
     private static Logger log = Logger.getLogger(DbmsLanguage.class);
 
-    /** Functions of the system. */
+    /** Functions of the system. [Function name, number of parameters] */
     private final Map<String, Integer> dbmsFunctions;
 
     // --- add here other supported systems (always in uppercase)
@@ -92,6 +93,10 @@ public class DbmsLanguage {
             functions.put("SUM", 1);
             functions.put("MIN", 1);
             functions.put("MAX", 1);
+            for (DateGrain grain : DateGrain.values()) {
+                functions.put(grain.getName(), 1);
+            }
+
         }
 
         if (is(ORACLE)) {
@@ -99,6 +104,8 @@ public class DbmsLanguage {
             functions.put("SUM", 1);
             functions.put("MIN", 1);
             functions.put("MAX", 1);
+            functions.put("TO_CHAR", 2);
+            functions.put("TO_NUMBER", 1);
         }
 
         return functions;
@@ -300,23 +307,34 @@ public class DbmsLanguage {
     }
 
     public String extractYear(String colName) {
-        return extract("YEAR", colName);
+        return extract(DateGrain.YEAR, colName);
     }
 
     public String extractQuarter(String colName) {
-        return extract("QUARTER", colName);
+        return extract(DateGrain.QUARTER, colName);
     }
 
     public String extractMonth(String colName) {
-        return extract("MONTH", colName);
+        return extract(DateGrain.MONTH, colName);
     }
 
     public String extractWeek(String colName) {
-        return extract("WEEK", colName);
+        return extract(DateGrain.WEEK, colName);
     }
 
     public String extractDay(String colName) {
-        return extract("DAY", colName);
+        return extract(DateGrain.DAY, colName);
+    }
+
+    public String getTopNQuery(String query, int n) {
+        if (is(ORACLE)) {
+            return "SELECT * FROM (" + query + ") WHERE ROWNUM <= " + n;
+        }
+        if (is(MYSQL)) {
+            return query + " LIMIT " + n;
+        }
+        // default: I don't know, simply return the query
+        return query; // FIXME find how to get top n in generic SQL or maybe return null
     }
 
     /**
@@ -336,10 +354,30 @@ public class DbmsLanguage {
         return " SELECT SUM(" + colToSum + ") FROM (" + subquery + ") AS " + alias;
     }
 
-    private String extract(String field, String colName) {
+    private String extract(DateGrain dateGrain, String colName) {
+        if (is(MYSQL)) {
+            return dateGrain.getName() + surroundWith('(', colName, ')');
+        }
+
+        if (is(ORACLE)) {
+            String toNumberToChar = "TO_NUMBER(TO_CHAR(";
+            switch (dateGrain.getValue()) {
+            case DateGrain.DAY_VALUE:
+                return toNumberToChar + colName + ", 'DD'))";
+            case DateGrain.WEEK_VALUE:
+                return toNumberToChar + colName + ", 'IW'))";
+            case DateGrain.MONTH_VALUE:
+                return toNumberToChar + colName + ",'MM'))";
+            case DateGrain.QUARTER_VALUE:
+                return toNumberToChar + colName + ",'Q'))";
+            case DateGrain.YEAR_VALUE:
+                return toNumberToChar + colName + ", 'YYYY'))";
+            default:
+            }
+        }
 
         // ANSI SQL, MySQL, Oracle
-        return " EXTRACT(" + field + from() + colName + ") ";
+        return " EXTRACT(" + dateGrain + from() + colName + ") ";
     }
 
     /**
@@ -395,7 +433,10 @@ public class DbmsLanguage {
     }
 
     private String surroundWithSpaces(String toSurround) {
-        return " " + toSurround + " ";
+        return surroundWith(' ', toSurround, ' ');
     }
 
+    private String surroundWith(char left, String toSurround, char right) {
+        return left + toSurround + right;
+    }
 }

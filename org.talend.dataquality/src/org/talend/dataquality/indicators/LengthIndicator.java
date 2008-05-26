@@ -35,12 +35,12 @@ public interface LengthIndicator extends Indicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Length</em>' attribute.
-     * @see #setLength(BigInteger)
+     * @see #setLength(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getLengthIndicator_Length()
      * @model
      * @generated
      */
-    BigInteger getLength();
+    Long getLength();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.LengthIndicator#getLength <em>Length</em>}' attribute.
@@ -50,6 +50,6 @@ public interface LengthIndicator extends Indicator {
      * @see #getLength()
      * @generated
      */
-    void setLength(BigInteger value);
+    void setLength(Long value);
 
 } // LengthIndicator

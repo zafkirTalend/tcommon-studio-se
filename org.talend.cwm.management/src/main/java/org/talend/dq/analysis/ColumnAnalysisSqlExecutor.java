@@ -41,6 +41,8 @@ import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
+import org.talend.dataquality.indicators.CompositeIndicator;
+import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.DateGrain;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
@@ -48,6 +50,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.TextParameters;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 import org.talend.sqltools.ZQueryHelper;
+import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.CoreFactory;
@@ -226,10 +229,13 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         // ### evaluate SQL Statement depending on indicators ###
         String completedSqlString = null;
 
+        colName = castColumn(indicator, tdColumn);
+
         // --- handle case when indicator is a quantile
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getMedianIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getLowerQuartileIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUpperQuartileIndicator())) {
+            // TODO scorreia test type of column and cast when needed
             completedSqlString = getCompletedStringForQuantiles(indicator, sqlGenericExpression, colName, table,
                     dataFilterExpression);
             completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
@@ -237,6 +243,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         // --- handle case when frequency indicator
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator())) {
+            // TODO scorreia test type of column and cast when needed
             // with ranges (frequencies of numerical intervals)
             if (rangeStrings != null) {
                 completedSqlString = getUnionCompletedString(indicator, sqlGenericExpression, colName, table,
@@ -244,23 +251,30 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             } else if (dateAggregationType != null) { // frequencies with date aggregation
                 // TODO scorreia handle date frequencies
                 completedSqlString = getDateAggregatedCompletedString(sqlGenericExpression, colName, table, dateAggregationType);
-                completedSqlString = getTopN(completedSqlString, TOP_N);
                 completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+                completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
             } else { // usual nominal frequencies
                 completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
-                completedSqlString = getTopN(completedSqlString, TOP_N);
+                completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
                 completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
             }
         } else
 
-        // --- handle case of unique and duplicate count
-        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())
-                || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
+        // --- handle case of unique count
+        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())) {
             completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
             completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
             completedSqlString = dbms().countRowInSubquery(completedSqlString, "myquery");
-        } else {
+        } else
 
+        // --- handle case of duplicate count
+        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            completedSqlString = dbms().sumRowInSubquery("mycount", completedSqlString, "myquery");
+            // scorreia hard coded "mycount" string must be the same as the alias in the TalendDefinition file!
+            // PTODO scorreia avoid hard coded "mycount" string
+        } else {
             // --- default case
             completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
             completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
@@ -270,13 +284,44 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             log.debug("Completed SQL expression for language " + language + ": " + completedSqlString);
         }
 
-        // TODO scorreia completedSqlString should be the final query
+        // completedSqlString is the final query
         String finalQuery = completedSqlString;
 
         Expression instantiateSqlExpression = instantiateSqlExpression(language, finalQuery);
         indicator.setInstantiatedExpression(instantiateSqlExpression);
         return true;
     }
+
+    /**
+     * DOC scorreia Comment method "castColumn".
+     * 
+     * @param indicator
+     * @param tdColumn
+     * @return
+     */
+    private String castColumn(Indicator indicator, TdColumn tdColumn) {
+        int javaType = tdColumn.getJavaType();
+        boolean isText = Java2SqlType.isTextInSQL(javaType);
+
+        String contentType = tdColumn.getContentType();
+        DataminingType dataminingType = DataminingType.get(contentType);
+        if ((DataminingType.INTERVAL.compareTo(dataminingType) == 0) && (isText)) {
+            // cast is needed
+            // TODO handle date
+            boolean isDate = Java2SqlType.isDateInSQL(javaType);
+            if (isDate) {
+                throw new UnsupportedOperationException();
+            }
+            boolean isNumeric = Java2SqlType.isNumbericInSQL(javaType);
+            if (isNumeric) {
+                // TODO scorreia user should tell the expected format
+                return "CAST (" + tdColumn.getName() + " AS DECIMAL)";
+            }
+        }
+        return tdColumn.getName();
+    }
+
+    private static final String COMMA = " , ";
 
     /**
      * DOC scorreia Comment method "getDateAggregatedCompletedString".
@@ -295,19 +340,19 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         String result = "";
         switch (dateAggregationType) {
         case DAY:
-            result += dbms().extractDay(colName);
+            result = dbms().extractDay(colName) + comma(result);
             nbExtractedColumns++;
         case WEEK:
-            result = dbms().extractWeek(colName) + result;
+            result = dbms().extractWeek(colName) + comma(result);
             nbExtractedColumns++;
         case MONTH:
-            result = dbms().extractMonth(colName) + result;
+            result = dbms().extractMonth(colName) + comma(result);
             nbExtractedColumns++;
         case QUARTER:
-            result = dbms().extractQuarter(colName) + result;
+            result = dbms().extractQuarter(colName) + comma(result);
             nbExtractedColumns++;
         case YEAR:
-            result = dbms().extractYear(colName) + result;
+            result = dbms().extractYear(colName) + comma(result);
             nbExtractedColumns++;
             break;
         case NONE:
@@ -323,14 +368,13 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
     }
 
     /**
-     * DOC scorreia Comment method "getTopN".
+     * Method "comma" puts a comma before a non empty string.
      * 
-     * @param completedSqlString
-     * @param i
-     * @return
+     * @param previousContent
+     * @return either previousContent or " , " + previousContent
      */
-    private String getTopN(String completedSqlString, int i) {
-        return completedSqlString + " LIMIT " + i;
+    private String comma(String previousContent) {
+        return (previousContent.length() == 0) ? previousContent : COMMA + previousContent;
     }
 
     /**
@@ -688,6 +732,11 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             // execute the sql statement for each indicator
             EList<Indicator> indicators = analysis.getResults().getIndicators();
             for (Indicator indicator : indicators) {
+                // skip composite indicators that do not require a sql execution
+                if (indicator instanceof CompositeIndicator) {
+                    // TODO scorreia we will have to handle possible options of composite indicators elsewhere?
+                    continue;
+                }
                 // set the connection's catalog
                 String catalogName = getCatalogName(indicator.getAnalyzedElement());
                 if (catalogName != null) { // check whether null argument can be given
@@ -700,6 +749,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
                     query = indicator.getInstantiatedExpressions(dbms().getDefaultLanguage());
                 }
                 if (query == null || !executeQuery(indicator, connection, query.getBody())) {
+                    log.error("Query not executed: " + ((query == null) ? "query is null" : query.getBody()));
                     ok = false;
                 }
             }

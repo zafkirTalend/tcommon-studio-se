@@ -51,16 +51,17 @@ public interface Indicator extends ModelElement {
      * @model default="0"
      * @generated
      */
-    BigInteger getCount();
+    Long getCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getCount <em>Count</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Count</em>' attribute.
      * @see #getCount()
      * @generated
      */
-    void setCount(BigInteger value);
+    void setCount(Long value);
 
     /**
      * Returns the value of the '<em><b>Null Count</b></em>' attribute.
@@ -72,21 +73,22 @@ public interface Indicator extends ModelElement {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Null Count</em>' attribute.
-     * @see #setNullCount(BigInteger)
+     * @see #setNullCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicator_NullCount()
      * @model default="0"
      * @generated
      */
-    BigInteger getNullCount();
+    Long getNullCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.Indicator#getNullCount <em>Null Count</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Null Count</em>' attribute.
      * @see #getNullCount()
      * @generated
      */
-    void setNullCount(BigInteger value);
+    void setNullCount(Long value);
 
     /**
      * Returns the value of the '<em><b>Parameters</b></em>' containment reference.
@@ -292,7 +294,7 @@ public interface Indicator extends ModelElement {
      * @model kind="operation"
      * @generated
      */
-    BigInteger getIntegerValue();
+    Long getIntegerValue();
 
     /**
      * <!-- begin-user-doc -->
@@ -303,7 +305,7 @@ public interface Indicator extends ModelElement {
      * @model kind="operation"
      * @generated
      */
-    BigDecimal getRealValue();
+    Double getRealValue();
 
     /**
      * <!-- begin-user-doc -->

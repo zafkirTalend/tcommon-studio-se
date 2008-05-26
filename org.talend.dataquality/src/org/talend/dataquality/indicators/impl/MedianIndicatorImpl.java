@@ -5,8 +5,7 @@
  */
 package org.talend.dataquality.indicators.impl;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -17,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.talend.algorithms.AlgoUtils;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.MedianIndicator;
+import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.time.TimeTracer;
 
 /**
@@ -27,6 +27,7 @@ import org.talend.utils.time.TimeTracer;
  * <ul>
  *   <li>{@link org.talend.dataquality.indicators.impl.MedianIndicatorImpl#getMedian <em>Median</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.MedianIndicatorImpl#getFrequenceTable <em>Frequence Table</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.MedianIndicatorImpl#getDateMedian <em>Date Median</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,7 +43,7 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
      * @generated
      * @ordered
      */
-    protected static final BigDecimal MEDIAN_EDEFAULT = null;
+    protected static final Double MEDIAN_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getMedian() <em>Median</em>}' attribute.
@@ -52,7 +53,7 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
      * @generated
      * @ordered
      */
-    protected BigDecimal median = MEDIAN_EDEFAULT;
+    protected Double median = MEDIAN_EDEFAULT;
 
     /**
      * This is true if the Median attribute has been set.
@@ -83,6 +84,26 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
     protected TreeMap<Object, Long> frequenceTable = FREQUENCE_TABLE_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getDateMedian() <em>Date Median</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDateMedian()
+     * @generated
+     * @ordered
+     */
+    protected static final Date DATE_MEDIAN_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDateMedian() <em>Date Median</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @see #getDateMedian()
+     * @generated
+     * @ordered
+     */
+    protected Date dateMedian = DATE_MEDIAN_EDEFAULT;
+
+    /**
      * The sorted frequency table. Contains data as keys and count as values.
      * 
      * @generated NOT
@@ -110,10 +131,17 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
      * 
      * @generated NOT
      */
-    public BigDecimal getMedian() {
+    public Double getMedian() {
         if (!medianComputed) {
             computeMedian();
         }
+        return getMedianGen();
+    }
+
+    /**
+     * @generated
+     */
+    public Double getMedianGen() {
         return median;
     }
 
@@ -121,8 +149,8 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setMedian(BigDecimal newMedian) {
-        BigDecimal oldMedian = median;
+    public void setMedian(Double newMedian) {
+        Double oldMedian = median;
         median = newMedian;
         boolean oldMedianESet = medianESet;
         medianESet = true;
@@ -135,7 +163,7 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
      * @generated
      */
     public void unsetMedian() {
-        BigDecimal oldMedian = median;
+        Double oldMedian = median;
         boolean oldMedianESet = medianESet;
         median = MEDIAN_EDEFAULT;
         medianESet = false;
@@ -184,6 +212,25 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getDateMedian() {
+        return dateMedian;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDateMedian(Date newDateMedian) {
+        Date oldDateMedian = dateMedian;
+        dateMedian = newDateMedian;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.MEDIAN_INDICATOR__DATE_MEDIAN, oldDateMedian, dateMedian));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated NOT
      */
@@ -204,6 +251,8 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
                 return getMedian();
             case IndicatorsPackage.MEDIAN_INDICATOR__FREQUENCE_TABLE:
                 return getFrequenceTable();
+            case IndicatorsPackage.MEDIAN_INDICATOR__DATE_MEDIAN:
+                return getDateMedian();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -217,10 +266,13 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case IndicatorsPackage.MEDIAN_INDICATOR__MEDIAN:
-                setMedian((BigDecimal)newValue);
+                setMedian((Double)newValue);
                 return;
             case IndicatorsPackage.MEDIAN_INDICATOR__FREQUENCE_TABLE:
                 setFrequenceTable((TreeMap<Object, Long>)newValue);
+                return;
+            case IndicatorsPackage.MEDIAN_INDICATOR__DATE_MEDIAN:
+                setDateMedian((Date)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -239,6 +291,9 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
             case IndicatorsPackage.MEDIAN_INDICATOR__FREQUENCE_TABLE:
                 setFrequenceTable(FREQUENCE_TABLE_EDEFAULT);
                 return;
+            case IndicatorsPackage.MEDIAN_INDICATOR__DATE_MEDIAN:
+                setDateMedian(DATE_MEDIAN_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -254,6 +309,8 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
                 return isSetMedian();
             case IndicatorsPackage.MEDIAN_INDICATOR__FREQUENCE_TABLE:
                 return FREQUENCE_TABLE_EDEFAULT == null ? frequenceTable != null : !FREQUENCE_TABLE_EDEFAULT.equals(frequenceTable);
+            case IndicatorsPackage.MEDIAN_INDICATOR__DATE_MEDIAN:
+                return DATE_MEDIAN_EDEFAULT == null ? dateMedian != null : !DATE_MEDIAN_EDEFAULT.equals(dateMedian);
         }
         return super.eIsSet(featureID);
     }
@@ -271,6 +328,8 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
         if (medianESet) result.append(median); else result.append("<unset>");
         result.append(", frequenceTable: ");
         result.append(frequenceTable);
+        result.append(", dateMedian: ");
+        result.append(dateMedian);
         result.append(')');
         return result.toString();
     }
@@ -287,7 +346,7 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
     private boolean computeNumericMedian() {
         // TODO scorreia replace null by log!
 
-        if (getCount().compareTo(BigInteger.ZERO) == 0) { // TODO scorreia log something ?
+        if (getCount() == null || getCount() == 0) { // TODO scorreia log something ?
             return false;
         }
 
@@ -304,7 +363,7 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
             tt.end("median found");
         }
 
-        this.setMedian(BigDecimal.valueOf(localMedian));
+        this.setMedian(localMedian);
         return true;
     }
 
@@ -339,26 +398,44 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
             return false;
         }
 
-        // TODO scorreia should get the correct type of result from the analyzed element
+        // get the correct type of result from the analyzed element
+        int javaType = this.getColumnType();
 
-        if (objects.size() == 1) {
+        if (objects.size() == 1) { // case when 1 row is returned
             String med = String.valueOf(objects.get(0)[0]);
             if (med == null) {
                 log.error("Median is null!!");
                 return false;
             }
-            this.setMedian(new BigDecimal(med));
+            this.setMedian(this.getRealValue(javaType, med));
             return true;
-        } else if (objects.size() == 2) {
-            BigDecimal r1 = new BigDecimal(String.valueOf(objects.get(0)[0]));
-            BigDecimal r2 = new BigDecimal(String.valueOf(objects.get(1)[0]));
+        } else if (objects.size() == 2) { // case when 2 rows are returned
+            Double r1 = this.getRealValue(javaType, String.valueOf(objects.get(0)[0]));
+            Double r2 = this.getRealValue(javaType, String.valueOf(objects.get(1)[0]));
             if (r1 == null || r2 == null) {
                 log.error("Cannot compute the median: At least one of the rows is null: " + r1 + " | " + r2);
                 return false;
             }
-            this.setMedian(r1.add(r2).divide(BigDecimal.valueOf(2)));
+            this.setMedian((r1 + r2) / 2);
             return true;
         }
         return false;
+    }
+
+    /**
+     * Method "getBigDecimal" converts object into big decimal.
+     * 
+     * @param javaType
+     * @param object
+     * @return
+     */
+    private Double getRealValue(int javaType, String object) {
+        // FIXME scorreia this is not the best way to work. Other indicator simply store dates.
+        if (Java2SqlType.isDateInSQL(javaType)) {
+            Date date = java.sql.Date.valueOf(object);
+            return Double.valueOf(date.getTime());
+        }
+        // else a number
+        return Double.valueOf(object);
     }
 } // MedianIndicatorImpl

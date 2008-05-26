@@ -41,12 +41,12 @@ public interface DuplicateCountIndicator extends Indicator {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the value of the '<em>Duplicate Value Count</em>' attribute.
-     * @see #setDuplicateValueCount(BigInteger)
+     * @see #setDuplicateValueCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getDuplicateCountIndicator_DuplicateValueCount()
      * @model
      * @generated
      */
-    BigInteger getDuplicateValueCount();
+    Long getDuplicateValueCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.DuplicateCountIndicator#getDuplicateValueCount <em>Duplicate Value Count</em>}' attribute.
@@ -56,5 +56,5 @@ public interface DuplicateCountIndicator extends Indicator {
      * @see #getDuplicateValueCount()
      * @generated
      */
-    void setDuplicateValueCount(BigInteger value);
+    void setDuplicateValueCount(Long value);
 } // DuplicateCountIndicator

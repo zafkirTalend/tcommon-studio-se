@@ -43,12 +43,12 @@ public interface DistinctCountIndicator extends Indicator {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the value of the '<em>Distinct Value Count</em>' attribute.
-     * @see #setDistinctValueCount(int)
+     * @see #setDistinctValueCount(Long)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getDistinctCountIndicator_DistinctValueCount()
      * @model
      * @generated
      */
-    int getDistinctValueCount();
+    Long getDistinctValueCount();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.DistinctCountIndicator#getDistinctValueCount <em>Distinct Value Count</em>}' attribute.
@@ -58,5 +58,5 @@ public interface DistinctCountIndicator extends Indicator {
      * @see #getDistinctValueCount()
      * @generated
      */
-    void setDistinctValueCount(int value);
+    void setDistinctValueCount(Long value);
 } // DistinctCountIndicator

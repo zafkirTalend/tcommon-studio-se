@@ -13,7 +13,6 @@
 package org.talend.dq.indicators;
 
 import java.io.File;
-import java.math.BigInteger;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -58,7 +57,7 @@ public class LoadSerialData {
         for (EObject object : contents) {
             FrequencyIndicator freqI = mySwitch.doSwitch(object);
             if (freqI != null) {
-                BigInteger uniqueValueCount = freqI.getUniqueValueCount();
+                Long uniqueValueCount = freqI.getUniqueValueCount();
                 System.out.println("nb unique values = " + uniqueValueCount);
                 EList<Object> uniqueValues = freqI.getUniqueValues();
                 for (Object data : uniqueValues) {

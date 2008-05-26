@@ -37,12 +37,12 @@ public interface AverageLengthIndicator extends LengthIndicator {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Sum Length</em>' attribute.
-     * @see #setSumLength(BigInteger)
+     * @see #setSumLength(Double)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getAverageLengthIndicator_SumLength()
      * @model default="0"
      * @generated
      */
-    BigInteger getSumLength();
+    Double getSumLength();
 
     /**
      * Sets the value of the '{@link org.talend.dataquality.indicators.AverageLengthIndicator#getSumLength <em>Sum Length</em>}' attribute.
@@ -52,7 +52,7 @@ public interface AverageLengthIndicator extends LengthIndicator {
      * @see #getSumLength()
      * @generated
      */
-    void setSumLength(BigInteger value);
+    void setSumLength(Double value);
 
     /**
      * <!-- begin-user-doc -->

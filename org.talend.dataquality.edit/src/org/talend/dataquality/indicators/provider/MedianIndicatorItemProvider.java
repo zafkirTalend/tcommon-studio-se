@@ -67,6 +67,7 @@ public class MedianIndicatorItemProvider
 
             addMedianPropertyDescriptor(object);
             addFrequenceTablePropertyDescriptor(object);
+            addDateMedianPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -116,6 +117,28 @@ public class MedianIndicatorItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Date Median feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDateMedianPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_MedianIndicator_dateMedian_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_MedianIndicator_dateMedian_feature", "_UI_MedianIndicator_type"),
+                 IndicatorsPackage.Literals.MEDIAN_INDICATOR__DATE_MEDIAN,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns MedianIndicator.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -154,6 +177,7 @@ public class MedianIndicatorItemProvider
         switch (notification.getFeatureID(MedianIndicator.class)) {
             case IndicatorsPackage.MEDIAN_INDICATOR__MEDIAN:
             case IndicatorsPackage.MEDIAN_INDICATOR__FREQUENCE_TABLE:
+            case IndicatorsPackage.MEDIAN_INDICATOR__DATE_MEDIAN:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

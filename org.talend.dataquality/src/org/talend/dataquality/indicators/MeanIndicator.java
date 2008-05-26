@@ -25,7 +25,7 @@ public interface MeanIndicator extends SumIndicator {
      * @model kind="operation"
      * @generated
      */
-    BigDecimal getMean();
+    Double getMean();
 
     /**
      * <!-- begin-user-doc -->
@@ -36,6 +36,6 @@ public interface MeanIndicator extends SumIndicator {
      * @model
      * @generated
      */
-    double getMeanWithNulls(double valueForNull);
+    Double getMeanWithNulls(double valueForNull);
 
 } // MeanIndicator

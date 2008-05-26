@@ -2876,13 +2876,22 @@ public interface IndicatorsPackage extends EPackage {
     int MEDIAN_INDICATOR__FREQUENCE_TABLE = INDICATOR_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Date Median</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MEDIAN_INDICATOR__DATE_MEDIAN = INDICATOR_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Median Indicator</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int MEDIAN_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 2;
+    int MEDIAN_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl <em>Value Indicator</em>}' class.
@@ -8092,6 +8101,17 @@ public interface IndicatorsPackage extends EPackage {
     EAttribute getMedianIndicator_FrequenceTable();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.MedianIndicator#getDateMedian <em>Date Median</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Date Median</em>'.
+     * @see org.talend.dataquality.indicators.MedianIndicator#getDateMedian()
+     * @see #getMedianIndicator()
+     * @generated
+     */
+    EAttribute getMedianIndicator_DateMedian();
+
+    /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.ValueIndicator <em>Value Indicator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8998,6 +9018,14 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EAttribute MEDIAN_INDICATOR__FREQUENCE_TABLE = eINSTANCE.getMedianIndicator_FrequenceTable();
+
+        /**
+         * The meta object literal for the '<em><b>Date Median</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MEDIAN_INDICATOR__DATE_MEDIAN = eINSTANCE.getMedianIndicator_DateMedian();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.ValueIndicatorImpl <em>Value Indicator</em>}' class.
