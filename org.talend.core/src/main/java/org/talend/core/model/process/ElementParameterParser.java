@@ -17,13 +17,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.ProcessorUtilities;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -154,6 +160,7 @@ public final class ElementParameterParser {
 
     private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         String[] items = param.getListItemsDisplayCodeName();
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
@@ -166,7 +173,18 @@ public final class ElementParameterParser {
                 }
             } else {
                 if (o instanceof String) {
-                    newLine.put(items[i], (String) o);
+                    if (param.getName().equals("SQLPATTERN_VALUE")) {
+                        String id = ((String) o).split(" - ")[0];
+                        try {
+                            IRepositoryObject lastVersion = factory.getLastVersion(id);
+                            SQLPatternItem item = ((SQLPatternItem) lastVersion.getProperty().getItem());
+                            newLine.put(items[i], new String(item.getContent().getInnerContent()));
+                        } catch (PersistenceException e) {
+                            ExceptionHandler.process(e);
+                        }
+                    } else {
+                        newLine.put(items[i], (String) o);
+                    }
                 } else {
                     if (o instanceof Boolean) {
                         newLine.put(items[i], ((Boolean) o).toString());
