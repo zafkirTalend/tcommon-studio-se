@@ -21,6 +21,8 @@ import java.util.Map;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -30,6 +32,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
 import org.jfree.data.statistics.BoxAndWhiskerItem;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
+import org.jfree.ui.TextAnchor;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.utils.ChartUtils;
@@ -63,7 +66,7 @@ public class IndicatorChartFactory {
                 "Value", 
                 dataset, 
                 PlotOrientation.VERTICAL,
-                false,  
+                true,  
                 false,  
                 false   
                 );
@@ -73,11 +76,12 @@ public class IndicatorChartFactory {
 
         renderer.setBaseItemLabelsVisible(true);
         renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        renderer.setBaseItemLabelFont(new Font("Arial", Font.PLAIN, 14));
-        renderer.setMaximumBarWidth(0.15);
+        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
+        renderer.setBaseItemLabelFont(new Font("SansSerif", Font.BOLD, 12));
+        renderer.setItemMargin(0.2);
         
         plot.setRenderer(renderer);
-        plot.setForegroundAlpha(0.6f);
+        plot.setForegroundAlpha(0.55f);
         
         try {
             
@@ -156,19 +160,19 @@ public class IndicatorChartFactory {
                 String label = indicatorMap.getIndicatorName();
                 
                 if (object == null) {
-                    dataset.addValue(0, "", indicatorMap.getType().getLabel());
+                    dataset.addValue(0, label, "");
                 } else {
                     String valueStr = String.valueOf(object);
                     double value = Double.parseDouble(valueStr);
                     
                     renderer.setSeriesPaint(index, indicatorMap.getColor());
-                    dataset.addValue(value, label, label);
+                    dataset.addValue(value, label, "");
                 }
             }
         } else {
             for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
                 
-                dataset.addValue(150, "", indicator.getIndicator().getIndicatorDefinition().getLabel());
+                dataset.addValue(150, indicator.getIndicatorName(), "");
             }
         }
 
