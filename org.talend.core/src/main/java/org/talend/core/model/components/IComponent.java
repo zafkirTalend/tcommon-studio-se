@@ -115,4 +115,6 @@ public interface IComponent {
     public boolean isTechnical();
 
     public boolean isVisibleInComponentDefinition();
+
+    public boolean isSingleton();
 }
