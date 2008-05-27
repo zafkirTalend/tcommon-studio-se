@@ -13,18 +13,23 @@
 package org.talend.dataprofiler.core.sql;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -45,6 +50,8 @@ public class RenameSqlFileAction extends Action {
     private IFile folder;
 
     private String newname;
+
+    private ArrayList<String> existNames;
 
     /**
      * DOC qzhang AddSqlFileAction constructor comment.
@@ -67,7 +74,11 @@ public class RenameSqlFileAction extends Action {
         IPath location = ResourcesPlugin.getWorkspace().getRoot().getLocation();
         IPath append = location.append(DQStructureManager.LIBRARIES).append(DQStructureManager.SOURCE_FILES);
         RenameDialog dialog = new RenameDialog(Display.getDefault().getActiveShell());
+        IFolder sourceFiles = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.LIBRARIES).getFolder(
+                DQStructureManager.SOURCE_FILES);
+        existNames = new ArrayList<String>();
         try {
+            getExistNames(sourceFiles, existNames);
             if (dialog.open() == RenameDialog.OK) {
                 IPath addFileExtension = append.append(newname).addFileExtension(folder.getFileExtension());
                 String newPath = addFileExtension.toPortableString();
@@ -80,12 +91,34 @@ public class RenameSqlFileAction extends Action {
     }
 
     /**
+     * DOC qzhang Comment method "getExistNames".
+     * 
+     * @param sourceFiles
+     * @return
+     * @throws CoreException
+     */
+    private void getExistNames(IFolder sourceFiles, List<String> existNames) throws CoreException {
+        boolean exists = sourceFiles.exists();
+        if (exists) {
+            IResource[] members = sourceFiles.members();
+            for (IResource resource : members) {
+                if (resource instanceof IFile && resource.getFileExtension().equals(folder.getFileExtension())) {
+                    IPath removeFileExtension = resource.getFullPath().removeFileExtension();
+                    existNames.add(removeFileExtension.lastSegment());
+                } else if (resource instanceof IFolder) {
+                    getExistNames((IFolder) resource, existNames);
+                }
+            }
+        }
+    }
+
+    /**
      * DOC qzhang RenameSqlFileAction class global comment. Detailled comment <br/>
      * 
      * $Id: talend.epf 1 2006-09-29 17:06:40Z qzhang $
      * 
      */
-    class RenameDialog extends Dialog {
+    class RenameDialog extends TitleAreaDialog {
 
         /**
          * DOC qzhang RenameDialog constructor comment.
@@ -105,7 +138,7 @@ public class RenameSqlFileAction extends Action {
         @Override
         protected void configureShell(Shell newShell) {
             super.configureShell(newShell);
-            newShell.setSize(300, 150);
+            newShell.setSize(300, 300);
             newShell.setText("Rename SQL File");
         }
 
@@ -117,14 +150,19 @@ public class RenameSqlFileAction extends Action {
         @Override
         protected Control createDialogArea(Composite parent) {
             Composite createDialogArea = (Composite) super.createDialogArea(parent);
-            (((org.eclipse.swt.layout.GridLayout) createDialogArea.getLayout())).numColumns = 2;
-            Label label = new Label(createDialogArea, SWT.NONE);
+            Composite composite = new Composite(createDialogArea, SWT.NONE);
+            GridLayout gridLayout = new GridLayout(2, false);
+            composite.setLayout(gridLayout);
+            GridData gridData = new GridData(GridData.FILL_BOTH);
+            composite.setLayoutData(gridData);
+            Label label = new Label(composite, SWT.NONE);
             label.setText("Set New Name:");
-            final Text text = new Text(createDialogArea, SWT.BORDER);
+            final Text text = new Text(composite, SWT.BORDER);
             if (folder != null) {
                 IPath removeFileExtension = folder.getFullPath().removeFileExtension();
                 text.setText(removeFileExtension.lastSegment());
                 newname = text.getText();
+                existNames.remove(newname);
             }
             text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             text.addModifyListener(new ModifyListener() {
@@ -136,6 +174,16 @@ public class RenameSqlFileAction extends Action {
                  */
                 public void modifyText(ModifyEvent e) {
                     newname = text.getText();
+                    if (newname.isEmpty()) {
+                        getButton(IDialogConstants.OK_ID).setEnabled(false);
+                        setErrorMessage("The Sql File Name can't be empty.");
+                    } else if (existNames.contains(newname)) {
+                        getButton(IDialogConstants.OK_ID).setEnabled(false);
+                        setErrorMessage("The Sql File Name always exist, please input another name.");
+                    } else {
+                        setErrorMessage(null);
+                        getButton(IDialogConstants.OK_ID).setEnabled(true);
+                    }
                 }
             });
             return createDialogArea;
