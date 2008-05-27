@@ -20,6 +20,7 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.sql.AddSqlFileAction;
 import org.talend.dataprofiler.core.sql.OpenSqlFileAction;
+import org.talend.dataprofiler.core.sql.RenameSqlFileAction;
 
 /**
  * DOC qzhang class global comment. Detailled comment <br/>
@@ -46,6 +47,7 @@ public class NewSourceFileActionProvider extends CommonActionProvider {
             selectedFolderName = file.getName();
             if (file.getFileExtension().equalsIgnoreCase("sql")) {
                 menu.add(new OpenSqlFileAction((IFile) obj));
+                menu.add(new RenameSqlFileAction((IFile) obj));
             }
 
         }
