@@ -28,6 +28,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class SaxParser extends DefaultHandler implements Runnable {
 
+    // the xml file name
+    private String fileName;
+
     private final XMLDataInputStream inputStream;
 
     // The XPathHolder instance that hold the information of element currently
@@ -80,6 +83,18 @@ public class SaxParser extends DefaultHandler implements Runnable {
         stopCurrentThread = false;
     }
 
+    /**
+     * DOC hcw SaxParser constructor comment.
+     * 
+     * @param fileName
+     * @param consumer
+     */
+    public SaxParser(String fileName, ISaxParserConsumer consumer) {
+        this((XMLDataInputStream) null, consumer);
+        this.fileName = fileName;
+
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -92,9 +107,13 @@ public class SaxParser extends DefaultHandler implements Runnable {
             xr.setContentHandler(this);
             xr.setErrorHandler(this);
 
-            this.inputStream.init();
             try {
-                xr.parse(new InputSource(this.inputStream));
+                if (inputStream != null) {
+                    this.inputStream.init();
+                    xr.parse(new InputSource(this.inputStream));
+                } else {
+                    xr.parse(fileName);
+                }
             } catch (ThreadStopException tsE) {
                 // This exception is thrown out to stop the execution of current
                 // thread.
@@ -152,8 +171,9 @@ public class SaxParser extends DefaultHandler implements Runnable {
         // If the current thread should be stopped and current parsing should not continue any more, then
         // throw a ThreadStopException so that it can be catched later in run method to stop the current thread
         // execution.
-        if (this.stopCurrentThread)
+        if (this.stopCurrentThread) {
             throw new ThreadStopException();
+        }
 
         String elementName = getElementName(uri, qName, name);
         String parentPath = pathHolder.getPath();
@@ -161,14 +181,13 @@ public class SaxParser extends DefaultHandler implements Runnable {
         if (this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName) == null) {
             this.currentElementRecoder.put(parentPath + UtilConstants.XPATH_SLASH + elementName, new Integer(1));
         } else {
-            this.currentElementRecoder.put(parentPath + UtilConstants.XPATH_SLASH + elementName, new Integer(
-                    ((Integer) this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName))
+            this.currentElementRecoder.put(parentPath + UtilConstants.XPATH_SLASH + elementName,
+                    new Integer(((Integer) this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName))
                             .intValue() + 1));
         }
-        pathHolder.push(elementName
-                + "["
-                + ((Integer) this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName))
-                        .intValue() + "]");
+        pathHolder.push(elementName + "["
+                + ((Integer) this.currentElementRecoder.get(parentPath + UtilConstants.XPATH_SLASH + elementName)).intValue()
+                + "]");
         spConsumer.detectNewRow(pathHolder.getPath(), true);
         for (int i = 0; i < atts.getLength(); i++) {
             spConsumer.manipulateData(getAttributePath(atts, i), atts.getValue(i));
@@ -184,8 +203,7 @@ public class SaxParser extends DefaultHandler implements Runnable {
      * @return
      */
     private String getAttributePath(Attributes atts, int i) {
-        return pathHolder.getPath() + "[@" + getElementName(atts.getURI(i), atts.getQName(i), atts.getLocalName(i))
-                + "]";
+        return pathHolder.getPath() + "[@" + getElementName(atts.getURI(i), atts.getQName(i), atts.getLocalName(i)) + "]";
     }
 
     /*
@@ -297,8 +315,9 @@ public class SaxParser extends DefaultHandler implements Runnable {
      */
     private void cleanUp() {
         try {
-            if (this.inputStream != null)
+            if (this.inputStream != null) {
                 this.inputStream.close();
+            }
         } catch (IOException e) {
             // Simply ignore this.
         }
