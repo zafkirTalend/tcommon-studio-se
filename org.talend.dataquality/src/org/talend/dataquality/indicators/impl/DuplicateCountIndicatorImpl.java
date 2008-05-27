@@ -20,10 +20,10 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl#getDuplicateValueCount <em>Duplicate Value Count</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.DuplicateCountIndicatorImpl#getDuplicateValueCount <em>Duplicate Value Count</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DuplicateCountIndicatorImpl extends IndicatorImpl implements DuplicateCountIndicator {
@@ -50,7 +50,6 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected DuplicateCountIndicatorImpl() {
@@ -59,7 +58,6 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -69,7 +67,6 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Set<Object> getDuplicateValues() {
@@ -80,72 +77,65 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-            return getDuplicateValueCount();
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+                return getDuplicateValueCount();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-            setDuplicateValueCount((Long) newValue);
-            return;
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+                setDuplicateValueCount((Long)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-            setDuplicateValueCount(DUPLICATE_VALUE_COUNT_EDEFAULT);
-            return;
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+                setDuplicateValueCount(DUPLICATE_VALUE_COUNT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
-            return DUPLICATE_VALUE_COUNT_EDEFAULT == null ? duplicateValueCount != null : !DUPLICATE_VALUE_COUNT_EDEFAULT
-                    .equals(duplicateValueCount);
+            case IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT:
+                return DUPLICATE_VALUE_COUNT_EDEFAULT == null ? duplicateValueCount != null : !DUPLICATE_VALUE_COUNT_EDEFAULT.equals(duplicateValueCount);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (duplicateValueCount: ");
@@ -156,7 +146,6 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Long getDuplicateValueCount() {
@@ -165,16 +154,13 @@ public class DuplicateCountIndicatorImpl extends IndicatorImpl implements Duplic
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDuplicateValueCount(Long newDuplicateValueCount) {
         Long oldDuplicateValueCount = duplicateValueCount;
         duplicateValueCount = newDuplicateValueCount;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT, oldDuplicateValueCount,
-                    duplicateValueCount));
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.DUPLICATE_COUNT_INDICATOR__DUPLICATE_VALUE_COUNT, oldDuplicateValueCount, duplicateValueCount));
     }
 
     /*

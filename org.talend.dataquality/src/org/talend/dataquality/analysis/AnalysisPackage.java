@@ -2022,13 +2022,49 @@ public interface AnalysisPackage extends EPackage {
     int EXECUTION_INFORMATIONS__EXECUTION_DURATION = 1;
 
     /**
+     * The feature id for the '<em><b>Message</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_INFORMATIONS__MESSAGE = 2;
+
+    /**
+     * The feature id for the '<em><b>Execution Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_INFORMATIONS__EXECUTION_NUMBER = 3;
+
+    /**
+     * The feature id for the '<em><b>Last Run Ok</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_INFORMATIONS__LAST_RUN_OK = 4;
+
+    /**
+     * The feature id for the '<em><b>Last Execution Number Ok</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_INFORMATIONS__LAST_EXECUTION_NUMBER_OK = 5;
+
+    /**
      * The number of structural features of the '<em>Execution Informations</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_INFORMATIONS_FEATURE_COUNT = 2;
+    int EXECUTION_INFORMATIONS_FEATURE_COUNT = 6;
 
 
     /**
@@ -2269,6 +2305,50 @@ public interface AnalysisPackage extends EPackage {
     EAttribute getExecutionInformations_ExecutionDuration();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.ExecutionInformations#getMessage <em>Message</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Message</em>'.
+     * @see org.talend.dataquality.analysis.ExecutionInformations#getMessage()
+     * @see #getExecutionInformations()
+     * @generated
+     */
+    EAttribute getExecutionInformations_Message();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.ExecutionInformations#getExecutionNumber <em>Execution Number</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Execution Number</em>'.
+     * @see org.talend.dataquality.analysis.ExecutionInformations#getExecutionNumber()
+     * @see #getExecutionInformations()
+     * @generated
+     */
+    EAttribute getExecutionInformations_ExecutionNumber();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.ExecutionInformations#isLastRunOk <em>Last Run Ok</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Run Ok</em>'.
+     * @see org.talend.dataquality.analysis.ExecutionInformations#isLastRunOk()
+     * @see #getExecutionInformations()
+     * @generated
+     */
+    EAttribute getExecutionInformations_LastRunOk();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.analysis.ExecutionInformations#getLastExecutionNumberOk <em>Last Execution Number Ok</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Execution Number Ok</em>'.
+     * @see org.talend.dataquality.analysis.ExecutionInformations#getLastExecutionNumberOk()
+     * @see #getExecutionInformations()
+     * @generated
+     */
+    EAttribute getExecutionInformations_LastExecutionNumberOk();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.analysis.AnalysisType <em>Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2477,6 +2557,38 @@ public interface AnalysisPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_INFORMATIONS__EXECUTION_DURATION = eINSTANCE.getExecutionInformations_ExecutionDuration();
+
+        /**
+         * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_INFORMATIONS__MESSAGE = eINSTANCE.getExecutionInformations_Message();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Number</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_INFORMATIONS__EXECUTION_NUMBER = eINSTANCE.getExecutionInformations_ExecutionNumber();
+
+        /**
+         * The meta object literal for the '<em><b>Last Run Ok</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_INFORMATIONS__LAST_RUN_OK = eINSTANCE.getExecutionInformations_LastRunOk();
+
+        /**
+         * The meta object literal for the '<em><b>Last Execution Number Ok</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_INFORMATIONS__LAST_EXECUTION_NUMBER_OK = eINSTANCE.getExecutionInformations_LastExecutionNumberOk();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.analysis.AnalysisType <em>Type</em>}' enum.

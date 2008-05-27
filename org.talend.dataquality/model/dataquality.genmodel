@@ -49,6 +49,10 @@
       <genClasses ecoreClass="dataquality.ecore#//analysis/ExecutionInformations">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/executionDate"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/executionDuration"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/message"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/executionNumber"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/lastRunOk"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//analysis/ExecutionInformations/lastExecutionNumberOk"/>
       </genClasses>
       <nestedGenPackages prefix="Category" basePackage="org.talend.dataquality.analysis"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//analysis/category">

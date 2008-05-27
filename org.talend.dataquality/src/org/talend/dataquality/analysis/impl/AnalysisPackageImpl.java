@@ -489,6 +489,42 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getExecutionInformations_Message() {
+        return (EAttribute)executionInformationsEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionInformations_ExecutionNumber() {
+        return (EAttribute)executionInformationsEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionInformations_LastRunOk() {
+        return (EAttribute)executionInformationsEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionInformations_LastExecutionNumberOk() {
+        return (EAttribute)executionInformationsEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EEnum getAnalysisType() {
         return analysisTypeEEnum;
     }
@@ -546,6 +582,10 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         executionInformationsEClass = createEClass(EXECUTION_INFORMATIONS);
         createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__EXECUTION_DATE);
         createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__EXECUTION_DURATION);
+        createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__MESSAGE);
+        createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__EXECUTION_NUMBER);
+        createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__LAST_RUN_OK);
+        createEAttribute(executionInformationsEClass, EXECUTION_INFORMATIONS__LAST_EXECUTION_NUMBER_OK);
 
         // Create enums
         analysisTypeEEnum = createEEnum(ANALYSIS_TYPE);
@@ -621,6 +661,10 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
         initEClass(executionInformationsEClass, ExecutionInformations.class, "ExecutionInformations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionInformations_ExecutionDate(), ecorePackage.getEDate(), "executionDate", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionInformations_ExecutionDuration(), ecorePackage.getEInt(), "executionDuration", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionInformations_Message(), ecorePackage.getEString(), "message", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionInformations_ExecutionNumber(), ecorePackage.getEInt(), "executionNumber", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionInformations_LastRunOk(), ecorePackage.getEBoolean(), "lastRunOk", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionInformations_LastExecutionNumberOk(), ecorePackage.getEInt(), "lastExecutionNumberOk", null, 0, 1, ExecutionInformations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(analysisTypeEEnum, AnalysisType.class, "AnalysisType");

@@ -11,14 +11,13 @@ import org.talend.dataquality.indicators.MeanIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected MeanIndicatorImpl() {
@@ -27,7 +26,6 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -76,7 +74,6 @@ public class MeanIndicatorImpl extends SumIndicatorImpl implements MeanIndicator
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Double getMeanWithNulls(double valueForNull) {

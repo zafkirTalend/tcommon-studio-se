@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
@@ -399,8 +399,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @generated NOT
      */
     public String getPurpose() {
-        // TODO scorreia TaggedValueHelper.getPurpose(this.getIndicatorDefinition());
-        return IndicatorDocumentationHandler.getPurpose(this.eClass().getClassifierID());
+        IndicatorDefinition def = this.getIndicatorDefinition();
+        return (def != null) ? TaggedValueHelper.getPurpose(def) : "?? no purpose found for " + this.getName() + " ??";
+        // return IndicatorDocumentationHandler.getPurpose(this.eClass().getClassifierID());
     }
 
     /**
@@ -409,7 +410,9 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
      * @generated NOT
      */
     public String getLongDescription() {
-        return IndicatorDocumentationHandler.getLongDescription(this.eClass().getClassifierID());
+        IndicatorDefinition def = this.getIndicatorDefinition();
+        return (def != null) ? TaggedValueHelper.getDescription(def) : "?? no description found for " + this.getName() + " ??";
+        // return IndicatorDocumentationHandler.getLongDescription(this.eClass().getClassifierID());
     }
 
     /**
@@ -532,9 +535,14 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
         String n = super.getName();
         if (n != null) {
             return n;
-        } else {
-            return IndicatorDocumentationHandler.getName(eClass().getClassifierID());
         }
+        // else
+        IndicatorDefinition def = getIndicatorDefinition();
+        if (def != null) {
+            return def.getName();
+        }
+        // else
+        return this.eClass().getName();
     }
 
     /**

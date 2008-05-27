@@ -42,7 +42,7 @@ public class TextParametersImpl extends EObjectImpl implements TextParameters {
      * @generated
      * @ordered
      */
-    protected static final boolean USE_BLANK_EDEFAULT = false;
+    protected static final boolean USE_BLANK_EDEFAULT = true;
 
     /**
      * The cached value of the '{@link #isUseBlank() <em>Use Blank</em>}' attribute.

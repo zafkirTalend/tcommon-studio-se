@@ -8,7 +8,6 @@ package org.talend.dataquality.indicators.impl;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
-import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.NullCountIndicator;
 
@@ -17,14 +16,13 @@ import org.talend.dataquality.indicators.NullCountIndicator;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIndicator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected NullCountIndicatorImpl() {
@@ -33,7 +31,6 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -48,7 +45,7 @@ public class NullCountIndicatorImpl extends IndicatorImpl implements NullCountIn
      */
     @Override
     public String toString() {
-        StringBuffer buf = new StringBuffer(IndicatorDocumentationHandler.getName(this.eClass().getClassifierID()));
+        StringBuffer buf = new StringBuffer(this.getName());
         buf.append("= ");
         buf.append(this.nullCount);
         return buf.toString();

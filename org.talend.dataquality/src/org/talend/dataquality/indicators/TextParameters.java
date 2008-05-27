@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface TextParameters extends EObject {
     /**
      * Returns the value of the '<em><b>Use Blank</b></em>' attribute.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Use Blank</em>' attribute isn't clear,
@@ -39,7 +40,7 @@ public interface TextParameters extends EObject {
      * @return the value of the '<em>Use Blank</em>' attribute.
      * @see #setUseBlank(boolean)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getTextParameters_UseBlank()
-     * @model
+     * @model default="true"
      * @generated
      */
     boolean isUseBlank();

@@ -21,6 +21,7 @@ import org.talend.dataquality.indicators.IndicatorsPackage;
  * 
  * This class gives access to the description and purpose of each indicator. The aim is to be able to get the
  * documentation without having to instantiate the indicators.
+ * @deprecated this class is replaced by the IndicatorDefinition instances.
  */
 public class IndicatorDocumentationHandler {
 
@@ -31,6 +32,7 @@ public class IndicatorDocumentationHandler {
      * 
      * @param indicatorClassifierId the id of the indicator (should be one of the IndicatorsPackage constants)
      * @return the long description of the indicator represented by the given id or the empty string if not found.
+     * @deprecated use TaggedValueHelper.getDescription(def) instead
      */
     public static String getLongDescription(int indicatorClassifierId) {
         switch (indicatorClassifierId) {
@@ -77,6 +79,7 @@ public class IndicatorDocumentationHandler {
      * 
      * @param indicatorClassifierId the id of the indicator (should be one of the IndicatorsPackage constants)
      * @return the purpose of the indicator represented by the given id or the empty string if not found.
+     * @deprecated use Indicator#getPurpose() instead
      */
     public static String getPurpose(int indicatorClassifierId) {
         switch (indicatorClassifierId) {
@@ -161,6 +164,7 @@ public class IndicatorDocumentationHandler {
      * 
      * @param indicatorClassifierId the id of the indicator (should be one of the IndicatorsPackage constants)
      * @return the name of the indicator.
+     * @deprecated use Indicator#getName() instead
      */
     public static String getName(int indicatorClassifierId) {
         switch (indicatorClassifierId) {

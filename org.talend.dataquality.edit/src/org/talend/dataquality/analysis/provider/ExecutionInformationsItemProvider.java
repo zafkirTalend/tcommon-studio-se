@@ -67,6 +67,10 @@ public class ExecutionInformationsItemProvider
 
             addExecutionDatePropertyDescriptor(object);
             addExecutionDurationPropertyDescriptor(object);
+            addMessagePropertyDescriptor(object);
+            addExecutionNumberPropertyDescriptor(object);
+            addLastRunOkPropertyDescriptor(object);
+            addLastExecutionNumberOkPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -116,6 +120,94 @@ public class ExecutionInformationsItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Message feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addMessagePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionInformations_message_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionInformations_message_feature", "_UI_ExecutionInformations_type"),
+                 AnalysisPackage.Literals.EXECUTION_INFORMATIONS__MESSAGE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Execution Number feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addExecutionNumberPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionInformations_executionNumber_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionInformations_executionNumber_feature", "_UI_ExecutionInformations_type"),
+                 AnalysisPackage.Literals.EXECUTION_INFORMATIONS__EXECUTION_NUMBER,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Last Run Ok feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addLastRunOkPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionInformations_lastRunOk_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionInformations_lastRunOk_feature", "_UI_ExecutionInformations_type"),
+                 AnalysisPackage.Literals.EXECUTION_INFORMATIONS__LAST_RUN_OK,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Last Execution Number Ok feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addLastExecutionNumberOkPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionInformations_lastExecutionNumberOk_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionInformations_lastExecutionNumberOk_feature", "_UI_ExecutionInformations_type"),
+                 AnalysisPackage.Literals.EXECUTION_INFORMATIONS__LAST_EXECUTION_NUMBER_OK,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns ExecutionInformations.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -155,6 +247,10 @@ public class ExecutionInformationsItemProvider
         switch (notification.getFeatureID(ExecutionInformations.class)) {
             case AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_DATE:
             case AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_DURATION:
+            case AnalysisPackage.EXECUTION_INFORMATIONS__MESSAGE:
+            case AnalysisPackage.EXECUTION_INFORMATIONS__EXECUTION_NUMBER:
+            case AnalysisPackage.EXECUTION_INFORMATIONS__LAST_RUN_OK:
+            case AnalysisPackage.EXECUTION_INFORMATIONS__LAST_EXECUTION_NUMBER_OK:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }
