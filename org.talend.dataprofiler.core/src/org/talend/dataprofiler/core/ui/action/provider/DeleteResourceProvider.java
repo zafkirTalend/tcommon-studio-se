@@ -24,11 +24,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.DeleteResourceAction;
@@ -47,10 +47,9 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
 import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
-import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataprofiler.core.ui.dialog.message.DeleteModelElementConfirmDialog;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.utils.sugars.TypedReturnCode;
-import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -61,8 +60,6 @@ public class DeleteResourceProvider extends CommonActionProvider {
     private static Logger log = Logger.getLogger(DeleteResourceProvider.class);
 
     private IFile selectedFile;
-
-    private Object[] selectedObjects;
 
     public DeleteResourceProvider() {
     }
@@ -84,7 +81,6 @@ public class DeleteResourceProvider extends CommonActionProvider {
         Object firstElement = selection.getFirstElement();
         if (firstElement instanceof IFile) {
             selectedFile = (IFile) firstElement;
-            selectedObjects = selection.toArray();
         }
         deleteResourceAction.selectionChanged(selection);
         menu.add(deleteResourceAction);
@@ -94,14 +90,6 @@ public class DeleteResourceProvider extends CommonActionProvider {
      * DOC rli DeleteResourceProvider class global comment. Detailled comment
      */
     class DeleteDataResourceAction extends DeleteResourceAction {
-
-        private static final String REPORTS = "reports";
-
-        private static final String REPORT = "report";
-
-        private static final String ANALYSES = "analyses";
-
-        private static final String ANALYSIS = "analysis";
 
         protected boolean isDeleteContent = false;
 
@@ -128,10 +116,14 @@ public class DeleteResourceProvider extends CommonActionProvider {
             // e.g. due to window activation when the prompt dialog is dismissed.
             // For more details, see Bug 60606 [Navigator] (data loss) Navigator
             // deletes/moves the wrong file
-            if (!checkDeleteContent()) {
+            // if (!checkDeleteContent()) {
+            // return;
+            // }
+            if (!checkDeleteContent(resources)) {
                 return;
             }
 
+            removeDependencys(resources);
             Job deletionCheckJob = new Job("Checking resources") {
 
                 /*
@@ -161,7 +153,6 @@ public class DeleteResourceProvider extends CommonActionProvider {
             };
 
             deletionCheckJob.schedule();
-            removeDependencys();
         }
 
         /**
@@ -177,59 +168,59 @@ public class DeleteResourceProvider extends CommonActionProvider {
             return resources;
         }
 
-        /**
-         * DOC rli Comment method "getCheckImpactString".
-         */
-        private boolean checkDeleteContent() {
-            List<String> impactNames = new ArrayList<String>();
-            if (selectedFile.getName().endsWith(PluginConstant.PRV_SUFFIX)) {
-                TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(selectedFile);
-                TdDataProvider provider = returnValue.getObject();
-                EList<Dependency> supplierDependencies = provider.getSupplierDependency();
-                for (Dependency dependency : supplierDependencies) {
-                    EList<ModelElement> clients = dependency.getClient();
-                    for (ModelElement modelElement : clients) {
-                        if (impactNames.contains(modelElement.getName())) {
-                            continue;
-                        }
-                        impactNames.add(modelElement.getName());
+        private boolean checkDeleteContent(IResource[] selectedResources) {
+            List<ModelElement> modelElementList = new ArrayList<ModelElement>();
+            IFile file;
+            ModelElement modelElement;
+            boolean otherFilesExistFlag = false;
+            String otherFileName = null;
+            boolean anaMessageFlag = false, repMessageFlag = false;
+            for (IResource res : selectedResources) {
+                if (!(res instanceof IFile)) {
+                    continue;
+                } else {
+                    file = (IFile) res;
+                }
+                if (file.getName().endsWith(PluginConstant.PRV_SUFFIX)) {
+                    TypedReturnCode<TdDataProvider> returnValue = PrvResourceFileHelper.getInstance().readFromFile(file);
+                    modelElement = returnValue.getObject();
+                    modelElementList.add(modelElement);
+                    anaMessageFlag = true;
+                } else if (file.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
+                    modelElement = AnaResourceFileHelper.getInstance().findAnalysis(file);
+                    modelElementList.add(modelElement);
+                    repMessageFlag = true;
+                } else {
+                    otherFilesExistFlag = true;
+                    if (res.getName().endsWith(PluginConstant.REP_SUFFIX)) {
+                        TdReport findReport = RepResourceFileHelper.getInstance().findReport(selectedFile);
+                        otherFileName = findReport.getName();
+                    } else {
+                        otherFileName = res.getName();
                     }
                 }
-                popConfirmDialog(impactNames, provider.getName(), impactNames.size() > 1 ? ANALYSES : ANALYSIS);
-                if (isDeleteContent) {
-                    PrvResourceFileHelper.getInstance().clear();
+            }
+            if (modelElementList.size() > 0) {
+                String dialogMessage;
+                if (anaMessageFlag && repMessageFlag) {
+                    dialogMessage = "The following analyses and reporting will be unusable:";
+                } else if (anaMessageFlag) {
+                    dialogMessage = "The following analyses will be unusable:";
+                } else {
+                    dialogMessage = "The following reporting will be unusable:";
                 }
-            } else if (selectedFile.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
-                Analysis findAnalysis = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
-                EList<Dependency> supplierDependencies = findAnalysis.getSupplierDependency();
-                for (Dependency dependency : supplierDependencies) {
-                    EList<ModelElement> clients = dependency.getClient();
-                    for (ModelElement modelElement : clients) {
-                        if (impactNames.contains(modelElement.getName()) || modelElement.getName() == null) {
-                            continue;
-                        }
-                        impactNames.add(modelElement.getName());
-                    }
-                }
-                popConfirmDialog(impactNames, findAnalysis.getName(), impactNames.size() > 1 ? REPORTS : REPORT);
-                if (isDeleteContent) {
-                    AnaResourceFileHelper.getInstance().clear();
-                }
-
-            } else if (selectedFile.getName().endsWith(PluginConstant.REP_SUFFIX)) {
-                TdReport findReport = RepResourceFileHelper.getInstance().findReport(selectedFile);
-                popConfirmDialog(impactNames, findReport.getName(), null);
-                if (isDeleteContent) {
-                    AnaResourceFileHelper.getInstance().clear();
-                }
-            } else {
-                popConfirmDialog(impactNames, selectedFile.getName(), null);
+                int showDialog = DeleteModelElementConfirmDialog.showDialog(null, modelElementList
+                        .toArray(new ModelElement[modelElementList.size()]), dialogMessage);
+                isDeleteContent = showDialog == Window.OK;
+            }
+            if (otherFilesExistFlag) {
+                isDeleteContent = popConfirmDialog(otherFileName, selectedResources);
             }
             return isDeleteContent;
         }
 
-        private void removeDependencys() {
-            for (Object selectedObj : selectedObjects) {
+        private void removeDependencys(IResource[] resources) {
+            for (IResource selectedObj : resources) {
                 String fileName = ((IFile) selectedObj).getName();
                 ModelElement elementToDelete = null;
                 if (fileName.endsWith(PluginConstant.PRV_SUFFIX)) {
@@ -254,26 +245,15 @@ public class DeleteResourceProvider extends CommonActionProvider {
 
         }
 
-        /**
-         * DOC rli Comment method "popConfirmDialog".
-         * 
-         * @param impactNames
-         * @param provider
-         */
-        private void popConfirmDialog(List<String> impactNames, String resourceName, String relatedResourceType) {
-            if (impactNames.size() != 0) {
-                isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete", "The following "
-                        + relatedResourceType + " will be unusable!\n" + impactNames + "\n\n"
-                        + "Are you sure you want to delele " + "\"" + resourceName + "\"?");
+        private boolean popConfirmDialog(String resourceName, IResource[] selectedResources) {
+            if (selectedResources.length > 1) {
+                isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
+                        "Are you sure you want to delele these " + selectedResources.length + " resources from file system?");
             } else {
-                if (selectedObjects.length > 1) {
-                    isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
-                            "Are you sure you want to delele these " + selectedObjects.length + " resources from file system?");
-                } else {
-                    isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete",
-                            "Are you sure you want to delele " + "\"" + resourceName + "\" from file system?");
-                }
+                isDeleteContent = MessageDialog.openConfirm(null, "Confirm Resource Delete", "Are you sure you want to delele "
+                        + "\"" + resourceName + "\" from file system?");
             }
+            return isDeleteContent;
         }
 
         /**
