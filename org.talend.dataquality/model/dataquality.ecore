@@ -215,7 +215,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="medianIndicator" eType="#//indicators/MedianIndicator"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FrequencyIndicator" eSuperTypes="#//indicators/CompositeIndicator">
+    <eClassifiers xsi:type="ecore:EClass" name="FrequencyIndicator" eSuperTypes="#//indicators/Indicator">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Stores Frequencies for each value.&#xA;TODO store them in EMF (need to be modeled). "/>
       </eAnnotations>
@@ -240,14 +240,6 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"
           changeable="false" volatile="true" transient="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueToFreq" eType="#//indicators/JavaHashMap"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="modeIndicator" eType="#//indicators/ModeIndicator"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="distinctCountIndicator"
-          eType="#//indicators/DistinctCountIndicator" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueCountIndicator"
-          eType="#//indicators/UniqueCountIndicator" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateCountIndicator"
-          eType="#//indicators/DuplicateCountIndicator" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BlankCountIndicator" eSuperTypes="#//indicators/Indicator">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="blankCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"
@@ -272,9 +264,9 @@
           <details key="documentation" value="The bins definition (if any). Bins' definition is usually used for aggregating data into bins. "/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateAggregationType"
-          eType="#//indicators/DateGrain"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="textParameter" eType="#//indicators/TextParameters"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dateParameters" eType="#//indicators/DateParameters"
           containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MedianIndicator" eSuperTypes="#//indicators/Indicator">
@@ -448,6 +440,10 @@
           eType="#//indicators/DistinctCountIndicator" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateCountIndicator"
           eType="#//indicators/DuplicateCountIndicator" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DateParameters">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateAggregationType"
+          eType="#//indicators/DateGrain" defaultValueLiteral="year"/>
     </eClassifiers>
     <eSubpackages name="schema" nsURI="http://dataquality.indicators.schema" nsPrefix="dataquality.indicators.schema">
       <eClassifiers xsi:type="ecore:EClass" name="SchemaIndicator" eSuperTypes="#//indicators/CompositeIndicator">

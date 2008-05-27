@@ -100,11 +100,13 @@ public class ColumnAnalysisExecutor extends AnalysisExecutor {
         if (schemata.get(tdColumn) != null) {
             return true;
         }
+        // get table or view
         ColumnSet owner = ColumnHelper.getColumnSetOwner(tdColumn);
         if (owner == null) {
             this.errorMessage = "No owner found for this column: " + tdColumn.getName();
             return false;
         }
+        // get catalog or schema
         Package schema = ColumnSetHelper.getParentCatalogOrSchema(owner);
         if (schema == null) {
             this.errorMessage = "No schema or catalog found for this column: " + owner.getName() + "." + tdColumn.getName();

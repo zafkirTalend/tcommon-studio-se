@@ -564,7 +564,8 @@ public class IndicatorImpl extends ModelElementImpl implements Indicator {
             }
             for (int i = 0; i < array.length; i++) {
                 Object object = array[i];
-                if (object == null) {
+                // assume last column is not null (for example in frequency table result)
+                if (object == null && i == array.length - 1) {
                     log.error("Unexpected result: " + object + ". One of the resulting column is null!");
                     return false;
                 }

@@ -40,10 +40,10 @@ import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.helpers.DomainHelper;
-import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
 import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.DateGrain;
+import org.talend.dataquality.indicators.DateParameters;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -140,18 +140,16 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             AnalysisExecutionException {
         ModelElement analyzedElement = indicator.getAnalyzedElement();
         if (analyzedElement == null) {
-            log.error("Analyzed element for indicator "
-                    + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
+            log.error("Analyzed element for indicator " + indicator.getName());
             return false;
         }
         TdColumn tdColumn = SwitchHelpers.COLUMN_SWITCH.doSwitch(indicator.getAnalyzedElement());
         if (tdColumn == null) {
-            log.error("Analyzed element is not a column for indicator "
-                    + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
+            log.error("Analyzed element is not a column for indicator " + indicator.getName());
             return false;
         }
         // --- get the schema owner
-        String colName = tdColumn.getName();
+        String colName = quote(tdColumn.getName());
         if (!belongToSameSchemata(tdColumn)) {
             StringBuffer buf = new StringBuffer();
             for (orgomg.cwm.objectmodel.core.Package schema : schemata.values()) {
@@ -160,6 +158,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             log.error("Column " + colName + " does not belong to an existing schema [" + buf.toString().trim() + "]");
             return false;
         }
+        colName = castColumn(indicator, tdColumn, colName);
 
         // get correct language for current database
         String language = dbms().getDbmsName();
@@ -170,14 +169,13 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         IndicatorDefinition indicatorDefinition = indicator.getIndicatorDefinition();
         if (indicatorDefinition == null) {
-            log.error("No indicator definition found for indicator "
-                    + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
+            log.error("No indicator definition found for indicator " + indicator.getName());
             return false;
         }
         sqlGenericExpression = getSqlExpression(indicatorDefinition, language);
         if (sqlGenericExpression == null) {
             // try with default language (ANSI SQL)
-            log.warn("The indicator definition has not been found for the database type " + language + " for the indicator"
+            log.warn("The indicator SQL expression has not been found for the database type " + language + " for the indicator"
                     + indicatorDefinition.getName());
             if (log.isInfoEnabled()) {
                 log.info("Trying to compute the indicator with the default language " + dbms().getDefaultLanguage());
@@ -186,8 +184,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         if (sqlGenericExpression == null || sqlGenericExpression.getBody() == null) {
-            log.error("No SQL expression found for indicator "
-                    + IndicatorDocumentationHandler.getName(indicator.eClass().getClassifierID()));
+            log.error("No SQL expression found for indicator " + indicator.getName());
             return false;
         }
 
@@ -202,11 +199,13 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             if (bins != null) {
                 rangeStrings = getBinsAsGenericString(bins.getRanges());
             }
-            dateAggregationType = parameters.getDateAggregationType();
-            // TODO handle data grain
+
+            DateParameters dateParameters = parameters.getDateParameters();
+            if (dateParameters != null) {
+                dateAggregationType = dateParameters.getDateAggregationType();
+            }
 
             TextParameters textParameter = parameters.getTextParameter();
-            colName = quote(colName);
             if (textParameter != null) {
                 if (textParameter.isIgnoreCase()) {
                     colName = dbms().toUpperCase(colName);
@@ -220,7 +219,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             }
         }
 
-        String table = ColumnHelper.getColumnSetFullName(tdColumn);
+        String table = quote(ColumnHelper.getColumnSetFullName(tdColumn));
 
         // --- normalize table name
         String catalogName = getCatalogName(tdColumn);
@@ -228,8 +227,6 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         // ### evaluate SQL Statement depending on indicators ###
         String completedSqlString = null;
-
-        colName = castColumn(indicator, tdColumn);
 
         // --- handle case when indicator is a quantile
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getMedianIndicator())
@@ -248,35 +245,39 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             if (rangeStrings != null) {
                 completedSqlString = getUnionCompletedString(indicator, sqlGenericExpression, colName, table,
                         dataFilterExpression, rangeStrings);
-            } else if (dateAggregationType != null) { // frequencies with date aggregation
-                // TODO scorreia handle date frequencies
+            } else if (dateAggregationType != null) { // frequencies
+                // with date
+                // aggregation
                 completedSqlString = getDateAggregatedCompletedString(sqlGenericExpression, colName, table, dateAggregationType);
                 completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
                 completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
             } else { // usual nominal frequencies
-                completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
-                completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
+                completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
                 completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+                completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
             }
         } else
 
         // --- handle case of unique count
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())) {
-            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
             completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
             completedSqlString = dbms().countRowInSubquery(completedSqlString, "myquery");
         } else
 
         // --- handle case of duplicate count
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
-            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
             completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
-            completedSqlString = dbms().sumRowInSubquery("mycount", completedSqlString, "myquery");
+            // duplicate is the number of rows having more than one identical instance
+            completedSqlString = dbms().countRowInSubquery(completedSqlString, "myquery");
+            // duplicate (with sumRowInSubquery) means that the number of instances that are duplicated
+            // completedSqlString = dbms().sumRowInSubquery("mycount", completedSqlString, "myquery");
             // scorreia hard coded "mycount" string must be the same as the alias in the TalendDefinition file!
             // PTODO scorreia avoid hard coded "mycount" string
         } else {
             // --- default case
-            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, quote(table)) + dbms().eos();
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
             completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
         }
 
@@ -297,9 +298,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * 
      * @param indicator
      * @param tdColumn
+     * @param colName the name of the given column (tdColumn.getName() ) (could contain quotes)
      * @return
      */
-    private String castColumn(Indicator indicator, TdColumn tdColumn) {
+    private String castColumn(Indicator indicator, TdColumn tdColumn, String colName) {
         int javaType = tdColumn.getJavaType();
         boolean isText = Java2SqlType.isTextInSQL(javaType);
 
@@ -315,10 +317,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             boolean isNumeric = Java2SqlType.isNumbericInSQL(javaType);
             if (isNumeric) {
                 // TODO scorreia user should tell the expected format
-                return "CAST (" + tdColumn.getName() + " AS DECIMAL)";
+                return "CAST (" + colName + " AS DECIMAL)";
             }
         }
-        return tdColumn.getName();
+        return colName;
     }
 
     private static final String COMMA = " , ";
@@ -506,7 +508,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         // first, count nb lines
         String catalog = getCatalogName(indicator.getAnalyzedElement());
         // FIXME scorreia get schema
-        long count = getCount(cachedAnalysis, colName, quote(table), catalog, dataFilterExpression);
+        long count = getCount(cachedAnalysis, colName, table, catalog, dataFilterExpression);
         if (count == -1) {
             throw new AnalysisExecutionException("Got an invalid result set when evaluating row count for column "
                     + dbms().toQualifiedName(catalog, null, colName));
@@ -514,8 +516,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         Long midleCount = getLimitFirstArg(indicator, count);
         Integer nbRow = getNbReturnedRows(indicator, count);
-        return MessageFormat.format(sqlExpression.getBody(), quote(colName), quote(table), String.valueOf(midleCount), String
-                .valueOf(nbRow))
+        return MessageFormat.format(sqlExpression.getBody(), colName, table, String.valueOf(midleCount), String.valueOf(nbRow))
                 + dbms().eos();
     }
 
@@ -614,7 +615,9 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         if (softwareSystem == null) {
             return new DbmsLanguage();
         }
-        return new DbmsLanguage(softwareSystem.getSubtype());
+        DbmsLanguage dbms = new DbmsLanguage(softwareSystem.getSubtype());
+        dbms.setDbQuoteString(this.getDbQuoteString(cachedAnalysis));
+        return dbms;
     }
 
     /**
@@ -680,10 +683,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @return the given string between quotes
      */
     private String quote(String input) {
-        if (true) { // FIXME scorreia ZQL does not handle well quote strings
-            return input;
-        }
-        return getDbQuoteString(this.cachedAnalysis) + input + getDbQuoteString(this.cachedAnalysis);
+        return dbms().quote(input);
     }
 
     /**
@@ -740,7 +740,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
                 // set the connection's catalog
                 String catalogName = getCatalogName(indicator.getAnalyzedElement());
                 if (catalogName != null) { // check whether null argument can be given
-                    connection.setCatalog(quote(catalogName));
+                    connection.setCatalog(catalogName);
                 }
 
                 Expression query = indicator.getInstantiatedExpressions(dbms().getDbmsName());
@@ -765,10 +765,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
     }
 
     /**
-     * DOC scorreia Comment method "getCatalogName".
+     * Method "getCatalogName".
      * 
      * @param analyzedElement
-     * @return
+     * @return the catalog or schema quoted name
      */
     private String getCatalogName(ModelElement analyzedElement) {
         Package schema = super.schemata.get(analyzedElement);
@@ -777,13 +777,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             return null;
         }
         // else
-        return schema.getName();
-        // if (tdColumn == null) {
-        // log.error("Analyzed element is not a column: " +analyzedElement.getName());
-        // return null;
-        // }
-        // this.belongToSameSchemata(tdColumn, schemata)
-        // return null;
+        return quote(schema.getName());
     }
 
     /**
@@ -817,7 +811,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
     private List<Object[]> executeQuery(String catalogName, Connection connection, String queryStmt) throws SQLException {
 
         if (catalogName != null) { // check whether null argument can be given
-            connection.setCatalog(quote(catalogName));
+            connection.setCatalog(catalogName);
         }
         // create query statement
         // Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,

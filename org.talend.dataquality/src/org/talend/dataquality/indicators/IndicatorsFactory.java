@@ -287,6 +287,15 @@ public interface IndicatorsFactory extends EFactory {
     CountsIndicator createCountsIndicator();
 
     /**
+     * Returns a new object of class '<em>Date Parameters</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Date Parameters</em>'.
+     * @generated
+     */
+    DateParameters createDateParameters();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

@@ -64,6 +64,17 @@ public abstract class AnalysisExecutor implements IAnalysisExecutor {
         // --- run analysis
         boolean ok = runAnalysis(analysis, sql);
 
+        // --- set metadata information of analysis
+        resultMetadata.setLastRunOk(ok);
+        int executionNumber = resultMetadata.getExecutionNumber() + 1;
+        resultMetadata.setExecutionNumber(executionNumber);
+        if (ok) {
+            resultMetadata.setLastExecutionNumberOk(executionNumber);
+            resultMetadata.setMessage(null); // reset error message
+        } else {
+            resultMetadata.setMessage(errorMessage);
+        }
+
         // --- compute execution duration
         long endtime = System.currentTimeMillis();
         resultMetadata.setExecutionDuration((int) (endtime - startime));

@@ -129,11 +129,11 @@ public final class IndicatorEvaluationMain {
             ModeIndicator modeIndicator = IndicatorsFactory.eINSTANCE.createModeIndicator();
             FrequencyIndicator textFrequencyIndicator = IndicatorsFactory.eINSTANCE.createFrequencyIndicator();
             // store in freq indic
-            textFrequencyIndicator.setDistinctCountIndicator(distinctCountIndicator);
-            textFrequencyIndicator.setDistinctCountIndicator(distinctCountIndicator2);
-            textFrequencyIndicator.setUniqueCountIndicator(uniqueCountIndicator);
-            textFrequencyIndicator.setDuplicateCountIndicator(duplicateCountIndicator);
-            textFrequencyIndicator.setModeIndicator(modeIndicator);
+            // textFrequencyIndicator.setDistinctCountIndicator(distinctCountIndicator);
+            // textFrequencyIndicator.setDistinctCountIndicator(distinctCountIndicator2);
+            // textFrequencyIndicator.setUniqueCountIndicator(uniqueCountIndicator);
+            // textFrequencyIndicator.setDuplicateCountIndicator(duplicateCountIndicator);
+            // textFrequencyIndicator.setModeIndicator(modeIndicator);
 
             MeanIndicator doubleMeanIndicator = IndicatorsFactory.eINSTANCE.createMeanIndicator();
             MeanIndicator integerMeanIndicator = IndicatorsFactory.eINSTANCE.createMeanIndicator();

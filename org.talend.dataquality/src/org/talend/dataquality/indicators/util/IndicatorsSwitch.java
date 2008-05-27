@@ -164,7 +164,6 @@ public class IndicatorsSwitch<T> {
             case IndicatorsPackage.FREQUENCY_INDICATOR: {
                 FrequencyIndicator frequencyIndicator = (FrequencyIndicator)theEObject;
                 T result = caseFrequencyIndicator(frequencyIndicator);
-                if (result == null) result = caseCompositeIndicator(frequencyIndicator);
                 if (result == null) result = caseIndicator(frequencyIndicator);
                 if (result == null) result = caseModelElement(frequencyIndicator);
                 if (result == null) result = caseElement(frequencyIndicator);
@@ -364,6 +363,12 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = caseIndicator(countsIndicator);
                 if (result == null) result = caseModelElement(countsIndicator);
                 if (result == null) result = caseElement(countsIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case IndicatorsPackage.DATE_PARAMETERS: {
+                DateParameters dateParameters = (DateParameters)theEObject;
+                T result = caseDateParameters(dateParameters);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -711,6 +716,21 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseCountsIndicator(CountsIndicator object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Date Parameters</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Date Parameters</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDateParameters(DateParameters object) {
         return null;
     }
 

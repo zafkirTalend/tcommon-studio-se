@@ -21,8 +21,8 @@ import org.talend.dataquality.domain.Domain;
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getIndicatorValidDomain <em>Indicator Valid Domain</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getDataValidDomain <em>Data Valid Domain</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType <em>Date Aggregation Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getTextParameter <em>Text Parameter</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getDateParameters <em>Date Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -108,35 +108,6 @@ public interface IndicatorParameters extends EObject {
     void setBins(Domain value);
 
     /**
-     * Returns the value of the '<em><b>Date Aggregation Type</b></em>' attribute.
-     * The literals are from the enumeration {@link org.talend.dataquality.indicators.DateGrain}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Date Aggregation Type</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Date Aggregation Type</em>' attribute.
-     * @see org.talend.dataquality.indicators.DateGrain
-     * @see #setDateAggregationType(DateGrain)
-     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_DateAggregationType()
-     * @model
-     * @generated
-     */
-    DateGrain getDateAggregationType();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType <em>Date Aggregation Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Date Aggregation Type</em>' attribute.
-     * @see org.talend.dataquality.indicators.DateGrain
-     * @see #getDateAggregationType()
-     * @generated
-     */
-    void setDateAggregationType(DateGrain value);
-
-    /**
      * Returns the value of the '<em><b>Text Parameter</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
@@ -161,5 +132,31 @@ public interface IndicatorParameters extends EObject {
      * @generated
      */
     void setTextParameter(TextParameters value);
+
+    /**
+     * Returns the value of the '<em><b>Date Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Date Parameters</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Date Parameters</em>' containment reference.
+     * @see #setDateParameters(DateParameters)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_DateParameters()
+     * @model containment="true"
+     * @generated
+     */
+    DateParameters getDateParameters();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getDateParameters <em>Date Parameters</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Date Parameters</em>' containment reference.
+     * @see #getDateParameters()
+     * @generated
+     */
+    void setDateParameters(DateParameters value);
 
 } // IndicatorParameters

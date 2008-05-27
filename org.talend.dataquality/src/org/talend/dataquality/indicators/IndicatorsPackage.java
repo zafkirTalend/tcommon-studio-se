@@ -1960,7 +1960,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__NAME = COMPOSITE_INDICATOR__NAME;
+    int FREQUENCY_INDICATOR__NAME = INDICATOR__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -1969,7 +1969,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__VISIBILITY = COMPOSITE_INDICATOR__VISIBILITY;
+    int FREQUENCY_INDICATOR__VISIBILITY = INDICATOR__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -1978,7 +1978,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__CLIENT_DEPENDENCY = COMPOSITE_INDICATOR__CLIENT_DEPENDENCY;
+    int FREQUENCY_INDICATOR__CLIENT_DEPENDENCY = INDICATOR__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -1987,7 +1987,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__SUPPLIER_DEPENDENCY = COMPOSITE_INDICATOR__SUPPLIER_DEPENDENCY;
+    int FREQUENCY_INDICATOR__SUPPLIER_DEPENDENCY = INDICATOR__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -1996,7 +1996,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__CONSTRAINT = COMPOSITE_INDICATOR__CONSTRAINT;
+    int FREQUENCY_INDICATOR__CONSTRAINT = INDICATOR__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -2005,7 +2005,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__NAMESPACE = COMPOSITE_INDICATOR__NAMESPACE;
+    int FREQUENCY_INDICATOR__NAMESPACE = INDICATOR__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -2014,7 +2014,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__IMPORTER = COMPOSITE_INDICATOR__IMPORTER;
+    int FREQUENCY_INDICATOR__IMPORTER = INDICATOR__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -2023,7 +2023,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__STEREOTYPE = COMPOSITE_INDICATOR__STEREOTYPE;
+    int FREQUENCY_INDICATOR__STEREOTYPE = INDICATOR__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -2032,7 +2032,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__TAGGED_VALUE = COMPOSITE_INDICATOR__TAGGED_VALUE;
+    int FREQUENCY_INDICATOR__TAGGED_VALUE = INDICATOR__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -2041,7 +2041,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DOCUMENT = COMPOSITE_INDICATOR__DOCUMENT;
+    int FREQUENCY_INDICATOR__DOCUMENT = INDICATOR__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -2050,7 +2050,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DESCRIPTION = COMPOSITE_INDICATOR__DESCRIPTION;
+    int FREQUENCY_INDICATOR__DESCRIPTION = INDICATOR__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -2059,7 +2059,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__RESPONSIBLE_PARTY = COMPOSITE_INDICATOR__RESPONSIBLE_PARTY;
+    int FREQUENCY_INDICATOR__RESPONSIBLE_PARTY = INDICATOR__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -2068,7 +2068,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__ELEMENT_NODE = COMPOSITE_INDICATOR__ELEMENT_NODE;
+    int FREQUENCY_INDICATOR__ELEMENT_NODE = INDICATOR__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -2077,7 +2077,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__SET = COMPOSITE_INDICATOR__SET;
+    int FREQUENCY_INDICATOR__SET = INDICATOR__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -2086,7 +2086,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__RENDERED_OBJECT = COMPOSITE_INDICATOR__RENDERED_OBJECT;
+    int FREQUENCY_INDICATOR__RENDERED_OBJECT = INDICATOR__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -2095,7 +2095,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__VOCABULARY_ELEMENT = COMPOSITE_INDICATOR__VOCABULARY_ELEMENT;
+    int FREQUENCY_INDICATOR__VOCABULARY_ELEMENT = INDICATOR__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -2104,7 +2104,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__MEASUREMENT = COMPOSITE_INDICATOR__MEASUREMENT;
+    int FREQUENCY_INDICATOR__MEASUREMENT = INDICATOR__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -2113,7 +2113,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__CHANGE_REQUEST = COMPOSITE_INDICATOR__CHANGE_REQUEST;
+    int FREQUENCY_INDICATOR__CHANGE_REQUEST = INDICATOR__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -2122,7 +2122,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DASDL_PROPERTY = COMPOSITE_INDICATOR__DASDL_PROPERTY;
+    int FREQUENCY_INDICATOR__DASDL_PROPERTY = INDICATOR__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2131,7 +2131,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__COUNT = COMPOSITE_INDICATOR__COUNT;
+    int FREQUENCY_INDICATOR__COUNT = INDICATOR__COUNT;
 
     /**
      * The feature id for the '<em><b>Null Count</b></em>' attribute.
@@ -2140,7 +2140,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__NULL_COUNT = COMPOSITE_INDICATOR__NULL_COUNT;
+    int FREQUENCY_INDICATOR__NULL_COUNT = INDICATOR__NULL_COUNT;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -2149,7 +2149,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__PARAMETERS = COMPOSITE_INDICATOR__PARAMETERS;
+    int FREQUENCY_INDICATOR__PARAMETERS = INDICATOR__PARAMETERS;
 
     /**
      * The feature id for the '<em><b>Analyzed Element</b></em>' reference.
@@ -2158,7 +2158,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__ANALYZED_ELEMENT = COMPOSITE_INDICATOR__ANALYZED_ELEMENT;
+    int FREQUENCY_INDICATOR__ANALYZED_ELEMENT = INDICATOR__ANALYZED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Datamining Type</b></em>' attribute.
@@ -2167,7 +2167,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DATAMINING_TYPE = COMPOSITE_INDICATOR__DATAMINING_TYPE;
+    int FREQUENCY_INDICATOR__DATAMINING_TYPE = INDICATOR__DATAMINING_TYPE;
 
     /**
      * The feature id for the '<em><b>Indicator Definition</b></em>' reference.
@@ -2176,7 +2176,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__INDICATOR_DEFINITION = COMPOSITE_INDICATOR__INDICATOR_DEFINITION;
+    int FREQUENCY_INDICATOR__INDICATOR_DEFINITION = INDICATOR__INDICATOR_DEFINITION;
 
     /**
      * The feature id for the '<em><b>Instantiated Expressions</b></em>' containment reference list.
@@ -2185,7 +2185,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
+    int FREQUENCY_INDICATOR__INSTANTIATED_EXPRESSIONS = INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
      * The feature id for the '<em><b>Unique Values</b></em>' attribute list.
@@ -2194,7 +2194,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__UNIQUE_VALUES = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
+    int FREQUENCY_INDICATOR__UNIQUE_VALUES = INDICATOR_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Distinct Value Count</b></em>' attribute.
@@ -2203,7 +2203,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 1;
+    int FREQUENCY_INDICATOR__DISTINCT_VALUE_COUNT = INDICATOR_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Unique Value Count</b></em>' attribute.
@@ -2212,7 +2212,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 2;
+    int FREQUENCY_INDICATOR__UNIQUE_VALUE_COUNT = INDICATOR_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Duplicate Value Count</b></em>' attribute.
@@ -2221,7 +2221,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__DUPLICATE_VALUE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 3;
+    int FREQUENCY_INDICATOR__DUPLICATE_VALUE_COUNT = INDICATOR_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Value To Freq</b></em>' attribute.
@@ -2230,43 +2230,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR__VALUE_TO_FREQ = COMPOSITE_INDICATOR_FEATURE_COUNT + 4;
-
-    /**
-     * The feature id for the '<em><b>Mode Indicator</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__MODE_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 5;
-
-    /**
-     * The feature id for the '<em><b>Distinct Count Indicator</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 6;
-
-    /**
-     * The feature id for the '<em><b>Unique Count Indicator</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 7;
-
-    /**
-     * The feature id for the '<em><b>Duplicate Count Indicator</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR = COMPOSITE_INDICATOR_FEATURE_COUNT + 8;
+    int FREQUENCY_INDICATOR__VALUE_TO_FREQ = INDICATOR_FEATURE_COUNT + 4;
 
     /**
      * The number of structural features of the '<em>Frequency Indicator</em>' class.
@@ -2275,7 +2239,7 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FREQUENCY_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 9;
+    int FREQUENCY_INDICATOR_FEATURE_COUNT = INDICATOR_FEATURE_COUNT + 5;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.impl.TextIndicatorImpl <em>Text Indicator</em>}' class.
@@ -2587,22 +2551,22 @@ public interface IndicatorsPackage extends EPackage {
     int INDICATOR_PARAMETERS__BINS = 2;
 
     /**
-     * The feature id for the '<em><b>Date Aggregation Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE = 3;
-
-    /**
      * The feature id for the '<em><b>Text Parameter</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INDICATOR_PARAMETERS__TEXT_PARAMETER = 4;
+    int INDICATOR_PARAMETERS__TEXT_PARAMETER = 3;
+
+    /**
+     * The feature id for the '<em><b>Date Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INDICATOR_PARAMETERS__DATE_PARAMETERS = 4;
 
     /**
      * The number of structural features of the '<em>Indicator Parameters</em>' class.
@@ -7528,6 +7492,34 @@ public interface IndicatorsPackage extends EPackage {
     int COUNTS_INDICATOR_FEATURE_COUNT = COMPOSITE_INDICATOR_FEATURE_COUNT + 6;
 
     /**
+     * The meta object id for the '{@link org.talend.dataquality.indicators.impl.DateParametersImpl <em>Date Parameters</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.dataquality.indicators.impl.DateParametersImpl
+     * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateParameters()
+     * @generated
+     */
+    int DATE_PARAMETERS = 29;
+
+    /**
+     * The feature id for the '<em><b>Date Aggregation Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATE_PARAMETERS__DATE_AGGREGATION_TYPE = 0;
+
+    /**
+     * The number of structural features of the '<em>Date Parameters</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATE_PARAMETERS_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7535,7 +7527,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getEnumStatistics()
      * @generated
      */
-    int ENUM_STATISTICS = 29;
+    int ENUM_STATISTICS = 30;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DataminingType <em>Datamining Type</em>}' enum.
@@ -7545,7 +7537,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDataminingType()
      * @generated
      */
-    int DATAMINING_TYPE = 30;
+    int DATAMINING_TYPE = 31;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.DateGrain <em>Date Grain</em>}' enum.
@@ -7555,7 +7547,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateGrain()
      * @generated
      */
-    int DATE_GRAIN = 31;
+    int DATE_GRAIN = 32;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.MatchingAlgorithm <em>Matching Algorithm</em>}' enum.
@@ -7565,7 +7557,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getMatchingAlgorithm()
      * @generated
      */
-    int MATCHING_ALGORITHM = 32;
+    int MATCHING_ALGORITHM = 33;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.indicators.IndicatorValueType <em>Indicator Value Type</em>}' enum.
@@ -7575,7 +7567,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getIndicatorValueType()
      * @generated
      */
-    int INDICATOR_VALUE_TYPE = 33;
+    int INDICATOR_VALUE_TYPE = 34;
 
     /**
      * The meta object id for the '<em>Java Set</em>' data type.
@@ -7585,7 +7577,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaSet()
      * @generated
      */
-    int JAVA_SET = 34;
+    int JAVA_SET = 35;
 
     /**
      * The meta object id for the '<em>Java Hash Map</em>' data type.
@@ -7595,7 +7587,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaHashMap()
      * @generated
      */
-    int JAVA_HASH_MAP = 35;
+    int JAVA_HASH_MAP = 36;
 
     /**
      * The meta object id for the '<em>Java Tree Map</em>' data type.
@@ -7605,7 +7597,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getJavaTreeMap()
      * @generated
      */
-    int JAVA_TREE_MAP = 36;
+    int JAVA_TREE_MAP = 37;
 
     /**
      * The meta object id for the '<em>Object Array</em>' data type.
@@ -7614,7 +7606,7 @@ public interface IndicatorsPackage extends EPackage {
      * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getObjectArray()
      * @generated
      */
-    int OBJECT_ARRAY = 37;
+    int OBJECT_ARRAY = 38;
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.Indicator <em>Indicator</em>}'.
@@ -7939,50 +7931,6 @@ public interface IndicatorsPackage extends EPackage {
     EAttribute getFrequencyIndicator_ValueToFreq();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getModeIndicator <em>Mode Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Mode Indicator</em>'.
-     * @see org.talend.dataquality.indicators.FrequencyIndicator#getModeIndicator()
-     * @see #getFrequencyIndicator()
-     * @generated
-     */
-    EReference getFrequencyIndicator_ModeIndicator();
-
-    /**
-     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDistinctCountIndicator <em>Distinct Count Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Distinct Count Indicator</em>'.
-     * @see org.talend.dataquality.indicators.FrequencyIndicator#getDistinctCountIndicator()
-     * @see #getFrequencyIndicator()
-     * @generated
-     */
-    EReference getFrequencyIndicator_DistinctCountIndicator();
-
-    /**
-     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getUniqueCountIndicator <em>Unique Count Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Unique Count Indicator</em>'.
-     * @see org.talend.dataquality.indicators.FrequencyIndicator#getUniqueCountIndicator()
-     * @see #getFrequencyIndicator()
-     * @generated
-     */
-    EReference getFrequencyIndicator_UniqueCountIndicator();
-
-    /**
-     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateCountIndicator <em>Duplicate Count Indicator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Duplicate Count Indicator</em>'.
-     * @see org.talend.dataquality.indicators.FrequencyIndicator#getDuplicateCountIndicator()
-     * @see #getFrequencyIndicator()
-     * @generated
-     */
-    EReference getFrequencyIndicator_DuplicateCountIndicator();
-
-    /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.BlankCountIndicator <em>Blank Count Indicator</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8047,17 +7995,6 @@ public interface IndicatorsPackage extends EPackage {
     EReference getIndicatorParameters_Bins();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType <em>Date Aggregation Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Date Aggregation Type</em>'.
-     * @see org.talend.dataquality.indicators.IndicatorParameters#getDateAggregationType()
-     * @see #getIndicatorParameters()
-     * @generated
-     */
-    EAttribute getIndicatorParameters_DateAggregationType();
-
-    /**
      * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getTextParameter <em>Text Parameter</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8067,6 +8004,17 @@ public interface IndicatorsPackage extends EPackage {
      * @generated
      */
     EReference getIndicatorParameters_TextParameter();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.IndicatorParameters#getDateParameters <em>Date Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Date Parameters</em>'.
+     * @see org.talend.dataquality.indicators.IndicatorParameters#getDateParameters()
+     * @see #getIndicatorParameters()
+     * @generated
+     */
+    EReference getIndicatorParameters_DateParameters();
 
     /**
      * Returns the meta object for class '{@link org.talend.dataquality.indicators.MedianIndicator <em>Median Indicator</em>}'.
@@ -8523,6 +8471,27 @@ public interface IndicatorsPackage extends EPackage {
     EReference getCountsIndicator_DuplicateCountIndicator();
 
     /**
+     * Returns the meta object for class '{@link org.talend.dataquality.indicators.DateParameters <em>Date Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Date Parameters</em>'.
+     * @see org.talend.dataquality.indicators.DateParameters
+     * @generated
+     */
+    EClass getDateParameters();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.dataquality.indicators.DateParameters#getDateAggregationType <em>Date Aggregation Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Date Aggregation Type</em>'.
+     * @see org.talend.dataquality.indicators.DateParameters#getDateAggregationType()
+     * @see #getDateParameters()
+     * @generated
+     */
+    EAttribute getDateParameters_DateAggregationType();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8894,38 +8863,6 @@ public interface IndicatorsPackage extends EPackage {
         EAttribute FREQUENCY_INDICATOR__VALUE_TO_FREQ = eINSTANCE.getFrequencyIndicator_ValueToFreq();
 
         /**
-         * The meta object literal for the '<em><b>Mode Indicator</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference FREQUENCY_INDICATOR__MODE_INDICATOR = eINSTANCE.getFrequencyIndicator_ModeIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Distinct Count Indicator</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference FREQUENCY_INDICATOR__DISTINCT_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_DistinctCountIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Unique Count Indicator</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference FREQUENCY_INDICATOR__UNIQUE_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_UniqueCountIndicator();
-
-        /**
-         * The meta object literal for the '<em><b>Duplicate Count Indicator</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference FREQUENCY_INDICATOR__DUPLICATE_COUNT_INDICATOR = eINSTANCE.getFrequencyIndicator_DuplicateCountIndicator();
-
-        /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.BlankCountIndicatorImpl <em>Blank Count Indicator</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -8978,20 +8915,20 @@ public interface IndicatorsPackage extends EPackage {
         EReference INDICATOR_PARAMETERS__BINS = eINSTANCE.getIndicatorParameters_Bins();
 
         /**
-         * The meta object literal for the '<em><b>Date Aggregation Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE = eINSTANCE.getIndicatorParameters_DateAggregationType();
-
-        /**
          * The meta object literal for the '<em><b>Text Parameter</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EReference INDICATOR_PARAMETERS__TEXT_PARAMETER = eINSTANCE.getIndicatorParameters_TextParameter();
+
+        /**
+         * The meta object literal for the '<em><b>Date Parameters</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference INDICATOR_PARAMETERS__DATE_PARAMETERS = eINSTANCE.getIndicatorParameters_DateParameters();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.MedianIndicatorImpl <em>Median Indicator</em>}' class.
@@ -9374,6 +9311,24 @@ public interface IndicatorsPackage extends EPackage {
          * @generated
          */
         EReference COUNTS_INDICATOR__DUPLICATE_COUNT_INDICATOR = eINSTANCE.getCountsIndicator_DuplicateCountIndicator();
+
+        /**
+         * The meta object literal for the '{@link org.talend.dataquality.indicators.impl.DateParametersImpl <em>Date Parameters</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.dataquality.indicators.impl.DateParametersImpl
+         * @see org.talend.dataquality.indicators.impl.IndicatorsPackageImpl#getDateParameters()
+         * @generated
+         */
+        EClass DATE_PARAMETERS = eINSTANCE.getDateParameters();
+
+        /**
+         * The meta object literal for the '<em><b>Date Aggregation Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATE_PARAMETERS__DATE_AGGREGATION_TYPE = eINSTANCE.getDateParameters_DateAggregationType();
 
         /**
          * The meta object literal for the '{@link org.talend.dataquality.indicators.EnumStatistics <em>Enum Statistics</em>}' enum.

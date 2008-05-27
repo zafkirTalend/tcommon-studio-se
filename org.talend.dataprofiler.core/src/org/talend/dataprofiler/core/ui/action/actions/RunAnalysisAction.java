@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.action.actions;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -53,6 +54,8 @@ import org.talend.utils.sugars.ReturnCode;
 public class RunAnalysisAction extends Action implements ICheatSheetAction {
 
     private static Logger log = Logger.getLogger(RunAnalysisAction.class);
+
+    private static final DecimalFormat FORMAT_SECONDS = new DecimalFormat("0.00");
 
     private TreeViewer treeViewer;
 
@@ -114,7 +117,10 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
             public void run(IProgressMonitor monitor) throws InvocationTargetException {
                 final ReturnCode executed = finalExec.execute(finalAnalysis);
                 if (log.isInfoEnabled()) {
-                    log.info("Analysis " + finalAnalysis.getName() + "execution code: " + executed);
+
+                    int executionDuration = analysis.getResults().getResultMetadata().getExecutionDuration();
+                    log.info("Analysis \"" + finalAnalysis.getName() + "\" execution code: " + executed + ". Duration: "
+                            + FORMAT_SECONDS.format(Double.valueOf(executionDuration) / 1000) + " s.");
                 }
                 if (executed.isOk()) {
                     AnaResourceFileHelper.getInstance().save(finalAnalysis);

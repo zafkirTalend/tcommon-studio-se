@@ -72,7 +72,6 @@ public class IndicatorParametersItemProvider
             addIndicatorValidDomainPropertyDescriptor(object);
             addDataValidDomainPropertyDescriptor(object);
             addBinsPropertyDescriptor(object);
-            addDateAggregationTypePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -144,28 +143,6 @@ public class IndicatorParametersItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Date Aggregation Type feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addDateAggregationTypePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_IndicatorParameters_dateAggregationType_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_IndicatorParameters_dateAggregationType_feature", "_UI_IndicatorParameters_type"),
-                 IndicatorsPackage.Literals.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -178,6 +155,7 @@ public class IndicatorParametersItemProvider
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
             childrenFeatures.add(IndicatorsPackage.Literals.INDICATOR_PARAMETERS__TEXT_PARAMETER);
+            childrenFeatures.add(IndicatorsPackage.Literals.INDICATOR_PARAMETERS__DATE_PARAMETERS);
         }
         return childrenFeatures;
     }
@@ -214,11 +192,7 @@ public class IndicatorParametersItemProvider
      */
     @Override
     public String getText(Object object) {
-        DateGrain labelValue = ((IndicatorParameters)object).getDateAggregationType();
-        String label = labelValue == null ? null : labelValue.toString();
-        return label == null || label.length() == 0 ?
-            getString("_UI_IndicatorParameters_type") :
-            getString("_UI_IndicatorParameters_type") + " " + label;
+        return getString("_UI_IndicatorParameters_type");
     }
 
     /**
@@ -233,10 +207,8 @@ public class IndicatorParametersItemProvider
         updateChildren(notification);
 
         switch (notification.getFeatureID(IndicatorParameters.class)) {
-            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -258,6 +230,11 @@ public class IndicatorParametersItemProvider
             (createChildParameter
                 (IndicatorsPackage.Literals.INDICATOR_PARAMETERS__TEXT_PARAMETER,
                  IndicatorsFactory.eINSTANCE.createTextParameters()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (IndicatorsPackage.Literals.INDICATOR_PARAMETERS__DATE_PARAMETERS,
+                 IndicatorsFactory.eINSTANCE.createDateParameters()));
     }
 
     /**

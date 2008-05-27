@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.talend.dataquality.domain.Domain;
 
+import org.talend.dataquality.indicators.DateParameters;
 import org.talend.dataquality.indicators.DateGrain;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorsPackage;
@@ -30,8 +31,8 @@ import org.talend.dataquality.indicators.TextParameters;
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getIndicatorValidDomain <em>Indicator Valid Domain</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getDataValidDomain <em>Data Valid Domain</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getBins <em>Bins</em>}</li>
- *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getDateAggregationType <em>Date Aggregation Type</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getTextParameter <em>Text Parameter</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getDateParameters <em>Date Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,16 +80,6 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     protected static final DateGrain DATE_AGGREGATION_TYPE_EDEFAULT = DateGrain.YEAR;
 
     /**
-     * The cached value of the '{@link #getDateAggregationType() <em>Date Aggregation Type</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getDateAggregationType()
-     * @generated
-     * @ordered
-     */
-    protected DateGrain dateAggregationType = DATE_AGGREGATION_TYPE_EDEFAULT;
-
-    /**
      * The cached value of the '{@link #getTextParameter() <em>Text Parameter</em>}' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -97,6 +88,16 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @ordered
      */
     protected TextParameters textParameter;
+
+    /**
+     * The cached value of the '{@link #getDateParameters() <em>Date Parameters</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDateParameters()
+     * @generated
+     * @ordered
+     */
+    protected DateParameters dateParameters;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -239,25 +240,6 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public DateGrain getDateAggregationType() {
-        return dateAggregationType;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setDateAggregationType(DateGrain newDateAggregationType) {
-        DateGrain oldDateAggregationType = dateAggregationType;
-        dateAggregationType = newDateAggregationType == null ? DATE_AGGREGATION_TYPE_EDEFAULT : newDateAggregationType;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE, oldDateAggregationType, dateAggregationType));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public TextParameters getTextParameter() {
         return textParameter;
     }
@@ -295,6 +277,49 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DateParameters getDateParameters() {
+        return dateParameters;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetDateParameters(DateParameters newDateParameters, NotificationChain msgs) {
+        DateParameters oldDateParameters = dateParameters;
+        dateParameters = newDateParameters;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS, oldDateParameters, newDateParameters);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDateParameters(DateParameters newDateParameters) {
+        if (newDateParameters != dateParameters) {
+            NotificationChain msgs = null;
+            if (dateParameters != null)
+                msgs = ((InternalEObject)dateParameters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS, null, msgs);
+            if (newDateParameters != null)
+                msgs = ((InternalEObject)newDateParameters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS, null, msgs);
+            msgs = basicSetDateParameters(newDateParameters, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS, newDateParameters, newDateParameters));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -309,6 +334,8 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
                 return basicSetBins(null, msgs);
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
                 return basicSetTextParameter(null, msgs);
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
+                return basicSetDateParameters(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -326,10 +353,10 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
                 return getDataValidDomain();
             case IndicatorsPackage.INDICATOR_PARAMETERS__BINS:
                 return getBins();
-            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
-                return getDateAggregationType();
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
                 return getTextParameter();
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
+                return getDateParameters();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -350,11 +377,11 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
             case IndicatorsPackage.INDICATOR_PARAMETERS__BINS:
                 setBins((Domain)newValue);
                 return;
-            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
-                setDateAggregationType((DateGrain)newValue);
-                return;
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
                 setTextParameter((TextParameters)newValue);
+                return;
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
+                setDateParameters((DateParameters)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -376,11 +403,11 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
             case IndicatorsPackage.INDICATOR_PARAMETERS__BINS:
                 setBins((Domain)null);
                 return;
-            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
-                setDateAggregationType(DATE_AGGREGATION_TYPE_EDEFAULT);
-                return;
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
                 setTextParameter((TextParameters)null);
+                return;
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
+                setDateParameters((DateParameters)null);
                 return;
         }
         super.eUnset(featureID);
@@ -399,27 +426,12 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
                 return dataValidDomain != null;
             case IndicatorsPackage.INDICATOR_PARAMETERS__BINS:
                 return bins != null;
-            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_AGGREGATION_TYPE:
-                return dateAggregationType != DATE_AGGREGATION_TYPE_EDEFAULT;
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
                 return textParameter != null;
+            case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
+                return dateParameters != null;
         }
         return super.eIsSet(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public String toString() {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (dateAggregationType: ");
-        result.append(dateAggregationType);
-        result.append(')');
-        return result.toString();
     }
 
 } // IndicatorParametersImpl

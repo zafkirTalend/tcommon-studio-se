@@ -56,10 +56,24 @@ public class DbmsLanguage {
      */
     private static final String EOS = ";";
 
+    private static final String LIMIT_REGEXP = ".*(LIMIT){1}\\p{Blank}+\\p{Digit}+,?\\p{Digit}?.*";
+
+    // private static final String EXTRACT_REGEXP =
+    // ".*\\(\\p{Blank}(EXTRACT){1}\\p{Blank}+(FROM){1}\\p{BLANK}+\\)?\\p{Blank}?.*";
+
+    private String[] withoutLimit;
+
+    private boolean containsLimitClause;
+
     /**
      * in upper case.
      */
     private final String dbmsName;
+
+    /**
+     * the quoting string or a space if quoting is not supported.
+     */
+    private String dbQuoteString = " ";
 
     /**
      * DbmsLanguage constructor for generic ANSI SQL (independent of any DBMS).
@@ -67,48 +81,6 @@ public class DbmsLanguage {
     public DbmsLanguage() {
         this.dbmsName = SQL;
         this.dbmsFunctions = initDbmsFunctions(dbmsName);
-    }
-
-    /**
-     * Method "initDbmsFunctions" initialize functions specific to DBMS. This is needed for ZQLParser which does not
-     * know all available functions.
-     * 
-     * @param dbms
-     * @return the initialized map of functions with their number of parameters.
-     */
-    private Map<String, Integer> initDbmsFunctions(String dbms) {
-        Map<String, Integer> functions = new HashMap<String, Integer>();
-
-        if (is(SQL)) {
-            functions.put("TRIM", 1);
-            functions.put("CHAR_LENGTH", 1);
-            functions.put("SUM", 1);
-            functions.put("MIN", 1);
-            functions.put("MAX", 1);
-        }
-
-        if (is(MYSQL)) {
-            functions.put("TRIM", 1);
-            functions.put("CHAR_LENGTH", 1);
-            functions.put("SUM", 1);
-            functions.put("MIN", 1);
-            functions.put("MAX", 1);
-            for (DateGrain grain : DateGrain.values()) {
-                functions.put(grain.getName(), 1);
-            }
-
-        }
-
-        if (is(ORACLE)) {
-            functions.put("LENGTH", 1);
-            functions.put("SUM", 1);
-            functions.put("MIN", 1);
-            functions.put("MAX", 1);
-            functions.put("TO_CHAR", 2);
-            functions.put("TO_NUMBER", 1);
-        }
-
-        return functions;
     }
 
     /**
@@ -132,6 +104,20 @@ public class DbmsLanguage {
         this.dbmsName = dbmsType;
         // PTODO scorreia handle dbms versions if needed
         this.dbmsFunctions = initDbmsFunctions(dbmsName);
+    }
+
+    /**
+     * Method "quote".
+     * 
+     * @param sqlIdentifier the SQL identifier to quote
+     * @return the sqlIdentifier quoted.
+     */
+    public String quote(String sqlIdentifier) {
+        // do not quote SQL identifier on MySQL database because ZQLParser does not understand "`"
+        if (is(MYSQL)) {
+            return sqlIdentifier;
+        }
+        return dbQuoteString + sqlIdentifier + dbQuoteString;
     }
 
     public String and() {
@@ -271,7 +257,7 @@ public class DbmsLanguage {
         return buf.toString();
     }
 
-    public ZqlParser getZqlParser() {
+    private ZqlParser getZqlParser() {
         ZqlParser parser = new ZqlParser();
         for (String fnct : this.dbmsFunctions.keySet()) {
             parser.addCustomFunction(fnct, this.dbmsFunctions.get(fnct));
@@ -354,6 +340,17 @@ public class DbmsLanguage {
         return " SELECT SUM(" + colToSum + ") FROM (" + subquery + ") AS " + alias;
     }
 
+    public String getDbQuoteString() {
+        return this.dbQuoteString;
+    }
+
+    public void setDbQuoteString(String dbQuoteString) {
+        if (log.isDebugEnabled()) {
+            log.debug("Database SQL quote: " + dbQuoteString);
+        }
+        this.dbQuoteString = dbQuoteString;
+    }
+
     private String extract(DateGrain dateGrain, String colName) {
         if (is(MYSQL)) {
             return dateGrain.getName() + surroundWith('(', colName, ')');
@@ -401,14 +398,6 @@ public class DbmsLanguage {
         return null;
     }
 
-    private static final String LIMIT_REGEXP = ".*(LIMIT){1}\\p{Blank}+\\p{Digit}+,?\\p{Digit}?.*";
-
-    private static final String EXTRACT_REGEXP = ".*\\(\\p{Blank}(EXTRACT){1}\\p{Blank}+(FROM){1}\\p{BLANK}+\\)?\\p{Blank}?.*";
-
-    private String[] withoutLimit;
-
-    private boolean containsLimitClause;
-
     /**
      * Method "closeStatement" coses the statement with ';' if needed.
      * 
@@ -430,6 +419,46 @@ public class DbmsLanguage {
      */
     private boolean is(String dbName) {
         return StringUtils.equalsIgnoreCase(this.dbmsName, dbName);
+    }
+
+    /**
+     * Method "initDbmsFunctions" initialize functions specific to DBMS. This is needed for ZQLParser which does not
+     * know all available functions.
+     * 
+     * @param dbms
+     * @return the initialized map of functions with their number of parameters.
+     */
+    private Map<String, Integer> initDbmsFunctions(String dbms) {
+        Map<String, Integer> functions = new HashMap<String, Integer>();
+
+        // --- functions common to all databases
+        functions.put("TRIM", 1);
+        functions.put("SUM", 1);
+        functions.put("MIN", 1);
+        functions.put("MAX", 1);
+        functions.put("UPPER", 1);
+        functions.put("LOWER", 1);
+
+        // --- set here functions specific to some databases
+        if (is(SQL)) {
+            functions.put("CHAR_LENGTH", 1);
+        }
+
+        if (is(MYSQL)) {
+            functions.put("CHAR_LENGTH", 1);
+            for (DateGrain grain : DateGrain.values()) {
+                functions.put(grain.getName(), 1);
+            }
+
+        }
+
+        if (is(ORACLE)) {
+            functions.put("LENGTH", 1);
+            functions.put("TO_CHAR", 2);
+            functions.put("TO_NUMBER", 1);
+        }
+
+        return functions;
     }
 
     private String surroundWithSpaces(String toSurround) {

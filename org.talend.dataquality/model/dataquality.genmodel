@@ -204,10 +204,6 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/uniqueValueCount"/>
         <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/duplicateValueCount"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/FrequencyIndicator/valueToFreq"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/FrequencyIndicator/modeIndicator"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/FrequencyIndicator/distinctCountIndicator"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/FrequencyIndicator/uniqueCountIndicator"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/FrequencyIndicator/duplicateCountIndicator"/>
         <genOperations ecoreOperation="dataquality.ecore#//indicators/FrequencyIndicator/getCount">
           <genParameters ecoreParameter="dataquality.ecore#//indicators/FrequencyIndicator/getCount/dataValue"/>
         </genOperations>
@@ -226,8 +222,8 @@
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/dataValidDomain"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/bins"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/IndicatorParameters/dateAggregationType"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/textParameter"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/dateParameters"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MedianIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/median"/>
@@ -287,6 +283,9 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/UniqueCountIndicator"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/distinctCountIndicator"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/CountsIndicator/duplicateCountIndicator"/>
+      </genClasses>
+      <genClasses ecoreClass="dataquality.ecore#//indicators/DateParameters">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/DateParameters/dateAggregationType"/>
       </genClasses>
       <nestedGenPackages prefix="Schema" basePackage="org.talend.dataquality.indicators"
           disposableProviderFactory="true" ecorePackage="dataquality.ecore#//indicators/schema">

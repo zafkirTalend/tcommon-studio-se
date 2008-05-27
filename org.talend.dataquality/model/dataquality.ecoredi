@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_cEXHQMmaEdypn56h6Eq12Q">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_pM5tccRNEdybWP_3i664pg" activeDiagram="_wKbisOXrEdylk8vJWFuurQ">
   <model href="dataquality.ecore#/"/>
   <subdiagrams xmi:id="_NJJ5YMROEdybWP_3i664pg">
     <model href="dataquality.ecore#//indicators"/>
@@ -783,7 +783,7 @@
         <waypoints>[328, 13, 0, 80]</waypoints>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_wKbisOXrEdylk8vJWFuurQ" position="0,0" size="100,100" name="parameters" viewport="0,496">
+    <diagrams xmi:id="_wKbisOXrEdylk8vJWFuurQ" position="0,0" size="100,100" name="parameters" viewport="0,308">
       <property xmi:id="_wK6D0OXrEdylk8vJWFuurQ" key="pageFormatName" value="A4"/>
       <property xmi:id="_wK6D0eXrEdylk8vJWFuurQ" key="diagramWidth" value="840"/>
       <property xmi:id="_wK6D0uXrEdylk8vJWFuurQ" key="diagramHeight" value="1188"/>
@@ -895,7 +895,7 @@
         </contained>
       </contained>
       <contained xsi:type="di:GraphNode" xmi:id="_70YoYOXrEdylk8vJWFuurQ" position="51,405" size="150,-1">
-        <anchorage xmi:id="_tghkYeXvEdylk8vJWFuurQ" graphEdge="_tgjZkOXvEdylk8vJWFuurQ _-DMFcOXvEdylk8vJWFuurQ _enYwcOXwEdylk8vJWFuurQ _3zf5QAuwEd2SYdVovv386A _b1W5wQu4Ed2SYdVovv386A"/>
+        <anchorage xmi:id="_tghkYeXvEdylk8vJWFuurQ" graphEdge="_tgjZkOXvEdylk8vJWFuurQ _-DMFcOXvEdylk8vJWFuurQ _enYwcOXwEdylk8vJWFuurQ _3zf5QAuwEd2SYdVovv386A _b1W5wQu4Ed2SYdVovv386A _zx3-MCwuEd2qXZpp2qun7w"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_70YoYeXrEdylk8vJWFuurQ" presentation="default">
           <element href="dataquality.ecore#//indicators/IndicatorParameters"/>
         </semanticModel>
@@ -904,11 +904,6 @@
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_70YoZOXrEdylk8vJWFuurQ" presentation="default">
             <element href="dataquality.ecore#//indicators/IndicatorParameters"/>
           </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_bOrmMAu2Ed2SYdVovv386A" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_bOrmMQu2Ed2SYdVovv386A" presentation="default">
-              <element href="dataquality.ecore#//indicators/IndicatorParameters/dateAggregationType"/>
-            </semanticModel>
-          </contained>
         </contained>
         <contained xsi:type="di:GraphNode" xmi:id="_70YoZeXrEdylk8vJWFuurQ">
           <property xmi:id="_70YoZuXrEdylk8vJWFuurQ" key="eStructuralFeatureID" value="11"/>
@@ -1099,7 +1094,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_b1Xg0Qu4Ed2SYdVovv386A" id="nameLabel" uDistance="20" vDistance="20"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_b1Xg0gu4Ed2SYdVovv386A" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_u9JfcAu3Ed2SYdVovv386A" position="33,562" size="278,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_u9JfcAu3Ed2SYdVovv386A" position="8,597" size="278,-1">
         <anchorage xmi:id="_b1W5wAu4Ed2SYdVovv386A" graphEdge="_b1W5wQu4Ed2SYdVovv386A"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_u9JfcQu3Ed2SYdVovv386A" presentation="default">
           <element href="dataquality.ecore#//indicators/TextParameters"/>
@@ -1136,6 +1131,36 @@
             <element href="dataquality.ecore#//indicators/TextParameters"/>
           </semanticModel>
         </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_xZS9QSwuEd2qXZpp2qun7w" position="330,531" size="150,-1">
+        <anchorage xmi:id="_zx2JACwuEd2qXZpp2qun7w" graphEdge="_zx3-MCwuEd2qXZpp2qun7w"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_xZTkUCwuEd2qXZpp2qun7w" presentation="default">
+          <element href="dataquality.ecore#//indicators/DateParameters"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_xZTkUSwuEd2qXZpp2qun7w">
+          <property xmi:id="_xZTkUiwuEd2qXZpp2qun7w" key="eStructuralFeatureID" value="21"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_xZTkUywuEd2qXZpp2qun7w" presentation="default">
+            <element href="dataquality.ecore#//indicators/DateParameters"/>
+          </semanticModel>
+          <contained xsi:type="di:GraphNode" xmi:id="_y-6QMCwuEd2qXZpp2qun7w" position="0,0" size="-1,-1">
+            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_y-6QMSwuEd2qXZpp2qun7w" presentation="default">
+              <element href="dataquality.ecore#//indicators/DateParameters/dateAggregationType"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_xZTkVCwuEd2qXZpp2qun7w">
+          <property xmi:id="_xZTkVSwuEd2qXZpp2qun7w" key="eStructuralFeatureID" value="11"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_xZTkViwuEd2qXZpp2qun7w" presentation="default">
+            <element href="dataquality.ecore#//indicators/DateParameters"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphEdge" xmi:id="_zx3-MCwuEd2qXZpp2qun7w" anchor="_tghkYeXvEdylk8vJWFuurQ _zx2JACwuEd2qXZpp2qun7w">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_zx3-MSwuEd2qXZpp2qun7w" presentation="default">
+          <element href="dataquality.ecore#//indicators/IndicatorParameters/dateParameters"/>
+        </semanticModel>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_zx3-MiwuEd2qXZpp2qun7w" id="nameLabel" uDistance="20" vDistance="20"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_zx3-MywuEd2qXZpp2qun7w" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
       </contained>
     </diagrams>
     <diagrams xmi:id="_4hbwQOXzEdylk8vJWFuurQ" position="0,0" size="100,100" name="sum indicators" viewport="0,216">
@@ -1979,7 +2004,7 @@
         </contained>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_I-_fgPxIEdy14PgWyeKKVg" position="0,0" size="100,100" name="Frequency indicator" viewport="190,521">
+    <diagrams xmi:id="_I-_fgPxIEdy14PgWyeKKVg" position="0,0" size="100,100" name="Frequency indicator" viewport="75,0">
       <property xmi:id="_I_cygPxIEdy14PgWyeKKVg" key="pageFormatName" value="A4"/>
       <property xmi:id="_I_cygfxIEdy14PgWyeKKVg" key="diagramWidth" value="840"/>
       <property xmi:id="_I_cygvxIEdy14PgWyeKKVg" key="diagramHeight" value="1188"/>
@@ -1992,8 +2017,8 @@
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_I-_fgfxIEdy14PgWyeKKVg" presentation="org.topcased.modeler.ecore.ediagram">
         <element href="dataquality.ecore#//indicators"/>
       </semanticModel>
-      <contained xsi:type="di:GraphNode" xmi:id="_MlGqkPxIEdy14PgWyeKKVg" position="59,538" size="280,-1">
-        <anchorage xmi:id="_PgPmAPxIEdy14PgWyeKKVg" graphEdge="_PgQ0IPxIEdy14PgWyeKKVg _u4mI8PxIEdy14PgWyeKKVg _ihMnEPxLEdy14PgWyeKKVg _jDmwkPxLEdy14PgWyeKKVg _jVRvYPxLEdy14PgWyeKKVg"/>
+      <contained xsi:type="di:GraphNode" xmi:id="_MlGqkPxIEdy14PgWyeKKVg" position="194,462" size="280,-1">
+        <anchorage xmi:id="_PgPmAPxIEdy14PgWyeKKVg" graphEdge="_PgQ0IPxIEdy14PgWyeKKVg"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_MlHRoPxIEdy14PgWyeKKVg" presentation="default">
           <element href="dataquality.ecore#//indicators/FrequencyIndicator"/>
         </semanticModel>
@@ -2050,57 +2075,11 @@
           </contained>
         </contained>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_NgUVoPxIEdy14PgWyeKKVg" position="490,258" size="224,-1">
-        <anchorage xmi:id="_s3P8QPxIEdy14PgWyeKKVg" graphEdge="_u4mI8PxIEdy14PgWyeKKVg"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NgUVofxIEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/ModeIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:GraphNode" xmi:id="_NgUVovxIEdy14PgWyeKKVg">
-          <property xmi:id="_NgUVo_xIEdy14PgWyeKKVg" key="eStructuralFeatureID" value="21"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NgUVpPxIEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/ModeIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_19IisPxIEdy14PgWyeKKVg" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_19IisfxIEdy14PgWyeKKVg" presentation="default">
-              <element href="dataquality.ecore#//indicators/ModeIndicator/mode"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_NgUVpfxIEdy14PgWyeKKVg">
-          <property xmi:id="_NgUVpvxIEdy14PgWyeKKVg" key="eStructuralFeatureID" value="11"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NgUVp_xIEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/ModeIndicator"/>
-          </semanticModel>
-        </contained>
-      </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_PgMisPxIEdy14PgWyeKKVg" position="119,430" size="154,-1">
-        <anchorage xmi:id="_PgPmAfxIEdy14PgWyeKKVg" graphEdge="_PgQ0IPxIEdy14PgWyeKKVg _P8xJ8PxIEdy14PgWyeKKVg"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_PgNw0PxIEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/CompositeIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:GraphNode" xmi:id="_PgNw0fxIEdy14PgWyeKKVg">
-          <property xmi:id="_PgNw0vxIEdy14PgWyeKKVg" key="eStructuralFeatureID" value="21"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_PgNw0_xIEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/CompositeIndicator"/>
-          </semanticModel>
-        </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_PgNw1PxIEdy14PgWyeKKVg">
-          <property xmi:id="_PgNw1fxIEdy14PgWyeKKVg" key="eStructuralFeatureID" value="11"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_PgNw1vxIEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/CompositeIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_3LkRECgAEd2FB8NAkCPodg" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_3LkRESgAEd2FB8NAkCPodg" presentation="default">
-              <element href="dataquality.ecore#//indicators/CompositeIndicator/getChildIndicators"/>
-            </semanticModel>
-          </contained>
-        </contained>
-      </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_PgQ0IPxIEdy14PgWyeKKVg" anchor="_PgPmAPxIEdy14PgWyeKKVg _PgPmAfxIEdy14PgWyeKKVg">
+      <contained xsi:type="di:GraphEdge" xmi:id="_PgQ0IPxIEdy14PgWyeKKVg" anchor="_PgPmAPxIEdy14PgWyeKKVg _P8utsPxIEdy14PgWyeKKVg">
         <semanticModel xsi:type="di:SimpleSemanticModelElement" xmi:id="_PgQ0IfxIEdy14PgWyeKKVg" presentation="default" typeInfo="Inheritance"/>
       </contained>
       <contained xsi:type="di:GraphNode" xmi:id="_P8pOIPxIEdy14PgWyeKKVg" position="213,2" size="242,-1">
-        <anchorage xmi:id="_P8utsPxIEdy14PgWyeKKVg" graphEdge="_P8xJ8PxIEdy14PgWyeKKVg"/>
+        <anchorage xmi:id="_P8utsPxIEdy14PgWyeKKVg" graphEdge="_PgQ0IPxIEdy14PgWyeKKVg"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_P8pOIfxIEdy14PgWyeKKVg" presentation="default">
           <element href="dataquality.ecore#//indicators/Indicator"/>
         </semanticModel>
@@ -2196,125 +2175,6 @@
             </semanticModel>
           </contained>
         </contained>
-      </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_P8xJ8PxIEdy14PgWyeKKVg" anchor="_PgPmAfxIEdy14PgWyeKKVg _P8utsPxIEdy14PgWyeKKVg">
-        <semanticModel xsi:type="di:SimpleSemanticModelElement" xmi:id="_P8xJ8fxIEdy14PgWyeKKVg" presentation="default" typeInfo="Inheritance"/>
-        <waypoints>[0, -75, -138, 217]</waypoints>
-        <waypoints>[138, -75, 0, 217]</waypoints>
-      </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_u4mI8PxIEdy14PgWyeKKVg" anchor="_PgPmAPxIEdy14PgWyeKKVg _s3P8QPxIEdy14PgWyeKKVg">
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_u4mI8fxIEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/FrequencyIndicator/modeIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_u4mI8vxIEdy14PgWyeKKVg" id="nameLabel" uDistance="20" vDistance="20"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_u4mI8_xIEdy14PgWyeKKVg" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
-      </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_gzVXEPxLEdy14PgWyeKKVg" position="519,389" size="258,-1">
-        <anchorage xmi:id="_gzcr0PxLEdy14PgWyeKKVg" graphEdge="_ihMnEPxLEdy14PgWyeKKVg"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzVXEfxLEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/DistinctCountIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:GraphNode" xmi:id="_gzVXEvxLEdy14PgWyeKKVg">
-          <property xmi:id="_gzVXE_xLEdy14PgWyeKKVg" key="eStructuralFeatureID" value="21"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzVXFPxLEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/DistinctCountIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_Y4MpoBqhEd2Juultp1VBZg" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y4MpoRqhEd2Juultp1VBZg" presentation="default">
-              <element href="dataquality.ecore#//indicators/DistinctCountIndicator/distinctValueCount"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_gzVXFfxLEdy14PgWyeKKVg">
-          <property xmi:id="_gzVXFvxLEdy14PgWyeKKVg" key="eStructuralFeatureID" value="11"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzVXF_xLEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/DistinctCountIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_JZTG4QVREd27H5GBgvhOuw" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_JZTG4gVREd27H5GBgvhOuw" presentation="default">
-              <element href="dataquality.ecore#//indicators/DistinctCountIndicator/getDistinctValues"/>
-            </semanticModel>
-          </contained>
-        </contained>
-      </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_gzV-IPxLEdy14PgWyeKKVg" position="526,473" size="253,-1">
-        <anchorage xmi:id="_gzehAPxLEdy14PgWyeKKVg" graphEdge="_jDmwkPxLEdy14PgWyeKKVg"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzV-IfxLEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/UniqueCountIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:GraphNode" xmi:id="_gzV-IvxLEdy14PgWyeKKVg">
-          <property xmi:id="_gzV-I_xLEdy14PgWyeKKVg" key="eStructuralFeatureID" value="21"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzV-JPxLEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/UniqueCountIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_Y4NQsBqhEd2Juultp1VBZg" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y4NQsRqhEd2Juultp1VBZg" presentation="default">
-              <element href="dataquality.ecore#//indicators/UniqueCountIndicator/uniqueValueCount"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_gzV-JfxLEdy14PgWyeKKVg">
-          <property xmi:id="_gzV-JvxLEdy14PgWyeKKVg" key="eStructuralFeatureID" value="11"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzV-J_xLEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/UniqueCountIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_rV9PEQVQEd27H5GBgvhOuw" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_rV9PEgVQEd27H5GBgvhOuw" presentation="default">
-              <element href="dataquality.ecore#//indicators/UniqueCountIndicator/getUniqueValues"/>
-            </semanticModel>
-          </contained>
-        </contained>
-      </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_gzXMQPxLEdy14PgWyeKKVg" position="579,568" size="261,-1">
-        <anchorage xmi:id="_gziLYPxLEdy14PgWyeKKVg" graphEdge="_jVRvYPxLEdy14PgWyeKKVg"/>
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzXMQfxLEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/DuplicateCountIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:GraphNode" xmi:id="_gzXMQvxLEdy14PgWyeKKVg">
-          <property xmi:id="_gzXMQ_xLEdy14PgWyeKKVg" key="eStructuralFeatureID" value="21"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzXMRPxLEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/DuplicateCountIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_Y4Oe0BqhEd2Juultp1VBZg" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y4Oe0RqhEd2Juultp1VBZg" presentation="default">
-              <element href="dataquality.ecore#//indicators/DuplicateCountIndicator/duplicateValueCount"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_gzXMRfxLEdy14PgWyeKKVg">
-          <property xmi:id="_gzXMRvxLEdy14PgWyeKKVg" key="eStructuralFeatureID" value="11"/>
-          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gzXMR_xLEdy14PgWyeKKVg" presentation="default">
-            <element href="dataquality.ecore#//indicators/DuplicateCountIndicator"/>
-          </semanticModel>
-          <contained xsi:type="di:GraphNode" xmi:id="_5JFnwAVQEd27H5GBgvhOuw" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_5JFnwQVQEd27H5GBgvhOuw" presentation="default">
-              <element href="dataquality.ecore#//indicators/DuplicateCountIndicator/getDuplicateValues"/>
-            </semanticModel>
-          </contained>
-        </contained>
-      </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_ihMnEPxLEdy14PgWyeKKVg" anchor="_PgPmAPxIEdy14PgWyeKKVg _gzcr0PxLEdy14PgWyeKKVg">
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_ihMnEfxLEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/FrequencyIndicator/distinctCountIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_ihMnEvxLEdy14PgWyeKKVg" id="nameLabel" uDistance="20" vDistance="20"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_ihMnE_xLEdy14PgWyeKKVg" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
-      </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_jDmwkPxLEdy14PgWyeKKVg" anchor="_PgPmAPxIEdy14PgWyeKKVg _gzehAPxLEdy14PgWyeKKVg">
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_jDmwkfxLEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/FrequencyIndicator/uniqueCountIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_jDmwkvxLEdy14PgWyeKKVg" id="nameLabel" uDistance="20" vDistance="20"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_jDmwk_xLEdy14PgWyeKKVg" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
-        <waypoints>[148, 140, -175, 0]</waypoints>
-      </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_jVRvYPxLEdy14PgWyeKKVg" anchor="_PgPmAPxIEdy14PgWyeKKVg _gziLYPxLEdy14PgWyeKKVg">
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_jVRvYfxLEdy14PgWyeKKVg" presentation="default">
-          <element href="dataquality.ecore#//indicators/FrequencyIndicator/duplicateCountIndicator"/>
-        </semanticModel>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_jVRvYvxLEdy14PgWyeKKVg" id="nameLabel" uDistance="20" vDistance="20"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_jVRvY_xLEdy14PgWyeKKVg" id="cardinalityLabel" uDistance="20" vDistance="-20"/>
-        <waypoints>[81, 227, -242, 0]</waypoints>
       </contained>
     </diagrams>
     <diagrams xmi:id="_8fD0sADUEd2dn_78qgiq_g" position="0,0" size="100,100" name="text indicator" viewport="0,80">
