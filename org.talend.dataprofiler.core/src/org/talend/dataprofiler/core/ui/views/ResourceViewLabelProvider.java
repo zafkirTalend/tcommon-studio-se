@@ -75,8 +75,8 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
             Analysis analysis = AnaResourceFileHelper.getInstance().findAnalysis((IFile) element);
             if (analysis != null) {
                 Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
-                String executeInfo = executionDate == null ? "(Not executed yet)" : "("
-                        + DateFormatUtils.getSimpleDateString(executionDate) + ")";
+                String executeInfo = executionDate == null ? "(Not executed yet)" : PluginConstant.PARENTHESIS_LEFT
+                        + DateFormatUtils.getSimpleDateString(executionDate) + PluginConstant.PARENTHESIS_RIGHT;
                 return analysis.getName() + PluginConstant.SPACE_STRING + executeInfo;
             }
         } else if (input.endsWith(PluginConstant.REP_SUFFIX)) {

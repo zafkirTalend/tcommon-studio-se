@@ -427,7 +427,9 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
          * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
          */
         public String getText(Object element) {
-            return ((TdColumn) element).getName();
+            TdColumn columnObj = (TdColumn) element;
+            return columnObj.getName() + PluginConstant.SPACE_STRING + PluginConstant.PARENTHESIS_LEFT
+                    + columnObj.getSqlDataType().getName() + PluginConstant.PARENTHESIS_RIGHT;
         }
 
     }

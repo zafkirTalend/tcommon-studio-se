@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
@@ -133,7 +134,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             treeItem.setImage(ImageLib.getImage(ImageLib.TD_COLUMN));
             String columnName = columnIndicator.getTdColumn().getName();
-            treeItem.setText(0, columnName != null ? columnName : "null");
+            treeItem.setText(0, columnName != null ? columnName + PluginConstant.SPACE_STRING + PluginConstant.PARENTHESIS_LEFT
+                    + columnIndicator.getTdColumn().getSqlDataType().getName() + PluginConstant.PARENTHESIS_RIGHT : "null");
             treeItem.setData(columnIndicator);
 
             TreeEditor editor = new TreeEditor(tree);
@@ -160,32 +162,21 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             editor.setEditor(combo, treeItem, 1);
 
             /**
-            editor = new TreeEditor(tree);
-            Button addButton = new Button(tree, SWT.NONE);
-            addButton.setText("Add");
-            addButton.pack();
-            editor.minimumWidth = WIDTH1_CELL;
-            // editor.minimumWidth = addButton.getSize().x;
-            editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(addButton, treeItem, 2);
-            addButton.addSelectionListener(new SelectionAdapter() {
-
-                public void widgetSelected(SelectionEvent e) {
-                    openIndicatorSelectDialog();
-                }
-
-            });
-            
-
-            editor = new TreeEditor(tree);
-            Button modButton = new Button(tree, SWT.NONE);
-            modButton.setText("Repository");
-            modButton.pack();
-            editor.minimumWidth = WIDTH1_CELL;
-            // editor.minimumWidth = modButton.getSize().x;
-            editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(modButton, treeItem, 3);
-            **/
+             * editor = new TreeEditor(tree); Button addButton = new Button(tree, SWT.NONE); addButton.setText("Add");
+             * addButton.pack(); editor.minimumWidth = WIDTH1_CELL; // editor.minimumWidth = addButton.getSize().x;
+             * editor.horizontalAlignment = SWT.CENTER; editor.setEditor(addButton, treeItem, 2);
+             * addButton.addSelectionListener(new SelectionAdapter() {
+             * 
+             * public void widgetSelected(SelectionEvent e) { openIndicatorSelectDialog(); }
+             * 
+             * });
+             * 
+             * 
+             * editor = new TreeEditor(tree); Button modButton = new Button(tree, SWT.NONE);
+             * modButton.setText("Repository"); modButton.pack(); editor.minimumWidth = WIDTH1_CELL; //
+             * editor.minimumWidth = modButton.getSize().x; editor.horizontalAlignment = SWT.CENTER;
+             * editor.setEditor(modButton, treeItem, 3);
+             */
 
             editor = new TreeEditor(tree);
             Label delButton = new Label(tree, SWT.NONE);
@@ -195,7 +186,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             delButton.pack();
             delButton.addMouseListener(new MouseAdapter() {
 
-                /* (non-Javadoc)
+                /*
+                 * (non-Javadoc)
+                 * 
                  * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
                  */
                 @Override
@@ -241,7 +234,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             modButton.setData(indicator);
             modButton.addMouseListener(new MouseAdapter() {
 
-                /* (non-Javadoc)
+                /*
+                 * (non-Javadoc)
+                 * 
                  * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
                  */
                 @Override
@@ -278,7 +273,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             delButton.pack();
             delButton.addMouseListener(new MouseAdapter() {
 
-                /* (non-Javadoc)
+                /*
+                 * (non-Javadoc)
+                 * 
                  * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
                  */
                 @Override

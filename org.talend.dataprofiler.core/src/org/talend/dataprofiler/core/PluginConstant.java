@@ -50,4 +50,8 @@ public final class PluginConstant {
     public static final String REPORT_FOLDER_PATH = "/Data Profiling/Reports";
 
     public static final String DQ_VIEW_ID = "org.talend.dataprofiler.core.ui.views.DQRespositoryView";
+
+    public static final String PARENTHESIS_LEFT = "(";
+
+    public static final String PARENTHESIS_RIGHT = ")";
 }
