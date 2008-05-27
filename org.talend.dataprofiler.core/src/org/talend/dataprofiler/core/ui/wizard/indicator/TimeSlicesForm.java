@@ -81,11 +81,6 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
         for (DateGrain oneDate : DateGrain.VALUES) {
             btn = new Button(group, SWT.RADIO);
             btn.setText(oneDate.getLiteral());
-            
-            //defaut selection
-            if (oneDate.getLiteral().equals(DateGrain.YEAR.getLiteral())) {
-                btn.setSelection(true);
-            }
 
             btn.addSelectionListener(new SelectionAdapter() {
 
@@ -154,13 +149,21 @@ public class TimeSlicesForm extends AbstractIndicatorForm {
         if (parameter == null) {
             
             parameter = new TimeSlicesParameter();
+            parameter.setDataUnit(DateGrain.YEAR.getLiteral());
         } else {
             
             for (Button oneBtn : allBtns) {
-                if (oneBtn.getText().equals(parameter.getDataUnit())) {
+                if (oneBtn.getText().equals(DateGrain.YEAR.getLiteral())) {
                     
-                    oneBtn.setSelection(true);
+                    oneBtn.setSelection(false);
                 }
+            }
+        }
+        
+        for (Button oneBtn : allBtns) {
+            if (oneBtn.getText().equals(parameter.getDataUnit())) {
+                
+                oneBtn.setSelection(true);
             }
         }
     }
