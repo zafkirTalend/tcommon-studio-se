@@ -17,15 +17,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.SQLPatternItem;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.ProcessorUtilities;
@@ -174,13 +172,11 @@ public final class ElementParameterParser {
             } else {
                 if (o instanceof String) {
                     if (param.getName().equals("SQLPATTERN_VALUE")) {
-                        String id = ((String) o).split(" - ")[0];
-                        try {
-                            IRepositoryObject lastVersion = factory.getLastVersion(id);
-                            SQLPatternItem item = ((SQLPatternItem) lastVersion.getProperty().getItem());
+                        SQLPatternItem item = SQLPatternUtils.getItemFromCompoundId(param.getElement(), ((String) o));
+                        if (item != null) {
                             newLine.put(items[i], new String(item.getContent().getInnerContent()));
-                        } catch (PersistenceException e) {
-                            ExceptionHandler.process(e);
+                        } else {
+                            newLine.put(items[i], "");
                         }
                     } else {
                         newLine.put(items[i], (String) o);
