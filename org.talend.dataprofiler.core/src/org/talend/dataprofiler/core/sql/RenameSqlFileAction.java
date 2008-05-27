@@ -174,7 +174,7 @@ public class RenameSqlFileAction extends Action {
                  */
                 public void modifyText(ModifyEvent e) {
                     newname = text.getText();
-                    if (newname.isEmpty()) {
+                    if (newname.length() == 0) {
                         getButton(IDialogConstants.OK_ID).setEnabled(false);
                         setErrorMessage("The Sql File Name can't be empty.");
                     } else if (existNames.contains(newname)) {
