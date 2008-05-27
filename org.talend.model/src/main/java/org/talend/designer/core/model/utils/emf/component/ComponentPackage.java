@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "component"; //$NON-NLS-1$
+    String eNS_PREFIX = "Component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.
@@ -900,13 +900,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__SERIAL = 12;
 
     /**
+     * The feature id for the '<em><b>SINGLETON</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SINGLETON = 13;
+
+    /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 13;
+    int HEADER_TYPE__STARTABLE = 14;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -915,7 +924,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 14;
+    int HEADER_TYPE__STATUS = 15;
 
     /**
      * The feature id for the '<em><b>TECHNICAL</b></em>' attribute.
@@ -924,7 +933,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TECHNICAL = 15;
+    int HEADER_TYPE__TECHNICAL = 16;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -933,7 +942,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 16;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 17;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -942,7 +951,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 17;
+    int HEADER_TYPE__VERSION = 18;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -951,7 +960,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 18;
+    int HEADER_TYPE__VISIBLE = 19;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -960,7 +969,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 19;
+    int HEADER_TYPE_FEATURE_COUNT = 20;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2836,6 +2845,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_SERIAL();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SINGLETON</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SINGLETON();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4561,6 +4581,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__SERIAL = eINSTANCE.getHEADERType_SERIAL();
+
+        /**
+         * The meta object literal for the '<em><b>SINGLETON</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SINGLETON = eINSTANCE.getHEADERType_SINGLETON();
 
         /**
          * The meta object literal for the '<em><b>STARTABLE</b></em>' attribute feature.

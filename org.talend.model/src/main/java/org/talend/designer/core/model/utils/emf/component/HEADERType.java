@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSERIAL <em>SERIAL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}</li>
@@ -538,6 +539,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setSERIAL(String value);
+
+    /**
+     * Returns the value of the '<em><b>SINGLETON</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SINGLETON</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SINGLETON</em>' attribute.
+     * @see #isSetSINGLETON()
+     * @see #unsetSINGLETON()
+     * @see #setSINGLETON(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SINGLETON()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='SINGLETON' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isSINGLETON();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SINGLETON</em>' attribute.
+     * @see #isSetSINGLETON()
+     * @see #unsetSINGLETON()
+     * @see #isSINGLETON()
+     * @generated
+     */
+    void setSINGLETON(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetSINGLETON()
+     * @see #isSINGLETON()
+     * @see #setSINGLETON(boolean)
+     * @generated
+     */
+    void unsetSINGLETON();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>SINGLETON</em>' attribute is set.
+     * @see #unsetSINGLETON()
+     * @see #isSINGLETON()
+     * @see #setSINGLETON(boolean)
+     * @generated
+     */
+    boolean isSetSINGLETON();
 
     /**
      * Returns the value of the '<em><b>STARTABLE</b></em>' attribute.

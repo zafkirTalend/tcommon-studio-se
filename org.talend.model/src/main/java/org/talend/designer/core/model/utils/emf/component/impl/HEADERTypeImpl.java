@@ -38,6 +38,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSERIAL <em>SERIAL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSINGLETON <em>SINGLETON</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTECHNICAL <em>TECHNICAL</em>}</li>
@@ -344,6 +345,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String sERIAL = SERIAL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSINGLETON()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SINGLETON_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSINGLETON()
+     * @generated
+     * @ordered
+     */
+    protected boolean sINGLETON = SINGLETON_EDEFAULT;
+
+    /**
+     * This is true if the SINGLETON attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean sINGLETONESet;
 
     /**
      * The default value of the '{@link #isSTARTABLE() <em>STARTABLE</em>}' attribute.
@@ -945,6 +975,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isSINGLETON() {
+        return sINGLETON;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSINGLETON(boolean newSINGLETON) {
+        boolean oldSINGLETON = sINGLETON;
+        sINGLETON = newSINGLETON;
+        boolean oldSINGLETONESet = sINGLETONESet;
+        sINGLETONESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SINGLETON, oldSINGLETON, sINGLETON, !oldSINGLETONESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetSINGLETON() {
+        boolean oldSINGLETON = sINGLETON;
+        boolean oldSINGLETONESet = sINGLETONESet;
+        sINGLETON = SINGLETON_EDEFAULT;
+        sINGLETONESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__SINGLETON, oldSINGLETON, SINGLETON_EDEFAULT, oldSINGLETONESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetSINGLETON() {
+        return sINGLETONESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isSTARTABLE() {
         return sTARTABLE;
     }
@@ -1214,6 +1290,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSCHEMAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 return getSERIAL();
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                return isSINGLETON() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__STARTABLE:
                 return isSTARTABLE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__STATUS:
@@ -1276,6 +1354,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 setSERIAL((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                setSINGLETON(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__STARTABLE:
                 setSTARTABLE(((Boolean)newValue).booleanValue());
@@ -1346,6 +1427,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 setSERIAL(SERIAL_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                unsetSINGLETON();
+                return;
             case ComponentPackage.HEADER_TYPE__STARTABLE:
                 unsetSTARTABLE();
                 return;
@@ -1402,6 +1486,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetSCHEMAAUTOPROPAGATE();
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 return SERIAL_EDEFAULT == null ? sERIAL != null : !SERIAL_EDEFAULT.equals(sERIAL);
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                return isSetSINGLETON();
             case ComponentPackage.HEADER_TYPE__STARTABLE:
                 return isSetSTARTABLE();
             case ComponentPackage.HEADER_TYPE__STATUS:
@@ -1452,6 +1538,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (sCHEMAAUTOPROPAGATEESet) result.append(sCHEMAAUTOPROPAGATE); else result.append("<unset>");
         result.append(", sERIAL: ");
         result.append(sERIAL);
+        result.append(", sINGLETON: ");
+        if (sINGLETONESet) result.append(sINGLETON); else result.append("<unset>");
         result.append(", sTARTABLE: ");
         if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
         result.append(", sTATUS: ");

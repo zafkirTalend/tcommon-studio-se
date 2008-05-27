@@ -54,6 +54,7 @@
 			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
 			<xs:attribute name="HASH_COMPONENT" type="xs:boolean" use="optional" default="false"/>
 			<xs:attribute name="TECHNICAL" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="SINGLETON" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
