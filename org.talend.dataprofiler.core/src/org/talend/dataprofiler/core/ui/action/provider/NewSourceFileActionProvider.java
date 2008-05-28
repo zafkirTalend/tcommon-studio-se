@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.sql.AddSqlFileAction;
+import org.talend.dataprofiler.core.sql.DeleteSqlFileAction;
 import org.talend.dataprofiler.core.sql.OpenSqlFileAction;
 import org.talend.dataprofiler.core.sql.RenameSqlFileAction;
 
@@ -48,6 +49,7 @@ public class NewSourceFileActionProvider extends CommonActionProvider {
             if (file.getFileExtension().equalsIgnoreCase("sql")) {
                 menu.add(new OpenSqlFileAction((IFile) obj));
                 menu.add(new RenameSqlFileAction((IFile) obj));
+                menu.add(new DeleteSqlFileAction((IFile) obj));
             }
 
         }
