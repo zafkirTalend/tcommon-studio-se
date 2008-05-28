@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.dataprofiler.core.ui.views;
+package org.talend.dataprofiler.core.ui.views.provider;
 
 import java.util.Date;
 
@@ -87,18 +87,4 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
         }
         return super.decorateText(input, element);
     }
-    
-//    private void addDragOpration(IFile fileElement){
-//        // 设置sourceText为拖拽源。允许数据被移动或复制
-//
-//        DragSource source = new DragSource(sourceButton, DND.DROP_MOVE | DND.DROP_COPY);
-//
-//        source.setTransfer(new Transfer[] { textTransfer });// 设置传输载体为文本型
-//
-//        source.addDragListener(new MyDragSourceListener());        
-//    }
-//    private void addDropOpration(IFile fileElement){
-//        
-//    }
-
 }

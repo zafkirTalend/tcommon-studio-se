@@ -108,7 +108,7 @@
             priority="low"
             activeByDefault="true"
 			            contentProvider="org.eclipse.ui.internal.navigator.resources.workbench.ResourceExtensionContentProvider"
-            			labelProvider="org.talend.dataprofiler.core.ui.views.ResourceViewLabelProvider"			
+            			labelProvider="org.talend.dataprofiler.core.ui.views.provider.ResourceViewLabelProvider"			
             id="org.eclipse.ui.navigator.DQresourceContent">         
          <enablement>
 		         <or>         
