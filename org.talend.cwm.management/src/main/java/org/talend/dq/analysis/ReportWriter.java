@@ -71,6 +71,21 @@ public class ReportWriter {
         EList<EObject> resourceContents = report.eResource().getContents();
         resourceContents.addAll(report.getDescription());
 
+        addAnaResourceOfReport(report, util);
+        boolean saved = util.save();
+        if (!saved) {
+            rc.setReturnCode("Problem while saving report " + report.getName() + ". " + util.getLastErrorMessage(), saved);
+        }
+        return rc;
+    }
+
+    /**
+     * DOC rli Comment method "addAnaResourceOfReport".
+     * 
+     * @param report
+     * @param util
+     */
+    private void addAnaResourceOfReport(TdReport report, EMFUtil util) {
         for (Analysis ana : ReportHelper.getAnalyses(report)) {
             TypedReturnCode<Dependency> dependencyReturn = DependenciesHandler.getInstance().setDependencyOn(report, ana);
             if (dependencyReturn.isOk()) {
@@ -78,13 +93,8 @@ public class ReportWriter {
                 util.getResourceSet().getResources().add(ana.eResource());
             }
         }
-        boolean saved = util.save();
-        if (!saved) {
-            rc.setReturnCode("Problem while saving report " + report.getName() + ". " + util.getLastErrorMessage(), saved);
-        }
-        return rc;
     }
-    
+
     public ReturnCode save(TdReport report) {
         assert report != null : "No report to save (null)";
         ReturnCode rc = new ReturnCode();
@@ -99,8 +109,10 @@ public class ReportWriter {
         // column)
         boolean saved = EMFUtil.saveResource(resource);
 
-        if (!saved) {
-            rc.setReturnCode("Problem while saving analysis " + report.getName() + ". ", saved);
+        EMFUtil util = new EMFUtil();
+        addAnaResourceOfReport(report, util);
+        if (!saved || !util.save()) {
+            rc.setReturnCode("Problem while saving report " + report.getName() + ". ", saved);
         }
         return rc;
 
