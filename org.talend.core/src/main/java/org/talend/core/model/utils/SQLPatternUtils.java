@@ -21,6 +21,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -29,6 +30,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 public final class SQLPatternUtils {
 
     public static final String ID_SEPARATOR = "--";
+
+    public static final String SQLPATTERNLIST = "SQLPATTERNLIST";
 
     public static SQLPatternItem getItemFromCompoundId(IElement element, String compoundId) {
         if (!compoundId.contains(ID_SEPARATOR)) {
@@ -50,7 +53,14 @@ public final class SQLPatternUtils {
         return getSQLPatternItem(element, name);
     }
 
-    private static SQLPatternItem getSQLPatternItem(IElement element, String sqlpatternName) {
+    /**
+     * yzhang Comment method "getSQLPatternItem".
+     * 
+     * @param element
+     * @param sqlpatternName
+     * @return
+     */
+    public static SQLPatternItem getSQLPatternItem(IElement element, String sqlpatternName) {
         String eltNodeName = (String) element.getElementParameter("SQLPATTERN_DB_NAME").getValue();
 
         SQLPatternItem sqlpatternItem = null;
@@ -71,6 +81,30 @@ public final class SQLPatternUtils {
             ExceptionHandler.process(e);
         }
         return sqlpatternItem;
+    }
+
+    /**
+     * yzhang Comment method "getLastVersionRepositoryObjectById".
+     * 
+     * @param id
+     * @return
+     */
+    public static IRepositoryObject getLastVersionRepositoryObjectById(String id) {
+
+        if (id == null || "".equals(id)) {
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            IRepositoryObject lastVersion = factory.getLastVersion(id);
+            if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
+                return lastVersion;
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+
+        return null;
     }
 
 }
