@@ -59,8 +59,8 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
 
     protected String decorateText(String input, Object element) {
         if (input.endsWith(PluginConstant.PRV_SUFFIX)) {
-            IFile file = (IFile) element;
-            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().getTdProvider(file);
+            IFile fileElement = (IFile) element;
+            TypedReturnCode<TdDataProvider> rc = PrvResourceFileHelper.getInstance().getTdProvider(fileElement);
             String decorateText = PluginConstant.EMPTY_STRING;
             if (rc.isOk()) {
                 decorateText = rc.getObject().getName();
@@ -69,10 +69,11 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
             }
             return decorateText;
         } else if (input.endsWith(PluginConstant.ANA_SUFFIX)) {
+            IFile fileElement = (IFile) element;
             if (log.isDebugEnabled()) {
-                log.debug("Loading file " + ((IFile) element).getLocation());
+                log.debug("Loading file " + (fileElement).getLocation());
             }
-            Analysis analysis = AnaResourceFileHelper.getInstance().findAnalysis((IFile) element);
+            Analysis analysis = AnaResourceFileHelper.getInstance().findAnalysis(fileElement);
             if (analysis != null) {
                 Date executionDate = analysis.getResults().getResultMetadata().getExecutionDate();
                 String executeInfo = executionDate == null ? "(Not executed yet)" : PluginConstant.PARENTHESIS_LEFT
@@ -80,10 +81,24 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
                 return analysis.getName() + PluginConstant.SPACE_STRING + executeInfo;
             }
         } else if (input.endsWith(PluginConstant.REP_SUFFIX)) {
-            TdReport findReport = RepResourceFileHelper.getInstance().findReport((IFile) element);
+            IFile fileElement = (IFile) element;
+            TdReport findReport = RepResourceFileHelper.getInstance().findReport(fileElement);
             return findReport.getName();
         }
-        return input;
+        return super.decorateText(input, element);
     }
+    
+//    private void addDragOpration(IFile fileElement){
+//        // 设置sourceText为拖拽源。允许数据被移动或复制
+//
+//        DragSource source = new DragSource(sourceButton, DND.DROP_MOVE | DND.DROP_COPY);
+//
+//        source.setTransfer(new Transfer[] { textTransfer });// 设置传输载体为文本型
+//
+//        source.addDragListener(new MyDragSourceListener());        
+//    }
+//    private void addDropOpration(IFile fileElement){
+//        
+//    }
 
 }

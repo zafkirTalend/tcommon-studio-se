@@ -51,6 +51,9 @@
              <actionExtension pattern="org.talend.dataprofiler.ui.OpenActionProvider" />
           </includes>
        </viewerActionBinding>  
+        <dragAssistant
+             class="org.talend.dataprofiler.core.ui.views.resources.ResourceDragAdapterAssistant"
+             viewerId="org.talend.dataprofiler.core.ui.views.DQRespositoryView"/>
    </extension>
    
 <!-- Resource Content--> 
@@ -113,7 +116,17 @@
 		            <instanceof 
 		                  	value="org.eclipse.core.resources.IResource" /> 
 		         </or>
-         </enablement> 
+         </enablement>          
+        <dropAssistant
+              class="org.talend.dataprofiler.core.ui.views.resources.ResourceDropAdapterAssistant"
+              id="org.talend.dataprofiler.core.ui.views.resources.ResourceDropAdapterAssistant">
+           <possibleDropTargets> 
+            <and>
+	            <instanceof value="org.eclipse.core.resources.IFile"/>            
+                <test property="org.eclipse.core.resources.name" value="*.rep"/>
+            </and>
+           </possibleDropTargets>
+        </dropAssistant>   
      </navigatorContent>
       <actionProvider
             class="org.talend.dataprofiler.core.ui.action.provider.NewAnalysisActionProvider"
