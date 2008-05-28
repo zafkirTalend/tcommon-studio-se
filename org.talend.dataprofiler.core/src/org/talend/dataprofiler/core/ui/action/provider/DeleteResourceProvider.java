@@ -228,6 +228,8 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     elementToDelete = returnValue.getObject();
                 } else if (fileName.endsWith(PluginConstant.ANA_SUFFIX)) {
                     elementToDelete = AnaResourceFileHelper.getInstance().findAnalysis(selectedFile);
+                } else if (fileName.endsWith(PluginConstant.REP_SUFFIX)) {
+                    elementToDelete = RepResourceFileHelper.getInstance().findReport(selectedFile);
                 }
                 if (elementToDelete != null) {
                     List<Resource> modifiedResources = DependenciesHandler.getInstance().clearDependencies(elementToDelete);
@@ -238,11 +240,11 @@ public class DeleteResourceProvider extends CommonActionProvider {
                     if (!util.save()) {
                         log.warn("Problem when saving resources " + util.getLastErrorMessage());
                     }
-                    // refresh workspace in order to avoid unsynchronized resources
-                    CorePlugin.getDefault().refreshWorkSpace();
                 }
             }
 
+            // refresh workspace in order to avoid unsynchronized resources
+            CorePlugin.getDefault().refreshWorkSpace();
         }
 
         private boolean popConfirmDialog(String resourceName, IResource[] selectedResources) {

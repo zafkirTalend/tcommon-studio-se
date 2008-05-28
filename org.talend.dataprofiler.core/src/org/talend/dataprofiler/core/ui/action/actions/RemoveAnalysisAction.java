@@ -18,11 +18,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.talend.commons.emf.EMFUtil;
+import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
@@ -31,18 +35,17 @@ import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.reports.TdReport;
 
-
-
-
 /**
  * DOC rli RemoveAnalysisActionProvider class global comment. Detailled comment
  */
 public class RemoveAnalysisAction extends Action {
 
+    private static Logger log = Logger.getLogger(RemoveAnalysisAction.class);
+
     public RemoveAnalysisAction() {
         super("Remove Analysis");
         this.setActionDefinitionId("org.talend.dataprofiler.core.removeAnalysis");
-//        this.setActionDefinitionId("XXXXTools.actions.text.ToLowerCaseAction");
+        // this.setActionDefinitionId("XXXXTools.actions.text.ToLowerCaseAction");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.ACTION_DELETE));
     }
 
@@ -78,7 +81,7 @@ public class RemoveAnalysisAction extends Action {
             }
         }
         String message = paths.length > 1 ? "Are you sure you want to delete these " + paths.length + " elements?"
-                : "Are you sure you want to delete analysis '" + analysisObj.getName() + "'?";
+                : "Are you sure you want to remove analysis '" + analysisObj.getName() + "' from this report?";
         boolean openConfirm = MessageDialog.openConfirm(null, "Confirm Resource Delete", message);
 
         if (openConfirm) {
@@ -86,9 +89,18 @@ public class RemoveAnalysisAction extends Action {
             while (iterator.hasNext()) {
                 TdReport report = iterator.next();
                 ReportHelper.removeAnalyses(report, removeMap.get(report));
-                RepResourceFileHelper.getInstance().save(report);
+                RepResourceFileHelper.getInstance().save(report);                
+
+                // save now modified resources (that contain the Dependency objects)
+                List<Resource> modifiedResources = DependenciesHandler.getInstance().clearDependencies(report);
+                EMFUtil util = new EMFUtil();
+                util.getResourceSet().getResources().addAll(modifiedResources);
+                if (!util.save()) {
+                    log.warn("Problem when saving resources " + util.getLastErrorMessage());
+                }
             }
         }
+        CorePlugin.getDefault().refreshWorkSpace();
         findView.getCommonViewer().refresh();
     }
 }
