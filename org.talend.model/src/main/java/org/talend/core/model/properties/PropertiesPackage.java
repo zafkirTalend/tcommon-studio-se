@@ -2788,13 +2788,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__GENERATED_JOB_NAME = 26;
 
     /**
+     * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = 27;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 27;
+    int EXECUTION_TASK_FEATURE_COUNT = 28;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -6238,6 +6247,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_GeneratedJobName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren <em>Apply Context To Children</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Apply Context To Children</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ApplyContextToChildren();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8677,6 +8697,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__GENERATED_JOB_NAME = eINSTANCE.getExecutionTask_GeneratedJobName();
+
+        /**
+         * The meta object literal for the '<em><b>Apply Context To Children</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = eINSTANCE.getExecutionTask_ApplyContextToChildren();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

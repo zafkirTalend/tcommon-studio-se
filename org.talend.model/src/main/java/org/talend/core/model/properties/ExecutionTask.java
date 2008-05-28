@@ -722,4 +722,30 @@ public interface ExecutionTask extends EObject {
      */
     void setGeneratedJobName(String value);
 
+    /**
+     * Returns the value of the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Apply Context To Children</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Apply Context To Children</em>' attribute.
+     * @see #setApplyContextToChildren(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplyContextToChildren()
+     * @model
+     * @generated
+     */
+    boolean isApplyContextToChildren();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren <em>Apply Context To Children</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Apply Context To Children</em>' attribute.
+     * @see #isApplyContextToChildren()
+     * @generated
+     */
+    void setApplyContextToChildren(boolean value);
+
 } // ExecutionTask

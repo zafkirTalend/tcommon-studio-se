@@ -63,6 +63,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedProjectName <em>Generated Project Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedJobName <em>Generated Job Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -568,6 +569,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String generatedJobName = GENERATED_JOB_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isApplyContextToChildren()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean APPLY_CONTEXT_TO_CHILDREN_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isApplyContextToChildren()
+     * @generated
+     * @ordered
+     */
+    protected boolean applyContextToChildren = APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1201,6 +1222,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isApplyContextToChildren() {
+        return applyContextToChildren;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setApplyContextToChildren(boolean newApplyContextToChildren) {
+        boolean oldApplyContextToChildren = applyContextToChildren;
+        applyContextToChildren = newApplyContextToChildren;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN, oldApplyContextToChildren, applyContextToChildren));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -1286,6 +1328,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getGeneratedProjectName();
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 return getGeneratedJobName();
+            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+                return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1379,6 +1423,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 setGeneratedJobName((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+                setApplyContextToChildren(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1471,6 +1518,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 setGeneratedJobName(GENERATED_JOB_NAME_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+                setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1536,6 +1586,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return GENERATED_PROJECT_NAME_EDEFAULT == null ? generatedProjectName != null : !GENERATED_PROJECT_NAME_EDEFAULT.equals(generatedProjectName);
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 return GENERATED_JOB_NAME_EDEFAULT == null ? generatedJobName != null : !GENERATED_JOB_NAME_EDEFAULT.equals(generatedJobName);
+            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+                return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1595,6 +1647,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(generatedProjectName);
         result.append(", generatedJobName: ");
         result.append(generatedJobName);
+        result.append(", applyContextToChildren: ");
+        result.append(applyContextToChildren);
         result.append(')');
         return result.toString();
     }
