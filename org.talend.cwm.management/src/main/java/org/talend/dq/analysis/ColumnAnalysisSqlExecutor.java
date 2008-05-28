@@ -109,10 +109,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             // create one sql statement for each indicator
             EList<Indicator> indicators = results.getIndicators();
             for (Indicator indicator : indicators) {
-                if (!createSqlQuery(dataFilterExpression, indicator)) {
-                    // execute java indicator
+                if (indicator instanceof CompositeIndicator) {
                     continue;
                 }
+                createSqlQuery(dataFilterExpression, indicator);
             }
         } catch (ParseException e) {
             log.error(e, e);
@@ -140,13 +140,11 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             AnalysisExecutionException {
         ModelElement analyzedElement = indicator.getAnalyzedElement();
         if (analyzedElement == null) {
-            log.error("Analyzed element for indicator " + indicator.getName());
-            return false;
+            return traceError("Analyzed element is null for indicator " + indicator.getName());
         }
         TdColumn tdColumn = SwitchHelpers.COLUMN_SWITCH.doSwitch(indicator.getAnalyzedElement());
         if (tdColumn == null) {
-            log.error("Analyzed element is not a column for indicator " + indicator.getName());
-            return false;
+            return traceError("Analyzed element is not a column for indicator " + indicator.getName());
         }
         // --- get the schema owner
         String colName = quote(tdColumn.getName());
@@ -169,8 +167,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         IndicatorDefinition indicatorDefinition = indicator.getIndicatorDefinition();
         if (indicatorDefinition == null) {
-            log.error("No indicator definition found for indicator " + indicator.getName());
-            return false;
+            return traceError("No indicator definition found for indicator " + indicator.getName());
         }
         sqlGenericExpression = getSqlExpression(indicatorDefinition, language);
         if (sqlGenericExpression == null) {
@@ -184,8 +181,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         if (sqlGenericExpression == null || sqlGenericExpression.getBody() == null) {
-            log.error("No SQL expression found for indicator " + indicator.getName());
-            return false;
+            return traceError("No SQL expression found for indicator " + indicator.getName());
         }
 
         // --- get indicator parameters and convert them into sql expression
@@ -559,8 +555,8 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         try {
             return getCountLow(analysis, colName, table, catalog, dataFilterExpression);
         } catch (SQLException e) {
-            throw new AnalysisExecutionException("Cannot get count for " + analysis.getName() + " column "
-                    + dbms().toQualifiedName(catalog, null, colName), e);
+            throw new AnalysisExecutionException("Cannot get count for analysis \"" + analysis.getName() + "\" on column "
+                    + colName + " in " + dbms().toQualifiedName(catalog, null, table), e);
         }
     }
 
@@ -585,7 +581,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         Connection connection = trc.getObject();
         String whereExp = (dataFilterExpression == null || dataFilterExpression.toString().trim().length() == 0) ? "" : " where "
                 + dataFilterExpression.toString();
-        String queryStmt = "SELECT COUNT(" + colName + ") from " + table + whereExp + dbms().eos();
+        String queryStmt = "SELECT COUNT(" + colName + ") FROM " + table + whereExp; // + dbms().eos();
 
         List<Object[]> myResultSet = executeQuery(catalogName, connection, queryStmt);
 
@@ -593,7 +589,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             log.error("Too many result obtained for a simple count: " + myResultSet);
             return -1L;
         }
-        return (Long) myResultSet.get(0)[0];
+        return Long.valueOf(String.valueOf(myResultSet.get(0)[0]));
     }
 
     /**
@@ -698,7 +694,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
         TypedReturnCode<Connection> trc = this.getConnection(analysis);
         if (!trc.isOk()) {
-            log.error("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
+            traceError("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
             return DEFAULT_QUOTE_STRING;
         }
         try {
@@ -712,6 +708,18 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
     }
 
+    /**
+     * Method "traceError".
+     * 
+     * @param error the message to set in errorMessage
+     * @return always false
+     */
+    private boolean traceError(String error) {
+        this.errorMessage = error;
+        log.error(this.errorMessage);
+        return false;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -723,8 +731,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         boolean ok = true;
         TypedReturnCode<Connection> trc = this.getConnection(analysis);
         if (!trc.isOk()) {
-            log.error("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
-            return false;
+            return traceError("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
         }
 
         try {
@@ -749,8 +756,8 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
                     query = indicator.getInstantiatedExpressions(dbms().getDefaultLanguage());
                 }
                 if (query == null || !executeQuery(indicator, connection, query.getBody())) {
-                    log.error("Query not executed: " + ((query == null) ? "query is null" : query.getBody()));
-                    ok = false;
+                    ok = traceError("Query not executed for indicator: \"" + indicator.getName() + "\" "
+                            + ((query == null) ? "query is null" : "SQL query: " + query.getBody()));
                 }
             }
             // get the results
