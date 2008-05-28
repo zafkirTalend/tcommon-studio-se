@@ -116,21 +116,23 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
 
             public void run(IProgressMonitor monitor) throws InvocationTargetException {
                 final ReturnCode executed = finalExec.execute(finalAnalysis);
-                if (log.isInfoEnabled()) {
-
-                    int executionDuration = analysis.getResults().getResultMetadata().getExecutionDuration();
-                    log.info("Analysis \"" + finalAnalysis.getName() + "\" execution code: " + executed + ". Duration: "
-                            + FORMAT_SECONDS.format(Double.valueOf(executionDuration) / 1000) + " s.");
-                }
                 if (executed.isOk()) {
+                    if (log.isInfoEnabled()) {
+                        int executionDuration = analysis.getResults().getResultMetadata().getExecutionDuration();
+                        log.info("Analysis \"" + finalAnalysis.getName() + "\" execution code: " + executed + ". Duration: "
+                                + FORMAT_SECONDS.format(Double.valueOf(executionDuration) / 1000) + " s.");
+                    }
                     AnaResourceFileHelper.getInstance().save(finalAnalysis);
                 } else {
-                    // TODO zqin open error dialog
+                    int executionDuration = analysis.getResults().getResultMetadata().getExecutionDuration();
+                    log.warn("Analysis \"" + finalAnalysis.getName() + "\" execution code: " + executed + ". Duration: "
+                            + FORMAT_SECONDS.format(Double.valueOf(executionDuration) / 1000) + " s.");
+                    // open error dialog
                     Display.getDefault().asyncExec(new Runnable() {
 
                         public void run() {
-                            MessageDialogWithToggle.openError(null, "Run analysis error", "Fail to run this analysis: "
-                                    + executed.getMessage());
+                            MessageDialogWithToggle.openError(null, "Run analysis error", "Fail to run this analysis: \""
+                                    + finalAnalysis.getName() + "\". Error message:" + executed.getMessage());
                         }
 
                     });
