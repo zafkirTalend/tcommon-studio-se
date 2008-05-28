@@ -227,9 +227,11 @@ public final class ContextParameterUtils {
                 .getProject().getLanguage();
         switch (language) {
         case PERL:
-            return (!code.startsWith("'") || !code.endsWith("'"));
+            return (!code.startsWith(TalendTextUtils.SINGLE_QUOTE) && !code.endsWith(TalendTextUtils.SINGLE_QUOTE))
+                    && (code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH));
         case JAVA:
-            return (!code.startsWith("\"") || !code.endsWith("\"")) || containContextPrefix(code);
+            return (!code.startsWith(TalendTextUtils.QUOTATION_MARK) && !code.endsWith(TalendTextUtils.QUOTATION_MARK))
+                    && containContextPrefix(code);
         default:
             return false;
         }

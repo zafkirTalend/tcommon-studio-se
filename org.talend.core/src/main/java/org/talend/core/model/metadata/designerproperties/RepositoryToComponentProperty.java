@@ -349,21 +349,21 @@ public class RepositoryToComponentProperty {
         }
         if (value.equals("HEADER")) { //$NON-NLS-1$
             if (connection.isUseHeader()) {
-                return String.valueOf(connection.getHeaderValue());
+                return connection.getHeaderValue();
             } else {
                 return "0"; //$NON-NLS-1$
             }
         }
         if (value.equals("FOOTER")) { //$NON-NLS-1$
             if (connection.isUseFooter()) {
-                return String.valueOf(connection.getFooterValue());
+                return connection.getFooterValue();
             } else {
                 return "0"; //$NON-NLS-1$
             }
         }
         if (value.equals("LIMIT")) { //$NON-NLS-1$
             if (connection.isUseLimit()) {
-                return String.valueOf(connection.getLimitValue());
+                return connection.getLimitValue();
             } else {
                 return ""; //$NON-NLS-1$
             }
