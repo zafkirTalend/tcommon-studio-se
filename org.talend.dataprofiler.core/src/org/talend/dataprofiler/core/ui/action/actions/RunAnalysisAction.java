@@ -31,6 +31,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataprofiler.core.exception.ExceptionHandler;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.ui.editor.AnalysisEditor;
 import org.talend.dataprofiler.core.ui.editor.ColumnMasterDetailsPage;
@@ -83,6 +84,14 @@ public class RunAnalysisAction extends Action implements ICheatSheetAction {
             if (editor != null) {
                 ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
                 FileEditorInput input = (FileEditorInput) page.getEditorInput();
+                if (page.isDirty()) {
+                    try {
+                        page.saveAnalysis();
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                    
+                }
                 IFile file = input.getFile();
                 if (file.getName().endsWith(PluginConstant.ANA_SUFFIX)) {
                     analysis = AnaResourceFileHelper.getInstance().findAnalysis(file);
