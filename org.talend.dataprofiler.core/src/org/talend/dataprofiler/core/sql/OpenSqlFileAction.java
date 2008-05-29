@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.sql;
 
+import static org.talend.dataprofiler.core.PluginConstant.SE_ID;
 import java.io.File;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class OpenSqlFileAction extends Action {
     public void run() {
         IWorkbenchWindow aww = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         IWorkbenchPage ap = aww.getActivePage();
-        ChangePerspectiveAction action = new ChangePerspectiveAction(ChangePerspectiveAction.SE_ID);
+        ChangePerspectiveAction action = new ChangePerspectiveAction(SE_ID);
         action.run();
         IPath location = ResourcesPlugin.getWorkspace().getRoot().getLocation();
         for (IFile file : folder) {

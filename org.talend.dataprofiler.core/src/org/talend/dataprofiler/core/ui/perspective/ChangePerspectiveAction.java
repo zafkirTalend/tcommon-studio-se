@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.perspective;
 
+import static org.talend.dataprofiler.core.PluginConstant.CHEAT_SHEET_VIEW;
+import static org.talend.dataprofiler.core.PluginConstant.PERSPECTIVE_ID;
+import static org.talend.dataprofiler.core.PluginConstant.SE_ID;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
@@ -30,8 +34,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.talend.cwm.helper.DataProviderHelper;
@@ -50,8 +57,6 @@ import org.talend.utils.sugars.TypedReturnCode;
  * 
  */
 public class ChangePerspectiveAction extends Action {
-
-    public static final String SE_ID = "net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective";
 
     /** Id of the perspective to move to front. */
     private String perspectiveId;
@@ -83,6 +88,22 @@ public class ChangePerspectiveAction extends Action {
             }
         }
         activeData();
+        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+        IViewPart findView = page.findView(CHEAT_SHEET_VIEW);
+        if (PERSPECTIVE_ID.equals(perspectiveId)) {
+            if (preferenceStore.getBoolean(CHEAT_SHEET_VIEW)) {
+                try {
+                    page.showView(CHEAT_SHEET_VIEW);
+                } catch (PartInitException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            preferenceStore.setValue(CHEAT_SHEET_VIEW, findView != null);
+            if (findView != null) {
+                page.hideView(findView);
+            }
+        }
     }
 
     /**

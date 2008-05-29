@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.sql;
 
+import static org.talend.dataprofiler.core.PluginConstant.SE_ID;
 import net.sourceforge.sqlexplorer.plugin.editors.SQLEditorInput;
 
 import org.eclipse.core.resources.IFolder;
@@ -65,7 +66,7 @@ public class AddSqlFileAction extends Action {
             } catch (CoreException e) {
                 e.printStackTrace();
             }
-            ChangePerspectiveAction action = new ChangePerspectiveAction(ChangePerspectiveAction.SE_ID);
+            ChangePerspectiveAction action = new ChangePerspectiveAction(SE_ID);
             action.run();
             try {
                 ap

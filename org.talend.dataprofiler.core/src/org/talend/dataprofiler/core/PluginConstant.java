@@ -21,6 +21,12 @@ import org.talend.dataprofiler.core.manager.DQStructureManager;
  */
 public final class PluginConstant {
 
+    public static final String SE_ID = "net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective";
+
+    public static final String CHEAT_SHEET_VIEW = "org.eclipse.ui.cheatsheets.views.CheatSheetView";
+
+    public static final String PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";
+
     public static final String EMPTY_STRING = "";
 
     public static final String SPACE_STRING = " ";
