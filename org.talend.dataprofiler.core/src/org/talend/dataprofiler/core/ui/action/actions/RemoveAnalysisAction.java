@@ -89,7 +89,7 @@ public class RemoveAnalysisAction extends Action {
             while (iterator.hasNext()) {
                 TdReport report = iterator.next();
                 ReportHelper.removeAnalyses(report, removeMap.get(report));
-                RepResourceFileHelper.getInstance().save(report);                
+                RepResourceFileHelper.getInstance().save(report);
 
                 // save now modified resources (that contain the Dependency objects)
                 List<Resource> modifiedResources = DependenciesHandler.getInstance().clearDependencies(report);
@@ -99,8 +99,8 @@ public class RemoveAnalysisAction extends Action {
                     log.warn("Problem when saving resources " + util.getLastErrorMessage());
                 }
             }
+            CorePlugin.getDefault().refreshWorkSpace();
+            findView.getCommonViewer().refresh();
         }
-        CorePlugin.getDefault().refreshWorkSpace();
-        findView.getCommonViewer().refresh();
     }
 }
