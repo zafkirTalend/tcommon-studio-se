@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -13,9 +13,12 @@
 package routines.system;
 
 public class RunStat implements Runnable {
-    public static int BEGIN=0;
-    public static int RUNNING=1;
-    public static int END=2;
+
+    public static int BEGIN = 0;
+
+    public static int RUNNING = 1;
+
+    public static int END = 2;
 
     private class StatBean {
 
@@ -24,10 +27,12 @@ public class RunStat implements Runnable {
         private int nbLine;
 
         private int state;
-        
+
         private long startTime = 0;
-        
+
         private long endTime = 0;
+
+        private String exec = null;
 
         public StatBean(String connectionId) {
             this.connectionId = connectionId;
@@ -57,25 +62,35 @@ public class RunStat implements Runnable {
         public void setState(int state) {
             this.state = state;
         }
-        
+
         public long getStartTime() {
             return startTime;
         }
-        
+
         public void setStartTime(long startTime) {
             this.startTime = startTime;
         }
-        
+
         public long getEndTime() {
             return endTime;
         }
-        
+
         public void setEndTime(long endTime) {
             this.endTime = endTime;
+        }
+
+        public String getExec() {
+            return this.exec;
+        }
+
+        public void setExec(String exec) {
+            this.exec = exec;
         }
     }
 
     private java.util.concurrent.ConcurrentHashMap<String, StatBean> processStats = new java.util.concurrent.ConcurrentHashMap<String, StatBean>();
+
+    // private java.util.ArrayList<StatBean> processStats = new java.util.ArrayList<StatBean>();
 
     private java.net.Socket s;
 
@@ -85,12 +100,10 @@ public class RunStat implements Runnable {
 
     private String str = "";
 
-    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException,
-            java.net.UnknownHostException {
+    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
-        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
-                true);
+        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
         System.out.println("[statistics] connected");
         Thread t = new Thread(this);
         t.start();
@@ -123,14 +136,19 @@ public class RunStat implements Runnable {
 
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
-            str = sb.getConnectionId() + "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
+            str = sb.getConnectionId();
+            if (sb.getExec() == null) {
+                str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
+            } else {
+                str += "|" + sb.getExec();
+            }
             if (sb.getState() != RunStat.RUNNING) {
                 str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop");
                 processStats.remove(sb.getConnectionId());
             }
             pred.println(str); // envoi d'un message
         }
-        
+
     }
 
     public void updateStatOnConnection(String connectionId, int mode, int nbLine) {
@@ -138,11 +156,23 @@ public class RunStat implements Runnable {
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
         } else {
-            bean = new StatBean(connectionId);            
+            bean = new StatBean(connectionId);
         }
         bean.setState(mode);
         bean.setEndTime(System.currentTimeMillis());
         bean.setNbLine(bean.getNbLine() + nbLine);
+        processStats.put(connectionId, bean);
+    }
+
+    public void updateStatOnConnection(String connectionId, int mode, String exec) {
+        StatBean bean;
+        if (processStats.containsKey(connectionId)) {
+            bean = processStats.get(connectionId);
+        } else {
+            bean = new StatBean(connectionId);
+        }
+        bean.setState(mode);
+        bean.setExec(exec);
         processStats.put(connectionId, bean);
     }
 }
