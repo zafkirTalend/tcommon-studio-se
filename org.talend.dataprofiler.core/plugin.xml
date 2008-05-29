@@ -107,7 +107,7 @@
             name="DQ Resource"
             priority="low"
             activeByDefault="true"
-			            contentProvider="org.eclipse.ui.internal.navigator.resources.workbench.ResourceExtensionContentProvider"
+			            contentProvider="org.talend.dataprofiler.core.ui.views.provider.ResourceViewContentProvider"
             			labelProvider="org.talend.dataprofiler.core.ui.views.provider.ResourceViewLabelProvider"			
             id="org.eclipse.ui.navigator.DQresourceContent">         
          <enablement>

@@ -25,6 +25,7 @@ import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.dataprofiler.core.ui.views.DQRespositoryView;
 import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 import org.talend.dq.analysis.parameters.DBConnectionParameter;
 import org.talend.utils.sugars.TypedReturnCode;
@@ -56,7 +57,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
     }
 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
-        
+
         connectionProperty = new DBConnectionParameter();
         connectionProperty.setParameters(new Properties());
         AbstractWizardPage.setConnectionParams(connectionProperty);
@@ -115,6 +116,7 @@ public class DatabaseConnectionWizard extends Wizard implements INewWizard {
         // MODSCA 2008-03-10 save the provider
         if (DqRepositoryViewService.saveDataProviderAndStructure(dataProvider, this.connectionProperty.getFolderProvider())) {
             CorePlugin.getDefault().refreshWorkSpace();
+            ((DQRespositoryView) CorePlugin.getDefault().findView(DQRespositoryView.ID)).getCommonViewer().refresh();
         }
         return true;
     }

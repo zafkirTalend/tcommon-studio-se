@@ -59,6 +59,7 @@ public class DQRespositoryView extends CommonNavigator {
         this.addViewerFilter(ReportingFilter.FILTER_ID);
         adjustFilter();
         activateContext();
+        this.getCommonViewer().setSorter(null);
     }
 
     /**

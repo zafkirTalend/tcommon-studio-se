@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewContentProvider;
 import org.talend.dataprofiler.core.ui.views.provider.MNComposedAdapterFactory;
 import orgomg.cwm.resource.relational.NamedColumnSet;
 
@@ -27,7 +26,7 @@ import orgomg.cwm.resource.relational.NamedColumnSet;
  */
 public class ConnectionsContentProvider extends AdapterFactoryContentProvider {
 
-    private static Logger log = Logger.getLogger(DBTablesViewContentProvider.class);
+    private static Logger log = Logger.getLogger(ConnectionsContentProvider.class);
     /**
      * @param adapterFactory
      */

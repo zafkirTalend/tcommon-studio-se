@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.dialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,11 +53,13 @@ import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.EObjectHelper;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 import org.talend.dataprofiler.core.model.nodes.foldernode.NamedColumnSetFolderNode;
 import org.talend.dataprofiler.core.ui.dialog.filter.TypedViewerFilter;
 import org.talend.dataprofiler.core.ui.dialog.provider.DBTablesViewLabelProvider;
+import org.talend.dataprofiler.core.ui.utils.ComparatorsFactory;
 import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
 import org.talend.dataprofiler.core.ui.views.provider.DQRepositoryViewContentProvider;
 import orgomg.cwm.objectmodel.core.Package;
@@ -461,10 +464,26 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
                         ColumnSetHelper.addColumns(columnSet, columnList);
                         NeedSaveDataProviderHelper.register(provider.getName(), provider);
                     }
-                    return columns;
+                    return sort(columns, ComparatorsFactory.MODELELEMENT_COMPARATOR_ID);
                 }
             }
             return null;
+        }
+
+        /**
+         * Sort the parameter objects, and return the sorted array.
+         * 
+         * @param objects
+         * @param comparatorId the comparator id has been defined in the {@link ComparatorsFactory};
+         * @return
+         */
+        @SuppressWarnings("unchecked")
+        protected Object[] sort(Object[] objects, int comparatorId) {
+            if (objects == null || objects.length <= 1) {
+                return objects;
+            }
+            Arrays.sort(objects, ComparatorsFactory.buildComparator(comparatorId));
+            return objects;
         }
 
         public void dispose() {
@@ -488,13 +507,22 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
             super();
         }
 
+        @SuppressWarnings("unchecked")
         public Object[] getChildren(Object parentElement) {
             if (parentElement instanceof IContainer) {
+                IContainer container = ((IContainer) parentElement);
+                IResource[] members = null;
                 try {
-                    return ((IContainer) parentElement).members();
+                    members = container.members();
                 } catch (CoreException e) {
-                    log.error("Can't get the children of container:" + ((IContainer) parentElement).getLocation());
+                    log.error("Can't get the children of container:" + container.getLocation());
                 }
+
+                if (container.equals(ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.METADATA).getFolder(
+                        DQStructureManager.DB_CONNECTIONS))) {
+                    sort(members, ComparatorsFactory.FILEMODEL_COMPARATOR_ID);
+                }
+                return members;
             } else if (parentElement instanceof NamedColumnSet) {
                 return null;
             } else if (parentElement instanceof NamedColumnSetFolderNode) {
@@ -515,7 +543,7 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
                         }
                     }
                 }
-                return children;
+                return sort(children, ComparatorsFactory.MODELELEMENT_COMPARATOR_ID);
             }
             return super.getChildren(parentElement);
         }
