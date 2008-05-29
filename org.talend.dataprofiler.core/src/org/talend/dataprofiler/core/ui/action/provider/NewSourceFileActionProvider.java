@@ -53,26 +53,24 @@ public class NewSourceFileActionProvider extends CommonActionProvider {
             } else if (obj instanceof IFile) {
                 menu.add(new RenameSqlFileAction((IFile) obj));
             }
-        } else {
-            boolean isSelectFile = false;
-            Iterator iterator = treeSelection.iterator();
-            while (iterator.hasNext()) {
-                Object obj = iterator.next();
-                if (obj instanceof IFile) {
-                    IFile file = (IFile) obj;
-                    if (file.getFileExtension().equalsIgnoreCase("sql")) {
-                        selectedFiles.add(file);
-                    }
-                } else {
-                    isSelectFile = true;
-                    break;
+        }
+        boolean isSelectFile = false;
+        Iterator iterator = treeSelection.iterator();
+        while (iterator.hasNext()) {
+            Object obj = iterator.next();
+            if (obj instanceof IFile) {
+                IFile file = (IFile) obj;
+                if (file.getFileExtension().equalsIgnoreCase("sql")) {
+                    selectedFiles.add(file);
                 }
+            } else {
+                isSelectFile = true;
+                break;
             }
-            if (!isSelectFile && !selectedFiles.isEmpty()) {
-                menu.add(new OpenSqlFileAction(selectedFiles));
-                menu.add(new DeleteSqlFileAction(selectedFiles));
-            }
-
+        }
+        if (!isSelectFile && !selectedFiles.isEmpty()) {
+            menu.add(new OpenSqlFileAction(selectedFiles));
+            menu.add(new DeleteSqlFileAction(selectedFiles));
         }
     }
 }
