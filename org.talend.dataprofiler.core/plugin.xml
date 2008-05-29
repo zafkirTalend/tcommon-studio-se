@@ -250,6 +250,15 @@
               relative="org.talend.dataprofiler.core.ui.views.CheatSheetView"
               relationship="bottom"
               /> -->
+  </perspectiveExtension>
+  <perspectiveExtension
+        targetID="net.sourceforge.sqlexplorer.plugin.perspectives.SQLExplorerPluginPerspective">
+     <view
+           id="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
+           ratio="0.25"
+           relationship="stack"
+           relative="net.sourceforge.sqlexplorer.connections.ConnectionsView">
+     </view>
   </perspectiveExtension>  
 </extension>
   
