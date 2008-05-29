@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -294,8 +295,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         }
     }
 
-    public void openIndicatorSelectDialog() {
-        IndicatorSelectDialog dialog = new IndicatorSelectDialog(this.tree.getShell(), "Indicator Selector",
+    public void openIndicatorSelectDialog(Shell shell) {
+        IndicatorSelectDialog dialog = new IndicatorSelectDialog(shell, "Indicator Selector",
 
         columnIndicators);
         if (dialog.open() == Window.OK) {

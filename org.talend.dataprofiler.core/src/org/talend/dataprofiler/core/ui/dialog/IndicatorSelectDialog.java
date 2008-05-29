@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.ui.dialog;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TreeEditor;
@@ -39,7 +40,7 @@ import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
  * This dialog use to select the indictor object for different columns.
  * 
  */
-public class IndicatorSelectDialog extends Dialog {
+public class IndicatorSelectDialog extends TrayDialog {
 
     // private Object[] tdColumns;
 

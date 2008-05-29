@@ -30,7 +30,6 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -168,7 +167,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
 
             public void linkActivated(HyperlinkEvent e) {
 
-                treeViewer.openIndicatorSelectDialog();
+                treeViewer.openIndicatorSelectDialog(getSite().getShell());
             }
 
         });
@@ -341,7 +340,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
      * @param outputFolder
      * @throws DataprofilerCoreException
      */
-    void saveAnalysis() throws DataprofilerCoreException {
+    public void saveAnalysis() throws DataprofilerCoreException {
         analysisHandler.clearAnalysis();
         ColumnIndicator[] columnIndicators = treeViewer.getColumnIndicator();
         // List<TdDataProvider> providerList = new ArrayList<TdDataProvider>();

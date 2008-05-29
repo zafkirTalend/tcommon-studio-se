@@ -42,7 +42,7 @@ public class OpenIndicatorSelectorAction extends Action implements ICheatSheetAc
     @Override
     public void run() {
 
-        page.getTreeViewer().openIndicatorSelectDialog();
+        page.getTreeViewer().openIndicatorSelectDialog(page.getSite().getShell());
     }
 
     /* (non-Javadoc)
