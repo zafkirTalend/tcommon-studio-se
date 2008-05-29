@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.action.provider;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.jface.action.IMenuManager;
@@ -37,19 +41,36 @@ public class NewSourceFileActionProvider extends CommonActionProvider {
     }
 
     public void fillContextMenu(IMenuManager menu) {
-        Object obj = ((TreeSelection) this.getContext().getSelection()).getFirstElement();
-        if (obj instanceof IFolder) {
-            selectedFolderName = ((IFolder) obj).getName();
-            if (selectedFolderName.equals(DQStructureManager.SOURCE_FILES)) {
-                menu.add(new AddSqlFileAction((IFolder) obj));
-            }
-        } else if (obj instanceof IFile) {
-            IFile file = (IFile) obj;
-            selectedFolderName = file.getName();
-            if (file.getFileExtension().equalsIgnoreCase("sql")) {
-                menu.add(new OpenSqlFileAction((IFile) obj));
+        TreeSelection treeSelection = ((TreeSelection) this.getContext().getSelection());
+        List<IFile> selectedFiles = new ArrayList<IFile>();
+        if (treeSelection.size() == 1) {
+            Object obj = treeSelection.getFirstElement();
+            if (obj instanceof IFolder) {
+                selectedFolderName = ((IFolder) obj).getName();
+                if (selectedFolderName.equals(DQStructureManager.SOURCE_FILES)) {
+                    menu.add(new AddSqlFileAction((IFolder) obj));
+                }
+            } else if (obj instanceof IFile) {
                 menu.add(new RenameSqlFileAction((IFile) obj));
-                menu.add(new DeleteSqlFileAction((IFile) obj));
+            }
+        } else {
+            boolean isSelectFile = false;
+            Iterator iterator = treeSelection.iterator();
+            while (iterator.hasNext()) {
+                Object obj = iterator.next();
+                if (obj instanceof IFile) {
+                    IFile file = (IFile) obj;
+                    if (file.getFileExtension().equalsIgnoreCase("sql")) {
+                        selectedFiles.add(file);
+                    }
+                } else {
+                    isSelectFile = true;
+                    break;
+                }
+            }
+            if (!isSelectFile && !selectedFiles.isEmpty()) {
+                menu.add(new OpenSqlFileAction(selectedFiles));
+                menu.add(new DeleteSqlFileAction(selectedFiles));
             }
 
         }

@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.sql;
 
 import java.io.File;
+import java.util.List;
 
 import net.sourceforge.sqlexplorer.plugin.editors.SQLEditorInput;
 
@@ -36,17 +37,17 @@ import org.talend.dataprofiler.core.ui.perspective.ChangePerspectiveAction;
  */
 public class OpenSqlFileAction extends Action {
 
-    private IFile folder;
+    private List<IFile> folder;
 
     /**
      * DOC qzhang AddSqlFileAction constructor comment.
      * 
-     * @param folder
+     * @param selectedFiles
      */
-    public OpenSqlFileAction(IFile folder) {
+    public OpenSqlFileAction(List<IFile> selectedFiles) {
         setText("Open SQL File");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.CREATE_SQL_ACTION));
-        this.folder = folder;
+        this.folder = selectedFiles;
     }
 
     /*
@@ -61,12 +62,15 @@ public class OpenSqlFileAction extends Action {
         ChangePerspectiveAction action = new ChangePerspectiveAction(ChangePerspectiveAction.SE_ID);
         action.run();
         IPath location = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-        String portableString = location.append(DQStructureManager.LIBRARIES).append(DQStructureManager.SOURCE_FILES).append(
-                folder.getName()).toPortableString();
-        try {
-            ap.openEditor(new SQLEditorInput(new File(portableString)), "net.sourceforge.sqlexplorer.plugin.editors.SQLEditor");
-        } catch (PartInitException e) {
-            e.printStackTrace();
+        for (IFile file : folder) {
+            String portableString = location.append(DQStructureManager.LIBRARIES).append(DQStructureManager.SOURCE_FILES).append(
+                    file.getName()).toPortableString();
+            try {
+                ap.openEditor(new SQLEditorInput(new File(portableString)),
+                        "net.sourceforge.sqlexplorer.plugin.editors.SQLEditor");
+            } catch (PartInitException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

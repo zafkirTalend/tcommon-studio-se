@@ -12,12 +12,16 @@
 // ============================================================================
 package org.talend.dataprofiler.core.sql;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 
@@ -29,17 +33,17 @@ import org.talend.dataprofiler.core.manager.DQStructureManager;
  */
 public class DeleteSqlFileAction extends Action {
 
-    private IFile folder;
+    private List<IFile> folder;
 
     /**
      * DOC qzhang AddSqlFileAction constructor comment.
      * 
-     * @param folder
+     * @param selectedFiles
      */
-    public DeleteSqlFileAction(IFile folder) {
+    public DeleteSqlFileAction(List<IFile> selectedFiles) {
         setText("Delete SQL File");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.CREATE_SQL_ACTION));
-        this.folder = folder;
+        this.folder = selectedFiles;
     }
 
     /*
@@ -51,13 +55,17 @@ public class DeleteSqlFileAction extends Action {
     public void run() {
         IFolder sourceFiles = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.LIBRARIES).getFolder(
                 DQStructureManager.SOURCE_FILES);
-        try {
-            if (folder.exists()) {
-                folder.delete(true, null);
+        for (IFile file : folder) {
+            if (MessageDialog.openConfirm(new Shell(), "Delete Sql File", "Are you sure delete sql file : " + file.getName())) {
+                try {
+                    if (file.exists()) {
+                        file.delete(true, null);
+                    }
+                    sourceFiles.refreshLocal(IResource.DEPTH_INFINITE, null);
+                } catch (CoreException e) {
+                    e.printStackTrace();
+                }
             }
-            sourceFiles.refreshLocal(IResource.DEPTH_INFINITE, null);
-        } catch (CoreException e) {
-            e.printStackTrace();
         }
     }
 
