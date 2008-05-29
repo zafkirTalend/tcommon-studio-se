@@ -24,7 +24,7 @@ public enum EDatabaseTypeName {
     ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE"),
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"),
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"),
-    IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "IBMDB2"),
+    IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "IBM_DB2"),
     SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"),
 
     // this Sybase IQ not used.
