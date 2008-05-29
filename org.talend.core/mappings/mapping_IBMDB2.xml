@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="IBMDB2" id="ibmdb2_id" label="Mapping IBMDB2"
+	<dbms product="IBM_DB2" id="ibmdb2_id" label="Mapping IBMDB2"
 		default="true">
 		<dbTypes>
 				<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
