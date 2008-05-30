@@ -122,5 +122,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="160" sizeHeight="97" sizeWidth="449" text="A tJavaRow is used to transform the data.&#xD;&#xA;&#xD;&#xA;This componant is similar of the &quot;Main code&quot; of a tJavaFlex."/>
+  <note opaque="true" posX="64" posY="160" sizeHeight="97" sizeWidth="449" text="A tJavaRow is used to transform the data.&#xD;&#xA;&#xD;&#xA;This component is similar of the &quot;Main code&quot; of a tJavaFlex."/>
 </talendfile:ProcessType>

@@ -142,5 +142,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="160" sizeHeight="64" sizeWidth="449" text="With tMysqlOutputBulkExec, the temp file is created by the componant"/>
+  <note opaque="true" posX="64" posY="160" sizeHeight="64" sizeWidth="449" text="With tMysqlOutputBulkExec, the temp file is created by the component"/>
 </talendfile:ProcessType>

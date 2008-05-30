@@ -67,7 +67,7 @@
     <elementParameter field="TEXT" name="TITLE" value="&quot;Talend Open Studio&quot;"/>
     <elementParameter field="CLOSED_LIST" name="BUTTONS" value="0"/>
     <elementParameter field="CLOSED_LIST" name="ICON" value="INFORMATION_MESSAGE"/>
-    <elementParameter field="MEMO" name="MESSAGE" value="&quot;In the node Contexts of the Repository,\n&quot;&#xD;&#xA;+&quot;a context nammed global_Context define the value of the int defaultDir: \n&quot;&#xD;&#xA;+&quot;                                       &quot;&#xD;&#xA;+&quot;defaultDir=&quot;+(context.defaultDir)+&#xD;&#xA;&quot;\n\nIn the view Contexts of this Job Design,\n&quot;&#xD;&#xA;+&quot;a local context define the value of the int sampleInt: \n&quot;&#xD;&#xA;+&quot;                                       &quot;&#xD;&#xA;+&quot;sampleInt=&quot;+(context.sampleInt)"/>
+    <elementParameter field="MEMO" name="MESSAGE" value="&quot;In the node Contexts of the Repository,\n&quot;&#xD;&#xA;+&quot;a context named global_Context define the value of the int defaultDir: \n&quot;&#xD;&#xA;+&quot;                                       &quot;&#xD;&#xA;+&quot;defaultDir=&quot;+(context.defaultDir)+&#xD;&#xA;&quot;\n\nIn the view Contexts of this Job Design,\n&quot;&#xD;&#xA;+&quot;a local context define the value of the int sampleInt: \n&quot;&#xD;&#xA;+&quot;                                       &quot;&#xD;&#xA;+&quot;sampleInt=&quot;+(context.sampleInt)"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>

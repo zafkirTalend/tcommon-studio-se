@@ -15,5 +15,5 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tSystem_1"/>
   </node>
-  <note opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="417" text="tSystem componant is used to launch a command line&#xD;&#xA;&#xD;&#xA;In this sample, the command line is : &quot;cmd /c java -version&quot;"/>
+  <note opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="417" text="tSystem component is used to launch a command line&#xD;&#xA;&#xD;&#xA;In this sample, the command line is : &quot;cmd /c java -version&quot;"/>
 </talendfile:ProcessType>

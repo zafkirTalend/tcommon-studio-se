@@ -90,5 +90,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="160" sizeHeight="129" sizeWidth="449" text="A tJavaFlex is like a &quot;built-in componant&quot;!&#xD;&#xA;&#xD;&#xA;The componant is defined by 3 parts of code:&#xD;&#xA; - Start code (example: open a file)&#xD;&#xA; - Main code (example: write a line)&#xD;&#xA; - End code (example: close the file)&#xD;&#xA;&#xD;&#xA;With this componant you can create your specifics componants!"/>
+  <note opaque="true" posX="64" posY="160" sizeHeight="129" sizeWidth="449" text="A tJavaFlex is like a &quot;built-in component&quot;!&#xD;&#xA;&#xD;&#xA;The component is defined by 3 parts of code:&#xD;&#xA; - Start code (example: open a file)&#xD;&#xA; - Main code (example: write a line)&#xD;&#xA; - End code (example: close the file)&#xD;&#xA;&#xD;&#xA;With this component you can create your specifics components!"/>
 </talendfile:ProcessType>

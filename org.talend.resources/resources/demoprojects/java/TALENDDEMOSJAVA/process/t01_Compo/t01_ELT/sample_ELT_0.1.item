@@ -155,5 +155,5 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tRunJob_1" offsetLabelX="0" offsetLabelY="0" source="tRunJob_1" target="tELTMysqlMap_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="192" sizeHeight="97" sizeWidth="609" text="Open the tELTMysql componant to discover the alias of EMPLOYEES: MANAGERS.&#xD;&#xA;&#xD;&#xA;Note: the corresponding query of the tELTMysqlMap is :&#xD;&#xA;    SELECT employees.ID, employees.NAME, employees.ID_MANAGER, managers.NAME &#xD;&#xA;    FROM   employees LEFT OUTER JOIN  employees managers ON( managers.ID = employees.ID_MANAGER)"/>
+  <note opaque="true" posX="64" posY="192" sizeHeight="97" sizeWidth="609" text="Open the tELTMysql component to discover the alias of EMPLOYEES: MANAGERS.&#xD;&#xA;&#xD;&#xA;Note: the corresponding query of the tELTMysqlMap is :&#xD;&#xA;    SELECT employees.ID, employees.NAME, employees.ID_MANAGER, managers.NAME &#xD;&#xA;    FROM   employees LEFT OUTER JOIN  employees managers ON( managers.ID = employees.ID_MANAGER)"/>
 </talendfile:ProcessType>

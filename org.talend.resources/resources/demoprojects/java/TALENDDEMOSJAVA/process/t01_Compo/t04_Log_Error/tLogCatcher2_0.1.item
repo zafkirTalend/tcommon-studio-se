@@ -188,5 +188,5 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tWarn_1" offsetLabelX="0" offsetLabelY="0" source="tWarn_1" target="tFileInputDelimited_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="320" posY="64" sizeHeight="129" sizeWidth="449" text="1&#xb0; Click on a blank space of this job&#xD;&#xA;2&#xb0; The view Properties display the &quot;Job Design&quot; properties&#xD;&#xA;&#xD;&#xA;On the pannel &quot;Stats &amp; Logs&quot;:  we have check &quot;Use logs&quot; and &quot;On Console&quot;.&#xD;&#xA;In this use case, the component tStatCatcher is not requiered"/>
+  <note opaque="true" posX="320" posY="64" sizeHeight="129" sizeWidth="449" text="1&#xb0; Click on a blank space of this job&#xD;&#xA;2&#xb0; The view Properties display the &quot;Job Design&quot; properties&#xD;&#xA;&#xD;&#xA;On the panel &quot;Stats &amp; Logs&quot;:  we have check &quot;Use logs&quot; and &quot;On Console&quot;.&#xD;&#xA;In this use case, the component tStatCatcher is not requiered"/>
 </talendfile:ProcessType>

@@ -166,7 +166,7 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="256" sizeHeight="97" sizeWidth="577" text="Learn how to be effective using the tMap componant by looking at tutorials that will guide you along the way.&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
+  <note opaque="true" posX="64" posY="256" sizeHeight="97" sizeWidth="577" text="Learn how to be effective using the tMap component by looking at tutorials that will guide you along the way.&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
   <note opaque="true" posX="192" posY="32" sizeHeight="64" sizeWidth="257" text="tMap is used to filter the rows&#xD;&#xA;and to manage the reject of the filter"/>
-  <note opaque="true" posX="961" posY="225" sizeHeight="64" sizeWidth="96" text="Learn how to be effective using the tMap componant by looking at tutorials&#xD;&#xA;that will guide you along the way.&#xD;&#xA;&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
+  <note opaque="true" posX="961" posY="225" sizeHeight="64" sizeWidth="96" text="Learn how to be effective using the tMap component by looking at tutorials&#xD;&#xA;that will guide you along the way.&#xD;&#xA;&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
 </talendfile:ProcessType>

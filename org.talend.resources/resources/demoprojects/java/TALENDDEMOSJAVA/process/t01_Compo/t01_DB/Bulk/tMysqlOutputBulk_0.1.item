@@ -132,5 +132,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="96" posY="128" sizeHeight="64" sizeWidth="385" text="You can used tMysqlOutputBulk to create a Bulk file"/>
+  <note opaque="true" posX="96" posY="128" sizeHeight="64" sizeWidth="385" text="You can use tMysqlOutputBulk to create a Bulk file"/>
 </talendfile:ProcessType>

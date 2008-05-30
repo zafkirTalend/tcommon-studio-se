@@ -230,6 +230,6 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="256" posY="224" sizeHeight="129" sizeWidth="449" text="Learn how to be effective using the tMap componant by looking at tutorials&#xD;&#xA;that will guide you along the way.&#xD;&#xA;&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
+  <note opaque="true" posX="256" posY="224" sizeHeight="129" sizeWidth="449" text="Learn how to be effective using the tMap component by looking at tutorials&#xD;&#xA;that will guide you along the way.&#xD;&#xA;&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
   <note opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="417" text="tMap is used to define a join between 2 input and to manage the reject."/>
 </talendfile:ProcessType>

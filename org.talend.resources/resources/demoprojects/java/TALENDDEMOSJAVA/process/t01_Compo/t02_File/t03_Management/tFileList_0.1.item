@@ -81,7 +81,7 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="/*&#xD;&#xA;   With the tFileList componant, we use a row Iterate on a sub-process.&#xD;&#xA;   The sub-process is used by each files send by the tFileList.&#xD;&#xA;   Actually we don't access on the tFileList_1_CurrentFileName on a sub-process, the variable is'nt global. &#xD;&#xA;&#xD;&#xA;   More informations on http://www.talendforge.org/bugs/view.php?id=566&#xD;&#xA;*/&#xD;&#xA;&#xD;&#xA;System.out.println(currentFilePath_tFileList_1);&#xD;&#xA;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="/*&#xD;&#xA;   With the tFileList component, we use a row Iterate on a sub-process.&#xD;&#xA;   The sub-process is used by each files send by the tFileList.&#xD;&#xA;   Actually we don't access on the tFileList_1_CurrentFileName on a sub-process, the variable is'nt global. &#xD;&#xA;&#xD;&#xA;   More informations on http://www.talendforge.org/bugs/view.php?id=566&#xD;&#xA;*/&#xD;&#xA;&#xD;&#xA;System.out.println(currentFilePath_tFileList_1);&#xD;&#xA;"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="System.out.println(currentFilePath_tFileList_1);"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>

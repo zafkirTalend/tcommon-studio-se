@@ -132,5 +132,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="577" text="Change the setting of the connection in the Repository / Metadata / DbConnection&#xD;&#xA;&#xD;&#xA;To create the table &quot;demotable&quot; and some data, please use the job nammed t&lt;DBname>Output!"/>
+  <note opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="577" text="Change the setting of the connection in the Repository / Metadata / DbConnection&#xD;&#xA;&#xD;&#xA;To create the table &quot;demotable&quot; and some data, please use the job named t&lt;DBname>Output!"/>
 </talendfile:ProcessType>

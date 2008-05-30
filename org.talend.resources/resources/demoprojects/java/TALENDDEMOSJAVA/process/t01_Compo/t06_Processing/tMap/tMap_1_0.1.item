@@ -123,5 +123,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="128" sizeHeight="96" sizeWidth="449" text="Learn how to be effective using the tMap componant by looking at tutorials&#xD;&#xA;that will guide you along the way.&#xD;&#xA;&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
+  <note opaque="true" posX="64" posY="128" sizeHeight="96" sizeWidth="449" text="Learn how to be effective using the tMap component by looking at tutorials&#xD;&#xA;that will guide you along the way.&#xD;&#xA;&#xD;&#xA;Please visits http://www.talend.com/tos/tutorials/tutorials.php?sid=tMap/Features"/>
 </talendfile:ProcessType>

@@ -173,5 +173,5 @@
   <connection connectorName="COMPONENT_ERROR" label="OnComponentError" lineStyle="5" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMsgBox_2">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="320" posY="160" sizeHeight="129" sizeWidth="385" text="This job is an simple example to use the links OnComponentError&#xD;&#xA;and OnComponentOk.&#xD;&#xA;&#xD;&#xA;If you are searching an &quot;error management&quot; example,&#xD;&#xA;please see job nammed &quot;link_With_tDie_tWarn&quot;."/>
+  <note opaque="true" posX="320" posY="160" sizeHeight="129" sizeWidth="385" text="This job is an simple example to use the links OnComponentError&#xD;&#xA;and OnComponentOk.&#xD;&#xA;&#xD;&#xA;If you are searching an &quot;error management&quot; example,&#xD;&#xA;please see job named &quot;link_With_tDie_tWarn&quot;."/>
 </talendfile:ProcessType>

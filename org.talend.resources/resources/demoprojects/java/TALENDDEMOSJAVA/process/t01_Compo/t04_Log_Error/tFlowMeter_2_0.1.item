@@ -233,5 +233,5 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <note opaque="true" posX="64" posY="0" sizeHeight="64" sizeWidth="417" text="Set row_1 to the tFlowMetter_2 relative row. &#xD;&#xA;Measure how many lines are treated by a connection and a reference connection."/>
-  <note opaque="true" posX="192" posY="224" sizeHeight="97" sizeWidth="481" text="1&#xb0; Click on a blank space of this job&#xD;&#xA;2&#xb0; The view Properties display the &quot;Job Design&quot; properties&#xD;&#xA;&#xD;&#xA;On the pannel &quot;Stats &amp; Logs&quot;:  we have check &quot;Use Volumetrics&quot; and &quot;On Console&quot;.&#xD;&#xA;In this use case, the component tFlowMeterCatcher is not requiered"/>
+  <note opaque="true" posX="192" posY="224" sizeHeight="97" sizeWidth="481" text="1&#xb0; Click on a blank space of this job&#xD;&#xA;2&#xb0; The view Properties display the &quot;Job Design&quot; properties&#xD;&#xA;&#xD;&#xA;On the panel &quot;Stats &amp; Logs&quot;:  we have check &quot;Use Volumetrics&quot; and &quot;On Console&quot;.&#xD;&#xA;In this use case, the component tFlowMeterCatcher is not requiered"/>
 </talendfile:ProcessType>

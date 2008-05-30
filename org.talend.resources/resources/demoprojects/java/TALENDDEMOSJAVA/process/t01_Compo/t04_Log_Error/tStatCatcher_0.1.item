@@ -296,5 +296,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="416" posY="64" sizeHeight="65" sizeWidth="257" text="tStatCatcher->tLogRow write on the console&#xD;&#xA;the start and end of each componants."/>
+  <note opaque="true" posX="416" posY="64" sizeHeight="65" sizeWidth="257" text="tStatCatcher->tLogRow write on the console&#xD;&#xA;the start and end of each components."/>
 </talendfile:ProcessType>
