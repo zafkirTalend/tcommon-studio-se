@@ -30,99 +30,97 @@ public class ParserUtils {
     }
 
     public static char parseTo_Character(String s) {
-        return (s != null) ? s.charAt(0) : null;
+        if (s == null) {
+            throw new NumberFormatException("String is null");
+        }
+        try {
+            return s.charAt(0);
+        } catch (StringIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+            throw new NumberFormatException("String is empty");
+        }
     }
 
     public static char parseTo_char(String s) {
-        return (s != null) ? s.charAt(0) : null;
+        return parseTo_Character(s);
     }
 
     public static byte parseTo_Byte(String s) {
-        return Byte.decode(s).byteValue();
+        try {
+            return Byte.decode(s).byteValue();
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+            throw new NumberFormatException("NumberFormatException " + ex.getMessage());
+        }
     }
 
     public static byte parseTo_byte(String s) {
-        return Byte.decode(s).byteValue();
+        return parseTo_Byte(s);
     }
 
     public static Double parseTo_Double(String s) {
         try {
             return Double.parseDouble(s);
         } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
             throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
         }
     }
 
     public static double parseTo_double(String s) {
-        try {
-            return Double.parseDouble(s);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return parseTo_Double(s);
     }
 
     public static float parseTo_float(String s) {
         try {
             return Float.parseFloat(s);
         } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
             throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
         }
     }
 
     public static Float parseTo_Float(String s) {
-        try {
-            return Float.parseFloat(s);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return parseTo_float(s);
     }
 
     public static int parseTo_int(String s) {
         try {
             return Integer.parseInt(s);
         } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
             throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
         }
     }
 
     public static Integer parseTo_Integer(String s) {
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return parseTo_int(s);
     }
 
     public static short parseTo_short(String s) {
         try {
             return Short.parseShort(s);
         } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
             throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
         }
     }
 
     public static Short parseTo_Short(String s) {
-        try {
-            return Short.parseShort(s);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return parseTo_short(s);
     }
 
     public static long parseTo_long(String s) {
         try {
             return Long.parseLong(s);
         } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
             throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
         }
     }
 
     public static Long parseTo_Long(String s) {
-        try {
-            return Long.parseLong(s);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return parseTo_long(s);
     }
 
     public static Boolean parseTo_Boolean(String s) {
@@ -133,10 +131,7 @@ public class ParserUtils {
     }
 
     public static boolean parseTo_boolean(String s) {
-        if (s.equals("1")) {
-            return Boolean.parseBoolean("true");
-        }
-        return Boolean.parseBoolean(s);
+        return parseTo_Boolean(s);
     }
 
     public static String parseTo_String(String s) {
@@ -144,7 +139,12 @@ public class ParserUtils {
     }
 
     public static BigDecimal parseTo_BigDecimal(String s) {
-        return new BigDecimal(s);
+        try {
+            return new BigDecimal(s);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
+        }
     }
 
     public static java.util.Date parseTo_Date(String s, String pattern) {
