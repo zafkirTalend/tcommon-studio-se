@@ -262,32 +262,35 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
 
     private void createPreviewCharts(final ScrolledForm form, final Composite composite, final boolean isCreate) {
 
-        ColumnIndicator[] columnIndicator = treeViewer.getColumnIndicator();
+        for (ModelElement modelElement : analysisHandler.getAnalyzedColumns()) {
 
-        for (final ColumnIndicator column : columnIndicator) {
-
+            final TdColumn column = SwitchHelpers.COLUMN_SWITCH.doSwitch(modelElement);
+            final Collection<Indicator> indicators = analysisHandler.getIndicators(column);
+            final ColumnIndicator columnIndicator = new ColumnIndicator(column);
+            columnIndicator.setIndicators(indicators.toArray(new Indicator[indicators.size()]));
+            
             ExpandableComposite exComp = toolkit.createExpandableComposite(composite, ExpandableComposite.TREE_NODE
                     | ExpandableComposite.CLIENT_INDENT);
 
-            exComp.setText("Column: " + column.getTdColumn().getName());
+            exComp.setText("Column: " + column.getName());
             exComp.setLayout(new GridLayout());
             final Composite comp = toolkit.createComposite(exComp);
             comp.setLayout(new GridLayout());
             comp.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-            if (column.getIndicators().length != 0) {
+            if (columnIndicator.getIndicators().length != 0) {
 
                 IRunnableWithProgress rwp = new IRunnableWithProgress() {
 
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-                        monitor.beginTask("Creating preview for " + column.getTdColumn().getName(), IProgressMonitor.UNKNOWN);
+                        monitor.beginTask("Creating preview for " + column.getName(), IProgressMonitor.UNKNOWN);
 
                         Display.getDefault().asyncExec(new Runnable() {
 
                             public void run() {
 
-                                for (ImageDescriptor descriptor : IndicatorChartFactory.createChart(column, isCreate)) {
+                                for (ImageDescriptor descriptor : IndicatorChartFactory.createChart(columnIndicator, isCreate)) {
 
                                     ImageHyperlink image = toolkit.createImageHyperlink(comp, SWT.WRAP);
                                     image.setImage(descriptor.createImage());
