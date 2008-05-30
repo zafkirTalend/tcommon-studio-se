@@ -107,7 +107,7 @@ public class ImportItemUtil {
             } else {
                 itemRecord.addError(Messages.getString("RepositoryUtil.nameUsed")); //$NON-NLS-1$
             }
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             // ignore
         }
 
