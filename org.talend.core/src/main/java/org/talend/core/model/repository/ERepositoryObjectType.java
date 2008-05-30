@@ -62,7 +62,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
-    METADATA_CON_CDC("repository.CDC"), //$NON-NLS-1$
+    METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
 
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -335,7 +335,8 @@ public enum ERepositoryObjectType {
     }
 
     public boolean isResourceItem() {
-        return !subItem && !this.equals(ERepositoryObjectType.FOLDER) && !this.equals(ERepositoryObjectType.REFERENCED_PROJECTS)
+        return !subItem && !this.equals(ERepositoryObjectType.FOLDER)
+                && !this.equals(ERepositoryObjectType.REFERENCED_PROJECTS)
                 && !this.equals(ERepositoryObjectType.SNIPPETS) && !this.equals(ERepositoryObjectType.GENERATED)
                 && !this.equals(ERepositoryObjectType.JOBS) && !this.equals(ERepositoryObjectType.JOB_DOC)
                 && !this.equals(ERepositoryObjectType.JOBLETS) && !this.equals(ERepositoryObjectType.JOBLET_DOC)
