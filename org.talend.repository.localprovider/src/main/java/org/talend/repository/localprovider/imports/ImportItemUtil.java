@@ -124,7 +124,7 @@ public class ImportItemUtil {
 
             try {
                 repFactory.createParentFoldersRecursively(itemType, path);
-            } catch (PersistenceException e) {
+            } catch (Exception e) {
                 path = new Path(""); //$NON-NLS-1$
                 logError(e);
             }
@@ -431,5 +431,7 @@ public class ImportItemUtil {
     private IPath getItemPath(IPath path) {
         return path.removeFileExtension().addFileExtension(FileConstants.ITEM_EXTENSION);
     }
+
+}
 
 }
