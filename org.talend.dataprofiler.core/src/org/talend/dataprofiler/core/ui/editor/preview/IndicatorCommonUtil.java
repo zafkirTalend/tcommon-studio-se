@@ -127,6 +127,9 @@ public class IndicatorCommonUtil {
         case FrequencyIndicatorEnum:
             FrequencyIndicator frequency = (FrequencyIndicator) indicator;
             Set<Object> valueSet = frequency.getDistinctValues();
+            if (valueSet == null) {
+                break;
+            }
             Map<Object, Long> returnMap = new HashMap<Object, Long>();
             for (Object o : valueSet) {
 
