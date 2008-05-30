@@ -102,5 +102,5 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMsgBox_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="192" posY="96" sizeHeight="129" sizeWidth="481" text="In this sample, we used a tRowGenerator to define a var.&#xD;&#xA;&#xD;&#xA;Off course, on your jobs, you will use a tFileInput(xxx) or a database !&#xD;&#xA;&#xD;&#xA;Please see the job nammed tContextLoad_and_file of folder &quot;t04_Context&quot; for a best example"/>
+  <note opaque="true" posX="192" posY="96" sizeHeight="129" sizeWidth="481" text="In this sample, we used a tRowGenerator to define a var.&#xD;&#xA;&#xD;&#xA;Of course, on your jobs, you will use a tFileInput(xxx) or a database !&#xD;&#xA;&#xD;&#xA;Please see the job nammed tContextLoad_and_file of folder &quot;t04_Context&quot; for a best example"/>
 </talendfile:ProcessType>

@@ -160,5 +160,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="160" posY="96" sizeHeight="129" sizeWidth="481" text="The view Contexts define the names of the variables.&#xD;&#xA;The delimited file define the values of the variables.&#xD;&#xA;&#xD;&#xA;Off course, before the tContextLoad, you can use a tDBInput...&#xD;&#xA;...or another component to read the data"/>
+  <note opaque="true" posX="160" posY="96" sizeHeight="129" sizeWidth="481" text="The view Contexts define the names of the variables.&#xD;&#xA;The delimited file define the values of the variables.&#xD;&#xA;&#xD;&#xA;Of course, before the tContextLoad, you can use a tDBInput...&#xD;&#xA;...or another component to read the data"/>
 </talendfile:ProcessType>
