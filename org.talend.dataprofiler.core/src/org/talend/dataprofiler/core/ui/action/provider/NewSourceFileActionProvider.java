@@ -51,9 +51,27 @@ public class NewSourceFileActionProvider extends CommonActionProvider {
                     menu.add(new AddSqlFileAction((IFolder) obj));
                 }
             } else if (obj instanceof IFile) {
-                menu.add(new RenameSqlFileAction((IFile) obj));
+                IFile file = (IFile) obj;
+                if (file.getFileExtension().equalsIgnoreCase("sql")) {
+                    menu.add(new RenameSqlFileAction((IFile) obj));
+                }
             }
         }
+        boolean isSelectFile = computeSelectedFiles(treeSelection, selectedFiles);
+        if (!isSelectFile && !selectedFiles.isEmpty()) {
+            menu.add(new OpenSqlFileAction(selectedFiles));
+            menu.add(new DeleteSqlFileAction(selectedFiles));
+        }
+    }
+
+    /**
+     * DOC qzhang Comment method "computeSelectedFiles".
+     * 
+     * @param treeSelection
+     * @param selectedFiles
+     * @return
+     */
+    public static boolean computeSelectedFiles(TreeSelection treeSelection, List<IFile> selectedFiles) {
         boolean isSelectFile = false;
         Iterator iterator = treeSelection.iterator();
         while (iterator.hasNext()) {
@@ -68,9 +86,6 @@ public class NewSourceFileActionProvider extends CommonActionProvider {
                 break;
             }
         }
-        if (!isSelectFile && !selectedFiles.isEmpty()) {
-            menu.add(new OpenSqlFileAction(selectedFiles));
-            menu.add(new DeleteSqlFileAction(selectedFiles));
-        }
+        return isSelectFile;
     }
 }
