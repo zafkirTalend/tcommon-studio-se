@@ -255,5 +255,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="32" posY="32" sizeHeight="33" sizeWidth="513" text="On the Run Pannel, before turn the job, check TRACE to see the transformation"/>
+  <note opaque="true" posX="32" posY="32" sizeHeight="33" sizeWidth="513" text="On the Run Pannel, before running the job, check TRACE to see the transformation"/>
 </talendfile:ProcessType>

@@ -200,5 +200,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="96" posY="64" sizeHeight="64" sizeWidth="513" text="On the Run Pannel, before turn the job, check TRACE to see the transformation.&#xD;&#xA;The tDenormalize component will merge the some rows to one row by group."/>
+  <note opaque="true" posX="96" posY="64" sizeHeight="64" sizeWidth="513" text="On the Run Pannel, before running the job, check TRACE to see the transformation.&#xD;&#xA;The tDenormalize component will merge the some rows to one row by group."/>
 </talendfile:ProcessType>

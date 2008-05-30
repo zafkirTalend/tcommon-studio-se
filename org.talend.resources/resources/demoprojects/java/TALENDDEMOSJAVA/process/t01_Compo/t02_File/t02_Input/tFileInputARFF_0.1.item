@@ -132,5 +132,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="96" posY="96" sizeHeight="161" sizeWidth="481" text="The ARFF file format is a standard format used by WEKA for datamining.&#xD;&#xA;The specifications can be found here&#xD;&#xA;http://weka.sourceforge.net/wekadoc/index.php/en:ARFF_(3.4.6)&#xD;&#xA;&#xD;&#xA;A tFileInputARFF and tFileOutputARFF could be useful for importing and exporting data used&#xD;&#xA;in datamining tools like WEKA.&#xD;&#xA;&#xD;&#xA;Download another sample on http://www.talendforge.org/bugs/view.php?id=2260"/>
+  <note opaque="true" posX="96" posY="96" sizeHeight="161" sizeWidth="481" text="The ARFF file format is a standard format used by WEKA for data mining.&#xD;&#xA;The specifications can be found here&#xD;&#xA;http://weka.sourceforge.net/wekadoc/index.php/en:ARFF_(3.4.6)&#xD;&#xA;&#xD;&#xA;A tFileInputARFF and tFileOutputARFF could be useful for importing and exporting data used&#xD;&#xA;in data mining tools like WEKA.&#xD;&#xA;&#xD;&#xA;Download another sample on http://www.talendforge.org/bugs/view.php?id=2260"/>
 </talendfile:ProcessType>

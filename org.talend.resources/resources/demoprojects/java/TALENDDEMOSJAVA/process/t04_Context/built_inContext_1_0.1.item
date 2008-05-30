@@ -53,5 +53,5 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileFetch_1"/>
   </node>
-  <note opaque="true" posX="32" posY="32" sizeHeight="161" sizeWidth="577" text="The view Contexts define the value of the variables.&#xD;&#xA;Before run this job, please change the value of the var named destination.&#xD;&#xA;&#xD;&#xA;In this job, we can see 2 contexts (dev, prod) ... and we can add another if you want:&#xD;&#xA;   - go the Panel Tree Values and clik on the little arrow in the extrem right of the panel&#xD;&#xA;&#xD;&#xA;In the view Run (left panel), before click to Run button, you can select the context to the execution"/>
+  <note opaque="true" posX="32" posY="32" sizeHeight="161" sizeWidth="577" text="The view Contexts define the value of the variables.&#xD;&#xA;Before run this job, please change the value of the var named destination.&#xD;&#xA;&#xD;&#xA;In this job, we can see 2 contexts (dev, prod) ... and we can add another if you want:&#xD;&#xA;   - go the Panel Tree Values and clik on the little arrow in the right of the panel&#xD;&#xA;&#xD;&#xA;In the view Run (left panel), before clicking Run button, you can select the context to the execution"/>
 </talendfile:ProcessType>

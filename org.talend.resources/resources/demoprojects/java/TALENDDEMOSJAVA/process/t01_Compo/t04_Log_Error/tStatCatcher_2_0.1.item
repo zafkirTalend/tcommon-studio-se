@@ -195,5 +195,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="32" posY="32" sizeHeight="128" sizeWidth="481" text="1&#xb0; Click on a blank space of this job&#xD;&#xA;2&#xb0; The view Properties display the &quot;Job Design&quot; properties&#xD;&#xA;&#xD;&#xA;On the panel &quot;Stats &amp; Logs&quot;:  we have check &quot;Use Statistics&quot; and &quot;On Console&quot;.&#xD;&#xA;In this use case, the component tStatCatcher is not requiered"/>
+  <note opaque="true" posX="32" posY="32" sizeHeight="128" sizeWidth="481" text="1&#xb0; Click on a blank space of this job&#xD;&#xA;2&#xb0; The view Properties display the &quot;Job Design&quot; properties&#xD;&#xA;&#xD;&#xA;On the panel &quot;Stats &amp; Logs&quot;:  we have check &quot;Use Statistics&quot; and &quot;On Console&quot;.&#xD;&#xA;In this use case, the component tStatCatcher is not required"/>
 </talendfile:ProcessType>

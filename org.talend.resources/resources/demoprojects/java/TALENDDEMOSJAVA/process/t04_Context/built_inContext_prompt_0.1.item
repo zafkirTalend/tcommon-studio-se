@@ -48,5 +48,5 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileFetch_1"/>
   </node>
-  <note opaque="true" posX="32" posY="32" sizeHeight="96" sizeWidth="513" text="The view Contexts define the value of the variables.&#xD;&#xA;Please, see the note of the job named built_inContext.&#xD;&#xA;&#xD;&#xA;In the view Contexts (panel Tree Values), the checkbox prompt is cheched:&#xD;&#xA;     when you run the job, a dialog box is available to define the var uri and default dir path"/>
+  <note opaque="true" posX="32" posY="32" sizeHeight="96" sizeWidth="513" text="The view Contexts define the value of the variables.&#xD;&#xA;Please, see the note of the job named built_inContext.&#xD;&#xA;&#xD;&#xA;In the view Contexts (panel Tree Values), the checkbox prompt is checked:&#xD;&#xA;     when you run the job, a dialog box is available to define the var uri and default dir path"/>
 </talendfile:ProcessType>

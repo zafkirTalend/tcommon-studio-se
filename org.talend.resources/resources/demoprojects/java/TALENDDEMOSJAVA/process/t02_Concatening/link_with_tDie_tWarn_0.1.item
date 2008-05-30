@@ -275,5 +275,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="256" posY="128" sizeHeight="161" sizeWidth="417" text="This job is an example to use the links OnComponentError and OnComponentOk&#xD;&#xA;on a &quot;error management&quot; context.&#xD;&#xA;&#xD;&#xA;On the top right of this job, the component tLogCatcher catch the message&#xD;&#xA;of the tDie and the tWarn and copy it on the tFileOutputDelimited.&#xD;&#xA;&#xD;&#xA;In practice, the tlogRow must be replace by an another component&#xD;&#xA;like a tFileOutput or a tDBoutput&#xD;&#xA;&#xD;&#xA;You can use a On Subjob Ok and On Subjob Error!"/>
+  <note opaque="true" posX="256" posY="128" sizeHeight="161" sizeWidth="417" text="This job is an example to use the links OnComponentError and OnComponentOk&#xD;&#xA;on a &quot;error management&quot; context.&#xD;&#xA;&#xD;&#xA;On the top right of this job, the component tLogCatcher catch the message&#xD;&#xA;of the tDie and the tWarn and copy it on the tFileOutputDelimited.&#xD;&#xA;&#xD;&#xA;In practice, the tlogRow must be replaced by an another component&#xD;&#xA;like a tFileOutput or a tDBoutput&#xD;&#xA;&#xD;&#xA;You can use a On Subjob Ok and On Subjob Error!"/>
 </talendfile:ProcessType>

@@ -197,5 +197,5 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <note opaque="true" posX="32" posY="416" sizeHeight="64" sizeWidth="513" text="The tUniqRow component will output the row with some unique fields which assigned in the property."/>
-  <note opaque="true" posX="28" posY="32" sizeHeight="33" sizeWidth="481" text="On the Run Pannel, before turn the job, check TRACE to see the transformation"/>
+  <note opaque="true" posX="28" posY="32" sizeHeight="33" sizeWidth="481" text="On the Run Pannel, before running the job, check TRACE to see the transformation"/>
 </talendfile:ProcessType>

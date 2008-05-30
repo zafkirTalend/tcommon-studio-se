@@ -139,6 +139,6 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="160" posY="288" sizeHeight="129" sizeWidth="577" text="The tExternalSortRow component use a external application to sort the datas.&#xD;&#xA;&#xD;&#xA;The sort functon is the command &quot;sort&quot; in linux, and the coreutils in windows.&#xD;&#xA;&#xD;&#xA;The coreutils can download from this link: http://gnuwin32.sourceforge.net/packages/coreutils.htm"/>
+  <note opaque="true" posX="160" posY="288" sizeHeight="129" sizeWidth="577" text="The tExternalSortRow component use a external application to sort the datas.&#xD;&#xA;&#xD;&#xA;The sort functon is the command &quot;sort&quot; in linux, and the coreutils in windows.&#xD;&#xA;&#xD;&#xA;The coreutils can be downloaded from this link: http://gnuwin32.sourceforge.net/packages/coreutils.htm"/>
   <note opaque="true" posX="128" posY="96" sizeHeight="64" sizeWidth="449" text="On the component tExternalSortRow, check the filepath of the generated output"/>
 </talendfile:ProcessType>

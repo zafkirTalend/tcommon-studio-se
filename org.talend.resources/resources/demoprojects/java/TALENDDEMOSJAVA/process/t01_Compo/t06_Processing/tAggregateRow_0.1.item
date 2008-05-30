@@ -137,5 +137,5 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <note opaque="true" posX="128" posY="320" sizeHeight="64" sizeWidth="577" text="The tAggregateRow component will calculate the assigned columns with a special function.&#xD;&#xA;&#xD;&#xA;It support these functions: count, min, max, avg, sum, first, last, list."/>
-  <note opaque="true" posX="192" posY="96" sizeHeight="64" sizeWidth="449" text="On the Run Pannel, before turn the job, check TRACE to see the transformation"/>
+  <note opaque="true" posX="192" posY="96" sizeHeight="64" sizeWidth="449" text="On the Run Pannel, before running the job, check TRACE to see the transformation"/>
 </talendfile:ProcessType>

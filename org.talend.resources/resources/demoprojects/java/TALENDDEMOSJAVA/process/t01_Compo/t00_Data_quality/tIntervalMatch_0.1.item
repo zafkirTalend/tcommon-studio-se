@@ -216,5 +216,5 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <note opaque="true" posX="128" posY="288" sizeHeight="97" sizeWidth="609" text="The tIntervalMatch component will append a column of lookup link to the main row.&#xD;&#xA;&#xD;&#xA;The assign column of the main row must be between the min and max columns of the lookup link."/>
-  <note opaque="true" posX="64" posY="0" sizeHeight="33" sizeWidth="641" text="On the Run Pannel, before turn the job, check TRACE to see the transformation"/>
+  <note opaque="true" posX="64" posY="0" sizeHeight="33" sizeWidth="641" text="On the Run Pannel, before running the job, check TRACE to see the transformation"/>
 </talendfile:ProcessType>

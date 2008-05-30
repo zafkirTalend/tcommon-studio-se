@@ -96,7 +96,7 @@
     <elementParameter field="TEXT" name="LABEL" value="                                                     &lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>
     <elementParameter field="CHECK" name="SHOW_HINT" value="true"/>
-    <elementParameter field="MEMO" name="COMMENT" value="&#xD;&#xA;                                   The output field label is fill by:&#xD;&#xA;                              DemoRoutines.getLabel(row1.value)&#xD;&#xA;&#xD;&#xA;A filter DemoRoutines.getFilter(row1.value ,row1.value2) return a booleen&#xD;&#xA;        to define if the row must be skip, or must be send to the tLogRow&#xD;&#xA;&#xD;&#xA;        DemoRoutines.getFilter(i,i2) return true if i &lt; i2 and false else&#xD;&#xA;&#xD;&#xA;This 2 methods are defined on the DemoRoutines (Repository/Code/Routines)"/>
+    <elementParameter field="MEMO" name="COMMENT" value="&#xD;&#xA;                                   The output field label is filled by:&#xD;&#xA;                              DemoRoutines.getLabel(row1.value)&#xD;&#xA;&#xD;&#xA;A filter DemoRoutines.getFilter(row1.value ,row1.value2) return a booleen&#xD;&#xA;        to define if the row must be skip, or must be send to the tLogRow&#xD;&#xA;&#xD;&#xA;        DemoRoutines.getFilter(i,i2) return true if i &lt; i2 and false else&#xD;&#xA;&#xD;&#xA;This 2 methods are defined on the DemoRoutines (Repository/Code/Routines)"/>
     <metadata connector="FLOW" name="out1">
       <column comment="" defaultValue="" key="false" name="value" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" defaultValue="" key="false" name="value2" nullable="false" pattern="" sourceType="" type="id_Integer"/>

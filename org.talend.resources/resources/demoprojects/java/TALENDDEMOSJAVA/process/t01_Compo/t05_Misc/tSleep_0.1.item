@@ -158,5 +158,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="160" posY="32" sizeHeight="64" sizeWidth="257" text="tStatCatcher->tLogRow write on the console&#xD;&#xA;the start and end of each components tSleep."/>
+  <note opaque="true" posX="160" posY="32" sizeHeight="64" sizeWidth="257" text="tStatCatcher->tLogRow write on the console&#xD;&#xA;the start and end of each component tSleep."/>
 </talendfile:ProcessType>

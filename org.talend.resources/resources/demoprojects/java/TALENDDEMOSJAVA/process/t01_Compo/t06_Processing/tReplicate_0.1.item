@@ -155,5 +155,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="64" posY="32" sizeHeight="64" sizeWidth="513" text="On the Run Pannel, before turn the job, check TRACE to see the transformation.&#xD;&#xA;The component tReplicate replicate an input on several outputs."/>
+  <note opaque="true" posX="64" posY="32" sizeHeight="64" sizeWidth="513" text="On the Run Pannel, before running the job, check TRACE to see the transformation.&#xD;&#xA;The component tReplicate replicate an input on several outputs."/>
 </talendfile:ProcessType>

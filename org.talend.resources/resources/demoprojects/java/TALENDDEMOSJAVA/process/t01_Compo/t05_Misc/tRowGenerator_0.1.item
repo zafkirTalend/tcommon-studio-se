@@ -94,5 +94,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="32" posY="128" sizeHeight="129" sizeWidth="609" text="The tRowGenerator component generate severals rows to test your job.&#xD;&#xA;to each columns, define a list of element (int, string boolean, etc) on the tRowGenerator.&#xD;&#xA;&#xD;&#xA;For used a dedicated routines to generate a data test,&#xD;&#xA;please see the job t03DemoRoutines/demo04_tRowGenerator"/>
+  <note opaque="true" posX="32" posY="128" sizeHeight="129" sizeWidth="609" text="The tRowGenerator component generate several rows to test your job.&#xD;&#xA;to each columns, define a list of element (int, string boolean, etc) on the tRowGenerator.&#xD;&#xA;&#xD;&#xA;For used a dedicated routines to generate a data test,&#xD;&#xA;please see the job t03DemoRoutines/demo04_tRowGenerator"/>
 </talendfile:ProcessType>

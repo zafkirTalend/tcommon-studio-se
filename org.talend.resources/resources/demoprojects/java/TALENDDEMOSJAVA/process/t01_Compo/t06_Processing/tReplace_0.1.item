@@ -169,5 +169,5 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <note opaque="true" posX="96" posY="288" sizeHeight="64" sizeWidth="481" text="The component tReplace will transform a String (and only a String)&#xD;&#xA;&#xD;&#xA;In this component, the String.replaceAll(String, String) syntaxt is used."/>
-  <note opaque="true" posX="128" posY="64" sizeHeight="64" sizeWidth="417" text="On the Run Pannel, before turn the job, check TRACE to see the transformation"/>
+  <note opaque="true" posX="128" posY="64" sizeHeight="64" sizeWidth="417" text="On the Run Pannel, before running the job, check TRACE to see the transformation"/>
 </talendfile:ProcessType>
