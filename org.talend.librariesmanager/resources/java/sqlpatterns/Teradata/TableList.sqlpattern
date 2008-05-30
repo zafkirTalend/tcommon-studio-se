@@ -2,5 +2,5 @@
 
 -- TableList
 SELECT TableName from DBC.TABLES
-WHERE databasename = 'talend'
+WHERE databasename = '<%= __DATABASE_NAME__ %>'
 AND tablekind = 'T';

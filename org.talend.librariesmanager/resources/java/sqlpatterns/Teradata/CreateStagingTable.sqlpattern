@@ -1,12 +1,11 @@
 -- This pattern is just an example for the RC release, and will be modified in future version.
 
 -- CREATE STAGGING TABLE
-CREATE MULTISET TABLE talend.cust_teradata_stagging ,NO FALLBACK ,
+CREATE MULTISET TABLE <%= __DATABASE_NAME__ %>.<%= __TABLE_NAME__ %> ,NO FALLBACK ,
      NO BEFORE JOURNAL,
      NO AFTER JOURNAL,
      CHECKSUM = DEFAULT
      (
       ID INTEGER,
       NAME VARCHAR(255) CHARACTER SET LATIN NOT CASESPECIFIC,
-      DATE_BIRTH DATE FORMAT 'YYYY-MM-DD'),
-      AMOUNT FLOAT(10);
+      DATE_BIRTH DATE FORMAT 'YYYY-MM-DD'); 
