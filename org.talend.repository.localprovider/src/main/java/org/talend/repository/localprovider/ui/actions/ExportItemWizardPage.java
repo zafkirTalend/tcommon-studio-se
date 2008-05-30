@@ -15,7 +15,6 @@ package org.talend.repository.localprovider.ui.actions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -43,6 +42,7 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
+import org.talend.repository.ui.views.RepositoryContentProvider;
 import org.talend.repository.ui.views.RepositoryView;
 
 /**
@@ -282,13 +282,14 @@ class ExportItemWizardPage extends WizardPage {
 
     public boolean performFinish() {
         IRepositoryView repositoryView = RepositoryView.show();
-        IStructuredSelection selection = (IStructuredSelection) repositoryView.getSite().getSelectionProvider().getSelection();
+        IStructuredSelection selection = (IStructuredSelection) repositoryView.getSite().getSelectionProvider()
+                .getSelection();
 
         Collection<Item> items = new ArrayList<Item>();
         if (selection.isEmpty()) {
             collectNodes(items, repositoryView.getRoot());
         } else {
-            collectNodes(items, selection.iterator());
+            collectNodes(items, selection.toArray());
         }
 
         try {
@@ -303,9 +304,9 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     @SuppressWarnings("unchecked")
-    private void collectNodes(Collection<Item> items, Iterator iterator) {
-        while (iterator.hasNext()) {
-            RepositoryNode repositoryNode = (RepositoryNode) iterator.next();
+    private void collectNodes(Collection<Item> items, Object[] objects) {
+        for (int i = 0; i < objects.length; i++) {
+            RepositoryNode repositoryNode = (RepositoryNode) objects[i];
             collectNodes(items, repositoryNode);
         }
     }
@@ -321,7 +322,9 @@ class ExportItemWizardPage extends WizardPage {
                 items.add(repositoryNode.getParent().getObject().getProperty().getItem());
             }
         }
-        collectNodes(items, repositoryNode.getChildren().iterator());
+        RepositoryContentProvider repositoryContentProvider = (RepositoryContentProvider) RepositoryView.show()
+                .getViewer().getContentProvider();
+        collectNodes(items, repositoryContentProvider.getChildren(repositoryNode));
     }
 
     public boolean performCancel() {
