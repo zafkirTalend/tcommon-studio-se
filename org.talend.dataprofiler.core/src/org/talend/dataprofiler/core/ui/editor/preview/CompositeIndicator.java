@@ -37,24 +37,24 @@ public class CompositeIndicator {
     
     public static final String SUMMARY_STATISTICS = "Summary Statistics";
     
-    IndicatorTypeMapping[] indicatorTypeMapping;
+    IndicatorUnit[] indicatorTypeMapping;
     
-    Map<String, List<IndicatorTypeMapping>> separatedMap; 
+    Map<String, List<IndicatorUnit>> separatedMap; 
     
     public CompositeIndicator(ColumnIndicator columnIndicator) {
         
-        this.separatedMap = new HashMap<String, List<IndicatorTypeMapping>>();
-        this.indicatorTypeMapping = columnIndicator.getIndicatorForMap();
+        this.separatedMap = new HashMap<String, List<IndicatorUnit>>();
+        this.indicatorTypeMapping = columnIndicator.getIndicatorUnits();
     }
     
-    public Map<String, List<IndicatorTypeMapping>> getIndicatorComposite() {
+    public Map<String, List<IndicatorUnit>> getIndicatorComposite() {
         
-        List<IndicatorTypeMapping> simpleList = new ArrayList<IndicatorTypeMapping>();
-        List<IndicatorTypeMapping> textList = new ArrayList<IndicatorTypeMapping>();
-        List<IndicatorTypeMapping> frequencyList = new ArrayList<IndicatorTypeMapping>();
-        List<IndicatorTypeMapping> summaryList = new ArrayList<IndicatorTypeMapping>();
+        List<IndicatorUnit> simpleList = new ArrayList<IndicatorUnit>();
+        List<IndicatorUnit> textList = new ArrayList<IndicatorUnit>();
+        List<IndicatorUnit> frequencyList = new ArrayList<IndicatorUnit>();
+        List<IndicatorUnit> summaryList = new ArrayList<IndicatorUnit>();
         
-        for (IndicatorTypeMapping one : indicatorTypeMapping) {
+        for (IndicatorUnit one : indicatorTypeMapping) {
             
             switch (one.getType()) {
             case RowCountIndicatorEnum:

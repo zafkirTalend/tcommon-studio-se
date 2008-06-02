@@ -43,7 +43,7 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
-import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.indicators.DataminingType;
@@ -213,17 +213,17 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, treeItem, 2);
             if (columnIndicator.hasIndicators()) {
-                createIndicatorItems(treeItem, columnIndicator.getIndicatorForMap());
+                createIndicatorItems(treeItem, columnIndicator.getIndicatorUnits());
             }
             treeItem.setExpanded(true);
         }
         this.setDirty(true);
     }
 
-    private void createIndicatorItems(final TreeItem treeItem, IndicatorTypeMapping[] indicatorTypeMappings) {
-        for (IndicatorTypeMapping indicatorMapping : indicatorTypeMappings) {
+    private void createIndicatorItems(final TreeItem treeItem, IndicatorUnit[] indicatorTypeMappings) {
+        for (IndicatorUnit indicatorMapping : indicatorTypeMappings) {
             final TreeItem indicatorItem = new TreeItem(treeItem, SWT.NONE);
-            final IndicatorTypeMapping typeMapping = indicatorMapping;
+            final IndicatorUnit typeMapping = indicatorMapping;
             final IndicatorEnum indicatorEnum = indicatorMapping.getType();
             indicatorItem.setText(0, indicatorMapping.getType().getLabel());
 
@@ -246,7 +246,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                     @Override
                     public void mouseDown(MouseEvent e) {
 
-                        IndicatorTypeMapping indicator = (IndicatorTypeMapping) ((Label) e.getSource()).getData();
+                        IndicatorUnit indicator = (IndicatorUnit) ((Label) e.getSource()).getData();
                         IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis);
 
                         try {
@@ -287,7 +287,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 @Override
                 public void mouseDown(MouseEvent e) {
 
-                    ((ColumnIndicator) treeItem.getData()).removeIndicatorMapping(typeMapping);
+                    ((ColumnIndicator) treeItem.getData()).removeIndicatorUnit(typeMapping);
                     setElements(columnIndicators);
                 }
 

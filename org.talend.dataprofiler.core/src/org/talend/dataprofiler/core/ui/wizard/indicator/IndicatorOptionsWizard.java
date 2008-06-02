@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
 import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
 import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.BinsDesignerParameter;
@@ -42,7 +42,7 @@ public class IndicatorOptionsWizard extends Wizard {
 
     private Analysis analysis;
 
-    private IndicatorTypeMapping indicatorMap;
+    private IndicatorUnit indicatorUnit;
 
     private Indicator indicator;
 
@@ -51,12 +51,12 @@ public class IndicatorOptionsWizard extends Wizard {
     /**
      * DOC zqin IndicatorOptionsWizard constructor comment.
      */
-    public IndicatorOptionsWizard(IndicatorTypeMapping indicatorMap, Analysis analysis) {
+    public IndicatorOptionsWizard(IndicatorUnit indicatorUnit, Analysis analysis) {
         setWindowTitle("Indicator");
 
-        this.indicatorMap = indicatorMap;
+        this.indicatorUnit = indicatorUnit;
         this.analysis = analysis;
-        this.indicator = indicatorMap.getIndicator();
+        this.indicator = indicatorUnit.getIndicator();
 
         initWizard();
     }
@@ -67,7 +67,7 @@ public class IndicatorOptionsWizard extends Wizard {
             AbstractIndicatorForm.emptyParameterList();
         }
 
-        IndicatorParameters indicatorParam = indicatorMap.getIndicator().getParameters();
+        IndicatorParameters indicatorParam = indicatorUnit.getIndicator().getParameters();
         if (indicatorParam != null) {
 
             paramMap = new HashMap<String, AbstractIndicatorParameter>();
@@ -124,11 +124,11 @@ public class IndicatorOptionsWizard extends Wizard {
 
         try {
 
-            IndicatorParameters paramters = indicatorMap.getIndicator().getParameters();
+            IndicatorParameters paramters = indicatorUnit.getIndicator().getParameters();
 
             if (paramters == null) {
                 paramters = IndicatorsFactory.eINSTANCE.createIndicatorParameters();
-                indicatorMap.getIndicator().setParameters(paramters);
+                indicatorUnit.getIndicator().setParameters(paramters);
             }
 
             TextParameters textParameters = paramters.getTextParameter();
@@ -171,7 +171,7 @@ public class IndicatorOptionsWizard extends Wizard {
                 if (parameter instanceof DataThresholdsParameter) {
 
                     DataThresholdsParameter tempParam = (DataThresholdsParameter) parameter;
-                    IndicatorHelper.setDataThreshold(indicatorMap.getIndicator(), tempParam.getMinThreshold(), tempParam
+                    IndicatorHelper.setDataThreshold(indicatorUnit.getIndicator(), tempParam.getMinThreshold(), tempParam
                             .getMaxThreshold());
                 }
 
@@ -202,7 +202,7 @@ public class IndicatorOptionsWizard extends Wizard {
     @Override
     public void addPages() {
 
-        DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(indicatorMap, paramMap);
+        DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(indicatorUnit, paramMap);
 
         addPage(indicatorPage);
     }

@@ -69,7 +69,7 @@ public class IndicatorCommonUtil {
 
     }
     
-    public static void compositeIndicatorMap(IndicatorTypeMapping indicatorMap) {
+    public static void compositeIndicatorMap(IndicatorUnit indicatorMap) {
         
         Color tempColor = null;
         Object tempObject = null;

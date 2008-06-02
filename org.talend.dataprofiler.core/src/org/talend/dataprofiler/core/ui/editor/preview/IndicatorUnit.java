@@ -26,7 +26,7 @@ import org.talend.dataquality.indicators.Indicator;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z zqin $
  *
  */
-public class IndicatorTypeMapping {
+public class IndicatorUnit {
     
     private String indicatorName;
 
@@ -40,9 +40,9 @@ public class IndicatorTypeMapping {
     
     private Object value;
     
-    private IndicatorTypeMapping[] children;
+    private IndicatorUnit[] children;
     
-    public IndicatorTypeMapping(IndicatorEnum type, Indicator indicator, ColumnIndicator parentColumn) {
+    public IndicatorUnit(IndicatorEnum type, Indicator indicator, ColumnIndicator parentColumn) {
         this.type = type;
         this.indicator = indicator;
         this.indicatorName = type.getLabel().split(" ")[0];
@@ -133,7 +133,7 @@ public class IndicatorTypeMapping {
      * Getter for children.
      * @return the children
      */
-    public IndicatorTypeMapping[] getChildren() {
+    public IndicatorUnit[] getChildren() {
         return children;
     }
 
@@ -143,7 +143,7 @@ public class IndicatorTypeMapping {
      * Sets the children.
      * @param children the children to set
      */
-    public void setChildren(IndicatorTypeMapping[] children) {
+    public void setChildren(IndicatorUnit[] children) {
         this.children = children;
     }
     

@@ -143,13 +143,13 @@ public class IndicatorChartFactory {
     
     //start to create kinds of dataset with real value
     
-    private static CategoryDataset createSimpleDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
+    private static CategoryDataset createSimpleDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         if (isCreate) {
             for (int index = 0; index<indicatorTypeMapping.size(); index++) {
-                IndicatorTypeMapping indicatorMap = indicatorTypeMapping.get(index);
+                IndicatorUnit indicatorMap = indicatorTypeMapping.get(index);
                 IndicatorCommonUtil.compositeIndicatorMap(indicatorMap);
                 Object object = indicatorMap.getValue();
                 String label = indicatorMap.getIndicatorName();
@@ -165,7 +165,7 @@ public class IndicatorChartFactory {
                 }
             }
         } else {
-            for (IndicatorTypeMapping indicator : indicatorTypeMapping) {
+            for (IndicatorUnit indicator : indicatorTypeMapping) {
                 
                 dataset.addValue(150, indicator.getIndicatorName(), "");
             }
@@ -176,19 +176,19 @@ public class IndicatorChartFactory {
         
     }
     
-    private static CategoryDataset createTextedDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
+    private static CategoryDataset createTextedDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
         
         return createSimpleDataset(indicatorTypeMapping, isCreate);
     }
     
-    private static CategoryDataset createSummaryDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
+    private static CategoryDataset createSummaryDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
 
         DefaultBoxAndWhiskerCategoryDataset dataset = new DefaultBoxAndWhiskerCategoryDataset();
         
         if (isCreate) {
             Map<IndicatorEnum, Double> map = new HashMap<IndicatorEnum, Double>();
             
-            for (IndicatorTypeMapping indicatorMap : indicatorTypeMapping) {
+            for (IndicatorUnit indicatorMap : indicatorTypeMapping) {
                 
                 Object object = null;
                 try {
@@ -239,11 +239,11 @@ public class IndicatorChartFactory {
     }
     
     @SuppressWarnings("unchecked")
-    private static CategoryDataset createFrequenceDataset(List<IndicatorTypeMapping> indicatorTypeMapping, boolean isCreate) {
+    private static CategoryDataset createFrequenceDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
-        for (IndicatorTypeMapping indicatorMap : indicatorTypeMapping) {
+        for (IndicatorUnit indicatorMap : indicatorTypeMapping) {
             Object object = null;
             try {
                 IndicatorCommonUtil.compositeIndicatorMap(indicatorMap);
@@ -279,7 +279,7 @@ public class IndicatorChartFactory {
     public static List<ImageDescriptor> createChart(ColumnIndicator column, boolean isCreate) {
         
         CompositeIndicator compositeIndicator = new CompositeIndicator(column);
-        Map<String, List<IndicatorTypeMapping>> separatedMap = compositeIndicator.getIndicatorComposite();
+        Map<String, List<IndicatorUnit>> separatedMap = compositeIndicator.getIndicatorComposite();
         List<ImageDescriptor> returnFiles = new ArrayList<ImageDescriptor>();
         
         if (separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS).size() != 0) {

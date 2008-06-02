@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
-import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
@@ -61,9 +61,9 @@ public class ColumnIndicator {
 
     // private List<Indicator> indicatorList = new ArrayList<Indicator>(0);
 
-    private Map<IndicatorEnum, IndicatorTypeMapping> indicatorUnitMap = new HashMap<IndicatorEnum, IndicatorTypeMapping>();
+    private Map<IndicatorEnum, IndicatorUnit> indicatorUnitMap = new HashMap<IndicatorEnum, IndicatorUnit>();
 
-    private IndicatorTypeMapping[] currentindicatorUnits;
+    private IndicatorUnit[] currentindicatorUnits;
 
     public ColumnIndicator(TdColumn tdColumn) {
         this.tdColumn = tdColumn;
@@ -77,10 +77,10 @@ public class ColumnIndicator {
      * Remove the indicator value from field 'flatIndicatorEnumList' and 'indicatorUnitMap', contains the parent and
      * children of indicatorTypeMapping.getType().
      * 
-     * @param indicatorTypeMapping
+     * @param indicatorUnit
      */
-    public void removeIndicatorMapping(IndicatorTypeMapping indicatorTypeMapping) {
-        IndicatorEnum indicatorEnum = indicatorTypeMapping.getType();
+    public void removeIndicatorUnit(IndicatorUnit indicatorUnit) {
+        IndicatorEnum indicatorEnum = indicatorUnit.getType();
         this.flatIndicatorEnumList.remove(indicatorEnum);
         indicatorUnitMap.remove(indicatorEnum);
         this.removeChildrenEnumMap(indicatorEnum);
@@ -119,17 +119,17 @@ public class ColumnIndicator {
 
     public Indicator[] getIndicators() {
         List<Indicator> indicatorList = new ArrayList<Indicator>();
-        IndicatorTypeMapping[] indicatorForMap = this.getIndicatorForMap();
+        IndicatorUnit[] indicatorUnits = this.getIndicatorUnits();
 
-        for (IndicatorTypeMapping indicatorUnit : indicatorForMap) {
+        for (IndicatorUnit indicatorUnit : indicatorUnits) {
             indicatorList.add(indicatorUnit.getIndicator());
         }
         return indicatorList.toArray(new Indicator[indicatorList.size()]);
     }
 
-    public IndicatorTypeMapping[] getIndicatorForMap() {
+    public IndicatorUnit[] getIndicatorUnits() {
         if (currentindicatorUnits == null) {
-            return new IndicatorTypeMapping[0];
+            return new IndicatorUnit[0];
         }
         return currentindicatorUnits;
     }
@@ -316,9 +316,9 @@ public class ColumnIndicator {
      * @param categoryEnums
      * @return
      */
-    private IndicatorTypeMapping[] createCategoryIndicatorUnits(IndicatorEnum[] categoryEnums) {
-        List<IndicatorTypeMapping> indicatorUnitList = new ArrayList<IndicatorTypeMapping>();
-        IndicatorTypeMapping indicatorUnit;
+    private IndicatorUnit[] createCategoryIndicatorUnits(IndicatorEnum[] categoryEnums) {
+        List<IndicatorUnit> indicatorUnitList = new ArrayList<IndicatorUnit>();
+        IndicatorUnit indicatorUnit;
         for (IndicatorEnum categoryEnum : categoryEnums) {
             indicatorUnit = getIndicatorUnit(categoryEnum);
             switch (categoryEnum) {
@@ -387,7 +387,7 @@ public class ColumnIndicator {
             }
 
         }
-        return indicatorUnitList.toArray(new IndicatorTypeMapping[indicatorUnitList.size()]);
+        return indicatorUnitList.toArray(new IndicatorUnit[indicatorUnitList.size()]);
     }
 
     /**
@@ -397,8 +397,8 @@ public class ColumnIndicator {
      * @param indicatorEnum
      * @return
      */
-    private IndicatorTypeMapping getIndicatorUnit(IndicatorEnum indicatorEnum) {
-        IndicatorTypeMapping indicatorUnit = this.indicatorUnitMap.get(indicatorEnum);
+    private IndicatorUnit getIndicatorUnit(IndicatorEnum indicatorEnum) {
+        IndicatorUnit indicatorUnit = this.indicatorUnitMap.get(indicatorEnum);
         if (indicatorUnit == null) {
             indicatorUnit = createIndicatorUnit(indicatorEnum, null);
         }
@@ -413,12 +413,12 @@ public class ColumnIndicator {
      * @param indicator
      * @return
      */
-    private IndicatorTypeMapping createIndicatorUnit(IndicatorEnum indicatorEnum, Indicator indicator) {
+    private IndicatorUnit createIndicatorUnit(IndicatorEnum indicatorEnum, Indicator indicator) {
         if (indicator == null) {
             IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
             indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
         }
-        IndicatorTypeMapping indicatorUnit = new IndicatorTypeMapping(indicatorEnum, indicator, this);
+        IndicatorUnit indicatorUnit = new IndicatorUnit(indicatorEnum, indicator, this);
         this.indicatorUnitMap.put(indicatorEnum, indicatorUnit);
         return indicatorUnit;
 

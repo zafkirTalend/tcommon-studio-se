@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.PlatformUI;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
-import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
+import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
 import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.AbstractIndicatorParameter;
 import org.talend.dataprofiler.help.HelpPlugin;
@@ -36,7 +36,7 @@ import org.talend.utils.sql.Java2SqlType;
  */
 public class DynamicIndicatorOptionsPage extends WizardPage {
 
-    private IndicatorTypeMapping indicator;
+    private IndicatorUnit indicator;
     
     private ColumnIndicator parentColumn;
     
@@ -47,7 +47,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
      * DOC zqin DynamicIndicatorOptionsPage constructor comment.
      * @param pageName
      */
-    public DynamicIndicatorOptionsPage(IndicatorTypeMapping indicator, Map<String, AbstractIndicatorParameter> paramMap) {
+    public DynamicIndicatorOptionsPage(IndicatorUnit indicator, Map<String, AbstractIndicatorParameter> paramMap) {
         super("Indicator settings");
         
         this.indicator = indicator;
