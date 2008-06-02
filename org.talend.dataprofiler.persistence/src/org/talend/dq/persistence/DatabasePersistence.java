@@ -356,15 +356,16 @@ public class DatabasePersistence {
             int i = 0;
             while (iterator.hasNext()) {
                 Object next = iterator.next();
+                String valueAsString = (next == null) ? SqlConstants.NULL_VALUE : String.valueOf(next);
                 Long count = frequencyIndicator.getCount(next);
-                List list = session.createCriteria(TdqValues.class).add(Expression.eq("valString", next)).list();
+                List list = session.createCriteria(TdqValues.class).add(Expression.eq("valString", valueAsString)).list();
                 TdqValues currentTdqValues = null;
                 if (list.size() > 0) {
                     TdqValues dbTdqValues = (TdqValues) list.get(0);
                     currentTdqValues = dbTdqValues;
                 } else {
                     TdqValues createTdqValues = new TdqValues();
-                    createTdqValues.setValString((String) next);
+                    createTdqValues.setValString(valueAsString);
                     currentTdqValues = createTdqValues;
                 }
 
@@ -393,14 +394,16 @@ public class DatabasePersistence {
             if (modeIndicator == null) {
                 return indicatorValues;
             }
-            List list = session.createCriteria(TdqValues.class).add(Expression.eq("valString", modeIndicator.getMode())).list();
+            String modeAsString = modeIndicator.getMode() == null ? SqlConstants.NULL_VALUE : String.valueOf(modeIndicator
+                    .getMode());
+            List list = session.createCriteria(TdqValues.class).add(Expression.eq("valString", modeAsString)).list();
             TdqValues currentTdqValues = null;
             if (list.size() > 0) {
                 TdqValues dbTdqValues = (TdqValues) list.get(0);
                 currentTdqValues = dbTdqValues;
             } else {
                 TdqValues createTdqValues = new TdqValues();
-                createTdqValues.setValString((String) modeIndicator.getMode());
+                createTdqValues.setValString(modeAsString);
                 currentTdqValues = createTdqValues;
             }
             createPartTdqIndicatorValue.setTdqValues(currentTdqValues);
@@ -541,7 +544,7 @@ public class DatabasePersistence {
     private TdqIndicatorDefinition createTdqIndicatorDefinition(Indicator indicator) {
         TdqIndicatorDefinition dbIndicatorDefinition = new TdqIndicatorDefinition();
         dbIndicatorDefinition.setIndBeginDate(new Date(System.currentTimeMillis()));
-        dbIndicatorDefinition.setIndCategory(indicator.getIndicatorDefinition().getCategories().get(0).getLabel());
+        dbIndicatorDefinition.setIndCategory(this.getCategory(indicator));
         dbIndicatorDefinition.setIndEndDate(SqlConstants.END_DATE);
         dbIndicatorDefinition.setIndLabel(indicator.getName());
         DataminingType dataminingType = indicator.getDataminingType();
@@ -553,4 +556,12 @@ public class DatabasePersistence {
         return dbIndicatorDefinition;
     }
 
+    private String getCategory(Indicator indicator) {
+        if (indicator.getIndicatorDefinition() == null || indicator.getIndicatorDefinition().getCategories().isEmpty()) {
+            // TODO rli log or throw an exception? This should not happen.
+            return SqlConstants.NULL_VALUE;
+        }
+        // else
+        return indicator.getIndicatorDefinition().getCategories().get(0).getLabel();
+    }
 }
