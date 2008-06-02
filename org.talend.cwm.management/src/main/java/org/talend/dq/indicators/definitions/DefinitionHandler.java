@@ -23,6 +23,7 @@ import org.talend.commons.emf.EMFUtil;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.BoxIndicator;
+import org.talend.dataquality.indicators.CountsIndicator;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
 import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.FrequencyIndicator;
@@ -41,6 +42,7 @@ import org.talend.dataquality.indicators.NullCountIndicator;
 import org.talend.dataquality.indicators.RangeIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.SumIndicator;
+import org.talend.dataquality.indicators.TextIndicator;
 import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.UpperQuartileIndicator;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
@@ -116,7 +118,7 @@ public final class DefinitionHandler {
             }
         } catch (RuntimeException e) {
             if (log.isDebugEnabled()) {
-                log.error(e.getMessage());
+                log.error(e.getMessage(), e);
             }
         }
         if (definitionsFile == null) {
@@ -128,7 +130,7 @@ public final class DefinitionHandler {
                     log.debug("Definition of indicators loaded from " + uri);
                 }
             } catch (RuntimeException e) {
-                log.error(e.getMessage());
+                log.error(e.getMessage(), e);
             }
         }
 
@@ -230,11 +232,24 @@ public final class DefinitionHandler {
         return null;
     }
 
+    /**
+     * Note: scorreia. All indicator definitions defined in .Talend.definition file must be implemented here.
+     */
     private final IndicatorsSwitch<Boolean> mySwitch = new IndicatorsSwitch<Boolean>() {
 
         @Override
         public Boolean defaultCase(EObject object) {
             return false;
+        }
+
+        @Override
+        public Boolean caseCountsIndicator(CountsIndicator object) {
+            return setIndicatorDefinition(object, "Simple Statistics");
+        }
+
+        @Override
+        public Boolean caseTextIndicator(TextIndicator object) {
+            return setIndicatorDefinition(object, "Text Statistics");
         }
 
         @Override

@@ -28,52 +28,52 @@ package org.talend.dataquality.indicators;
  */
 public interface RangeIndicator extends CompositeIndicator {
     /**
-     * Returns the value of the '<em><b>Lower Value</b></em>' reference.
+     * Returns the value of the '<em><b>Lower Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Lower Value</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Lower Value</em>' reference.
+     * @return the value of the '<em>Lower Value</em>' containment reference.
      * @see #setLowerValue(MinValueIndicator)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getRangeIndicator_LowerValue()
-     * @model
+     * @model containment="true"
      * @generated
      */
     MinValueIndicator getLowerValue();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getLowerValue <em>Lower Value</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getLowerValue <em>Lower Value</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Lower Value</em>' reference.
+     * @param value the new value of the '<em>Lower Value</em>' containment reference.
      * @see #getLowerValue()
      * @generated
      */
     void setLowerValue(MinValueIndicator value);
 
     /**
-     * Returns the value of the '<em><b>Upper Value</b></em>' reference.
+     * Returns the value of the '<em><b>Upper Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Upper Value</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Upper Value</em>' reference.
+     * @return the value of the '<em>Upper Value</em>' containment reference.
      * @see #setUpperValue(MaxValueIndicator)
      * @see org.talend.dataquality.indicators.IndicatorsPackage#getRangeIndicator_UpperValue()
-     * @model
+     * @model containment="true"
      * @generated
      */
     MaxValueIndicator getUpperValue();
 
     /**
-     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getUpperValue <em>Upper Value</em>}' reference.
+     * Sets the value of the '{@link org.talend.dataquality.indicators.RangeIndicator#getUpperValue <em>Upper Value</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Upper Value</em>' reference.
+     * @param value the new value of the '<em>Upper Value</em>' containment reference.
      * @see #getUpperValue()
      * @generated
      */

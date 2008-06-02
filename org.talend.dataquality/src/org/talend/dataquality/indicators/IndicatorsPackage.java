@@ -1610,7 +1610,7 @@ public interface IndicatorsPackage extends EPackage {
     int RANGE_INDICATOR__INSTANTIATED_EXPRESSIONS = COMPOSITE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
-     * The feature id for the '<em><b>Lower Value</b></em>' reference.
+     * The feature id for the '<em><b>Lower Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1619,7 +1619,7 @@ public interface IndicatorsPackage extends EPackage {
     int RANGE_INDICATOR__LOWER_VALUE = COMPOSITE_INDICATOR_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Upper Value</b></em>' reference.
+     * The feature id for the '<em><b>Upper Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -5216,7 +5216,7 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR__INSTANTIATED_EXPRESSIONS = RANGE_INDICATOR__INSTANTIATED_EXPRESSIONS;
 
     /**
-     * The feature id for the '<em><b>Lower Value</b></em>' reference.
+     * The feature id for the '<em><b>Lower Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -5225,7 +5225,7 @@ public interface IndicatorsPackage extends EPackage {
     int IQR_INDICATOR__LOWER_VALUE = RANGE_INDICATOR__LOWER_VALUE;
 
     /**
-     * The feature id for the '<em><b>Upper Value</b></em>' reference.
+     * The feature id for the '<em><b>Upper Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -7768,10 +7768,10 @@ public interface IndicatorsPackage extends EPackage {
     EClass getRangeIndicator();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.RangeIndicator#getLowerValue <em>Lower Value</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.RangeIndicator#getLowerValue <em>Lower Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Lower Value</em>'.
+     * @return the meta object for the containment reference '<em>Lower Value</em>'.
      * @see org.talend.dataquality.indicators.RangeIndicator#getLowerValue()
      * @see #getRangeIndicator()
      * @generated
@@ -7779,10 +7779,10 @@ public interface IndicatorsPackage extends EPackage {
     EReference getRangeIndicator_LowerValue();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.dataquality.indicators.RangeIndicator#getUpperValue <em>Upper Value</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.dataquality.indicators.RangeIndicator#getUpperValue <em>Upper Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Upper Value</em>'.
+     * @return the meta object for the containment reference '<em>Upper Value</em>'.
      * @see org.talend.dataquality.indicators.RangeIndicator#getUpperValue()
      * @see #getRangeIndicator()
      * @generated
@@ -8739,7 +8739,7 @@ public interface IndicatorsPackage extends EPackage {
         EClass RANGE_INDICATOR = eINSTANCE.getRangeIndicator();
 
         /**
-         * The meta object literal for the '<em><b>Lower Value</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Lower Value</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -8747,7 +8747,7 @@ public interface IndicatorsPackage extends EPackage {
         EReference RANGE_INDICATOR__LOWER_VALUE = eINSTANCE.getRangeIndicator_LowerValue();
 
         /**
-         * The meta object literal for the '<em><b>Upper Value</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Upper Value</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
