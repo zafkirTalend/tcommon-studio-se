@@ -37,7 +37,7 @@ public class CompositeIndicator {
     
     public static final String SUMMARY_STATISTICS = "Summary Statistics";
     
-    List<IndicatorTypeMapping> indicatorTypeMapping;
+    IndicatorTypeMapping[] indicatorTypeMapping;
     
     Map<String, List<IndicatorTypeMapping>> separatedMap; 
     

@@ -11,28 +11,25 @@
 //
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes.indicator;
-import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
+import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
 /**
  * @author rli
  * 
  */
-public class AbstractIndicatorNode implements IIndicatorNode {
+public abstract class AbstractIndicatorNode implements IIndicatorNode {
 
     private IIndicatorNode parent;
 
-    private IIndicatorNode[] children;
+    protected IIndicatorNode[] children;
 
-    private IndicatorEnum indicatorEnum;
+    protected IndicatorEnum indicatorEnum;
 
-    private String label;
+    protected String label;
 
-    /**
-     * @param children the children to set
-     */
-    public void setChildren(IIndicatorNode[] children) {
-        this.children = children;
+    public AbstractIndicatorNode(IndicatorEnum indicatorEnum) {
+        this.indicatorEnum = indicatorEnum;
     }
 
     /**
@@ -40,15 +37,6 @@ public class AbstractIndicatorNode implements IIndicatorNode {
      */
     public void setParent(IIndicatorNode parent) {
         this.parent = parent;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode#getChildren()
-     */
-    public IIndicatorNode[] getChildren() {
-        return children;
     }
 
     /*
@@ -68,44 +56,20 @@ public class AbstractIndicatorNode implements IIndicatorNode {
     public boolean hasChildren() {
         return children != null;
     }
+    
 
-    /* (non-Javadoc)
+
+    public String getLabel() {
+        return this.indicatorEnum.getLabel();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode#getIndicatorEnum()
      */
     public IndicatorEnum getIndicatorEnum() {
         return indicatorEnum;
-    }
-
-    /**
-     * @param indicatorEnum
-     */
-    public void setIndicatorEnum(IndicatorEnum indicatorEnum) {
-        this.indicatorEnum = indicatorEnum;
-    }
-
-    public String getLabel() {
-        if (this.label == null && indicatorEnum != null) {
-            return this.indicatorEnum.getLabel();
-        }
-        return label;
-    }
-
-    /**
-     * @param label the label to set
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public void addChildren(IIndicatorNode node) {
-        if (this.children != null) {
-            IIndicatorNode[] nodes = new IIndicatorNode[this.children.length + 1];
-            System.arraycopy(children, 0, nodes, 0, this.children.length);
-            nodes[nodes.length - 1] = node;
-            this.children = nodes;
-        } else {
-            this.children = new IIndicatorNode[] { node };
-        }
     }
 
 }

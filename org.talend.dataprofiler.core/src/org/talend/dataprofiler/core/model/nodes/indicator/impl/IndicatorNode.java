@@ -13,18 +13,25 @@
 package org.talend.dataprofiler.core.model.nodes.indicator.impl;
 
 import org.talend.dataprofiler.core.model.nodes.indicator.AbstractIndicatorNode;
-
+import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
+import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
 /**
  * @author rli
- *
+ * 
  */
 public class IndicatorNode extends AbstractIndicatorNode {
 
-    /**
-     * 
-     */
-    public IndicatorNode() {
+    public IndicatorNode(IndicatorEnum indicatorEnum) {
+        super(indicatorEnum);
+    }
+
+    public boolean isIndicatorEnumNode() {
+        return true;
+    }
+
+    public IIndicatorNode[] getChildren() {
+        return null;
     }
 
 }

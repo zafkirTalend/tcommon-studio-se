@@ -40,6 +40,8 @@ public class IndicatorTypeMapping {
     
     private Object value;
     
+    private IndicatorTypeMapping[] children;
+    
     public IndicatorTypeMapping(IndicatorEnum type, Indicator indicator, ColumnIndicator parentColumn) {
         this.type = type;
         this.indicator = indicator;
@@ -123,6 +125,26 @@ public class IndicatorTypeMapping {
      */
     public String getIndicatorName() {
         return this.indicatorName;
+    }
+
+
+    
+    /**
+     * Getter for children.
+     * @return the children
+     */
+    public IndicatorTypeMapping[] getChildren() {
+        return children;
+    }
+
+
+    
+    /**
+     * Sets the children.
+     * @param children the children to set
+     */
+    public void setChildren(IndicatorTypeMapping[] children) {
+        this.children = children;
     }
     
 }

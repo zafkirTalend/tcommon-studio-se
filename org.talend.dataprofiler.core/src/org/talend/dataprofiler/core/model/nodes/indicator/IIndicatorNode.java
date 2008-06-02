@@ -14,7 +14,6 @@ package org.talend.dataprofiler.core.model.nodes.indicator;
 
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 
-
 /**
  * @author rli
  * 
@@ -26,14 +25,16 @@ public interface IIndicatorNode {
     public boolean hasChildren();
 
     public IIndicatorNode getParent();
-    
-    public void addChildren(IIndicatorNode node);
+
+    public void setParent(IIndicatorNode indicatorNode);
 
     /**
      * @return the indicatorFieldEnum
      */
     public IndicatorEnum getIndicatorEnum();
-    
+
     public String getLabel();
+
+    public boolean isIndicatorEnumNode();
 
 }

@@ -13,16 +13,31 @@
 package org.talend.dataprofiler.core.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataquality.helpers.MetadataHelper;
+import org.talend.dataquality.indicators.AverageLengthIndicator;
+import org.talend.dataquality.indicators.BoxIndicator;
 import org.talend.dataquality.indicators.DataminingType;
+import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
+import org.talend.dataquality.indicators.LowerQuartileIndicator;
+import org.talend.dataquality.indicators.MaxLengthIndicator;
+import org.talend.dataquality.indicators.MaxValueIndicator;
+import org.talend.dataquality.indicators.MeanIndicator;
+import org.talend.dataquality.indicators.MedianIndicator;
+import org.talend.dataquality.indicators.MinLengthIndicator;
+import org.talend.dataquality.indicators.MinValueIndicator;
+import org.talend.dataquality.indicators.RangeIndicator;
+import org.talend.dataquality.indicators.TextIndicator;
+import org.talend.dataquality.indicators.UpperQuartileIndicator;
 
 /**
  * This class can store the all the Indicators of one TdColumn, and provide the method to access all indicator.
@@ -32,67 +47,60 @@ public class ColumnIndicator {
 
     private TdColumn tdColumn;
 
-    private List<IndicatorEnum> indicatorEnums = new ArrayList<IndicatorEnum>();
+    private List<IndicatorEnum> tempIndicatorEnums = new ArrayList<IndicatorEnum>();
 
-    private List<Indicator> indicatorList = new ArrayList<Indicator>(0);
+    // the indicatorEnums number equal plat IndicatorEnum(not hierrachy) numbers.
+    private List<IndicatorEnum> flatIndicatorEnumList = new ArrayList<IndicatorEnum>();
 
-    private List<IndicatorTypeMapping> indicatorMappingTypeList = new ArrayList<IndicatorTypeMapping>();
+    // private List<Indicator> indicatorList = new ArrayList<Indicator>(0);
+
+    private Map<IndicatorEnum, IndicatorTypeMapping> indicatorUnitMap = new HashMap<IndicatorEnum, IndicatorTypeMapping>();
+
+    private IndicatorTypeMapping[] currentindicatorUnits;
 
     public ColumnIndicator(TdColumn tdColumn) {
         this.tdColumn = tdColumn;
     }
 
-    public void addIndicatorEnum(IndicatorEnum indicatorEnum, Indicator indicator) {
-        if (indicatorEnum == null) {
-            return;
-        }
-        
-        if (!this.indicatorEnums.contains(indicatorEnum)) {
-            
-            indicatorEnums.add(indicatorEnum);
-            if (indicator == null) {
-                indicator = createIndicator(indicatorEnum);
-            }
-            indicatorList.add(indicator);
-            IndicatorTypeMapping one = new IndicatorTypeMapping(indicatorEnum, indicator, this);
-            this.indicatorMappingTypeList.add(one);
-        }
-        
-    }
-
-    private Indicator createIndicator(IndicatorEnum indicatorEnum) {
-        IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
-        Indicator indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
-        return indicator;
-    }
-
     public boolean contains(IndicatorEnum indicatorEnum) {
-        return indicatorEnums == null ? false : this.indicatorEnums.contains(indicatorEnum);
+        return this.flatIndicatorEnumList.contains(indicatorEnum);
     }
 
     /**
-     * @return the indicatorEnums
+     * Remove the indicator value from field 'flatIndicatorEnumList' and 'indicatorUnitMap', contains the parent and
+     * children of indicatorTypeMapping.getType().
+     * 
+     * @param indicatorTypeMapping
      */
-    public void removeIndicatorEnum(IndicatorEnum indicatorEnum) {
-        this.indicatorEnums.remove(indicatorEnum);
-        for (IndicatorTypeMapping indicatorMapping : this.indicatorMappingTypeList) {
-            if (indicatorMapping.getType() == indicatorEnum) {
-                this.indicatorList.remove(indicatorMapping.getIndicator());
-                indicatorMappingTypeList.remove(indicatorMapping);
-                break;
+    public void removeIndicatorMapping(IndicatorTypeMapping indicatorTypeMapping) {
+        IndicatorEnum indicatorEnum = indicatorTypeMapping.getType();
+        this.flatIndicatorEnumList.remove(indicatorEnum);
+        indicatorUnitMap.remove(indicatorEnum);
+        this.removeChildrenEnumMap(indicatorEnum);
+        this.removeParentEnumMap(indicatorEnum);
+        this.processCategoryIndicator();
+    }
+
+    private void removeChildrenEnumMap(IndicatorEnum indicatorEnum) {
+        if (indicatorEnum.hasChildren()) {
+            for (IndicatorEnum childEnum : indicatorEnum.getChildren()) {
+                this.flatIndicatorEnumList.remove(childEnum);
+                indicatorUnitMap.remove(childEnum);
+                this.removeChildrenEnumMap(childEnum);
             }
         }
     }
 
-    /**
-     * @param indicatorEnums the indicatorEnums to set
-     */
-    public IndicatorEnum[] getIndicatorEnums() {
-        return this.indicatorEnums.toArray(new IndicatorEnum[indicatorEnums.size()]);
+    private void removeParentEnumMap(IndicatorEnum indicatorEnum) {
+        if (indicatorEnum.hasParent()) {
+            this.flatIndicatorEnumList.remove(indicatorEnum.getParent());
+            indicatorUnitMap.remove(indicatorEnum.getParent());
+            this.removeParentEnumMap(indicatorEnum.getParent());
+        }
     }
 
     public boolean hasIndicators() {
-        return !(this.indicatorEnums.size() == 0 || this.indicatorEnums.size() == 0);
+        return !(this.flatIndicatorEnumList.size() == 0 || this.flatIndicatorEnumList.size() == 0);
     }
 
     /**
@@ -103,31 +111,99 @@ public class ColumnIndicator {
     }
 
     public Indicator[] getIndicators() {
-        return this.indicatorList.toArray(new Indicator[indicatorList.size()]);
+        List<Indicator> indicatorList = new ArrayList<Indicator>();
+        IndicatorTypeMapping[] indicatorForMap = this.getIndicatorForMap();
+
+        for (IndicatorTypeMapping indicatorUnit : indicatorForMap) {
+            indicatorList.add(indicatorUnit.getIndicator());
+        }
+        return indicatorList.toArray(new Indicator[indicatorList.size()]);
     }
 
-    public List<IndicatorTypeMapping> getIndicatorForMap() {
-        if (indicatorEnums.size() == 0) {
-            return Collections.emptyList();
+    public IndicatorTypeMapping[] getIndicatorForMap() {
+        if (currentindicatorUnits == null) {
+            return new IndicatorTypeMapping[0];
         }
-        return indicatorMappingTypeList;
+        return currentindicatorUnits;
     }
 
     public void setIndicators(Indicator[] indicators) {
         clear();
         for (Indicator oneIndicator : indicators) {
-            
-            addIndicatorEnum(IndicatorEnum.findIndicatorEnum(oneIndicator.eClass()), oneIndicator);
+            IndicatorEnum findIndicatorEnum = IndicatorEnum.findIndicatorEnum(oneIndicator.eClass());
+            this.flatIndicatorEnumList.add(findIndicatorEnum);
+            fillCategoryIndicators(findIndicatorEnum, oneIndicator);
         }
+        processCategoryIndicator();
+
+    }
+
+    /**
+     * Fill the indicator value to the corresponding indicator's property, and fill the value to field
+     * 'flatIndicatorEnumList' and 'indicatorUnitMap'.
+     * 
+     * @param indicatorEnum
+     * @param indicator
+     */
+    private void fillCategoryIndicators(IndicatorEnum indicatorEnum, Indicator indicator) {
+
+        // add indicatorEnum to flatIndicatorEnumList
+        if (indicatorEnum.hasChildren()) {
+            for (IndicatorEnum indEnum : indicatorEnum.getChildren()) {
+                if (this.flatIndicatorEnumList.contains(indEnum)) {
+                    continue;
+                }
+                this.flatIndicatorEnumList.add(indEnum);
+            }
+        }
+        switch (indicatorEnum) {
+        case TextIndicatorEnum:
+            TextIndicator textIndicator = (TextIndicator) indicator;
+
+            // add indicatorUnit to indicatorUnitMap
+            this.indicatorUnitMap.put(IndicatorEnum.MinLengthIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.MinLengthIndicatorEnum, textIndicator.getMinLengthIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.MaxLengthIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.MaxLengthIndicatorEnum, textIndicator.getMaxLengthIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.AverageLengthIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.AverageLengthIndicatorEnum, textIndicator.getAverageLengthIndicator()));
+            break;
+        case BoxIIndicatorEnum:
+            BoxIndicator boxtIndicator = (BoxIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.MeanIndicatorEnum, createIndicatorUnit(IndicatorEnum.MeanIndicatorEnum,
+                    boxtIndicator.getMeanIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.MedianIndicatorEnum, createIndicatorUnit(IndicatorEnum.MedianIndicatorEnum,
+                    boxtIndicator.getMedianIndicator()));
+            this.fillCategoryIndicators(IndicatorEnum.RangeIndicatorEnum, boxtIndicator.getRangeIndicator());
+            this.fillCategoryIndicators(IndicatorEnum.IQRIndicatorEnum, boxtIndicator.getIQR());
+            break;
+        case IQRIndicatorEnum:
+            IQRIndicator iqrIndicator = (IQRIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.LowerQuartileIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.LowerQuartileIndicatorEnum, iqrIndicator.getLowerValue()));
+            this.indicatorUnitMap.put(IndicatorEnum.UpperQuartileIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.UpperQuartileIndicatorEnum, iqrIndicator.getUpperValue()));
+            break;
+        case RangeIndicatorEnum:
+            RangeIndicator rangeIndicator = (RangeIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.MaxValueIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.MaxValueIndicatorEnum, rangeIndicator.getUpperValue()));
+            this.indicatorUnitMap.put(IndicatorEnum.MinValueIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.MinValueIndicatorEnum, rangeIndicator.getLowerValue()));
+            break;
+        default:
+            this.indicatorUnitMap.put(indicatorEnum, createIndicatorUnit(indicatorEnum, indicator));
+            break;
+        }
+
     }
 
     /**
      * DOC rli Comment method "clear".
      */
     private void clear() {
-        indicatorEnums.clear();
-        indicatorList.clear();
-        indicatorMappingTypeList.clear();
+        flatIndicatorEnumList.clear();
+        indicatorUnitMap.clear();
     }
 
     /**
@@ -154,4 +230,162 @@ public class ColumnIndicator {
         MetadataHelper.setDataminingType(dataminingType, tdColumn);
     }
 
+    public void addTempIndicatorEnum(IndicatorEnum indicatorEnum) {
+        if (!tempIndicatorEnums.contains(indicatorEnum)) {
+            tempIndicatorEnums.add(indicatorEnum);
+        }
+    }
+
+    public void removeTempIndicatorEnum(IndicatorEnum indicatorEnum) {
+        tempIndicatorEnums.remove(indicatorEnum);
+    }
+
+    public void copyOldIndicatorEnum() {
+        listCopy(tempIndicatorEnums, flatIndicatorEnumList);
+    }
+
+    /**
+     * Store the tempory indicator to flatIndicatorEnumList.
+     */
+    public void storeTempIndicator() {
+        for (IndicatorEnum indEnum : tempIndicatorEnums) {
+            if (!flatIndicatorEnumList.contains(indEnum)) {
+                this.flatIndicatorEnumList.add(indEnum);
+            }
+        }
+        // remove the deleted IndicatorEnum from current indicatorsEnums;
+        Iterator<IndicatorEnum> iterator = flatIndicatorEnumList.iterator();
+        while (iterator.hasNext()) {
+            IndicatorEnum next = iterator.next();
+            if (!tempIndicatorEnums.contains(next)) {
+                iterator.remove();
+            }
+        }
+
+        processCategoryIndicator();
+
+        // clear tempIndicatorEnums
+        tempIndicatorEnums.clear();
+    }
+
+    /**
+     * Handle the category IndicatorEnum.
+     */
+    private void processCategoryIndicator() {
+        List<IndicatorEnum> categoryEnumList = new ArrayList<IndicatorEnum>();
+        listCopy(categoryEnumList, flatIndicatorEnumList);
+        Iterator<IndicatorEnum> iterator = flatIndicatorEnumList.iterator();
+        while (iterator.hasNext()) {
+            IndicatorEnum indEnum = iterator.next();
+            if (indEnum.hasChildren()) {
+                for (IndicatorEnum childrenEnum : indEnum.getChildren()) {
+                    categoryEnumList.remove(childrenEnum);
+                }
+            }
+
+        }
+        currentindicatorUnits = createCategoryIndicatorUnits(categoryEnumList.toArray(new IndicatorEnum[categoryEnumList.size()]));
+    }
+
+    /**
+     * create indicatorMappings according category indicatorEnum.
+     * 
+     * @param categoryEnums
+     * @return
+     */
+    private IndicatorTypeMapping[] createCategoryIndicatorUnits(IndicatorEnum[] categoryEnums) {
+        List<IndicatorTypeMapping> indicatorUnitList = new ArrayList<IndicatorTypeMapping>();
+        IndicatorTypeMapping indicatorUnit;
+        for (IndicatorEnum categoryEnum : categoryEnums) {
+            indicatorUnit = getIndicatorUnit(categoryEnum);
+            switch (categoryEnum) {
+            case TextIndicatorEnum:
+                TextIndicator textIndicator = (TextIndicator) indicatorUnit.getIndicator();
+                textIndicator.setMinLengthIndicator((MinLengthIndicator) getIndicatorUnit(IndicatorEnum.MinLengthIndicatorEnum)
+                        .getIndicator());
+                textIndicator.setMaxLengthIndicator((MaxLengthIndicator) getIndicatorUnit(IndicatorEnum.MaxLengthIndicatorEnum)
+                        .getIndicator());
+                textIndicator.setAverageLengthIndicator((AverageLengthIndicator) getIndicatorUnit(
+                        IndicatorEnum.AverageLengthIndicatorEnum).getIndicator());
+                indicatorUnit.setChildren(createCategoryIndicatorUnits(IndicatorEnum.TextIndicatorEnum.getChildren()));
+                indicatorUnitList.add(indicatorUnit);
+                break;
+            case BoxIIndicatorEnum:
+                BoxIndicator boxtIndicator = (BoxIndicator) indicatorUnit.getIndicator();
+                boxtIndicator.setRangeIndicator((RangeIndicator) getIndicatorUnit(IndicatorEnum.RangeIndicatorEnum)
+                        .getIndicator());
+                boxtIndicator.setIQR((IQRIndicator) getIndicatorUnit(IndicatorEnum.IQRIndicatorEnum).getIndicator());
+                boxtIndicator.setMeanIndicator((MeanIndicator) getIndicatorUnit(IndicatorEnum.MeanIndicatorEnum).getIndicator());
+                boxtIndicator.setMedianIndicator((MedianIndicator) getIndicatorUnit(IndicatorEnum.MedianIndicatorEnum)
+                        .getIndicator());
+                indicatorUnit.setChildren(createCategoryIndicatorUnits(IndicatorEnum.BoxIIndicatorEnum.getChildren()));
+                indicatorUnitList.add(indicatorUnit);
+                break;
+            case IQRIndicatorEnum:
+                IQRIndicator iqrIndicator = (IQRIndicator) indicatorUnit.getIndicator();
+                iqrIndicator.setLowerValue((LowerQuartileIndicator) getIndicatorUnit(IndicatorEnum.LowerQuartileIndicatorEnum)
+                        .getIndicator());
+                iqrIndicator.setUpperValue((UpperQuartileIndicator) getIndicatorUnit(IndicatorEnum.UpperQuartileIndicatorEnum)
+                        .getIndicator());
+                indicatorUnit.setChildren(createCategoryIndicatorUnits(IndicatorEnum.IQRIndicatorEnum.getChildren()));
+                indicatorUnitList.add(indicatorUnit);
+                break;
+            case RangeIndicatorEnum:
+                RangeIndicator rangeIndicator = (RangeIndicator) indicatorUnit.getIndicator();
+                rangeIndicator.setLowerValue((MinValueIndicator) getIndicatorUnit(IndicatorEnum.MinValueIndicatorEnum)
+                        .getIndicator());
+                rangeIndicator.setUpperValue((MaxValueIndicator) getIndicatorUnit(IndicatorEnum.MaxValueIndicatorEnum)
+                        .getIndicator());
+                indicatorUnit.setChildren(createCategoryIndicatorUnits(IndicatorEnum.RangeIndicatorEnum.getChildren()));
+                indicatorUnitList.add(indicatorUnit);
+                break;
+            default:
+                indicatorUnitList.add(indicatorUnit);
+                break;
+            }
+
+        }
+        return indicatorUnitList.toArray(new IndicatorTypeMapping[indicatorUnitList.size()]);
+    }
+
+    /**
+     * This method will get IndicatorUnit from indicatorUnitMap, if can't get exist object, it will be create a new
+     * IndicatorUnit.
+     * 
+     * @param indicatorEnum
+     * @return
+     */
+    private IndicatorTypeMapping getIndicatorUnit(IndicatorEnum indicatorEnum) {
+        IndicatorTypeMapping indicatorUnit = this.indicatorUnitMap.get(indicatorEnum);
+        if (indicatorUnit == null) {
+            indicatorUnit = createIndicatorUnit(indicatorEnum, null);
+        }
+        return indicatorUnit;
+    }
+
+    /**
+     * Create a new IndicatorUnit according to indicatorEnum and indicator, if the parameter indicator is null, will
+     * create a new indicator .
+     * 
+     * @param indicatorEnum
+     * @param indicator
+     * @return
+     */
+    private IndicatorTypeMapping createIndicatorUnit(IndicatorEnum indicatorEnum, Indicator indicator) {
+        if (indicator == null) {
+            IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
+            indicator = (Indicator) factory.create(indicatorEnum.getIndicatorType());
+        }
+        IndicatorTypeMapping indicatorUnit = new IndicatorTypeMapping(indicatorEnum, indicator, this);
+        this.indicatorUnitMap.put(indicatorEnum, indicatorUnit);
+        return indicatorUnit;
+
+    }
+
+    private void listCopy(List<IndicatorEnum> dest, List<IndicatorEnum> src) {
+        dest.clear();
+        for (IndicatorEnum indicatorEnum : src) {
+            dest.add(indicatorEnum);
+        }
+    }
 }

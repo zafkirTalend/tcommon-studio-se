@@ -97,6 +97,11 @@ public enum IndicatorEnum {
                                IndicatorsPackage.Literals.UPPER_QUARTILE_INDICATOR,
                                "upper quartile",
                                null),
+    TextIndicatorEnum(
+                      IndicatorsPackage.TEXT_INDICATOR,
+                      IndicatorsPackage.Literals.TEXT_INDICATOR,
+                      "Text Statics",
+                      new IndicatorEnum[] { MinLengthIndicatorEnum, MaxLengthIndicatorEnum, AverageLengthIndicatorEnum }),
     IQRIndicatorEnum(
                      IndicatorsPackage.IQR_INDICATOR,
                      IndicatorsPackage.Literals.IQR_INDICATOR,
@@ -109,7 +114,7 @@ public enum IndicatorEnum {
                        new IndicatorEnum[] { MinValueIndicatorEnum, MaxValueIndicatorEnum }),
     BoxIIndicatorEnum(
                       IndicatorsPackage.BOX_INDICATOR,
-                      IndicatorsPackage.Literals.INDICATOR,
+                      IndicatorsPackage.Literals.BOX_INDICATOR,
                       "Summary statistics",
                       new IndicatorEnum[] { MeanIndicatorEnum, MedianIndicatorEnum, IQRIndicatorEnum, RangeIndicatorEnum });
 
@@ -119,13 +124,30 @@ public enum IndicatorEnum {
 
     private IndicatorEnum[] children;
 
+    private IndicatorEnum parent;
+
     private final int indicatorClassifierId;
 
     IndicatorEnum(int indicatorClassifierId, EClass indicatorType, String label, IndicatorEnum[] children) {
         this.indicatorClassifierId = indicatorClassifierId;
         this.indicatorType = indicatorType;
         this.label = label;
+        setChildren(children);
+    }
+
+    /**
+     * DOC rli Comment method "setChildren".
+     * 
+     * @param children
+     */
+    private void setChildren(IndicatorEnum[] children) {
         this.children = children;
+        if (this.children == null) {
+            return;
+        }
+        for (IndicatorEnum indicatorEnum : children) {
+            indicatorEnum.setParent(this);
+        }
     }
 
     /**
@@ -160,6 +182,23 @@ public enum IndicatorEnum {
 
     public boolean hasChildren() {
         return children != null;
+    }
+
+    public boolean hasParent() {
+        return parent != null;
+    }
+
+    private void setParent(IndicatorEnum parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Getter for parent.
+     * 
+     * @return the parent
+     */
+    public IndicatorEnum getParent() {
+        return parent;
     }
 
     public static IndicatorEnum findIndicatorEnum(EClass indicatorType) {
@@ -202,6 +241,10 @@ public enum IndicatorEnum {
             returnEnum = RangeIndicatorEnum;
         } else if (indicatorType == FrequencyIndicatorEnum.getIndicatorType()) {
             returnEnum = FrequencyIndicatorEnum;
+        } else if (indicatorType == TextIndicatorEnum.getIndicatorType()) {
+            returnEnum = TextIndicatorEnum;
+        } else if (indicatorType == BoxIIndicatorEnum.getIndicatorType()) {
+            returnEnum = BoxIIndicatorEnum;
         }
         return returnEnum;
 

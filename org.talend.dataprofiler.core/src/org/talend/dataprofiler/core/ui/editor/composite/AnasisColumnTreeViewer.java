@@ -85,7 +85,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
         newTree.setHeaderVisible(false);
         TreeColumn column1 = new TreeColumn(newTree, SWT.CENTER);
-        column1.setWidth(160);
+        column1.setWidth(190);
         TreeColumn column2 = new TreeColumn(newTree, SWT.CENTER);
         column2.setWidth(80);
         TreeColumn column3 = new TreeColumn(newTree, SWT.CENTER);
@@ -220,51 +220,56 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         this.setDirty(true);
     }
 
-    private void createIndicatorItems(final TreeItem treeItem, List<IndicatorTypeMapping> indicatoryMap) {
-        for (IndicatorTypeMapping indicator : indicatoryMap) {
+    private void createIndicatorItems(final TreeItem treeItem, IndicatorTypeMapping[] indicatorTypeMappings) {
+        for (IndicatorTypeMapping indicatorMapping : indicatorTypeMappings) {
             final TreeItem indicatorItem = new TreeItem(treeItem, SWT.NONE);
-            final IndicatorEnum indicatorEnum = indicator.getType();
-            indicatorItem.setText(0, indicator.getType().getLabel());
+            final IndicatorTypeMapping typeMapping = indicatorMapping;
+            final IndicatorEnum indicatorEnum = indicatorMapping.getType();
+            indicatorItem.setText(0, indicatorMapping.getType().getLabel());
 
-            TreeEditor editor = new TreeEditor(tree);
-            Label modButton = new Label(tree, SWT.NONE);
-            modButton.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
-            modButton.setImage(ImageLib.getImage(ImageLib.INDICATOR_OPTION));
-            modButton.setToolTipText("Options");
-            modButton.pack();
-            modButton.setData(indicator);
-            modButton.addMouseListener(new MouseAdapter() {
+            TreeEditor editor;
+            if (!indicatorEnum.hasChildren()) {
+                editor = new TreeEditor(tree);
+                Label optionLabel = new Label(tree, SWT.NONE);
+                optionLabel.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+                optionLabel.setImage(ImageLib.getImage(ImageLib.INDICATOR_OPTION));
+                optionLabel.setToolTipText("Options");
+                optionLabel.pack();
+                optionLabel.setData(indicatorMapping);
+                optionLabel.addMouseListener(new MouseAdapter() {
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
-                 */
-                @Override
-                public void mouseDown(MouseEvent e) {
+                    /*
+                     * (non-Javadoc)
+                     * 
+                     * @see org.eclipse.swt.events.MouseAdapter#mouseDown(org.eclipse.swt.events.MouseEvent)
+                     */
+                    @Override
+                    public void mouseDown(MouseEvent e) {
 
-                    IndicatorTypeMapping indicator = (IndicatorTypeMapping) ((Label) e.getSource()).getData();
-                    IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis);
+                        IndicatorTypeMapping indicator = (IndicatorTypeMapping) ((Label) e.getSource()).getData();
+                        IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis);
 
-                    try {
-                        // open the dialog
-                        WizardDialog dialog = new WizardDialog(null, wizard);
-                        dialog.setPageSize(300, 400);
-                        if (Window.OK == dialog.open()) {
+                        try {
+                            // open the dialog
+                            WizardDialog dialog = new WizardDialog(null, wizard);
+                            dialog.setPageSize(300, 400);
+                            if (Window.OK == dialog.open()) {
 
-                            setDirty(true);
+                                setDirty(true);
+                            }
+
+                        } catch (AssertionFailedException ex) {
+                            MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");
                         }
-
-                    } catch (AssertionFailedException ex) {
-                        MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");
                     }
-                }
 
-            });
+                });
 
-            editor.minimumWidth = WIDTH1_CELL;
-            editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(modButton, indicatorItem, 1);
+                editor.minimumWidth = WIDTH1_CELL;
+                editor.horizontalAlignment = SWT.CENTER;
+                editor.setEditor(optionLabel, indicatorItem, 1);
+
+            }
 
             editor = new TreeEditor(tree);
             Label delButton = new Label(tree, SWT.NONE);
@@ -282,7 +287,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 @Override
                 public void mouseDown(MouseEvent e) {
 
-                    ((ColumnIndicator) treeItem.getData()).removeIndicatorEnum(indicatorEnum);
+                    ((ColumnIndicator) treeItem.getData()).removeIndicatorMapping(typeMapping);
                     setElements(columnIndicators);
                 }
 
@@ -291,6 +296,10 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, indicatorItem, 2);
+            if (indicatorEnum.hasChildren()) {
+                indicatorItem.setData(treeItem.getData());
+                createIndicatorItems(indicatorItem, indicatorMapping.getChildren());
+            }
 
         }
     }
@@ -301,6 +310,9 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         columnIndicators);
         if (dialog.open() == Window.OK) {
             ColumnIndicator[] result = dialog.getResult();
+            for (ColumnIndicator columnIndicator : result) {
+                columnIndicator.storeTempIndicator();
+            }
             this.setElements(result);
             return;
         }
