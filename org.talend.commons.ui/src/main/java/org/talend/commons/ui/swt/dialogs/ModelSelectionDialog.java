@@ -29,19 +29,35 @@ import org.talend.commons.ui.i18n.Messages;
  */
 public class ModelSelectionDialog extends SelectionDialog {
 
+    public enum EEditSelection {
+        SHOW_SCHEMA,
+        BUILDIN,
+        REPOSITORY;
+    }
+
     private static final String TITLE = Messages.getString("ModelSelectionDialog.Title"); //$NON-NLS-1$
 
     private static final String MESSAGE = Messages.getString("ModelSelectionDialog.Message"); //$NON-NLS-1$
 
-    private int optionValue = -1;
+    private EEditSelection optionValue;
 
-    private Button buildIn, repository;
+    private Button showSchema, buildIn, repository;
 
+    private Boolean readOnlyJob;
+
+    /**
+     * DOC yzhang ModelSelectionDialog constructor comment.
+     */
     public ModelSelectionDialog(Shell parentShell) {
+        this(parentShell, false);
+    }
+
+    public ModelSelectionDialog(Shell parentShell, boolean isReadOnly) {
         super(parentShell);
         setHelpAvailable(false);
         setTitle(TITLE);
         setMessage(MESSAGE);
+        this.readOnlyJob = isReadOnly;
     }
 
     /*
@@ -75,12 +91,28 @@ public class ModelSelectionDialog extends SelectionDialog {
         group.setLayout(gridLayout);
         group.setLayoutData(gridData);
 
+        showSchema = new Button(group, SWT.RADIO);
+        showSchema.setText("View Schema (read only)");
+
         buildIn = new Button(group, SWT.RADIO);
         buildIn.setText(Messages.getString("ModelSelectionDialog.BuiltIn")); //$NON-NLS-1$
 
         repository = new Button(group, SWT.RADIO);
         repository.setText(Messages.getString("ModelSelectionDialog.Update")); //$NON-NLS-1$
+
+        configControlStatus();
+
         return inner;
+    }
+
+    /**
+     * yzhang Comment method "initControl".
+     */
+    private void configControlStatus() {
+        if (readOnlyJob) {
+            buildIn.setEnabled(false);
+            repository.setEnabled(false);
+        }
     }
 
     /*
@@ -91,9 +123,11 @@ public class ModelSelectionDialog extends SelectionDialog {
     @Override
     protected void okPressed() {
         if (buildIn.getSelection())
-            setOptionValue(0);
+            setOptionValue(EEditSelection.BUILDIN);
         if (repository.getSelection())
-            setOptionValue(1);
+            setOptionValue(EEditSelection.REPOSITORY);
+        if (showSchema.getSelection())
+            setOptionValue(EEditSelection.SHOW_SCHEMA);
 
         super.okPressed();
     }
@@ -103,7 +137,7 @@ public class ModelSelectionDialog extends SelectionDialog {
      * 
      * @return the optionValue
      */
-    public int getOptionValue() {
+    public EEditSelection getOptionValue() {
         return this.optionValue;
     }
 
@@ -112,7 +146,7 @@ public class ModelSelectionDialog extends SelectionDialog {
      * 
      * @param optionValue the optionValue to set
      */
-    public void setOptionValue(int optionValue) {
+    public void setOptionValue(EEditSelection optionValue) {
         this.optionValue = optionValue;
     }
 
