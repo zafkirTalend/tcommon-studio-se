@@ -28,6 +28,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.helpers.AnalysisHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
+import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dq.indicators.definitions.DefinitionHandler;
@@ -150,15 +151,11 @@ public class ColumnAnalysisHandler {
         if (!analysis.getContext().getAnalysedElements().contains(column)) {
             analysis.getContext().getAnalysedElements().add(column);
         }
+
         for (Indicator indicator : indicators) {
-            indicator.setAnalyzedElement(column);
-            // ADDED MODSCA 2008-04-24 set the default indicator definitions
-            // // FIXME following code should be executed as soon as an indicator is created, not here.
-            boolean definitionSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
-            if (log.isDebugEnabled()) {
-                log.debug("Definition set for " + indicator.getName() + ": " + definitionSet);
-            }
+            // store first level of indicators in result.
             analysis.getResults().getIndicators().add(indicator);
+            initializeIndicator(indicator, column);
         }
         DataManager connection = analysis.getContext().getConnection();
         if (connection == null) {
@@ -177,6 +174,24 @@ public class ColumnAnalysisHandler {
             }
         }
         return true;
+    }
+
+    private void initializeIndicator(Indicator indicator, TdColumn column) {
+        indicator.setAnalyzedElement(column);
+        // ADDED MODSCA 2008-04-24 set the default indicator definitions
+        // // FIXME following code should be executed as soon as an indicator is created, not here.
+        boolean definitionSet = DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicator);
+        if (log.isDebugEnabled()) {
+            log.debug("Definition set for " + indicator.getName() + ": " + definitionSet);
+        }
+
+        // FIXME scorreia in case of composite indicators, add children to result.
+        if (indicator instanceof CompositeIndicator) {
+            for (Indicator child : ((CompositeIndicator) indicator).getChildIndicators()) {
+                initializeIndicator(child, column); // recurse
+            }
+        }
+
     }
 
     public void clearAnalysis() {
@@ -233,6 +248,47 @@ public class ColumnAnalysisHandler {
             }
         }
         return indics;
+    }
+
+    /**
+     * Method "getIndicatorLeaves" returns the indicators for the given column at the leaf level.
+     * 
+     * @param column
+     * @return the indicators attached to this column
+     */
+    public Collection<Indicator> getIndicatorLeaves(TdColumn column) {
+        // get the leaf indicators
+        Collection<Indicator> leafIndics = new ArrayList<Indicator>();
+        for (Indicator indicator : analysis.getResults().getIndicators()) {
+            getIndicatorLeaves(indicator, leafIndics);
+        }
+        // filter only indicators for this column
+        Collection<Indicator> indics = new ArrayList<Indicator>();
+        for (Indicator indicator : leafIndics) {
+            if (indicator.getAnalyzedElement() != null && indicator.getAnalyzedElement().equals(column)) {
+                indics.add(indicator);
+            }
+        }
+        return indics;
+    }
+
+    /**
+     * Method "getIndicatorLeaves" adds the given indicator into the given list if it is a leaf indicator (an indicator
+     * that is not a composite indicator).
+     * 
+     * @param indicator the indicator
+     * @param leafIndicators the output list
+     */
+    private void getIndicatorLeaves(Indicator indicator, final Collection<Indicator> leafIndicators) {
+        if (indicator instanceof CompositeIndicator) {
+            CompositeIndicator compositeIndicator = (CompositeIndicator) indicator;
+            for (Indicator ind : compositeIndicator.getChildIndicators()) {
+                getIndicatorLeaves(ind, leafIndicators);
+            }
+        } else {
+            leafIndicators.add(indicator);
+        }
+
     }
 
     /**
