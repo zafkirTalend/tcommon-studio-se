@@ -87,6 +87,8 @@ public interface IRepositoryService extends IService {
 
     public void openMetadataConnection(IRepositoryObject o);
 
+    public void openEditSchemaWizard(String value);
+
     public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn);
 
     public IEditorPart openSQLPatternEditor(SQLPatternItem item, boolean readOnly);
