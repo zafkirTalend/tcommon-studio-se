@@ -55,18 +55,19 @@ public final class SupportDBUrlStore {
     }
 
     private void fillDbUrlMap() {
-        supportDBUrlMap.put(SupportDBUrlType.ODBCDEFAULTURL.getDBKey(), SupportDBUrlType.ODBCDEFAULTURL);
+        // PTODO scorreia choose here which Database types to enable
+        // supportDBUrlMap.put(SupportDBUrlType.ODBCDEFAULTURL.getDBKey(), SupportDBUrlType.ODBCDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.MYSQLDEFAULTURL.getDBKey(), SupportDBUrlType.MYSQLDEFAULTURL);
         supportDBUrlMap.put(SupportDBUrlType.ORACLEDEFAULTURL.getDBKey(), SupportDBUrlType.ORACLEDEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.MSSQLDEFAULTURL.getDBKey(), SupportDBUrlType.MSSQLDEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.DB2DEFAULTURL.getDBKey(), SupportDBUrlType.DB2DEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.POSTGRESQLEFAULTURL.getDBKey(), SupportDBUrlType.POSTGRESQLEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.INTERBASEDEFAULTURL.getDBKey(), SupportDBUrlType.INTERBASEDEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.SYBASEDEFAULTURL.getDBKey(), SupportDBUrlType.SYBASEDEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.INFORMIXDEFAULTURL.getDBKey(), SupportDBUrlType.INFORMIXDEFAULTURL);
-        supportDBUrlMap.put(SupportDBUrlType.FIREBIRDDEFAULTURL.getDBKey(), SupportDBUrlType.FIREBIRDDEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.MSSQLDEFAULTURL.getDBKey(), SupportDBUrlType.MSSQLDEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.DB2DEFAULTURL.getDBKey(), SupportDBUrlType.DB2DEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.POSTGRESQLEFAULTURL.getDBKey(), SupportDBUrlType.POSTGRESQLEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.INTERBASEDEFAULTURL.getDBKey(), SupportDBUrlType.INTERBASEDEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.SYBASEDEFAULTURL.getDBKey(), SupportDBUrlType.SYBASEDEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.INFORMIXDEFAULTURL.getDBKey(), SupportDBUrlType.INFORMIXDEFAULTURL);
+        // supportDBUrlMap.put(SupportDBUrlType.FIREBIRDDEFAULTURL.getDBKey(), SupportDBUrlType.FIREBIRDDEFAULTURL);
     }
-    
+
     public void changeAllDBNmae(String dbName) {
         Iterator<String> it = supportDBUrlMap.keySet().iterator();
         while (it.hasNext()) {
@@ -82,12 +83,10 @@ public final class SupportDBUrlStore {
         supportDBUrlMap.keySet().toArray(dbTypeItems);
         return dbTypeItems;
     }
-    
-    public String getDBUrl(SupportDBUrlType dbType) {
-        return getDBUrl(dbType.getDBKey(), dbType.getHostName(), dbType.getPort(), dbType.getDBName(), dbType
-                .getDataSource());
-    }
 
+    public String getDBUrl(SupportDBUrlType dbType) {
+        return getDBUrl(dbType.getDBKey(), dbType.getHostName(), dbType.getPort(), dbType.getDBName(), dbType.getDataSource());
+    }
 
     public String getDBUrl(String dbType, String host, String port, String dbName, String dataSource) {
         return getDBUrl(dbType, host, port, dbName, dataSource, PluginConstant.EMPTY_STRING);
