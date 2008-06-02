@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.model.nodes.indicator.tpye;
 
 import org.eclipse.emf.ecore.EClass;
+import org.talend.dataquality.indicators.CountsIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 /**
@@ -97,6 +98,12 @@ public enum IndicatorEnum {
                                IndicatorsPackage.Literals.UPPER_QUARTILE_INDICATOR,
                                "upper quartile",
                                null),
+    CountsIndicatorEnum(
+                        IndicatorsPackage.COUNTS_INDICATOR,
+                        IndicatorsPackage.Literals.COUNTS_INDICATOR,
+                        "Simple Statistics",
+                        new IndicatorEnum[] { RowCountIndicatorEnum, NullCountIndicatorEnum, DistinctCountIndicatorEnum,
+                                UniqueIndicatorEnum, DuplicateCountIndicatorEnum, BlankCountIndicatorEnum }),
     TextIndicatorEnum(
                       IndicatorsPackage.TEXT_INDICATOR,
                       IndicatorsPackage.Literals.TEXT_INDICATOR,
@@ -245,7 +252,10 @@ public enum IndicatorEnum {
             returnEnum = TextIndicatorEnum;
         } else if (indicatorType == BoxIIndicatorEnum.getIndicatorType()) {
             returnEnum = BoxIIndicatorEnum;
+        } else if (indicatorType == CountsIndicatorEnum.getIndicatorType()) {
+            returnEnum = CountsIndicatorEnum;
         }
+
         return returnEnum;
 
     }

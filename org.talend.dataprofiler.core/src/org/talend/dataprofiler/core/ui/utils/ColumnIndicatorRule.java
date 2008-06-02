@@ -47,6 +47,7 @@ public class ColumnIndicatorRule {
         }
 
         switch (indicatorType) {
+        case CountsIndicatorEnum:
         case RowCountIndicatorEnum:
 
             return true;

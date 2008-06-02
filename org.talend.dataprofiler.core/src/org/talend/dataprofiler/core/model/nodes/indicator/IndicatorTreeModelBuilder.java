@@ -31,20 +31,14 @@ public final class IndicatorTreeModelBuilder {
             return indicatorCategoryNodes;
         }
         // build Basic Statistic categoryNode
-        IndicatorEnum[] simpleIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.RowCountIndicatorEnum,
-                IndicatorEnum.NullCountIndicatorEnum, IndicatorEnum.DistinctCountIndicatorEnum,
-                IndicatorEnum.UniqueIndicatorEnum, IndicatorEnum.DuplicateCountIndicatorEnum,
-                IndicatorEnum.BlankCountIndicatorEnum };
-        IndicatorCategoryNode simpleCategoryNode = new IndicatorCategoryNode("Simple Statistics", simpleIndicatorEnums);
-//        simpleCategoryNode.creatChildren(simpleIndicatorEnums);
+        IndicatorCategoryNode simpleCategoryNode = new IndicatorCategoryNode(IndicatorEnum.CountsIndicatorEnum);
+        // simpleCategoryNode.creatChildren(simpleIndicatorEnums);
 
         // build Text statistics categoryNode
         IndicatorCategoryNode textCategoryNode = new IndicatorCategoryNode(IndicatorEnum.TextIndicatorEnum);
-//        textCategoryNode.createChildren(IndicatorEnum.TextIndicatorEnum);
 
         // build Summary Statistic categoryNode
         IndicatorCategoryNode boxCategoryNode = new IndicatorCategoryNode(IndicatorEnum.BoxIIndicatorEnum);
-//        boxCategoryNode.createChildren(IndicatorEnum.BoxIIndicatorEnum);
 
         // build Nominal Statistic categoryNode
         IndicatorEnum[] advanceIndicatorEnums = new IndicatorEnum[] { IndicatorEnum.ModeIndicatorEnum,

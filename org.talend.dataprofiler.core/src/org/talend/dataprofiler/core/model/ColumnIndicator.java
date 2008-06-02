@@ -23,8 +23,12 @@ import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorTypeMapping;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
+import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.BoxIndicator;
+import org.talend.dataquality.indicators.CountsIndicator;
 import org.talend.dataquality.indicators.DataminingType;
+import org.talend.dataquality.indicators.DistinctCountIndicator;
+import org.talend.dataquality.indicators.DuplicateCountIndicator;
 import org.talend.dataquality.indicators.IQRIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorsFactory;
@@ -35,8 +39,11 @@ import org.talend.dataquality.indicators.MeanIndicator;
 import org.talend.dataquality.indicators.MedianIndicator;
 import org.talend.dataquality.indicators.MinLengthIndicator;
 import org.talend.dataquality.indicators.MinValueIndicator;
+import org.talend.dataquality.indicators.NullCountIndicator;
 import org.talend.dataquality.indicators.RangeIndicator;
+import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.TextIndicator;
+import org.talend.dataquality.indicators.UniqueCountIndicator;
 import org.talend.dataquality.indicators.UpperQuartileIndicator;
 
 /**
@@ -157,6 +164,22 @@ public class ColumnIndicator {
             }
         }
         switch (indicatorEnum) {
+        case CountsIndicatorEnum:
+            CountsIndicator countsIndicator = (CountsIndicator) indicator;
+            // add indicatorUnit to indicatorUnitMap
+            this.indicatorUnitMap.put(IndicatorEnum.BlankCountIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.BlankCountIndicatorEnum, countsIndicator.getBlankCountIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.DistinctCountIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.DistinctCountIndicatorEnum, countsIndicator.getDistinctCountIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.DuplicateCountIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.DuplicateCountIndicatorEnum, countsIndicator.getDuplicateCountIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.RowCountIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.RowCountIndicatorEnum, countsIndicator.getRowCountIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.NullCountIndicatorEnum, createIndicatorUnit(
+                    IndicatorEnum.NullCountIndicatorEnum, countsIndicator.getNullCountIndicator()));
+            this.indicatorUnitMap.put(IndicatorEnum.UniqueIndicatorEnum, createIndicatorUnit(IndicatorEnum.UniqueIndicatorEnum,
+                    countsIndicator.getUniqueCountIndicator()));
+            break;
         case TextIndicatorEnum:
             TextIndicator textIndicator = (TextIndicator) indicator;
 
@@ -299,6 +322,25 @@ public class ColumnIndicator {
         for (IndicatorEnum categoryEnum : categoryEnums) {
             indicatorUnit = getIndicatorUnit(categoryEnum);
             switch (categoryEnum) {
+            case CountsIndicatorEnum:
+                CountsIndicator countsIndicator = (CountsIndicator) indicatorUnit.getIndicator();
+                countsIndicator.setBlankCountIndicator((BlankCountIndicator) getIndicatorUnit(
+                        IndicatorEnum.BlankCountIndicatorEnum).getIndicator());
+                countsIndicator.setDistinctCountIndicator((DistinctCountIndicator) getIndicatorUnit(
+                        IndicatorEnum.DistinctCountIndicatorEnum).getIndicator());
+                countsIndicator.setDuplicateCountIndicator((DuplicateCountIndicator) getIndicatorUnit(
+                        IndicatorEnum.DuplicateCountIndicatorEnum).getIndicator());
+                countsIndicator.setRowCountIndicator((RowCountIndicator) getIndicatorUnit(IndicatorEnum.RowCountIndicatorEnum)
+                        .getIndicator());
+                countsIndicator.setNullCountIndicator((NullCountIndicator) getIndicatorUnit(IndicatorEnum.NullCountIndicatorEnum)
+                        .getIndicator());
+                countsIndicator
+                        .setUniqueCountIndicator((UniqueCountIndicator) getIndicatorUnit(IndicatorEnum.UniqueIndicatorEnum)
+                                .getIndicator());
+                indicatorUnit.setChildren(createCategoryIndicatorUnits(IndicatorEnum.CountsIndicatorEnum.getChildren()));
+                indicatorUnitList.add(indicatorUnit);
+                break;
+
             case TextIndicatorEnum:
                 TextIndicator textIndicator = (TextIndicator) indicatorUnit.getIndicator();
                 textIndicator.setMinLengthIndicator((MinLengthIndicator) getIndicatorUnit(IndicatorEnum.MinLengthIndicatorEnum)
