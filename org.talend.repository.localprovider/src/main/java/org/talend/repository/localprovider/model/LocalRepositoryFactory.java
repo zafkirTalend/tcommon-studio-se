@@ -94,8 +94,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -246,9 +246,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    public List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException {
+    public List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
+            throws PersistenceException {
         IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), type);
-        return convert(getSerializableFromFolder(folder, null, type, false, true, withDeleted));
+        return convert(getSerializableFromFolder(folder, null, type, allVersions, true, withDeleted));
     }
 
     /**
