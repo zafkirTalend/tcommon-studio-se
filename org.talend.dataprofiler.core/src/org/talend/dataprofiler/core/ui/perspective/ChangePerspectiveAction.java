@@ -35,6 +35,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -58,16 +60,36 @@ import org.talend.utils.sugars.TypedReturnCode;
  */
 public class ChangePerspectiveAction extends Action {
 
+    static ChangePerspectiveAction action;
+
+    IPerspectiveRegistry registry = PlatformUI.getWorkbench().getPerspectiveRegistry();
+
     /** Id of the perspective to move to front. */
     private String perspectiveId;
+
+    private boolean toolbar;
 
     /**
      * Constructs a new ChangePerspectiveAction.
      */
     public ChangePerspectiveAction(String perspectiveId) {
         super(perspectiveId, AS_CHECK_BOX);
-
         this.perspectiveId = perspectiveId;
+    }
+
+    /**
+     * DOC qzhang ChangePerspectiveAction constructor comment.
+     */
+    public ChangePerspectiveAction(boolean toolbar) {
+        super("Switch Perspective");
+        this.toolbar = toolbar;
+        this.perspectiveId = SE_ID;
+        IPerspectiveDescriptor fp = registry.findPerspectiveWithId(SE_ID);
+        setToolTipText("Switch to Data Discovery");
+        if (fp != null) {
+            setImageDescriptor(fp.getImageDescriptor());
+        }
+        action = this;
     }
 
     /*
@@ -79,6 +101,7 @@ public class ChangePerspectiveAction extends Action {
     public void run() {
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
+
         if (!perspectiveId.equals(page.getPerspective().getId())) {
             try {
                 workbench.showPerspective(perspectiveId, workbench.getActiveWorkbenchWindow());
@@ -98,10 +121,22 @@ public class ChangePerspectiveAction extends Action {
                     e.printStackTrace();
                 }
             }
+            action.perspectiveId = SE_ID;
+            action.setToolTipText("Switch to Data Discovery");
+            IPerspectiveDescriptor fp = registry.findPerspectiveWithId(SE_ID);
+            if (fp != null) {
+                action.setImageDescriptor(fp.getImageDescriptor());
+            }
         } else {
             preferenceStore.setValue(CHEAT_SHEET_VIEW, findView != null);
             if (findView != null) {
                 page.hideView(findView);
+            }
+            action.perspectiveId = PERSPECTIVE_ID;
+            action.setToolTipText("Switch to Data Profiling");
+            IPerspectiveDescriptor fp = registry.findPerspectiveWithId(PERSPECTIVE_ID);
+            if (fp != null) {
+                action.setImageDescriptor(fp.getImageDescriptor());
             }
         }
     }
