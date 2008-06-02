@@ -23,7 +23,10 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
  * 
  * Helper on resources.
  */
-public class ResourceHelper {
+public final class ResourceHelper {
+
+    private ResourceHelper() {
+    }
 
     /**
      * Method "getUUID".

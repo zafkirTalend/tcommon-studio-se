@@ -27,7 +27,7 @@ import org.talend.utils.sugars.TypedReturnCode;
 /**
  * @author scorreia
  * 
- * This class manages the software systems.
+ * This class manages the software systems. TODO scorreia store SoftwareSystem in Namespace object.
  */
 public class SoftwareSystemManager {
 

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dq.analysis;
 
-import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -20,15 +19,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.talend.cwm.exception.AnalysisExecutionException;
 import org.talend.cwm.helper.ColumnHelper;
+import org.talend.cwm.helper.ResourceHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.management.api.DbmsLanguage;
 import org.talend.cwm.management.api.SoftwareSystemManager;
@@ -49,7 +47,6 @@ import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 import org.talend.dataquality.indicators.TextParameters;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
-import org.talend.sqltools.ZQueryHelper;
 import org.talend.utils.sql.Java2SqlType;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataManager;
@@ -59,9 +56,6 @@ import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 
 import Zql.ParseException;
-import Zql.ZExp;
-import Zql.ZQuery;
-import Zql.ZqlParser;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -72,7 +66,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * TODO scorreia this constant must be replaced by a default preference and the possibility to the user to change it
      * for each indicator.
      */
-    private static final int TOP_N = 20;
+    private static final int TOP_N = 10;
 
     private static Logger log = Logger.getLogger(ColumnAnalysisSqlExecutor.class);
 
@@ -97,22 +91,25 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         try {
             // get data filter
-            ZExp dataFilterExpression = null;
+            // ZExp dataFilterExpression = null;
             ColumnAnalysisHandler handler = new ColumnAnalysisHandler();
             handler.setAnalysis(analysis);
             String stringDataFilter = handler.getStringDataFilter();
-            if (StringUtils.isNotBlank(stringDataFilter)) {
-                ZqlParser filterParser = new ZqlParser();
-                filterParser.initParser(new ByteArrayInputStream(stringDataFilter.getBytes()));
-                dataFilterExpression = filterParser.readExpression();
-            }
+            // if (StringUtils.isNotBlank(stringDataFilter)) {
+            // ZqlParser filterParser = new ZqlParser();
+            // filterParser.initParser(new ByteArrayInputStream(stringDataFilter.getBytes()));
+            // dataFilterExpression = filterParser.readExpression();
+            // }
             // create one sql statement for each indicator
             EList<Indicator> indicators = results.getIndicators();
             for (Indicator indicator : indicators) {
                 if (indicator instanceof CompositeIndicator) {
+                    // FIXME loop on children indicators or change model because indicators are stored in Result
+
                     continue;
                 }
-                createSqlQuery(dataFilterExpression, indicator);
+                // createSqlQuery(dataFilterExpression, indicator);
+                createSqlQuery(stringDataFilter, indicator);
             }
         } catch (ParseException e) {
             log.error(e, e);
@@ -136,7 +133,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @throws ParseException
      * @throws AnalysisExecutionException
      */
-    private boolean createSqlQuery(ZExp dataFilterExpression, Indicator indicator) throws ParseException,
+    private boolean createSqlQuery(String dataFilterAsString, Indicator indicator) throws ParseException,
             AnalysisExecutionException {
         ModelElement analyzedElement = indicator.getAnalyzedElement();
         if (analyzedElement == null) {
@@ -181,11 +178,16 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         }
 
         if (sqlGenericExpression == null || sqlGenericExpression.getBody() == null) {
-            return traceError("No SQL expression found for indicator " + indicator.getName());
+            return traceError("No SQL expression found for indicator "
+                    + (indicator.getName() != null ? indicator.getName() : indicator.eClass().getName()) + ". Definition: "
+                    + ResourceHelper.getUUID(indicatorDefinition));
         }
 
         // --- get indicator parameters and convert them into sql expression
         List<String> whereExpression = new ArrayList<String>();
+        if (StringUtils.isNotBlank(dataFilterAsString)) {
+            whereExpression.add(dataFilterAsString);
+        }
         List<String> rangeStrings = null;
         DateGrain dateAggregationType = null;
         IndicatorParameters parameters = indicator.getParameters();
@@ -224,47 +226,63 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         // ### evaluate SQL Statement depending on indicators ###
         String completedSqlString = null;
 
+        // ZExp dataFilterExpression = null;
         // --- handle case when indicator is a quantile
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getMedianIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getLowerQuartileIndicator())
                 || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUpperQuartileIndicator())) {
             // TODO scorreia test type of column and cast when needed
-            completedSqlString = getCompletedStringForQuantiles(indicator, sqlGenericExpression, colName, table,
-                    dataFilterExpression);
-            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            completedSqlString = getCompletedStringForQuantiles(indicator, sqlGenericExpression, colName, table, whereExpression);
+            completedSqlString = addWhereToSqlStringStatement(whereExpression, completedSqlString);
         } else
 
         // --- handle case when frequency indicator
-        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator())) {
+        if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getFrequencyIndicator())
+                || indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getModeIndicator())) {
             // TODO scorreia test type of column and cast when needed
             // with ranges (frequencies of numerical intervals)
+
+            int topN = indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getModeIndicator()) ? 1 : TOP_N;
+
             if (rangeStrings != null) {
-                completedSqlString = getUnionCompletedString(indicator, sqlGenericExpression, colName, table,
-                        dataFilterExpression, rangeStrings);
+                completedSqlString = getUnionCompletedString(indicator, sqlGenericExpression, colName, table, whereExpression,
+                        rangeStrings);
+                if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getModeIndicator())) {
+                    // now order by second column (get the order by clause of generic expression and replace)
+                    String genericSQL = sqlGenericExpression.getBody();
+                    int beginIndex = genericSQL.indexOf(dbms().orderBy());
+                    if (beginIndex != -1) {
+                        int lastIndex = genericSQL.lastIndexOf(dbms().desc());
+                        String orderByClause = genericSQL.substring(beginIndex, lastIndex);
+                        completedSqlString = completedSqlString + orderByClause + dbms().desc();
+                    }
+                    // and get the best row
+                    completedSqlString = dbms().getTopNQuery(completedSqlString, topN);
+                }
             } else if (dateAggregationType != null) { // frequencies
                 // with date
                 // aggregation
                 completedSqlString = getDateAggregatedCompletedString(sqlGenericExpression, colName, table, dateAggregationType);
-                completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
-                completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
+                completedSqlString = addWhereToSqlStringStatement(whereExpression, completedSqlString);
+                completedSqlString = dbms().getTopNQuery(completedSqlString, topN);
             } else { // usual nominal frequencies
-                completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
-                completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
-                completedSqlString = dbms().getTopNQuery(completedSqlString, TOP_N);
+                completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table);
+                completedSqlString = addWhereToSqlStringStatement(whereExpression, completedSqlString);
+                completedSqlString = dbms().getTopNQuery(completedSqlString, topN);
             }
         } else
 
         // --- handle case of unique count
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getUniqueCountIndicator())) {
-            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
-            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table);
+            completedSqlString = addWhereToSqlStringStatement(whereExpression, completedSqlString);
             completedSqlString = dbms().countRowInSubquery(completedSqlString, "myquery");
         } else
 
         // --- handle case of duplicate count
         if (indicator.eClass().equals(IndicatorsPackage.eINSTANCE.getDuplicateCountIndicator())) {
-            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
-            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table);
+            completedSqlString = addWhereToSqlStringStatement(whereExpression, completedSqlString);
             // duplicate is the number of rows having more than one identical instance
             completedSqlString = dbms().countRowInSubquery(completedSqlString, "myquery");
             // duplicate (with sumRowInSubquery) means that the number of instances that are duplicated
@@ -273,8 +291,8 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
             // PTODO scorreia avoid hard coded "mycount" string
         } else {
             // --- default case
-            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table) + dbms().eos();
-            completedSqlString = addWhereToSqlStringStatement(dataFilterExpression, whereExpression, completedSqlString);
+            completedSqlString = replaceVariables(sqlGenericExpression.getBody(), colName, table);
+            completedSqlString = addWhereToSqlStringStatement(whereExpression, completedSqlString);
         }
 
         if (log.isDebugEnabled()) {
@@ -303,7 +321,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         String contentType = tdColumn.getContentType();
         DataminingType dataminingType = DataminingType.get(contentType);
-        if ((DataminingType.INTERVAL.compareTo(dataminingType) == 0) && (isText)) {
+        if (DataminingType.INTERVAL.equals(dataminingType) && (isText)) {
             // cast is needed
             // TODO handle date
             boolean isDate = Java2SqlType.isDateInSQL(javaType);
@@ -384,22 +402,17 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @return
      * @throws ParseException
      */
-    private String addWhereToSqlStringStatement(ZExp dataFilterExpression, List<String> whereExpression, String completedSqlString)
-            throws ParseException {
-        TypedReturnCode<ZQuery> trc = dbms().parseQuery(completedSqlString);
-        ZQuery query = trc.getObject();
-        if (dataFilterExpression != null) {
-            query.addWhere(dataFilterExpression);
-        }
+    private String addWhereToSqlStringStatement(List<String> whereExpressions, String completedSqlString) throws ParseException {
+        // return dbms().addWhereToSqlStringStatement(completedSqlString, whereExpression);
+        TypedReturnCode<String> trc = dbms().prepareQuery(completedSqlString);
+        String query = trc.getObject();
 
-        Vector<ZExp> whereVector = ZQueryHelper.createWhereVector(whereExpression.toArray(new String[whereExpression.size()]));
-        for (ZExp exp : whereVector) {
-            query.addWhere(exp);
+        String where = dbms().buildWhereExpression(whereExpressions);
+        if (where != null && where.trim().length() != 0) {
+            query = dbms().addWhereToStatement(query, where);
         }
-
-        // set the instantiated sql expression into the indicator.
-        String finalQuery = dbms().finalizeQuery(query);
-        return finalQuery;
+        query = dbms().finalizeQuery(query);
+        return query;
     }
 
     /**
@@ -409,20 +422,19 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param sqlExpression
      * @param colName
      * @param table
-     * @param dataFilterExpression
+     * @param whereExpression
      * @param rangeStrings
      * @return
      * @throws ParseException
      */
     private String getUnionCompletedString(Indicator indicator, Expression sqlExpression, String colName, String table,
-            ZExp dataFilterExpression, List<String> rangeStrings) throws ParseException {
+            List<String> whereExpression, List<String> rangeStrings) throws ParseException {
         StringBuffer buf = new StringBuffer();
         final int last = rangeStrings.size();
-        // remove unused LIMIT
+
         String sqlGenericExpression = sqlExpression.getBody();
         for (int i = 0; i < last; i++) {
-
-            String singleSelect = getCompletedSingleSelect(indicator, sqlGenericExpression, colName, table, dataFilterExpression,
+            String singleSelect = getCompletedSingleSelect(indicator, sqlGenericExpression, colName, table, whereExpression,
                     rangeStrings.get(i));
             buf.append('(');
             buf.append(singleSelect);
@@ -431,7 +443,23 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
                 buf.append(dbms().unionAll());
             }
         }
+
         return buf.toString();
+    }
+
+    /**
+     * DOC scorreia Comment method "check".
+     * 
+     * @param orderByClause
+     * @param string
+     * @param string2
+     * @return
+     */
+    private String check(String orderByClause, String string, String string2) {
+        if (orderByClause == null || orderByClause.contains(string) || orderByClause.contains(string2)) {
+            return null;
+        }
+        return orderByClause;
     }
 
     /**
@@ -441,18 +469,20 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param sqlExpression
      * @param colName
      * @param table
-     * @param dataFilterExpression
+     * @param whereExpression
      * @param range
      * @return
      * @throws ParseException
      */
     private String getCompletedSingleSelect(Indicator indicator, String sqlGenericExpression, String colName, String table,
-            ZExp dataFilterExpression, String range) throws ParseException {
+            List<String> whereExpression, String range) throws ParseException {
         String completedRange = replaceVariables(range, colName, table);
         String rangeColumn = "'" + completedRange + "'";
         String completedSqlString = replaceVariables(sqlGenericExpression, rangeColumn, table);
-        List<String> listOfWheres = Arrays.asList(completedRange);
-        return addWhereToSqlStringStatement(dataFilterExpression, listOfWheres, completedSqlString);
+        // add this range clause to the given where clause (but do not modify the given where clause)
+        List<String> allWheresForSingleSelect = new ArrayList<String>(whereExpression);
+        allWheresForSingleSelect.add(completedRange);
+        return addWhereToSqlStringStatement(allWheresForSingleSelect, completedSqlString);
     }
 
     /**
@@ -496,15 +526,15 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param sqlExpression
      * @param colName
      * @param table
-     * @param dataFilterExpression
+     * @param whereExpression
      * @throws AnalysisExecutionException
      */
     private String getCompletedStringForQuantiles(Indicator indicator, Expression sqlExpression, String colName, String table,
-            ZExp dataFilterExpression) throws AnalysisExecutionException {
+            List<String> whereExpression) throws AnalysisExecutionException {
         // first, count nb lines
         String catalog = getCatalogName(indicator.getAnalyzedElement());
         // FIXME scorreia get schema
-        long count = getCount(cachedAnalysis, colName, table, catalog, dataFilterExpression);
+        long count = getCount(cachedAnalysis, colName, table, catalog, whereExpression);
         if (count == -1) {
             throw new AnalysisExecutionException("Got an invalid result set when evaluating row count for column "
                     + dbms().toQualifiedName(catalog, null, colName));
@@ -512,8 +542,7 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         Long midleCount = getLimitFirstArg(indicator, count);
         Integer nbRow = getNbReturnedRows(indicator, count);
-        return MessageFormat.format(sqlExpression.getBody(), colName, table, String.valueOf(midleCount), String.valueOf(nbRow))
-                + dbms().eos();
+        return MessageFormat.format(sqlExpression.getBody(), colName, table, String.valueOf(midleCount), String.valueOf(nbRow));
     }
 
     /**
@@ -550,10 +579,10 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         return null;
     }
 
-    private Long getCount(Analysis analysis, String colName, String table, String catalog, ZExp dataFilterExpression)
+    private Long getCount(Analysis analysis, String colName, String table, String catalog, List<String> whereExpression)
             throws AnalysisExecutionException {
         try {
-            return getCountLow(analysis, colName, table, catalog, dataFilterExpression);
+            return getCountLow(analysis, colName, table, catalog, whereExpression);
         } catch (SQLException e) {
             throw new AnalysisExecutionException("Cannot get count for analysis \"" + analysis.getName() + "\" on column "
                     + colName + " in " + dbms().toQualifiedName(catalog, null, table), e);
@@ -566,21 +595,21 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
      * @param cachedAnalysis2
      * @param colName
      * @param quote
-     * @param dataFilterExpression
+     * @param whereExpression
      * @param catalogName
      * @return -1L when sql went ok, but obtained result set is invalid.
      * @throws SQLException
      * @throws AnalysisExecutionException
      */
-    private Long getCountLow(Analysis analysis, String colName, String table, String catalogName, ZExp dataFilterExpression)
+    private Long getCountLow(Analysis analysis, String colName, String table, String catalogName, List<String> whereExpression)
             throws SQLException, AnalysisExecutionException {
         TypedReturnCode<Connection> trc = this.getConnection(analysis);
         if (!trc.isOk()) {
             throw new AnalysisExecutionException("Cannot execute Analysis " + analysis.getName() + ". Error: " + trc.getMessage());
         }
         Connection connection = trc.getObject();
-        String whereExp = (dataFilterExpression == null || dataFilterExpression.toString().trim().length() == 0) ? "" : " where "
-                + dataFilterExpression.toString();
+        String whereExp = (whereExpression == null || whereExpression.isEmpty()) ? "" : " WHERE "
+                + dbms().buildWhereExpression(whereExpression);
         String queryStmt = "SELECT COUNT(" + colName + ") FROM " + table + whereExp; // + dbms().eos();
 
         List<Object[]> myResultSet = executeQuery(catalogName, connection, queryStmt);

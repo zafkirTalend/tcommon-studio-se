@@ -14,7 +14,9 @@ package org.talend.cwm.management.api;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -23,6 +25,8 @@ import org.talend.dataquality.indicators.DateGrain;
 import org.talend.utils.sugars.TypedReturnCode;
 
 import Zql.ParseException;
+import Zql.ZExp;
+import Zql.ZExpression;
 import Zql.ZQuery;
 import Zql.ZqlParser;
 
@@ -228,11 +232,9 @@ public class DbmsLanguage {
      * call it).
      * @throws ParseException
      */
-    public TypedReturnCode<ZQuery> parseQuery(final String queryString) throws ParseException {
-        // LIMIT clause is specific to MySQL, it is not understood by ZQL. remove it and add only at the end
-        withoutLimit = removeLimitClause(queryString);
-        containsLimitClause = (withoutLimit != null);
-        String safeZqlString = containsLimitClause ? withoutLimit[0] : queryString;
+    private ZQuery parseQuery(final String queryString) throws ParseException {
+        // String query = removeSemiColumn(queryString);
+        String safeZqlString = queryString;
         // extractClause = removeExtractFromClause(safeZqlString);
         safeZqlString = closeStatement(safeZqlString);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(safeZqlString.getBytes());
@@ -242,13 +244,74 @@ public class DbmsLanguage {
             log.debug("Parsing query: " + safeZqlString);
         }
         ZQuery zQuery = (ZQuery) parser.readStatement();
-        TypedReturnCode<ZQuery> trc = new TypedReturnCode<ZQuery>();
-        trc.setObject(zQuery);
-        trc.setOk(containsLimitClause);
+        return zQuery;
+    }
+
+    /**
+     * DOC scorreia Comment method "removeSemiColumn".
+     * 
+     * @param queryString
+     * @return
+     */
+    private String removeSemiColumn(String queryString) {
+        if (queryString.trim().endsWith(eos())) {
+            int endIndex = queryString.lastIndexOf(eos());
+            return queryString.substring(0, endIndex);
+        }
+        return queryString;
+    }
+
+    /**
+     * Method "prepareQuery" prepares the query for being parsed without exception (remove LIMIT clause...). It will
+     * remove all elements that cannot be currently parsed by ZQL.
+     * 
+     * @param queryString
+     * @return a query string safe to be parsed (whatever the boolean in returnCode is). When boolean isOk() is true,
+     * this means that the finalizeQuery must called (for example for handling the MySQL LIMIT clause). When false,
+     * calling finalizeQuery() is not needed (but it won't hurt to call it).
+     * @throws ParseException
+     */
+    public TypedReturnCode<String> prepareQuery(final String queryString) throws ParseException {
+        if (log.isDebugEnabled()) {
+            log.debug("Preparing query: " + queryString);
+        }
+        // LIMIT clause is specific to MySQL, it is not understood by ZQL. remove it and add only at the end
+        withoutLimit = removeLimitClause(queryString);
+        containsLimitClause = (withoutLimit != null);
+        String safeSqlString = containsLimitClause ? withoutLimit[0] : queryString;
+        // extractClause = removeExtractFromClause(safeZqlString);
+
+        TypedReturnCode<String> trc = new TypedReturnCode<String>();
+        trc.setObject(safeSqlString);
+        trc.setOk(mustCallFinalize());
         return trc;
     }
 
-    public String finalizeQuery(ZQuery zQuery) {
+    /**
+     * Method "finalizeQuery" must be called after prepareQuery().
+     * 
+     * @param query the query to finalize
+     * @return the final query.
+     */
+    public String finalizeQuery(String query) {
+        StringBuffer buf = new StringBuffer();
+        buf.append(query.toString());
+        if (containsLimitClause) {
+            buf.append(" " + withoutLimit[1]);
+        }
+        containsLimitClause = false;
+        return buf.toString();
+        // return closeStatement(buf.toString());
+    }
+
+    /**
+     * Method "finalizeQuery" must be called after parseQuery().
+     * 
+     * @param zQuery
+     * @return the final query string
+     * @deprecated use this{@link #finalizeQuery(String)} instead
+     */
+    private String finalizeQuery(ZQuery zQuery) {
         StringBuffer buf = new StringBuffer();
         buf.append(zQuery.toString());
         if (containsLimitClause) {
@@ -312,6 +375,13 @@ public class DbmsLanguage {
         return extract(DateGrain.DAY, colName);
     }
 
+    /**
+     * Method "getTopNQuery".
+     * 
+     * @param query
+     * @param n
+     * @return the n first row of the given query
+     */
     public String getTopNQuery(String query, int n) {
         if (is(ORACLE)) {
             return "SELECT * FROM (" + query + ") WHERE ROWNUM <= " + n;
@@ -391,7 +461,7 @@ public class DbmsLanguage {
         if (upperCased.matches(LIMIT_REGEXP)) {
             String[] res = new String[2];
             int lastIndexOf = upperCased.lastIndexOf("LIMIT");
-            res[0] = completedSqlString.substring(0, lastIndexOf) + eos();
+            res[0] = completedSqlString.substring(0, lastIndexOf);
             res[1] = completedSqlString.substring(lastIndexOf);
             return res;
         }
@@ -467,5 +537,112 @@ public class DbmsLanguage {
 
     private String surroundWith(char left, String toSurround, char right) {
         return left + toSurround + right;
+    }
+
+    public String addWhereToSqlStringStatement(String completedSqlString, List<String> whereExpressions) throws ParseException {
+        TypedReturnCode<String> trc = this.prepareQuery(completedSqlString);
+        String query = trc.getObject();
+
+        String where = this.buildWhereExpression(whereExpressions);
+        if (where != null && where.trim().length() != 0) {
+            query = this.addWhereToStatement(query, where);
+        }
+        return query;
+    }
+
+    /**
+     * Method "addWhereToStatement".
+     * 
+     * @param statement a statement already prepared for parsing
+     * @param whereClause
+     * @return the new statement
+     */
+    public String addWhereToStatement(String statement, String whereClause) {
+        try {
+            ZQuery query = this.parseQuery(statement);
+            if (whereClause != null) {
+                if (StringUtils.isNotBlank(whereClause)) {
+                    ZqlParser filterParser = new ZqlParser();
+                    filterParser.initParser(new ByteArrayInputStream(whereClause.getBytes()));
+                    ZExp currentWhere = query.getWhere();
+                    ZExp whereExpression = filterParser.readExpression();
+                    if (currentWhere != null && whereExpression != null) {
+                        ZExpression finalWhereExpression = new ZExpression(and(), currentWhere, whereExpression);
+                        query.addWhere(finalWhereExpression);
+                    } else {
+                        if (whereExpression != null) {
+                            query.addWhere(whereExpression);
+                        }
+                    }
+                }
+            }
+            return query.toString();
+        } catch (ParseException e) {
+            log.error(e, e);
+        }
+        // FIXME scorreia need to parse statement here and then to add the where clause correctly
+        String finalQuery = statement + where() + whereClause;
+        log.error("Query parsing failed. Returning simple concatenated string: " + finalQuery);
+        return finalQuery;
+    }
+
+    public String where() {
+        return " WHERE ";
+    }
+
+    /**
+     * Method "buildWhereExpression".
+     * 
+     * @param whereExpression a list of boolean clauses
+     * @return clauses between parentheses and concatenated with "AND"
+     */
+    public String buildWhereExpression(List<String> whereExpression) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < whereExpression.size(); i++) {
+            String exp = whereExpression.get(i);
+            buf.append(this.surroundWith('(', exp, ')'));
+            if (i != whereExpression.size() - 1) {
+                buf.append(and());
+            }
+        }
+        return buf.toString();
+    }
+
+    private boolean mustCallFinalize() {
+        return containsLimitClause;
+    }
+
+    public String desc() {
+        return " DESC ";
+    }
+
+    /**
+     * DOC scorreia Comment method "getOrderBy".
+     * 
+     * @param sqlStatement
+     * @return
+     */
+    public String getOrderBy(String sqlStatement) {
+        ZqlParser zqlParser = getZqlParser();
+        zqlParser.initParser(new ByteArrayInputStream(sqlStatement.getBytes()));
+        try {
+            ZQuery zQuery = (ZQuery) zqlParser.readStatement();
+            if (zQuery == null) {
+                return null;
+            }
+            Vector orderBy = zQuery.getOrderBy();
+            if (orderBy == null || orderBy.size() != 1) {
+                return null;
+            }
+            return orderBy.get(0).toString();
+        } catch (ParseException e) {
+            log.error(e, e);
+        }
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String orderBy() {
+        return " ORDER BY ";
     }
 }
