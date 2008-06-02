@@ -246,6 +246,13 @@
               relationship="right"
               ratio="0.6"
               />
+        <view
+              closeable="true"
+              id="org.eclipse.ui.navigator.ProjectExplorer"
+              relationship="bottom"
+              relative="org.talend.dataprofiler.core.ui.views.DQRespositoryView"
+              visible="false">
+        </view>
       <!--  <view id="org.talend.dataprofiler.core.ui.views.QuanlityView"
               relative="org.talend.dataprofiler.core.ui.views.CheatSheetView"
               relationship="bottom"
