@@ -17,9 +17,14 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarContributionItem;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
@@ -29,6 +34,7 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
+import org.talend.dataprofiler.core.ui.perspective.ChangePerspectiveAction;
 import org.talend.dataprofiler.core.ui.perspective.PerspectiveMenuManager;
 
 /**
@@ -119,13 +125,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         helpMenu.add(aboutAction);
     }
 
-    private static final String[] ACTIONSETID = new String[] { // "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$
-                                                                // //$NON-NLS-2$
-            "org.eclipse.ui.WorkingSetActionSet", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.update.ui.softwareUpdates", // "org.eclipse.ui.actionSet.keyBindings", //$NON-NLS-1$
-                                                        // //$NON-NLS-2$
-            "org.eclipse.ui.actionSet.openFiles", //$NON-NLS-1$
-            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo" }; //$NON-NLS-1$ 
+    private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
+            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.search.searchActionSet", "org.eclipse.ui.edit.text.actionSet.openExternalFile", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.jdt.ui.actions.GoToPackage", "org.eclipse.jdt.ui.actions.GoToType", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.jdt.ui.actions.OpenExternalJavaDoc", "org.eclipse.jdt.ui.actions.OpenSuperImplementation", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.jdt.ui.actions.CopyQualifiedName", "org.eclipse.jdt.ui.actions.Open", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.jdt.ui.actions.OpenTypeHierarchy", "org.eclipse.jdt.ui.actions.OpenCallHierarchy" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     private void beforefillMenuBar() {
         this.removeAction();
@@ -148,4 +155,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.application.ActionBarAdvisor#fillCoolBar(org.eclipse.jface.action.ICoolBarManager)
+     */
+    @Override
+    protected void fillCoolBar(ICoolBarManager coolBar) {
+        IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+        coolBar.add(new ToolBarContributionItem(toolbar, "switch_persp")); //$NON-NLS-1$
+        toolbar.add(new ChangePerspectiveAction(true));
+    }
 }
