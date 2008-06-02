@@ -83,5 +83,6 @@ Export-Package: net.sf.jasperreports.ant,
  org.w3c.tools.codec
 Require-Bundle: org.talend.libraries.hibernate,
  org.talend.libraries.logging,
- org.apache.xerces
+ org.apache.xerces,
+ org.talend.libraries.jfreechart
 Eclipse-BuddyPolicy: registered
