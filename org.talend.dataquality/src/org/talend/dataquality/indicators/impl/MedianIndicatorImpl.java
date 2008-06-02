@@ -317,20 +317,18 @@ public class MedianIndicatorImpl extends IndicatorImpl implements MedianIndicato
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * 
+     * @generated NOT toString()
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (median: ");
-        if (medianESet) result.append(median); else result.append("<unset>");
-        result.append(", frequenceTable: ");
-        result.append(frequenceTable);
-        result.append(", dateMedian: ");
-        result.append(dateMedian);
-        result.append(')');
+        if (medianESet)
+            result.append(median);
+        else
+            result.append("<unset>");
         return result.toString();
     }
 

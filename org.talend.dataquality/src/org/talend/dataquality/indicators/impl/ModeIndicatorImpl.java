@@ -7,6 +7,7 @@ package org.talend.dataquality.indicators.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -30,6 +31,8 @@ import org.talend.dataquality.indicators.ModeIndicator;
  * @generated
  */
 public class ModeIndicatorImpl extends IndicatorImpl implements ModeIndicator {
+
+    private static Logger log = Logger.getLogger(ModeIndicatorImpl.class);
 
     /**
      * The default value of the '{@link #getMode() <em>Mode</em>}' attribute.
@@ -155,6 +158,9 @@ public class ModeIndicatorImpl extends IndicatorImpl implements ModeIndicator {
         }
         Object c = objects.get(0)[0];
         this.setMode(c);
+        if (log.isDebugEnabled()) {
+            log.debug("Mode found: " + c);
+        }
         return true;
     }
 

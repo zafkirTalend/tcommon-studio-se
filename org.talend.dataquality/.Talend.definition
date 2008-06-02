@@ -59,16 +59,16 @@
   <indicatorDefinitions xmi:id="_ccIR4RF2Ed2PKb6nEJEvhw" name="Mode" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Mode">
     <taggedValue tag="Description" value="computes the mode (most probable value). For numerical data or continuous data, bins can be set in the parameters of this indicator. It is different from the average and from the median. Generalization of it is an histogram. It is good for addressing categorical attributes."/>
     <taggedValue tag="Purpose" value="evaluate the most frequent value"/>
-    <sqlGenericExpression body="SELECT  {0}, COUNT(*) FROM {1} m GROUP BY 1 ORDER BY 2 DESC  LIMIT 1" language="SQL"/>
-    <sqlGenericExpression body="SELECT  {0}, COUNT(*) FROM {1} m GROUP BY 1 ORDER BY 2 DESC  LIMIT 1" language="MySQL"/>
-    <sqlGenericExpression body="SELECT * FROM (SELECT  {0}, COUNT(*) FROM {1} m GROUP BY {0} ORDER BY COUNT(*) DESC ) WHERE ROWNUM &lt;= 1" language="Oracle"/>
+    <sqlGenericExpression body="SELECT  {0}, COUNT(*) FROM {1} m GROUP BY 1 ORDER BY 2 DESC " language="SQL"/>
+    <sqlGenericExpression body="SELECT  {0}, COUNT(*) FROM {1} m GROUP BY 1 ORDER BY 2 DESC " language="MySQL"/>
+    <sqlGenericExpression body="SELECT  {0}, COUNT(*) FROM {1} m GROUP BY {0} ORDER BY COUNT(*) DESC " language="Oracle"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccIR4hF2Ed2PKb6nEJEvhw" name="Frequency Table" categories="_ccKuIRF2Ed2PKb6nEJEvhw" label="Frequency Table">
     <taggedValue tag="Description" value="for each distinct instance, counts the number of instances."/>
     <taggedValue tag="Purpose" value="evaluate the count of each distinct value"/>
-    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY c DESC" language="SQL"/>
-    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY c DESC" language="MySQL"/>
-    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} r GROUP BY {0} ORDER BY COUNT(*) DESC" language="Oracle"/>
+    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} t GROUP BY {0} ORDER BY c DESC" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0} val, COUNT(*) c FROM {1} t GROUP BY val ORDER BY c DESC" language="MySQL"/>
+    <sqlGenericExpression body="SELECT {0}, COUNT(*) c FROM {1} t GROUP BY {0} ORDER BY COUNT(*) DESC" language="Oracle"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccI48BF2Ed2PKb6nEJEvhw" name="Summary Statistics" categories="_ccKuIRF2Ed2PKb6nEJEvhw" aggregatedDefinitions="_ccI48xF2Ed2PKb6nEJEvhw _ccI48RF2Ed2PKb6nEJEvhw _ccI48hF2Ed2PKb6nEJEvhw _ccI49hF2Ed2PKb6nEJEvhw" label="Summary Statistics">
     <taggedValue tag="Description" value="computes the average, the median and the extent of the data"/>
@@ -84,8 +84,8 @@
   <indicatorDefinitions xmi:id="_ccI48hF2Ed2PKb6nEJEvhw" name="Median" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Median">
     <taggedValue tag="Description" value="computes the median. The median is the value separating the higher half of a sample, a population, or a probability distribution, from the lower half. "/>
     <taggedValue tag="Purpose" value="evaluate the median of the data"/>
-    <sqlGenericExpression body="SELECT {0} FROM {1} ORDER BY {0} LIMIT {2},{3}" language="SQL"/>
-    <sqlGenericExpression body="SELECT {0} FROM {1} ORDER BY {0} LIMIT {2},{3}" language="MySQL"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1} WHERE {0} IS NOT NULL ORDER BY {0} LIMIT {2},{3}" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1} WHERE {0} IS NOT NULL ORDER BY {0} LIMIT {2},{3}" language="MySQL"/>
     <sqlGenericExpression body="SELECT AVG({0}) FROM ( SELECT {0}, COUNT(*) OVER( ) total, CAST(COUNT(*) OVER( ) AS DECIMAL)/2 mid, CEIL(CAST(COUNT(*) OVER( ) AS DECIMAL)/2) next, ROW_NUMBER() OVER ( ORDER BY {0}) rn FROM {1} ) x WHERE ( MOD(total,2) = 0&#x9; AND rn IN ( mid, mid+1 ) ) OR ( MOD(total,2) = 1 AND rn = next )" language="Oracle"/>
     <sqlGenericExpression body="SELECT MEDIAN({0}) FROM {1}" language="Oracle 10g"/>
     <sqlGenericExpression body=" SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY {0}) FROM {1}" language="Oracle 9i"/>
@@ -97,15 +97,15 @@
   <indicatorDefinitions xmi:id="_ccI49BF2Ed2PKb6nEJEvhw" name="Lower Quartile" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Lower Quartile">
     <taggedValue tag="Description" value="Lower Quartile"/>
     <taggedValue tag="Purpose" value="Evaluate the number of rows"/>
-    <sqlGenericExpression body="SELECT {0} FROM {1} ORDER BY {0} LIMIT {2},{3}" language="SQL"/>
-    <sqlGenericExpression body="SELECT {0} FROM {1} ORDER BY {0} LIMIT {2},{3}" language="MySQL"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1} WHERE {0} IS NOT NULL ORDER BY {0} LIMIT {2},{3}" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1}  WHERE {0} IS NOT NULL ORDER BY {0} LIMIT {2},{3}" language="MySQL"/>
     <sqlGenericExpression body=" SELECT PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY {0}) FROM {1}" language="Oracle"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccI49RF2Ed2PKb6nEJEvhw" name="Upper Quartile" categories="_ccKuIBF2Ed2PKb6nEJEvhw" label="Upper Quartile">
     <taggedValue tag="Description" value="counts the number of duplicates. this number and the number of unique data equals the number of rows"/>
     <taggedValue tag="Purpose" value="Upper Quartile"/>
-    <sqlGenericExpression body="SELECT {0} FROM {1} ORDER BY {0} LIMIT {2},{3}" language="SQL"/>
-    <sqlGenericExpression body="SELECT {0} FROM {1} ORDER BY {0} LIMIT {2},{3}" language="MySQL"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1} WHERE {0} IS NOT NULL ORDER BY {0} LIMIT {2},{3}" language="SQL"/>
+    <sqlGenericExpression body="SELECT {0} FROM {1}  WHERE {0} IS NOT NULL ORDER BY {0} LIMIT {2},{3}" language="MySQL"/>
     <sqlGenericExpression body=" SELECT PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY {0}) FROM {1}" language="Oracle"/>
   </indicatorDefinitions>
   <indicatorDefinitions xmi:id="_ccI49hF2Ed2PKb6nEJEvhw" name="Range" categories="_ccKuIBF2Ed2PKb6nEJEvhw" aggregatedDefinitions="_ccJgABF2Ed2PKb6nEJEvhw _ccJgARF2Ed2PKb6nEJEvhw" label="Range">
@@ -132,12 +132,20 @@
     <sqlGenericExpression body="SELECT SUM({0}) FROM {1}" language="SQL"/>
     <sqlGenericExpression body="SELECT SUM({0}) FROM {1}" language="MySQL"/>
   </indicatorDefinitions>
-  <indicatorDefinitions name="Null Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Null Count">
+  <indicatorDefinitions xmi:id="_ccFOkBF2Ed2PKb6nEJEvhw" name="Null Count" categories="_ccKHEBF2Ed2PKb6nEJEvhw" label="Null Count">
     <taggedValue tag="Purpose" value="Evaluate the number of missing data"/>
     <taggedValue tag="Description" value="counts the number of missing (null) instances"/>
-    <sqlGenericExpression body="SELECT COUNT(*) FROM {1} m WHERE m.{0} IS NULL" language="SQL"/>
-    <sqlGenericExpression body="SELECT COUNT(*) FROM {1} m WHERE m.{0} IS NULL" language="MySQL"/>
-    <sqlGenericExpression body="SELECT COUNT(*) FROM {1} m WHERE m.{0} IS NULL" language="Oracle"/>
+    <sqlGenericExpression body="SELECT COUNT(*) FROM {1} WHERE {0} IS NULL" language="SQL"/>
+    <sqlGenericExpression body="SELECT COUNT(*) FROM {1} WHERE {0} IS NULL" language="MySQL"/>
+    <sqlGenericExpression body="SELECT COUNT(*) FROM {1} WHERE {0} IS NULL" language="Oracle"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions name="Text Statistics" aggregatedDefinitions="_ccIR4BF2Ed2PKb6nEJEvhw _ccHq1RF2Ed2PKb6nEJEvhw _ccHq1BF2Ed2PKb6nEJEvhw" label="Text Statistics">
+    <taggedValue tag="Purpose" value="Analyze textual fields"/>
+    <taggedValue tag="Description" value="contains indicators for analyzing textual fields"/>
+  </indicatorDefinitions>
+  <indicatorDefinitions name="Simple Statistics" aggregatedDefinitions="_ccHq0xF2Ed2PKb6nEJEvhw _ccHq0BF2Ed2PKb6nEJEvhw _ccHq0hF2Ed2PKb6nEJEvhw _ccFOkBF2Ed2PKb6nEJEvhw _ccFOkBF2Ed2PKb6nEJEvhw _ccHq0RF2Ed2PKb6nEJEvhw" label="Simple Statistics">
+    <taggedValue tag="Description" value="contains several count indicators"/>
+    <taggedValue tag="Purpose" value="Analyze some quantities of data"/>
   </indicatorDefinitions>
   <categories xmi:id="_ccKHEBF2Ed2PKb6nEJEvhw" name="Simple Statistics" label="Simple Statistics">
     <taggedValue tag="Description" value="Simple Statistics"/>
