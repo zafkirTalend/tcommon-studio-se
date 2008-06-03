@@ -332,6 +332,9 @@ public interface IProxyRepositoryFactory {
 
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException;
 
+    public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
+            throws PersistenceException;
+
     public abstract List<String> getFolders(ERepositoryObjectType type) throws PersistenceException;
 
     /**

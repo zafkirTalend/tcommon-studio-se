@@ -109,7 +109,7 @@ public class DocumentationHelper {
      * @param nodes
      * @return
      */
-    public static ExportFileResource[] getExportFileResources(RepositoryNode node) {
+    public static ExportFileResource[] getExportFileResources(RepositoryNode node, boolean allVersions) {
 
         List<ExportFileResource> list = new ArrayList<ExportFileResource>();
         if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER
@@ -128,7 +128,8 @@ public class DocumentationHelper {
             if (isNotProcess && isNotJoblet && isNotGenerated && isNotJobs && isNotJoblets) {
                 folderName = node.getProperties(EProperties.LABEL).toString();
             }
-            addTreeNode(node, folderName, list);
+            // to improve
+            addTreeNode(node, folderName, list, allVersions);
         }
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
@@ -140,10 +141,26 @@ public class DocumentationHelper {
                 } catch (PersistenceException e) {
                     ExceptionHandler.process(e);
                 }
-
+                List<Item> docsToGenerate = new ArrayList<Item>();
                 if (jobOrJobletItem != null) {
-                    ExportFileResource resource = new ExportFileResource(jobOrJobletItem, jobOrJobletItem.getProperty()
-                            .getLabel());
+                    if (!allVersions) {
+                        docsToGenerate.add(jobOrJobletItem);
+                    } else {
+                        IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
+                                .getProxyRepositoryFactory();
+                        try {
+                            List<IRepositoryObject> objects = proxyFactory.getAllVersion(jobOrJobletItem.getProperty().getId());
+                            for (IRepositoryObject object : objects) {
+                                docsToGenerate.add(object.getProperty().getItem());
+                            }
+                        } catch (PersistenceException e) {
+                            ExceptionHandler.process(e);
+                        }
+                    }
+                }
+                for (Item toGenerate : docsToGenerate) {
+                    ExportFileResource resource = new ExportFileResource(toGenerate, toGenerate.getProperty().getLabel() + "_"
+                            + toGenerate.getProperty().getVersion());
                     list.add(resource);
                 }
             }
@@ -160,7 +177,7 @@ public class DocumentationHelper {
      * @param path
      * @param list
      */
-    private static void addTreeNode(RepositoryNode node, String path, List<ExportFileResource> list) {
+    private static void addTreeNode(RepositoryNode node, String path, List<ExportFileResource> list, boolean allVersions) {
         if (node != null && node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
             if (repositoryObject.getProperty().getItem() instanceof Item) {
@@ -184,10 +201,26 @@ public class DocumentationHelper {
 
             if (version.equals("")) {
                 addTreeNode((RepositoryNode) nodes[i], path + "/" //$NON-NLS-1$
-                        + label, list);
+                        + label, list, allVersions);
             } else {
-                addTreeNode((RepositoryNode) nodes[i], path + "/" //$NON-NLS-1$
-                        + label + "_" + version, list);
+                if (allVersions) {
+                    IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
+                            .getProxyRepositoryFactory();
+                    try {
+                        List<IRepositoryObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
+                        for (IRepositoryObject curObj : objects) {
+                            RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) nodes[i]).getType());
+                            addTreeNode(repNode, path + "/" //$NON-NLS-1$
+                                    + curObj.getProperty().getLabel() + "_" + curObj.getProperty().getVersion(), list,
+                                    allVersions);
+                        }
+                    } catch (PersistenceException e) {
+                        ExceptionHandler.process(e);
+                    }
+                } else {
+                    addTreeNode((RepositoryNode) nodes[i], path + "/" //$NON-NLS-1$
+                            + label + "_" + version, list, allVersions);
+                }
             }
         }
     }

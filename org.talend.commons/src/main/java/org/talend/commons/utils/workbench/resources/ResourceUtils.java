@@ -144,7 +144,7 @@ public final class ResourceUtils {
                     deleteResource(res);
                     nbResourcesDeleted++;
                 } catch (PersistenceException e) {
-                	CommonExceptionHandler.process(e);
+                    CommonExceptionHandler.process(e);
                 }
             }
             return nbResourcesDeleted;
@@ -227,7 +227,7 @@ public final class ResourceUtils {
                     stream.close();
                 }
             } catch (IOException e) {
-            	CommonExceptionHandler.process(e);
+                CommonExceptionHandler.process(e);
             }
         }
     }
