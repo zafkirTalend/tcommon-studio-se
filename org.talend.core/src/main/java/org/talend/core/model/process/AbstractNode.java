@@ -440,6 +440,9 @@ public abstract class AbstractNode implements INode {
         }
 
         for (IElementParameter param : this.getElementParameters()) {
+            if (param.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$
+                continue;
+            }
             if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
                 String value = (String) param.getValue();
                 if (value.contains(oldName)) {
@@ -496,8 +499,12 @@ public abstract class AbstractNode implements INode {
      * @see org.talend.core.model.process.INode#useData(java.lang.String)
      */
     public boolean useData(String name) {
+
         for (IElementParameter param : this.getElementParameters()) {
             if (param.getField() == EParameterFieldType.IMAGE) {
+                continue;
+            }
+            if (param.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$
                 continue;
             }
             if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
