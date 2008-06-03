@@ -59,8 +59,6 @@ public class ColumnIndicator {
     // the indicatorEnums number equal plat IndicatorEnum(not hierrachy) numbers.
     private List<IndicatorEnum> flatIndicatorEnumList = new ArrayList<IndicatorEnum>();
 
-    // private List<Indicator> indicatorList = new ArrayList<Indicator>(0);
-
     private Map<IndicatorEnum, IndicatorUnit> indicatorUnitMap = new HashMap<IndicatorEnum, IndicatorUnit>();
 
     private IndicatorUnit[] currentindicatorUnits;
@@ -166,6 +164,9 @@ public class ColumnIndicator {
         switch (indicatorEnum) {
         case CountsIndicatorEnum:
             CountsIndicator countsIndicator = (CountsIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.CountsIndicatorEnum, createIndicatorUnit(IndicatorEnum.CountsIndicatorEnum,
+                    countsIndicator));
+
             // add indicatorUnit to indicatorUnitMap
             this.indicatorUnitMap.put(IndicatorEnum.BlankCountIndicatorEnum, createIndicatorUnit(
                     IndicatorEnum.BlankCountIndicatorEnum, countsIndicator.getBlankCountIndicator()));
@@ -182,6 +183,8 @@ public class ColumnIndicator {
             break;
         case TextIndicatorEnum:
             TextIndicator textIndicator = (TextIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.TextIndicatorEnum, createIndicatorUnit(IndicatorEnum.TextIndicatorEnum,
+                    textIndicator));
 
             // add indicatorUnit to indicatorUnitMap
             this.indicatorUnitMap.put(IndicatorEnum.MinLengthIndicatorEnum, createIndicatorUnit(
@@ -193,6 +196,9 @@ public class ColumnIndicator {
             break;
         case BoxIIndicatorEnum:
             BoxIndicator boxtIndicator = (BoxIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.BoxIIndicatorEnum, createIndicatorUnit(IndicatorEnum.BoxIIndicatorEnum,
+                    boxtIndicator));
+
             this.indicatorUnitMap.put(IndicatorEnum.MeanIndicatorEnum, createIndicatorUnit(IndicatorEnum.MeanIndicatorEnum,
                     boxtIndicator.getMeanIndicator()));
             this.indicatorUnitMap.put(IndicatorEnum.MedianIndicatorEnum, createIndicatorUnit(IndicatorEnum.MedianIndicatorEnum,
@@ -202,6 +208,9 @@ public class ColumnIndicator {
             break;
         case IQRIndicatorEnum:
             IQRIndicator iqrIndicator = (IQRIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.IQRIndicatorEnum, createIndicatorUnit(IndicatorEnum.IQRIndicatorEnum,
+                    iqrIndicator));
+
             this.indicatorUnitMap.put(IndicatorEnum.LowerQuartileIndicatorEnum, createIndicatorUnit(
                     IndicatorEnum.LowerQuartileIndicatorEnum, iqrIndicator.getLowerValue()));
             this.indicatorUnitMap.put(IndicatorEnum.UpperQuartileIndicatorEnum, createIndicatorUnit(
@@ -209,6 +218,9 @@ public class ColumnIndicator {
             break;
         case RangeIndicatorEnum:
             RangeIndicator rangeIndicator = (RangeIndicator) indicator;
+            this.indicatorUnitMap.put(IndicatorEnum.RangeIndicatorEnum, createIndicatorUnit(IndicatorEnum.RangeIndicatorEnum,
+                    rangeIndicator));
+
             this.indicatorUnitMap.put(IndicatorEnum.MaxValueIndicatorEnum, createIndicatorUnit(
                     IndicatorEnum.MaxValueIndicatorEnum, rangeIndicator.getUpperValue()));
             this.indicatorUnitMap.put(IndicatorEnum.MinValueIndicatorEnum, createIndicatorUnit(
