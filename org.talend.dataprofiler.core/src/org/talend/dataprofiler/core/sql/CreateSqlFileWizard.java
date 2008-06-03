@@ -16,10 +16,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.wizard.Wizard;
-import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.wizard.AbstractWizardPage;
 import org.talend.dq.analysis.parameters.ConnectionParameter;
 
@@ -55,7 +54,7 @@ public class CreateSqlFileWizard extends Wizard {
     public void addPages() {
         mPage = new CreateSqlFileWizardPage();
         AbstractWizardPage.setConnectionParams(new ConnectionParameter());
-        mPage.setTitle("New Database Connection on repository");
+        mPage.setTitle("New SQL File in repository");
         mPage.setDescription("Define the properties");
         mPage.setPageComplete(false);
         addPage(mPage);
@@ -68,9 +67,9 @@ public class CreateSqlFileWizard extends Wizard {
      */
     @Override
     public boolean performFinish() {
-        IPath location = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-        String portableString = location.append(DQStructureManager.LIBRARIES).append(DQStructureManager.SOURCE_FILES).append(
-                AbstractWizardPage.getConnectionParams().getName()).addFileExtension("sql").toPortableString();
+        IPath absolutePath = new Path(AbstractWizardPage.getConnectionParams().getFolderProvider().getFolder().getAbsolutePath());
+        String portableString = absolutePath.append(AbstractWizardPage.getConnectionParams().getName()).addFileExtension("sql")
+                .toPortableString();
         sqlFile = new File(portableString);
         try {
             sqlFile.createNewFile();

@@ -60,6 +60,7 @@ public class AddSqlFileAction extends Action {
         IWorkbenchPage ap = aww.getActivePage();
         CreateSqlFileWizard fileWizard = new CreateSqlFileWizard(folder);
         WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), fileWizard);
+        fileWizard.setWindowTitle(getText());
         if (WizardDialog.OK == dialog.open()) {
             try {
                 folder.refreshLocal(IResource.DEPTH_ONE, null);

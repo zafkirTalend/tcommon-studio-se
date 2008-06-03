@@ -329,12 +329,13 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
      */
     @Override
     public void setVisible(boolean visible) {
-        String status = statusText.getText();
-        if (status != null) {
-            metadata.put(IParameterConstant.ANALYSIS_STATUS, status);
-            getConnectionParams().setMetadate(metadata);
+        if (statusText != null) {
+            String status = statusText.getText();
+            if (status != null) {
+                metadata.put(IParameterConstant.ANALYSIS_STATUS, status);
+                getConnectionParams().setMetadate(metadata);
+            }
         }
-
         if (defaultFolderProviderRes != null) {
             FolderProvider defaultFolder = new FolderProvider();
             defaultFolder.setFolderResource(defaultFolderProviderRes);
