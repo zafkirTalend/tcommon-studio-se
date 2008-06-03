@@ -63,7 +63,7 @@ public class AddSqlFileAction extends Action {
         fileWizard.setWindowTitle(getText());
         if (WizardDialog.OK == dialog.open()) {
             try {
-                folder.refreshLocal(IResource.DEPTH_ONE, null);
+                folder.refreshLocal(IResource.DEPTH_INFINITE, null);
             } catch (CoreException e) {
                 e.printStackTrace();
             }

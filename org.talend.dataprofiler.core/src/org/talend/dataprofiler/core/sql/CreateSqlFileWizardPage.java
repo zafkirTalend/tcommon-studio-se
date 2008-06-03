@@ -42,8 +42,6 @@ public class CreateSqlFileWizardPage extends MetadataWizardPage {
 
     private Text nameText;
 
-    private Text pathText;
-
     private Button button;
 
     private IFolder defaultFolderProviderRes;
