@@ -20,6 +20,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -384,9 +386,18 @@ public class DocumentationHelper {
      * @return - the repository biew
      */
     public static IRepositoryView getViewPart() {
-        IViewPart viewPart = (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage())
-                .findView(IRepositoryView.VIEW_ID);
-        return (IRepositoryView) viewPart;
+        IWorkbenchWindow[] workbenchWindows = PlatformUI.getWorkbench().getWorkbenchWindows();
+        for (IWorkbenchWindow workbenchWindow : workbenchWindows) {
+			IWorkbenchPage[] pages = workbenchWindow.getPages();
+			for (IWorkbenchPage workbenchPage : pages) {
+				IViewPart findView = workbenchPage.findView(IRepositoryView.VIEW_ID);
+				if(findView!=null)
+				{
+					return (IRepositoryView)findView;
+				}
+			}
+		}
+        return null;
     }
 
     /**
@@ -468,7 +479,6 @@ public class DocumentationHelper {
             File file = new File(filePathStr);
             if (file.exists()) {
                 boolean delete = file.delete();
-                System.out.println(delete);
             }
         }
     }
