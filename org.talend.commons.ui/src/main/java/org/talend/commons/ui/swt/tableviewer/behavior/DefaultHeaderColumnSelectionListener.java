@@ -57,9 +57,11 @@ public class DefaultHeaderColumnSelectionListener implements ITableColumnSelecti
      */
     public void widgetSelected(SelectionEvent e) {
         TableViewerCreatorSorter viewerSorter = (TableViewerCreatorSorter) tableViewerCreator.getTableViewer().getSorter();
-        viewerSorter.prepareSort(tableViewerCreator, tableViewerCreatorColumn);
-        tableViewerCreator.getTableViewer().refresh();
-        fireColumnSorted();
+        if(viewerSorter != null) {
+            viewerSorter.prepareSort(tableViewerCreator, tableViewerCreatorColumn);
+            tableViewerCreator.getTableViewer().refresh();
+            fireColumnSorted();
+        }
     }
 
     /**

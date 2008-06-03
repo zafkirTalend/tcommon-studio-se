@@ -30,10 +30,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.sort.TableViewerCreatorSorter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.utils.DataObject;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 
@@ -116,8 +117,9 @@ public final class TestTableViewerCreator2 {
 
         List<DataObject> list = new ArrayList<DataObject>();
         Random random = new Random();
+        DataObject listObject2 = null;
         for (int i = 0; i < TEN; i++) {
-            DataObject listObject2 = new DataObject();
+            listObject2 = new DataObject();
             // listObject2.setPrimaryIntegerValue(random.nextBoolean() ? i : null);
             listObject2.setIntegerValue1(random.nextInt(ONE_HUNDRED));
             listObject2.setLibelle("libelle " + random.nextInt(ONE_HUNDRED));
@@ -125,10 +127,9 @@ public final class TestTableViewerCreator2 {
             listObject2.setBool(random.nextBoolean());
             list.add(listObject2);
         }
+        list.add(listObject2);
         tableViewerCreator.init(list);
 
-        TableEditorManager tableEditorManager = new TableEditorManager(tableViewerCreator);
-        tableEditorManager.init();
         shell1.setSize(HEIGHT_HUNDRED, FIVE_HUNDRED);
         shell1.setSize(HEIGHT_HUNDRED + TEN, FIVE_HUNDRED);
         shell1.open();
@@ -225,6 +226,12 @@ public final class TestTableViewerCreator2 {
         column.setWeight(TWENTY);
         column.setId("uid");
         column.setCellEditor(new TextCellEditor(table));
+        
+        tableViewerCreator.setTableViewerCreatorSorter(new TableViewerCreatorSorter());
+        tableViewerCreator.setDefaultSort(column, SORT.ASC);
+        
+        
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Integer Null Value");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {

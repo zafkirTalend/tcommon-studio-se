@@ -12,34 +12,41 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
+import org.talend.commons.utils.data.list.IListenableListListener;
+import org.talend.commons.utils.data.list.ListenableList;
+import org.talend.commons.utils.data.list.ListenableListEvent;
+import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
+import org.talend.commons.utils.data.map.MultiLazyValuesMap;
+import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10
  * amaumont Exp $
  */
 public class TableEditorManager {
-
-    private static final String METHOD_NAME = "getOriginalDbColumnName";
-
-    private boolean isSecond = false;
-
-    private boolean isThird = false;
 
     /**
      * 
@@ -58,6 +65,23 @@ public class TableEditorManager {
     private List<TableEditor> tableEditorList = new ArrayList<TableEditor>();
 
     List<ITableEditorManagerListener> listeners = new ArrayList<ITableEditorManagerListener>();
+
+    private ListenableList listenableList;
+
+    private List<TableViewerCreatorColumn> columns;
+
+    private List<TableViewerCreatorColumn> columnsWithEditorContent;
+
+    private HashSet<TableItem> previousItemsHash;
+
+    MultiLazyValuesMap dataToMultipleDataEditor = new MultiLazyValuesMap(new HashMap()) {
+
+        @Override
+        public Collection instanciateNewCollection() {
+            return (Collection) new ArrayList();
+        }
+
+    };
 
     public void addListener(ITableEditorManagerListener listener) {
         listeners.add(listener);
@@ -85,7 +109,8 @@ public class TableEditorManager {
     }
 
     @SuppressWarnings("unchecked")
-    public void init() {
+    public void init(ListenableList listenableList) {
+        this.listenableList = listenableList;
         List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
         for (TableViewerCreatorColumn column : columns) {
             if (column.getTableColumnSelectionListener() instanceof ITableColumnSelectionListener) {
@@ -98,10 +123,163 @@ public class TableEditorManager {
                 });
             }
         }
+
+        IListenableListListener listenableListListener = new IListenableListListener() {
+
+            public void handleEvent(ListenableListEvent event) {
+
+                if (event.type == TYPE.ADDED) {
+
+                    handleAddedEventAsynchronous(event);
+                    // handleAddedEvent(event);
+
+                } else if (event.type == TYPE.REMOVED) {
+                    handleRemovedEventAsynchronous(event);
+                } else if (event.type == TYPE.SWAPED) {
+                    handleSwapedEvent(event);
+                }
+
+            }
+
+        };
+
+        listenableList.addPostOperationListener(listenableListListener);
+
+    }
+
+    private void handleAddedEventAsynchronous(final ListenableListEvent event) {
+
+        new AsynchronousThreading(10, true, tableViewerCreator.getCompositeParent().getDisplay(), new Runnable() {
+
+            public void run() {
+                handleAddedEvent(event);
+            }
+
+        }).start();
+
+    }
+
+    private void handleRemovedEventAsynchronous(final ListenableListEvent event) {
+        
+        new AsynchronousThreading(10, true, tableViewerCreator.getCompositeParent().getDisplay(), new Runnable() {
+            
+            public void run() {
+                handleRemovedEvent(event);
+            }
+            
+        }).start();
+        
+    }
+    
+    private void handleAddedEvent(final ListenableListEvent event) {
+
+        int indexStart = event.index;
+
+        if (tableViewerCreator.getTable().isDisposed()) {
+            return;
+        }
+
+        TableItem[] items = tableViewerCreator.getTable().getItems();
+
+        List<TableEditor> addedTableEditor = new ArrayList<TableEditor>();
+
+        for (int i = 0; i < items.length; i++) {
+            TableItem tableItem = items[i];
+            if (!previousItemsHash.contains(tableItem)) {
+
+                for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+                    TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
+
+                    TableEditorContent tableEditorContent = column.getTableEditorContent();
+
+                    String idProperty = column.getId();
+
+                    TableEditor tableEditor = addTableEditor(column, tableEditorContent, idProperty, tableItem);
+                    addedTableEditor.add(tableEditor);
+
+                }
+            }
+        }
+
+        for (int i = indexStart; i < items.length; i++) {
+            TableItem tableItem = items[i];
+            Object data = tableItem.getData();
+            Collection<TableEditor> tableEditorCollection = (Collection<TableEditor>) dataToMultipleDataEditor
+                    .getCollection(data);
+            for (TableEditor tableEditor : tableEditorCollection) {
+                tableEditor.setItem(tableItem);
+            }
+        }
+
+        previousItemsHash = new HashSet<TableItem>(Arrays.asList((TableItem[]) items));
+
+    }
+
+    private void handleRemovedEvent(final ListenableListEvent event) {
+
+        Collection removedObjects = event.removedObjects;
+
+        for (Object data : removedObjects) {
+            Collection<TableEditor> collection = dataToMultipleDataEditor.getCollection(data);
+            for (TableEditor tableEditor : collection) {
+                tableEditorList.remove(tableEditor);
+                disposeTableEditor(tableEditor);
+            }
+            dataToMultipleDataEditor.remove(data);
+        }
+
+        int tableEditorListSize = tableEditorList.size();
+        for (int i = 0; i < tableEditorListSize; i++) {
+            TableEditor tableEditor = tableEditorList.get(i);
+            tableEditor.layout();
+        }
+
+    }
+
+    private void disposeTableEditor(TableEditor tableEditor) {
+        Control editor = tableEditor.getEditor();
+        if(editor != null && !editor.isDisposed()) {
+            editor.dispose();
+        }
+        tableEditor.dispose();
+    }
+
+    private void handleSwapedEvent(ListenableListEvent event) {
+
+        if (tableViewerCreator.getTable().isDisposed()) {
+            return;
+        }
+
+        Table table = tableViewerCreator.getTable();
+        TableItem[] items = table.getItems();
+
+        HashSet dataHash = new HashSet(Arrays.asList((Object[]) event.swapedObjects));
+
+        for (int i = 0; i < items.length; i++) {
+            TableItem tableItem = items[i];
+            Object data = tableItem.getData();
+            if (dataHash.contains(data)) {
+                Collection<TableEditor> tableEditorCollection = (Collection<TableEditor>) dataToMultipleDataEditor
+                        .getCollection(data);
+                for (TableEditor tableEditor : tableEditorCollection) {
+                    tableEditor.setItem(tableItem);
+                }
+            }
+        }
+
     }
 
     @SuppressWarnings("unchecked")
     public void refresh() {
+        
+        for (int i = 0; i < tableEditorList.size(); i++) {
+            TableEditor tableEditor = tableEditorList.get(i);
+            disposeTableEditor(tableEditor);
+            fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditor));
+        }
+
+        tableEditorList.clear();
+        dataToMultipleDataEditor.clear();
 
         Table table = tableViewerCreator.getTable();
         if (table.isDisposed()) {
@@ -110,8 +288,10 @@ public class TableEditorManager {
 
         TableItem[] items = table.getItems();
 
-        List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
-        List<TableViewerCreatorColumn> columnsWithEditorContent = new ArrayList<TableViewerCreatorColumn>(columns.size());
+        previousItemsHash = new HashSet<TableItem>(Arrays.asList((TableItem[]) items));
+
+        columns = tableViewerCreator.getColumns();
+        columnsWithEditorContent = new ArrayList<TableViewerCreatorColumn>(columns.size());
 
         for (int iCol = 0; iCol < columns.size(); iCol++) {
             TableViewerCreatorColumn column = columns.get(iCol);
@@ -121,212 +301,17 @@ public class TableEditorManager {
             }
         }
 
-        if (columnsWithEditorContent.size() == 2 && items.length > 1 && !tableEditorList.isEmpty()) {
-            boolean copy = false;
-            boolean add = false;
-            boolean remove = false;
+        for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+            TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
 
-            List<String> dbNameList = new ArrayList<String>();
-            Set<String> lastDBNameSet = new HashSet<String>();
-            List<String> itemsNameList = new ArrayList<String>();
-            List<String> lastItemsNameList = new ArrayList<String>();
-            Set<String> tableEditorNameSet = new HashSet<String>();
-            Set<String> tableEditorDBNameSet = new HashSet<String>();
-            List<String> tableEditorDBNameList = new ArrayList<String>();
-            Set<String> lastTableEditorNameSet = new HashSet<String>();
-            List<String> needAddItemsNameList = new ArrayList<String>();
-            List<String> copyTableItemList = new ArrayList<String>();
-            List<TableItem> disposeTableItemList = new ArrayList<TableItem>();
-            List<TableEditor> disposeTableEditorList = new ArrayList<TableEditor>();
-            itemsNameList.clear();
-            copyTableItemList.clear();
-            disposeTableEditorList.clear();
-            needAddItemsNameList.clear();
-            tableEditorNameSet.clear();
-            lastTableEditorNameSet.clear();
-            lastItemsNameList.clear();
-            dbNameList.clear();
-            lastDBNameSet.clear();
-            disposeTableItemList.clear();
-            tableEditorDBNameList.clear();
-            tableEditorDBNameSet.clear();
+            TableEditorContent tableEditorContent = column.getTableEditorContent();
+            tableEditorContent.setLayoutEnabled(false);
 
-            Method[] methods = items[0].getData().getClass().getDeclaredMethods();
+            String idProperty = column.getId();
 
-            for (TableEditor tableEditor : tableEditorList) {
-                if (!tableEditor.getItem().isDisposed()) {
-                    tableEditorNameSet.add(tableEditor.getItem().getData().toString().trim());
-                    for (Method method : methods) {
-                        if (TableEditorManager.METHOD_NAME.equals(method.getName())) {
-                            try {
-                                String dbName = (String) method.invoke(tableEditor.getItem().getData(), null);
-                                tableEditorDBNameSet.add(dbName);
-                                break;
-                            } catch (IllegalArgumentException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (InvocationTargetException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                } else {
-                    remove = true;
-                    break;
-                }
-            }
-            lastTableEditorNameSet.addAll(tableEditorNameSet);
-
-            if (remove) {
-                for (int i = 0; i < tableEditorList.size(); i++) {
-                    if (tableEditorList.get(i).getItem().isDisposed()) {
-                        disposeTableEditorList.add(tableEditorList.get(i));
-                        tableEditorList.get(i).getEditor().dispose();
-                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditorList.get(i)));
-                    }
-                }
-                tableEditorList.removeAll(disposeTableEditorList);
-            } else {
-                for (TableItem tableItem : items) {
-                    itemsNameList.add(tableItem.getData().toString().trim());
-                    for (Method method : methods) {
-                        if (TableEditorManager.METHOD_NAME.equals(method.getName())) {
-                            try {
-                                String dbName = (String) method.invoke(tableItem.getData(), null);
-                                lastDBNameSet.add(dbName);
-                                break;
-                            } catch (IllegalArgumentException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (InvocationTargetException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-                itemsNameList.removeAll(lastDBNameSet);
-
-                copy = false;
-                add = false;
-                if (lastDBNameSet.size() - tableEditorDBNameSet.size() == 1) {
-                    add = true;
-                } else if (lastDBNameSet.size() - tableEditorDBNameSet.size() == 0) {
-                    if (isSecond) {
-                        add = true;
-                        isThird = true;
-                    } else {
-                        copy = true;
-                    }
-                } else {
-                    copy = true;
-                }
-
-                if (add) {
-                    for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
-                        TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
-
-                        TableEditorContent tableEditorContent = column.getTableEditorContent();
-                        tableEditorContent.setLayoutEnabled(false);
-
-                        String idProperty = column.getId();
-
-                        lastDBNameSet.removeAll(tableEditorDBNameSet);
-
-                        for (String itemName : lastDBNameSet) {
-                            for (TableItem tableItem : items) {
-                                if (itemName.trim().equals(tableItem.getData().toString().trim())) {
-                                    TableEditor tableEditor = tableEditorContent.createTableEditor(table);
-                                    tableEditorList.add(tableEditor);
-                                    Object currentRowObject = tableItem.getData();
-                                    Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                                    Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject,
-                                            value);
-                                    if (tableItem != null && !tableItem.isDisposed()) {
-                                        tableEditor.setEditor(control, tableItem, column.getIndex());
-                                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (isThird) {
-                        isSecond = false;
-                        isThird = false;
-                    } else {
-                        isSecond = true;
-                    }
-                } else if (copy) {
-                    for (int i = 0; i < tableEditorList.size(); i++) {
-                        TableEditor tableEditor = tableEditorList.get(i);
-                        tableEditor.getEditor().dispose();
-                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditor));
-                    }
-
-                    tableEditorList.clear();
-
-                    for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
-
-                        TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
-
-                        TableEditorContent tableEditorContent = column.getTableEditorContent();
-                        tableEditorContent.setLayoutEnabled(false);
-
-                        String idProperty = column.getId();
-
-                        for (int i = 0; i < items.length; i++) {
-                            TableEditor tableEditor = tableEditorContent.createTableEditor(table);
-                            TableItem tableItem = items[i];
-                            tableEditorList.add(tableEditor);
-                            Object currentRowObject = tableItem.getData();
-                            Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                            Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
-                            if (tableItem != null && !tableItem.isDisposed()) {
-                                tableEditor.setEditor(control, tableItem, column.getIndex());
-                                fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            for (int i = 0; i < tableEditorList.size(); i++) {
-                TableEditor tableEditor = tableEditorList.get(i);
-                tableEditor.getEditor().dispose();
-                fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditor));
-            }
-
-            tableEditorList.clear();
-
-            for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
-
-                TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
-
-                TableEditorContent tableEditorContent = column.getTableEditorContent();
-                tableEditorContent.setLayoutEnabled(false);
-
-                String idProperty = column.getId();
-
-                for (int i = 0; i < items.length; i++) {
-                    TableEditor tableEditor = tableEditorContent.createTableEditor(table);
-                    TableItem tableItem = items[i];
-                    tableEditorList.add(tableEditor);
-                    Object currentRowObject = tableItem.getData();
-                    Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                    Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
-                    if (tableItem != null && !tableItem.isDisposed()) {
-                        tableEditor.setEditor(control, tableItem, column.getIndex());
-                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
-                    }
-                }
+            for (int i = 0; i < items.length; i++) {
+                TableItem tableItem = items[i];
+                addTableEditor(column, tableEditorContent, idProperty, tableItem);
             }
         }
 
@@ -335,6 +320,35 @@ public class TableEditorManager {
             column.getTableEditorContent().setLayoutEnabled(true);
         }
 
+    }
+
+    private TableEditor addTableEditor(TableViewerCreatorColumn column, TableEditorContent tableEditorContent, String idProperty,
+            TableItem tableItem) {
+
+        TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
+        tableEditorList.add(tableEditor);
+        dataToMultipleDataEditor.put(tableItem.getData(), tableEditor);
+
+        Object currentRowObject = tableItem.getData();
+        Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+        Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
+        
+        control.addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+
+//                System.out.println(e);
+                
+            }
+            
+        });
+        
+        if (tableItem != null && !tableItem.isDisposed()) {
+            tableEditor.setEditor(control, tableItem, column.getIndex());
+            fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
+        }
+
+        return tableEditor;
     }
 
     /**
@@ -353,4 +367,20 @@ public class TableEditorManager {
         return Collections.unmodifiableList(this.tableEditorList);
     }
 
+    public void release() {
+        tableViewerCreator = null;
+        int tableEditorListListSize = tableEditorList.size();
+        for (int i = 0; i < tableEditorListListSize; i++) {
+            TableEditor tableEditor = tableEditorList.get(i);
+            disposeTableEditor(tableEditor);
+        }
+        tableEditorList = null;
+        listeners = null;
+        listenableList = null;
+        columns = null;
+        columnsWithEditorContent = null;
+        previousItemsHash = null;
+        dataToMultipleDataEditor = null;
+    }
+    
 }

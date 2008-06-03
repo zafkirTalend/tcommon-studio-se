@@ -44,10 +44,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      * DOC amaumont ListenableList constructor comment.
      */
     public ListenableList(List<T> list) {
-        if (list == null) {
-            throw new IllegalArgumentException(Messages.getString("ListenableList.List.BeNull")); //$NON-NLS-1$
-        }
-        this.list = list;
+        registerList(list);
     }
 
     public ListenableList() {

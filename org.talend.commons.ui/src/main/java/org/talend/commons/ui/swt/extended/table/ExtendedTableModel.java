@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListenable;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
@@ -30,6 +33,8 @@ import org.talend.commons.utils.data.list.ListenableList;
  * @param <B> Type of beans
  */
 public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
+
+    private TableViewer tableViewer;
 
     private ListenableList<B> beansList = new ListenableList<B>();
 
@@ -69,20 +74,37 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
     }
 
     /**
-     * DOC amaumont Comment method "add".
+     * 
+     * Insert bean.
      * 
      * @param bean
      * @param index can be null
      */
     public void add(B bean, Integer index) {
+
         if (index == null || index < 0 || index > this.beansList.size() - 1) {
+            if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+                tableViewer.add(bean);
+            }
             this.beansList.add(bean);
         } else {
+            if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+                tableViewer.insert(bean, index);
+            }
             this.beansList.add(index, bean);
         }
     }
 
+    /**
+     * 
+     * Add bean at end of table.
+     * 
+     * @param bean
+     */
     public void add(B bean) {
+        if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+            tableViewer.add(bean);
+        }
         this.beansList.add(bean);
     }
 
@@ -92,10 +114,20 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @param beans
      * @param index can be null
      */
-    public void addAll(Integer index, List<B> beans) {
+    public void addAll(final Integer index, List<B> beans) {
         if (index == null || index < 0 || index > this.beansList.size() - 1) {
+            if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+                tableViewer.add(beans.toArray(new Object[beans.size()]));
+            }
             this.beansList.addAll(beans);
         } else {
+            if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+                int localIndex = index;
+                int beansListSize = beans.size();
+                for (int i = 0; i < beansListSize; i++) {
+                    tableViewer.insert(beans.get(i), localIndex++);
+                }
+            }
             this.beansList.addAll(index, beans);
         }
     }
@@ -138,6 +170,9 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @param bean
      */
     public boolean remove(B bean) {
+        if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+            tableViewer.remove(bean);
+        }
         return this.beansList.remove(bean);
     }
 
@@ -147,6 +182,9 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @param i
      */
     public B remove(int index) {
+        if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+            tableViewer.remove(this.beansList.get(index));
+        }
         return this.beansList.remove(index);
     }
 
@@ -156,10 +194,16 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @see org.talend.commons.utils.data.list.ListenableList#removeAll(java.util.Collection)
      */
     public boolean removeAll(Collection<B> c) {
+        if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+            tableViewer.remove(c.toArray(new Object[c.size()]));
+        }
         return this.beansList.removeAll(c);
     }
 
     public void removeAll() {
+        if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+            tableViewer.remove(this.beansList.toArray(new Object[this.beansList.size()]));
+        }
         this.beansList.clear();
     }
 
@@ -169,6 +213,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @see org.talend.commons.utils.data.list.ListenableList#swapElement(java.lang.Object, java.lang.Object)
      */
     public void swapElement(B object1, B object2) {
+        internalSwapElement(object1, object2);
         this.beansList.swapElement(object1, object2);
     }
 
@@ -178,7 +223,45 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @see org.talend.commons.utils.data.list.ListenableList#swapElements(java.util.List, java.util.List)
      */
     public void swapElements(List<Integer> indicesOrigin, List<Integer> indicesTarget) {
+        internalSwapElementIndices(indicesOrigin, indicesTarget);
         this.beansList.swapElements(indicesOrigin, indicesTarget);
+    }
+
+    private void internalSwap(int index1, int index2) {
+
+        if (index1 == index2) {
+            return;
+        }
+        // some list implementations don't allow null elements / duplicate elements so we can't swap elements in one
+        // statement :(
+        Table table = tableViewer.getTable();
+        TableItem[] items = table.getItems();
+        B temp1 = (B) items[index1].getData();
+        B temp2 = (B) items[index2].getData();
+        
+        if (index1 > index2) {
+            items[index2].setData(temp1);
+            items[index1].setData(temp2);
+        } else {
+            items[index1].setData(temp2);
+            items[index2].setData(temp1);
+        }
+    }
+
+    private void internalSwapElementIndices(List<Integer> indicesOrigin, List<Integer> indicesTarget) {
+        if (indicesOrigin.size() != indicesTarget.size()) {
+            throw new IllegalArgumentException();
+        }
+        int lstSize = indicesOrigin.size();
+        for (int i = 0; i < lstSize; i++) {
+            Integer idxOrigin = indicesOrigin.get(i);
+            Integer idxDestination = indicesTarget.get(i);
+            internalSwap(idxOrigin, idxDestination);
+        }
+    }
+
+    private void internalSwapElement(Object object1, Object object2) {
+        internalSwap(this.beansList.indexOf(object1), this.beansList.indexOf(object2));
     }
 
     /**
@@ -191,7 +274,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         for (int i = 0; i < indexArray.length; i++) {
             objectsToRemove.add(beansList.get(indexArray[i]));
         }
-        beansList.removeAll(objectsToRemove);
+        removeAll(objectsToRemove);
         return objectsToRemove;
     }
 
@@ -285,6 +368,14 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      */
     public B createBeanInstance() {
         return null;
+    }
+
+    public TableViewer getTableViewer() {
+        return tableViewer;
+    }
+
+    public void setTableViewer(TableViewer tableViewer) {
+        this.tableViewer = tableViewer;
     }
 
 }

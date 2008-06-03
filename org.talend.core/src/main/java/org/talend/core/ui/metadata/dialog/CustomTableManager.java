@@ -96,7 +96,7 @@ public class CustomTableManager {
 
                 public void widgetSelected(SelectionEvent e) {
                     table.sortCustomColumns();
-                    tableEditorView.getTableViewerCreator().getTableViewer().refresh();
+                    //tableEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
 
             });

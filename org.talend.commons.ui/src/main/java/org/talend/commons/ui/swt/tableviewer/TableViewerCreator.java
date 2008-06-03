@@ -36,6 +36,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -168,6 +170,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     private final ListenerList modifiedBeanListeners = new ListenerList();
 
+    private final ListenerList operationsListeners = new ListenerList();
+
     private CommandStack commandStack;
 
     private boolean keyboardManagementForCellEdition = true;
@@ -286,6 +290,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     protected int keyPressed;
 
+    private ListenableList<B> listenableList;
+
     /**
      * Constructor.
      * 
@@ -353,11 +359,21 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             attachCellEditors();
             addListeners();
         }
-        this.list = list;
+
+        boolean hasChanged = false;
+        if (this.list != list) {
+            hasChanged = true;
+        }
+
         setInputList(list);
         if (tableEditorManager != null) {
-            tableEditorManager.init();
+            tableEditorManager.init(this.listenableList);
         }
+
+        if (hasChanged) {
+            refreshTableEditorControls();
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -366,9 +382,18 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     public void setInputList(List list) {
+
+        if (list instanceof ListenableList) {
+            this.listenableList = (ListenableList) list;
+        } else {
+            if (this.listenableList == null) {
+                this.listenableList = new ListenableList<B>(list);
+            } else {
+                this.listenableList.registerList(list);
+            }
+        }
         this.list = list;
         tableViewer.setInput(list);
-        refreshTableEditorControls();
     }
 
     /**
@@ -395,7 +420,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object element) {
                 super.add(element);
-                refreshTableEditorControls();
+                // tableEditorManager.redrawControls();
+                // refreshTableEditorControls();
             }
 
             /*
@@ -406,7 +432,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object[] elements) {
                 super.add(elements);
-                refreshTableEditorControls();
+                // tableEditorManager.redrawControls();
+                // refreshTableEditorControls();
+            }
+
+            @Override
+            public void insert(Object element, int position) {
+                super.insert(element, position);
+                // tableEditorManager.redrawControls();
             }
 
             /*
@@ -419,7 +452,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 // removeEraseListener();
                 super.remove(elements);
                 // addEraseItemListener();
-                refreshTableEditorControls();
+                // refreshTableEditorControls();
             }
 
             /*
@@ -440,15 +473,15 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh() {
-                boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
-                if (itemHasBeenRemoved) {
-                    // table.removeListener(SWT.EraseItem, eraseItemListener);
-                }
+                // boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
+                // if (itemHasBeenRemoved) {
+                // // table.removeListener(SWT.EraseItem, eraseItemListener);
+                // }
                 super.refresh();
-                if (itemHasBeenRemoved) {
-                    // table.addListener(SWT.EraseItem, eraseItemListener);
-                }
-                refreshTableEditorControls();
+                // if (itemHasBeenRemoved) {
+                // // table.addListener(SWT.EraseItem, eraseItemListener);
+                // }
+                // refreshTableEditorControls();
             }
 
             /*
@@ -458,15 +491,15 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh(boolean updateLabels) {
-                boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
-                if (itemHasBeenRemoved) {
-                    // table.removeListener(SWT.EraseItem, eraseItemListener);
-                }
+                // boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
+                // if (itemHasBeenRemoved) {
+                // // table.removeListener(SWT.EraseItem, eraseItemListener);
+                // }
                 super.refresh(updateLabels);
-                if (itemHasBeenRemoved) {
-                    // table.addListener(SWT.EraseItem, eraseItemListener);
-                }
-                refreshTableEditorControls();
+                // if (itemHasBeenRemoved) {
+                // // table.addListener(SWT.EraseItem, eraseItemListener);
+                // }
+                // refreshTableEditorControls();
             }
 
             /*
@@ -477,8 +510,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void refresh(Object element, boolean updateLabels) {
                 super.refresh(element, updateLabels);
-                // refreshTableEditorControls();
-                // refreshTableEditorControls();
+                refreshTableEditorControls();
             }
 
             /*
@@ -558,10 +590,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             table.addListener(SWT.Paint, paintListener);
         }
 
-        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(
-                SWT.COLOR_WHITE));
-        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(
-                SWT.COLOR_BLACK));
+        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 
         if (useCustomItemColoring) {
             setUseCustomItemColoring(true);
@@ -673,8 +703,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     keyPressed = key;
                     e.doit = false;
                     editOtherEditor(null);
-                } else if (key == SWT.TRAVERSE_RETURN && getTable().getSelectionIndex() != -1
-                        && getTable().isFocusControl()) {
+                } else if (key == SWT.TRAVERSE_RETURN && getTable().getSelectionIndex() != -1 && getTable().isFocusControl()) {
                     keyPressed = key;
                     editOtherEditor(null);
                 }
@@ -700,6 +729,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
         };
         getTable().addKeyListener(keyListenerForTable);
+
+        getTable().addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                if (tableEditorManager != null) {
+                    tableEditorManager.release();
+                }
+
+            }
+
+        });
 
         if (tableEditorManager != null) {
             tableEditorManager.addListener(new ITableEditorManagerListener() {
@@ -988,12 +1028,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     protected void attachViewerSorter() {
 
         if (this.tableViewerCreatorSorter == null) {
-            this.tableViewerCreatorSorter = new TableViewerCreatorSorter();
             if (defaultOrderedColumn != null && defaultOrderBy != null && defaultOrderedColumn.isSortable()) {
+                this.tableViewerCreatorSorter = new TableViewerCreatorSorter();
                 this.tableViewerCreatorSorter.prepareSort(this, defaultOrderedColumn, defaultOrderBy);
             }
+        } else {
+            tableViewer.setSorter(this.tableViewerCreatorSorter);
         }
-        tableViewer.setSorter(this.tableViewerCreatorSorter);
     }
 
     protected void attachLabelProvider() {

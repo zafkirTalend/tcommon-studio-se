@@ -13,6 +13,7 @@
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -31,7 +32,7 @@ public abstract class TableEditorContent {
      * @param table
      * @return TableEditor
      */
-    public TableEditor createTableEditor(Table table) {
+    public TableEditor createTableEditor(final Table table) {
         return new TableEditor(table) {
 
 

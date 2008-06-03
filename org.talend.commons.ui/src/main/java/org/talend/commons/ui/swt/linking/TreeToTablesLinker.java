@@ -199,7 +199,13 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width, yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
-            Rectangle tableItemBounds = TableUtils.getTableItem(table, (Object) extremity2.getDataItem()).getBounds();
+            TableItem tableItem = TableUtils.getTableItem(table, (Object) extremity2.getDataItem());
+            
+            if(tableItem == null) {
+                continue;
+            }
+            
+            Rectangle tableItemBounds = tableItem.getBounds();
             Rectangle tableBounds = table.getBounds();
 
             Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2,

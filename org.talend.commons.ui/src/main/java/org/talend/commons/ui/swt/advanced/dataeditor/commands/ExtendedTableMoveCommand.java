@@ -101,7 +101,8 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
             }
         }
 
-        list.swapElements(indicesOrigin, indicesTarget);
+        
+        extendedTable.swapElements(indicesOrigin, indicesTarget);
 
     }
 
@@ -146,7 +147,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
     public void undo() {
         Collections.reverse(indicesTarget);
         Collections.reverse(indicesOrigin);
-        list.swapElements(indicesTarget, indicesOrigin);
+        extendedTable.swapElements(indicesTarget, indicesOrigin);
     }
 
 }
