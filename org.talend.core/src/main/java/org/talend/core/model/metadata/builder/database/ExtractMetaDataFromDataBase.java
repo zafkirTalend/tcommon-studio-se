@@ -21,12 +21,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -106,13 +108,25 @@ public class ExtractMetaDataFromDataBase {
      * @param DatabaseMetaData dbMetaData
      * @return Collection of MetadataTable
      */
-    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData) {
+    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, String schema) {
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
         try {
-            ResultSet rsTables = null;
-            String[] tableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
+            ResultSet rsTables = null, rsTableTypes = null;
+            rsTableTypes = dbMetaData.getTableTypes();
+            Set<String> availableTableTypes = new HashSet<String>();
+            String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
                     ETableTypes.TABLETYPE_SYNONYM.getName() };
-            rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
+            while (rsTableTypes.next()) {
+                String currentTableType = rsTableTypes.getString("TABLE_TYPE");
+                if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
+                    availableTableTypes.add(currentTableType);
+                }
+            }
+            if (dbMetaData.supportsSchemasInTableDefinitions()) {
+                rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
+            } else {
+                rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
+            }
             getMetadataTables(medataTables, rsTables);
         } catch (SQLException e) {
             log.error(e.toString());
@@ -170,7 +184,8 @@ public class ExtractMetaDataFromDataBase {
                     .getSchema());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
+            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
+                    .getSchema());
             Iterator iterate = metadataTables.iterator();
             IMetadataTable metaTable1 = new MetadataTable();
             while (iterate.hasNext()) {
@@ -252,7 +267,12 @@ public class ExtractMetaDataFromDataBase {
         try {
 
             try {
-                ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
+                ResultSet keys;
+                if (dbMetaData.supportsSchemasInDataManipulation()) {
+                    keys = dbMetaData.getPrimaryKeys(null, metadataConnection.getSchema(), medataTable.getLabel());
+                } else {
+                    keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
+                }
                 primaryKeys.clear();
                 while (keys.next()) {
                     primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -266,7 +286,12 @@ public class ExtractMetaDataFromDataBase {
             Connection connection = dbMetaData.getConnection();
             checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
             String tableName = medataTable.getTableName();
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, tableName, null);
+            ResultSet columns;
+            if (dbMetaData.supportsSchemasInDataManipulation()) {
+                columns = dbMetaData.getColumns(null, metadataConnection.getSchema(), tableName, null);
+            } else {
+                columns = dbMetaData.getColumns(null, null, tableName, null);
+            }
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME");
@@ -440,7 +465,7 @@ public class ExtractMetaDataFromDataBase {
             // testConnection to alert if you have filled a Wrong Database
             // field.
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
+            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, schema);
 
             connection.close();
             connectionStatus.setResult(true);
@@ -501,7 +526,8 @@ public class ExtractMetaDataFromDataBase {
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
-        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
+        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
+                .getSchema());
         ExtractMetaDataUtils.closeConnection();
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
@@ -529,7 +555,8 @@ public class ExtractMetaDataFromDataBase {
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
-        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
+        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
+                .getSchema());
         ExtractMetaDataUtils.closeConnection();
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
