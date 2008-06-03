@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.dataprofiler.core.model.nodes.analysis;
 
-import java.util.List;
 
 
 /**

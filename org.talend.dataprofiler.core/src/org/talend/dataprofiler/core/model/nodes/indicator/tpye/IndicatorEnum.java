@@ -13,7 +13,6 @@
 package org.talend.dataprofiler.core.model.nodes.indicator.tpye;
 
 import org.eclipse.emf.ecore.EClass;
-import org.talend.dataquality.indicators.CountsIndicator;
 import org.talend.dataquality.indicators.IndicatorsPackage;
 
 /**

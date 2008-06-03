@@ -37,14 +37,14 @@ public class CompositeIndicator {
     
     public static final String SUMMARY_STATISTICS = "Summary Statistics";
     
-    IndicatorUnit[] indicatorTypeMapping;
+    IndicatorUnit[] indicatorUnits;
     
     Map<String, List<IndicatorUnit>> separatedMap; 
     
     public CompositeIndicator(ColumnIndicator columnIndicator) {
         
         this.separatedMap = new HashMap<String, List<IndicatorUnit>>();
-        this.indicatorTypeMapping = columnIndicator.getIndicatorUnits();
+        this.indicatorUnits = columnIndicator.getIndicatorUnits();
     }
     
     public Map<String, List<IndicatorUnit>> getIndicatorComposite() {
@@ -54,7 +54,7 @@ public class CompositeIndicator {
         List<IndicatorUnit> frequencyList = new ArrayList<IndicatorUnit>();
         List<IndicatorUnit> summaryList = new ArrayList<IndicatorUnit>();
         
-        for (IndicatorUnit one : indicatorTypeMapping) {
+        for (IndicatorUnit one : indicatorUnits) {
             
             switch (one.getType()) {
             case RowCountIndicatorEnum:

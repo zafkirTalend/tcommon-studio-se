@@ -13,6 +13,9 @@
 package org.talend.dataprofiler.core.model.nodes.indicator;
 
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.IndicatorsFactory;
+import org.talend.dq.indicators.definitions.DefinitionHandler;
 
 /**
  * @author rli
@@ -27,6 +30,8 @@ public abstract class AbstractIndicatorNode implements IIndicatorNode {
     protected IndicatorEnum indicatorEnum;
 
     protected String label;
+
+    protected Indicator indicatorInstance;
 
     public AbstractIndicatorNode(IndicatorEnum indicatorEnum) {
         this.indicatorEnum = indicatorEnum;
@@ -56,8 +61,6 @@ public abstract class AbstractIndicatorNode implements IIndicatorNode {
     public boolean hasChildren() {
         return children != null;
     }
-    
-
 
     public String getLabel() {
         return this.indicatorEnum.getLabel();
@@ -70,6 +73,24 @@ public abstract class AbstractIndicatorNode implements IIndicatorNode {
      */
     public IndicatorEnum getIndicatorEnum() {
         return indicatorEnum;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode#getIndicatorInstance()
+     */
+    public Indicator getIndicatorInstance() {
+        if (indicatorInstance != null) {
+            return indicatorInstance;
+        } else if (this.indicatorEnum != null) {
+            IndicatorsFactory factory = IndicatorsFactory.eINSTANCE;
+            indicatorInstance = (Indicator) factory.create(indicatorEnum.getIndicatorType());
+            DefinitionHandler.getInstance().setDefaultIndicatorDefinition(indicatorInstance);
+            return indicatorInstance;
+        } else {
+            return null;
+        }
     }
 
 }

@@ -265,7 +265,7 @@ public class ColumnMasterDetailsPage extends AbstractFormPage implements Propert
         for (ModelElement modelElement : analysisHandler.getAnalyzedColumns()) {
 
             final TdColumn column = SwitchHelpers.COLUMN_SWITCH.doSwitch(modelElement);
-            final Collection<Indicator> indicators = analysisHandler.getIndicators(column);
+            final Collection<Indicator> indicators = analysisHandler.getIndicatorLeaves(column);
             final ColumnIndicator columnIndicator = new ColumnIndicator(column);
             columnIndicator.setIndicators(indicators.toArray(new Indicator[indicators.size()]));
             

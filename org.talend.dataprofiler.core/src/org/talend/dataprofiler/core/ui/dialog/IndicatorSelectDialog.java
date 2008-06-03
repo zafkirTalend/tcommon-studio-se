@@ -18,14 +18,17 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.IIndicatorNode;
@@ -33,7 +36,8 @@ import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuil
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.composite.TooltipTree;
 import org.talend.dataprofiler.core.ui.utils.ColumnIndicatorRule;
-import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
+import org.talend.dataquality.indicators.Indicator;
+import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 
 /**
  * This dialog use to select the indictor object for different columns.
@@ -41,11 +45,21 @@ import org.talend.dataquality.helpers.IndicatorDocumentationHandler;
  */
 public class IndicatorSelectDialog extends TrayDialog {
 
+    private static final int ROW_MAX_LENGTH = 107;
+
+    private static final String DESCRIPTION = "Description: ";
+
+    private static final String PURPOSE = "Purpose: ";
+
     // private Object[] tdColumns;
 
     private static final String INDICATORITEM = "_INDICATORITEM";
 
     private ColumnIndicator[] columnIndicators;
+
+    private Label purposeLabel;
+
+    private Label descriptionLabel;
 
     /**
      * @param parentShell
@@ -155,7 +169,7 @@ public class IndicatorSelectDialog extends TrayDialog {
                 }
                 Button parentItemButton = ((TreeItemContainer) parentItem).getButton(index);
                 parentItemButton.setSelection(selection);
-                IndicatorEnum enumData = (IndicatorEnum) parentItemButton.getData();
+                IndicatorEnum enumData = ((IIndicatorNode) parentItemButton.getData()).getIndicatorEnum();
                 if (enumData != null) {
                     currentColumnIndicator.addTempIndicatorEnum(enumData);
                 }
@@ -163,7 +177,7 @@ public class IndicatorSelectDialog extends TrayDialog {
             } else if (parentItem != null && !selection) {
                 Button parentItemButton = ((TreeItemContainer) parentItem).getButton(index);
                 parentItemButton.setSelection(selection);
-                currentColumnIndicator.removeTempIndicatorEnum((IndicatorEnum) parentItemButton.getData());
+                currentColumnIndicator.removeTempIndicatorEnum(((IIndicatorNode) parentItemButton.getData()).getIndicatorEnum());
                 processParentSelection((TreeItemContainer) parentItem, selection);
             }
         }
@@ -181,10 +195,10 @@ public class IndicatorSelectDialog extends TrayDialog {
                     return;
                 }
                 if (selection) {
-                    currentColumnIndicator.addTempIndicatorEnum((IndicatorEnum) itemButton.getData());
+                    currentColumnIndicator.addTempIndicatorEnum(((IIndicatorNode) itemButton.getData()).getIndicatorEnum());
 
                 } else {
-                    currentColumnIndicator.removeTempIndicatorEnum((IndicatorEnum) itemButton.getData());
+                    currentColumnIndicator.removeTempIndicatorEnum(((IIndicatorNode) itemButton.getData()).getIndicatorEnum());
                 }
 
                 processChildrenSelection((TreeItemContainer) childItem, index, selection);
@@ -204,8 +218,9 @@ public class IndicatorSelectDialog extends TrayDialog {
                 if (item.getData(INDICATORITEM) == null) {
                     return item.getText();
                 }
-                IndicatorEnum indicatorEnum = (IndicatorEnum) item.getData(INDICATORITEM);
-                String description = IndicatorDocumentationHandler.getLongDescription(indicatorEnum.getIndicatorClassifierId());
+                IndicatorDefinition indicatorDefinition = ((IIndicatorNode) item.getData(INDICATORITEM)).getIndicatorInstance()
+                        .getIndicatorDefinition();
+                String description = TaggedValueHelper.getDescription(indicatorDefinition);
                 return description.equals(PluginConstant.EMPTY_STRING) ? item.getText() : description;
             }
 
@@ -214,7 +229,53 @@ public class IndicatorSelectDialog extends TrayDialog {
         ((GridData) tree.getLayoutData()).widthHint = 650;
         ((GridData) tree.getLayoutData()).heightHint = 380;
         createTreeStructure(tree);
+        tree.addSelectionListener(new SelectionListener() {
+
+            public void widgetDefaultSelected(SelectionEvent e) {
+
+            }
+
+            public void widgetSelected(SelectionEvent e) {
+                IIndicatorNode indicatorNode = ((IIndicatorNode) e.item.getData(INDICATORITEM));
+                if (indicatorNode == null) {
+                    purposeLabel.setText(PURPOSE + ((TreeItem) e.item).getText());
+                    descriptionLabel.setText(DESCRIPTION + ((TreeItem) e.item).getText());
+                    return;
+                }
+                Indicator indicator = indicatorNode.getIndicatorInstance();
+                IndicatorDefinition indicatorDefinition = indicator.getIndicatorDefinition();
+                purposeLabel.setText(PURPOSE + TaggedValueHelper.getPurpose(indicatorDefinition));
+                String description = DESCRIPTION + TaggedValueHelper.getDescription(indicatorDefinition);
+                description = splitLongString(description);
+                descriptionLabel.setText(description);
+
+            }
+
+            private String splitLongString(String longString) {
+                if (longString.length() > ROW_MAX_LENGTH) {
+                    char space = ' ';
+                    for (int i = ROW_MAX_LENGTH; i > 0; i--) {
+                        if (longString.charAt(i) == space) {
+                            String substring1 = longString.substring(0, i);
+                            String lineSeparator = System.getProperty("line.separator", "\n");
+                            String substring2 = longString.substring(i, longString.length());
+                            substring2 = splitLongString(substring2);
+                            longString = substring1 + lineSeparator + substring2;
+                            break;
+                        }
+                    }
+
+                }
+                return longString;
+            }
+
+        });
         tree.pack();
+        purposeLabel = new Label(comp, SWT.NULL);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(purposeLabel);
+        descriptionLabel = new Label(comp, SWT.NULL);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionLabel);
+        ((GridData) descriptionLabel.getLayoutData()).heightHint = 40;
         comp.layout();
         return comp;
     }
@@ -242,13 +303,13 @@ public class IndicatorSelectDialog extends TrayDialog {
                 if (j == 0) {
                     treeItem.setText(0, branchNodes[i].getLabel());
                     if (branchNodes[i].getIndicatorEnum() != null) {
-                        treeItem.setData(INDICATORITEM, branchNodes[i].getIndicatorEnum());
+                        treeItem.setData(INDICATORITEM, branchNodes[i]);
                     }
                     continue;
                 }
                 editor = new TreeEditor(tree);
                 Button checkButton = new Button(tree, SWT.CHECK);
-                checkButton.setData(branchNodes[i].getIndicatorEnum());
+                checkButton.setData(branchNodes[i]);
 
                 if (((ColumnIndicator) treeColumns[j].getData()).contains(branchNodes[i].getIndicatorEnum())) {
                     checkButton.setSelection(true);

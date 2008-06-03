@@ -13,6 +13,7 @@
 package org.talend.dataprofiler.core.model.nodes.indicator;
 
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataquality.indicators.Indicator;
 
 /**
  * @author rli
@@ -32,6 +33,8 @@ public interface IIndicatorNode {
      * @return the indicatorFieldEnum
      */
     public IndicatorEnum getIndicatorEnum();
+    
+    public Indicator getIndicatorInstance();
 
     public String getLabel();
 
