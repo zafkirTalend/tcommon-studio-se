@@ -60,6 +60,10 @@ import org.talend.utils.sugars.TypedReturnCode;
  */
 public class ChangePerspectiveAction extends Action {
 
+    private static final String SWITCH_TO_DATA_PROFILING = "Switch to Data Profiling";
+
+    private static final String SWITCH_TO_DATA_DISCOVERY = "Switch to Data Discovery";
+
     static ChangePerspectiveAction action;
 
     IPerspectiveRegistry registry = PlatformUI.getWorkbench().getPerspectiveRegistry();
@@ -81,14 +85,8 @@ public class ChangePerspectiveAction extends Action {
      * DOC qzhang ChangePerspectiveAction constructor comment.
      */
     public ChangePerspectiveAction(boolean toolbar) {
-        super("Switch Perspective");
+        super("");
         this.toolbar = toolbar;
-        this.perspectiveId = SE_ID;
-        IPerspectiveDescriptor fp = registry.findPerspectiveWithId(SE_ID);
-        setToolTipText("Switch to Data Discovery");
-        if (fp != null) {
-            setImageDescriptor(fp.getImageDescriptor());
-        }
         action = this;
     }
 
@@ -122,7 +120,7 @@ public class ChangePerspectiveAction extends Action {
                 }
             }
             action.perspectiveId = SE_ID;
-            action.setToolTipText("Switch to Data Discovery");
+            action.setToolTipText(SWITCH_TO_DATA_DISCOVERY);
             IPerspectiveDescriptor fp = registry.findPerspectiveWithId(SE_ID);
             if (fp != null) {
                 action.setImageDescriptor(fp.getImageDescriptor());
@@ -133,7 +131,7 @@ public class ChangePerspectiveAction extends Action {
                 page.hideView(findView);
             }
             action.perspectiveId = PERSPECTIVE_ID;
-            action.setToolTipText("Switch to Data Profiling");
+            action.setToolTipText(SWITCH_TO_DATA_PROFILING);
             IPerspectiveDescriptor fp = registry.findPerspectiveWithId(PERSPECTIVE_ID);
             if (fp != null) {
                 action.setImageDescriptor(fp.getImageDescriptor());
@@ -189,6 +187,35 @@ public class ChangePerspectiveAction extends Action {
             // user, false);
             // openDlgAction.run();
             // }
+        }
+    }
+
+    /**
+     * Getter for action.
+     * 
+     * @return the action
+     */
+    public static ChangePerspectiveAction getAction() {
+        return action;
+    }
+
+    /**
+     * DOC qzhang Comment method "switchTitle".
+     */
+    public void switchTitle() {
+        String id2 = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective().getId();
+        String toID = SE_ID;
+        if (SE_ID.equals(id2)) {
+            toID = PERSPECTIVE_ID;
+            setToolTipText(SWITCH_TO_DATA_PROFILING);
+        } else {
+            setToolTipText(SWITCH_TO_DATA_DISCOVERY);
+            toID = SE_ID;
+        }
+        this.perspectiveId = toID;
+        IPerspectiveDescriptor fp = registry.findPerspectiveWithId(toID);
+        if (fp != null) {
+            setImageDescriptor(fp.getImageDescriptor());
         }
     }
 }
