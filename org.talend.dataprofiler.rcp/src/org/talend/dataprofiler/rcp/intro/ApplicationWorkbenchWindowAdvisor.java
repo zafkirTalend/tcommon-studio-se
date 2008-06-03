@@ -17,6 +17,7 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.talend.dataprofiler.core.ui.perspective.ChangePerspectiveAction;
 
 /**
  * DOC rli class global comment. Detailled comment <br/>
@@ -50,6 +51,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         this.getWindowConfigurer().getWindow().getShell().setMaximized(true);
         super.postWindowOpen();
+        ChangePerspectiveAction.getAction().switchTitle();
     }
 
 }
