@@ -321,7 +321,7 @@
            category="org.talend.dataprofiler.core.category1"
            contentFile="cheatsheets/DBconnection_cheat.xml"
            id="org.talend.dataprofiler.core.cheatsheet2"
-           name="Create New Database Connection">
+           name="Database Connection Creation">
      </cheatsheet>
   </extension>
   

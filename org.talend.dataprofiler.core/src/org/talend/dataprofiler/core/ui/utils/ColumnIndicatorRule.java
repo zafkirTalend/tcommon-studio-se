@@ -58,11 +58,10 @@ public class ColumnIndicatorRule {
         case UniqueIndicatorEnum:
         case DuplicateCountIndicatorEnum:
 
-            if (dataminingType == DataminingType.NOMINAL) {
-                return true;
-            }
+            // MOD scorreia 2008-06-04 enable distinct count, unique count and duplicate count for all types
+            // if (dataminingType == DataminingType.NOMINAL) {
+            return true;
 
-            break;
         case BlankCountIndicatorEnum:
         case TextIndicatorEnum:
         case MinLengthIndicatorEnum:
