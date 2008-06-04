@@ -8,6 +8,7 @@ package org.talend.dataquality.domain.pattern;
 
 import org.eclipse.emf.common.util.EList;
 
+import orgomg.cwm.objectmodel.core.ModelElement;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -26,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Pattern extends EObject {
+public interface Pattern extends ModelElement {
     /**
      * Returns the value of the '<em><b>Components</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.dataquality.domain.pattern.PatternComponent}.

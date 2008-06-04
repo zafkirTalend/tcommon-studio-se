@@ -372,6 +372,15 @@ public class IndicatorsSwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case IndicatorsPackage.PATTERN_MATCHING_INDICATOR: {
+                PatternMatchingIndicator patternMatchingIndicator = (PatternMatchingIndicator)theEObject;
+                T result = casePatternMatchingIndicator(patternMatchingIndicator);
+                if (result == null) result = caseIndicator(patternMatchingIndicator);
+                if (result == null) result = caseModelElement(patternMatchingIndicator);
+                if (result == null) result = caseElement(patternMatchingIndicator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -731,6 +740,21 @@ public class IndicatorsSwitch<T> {
      * @generated
      */
     public T caseDateParameters(DateParameters object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Pattern Matching Indicator</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Pattern Matching Indicator</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T casePatternMatchingIndicator(PatternMatchingIndicator object) {
         return null;
     }
 

@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import org.talend.dataquality.domain.pattern.*;
+import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -90,6 +92,8 @@ public class PatternSwitch<T> {
             case PatternPackage.PATTERN: {
                 Pattern pattern = (Pattern)theEObject;
                 T result = casePattern(pattern);
+                if (result == null) result = caseModelElement(pattern);
+                if (result == null) result = caseElement(pattern);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -196,6 +200,36 @@ public class PatternSwitch<T> {
      * @generated
      */
     public T caseComponentReference(ComponentReference object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseElement(Element object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Model Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Model Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseModelElement(ModelElement object) {
         return null;
     }
 

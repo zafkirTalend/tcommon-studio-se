@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,16 +77,169 @@ public interface DomainPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOMAIN__NAME = 0;
+    int DOMAIN__NAME = CorePackage.MODEL_ELEMENT__NAME;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOMAIN__DESCRIPTION = 1;
+    int DOMAIN__VISIBILITY = CorePackage.MODEL_ELEMENT__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__CLIENT_DEPENDENCY = CorePackage.MODEL_ELEMENT__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__CONSTRAINT = CorePackage.MODEL_ELEMENT__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__STEREOTYPE = CorePackage.MODEL_ELEMENT__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__DESCRIPTION = CorePackage.MODEL_ELEMENT__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__RESPONSIBLE_PARTY = CorePackage.MODEL_ELEMENT__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__SET = CorePackage.MODEL_ELEMENT__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__RENDERED_OBJECT = CorePackage.MODEL_ELEMENT__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__MEASUREMENT = CorePackage.MODEL_ELEMENT__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__CHANGE_REQUEST = CorePackage.MODEL_ELEMENT__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOMAIN__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Data Type</b></em>' reference.
@@ -94,7 +248,7 @@ public interface DomainPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOMAIN__DATA_TYPE = 2;
+    int DOMAIN__DATA_TYPE = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Length Restriction</b></em>' containment reference list.
@@ -103,7 +257,7 @@ public interface DomainPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOMAIN__LENGTH_RESTRICTION = 3;
+    int DOMAIN__LENGTH_RESTRICTION = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Ranges</b></em>' containment reference list.
@@ -112,7 +266,7 @@ public interface DomainPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOMAIN__RANGES = 4;
+    int DOMAIN__RANGES = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Patterns</b></em>' reference list.
@@ -121,7 +275,7 @@ public interface DomainPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOMAIN__PATTERNS = 5;
+    int DOMAIN__PATTERNS = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 3;
 
     /**
      * The number of structural features of the '<em>Domain</em>' class.
@@ -130,7 +284,7 @@ public interface DomainPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOMAIN_FEATURE_COUNT = 6;
+    int DOMAIN_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.domain.impl.EnumerationRuleImpl <em>Enumeration Rule</em>}' class.
@@ -468,28 +622,6 @@ public interface DomainPackage extends EPackage {
     EClass getDomain();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.domain.Domain#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see org.talend.dataquality.domain.Domain#getName()
-     * @see #getDomain()
-     * @generated
-     */
-    EAttribute getDomain_Name();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.dataquality.domain.Domain#getDescription <em>Description</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Description</em>'.
-     * @see org.talend.dataquality.domain.Domain#getDescription()
-     * @see #getDomain()
-     * @generated
-     */
-    EAttribute getDomain_Description();
-
-    /**
      * Returns the meta object for the reference '{@link org.talend.dataquality.domain.Domain#getDataType <em>Data Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -786,22 +918,6 @@ public interface DomainPackage extends EPackage {
          * @generated
          */
         EClass DOMAIN = eINSTANCE.getDomain();
-
-        /**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute DOMAIN__NAME = eINSTANCE.getDomain_Name();
-
-        /**
-         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute DOMAIN__DESCRIPTION = eINSTANCE.getDomain_Description();
 
         /**
          * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.

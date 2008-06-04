@@ -440,6 +440,7 @@ public class PatternPackageImpl extends EPackageImpl implements PatternPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
+        patternEClass.getESuperTypes().add(theCorePackage.getModelElement());
         regularExpressionEClass.getESuperTypes().add(this.getPatternComponent());
         attributeReferenceEClass.getESuperTypes().add(this.getPatternComponent());
         componentReferenceEClass.getESuperTypes().add(this.getPatternComponent());

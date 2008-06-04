@@ -58,6 +58,7 @@ import org.talend.dataquality.indicators.MinLengthIndicator;
 import org.talend.dataquality.indicators.MinValueIndicator;
 import org.talend.dataquality.indicators.ModeIndicator;
 import org.talend.dataquality.indicators.NullCountIndicator;
+import org.talend.dataquality.indicators.PatternMatchingIndicator;
 import org.talend.dataquality.indicators.RangeIndicator;
 import org.talend.dataquality.indicators.RowCountIndicator;
 import org.talend.dataquality.indicators.SumIndicator;
@@ -293,6 +294,13 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
      * @generated
      */
     private EClass dateParametersEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass patternMatchingIndicatorEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1157,6 +1165,15 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getPatternMatchingIndicator() {
+        return patternMatchingIndicatorEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1366,6 +1383,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         dateParametersEClass = createEClass(DATE_PARAMETERS);
         createEAttribute(dateParametersEClass, DATE_PARAMETERS__DATE_AGGREGATION_TYPE);
 
+        patternMatchingIndicatorEClass = createEClass(PATTERN_MATCHING_INDICATOR);
+
         // Create enums
         enumStatisticsEEnum = createEEnum(ENUM_STATISTICS);
         dataminingTypeEEnum = createEEnum(DATAMINING_TYPE);
@@ -1445,6 +1464,7 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         lowerQuartileIndicatorEClass.getESuperTypes().add(this.getMinValueIndicator());
         upperQuartileIndicatorEClass.getESuperTypes().add(this.getMaxValueIndicator());
         countsIndicatorEClass.getESuperTypes().add(this.getCompositeIndicator());
+        patternMatchingIndicatorEClass.getESuperTypes().add(this.getIndicator());
 
         // Initialize classes and features; add operations and parameters
         initEClass(indicatorEClass, Indicator.class, "Indicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1502,6 +1522,10 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
         initEClass(compositeIndicatorEClass, CompositeIndicator.class, "CompositeIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         addEOperation(compositeIndicatorEClass, this.getIndicator(), "getChildIndicators", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(compositeIndicatorEClass, this.getIndicator(), "getLeafIndicators", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+        addEOperation(compositeIndicatorEClass, this.getIndicator(), "getAllChildIndicators", 0, -1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(rangeIndicatorEClass, RangeIndicator.class, "RangeIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getRangeIndicator_LowerValue(), this.getMinValueIndicator(), null, "lowerValue", null, 0, 1, RangeIndicator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1614,6 +1638,8 @@ public class IndicatorsPackageImpl extends EPackageImpl implements IndicatorsPac
 
         initEClass(dateParametersEClass, DateParameters.class, "DateParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDateParameters_DateAggregationType(), this.getDateGrain(), "dateAggregationType", "year", 0, 1, DateParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(patternMatchingIndicatorEClass, PatternMatchingIndicator.class, "PatternMatchingIndicator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(enumStatisticsEEnum, EnumStatistics.class, "EnumStatistics");

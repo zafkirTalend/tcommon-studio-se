@@ -14,6 +14,8 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import org.talend.dataquality.domain.pattern.*;
+import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -90,6 +92,14 @@ public class PatternAdapterFactory extends AdapterFactoryImpl {
             @Override
             public Adapter caseComponentReference(ComponentReference object) {
                 return createComponentReferenceAdapter();
+            }
+            @Override
+            public Adapter caseElement(Element object) {
+                return createElementAdapter();
+            }
+            @Override
+            public Adapter caseModelElement(ModelElement object) {
+                return createModelElementAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -178,6 +188,34 @@ public class PatternAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createComponentReferenceAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Element
+     * @generated
+     */
+    public Adapter createElementAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.ModelElement
+     * @generated
+     */
+    public Adapter createModelElementAdapter() {
         return null;
     }
 

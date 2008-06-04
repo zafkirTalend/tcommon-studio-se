@@ -12,10 +12,14 @@
 // ============================================================================
 package org.talend.dataquality.helpers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
+import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.IndicatorParameters;
 import org.talend.dataquality.indicators.IndicatorsFactory;
@@ -84,6 +88,26 @@ public final class IndicatorHelper {
             return new String[] { null, null };
         }
         return new String[] { DomainHelper.getMinValue(rangeRestriction), DomainHelper.getMaxValue(rangeRestriction) };
+    }
+
+    /**
+     * Method "getIndicatorLeaves" returns the leaf indicators when the given indicator is a composite indicator or the
+     * given indicator.
+     * 
+     * @param indicator the indicator
+     * @return the leaf indicators
+     */
+    public static Collection<Indicator> getIndicatorLeaves(Indicator indicator) {
+        Collection<Indicator> leafIndicators = new ArrayList<Indicator>();
+        if (indicator instanceof CompositeIndicator) {
+            CompositeIndicator compositeIndicator = (CompositeIndicator) indicator;
+            for (Indicator ind : compositeIndicator.getChildIndicators()) {
+                leafIndicators.addAll(getIndicatorLeaves(ind));
+            }
+        } else {
+            leafIndicators.add(indicator);
+        }
+        return leafIndicators;
     }
 
 }

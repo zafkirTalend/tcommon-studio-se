@@ -766,6 +766,29 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.dataquality.indicators.PatternMatchingIndicator} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected PatternMatchingIndicatorItemProvider patternMatchingIndicatorItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.dataquality.indicators.PatternMatchingIndicator}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createPatternMatchingIndicatorAdapter() {
+        if (patternMatchingIndicatorItemProvider == null) {
+            patternMatchingIndicatorItemProvider = new PatternMatchingIndicatorItemProvider(this);
+        }
+
+        return patternMatchingIndicatorItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -894,6 +917,7 @@ public class IndicatorsItemProviderAdapterFactory extends IndicatorsAdapterFacto
         if (upperQuartileIndicatorItemProvider != null) upperQuartileIndicatorItemProvider.dispose();
         if (countsIndicatorItemProvider != null) countsIndicatorItemProvider.dispose();
         if (dateParametersItemProvider != null) dateParametersItemProvider.dispose();
+        if (patternMatchingIndicatorItemProvider != null) patternMatchingIndicatorItemProvider.dispose();
     }
 
 }

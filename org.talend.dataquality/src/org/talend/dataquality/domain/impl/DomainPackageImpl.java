@@ -340,26 +340,8 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDomain_Name() {
-        return (EAttribute)domainEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getDomain_Description() {
-        return (EAttribute)domainEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getDomain_DataType() {
-        return (EReference)domainEClass.getEStructuralFeatures().get(2);
+        return (EReference)domainEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -368,7 +350,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
      * @generated
      */
     public EReference getDomain_LengthRestriction() {
-        return (EReference)domainEClass.getEStructuralFeatures().get(3);
+        return (EReference)domainEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -377,7 +359,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
      * @generated
      */
     public EReference getDomain_Ranges() {
-        return (EReference)domainEClass.getEStructuralFeatures().get(4);
+        return (EReference)domainEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -386,7 +368,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
      * @generated
      */
     public EReference getDomain_Patterns() {
-        return (EReference)domainEClass.getEStructuralFeatures().get(5);
+        return (EReference)domainEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -607,8 +589,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
         // Create classes and their features
         domainEClass = createEClass(DOMAIN);
-        createEAttribute(domainEClass, DOMAIN__NAME);
-        createEAttribute(domainEClass, DOMAIN__DESCRIPTION);
         createEReference(domainEClass, DOMAIN__DATA_TYPE);
         createEReference(domainEClass, DOMAIN__LENGTH_RESTRICTION);
         createEReference(domainEClass, DOMAIN__RANGES);
@@ -684,6 +664,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
+        domainEClass.getESuperTypes().add(theCorePackage.getModelElement());
         numericValueEClass.getESuperTypes().add(this.getLiteralValue());
         textValueEClass.getESuperTypes().add(this.getLiteralValue());
         integerValueEClass.getESuperTypes().add(this.getNumericValue());
@@ -692,8 +673,6 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
 
         // Initialize classes and features; add operations and parameters
         initEClass(domainEClass, Domain.class, "Domain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDomain_Name(), ecorePackage.getEString(), "name", null, 0, 1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDomain_Description(), ecorePackage.getEString(), "description", null, 0, 1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDomain_DataType(), theCorePackage.getDataType(), null, "dataType", null, 0, 1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDomain_LengthRestriction(), this.getLengthRestriction(), null, "lengthRestriction", null, 0, -1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDomain_Ranges(), this.getRangeRestriction(), null, "ranges", null, 0, -1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

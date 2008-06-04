@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.dataquality.domain.pattern.Pattern;
 
 import orgomg.cwm.objectmodel.core.DataType;
+import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,8 +23,6 @@ import orgomg.cwm.objectmodel.core.DataType;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.dataquality.domain.Domain#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.dataquality.domain.Domain#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.dataquality.domain.Domain#getDataType <em>Data Type</em>}</li>
  *   <li>{@link org.talend.dataquality.domain.Domain#getLengthRestriction <em>Length Restriction</em>}</li>
  *   <li>{@link org.talend.dataquality.domain.Domain#getRanges <em>Ranges</em>}</li>
@@ -35,59 +34,7 @@ import orgomg.cwm.objectmodel.core.DataType;
  * @model
  * @generated
  */
-public interface Domain extends EObject {
-    /**
-     * Returns the value of the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Name</em>' attribute.
-     * @see #setName(String)
-     * @see org.talend.dataquality.domain.DomainPackage#getDomain_Name()
-     * @model
-     * @generated
-     */
-    String getName();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.domain.Domain#getName <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Name</em>' attribute.
-     * @see #getName()
-     * @generated
-     */
-    void setName(String value);
-
-    /**
-     * Returns the value of the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Description</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Description</em>' attribute.
-     * @see #setDescription(String)
-     * @see org.talend.dataquality.domain.DomainPackage#getDomain_Description()
-     * @model
-     * @generated
-     */
-    String getDescription();
-
-    /**
-     * Sets the value of the '{@link org.talend.dataquality.domain.Domain#getDescription <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Description</em>' attribute.
-     * @see #getDescription()
-     * @generated
-     */
-    void setDescription(String value);
-
+public interface Domain extends ModelElement {
     /**
      * Returns the value of the '<em><b>Data Type</b></em>' reference.
      * <!-- begin-user-doc -->

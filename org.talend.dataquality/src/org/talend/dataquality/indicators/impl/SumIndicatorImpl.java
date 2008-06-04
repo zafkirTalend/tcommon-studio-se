@@ -7,6 +7,7 @@ package org.talend.dataquality.indicators.impl;
 
 import java.math.BigDecimal;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -23,6 +24,8 @@ import org.talend.dataquality.indicators.SumIndicator;
  * @generated
  */
 public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
+
+    private static Logger log = Logger.getLogger(SumIndicatorImpl.class);
 
     /**
      * The default value of the '{@link #getSumStr() <em>Sum Str</em>}' attribute.
@@ -356,6 +359,10 @@ public class SumIndicatorImpl extends IndicatorImpl implements SumIndicator {
      */
     @Override
     public Double getRealValue() {
+        if (this.getSumStr() == null) {
+            log.warn(this.toString() + " has a null sum.");
+            return null;
+        }
         return Double.valueOf(this.getSumStr());
     }
 

@@ -9,6 +9,7 @@ package org.talend.dataquality.domain.pattern;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -69,13 +70,184 @@ public interface PatternPackage extends EPackage {
     int PATTERN = 0;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__NAME = CorePackage.MODEL_ELEMENT__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__VISIBILITY = CorePackage.MODEL_ELEMENT__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__CLIENT_DEPENDENCY = CorePackage.MODEL_ELEMENT__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__SUPPLIER_DEPENDENCY = CorePackage.MODEL_ELEMENT__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__CONSTRAINT = CorePackage.MODEL_ELEMENT__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__NAMESPACE = CorePackage.MODEL_ELEMENT__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__IMPORTER = CorePackage.MODEL_ELEMENT__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__STEREOTYPE = CorePackage.MODEL_ELEMENT__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__TAGGED_VALUE = CorePackage.MODEL_ELEMENT__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__DESCRIPTION = CorePackage.MODEL_ELEMENT__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__RESPONSIBLE_PARTY = CorePackage.MODEL_ELEMENT__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__ELEMENT_NODE = CorePackage.MODEL_ELEMENT__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__SET = CorePackage.MODEL_ELEMENT__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__RENDERED_OBJECT = CorePackage.MODEL_ELEMENT__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__MEASUREMENT = CorePackage.MODEL_ELEMENT__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__CHANGE_REQUEST = CorePackage.MODEL_ELEMENT__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PATTERN__DASDL_PROPERTY = CorePackage.MODEL_ELEMENT__DASDL_PROPERTY;
+
+    /**
      * The feature id for the '<em><b>Components</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PATTERN__COMPONENTS = 0;
+    int PATTERN__COMPONENTS = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Pattern</em>' class.
@@ -84,7 +256,7 @@ public interface PatternPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PATTERN_FEATURE_COUNT = 1;
+    int PATTERN_FEATURE_COUNT = CorePackage.MODEL_ELEMENT_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.dataquality.domain.pattern.impl.PatternComponentImpl <em>Component</em>}' class.

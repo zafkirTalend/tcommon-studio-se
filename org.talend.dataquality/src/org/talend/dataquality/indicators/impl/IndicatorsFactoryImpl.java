@@ -96,6 +96,7 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
             case IndicatorsPackage.UPPER_QUARTILE_INDICATOR: return createUpperQuartileIndicator();
             case IndicatorsPackage.COUNTS_INDICATOR: return createCountsIndicator();
             case IndicatorsPackage.DATE_PARAMETERS: return createDateParameters();
+            case IndicatorsPackage.PATTERN_MATCHING_INDICATOR: return createPatternMatchingIndicator();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -461,6 +462,16 @@ public class IndicatorsFactoryImpl extends EFactoryImpl implements IndicatorsFac
     public DateParameters createDateParameters() {
         DateParametersImpl dateParameters = new DateParametersImpl();
         return dateParameters;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public PatternMatchingIndicator createPatternMatchingIndicator() {
+        PatternMatchingIndicatorImpl patternMatchingIndicator = new PatternMatchingIndicatorImpl();
+        return patternMatchingIndicator;
     }
 
     /**

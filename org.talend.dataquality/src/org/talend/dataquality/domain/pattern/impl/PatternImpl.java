@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.dataquality.domain.pattern.Pattern;
 import org.talend.dataquality.domain.pattern.PatternComponent;
 import org.talend.dataquality.domain.pattern.PatternPackage;
+import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.talend.dataquality.domain.pattern.PatternPackage;
  *
  * @generated
  */
-public class PatternImpl extends EObjectImpl implements Pattern {
+public class PatternImpl extends ModelElementImpl implements Pattern {
     /**
      * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
      * <!-- begin-user-doc -->
