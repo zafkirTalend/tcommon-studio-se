@@ -249,7 +249,7 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("SID")) { //$NON-NLS-1$
-            if (("").equals(connection.getSID())) { //$NON-NLS-1$
+            if (("").equals(connection.getSID()) || connection.getSID() == null) { //$NON-NLS-1$
                 if (isConetxtMode(connection, connection.getDatasourceName())) {
                     return connection.getDatasourceName();
                 } else {
