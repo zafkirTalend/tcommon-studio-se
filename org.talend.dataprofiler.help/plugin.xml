@@ -7,6 +7,10 @@
             file="HelpContext.xml"
             plugin="org.talend.dataprofiler.help">
       </contexts>
+      <contexts
+            file="HelpIndicator.xml"
+            plugin="org.talend.dataprofiler.help">
+      </contexts>
    </extension>
 
 </plugin>
