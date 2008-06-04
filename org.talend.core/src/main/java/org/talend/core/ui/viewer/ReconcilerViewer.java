@@ -313,8 +313,37 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
      */
     private void addMenu() {
         ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
-        Image image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
+
+        Image image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO));
         Menu popupMenu = new Menu(this.getTextWidget());
+
+        MenuItem undoItem = new MenuItem(popupMenu, SWT.PUSH);
+        undoItem.setText("Undo");
+        undoItem.setImage(image);
+        undoItem.addListener(SWT.Selection, new Listener() {
+
+            public void handleEvent(Event event) {
+                doOperation(ITextOperationTarget.UNDO);
+                event.doit = false;
+            }
+        });
+
+        image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
+        MenuItem redoItem = new MenuItem(popupMenu, SWT.PUSH);
+        redoItem.setText("Redo");
+        redoItem.setData(this);
+        redoItem.setImage(image);
+        redoItem.addListener(SWT.Selection, new Listener() {
+
+            public void handleEvent(Event event) {
+                doOperation(ITextOperationTarget.REDO);
+                event.doit = false;
+            }
+        });
+
+        // add separator
+        new MenuItem(popupMenu, SWT.SEPARATOR);
+
         MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
         copyItem.setText("Copy");
         copyItem.setImage(image);
