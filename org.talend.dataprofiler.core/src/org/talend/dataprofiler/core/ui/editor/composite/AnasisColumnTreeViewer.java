@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.AssertionFailedException;
+import org.eclipse.help.HelpSystem;
+import org.eclipse.help.IContext;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
@@ -30,6 +32,9 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.ShellAdapter;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -37,6 +42,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.PlatformUI;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
@@ -45,7 +51,9 @@ import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
+import org.talend.dataprofiler.help.HelpPlugin;
 import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.indicators.DataminingType;
 
 /**
@@ -253,8 +261,24 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                             // open the dialog
                             WizardDialog dialog = new WizardDialog(null, wizard);
                             dialog.setPageSize(300, 400);
-                            if (Window.OK == dialog.open()) {
+                            dialog.create();
+                            dialog.getShell().addShellListener(new ShellAdapter() {
 
+                                /*
+                                 * (non-Javadoc)
+                                 * 
+                                 * @see org.eclipse.swt.events.ShellAdapter#shellActivated(org.eclipse.swt.events.ShellEvent)
+                                 */
+                                @Override
+                                public void shellActivated(ShellEvent e) {
+                                    Point point = e.widget.getDisplay().getCursorLocation();
+                                    IContext context = HelpSystem.getContext(HelpPlugin.PLUGIN_ID + ".mycontexthelpid");
+                                    PlatformUI.getWorkbench().getHelpSystem().displayContext(context, point.x + 15, point.y);
+                                }
+                            });
+                            int open = dialog.open();
+                            if (Window.OK == open) {
+                                AnalysisParameters parameters = analysis.getParameters();
                                 setDirty(true);
                             }
 
