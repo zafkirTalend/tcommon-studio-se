@@ -26,10 +26,12 @@ import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -73,18 +75,7 @@ public final class UpdateContextVariablesHelper {
         boolean changed = false;
 
         // update main parameters
-        for (IElementParameter parameter : (List<IElementParameter>) process.getElementParameters()) {
-            Object obj = parameter.getValue();
-            if (obj != null && obj instanceof String) {
-                String value = (String) obj;
-                String newValue = hasAndReplaceValue(value, varScriptCodeMap, false);
-                if (newValue != null && !value.equals(newValue)) {
-                    parameter.setValue(newValue);
-                    changed = true;
-                }
-
-            }
-        }
+        changed = updateElementParameters((List<IElementParameter>) process.getElementParametersWithChildrens(), varScriptCodeMap);
 
         // update nodes parameters.
         for (INode node : (List<INode>) process.getGraphicalNodes()) {
@@ -95,7 +86,13 @@ public final class UpdateContextVariablesHelper {
                     changed = true;
                 }
             }
+            // update links parameters(bug 3993)
+            for (IConnection conn : node.getOutgoingConnections()) {
+                changed |= updateElementParameters((List<IElementParameter>) conn.getElementParametersWithChildrens(),
+                        varScriptCodeMap);
+            }
         }
+
         return changed;
     }
 
@@ -124,8 +121,8 @@ public final class UpdateContextVariablesHelper {
             return false;
         }
         // get old syntax map of the context variables.
-        Map<String, String> replacedScriptCodeMap = retrieveReplacedScriptCodeMap((List<ContextType>) processType
-                .getContext(), processType.getDefaultContext());
+        Map<String, String> replacedScriptCodeMap = retrieveReplacedScriptCodeMap((List<ContextType>) processType.getContext(),
+                processType.getDefaultContext());
         if (replacedScriptCodeMap.isEmpty()) {
             return false;
         }
@@ -134,22 +131,20 @@ public final class UpdateContextVariablesHelper {
     }
 
     @SuppressWarnings("unchecked")
-    private static boolean updateProcess(ProcessType processType, final Map<String, String> varScriptCodeMap,
-            boolean oldSyntax) {
+    private static boolean updateProcess(ProcessType processType, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
         if (processType == null || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
             return false;
         }
 
         boolean changed = false;
         // update process parameter
-        changed = updateElementParameter(
-                (List<ElementParameterType>) processType.getParameters().getElementParameter(), varScriptCodeMap,
-                oldSyntax);
+        changed = updateElementParameter((List<ElementParameterType>) processType.getParameters().getElementParameter(),
+                varScriptCodeMap, oldSyntax);
         // update nodes parameter
         for (NodeType node : (List<NodeType>) processType.getNode()) {
             // update parameter
-            changed |= updateElementParameter((List<ElementParameterType>) node.getElementParameter(),
-                    varScriptCodeMap, oldSyntax);
+            changed |= updateElementParameter((List<ElementParameterType>) node.getElementParameter(), varScriptCodeMap,
+                    oldSyntax);
 
             // update extend node data
             String strdata = node.getStringData();
@@ -161,13 +156,18 @@ public final class UpdateContextVariablesHelper {
                 }
             }
         }
+        // update links parameters(bug 3993)
+        for (ConnectionType conn : (List<ConnectionType>) processType.getConnection()) {
+            // update parameter
+            changed |= updateElementParameter((List<ElementParameterType>) conn.getElementParameter(), varScriptCodeMap,
+                    oldSyntax);
+        }
         return changed;
     }
 
     private static boolean updateElementParameter(List<ElementParameterType> eleParameterList,
             final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
-        if (eleParameterList == null || eleParameterList.isEmpty() || varScriptCodeMap == null
-                || varScriptCodeMap.isEmpty()) {
+        if (eleParameterList == null || eleParameterList.isEmpty() || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
             return false;
         }
         boolean changed = false;
@@ -185,8 +185,7 @@ public final class UpdateContextVariablesHelper {
         return changed;
     }
 
-    private static String hasAndReplaceValue(final String value, final Map<String, String> varScriptCodeMap,
-            boolean oldSyntax) {
+    private static String hasAndReplaceValue(final String value, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
         if (value == null || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
             return value; // keep original value
         }
@@ -195,18 +194,14 @@ public final class UpdateContextVariablesHelper {
         for (String oldScriptCode : varScriptCodeMap.keySet()) {
             String contextNameFullName = varScriptCodeMap.get(oldScriptCode);
 
-            returnValue = hasAndReplaceValue(returnValue, replaceSpecialChar(oldScriptCode), varScriptCodeMap
-                    .get(oldScriptCode), oldSyntax);
-            if(LanguageManager.getCurrentLanguage()==ECodeLanguage.JAVA){
+            returnValue = hasAndReplaceValue(returnValue, replaceSpecialChar(oldScriptCode), varScriptCodeMap.get(oldScriptCode),
+                    oldSyntax);
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                 // add this for bug 3455
-                returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""),
-                        false);
+                returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""), false);
             }
         }
         return returnValue;
-    }
-
-    public static void main(String[] args) {
     }
 
     private static String migrateContextPropertySetter(String fullContent, String varName, boolean isExtension) {
@@ -227,8 +222,8 @@ public final class UpdateContextVariablesHelper {
         }
     }
 
-    private static String hasAndReplaceValue(final String value, final String oldScriptCode,
-            final String newScriptCode, boolean oldSyntax) {
+    private static String hasAndReplaceValue(final String value, final String oldScriptCode, final String newScriptCode,
+            boolean oldSyntax) {
         if (value == null || oldScriptCode == null || newScriptCode == null) {
             return value; // keep original value
         }
@@ -307,8 +302,7 @@ public final class UpdateContextVariablesHelper {
      * retrieve the new and old variables script code map.
      */
     @SuppressWarnings("unchecked")
-    private static Map<String, String> retrieveReplacedScriptCodeMap(List<ContextType> contextsList,
-            final String contextName) {
+    private static Map<String, String> retrieveReplacedScriptCodeMap(List<ContextType> contextsList, final String contextName) {
 
         if (contextsList == null || contextsList.isEmpty() || contextName == null) {
             return Collections.emptyMap();
@@ -330,8 +324,7 @@ public final class UpdateContextVariablesHelper {
         return varsScriptCodeMap;
     }
 
-    private static String replaceQuotStringData(String data, final Map<String, String> varScriptCodeMap,
-            boolean oldSyntax) {
+    private static String replaceQuotStringData(String data, final Map<String, String> varScriptCodeMap, boolean oldSyntax) {
         Map<String, String> varScriptCodeMapExt = new HashMap<String, String>();
 
         for (String oldScriptCode : varScriptCodeMap.keySet()) {
@@ -358,5 +351,25 @@ public final class UpdateContextVariablesHelper {
         expression = expression.replaceAll("\\.", "\\\\."); //$NON-NLS-1$ //$NON-NLS-2$
         return expression;
 
+    }
+
+    private static boolean updateElementParameters(List<IElementParameter> parameters, Map<String, String> varScriptCodeMap) {
+        if (parameters == null || parameters.isEmpty() || varScriptCodeMap == null || varScriptCodeMap.isEmpty()) {
+            return false;
+        }
+        boolean changed = false;
+        for (IElementParameter parameter : parameters) {
+            Object obj = parameter.getValue();
+            if (obj != null && obj instanceof String) {
+                String value = (String) obj;
+                String newValue = hasAndReplaceValue(value, varScriptCodeMap, false);
+                if (newValue != null && !value.equals(newValue)) {
+                    parameter.setValue(newValue);
+                    changed = true;
+                }
+
+            }
+        }
+        return changed;
     }
 }
