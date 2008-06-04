@@ -14,7 +14,7 @@ package org.talend.dataprofiler.core.ui.views.provider;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.PackageHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.relational.TdTable;
@@ -23,51 +23,55 @@ import org.talend.dataprofiler.core.model.nodes.foldernode.ColumnFolderNode;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
 import org.talend.dataprofiler.core.model.nodes.foldernode.TableFolderNode;
 import org.talend.dataprofiler.core.model.nodes.foldernode.ViewFolderNode;
-import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * @author rli
  * 
  */
 public class DQRepositoryViewLabelProvider extends AdapterFactoryLabelProvider {
-	public DQRepositoryViewLabelProvider() {
-		super(MNComposedAdapterFactory.getAdapterFactory());
-	}
 
-	public Image getImage(Object element) {
-	    if (element instanceof IFolderNode) {
+    public DQRepositoryViewLabelProvider() {
+        super(MNComposedAdapterFactory.getAdapterFactory());
+    }
+
+    public Image getImage(Object element) {
+        if (element instanceof IFolderNode) {
             return ImageLib.getImage(ImageLib.FOLDERNODE_IMAGE);
         }
-		return super.getImage(element);
-	}
+        return super.getImage(element);
+    }
 
-	public String getText(Object element) {
-        
+    public String getText(Object element) {
+
         if (element instanceof TableFolderNode) {
             TableFolderNode node = (TableFolderNode) element;
-            
+
             if (node.isLoaded()) {
-                Catalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(node.getParent());
-                return ((IFolderNode) element).getName() + "(" + CatalogHelper.getTables(catalog).size() + ")";
+                // MOD scorreia 2008-06-04 depending on the DBMS, it can be either a catalog or a schema.
+                // Catalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(node.getParent());
+                Package catalogOrSchema = PackageHelper.getCatalogOrSchema(node.getParent());
+                return ((IFolderNode) element).getName() + "(" + PackageHelper.getTables(catalogOrSchema).size() + ")";
             } else {
                 return ((IFolderNode) element).getName();
             }
         }
-        
+
         if (element instanceof ViewFolderNode) {
             ViewFolderNode node = (ViewFolderNode) element;
-            
+
             if (node.isLoaded()) {
-                Catalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(node.getParent());
-                return ((IFolderNode) element).getName() + "(" + CatalogHelper.getViews(catalog).size() + ")";
+                // MOD scorreia 2008-06-04 depending on the DBMS, it can be either a catalog or a schema.
+                Package catalogOrSchema = PackageHelper.getCatalogOrSchema(node.getParent());
+                return ((IFolderNode) element).getName() + "(" + PackageHelper.getViews(catalogOrSchema).size() + ")";
             } else {
                 return ((IFolderNode) element).getName();
             }
         }
-        
+
         if (element instanceof ColumnFolderNode) {
             ColumnFolderNode node = (ColumnFolderNode) element;
-            
+
             if (node.isLoaded()) {
                 TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(node.getParent());
                 return ((IFolderNode) element).getName() + "(" + TableHelper.getColumns(table).size() + ")";
