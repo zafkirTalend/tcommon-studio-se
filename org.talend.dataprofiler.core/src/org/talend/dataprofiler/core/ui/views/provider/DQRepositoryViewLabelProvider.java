@@ -14,8 +14,16 @@ package org.talend.dataprofiler.core.ui.views.provider;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
+import org.talend.cwm.helper.CatalogHelper;
+import org.talend.cwm.helper.SwitchHelpers;
+import org.talend.cwm.helper.TableHelper;
+import org.talend.cwm.relational.TdTable;
 import org.talend.dataprofiler.core.ImageLib;
+import org.talend.dataprofiler.core.model.nodes.foldernode.ColumnFolderNode;
 import org.talend.dataprofiler.core.model.nodes.foldernode.IFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.TableFolderNode;
+import org.talend.dataprofiler.core.model.nodes.foldernode.ViewFolderNode;
+import orgomg.cwm.resource.relational.Catalog;
 
 /**
  * @author rli
@@ -34,9 +42,40 @@ public class DQRepositoryViewLabelProvider extends AdapterFactoryLabelProvider {
 	}
 
 	public String getText(Object element) {
-        if (element instanceof IFolderNode) {
-            return ((IFolderNode) element).getName();
+        
+        if (element instanceof TableFolderNode) {
+            TableFolderNode node = (TableFolderNode) element;
+            
+            if (node.isLoaded()) {
+                Catalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(node.getParent());
+                return ((IFolderNode) element).getName() + "(" + CatalogHelper.getTables(catalog).size() + ")";
+            } else {
+                return ((IFolderNode) element).getName();
+            }
         }
+        
+        if (element instanceof ViewFolderNode) {
+            ViewFolderNode node = (ViewFolderNode) element;
+            
+            if (node.isLoaded()) {
+                Catalog catalog = SwitchHelpers.CATALOG_SWITCH.doSwitch(node.getParent());
+                return ((IFolderNode) element).getName() + "(" + CatalogHelper.getViews(catalog).size() + ")";
+            } else {
+                return ((IFolderNode) element).getName();
+            }
+        }
+        
+        if (element instanceof ColumnFolderNode) {
+            ColumnFolderNode node = (ColumnFolderNode) element;
+            
+            if (node.isLoaded()) {
+                TdTable table = SwitchHelpers.TABLE_SWITCH.doSwitch(node.getParent());
+                return ((IFolderNode) element).getName() + "(" + TableHelper.getColumns(table).size() + ")";
+            } else {
+                return ((IFolderNode) element).getName();
+            }
+        }
+
         return super.getText(element);
     }
 }
