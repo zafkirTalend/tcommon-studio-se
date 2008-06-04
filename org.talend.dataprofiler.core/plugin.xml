@@ -179,6 +179,15 @@
          </enablement>
       </actionProvider>        
       <actionProvider
+            class="org.talend.dataprofiler.core.ui.action.provider.AnalyzeColumnProvider"
+            id="org.talend.dataprofiler.core.ui.action.provider.AnalyzeColumnProvider">
+         <enablement>
+            <and>
+	            <instanceof value="org.talend.cwm.relational.TdColumn"/>           
+	        </and>
+         </enablement>
+      </actionProvider>        
+      <actionProvider
             class="org.talend.dataprofiler.core.ui.action.provider.EditConnectionProvider"
             id="org.talend.dataprofiler.core.ui.action.provider.EditConnectionProvider">
          <enablement>

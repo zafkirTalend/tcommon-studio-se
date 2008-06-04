@@ -13,10 +13,7 @@
 package org.talend.dataprofiler.core.ui.editor.composite;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.help.HelpSystem;
@@ -112,20 +109,19 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 return;
             }
         }
-        Map<String, TdColumn> columnsMap = new HashMap<String, TdColumn>();
+        List<TdColumn> columnList = new ArrayList<TdColumn>();
         for (Object obj : objs) {
-            columnsMap.put(((TdColumn) obj).getName(), (TdColumn) obj);
+            columnList.add((TdColumn) obj);
         }
         List<ColumnIndicator> columnIndicatorList = new ArrayList<ColumnIndicator>();
         for (ColumnIndicator columnIndicator : columnIndicators) {
-            if (columnsMap.containsKey(columnIndicator.getTdColumn().getName())) {
+            if (columnList.contains(columnIndicator.getTdColumn())) {
                 columnIndicatorList.add(columnIndicator);
-                columnsMap.remove(columnIndicator.getTdColumn().getName());
+                columnList.remove(columnIndicator.getTdColumn());
             }
         }
 
-        Collection<TdColumn> values = columnsMap.values();
-        for (TdColumn column : values) {
+        for (TdColumn column : columnList) {
             columnIndicatorList.add(new ColumnIndicator(column));
         }
         this.columnIndicators = columnIndicatorList.toArray(new ColumnIndicator[columnIndicatorList.size()]);
