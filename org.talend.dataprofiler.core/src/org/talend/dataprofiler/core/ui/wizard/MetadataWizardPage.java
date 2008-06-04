@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.ui.wizard;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -48,6 +49,8 @@ import org.talend.dq.analysis.parameters.IParameterConstant;
  * 
  */
 public abstract class MetadataWizardPage extends AbstractWizardPage {
+
+    private static Logger log = Logger.getLogger(MetadataWizardPage.class);
 
     // protected members
     protected Text nameText;
@@ -222,6 +225,7 @@ public abstract class MetadataWizardPage extends AbstractWizardPage {
                         }
                     }
                 } catch (Exception e) {
+                    log.error(e, e);
                 }
             }
         }

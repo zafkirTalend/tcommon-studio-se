@@ -14,6 +14,7 @@ package org.talend.dataprofiler.core.model.nodes.foldernode;
 
 import java.util.List;
 
+import org.talend.cwm.exception.TalendException;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -21,8 +22,6 @@ import org.talend.cwm.management.api.DqRepositoryViewService;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.dataprofiler.core.helper.NeedSaveDataProviderHelper;
-import org.talend.dataprofiler.core.model.nodes.foldernode.AbstractFolderNode;
-
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.ColumnSet;
 
@@ -63,7 +62,12 @@ public class ColumnFolderNode extends AbstractFolderNode {
             if (provider == null) {
                 return;
             }
-            columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
+            try {
+                columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
+            } catch (TalendException e) {
+                // FIXME rli display exception message to the user
+                e.printStackTrace();
+            }
             // store tables in catalog
             ColumnSetHelper.addColumns(columnSet, columnList);
             this.setChildren(columnList.toArray());

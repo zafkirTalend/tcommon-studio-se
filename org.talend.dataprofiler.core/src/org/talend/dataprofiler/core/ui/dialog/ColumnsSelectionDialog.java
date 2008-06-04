@@ -40,6 +40,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.cwm.exception.TalendException;
 import org.talend.cwm.helper.ColumnHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
@@ -458,10 +459,15 @@ public class ColumnsSelectionDialog extends TwoPartCheckSelectionDialog {
                         if (provider == null) {
                             return null;
                         }
-                        List<TdColumn> columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
-                        columns = columnList.toArray(new TdColumn[columnList.size()]);
-                        // store tables in catalog
-                        ColumnSetHelper.addColumns(columnSet, columnList);
+                        try {
+                            List<TdColumn> columnList = DqRepositoryViewService.getColumns(provider, columnSet, null, true);
+                            columns = columnList.toArray(new TdColumn[columnList.size()]);
+                            // store tables in catalog
+                            ColumnSetHelper.addColumns(columnSet, columnList);
+                        } catch (TalendException e) {
+                            // FIXME rli display exception message to the user
+                            e.printStackTrace();
+                        }
                         NeedSaveDataProviderHelper.register(provider.getName(), provider);
                     }
                     return sort(columns, ComparatorsFactory.MODELELEMENT_COMPARATOR_ID);

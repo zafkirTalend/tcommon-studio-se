@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.talend.cwm.exception.TalendException;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.cwm.management.api.ConnectionService;
@@ -94,8 +95,7 @@ public class TestConnectionAnalysisCreation {
         Analysis analysis = analysisBuilder.getAnalysis();
         IAnalysisExecutor exec = new ConnectionAnalysisExecutor();
         ReturnCode executed = exec.execute(analysis);
-        Assert.assertTrue("Problem executing analysis: '" + analysisName + "': " + executed.getMessage(), executed
-                .isOk());
+        Assert.assertTrue("Problem executing analysis: '" + analysisName + "': " + executed.getMessage(), executed.isOk());
 
         // save data provider
         DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
@@ -173,13 +173,20 @@ public class TestConnectionAnalysisCreation {
         Assert.assertFalse(tables.isEmpty());
         TdTable tdTable = tables.get(0);
         System.out.println("analyzed Table: " + tdTable.getName());
-        List<TdColumn> columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
-        TableHelper.addColumns(tdTable, columns);
+        List<TdColumn> columns;
+        try {
+            columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
+            TableHelper.addColumns(tdTable, columns);
 
-        Assert.assertFalse(columns.isEmpty());
-        TdColumn col = columns.get(0);
-        System.out.println("analyzed Column: " + col.getName());
-        return col;
+            Assert.assertFalse(columns.isEmpty());
+            TdColumn col = columns.get(0);
+            System.out.println("analyzed Column: " + col.getName());
+            return col;
+        } catch (TalendException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

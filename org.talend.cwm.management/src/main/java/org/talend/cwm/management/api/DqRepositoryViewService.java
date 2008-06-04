@@ -37,6 +37,7 @@ import org.talend.cwm.builders.AbstractTableBuilder;
 import org.talend.cwm.builders.ColumnBuilder;
 import org.talend.cwm.builders.TableBuilder;
 import org.talend.cwm.builders.ViewBuilder;
+import org.talend.cwm.exception.TalendException;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ColumnSetHelper;
 import org.talend.cwm.helper.DataProviderHelper;
@@ -266,9 +267,10 @@ public final class DqRepositoryViewService {
      * @param columnPattern the pattern of the columns to get
      * @param loadFromDB true if columns must be loaded from the database
      * @return
+     * @throws TalendException
      */
     public static List<TdColumn> getColumns(TdDataProvider dataProvider, ColumnSet columnSet, String columnPattern,
-            boolean loadFromDB) {
+            boolean loadFromDB) throws TalendException {
         if (loadFromDB) {
             return loadColumns(dataProvider, columnSet, columnPattern);
         } else {
@@ -504,13 +506,14 @@ public final class DqRepositoryViewService {
         return views;
     }
 
-    private static List<TdColumn> loadColumns(TdDataProvider dataProvider, ColumnSet table, String columnPattern) {
+    private static List<TdColumn> loadColumns(TdDataProvider dataProvider, ColumnSet table, String columnPattern)
+            throws TalendException {
         assert table != null;
         List<TdColumn> columns = new ArrayList<TdColumn>();
         TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage()); // FIXME scorreia show error to the user
-            return columns;
+            throw new TalendException(rcConn.getMessage());
         }
         Connection connection = rcConn.getObject();
         ColumnBuilder colBuilder = new ColumnBuilder(connection);
