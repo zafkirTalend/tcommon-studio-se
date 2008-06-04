@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.PlatformUI;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
@@ -36,6 +37,7 @@ import org.talend.dataprofiler.core.model.nodes.indicator.IndicatorTreeModelBuil
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.composite.TooltipTree;
 import org.talend.dataprofiler.core.ui.utils.ColumnIndicatorRule;
+import org.talend.dataprofiler.help.HelpPlugin;
 import org.talend.dataquality.indicators.Indicator;
 import org.talend.dataquality.indicators.definition.IndicatorDefinition;
 
@@ -68,6 +70,7 @@ public class IndicatorSelectDialog extends TrayDialog {
         super(parentShell);
         this.columnIndicators = columnIndicators;
         this.setShellStyle(SWT.MAX | SWT.RESIZE);
+        this.setHelpAvailable(true);
     }
 
     /**
@@ -277,6 +280,8 @@ public class IndicatorSelectDialog extends TrayDialog {
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionLabel);
         ((GridData) descriptionLabel.getLayoutData()).heightHint = 40;
         comp.layout();
+        createHelpControl(comp);
+        
         return comp;
     }
 
@@ -351,4 +356,21 @@ public class IndicatorSelectDialog extends TrayDialog {
         return columnIndicators;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.dialogs.TrayDialog#createHelpControl(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    protected Control createHelpControl(Composite parent) {
+
+        if (parent != null) {
+            try {
+                PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, HelpPlugin.PLUGIN_ID + ".indicatorhelpcontext");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return super.createHelpControl(parent);
+    }
+
+    
 }
