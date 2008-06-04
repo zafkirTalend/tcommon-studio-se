@@ -37,14 +37,29 @@ public class CompositeIndicator {
     
     public static final String SUMMARY_STATISTICS = "Summary Statistics";
     
-    IndicatorUnit[] indicatorUnits;
+    private IndicatorUnit[] indicatorUnits;
     
-    Map<String, List<IndicatorUnit>> separatedMap; 
+    private Map<String, List<IndicatorUnit>> separatedMap; 
+    
+    private List<IndicatorUnit> tempList = new ArrayList<IndicatorUnit>();
     
     public CompositeIndicator(ColumnIndicator columnIndicator) {
         
         this.separatedMap = new HashMap<String, List<IndicatorUnit>>();
-        this.indicatorUnits = columnIndicator.getIndicatorUnits();
+        this.indicatorUnits = initIndicatorUnits(columnIndicator.getIndicatorUnits());
+    }
+    
+    private IndicatorUnit[] initIndicatorUnits(IndicatorUnit[] indicatorUnits) {
+        
+        for (IndicatorUnit unit : indicatorUnits) {
+            if (unit.getChildren() != null) {
+                initIndicatorUnits(unit.getChildren());
+            } else {
+                tempList.add(unit);
+            }
+        }
+        
+        return tempList.toArray(new IndicatorUnit[tempList.size()]);
     }
     
     public Map<String, List<IndicatorUnit>> getIndicatorComposite() {

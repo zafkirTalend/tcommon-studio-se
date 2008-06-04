@@ -13,11 +13,10 @@
 package org.talend.dataprofiler.core.ui.editor.preview;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataprofiler.core.ui.editor.preview.ext.FrequencyExt;
 import org.talend.dataquality.indicators.AverageLengthIndicator;
 import org.talend.dataquality.indicators.BlankCountIndicator;
 import org.talend.dataquality.indicators.DistinctCountIndicator;
@@ -69,13 +68,13 @@ public class IndicatorCommonUtil {
 
     }
     
-    public static void compositeIndicatorMap(IndicatorUnit indicatorMap) {
+    public static void compositeIndicatorMap(IndicatorUnit indicatorUnit) {
         
         Color tempColor = null;
         Object tempObject = null;
         
-        IndicatorEnum type = indicatorMap.getType();
-        Indicator indicator = indicatorMap.getIndicator();
+        IndicatorEnum type = indicatorUnit.getType();
+        Indicator indicator = indicatorUnit.getIndicator();
         
         
         switch (type) {
@@ -130,14 +129,19 @@ public class IndicatorCommonUtil {
             if (valueSet == null) {
                 break;
             }
-            Map<Object, Long> returnMap = new HashMap<Object, Long>();
+            
+            FrequencyExt[] frequencyExt = new FrequencyExt[valueSet.size()];
+            
+            int i = 0;
             for (Object o : valueSet) {
-
-                returnMap.put(o, frequency.getCount(o));
+                frequencyExt[i] = new FrequencyExt();
+                frequencyExt[i].setKey(o);
+                frequencyExt[i].setValue(frequency.getCount(o));
+                i++;
             }
             
             tempColor = null;
-            tempObject = returnMap;
+            tempObject = frequencyExt;
             break;
             
         case MeanIndicatorEnum:
@@ -174,8 +178,8 @@ public class IndicatorCommonUtil {
 
         }
         
-        indicatorMap.setColor(tempColor);
-        indicatorMap.setValue(tempObject);
+        indicatorUnit.setColor(tempColor);
+        indicatorUnit.setValue(tempObject);
     }
     
 }

@@ -14,6 +14,7 @@ package org.talend.dataprofiler.core.ui.editor.preview;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 import org.jfree.ui.TextAnchor;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
+import org.talend.dataprofiler.core.ui.editor.preview.ext.FrequencyExt;
 import org.talend.dataprofiler.core.ui.utils.ChartUtils;
 
 
@@ -143,16 +145,16 @@ public class IndicatorChartFactory {
     
     //start to create kinds of dataset with real value
     
-    private static CategoryDataset createSimpleDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
+    private static CategoryDataset createSimpleDataset(List<IndicatorUnit> indicatorUnitList, boolean isCreate) {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         if (isCreate) {
-            for (int index = 0; index<indicatorTypeMapping.size(); index++) {
-                IndicatorUnit indicatorMap = indicatorTypeMapping.get(index);
-                IndicatorCommonUtil.compositeIndicatorMap(indicatorMap);
-                Object object = indicatorMap.getValue();
-                String label = indicatorMap.getIndicatorName();
+            for (int index = 0; index<indicatorUnitList.size(); index++) {
+                IndicatorUnit unit = indicatorUnitList.get(index);
+                IndicatorCommonUtil.compositeIndicatorMap(unit);
+                Object object = unit.getValue();
+                String label = unit.getIndicatorName();
                 
                 if (object == null) {
                     dataset.addValue(0, label, "");
@@ -160,12 +162,12 @@ public class IndicatorChartFactory {
                     String valueStr = String.valueOf(object);
                     double value = Double.parseDouble(valueStr);
                     
-                    renderer.setSeriesPaint(index, indicatorMap.getColor());
+                    renderer.setSeriesPaint(index, unit.getColor());
                     dataset.addValue(value, label, "");
                 }
             }
         } else {
-            for (IndicatorUnit indicator : indicatorTypeMapping) {
+            for (IndicatorUnit indicator : indicatorUnitList) {
                 
                 dataset.addValue(150, indicator.getIndicatorName(), "");
             }
@@ -181,38 +183,65 @@ public class IndicatorChartFactory {
         return createSimpleDataset(indicatorTypeMapping, isCreate);
     }
     
-    private static CategoryDataset createSummaryDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
+    private static CategoryDataset createSummaryDataset(List<IndicatorUnit> indicatorUnits, boolean isCreate) {
 
         DefaultBoxAndWhiskerCategoryDataset dataset = new DefaultBoxAndWhiskerCategoryDataset();
-        
+         
         if (isCreate) {
             Map<IndicatorEnum, Double> map = new HashMap<IndicatorEnum, Double>();
             
-            for (IndicatorUnit indicatorMap : indicatorTypeMapping) {
+            for (IndicatorUnit indicatorUnit : indicatorUnits) {
                 
                 Object object = null;
                 try {
-                    IndicatorCommonUtil.compositeIndicatorMap(indicatorMap);
-                    object = indicatorMap.getValue();
+                    IndicatorCommonUtil.compositeIndicatorMap(indicatorUnit);
+                    object = indicatorUnit.getValue();
                 } catch (Exception ue) {
+                    ue.printStackTrace();
                     object = null;
                 }
                 
                 if (object != null) {
                     String strValue = String.valueOf(object);
                     double doubleValue = Double.valueOf(strValue);
-                    map.put(indicatorMap.getType(), doubleValue);
+                    map.put(indicatorUnit.getType(), doubleValue);
                 } else {
-                    map.put(indicatorMap.getType(), Double.valueOf(0));
+                    map.put(indicatorUnit.getType(), Double.valueOf(0));
                 }
             }
             
             if (map.size() != 6) {
                 DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
-                for (IndicatorEnum type : map.keySet()) {
-                    barDataset.addValue(Double.valueOf(map.get(type)), "", type.getLabel());
+
+                if (map.get(IndicatorEnum.MinValueIndicatorEnum) != null) {
+                    barDataset.addValue(map.get(IndicatorEnum.MinValueIndicatorEnum), "", IndicatorEnum.MinValueIndicatorEnum
+                            .getLabel());
                 }
-                
+
+                if (map.get(IndicatorEnum.LowerQuartileIndicatorEnum) != null) {
+                    barDataset.addValue(map.get(IndicatorEnum.LowerQuartileIndicatorEnum), "",
+                            IndicatorEnum.LowerQuartileIndicatorEnum.getLabel());
+                }
+
+                if (map.get(IndicatorEnum.MeanIndicatorEnum) != null) {
+                    barDataset.addValue(map.get(IndicatorEnum.MeanIndicatorEnum), "", IndicatorEnum.MeanIndicatorEnum.getLabel());
+                }
+
+                if (map.get(IndicatorEnum.MedianIndicatorEnum) != null) {
+                    barDataset.addValue(map.get(IndicatorEnum.MedianIndicatorEnum), "", IndicatorEnum.MedianIndicatorEnum
+                            .getLabel());
+                }
+
+                if (map.get(IndicatorEnum.UpperQuartileIndicatorEnum) != null) {
+                    barDataset.addValue(map.get(IndicatorEnum.UpperQuartileIndicatorEnum), "",
+                            IndicatorEnum.UpperQuartileIndicatorEnum.getLabel());
+                }
+
+                if (map.get(IndicatorEnum.MaxValueIndicatorEnum) != null) {
+                    barDataset.addValue(map.get(IndicatorEnum.MaxValueIndicatorEnum), "", IndicatorEnum.MaxValueIndicatorEnum
+                            .getLabel());
+                }
+
                 return barDataset;
             }
             
@@ -238,7 +267,6 @@ public class IndicatorChartFactory {
         
     }
     
-    @SuppressWarnings("unchecked")
     private static CategoryDataset createFrequenceDataset(List<IndicatorUnit> indicatorTypeMapping, boolean isCreate) {
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -254,19 +282,20 @@ public class IndicatorChartFactory {
             }
             
             if (object != null) {
-                Map<Object, Long> map = (Map<Object, Long>) object;
+                FrequencyExt[] frequencyExt = (FrequencyExt[]) object;
+                Arrays.sort(frequencyExt);
                 
                 if (isCreate) {
-                    for (Object obj : map.keySet()) {
-                        dataset.addValue(map.get(obj), "", String.valueOf(obj));
+                    for (FrequencyExt oneExt : frequencyExt) {
+                        dataset.addValue(oneExt.getValue(), "", String.valueOf(oneExt.getKey()));
                     }
                 } else {
                     
                     dataset.addValue(70, "", "one");
                     dataset.addValue(150, "", "two");
-                    dataset.addValue(40, "", "three");
-                    dataset.addValue(125, "", "four");
-                    dataset.addValue(174, "", "five");
+                    dataset.addValue(180, "", "three");
+                    dataset.addValue(185, "", "four");
+                    dataset.addValue(224, "", "five");
                 }
             }
         }
@@ -311,7 +340,7 @@ public class IndicatorChartFactory {
             if (dataset instanceof BoxAndWhiskerCategoryDataset) {
                 returnFiles.add(createBoxAndWhiskerChart(CompositeIndicator.SUMMARY_STATISTICS, (BoxAndWhiskerCategoryDataset) dataset));
             } else {
-                returnFiles.add(createBarChart(CompositeIndicator.SUMMARY_STATISTICS, dataset));
+                returnFiles.add(create3DBarChart(CompositeIndicator.SUMMARY_STATISTICS, dataset));
             }
             
         }
