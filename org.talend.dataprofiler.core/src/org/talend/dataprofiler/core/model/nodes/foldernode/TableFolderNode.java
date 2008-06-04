@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.talend.cwm.exception.TalendException;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -68,7 +69,7 @@ public class TableFolderNode extends NamedColumnSetFolderNode<TdTable> {
             return SchemaHelper.getTables(schema);
         }
         return Collections.emptyList();
-            }
+    }
 
     /*
      * (non-Javadoc)
@@ -77,20 +78,26 @@ public class TableFolderNode extends NamedColumnSetFolderNode<TdTable> {
      * org.talend.cwm.relational.TdSchema, org.talend.cwm.softwaredeployment.TdDataProvider, java.util.List)
      */
     @Override
-    protected <T extends List<TdTable>> boolean loadColumnSets(TdCatalog catalog, TdSchema schema,
-            TdDataProvider provider, final T columnSets) {
-        boolean ok = false;
-        assert provider != null : "no provider given for getting views";
-        assert catalog != null ^ schema != null : "either catalog or schema must exist but not both. Provider= "
-                + provider.getName();
+    protected <T extends List<TdTable>> boolean loadColumnSets(TdCatalog catalog, TdSchema schema, TdDataProvider provider,
+            final T columnSets) {
+        try {
+            boolean ok = false;
+            assert provider != null : "no provider given for getting views";
+            assert catalog != null ^ schema != null : "either catalog or schema must exist but not both. Provider= "
+                    + provider.getName();
 
-        if (catalog != null) {
-            ok = columnSets.addAll(DqRepositoryViewService.getTables(provider, catalog, null, true));
+            if (catalog != null) {
+                ok = columnSets.addAll(DqRepositoryViewService.getTables(provider, catalog, null, true));
+            }
+            if (schema != null) {
+                ok = columnSets.addAll(DqRepositoryViewService.getTables(provider, schema, null, true));
+            }
+            return ok;
+        } catch (TalendException e) {
+            // FIXME rli handle exception and display error message to the user
+            e.printStackTrace();
+            return false;
         }
-        if (schema != null) {
-            ok = columnSets.addAll(DqRepositoryViewService.getTables(provider, schema, null, true));
-        }
-        return ok;
     }
 
 }

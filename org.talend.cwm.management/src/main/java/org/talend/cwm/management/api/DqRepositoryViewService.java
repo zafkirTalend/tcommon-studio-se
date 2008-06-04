@@ -225,8 +225,10 @@ public final class DqRepositoryViewService {
      * @param loadFromDB true if we want to load tables from the database. false when the tables are already in the
      * catalog.
      * @return the list of tables. Theses tables are not added to the given catalog. It must be done by the caller.
+     * @throws TalendException
      */
-    public static List<TdTable> getTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB) {
+    public static List<TdTable> getTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB)
+            throws TalendException {
         if (loadFromDB) {
             return loadTables(dataProvider, catalog, tablePattern);
         } else {
@@ -234,7 +236,8 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdTable> getTables(TdDataProvider dataProvider, Schema schema, String tablePattern, boolean loadFromDB) {
+    public static List<TdTable> getTables(TdDataProvider dataProvider, Schema schema, String tablePattern, boolean loadFromDB)
+            throws TalendException {
         if (loadFromDB) {
             return loadTables(dataProvider, schema, tablePattern);
         } else {
@@ -242,7 +245,8 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdView> getViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB) {
+    public static List<TdView> getViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB)
+            throws TalendException {
         if (loadFromDB) {
             return loadViews(dataProvider, catalog, viewPattern);
         } else {
@@ -250,7 +254,8 @@ public final class DqRepositoryViewService {
         }
     }
 
-    public static List<TdView> getViews(TdDataProvider dataProvider, Schema schema, String viewPattern, boolean loadFromDB) {
+    public static List<TdView> getViews(TdDataProvider dataProvider, Schema schema, String viewPattern, boolean loadFromDB)
+            throws TalendException {
         if (loadFromDB) {
             return loadViews(dataProvider, schema, viewPattern);
         } else {
@@ -448,8 +453,10 @@ public final class DqRepositoryViewService {
      * @param catalog (must not be null)
      * @param tablePattern
      * @return the list of tables matching the given pattern
+     * @throws TalendException
      */
-    private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern) {
+    private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, String tablePattern)
+            throws TalendException {
         List<TdTable> tables = new ArrayList<TdTable>();
         assert dataProvider != null;
         assert catalog != null;
@@ -462,7 +469,8 @@ public final class DqRepositoryViewService {
         return loadTables(dataProvider, catalog, null, tablePattern);
     }
 
-    private static List<TdTable> loadTables(TdDataProvider dataProvider, Schema schema, String tablePattern) {
+    private static List<TdTable> loadTables(TdDataProvider dataProvider, Schema schema, String tablePattern)
+            throws TalendException {
         assert dataProvider != null;
         assert schema != null;
 
@@ -475,14 +483,15 @@ public final class DqRepositoryViewService {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, Schema schema, String tablePattern) {
+    private static List<TdTable> loadTables(TdDataProvider dataProvider, Catalog catalog, Schema schema, String tablePattern)
+            throws TalendException {
         List<TdTable> tables = new ArrayList<TdTable>();
         // PTODO scorreia check return code
         loadColumnSets(dataProvider, catalog, schema, tablePattern, RelationalPackage.TD_TABLE, tables);
         return tables;
     }
 
-    private static List<TdView> loadViews(TdDataProvider dataProvider, Schema schema, String viewPattern) {
+    private static List<TdView> loadViews(TdDataProvider dataProvider, Schema schema, String viewPattern) throws TalendException {
         assert schema != null : "could not load views. No schema given.";
         List<TdView> views = new ArrayList<TdView>();
         // PTODO scorreia check return code
@@ -497,8 +506,10 @@ public final class DqRepositoryViewService {
      * @param catalog
      * @param viewPattern
      * @return
+     * @throws TalendException
      */
-    private static List<TdView> loadViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern) {
+    private static List<TdView> loadViews(TdDataProvider dataProvider, Catalog catalog, String viewPattern)
+            throws TalendException {
         assert catalog != null : "could not load views. No catalog given.";
         List<TdView> views = new ArrayList<TdView>();
         // PTODO scorreia check return code
@@ -542,14 +553,15 @@ public final class DqRepositoryViewService {
      * @param classifierID a either {@link RelationalPackage#TD_TABLE} or {@link RelationalPackage#TD_VIEW}
      * @param tables the list of tables or views to be loaded.
      * @return true if ok
+     * @throws TalendException
      */
     private static <T extends List<? extends NamedColumnSet>> boolean loadColumnSets(TdDataProvider dataProvider,
-            Catalog catalog, Schema schema, String tablePattern, int classifierID, final T tables) {
+            Catalog catalog, Schema schema, String tablePattern, int classifierID, final T tables) throws TalendException {
         boolean ok = false;
         TypedReturnCode<Connection> rcConn = JavaSqlFactory.createConnection(dataProvider);
         if (!rcConn.isOk()) {
             log.error(rcConn.getMessage());
-            return ok;
+            throw new TalendException(rcConn.getMessage());
         }
 
         Connection connection = rcConn.getObject();

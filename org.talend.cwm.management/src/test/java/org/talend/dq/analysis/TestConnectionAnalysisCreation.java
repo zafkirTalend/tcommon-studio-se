@@ -157,8 +157,9 @@ public class TestConnectionAnalysisCreation {
      * 
      * @param dataManager
      * @return
+     * @throws TalendException
      */
-    private static ModelElement getColumn(TdDataProvider dataManager) {
+    private static ModelElement getColumn(TdDataProvider dataManager) throws TalendException {
         List<TdCatalog> tdCatalogs = CatalogHelper.getTdCatalogs(dataManager.getDataPackage());
         System.out.println("Catalogs: " + tdCatalogs);
         Assert.assertFalse(tdCatalogs.isEmpty());
@@ -174,19 +175,13 @@ public class TestConnectionAnalysisCreation {
         TdTable tdTable = tables.get(0);
         System.out.println("analyzed Table: " + tdTable.getName());
         List<TdColumn> columns;
-        try {
-            columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
-            TableHelper.addColumns(tdTable, columns);
+        columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
+        TableHelper.addColumns(tdTable, columns);
 
-            Assert.assertFalse(columns.isEmpty());
-            TdColumn col = columns.get(0);
-            System.out.println("analyzed Column: " + col.getName());
-            return col;
-        } catch (TalendException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+        Assert.assertFalse(columns.isEmpty());
+        TdColumn col = columns.get(0);
+        System.out.println("analyzed Column: " + col.getName());
+        return col;
     }
 
     /**

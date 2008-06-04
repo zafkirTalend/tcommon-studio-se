@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.talend.cwm.exception.TalendException;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.SchemaHelper;
 import org.talend.cwm.helper.SwitchHelpers;
@@ -24,11 +25,10 @@ import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdView;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
-import org.talend.dataprofiler.core.model.nodes.foldernode.NamedColumnSetFolderNode;
 
 /**
  * @author rli
- *
+ * 
  */
 public class ViewFolderNode extends NamedColumnSetFolderNode<TdView> {
 
@@ -74,7 +74,7 @@ public class ViewFolderNode extends NamedColumnSetFolderNode<TdView> {
             return SchemaHelper.getViews(schema);
         }
         return Collections.emptyList();
-            }
+    }
 
     /*
      * (non-Javadoc)
@@ -83,20 +83,26 @@ public class ViewFolderNode extends NamedColumnSetFolderNode<TdView> {
      * org.talend.cwm.relational.TdSchema, org.talend.cwm.softwaredeployment.TdDataProvider, java.util.List)
      */
     @Override
-    protected <T extends List<TdView>> boolean loadColumnSets(TdCatalog catalog, TdSchema schema,
-            TdDataProvider provider, final T columnSets) {
-        boolean ok = false;
-        assert provider != null : "no provider given for getting views";
-        assert catalog != null ^ schema != null : "either catalog or schema must exist but not both. Provider= "
-                + provider.getName();
+    protected <T extends List<TdView>> boolean loadColumnSets(TdCatalog catalog, TdSchema schema, TdDataProvider provider,
+            final T columnSets) {
+        try {
+            boolean ok = false;
+            assert provider != null : "no provider given for getting views";
+            assert catalog != null ^ schema != null : "either catalog or schema must exist but not both. Provider= "
+                    + provider.getName();
 
-        if (catalog != null) {
-            ok = columnSets.addAll(DqRepositoryViewService.getViews(provider, catalog, null, true));
+            if (catalog != null) {
+                ok = columnSets.addAll(DqRepositoryViewService.getViews(provider, catalog, null, true));
+            }
+            if (schema != null) {
+                ok = columnSets.addAll(DqRepositoryViewService.getViews(provider, schema, null, true));
+            }
+            return ok;
+        } catch (TalendException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
         }
-        if (schema != null) {
-            ok = columnSets.addAll(DqRepositoryViewService.getViews(provider, schema, null, true));
-        }
-        return ok;
     }
 
 }

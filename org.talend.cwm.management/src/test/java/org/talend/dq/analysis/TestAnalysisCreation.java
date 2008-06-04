@@ -65,50 +65,56 @@ public class TestAnalysisCreation {
      * @param args
      */
     public static void main(String[] args) {
-        String outputFolder = "ANA";
-        // initialized analysis
-        AnalysisBuilder analysisBuilder = new AnalysisBuilder();
-        String analysisName = "My test analysis";
+        try {
+            String outputFolder = "ANA";
+            // initialized analysis
+            AnalysisBuilder analysisBuilder = new AnalysisBuilder();
+            String analysisName = "My test analysis";
 
-        boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
-        Assert.assertTrue(analysisName + " failed to initialize!", analysisInitialized);
+            boolean analysisInitialized = analysisBuilder.initializeAnalysis(analysisName, AnalysisType.COLUMN);
+            Assert.assertTrue(analysisName + " failed to initialize!", analysisInitialized);
 
-        // get the connection
-        TdDataProvider dataManager = getDataManager();
-        Assert.assertNotNull("No datamanager found!", dataManager);
-        analysisBuilder.setAnalysisConnection(dataManager);
+            // get the connection
+            TdDataProvider dataManager = getDataManager();
+            Assert.assertNotNull("No datamanager found!", dataManager);
+            analysisBuilder.setAnalysisConnection(dataManager);
 
-        // get a column to analyze
-        ModelElement column = getColumn(dataManager);
-        Indicator[] indicators = getIndicators(column);
-        analysisBuilder.addElementToAnalyze(column, indicators);
+            // get a column to analyze
+            ModelElement column;
+            column = getColumn(dataManager);
+            Indicator[] indicators = getIndicators(column);
+            analysisBuilder.addElementToAnalyze(column, indicators);
 
-        // get the domain constraint
-        Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
-        analysisBuilder.addFilterOnData(dataFilter);
+            // get the domain constraint
+            Domain dataFilter = getDataFilter(dataManager, (Column) column); // CAST here for test
+            analysisBuilder.addFilterOnData(dataFilter);
 
-        // TODO scorreia save domain with analysisbuilder?
-        FolderProvider folderProvider = new FolderProvider();
-        folderProvider.setFolder(new File(outputFolder));
-        DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
+            // TODO scorreia save domain with analysisbuilder?
+            FolderProvider folderProvider = new FolderProvider();
+            folderProvider.setFolder(new File(outputFolder));
+            DqRepositoryViewService.saveDomain(dataFilter, folderProvider);
 
-        // run analysis
-        Analysis analysis = analysisBuilder.getAnalysis();
-        final boolean useSql = true;
-        IAnalysisExecutor exec = useSql ? new ColumnAnalysisSqlExecutor() : new ColumnAnalysisExecutor();
-        ReturnCode executed = exec.execute(analysis);
-        Assert.assertTrue("Problem executing analysis: " + analysisName + ": " + executed.getMessage(), executed.isOk());
+            // run analysis
+            Analysis analysis = analysisBuilder.getAnalysis();
+            final boolean useSql = true;
+            IAnalysisExecutor exec = useSql ? new ColumnAnalysisSqlExecutor() : new ColumnAnalysisExecutor();
+            ReturnCode executed = exec.execute(analysis);
+            Assert.assertTrue("Problem executing analysis: " + analysisName + ": " + executed.getMessage(), executed.isOk());
 
-        // save data provider
-        DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
+            // save data provider
+            DqRepositoryViewService.saveDataProviderAndStructure(dataManager, folderProvider);
 
-        // save analysis
-        AnalysisWriter writer = new AnalysisWriter();
-        File file = new File(outputFolder + File.separator + "analysis.ana");
-        ReturnCode saved = writer.save(analysis, file);
-        Assert.assertTrue(saved.getMessage(), saved.isOk());
-        if (saved.isOk()) {
-            log.info("Saved in  " + file.getAbsolutePath());
+            // save analysis
+            AnalysisWriter writer = new AnalysisWriter();
+            File file = new File(outputFolder + File.separator + "analysis.ana");
+            ReturnCode saved = writer.save(analysis, file);
+            Assert.assertTrue(saved.getMessage(), saved.isOk());
+            if (saved.isOk()) {
+                log.info("Saved in  " + file.getAbsolutePath());
+            }
+        } catch (TalendException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -178,8 +184,9 @@ public class TestAnalysisCreation {
      * 
      * @param dataManager
      * @return
+     * @throws TalendException
      */
-    private static ModelElement getColumn(TdDataProvider dataManager) {
+    private static ModelElement getColumn(TdDataProvider dataManager) throws TalendException {
         List<TdCatalog> tdCatalogs = CatalogHelper.getTdCatalogs(dataManager.getDataPackage());
         System.out.println("Catalogs: " + tdCatalogs);
         Assert.assertFalse(tdCatalogs.isEmpty());
@@ -195,19 +202,13 @@ public class TestAnalysisCreation {
         TdTable tdTable = tables.get(0);
         System.out.println("analyzed Table: " + tdTable.getName());
         List<TdColumn> columns;
-        try {
-            columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
-            TableHelper.addColumns(tdTable, columns);
+        columns = DqRepositoryViewService.getColumns(dataManager, tdTable, null, true);
+        TableHelper.addColumns(tdTable, columns);
 
-            Assert.assertFalse(columns.isEmpty());
-            TdColumn col = columns.get(0);
-            System.out.println("analyzed Column: " + col.getName());
-            return col;
-        } catch (TalendException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+        Assert.assertFalse(columns.isEmpty());
+        TdColumn col = columns.get(0);
+        System.out.println("analyzed Column: " + col.getName());
+        return col;
     }
 
     /**
