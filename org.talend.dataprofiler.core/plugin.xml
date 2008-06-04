@@ -304,7 +304,7 @@
      </category>
      <cheatsheet
            category="org.talend.dataprofiler.core.category1"
-           contentFile="cheatsheets/usercheat.xml"
+           contentFile="cheatsheets/ColumnAnalysis_cheat.xml"
            id="org.talend.dataprofiler.core.cheatsheet1"
            name="Multiple Column Analysis Creation">
      </cheatsheet>
