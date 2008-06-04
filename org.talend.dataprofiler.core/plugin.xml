@@ -304,9 +304,15 @@
      </category>
      <cheatsheet
            category="org.talend.dataprofiler.core.category1"
-           contentFile="usercheat.xml"
+           contentFile="cheatsheets/usercheat.xml"
            id="org.talend.dataprofiler.core.cheatsheet1"
            name="Multiple Column Analysis Creation">
+     </cheatsheet>
+     <cheatsheet
+           category="org.talend.dataprofiler.core.category1"
+           contentFile="cheatsheets/DBconnection_cheat.xml"
+           id="org.talend.dataprofiler.core.cheatsheet2"
+           name="Create New Database Connection">
      </cheatsheet>
   </extension>
   

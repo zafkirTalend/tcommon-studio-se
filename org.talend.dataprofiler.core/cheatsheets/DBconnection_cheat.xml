@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Cheat sheet content">
+   <intro>
+      <description>
+         <b>This tutorial guides you through the creation of a database connection.</b>
+      </description>
+   </intro>
+   <item title="Set the Database Connection metadata" dialog="true" skip="false">
+      <description>
+         This steps opens the &quot;Database Connection&quot; wizard.  Right click on the folder &quot;Metadata/DB Connections&quot; and select the menu &quot;Create a new Connection&quot; (or the link below). 
+This wizard creates a connection on your DBMS ( DataBase Management System). At the end, the content of all available databases is displayed in the &quot;DQ Repository&quot; view. Even when you give a specific database name, all the content available to you on the connection is displayed. This allows you to explore the content of a database even when you don&apos;t know all the names of the catalogs (or schema).
+      </description>
+      <action class="org.talend.dataprofiler.core.ui.action.actions.CreateConnectionAction" pluginId="org.talend.dataprofiler.core" confirm="false">
+      </action>
+   </item>
+</cheatsheet>
