@@ -13,10 +13,11 @@
 package org.talend.dataquality.helpers;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.indicators.CompositeIndicator;
@@ -97,8 +98,8 @@ public final class IndicatorHelper {
      * @param indicator the indicator
      * @return the leaf indicators
      */
-    public static Collection<Indicator> getIndicatorLeaves(Indicator indicator) {
-        Collection<Indicator> leafIndicators = new ArrayList<Indicator>();
+    public static List<Indicator> getIndicatorLeaves(Indicator indicator) {
+        List<Indicator> leafIndicators = new ArrayList<Indicator>();
         if (indicator instanceof CompositeIndicator) {
             CompositeIndicator compositeIndicator = (CompositeIndicator) indicator;
             for (Indicator ind : compositeIndicator.getChildIndicators()) {
@@ -106,6 +107,21 @@ public final class IndicatorHelper {
             }
         } else {
             leafIndicators.add(indicator);
+        }
+        return leafIndicators;
+    }
+
+    /**
+     * Method "getIndicatorLeaves".
+     * 
+     * @param result
+     * @return all the leaf indicators
+     */
+    public static List<Indicator> getIndicatorLeaves(AnalysisResult result) {
+        List<Indicator> leafIndicators = new ArrayList<Indicator>();
+        EList<Indicator> indicators = result.getIndicators();
+        for (Indicator indicator : indicators) {
+            leafIndicators.addAll(getIndicatorLeaves(indicator));
         }
         return leafIndicators;
     }

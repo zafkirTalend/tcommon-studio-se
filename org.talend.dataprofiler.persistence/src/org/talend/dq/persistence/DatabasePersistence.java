@@ -43,6 +43,7 @@ import org.talend.dataprofiler.persistence.utils.HibernateUtil;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.helpers.AnalysisHelper;
+import org.talend.dataquality.helpers.IndicatorHelper;
 import org.talend.dataquality.helpers.ReportHelper;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.FrequencyIndicator;
@@ -156,7 +157,7 @@ public class DatabasePersistence {
         // save indicators
         AnalysisResult results = analysis.getResults();
         // Date executionDate = results.getResultMetadata().getExecutionDate();
-        EList<Indicator> indicators = results.getIndicators();
+        List<Indicator> indicators = IndicatorHelper.getIndicatorLeaves(results);
         for (Indicator indicator : indicators) {
             persist(indicator, useTdqAnalysis, analysis);
         }

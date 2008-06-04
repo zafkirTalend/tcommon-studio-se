@@ -27,6 +27,7 @@ import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.helpers.AnalysisHelper;
+import org.talend.dataquality.helpers.IndicatorHelper;
 import org.talend.dataquality.helpers.MetadataHelper;
 import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.DataminingType;
@@ -258,10 +259,7 @@ public class ColumnAnalysisHandler {
      */
     public Collection<Indicator> getIndicatorLeaves(TdColumn column) {
         // get the leaf indicators
-        Collection<Indicator> leafIndics = new ArrayList<Indicator>();
-        for (Indicator indicator : analysis.getResults().getIndicators()) {
-            getIndicatorLeaves(indicator, leafIndics);
-        }
+        Collection<Indicator> leafIndics = IndicatorHelper.getIndicatorLeaves(analysis.getResults());
         // filter only indicators for this column
         Collection<Indicator> indics = new ArrayList<Indicator>();
         for (Indicator indicator : leafIndics) {
@@ -270,25 +268,6 @@ public class ColumnAnalysisHandler {
             }
         }
         return indics;
-    }
-
-    /**
-     * Method "getIndicatorLeaves" adds the given indicator into the given list if it is a leaf indicator (an indicator
-     * that is not a composite indicator).
-     * 
-     * @param indicator the indicator
-     * @param leafIndicators the output list
-     */
-    private void getIndicatorLeaves(Indicator indicator, final Collection<Indicator> leafIndicators) {
-        if (indicator instanceof CompositeIndicator) {
-            CompositeIndicator compositeIndicator = (CompositeIndicator) indicator;
-            for (Indicator ind : compositeIndicator.getChildIndicators()) {
-                getIndicatorLeaves(ind, leafIndicators);
-            }
-        } else {
-            leafIndicators.add(indicator);
-        }
-
     }
 
     /**

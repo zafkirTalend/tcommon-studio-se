@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +39,7 @@ import org.talend.dataquality.analysis.AnalysisResult;
 import org.talend.dataquality.domain.Domain;
 import org.talend.dataquality.domain.RangeRestriction;
 import org.talend.dataquality.helpers.DomainHelper;
+import org.talend.dataquality.helpers.IndicatorHelper;
 import org.talend.dataquality.indicators.CompositeIndicator;
 import org.talend.dataquality.indicators.DataminingType;
 import org.talend.dataquality.indicators.DateGrain;
@@ -90,25 +92,15 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
         assert results != null;
 
         try {
-            // get data filter
-            // ZExp dataFilterExpression = null;
+            // --- get data filter
             ColumnAnalysisHandler handler = new ColumnAnalysisHandler();
             handler.setAnalysis(analysis);
             String stringDataFilter = handler.getStringDataFilter();
-            // if (StringUtils.isNotBlank(stringDataFilter)) {
-            // ZqlParser filterParser = new ZqlParser();
-            // filterParser.initParser(new ByteArrayInputStream(stringDataFilter.getBytes()));
-            // dataFilterExpression = filterParser.readExpression();
-            // }
-            // create one sql statement for each indicator
-            EList<Indicator> indicators = results.getIndicators();
-            for (Indicator indicator : indicators) {
-                if (indicator instanceof CompositeIndicator) {
-                    // FIXME loop on children indicators or change model because indicators are stored in Result
 
-                    continue;
-                }
-                // createSqlQuery(dataFilterExpression, indicator);
+            // --- get all the leaf indicators used for the sql computation
+            Collection<Indicator> leafIndicators = IndicatorHelper.getIndicatorLeaves(results);
+            // --- create one sql statement for each leaf indicator
+            for (Indicator indicator : leafIndicators) {
                 createSqlQuery(stringDataFilter, indicator);
             }
         } catch (ParseException e) {
@@ -765,8 +757,9 @@ public class ColumnAnalysisSqlExecutor extends ColumnAnalysisExecutor {
 
         try {
             Connection connection = trc.getObject();
+
             // execute the sql statement for each indicator
-            EList<Indicator> indicators = analysis.getResults().getIndicators();
+            Collection<Indicator> indicators = IndicatorHelper.getIndicatorLeaves(analysis.getResults());
             for (Indicator indicator : indicators) {
                 // skip composite indicators that do not require a sql execution
                 if (indicator instanceof CompositeIndicator) {
