@@ -46,7 +46,9 @@ public class AddRepositoryContextVariablesCommand extends Command {
         this.modelManager = modelManager;
         this.helper = helper;
         this.parameterList = parameterList;
-        this.manager = modelManager.getContextManager();
+        if (modelManager != null) {
+            this.manager = modelManager.getContextManager();
+        }
     }
 
     @Override

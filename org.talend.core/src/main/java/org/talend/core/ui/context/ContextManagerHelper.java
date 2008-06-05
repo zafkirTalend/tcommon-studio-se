@@ -42,7 +42,9 @@ public final class ContextManagerHelper {
 
     private Map<ContextItem, List<ContextParameterType>> contextMap;
 
-    IContextManager manager;
+    private IContextManager manager;
+
+    private Map<String, Set<String>> itemNameToParametersMap = new HashMap<String, Set<String>>();
 
     public ContextManagerHelper(IContextManager manager) {
         super();
@@ -51,6 +53,7 @@ public final class ContextManagerHelper {
 
     public void initHelper(IContextManager manager) {
         this.manager = manager;
+        initExistedParametersMap();
         contextMap = new HashMap<ContextItem, List<ContextParameterType>>();
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         List<ContextItem> itemList = null;
@@ -83,6 +86,24 @@ public final class ContextManagerHelper {
             for (Object objParam : type.getContextParameter()) {
                 ContextParameterType param = (ContextParameterType) objParam;
                 paramTypeSet.add(param);
+            }
+        }
+    }
+
+    private void initExistedParametersMap() {
+        if (!isValid(manager)) {
+            return;
+        }
+        itemNameToParametersMap.clear();
+        for (IContextParameter param : manager.getDefaultContext().getContextParameterList()) {
+            if (!param.isBuiltIn()) {
+                final String source = param.getSource();
+                Set<String> paramSet = itemNameToParametersMap.get(source);
+                if (paramSet == null) {
+                    paramSet = new HashSet<String>();
+                    itemNameToParametersMap.put(source, paramSet);
+                }
+                paramSet.add(param.getName());
             }
         }
     }
@@ -171,7 +192,7 @@ public final class ContextManagerHelper {
         if (!isValid(name)) {
             return null;
         }
-        Set<ContextItem> itemSet = contextMap.keySet();
+        Set<ContextItem> itemSet = getContextItems();
         for (ContextItem item : itemSet) {
             if (item.getProperty().getLabel().equals(name)) {
                 return item;
@@ -351,6 +372,29 @@ public final class ContextManagerHelper {
                 context.getContextParameterList().add(jobParam);
             }
         }
+    }
+
+    /**
+     * 
+     * ggu Comment method "existParameterForJob".
+     * 
+     * check that the obj is existed in job context.
+     */
+    public boolean existParameterForJob(Object obj) {
+        if (!isValid(obj)) {
+            return false;
+        }
+        if (obj instanceof ContextItem) {
+            Set<String> paramSet = this.itemNameToParametersMap.get(((ContextItem) obj).getProperty().getLabel());
+            return paramSet != null && !paramSet.isEmpty();
+        } else if (obj instanceof ContextParameterType) {
+            ContextItem contextItem = (ContextItem) getParentContextItem(obj);
+            if (contextItem != null) {
+                Set<String> paramSet = this.itemNameToParametersMap.get(contextItem.getProperty().getLabel());
+                return paramSet != null && paramSet.contains(((ContextParameterType) obj).getName());
+            }
+        }
+        return false;
     }
 
 }

@@ -148,7 +148,8 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         if (!validateContextName(returnValue)) {
             return;
         }
-        if (manager.getProcess() != null && manager.getProcess().getLastRunContext().sameAs(selectedContext)) {
+        if (manager.getProcess() != null && manager.getProcess().getLastRunContext() != null
+                && manager.getProcess().getLastRunContext().sameAs(selectedContext)) {
             manager.getProcess().setLastRunContext(selectedContext);
         }
         renameContext(selectedContext, returnValue);

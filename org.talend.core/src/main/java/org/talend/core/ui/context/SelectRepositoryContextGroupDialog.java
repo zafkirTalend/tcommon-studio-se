@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.ui.image.ImageProvider;
@@ -180,6 +181,31 @@ public class SelectRepositoryContextGroupDialog extends SelectionDialog {
                 selectAll(false);
             }
         });
+        if (contextItemList != null && contextItemList.size() > 1) {
+            new Label(buttons, SWT.NONE).setVisible(false);
+
+            Button bExpand = new Button(buttons, SWT.PUSH);
+            bExpand.setText(Messages.getString("SelectRepositoryContextDialog.ExpandAll")); //$NON-NLS-1$
+            bExpand.setFont(parent.getFont());
+            setButtonLayoutData(bExpand);
+            bExpand.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent e) {
+                    treeViewer.expandAll();
+                }
+            });
+
+            Button bCollapse = new Button(buttons, SWT.PUSH);
+            bCollapse.setText(Messages.getString("SelectRepositoryContextDialog.CollapseAll")); //$NON-NLS-1$
+            bCollapse.setFont(parent.getFont());
+            setButtonLayoutData(bCollapse);
+            bCollapse.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent e) {
+                    treeViewer.collapseAll();
+                }
+            });
+        }
     }
 
     private void selectAll(boolean all) {

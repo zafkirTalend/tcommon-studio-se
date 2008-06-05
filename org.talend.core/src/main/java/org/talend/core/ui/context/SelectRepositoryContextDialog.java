@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
@@ -99,6 +100,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         setTitle(TITILE);
         setMessage(DEFAULTMESAGE);
         setHelpAvailable(false);
+        setShellStyle(getShellStyle() | SWT.RESIZE);
         this.modelManager = modelManager;
         this.manager = modelManager.getContextManager();
         this.helper = helper;
@@ -192,17 +194,39 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
                 selectAll(false);
             }
         });
+        if (contextItemList != null && contextItemList.size() > 1) {
+            new Label(buttons, SWT.NONE).setVisible(false);
+
+            Button bExpand = new Button(buttons, SWT.PUSH);
+            bExpand.setText(Messages.getString("SelectRepositoryContextDialog.ExpandAll")); //$NON-NLS-1$
+            bExpand.setFont(parent.getFont());
+            setButtonLayoutData(bExpand);
+            bExpand.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent e) {
+                    treeViewer.expandAll();
+                }
+            });
+
+            Button bCollapse = new Button(buttons, SWT.PUSH);
+            bCollapse.setText(Messages.getString("SelectRepositoryContextDialog.CollapseAll")); //$NON-NLS-1$
+            bCollapse.setFont(parent.getFont());
+            setButtonLayoutData(bCollapse);
+            bCollapse.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent e) {
+                    treeViewer.collapseAll();
+                }
+            });
+        }
     }
 
     private void selectAll(boolean all) {
         treeViewer.setAllChecked(all);
         if (contextItemList != null) {
             for (ContextItem item : contextItemList) {
-                if (updateSubCheckedState(item, all)) {
-                    treeViewer.setGrayed(item, true);
-                } else {
-                    treeViewer.setGrayed(item, false);
-                }
+                updateSubCheckedState(item, all, false);
+                updateParentCheckedState(item);
             }
         }
     }
@@ -212,23 +236,10 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
             public void checkStateChanged(CheckStateChangedEvent event) {
                 Object obj = event.getElement();
-                if (event.getChecked() && obj instanceof ContextParameterType) {
-                    ContextParameterType param = (ContextParameterType) obj;
-                    ContextParameterType existedParam = hasSelectedParam(param);
-                    if (existedParam != null && selectedContextName != null) {
-                        treeViewer.setGrayChecked(obj, false);
-                        String message = Messages.getString(
-                                "SelectRepositoryContextDialog.DuplicationMessage", param.getName(), selectedContextName); //$NON-NLS-1$
-                        MessageDialog.openWarning(getParentShell(), WARNING_TITLE, message);
-                        selectedContextName = null;
-                        return;
-                    }
-
-                }
-                if (updateSubCheckedState(obj, event.getChecked())) {
-                    treeViewer.setGrayed(obj, true);
+                if (obj instanceof ContextItem) {
+                    updateSubCheckedState(obj, checkSubState(obj), false);
                 } else {
-                    treeViewer.setGrayed(obj, false);
+                    updateSubCheckedState(obj, event.getChecked(), true);
                 }
                 // checked parent
                 updateParentCheckedState(obj);
@@ -250,47 +261,94 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     }
 
-    private boolean updateSubCheckedState(Object obj, boolean checked) {
+    private boolean checkSubState(Object obj) {
         if (obj == null || helper == null) {
             return false;
         }
-        boolean found = false;
-        if (checked && obj instanceof ContextItem) {
+        if (obj instanceof ContextItem) {
+            ContextItem item = (ContextItem) obj;
+            ContextType type = helper.getDefaultContextType(item);
+
+            for (Object paramObj : type.getContextParameter()) {
+                if (!treeViewer.getChecked(paramObj) && hasSelectedParam((ContextParameterType) paramObj) == null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void updateSubCheckedState(Object obj, boolean checked, boolean showWarning) {
+        if (obj == null || helper == null) {
+            return;
+        }
+        if (obj instanceof ContextItem) {
             ContextItem item = (ContextItem) obj;
             ContextType type = helper.getDefaultContextType(item);
             if (type != null) {
                 for (Object paramObj : type.getContextParameter()) {
-                    ContextParameterType paramType = (ContextParameterType) paramObj;
-                    if (hasSelectedParam(paramType) != null) {
-                        treeViewer.setChecked(paramType, false);
-                        found = true;
-                    } else {
-                        treeViewer.setChecked(paramType, true);
-                    }
+                    updateSubCheckedState(paramObj, checked, false);
                 }
             }
-        } else {
-            treeViewer.setSubtreeChecked(obj, checked);
+        } else if (obj instanceof ContextParameterType) {
+            ContextParameterType param = (ContextParameterType) obj;
+            treeViewer.setGrayed(param, false);
+            if (helper.existParameterForJob(param)) {
+                treeViewer.setChecked(param, true); // checked always
+            } else {
+                ContextParameterType existedParam = hasSelectedParam(param);
+                if (existedParam != null && selectedContextName != null) {
+                    treeViewer.setChecked(param, false);
+                    if (showWarning) {
+                        String message = null;
+                        if (helper.existParameterForJob(existedParam)) {
+                            message = Messages
+                                    .getString(
+                                            "SelectRepositoryContextDialog.ExistenceMessage", existedParam.getName(), selectedContextName); //$NON-NLS-1$
+                        } else {
+                            message = Messages
+                                    .getString(
+                                            "SelectRepositoryContextDialog.DuplicationMessage", existedParam.getName(), selectedContextName); //$NON-NLS-1$
+                        }
+                        MessageDialog.openWarning(getParentShell(), WARNING_TITLE, message);
+                    }
+                    selectedContextName = null;
+                } else {
+                    treeViewer.setChecked(obj, checked);
+                }
+            }
         }
-        return found;
+
     }
 
     private void updateParentCheckedState(Object obj) {
         if (obj == null) {
             return;
         }
-        Object parent = helper.getParentContextItem(obj);
-        if (parent == null) {
-            return;
-        }
+        Object parent = null;
 
-        Set siblings = helper.getSiblingContextObject(obj);
-        if (siblings == null) {
+        Set siblings = null;
+        if (obj instanceof ContextItem) {
+            parent = obj; // self
+            siblings = new HashSet(helper.getContextParameterType((ContextItem) obj)); // child
+        } else if (obj instanceof ContextParameterType) {
+            parent = helper.getParentContextItem(obj);
+            siblings = helper.getSiblingContextObject(obj);
+        }
+        if (parent == null || siblings == null) {
             return;
         }
         int num = 0;
 
         for (Object sibling : siblings) {
+            if (sibling instanceof ContextParameterType) {
+                IContextParameter existedContextParameter = helper.getExistedContextParameter(((ContextParameterType) sibling)
+                        .getName());
+                if (existedContextParameter != null && existedContextParameter.isBuiltIn()) {
+                    num++;
+                    continue;
+                }
+            }
             if (treeViewer.getChecked(sibling)) {
                 num++;
             }
@@ -307,20 +365,22 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     }
 
+    /**
+     * 
+     * ggu Comment method "updateTreeCheckedState".
+     * 
+     * init
+     */
     private void updateTreeCheckedState() {
         for (ContextItem item : contextItemList) {
             ContextType type = getDefaultContextType(item);
             if (type != null) {
                 for (Object paramObj : type.getContextParameter()) {
                     ContextParameterType paramType = (ContextParameterType) paramObj;
-                    IContextParameter param = helper.getExistedContextParameter(paramType.getName());
-                    if (param != null) {
-                        if (!param.isBuiltIn() && param.getSource().equals(item.getProperty().getLabel())) {
-                            treeViewer.setChecked(paramType, true);
-                            updateParentCheckedState(paramType);
-                        }
+                    if (helper.existParameterForJob(paramType)) {
+                        treeViewer.setChecked(paramType, true);
+                        updateParentCheckedState(paramType);
                     }
-
                 }
             }
         }
@@ -371,7 +431,8 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         return itemList;
     }
 
-    private void progressDialog(final Set<String> contextGoupNameSet, final List<ContextParameterType> paramTypeList) {
+    private void progressDialog(final List<ContextItem> selectedItems, final Set<String> contextGoupNameSet,
+            final List<ContextParameterType> paramTypeList) {
 
         ProgressDialog progressDialog = new ProgressDialog(getParentShell()) {
 
@@ -379,11 +440,10 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
                 List objList = Arrays.asList(treeViewer.getCheckedElements());
-                monitor.beginTask("", objList.size()); //$NON-NLS-1$
+                monitor.beginTask("", contextGoupNameSet.size() + paramTypeList.size() + 2); //$NON-NLS-1$
                 setResult(objList);
-
-                AddRepositoryContextGroupCommand addGroupCmd = new AddRepositoryContextGroupCommand(monitor, manager,
-                        contextGoupNameSet);
+                AddRepositoryContextGroupCommand addGroupCmd = new AddRepositoryContextGroupCommand(monitor, modelManager,
+                        selectedItems, contextGoupNameSet);
                 AddRepositoryContextVariablesCommand addVarCmd = new AddRepositoryContextVariablesCommand(monitor, modelManager,
                         helper, paramTypeList);
 
@@ -415,17 +475,20 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     @Override
     protected void okPressed() {
         List<ContextItem> selectedItems = getSelectedContextItem();
-        Set<String> contextGoupNameSet = new HashSet<String>();
-        if (selectedItems != null && !selectedItems.isEmpty() && checkShowContextGroup(manager, selectedItems)) {
-            SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(getParentShell(), manager,
-                    helper, selectedItems);
-            if (Dialog.OK == groupDialog.open()) {
-                contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+        if (selectedItems != null && !selectedItems.isEmpty()) {
+            Set<String> contextGoupNameSet = new HashSet<String>();
+            if (checkShowContextGroup(manager, selectedItems)) {
+                SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(getParentShell(),
+                        manager, helper, selectedItems);
+                if (Dialog.OK == groupDialog.open()) {
+                    contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+                }
             }
-        }
-        progressDialog(contextGoupNameSet, getSelectedContextParameterType());
+            progressDialog(selectedItems, contextGoupNameSet, getSelectedContextParameterType());
 
-        modelManager.refresh();
+            modelManager.refresh();
+        }
+
         super.okPressed();
 
     }
