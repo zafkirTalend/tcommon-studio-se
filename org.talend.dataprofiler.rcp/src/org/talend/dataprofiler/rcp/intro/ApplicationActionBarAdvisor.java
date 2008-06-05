@@ -77,6 +77,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         saveAllAction = ActionFactory.SAVE_ALL.create(window);
         register(saveAllAction);
+        
+        register(ActionFactory.DELETE.create(window));
 
         preferenceAction = ActionFactory.PREFERENCES.create(window);
         register(preferenceAction);
