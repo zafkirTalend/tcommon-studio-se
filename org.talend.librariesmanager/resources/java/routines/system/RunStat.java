@@ -164,7 +164,7 @@ public class RunStat implements Runnable {
         processStats.put(connectionId, bean);
     }
 
-    public void updateStatOnConnection(String connectionId, int mode, String exec) {
+    public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
@@ -174,5 +174,7 @@ public class RunStat implements Runnable {
         bean.setState(mode);
         bean.setExec(exec);
         processStats.put(connectionId, bean);
+
+        sendMessages();
     }
 }
