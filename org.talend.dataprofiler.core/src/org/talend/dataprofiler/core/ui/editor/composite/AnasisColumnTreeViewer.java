@@ -268,7 +268,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                                 @Override
                                 public void shellActivated(ShellEvent e) {
                                     Point point = e.widget.getDisplay().getCursorLocation();
-                                    IContext context = HelpSystem.getContext(HelpPlugin.PLUGIN_ID + ".mycontexthelpid");
+                                    IContext context = HelpSystem.getContext(HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_OPTION_HELP_ID);
                                     PlatformUI.getWorkbench().getHelpSystem().displayContext(context, point.x + 15, point.y);
                                 }
                             });
@@ -325,9 +325,23 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     }
 
     public void openIndicatorSelectDialog(Shell shell) {
-        IndicatorSelectDialog dialog = new IndicatorSelectDialog(shell, "Indicator Selector",
+        IndicatorSelectDialog dialog = new IndicatorSelectDialog(shell, "Indicator Selector", columnIndicators);
+        dialog.create();
+        dialog.getShell().addShellListener(new ShellAdapter() {
 
-        columnIndicators);
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.events.ShellAdapter#shellActivated(org.eclipse.swt.events.ShellEvent)
+             */
+            @Override
+            public void shellActivated(ShellEvent e) {
+                Point point = e.widget.getDisplay().getCursorLocation();
+                IContext context = HelpSystem.getContext(HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_SELECTOR_HELP_ID);
+                PlatformUI.getWorkbench().getHelpSystem().displayContext(context, point.x + 15, point.y);
+            }
+        });
+        
         if (dialog.open() == Window.OK) {
             ColumnIndicator[] result = dialog.getResult();
             for (ColumnIndicator columnIndicator : result) {

@@ -70,7 +70,6 @@ public class IndicatorSelectDialog extends TrayDialog {
         super(parentShell);
         this.columnIndicators = columnIndicators;
         this.setShellStyle(SWT.MAX | SWT.RESIZE);
-        this.setHelpAvailable(true);
     }
 
     /**
@@ -280,8 +279,7 @@ public class IndicatorSelectDialog extends TrayDialog {
         GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionLabel);
         ((GridData) descriptionLabel.getLayoutData()).heightHint = 40;
         comp.layout();
-        createHelpControl(comp);
-        
+
         return comp;
     }
 
@@ -357,19 +355,18 @@ public class IndicatorSelectDialog extends TrayDialog {
     }
 
     /* (non-Javadoc)
-     * @see org.eclipse.jface.dialogs.TrayDialog#createHelpControl(org.eclipse.swt.widgets.Composite)
+     * @see org.eclipse.jface.dialogs.Dialog#createContents(org.eclipse.swt.widgets.Composite)
      */
     @Override
-    protected Control createHelpControl(Composite parent) {
-
-        if (parent != null) {
-            try {
-                PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, HelpPlugin.PLUGIN_ID + ".indicatorhelpcontext");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    protected Control createContents(Composite parent) {
+        
+        try {
+            PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_SELECTOR_HELP_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return super.createHelpControl(parent);
+        
+        return super.createContents(parent);
     }
 
     

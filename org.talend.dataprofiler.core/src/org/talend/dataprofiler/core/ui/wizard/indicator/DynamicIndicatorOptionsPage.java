@@ -131,7 +131,7 @@ public class DynamicIndicatorOptionsPage extends WizardPage {
 
         if (getControl() != null) {
             try {
-                PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), HelpPlugin.PLUGIN_ID + ".mycontexthelpid");
+                PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_OPTION_HELP_ID);
             } catch (Exception e) {
                 e.printStackTrace();
             }
