@@ -538,7 +538,7 @@ public class ListenableList<T> implements IExtendedList<T> {
         if (this.list != null) {
             return this.list.toArray(a);
         } else {
-            return new Object[0];
+            return (T[]) new Object[0];
         }
     }
 
