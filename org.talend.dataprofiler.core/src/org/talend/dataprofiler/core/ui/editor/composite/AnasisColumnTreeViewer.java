@@ -18,6 +18,10 @@ import java.util.List;
 import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.help.HelpSystem;
 import org.eclipse.help.IContext;
+import org.eclipse.help.IHelpResource;
+import org.eclipse.help.ui.internal.views.HelpTray;
+import org.eclipse.help.ui.internal.views.ReusableHelpPart;
+import org.eclipse.jface.dialogs.DialogTray;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
@@ -34,6 +38,7 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -42,6 +47,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.help.IWorkbenchHelpSystem;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
@@ -52,6 +58,7 @@ import org.talend.dataprofiler.core.ui.editor.AbstractAnalysisActionHandler;
 import org.talend.dataprofiler.core.ui.editor.AbstractFormPage;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
+import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.IndicatorParameterTypes;
 import org.talend.dataprofiler.help.HelpPlugin;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.analysis.AnalysisParameters;
@@ -247,6 +254,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         this.setDirty(true);
     }
 
+    private static int i = 0;
+
     private void createIndicatorItems(final TreeItem treeItem, IndicatorUnit[] indicatorTypeMappings) {
         for (IndicatorUnit indicatorMapping : indicatorTypeMappings) {
             final TreeItem indicatorItem = new TreeItem(treeItem, SWT.NONE);
@@ -275,12 +284,41 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                     @Override
                     public void mouseDown(MouseEvent e) {
 
-                        IndicatorUnit indicator = (IndicatorUnit) ((Label) e.getSource()).getData();
-                        IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis);
+                        final IndicatorUnit indicator = (IndicatorUnit) ((Label) e.getSource()).getData();
+                        final IndicatorOptionsWizard wizard = new IndicatorOptionsWizard(indicator, analysis) {
+
+                            /*
+                             * (non-Javadoc)
+                             * 
+                             * @see org.eclipse.jface.wizard.Wizard#dispose()
+                             */
+                            @Override
+                            public void dispose() {
+                                i = 0;
+                                super.dispose();
+                            }
+                        };
 
                         try {
                             // open the dialog
-                            WizardDialog dialog = new WizardDialog(null, wizard);
+                            WizardDialog dialog = new WizardDialog(null, wizard) {
+
+                                /*
+                                 * (non-Javadoc)
+                                 * 
+                                 * @see org.eclipse.jface.dialogs.TrayDialog#openTray(org.eclipse.jface.dialogs.DialogTray)
+                                 */
+                                @Override
+                                public void openTray(DialogTray tray) throws IllegalStateException, UnsupportedOperationException {
+                                    super.openTray(tray);
+                                    if (tray instanceof HelpTray) {
+                                        HelpTray helpTray = (HelpTray) tray;
+                                        ReusableHelpPart helpPart = helpTray.getHelpPart();
+                                        helpPart.getForm().getForm().notifyListeners(SWT.Activate, new Event());
+                                    }
+                                }
+
+                            };
                             dialog.setPageSize(300, 400);
                             dialog.create();
                             dialog.getShell().addShellListener(new ShellAdapter() {
@@ -292,10 +330,28 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                                  */
                                 @Override
                                 public void shellActivated(ShellEvent e) {
-                                    Point point = e.widget.getDisplay().getCursorLocation();
-                                    IContext context = HelpSystem.getContext(HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_OPTION_HELP_ID);
-                                    PlatformUI.getWorkbench().getHelpSystem().displayContext(context, point.x + 15, point.y);
+                                    String string = HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_OPTION_HELP_ID;
+                                    if (i < 2) {
+                                        Point point = e.widget.getDisplay().getCursorLocation();
+                                        IContext context = HelpSystem.getContext(string);
+                                        IHelpResource[] relatedTopics = context.getRelatedTopics();
+                                        for (IHelpResource topic : relatedTopics) {
+                                            topic.getLabel();
+                                            topic.getHref();
+                                        }
+                                        IWorkbenchHelpSystem helpSystem = PlatformUI.getWorkbench().getHelpSystem();
+                                        helpSystem.displayContext(context, point.x + 15, point.y);
+                                        i++;
+                                        ReusableHelpPart lastActiveInstance = ReusableHelpPart.getLastActiveInstance();
+                                        if (lastActiveInstance != null) {
+                                            String href = IndicatorParameterTypes.getHref(indicator);
+                                            if (href != null) {
+                                                lastActiveInstance.showURL(href);
+                                            }
+                                        }
+                                    }
                                 }
+
                             });
                             int open = dialog.open();
                             if (Window.OK == open) {
@@ -396,7 +452,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                 PlatformUI.getWorkbench().getHelpSystem().displayContext(context, point.x + 15, point.y);
             }
         });
-        
+
         if (dialog.open() == Window.OK) {
             ColumnIndicator[] result = dialog.getResult();
             for (ColumnIndicator columnIndicator : result) {
