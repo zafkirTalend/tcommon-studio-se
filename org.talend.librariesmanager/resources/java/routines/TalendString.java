@@ -26,6 +26,17 @@ public class TalendString {
     }
 
     /**
+     * 
+     */
+    public static String checkCDATAForXML(String input) {
+        if (input.startsWith("<![CDATA[") && input.endsWith("]]>")) {
+            return input;
+        } else {
+            return TalendString.replaceSpecialCharForXML(input);
+        }
+    }
+
+    /**
      * getAsciiRandomString : Return a randomly generated String
      * 
      * 
