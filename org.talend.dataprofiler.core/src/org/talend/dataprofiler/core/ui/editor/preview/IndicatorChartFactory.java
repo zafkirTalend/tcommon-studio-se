@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.dataprofiler.core.ui.editor.preview;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +23,8 @@ import java.util.Map;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
@@ -60,7 +63,7 @@ public class IndicatorChartFactory {
     private static BarRenderer3D renderer = new BarRenderer3D();
     
     //start to create kinds of chart
-    public static ImageDescriptor create3DBarChart(String titile, CategoryDataset dataset) {
+    public static ImageDescriptor create3DBarChart(String titile, CategoryDataset dataset, boolean showLegend) {
         
         JFreeChart chart = ChartFactory.createBarChart3D(
                 null, 
@@ -68,7 +71,7 @@ public class IndicatorChartFactory {
                 "Value", 
                 dataset, 
                 PlotOrientation.VERTICAL,
-                true,  
+                showLegend,  
                 false,  
                 false   
                 );
@@ -83,7 +86,11 @@ public class IndicatorChartFactory {
         renderer.setItemMargin(0.2);
         
         plot.setRenderer(renderer);
-        plot.setForegroundAlpha(0.55f);
+        plot.setForegroundAlpha(0.50f);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(
+                Math.PI / 6.0));
         
         try {
             
@@ -108,6 +115,9 @@ public class IndicatorChartFactory {
                 false,  
                 false   
                 );
+        
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setForegroundAlpha(0.50f);
         
         try {
             
@@ -242,6 +252,7 @@ public class IndicatorChartFactory {
                             .getLabel());
                 }
 
+                renderer.setSeriesPaint(0, Color.RED);
                 return barDataset;
             }
             
@@ -315,7 +326,7 @@ public class IndicatorChartFactory {
 
             CategoryDataset dataset = createSimpleDataset(separatedMap.get(CompositeIndicator.SIMPLE_STATISTICS), isCreate);
             
-            returnFiles.add(create3DBarChart(CompositeIndicator.SIMPLE_STATISTICS, dataset));
+            returnFiles.add(create3DBarChart(CompositeIndicator.SIMPLE_STATISTICS, dataset, true));
 
         }
         
@@ -323,7 +334,7 @@ public class IndicatorChartFactory {
                 
             CategoryDataset dataset = createTextedDataset(separatedMap.get(CompositeIndicator.TEXT_STATISTICS), isCreate);
              
-            returnFiles.add(create3DBarChart(CompositeIndicator.TEXT_STATISTICS, dataset));
+            returnFiles.add(create3DBarChart(CompositeIndicator.TEXT_STATISTICS, dataset, true));
         }
         
         if (separatedMap.get(CompositeIndicator.FREQUENCE_STATISTICS).size() != 0) {
@@ -340,7 +351,7 @@ public class IndicatorChartFactory {
             if (dataset instanceof BoxAndWhiskerCategoryDataset) {
                 returnFiles.add(createBoxAndWhiskerChart(CompositeIndicator.SUMMARY_STATISTICS, (BoxAndWhiskerCategoryDataset) dataset));
             } else {
-                returnFiles.add(create3DBarChart(CompositeIndicator.SUMMARY_STATISTICS, dataset));
+                returnFiles.add(create3DBarChart(CompositeIndicator.SUMMARY_STATISTICS, dataset, false));
             }
             
         }
