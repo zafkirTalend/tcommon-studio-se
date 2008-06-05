@@ -35,6 +35,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
@@ -46,6 +48,8 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.model.ColumnIndicator;
 import org.talend.dataprofiler.core.model.nodes.indicator.tpye.IndicatorEnum;
 import org.talend.dataprofiler.core.ui.dialog.IndicatorSelectDialog;
+import org.talend.dataprofiler.core.ui.editor.AbstractAnalysisActionHandler;
+import org.talend.dataprofiler.core.ui.editor.AbstractFormPage;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataprofiler.help.HelpPlugin;
@@ -58,6 +62,10 @@ import org.talend.dataquality.indicators.DataminingType;
  * 
  */
 public class AnasisColumnTreeViewer extends AbstractPagePart {
+
+    private static final String INDICATOR_UNIT_VALUE = "INDICATOR_VALUE";
+
+    private static final String COLUMN_INDICATOR_VALUE = "COLUMN_INDICATOR";
 
     private static final int WIDTH1_CELL = 75;
 
@@ -85,7 +93,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
      * @param parent
      */
     private Tree createTree(Composite parent) {
-        Tree newTree = new Tree(parent, SWT.NONE);
+        final Tree newTree = new Tree(parent, SWT.MULTI);
         GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(newTree);
 
         newTree.setHeaderVisible(false);
@@ -95,11 +103,35 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         column2.setWidth(80);
         TreeColumn column3 = new TreeColumn(newTree, SWT.CENTER);
         column3.setWidth(120);
-        // TreeColumn column4 = new TreeColumn(newTree, SWT.CENTER);
-        // column4.setWidth(120);
-        // TreeColumn column5 = new TreeColumn(newTree, SWT.CENTER);
-        // column5.setWidth(120);
         parent.layout();
+        Menu menu = new Menu(newTree);
+        MenuItem deleteMenuItem = new MenuItem(menu, SWT.CASCADE);
+        deleteMenuItem.setText("Remove elements");
+        deleteMenuItem.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
+        deleteMenuItem.addSelectionListener(new SelectionAdapter() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+             */
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                removeSelectedElements(newTree);
+            }
+
+        });
+        newTree.setMenu(menu);
+
+        AbstractAnalysisActionHandler actionHandler = new AbstractAnalysisActionHandler(parent) {
+
+            @Override
+            protected void handleRemove() {
+                removeSelectedElements(newTree);
+            }
+
+        };
+        parent.setData(AbstractFormPage.ACTION_HANDLER, actionHandler);
         return newTree;
     }
 
@@ -141,7 +173,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             String columnName = columnIndicator.getTdColumn().getName();
             treeItem.setText(0, columnName != null ? columnName + PluginConstant.SPACE_STRING + PluginConstant.PARENTHESIS_LEFT
                     + columnIndicator.getTdColumn().getSqlDataType().getName() + PluginConstant.PARENTHESIS_RIGHT : "null");
-            treeItem.setData(columnIndicator);
+            treeItem.setData(COLUMN_INDICATOR_VALUE, columnIndicator);
 
             TreeEditor editor = new TreeEditor(tree);
             final CCombo combo = new CCombo(tree, SWT.BORDER);
@@ -198,17 +230,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                  */
                 @Override
                 public void mouseDown(MouseEvent e) {
-
-                    ColumnIndicator[] leaves = new ColumnIndicator[columnIndicators.length - 1];
-                    int j = 0;
-                    for (int i = 0; i < columnIndicators.length; i++) {
-                        if (columnIndicators[i] == columnIndicator) {
-                            continue;
-                        }
-                        leaves[j] = columnIndicators[i];
-                        j++;
-                    }
-                    setElements(leaves);
+                    deleteColumnItems(columnIndicator);
+                    setElements(columnIndicators);
                 }
 
             });
@@ -229,6 +252,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             final TreeItem indicatorItem = new TreeItem(treeItem, SWT.NONE);
             final IndicatorUnit typeMapping = indicatorMapping;
             final IndicatorEnum indicatorEnum = indicatorMapping.getType();
+            indicatorItem.setData(COLUMN_INDICATOR_VALUE, treeItem.getData(COLUMN_INDICATOR_VALUE));
+            indicatorItem.setData(INDICATOR_UNIT_VALUE, typeMapping);
             indicatorItem.setText(0, indicatorMapping.getType().getLabel());
 
             TreeEditor editor;
@@ -306,8 +331,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                  */
                 @Override
                 public void mouseDown(MouseEvent e) {
-
-                    ((ColumnIndicator) treeItem.getData()).removeIndicatorUnit(typeMapping);
+                    ColumnIndicator columnIndicator = (ColumnIndicator) treeItem.getData(COLUMN_INDICATOR_VALUE);
+                    deleteIndicatorItems(columnIndicator, typeMapping);
                     setElements(columnIndicators);
                 }
 
@@ -317,11 +342,41 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             editor.horizontalAlignment = SWT.CENTER;
             editor.setEditor(delButton, indicatorItem, 2);
             if (indicatorEnum.hasChildren()) {
-                indicatorItem.setData(treeItem.getData());
+                indicatorItem.setData(treeItem.getData(COLUMN_INDICATOR_VALUE));
                 createIndicatorItems(indicatorItem, indicatorMapping.getChildren());
             }
 
         }
+    }
+
+    /**
+     * DOC rli Comment method "deleteIndicatorItems".
+     * 
+     * @param treeItem
+     * @param inidicatorUnit
+     */
+    private void deleteIndicatorItems(ColumnIndicator columnIndicator, IndicatorUnit inidicatorUnit) {
+        columnIndicator.removeIndicatorUnit(inidicatorUnit);
+    }
+
+    /**
+     * DOC rli Comment method "deleteTreeElements".
+     * 
+     * @param columnIndicators
+     * @param deleteColumnIndiciators
+     */
+    private void deleteColumnItems(ColumnIndicator deleteColumnIndiciator) {
+        ColumnIndicator[] remainIndicators = new ColumnIndicator[columnIndicators.length - 1];
+        int i = 0;
+        for (ColumnIndicator indicator : columnIndicators) {
+            if (deleteColumnIndiciator.equals(indicator)) {
+                continue;
+            } else {
+                remainIndicators[i] = indicator;
+                i++;
+            }
+        }
+        this.columnIndicators = remainIndicators;
     }
 
     public void openIndicatorSelectDialog(Shell shell) {
@@ -354,6 +409,23 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
     public ColumnIndicator[] getColumnIndicator() {
         return this.columnIndicators;
+    }
+
+    /**
+     * DOC rli Comment method "removeSelectedElements".
+     * @param newTree
+     */
+    private void removeSelectedElements(final Tree newTree) {
+        TreeItem[] selection = newTree.getSelection();
+        for (TreeItem item : selection) {
+            IndicatorUnit indicatorUnit = (IndicatorUnit) item.getData(INDICATOR_UNIT_VALUE);
+            if (indicatorUnit != null) {
+                deleteIndicatorItems((ColumnIndicator) item.getData(COLUMN_INDICATOR_VALUE), indicatorUnit);
+            } else {
+                deleteColumnItems((ColumnIndicator) item.getData(COLUMN_INDICATOR_VALUE));
+            }
+        }
+        setElements(columnIndicators);
     }
 
 }

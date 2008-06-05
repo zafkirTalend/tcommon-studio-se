@@ -127,4 +127,9 @@ public class AnalysisEditor extends FormEditor {
         return this.masterPage;
     }
 
+    public void performGlobalAction(String id) {
+        if (analysisType == AnalysisType.MULTIPLE_COLUMN) {
+            ((ColumnMasterDetailsPage) masterPage).performGlobalAction(id);
+        }
+    }
 }

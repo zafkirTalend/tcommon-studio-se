@@ -292,6 +292,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="org.talend.dataprofiler.core.ui.editor.AnalysisEditor"
+            contributorClass="org.talend.dataprofiler.core.ui.editor.AnalysisFormEditorContributor"
             extensions="ana"
             icon="icons/chart_bar.png"
             id="org.talend.dataprofiler.core.ui.editor.AnalysisEditor"

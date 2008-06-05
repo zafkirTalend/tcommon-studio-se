@@ -21,6 +21,8 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -37,6 +39,8 @@ import org.talend.cwm.constants.DevelopmentStatus;
  * DOC rli class global comment. Detailled comment
  */
 public abstract class AbstractFormPage extends FormPage {
+
+    public static final String ACTION_HANDLER = "ACTION_HANDLER";
 
     protected Text nameText;
 
@@ -185,6 +189,53 @@ public abstract class AbstractFormPage extends FormPage {
         section.setDescription(description);
         section.setExpanded(expanded);
         return section;
+    }
+
+    public boolean performGlobalAction(String actionId) {
+        Control focusControl = getFocusControl();
+        if (focusControl == null) {
+            return false;
+        }
+        AbstractAnalysisActionHandler focusPart = getFocusSection();
+        if (focusPart != null) {
+            return focusPart.doGlobalAction(actionId);
+        }
+        return false;
+    }
+
+    protected Control getFocusControl() {
+        IManagedForm form = getManagedForm();
+        if (form == null) {
+            return null;
+        }
+        Control control = form.getForm();
+        if (control == null || control.isDisposed()) {
+            return null;
+        }
+        Display display = control.getDisplay();
+        Control focusControl = display.getFocusControl();
+        if (focusControl == null || focusControl.isDisposed()) {
+            return null;
+        }
+        return focusControl;
+    }
+
+    private AbstractAnalysisActionHandler getFocusSection() {
+        Control focusControl = getFocusControl();
+        if (focusControl == null) {
+            return null;
+        }
+        Composite parent = focusControl.getParent();
+        AbstractAnalysisActionHandler targetPart = null;
+        while (parent != null) {
+            Object data = parent.getData(ACTION_HANDLER);
+            if (data != null && data instanceof AbstractAnalysisActionHandler) {
+                targetPart = (AbstractAnalysisActionHandler) data;
+                break;
+            }
+            parent = parent.getParent();
+        }
+        return targetPart;
     }
 
     @Override
