@@ -67,10 +67,10 @@ public enum EImage implements IImage {
     TRACES_EXPAND("/icons/traces_expand.gif"),
     TRACES_COLLAPSE("/icons/traces_collapse.gif"),
 
-    COMPACT_VIEW("/icons/compact.jpg"),
-    NO_COMPACT_VIEW("/icons/noCompact.jpg"),
-    TABLE_VIEW("/icons/heart.jpg"),
-    NO_TABLE_VIEW("/icons/noHeart.jpg"),
+    COMPACT_VIEW("/icons/compact.png"),
+    NO_COMPACT_VIEW("/icons/noCompact.png"),
+    TABLE_VIEW("/icons/array_hot.png"),
+    NO_TABLE_VIEW("/icons/array.png"),
     COMPOSITE_BACKGROUND("/icons/compositeBackground.jpg"),
 
     ;
