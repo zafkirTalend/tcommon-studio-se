@@ -46,11 +46,17 @@ public class AnalyzeColumnAction extends Action {
     public void run() {
         
         AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-        ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
         
-        if (page == null) {
-            MessageDialog.openError(null, "Add column to editor error", "there is not any editor existing! please create it firstly.");
+        if (editor == null) {
+            boolean needWizard = MessageDialog.openConfirm(null, "Add column to editor error",
+                    "There is not any editor existing! please create it firstly.");
+            if (needWizard) {
+                new CreateNewAnalysisAction().run();
+                this.run();
+                this.allColumns.clear();
+            }
         } else {
+            ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
             if (allColumns.size() != 0) {
                 page.getTreeViewer().setInput(allColumns.toArray());
                 this.allColumns.clear();
