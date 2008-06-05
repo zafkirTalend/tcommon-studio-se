@@ -137,7 +137,7 @@ public class TableEditorManager {
                     handleRemovedEventAsynchronous(event);
                 } else if (event.type == TYPE.SWAPED) {
                     handleSwapedEvent(event);
-                } else if (event.type == TYPE.LIST_REGISTERED) {
+                } else if (event.type == TYPE.LIST_REGISTERED || event.type == TYPE.CLEARED || event.type == TYPE.REPLACED) {
                     refresh();
                 }
             }

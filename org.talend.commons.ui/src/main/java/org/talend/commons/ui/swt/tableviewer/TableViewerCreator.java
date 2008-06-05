@@ -170,8 +170,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     private final ListenerList modifiedBeanListeners = new ListenerList();
 
-    private final ListenerList operationsListeners = new ListenerList();
-
     private CommandStack commandStack;
 
     private boolean keyboardManagementForCellEdition = true;
@@ -353,8 +351,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 createTable();
             }
             attachLabelProvider();
-            attachViewerSorter();
             buildAndLayoutTable();
+            attachViewerSorter();
             attachContentProvider();
             attachCellEditors();
             addListeners();
@@ -1026,14 +1024,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     protected void attachViewerSorter() {
-
-        if (this.tableViewerCreatorSorter == null) {
-            if (defaultOrderedColumn != null && defaultOrderBy != null && defaultOrderedColumn.isSortable()) {
-                this.tableViewerCreatorSorter = new TableViewerCreatorSorter();
-                this.tableViewerCreatorSorter.prepareSort(this, defaultOrderedColumn, defaultOrderBy);
-            }
-        } else {
-            tableViewer.setSorter(this.tableViewerCreatorSorter);
+        tableViewer.setSorter(this.tableViewerCreatorSorter);
+        if (isSortable() && defaultOrderedColumn != null && defaultOrderBy != null && defaultOrderedColumn.isSortable()) {
+            this.tableViewerCreatorSorter.prepareSort(this, defaultOrderedColumn, defaultOrderBy);
         }
     }
 
@@ -1577,6 +1570,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     public void setDefaultSort(TableViewerCreatorColumn defaultOrderedColumn, SORT defaultOrderBy) {
         this.defaultOrderedColumn = defaultOrderedColumn;
         this.defaultOrderBy = defaultOrderBy;
+        setSortable(true);
     }
 
     /**
@@ -1586,21 +1580,20 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * @param orderBy
      */
     public void setSort(TableViewerCreatorColumn orderedColumn, SORT orderBy) {
-        if (this.tableViewerCreatorSorter != null) {
-            this.tableViewerCreatorSorter.prepareSort(this, orderedColumn, orderBy);
-            this.tableViewer.refresh();
-        }
+    	setSortable(true);
+    	this.tableViewerCreatorSorter.prepareSort(this, orderedColumn, orderBy);
+    	this.tableViewer.refresh();
     }
 
     public void setAdjustWidthValue(int adjustWidthValue) {
         this.adjustWidthValue = adjustWidthValue;
     }
 
-    public void setTableViewerCreatorSorter(TableViewerCreatorSorter tableViewerCreatorSorter) {
+    public void setSorter(TableViewerCreatorSorter tableViewerCreatorSorter) {
         this.tableViewerCreatorSorter = tableViewerCreatorSorter;
     }
 
-    public TableViewerCreatorSorter getTableViewerCreatorSorter() {
+    public TableViewerCreatorSorter getSorter() {
         return this.tableViewerCreatorSorter;
     }
 
@@ -2061,4 +2054,19 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         this.keyboardManagementForCellEdition = enableKeysForCellsEdition;
     }
 
+	public boolean isSortable() {
+		return this.tableViewerCreatorSorter != null;
+	}
+
+	public void setSortable(boolean sortable) {
+		if(sortable && !isSortable()) {
+			setSorter(new TableViewerCreatorSorter());
+		} else if(!sortable && isSortable()) {
+			setSorter(null);
+			tableViewer.setSorter(null);
+		}
+	}
+
+    
+    
 }

@@ -193,6 +193,8 @@ public final class TestTableViewerCreator2 {
         CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent();
         column.setTableEditorContent(nullableCheckbox);
 
+        tableViewerCreator.setDefaultSort(column, SORT.DESC);
+//        tableViewerCreator.setSortable(true);
         
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
@@ -227,8 +229,6 @@ public final class TestTableViewerCreator2 {
         column.setId("uid");
         column.setCellEditor(new TextCellEditor(table));
         
-        tableViewerCreator.setTableViewerCreatorSorter(new TableViewerCreatorSorter());
-        tableViewerCreator.setDefaultSort(column, SORT.ASC);
         
         
         
