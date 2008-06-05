@@ -494,7 +494,12 @@ public class ListenableList<T> implements IExtendedList<T> {
      * @see java.util.List#size()
      */
     public int size() {
-        return this.list.size();
+        if (this.list != null) {
+            return this.list.size();
+        } else {
+            return 0;
+        }
+
     }
 
     /*
@@ -503,7 +508,11 @@ public class ListenableList<T> implements IExtendedList<T> {
      * @see java.util.List#subList(int, int)
      */
     public List<T> subList(int fromIndex, int toIndex) {
-        return this.list.subList(fromIndex, toIndex);
+        if (this.list != null) {
+            return this.list.subList(fromIndex, toIndex);
+        } else {
+            return null;
+        }
     }
 
     /*
@@ -512,7 +521,11 @@ public class ListenableList<T> implements IExtendedList<T> {
      * @see java.util.List#toArray()
      */
     public Object[] toArray() {
-        return this.list.toArray();
+        if (this.list != null) {
+            return this.list.toArray();
+        } else {
+            return new Object[0];
+        }
     }
 
     /*
@@ -522,7 +535,11 @@ public class ListenableList<T> implements IExtendedList<T> {
      */
     @SuppressWarnings("hiding")
     public <T> T[] toArray(T[] a) {
-        return this.list.toArray(a);
+        if (this.list != null) {
+            return this.list.toArray(a);
+        } else {
+            return new Object[0];
+        }
     }
 
     public void swap(int index1, int index2) {
@@ -740,8 +757,8 @@ public class ListenableList<T> implements IExtendedList<T> {
      * in last). Can be negative.
      */
     private void addListener(int orderCall, IListenableListListener listener, boolean before) {
-        OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(orderCall,
-                listener);
+        OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(
+                orderCall, listener);
         List<OrderableWrapper<IListenableListListener>> listeners = getCurrentListeners(before);
         listeners.add(prioritizedListenerWrapper);
         Collections.sort(listeners);
@@ -764,7 +781,8 @@ public class ListenableList<T> implements IExtendedList<T> {
     }
 
     public void removeListener(IListenableListListener listener) {
-        OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(0, listener);
+        OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(0,
+                listener);
         if (!afterListeners.remove(prioritizedListenerWrapper)) {
             beforeListeners.remove(prioritizedListenerWrapper);
         }
