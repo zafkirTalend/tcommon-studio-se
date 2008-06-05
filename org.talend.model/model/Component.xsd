@@ -243,7 +243,7 @@ On CLOSED_LIST mode:
 	<xs:element name="ADVANCED_PARAMETERS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="PARAMETER" maxOccurs="unbounded"/>
+				<xs:element ref="PARAMETER" maxOccurs="unbounded" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -37,7 +37,7 @@ public interface ADVANCEDPARAMETERSType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>PARAMETER</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getADVANCEDPARAMETERSType_PARAMETER()
-     * @model type="org.talend.designer.core.model.utils.emf.component.PARAMETERType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.component.PARAMETERType" containment="true"
      *        extendedMetaData="kind='element' name='PARAMETER' namespace='##targetNamespace'"
      * @generated
      */
