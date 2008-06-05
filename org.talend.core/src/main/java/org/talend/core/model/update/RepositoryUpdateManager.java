@@ -14,6 +14,7 @@ package org.talend.core.model.update;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,15 +25,17 @@ import java.util.Set;
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.JobContextManager;
@@ -121,12 +124,16 @@ public abstract class RepositoryUpdateManager {
         return doWork(true);
     }
 
+    public boolean needForcePropagation() {
+        return !getContextRenamedMap().isEmpty() || !getSchemaRenamedMap().isEmpty();
+    }
+
     public boolean doWork(boolean show) {
         // check the dialog.
         boolean checked = true;
         boolean showed = false;
         if (show) {
-            if (parameter != null && getContextRenamedMap().isEmpty() && getSchemaRenamedMap().isEmpty()) {
+            if (parameter != null && !needForcePropagation()) {
                 checked = openPropagationDialog();
                 showed = true;
             }
@@ -135,23 +142,28 @@ public abstract class RepositoryUpdateManager {
         }
         if (checked) {
             final List<UpdateResult> results = new ArrayList<UpdateResult>();
-            ProgressDialog progress = new ProgressDialog(Display.getCurrent().getActiveShell()) {
+            boolean cancelable = !needForcePropagation();
+            IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
-                @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.setCanceled(false);
                     List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes());
                     if (returnResult != null) {
                         results.addAll(returnResult);
                     }
                 }
-
             };
+
             try {
-                progress.executeProcess();
+                final ProgressMonitorJobsDialog dialog = new ProgressMonitorJobsDialog(null);
+                dialog.run(true, cancelable, runnable);
+
+                // PlatformUI.getWorkbench().getProgressService().run(true, true, runnable);
             } catch (InvocationTargetException e) {
                 ExceptionHandler.process(e);
             } catch (InterruptedException e) {
+                if (e.getMessage().equals(UpdatesConstants.MONITOR_IS_CANCELED)) {
+                    return false;
+                }
                 ExceptionHandler.process(e);
             }
             List<UpdateResult> checkedResults = null;
@@ -264,6 +276,19 @@ public abstract class RepositoryUpdateManager {
         return false;
     }
 
+    public static IEditorReference[] getEditors() {
+        final List<IEditorReference> list = new ArrayList<IEditorReference>();
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                        .getEditorReferences();
+                list.addAll(Arrays.asList(reference));
+            }
+        });
+        return list.toArray(new IEditorReference[0]);
+    }
+
     /**
      * 
      * ggu Comment method "checkJobItemsForUpdate".
@@ -273,13 +298,23 @@ public abstract class RepositoryUpdateManager {
      * @param sourceItem - modified repository item.
      * @return
      */
-    private List<UpdateResult> checkJobItemsForUpdate(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types) {
+    private List<UpdateResult> checkJobItemsForUpdate(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types)
+            throws InterruptedException {
         if (types == null || types.isEmpty()) {
             return null;
         }
 
-        IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-        List<IProcess> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(reference);
+        final List<IEditorReference> list = new ArrayList<IEditorReference>();
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                        .getEditorReferences();
+                list.addAll(Arrays.asList(reference));
+            }
+        });
+
+        List<IProcess> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
 
         try {
             List<UpdateResult> resultList = new ArrayList<UpdateResult>();
@@ -320,9 +355,11 @@ public abstract class RepositoryUpdateManager {
             //
             int size = (allVersionList.size() + openedProcessList.size() + 1) * UpdatesConstants.SCALE;
             parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
+            checkMonitorCanceled(parentMonitor);
             MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
 
             for (IRepositoryObject repositoryObj : allVersionList) {
+                checkMonitorCanceled(parentMonitor);
                 Item item = repositoryObj.getProperty().getItem();
                 // avoid the opened job
                 if (isOpenedItem(item, openProcessMap)) {
@@ -336,6 +373,7 @@ public abstract class RepositoryUpdateManager {
 
             // opened job
             for (IProcess process : openedProcessList) {
+                checkMonitorCanceled(parentMonitor);
                 List<UpdateResult> resultFromProcess = getResultFromProcess(parentMonitor, process, types);
                 if (resultFromProcess != null) {
                     resultList.addAll(resultFromProcess);
@@ -355,6 +393,12 @@ public abstract class RepositoryUpdateManager {
         }
 
         return null;
+    }
+
+    private void checkMonitorCanceled(IProgressMonitor monitor) {
+        if (monitor.isCanceled()) {
+            throw new OperationCanceledException(UpdatesConstants.MONITOR_IS_CANCELED);
+        }
     }
 
     /**
