@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.dataprofiler.core.ImageLib;
@@ -45,17 +44,10 @@ public class AnalyzeColumnAction extends Action {
     @Override
     public void run() {
         
-        AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        new CreateNewAnalysisAction().run();
         
-        if (editor == null) {
-            boolean needWizard = MessageDialog.openConfirm(null, "Add column to editor error",
-                    "There is not any editor existing! please create it firstly.");
-            if (needWizard) {
-                new CreateNewAnalysisAction().run();
-                this.run();
-                this.allColumns.clear();
-            }
-        } else {
+        AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        if (editor != null) {
             ColumnMasterDetailsPage page = (ColumnMasterDetailsPage) editor.getMasterPage();
             if (allColumns.size() != 0) {
                 page.getTreeViewer().setInput(allColumns.toArray());
