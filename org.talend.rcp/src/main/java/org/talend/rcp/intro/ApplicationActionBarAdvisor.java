@@ -39,6 +39,7 @@ import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.model.ProxyRepositoryFactory;
+import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -192,6 +193,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new Separator());
         switchProjectAction = new SwitchProjectAction();
         fileMenu.add(switchProjectAction);
+        ProjectSettingsAction projSetting = new ProjectSettingsAction();
+        fileMenu.add(projSetting);
         fileMenu.add(new Separator());
 
         fileMenu.add(ActionFactory.IMPORT.create(window));
