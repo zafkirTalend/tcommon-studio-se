@@ -344,6 +344,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         // add separator
         new MenuItem(popupMenu, SWT.SEPARATOR);
 
+        image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
         MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
         copyItem.setText("Copy");
         copyItem.setImage(image);
@@ -457,6 +458,12 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
         case '.':
             doOperation(ISourceViewer.CONTENTASSIST_PROPOSALS);
+            event.doit = false;
+            break;
+
+        // CTRL-Y
+        case (int) 'y' - (int) 'a' + 1:
+            doOperation(ITextOperationTarget.REDO);
             event.doit = false;
             break;
 
