@@ -216,12 +216,12 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
              */
 
             editor = new TreeEditor(tree);
-            Label delButton = new Label(tree, SWT.NONE);
-            delButton.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
-            delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
-            delButton.setToolTipText("delete");
-            delButton.pack();
-            delButton.addMouseListener(new MouseAdapter() {
+            Label delLabel = new Label(tree, SWT.NONE);
+            delLabel.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+            delLabel.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
+            delLabel.setToolTipText("delete");
+            delLabel.pack();
+            delLabel.addMouseListener(new MouseAdapter() {
 
                 /*
                  * (non-Javadoc)
@@ -238,7 +238,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(delButton, treeItem, 2);
+            editor.setEditor(delLabel, treeItem, 2);
             if (columnIndicator.hasIndicators()) {
                 createIndicatorItems(treeItem, columnIndicator.getIndicatorUnits());
             }
@@ -317,12 +317,12 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             }
 
             editor = new TreeEditor(tree);
-            Label delButton = new Label(tree, SWT.NONE);
-            delButton.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
-            delButton.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
-            delButton.setToolTipText("delete");
-            delButton.pack();
-            delButton.addMouseListener(new MouseAdapter() {
+            Label delLabel = new Label(tree, SWT.NONE);
+            delLabel.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+            delLabel.setImage(ImageLib.getImage(ImageLib.ACTION_DELETE));
+            delLabel.setToolTipText("delete");
+            delLabel.pack();
+            delLabel.addMouseListener(new MouseAdapter() {
 
                 /*
                  * (non-Javadoc)
@@ -340,7 +340,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             editor.minimumWidth = WIDTH1_CELL;
             editor.horizontalAlignment = SWT.CENTER;
-            editor.setEditor(delButton, indicatorItem, 2);
+            editor.setEditor(delLabel, indicatorItem, 2);
             if (indicatorEnum.hasChildren()) {
                 indicatorItem.setData(treeItem.getData(COLUMN_INDICATOR_VALUE));
                 createIndicatorItems(indicatorItem, indicatorMapping.getChildren());
@@ -412,7 +412,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
     }
 
     /**
-     * DOC rli Comment method "removeSelectedElements".
+     * Remove the selected elements(eg:TdColumn or Indicator) from tree.
      * @param newTree
      */
     private void removeSelectedElements(final Tree newTree) {
