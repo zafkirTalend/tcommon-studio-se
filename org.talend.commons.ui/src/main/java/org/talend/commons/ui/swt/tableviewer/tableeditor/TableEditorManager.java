@@ -319,6 +319,7 @@ public class TableEditorManager {
     private TableEditor addTableEditor(TableViewerCreatorColumn column, TableEditorContent tableEditorContent, String idProperty,
             TableItem tableItem) {
 
+        tableEditorContent.setLayoutEnabled(true);
         TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
         tableEditorList.add(tableEditor);
         dataToMultipleDataEditor.put(tableItem.getData(), tableEditor);

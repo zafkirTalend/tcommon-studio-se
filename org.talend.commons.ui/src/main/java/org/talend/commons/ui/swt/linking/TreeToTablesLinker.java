@@ -237,10 +237,6 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
             Point offset = getOffset();
 
-            if (WindowSystem.isGTK()) {
-                pointStartStraight.x += -15;
-            }
-
             gc.drawLine(pointStartStraight.x + offset.x, pointStartStraight.y + offset.y, pointEndStraight.x + offset.x, pointEndStraight.y
                     + offset.y);
 
