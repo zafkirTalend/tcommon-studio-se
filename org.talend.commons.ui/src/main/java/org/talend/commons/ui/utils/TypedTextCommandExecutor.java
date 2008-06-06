@@ -185,11 +185,11 @@ public class TypedTextCommandExecutor {
             // System.out.println("undoOrRedo===============" + undoOrRedo);
             // System.out.println("ctrlKey===============" + ctrlKey);
             if (undoOrRedo) {
-                // nothing
+                updateCommand(control);
             } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) /*
-                                                                                                             * ||
-                                                                                                             * e.character == ' '
-                                                                                                             */) {
+             * ||
+             * e.character == ' '
+             */) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);
