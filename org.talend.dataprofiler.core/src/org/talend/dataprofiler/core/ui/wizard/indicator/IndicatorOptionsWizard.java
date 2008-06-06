@@ -15,6 +15,7 @@ package org.talend.dataprofiler.core.ui.wizard.indicator;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.wizard.Wizard;
 import org.talend.dataprofiler.core.ui.editor.preview.IndicatorUnit;
 import org.talend.dataprofiler.core.ui.utils.AbstractIndicatorForm;
@@ -26,6 +27,9 @@ import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TextParameter;
 import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.TimeSlicesParameter;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.domain.Domain;
+import org.talend.dataquality.domain.RangeRestriction;
+import org.talend.dataquality.domain.RealNumberValue;
+import org.talend.dataquality.domain.TextValue;
 import org.talend.dataquality.helpers.DomainHelper;
 import org.talend.dataquality.helpers.IndicatorHelper;
 import org.talend.dataquality.indicators.DateGrain;
@@ -39,6 +43,8 @@ import org.talend.dataquality.indicators.TextParameters;
  * DOC zqin class global comment. Detailled comment
  */
 public class IndicatorOptionsWizard extends Wizard {
+
+    private boolean isDirty;
 
     private Analysis analysis;
 
@@ -127,6 +133,7 @@ public class IndicatorOptionsWizard extends Wizard {
             IndicatorParameters paramters = indicatorUnit.getIndicator().getParameters();
 
             if (paramters == null) {
+                isDirty = true;
                 paramters = IndicatorsFactory.eINSTANCE.createIndicatorParameters();
                 indicatorUnit.getIndicator().setParameters(paramters);
             }
@@ -134,6 +141,7 @@ public class IndicatorOptionsWizard extends Wizard {
             TextParameters textParameters = paramters.getTextParameter();
 
             if (textParameters == null) {
+                isDirty = true;
                 textParameters = IndicatorsFactory.eINSTANCE.createTextParameters();
                 paramters.setTextParameter(textParameters);
             }
@@ -151,28 +159,92 @@ public class IndicatorOptionsWizard extends Wizard {
                     // containment relation.
                     // Resource resource = analysis.eResource();
                     // resource.getContents().add(domain);
-
-                    paramters.setBins(domain);
+                    Domain bins = paramters.getBins();
+                    boolean same = true;
+                    if (bins != null) {
+                        EList<RangeRestriction> ranges = bins.getRanges();
+                        EList<RangeRestriction> ranges2 = domain.getRanges();
+                        if (ranges.size() != ranges2.size()) {
+                            same = false;
+                        }
+                        for (int i = 0; i < ranges2.size() && same; i++) {
+                            RangeRestriction d2 = ranges2.get(i);
+                            RangeRestriction d1 = ranges.get(i);
+                            double v1 = ((RealNumberValue) d1.getLowerValue()).getValue();
+                            double v2 = ((RealNumberValue) d2.getLowerValue()).getValue();
+                            if (v1 != v2) {
+                                same = false;
+                                break;
+                            }
+                            v1 = ((RealNumberValue) d1.getUpperValue()).getValue();
+                            v2 = ((RealNumberValue) d2.getUpperValue()).getValue();
+                            if (v1 != v2) {
+                                same = false;
+                                break;
+                            }
+                        }
+                    } else {
+                        same = false;
+                    }
+                    if (!same) {
+                        isDirty = true;
+                        paramters.setBins(domain);
+                    }
                 }
 
                 if (parameter instanceof TextParameter) {
 
                     TextParameter tempParam = (TextParameter) parameter;
-                    textParameters.setIgnoreCase(tempParam.isIngoreCase());
+                    // PTODO qzhang for bug 3491.
+                    if (textParameters.isIgnoreCase() != tempParam.isIngoreCase()) {
+                        isDirty = true;
+                        textParameters.setIgnoreCase(tempParam.isIngoreCase());
+                    }
                 }
 
                 if (parameter instanceof TextLengthParameter) {
 
                     TextLengthParameter tempParam = (TextLengthParameter) parameter;
-                    textParameters.setUseBlank(tempParam.isUseBlank());
-                    textParameters.setUseNulls(tempParam.isUseNull());
+                    // PTODO qzhang for bug 3491.
+                    if (textParameters.isUseBlank() != tempParam.isUseBlank()) {
+                        isDirty = true;
+                        textParameters.setUseBlank(tempParam.isUseBlank());
+                    }
+                    // PTODO qzhang for bug 3491.
+                    if (textParameters.isUseNulls() != tempParam.isUseNull()) {
+                        isDirty = true;
+                        textParameters.setUseNulls(tempParam.isUseNull());
+                    }
                 }
 
                 if (parameter instanceof DataThresholdsParameter) {
-
                     DataThresholdsParameter tempParam = (DataThresholdsParameter) parameter;
-                    IndicatorHelper.setDataThreshold(indicatorUnit.getIndicator(), tempParam.getMinThreshold(), tempParam
-                            .getMaxThreshold());
+                    String min = tempParam.getMinThreshold();
+                    String max = tempParam.getMaxThreshold();
+                    // PTODO qzhang for bug 3491.
+                    isDirty = indicatorUnit.getIndicator().getParameters() == null;
+                    if (!isDirty) {
+                        Domain validDomain = paramters.getDataValidDomain();
+                        isDirty = validDomain == null;
+                        if (!isDirty) {
+                            int size = validDomain.getRanges().size();
+                            isDirty = size != 1;
+                            if (!isDirty) {
+                                RangeRestriction rr = validDomain.getRanges().get(0);
+                                TextValue lv = (TextValue) rr.getLowerValue();
+                                TextValue uv = (TextValue) rr.getUpperValue();
+                                if (!min.equals(lv.getValue())) {
+                                    isDirty = true;
+                                }
+                                if (!max.equals(uv.getValue())) {
+                                    isDirty = true;
+                                }
+                            }
+                        }
+                    }
+                    if (isDirty) {
+                        IndicatorHelper.setDataThreshold(indicatorUnit.getIndicator(), min, max);
+                    }
                 }
 
                 if (parameter instanceof TimeSlicesParameter) {
@@ -180,9 +252,15 @@ public class IndicatorOptionsWizard extends Wizard {
                     if (dateParameters == null) {
                         dateParameters = IndicatorsFactory.eINSTANCE.createDateParameters();
                         paramters.setDateParameters(dateParameters);
+                        isDirty = true;
                     }
                     TimeSlicesParameter tempParam = (TimeSlicesParameter) parameter;
-                    dateParameters.setDateAggregationType(DateGrain.get(tempParam.getDataUnit()));
+                    DateGrain dateGrain = DateGrain.get(tempParam.getDataUnit());
+                    // PTODO qzhang for bug 3491.
+                    if (dateGrain.compareTo(dateParameters.getDateAggregationType()) != 0) {
+                        isDirty = true;
+                        dateParameters.setDateAggregationType(dateGrain);
+                    }
                 }
             }
 
@@ -205,6 +283,15 @@ public class IndicatorOptionsWizard extends Wizard {
         DynamicIndicatorOptionsPage indicatorPage = new DynamicIndicatorOptionsPage(indicatorUnit, paramMap);
 
         addPage(indicatorPage);
+    }
+
+    /**
+     * Getter for isDirty.
+     * 
+     * @return the isDirty
+     */
+    public boolean isDirty() {
+        return this.isDirty;
     }
 
 }

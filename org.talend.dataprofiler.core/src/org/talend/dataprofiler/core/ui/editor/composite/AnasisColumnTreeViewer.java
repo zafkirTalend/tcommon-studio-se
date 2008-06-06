@@ -61,7 +61,6 @@ import org.talend.dataprofiler.core.ui.wizard.indicator.IndicatorOptionsWizard;
 import org.talend.dataprofiler.core.ui.wizard.indicator.parameter.IndicatorParameterTypes;
 import org.talend.dataprofiler.help.HelpPlugin;
 import org.talend.dataquality.analysis.Analysis;
-import org.talend.dataquality.analysis.AnalysisParameters;
 import org.talend.dataquality.indicators.DataminingType;
 
 /**
@@ -266,7 +265,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
             indicatorItem.setText(0, indicatorMapping.getType().getLabel());
 
             TreeEditor editor;
-            if (!indicatorEnum.hasChildren()) {
+            if (indicatorEnum.hasChildren()) {
                 editor = new TreeEditor(tree);
                 Label optionLabel = new Label(tree, SWT.NONE);
                 optionLabel.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
@@ -355,10 +354,8 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                             });
                             int open = dialog.open();
                             if (Window.OK == open) {
-                                AnalysisParameters parameters = analysis.getParameters();
-                                setDirty(true);
+                                setDirty(wizard.isDirty());
                             }
-
                         } catch (AssertionFailedException ex) {
                             MessageDialogWithToggle.openInformation(null, "Indicator Option", "No options to set!");
                         }
@@ -469,6 +466,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
     /**
      * Remove the selected elements(eg:TdColumn or Indicator) from tree.
+     * 
      * @param newTree
      */
     private void removeSelectedElements(final Tree newTree) {
