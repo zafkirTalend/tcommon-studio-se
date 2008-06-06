@@ -17,11 +17,14 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
+import org.talend.commons.emf.FactoriesUtil;
 import org.talend.cwm.softwaredeployment.TdDataProvider;
+import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.helper.AnaResourceFileHelper;
 import org.talend.dataprofiler.core.helper.PrvResourceFileHelper;
@@ -40,6 +43,17 @@ public class ResourceViewLabelProvider extends WorkbenchLabelProvider implements
     private static Logger log = Logger.getLogger(ResourceViewLabelProvider.class);
 
     public void init(ICommonContentExtensionSite aConfig) {
+    }
+
+    protected ImageDescriptor decorateImage(ImageDescriptor input, Object element) {
+        if (element instanceof IFile) {
+            IFile file = (IFile) element;
+            if (file.getFileExtension().equalsIgnoreCase(FactoriesUtil.REP)) {
+                return ImageLib.getImageDescriptor(ImageLib.REPORT_OBJECT);
+            }
+
+        }
+        return super.decorateImage(input, element);
     }
 
     public String getDescription(Object anElement) {
