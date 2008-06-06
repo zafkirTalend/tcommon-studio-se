@@ -33,6 +33,7 @@ import org.talend.dataquality.indicators.TextParameters;
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getBins <em>Bins</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getTextParameter <em>Text Parameter</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getDateParameters <em>Date Parameters</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.impl.IndicatorParametersImpl#getTopN <em>Top N</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,6 +99,26 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
      * @ordered
      */
     protected DateParameters dateParameters;
+
+    /**
+     * The default value of the '{@link #getTopN() <em>Top N</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTopN()
+     * @generated
+     * @ordered
+     */
+    protected static final int TOP_N_EDEFAULT = 10;
+
+    /**
+     * The cached value of the '{@link #getTopN() <em>Top N</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTopN()
+     * @generated
+     * @ordered
+     */
+    protected int topN = TOP_N_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -320,6 +341,27 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getTopN() {
+        return topN;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTopN(int newTopN) {
+        int oldTopN = topN;
+        topN = newTopN;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IndicatorsPackage.INDICATOR_PARAMETERS__TOP_N, oldTopN, topN));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -357,6 +399,8 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
                 return getTextParameter();
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
                 return getDateParameters();
+            case IndicatorsPackage.INDICATOR_PARAMETERS__TOP_N:
+                return new Integer(getTopN());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -382,6 +426,9 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
                 return;
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
                 setDateParameters((DateParameters)newValue);
+                return;
+            case IndicatorsPackage.INDICATOR_PARAMETERS__TOP_N:
+                setTopN(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -409,6 +456,9 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
                 setDateParameters((DateParameters)null);
                 return;
+            case IndicatorsPackage.INDICATOR_PARAMETERS__TOP_N:
+                setTopN(TOP_N_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -430,8 +480,26 @@ public class IndicatorParametersImpl extends EObjectImpl implements IndicatorPar
                 return textParameter != null;
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
                 return dateParameters != null;
+            case IndicatorsPackage.INDICATOR_PARAMETERS__TOP_N:
+                return topN != TOP_N_EDEFAULT;
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (topN: ");
+        result.append(topN);
+        result.append(')');
+        return result.toString();
     }
 
 } // IndicatorParametersImpl

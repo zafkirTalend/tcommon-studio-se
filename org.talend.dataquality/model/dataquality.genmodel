@@ -226,6 +226,7 @@
             ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/bins"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/textParameter"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataquality.ecore#//indicators/IndicatorParameters/dateParameters"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/IndicatorParameters/topN"/>
       </genClasses>
       <genClasses ecoreClass="dataquality.ecore#//indicators/MedianIndicator">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataquality.ecore#//indicators/MedianIndicator/median"/>

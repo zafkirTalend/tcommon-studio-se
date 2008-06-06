@@ -72,6 +72,7 @@ public class IndicatorParametersItemProvider
             addIndicatorValidDomainPropertyDescriptor(object);
             addDataValidDomainPropertyDescriptor(object);
             addBinsPropertyDescriptor(object);
+            addTopNPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -143,6 +144,28 @@ public class IndicatorParametersItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Top N feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addTopNPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_IndicatorParameters_topN_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_IndicatorParameters_topN_feature", "_UI_IndicatorParameters_type"),
+                 IndicatorsPackage.Literals.INDICATOR_PARAMETERS__TOP_N,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -192,7 +215,8 @@ public class IndicatorParametersItemProvider
      */
     @Override
     public String getText(Object object) {
-        return getString("_UI_IndicatorParameters_type");
+        IndicatorParameters indicatorParameters = (IndicatorParameters)object;
+        return getString("_UI_IndicatorParameters_type") + " " + indicatorParameters.getTopN();
     }
 
     /**
@@ -207,6 +231,9 @@ public class IndicatorParametersItemProvider
         updateChildren(notification);
 
         switch (notification.getFeatureID(IndicatorParameters.class)) {
+            case IndicatorsPackage.INDICATOR_PARAMETERS__TOP_N:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
             case IndicatorsPackage.INDICATOR_PARAMETERS__TEXT_PARAMETER:
             case IndicatorsPackage.INDICATOR_PARAMETERS__DATE_PARAMETERS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

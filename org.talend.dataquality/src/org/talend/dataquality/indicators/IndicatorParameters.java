@@ -23,6 +23,7 @@ import org.talend.dataquality.domain.Domain;
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getBins <em>Bins</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getTextParameter <em>Text Parameter</em>}</li>
  *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getDateParameters <em>Date Parameters</em>}</li>
+ *   <li>{@link org.talend.dataquality.indicators.IndicatorParameters#getTopN <em>Top N</em>}</li>
  * </ul>
  * </p>
  *
@@ -158,5 +159,31 @@ public interface IndicatorParameters extends EObject {
      * @generated
      */
     void setDateParameters(DateParameters value);
+
+    /**
+     * Returns the value of the '<em><b>Top N</b></em>' attribute.
+     * The default value is <code>"10"</code>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * The number of values used in frequency tables
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>Top N</em>' attribute.
+     * @see #setTopN(int)
+     * @see org.talend.dataquality.indicators.IndicatorsPackage#getIndicatorParameters_TopN()
+     * @model default="10"
+     * @generated
+     */
+    int getTopN();
+
+    /**
+     * Sets the value of the '{@link org.talend.dataquality.indicators.IndicatorParameters#getTopN <em>Top N</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Top N</em>' attribute.
+     * @see #getTopN()
+     * @generated
+     */
+    void setTopN(int value);
 
 } // IndicatorParameters
