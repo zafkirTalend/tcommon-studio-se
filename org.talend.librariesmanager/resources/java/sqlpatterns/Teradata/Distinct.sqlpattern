@@ -1,6 +1,0 @@
--- This pattern is just an example for the RC release, and will be modified in future version.
-
--- Distinct on id
-insert into mySource (id, name, address , amount, country) 
-select distinct (id), address, amount, country
-from table1;

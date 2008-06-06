@@ -1,7 +1,0 @@
--- This pattern is just an example for the RC release, and will be modified in future version.
-
--- UNIQUE ON ALL FIELDS
-insert into mySource (id, name, address , amount, country) 
-select id, name, address, amount, country
-from table1
-group by id, name, address, amount, country;
