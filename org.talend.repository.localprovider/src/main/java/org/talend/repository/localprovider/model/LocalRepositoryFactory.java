@@ -433,7 +433,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 if (resource.getType() == IResource.FOLDER) {
                     IFolder category = (IFolder) resource;
                     IFolder sysFolder = (IFolder) category.getFolder(RepositoryConstants.SYSTEM_DIRECTORY);
-                    if (sysFolder != null) {
+                    if (sysFolder != null && sysFolder.exists()) {
                         ResourceUtils.emptyFolder(sysFolder);
                     }
                 }
