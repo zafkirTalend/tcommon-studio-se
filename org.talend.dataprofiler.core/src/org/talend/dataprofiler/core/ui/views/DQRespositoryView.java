@@ -25,7 +25,7 @@ import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.service.GlobalServiceRegister;
 import org.talend.dataprofiler.core.service.IService;
 import org.talend.dataprofiler.core.service.IViewerFilterService;
-import org.talend.dataprofiler.core.ui.action.actions.RemoveAnalysisAction;
+import org.talend.dataprofiler.core.ui.action.actions.DeleteObjectsAction;
 import org.talend.dataprofiler.core.ui.views.filters.AbstractViewerFilter;
 import org.talend.dataprofiler.core.ui.views.filters.EMFObjFilter;
 import org.talend.dataprofiler.core.ui.views.filters.ReportingFilter;
@@ -70,9 +70,9 @@ public class DQRespositoryView extends CommonNavigator {
         IContextService contextService = (IContextService) getSite().getService(IContextService.class);
         contextService.activateContext(VIEW_CONTEXT_ID);
 
-        RemoveAnalysisAction removeAnalysisAction = new RemoveAnalysisAction();
+        DeleteObjectsAction deleteObjectsAction = new DeleteObjectsAction();
         IHandlerService service = (IHandlerService) getViewSite().getService(IHandlerService.class);
-        service.activateHandler(removeAnalysisAction.getActionDefinitionId(), new ActionHandler(removeAnalysisAction));
+        service.activateHandler(deleteObjectsAction.getActionDefinitionId(), new ActionHandler(deleteObjectsAction));
     }
 
     private void adjustFilter() {

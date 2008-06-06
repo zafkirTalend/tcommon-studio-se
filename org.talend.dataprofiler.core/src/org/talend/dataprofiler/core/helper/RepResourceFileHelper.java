@@ -29,7 +29,6 @@ import org.talend.dataprofiler.core.PluginConstant;
 import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataquality.reports.TdReport;
 import org.talend.dataquality.reports.util.ReportsSwitch;
-import org.talend.dq.analysis.AnalysisWriter;
 import org.talend.dq.analysis.ReportWriter;
 import org.talend.utils.sugars.ReturnCode;
 

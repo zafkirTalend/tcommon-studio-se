@@ -15,7 +15,6 @@ package org.talend.dataprofiler.core.ui.action.provider;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.talend.dataprofiler.core.ui.action.actions.RemoveAnalysisAction;
-
 /**
  * DOC rli class global comment. Detailled comment
  */

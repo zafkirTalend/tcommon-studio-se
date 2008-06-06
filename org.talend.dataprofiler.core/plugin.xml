@@ -165,7 +165,7 @@
          </enablement>
       </actionProvider> 
       <actionProvider
-            class="org.talend.dataprofiler.core.ui.action.provider.DeleteResourceProvider"
+            class="org.talend.dataprofiler.core.ui.action.provider.DeleteCWMResourceProvider"
             id="org.talend.dataprofiler.core.ui.action.provider.DeleteResourceProvider">
          <enablement>
             <and>
@@ -326,7 +326,7 @@
      </cheatsheet>
   </extension>
   
-  <extension point = "org.eclipse.ui.actionSets">
+  <!--<extension point = "org.eclipse.ui.actionSets">
 	   <actionSet id="org.talend.dataprofiler.core..actionSet"
 		   label="Actions"
 		   visible="false">
@@ -339,7 +339,7 @@
            menubarPath="additions">
 		   </action>
 	   </actionSet>
-   </extension>
+   </extension>-->
    
    <extension
 	point="org.eclipse.ui.contexts">

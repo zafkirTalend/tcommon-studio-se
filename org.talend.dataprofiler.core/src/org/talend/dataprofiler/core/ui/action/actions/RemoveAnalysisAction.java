@@ -20,6 +20,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -30,8 +34,7 @@ import org.talend.cwm.dependencies.DependenciesHandler;
 import org.talend.dataprofiler.core.CorePlugin;
 import org.talend.dataprofiler.core.ImageLib;
 import org.talend.dataprofiler.core.helper.RepResourceFileHelper;
-import org.talend.dataprofiler.core.sql.DeleteSqlFileAction;
-import org.talend.dataprofiler.core.ui.action.provider.NewSourceFileActionProvider;
+import org.talend.dataprofiler.core.manager.DQStructureManager;
 import org.talend.dataprofiler.core.ui.views.DQRespositoryView;
 import org.talend.dataquality.analysis.Analysis;
 import org.talend.dataquality.helpers.ReportHelper;
@@ -46,8 +49,6 @@ public class RemoveAnalysisAction extends Action {
 
     public RemoveAnalysisAction() {
         super("Remove Analysis");
-        this.setActionDefinitionId("org.talend.dataprofiler.core.removeAnalysis");
-        // this.setActionDefinitionId("XXXXTools.actions.text.ToLowerCaseAction");
         setImageDescriptor(ImageLib.getImageDescriptor(ImageLib.ACTION_DELETE));
     }
 
@@ -58,9 +59,6 @@ public class RemoveAnalysisAction extends Action {
      */
     @Override
     public void run() {
-        // PTODO qzhang remove the Sql File.
-        removeSQLFile();
-
         DQRespositoryView findView = (DQRespositoryView) CorePlugin.getDefault().findView(DQRespositoryView.ID);
         TreeSelection treeSelection = (TreeSelection) findView.getCommonViewer().getSelection();
         TreePath[] paths = treeSelection.getPaths();
@@ -107,23 +105,15 @@ public class RemoveAnalysisAction extends Action {
                     log.warn("Problem when saving resources " + util.getLastErrorMessage());
                 }
             }
-            CorePlugin.getDefault().refreshWorkSpace();
+
+            IFolder reportsFolder = ResourcesPlugin.getWorkspace().getRoot().getProject(DQStructureManager.DATA_PROFILING)
+                    .getFolder(DQStructureManager.REPORTS);
+            try {
+                reportsFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
             findView.getCommonViewer().refresh();
         }
-    }
-
-    /**
-     * DOC qzhang Comment method "removeSQLFile".
-     */
-    private boolean removeSQLFile() {
-        DQRespositoryView findView = (DQRespositoryView) CorePlugin.getDefault().findView(DQRespositoryView.ID);
-        TreeSelection treeSelection = (TreeSelection) findView.getCommonViewer().getSelection();
-        List<IFile> selectedFiles = new ArrayList<IFile>();
-        boolean isSelectFile = NewSourceFileActionProvider.computeSelectedFiles(treeSelection, selectedFiles);
-        if (!isSelectFile && !selectedFiles.isEmpty()) {
-            new DeleteSqlFileAction(selectedFiles).run();
-            return true;
-        }
-        return false;
     }
 }

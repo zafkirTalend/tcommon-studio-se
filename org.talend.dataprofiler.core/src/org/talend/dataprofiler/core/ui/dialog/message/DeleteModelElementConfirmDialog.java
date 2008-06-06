@@ -21,8 +21,13 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.dataprofiler.core.PluginConstant;
+import org.talend.dataquality.analysis.Analysis;
+import org.talend.dataquality.helpers.ReportHelper;
+import org.talend.dataquality.reports.TdReport;
+import org.talend.dataquality.reports.util.ReportsSwitch;
 import orgomg.cwm.objectmodel.core.Dependency;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
@@ -62,6 +67,15 @@ public final class DeleteModelElementConfirmDialog {
 
         public String toString() {
             return nodeElement.getName();
+        }
+
+        /**
+         * Getter for nodeElement.
+         * 
+         * @return the nodeElement
+         */
+        public ModelElement getNodeElement() {
+            return nodeElement;
         }
 
         /*
@@ -174,22 +188,12 @@ public final class DeleteModelElementConfirmDialog {
     }
 
     /**
-     * DOC rli RequirsResourceConfirmDialog constructor comment.
-     * 
+     * DOC rli Comment method "showDialog".
      * @param parentShell
-     * @param dialogTitle
-     * @param dialogTitleImage
+     * @param modelElements
      * @param dialogMessage
-     * @param dialogImageType
-     * @param dialogButtonLabels
-     * @param defaultIndex
+     * @return
      */
-    // private DeleteModelElementConfirmDialog(Shell parentShell, String dialogTitle, Image dialogTitleImage, String
-    // dialogMessage,
-    // int dialogImageType, String[] dialogButtonLabels, int defaultIndex) {
-    // super(parentShell, dialogTitle, dialogTitleImage, dialogMessage, dialogImageType, dialogButtonLabels,
-    // defaultIndex);
-    // }
     public static int showDialog(Shell parentShell, ModelElement[] modelElements, String dialogMessage) {
         addDenpendencyElements(modelElements);
         ImpactNode[] impactElements = getImpactNodes();
@@ -200,7 +204,11 @@ public final class DeleteModelElementConfirmDialog {
             dialog.setLabelProvider(getLabelProvider());
             dialog.setInput(new Object());
             clear();
-            return dialog.open();
+            int result = dialog.open();
+            if (result == Window.OK) {
+                removeReportComponent(impactElements);
+            }
+            return result;
         } else {
             return popConfirmDialog(modelElements);
         }
@@ -221,13 +229,25 @@ public final class DeleteModelElementConfirmDialog {
         return messageDialog.open();
     }
 
-    // protected static ImpactNodesHandler[] getTreeNodes(ModelElement[] modelElements) {
-    // List<ImpactNodesHandler> treeNodes = new ArrayList<ImpactNodesHandler>();
-    // for (ModelElement element : modelElements) {
-    // treeNodes.add(new ImpactNodesHandler(element));
-    // }
-    // return treeNodes.toArray(new ImpactNodesHandler[treeNodes.size()]);
-    // }
+    private static void removeReportComponent(ImpactNode[] impactNodes) {
+        ReportsSwitch<TdReport> mySwitch = new ReportsSwitch<TdReport>() {
+
+            public TdReport caseTdReport(TdReport object) {
+                return object;
+            }
+        };
+        TdReport report = null;
+        for (ImpactNode node : impactNodes) {
+            report = mySwitch.doSwitch(node.getNodeElement());
+            if (report != null && node.getChildren().length > 0) {
+                List<Analysis> anaList = new ArrayList<Analysis>();
+                for (ModelElement element : node.getChildren()) {
+                    anaList.add((Analysis) element);
+                }
+                ReportHelper.removeAnalyses(report, anaList);
+            }
+        }
+    }
 
     protected static LabelProvider getLabelProvider() {
         if (fLabelProvider == null) {
