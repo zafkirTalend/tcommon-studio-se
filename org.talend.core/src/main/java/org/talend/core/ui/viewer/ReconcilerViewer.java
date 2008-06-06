@@ -517,15 +517,15 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
      */
     @Override
     protected void handleDispose() {
+        if (!getControl().isDisposed()) {
+            super.handleDispose();
+        }
         if (file != null && file.exists()) {
             try {
                 file.delete(false, new NullProgressMonitor());
             } catch (CoreException e1) {
                 // do nothing as the delete is not important.
             }
-        }
-        if (!getControl().isDisposed()) {
-            super.handleDispose();
         }
     }
 
@@ -564,39 +564,5 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     @Override
     protected StyledText createTextWidget(Composite parent, int styles) {
         return new ReconcilerStyledText(parent, styles, this);
-    }
-
-    /**
-     * DOC nrousseau ReconcilerViewer class global comment. Detailled comment
-     */
-    private class ReconcilerStyledText extends StyledText {
-
-        ReconcilerViewer viewer;
-
-        /**
-         * DOC nrousseau ReconcilerStyledText constructor comment.
-         * 
-         * @param parent
-         * @param style
-         */
-        public ReconcilerStyledText(Composite parent, int style, ReconcilerViewer viewer) {
-            super(parent, style);
-            this.viewer = viewer;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.swt.custom.StyledText#getText()
-         */
-        @Override
-        public String getText() {
-            IRegion region = viewer.getViewerRegion();
-            try {
-                return viewer.getDocument().get(region.getOffset(), region.getLength());
-            } catch (BadLocationException e) {
-                return super.getText();
-            }
-        }
     }
 }

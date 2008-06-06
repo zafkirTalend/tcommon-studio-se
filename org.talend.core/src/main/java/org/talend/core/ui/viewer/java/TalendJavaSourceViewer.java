@@ -63,7 +63,6 @@ import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
 import org.eclipse.ui.texteditor.DefaultRangeIndicator;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
@@ -379,13 +378,10 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                 initializeModel();
             } else {
                 // only happen sometimes with a "fast click" (file don't exist yet).
-                if (!file.exists()) {
-                    return;
-                }
                 file.setContents(codeStream, true, false, null);
             }
         } catch (CoreException e) {
-            MessageBoxExceptionHandler.process(e);
+            // don't display any error.
         }
     }
 
