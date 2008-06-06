@@ -166,14 +166,14 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         this.setElements(columnIndicators);
     }
 
-    public void setElements(final ColumnIndicator[] columnIndicators) {
+    public void setElements(final ColumnIndicator[] elements) {
         this.tree.dispose();
         this.tree = createTree(this.parentComp);
-        this.columnIndicators = columnIndicators;
-        for (int i = 0; i < columnIndicators.length; i++) {
+        this.columnIndicators = elements;
+        for (int i = 0; i < elements.length; i++) {
             final TreeItem treeItem = new TreeItem(tree, SWT.NONE);
 
-            final ColumnIndicator columnIndicator = (ColumnIndicator) columnIndicators[i];
+            final ColumnIndicator columnIndicator = (ColumnIndicator) elements[i];
 
             treeItem.setImage(ImageLib.getImage(ImageLib.TD_COLUMN));
             String columnName = columnIndicator.getTdColumn().getName();
@@ -203,23 +203,6 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
 
             editor.minimumWidth = WIDTH1_CELL;
             editor.setEditor(combo, treeItem, 1);
-
-            /**
-             * editor = new TreeEditor(tree); Button addButton = new Button(tree, SWT.NONE); addButton.setText("Add");
-             * addButton.pack(); editor.minimumWidth = WIDTH1_CELL; // editor.minimumWidth = addButton.getSize().x;
-             * editor.horizontalAlignment = SWT.CENTER; editor.setEditor(addButton, treeItem, 2);
-             * addButton.addSelectionListener(new SelectionAdapter() {
-             * 
-             * public void widgetSelected(SelectionEvent e) { openIndicatorSelectDialog(); }
-             * 
-             * });
-             * 
-             * 
-             * editor = new TreeEditor(tree); Button modButton = new Button(tree, SWT.NONE);
-             * modButton.setText("Repository"); modButton.pack(); editor.minimumWidth = WIDTH1_CELL; //
-             * editor.minimumWidth = modButton.getSize().x; editor.horizontalAlignment = SWT.CENTER;
-             * editor.setEditor(modButton, treeItem, 3);
-             */
 
             editor = new TreeEditor(tree);
             Label delLabel = new Label(tree, SWT.NONE);
@@ -253,7 +236,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
         this.setDirty(true);
     }
 
-    private static int i = 0;
+    private static int activeCount = 0;
 
     private void createIndicatorItems(final TreeItem treeItem, IndicatorUnit[] indicatorTypeMappings) {
         for (IndicatorUnit indicatorMapping : indicatorTypeMappings) {
@@ -293,7 +276,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                              */
                             @Override
                             public void dispose() {
-                                i = 0;
+                                activeCount = 0;
                                 super.dispose();
                             }
                         };
@@ -330,7 +313,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                                 @Override
                                 public void shellActivated(ShellEvent e) {
                                     String string = HelpPlugin.PLUGIN_ID + HelpPlugin.INDICATOR_OPTION_HELP_ID;
-                                    if (i < 2) {
+                                    if (activeCount < 2) {
                                         Point point = e.widget.getDisplay().getCursorLocation();
                                         IContext context = HelpSystem.getContext(string);
                                         IHelpResource[] relatedTopics = context.getRelatedTopics();
@@ -340,7 +323,7 @@ public class AnasisColumnTreeViewer extends AbstractPagePart {
                                         }
                                         IWorkbenchHelpSystem helpSystem = PlatformUI.getWorkbench().getHelpSystem();
                                         helpSystem.displayContext(context, point.x + 15, point.y);
-                                        i++;
+                                        activeCount++;
                                         ReusableHelpPart lastActiveInstance = ReusableHelpPart.getLastActiveInstance();
                                         if (lastActiveInstance != null) {
                                             String href = IndicatorParameterTypes.getHref(indicator);
