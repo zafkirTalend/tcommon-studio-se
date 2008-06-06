@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Translator Plug-in
-Bundle-SymbolicName: org.talend.cwm.translator
-Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.talend.cwm.mip,
- org.talend.model
-Bundle-Vendor: .Talend SA.
