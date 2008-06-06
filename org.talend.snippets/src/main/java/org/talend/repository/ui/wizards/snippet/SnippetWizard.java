@@ -80,8 +80,8 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
             snippetItem = PropertiesFactory.eINSTANCE.createSnippetItem();
 
             contextProperty = PropertiesFactory.eINSTANCE.createProperty();
-            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                    .getUser());
+            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(
+                    Context.REPOSITORY_CONTEXT_KEY)).getUser());
             contextProperty.setVersion(VersionUtils.DEFAULT_VERSION);
             contextProperty.setStatusCode(""); //$NON-NLS-1$
 
@@ -111,8 +111,8 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
             snippetItem = PropertiesFactory.eINSTANCE.createSnippetItem();
 
             contextProperty = PropertiesFactory.eINSTANCE.createProperty();
-            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                    .getUser());
+            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(
+                    Context.REPOSITORY_CONTEXT_KEY)).getUser());
             contextProperty.setVersion(VersionUtils.DEFAULT_VERSION);
             contextProperty.setStatusCode(""); //$NON-NLS-1$
 
