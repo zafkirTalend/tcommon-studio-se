@@ -44,7 +44,7 @@ public interface IConnection extends IElement {
      * @return
      */
     public String getName();
-    
+
     public String getUniqueName();
 
     /**
@@ -60,10 +60,10 @@ public interface IConnection extends IElement {
     public boolean isActivate();
 
     public void setTraceData(String traceData);
-    
+
     public String getConnectorName();
-    
+
     public int getInputId();
-    
+
     public boolean isUseByMetter();
 }

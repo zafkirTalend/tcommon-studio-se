@@ -36,14 +36,17 @@ public abstract class AddPushButton extends ExtendedPushButton {
      * @param image
      */
     public AddPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("AddPushButton.AddButton.Tip"), ImageProvider.getImage(EImage.ADD_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("AddPushButton.AddButton.Tip"), ImageProvider.getImage(EImage.ADD_ICON)); //$NON-NLS-1$
     }
 
     protected abstract Command getCommandToExecute();
 
     protected abstract Object getObjectToAdd();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override
@@ -51,6 +54,4 @@ public abstract class AddPushButton extends ExtendedPushButton {
         return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
     }
 
-    
-    
 }

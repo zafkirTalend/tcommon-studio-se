@@ -12,18 +12,17 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public class BlockCode {
 
     private String label;
-    
+
     /**
      * Constructor.
+     * 
      * @param label label of block code
      */
     public BlockCode(String label) {
@@ -34,5 +33,5 @@ public class BlockCode {
     public String getLabel() {
         return this.label;
     }
-    
+
 }

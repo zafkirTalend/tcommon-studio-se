@@ -73,8 +73,8 @@ public class ColoringEditorTools {
                  * Using a PatternRule instead of a MultiLineRule because PatternRule exposes the break on newline
                  * behavior.
                  */
-                PatternRule pat = new CasedPatternRule(span.getStart(), span.getEnd(), defaultToken, mode.getDefaultRuleSet().getEscape(),
-                        span.noLineBreak(), ignoreCase);
+                PatternRule pat = new CasedPatternRule(span.getStart(), span.getEnd(), defaultToken, mode
+                        .getDefaultRuleSet().getEscape(), span.noLineBreak(), ignoreCase);
                 rules.add(pat);
             }
 
@@ -124,7 +124,7 @@ public class ColoringEditorTools {
                 || property.equals(ColorManager.FUNCTION_COLOR) || property.equals(ColorManager.MARKUP_COLOR)
                 || property.equals(ColorManager.OPERATOR_COLOR) || property.equals(ColorManager.DIGIT_COLOR)
                 || property.equals(ColorManager.INVALID_COLOR) || property.equals(ColorManager.NULL_COLOR);
-//        System.out.println(affects);
+        // System.out.println(affects);
         return affects;
     }
 

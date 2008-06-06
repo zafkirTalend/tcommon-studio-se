@@ -19,26 +19,35 @@ package org.talend.core.model.metadata;
  * 
  */
 public class DbDefaultLengthAndPrecision {
-	private Integer defaultLength;
-	private Integer defaultPrecision;
-	private String dbTypeName;
-	public String getDbTypeName() {
-		return dbTypeName;
-	}
-	public void setDbTypeName(String dbTypeName) {
-		this.dbTypeName = dbTypeName;
-	}
-	public Integer getDefaultLength() {
-		return defaultLength;
-	}
-	public void setDefaultLength(Integer defaultLength) {
-		this.defaultLength = defaultLength;
-	}
-	public Integer getDefaultPrecision() {
-		return defaultPrecision;
-	}
-	public void setDefaultPrecision(Integer defaultPrecision) {
-		this.defaultPrecision = defaultPrecision;
-	}
+
+    private Integer defaultLength;
+
+    private Integer defaultPrecision;
+
+    private String dbTypeName;
+
+    public String getDbTypeName() {
+        return dbTypeName;
+    }
+
+    public void setDbTypeName(String dbTypeName) {
+        this.dbTypeName = dbTypeName;
+    }
+
+    public Integer getDefaultLength() {
+        return defaultLength;
+    }
+
+    public void setDefaultLength(Integer defaultLength) {
+        this.defaultLength = defaultLength;
+    }
+
+    public Integer getDefaultPrecision() {
+        return defaultPrecision;
+    }
+
+    public void setDefaultPrecision(Integer defaultPrecision) {
+        this.defaultPrecision = defaultPrecision;
+    }
 
 }

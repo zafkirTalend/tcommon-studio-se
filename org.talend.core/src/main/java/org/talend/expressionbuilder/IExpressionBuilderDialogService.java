@@ -24,6 +24,7 @@ import org.talend.expressionbuilder.ui.IExpressionBuilderDialogController;
  */
 public interface IExpressionBuilderDialogService extends IService {
 
-    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean);
+    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent,
+            IExpressionDataBean dataBean);
 
 }

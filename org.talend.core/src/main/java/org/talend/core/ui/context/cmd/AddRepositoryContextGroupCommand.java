@@ -58,7 +58,8 @@ public class AddRepositoryContextGroupCommand extends Command {
 
     @Override
     public void execute() {
-        if (modelManager == null || manager == null || selectedItems == null || selectedItems.isEmpty() || nameSet == null) {
+        if (modelManager == null || manager == null || selectedItems == null || selectedItems.isEmpty()
+                || nameSet == null) {
             return;
         }
         if (monitor == null) {

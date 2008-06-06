@@ -25,7 +25,7 @@ public interface IElement {
     public IElementParameter getElementParameter(String name);
 
     public List<? extends IElementParameter> getElementParameters();
-    
+
     public List<? extends IElementParameter> getElementParametersWithChildrens();
 
     public void setElementParameters(List<? extends IElementParameter> elementsParameters);

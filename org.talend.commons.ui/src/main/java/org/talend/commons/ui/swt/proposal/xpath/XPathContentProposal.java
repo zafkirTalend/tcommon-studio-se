@@ -83,7 +83,7 @@ public class XPathContentProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getDescription()
      */
     public String getDescription() {
-//        StringBuilder sb = new StringBuilder();
+        // StringBuilder sb = new StringBuilder();
         return null;
     }
 

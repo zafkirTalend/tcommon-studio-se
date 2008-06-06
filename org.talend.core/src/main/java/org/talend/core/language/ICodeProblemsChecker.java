@@ -19,11 +19,10 @@ import org.talend.core.model.process.Problem;
 import org.talend.designer.codegen.IAloneProcessNodeConfigurer;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface ICodeProblemsChecker {
 
@@ -32,26 +31,29 @@ public interface ICodeProblemsChecker {
     /**
      * 
      * Force code generation, check all problems and load problems in cache.
+     * 
      * @param externalData TODO
      * @return
      */
     public abstract List<Problem> checkProblems(IAloneProcessNodeConfigurer nodeConfigurer);
-    
+
     /**
      * 
      * Force code generation, check problems which matches with given key and load all problems in cache.
+     * 
      * @param key
-     * @param externalData 
+     * @param externalData
      * @return
      */
     public abstract List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer);
-    
+
     /**
      * 
      * Use cache of problems and get problems.
+     * 
      * @param key
      * @return
      */
     public abstract List<Problem> getProblemsFromKey(String key);
-    
+
 }

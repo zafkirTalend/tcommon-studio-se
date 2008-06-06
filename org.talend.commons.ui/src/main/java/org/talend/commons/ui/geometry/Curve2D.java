@@ -103,8 +103,8 @@ public abstract class Curve2D extends Curve {
             p2 = (PointDouble) li.next();
             if (p1 != null && p2 != null) {
                 // gc.setForeground(gc.getDevice().getSystemColor(SWT.COLOR_WHITE));
-                gc.drawLine((int) java.lang.Math.round(p1.x), (int) java.lang.Math.round(p1.y), (int) java.lang.Math.round(p2.x),
-                        (int) java.lang.Math.round(p2.y));
+                gc.drawLine((int) java.lang.Math.round(p1.x), (int) java.lang.Math.round(p1.y), (int) java.lang.Math
+                        .round(p2.x), (int) java.lang.Math.round(p2.y));
                 // gc.setForeground(gc.getDevice().getSystemColor(SWT.COLOR_BLUE));
                 // gc.drawPoint((int)java.lang.Math.round(p1.x), (int)java.lang.Math.round(p1.y));
             }

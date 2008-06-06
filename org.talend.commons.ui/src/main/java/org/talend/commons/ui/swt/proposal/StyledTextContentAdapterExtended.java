@@ -22,7 +22,8 @@ import org.eclipse.swt.widgets.Control;
  * $Id: StyledTextContentAdapterExtended.java 7038 2007-11-15 14:05:48Z plegall $
  * 
  */
-public class StyledTextContentAdapterExtended extends StyledTextContentAdapter implements IControlContentAdapterExtended {
+public class StyledTextContentAdapterExtended extends StyledTextContentAdapter implements
+        IControlContentAdapterExtended {
 
     private String filterValue;
 

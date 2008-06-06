@@ -117,14 +117,14 @@ public class Curve2DBezier extends Curve2D {
                 x += ((Point2D) pl.get(i)).getX() * bt;
                 y += ((Point2D) pl.get(i)).getY() * bt;
             }
-             
+
             if (y >= yMinVisiblePoints && y <= yMaxVisiblePoints || firstInvisiblePoint || pointsTmp.length > 4) {
                 if (indexTStart == -1) {
                     indexTStart = t;
                 }
                 pointsTmp[2 * t] = (int) java.lang.Math.round(x);
                 pointsTmp[2 * t + 1] = (int) java.lang.Math.round(y);
-                if(firstInvisiblePoint && y < yMinVisiblePoints && y < yMaxVisiblePoints) {
+                if (firstInvisiblePoint && y < yMinVisiblePoints && y < yMaxVisiblePoints) {
                     firstInvisiblePoint = false;
                 }
             } else if (indexTStart != -1) {

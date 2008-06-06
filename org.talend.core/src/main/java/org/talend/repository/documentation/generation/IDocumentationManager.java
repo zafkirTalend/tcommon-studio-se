@@ -21,8 +21,8 @@ import org.talend.repository.documentation.ExportFileResource;
  */
 public interface IDocumentationManager {
 
-    public List<ExportFileResource> getExportResources(ExportFileResource[] process, String targetPath, String... jobVersion)
-            throws Exception;
+    public List<ExportFileResource> getExportResources(ExportFileResource[] process, String targetPath,
+            String... jobVersion) throws Exception;
 
     public List<ExportFileResource> getExportResources(ExportFileResource[] process);
 

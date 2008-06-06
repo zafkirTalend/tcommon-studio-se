@@ -20,7 +20,7 @@ package org.talend.commons.exception;
  */
 public class FatalException extends RuntimeException {
 
-    @SuppressWarnings("unused") //$NON-NLS-1$
+    @SuppressWarnings("unused")//$NON-NLS-1$
     private static final long serialVersionUID = 1L;
 
     public FatalException(String message, Throwable cause) {

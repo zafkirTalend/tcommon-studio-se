@@ -22,23 +22,24 @@ import java.util.List;
 public class DbTableSelectorObject {
 
     private ObjectType type;
+
     /**
-     * qzhang DbTableSelectorObject class global comment. Detailled comment.
-     * <br/>
-     *
+     * qzhang DbTableSelectorObject class global comment. Detailled comment. <br/>
+     * 
      */
     public enum ObjectType {
         TABLE,
         COLUMN,
         DB;
-        
+
     }
 
     private String label;
 
     private List<DbTableSelectorObject> children;
-    
+
     private DbTableSelectorObject parent;
+
     /**
      * qzhang DbTableSelectorDialog.TreeObject constructor comment.
      */
@@ -70,22 +71,18 @@ public class DbTableSelectorObject {
         this.label = label;
     }
 
-    
     public ObjectType getType() {
         return this.type;
     }
 
-    
     public void setType(ObjectType type) {
         this.type = type;
     }
 
-    
     public DbTableSelectorObject getParent() {
         return this.parent;
     }
 
-    
     public void setParent(DbTableSelectorObject parent) {
         this.parent = parent;
     }

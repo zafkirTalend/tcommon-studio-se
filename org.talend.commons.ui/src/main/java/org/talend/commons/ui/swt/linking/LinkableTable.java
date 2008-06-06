@@ -58,7 +58,8 @@ public class LinkableTable implements ILinkableControl {
      * 
      * @param table
      */
-    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, TableViewerCreator tableViewerCreator) {
+    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher,
+            TableViewerCreator tableViewerCreator) {
         super();
         this.tableViewerCreator = tableViewerCreator;
         this.table = this.tableViewerCreator.getTable();

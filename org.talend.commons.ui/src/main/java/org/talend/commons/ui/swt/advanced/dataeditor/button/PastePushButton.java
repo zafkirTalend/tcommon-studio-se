@@ -36,12 +36,15 @@ public abstract class PastePushButton extends ExtendedPushButton {
      * @param image
      */
     public PastePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("PastePushButton.PasteButton.Label"), ImageProvider.getImage(EImage.PASTE_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("PastePushButton.PasteButton.Label"), ImageProvider.getImage(EImage.PASTE_ICON)); //$NON-NLS-1$
     }
 
     protected abstract Command getCommandToExecute();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override

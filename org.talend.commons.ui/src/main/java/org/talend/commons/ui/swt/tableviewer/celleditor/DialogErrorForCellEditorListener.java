@@ -78,7 +78,8 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
                 CELL_EDITOR_STATE.EDITING);
     }
 
-    protected void onValueChanged(final String newValue, boolean showAlertIfError, final Object currentModifiedBean, CELL_EDITOR_STATE state) {
+    protected void onValueChanged(final String newValue, boolean showAlertIfError, final Object currentModifiedBean,
+            CELL_EDITOR_STATE state) {
         final Text text = (Text) cellEditor.getControl();
         final ModifiedObjectInfo modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
         Object originalValue = modifiedObjectInfo.getOriginalPropertyBeanValue();
@@ -100,7 +101,8 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
 
                     public void run() {
 
-                        MessageDialog.openError(text.getShell(), Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), errorMessage); //$NON-NLS-1$
+                        MessageDialog.openError(text.getShell(), Messages
+                                .getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), errorMessage); //$NON-NLS-1$
                         final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
                         tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
                         text.setText(newValue);
@@ -120,7 +122,8 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
      * @param newValue
      * @param state
      */
-    public abstract void newValidValueTyped(int itemIndex, final Object previousValue, final Object newValue, CELL_EDITOR_STATE state);
+    public abstract void newValidValueTyped(int itemIndex, final Object previousValue, final Object newValue,
+            CELL_EDITOR_STATE state);
 
     /**
      * DOC amaumont Comment method "validateValue".

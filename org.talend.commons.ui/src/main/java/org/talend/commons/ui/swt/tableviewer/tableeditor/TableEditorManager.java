@@ -137,7 +137,8 @@ public class TableEditorManager {
                     handleRemovedEventAsynchronous(event);
                 } else if (event.type == TYPE.SWAPED) {
                     handleSwapedEvent(event);
-                } else if (event.type == TYPE.LIST_REGISTERED || event.type == TYPE.CLEARED || event.type == TYPE.REPLACED) {
+                } else if (event.type == TYPE.LIST_REGISTERED || event.type == TYPE.CLEARED
+                        || event.type == TYPE.REPLACED) {
                     refresh();
                 }
             }
@@ -316,8 +317,8 @@ public class TableEditorManager {
 
     }
 
-    private TableEditor addTableEditor(TableViewerCreatorColumn column, TableEditorContent tableEditorContent, String idProperty,
-            TableItem tableItem) {
+    private TableEditor addTableEditor(TableViewerCreatorColumn column, TableEditorContent tableEditorContent,
+            String idProperty, TableItem tableItem) {
 
         tableEditorContent.setLayoutEnabled(true);
         TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
@@ -326,7 +327,8 @@ public class TableEditorManager {
 
         Object currentRowObject = tableItem.getData();
         Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-        Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
+        Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject,
+                value);
 
         control.addDisposeListener(new DisposeListener() {
 

@@ -12,13 +12,11 @@
 // ============================================================================
 package org.talend.core.ui.proposal;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40Z nrousseau $
- *
+ * 
  */
 public class JavaSimpleDateFormatProposal {
 

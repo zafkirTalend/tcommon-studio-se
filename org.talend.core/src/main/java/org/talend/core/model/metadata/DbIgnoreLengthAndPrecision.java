@@ -17,32 +17,35 @@ package org.talend.core.model.metadata;
  * 
  */
 public class DbIgnoreLengthAndPrecision {
-	private String ignoreLength;
-	private String ignorePrecision;
-	private String dbType;
 
-	public String getIgnoreLength() {
-		return ignoreLength;
-	}
+    private String ignoreLength;
 
-	public void setIgnoreLength(String ignoreLength) {
-		this.ignoreLength = ignoreLength;
-	}
+    private String ignorePrecision;
 
-	public String getIgnorePrecision() {
-		return ignorePrecision;
-	}
+    private String dbType;
 
-	public void setIgnorePrecision(String ignorePrecision) {
-		this.ignorePrecision = ignorePrecision;
-	}
+    public String getIgnoreLength() {
+        return ignoreLength;
+    }
 
-	public String getDbType() {
-		return dbType;
-	}
+    public void setIgnoreLength(String ignoreLength) {
+        this.ignoreLength = ignoreLength;
+    }
 
-	public void setDbType(String dbType) {
-		this.dbType = dbType;
-	}
+    public String getIgnorePrecision() {
+        return ignorePrecision;
+    }
+
+    public void setIgnorePrecision(String ignorePrecision) {
+        this.ignorePrecision = ignorePrecision;
+    }
+
+    public String getDbType() {
+        return dbType;
+    }
+
+    public void setDbType(String dbType) {
+        this.dbType = dbType;
+    }
 
 }

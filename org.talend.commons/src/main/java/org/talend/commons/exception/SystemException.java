@@ -23,7 +23,7 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public class SystemException extends Exception {
 
-    @SuppressWarnings("unused") //$NON-NLS-1$
+    @SuppressWarnings("unused")//$NON-NLS-1$
     private static final long serialVersionUID = 1L;
 
     public SystemException(String message, Throwable cause) {

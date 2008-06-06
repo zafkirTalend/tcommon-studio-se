@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.language;
 
-
 /**
  * Enum for available Code Languages in the application.
  * 
@@ -41,7 +40,7 @@ public enum ECodeLanguage {
     private String name;
 
     private String extension;
-    
+
     private String caseName;
 
     /**
@@ -79,11 +78,11 @@ public enum ECodeLanguage {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getCaseName() {
         return this.caseName;
     }
-    
+
     public void setCaseName(String caseName) {
         this.caseName = caseName;
     }

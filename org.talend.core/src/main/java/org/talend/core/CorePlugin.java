@@ -51,7 +51,7 @@ public class CorePlugin extends AbstractUIPlugin {
     public static final String PROJECT_LANGUAGE_TYPE = "PROJECT_LANGUAGE_TYPE";
 
     private static Logger logger = Logger.getLogger(CorePlugin.class);
-    
+
     // The shared instance
     private static CorePlugin plugin;
 
@@ -176,9 +176,9 @@ public class CorePlugin extends AbstractUIPlugin {
     public IRcpService getRcpService() {
         return (IRcpService) GlobalServiceRegister.getDefault().getService(IRcpService.class);
     }
-    
+
     public boolean useSQLPattern() {
         return (Boolean) CorePlugin.getContext().getProperty("useSQLPattern");
     }
-    
+
 }

@@ -68,8 +68,8 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
                 }
             }
         }
-        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] { "string1", "string2",
-                "string3" });
+        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] {
+                "string1", "string2", "string3" });
 
         long time1 = System.currentTimeMillis();
         Collections.sort(list, comparator);
@@ -135,7 +135,8 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
                 }
             }
         }
-        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] { "string1" });
+        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true,
+                new String[] { "string1" });
 
         long time1 = System.currentTimeMillis();
         Collections.sort(list, comparator);

@@ -8,43 +8,45 @@ import org.osgi.framework.BundleContext;
  */
 public class LibrariesUIPlugin extends AbstractUIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.talend.libraries.ui";
+    // The plug-in ID
+    public static final String PLUGIN_ID = "org.talend.libraries.ui";
 
-	// The shared instance
-	private static LibrariesUIPlugin plugin;
-	
-	/**
-	 * The constructor
-	 */
-	public LibrariesUIPlugin() {
-	}
+    // The shared instance
+    private static LibrariesUIPlugin plugin;
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
-	}
+    /**
+     * The constructor
+     */
+    public LibrariesUIPlugin() {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+     */
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
+    }
 
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
-	public static LibrariesUIPlugin getDefault() {
-		return plugin;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) throws Exception {
+        plugin = null;
+        super.stop(context);
+    }
+
+    /**
+     * Returns the shared instance
+     * 
+     * @return the shared instance
+     */
+    public static LibrariesUIPlugin getDefault() {
+        return plugin;
+    }
 
 }

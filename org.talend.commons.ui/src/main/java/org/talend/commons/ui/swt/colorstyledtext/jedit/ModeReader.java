@@ -151,7 +151,8 @@ public class ModeReader {
         boolean atWordStart = bool(markElement, "AT_WORD_START", false);
         String type = markElement.attributeValue("TYPE");
         String delegate = markElement.attributeValue("DELEGATE");
-        listener.newMark(type, markElement.getText(), atLineStart, atWhitespaceEnd, atWordStart, delegate, isPrevious, excludeMatch);
+        listener.newMark(type, markElement.getText(), atLineStart, atWhitespaceEnd, atWordStart, delegate, isPrevious,
+                excludeMatch);
     }
 
     protected void createRule(Element rulesElement) {

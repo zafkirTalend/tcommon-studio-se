@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.ui.targetschema.editor.actions;
 
-
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
@@ -21,47 +20,47 @@ package org.talend.core.ui.targetschema.editor.actions;
  */
 public class CopyTargetSchemaAction2 {
 
-//    private List<SchemaTarget> selectedSchemaTarget;
-//
-//    /**
-//     * DOC amaumont AddMetadataAction constructor comment.
-//     * 
-//     * @param metadatEditorView
-//     */
-//    public CopyTargetSchemaAction2(XPathNodeSchemaEditorView metadatEditorView) {
-//        super(metadatEditorView);
-//    }
-//
-//    /*
-//     * (non-Javadoc)
-//     * 
-//     * @see org.talend.designer.mapper.actions.IMapperAction#run(org.talend.designer.mapper.actions.IMapperEvent)
-//     */
-//    public void run(IEventAction eventAction) {
-//        TargetSchemaEditorEvent targetSchemaEditorEvent = (TargetSchemaEditorEvent) eventAction;
-//
-//        List<SchemaTarget> columns = getTargetSchemaEditor().getBeansList();
-//
-//        if (targetSchemaEditorEvent.type == TYPE.COPY) {
-//            selectedSchemaTarget = new ArrayList<SchemaTarget>();
-//            for (int columnSelectedId : targetSchemaEditorEvent.entriesIndices) {
-//                selectedSchemaTarget.add(columns.get(columnSelectedId));
-//            }
-//        } else if (targetSchemaEditorEvent.type == TYPE.PASTE) {
-//            if ((targetSchemaEditorEvent.entriesIndices != null) && (targetSchemaEditorEvent.entriesIndices.length > 0)) {
-//                int indice = targetSchemaEditorEvent.entriesIndices[0];
-//                for (SchemaTarget schemaTarget : selectedSchemaTarget) {
-//                    // create a new column as a copy of this column
-//                    SchemaTarget newColumnCopy = new ConnectionFactoryImpl().copy(schemaTarget, indice + ""); // FIXME
-//                                                                                                                // MHE
-//                    indice++;
-//                    getTargetSchemaEditor().add(newColumnCopy, indice);
-//                }
-//            }
-//        }
-//    }
-//
-//    public XPathNodeSchemaEditorView getCurrentTableEditor() {
-//        return targetSchemaTableEditorView;
-//    }
+    // private List<SchemaTarget> selectedSchemaTarget;
+    //
+    // /**
+    // * DOC amaumont AddMetadataAction constructor comment.
+    // *
+    // * @param metadatEditorView
+    // */
+    // public CopyTargetSchemaAction2(XPathNodeSchemaEditorView metadatEditorView) {
+    // super(metadatEditorView);
+    // }
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.designer.mapper.actions.IMapperAction#run(org.talend.designer.mapper.actions.IMapperEvent)
+    // */
+    // public void run(IEventAction eventAction) {
+    // TargetSchemaEditorEvent targetSchemaEditorEvent = (TargetSchemaEditorEvent) eventAction;
+    //
+    // List<SchemaTarget> columns = getTargetSchemaEditor().getBeansList();
+    //
+    // if (targetSchemaEditorEvent.type == TYPE.COPY) {
+    // selectedSchemaTarget = new ArrayList<SchemaTarget>();
+    // for (int columnSelectedId : targetSchemaEditorEvent.entriesIndices) {
+    // selectedSchemaTarget.add(columns.get(columnSelectedId));
+    // }
+    // } else if (targetSchemaEditorEvent.type == TYPE.PASTE) {
+    // if ((targetSchemaEditorEvent.entriesIndices != null) && (targetSchemaEditorEvent.entriesIndices.length > 0)) {
+    // int indice = targetSchemaEditorEvent.entriesIndices[0];
+    // for (SchemaTarget schemaTarget : selectedSchemaTarget) {
+    // // create a new column as a copy of this column
+    // SchemaTarget newColumnCopy = new ConnectionFactoryImpl().copy(schemaTarget, indice + ""); // FIXME
+    // // MHE
+    // indice++;
+    // getTargetSchemaEditor().add(newColumnCopy, indice);
+    // }
+    // }
+    // }
+    // }
+    //
+    // public XPathNodeSchemaEditorView getCurrentTableEditor() {
+    // return targetSchemaTableEditorView;
+    // }
 }

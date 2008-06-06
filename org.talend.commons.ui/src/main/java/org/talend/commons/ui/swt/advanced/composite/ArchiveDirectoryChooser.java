@@ -69,7 +69,7 @@ public class ArchiveDirectoryChooser {
 
     private String previouslyBrowsedArchive = ""; //$NON-NLS-1$
 
-    private String lastPath="";
+    private String lastPath = "";
 
     private Composite workArea;
 

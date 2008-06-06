@@ -38,7 +38,8 @@ public abstract class MoveUpPushButton extends ExtendedPushButton {
      * @param image
      */
     public MoveUpPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("MoveUpPushButton.MoveUpButton.Tip"), ImageProvider.getImage(EImage.UP_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("MoveUpPushButton.MoveUpButton.Tip"), ImageProvider.getImage(EImage.UP_ICON)); //$NON-NLS-1$
     }
 
     /*
@@ -49,11 +50,13 @@ public abstract class MoveUpPushButton extends ExtendedPushButton {
     @Override
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
-        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
-                .getSelectionIndices());
+        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator()
+                .getTable().getSelectionIndices());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override

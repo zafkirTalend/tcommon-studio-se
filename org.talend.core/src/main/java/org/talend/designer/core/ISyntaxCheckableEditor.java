@@ -14,8 +14,8 @@ package org.talend.designer.core;
 
 /**
  * 
- * If the syntax of the text in the editor used in the multiple page Talend editor need to be checked, this interface should be
- * implemented.
+ * If the syntax of the text in the editor used in the multiple page Talend editor need to be checked, this interface
+ * should be implemented.
  * 
  * For example the condition below: When switch the tab from the designer to code in the multiple page Talend editor,
  * the syntax of the code need to be validated by calling the method validateSyntax.

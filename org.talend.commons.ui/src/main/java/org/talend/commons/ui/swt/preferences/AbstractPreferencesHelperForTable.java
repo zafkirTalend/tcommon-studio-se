@@ -46,7 +46,7 @@ public abstract class AbstractPreferencesHelperForTable {
         List<B> beans = getBeans(string, getBeanPropertyAccessors(), tableModel);
         return beans;
     }
-    
+
     /**
      * Combines the given list of items into a single string. This method is the converse of <code>parseString</code>.
      * <p>
@@ -164,5 +164,5 @@ public abstract class AbstractPreferencesHelperForTable {
     public abstract List<IBeanPropertyAccessors> getBeanPropertyAccessors();
 
     public abstract IPreferenceStore getPreferenceStore();
-    
+
 }

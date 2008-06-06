@@ -74,7 +74,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
      */
     public URL getSqlPatternTemplate() {
-        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX);
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__"
+                + TEMPLATE_SUFFIX);
     }
 
     /*
@@ -83,8 +84,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER,
-                ".java", false, false);
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/"
+                + SOURCE_JAVA_ROUTINES_FOLDER, ".java", false, false);
 
         // Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER);
         // for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
@@ -161,7 +162,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
-            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
+            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/"))
+                    .getFile());
             FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), true);
 
@@ -169,14 +171,14 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                    .getAcceptJARFilesFilter(), false);
+            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptJARFilesFilter(), false);
 
             // 3.Add resource libraires.
             IResourceService resourceService = CorePlugin.getDefault().getResourceService();
             File resourceLibraries = new File(resourceService.getJavaLibraryPath());
-            FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                    .getAcceptJARFilesFilter(), false);
+            FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptJARFilesFilter(), false);
 
             log.debug("Java libraries synchronization done");
             isLibSynchronized = true;

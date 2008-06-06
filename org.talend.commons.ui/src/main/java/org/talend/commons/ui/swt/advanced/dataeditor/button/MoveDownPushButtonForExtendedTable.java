@@ -17,22 +17,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class MoveDownPushButtonForExtendedTable extends MoveDownPushButton implements IExtendedTablePushButton {
 
-    
-    
     private EnableStateListenerForTableButton enableStateHandler;
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * 
      * @param parent
      * @param extendedControlViewer
      */
@@ -44,20 +41,20 @@ public class MoveDownPushButtonForExtendedTable extends MoveDownPushButton imple
     public boolean getEnabledState() {
         return super.getEnabledState() && this.enableStateHandler.getEnabledState();
     }
-    
 
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
-        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), false, viewer.getTableViewerCreator().getTable()
-                .getSelectionIndices());
+        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), false, viewer.getTableViewerCreator()
+                .getTable().getSelectionIndices());
     }
-   
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
-
 
 }

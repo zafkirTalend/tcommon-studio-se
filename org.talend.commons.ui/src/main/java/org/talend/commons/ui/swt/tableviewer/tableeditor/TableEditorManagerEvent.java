@@ -14,15 +14,14 @@ package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
 import org.eclipse.swt.custom.TableEditor;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public class TableEditorManagerEvent {
 
     private TableEditor tableEditor;
+
     private ITableEditorManagerEventType eventType;
 
     /**
@@ -34,15 +33,12 @@ public class TableEditorManagerEvent {
         this.tableEditor = tableEditor;
     }
 
-    
     public TableEditor getTableEditor() {
         return this.tableEditor;
     }
 
-
-    
     public ITableEditorManagerEventType getEventType() {
         return this.eventType;
     }
-    
+
 }

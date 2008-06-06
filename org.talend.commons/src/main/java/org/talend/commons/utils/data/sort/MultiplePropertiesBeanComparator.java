@@ -84,8 +84,8 @@ public class MultiplePropertiesBeanComparator implements Comparator {
         return returnValue;
     }
 
-    private int compare(String property, Object object1, Object object2) throws IllegalAccessException, InvocationTargetException,
-            NoSuchMethodException {
+    private int compare(String property, Object object1, Object object2) throws IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException {
         Object value1 = null;
         Object value2 = null;
         if (property != null && !property.equals("")) {

@@ -238,7 +238,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         TableItem[] items = table.getItems();
         B temp1 = (B) items[index1].getData();
         B temp2 = (B) items[index2].getData();
-        
+
         if (index1 > index2) {
             items[index2].setData(temp1);
             items[index1].setData(temp2);

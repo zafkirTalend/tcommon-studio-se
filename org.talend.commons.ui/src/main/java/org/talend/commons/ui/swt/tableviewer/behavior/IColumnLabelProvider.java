@@ -14,12 +14,11 @@ package org.talend.commons.ui.swt.tableviewer.behavior;
 
 import org.eclipse.swt.graphics.Image;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40Z nrousseau $
+ * 
  * @param <B> element bean of the <code>TableViewerCreator</code>
  */
 public interface IColumnLabelProvider<B> {
@@ -29,10 +28,8 @@ public interface IColumnLabelProvider<B> {
      * 
      * @param element bean of the <code>TableViewerCreator</code>
      * @return return the text for the current given bean of the <code>TableViewerCreator</code> and the current
-     * column.
-     * If the null value is returned, getColumnText() is used as normally.
+     * column. If the null value is returned, getColumnText() is used as normally.
      */
     public String getLabel(B bean);
-
 
 }

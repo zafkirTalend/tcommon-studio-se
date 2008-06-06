@@ -93,6 +93,4 @@ public abstract class AbstractExtendedToolbar {
         return this.toolbar;
     }
 
-    
-    
 }

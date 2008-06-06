@@ -41,7 +41,8 @@ public final class TestDataTypeHelper {
         System.out.println("2147483647 => " + PerlDataTypeHelper.getTalendTypeOfValue("2147483647"));
         System.out.println("-2147483649 => " + PerlDataTypeHelper.getTalendTypeOfValue("-2147483649"));
         System.out.println("9223372036854775807 => " + PerlDataTypeHelper.getTalendTypeOfValue("9223372036854775807"));
-        System.out.println("-9223372036854775809 => " + PerlDataTypeHelper.getTalendTypeOfValue("-9223372036854775809"));
+        System.out
+                .println("-9223372036854775809 => " + PerlDataTypeHelper.getTalendTypeOfValue("-9223372036854775809"));
         System.out.println("9223372036854775808 => " + PerlDataTypeHelper.getTalendTypeOfValue("9223372036854775808"));
         System.out.println("2.3 => " + PerlDataTypeHelper.getTalendTypeOfValue("2.3"));
         System.out.println("-2.3 => " + PerlDataTypeHelper.getTalendTypeOfValue("-2.3"));
@@ -54,15 +55,18 @@ public final class TestDataTypeHelper {
         System.out.println("float:" + PerlDataTypeHelper.getTalendTypeOfValue("1.11111111111"));
         System.out.println("float:"
                 + PerlDataTypeHelper.getTalendTypeOfValue("-0.0000000000000000000000000000000000000000000014"));
-        System.out.println("float:" + PerlDataTypeHelper.getTalendTypeOfValue("339999999999999999999999999999999999999.9")); // *
+        System.out.println("float:"
+                + PerlDataTypeHelper.getTalendTypeOfValue("339999999999999999999999999999999999999.9")); // *
         // double
         // flottant double 4.9*10 -324 � 1.7*10 308
-        System.out.println("double:"
-                + PerlDataTypeHelper
-                        .getTalendTypeOfValue("1699999999999999999999999999999999999999999999999999999999999999999999999999.9"));
-        System.out.println("double:"
-                + PerlDataTypeHelper
-                        .getTalendTypeOfValue("1700000000000000000000000000000000000000000000000000000000000000000000000000"));
+        System.out
+                .println("double:"
+                        + PerlDataTypeHelper
+                                .getTalendTypeOfValue("1699999999999999999999999999999999999999999999999999999999999999999999999999.9"));
+        System.out
+                .println("double:"
+                        + PerlDataTypeHelper
+                                .getTalendTypeOfValue("1700000000000000000000000000000000000000000000000000000000000000000000000000"));
     }
 
 }

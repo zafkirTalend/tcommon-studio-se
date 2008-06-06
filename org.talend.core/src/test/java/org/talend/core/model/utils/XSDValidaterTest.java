@@ -77,13 +77,13 @@ public class XSDValidaterTest {
 
         validatingFile = new File("mappings/mapping_MsOdbc.xml");
         validator.validateWithDom(validatorFile, validatingFile);
-        
+
         validatingFile = new File("mappings/mapping_Mysql.xml");
         validator.validateWithDom(validatorFile, validatingFile);
-        
+
         validatingFile = new File("mappings/mapping_Oracle.xml");
         validator.validateWithDom(validatorFile, validatingFile);
-    
+
     }
 
     /**

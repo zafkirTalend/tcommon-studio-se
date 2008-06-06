@@ -83,13 +83,15 @@ public class LocationUtils {
 
         String returnedExpression = expression;
         for (EntryLocation location : locations) {
-            recompilePatternIfNecessary(StringHelper.replacePrms(SUBST_PATTERN_FOR_PREFIX_COLUMN_NAME, new Object[] { location.tableName,
-                    location.columnName }));
+            recompilePatternIfNecessary(StringHelper.replacePrms(SUBST_PATTERN_FOR_PREFIX_COLUMN_NAME, new Object[] {
+                    location.tableName, location.columnName }));
             if (returnedExpression != null) {
                 matcher.setMultiline(true);
-                Perl5Substitution substitution = new Perl5Substitution(PREFIX_TABLE_NAME_REGEXP + "$1" + PREFIX_FIELD_NAME_REGEXP
-                        + "$1__$2" + SUFFIX_FIELD_NAME_REGEXP, Perl5Substitution.INTERPOLATE_ALL);
-                returnedExpression = Util.substitute(matcher, pattern, substitution, returnedExpression, Util.SUBSTITUTE_ALL);
+                Perl5Substitution substitution = new Perl5Substitution(PREFIX_TABLE_NAME_REGEXP + "$1"
+                        + PREFIX_FIELD_NAME_REGEXP + "$1__$2" + SUFFIX_FIELD_NAME_REGEXP,
+                        Perl5Substitution.INTERPOLATE_ALL);
+                returnedExpression = Util.substitute(matcher, pattern, substitution, returnedExpression,
+                        Util.SUBSTITUTE_ALL);
             }
         }
         return returnedExpression;

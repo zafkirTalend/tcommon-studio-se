@@ -178,7 +178,6 @@ public abstract class AbstractDataTableEditorView<B> {
 
     public void initGraphicComponents() {
 
-        
         mainComposite = new Composite(parentComposite, SWT.NONE);
         if (parentComposite.getBackground() != null
                 && !parentComposite.getBackground().equals(mainComposite.getBackground())) {

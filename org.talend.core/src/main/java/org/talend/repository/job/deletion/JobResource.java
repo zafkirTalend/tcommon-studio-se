@@ -108,8 +108,8 @@ public class JobResource {
             res = workspace.getRoot().findMember(
                     ".Perl"
                             + "/"
-                            + PerlResourcesHelper.getContextFileName(jobInfo.getJobName(), jobInfo.getJobVersion(), jobInfo
-                                    .getContextName()));
+                            + PerlResourcesHelper.getContextFileName(jobInfo.getJobName(), jobInfo.getJobVersion(),
+                                    jobInfo.getContextName()));
             resources.add(res);
         }
         return resources;

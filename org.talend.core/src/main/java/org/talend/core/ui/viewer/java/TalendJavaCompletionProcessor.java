@@ -57,7 +57,8 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
      * org.eclipse.core.runtime.IProgressMonitor, org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext)
      */
     @Override
-    protected List filterAndSortProposals(List proposals, IProgressMonitor monitor, ContentAssistInvocationContext context) {
+    protected List filterAndSortProposals(List proposals, IProgressMonitor monitor,
+            ContentAssistInvocationContext context) {
         List newProposals = super.filterAndSortProposals(proposals, monitor, context);
 
         List toRemove = new ArrayList();

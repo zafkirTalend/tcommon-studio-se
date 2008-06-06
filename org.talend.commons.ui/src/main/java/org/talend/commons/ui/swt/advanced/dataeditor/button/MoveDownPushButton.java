@@ -35,10 +35,13 @@ public abstract class MoveDownPushButton extends ExtendedPushButton {
      * @param image
      */
     public MoveDownPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("MoveDownPushButton.MoveDownTip"), ImageProvider.getImage(EImage.DOWN_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("MoveDownPushButton.MoveDownTip"), ImageProvider.getImage(EImage.DOWN_ICON)); //$NON-NLS-1$
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override

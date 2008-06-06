@@ -16,13 +16,11 @@ import java.util.ResourceBundle;
 
 import org.talend.commons.i18n.MessagesCore;
 
-
 /**
- * Default implementation of MessageCore from org.talend.commons plug-in.<br/>
- * <br/>
- *
+ * Default implementation of MessageCore from org.talend.commons plug-in.<br/> <br/>
+ * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
- *
+ * 
  */
 public class Messages extends MessagesCore {
 

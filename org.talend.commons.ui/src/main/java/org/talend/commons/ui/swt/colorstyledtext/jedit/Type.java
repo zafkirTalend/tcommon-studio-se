@@ -61,8 +61,8 @@ public abstract class Type {
         return eol;
     }
 
-    public static Span newSpan(String color, String begin, String end, boolean atLineStart, boolean excludeMatch, boolean noLineBreak,
-            boolean noWordBreak, String delegate) {
+    public static Span newSpan(String color, String begin, String end, boolean atLineStart, boolean excludeMatch,
+            boolean noLineBreak, boolean noWordBreak, String delegate) {
 
         Span span = new Span();
         span.type = delegate == null ? noLineBreak ? SINGLE_S : MULTI_S : DELEGATE_S;
@@ -77,8 +77,8 @@ public abstract class Type {
         return span;
     }
 
-    public static Span newMark(String color, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
-            String delegate, boolean isPrevious, boolean excludeMatch) {
+    public static Span newMark(String color, String text, boolean atLineStart, boolean atWhitespaceEnd,
+            boolean atWordStart, String delegate, boolean isPrevious, boolean excludeMatch) {
 
         Mark mark = new Mark();
         mark.type = isPrevious ? MARK_PREVIOUS : MARK_FOLLOWING;

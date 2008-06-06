@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.utils.threading;
 
-
 /**
  * 
  * Limit the execution of threads by verifying at call of <code>startIfExecutable</code> if the process can be

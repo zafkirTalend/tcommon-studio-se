@@ -50,12 +50,13 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton implem
 
     protected abstract Object getObjectToAdd();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
-
 
 }

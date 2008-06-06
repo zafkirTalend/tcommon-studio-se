@@ -12,17 +12,15 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public interface IServerConfiguration {
 
     public String getName();
-    
-    public String getHost();    
-    
+
+    public String getHost();
+
     public int getPort();
 }

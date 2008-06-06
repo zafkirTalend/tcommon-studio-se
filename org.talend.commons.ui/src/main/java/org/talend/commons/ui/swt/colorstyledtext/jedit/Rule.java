@@ -52,8 +52,8 @@ public class Rule {
 
     private static final KeywordMap EMPTY_MAP = new KeywordMap(false);
 
-    public static Rule newRule(Mode mode, String name, boolean highlightDigits, boolean ignoreCase, String digitRE, char escape,
-            String defaultTokenType) {
+    public static Rule newRule(Mode mode, String name, boolean highlightDigits, boolean ignoreCase, String digitRE,
+            char escape, String defaultTokenType) {
 
         Rule newRule = new Rule(name);
         newRule.mode = mode;

@@ -36,12 +36,17 @@ public abstract class ResetDBTypesPushButton extends ExtendedPushButton {
      * @param image
      */
     public ResetDBTypesPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("ResetDBTypesButton.ResetDBTypesButton.Tip"), ImageProvider.getImage(EImage.RESET_DBTYPES_ICON)); //$NON-NLS-1$
+        super(
+                parent,
+                extendedControlViewer,
+                Messages.getString("ResetDBTypesButton.ResetDBTypesButton.Tip"), ImageProvider.getImage(EImage.RESET_DBTYPES_ICON)); //$NON-NLS-1$
     }
 
     protected abstract Command getCommandToExecute();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override
@@ -49,6 +54,4 @@ public abstract class ResetDBTypesPushButton extends ExtendedPushButton {
         return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
     }
 
-    
-    
 }

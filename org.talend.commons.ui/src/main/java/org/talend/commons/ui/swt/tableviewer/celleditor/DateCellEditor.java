@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Control;
 public class DateCellEditor extends DialogCellEditor {
 
     /**
-     *  qiang.zhang DateCellEditor constructor comment.
+     * qiang.zhang DateCellEditor constructor comment.
      * 
      * @param parent
      */
@@ -33,7 +33,7 @@ public class DateCellEditor extends DialogCellEditor {
     }
 
     /**
-     *  qiang.zhang DateCellEditor constructor comment.
+     * qiang.zhang DateCellEditor constructor comment.
      * 
      * @param parent
      * @param style

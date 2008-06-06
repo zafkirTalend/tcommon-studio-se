@@ -85,7 +85,7 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
         synchronized (this) {
             locked = locker.lockIfUnlocked(ExecutionLimiterImproved.this);
             if (locked) {
-                //System.out.println("locked");
+                // System.out.println("locked");
                 atLeastOneCallRefused = false;
             }
 
@@ -130,19 +130,19 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                             }
                             inExecution = false;
                         } finally {
-                            //System.out.println("UNlocked");
+                            // System.out.println("UNlocked");
                             locker.unlock(ExecutionLimiterImproved.this);
                         }
                     }
                 });
                 return true;
             } else {
-//                System.out.println("Execution rejected: not executable");
+                // System.out.println("Execution rejected: not executable");
                 atLeastOneCallRefused = true;
                 return false;
             }
         } else {
-//            System.out.println("Execution rejected: locked");
+            // System.out.println("Execution rejected: locked");
             atLeastOneCallRefused = true;
             return false;
         }
@@ -152,9 +152,9 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
      * DOC amaumont Comment method "callFinalExecute".
      */
     private void callFinalExecute() {
-        //System.out.println("before test final execute");
+        // System.out.println("before test final execute");
         if (finalExecute) {
-            //System.out.println("try to final execution");
+            // System.out.println("try to final execution");
 
             while (true) {
                 try {
@@ -165,13 +165,13 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                     return;
                 }
                 if (!atLeastOneCallRefused) {
-//                    System.out.println("Final execution");
+                    // System.out.println("Final execution");
                     execute(true);
                     atLeastOneCallRefused = false;
                     break;
                 }
                 atLeastOneCallRefused = false;
-                //System.out.println("Intermediate execution");
+                // System.out.println("Intermediate execution");
                 execute(false);
             }
         }

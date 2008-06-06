@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -13,11 +13,17 @@
 package routines.system;
 
 public class LogCatcherUtils {
+
     public class LogCatcherMessage {
+
         private String type;
+
         private String origin;
+
         private int priority;
+
         private String message;
+
         private int code;
 
         public LogCatcherMessage(String type, String origin, int priority, String message, int code) {

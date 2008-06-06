@@ -5,13 +5,12 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
 // ============================================================================
 package routines;
-
 
 public class Mathematical {
 
@@ -304,7 +303,7 @@ public class Mathematical {
      * 
      * {param} double(3) a: double
      * 
-     * {param} double(2)  b: double
+     * {param} double(2) b: double
      * 
      * {example} MOD(3,2)
      * 
@@ -312,7 +311,7 @@ public class Mathematical {
     public static double MOD(double a, double b) {
         return a % b;
     }
-    
+
     public static void main(String[] args) {
         Mathematical.MOD(3, 2);
     }
@@ -418,7 +417,7 @@ public class Mathematical {
      * {Category} Mathematical
      * 
      * {param} string("12") a: string
-     *  
+     * 
      * {param} string("13") b: string
      * 
      * {example} SCMP(\"12\",\"13\")
@@ -528,7 +527,7 @@ public class Mathematical {
      * {Category} Mathematical
      * 
      * {param} string(20) a: string
-     *  
+     * 
      * {param} string(10) b: string
      * 
      * {example} SSUB(\"20\",\"10\")

@@ -15,13 +15,11 @@ package org.talend.commons.ui.swt.tableviewer.behavior;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class ComboEditorValueAdapter extends CellEditorValueAdapter {
 
@@ -29,6 +27,7 @@ public abstract class ComboEditorValueAdapter extends CellEditorValueAdapter {
 
     /**
      * DOC amaumont ComboEditorValueAdapter constructor comment.
+     * 
      * @param defaultItem
      */
     public ComboEditorValueAdapter(String defaultItem) {
@@ -76,5 +75,5 @@ public abstract class ComboEditorValueAdapter extends CellEditorValueAdapter {
     }
 
     public abstract String[] getItems(CellEditor cellEditor);
-    
+
 }

@@ -27,13 +27,13 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
  */
 public class TalendCellEditorValueAdapterFactory {
 
-//    /**
-//     * DOC amaumont Comment method "getComboAdapter".
-//     * 
-//     * @return
-//     */
-//    public static CellEditorValueAdapter getComboAdapterForJavaTalendType(final String defaultItem) {
-//
-//    }
+    // /**
+    // * DOC amaumont Comment method "getComboAdapter".
+    // *
+    // * @return
+    // */
+    // public static CellEditorValueAdapter getComboAdapterForJavaTalendType(final String defaultItem) {
+    //
+    // }
 
 }

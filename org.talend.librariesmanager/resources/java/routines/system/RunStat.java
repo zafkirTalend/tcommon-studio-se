@@ -100,10 +100,12 @@ public class RunStat implements Runnable {
 
     private String str = "";
 
-    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
+    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException,
+            java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
-        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
+        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
+                true);
         System.out.println("[statistics] connected");
         Thread t = new Thread(this);
         t.start();

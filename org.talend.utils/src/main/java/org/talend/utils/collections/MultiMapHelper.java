@@ -148,7 +148,8 @@ public final class MultiMapHelper {
      * @return true if map has changed as a result of this removing.
      * @see Collection#remove(java.lang.Object)
      */
-    public static <KeyT, ValT> boolean removeObjectFromCollectionMap(KeyT key, ValT toBeRemoved, Map<KeyT, Collection<ValT>> map) {
+    public static <KeyT, ValT> boolean removeObjectFromCollectionMap(KeyT key, ValT toBeRemoved,
+            Map<KeyT, Collection<ValT>> map) {
         Collection<ValT> obj = map.get(key);
         if (obj == null) {
             return false;
@@ -168,7 +169,8 @@ public final class MultiMapHelper {
      * @return true if after removal collection rezfered to is empty
      * @see MultiMapHelper#removeObjectFromCollectionMap(Object, Object, Map)
      */
-    public static <KeyT, ValT> boolean removeAndCleanFromCollectionMap(KeyT key, ValT toBeRemoved, Map<KeyT, Collection<ValT>> map) {
+    public static <KeyT, ValT> boolean removeAndCleanFromCollectionMap(KeyT key, ValT toBeRemoved,
+            Map<KeyT, Collection<ValT>> map) {
         Collection<ValT> obj = map.get(key);
         if (obj == null) {
             return false;

@@ -61,7 +61,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         File sourceFile = new File(source.getFile());
         File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
         FilesUtils.copyFile(sourceFile, targetFile);
-        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
+        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(),
+                ELibraryInstallStatus.INSTALLED);
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
             addResolvedClasspathPath(targetFile);
         }

@@ -30,6 +30,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
+     * 
      * @param extendedTable
      * @param validAssignableType
      * @param indexStartAdd
@@ -40,6 +41,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
+     * 
      * @param extendedTable
      * @param instanceOfType
      */

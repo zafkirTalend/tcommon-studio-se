@@ -42,9 +42,9 @@ public class TableUtils {
                     && pointCursor.x <= width + widthColumn
                     && ((!WindowSystem.isGTK() && pointCursor.y > table.getHeaderHeight() && pointCursor.y < table
                             .getHeaderHeight()
-                            + table.getItemCount() * table.getItemHeight()) || (WindowSystem.isGTK() && pointCursor.y > 0 && pointCursor.y < table
-                            .getItemCount()
-                            * table.getItemHeight() + table.getItemHeight()))) {
+                            + table.getItemCount() * table.getItemHeight()) || (WindowSystem.isGTK()
+                            && pointCursor.y > 0 && pointCursor.y < table.getItemCount() * table.getItemHeight()
+                            + table.getItemHeight()))) {
                 currentColumnIndex = i;
                 break;
             }

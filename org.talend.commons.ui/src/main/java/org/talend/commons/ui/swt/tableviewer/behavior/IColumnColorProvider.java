@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.Color;
  * given bean of the table (element) and the current column. <br/>
  * 
  * $Id: IColumnImageProvider.java 1155 2006-12-21 09:51:10Z amaumont $
+ * 
  * @param <B> element bean of the <code>TableViewerCreator</code>
  */
 public interface IColumnColorProvider<B> {

@@ -59,7 +59,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void execute() {
 
@@ -101,7 +101,6 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
             }
         }
 
-        
         extendedTable.swapElements(indicesOrigin, indicesTarget);
 
     }
@@ -131,7 +130,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
      * 
      * @see org.talend.commons.ui.command.CommonCommand#redo()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void redo() {
         undo();
@@ -142,7 +141,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void undo() {
         Collections.reverse(indicesTarget);

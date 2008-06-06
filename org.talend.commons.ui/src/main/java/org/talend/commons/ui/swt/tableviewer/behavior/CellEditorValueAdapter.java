@@ -46,7 +46,7 @@ import org.eclipse.jface.viewers.CellEditor;
  *   });
  * </code>
  * </p>
- *  
+ * 
  * <br/>
  * 
  * $Id: CellEditorValueAdapter.java 7038 2007-11-15 14:05:48Z plegall $

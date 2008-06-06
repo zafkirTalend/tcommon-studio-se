@@ -57,15 +57,15 @@ public class VerticalRoundedCornerLink extends AbstractDrawableLink {
 
         gc.drawLine(point1.x, point1.y, point1.x - connectorWidth - xOffset, point1.y);
 
-        gc.drawArc(point1.x - connectorWidth - radius - xOffset, point1.y - (point1Above ? 2 * radius : 0), 2 * radius, 2 * radius,
-                point1Above ? 180 : 90, 90);
+        gc.drawArc(point1.x - connectorWidth - radius - xOffset, point1.y - (point1Above ? 2 * radius : 0), 2 * radius,
+                2 * radius, point1Above ? 180 : 90, 90);
 
         // // in1 pr
-        gc.drawLine(point1.x - connectorWidth - radius - xOffset, point1.y - mult * radius, point2.x - connectorWidth - radius - xOffset,
-                point2.y + mult * radius);
+        gc.drawLine(point1.x - connectorWidth - radius - xOffset, point1.y - mult * radius, point2.x - connectorWidth
+                - radius - xOffset, point2.y + mult * radius);
 
-        gc.drawArc(point2.x - connectorWidth - radius - xOffset, point2.y - (point1Above ? 0 : 2 * radius), 2 * radius, 2 * radius,
-                point1Above ? 90 : 180, 90);
+        gc.drawArc(point2.x - connectorWidth - radius - xOffset, point2.y - (point1Above ? 0 : 2 * radius), 2 * radius,
+                2 * radius, point1Above ? 90 : 180, 90);
 
         // // connector pr (in)
         gc.drawLine(point2.x - connectorWidth - xOffset, point2.y, point2.x, point2.y);

@@ -50,15 +50,13 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
     public CellEditorDialogBehavior() {
         super();
     }
-    
+
     private Composite panel;
 
-    
     public ExtendedTextCellEditor getExtendedTextCellEditor() {
         return extendedTextCellEditor;
     }
 
-    
     public void setExtendedTextCellEditor(ExtendedTextCellEditor extendedTextCellEditor) {
         this.extendedTextCellEditor = extendedTextCellEditor;
     }

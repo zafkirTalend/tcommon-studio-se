@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //
@@ -22,37 +22,32 @@ import org.talend.commons.ui.i18n.Messages;
  * DOC yexiaowei class global comment. Detailled comment
  */
 public class ErrorDialogWithDetailAreaAndContinueButton {
-	private int codeOfButton;
 
-	/**
-	 * Open an Error dialog with a details area (title = "Error Message").
-	 * 
-	 * @param shell
-	 * @param String
-	 *            (Product ID -> Activator.PLUGIN_ID)
-	 * @param mainMessage
-	 * @param detailMessage
-	 *            (\n an \t are interpreted ; \r are deleted)
-	 */
-	public ErrorDialogWithDetailAreaAndContinueButton(Shell shell, String pid,
-			String mainMessage, String detailMessage) {
-		MultiStatus info = new MultiStatus(pid, 1, mainMessage, null);
-		if (detailMessage != null) {
-			String[] lines = detailMessage.split("\n");
-			for (int i = 0; i < lines.length; i++) {
-				info.add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll(
-						"\t", "    ").replaceAll("\r", ""), null));
-			}
-		}
-		codeOfButton = ErrorDialogWithContinue
-				.openErrorWithContinueButton(
-						shell,
-						Messages
-								.getString("ErrorDialogWidthDetailArea.ErrorMessage.Text"),
-						null, info); //$NON-NLS-1$
-	}
+    private int codeOfButton;
 
-	public int getCodeOfButton() {
-		return this.codeOfButton;
-	}
+    /**
+     * Open an Error dialog with a details area (title = "Error Message").
+     * 
+     * @param shell
+     * @param String (Product ID -> Activator.PLUGIN_ID)
+     * @param mainMessage
+     * @param detailMessage (\n an \t are interpreted ; \r are deleted)
+     */
+    public ErrorDialogWithDetailAreaAndContinueButton(Shell shell, String pid, String mainMessage, String detailMessage) {
+        MultiStatus info = new MultiStatus(pid, 1, mainMessage, null);
+        if (detailMessage != null) {
+            String[] lines = detailMessage.split("\n");
+            for (int i = 0; i < lines.length; i++) {
+                info
+                        .add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""),
+                                null));
+            }
+        }
+        codeOfButton = ErrorDialogWithContinue.openErrorWithContinueButton(shell, Messages
+                .getString("ErrorDialogWidthDetailArea.ErrorMessage.Text"), null, info); //$NON-NLS-1$
+    }
+
+    public int getCodeOfButton() {
+        return this.codeOfButton;
+    }
 }

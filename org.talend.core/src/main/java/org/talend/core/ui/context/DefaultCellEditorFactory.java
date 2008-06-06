@@ -98,8 +98,8 @@ public final class DefaultCellEditorFactory {
                         // Get the index into the list via this call to super.
                         //
                         int index = ((Integer) super.doGetValue()).intValue();
-                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue())
-                                .intValue()) : null;
+                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super
+                                .doGetValue()).intValue()) : null;
                         if (string != null) {
                             para.setValue(string.toString());
                         }
@@ -129,8 +129,8 @@ public final class DefaultCellEditorFactory {
                         // Get the index into the list via this call to super.
                         //
                         int index = ((Integer) super.doGetValue()).intValue();
-                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue())
-                                .intValue()) : null;
+                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super
+                                .doGetValue()).intValue()) : null;
                         if (string != null) {
                             para.setValue(string.toString());
                         }

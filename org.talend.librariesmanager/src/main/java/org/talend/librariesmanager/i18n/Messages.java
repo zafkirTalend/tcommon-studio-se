@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -17,13 +17,12 @@ import java.util.ResourceBundle;
 import org.talend.commons.i18n.MessagesCore;
 
 /**
- * DOC qzhang  class global comment. Detailled comment
- * <br/>
- *
- * $Id: talend-code-templates.xml 1 2007-2-5 上�?�11:22:30 (星期五, 29 �?月 2006) qzhang $
- *
+ * DOC qzhang class global comment. Detailled comment <br/>
+ * 
+ * $Id: talend-code-templates.xml 1 2007-2-5 上�?�11:22:30 (星期五, 29 �?月 2006) qzhang $
+ * 
  */
-public class Messages extends MessagesCore{
+public class Messages extends MessagesCore {
 
     private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 

@@ -148,7 +148,8 @@ public final class TestTableViewerCreator2 {
      * @param table
      * @param intValueAdapter
      */
-    private static void initColumns(TableViewerCreator tableViewerCreator, Table table, CellEditorValueAdapter intValueAdapter) {
+    private static void initColumns(TableViewerCreator tableViewerCreator, Table table,
+            CellEditorValueAdapter intValueAdapter) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setWidth(0);
@@ -172,8 +173,7 @@ public final class TestTableViewerCreator2 {
         column.setDefaultDisplayedValue(String.valueOf(Integer.MAX_VALUE));
         column.setId("uid2");
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
-        
-        
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("check");
         column.setId("check");
@@ -194,8 +194,8 @@ public final class TestTableViewerCreator2 {
         column.setTableEditorContent(nullableCheckbox);
 
         tableViewerCreator.setDefaultSort(column, SORT.DESC);
-//        tableViewerCreator.setSortable(true);
-        
+        // tableViewerCreator.setSortable(true);
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
@@ -228,10 +228,7 @@ public final class TestTableViewerCreator2 {
         column.setWeight(TWENTY);
         column.setId("uid");
         column.setCellEditor(new TextCellEditor(table));
-        
-        
-        
-        
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Integer Null Value");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
@@ -308,7 +305,8 @@ public final class TestTableViewerCreator2 {
                 Composite composite = new Composite(table, SWT.PUSH);
                 // Set attributes of the button
                 composite.setBackground(new Color(null, ALL, ZERO, ZERO));
-                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table.getItemHeight());
+                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table
+                        .getItemHeight());
                 // Set attributes of the editor
                 // tableEditor.grabHorizontal = true;
                 tableEditor.minimumHeight = composite.getSize().y;

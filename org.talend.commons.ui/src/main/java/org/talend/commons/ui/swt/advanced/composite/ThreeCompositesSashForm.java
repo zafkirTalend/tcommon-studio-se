@@ -80,8 +80,8 @@ public class ThreeCompositesSashForm extends Composite {
         leftSash.setLocation(leftSashPreLocation + shift, leftSash.getBounds().y);
         if (leftSash.getBounds().x > 0) {
             if (leftSashPreLocation < 0) {
-                leftComposite.setSize(leftComposite.getBounds().width + shift + leftSashPreLocation,
-                        leftComposite.getBounds().height);
+                leftComposite.setSize(leftComposite.getBounds().width + shift + leftSashPreLocation, leftComposite
+                        .getBounds().height);
             } else {
                 leftComposite.setSize(leftComposite.getBounds().width + shift, leftComposite.getBounds().height);
             }

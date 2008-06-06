@@ -26,7 +26,6 @@ import java.util.Map;
 //
 // ============================================================================
 
-
 public class LocaleProvider {
 
     private static Map<String, Locale> cache;

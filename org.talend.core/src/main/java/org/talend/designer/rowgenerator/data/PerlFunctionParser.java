@@ -106,7 +106,8 @@ public class PerlFunctionParser extends AbstractFunctionParser {
         this.files = filesList.toArray(new File[filesList.size()]);
     }
 
-    private IFile getRoutineFile(ITalendSynchronizer routineSynchronizer, IRepositoryObject object) throws SystemException {
+    private IFile getRoutineFile(ITalendSynchronizer routineSynchronizer, IRepositoryObject object)
+            throws SystemException {
         Item item = object.getProperty().getItem();
         if (item.eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
             RoutineItem routineItem = (RoutineItem) item;

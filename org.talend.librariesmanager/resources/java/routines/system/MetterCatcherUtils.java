@@ -27,64 +27,73 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class MetterCatcherUtils {
+
     public class MetterCatcherMessage {
+
         private String origin;
+
         private Date moment;
+
         private String jobVersion;
+
         private String jobId;
+
         private Long systemPid;
-        
+
         private String label;
+
         private Integer count;
+
         private String referense;
+
         private String thresholds;
-        
-        public MetterCatcherMessage(String label, Integer count, String referense, String thresholds,
-                String origin, String jobVersion, String jobId) {
+
+        public MetterCatcherMessage(String label, Integer count, String referense, String thresholds, String origin,
+                String jobVersion, String jobId) {
             this.moment = java.util.Calendar.getInstance().getTime();
             this.jobVersion = jobVersion;
             this.jobId = jobId;
             this.systemPid = MetterCatcherUtils.getPid();
             this.origin = origin;
-            
+
             this.label = label;
             this.count = count;
             this.referense = referense;
             this.thresholds = thresholds;
         }
-          
+
         public Integer getCount() {
             return this.count;
         }
-        
+
         public void setCount(Integer count) {
             this.count = count;
         }
-        
+
         public String getLabel() {
             return this.label;
         }
-        
+
         public void setLabel(String label) {
             this.label = label;
         }
-        
+
         public String getReferense() {
             return this.referense;
         }
-        
+
         public void setReferense(String referense) {
             this.referense = referense;
         }
-        
+
         public String getThresholds() {
             return this.thresholds;
         }
-        
+
         public void setThresholds(String thresholds) {
             this.thresholds = thresholds;
         }
-        
+
         public String getOrigin() {
             return origin;
         }
@@ -92,7 +101,7 @@ public class MetterCatcherUtils {
         public void setOrigin(String origin) {
             this.origin = origin;
         }
-        
+
         public Date getMoment() {
             return moment;
         }
@@ -100,27 +109,27 @@ public class MetterCatcherUtils {
         public void setMoment(Date d) {
             this.moment = d;
         }
-        
+
         public String getJobId() {
             return jobId;
         }
-        
+
         public void setJobId(String jobId) {
             this.jobId = jobId;
         }
-        
+
         public String getJobVersion() {
             return jobVersion;
         }
-        
+
         public void setJobVersion(String jobVersion) {
             this.jobVersion = jobVersion;
         }
-        
+
         public Long getSystemPid() {
             return systemPid;
         }
-        
+
         public void setSystemPid(Long systemPid) {
             this.systemPid = systemPid;
         }
@@ -129,15 +138,18 @@ public class MetterCatcherUtils {
     java.util.List<MetterCatcherMessage> messages = new java.util.ArrayList<MetterCatcherMessage>();
 
     String jobId = "";
+
     String jobVersion = "";
+
     public MetterCatcherUtils(String jobId, String jobVersion) {
         this.jobId = jobId;
         this.jobVersion = jobVersion;
     }
 
-    public void addMessage(String label, Integer count, String referense, String thresholds,String origin) {
-       
-        MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin, this.jobVersion, this.jobId);
+    public void addMessage(String label, Integer count, String referense, String thresholds, String origin) {
+
+        MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin,
+                this.jobVersion, this.jobId);
         messages.add(scm);
     }
 
@@ -149,30 +161,26 @@ public class MetterCatcherUtils {
         messages.clear();
         return messagesToSend;
     }
-    
+
     private static HashMap<String, Integer> connCountMap = new HashMap<String, Integer>();
-    public static void addLineToRow(String connName)
-    {
-        if(connCountMap.containsKey(connName))
-        {
+
+    public static void addLineToRow(String connName) {
+        if (connCountMap.containsKey(connName)) {
             Integer count = MetterCatcherUtils.connCountMap.get(connName);
-            MetterCatcherUtils.connCountMap.put(connName,new Integer(count.intValue()+1));
-        }
-        else
-        {
-            MetterCatcherUtils.connCountMap.put(connName,new Integer(1));
+            MetterCatcherUtils.connCountMap.put(connName, new Integer(count.intValue() + 1));
+        } else {
+            MetterCatcherUtils.connCountMap.put(connName, new Integer(1));
         }
     }
-    
-    public static Integer getConnLinesCount(String connName)
-    {
+
+    public static Integer getConnLinesCount(String connName) {
         return MetterCatcherUtils.connCountMap.get(connName);
     }
-    
+
     public static long getPid() {
         RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
         String[] mxNameTable = mx.getName().split("@");
-        if (mxNameTable.length==2) {
+        if (mxNameTable.length == 2) {
             return Long.parseLong(mxNameTable[0]);
         } else {
             return Thread.currentThread().getId();

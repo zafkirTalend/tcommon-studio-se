@@ -23,17 +23,14 @@ public class ExtensionPointLimiterImpl implements IExtensionPointLimiter {
     String extPointId;
 
     String elementName;
-    
+
     int minOcc = -1;
 
     int maxOcc = -1;
 
-
-
-    
-    
     /**
      * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * 
      * @param extPointId
      * @param elementName can be null
      * @param namespaceIdentifier can be null
@@ -48,9 +45,9 @@ public class ExtensionPointLimiterImpl implements IExtensionPointLimiter {
         this.maxOcc = maxOcc;
     }
 
-
     /**
      * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * 
      * @param extPointId
      * @param minOcc
      * @param maxOcc
@@ -62,10 +59,9 @@ public class ExtensionPointLimiterImpl implements IExtensionPointLimiter {
         this.maxOcc = maxOcc;
     }
 
-
-
     /**
      * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * 
      * @param extPointId
      */
     public ExtensionPointLimiterImpl(String extPointId) {
@@ -73,10 +69,9 @@ public class ExtensionPointLimiterImpl implements IExtensionPointLimiter {
         this.extPointId = extPointId;
     }
 
-
-
     /**
      * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * 
      * @param extPointId
      * @param elementName
      */
@@ -85,8 +80,6 @@ public class ExtensionPointLimiterImpl implements IExtensionPointLimiter {
         this.extPointId = extPointId;
         this.elementName = elementName;
     }
-
-
 
     /**
      * Sets the extPointId.

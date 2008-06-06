@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-
 /**
  * 
  * DOC smallet IODataComponentContainer class global comment. Detailled comment <br/>
@@ -63,7 +62,7 @@ public class ColumnNameChanged {
      */
     @Override
     public String toString() {
-        return "Column changed : " + oldName + "->" + newName;  //$NON-NLS-1$//$NON-NLS-2$
+        return "Column changed : " + oldName + "->" + newName; //$NON-NLS-1$//$NON-NLS-2$
     }
 
 }

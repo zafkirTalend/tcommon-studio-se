@@ -27,17 +27,20 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.ExtendedTextCellEditor;
  * $Id: TextCellEditorWithProposal.java 3351 2007-05-04 12:14:00Z plegall $
  * 
  */
-public class ExtendedTextCellEditorWithProposal extends ExtendedTextCellEditor implements IShowInvisibleCellEditorMethods {
+public class ExtendedTextCellEditorWithProposal extends ExtendedTextCellEditor implements
+        IShowInvisibleCellEditorMethods {
 
     private CommonTextCellEditorWithProposal commonTextEditor;
 
-    public ExtendedTextCellEditorWithProposal(Composite parent, int style, TableViewerCreatorColumn tableViewerCreatorColumn, CellEditorDialogBehavior behavior) {
+    public ExtendedTextCellEditorWithProposal(Composite parent, int style,
+            TableViewerCreatorColumn tableViewerCreatorColumn, CellEditorDialogBehavior behavior) {
         super(parent, behavior);
         setStyle(style);
         commonTextEditor.init(tableViewerCreatorColumn);
     }
 
-    public ExtendedTextCellEditorWithProposal(Composite parent, TableViewerCreatorColumn tableViewerCreatorColumn, CellEditorDialogBehavior behavior) {
+    public ExtendedTextCellEditorWithProposal(Composite parent, TableViewerCreatorColumn tableViewerCreatorColumn,
+            CellEditorDialogBehavior behavior) {
         this(parent, SWT.NONE, tableViewerCreatorColumn, behavior);
     }
 
@@ -51,10 +54,9 @@ public class ExtendedTextCellEditorWithProposal extends ExtendedTextCellEditor i
     /**
      * Can't be overrided since it is final
      */
-//    @Override
-//    public void create(Composite parent) {
-//    }
-
+    // @Override
+    // public void create(Composite parent) {
+    // }
     @Override
     protected void differedCreate(Composite parent) {
         super.differedCreate(parent);

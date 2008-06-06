@@ -213,8 +213,7 @@ public interface INode extends IElement {
      * @return
      */
     public boolean isGeneratedAsVirtualComponent();
-    
+
     public boolean isELTComponent();
-    
-    
+
 }

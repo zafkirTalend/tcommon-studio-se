@@ -38,7 +38,8 @@ public abstract class AbstractExtendedTableResetDBTypesCommand extends Command i
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
-     * @param dbmsId 
+     * 
+     * @param dbmsId
      */
     public AbstractExtendedTableResetDBTypesCommand(ExtendedTableModel extendedTable, String dbmsId) {
         super(LABEL);
@@ -51,57 +52,56 @@ public abstract class AbstractExtendedTableResetDBTypesCommand extends Command i
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void execute() {
-//        JavaType javaType = JavaTypesManager.getJavaTypeFromId(oldTalendType);
-//        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
-        
+        // JavaType javaType = JavaTypesManager.getJavaTypeFromId(oldTalendType);
+        // String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
 
         List beansList = extendedTable.getBeansList();
-        for (Object object :beansList) {
-//            if (object instanceof IMet)
+        for (Object object : beansList) {
+            // if (object instanceof IMet)
         }
-//
-//        if (indexItemToRemove != null) {
-//            removedBeans = new ArrayList(1);
-//            extendedTable.remove((int) indexItemToRemove);
-//            removedBeans.add(removedBeans);
-//            removedBeansIndices = new ArrayList(1);
-//            removedBeansIndices.add(indexItemToRemove);
-//        }
-//        if (indexItemsToRemove != null) {
-//            removedBeans = new ArrayList(extendedTable.remove(indexItemsToRemove));
-//            removedBeansIndices = Arrays.asList(ArrayUtils.toObject(indexItemsToRemove));
-//        }
-//        if (beansToRemove != null) {
-//
-//            int lstSize = beansToRemove.size();
-//            removedBeansIndices = new ArrayList();
-//            List beansToRemove2 = new ArrayList(beansToRemove);
-//            for (int i = 0; i < lstSize; i++) {
-//                int index = beansList.indexOf(beansToRemove2.get(i));
-//                if (index != -1) {
-//                    removedBeansIndices.add(index);
-//                } else {
-//                    beansToRemove.remove(i);
-//                }
-//            }
-//            if (extendedTable.removeAll((Collection) beansToRemove)) {
-//                removedBeans = new ArrayList(beansToRemove);
-//            } else {
-//                removedBeansIndices.clear();
-//            }
-//        }
-//        if (beanToRemove != null) {
-//            int index = beansList.indexOf(beanToRemove);
-//            if (extendedTable.remove(beanToRemove)) {
-//                removedBeans = new ArrayList(1);
-//                removedBeans.add(beanToRemove);
-//                removedBeansIndices = new ArrayList(1);
-//                removedBeansIndices.add(index);
-//            }
-//        }
+        //
+        // if (indexItemToRemove != null) {
+        // removedBeans = new ArrayList(1);
+        // extendedTable.remove((int) indexItemToRemove);
+        // removedBeans.add(removedBeans);
+        // removedBeansIndices = new ArrayList(1);
+        // removedBeansIndices.add(indexItemToRemove);
+        // }
+        // if (indexItemsToRemove != null) {
+        // removedBeans = new ArrayList(extendedTable.remove(indexItemsToRemove));
+        // removedBeansIndices = Arrays.asList(ArrayUtils.toObject(indexItemsToRemove));
+        // }
+        // if (beansToRemove != null) {
+        //
+        // int lstSize = beansToRemove.size();
+        // removedBeansIndices = new ArrayList();
+        // List beansToRemove2 = new ArrayList(beansToRemove);
+        // for (int i = 0; i < lstSize; i++) {
+        // int index = beansList.indexOf(beansToRemove2.get(i));
+        // if (index != -1) {
+        // removedBeansIndices.add(index);
+        // } else {
+        // beansToRemove.remove(i);
+        // }
+        // }
+        // if (extendedTable.removeAll((Collection) beansToRemove)) {
+        // removedBeans = new ArrayList(beansToRemove);
+        // } else {
+        // removedBeansIndices.clear();
+        // }
+        // }
+        // if (beanToRemove != null) {
+        // int index = beansList.indexOf(beanToRemove);
+        // if (extendedTable.remove(beanToRemove)) {
+        // removedBeans = new ArrayList(1);
+        // removedBeans.add(beanToRemove);
+        // removedBeansIndices = new ArrayList(1);
+        // removedBeansIndices.add(index);
+        // }
+        // }
 
     }
 
@@ -130,11 +130,11 @@ public abstract class AbstractExtendedTableResetDBTypesCommand extends Command i
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public synchronized void undo() {
 
-//        extendedTable.addAll(removedBeansIndices, removedBeans);
+        // extendedTable.addAll(removedBeansIndices, removedBeans);
 
     }
 

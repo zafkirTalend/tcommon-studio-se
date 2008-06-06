@@ -15,16 +15,14 @@ package org.talend.core.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * DOC chuger  class global comment. Detailled comment
- * <br/>
- *
+ * DOC chuger class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class XmlRow {
-    
+
     private List<XmlField> fields;
 
     /**
@@ -35,17 +33,18 @@ public class XmlRow {
         fields = new ArrayList<XmlField>();
     }
 
-    
     /**
      * Getter for fields.
+     * 
      * @return the fields
      */
     public List<XmlField> getFields() {
         return this.fields;
     }
-    
+
     /**
      * Adds a fields at the end of the row.
+     * 
      * @param field Field to add.
      */
     public void add(XmlField field) {

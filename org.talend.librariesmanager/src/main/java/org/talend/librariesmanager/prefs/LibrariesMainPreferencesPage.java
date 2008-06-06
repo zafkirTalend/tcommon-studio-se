@@ -36,7 +36,8 @@ public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage impl
         choice = new RadioGroupFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE, Messages
                 .getString("MainPreferencesPage.folderSelectionMode"), 1, new String[][] {
                 { Messages.getString("MainPreferencesPage.sameRootFolder"), SINGLE_MODE },
-                { Messages.getString("MainPreferencesPage.separateRootFolder"), SEPARATE_MODE } }, getFieldEditorParent());
+                { Messages.getString("MainPreferencesPage.separateRootFolder"), SEPARATE_MODE } },
+                getFieldEditorParent());
 
         externalLibrariesPath = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH, Messages
                 .getString("MainPreferencesPage.externalLibPath"), getFieldEditorParent()); //$NON-NLS-1$

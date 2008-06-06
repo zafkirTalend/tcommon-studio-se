@@ -132,7 +132,8 @@ public class MultipleColumnsBeanComparator implements Comparator {
     }
 
     @SuppressWarnings("unchecked")
-    public static void sort(boolean orderAscendant, List<? extends Object> collection, TableViewerCreatorColumn... propertiesByPriority) {
+    public static void sort(boolean orderAscendant, List<? extends Object> collection,
+            TableViewerCreatorColumn... propertiesByPriority) {
         Collections.sort(collection, new MultipleColumnsBeanComparator(orderAscendant, propertiesByPriority));
     }
 

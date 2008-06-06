@@ -57,7 +57,8 @@ public class CommandStackForComposite extends CommandStack {
                 Widget widget = event.widget;
                 if (widget instanceof Control) {
                     Control control = (Control) widget;
-                    if (refControlIsShell && control.getShell() == refComposite || !refControlIsShell && refControlIsParentOf(control)) {
+                    if (refControlIsShell && control.getShell() == refComposite || !refControlIsShell
+                            && refControlIsParentOf(control)) {
                         keyPressedExecute(event);
                     }
                 }

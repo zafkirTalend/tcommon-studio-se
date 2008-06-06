@@ -35,10 +35,10 @@ public interface IContext {
     public List<IContextParameter> getContextParameterList();
 
     public void setContextParameterList(List<IContextParameter> contextParameterList);
-    
+
     public IContextParameter getContextParameter(String parameterName);
 
     public IContext clone();
-    
+
     public boolean sameAs(IContext context);
 }

@@ -144,7 +144,8 @@ public class ContentProposalAdapterExtended {
                         public void run() {
                             if (!control.isDisposed()) {
                                 Control focusControl = control.getDisplay().getFocusControl();
-                                if (focusControl != control && focusControl != proposalTable && focusControl != getShell()) {
+                                if (focusControl != control && focusControl != proposalTable
+                                        && focusControl != getShell()) {
                                     authorizedClose();
                                 }
                             }
@@ -210,7 +211,8 @@ public class ContentProposalAdapterExtended {
                                 // the popup shell on the Mac.
                                 // Check the active shell.
                                 Shell activeShell = e.display.getActiveShell();
-                                if (activeShell == getShell() || (infoPopup != null && infoPopup.getShell() == activeShell)) {
+                                if (activeShell == getShell()
+                                        || (infoPopup != null && infoPopup.getShell() == activeShell)) {
                                     return;
                                 }
                                 System.out.println("close focusout");
@@ -465,8 +467,8 @@ public class ContentProposalAdapterExtended {
                     // Modifier keys are explicitly checked and ignored because
                     // they are not complete yet (no character).
                     default:
-                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1 && e.keyCode != SWT.MOD2
-                                && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
+                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1
+                                && e.keyCode != SWT.MOD2 && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
                             authorizedClose();
                         }
                         return;
@@ -608,14 +610,15 @@ public class ContentProposalAdapterExtended {
                 rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
                 // If it won't fit on the right, try the left
                 if (rightProposedBounds.intersects(parentBounds)) {
-                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING
-                            - 1, parentBounds.y, parentBounds.width, parentBounds.height);
+                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width
+                            - POPUP_HORIZONTALSPACING - 1, parentBounds.y, parentBounds.width, parentBounds.height);
                     leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                     // If it won't fit on the left, choose the proposed bounds
                     // that fits the best
                     if (leftProposedBounds.intersects(parentBounds)) {
                         if (rightProposedBounds.x - parentBounds.x >= parentBounds.x - leftProposedBounds.x) {
-                            rightProposedBounds.x = parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING;
+                            rightProposedBounds.x = parentBounds.x + parentBounds.width
+                                    + PopupDialog.POPUP_HORIZONTALSPACING;
                             proposedBounds = rightProposedBounds;
                         } else {
                             leftProposedBounds.width = parentBounds.x - POPUP_HORIZONTALSPACING - leftProposedBounds.x;
@@ -1161,7 +1164,8 @@ public class ContentProposalAdapterExtended {
             int results = 0;
             boolean continueSearching = true;
             String currentFilter = EMPTY;
-            for (int indexStartFilter = 0; results == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
+            for (int indexStartFilter = 0; results == 0 && continueSearching
+                    && indexStartFilter < filterString.length(); indexStartFilter++) {
                 currentFilter = filterString.substring(indexStartFilter);
                 // System.out.println("currentFilter="+currentFilter);
 
@@ -1725,12 +1729,13 @@ public class ContentProposalAdapterExtended {
                         if (triggerKeyStroke != null) {
                             // Either there are no modifiers for the trigger and we
                             // check the character field...
-                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke.getNaturalKey() == e.character)
+                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke
+                                    .getNaturalKey() == e.character)
                                     ||
                                     // ...or there are modifiers, in which case the
                                     // keycode and state must match
-                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke.getModifierKeys() & e.stateMask) == triggerKeyStroke
-                                            .getModifierKeys()))) {
+                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke
+                                            .getModifierKeys() & e.stateMask) == triggerKeyStroke.getModifierKeys()))) {
                                 // We never propagate the keystroke for an explicit
                                 // keystroke invocation of the popup
                                 e.doit = false;

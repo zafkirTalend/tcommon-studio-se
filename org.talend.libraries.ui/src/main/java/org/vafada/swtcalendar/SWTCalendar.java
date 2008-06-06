@@ -1,24 +1,19 @@
 /*
- *  SWTCalendar.java  - A calendar component for SWT
- *  Author: Mark Bryan Yu
- *  Modified by: Sergey Prigogin
- *  swtcalendar.sourceforge.net
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy of
- *  this software and associated documentation files (the "Software"), to deal in the
- *  Software without restriction, including without limitation the rights to use, copy,
- *  modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
- *  and to permit persons to whom the Software is furnished to do so, subject to the
- *  following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in all copies
- *  or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- *  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- *  PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL SIMON TATHAM BE LIABLE FOR ANY CLAIM,
- *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * SWTCalendar.java - A calendar component for SWT Author: Mark Bryan Yu Modified by: Sergey Prigogin
+ * swtcalendar.sourceforge.net
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL SIMON TATHAM
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package org.vafada.swtcalendar;
 
@@ -35,12 +30,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Spinner;
 
-
 public class SWTCalendar extends Composite {
+
     /**
      * Style constant for making Sundays red.
      */
     public static final int RED_SUNDAY = SWTDayChooser.RED_SUNDAY;
+
     /**
      * Style constant for making weekends red.
      */
@@ -49,15 +45,18 @@ public class SWTCalendar extends Composite {
     private boolean settingDate;
 
     private Spinner yearChooser;
+
     private SWTMonthChooser monthChooser;
+
     private SWTDayChooser dayChooser;
+
     private boolean settingYearMonth;
 
     /**
      * Constructs a calendar control.
-     *
+     * 
      * @param parent a parent container.
-     * @param style  FLAT to make the buttons flat, or NONE.
+     * @param style FLAT to make the buttons flat, or NONE.
      */
     public SWTCalendar(Composite parent, int style) {
         super(parent, (style & ~(SWT.FLAT | RED_WEEKEND)));
@@ -86,10 +85,12 @@ public class SWTCalendar extends Composite {
                 header.setLayout(gridLayout);
             }
 
-            final RepeatingButton prevMonthButton = new RepeatingButton(header, SWT.ARROW | SWT.LEFT | SWT.CENTER | (style & SWT.FLAT));
+            final RepeatingButton prevMonthButton = new RepeatingButton(header, SWT.ARROW | SWT.LEFT | SWT.CENTER
+                    | (style & SWT.FLAT));
             prevMonthButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL));
             prevMonthButton.setRepeatDelay(100);
             prevMonthButton.addSelectionListener(new SelectionAdapter() {
+
                 public void widgetSelected(SelectionEvent e) {
                     previousMonth();
                 }
@@ -104,11 +105,12 @@ public class SWTCalendar extends Composite {
                 gridLayout.marginHeight = 0;
                 composite.setLayout(gridLayout);
             }
-            header.setTabList(new Control[]{composite});
+            header.setTabList(new Control[] { composite });
 
             monthChooser = new SWTMonthChooser(composite);
             monthChooser.setLayoutData(new GridData(GridData.FILL_VERTICAL));
             monthChooser.addSelectionListener(new SelectionAdapter() {
+
                 public void widgetSelected(SelectionEvent e) {
                     if (!settingYearMonth) {
                         dayChooser.setMonth(monthChooser.getMonth());
@@ -124,6 +126,7 @@ public class SWTCalendar extends Composite {
             yearChooser.setPageIncrement(10);
             yearChooser.setSelection(calendar.get(Calendar.YEAR));
             yearChooser.addSelectionListener(new SelectionAdapter() {
+
                 public void widgetSelected(SelectionEvent e) {
                     if (!settingYearMonth) {
                         dayChooser.setYear(yearChooser.getSelection());
@@ -131,10 +134,12 @@ public class SWTCalendar extends Composite {
                 }
             });
 
-            final RepeatingButton nextMonthButton = new RepeatingButton(header, SWT.ARROW | SWT.RIGHT | SWT.CENTER | (style & SWT.FLAT));
+            final RepeatingButton nextMonthButton = new RepeatingButton(header, SWT.ARROW | SWT.RIGHT | SWT.CENTER
+                    | (style & SWT.FLAT));
             nextMonthButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL));
             nextMonthButton.setRepeatDelay(100);
             nextMonthButton.addSelectionListener(new SelectionAdapter() {
+
                 public void widgetSelected(SelectionEvent e) {
                     nextMonth();
                 }
@@ -147,13 +152,14 @@ public class SWTCalendar extends Composite {
             gridData.horizontalSpan = 3;
             dayChooser.setLayoutData(gridData);
             dayChooser.addSWTCalendarListener(new SWTCalendarListener() {
+
                 public void dateChanged(SWTCalendarEvent event) {
                     refreshYearMonth(event.getCalendar());
                 }
             });
         }
 
-        setTabList(new Control[]{header, dayChooser});
+        setTabList(new Control[] { header, dayChooser });
 
         setFont(parent.getFont());
     }
@@ -211,7 +217,9 @@ public class SWTCalendar extends Composite {
         yearChooser.setSelection(getCalendar().get(Calendar.YEAR));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.swt.widgets.Control#setFont(org.eclipse.swt.graphics.Font)
      */
     public void setFont(Font font) {

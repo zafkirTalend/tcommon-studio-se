@@ -35,29 +35,29 @@ import org.talend.core.i18n.Messages;
  * 
  */
 public class PerspectiveMenuManager extends MenuManager {
-    
+
     private static String[] perspectiveIds;
-    
+
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         IConfigurationElement[] talendPpElements = registry
                 .getExtensionPoint("org.talend.core.talendperspectives").getConfigurationElements(); //$NON-NLS-1$
         perspectiveIds = getTalendPerspectives(talendPpElements);
 
-    } 
-    
+    }
+
     /**
      * Constructs a new PerspectiveMenuManager.
      */
     public PerspectiveMenuManager() {
         super(Messages.getString("PerspectiveMenuManager.perspectiveLabel"), "perspective"); //$NON-NLS-1$ //$NON-NLS-2$
-        
+
         addMenuListener(new MenuFiller());
-        
+
         setRemoveAllWhenShown(true);
         add(new ChangePerspectiveAction(Messages.getString("PerspectiveMenuManager.dummy"))); //$NON-NLS-1$
     }
-    
+
     public static String[] getTalendPerspectives(IConfigurationElement[] talendPpElements) {
         String talendPpId = null;
         List<String> talendPpList = new ArrayList<String>();
@@ -79,16 +79,17 @@ public class PerspectiveMenuManager extends MenuManager {
      * 
      */
     private static class MenuFiller implements IMenuListener {
+
         /**
          * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
          */
         public void menuAboutToShow(IMenuManager manager) {
             IPerspectiveRegistry registry = PlatformUI.getWorkbench().getPerspectiveRegistry();
-            
+
             IWorkbench workbench = PlatformUI.getWorkbench();
             IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
             String activePersp = page.getPerspective().getId();
-            
+
             for (String perspId : perspectiveIds) {
                 // Search perspective name & icon
                 IPerspectiveDescriptor desc = registry.findPerspectiveWithId(perspId);
@@ -98,7 +99,7 @@ public class PerspectiveMenuManager extends MenuManager {
                     perspAction.setToolTipText(desc.getDescription());
                     perspAction.setImageDescriptor(desc.getImageDescriptor());
                     perspAction.setChecked(desc.getId().equals(activePersp));
-                
+
                     manager.add(perspAction);
                 }
             }

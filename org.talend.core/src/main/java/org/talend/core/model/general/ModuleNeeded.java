@@ -70,7 +70,8 @@ public class ModuleNeeded {
         this.required = required;
     }
 
-    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL) {
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required,
+            List<String> installURL) {
         super();
         this.context = context;
         this.moduleName = moduleName;
@@ -143,7 +144,8 @@ public class ModuleNeeded {
 
     public String getModuleName() {
         if (moduleName != null) {
-            return moduleName.replaceAll(TalendTextUtils.QUOTATION_MARK, "").replaceAll(TalendTextUtils.SINGLE_QUOTE, "");
+            return moduleName.replaceAll(TalendTextUtils.QUOTATION_MARK, "").replaceAll(TalendTextUtils.SINGLE_QUOTE,
+                    "");
         }
         return this.moduleName;
     }

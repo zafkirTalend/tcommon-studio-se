@@ -38,7 +38,8 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
  * <br/>
  * 
  * $Id: TableViewerCreatorColumn.java 7038 2007-11-15 14:05:48Z plegall $
- * @param <B> type of bean conatined in TableViewerCreator 
+ * 
+ * @param <B> type of bean conatined in TableViewerCreator
  * @param <V> type of value contained in column
  */
 public class TableViewerCreatorColumn<B, V> implements Cloneable {
@@ -536,15 +537,15 @@ public class TableViewerCreatorColumn<B, V> implements Cloneable {
 
     /**
      * DOC amaumont Comment method "setColumnCellModifier".
+     * 
      * @param columnCellModifier
      */
     public void setColumnCellModifier(ColumnCellModifier columnCellModifier) {
         this.columnCellModifier = columnCellModifier;
     }
-    
+
     public ColumnCellModifier getColumnCellModifier() {
         return this.columnCellModifier;
     }
 
-    
 }

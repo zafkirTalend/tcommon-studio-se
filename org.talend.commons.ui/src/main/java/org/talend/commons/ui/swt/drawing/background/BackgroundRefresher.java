@@ -109,13 +109,13 @@ public class BackgroundRefresher implements IBackgroundRefresher {
             }
 
         });
-        
+
         drawableComposite.getBgDrawableComposite().addDisposeListener(new DisposeListener() {
 
             public void widgetDisposed(DisposeEvent e) {
                 releaseBgImages();
             }
-            
+
         });
 
     }
@@ -130,17 +130,19 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                         boolean previousAntialiasAllowed = antialiasAllowed;
                         antialiasAllowed = event.getIndicePerformance() < PerformanceEvaluator.GOOD_PERFORMANCE_INDICE;
                         // System.out.println(event.getIndicePerformance());
-                        if (previousAntialiasAllowed != antialiasAllowed && !drawableComposite.getBgDrawableComposite().isDisposed()
+                        if (previousAntialiasAllowed != antialiasAllowed
+                                && !drawableComposite.getBgDrawableComposite().isDisposed()
                                 && drawableComposite.getBgDrawableComposite().getDisplay() != null) {
 
-                            new AsynchronousThreading(0, false, drawableComposite.getBgDrawableComposite().getDisplay(), new Runnable() {
+                            new AsynchronousThreading(0, false,
+                                    drawableComposite.getBgDrawableComposite().getDisplay(), new Runnable() {
 
-                                public void run() {
-                                    // System.out.println(antialiasAllowed);
-                                    refreshBackground();
+                                        public void run() {
+                                            // System.out.println(antialiasAllowed);
+                                            refreshBackground();
 
-                                }
-                            }).start();
+                                        }
+                                    }).start();
 
                         }
                     }
@@ -227,7 +229,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
     protected void clearImage(final Image image) {
         if (image != null && !image.isDisposed()) {
             GC gc = new GC(image);
-            gc.setBackground(backgroundColor == null ? drawableComposite.getBgDrawableComposite().getBackground() : backgroundColor);
+            gc.setBackground(backgroundColor == null ? drawableComposite.getBgDrawableComposite().getBackground()
+                    : backgroundColor);
             gc.fillRectangle(drawableComposite.getBgDrawableComposite().getClientArea());
             gc.dispose();
         }
@@ -260,7 +263,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                 }
             }
         };
-//        threadToEvaluatePerformance.start();
+        // threadToEvaluatePerformance.start();
     }
 
     /**

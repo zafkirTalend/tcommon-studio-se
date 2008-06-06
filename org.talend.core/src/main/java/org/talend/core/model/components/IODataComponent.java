@@ -121,7 +121,8 @@ public class IODataComponent {
 
     public List<ColumnNameChanged> getRemoveMetadataColumns() {
         if (removeMetadataColumns == null) {
-            removeMetadataColumns = MetadataTool.getRemoveMetadataColumns(connection.getMetadataTable(), newMetadataTable);
+            removeMetadataColumns = MetadataTool.getRemoveMetadataColumns(connection.getMetadataTable(),
+                    newMetadataTable);
         }
         return removeMetadataColumns;
     }

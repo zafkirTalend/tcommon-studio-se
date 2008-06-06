@@ -53,7 +53,8 @@ public class AddRepositoryContextVariablesCommand extends Command {
 
     @Override
     public void execute() {
-        if (modelManager == null || helper == null || parameterList == null || parameterList.isEmpty() || manager == null) {
+        if (modelManager == null || helper == null || parameterList == null || parameterList.isEmpty()
+                || manager == null) {
             return;
         }
         if (monitor == null) {

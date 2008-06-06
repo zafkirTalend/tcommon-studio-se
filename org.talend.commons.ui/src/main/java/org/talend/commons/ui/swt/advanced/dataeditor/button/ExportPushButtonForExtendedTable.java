@@ -72,10 +72,12 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
             extendedTableModel.addAfterOperationListListener(new IListenableListListener() {
 
                 public void handleEvent(ListenableListEvent event) {
-                    if (event.type == ListenableListEvent.TYPE.CLEARED || event.type == ListenableListEvent.TYPE.REMOVED
+                    if (event.type == ListenableListEvent.TYPE.CLEARED
+                            || event.type == ListenableListEvent.TYPE.REMOVED
                             || event.type == ListenableListEvent.TYPE.ADDED) {
-                        if(!getButton().isDisposed())
-                        {getButton().setEnabled(getEnabledState());}
+                        if (!getButton().isDisposed()) {
+                            getButton().setEnabled(getEnabledState());
+                        }
                     }
                 }
 
@@ -105,7 +107,7 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
         return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
     }
-    
+
     protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
 
     private void openMessageError(String errorText) {
@@ -128,7 +130,8 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
         boolean enabled = false;
-        if (extendedTableModel != null && extendedTableModel.isDataRegistered() && extendedTableModel.getBeansList().size() > 0) {
+        if (extendedTableModel != null && extendedTableModel.isDataRegistered()
+                && extendedTableModel.getBeansList().size() > 0) {
             enabled = true;
         }
         return super.getEnabledState() && enabled;

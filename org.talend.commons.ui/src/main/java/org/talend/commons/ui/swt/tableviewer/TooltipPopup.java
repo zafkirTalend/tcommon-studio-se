@@ -106,7 +106,8 @@ public final class TooltipPopup {
                 setVisible(isVisible);
                 // System.out.println("Adjust setVisible");
             } else {
-                mapperShell.redraw(boundsToRedraw.x, boundsToRedraw.y, boundsToRedraw.width, boundsToRedraw.height, false);
+                mapperShell.redraw(boundsToRedraw.x, boundsToRedraw.y, boundsToRedraw.width, boundsToRedraw.height,
+                        false);
                 // System.out.println("Adjust redraw");
             }
         }

@@ -183,7 +183,8 @@ public class MouseTableSelectionHelper {
                             selection[i] = i + indexStart;
                         }
 
-                        boolean selectionHasChanged = !Arrays.equals(tableViewerCreator.getTable().getSelectionIndices(), selection);
+                        boolean selectionHasChanged = !Arrays.equals(tableViewerCreator.getTable()
+                                .getSelectionIndices(), selection);
                         if (selectionHasChanged) {
                             tableViewerCreator.getSelectionHelper().setSelection(selection);
                         }
@@ -224,7 +225,8 @@ public class MouseTableSelectionHelper {
         Cursor cursor = null;
         if (cursorSelection) {
             if (imageDescriptor == null) {
-                imageDescriptor = ImageDescriptor.createFromFile(MouseTableSelectionHelper.class, "/icons/right_arrow.ico");
+                imageDescriptor = ImageDescriptor.createFromFile(MouseTableSelectionHelper.class,
+                        "/icons/right_arrow.ico");
                 imageDataCursor = imageDescriptor.getImageData();
             }
             if (imageDataCursor != null) {
@@ -248,8 +250,8 @@ public class MouseTableSelectionHelper {
         TableColumn[] columns = table.getColumns();
         int minY = 0;
         int maxY = table.getHeaderHeight()
-        + (table.getItemCount()
-                * (table.getItemHeight() + table.getBorderWidth() + (WindowSystem.isGTK() ? 2 : 0)));
+                + (table.getItemCount() * (table.getItemHeight() + table.getBorderWidth() + (WindowSystem.isGTK() ? 2
+                        : 0)));
 
         for (int i = 0, width = 0; i < columns.length; i++) {
             TableColumn column = columns[i];

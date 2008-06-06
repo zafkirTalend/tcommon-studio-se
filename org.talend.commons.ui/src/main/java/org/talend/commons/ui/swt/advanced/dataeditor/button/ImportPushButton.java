@@ -35,10 +35,13 @@ public abstract class ImportPushButton extends ExtendedPushButton {
      * @param image
      */
     public ImportPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("ImportPushButton.ImportButton.Tip"), ImageProvider.getImage(EImage.IMPORT_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("ImportPushButton.ImportButton.Tip"), ImageProvider.getImage(EImage.IMPORT_ICON)); //$NON-NLS-1$
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override

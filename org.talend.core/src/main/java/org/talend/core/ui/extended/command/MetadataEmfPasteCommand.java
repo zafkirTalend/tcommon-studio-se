@@ -31,6 +31,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
+     * 
      * @param extendedTable
      * @param validAssignableType
      * @param indexStartAdd
@@ -41,6 +42,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
+     * 
      * @param extendedTable
      * @param instanceOfType
      */
@@ -63,7 +65,8 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 // create a new column as a copy of this column
                 MetadataColumn metadataColumn = (MetadataColumn) current;
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
-                MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
+                MetadataColumn newColumnCopy = new ConnectionFactoryImpl()
+                        .copy(metadataColumn, nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
                 list.add(newColumnCopy);
             }

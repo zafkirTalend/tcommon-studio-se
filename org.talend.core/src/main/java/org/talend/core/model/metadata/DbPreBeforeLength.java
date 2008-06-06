@@ -17,23 +17,25 @@ package org.talend.core.model.metadata;
  * 
  */
 public class DbPreBeforeLength {
-	private String preBeforeLen;
-	private String dbType;
 
-	public String getPreBeforeLen() {
-		return preBeforeLen;
-	}
+    private String preBeforeLen;
 
-	public void setPreBeforeLen(String preBeforeLen) {
-		this.preBeforeLen = preBeforeLen;
-	}
+    private String dbType;
 
-	public String getDbType() {
-		return dbType;
-	}
+    public String getPreBeforeLen() {
+        return preBeforeLen;
+    }
 
-	public void setDbType(String dbType) {
-		this.dbType = dbType;
-	}
+    public void setPreBeforeLen(String preBeforeLen) {
+        this.preBeforeLen = preBeforeLen;
+    }
+
+    public String getDbType() {
+        return dbType;
+    }
+
+    public void setDbType(String dbType) {
+        this.dbType = dbType;
+    }
 
 }

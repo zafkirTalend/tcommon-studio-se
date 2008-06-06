@@ -62,9 +62,9 @@ public class ExtremityEastArrow extends AbstractExtremityDrawableLink {
         Color previousBackground = gc.getBackground();
         gc.setBackground(styleLink.getForegroundColor());
         gc.setLineWidth(1);
-        int[] arrow = new int[] { point.x + xOffset, point.y + yOffset - HEIGHT_ARROW / 2 - 1, point.x + xOffset + WIDTH_ARROW,
-                point.y + yOffset, point.x + xOffset + WIDTH_ARROW, point.y + yOffset, point.x + xOffset,
-                point.y + yOffset + HEIGHT_ARROW / 2 + 1, };
+        int[] arrow = new int[] { point.x + xOffset, point.y + yOffset - HEIGHT_ARROW / 2 - 1,
+                point.x + xOffset + WIDTH_ARROW, point.y + yOffset, point.x + xOffset + WIDTH_ARROW, point.y + yOffset,
+                point.x + xOffset, point.y + yOffset + HEIGHT_ARROW / 2 + 1, };
         gc.fillPolygon(arrow);
         gc.setBackground(previousBackground);
     }

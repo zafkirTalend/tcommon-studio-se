@@ -92,7 +92,8 @@ public class LabelledDirectoryField {
      * @param int horizontalSpan
      * @param styleField
      */
-    public LabelledDirectoryField(Composite composite, String string, String[] extensions, int horizontalSpan, int styleField) {
+    public LabelledDirectoryField(Composite composite, String string, String[] extensions, int horizontalSpan,
+            int styleField) {
         createFileField(composite, string, extensions, horizontalSpan, styleField, true);
     }
 
@@ -106,7 +107,8 @@ public class LabelledDirectoryField {
      * @param int horizontalSpan
      * @param isFill
      */
-    public LabelledDirectoryField(Composite composite, String string, String[] extensions, int horizontalSpan, boolean isFill) {
+    public LabelledDirectoryField(Composite composite, String string, String[] extensions, int horizontalSpan,
+            boolean isFill) {
         createFileField(composite, string, extensions, horizontalSpan, DEFAULT_FIELD_STYLE, isFill);
     }
 
@@ -120,8 +122,8 @@ public class LabelledDirectoryField {
      * @param styleField
      * @param isFill
      */
-    public LabelledDirectoryField(Composite composite, String string, String[] extensions, int horizontalSpan, int styleField,
-            boolean isFill) {
+    public LabelledDirectoryField(Composite composite, String string, String[] extensions, int horizontalSpan,
+            int styleField, boolean isFill) {
         createFileField(composite, string, extensions, horizontalSpan, styleField, isFill);
     }
 
@@ -135,8 +137,8 @@ public class LabelledDirectoryField {
      * @param styleField
      * @param isFill
      */
-    private void createFileField(final Composite composite, String string, final String[] extensions, int horizontalSpan,
-            int styleField, boolean isFill) {
+    private void createFileField(final Composite composite, String string, final String[] extensions,
+            int horizontalSpan, int styleField, boolean isFill) {
         label = new Label(composite, SWT.LEFT);
         GridDataFactory.swtDefaults().applyTo(label);
         label.setText(string);

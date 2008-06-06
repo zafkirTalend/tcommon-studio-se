@@ -264,7 +264,8 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
                 Composite composite = new Composite(table, SWT.PUSH);
                 // Set attributes of the button
                 composite.setBackground(new Color(null, ALL, ZERO, ZERO));
-                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table.getItemHeight());
+                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table
+                        .getItemHeight());
                 // Set attributes of the editor
                 // tableEditor.grabHorizontal = true;
                 tableEditor.minimumHeight = composite.getSize().y;

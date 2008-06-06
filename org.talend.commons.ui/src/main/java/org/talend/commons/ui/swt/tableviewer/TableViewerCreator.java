@@ -588,8 +588,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             table.addListener(SWT.Paint, paintListener);
         }
 
-        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(
+                SWT.COLOR_WHITE));
+        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(
+                SWT.COLOR_BLACK));
 
         if (useCustomItemColoring) {
             setUseCustomItemColoring(true);
@@ -701,7 +703,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     keyPressed = key;
                     e.doit = false;
                     editOtherEditor(null);
-                } else if (key == SWT.TRAVERSE_RETURN && getTable().getSelectionIndex() != -1 && getTable().isFocusControl()) {
+                } else if (key == SWT.TRAVERSE_RETURN && getTable().getSelectionIndex() != -1
+                        && getTable().isFocusControl()) {
                     keyPressed = key;
                     editOtherEditor(null);
                 }
@@ -1580,9 +1583,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * @param orderBy
      */
     public void setSort(TableViewerCreatorColumn orderedColumn, SORT orderBy) {
-    	setSortable(true);
-    	this.tableViewerCreatorSorter.prepareSort(this, orderedColumn, orderBy);
-    	this.tableViewer.refresh();
+        setSortable(true);
+        this.tableViewerCreatorSorter.prepareSort(this, orderedColumn, orderBy);
+        this.tableViewer.refresh();
     }
 
     public void setAdjustWidthValue(int adjustWidthValue) {
@@ -2054,19 +2057,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         this.keyboardManagementForCellEdition = enableKeysForCellsEdition;
     }
 
-	public boolean isSortable() {
-		return this.tableViewerCreatorSorter != null;
-	}
+    public boolean isSortable() {
+        return this.tableViewerCreatorSorter != null;
+    }
 
-	public void setSortable(boolean sortable) {
-		if(sortable && !isSortable()) {
-			setSorter(new TableViewerCreatorSorter());
-		} else if(!sortable && isSortable()) {
-			setSorter(null);
-			tableViewer.setSorter(null);
-		}
-	}
+    public void setSortable(boolean sortable) {
+        if (sortable && !isSortable()) {
+            setSorter(new TableViewerCreatorSorter());
+        } else if (!sortable && isSortable()) {
+            setSorter(null);
+            tableViewer.setSorter(null);
+        }
+    }
 
-    
-    
 }

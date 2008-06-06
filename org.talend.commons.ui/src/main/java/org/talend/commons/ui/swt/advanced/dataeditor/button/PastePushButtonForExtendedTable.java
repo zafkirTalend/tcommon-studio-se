@@ -45,7 +45,7 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
             public void handleEvent(ClipboardEvent event) {
                 getButton().setEnabled(getEnabledState());
             }
-            
+
         };
         SimpleClipboard.getInstance().addListener(clipoardListener);
         getButton().addDisposeListener(new DisposeListener() {
@@ -53,7 +53,7 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
             public void widgetDisposed(DisposeEvent e) {
                 SimpleClipboard.getInstance().removeListener(clipoardListener);
             }
-            
+
         });
     }
 
@@ -71,7 +71,9 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
 
     protected abstract Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert);
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
@@ -80,7 +82,8 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
 
     public boolean getEnabledState() {
         Object data = SimpleClipboard.getInstance().getData();
-        return super.getEnabledState() && data != null && data instanceof List && !getExtendedControlViewer().isReadOnly();
+        return super.getEnabledState() && data != null && data instanceof List
+                && !getExtendedControlViewer().isReadOnly();
     }
 
 }

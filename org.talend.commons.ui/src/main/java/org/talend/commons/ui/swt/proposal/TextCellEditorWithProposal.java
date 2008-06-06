@@ -28,6 +28,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 public class TextCellEditorWithProposal extends TextCellEditor implements IShowInvisibleCellEditorMethods {
 
     private CommonTextCellEditorWithProposal commonTextEditor;
+
     private TableViewerCreatorColumn tableViewerCreatorColumn;
 
     public TextCellEditorWithProposal(Composite parent, int style, TableViewerCreatorColumn tableViewerCreatorColumn) {

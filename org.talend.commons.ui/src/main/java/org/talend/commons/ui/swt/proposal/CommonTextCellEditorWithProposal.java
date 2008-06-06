@@ -68,7 +68,7 @@ public class CommonTextCellEditorWithProposal {
 
     public void activate() {
         previousActivatedIndex = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedIndex();
-//        System.out.println("previousActivatedIndex =" + previousActivatedIndex);
+        // System.out.println("previousActivatedIndex =" + previousActivatedIndex);
     }
 
     public void create(Composite parent) {
@@ -114,9 +114,9 @@ public class CommonTextCellEditorWithProposal {
 
     private void cellEditorClassKeyReleasedOccured(KeyEvent keyEvent) {
         if (keyEvent.character == '\u001b') { // Escape character
-            ((IShowInvisibleCellEditorMethods)textCellEditor).fireCancelEditor();
+            ((IShowInvisibleCellEditorMethods) textCellEditor).fireCancelEditor();
         } else if (keyEvent.character == '\r') { // Return key
-            ((IShowInvisibleCellEditorMethods)textCellEditor).fireApplyEditorValue();
+            ((IShowInvisibleCellEditorMethods) textCellEditor).fireApplyEditorValue();
             textCellEditor.deactivate();
         }
     }
@@ -211,5 +211,4 @@ public class CommonTextCellEditorWithProposal {
         return this.contentProposalAdapter;
     }
 
-    
 }

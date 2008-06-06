@@ -14,7 +14,6 @@ package org.talend.repository.localprovider.imports;
 
 import java.util.zip.ZipFile;
 
-
 /**
  */
 public class ResourcesManagerFactory {

@@ -17,18 +17,16 @@ import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 import org.talend.core.CorePlugin;
 
-
 /**
- * The nature for Talend projects.
- * <br/>
- *
+ * The nature for Talend projects. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class TalendNature implements IProjectNature {
-    
+
     public static final String ID = CorePlugin.PLUGIN_ID + ".talendnature"; //$NON-NLS-1$
-    
+
     private IProject project;
 
     /**

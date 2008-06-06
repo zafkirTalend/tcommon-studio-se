@@ -36,7 +36,8 @@ public abstract class ExportPushButton extends ExtendedPushButton {
      * @param image
      */
     public ExportPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("ExportPushButton.ExportButton.Tip"), ImageProvider.getImage(EImage.EXPORT_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("ExportPushButton.ExportButton.Tip"), ImageProvider.getImage(EImage.EXPORT_ICON)); //$NON-NLS-1$
     }
 
     protected abstract Command getCommandToExecute();

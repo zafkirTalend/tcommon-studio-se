@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.Image;
  * and the current column. <br/>
  * 
  * $Id: IColumnImageProvider.java 7038 2007-11-15 14:05:48Z plegall $
+ * 
  * @param <B> element bean of the <code>TableViewerCreator</code>
  */
 public interface IColumnImageProvider<B> {

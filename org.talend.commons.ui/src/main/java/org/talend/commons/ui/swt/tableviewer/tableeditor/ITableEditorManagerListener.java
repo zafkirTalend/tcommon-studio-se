@@ -12,18 +12,17 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public interface ITableEditorManagerListener {
 
     /**
      * DOC amaumont Comment method "notifyEvent".
+     * 
      * @param event
      */
     public void notifyEvent(TableEditorManagerEvent event);
-    
+
 }

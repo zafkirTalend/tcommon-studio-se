@@ -55,7 +55,7 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void execute() {
 

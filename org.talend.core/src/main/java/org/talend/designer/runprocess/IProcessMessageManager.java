@@ -16,11 +16,9 @@ import java.beans.PropertyChangeListener;
 import java.util.Collection;
 import java.util.List;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public interface IProcessMessageManager {
 
@@ -37,7 +35,7 @@ public interface IProcessMessageManager {
     public Collection<IProcessMessage> getMessages();
 
     public boolean isLastMessageEndWithCR();
-    
+
     public void addDebugResultToConsole(IProcessMessage message);
 
 }

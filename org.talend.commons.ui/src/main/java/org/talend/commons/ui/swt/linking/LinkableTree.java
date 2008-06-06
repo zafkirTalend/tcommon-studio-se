@@ -45,6 +45,7 @@ public class LinkableTree implements ILinkableControl {
     private BgDrawableComposite bgDrawableComposite;
 
     private SelectionListener selectionListener;
+
     /**
      * DOC amaumont LinkableTable constructor comment.
      * 
@@ -120,7 +121,7 @@ public class LinkableTree implements ILinkableControl {
             }
 
         });
-        selectionListener=new SelectionListener() {
+        selectionListener = new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
             }
@@ -154,9 +155,9 @@ public class LinkableTree implements ILinkableControl {
 
     }
 
-    
     /**
      * Getter for selectionListener.
+     * 
      * @return the selectionListener
      */
     public SelectionListener getSelectionListener() {

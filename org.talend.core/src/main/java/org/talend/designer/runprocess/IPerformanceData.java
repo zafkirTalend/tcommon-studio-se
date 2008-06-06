@@ -13,11 +13,10 @@
 package org.talend.designer.runprocess;
 
 /**
- * DOC qian  class global comment. Detailled comment
- * <br/>
- *
+ * DOC qian class global comment. Detailled comment <br/>
+ * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
- *
+ * 
  */
 public interface IPerformanceData {
 

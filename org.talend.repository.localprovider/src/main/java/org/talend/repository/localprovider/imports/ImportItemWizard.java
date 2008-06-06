@@ -20,11 +20,13 @@ import org.eclipse.ui.IWorkbench;
 /**
  */
 public class ImportItemWizard extends Wizard implements IImportWizard {
-    
+
     private ImportItemWizardPage mainPage;
+
     private IWorkbench workbench;
+
     private IStructuredSelection selection;
-    
+
     public ImportItemWizard() {
         super();
     }
@@ -47,5 +49,5 @@ public class ImportItemWizard extends Wizard implements IImportWizard {
     public boolean performFinish() {
         return mainPage.performFinish();
     }
-    
+
 }

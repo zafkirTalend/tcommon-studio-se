@@ -26,8 +26,8 @@ public abstract class SaveAsGenericSchemaPushButtonForExtendedTable extends Save
 
     private String dbmsId;
 
-    public SaveAsGenericSchemaPushButtonForExtendedTable(Composite parent, final AbstractExtendedTableViewer extendedTableViewer,
-            String dbmsId) {
+    public SaveAsGenericSchemaPushButtonForExtendedTable(Composite parent,
+            final AbstractExtendedTableViewer extendedTableViewer, String dbmsId) {
         super(parent, extendedTableViewer);
         this.dbmsId = dbmsId;
         this.enableStateHandler = new EnableStateListenerForTableButton(this);
@@ -99,7 +99,8 @@ public abstract class SaveAsGenericSchemaPushButtonForExtendedTable extends Save
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
         boolean enabled = false;
-        if (extendedTableModel != null && extendedTableModel.isDataRegistered() && extendedTableModel.getBeansList().size() > 0) {
+        if (extendedTableModel != null && extendedTableModel.isDataRegistered()
+                && extendedTableModel.getBeansList().size() > 0) {
             enabled = true;
         }
         return super.getEnabledState() && enabled;

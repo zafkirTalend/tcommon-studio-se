@@ -12,16 +12,14 @@
 // ============================================================================
 package org.talend.core.utils;
 
-
 /**
- * DOC chuger  class global comment. Detailled comment
- * <br/>
- *
+ * DOC chuger class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class XmlField {
-    
+
     /** Field value. */
     private String value;
 
@@ -30,12 +28,13 @@ public class XmlField {
      */
     public XmlField(String value) {
         super();
-        
+
         this.value = value;
     }
 
     /**
      * Getter for value.
+     * 
      * @return the value
      */
     public String getValue() {

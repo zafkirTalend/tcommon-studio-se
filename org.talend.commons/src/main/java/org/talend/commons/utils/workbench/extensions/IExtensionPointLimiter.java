@@ -28,8 +28,8 @@ public interface IExtensionPointLimiter {
     public String getExtPointId();
 
     /**
-     * Name of a Configuration element 
-     * Can be null.
+     * Name of a Configuration element Can be null.
+     * 
      * @return
      */
     public String getConfigurationElementName();
@@ -40,7 +40,7 @@ public interface IExtensionPointLimiter {
      * @return the maxOcc
      */
     public int getMaxOcc();
-    
+
     public void setMaxOcc(int maxOcc);
 
     /**

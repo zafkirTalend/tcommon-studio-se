@@ -22,13 +22,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class CopyPushButtonForExtendedTable extends CopyPushButton implements IExtendedTablePushButton {
 
@@ -36,6 +34,7 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * 
      * @param parent
      * @param extendedControlViewer
      */
@@ -52,8 +51,10 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
         Object[] objects = structuredSelection.toArray();
         return new ExtendedTableCopyCommand(Arrays.asList(objects));
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
@@ -63,6 +64,5 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
     public boolean getEnabledState() {
         return super.getEnabledState() && this.enableStateHandler.getEnabledState();
     }
-
 
 }

@@ -146,8 +146,8 @@ public class DefaultCellModifier implements ICellModifier {
      */
     private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column,
             Object cellEditorAppliedValue, Object previousValue, Object newValue) {
-        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue,
-                newValue);
+        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column,
+                cellEditorAppliedValue, newValue);
         final Object[] listenerArray = cellEditorAppliedListeners.getListeners();
         for (int i = 0; i < listenerArray.length; i++) {
             ((ITableCellValueModifiedListener) listenerArray[i]).cellValueModified(event);

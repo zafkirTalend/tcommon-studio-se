@@ -26,10 +26,9 @@ import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 public class ExtremityLink<G, D> implements IExtremityLink<G, D> {
 
     private D dataItem;
+
     private G graphicalObject;
 
-    
-    
     /**
      * DOC amaumont TableItemExtremityDescriptor constructor comment.
      * 
@@ -59,20 +58,22 @@ public class ExtremityLink<G, D> implements IExtremityLink<G, D> {
         this.dataItem = dataItem;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getGraphicalItem()
      */
     public G getGraphicalObject() {
         return graphicalObject;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setGraphicalItem(java.lang.Object)
      */
     public void setGraphicalObject(G graphicalObject) {
         this.graphicalObject = graphicalObject;
     }
 
-    
-    
 }

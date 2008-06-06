@@ -35,10 +35,13 @@ public abstract class RemovePushButton extends ExtendedPushButton {
      * @param image
      */
     public RemovePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, Messages.getString("RemovePushButton.RemoveButton.Tip"), ImageProvider.getImage(EImage.DELETE_ICON)); //$NON-NLS-1$
+        super(parent, extendedControlViewer,
+                Messages.getString("RemovePushButton.RemoveButton.Tip"), ImageProvider.getImage(EImage.DELETE_ICON)); //$NON-NLS-1$
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
      */
     @Override

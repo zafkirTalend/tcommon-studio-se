@@ -129,8 +129,8 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
     }
 
     public String getNextGeneratedColumnName(String oldColumnName) {
-        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName,
-                getBeansList()) {
+        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(
+                oldColumnName, getBeansList()) {
 
             /*
              * (non-Javadoc)

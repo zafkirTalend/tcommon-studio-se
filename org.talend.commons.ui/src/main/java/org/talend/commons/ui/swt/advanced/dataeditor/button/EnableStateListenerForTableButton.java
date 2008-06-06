@@ -45,7 +45,7 @@ public class EnableStateListenerForTableButton {
                     pushButton.getButton().setEnabled(false);
                 }
             }
-            
+
         });
 
     }

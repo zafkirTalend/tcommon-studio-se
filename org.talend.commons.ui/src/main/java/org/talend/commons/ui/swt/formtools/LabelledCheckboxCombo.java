@@ -81,8 +81,8 @@ public class LabelledCheckboxCombo {
      * 
      * @return Combo
      */
-    public LabelledCheckboxCombo(final Composite parent, final String labelStr, final String tip, final String[] item, int horizontalSpan,
-            boolean isFill) {
+    public LabelledCheckboxCombo(final Composite parent, final String labelStr, final String tip, final String[] item,
+            int horizontalSpan, boolean isFill) {
         createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, isFill, DEFAULT_FIELD_STYLE);
     }
 
@@ -126,8 +126,8 @@ public class LabelledCheckboxCombo {
      * @param isFill
      * @param style
      */
-    private void createLabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item,
-            int horizontalSpan, boolean isFill, int style) {
+    private void createLabelledCombo(final Composite parent, final String labelStr, final String tip,
+            final String[] item, int horizontalSpan, boolean isFill, int style) {
 
         // label
         label = new Label(parent, SWT.LEFT);

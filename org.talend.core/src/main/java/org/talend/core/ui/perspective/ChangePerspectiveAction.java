@@ -54,7 +54,8 @@ public class ChangePerspectiveAction extends Action {
             try {
                 workbench.showPerspective(perspectiveId, workbench.getActiveWorkbenchWindow());
             } catch (WorkbenchException e) {
-                IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, IStatus.OK, "Show perspective failed.", e); //$NON-NLS-1$
+                IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, IStatus.OK,
+                        "Show perspective failed.", e); //$NON-NLS-1$
                 CorePlugin.getDefault().getLog().log(status);
             }
         }

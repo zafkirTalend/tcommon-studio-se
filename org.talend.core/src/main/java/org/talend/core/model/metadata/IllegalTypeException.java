@@ -12,23 +12,21 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class IllegalTypeException extends Exception {
 
     /**
      * DOC amaumont IllegalTypeException constructor comment.
+     * 
      * @param message
      */
     public IllegalTypeException(String message) {
         super(message);
     }
 
-    
 }

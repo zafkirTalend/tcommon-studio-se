@@ -30,7 +30,7 @@ import org.talend.repository.model.RepositoryNode;
 public interface IRepositoryView extends IViewPart {
 
     public static final String VIEW_ID = "org.talend.repository.views.repository"; //$NON-NLS-1$
-    
+
     public StructuredViewer getViewer();
 
     public void refresh();
@@ -44,7 +44,7 @@ public interface IRepositoryView extends IViewPart {
     public boolean getExpandedState(Object object);
 
     public RepositoryNode getRoot();
-    
+
     public List<IRepositoryObject> getAll(ERepositoryObjectType type);
 
 }

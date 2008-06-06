@@ -75,8 +75,8 @@ public class ContextTemplateModel extends ExtendedTableModel<IContextParameter> 
         contextParam.setPrompt(paramName + "?"); //$NON-NLS-1$
         String defaultValue;
         if (curLanguage == ECodeLanguage.JAVA) {
-            defaultValue = ContextParameterJavaTypeManager.getDefaultValueFromJavaIdType(ContextParameterJavaTypeManager
-                    .getDefaultJavaType().getId(), false);
+            defaultValue = ContextParameterJavaTypeManager.getDefaultValueFromJavaIdType(
+                    ContextParameterJavaTypeManager.getDefaultJavaType().getId(), false);
         } else {
             defaultValue = TalendTextUtils.addQuotes(""); //$NON-NLS-1$
         }

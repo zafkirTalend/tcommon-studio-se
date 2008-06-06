@@ -103,7 +103,8 @@ public final class ResourceUtils {
      * @return the folder matching the name
      * @throws PersistenceException if a folder with this name doesn't exist in the specified project
      */
-    public static IFolder getFolder(IProject source, String folderName, boolean forceExists) throws PersistenceException {
+    public static IFolder getFolder(IProject source, String folderName, boolean forceExists)
+            throws PersistenceException {
         IFolder processFolder = source.getFolder(folderName);
 
         if (forceExists && !processFolder.exists()) {

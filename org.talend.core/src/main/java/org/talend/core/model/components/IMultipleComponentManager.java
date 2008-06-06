@@ -29,7 +29,7 @@ public interface IMultipleComponentManager {
     public IMultipleComponentItem getInput();
 
     public IMultipleComponentItem getOutput();
-    
+
     public String getOutputName();
 
     public List<IMultipleComponentItem> getItemList();
@@ -43,9 +43,9 @@ public interface IMultipleComponentManager {
     public boolean isSetConnector();
 
     public String getConnector();
-    
+
     public boolean existsLinkTo();
-    
+
     public void setExistsLinkTo(boolean flag);
-    
+
 }

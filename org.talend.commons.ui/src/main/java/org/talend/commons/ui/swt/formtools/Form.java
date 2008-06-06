@@ -113,7 +113,8 @@ public class Form {
      * 
      * @return Composite
      */
-    public static Composite startNewGridLayout(Composite parent, int numColumns, boolean sameWidth, int styleHoryzontal, int styleVertical) {
+    public static Composite startNewGridLayout(Composite parent, int numColumns, boolean sameWidth,
+            int styleHoryzontal, int styleVertical) {
         Composite composite = new Composite(parent, SWT.NULL);
         composite.setLayout(new GridLayout(numColumns, sameWidth));
         composite.setLayoutData(new GridData(styleHoryzontal, styleVertical, true, true));
@@ -131,7 +132,8 @@ public class Form {
      * 
      * @return Composite
      */
-    public static Composite startNewDimensionnedGridLayout(Composite parent, int numColumns, int minimumWidth, int minimumHeight) {
+    public static Composite startNewDimensionnedGridLayout(Composite parent, int numColumns, int minimumWidth,
+            int minimumHeight) {
         Composite composite = new Composite(parent, SWT.NULL);
         composite.setLayout(new GridLayout(numColumns, false));
         GridData gridData = new GridData(GridData.FILL_BOTH);

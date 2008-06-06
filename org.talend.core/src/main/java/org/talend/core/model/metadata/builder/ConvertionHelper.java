@@ -41,8 +41,8 @@ public final class ConvertionHelper {
         }
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
-        DatabaseConnection originalValueConnection = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(
-                sourceConnection);
+        DatabaseConnection originalValueConnection = CorePlugin.getDefault().getRepositoryService()
+                .cloneOriginalValueConnection(sourceConnection);
         if (originalValueConnection == null) {
             connection = sourceConnection;
         } else {

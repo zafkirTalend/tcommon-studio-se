@@ -18,8 +18,8 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
 /**
- * PerlDataTypeHelper is used to determine the Perl Type or the Talend Type of a string. TODO : This class don't determine
- * the type DATE.
+ * PerlDataTypeHelper is used to determine the Perl Type or the Talend Type of a string. TODO : This class don't
+ * determine the type DATE.
  * 
  * $Id$
  * 

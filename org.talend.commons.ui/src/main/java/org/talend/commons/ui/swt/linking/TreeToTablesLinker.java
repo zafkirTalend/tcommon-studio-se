@@ -125,7 +125,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         if (this.drawingLinksComparator == null) {
             this.drawingLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, Table, D2>>() {
 
-                public int compare(LinkDescriptor<TreeItem, D1, Table, D2> link1, LinkDescriptor<TreeItem, D1, Table, D2> link2) {
+                public int compare(LinkDescriptor<TreeItem, D1, Table, D2> link1,
+                        LinkDescriptor<TreeItem, D1, Table, D2> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
                     IStyleLink link2StyleLink = link2.getStyleLink();
                     if (link1StyleLink == link2StyleLink) {
@@ -164,8 +165,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         if (WindowSystem.isGTK()) {
             gc.setAdvanced(false);
         } else {
-            gc.fillRectangle(treeToCommonPoint.x, treeToCommonPoint.y, treeBounds.width - tree.getBorderWidth(), treeBounds.height
-                    - tree.getBorderWidth());
+            gc.fillRectangle(treeToCommonPoint.x, treeToCommonPoint.y, treeBounds.width - tree.getBorderWidth(),
+                    treeBounds.height - tree.getBorderWidth());
             // System.out.println(isAntialiasAllowed());
             if (backgroundRefresher.isAntialiasAllowed()) {
                 gc.setAntialias(SWT.ON);
@@ -196,20 +197,22 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             Rectangle treeItemBounds = firstExpandedAscTreeItem.getBounds();
 
             int yStraight = treeToCommonPoint.y + treeItemHeight / 2 + treeItemBounds.y;
-            Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width, yStraight);
+            Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width,
+                    yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
             TableItem tableItem = TableUtils.getTableItem(table, (Object) extremity2.getDataItem());
-            
-            if(tableItem == null) {
+
+            if (tableItem == null) {
                 continue;
             }
-            
+
             Rectangle tableItemBounds = tableItem.getBounds();
             Rectangle tableBounds = table.getBounds();
 
-            Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2,
-                    tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()), table);
+            Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(
+                    tableItemBounds.x - 2, tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()),
+                    table);
 
             boolean lineStyleDot = false;
 
@@ -237,8 +240,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
             Point offset = getOffset();
 
-            gc.drawLine(pointStartStraight.x + offset.x, pointStartStraight.y + offset.y, pointEndStraight.x + offset.x, pointEndStraight.y
-                    + offset.y);
+            gc.drawLine(pointStartStraight.x + offset.x, pointStartStraight.y + offset.y,
+                    pointEndStraight.x + offset.x, pointEndStraight.y + offset.y);
 
             pointEndStraight.x += offset.x;
             pointEndStraight.y += offset.y;

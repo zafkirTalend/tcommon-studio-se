@@ -75,7 +75,7 @@ public final class JavaType {
         this.id = createId(nullableClass.getSimpleName());
         this.generateWithCanonicalName = generateWithCanonicalName;
     }
-    
+
     public JavaType(Class nullableClass, boolean generateWithCanonicalName, String label) {
         super();
         this.nullableClass = nullableClass;
@@ -83,7 +83,6 @@ public final class JavaType {
         this.id = createId(label);
         this.generateWithCanonicalName = generateWithCanonicalName;
     }
-    
 
     /**
      * @param label
@@ -161,11 +160,9 @@ public final class JavaType {
         return this.primitiveClass;
     }
 
-    
-    
-    
     /**
      * Getter for generateWithCanonicalName.
+     * 
      * @return the generateWithCanonicalName
      */
     public boolean isGenerateWithCanonicalName() {
@@ -190,5 +187,5 @@ public final class JavaType {
     public boolean isPrimitive() {
         return this.primitiveClass != null;
     }
-    
+
 }

@@ -284,8 +284,8 @@ public class SimpleHtmlFigure extends Figure {
             }
             return color;
         } else { // color name
-            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow", "blue",
-                    "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" };
+            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow",
+                    "blue", "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" };
             int choosedColor = 0;
             for (int i = 0; i < colors.length; i++) {
                 if (colors[i].equalsIgnoreCase(colorCode)) {

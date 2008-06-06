@@ -56,12 +56,12 @@ public final class JavaDataTypeHelper {
     public static String getTalendTypeOfValue(final String value) {
         String javaType = getJavaTypeOfValue(value);
         if (javaType == null) {
-//            if (javaType.equals("Integer")) {
-//                return "NUMBER";
-//            } else if (javaType.equals("Character")) {
-//                return "CHAR";
-//            }
-//        } else {
+            // if (javaType.equals("Integer")) {
+            // return "NUMBER";
+            // } else if (javaType.equals("Character")) {
+            // return "CHAR";
+            // }
+            // } else {
             return JavaTypesManager.STRING.getId();
         }
         return javaType;

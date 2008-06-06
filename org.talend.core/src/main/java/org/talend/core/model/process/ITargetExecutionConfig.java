@@ -12,18 +12,16 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public interface ITargetExecutionConfig extends IServerConfiguration {
 
-    public boolean isRemote();    
+    public boolean isRemote();
 
     public int getFileTransferPort();
-    
+
     public void setFileTransferPort(int transferFilePort);
 
 }

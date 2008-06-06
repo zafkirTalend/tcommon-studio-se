@@ -85,7 +85,7 @@ public class ExtendedTableRemoveCommand extends Command implements IExtendedTabl
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void execute() {
 
@@ -158,7 +158,7 @@ public class ExtendedTableRemoveCommand extends Command implements IExtendedTabl
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public synchronized void undo() {
 

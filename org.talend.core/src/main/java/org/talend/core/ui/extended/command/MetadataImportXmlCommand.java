@@ -35,13 +35,17 @@ import org.xml.sax.SAXException;
 public class MetadataImportXmlCommand extends Command {
 
     private File file;
+
     private ExtendedTableModel extendedTableModel;
+
     private List<IMetadataColumn> removed;
+
     private List<IMetadataColumn> added;
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
-     * @param extendedTableModel 
+     * 
+     * @param extendedTableModel
      * @param extendedTable
      * @param validAssignableType
      * @param indexStartAdd
@@ -52,13 +56,15 @@ public class MetadataImportXmlCommand extends Command {
         this.extendedTableModel = extendedTableModel;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#execute()
      */
     @Override
     public void execute() {
         try {
-            removed =  new ArrayList<IMetadataColumn>(extendedTableModel.getBeansList());
+            removed = new ArrayList<IMetadataColumn>(extendedTableModel.getBeansList());
             extendedTableModel.removeAll(removed);
             added = MetadataSchema.initializeColumns(file);
             extendedTableModel.addAll(added);
@@ -72,15 +78,13 @@ public class MetadataImportXmlCommand extends Command {
         }
     }
 
-    
     /**
      * Getter for extendedTableModel.
+     * 
      * @return the extendedTableModel
      */
     public ExtendedTableModel getExtendedTableModel() {
         return this.extendedTableModel;
     }
-
-    
 
 }

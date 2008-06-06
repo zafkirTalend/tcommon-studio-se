@@ -65,7 +65,8 @@ public class TalendProposalProvider implements IContentProposalProvider {
 
         if (process != null) {
             // Proposals based on process context
-            List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
+            List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext()
+                    .getContextParameterList();
             for (IContextParameter ctxParam : ctxParams) {
                 proposals.add(new ContextParameterProposal(ctxParam));
             }
@@ -84,8 +85,8 @@ public class TalendProposalProvider implements IContentProposalProvider {
             List<IContextParameter> ctxParams = new ArrayList<IContextParameter>();
             if (allContextItem != null) {
                 for (ContextItem item : allContextItem) {
-                    List<IContextParameter> tmpParams = new JobContextManager(item.getContext(), item.getDefaultContext())
-                            .getDefaultContext().getContextParameterList();
+                    List<IContextParameter> tmpParams = new JobContextManager(item.getContext(), item
+                            .getDefaultContext()).getDefaultContext().getContextParameterList();
                     ctxParams.addAll(tmpParams);
                 }
             }

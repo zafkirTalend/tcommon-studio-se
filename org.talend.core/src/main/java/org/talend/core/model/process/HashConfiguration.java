@@ -83,5 +83,5 @@ public class HashConfiguration implements IHashConfiguration {
     public String getRowsBufferSize() {
         return rowsBufferSize;
     }
-    
+
 }

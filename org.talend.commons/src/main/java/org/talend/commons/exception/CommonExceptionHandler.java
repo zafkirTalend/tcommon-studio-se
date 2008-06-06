@@ -25,53 +25,50 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public final class CommonExceptionHandler {
 
-	private static Logger log = Logger.getLogger(CommonExceptionHandler.class);
+    private static Logger log = Logger.getLogger(CommonExceptionHandler.class);
 
-	/**
-	 * Empty constructor.
-	 */
-	private CommonExceptionHandler() {
-	}
+    /**
+     * Empty constructor.
+     */
+    private CommonExceptionHandler() {
+    }
 
-	/**
-	 * Log message relative to ex param. Log level depends on exception type.
-	 * 
-	 * @param ex -
-	 *            exception to log
-	 */
-	public static void process(Throwable ex) {
-		Priority priority = getPriority(ex);
-		process(ex, priority);
-	}
+    /**
+     * Log message relative to ex param. Log level depends on exception type.
+     * 
+     * @param ex - exception to log
+     */
+    public static void process(Throwable ex) {
+        Priority priority = getPriority(ex);
+        process(ex, priority);
+    }
 
-	public static void process(Throwable ex, Priority priority) {
-		String message = ex.getMessage();
+    public static void process(Throwable ex, Priority priority) {
+        String message = ex.getMessage();
 
-		log.log(priority, message, ex);
-	
-	}
+        log.log(priority, message, ex);
 
-	/**
-	 * Return priority corresponding to the exception implementation.
-	 * 
-	 * @param ex -
-	 *            the exception to evaluate priority
-	 * @return the priority corresponding to the exception implementation
-	 */
-	protected static Priority getPriority(Throwable ex) {
-		if (ex == null) {
-			throw new IllegalArgumentException(Messages
-					.getString("ExceptionHandler.Parameter.BeNull")); //$NON-NLS-1$
-		}
+    }
 
-		if (ex instanceof BusinessException) {
-			return Level.INFO;
-		} else if (ex instanceof FatalException) {
-			return Level.FATAL;
-		} else if (ex instanceof SystemException) {
-			return Level.WARN;
-		} else {
-			return Level.ERROR;
-		}
-	}
+    /**
+     * Return priority corresponding to the exception implementation.
+     * 
+     * @param ex - the exception to evaluate priority
+     * @return the priority corresponding to the exception implementation
+     */
+    protected static Priority getPriority(Throwable ex) {
+        if (ex == null) {
+            throw new IllegalArgumentException(Messages.getString("ExceptionHandler.Parameter.BeNull")); //$NON-NLS-1$
+        }
+
+        if (ex instanceof BusinessException) {
+            return Level.INFO;
+        } else if (ex instanceof FatalException) {
+            return Level.FATAL;
+        } else if (ex instanceof SystemException) {
+            return Level.WARN;
+        } else {
+            return Level.ERROR;
+        }
+    }
 }

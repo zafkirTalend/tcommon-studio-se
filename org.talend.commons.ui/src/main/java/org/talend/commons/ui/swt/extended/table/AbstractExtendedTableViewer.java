@@ -243,7 +243,8 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                                 tableViewerCreator.getSelectionHelper().setSelection(event.index,
                                         event.index + event.addedObjects.size() - 1);
                             } else if (event.indicesTarget != null) {
-                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget
+                                        .toArray(new Integer[0]));
                                 tableViewerCreator.getSelectionHelper().setSelection(selection);
 
                             }
@@ -266,7 +267,8 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                         } else if (event.type == TYPE.SWAPED) {
                             if (event.indicesTarget != null) {
-                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget
+                                        .toArray(new Integer[0]));
                                 tableViewerCreator.getSelectionHelper().setSelection(selection);
                             }
                         }
@@ -293,7 +295,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                 if (event.type == TYPE.ADDED) {
                     tableViewerCreator.getTable().deselectAll();
                 } else if (event.type == TYPE.REMOVED) {
-                    
+
                     // tableViewerCreator.getTable().deselectAll();
                     // tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
                     // tableViewerCreator.layout();
@@ -322,12 +324,12 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                 }).start();
             } else {
 
-//                tableViewer.refresh();
-                if(event.type == TYPE.ADDED) {
+                // tableViewer.refresh();
+                if (event.type == TYPE.ADDED) {
 
-                } else if(event.type == TYPE.SWAPED) {
+                } else if (event.type == TYPE.SWAPED) {
 
-//                    tableViewer.refresh();
+                    // tableViewer.refresh();
 
                     Object[] swapedObjects = event.swapedObjects;
 
@@ -335,21 +337,20 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                         Object data = swapedObjects[j];
                         tableViewer.refresh(data, true, true);
                     }
-                    
-                } else if(event.type == TYPE.REMOVED) {
-                    
-                    
-//                    if(event.index != null) {
-//                        tableViewerCreator.getSelectionHelper().select(event.index);
-//                    } else if(event.indicesOrigin != null) {
-//                        Integer startIndex = event.indicesOrigin.get(0);
-//                        tableViewerCreator.getSelectionHelper().select(startIndex);
-//                    }
 
-//                    Collection<B> addedObjects = event.addedObjects;
-//                    for (B bean : addedObjects) {
-//                        tableViewer.refresh(bean);
-//                    }
+                } else if (event.type == TYPE.REMOVED) {
+
+                    // if(event.index != null) {
+                    // tableViewerCreator.getSelectionHelper().select(event.index);
+                    // } else if(event.indicesOrigin != null) {
+                    // Integer startIndex = event.indicesOrigin.get(0);
+                    // tableViewerCreator.getSelectionHelper().select(startIndex);
+                    // }
+
+                    // Collection<B> addedObjects = event.addedObjects;
+                    // for (B bean : addedObjects) {
+                    // tableViewer.refresh(bean);
+                    // }
                 } else {
                     tableViewer.refresh();
                 }

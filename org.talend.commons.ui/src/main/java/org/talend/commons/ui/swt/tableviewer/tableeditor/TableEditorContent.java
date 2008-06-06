@@ -25,7 +25,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 public abstract class TableEditorContent {
 
     private boolean layoutEnabled = true; // for performance use
-    
+
     /**
      * You can override this method if necessary.
      * 
@@ -35,43 +35,40 @@ public abstract class TableEditorContent {
     public TableEditor createTableEditor(final Table table) {
         return new TableEditor(table) {
 
-
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.swt.custom.TableEditor#layout()
              */
             @Override
             public void layout() {
-                if(layoutEnabled) {
+                if (layoutEnabled) {
                     super.layout();
                 }
             }
-            
+
         };
     }
 
     public abstract Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
             Object currentRowObject, Object currentCellValue);
 
-    
     /**
-     * Getter for layoutEnabled.
-     * For performance use
+     * Getter for layoutEnabled. For performance use
+     * 
      * @return the layoutEnabled
      */
     public boolean isLayoutEnabled() {
         return this.layoutEnabled;
     }
 
-    
     /**
-     * Sets the layoutEnabled.
-     * For performance use
+     * Sets the layoutEnabled. For performance use
+     * 
      * @param layoutEnabled the layoutEnabled to set
      */
     public void setLayoutEnabled(boolean layoutEnabled) {
         this.layoutEnabled = layoutEnabled;
     }
 
-    
-    
 }

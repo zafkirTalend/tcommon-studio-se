@@ -47,7 +47,7 @@ public class LogLoadedComponentsAction extends Action implements IWorkbenchWindo
     public void run() {
         IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
         for (IComponent component : componentsFactory.getComponents()) {
-            log.info(Messages.getString("LogLoadedComponentsAction.componentLog",component.getName()));  //$NON-NLS-1$
+            log.info(Messages.getString("LogLoadedComponentsAction.componentLog", component.getName())); //$NON-NLS-1$
         }
     }
 

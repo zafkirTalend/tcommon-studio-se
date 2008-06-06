@@ -52,17 +52,19 @@ public final class ProposalUtils {
     private ProposalUtils() {
     }
 
-    public static ContentProposalAdapterExtended getCommonProposal(Control control, IContentProposalProvider proposalProvider) {
+    public static ContentProposalAdapterExtended getCommonProposal(Control control,
+            IContentProposalProvider proposalProvider) {
         IControlContentAdapter controlContentAdapter = null;
         if (control instanceof Text) {
             controlContentAdapter = new TextContentAdapterExtended();
         } else if (control instanceof StyledText) {
             controlContentAdapter = new StyledTextContentAdapterExtended();
         } else {
-            throw new IllegalArgumentException(Messages.getString("ProposalUtils.CtrlProposal.ErrorMsg") + control.getClass()); //$NON-NLS-1$
+            throw new IllegalArgumentException(
+                    Messages.getString("ProposalUtils.CtrlProposal.ErrorMsg") + control.getClass()); //$NON-NLS-1$
         }
-        final ContentProposalAdapterExtended contentProposalAdapter = getContentProposalAdapter(control, controlContentAdapter,
-                proposalProvider);
+        final ContentProposalAdapterExtended contentProposalAdapter = getContentProposalAdapter(control,
+                controlContentAdapter, proposalProvider);
 
         // to don't write Carriage Return when accept a proposal
         if (control instanceof StyledText) {
@@ -93,8 +95,8 @@ public final class ProposalUtils {
         try {
             KeyStroke keyStroke = KeyStroke.getInstance("Ctrl+Space");
 
-            contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter, proposalProvider,
-                    keyStroke, null);
+            contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter,
+                    proposalProvider, keyStroke, null);
             contentProposalAdapter.setPropagateKeys(true);
             contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_CUMULATIVE_ALL_START_WORDS);
             contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
@@ -115,7 +117,8 @@ public final class ProposalUtils {
             return getContentProposalAdapter(((ExtendedTextCellEditorWithProposal) cellEditor).getTextControl(),
                     new TextCellEditorContentAdapterExtended());
         } else {
-            throw new IllegalArgumentException(Messages.getString("ProposalUtils.CellProposal.Error") + cellEditor.getClass()); //$NON-NLS-1$
+            throw new IllegalArgumentException(
+                    Messages.getString("ProposalUtils.CellProposal.Error") + cellEditor.getClass()); //$NON-NLS-1$
         }
     }
 
@@ -129,8 +132,8 @@ public final class ProposalUtils {
         IJavaProject javaProject = compilationUnit != null ? ((IJavaElement) compilationUnit).getJavaProject() : null;
         IEvaluationContext evaluationContext = javaProject.newEvaluationContext();
 
-        IClassFileEvaluationEngine classFileEvaluationEngine = EvaluationManager.newClassFileEvaluationEngine(javaProject, null,
-                new File(""));
+        IClassFileEvaluationEngine classFileEvaluationEngine = EvaluationManager.newClassFileEvaluationEngine(
+                javaProject, null, new File(""));
 
         LocalEvaluationEngine localEvaluationEngine = (LocalEvaluationEngine) classFileEvaluationEngine;
 

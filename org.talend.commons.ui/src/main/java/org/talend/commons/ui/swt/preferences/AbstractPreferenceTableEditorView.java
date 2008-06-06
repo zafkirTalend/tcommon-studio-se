@@ -94,8 +94,8 @@ public abstract class AbstractPreferenceTableEditorView<B> extends FieldEditor {
      */
     private void loadData(String stringList) {
         if (stringList != null && !"".equals(stringList)) { //$NON-NLS-1$
-            List<B> beans = getPreferencesHelper().getBeans(stringList, getPreferencesHelper().getBeanPropertyAccessors(),
-                    this.tableEditorView.getExtendedTableModel());
+            List<B> beans = getPreferencesHelper().getBeans(stringList,
+                    getPreferencesHelper().getBeanPropertyAccessors(), this.tableEditorView.getExtendedTableModel());
             tableEditorView.getExtendedTableModel().registerDataList(beans);
         }
     }

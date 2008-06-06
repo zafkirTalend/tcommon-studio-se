@@ -306,7 +306,8 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
                 final DatabaseConnection connection = (DatabaseConnection) item.getConnection();
 
-                DatabaseConnection conn = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(connection);
+                DatabaseConnection conn = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(
+                        connection);
 
                 final QueriesConnection queries = connection.getQueries();
                 QueriesConnection newQ = null;

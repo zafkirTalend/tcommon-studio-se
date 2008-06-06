@@ -20,7 +20,8 @@ package org.talend.commons.ui.swt.colorstyledtext.jedit;
  */
 public interface ISyntaxListener {
 
-    void newRules(String name, boolean highlightDigits, boolean ignoreCase, String digitRE, char escape, String defaultTokenType);
+    void newRules(String name, boolean highlightDigits, boolean ignoreCase, String digitRE, char escape,
+            String defaultTokenType);
 
     void newEOLSpan(String type, String text);
 
@@ -29,8 +30,9 @@ public interface ISyntaxListener {
 
     void newKeywords(KeywordMap keywords);
 
-    void newTextSequence(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart, String delegate);
+    void newTextSequence(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
+            String delegate);
 
-    void newMark(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart, String delegate,
-            boolean isPrevious, boolean excludeMatch);
+    void newMark(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
+            String delegate, boolean isPrevious, boolean excludeMatch);
 }

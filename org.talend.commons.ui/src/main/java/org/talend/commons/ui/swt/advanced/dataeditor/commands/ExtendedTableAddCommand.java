@@ -55,7 +55,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Integer indexStartAdd, Object beanToAdd) {
         super(LABEL);
         this.extendedTable = extendedTable;
@@ -78,7 +78,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
      * @see org.eclipse.gef.commands.Command#execute()
      */
     @Override
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public void execute() {
 
         // for (Object object : beansToAdd) {
@@ -114,7 +114,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     @Override
     public void undo() {
 

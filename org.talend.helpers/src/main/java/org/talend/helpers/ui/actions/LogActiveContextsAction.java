@@ -50,7 +50,7 @@ public class LogActiveContextsAction extends Action implements IWorkbenchWindowA
                 IContextService.class);
         Collection col = contextService.getActiveContextIds();
         for (Object o : col) {
-            log.info(Messages.getString("LogActiveContextsAction.activeContextLog",o) ); //$NON-NLS-1$
+            log.info(Messages.getString("LogActiveContextsAction.activeContextLog", o)); //$NON-NLS-1$
         }
     }
 

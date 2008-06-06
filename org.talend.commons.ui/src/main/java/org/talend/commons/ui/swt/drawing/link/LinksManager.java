@@ -210,7 +210,8 @@ public class LinksManager<G1, D1, G2, D2> {
      */
     @SuppressWarnings("unchecked")
     private Set<LinkDescriptor<G1, D1, G2, D2>> getLinks(Map objectToLinks, Object object) {
-        Set<LinkDescriptor<G1, D1, G2, D2>> linksFound = (Set<LinkDescriptor<G1, D1, G2, D2>>) objectToLinks.get(object);
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFound = (Set<LinkDescriptor<G1, D1, G2, D2>>) objectToLinks
+                .get(object);
         if (linksFound == null) {
             return new HashSet<LinkDescriptor<G1, D1, G2, D2>>(0);
         }

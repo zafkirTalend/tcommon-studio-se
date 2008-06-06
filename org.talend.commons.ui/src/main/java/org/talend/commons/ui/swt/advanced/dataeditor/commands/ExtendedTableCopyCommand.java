@@ -34,7 +34,7 @@ public class ExtendedTableCopyCommand extends Command implements IExtendedTableC
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public ExtendedTableCopyCommand(List beansToCopy) {
         super(LABEL);
         this.beansToCopy = new ArrayList(beansToCopy);
@@ -43,7 +43,7 @@ public class ExtendedTableCopyCommand extends Command implements IExtendedTableC
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public ExtendedTableCopyCommand(Object beanToCopy) {
         super(LABEL);
         beansToCopy = new ArrayList(1);

@@ -84,9 +84,9 @@ public class ControlUtils {
         } else {
             throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
-        
+
     }
-    
+
     /**
      * 
      * DOC amaumont Comment method "getText".
@@ -102,9 +102,9 @@ public class ControlUtils {
         } else {
             throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
-        
+
     }
-    
+
     /**
      * 
      * DOC amaumont Comment method "getText".
@@ -149,7 +149,7 @@ public class ControlUtils {
         }
         return position;
     }
-    
+
     public static void setCursorPosition(Control control, int position) {
         if (control instanceof Text) {
             ((Text) control).setSelection(position);
@@ -159,11 +159,10 @@ public class ControlUtils {
             throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
     }
-    
-    
-    public static void setSortedValuesForCombo(CCombo combo, String[] values){
-		Arrays.sort(values);
-		combo.setItems(values);
+
+    public static void setSortedValuesForCombo(CCombo combo, String[] values) {
+        Arrays.sort(values);
+        combo.setItems(values);
     }
-    
+
 }

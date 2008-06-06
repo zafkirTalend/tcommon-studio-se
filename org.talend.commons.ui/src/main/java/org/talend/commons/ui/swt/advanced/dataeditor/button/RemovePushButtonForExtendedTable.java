@@ -42,14 +42,16 @@ public class RemovePushButtonForExtendedTable extends RemovePushButton implement
     public boolean getEnabledState() {
         return super.getEnabledState() && this.enableStateHandler.getEnabledState();
     }
-    
+
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
         return new ExtendedTableRemoveCommand(extendedTableViewer.getExtendedTableModel(), table.getSelectionIndices());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {

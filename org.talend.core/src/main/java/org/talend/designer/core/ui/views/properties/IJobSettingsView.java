@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.core.ui.views.properties;
 
-
 /**
  * DOC ggu class global comment. Detailled comment
  */

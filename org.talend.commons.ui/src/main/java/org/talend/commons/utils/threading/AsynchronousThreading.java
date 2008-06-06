@@ -55,7 +55,8 @@ public class AsynchronousThreading {
      * @param display
      * @param target
      */
-    public AsynchronousThreading(long sleepingTime, boolean synchronousDisplayExecution, Display display, Runnable target) {
+    public AsynchronousThreading(long sleepingTime, boolean synchronousDisplayExecution, Display display,
+            Runnable target) {
         this.sleepingTime = sleepingTime;
         this.synchronousDisplayExecution = synchronousDisplayExecution;
         this.target = target;

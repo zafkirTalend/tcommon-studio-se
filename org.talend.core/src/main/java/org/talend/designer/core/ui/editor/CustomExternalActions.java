@@ -41,7 +41,8 @@ public abstract class CustomExternalActions extends SelectionAction {
 
     public static final String EXTENSION_ID = "org.talend.core.component_custom_action";
 
-    private static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+    private static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+            .getActiveEditor();
 
     /**
      * DOC qzhang AbstractContextMenuProvider constructor comment.
@@ -69,7 +70,8 @@ public abstract class CustomExternalActions extends SelectionAction {
         IConfigurationElement[] configurationElementsFor = extensionRegistry.getConfigurationElementsFor(EXTENSION_ID);
         for (IConfigurationElement configurationElement : configurationElementsFor) {
             try {
-                CustomExternalActions action = (CustomExternalActions) configurationElement.createExecutableExtension(ELEM_CLASS);
+                CustomExternalActions action = (CustomExternalActions) configurationElement
+                        .createExecutableExtension(ELEM_CLASS);
                 String attribute = configurationElement.getAttribute(ELEM_LABEL);
                 action.setText(attribute);
                 attribute = configurationElement.getAttribute(ELEM_ID);

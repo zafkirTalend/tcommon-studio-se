@@ -51,7 +51,8 @@ public class SnippetCompletionProposal extends TalendCompletionProposal {
      */
     public SnippetCompletionProposal(SnippetItem snippet, int replacementOffset, int replacementLength, Image image,
             String displayString, IContextInformation contextInformation, String additionalProposalInfo) {
-        super("", replacementOffset, replacementLength, 0, image, displayString, contextInformation, additionalProposalInfo);
+        super("", replacementOffset, replacementLength, 0, image, displayString, contextInformation,
+                additionalProposalInfo);
         this.snippet = snippet;
     }
 

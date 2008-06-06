@@ -93,10 +93,10 @@ public class SourceViewerDialog extends Dialog {
         return composite;
     }
 
-    public void setDocument(IDocument doc){
+    public void setDocument(IDocument doc) {
         document = doc;
     }
-    
+
     public void setDocument(File source) {
         if (source == null || !source.exists()) {
             return;

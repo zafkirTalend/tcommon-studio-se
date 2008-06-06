@@ -65,7 +65,8 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
 
     /**
      * yzhang ExtendedTextCellEditor constructor comment.
-     * @param behavior 
+     * 
+     * @param behavior
      */
     public ExtendedTextCellEditor(Composite parent, CellEditorDialogBehavior cellEditorBehavior) {
         super(parent);
@@ -119,7 +120,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
 
     protected void differedCreate(Composite parent) {
         super.create(parent);
-//        initFocusListener(parent);
+        // initFocusListener(parent);
     }
 
     /*

@@ -187,9 +187,9 @@ public class TypedTextCommandExecutor {
             if (undoOrRedo) {
                 updateCommand(control);
             } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) /*
-             * ||
-             * e.character == ' '
-             */) {
+                                                                                                             * ||
+                                                                                                             * e.character == ' '
+                                                                                                             */) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);

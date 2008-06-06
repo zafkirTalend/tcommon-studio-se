@@ -15,11 +15,10 @@ package org.talend.core.model.components;
 import java.util.List;
 
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IMultipleComponentItem {
 
@@ -30,8 +29,8 @@ public interface IMultipleComponentItem {
     public String getName();
 
     public void setName(String name);
-    
+
     public String getComponent();
-    
+
     public void setComponent(String component);
 }

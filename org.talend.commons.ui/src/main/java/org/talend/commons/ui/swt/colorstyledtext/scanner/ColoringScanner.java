@@ -152,7 +152,8 @@ public class ColoringScanner extends StringRuleBasedScanner {
         rules.add(wordRule);
     }
 
-    private void addKeywordRule(Rule ruleSet, String type, String tokenName, CasedWordRule keywordRule, ColoringWordDetector wordDetector) {
+    private void addKeywordRule(Rule ruleSet, String type, String tokenName, CasedWordRule keywordRule,
+            ColoringWordDetector wordDetector) {
         String[] keywords = ruleSet.getKeywords().get(type);
         IToken keywordToken = newToken(tokenName);
         if (keywords != null && keywords.length != 0) {
