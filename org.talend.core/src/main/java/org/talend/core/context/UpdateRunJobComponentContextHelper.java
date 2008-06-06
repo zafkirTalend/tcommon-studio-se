@@ -54,7 +54,7 @@ public final class UpdateRunJobComponentContextHelper {
             return;
         }
         for (IProcess process : openedProcesses) {
-            if (process.getLabel().equals(refJobId)) {
+            if (process.getId().equals(refJobId)) {
                 // ignore self
                 continue;
             }
@@ -174,7 +174,7 @@ public final class UpdateRunJobComponentContextHelper {
             // found tRunJob node
             boolean found = false;
             for (ElementParameterType paramType : (List<ElementParameterType>) foundNode.getElementParameter()) {
-                if (PROCESS_TYPE_PROCESS.equals(paramType.getName()) && paramType.getValue().equals(refJobId)) {
+                if (paramType.getName().endsWith(PROCESS_TYPE_PROCESS) && paramType.getValue().equals(refJobId)) {
                     found = true;
                     continue;
                 }
