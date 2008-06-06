@@ -44,7 +44,7 @@ public class AnalyzeColumnAction extends Action {
     @Override
     public void run() {
         
-        new CreateNewAnalysisAction().run();
+        new CreateNewAnalysisAction().run(null, null);
         
         AnalysisEditor editor = (AnalysisEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
         if (editor != null) {
