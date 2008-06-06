@@ -14,8 +14,8 @@
     <elementParameter field="CHECK" name="ON_FILES_FLAG_IMPLICIT_CONTEXT" value="false"/>
     <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8623-V2.3.0/workspace/in.csv&quot;"/>
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
     <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
@@ -41,8 +41,8 @@
     <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;"/>
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tDBOutput"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;&quot;"/>
@@ -65,8 +65,8 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value=""/>
     <elementParameter field="FILE" name="FILENAME" value="context.defaultDir.concat(&quot;/in/sample.arff.txt&quot;)"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
@@ -132,5 +132,5 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <note opaque="true" posX="96" posY="96" sizeHeight="161" sizeWidth="481" text="The ARFF file format is a standard format used by WEKA for data mining.&#xD;&#xA;The specifications can be found here&#xD;&#xA;http://weka.sourceforge.net/wekadoc/index.php/en:ARFF_(3.4.6)&#xD;&#xA;&#xD;&#xA;A tFileInputARFF and tFileOutputARFF could be useful for importing and exporting data used&#xD;&#xA;in data mining tools like WEKA.&#xD;&#xA;&#xD;&#xA;Download another sample on http://www.talendforge.org/bugs/view.php?id=2260"/>
+  <note opaque="true" posX="96" posY="96" sizeHeight="161" sizeWidth="481" text="The ARFF file format is a standard format used by WEKA for datamining.&#xD;&#xA;The specifications can be found here&#xD;&#xA;http://weka.sourceforge.net/wekadoc/index.php/en:ARFF_(3.4.6)&#xD;&#xA;&#xD;&#xA;A tFileInputARFF and tFileOutputARFF could be useful for importing and exporting data used&#xD;&#xA;in datamining tools like WEKA.&#xD;&#xA;&#xD;&#xA;Download another sample on http://www.talendforge.org/bugs/view.php?id=2260"/>
 </talendfile:ProcessType>

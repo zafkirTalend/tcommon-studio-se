@@ -16,8 +16,8 @@
     <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;&quot;"/>
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE" value=""/>
     <elementParameter field="TEXT" name="HOST" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;&quot;"/>
@@ -39,7 +39,7 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="TEXT" name="URI" value="DemoRoutines.getPropertiesUrl()"/>
-    <elementParameter field="DIRECTORY" name="DIRECTORY" value="(String)((String)context.getProperty(&quot;defaultDir&quot;))"/>
+    <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.defaultDir"/>
     <elementParameter field="TEXT" name="FILENAME" value="&quot;file_fetch_t03Demoroutines.txt&quot;"/>
     <elementParameter field="TEXT" name="LABEL" value="the URI is define by &quot;__URI__&quot;"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__"/>

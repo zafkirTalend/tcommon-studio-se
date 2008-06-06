@@ -2,73 +2,165 @@
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
-    <elementParameter field="TEXT" name="VERSION" value="0.1"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
-    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
-    <elementParameter field="CHECK" name="ON_FILES_FLAG_IMPLICIT_CONTEXT" value="false"/>
-    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8293-V2.3.0RC2/workspace/in.csv&quot;"/>
-    <elementParameter field="CHECK" name="ON_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE_IMPLICIT_CONTEXT" value=""/>
-    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
-    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
-    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
-    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false"/>
-    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false"/>
-    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true"/>
-    <elementParameter field="CHECK" name="DISABLE_INFO" value="true"/>
-    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
-    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
-    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
-    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
-    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false"/>
-    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;&quot;"/>
-    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="true"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value=""/>
-    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tMysqlOutput"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;logwarehouse&quot;"/>
-    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
-    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="USER" value="&quot;root&quot;"/>
-    <elementParameter field="TEXT" name="PASS" value="&quot;&quot;"/>
-    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;stat&quot;"/>
-    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;log&quot;"/>
-    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;flowmeter&quot;"/>
-    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
-    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
-    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true"/>
-    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="true"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r14257-V2.4.0RC2\workspace"/>
+    <elementParameter contextMode="false" field="CHECK" name="displaySubjobs" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="AUTHOR" value="training@talend.com"/>
+    <elementParameter contextMode="false" field="TEXT" name="STATUS" value=""/>
+    <elementParameter contextMode="false" field="TEXT" name="NAME" value="tSchemaComplianceCheck2"/>
+    <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.1"/>
+    <elementParameter contextMode="false" field="TEXT" name="PURPOSE" value=""/>
+    <elementParameter contextMode="false" field="TEXT" name="DESCRIPTION" value=""/>
+    <elementParameter contextMode="false" field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter contextMode="false" field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
+    <elementParameter contextMode="false" field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter contextMode="false" field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter contextMode="false" field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter contextMode="false" field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter contextMode="false" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8293-V2.3.0RC2/workspace/in.csv&quot;"/>
+    <elementParameter contextMode="false" field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
+    <elementParameter contextMode="false" field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="DISABLE_WARNINGS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="DISABLE_INFO" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ON_FILES_FLAG" value="false"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="FILE_PATH" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="FILENAME_STATS" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="FILENAME_LOGS" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="FILENAME_METTER" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="CHECK" name="ON_DATABASE_FLAG" value="true"/>
+    <elementParameter contextMode="false" field="PROPERTY_TYPE" name="PROPERTY_TYPE" value=""/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="DB_TYPE" value="tMysqlOutput"/>
+    <elementParameter contextMode="false" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="PORT" value="&quot;3306&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="DBNAME" value="&quot;logwarehouse&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="USER" value="&quot;root&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="PASS" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="FILE" name="DBFILE" value="&quot;&quot;"/>
+    <elementParameter contextMode="false" field="DBTABLE" name="TABLE_STATS" value="&quot;stat&quot;"/>
+    <elementParameter contextMode="false" field="DBTABLE" name="TABLE_LOGS" value="&quot;log&quot;"/>
+    <elementParameter contextMode="false" field="DBTABLE" name="TABLE_METER" value="&quot;flowmeter&quot;"/>
+    <elementParameter contextMode="false" field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="CATCH_USER_ERRORS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="CATCH_USER_WARNING" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="CATCH_REALTIME_STATS" value="true"/>
   </parameters>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="96">
+    <elementParameter contextMode="false" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
+    <elementParameter contextMode="false" field="TEXT" name="COMPONENT_NAME" value="tFileInputDelimited"/>
+    <elementParameter contextMode="false" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tFileInputDelimited"/>
+    <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.102 (ALPHA)"/>
+    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="File/Input"/>
+    <elementParameter contextMode="false" field="CHECK" name="START" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="STARTABLE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tFileInputDelimited"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
+    <elementParameter contextMode="false" field="PROPERTY_TYPE" name="PROPERTY" value=""/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value=""/>
+    <elementParameter contextMode="false" field="FILE" name="FILENAME" value="&quot;C:/talend_files/in/tSchemaComplianceCheck/sample.txt&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter contextMode="false" field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="HEADER" value="0"/>
+    <elementParameter contextMode="false" field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter contextMode="false" field="TEXT" name="LIMIT" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="THOUSANDS_SEPARATOR" value="','"/>
+    <elementParameter contextMode="false" field="TEXT" name="DECIMAL_SEPARATOR" value="'.'"/>
+    <elementParameter contextMode="false" field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="NB_RANDOM" value="10"/>
+    <elementParameter contextMode="false" field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter contextMode="false" field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="number"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter contextMode="false" field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter contextMode="false" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter contextMode="false" field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+    <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+    <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
+    <metadata connector="FLOW" name="tFileInputDelimited_1">
+      <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="12" name="value" nullable="true" originalDbColumnName="newColumn" pattern="" sourceType="" type="id_String"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
+      <column comment="" defaultValue="" key="false" length="12" name="value" nullable="true" originalDbColumnName="newColumn" pattern="" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
   <node componentName="tSchemaComplianceCheck" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="96">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSchemaComplianceCheck_1"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="CHECK" name="CHECK_ANOTHER" value="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_OTHER:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_OTHER:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="CHECK" name="CHECK_ALL" value="false"/>
-    <elementParameter field="TABLE" name="CHECKCOLS">
+    <elementParameter contextMode="false" field="TEXT" name="UNIQUE_NAME" value="tSchemaComplianceCheck_1"/>
+    <elementParameter contextMode="false" field="TEXT" name="COMPONENT_NAME" value="tSchemaComplianceCheck"/>
+    <elementParameter contextMode="false" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tSchemaComplianceCheck"/>
+    <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
+    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Data Quality"/>
+    <elementParameter contextMode="false" field="CHECK" name="STARTABLE" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tSchemaComplianceCheck"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="CHECK_ANOTHER" value="false"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA_OTHER:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA_OTHER:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="CHECK_ALL" value="false"/>
+    <elementParameter contextMode="false" field="TABLE" name="CHECKCOLS">
       <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
       <elementValue elementRef="SELECTED_TYPE" value="Integer"/>
       <elementValue elementRef="DATEPATTERN" value=""/>
@@ -82,10 +174,10 @@
       <elementValue elementRef="DATEPATTERN" value=""/>
       <elementValue elementRef="NULLABLE" value="true"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+    <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+    <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tSchemaComplianceCheck_1">
       <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
@@ -101,20 +193,31 @@
     <metadata connector="OTHER" name="OTHER"/>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="96">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="CHECK" name="TABLE_PRINT" value="false"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
-    <elementParameter field="CHECK" name="PRINT_HEADER" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="true"/>
-    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
-    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
-    <elementParameter field="TABLE" name="LENGTHS">
+    <elementParameter contextMode="false" field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
+    <elementParameter contextMode="false" field="TEXT" name="COMPONENT_NAME" value="tLogRow"/>
+    <elementParameter contextMode="false" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tLogRow"/>
+    <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
+    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Logs &amp; Errors"/>
+    <elementParameter contextMode="false" field="CHECK" name="STARTABLE" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tLogRow"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter contextMode="false" field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter contextMode="false" field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_UNIQUE_NAME" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter contextMode="false" field="TABLE" name="LENGTHS">
       <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="number"/>
@@ -122,10 +225,10 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+    <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+    <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tLogRow_1">
       <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
@@ -133,20 +236,31 @@
     </metadata>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="192">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_2"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="CHECK" name="TABLE_PRINT" value="false"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
-    <elementParameter field="CHECK" name="PRINT_HEADER" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
-    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
-    <elementParameter field="TABLE" name="LENGTHS">
+    <elementParameter contextMode="false" field="TEXT" name="UNIQUE_NAME" value="tLogRow_2"/>
+    <elementParameter contextMode="false" field="TEXT" name="COMPONENT_NAME" value="tLogRow"/>
+    <elementParameter contextMode="false" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tLogRow"/>
+    <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
+    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Logs &amp; Errors"/>
+    <elementParameter contextMode="false" field="CHECK" name="STARTABLE" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tLogRow"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
+    <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
+    <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter contextMode="false" field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter contextMode="false" field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter contextMode="false" field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter contextMode="false" field="TABLE" name="LENGTHS">
       <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="number"/>
@@ -158,10 +272,10 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="errorMessage"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+    <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+    <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tLogRow_2">
       <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
@@ -170,90 +284,42 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="96">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value=""/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value=""/>
-    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/talend_files/in/tSchemaComplianceCheck/sample.txt&quot;"/>
-    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
-    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
-    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;"/>
-    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;"/>
-    <elementParameter field="TEXT" name="HEADER" value="0"/>
-    <elementParameter field="TEXT" name="FOOTER" value="0"/>
-    <elementParameter field="TEXT" name="LIMIT" value=""/>
-    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value=""/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="','"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="'.'"/>
-    <elementParameter field="CHECK" name="RANDOM" value="false"/>
-    <elementParameter field="TEXT" name="NB_RANDOM" value="10"/>
-    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
-    <elementParameter field="TABLE" name="TRIMSELECT">
-      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="number"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
-      <elementValue elementRef="TRIM" value="false"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
-    <metadata connector="FLOW" name="tFileInputDelimited_1">
-      <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
-      <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
-      <column comment="" defaultValue="" key="false" length="12" name="value" nullable="true" originalDbColumnName="newColumn" pattern="" sourceType="" type="id_String"/>
-    </metadata>
-    <metadata connector="REJECT" name="REJECT">
-      <column comment="" defaultValue="" key="false" length="2" name="id" nullable="false" pattern="" sourceType="" type="id_Integer"/>
-      <column comment="" defaultValue="" key="false" length="1" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
-      <column comment="" defaultValue="" key="false" length="12" name="value" nullable="true" originalDbColumnName="newColumn" pattern="" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
-    </metadata>
-  </node>
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tSchemaComplianceCheck_1">
+    <elementParameter contextMode="false" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter contextMode="false" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter contextMode="false" field="TABLE" name="THRESHLODS"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
+  </connection>
   <connection connectorName="FLOW" label="ShcemaOk" lineStyle="0" metaname="tSchemaComplianceCheck_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tSchemaComplianceCheck_1" target="tLogRow_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
-    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
-    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
-    <elementParameter field="TABLE" name="THRESHLODS"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter contextMode="false" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter contextMode="false" field="TABLE" name="THRESHLODS"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
   </connection>
   <connection connectorName="REJECT" label="row2" lineStyle="0" metaname="REJECT" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tSchemaComplianceCheck_1" target="tLogRow_2">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
-    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
-    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
-    <elementParameter field="TABLE" name="THRESHLODS"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter contextMode="false" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter contextMode="false" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter contextMode="false" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter contextMode="false" field="TABLE" name="THRESHLODS"/>
+    <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
   </connection>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tSchemaComplianceCheck_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
-    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
-    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
-    <elementParameter field="TABLE" name="THRESHLODS"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-  </connection>
-  <note opaque="true" posX="32" posY="32" sizeHeight="33" sizeWidth="513" text="On the Run Pannel, before running the job, check TRACE to see the transformation"/>
+  <subjob>
+    <elementParameter contextMode="false" field="CHECK" name="COLLAPSED" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="SHOW_SUBJOB_TITLE" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="SUBJOB_TITLE" value=""/>
+    <elementParameter contextMode="false" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+    <elementParameter contextMode="false" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
+  </subjob>
 </talendfile:ProcessType>
