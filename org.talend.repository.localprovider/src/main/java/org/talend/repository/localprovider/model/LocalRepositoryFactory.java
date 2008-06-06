@@ -416,13 +416,31 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // Purge old sqlpatterns :
         // 1. old built-in:
-        // IFolder f1 = ResourceUtils.getFolder(prj,
-        // ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_SQLPATTERNS)
-        // + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
-        // ResourceUtils.deleteResource(f1);
-
+        IFolder sqlpatternRoot = ResourceUtils.getFolder(prj, ERepositoryObjectType
+                .getFolderName(ERepositoryObjectType.SQLPATTERNS), false);
+        clearSystemSqlPatterns(sqlpatternRoot);
         createSystemSQLPatterns();
-        ;
+    }
+
+    /**
+     * bqian Comment method "clearSystemSqlPatterns".
+     * 
+     * @param f1
+     */
+    private void clearSystemSqlPatterns(IFolder sqlPatternFolder) {
+        try {
+            for (IResource resource : sqlPatternFolder.members()) {
+                if (resource.getType() == IResource.FOLDER) {
+                    IFolder category = (IFolder) resource;
+                    IFolder sysFolder = (IFolder) category.getFolder(RepositoryConstants.SYSTEM_DIRECTORY);
+                    if (sysFolder != null) {
+                        ResourceUtils.emptyFolder(sysFolder);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     /**
