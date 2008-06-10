@@ -13,11 +13,9 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -95,15 +93,12 @@ public class ProcessorUtilities {
                 return null;
             }
             ProcessItem lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
-            versionsProcessItemCache.put(processId + "," + lastVersionOfProcess.getProperty().getVersion(), lastVersionOfProcess);
             return lastVersionOfProcess;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
         return null;
     }
-
-    private static Map<String, ProcessItem> versionsProcessItemCache = new HashMap<String, ProcessItem>();
 
     public static ProcessItem getProcessItem(String processId, String version) {
         if (processId == null || "".equals(processId)) {
@@ -112,18 +107,13 @@ public class ProcessorUtilities {
         if (version == null || LATEST_JOB_VERSION.equals(version)) {
             return getProcessItem(processId);
         }
-        ProcessItem selectedProcessItem = versionsProcessItemCache.get(processId + "," + version);
-        if (selectedProcessItem != null) {
-            return selectedProcessItem;
-        }
+        ProcessItem selectedProcessItem = null;
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
 
             List<IRepositoryObject> allVersions = factory.getAllVersion(processId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.PROCESS) {
-                    versionsProcessItemCache.put(ro.getProperty().getId() + "," + ro.getProperty().getVersion(), (ProcessItem) ro
-                            .getProperty().getItem());
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
                     }
