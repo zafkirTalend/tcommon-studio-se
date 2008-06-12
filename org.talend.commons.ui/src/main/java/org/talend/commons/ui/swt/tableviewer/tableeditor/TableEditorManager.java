@@ -19,15 +19,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -40,7 +37,6 @@ import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 import org.talend.commons.utils.data.map.MultiLazyValuesMap;
 import org.talend.commons.utils.threading.AsynchronousThreading;
-import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10
@@ -83,6 +79,8 @@ public class TableEditorManager {
 
     };
 
+    private IListenableListListener listenableListListener;
+
     public void addListener(ITableEditorManagerListener listener) {
         listeners.add(listener);
     }
@@ -110,66 +108,92 @@ public class TableEditorManager {
 
     @SuppressWarnings("unchecked")
     public void init(ListenableList listenableList) {
-        this.listenableList = listenableList;
-        List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
-        for (TableViewerCreatorColumn column : columns) {
-            if (column.getTableColumnSelectionListener() instanceof ITableColumnSelectionListener) {
-                column.getTableColumnSelectionListener().addColumnSortedListener(new IColumnSortedListener() {
+        if (listenableList != this.listenableList) {
+            releaseListenableListListener();
 
-                    public void handle() {
-                        refresh();
-                    }
+            List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
+            for (TableViewerCreatorColumn column : columns) {
+                if (column.getTableColumnSelectionListener() instanceof ITableColumnSelectionListener) {
+                    column.getTableColumnSelectionListener().addColumnSortedListener(new IColumnSortedListener() {
 
-                });
-            }
-        }
+                        public void handle() {
+                            refresh();
+                        }
 
-        IListenableListListener listenableListListener = new IListenableListListener() {
-
-            public void handleEvent(ListenableListEvent event) {
-
-                if (event.type == TYPE.ADDED) {
-
-                    handleAddedEventAsynchronous(event);
-                    // handleAddedEvent(event);
-
-                } else if (event.type == TYPE.REMOVED) {
-                    handleRemovedEventAsynchronous(event);
-                } else if (event.type == TYPE.SWAPED) {
-                    handleSwapedEvent(event);
-                } else if (event.type == TYPE.LIST_REGISTERED || event.type == TYPE.CLEARED
-                        || event.type == TYPE.REPLACED) {
-                    refresh();
+                    });
                 }
             }
 
-        };
+            if (this.listenableListListener == null) {
 
-        listenableList.addPostOperationListener(listenableListListener);
+                this.listenableListListener = new IListenableListListener() {
+
+                    public void handleEvent(ListenableListEvent event) {
+
+                        if (event.type == TYPE.ADDED) {
+
+                            handleAddedEventAsynchronous(event);
+
+                        } else if (event.type == TYPE.REMOVED) {
+                            handleRemovedEventAsynchronous(event);
+                        } else if (event.type == TYPE.SWAPED) {
+                            handleSwapedEvent(event);
+                        } else if (event.type == TYPE.LIST_REGISTERED || event.type == TYPE.CLEARED
+                                || event.type == TYPE.REPLACED) {
+                            refresh();
+                        }
+                    }
+
+                };
+            }
+
+            // System.out.println("TableEditor " + this.hashCode() + " Listener " + listenableListListener.hashCode()
+            // + " added into listenableList " + listenableList.hashCode());
+
+            listenableList.addPostOperationListener(listenableListListener);
+
+        }
+
+        this.listenableList = listenableList;
 
     }
 
     private void handleAddedEventAsynchronous(final ListenableListEvent event) {
 
-        new AsynchronousThreading(10, true, tableViewerCreator.getCompositeParent().getDisplay(), new Runnable() {
+        final Composite compositeParent = tableViewerCreator.getCompositeParent();
 
-            public void run() {
-                handleAddedEvent(event);
-            }
+        if (!compositeParent.isDisposed()) {
 
-        }).start();
+            new AsynchronousThreading(10, true, compositeParent.getDisplay(), new Runnable() {
+
+                public void run() {
+                    if (!compositeParent.isDisposed()) {
+                        handleAddedEvent(event);
+                    }
+                }
+
+            }).start();
+        }
 
     }
 
     private void handleRemovedEventAsynchronous(final ListenableListEvent event) {
 
-        new AsynchronousThreading(10, true, tableViewerCreator.getCompositeParent().getDisplay(), new Runnable() {
+        final Composite compositeParent = tableViewerCreator.getCompositeParent();
 
-            public void run() {
-                handleRemovedEvent(event);
-            }
+        if (!compositeParent.isDisposed()) {
 
-        }).start();
+            new AsynchronousThreading(10, true, tableViewerCreator.getCompositeParent().getDisplay(), new Runnable() {
+
+                public void run() {
+                    if (!compositeParent.isDisposed()) {
+                        handleRemovedEvent(event);
+                    }
+                }
+
+            }).start();
+
+        }
 
     }
 
@@ -317,8 +341,8 @@ public class TableEditorManager {
 
     }
 
-    private TableEditor addTableEditor(TableViewerCreatorColumn column, TableEditorContent tableEditorContent,
-            String idProperty, TableItem tableItem) {
+    private TableEditor addTableEditor(TableViewerCreatorColumn column, TableEditorContent tableEditorContent, String idProperty,
+            TableItem tableItem) {
 
         tableEditorContent.setLayoutEnabled(true);
         TableEditor tableEditor = tableEditorContent.createTableEditor(tableItem.getParent());
@@ -327,8 +351,7 @@ public class TableEditorManager {
 
         Object currentRowObject = tableItem.getData();
         Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-        Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject,
-                value);
+        Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
 
         control.addDisposeListener(new DisposeListener() {
 
@@ -365,6 +388,9 @@ public class TableEditorManager {
     }
 
     public void release() {
+
+        releaseListenableListListener();
+        listenableListListener = null;
         tableViewerCreator = null;
         int tableEditorListListSize = tableEditorList.size();
         for (int i = 0; i < tableEditorListListSize; i++) {
@@ -378,6 +404,16 @@ public class TableEditorManager {
         columnsWithEditorContent = null;
         previousItemsHash = null;
         dataToMultipleDataEditor = null;
+    }
+
+    private void releaseListenableListListener() {
+        if (listenableList != null && listenableListListener != null) {
+            listenableList.removeListener(listenableListListener);
+
+            // System.out.println("TableEditor " + this.hashCode() + " Listener " + listenableListListener.hashCode()
+            // + " REMOVED into listenableList " + listenableList.hashCode());
+
+        }
     }
 
 }

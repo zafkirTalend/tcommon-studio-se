@@ -16,11 +16,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.ADDED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.CLEARED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.REMOVED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.REPLACED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.SWAPED;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,6 +41,8 @@ public class ListenableListTest {
     private ListenableList<String> listenedList;
 
     private boolean added;
+
+    private int count;
 
     private boolean cleared;
 
@@ -590,22 +587,71 @@ public class ListenableListTest {
      */
     @Test
     public void testAddListener() {
+
+        count = 0;
+
         assertFalse(added);
         listenedList.add("A");
         assertFalse(added);
 
+        assertEquals(count, 0);
+
         initListener();
+
+        assertFalse(added);
+        listenedList.add("C");
+        assertTrue(added);
+        added = false;
+
+        assertEquals(count, 1);
 
         assertFalse(added);
         listenedList.add("B");
         assertTrue(added);
         added = false;
 
+        assertEquals(count, 2);
+
+        assertFalse(added);
+        listenedList.add("C");
+        assertTrue(added);
+        added = false;
+
+        assertEquals(count, 3);
+
+        listenedList.addPostOperationListener(listener);
+
+        assertFalse(added);
+        listenedList.add("B");
+        assertTrue(added);
+        added = false;
+
+        assertEquals(count, 4);
+
         listenedList.removeListener(listener);
 
         assertFalse(added);
         listenedList.add("C");
         assertFalse(added);
+
+        assertEquals(count, 4);
+
+        // 0 listener registered
+
+        listenedList.addPostOperationListener(listener);
+
+        // 1 listener registered
+
+        initListener();
+
+        // 2 listeners registered
+
+        assertFalse(added);
+        listenedList.add("B");
+        assertTrue(added);
+        added = false;
+
+        assertEquals(count, 6);
 
     }
 
@@ -637,7 +683,9 @@ public class ListenableListTest {
         listener = new IListenableListListener() {
 
             public void handleEvent(ListenableListEvent event) {
+                count++;
                 switch (event.type) {
+
                 case ADDED:
                     added = true;
                     break;

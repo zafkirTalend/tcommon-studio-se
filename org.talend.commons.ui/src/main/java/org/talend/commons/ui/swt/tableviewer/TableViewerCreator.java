@@ -364,7 +364,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
 
         setInputList(list);
-        if (tableEditorManager != null) {
+        if (tableEditorManager != null && list != null) {
             tableEditorManager.init(this.listenableList);
         }
 
@@ -390,6 +390,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 this.listenableList.registerList(list);
             }
         }
+
         this.list = list;
         tableViewer.setInput(list);
     }
@@ -588,10 +589,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             table.addListener(SWT.Paint, paintListener);
         }
 
-        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(
-                SWT.COLOR_WHITE));
-        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(
-                SWT.COLOR_BLACK));
+        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 
         if (useCustomItemColoring) {
             setUseCustomItemColoring(true);
@@ -703,8 +702,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     keyPressed = key;
                     e.doit = false;
                     editOtherEditor(null);
-                } else if (key == SWT.TRAVERSE_RETURN && getTable().getSelectionIndex() != -1
-                        && getTable().isFocusControl()) {
+                } else if (key == SWT.TRAVERSE_RETURN && getTable().getSelectionIndex() != -1 && getTable().isFocusControl()) {
                     keyPressed = key;
                     editOtherEditor(null);
                 }
@@ -1069,6 +1067,20 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         int size = columns.size();
         Layout tempLayout = table.getLayout();
         table.setLayout(null);
+
+        if (tableEditorManager != null) {
+            tableEditorManager.release();
+            tableEditorManager = null;
+        }
+
+        for (int i = 0; i < size; i++) {
+            final TableViewerCreatorColumn column = columns.get(i);
+            if (column.getTableEditorContent() != null) {
+                tableEditorManager = new TableEditorManager(this);
+                break;
+            }
+        }
+
         for (int i = 0; i < size; i++) {
             final TableViewerCreatorColumn column = columns.get(i);
             column.setIndex(i);
@@ -1138,12 +1150,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             tableColumn.setImage(column.getImageHeader());
             tableColumn.setText(column.getTitle() != null ? column.getTitle() : column.getId());
             tableColumn.setToolTipText(column.getToolTipHeader());
-
-            if (column.getTableEditorContent() != null) {
-                if (tableEditorManager == null) {
-                    tableEditorManager = new TableEditorManager(this);
-                }
-            }
 
             tableColumn.setMoveable(column.isMoveable());
             tableColumn.setResizable(column.isResizable());

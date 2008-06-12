@@ -676,7 +676,7 @@ public class ListenableList<T> implements IExtendedList<T> {
 
         List<T> addedObjects = new ArrayList<T>(1);
         addedObjects.add(addedObject);
-        event.removedObjects = addedObjects;
+        event.addedObjects = addedObjects;
         event.beforeOperation = before;
 
         fireEvent(event);
@@ -760,8 +760,10 @@ public class ListenableList<T> implements IExtendedList<T> {
         OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(
                 orderCall, listener);
         List<OrderableWrapper<IListenableListListener>> listeners = getCurrentListeners(before);
-        listeners.add(prioritizedListenerWrapper);
-        Collections.sort(listeners);
+        if (!listeners.contains(prioritizedListenerWrapper)) {
+            listeners.add(prioritizedListenerWrapper);
+            Collections.sort(listeners);
+        }
     }
 
     /**

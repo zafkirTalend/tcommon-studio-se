@@ -100,7 +100,7 @@ class OrderableWrapper<B> implements Comparable<OrderableWrapper> {
             if (other.bean != null) {
                 return false;
             }
-        } else if (!this.bean.equals(other.bean)) {
+        } else if (this.bean != other.bean) {
             return false;
         }
         return true;
@@ -140,6 +140,11 @@ class OrderableWrapper<B> implements Comparable<OrderableWrapper> {
      */
     public void setOrder(int priorityCalled) {
         this.order = priorityCalled;
+    }
+
+    @Override
+    public String toString() {
+        return "bean=" + bean.hashCode() + ", order=" + order;
     }
 
 }
