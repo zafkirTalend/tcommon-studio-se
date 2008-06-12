@@ -43,21 +43,23 @@ public class ModelSelectionDialog extends SelectionDialog {
 
     private Button showSchema, buildIn, repository;
 
-    private Boolean readOnlyJob;
+    private Boolean readOnlyJob, noSchema;
 
     /**
      * DOC yzhang ModelSelectionDialog constructor comment.
      */
-    public ModelSelectionDialog(Shell parentShell) {
-        this(parentShell, false);
+    public ModelSelectionDialog(Shell parentShell, boolean noSchema) {
+        this(parentShell, noSchema, false);
+        this.noSchema = noSchema;
     }
 
-    public ModelSelectionDialog(Shell parentShell, boolean isReadOnly) {
+    public ModelSelectionDialog(Shell parentShell, boolean noSchema, boolean isReadOnly) {
         super(parentShell);
         setHelpAvailable(false);
         setTitle(TITLE);
         setMessage(MESSAGE);
         this.readOnlyJob = isReadOnly;
+        this.noSchema = noSchema;
     }
 
     /*
@@ -90,9 +92,10 @@ public class ModelSelectionDialog extends SelectionDialog {
         gridLayout.horizontalSpacing = 10;
         group.setLayout(gridLayout);
         group.setLayoutData(gridData);
-
-        showSchema = new Button(group, SWT.RADIO);
-        showSchema.setText("View Schema (read only)");
+        if (noSchema) {
+            showSchema = new Button(group, SWT.RADIO);
+            showSchema.setText("View Schema (read only)");
+        }
 
         buildIn = new Button(group, SWT.RADIO);
         buildIn.setText(Messages.getString("ModelSelectionDialog.BuiltIn")); //$NON-NLS-1$
@@ -126,8 +129,10 @@ public class ModelSelectionDialog extends SelectionDialog {
             setOptionValue(EEditSelection.BUILDIN);
         if (repository.getSelection())
             setOptionValue(EEditSelection.REPOSITORY);
-        if (showSchema.getSelection())
-            setOptionValue(EEditSelection.SHOW_SCHEMA);
+        if (noSchema) {
+            if (showSchema.getSelection())
+                setOptionValue(EEditSelection.SHOW_SCHEMA);
+        }
 
         super.okPressed();
     }
