@@ -13,6 +13,7 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -63,6 +64,8 @@ public class ProcessorUtilities {
     public static final String LATEST_JOB_VERSION = "Latest";
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
+
+    // private static Map<String, Date> jobModificationMap = new HashMap<String, Date>();
 
     public static void addOpenEditor(IEditorPart editor) {
         openedEditors.add(editor);
@@ -225,6 +228,12 @@ public class ProcessorUtilities {
             processorFromFather = fatherJobInfo.getProcess().getProcessor();
             if (processorFromFather.isCodeGenerated()) {
                 // if the code has been generated already for the father, the code of the children should be up to date.
+                Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
+                String jobId = jobInfo.getJobId();
+                Date originalDate = jobInfo.getProcess().JOB_MODIFICATION_DATE_MAP.get(jobId);
+                if (originalDate != null && modificationDate.compareTo(originalDate) != 0) {
+                    return true;
+                }
                 return false;
             }
         }
@@ -314,6 +323,9 @@ public class ProcessorUtilities {
                         } else {
                             toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS);
                         }
+
+                        jobInfo.getProcess().JOB_MODIFICATION_DATE_MAP.put(subJobInfo.getJobId(), subJobInfo.getProcessItem()
+                                .getProperty().getModificationDate());
                     }
                 }
             }

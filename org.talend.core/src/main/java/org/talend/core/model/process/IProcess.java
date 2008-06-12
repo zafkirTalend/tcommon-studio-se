@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.talend.core.model.repository.IRepositoryObject;
@@ -29,6 +32,8 @@ public interface IProcess extends IRepositoryObject, IElement {
     public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X";
 
     public static final String SCREEN_OFFSET_Y = "SCREEN_OFFSET_Y";
+
+    public static Map<String, Date> JOB_MODIFICATION_DATE_MAP = new HashMap<String, Date>();
 
     public String getName();
 
