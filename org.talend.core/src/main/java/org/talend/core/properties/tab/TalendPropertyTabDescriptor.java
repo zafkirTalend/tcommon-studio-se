@@ -18,7 +18,6 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.process.EComponentCategory;
-import org.talend.core.model.process.Element;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -36,7 +35,7 @@ public class TalendPropertyTabDescriptor implements IStructuredTabItem {
 
     private List<IStructuredTabItem> subItems;
 
-    private Element element;
+    private Object data;
 
     private EComponentCategory category;
 
@@ -66,8 +65,8 @@ public class TalendPropertyTabDescriptor implements IStructuredTabItem {
      * 
      * @return the element
      */
-    public Element getElement() {
-        return this.element;
+    public Object getData() {
+        return this.data;
     }
 
     /**
@@ -75,8 +74,8 @@ public class TalendPropertyTabDescriptor implements IStructuredTabItem {
      * 
      * @param element the element to set
      */
-    public void setElement(Element element) {
-        this.element = element;
+    public void setData(Object data) {
+        this.data = data;
     }
 
     /**

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
@@ -94,4 +95,8 @@ public interface IRepositoryService extends IService {
     public IEditorPart openSQLPatternEditor(SQLPatternItem item, boolean readOnly);
 
     public void createSqlpattern(String path, boolean isFromSqlPatternComposite);
+
+    public void addRepositoryTreeViewListener(ISelectionChangedListener listener);
+
+    public void removeRepositoryTreeViewListener(ISelectionChangedListener listener);
 }
