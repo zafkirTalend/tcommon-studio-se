@@ -268,13 +268,12 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         table.setSortDirection(SWT.UP);
     }
 
+    @Override
     public void setEnabled(boolean enabled) {
         configContext.setEnabled(enabled);
     }
 
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
-        // ensure the cell editor is visible
-        tree.showSelection();
 
         IContextParameter para = cellModifier.getRealParameter(item.getData());
         if (para == null) {
@@ -360,6 +359,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         contextConfigButton.setToolTipText(configContext.getText());
         contextConfigButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 configContext.run();
             }
@@ -386,6 +386,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
 
         pullDownButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 Point toolbarSize = menuBar.getSize();
                 toolbarSize = menuBar.toDisplay(0, toolbarSize.y);
@@ -395,6 +396,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         });
     }
 
+    @Override
     public void refresh() {
         IContextManager cm = modelManager.getContextManager();
         viewer.setInput(cm.getListContext());
@@ -812,6 +814,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
             // refresh operation
             runCommand(new Command() {
 
+                @Override
                 public void execute() {
                     modelManager.refresh();
                 }

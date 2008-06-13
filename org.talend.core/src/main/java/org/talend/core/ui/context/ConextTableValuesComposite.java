@@ -167,8 +167,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     return;
                 }
                 Point pt = new Point(e.x, e.y);
-                if (e.x > 0
-                        && e.x < (viewer.getTree().getColumnCount()) * ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
+                if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
                     createEditorListener(treeEditor, e.x / CONTEXT_COLUMN_WIDTH);
                 }
                 TreeItem item = viewer.getTree().getItem(pt);
@@ -179,9 +178,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                 if (item != null && !item.isDisposed()) {
                     Rectangle rect = item.getBounds(viewer.getTree().getColumnCount() - 1);
 
-                    if (e.x > 0
-                            && e.x < (viewer.getTree().getColumnCount())
-                                    * ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
+                    if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
                         handleSelect(item, viewer.getTree(), treeEditor, viewer.getTree().getColumnCount() - 1, e.x
                                 / CONTEXT_COLUMN_WIDTH);
                     }
@@ -228,10 +225,10 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     @Override
                     public int compare(Viewer viewer, Object e1, Object e2) {
                         ITableLabelProvider labelProvider = (ITableLabelProvider) viewer2.getLabelProvider();
-                        String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider
-                                .getColumnText(e1, index) : "";
-                        String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider
-                                .getColumnText(e2, index) : "";
+                        String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
+                                index) : "";
+                        String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
+                                index) : "";
                         return getComparator().compare(columnText, columnText2) * direction;
                     }
                 });
@@ -247,10 +244,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         table.setSortDirection(SWT.UP);
     }
 
-    private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex,
-            int column) {
-        // ensure the cell editor is visible
-        tree.showSelection();
+    private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex, int column) {
 
         IContextParameter para = cellModifier.getRealParameter(properties[column], item.getData());
 
@@ -292,8 +286,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
     }
 
-    protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex,
-            int column) {
+    protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex, int column) {
         // get the new selection
         activateCellEditor(item, tree, treeEditor, columnIndex, column);
     }
@@ -336,12 +329,14 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         contextConfigButton.setToolTipText(configContext.getText());
         contextConfigButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 configContext.run();
             }
         });
     }
 
+    @Override
     public void setEnabled(boolean enabled) {
         configContext.setEnabled(enabled);
 
@@ -367,6 +362,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         return contexts;
     }
 
+    @Override
     public void refresh() {
         final Tree tree = viewer.getTree();
         TreeColumn[] columns = tree.getColumns();
@@ -518,8 +514,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
             if (element instanceof GroupBySourceProvier.Parent) {
                 if ("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName)) {
-                    para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter
-                            .getName());
+                    para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
                 }
             } else if (element instanceof GroupByNothingProvier.Parent) {
                 para = context.getContextParameter(((GroupByNothingProvier.Parent) element).parameter.getName());
@@ -564,6 +559,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
             Command command = new Command() {
 
+                @Override
                 public void execute() {
                     modelManager.refresh();
                 }
@@ -643,8 +639,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     if (j == 1) {
                         if (columnIndex == j) {
                             if (((Parent) element).parameter != null) {
-                                if (contextList.get(columnIndex - 1).getContextParameter(
-                                        ((Parent) element).parameter.getName()) != null) {
+                                if (contextList.get(columnIndex - 1).getContextParameter(((Parent) element).parameter.getName()) != null) {
                                     return contextList.get(columnIndex - 1).getContextParameter(
                                             ((Parent) element).parameter.getName()).getDisplayValue();
                                 }
@@ -653,8 +648,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     } else {
                         if (columnIndex == j) {
                             if (((Parent) element).parameter != null) {
-                                if (contextList.get(columnIndex - 1).getContextParameter(
-                                        ((Parent) element).parameter.getName()) != null) {
+                                if (contextList.get(columnIndex - 1).getContextParameter(((Parent) element).parameter.getName()) != null) {
                                     return contextList.get(columnIndex - 1).getContextParameter(
                                             ((Parent) element).parameter.getName()).getDisplayValue();
                                 }
@@ -859,8 +853,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                 Son son = (Son) element;
                 if (columnIndex == 0) {
                     if (son.parameter != null) {
-                        if (modelManager.getContextManager().getDefaultContext().getContextParameter(
-                                son.parameter.getName()) != null) {
+                        if (modelManager.getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
                             return modelManager.getContextManager().getDefaultContext().getContextParameter(
                                     son.parameter.getName()).getName();
                         }

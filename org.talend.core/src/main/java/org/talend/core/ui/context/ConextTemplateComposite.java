@@ -350,6 +350,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
         // ensure the cell editor is visible
         tree.showSelection();
+        // tree.showItem(item);
     }
 
     protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
@@ -513,10 +514,12 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         //
         // return displayedValue;
         // }
+        @Override
         protected JavaType getJavaType(Object originalTypedValue) {
             return ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
         }
 
+        @Override
         protected String getDefaultDisplayValue(String displayedValue) {
             if (displayedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
                 displayedValue = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
@@ -537,7 +540,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
         @Override
         public Object getOriginalTypedValue(final CellEditor cellEditor, final Object cellEditorTypedValue) {
-            if (!oldName.equals((String) cellEditorTypedValue)) {
+            if (!oldName.equals(cellEditorTypedValue)) {
                 if (!renameParameter(oldName, (String) cellEditorTypedValue)) {
                     return super.getOriginalTypedValue(cellEditor, oldName);
                 }
@@ -575,6 +578,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
      * 
      * @param jobContextManager2
      */
+    @Override
     public void refresh() {
 
         if (isGroupBySource()) {
@@ -1080,6 +1084,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
             Command command = new Command() {
 
+                @Override
                 public void execute() {
                     modelManager.refresh();
                 }
