@@ -20,6 +20,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
@@ -31,7 +32,7 @@ public class QueryUtil {
 
     public static final String DEFAULT_TABLE_NAME = "_MyTable_";
 
-    public static final String CONTEXT = "context";
+    // public static final String CONTEXT = "context";
 
     private static final String ENTER = "\n";
 
@@ -337,6 +338,25 @@ public class QueryUtil {
         if (str == null) {
             return false;
         }
-        return str.indexOf(QueryUtil.CONTEXT) != -1; // maybe, it's not exact
+        // return str.indexOf(QueryUtil.CONTEXT) != -1; // maybe, it's not exact
+        return ContextParameterUtils.containContextVariables(str);
+    }
+
+    /**
+     * 
+     * ggu Comment method "containVariables". (bug 4138)
+     */
+    public static boolean containVariables(final String query) {
+
+        String tmpQuery = TalendTextUtils.filterQuote(query);
+
+        // String pattern = RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN;
+        // pattern = pattern.replaceAll("\\^", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        // pattern = pattern.replaceAll("\\$", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        //
+        // Pattern regex = Pattern.compile(pattern, Pattern.CANON_EQ);
+        // Matcher regexMatcher = regex.matcher(tmpQuery);
+        // return regexMatcher.find();
+        return !"".equals(tmpQuery);
     }
 }

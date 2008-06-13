@@ -13,6 +13,8 @@
 package org.talend.core.model.utils;
 
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.swt.graphics.RGB;
 import org.talend.core.CorePlugin;
@@ -57,6 +59,11 @@ public class TalendTextUtils {
     private static final String JAVA_CONNECT_STRING = "+";
 
     private static final String PERL_CONNECT_STRING = ".";
+
+    /*
+     * ((?<!\\)".*?(?<!\\)") or ((?<!\\)'.*?(?<!\\)')
+     */
+    private static final String QUOTE_PATTERN = "((?<!\\\\)" + getQuoteChar() + ".*?(?<!\\\\)" + getQuoteChar() + ")";
 
     public static String addQuotes(String text) {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
@@ -121,7 +128,7 @@ public class TalendTextUtils {
         tempText = tempText.trim();
 
         if (quoteStyle.equals(SINGLE_QUOTE)) {
-            if (tempText.startsWith(SINGLE_QUOTE) || tempText.endsWith(SINGLE_QUOTE)) {
+            if (tempText.startsWith(SINGLE_QUOTE) && tempText.endsWith(SINGLE_QUOTE)) {
                 newString = text;
             } else {
                 newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
@@ -134,7 +141,7 @@ public class TalendTextUtils {
             newString = text;
             QueryUtil.isContextQuery = false;
         } else {
-            if (tempText.startsWith(QUOTATION_MARK) || tempText.endsWith(QUOTATION_MARK)) {
+            if (tempText.startsWith(QUOTATION_MARK) && tempText.endsWith(QUOTATION_MARK)) {
                 newString = text;
             } else {
                 newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
@@ -530,4 +537,34 @@ public class TalendTextUtils {
 
         return result;
     }
+
+    public static String getQuoteChar() {
+        return isPerlProject() ? SINGLE_QUOTE : QUOTATION_MARK;
+    }
+
+    /**
+     * 
+     * ggu Comment method "filterQuote".
+     * 
+     * used for the string parsing, will ignore the char \" or \'.
+     */
+    public static String filterQuote(String str) {
+        if (str == null) {
+            return "";
+        }
+        str = str.trim();
+        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ);
+        Matcher regexMatcher = regex.matcher(str);
+        String nonQuoteStr = str;
+        if (regexMatcher.find()) {
+            String quoteStr = regexMatcher.group(1);
+            int index = str.indexOf(quoteStr);
+            nonQuoteStr = str.substring(0, index);
+            nonQuoteStr += str.substring(index + quoteStr.length());
+            return filterQuote(nonQuoteStr);
+
+        }
+        return nonQuoteStr;
+    }
+
 }

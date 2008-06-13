@@ -223,18 +223,7 @@ public final class ContextParameterUtils {
      * @return
      */
     private static boolean containNewContext(String code) {
-        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getProject().getLanguage();
-        switch (language) {
-        case PERL:
-            return (!code.startsWith(TalendTextUtils.SINGLE_QUOTE) && !code.endsWith(TalendTextUtils.SINGLE_QUOTE))
-                    && (code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH));
-        case JAVA:
-            return (!code.startsWith(TalendTextUtils.QUOTATION_MARK) && !code.endsWith(TalendTextUtils.QUOTATION_MARK))
-                    && containContextPrefix(code);
-        default:
-            return false;
-        }
+        return containContextVariables(code);
     }
 
     /**
@@ -311,39 +300,39 @@ public final class ContextParameterUtils {
      * 
      * ggu Comment method "getVariableFromCode".
      * 
-     * only for new script code. and if there is no variable in code, return null.
+     * only for new script code and the first variables. and if there is no variable in code, return null.
      */
     public static String getVariableFromCode(String code) {
         if (code == null) {
             return null;
         }
-        if (isContainContextParam(code)) {
-            String pattern = null;
-            String varPattern = "(.+?)"; //$NON-NLS-1$
-            switch (LanguageManager.getCurrentLanguage()) {
-            case JAVA:
-                String wordPattern = "\\b"; //$NON-NLS-1$
-                pattern = wordPattern + replaceCharForRegex(JAVA_NEW_CONTEXT_PREFIX) + varPattern + wordPattern;
-                break;
-            case PERL:
-            default:
-                pattern = replaceCharForRegex(PERL_STARTWITH) + varPattern + replaceCharForRegex(PERL_ENDWITH);
-            }
-            if (pattern != null) {
-                Pattern regex = Pattern.compile(pattern, Pattern.CANON_EQ);
-                Matcher regexMatcher = regex.matcher(code);
-                if (regexMatcher.find()) {
-                    try {
-                        String var = regexMatcher.group(1);
-                        if (var != null) {
-                            return var;
-                        }
-                    } catch (RuntimeException re) {
-                        // not match
+        // if (isContainContextParam(code)) {
+        String pattern = null;
+        String varPattern = "(.+?)"; //$NON-NLS-1$
+        switch (LanguageManager.getCurrentLanguage()) {
+        case JAVA:
+            String wordPattern = "\\b"; //$NON-NLS-1$
+            pattern = wordPattern + replaceCharForRegex(JAVA_NEW_CONTEXT_PREFIX) + varPattern + wordPattern;
+            break;
+        case PERL:
+        default:
+            pattern = replaceCharForRegex(PERL_STARTWITH) + varPattern + replaceCharForRegex(PERL_ENDWITH);
+        }
+        if (pattern != null) {
+            Pattern regex = Pattern.compile(pattern, Pattern.CANON_EQ);
+            Matcher regexMatcher = regex.matcher(code);
+            if (regexMatcher.find()) {
+                try {
+                    String var = regexMatcher.group(1);
+                    if (var != null) {
+                        return var;
                     }
+                } catch (RuntimeException re) {
+                    // not match
                 }
             }
         }
+        // }
         return null;
     }
 
@@ -368,6 +357,21 @@ public final class ContextParameterUtils {
 
         }
         return pattern;
+    }
+
+    /**
+     * 
+     * ggu Comment method "containContextVariables".
+     * 
+     * check the string contain context, or not.
+     */
+    public static boolean containContextVariables(String str) {
+        if (str == null) {
+            return false;
+        }
+        str = str.trim();
+        String nonQuoteStr = TalendTextUtils.filterQuote(str);
+        return getVariableFromCode(nonQuoteStr) != null;
     }
 
 }
