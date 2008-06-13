@@ -350,12 +350,11 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
         // ensure the cell editor is visible
         tree.showSelection();
-        // tree.showItem(item);
     }
 
     protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
         // get the new selection
-        activateCellEditor(item, tree, treeEditor);
+        // activateCellEditor(item, tree, treeEditor);
     }
 
     private void deactivateCellEditor(final TreeEditor tableEditor) {
