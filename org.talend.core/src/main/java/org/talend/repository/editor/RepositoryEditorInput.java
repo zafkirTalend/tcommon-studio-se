@@ -81,26 +81,28 @@ public class RepositoryEditorInput extends FileEditorInput {
     }
 
     // see bug 4088. Don't override equals() to make the JavaEditor context actions not open a new JavaEditor
-
-    // public boolean equals(Object obj) {
-    // if (this == obj) {
-    // return true;
-    // }
-    // if (getClass() != obj.getClass()) {
-    // return false;
-    // }
-    // final RepositoryEditorInput other = (RepositoryEditorInput) obj;
-    // if (this.item == null) {
-    // if (other.item != null) {
-    // return false;
-    // }
-    // } else if (!this.item.getProperty().getId().equals(other.item.getProperty().getId())) {
-    // return false;
-    // } else if (!this.item.getProperty().getVersion().equals(other.item.getProperty().getVersion())) {
-    // return false;
-    // }
-    // return true;
-    // }
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return true;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RepositoryEditorInput other = (RepositoryEditorInput) obj;
+        if (this.item == null) {
+            if (other.item != null) {
+                return false;
+            }
+        } else if (!this.item.getProperty().getId().equals(other.item.getProperty().getId())) {
+            return false;
+        } else if (!this.item.getProperty().getVersion().equals(other.item.getProperty().getVersion())) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * DOC qzhang Comment method "getLoadedProcess".
