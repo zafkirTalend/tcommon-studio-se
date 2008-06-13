@@ -30,15 +30,7 @@ public class ParserUtils {
     }
 
     public static char parseTo_Character(String s) {
-        if (s == null) {
-            throw new NumberFormatException("String is null");
-        }
-        try {
-            return s.charAt(0);
-        } catch (StringIndexOutOfBoundsException ex) {
-            ex.printStackTrace();
-            throw new NumberFormatException("String is empty");
-        }
+        return s.charAt(0);
     }
 
     public static char parseTo_char(String s) {
@@ -46,12 +38,7 @@ public class ParserUtils {
     }
 
     public static byte parseTo_Byte(String s) {
-        try {
-            return Byte.decode(s).byteValue();
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + ex.getMessage());
-        }
+        return Byte.decode(s).byteValue();
     }
 
     public static byte parseTo_byte(String s) {
@@ -59,12 +46,7 @@ public class ParserUtils {
     }
 
     public static Double parseTo_Double(String s) {
-        try {
-            return Double.parseDouble(s);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return Double.parseDouble(s);
     }
 
     public static double parseTo_double(String s) {
@@ -72,12 +54,7 @@ public class ParserUtils {
     }
 
     public static float parseTo_float(String s) {
-        try {
-            return Float.parseFloat(s);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return Float.parseFloat(s);
     }
 
     public static Float parseTo_Float(String s) {
@@ -85,12 +62,7 @@ public class ParserUtils {
     }
 
     public static int parseTo_int(String s) {
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return Integer.parseInt(s);
     }
 
     public static Integer parseTo_Integer(String s) {
@@ -98,12 +70,7 @@ public class ParserUtils {
     }
 
     public static short parseTo_short(String s) {
-        try {
-            return Short.parseShort(s);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return Short.parseShort(s);
     }
 
     public static Short parseTo_Short(String s) {
@@ -111,12 +78,7 @@ public class ParserUtils {
     }
 
     public static long parseTo_long(String s) {
-        try {
-            return Long.parseLong(s);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return Long.parseLong(s);
     }
 
     public static Long parseTo_Long(String s) {
@@ -139,12 +101,7 @@ public class ParserUtils {
     }
 
     public static BigDecimal parseTo_BigDecimal(String s) {
-        try {
-            return new BigDecimal(s);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            throw new NumberFormatException("NumberFormatException " + nfe.getMessage());
-        }
+        return new BigDecimal(s);
     }
 
     public static java.util.Date parseTo_Date(String s, String pattern) {
