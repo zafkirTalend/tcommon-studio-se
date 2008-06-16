@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -43,9 +41,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
-import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
-import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -54,7 +49,9 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
@@ -117,8 +114,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
-    private List<String> keywords = new ArrayList<String>();
-
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
         this(pageName, property, destinationPath, false, true);
     }
@@ -138,7 +133,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         this.property = property;
 
-        initKeyWords();
     }
 
     /**
@@ -510,7 +504,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         } else if (isKeywords(nameText.getText())) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
         } else if (!isValid(nameText.getText()) && nameModifiedByUser) {
-            String str = Messages.getString("PropertiesWizardPage.ItemExistsError");
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
         } else {
             nameStatus = createOkStatus();
@@ -600,36 +593,11 @@ public abstract class PropertiesWizardPage extends WizardPage {
     private boolean isKeywords(String itemName) {
         if (property != null) {
             Item item = property.getItem();
-            if (item instanceof ProcessItem || item instanceof JobletProcessItem) {
-                if (keywords == null || keywords.isEmpty()) {
-                    initKeyWords();
-                }
-                if (keywords.contains(itemName.trim())) {
-                    return true;
-                }
+            // see bug 0004157: Using specific name for (main) tream
+            if (item instanceof ProcessItem || item instanceof JobletProcessItem || item instanceof RoutineItem) {
+                return KeywordsValidator.isKeyword(itemName);
             }
         }
-
         return false;
-    }
-
-    /**
-     * 
-     * ggu Comment method "initKeyWords".
-     * 
-     * initialize the java key words
-     */
-    private void initKeyWords() {
-        if (keywords == null) {
-            keywords = new ArrayList<String>();
-        }
-        keywords.clear();
-        Mode mode = Modes.getMode("java.xml"); //$NON-NLS-1$
-        KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
-        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("LITERAL2"))); //$NON-NLS-1$
-        keywords.addAll(Arrays.asList(keywordMap.get("INVALID"))); //$NON-NLS-1$
     }
 }
