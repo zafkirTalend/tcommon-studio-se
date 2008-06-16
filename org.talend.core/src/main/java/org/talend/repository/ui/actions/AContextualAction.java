@@ -40,6 +40,7 @@ import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.core.ui.views.properties.IJobSettingsView;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
@@ -177,8 +178,14 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      */
     public ISelection getSelection() {
         // useful for version property tab
-        if (getActivePage().getActivePart() instanceof PropertySheet) {
+        IWorkbenchPart activePart = getActivePage().getActivePart();
+
+        if (activePart instanceof PropertySheet) {
             return getActivePage().getSelection();
+        }
+
+        if (activePart instanceof IJobSettingsView) {
+            return ((IJobSettingsView) activePart).getSelection();
         }
 
         if (workbenchPart != null) {
@@ -188,7 +195,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
         }
         if (getActivePage().getActiveEditor() == null) {
-            workbenchPart = getActivePage().getActivePart();
+            workbenchPart = activePart;
             if (workbenchPart instanceof IRepositoryView) {
                 IRepositoryView view = (IRepositoryView) workbenchPart;
                 return view.getViewer().getSelection();

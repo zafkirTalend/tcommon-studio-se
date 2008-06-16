@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.process.EComponentCategory;
 
 /**
@@ -27,7 +26,7 @@ import org.talend.core.model.process.EComponentCategory;
  */
 public class TalendPropertyTabDescriptor implements IStructuredTabItem {
 
-    private Composite propertyComposite;
+    private IDynamicProperty propertyComposite;
 
     private boolean isSubItem;
 
@@ -103,7 +102,7 @@ public class TalendPropertyTabDescriptor implements IStructuredTabItem {
      * 
      * @param composite the composite to set
      */
-    public void setPropertyComposite(Composite part) {
+    public void setPropertyComposite(IDynamicProperty part) {
         this.propertyComposite = part;
     }
 
@@ -112,7 +111,7 @@ public class TalendPropertyTabDescriptor implements IStructuredTabItem {
      * 
      * @return the composite
      */
-    public Composite getPropertyComposite() {
+    public IDynamicProperty getPropertyComposite() {
         return this.propertyComposite;
     }
 

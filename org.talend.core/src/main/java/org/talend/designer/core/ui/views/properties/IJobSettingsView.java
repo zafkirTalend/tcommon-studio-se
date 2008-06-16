@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.core.ui.views.properties;
 
+import org.eclipse.jface.viewers.ISelection;
+
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -22,5 +24,7 @@ public interface IJobSettingsView {
     public void cleanDisplay();
 
     public void refresh();
+
+    public ISelection getSelection();
 
 }
