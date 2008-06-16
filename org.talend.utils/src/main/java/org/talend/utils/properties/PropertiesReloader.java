@@ -42,8 +42,10 @@ public class PropertiesReloader {
         }
 
         out.close();
+        in.close();
 
-        tmpFile.renameTo(file);
+        System.out.println("Delete ok=" + file.delete());
+        System.out.println("Rename ok=" + tmpFile.renameTo(file));
     }
 
     public static synchronized void changeProperties(String fileName, String key, String oldValue, String newValue)
@@ -54,16 +56,19 @@ public class PropertiesReloader {
     public static synchronized void setProperties(Class<?> clazz, String propertiesFilename, String key, String oldValue,
             String newValue) throws IOException, URISyntaxException {
         URL resource = clazz.getClassLoader().getResource(propertiesFilename);
-        changeProperties(resource.getFile(), key, oldValue, newValue);
+        changeProperties(resource.toURI().getPath(), key, oldValue, newValue);
     }
 
     public static void main(String[] args) {
-        String key = "scheduler.conf.archivesJobsRootPath";
-        String newValue = "/tmp";
-        String oldValue = "c:/Talend/Administrator/archiveJobs";
+        String key = "database.driver";
+        String newValue = "tagada";
+        String oldValue = "org.gjt.mm.mysql.Driver";
 
         try {
-            new PropertiesReloader().changeProperties("/tmp/test", key, oldValue, newValue);
+            new PropertiesReloader()
+                    .changeProperties(
+                            "C:/Program Files/tomcat/apache-tomcat-5.5.26/apache-tomcat-5.5.26/webapps/org.talend.administrator/WEB-INF/classes/database.properties",
+                            key, oldValue, newValue);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
