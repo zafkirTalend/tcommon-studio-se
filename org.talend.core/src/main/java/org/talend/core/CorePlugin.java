@@ -14,8 +14,6 @@ package org.talend.core;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -30,6 +28,7 @@ import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.mapper.IDesignerMapperService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.rcp.IRcpService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -179,6 +178,10 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public boolean useSQLPattern() {
         return (Boolean) CorePlugin.getContext().getProperty("useSQLPattern");
+    }
+
+    public IDesignerMapperService getMapperService() {
+        return (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(IDesignerMapperService.class);
     }
 
 }
