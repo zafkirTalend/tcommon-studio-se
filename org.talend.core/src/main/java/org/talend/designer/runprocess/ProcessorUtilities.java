@@ -234,7 +234,7 @@ public class ProcessorUtilities {
                 String jobId = jobInfo.getJobId();
                 Date originalDate = designerCoreService.getJobModificationDateMap(getTopJobInfo(fatherJobInfo).getProcess()).get(
                         jobId);
-                if (originalDate != null && modificationDate.compareTo(originalDate) != 0) {
+                if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
                     return true;
                 }
                 return false;
@@ -326,11 +326,6 @@ public class ProcessorUtilities {
                         } else {
                             toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS);
                         }
-
-                        if (toReturn) {
-                            designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(
-                                    subJobInfo.getJobId(), subJobInfo.getProcessItem().getProperty().getModificationDate());
-                        }
                     }
                 }
             }
@@ -370,6 +365,10 @@ public class ProcessorUtilities {
                 processor.generateCode(statistics, trace, properties);
             } catch (ProcessorException pe) {
                 MessageBoxExceptionHandler.process(pe);
+            }
+            if (jobInfo.getProcessItem() != null) {
+                designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(jobInfo.getJobId(),
+                        jobInfo.getProcessItem().getProperty().getModificationDate());
             }
 
             if (currentProcess instanceof IProcess2) {
