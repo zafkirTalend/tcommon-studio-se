@@ -44,8 +44,8 @@ public class PropertiesReloader {
         out.close();
         in.close();
 
-        System.out.println("Delete ok=" + file.delete());
-        System.out.println("Rename ok=" + tmpFile.renameTo(file));
+        file.delete();
+        tmpFile.renameTo(file);
     }
 
     public static synchronized void changeProperties(String fileName, String key, String oldValue, String newValue)
