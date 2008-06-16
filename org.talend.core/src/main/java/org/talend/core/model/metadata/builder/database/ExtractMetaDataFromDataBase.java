@@ -122,7 +122,7 @@ public class ExtractMetaDataFromDataBase {
                     availableTableTypes.add(currentTableType);
                 }
             }
-            if (dbMetaData.supportsSchemasInTableDefinitions()) {
+            if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) {
                 rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
             } else {
                 rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
@@ -268,7 +268,7 @@ public class ExtractMetaDataFromDataBase {
 
             try {
                 ResultSet keys;
-                if (dbMetaData.supportsSchemasInDataManipulation()) {
+                if (dbMetaData.supportsSchemasInDataManipulation() && !"".equals(metadataConnection.getSchema())) {
                     keys = dbMetaData.getPrimaryKeys(null, metadataConnection.getSchema(), medataTable.getLabel());
                 } else {
                     keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
@@ -287,7 +287,7 @@ public class ExtractMetaDataFromDataBase {
             checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
             String tableName = medataTable.getTableName();
             ResultSet columns;
-            if (dbMetaData.supportsSchemasInDataManipulation()) {
+            if (dbMetaData.supportsSchemasInDataManipulation() && !"".equals(metadataConnection.getSchema())) {
                 columns = dbMetaData.getColumns(null, metadataConnection.getSchema(), tableName, null);
             } else {
                 columns = dbMetaData.getColumns(null, null, tableName, null);
