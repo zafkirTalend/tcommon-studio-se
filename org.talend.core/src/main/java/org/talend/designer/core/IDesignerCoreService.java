@@ -13,6 +13,7 @@
 package org.talend.designer.core;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -100,4 +101,6 @@ public interface IDesignerCoreService extends IService {
     public INode getRefrenceNode(String componentName);
 
     public boolean executeUpdatesManager(List<UpdateResult> results);
+
+    public Map<String, Date> getJobModificationDateMap(IProcess process);
 }

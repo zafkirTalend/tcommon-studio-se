@@ -25,6 +25,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.process.Element;
@@ -65,7 +66,8 @@ public class ProcessorUtilities {
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
-    // private static Map<String, Date> jobModificationMap = new HashMap<String, Date>();
+    private static IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+            .getService(IDesignerCoreService.class);
 
     public static void addOpenEditor(IEditorPart editor) {
         openedEditors.add(editor);
@@ -230,7 +232,8 @@ public class ProcessorUtilities {
                 // if the code has been generated already for the father, the code of the children should be up to date.
                 Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
                 String jobId = jobInfo.getJobId();
-                Date originalDate = jobInfo.getProcess().JOB_MODIFICATION_DATE_MAP.get(jobId);
+                Date originalDate = designerCoreService.getJobModificationDateMap(getTopJobInfo(fatherJobInfo).getProcess()).get(
+                        jobId);
                 if (originalDate != null && modificationDate.compareTo(originalDate) != 0) {
                     return true;
                 }
@@ -324,8 +327,10 @@ public class ProcessorUtilities {
                             toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS);
                         }
 
-                        jobInfo.getProcess().JOB_MODIFICATION_DATE_MAP.put(subJobInfo.getJobId(), subJobInfo.getProcessItem()
-                                .getProperty().getModificationDate());
+                        if (toReturn) {
+                            designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(
+                                    subJobInfo.getJobId(), subJobInfo.getProcessItem().getProperty().getModificationDate());
+                        }
                     }
                 }
             }
@@ -373,6 +378,19 @@ public class ProcessorUtilities {
         }
 
         return toReturn;
+    }
+
+    /**
+     * ftang Comment method "getTopJobInfo".
+     * 
+     * @param jobInfo
+     * @return
+     */
+    private static JobInfo getTopJobInfo(JobInfo jobInfo) {
+        if (jobInfo.getFatherJobInfo() != null) {
+            return getTopJobInfo(jobInfo.getFatherJobInfo());
+        }
+        return jobInfo;
     }
 
     /**
