@@ -548,23 +548,54 @@ public class TalendTextUtils {
      * 
      * used for the string parsing, will ignore the char \" or \'.
      */
-    public static String filterQuote(String str) {
-        if (str == null) {
-            return "";
-        }
-        str = str.trim();
-        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ);
-        Matcher regexMatcher = regex.matcher(str);
-        String nonQuoteStr = str;
+    public static String filterQuote(final String str) {
+        String newStr = replaceNewLine(str);
+
+        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
+        Matcher regexMatcher = regex.matcher(newStr);
+        String nonQuoteStr = newStr;
         if (regexMatcher.find()) {
             String quoteStr = regexMatcher.group(1);
-            int index = str.indexOf(quoteStr);
-            nonQuoteStr = str.substring(0, index);
-            nonQuoteStr += str.substring(index + quoteStr.length());
+            int index = newStr.indexOf(quoteStr);
+            nonQuoteStr = newStr.substring(0, index);
+            nonQuoteStr += newStr.substring(index + quoteStr.length());
             return filterQuote(nonQuoteStr);
 
         }
         return nonQuoteStr;
     }
 
+    private static String replaceNewLine(final String str) {
+        if (str == null) {
+            return "";
+        }
+        String newStr = str;
+
+        newStr = newStr.replaceAll("\r", " ");
+        newStr = newStr.replaceAll("\n", " ");
+        newStr = newStr.trim();
+
+        return newStr;
+    }
+
+    /**
+     * 
+     * ggu Comment method "isCommonString".
+     * 
+     * if there are no any quotes , variables and expression(connected string) in string, will return true.
+     * 
+     */
+    public static boolean isCommonString(final String str) {
+        String newStr = replaceNewLine(str);
+
+        Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ | Pattern.MULTILINE);
+        Matcher regexMatcher = regex.matcher(newStr);
+        if (regexMatcher.find()) { // has quote
+            String non = filterQuote(newStr);
+            if (!"".equals(non.trim())) { // has variables or is expression
+                return false;
+            }
+        }
+        return true;
+    }
 }

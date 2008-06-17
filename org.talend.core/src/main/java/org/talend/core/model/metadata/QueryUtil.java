@@ -342,21 +342,4 @@ public class QueryUtil {
         return ContextParameterUtils.containContextVariables(str);
     }
 
-    /**
-     * 
-     * ggu Comment method "containVariables". (bug 4138)
-     */
-    public static boolean containVariables(final String query) {
-
-        String tmpQuery = TalendTextUtils.filterQuote(query);
-
-        // String pattern = RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN;
-        // pattern = pattern.replaceAll("\\^", ""); //$NON-NLS-1$ //$NON-NLS-2$
-        // pattern = pattern.replaceAll("\\$", ""); //$NON-NLS-1$ //$NON-NLS-2$
-        //
-        // Pattern regex = Pattern.compile(pattern, Pattern.CANON_EQ);
-        // Matcher regexMatcher = regex.matcher(tmpQuery);
-        // return regexMatcher.find();
-        return !"".equals(tmpQuery);
-    }
 }
