@@ -14,6 +14,7 @@ use IO::Socket::INET;
 );
 
 my $__InternalStatSocket;
+my $connection_number = 0;
 
 sub StartStat {
     my ($port, $host) = @_;
@@ -27,8 +28,8 @@ sub StartStat {
             PeerAddr => $host,
             PeerPort => $port,
             Proto => 'tcp',
-        );
-        sleep 1;
+        )
+            or StatConnectionFailed();
     }
 
     print '[stat] connected', "\n";
@@ -41,6 +42,14 @@ sub SendStat {
 
   my $message =  join('|', @_).chr(13).chr(10);
   $__InternalStatSocket->send($message);
+}
+
+sub StatConnectionFailed {
+    printf("[stat] connection failed #%u\n", ++$connection_number);
+    if ($connection_number > 4) {
+        die "[stat] connection failed, too many retries\n";
+    }
+    sleep 1;
 }
 
 1;
