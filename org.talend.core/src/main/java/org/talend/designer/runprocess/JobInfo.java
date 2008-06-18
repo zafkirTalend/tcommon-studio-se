@@ -36,6 +36,8 @@ public class JobInfo {
 
     private JobInfo fatherJobInfo;
 
+    private boolean forceRegenerate;
+
     public JobInfo(String jobId, String contextName, String version) {
         this.jobId = jobId;
         this.contextName = contextName;
@@ -208,5 +210,23 @@ public class JobInfo {
      */
     public void setFatherJobInfo(JobInfo fatherJobInfo) {
         this.fatherJobInfo = fatherJobInfo;
+    }
+
+    /**
+     * Used only in the ProcessorUtilities to know if one subjob has been generated or not, to generate the father.
+     * 
+     * @return forceRegenerate
+     */
+    public boolean isForceRegenerate() {
+        return this.forceRegenerate;
+    }
+
+    /**
+     * Used only in the ProcessorUtilities to know if one subjob has been generated or not, to generate the father.
+     * 
+     * @param forceRegenerate
+     */
+    public void setForceRegenerate(boolean forceRegenerate) {
+        this.forceRegenerate = forceRegenerate;
     }
 }

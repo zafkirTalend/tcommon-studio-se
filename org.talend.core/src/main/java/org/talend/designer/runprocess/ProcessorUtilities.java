@@ -216,6 +216,9 @@ public class ProcessorUtilities {
         if (exportConfig && (!(jobInfo.getProcess() instanceof IProcess2))) {
             return true;
         }
+        if (jobInfo.isForceRegenerate()) {
+            return true;
+        }
         IProcess2 attachedProcess = (IProcess2) jobInfo.getProcess();
 
         if (jobInfo.getFatherJobInfo() != null) {
@@ -235,6 +238,7 @@ public class ProcessorUtilities {
                 Date originalDate = designerCoreService.getJobModificationDateMap(getTopJobInfo(fatherJobInfo).getProcess()).get(
                         jobId);
                 if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
+                    jobInfo.getFatherJobInfo().setForceRegenerate(true);
                     return true;
                 }
                 return false;
