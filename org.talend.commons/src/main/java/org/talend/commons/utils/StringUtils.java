@@ -54,7 +54,7 @@ public class StringUtils {
     }
 
     public static String getPostgresqlProtectedColumnName(String colname) {
-        return "\"" + colname + "\"";
+        return "\\\"" + colname + "\\\"";
     }
 
     /**
