@@ -36,9 +36,9 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class ByteArrayImpl extends EObjectImpl implements ByteArray {
 
     /**
-     * The default value of the '{@link #getInnerContent() <em>Inner Content</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getInnerContent() <em>Inner Content</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getInnerContent()
      * @generated
      * @ordered
@@ -46,9 +46,9 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
     protected static final byte[] INNER_CONTENT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getInnerContent() <em>Inner Content</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getInnerContent() <em>Inner Content</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getInnerContent()
      * @generated
      * @ordered
@@ -57,7 +57,6 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ByteArrayImpl() {
@@ -66,7 +65,6 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -75,7 +73,6 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public byte[] getInnerContent() {
@@ -84,80 +81,71 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setInnerContent(byte[] newInnerContent) {
         byte[] oldInnerContent = innerContent;
-        new String(newInnerContent);
         innerContent = newInnerContent;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BYTE_ARRAY__INNER_CONTENT, oldInnerContent,
-                    innerContent));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BYTE_ARRAY__INNER_CONTENT, oldInnerContent, innerContent));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
-            return getInnerContent();
+            case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
+                return getInnerContent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
-            setInnerContent((byte[]) newValue);
-            return;
+            case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
+                setInnerContent((byte[])newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
-            setInnerContent(INNER_CONTENT_EDEFAULT);
-            return;
+            case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
+                setInnerContent(INNER_CONTENT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
-            return INNER_CONTENT_EDEFAULT == null ? innerContent != null : !INNER_CONTENT_EDEFAULT.equals(innerContent);
+            case PropertiesPackage.BYTE_ARRAY__INNER_CONTENT:
+                return INNER_CONTENT_EDEFAULT == null ? innerContent != null : !INNER_CONTENT_EDEFAULT.equals(innerContent);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (innerContent: ");

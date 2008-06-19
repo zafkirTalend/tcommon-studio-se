@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.License#getLicense <em>License</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,5 +51,31 @@ public interface License extends EObject {
      * @generated
      */
     void setLicense(byte[] value);
+
+    /**
+     * Returns the value of the '<em><b>Customer Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Customer Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Customer Name</em>' attribute.
+     * @see #setCustomerName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getLicense_CustomerName()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
+    String getCustomerName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Customer Name</em>' attribute.
+     * @see #getCustomerName()
+     * @generated
+     */
+    void setCustomerName(String value);
 
 } // License

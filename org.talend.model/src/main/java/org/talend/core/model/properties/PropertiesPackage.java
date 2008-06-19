@@ -2142,13 +2142,22 @@ public interface PropertiesPackage extends EPackage {
     int LICENSE__LICENSE = 0;
 
     /**
+     * The feature id for the '<em><b>Customer Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__CUSTOMER_NAME = 1;
+
+    /**
      * The number of structural features of the '<em>License</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LICENSE_FEATURE_COUNT = 1;
+    int LICENSE_FEATURE_COUNT = 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.
@@ -5649,6 +5658,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getLicense_License();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Customer Name</em>'.
+     * @see org.talend.core.model.properties.License#getCustomerName()
+     * @see #getLicense()
+     * @generated
+     */
+    EAttribute getLicense_CustomerName();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.GenericSchemaConnectionItem <em>Generic Schema Connection Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8243,6 +8263,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute LICENSE__LICENSE = eINSTANCE.getLicense_License();
+
+        /**
+         * The meta object literal for the '<em><b>Customer Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LICENSE__CUSTOMER_NAME = eINSTANCE.getLicense_CustomerName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.
