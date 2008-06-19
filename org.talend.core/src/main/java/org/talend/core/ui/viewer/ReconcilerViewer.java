@@ -161,7 +161,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     }
 
     private void addDocumentListener(final IDocument document) {
-        final ExecutionLimiter documentReconcilerLimiter = new ExecutionLimiter(50, true) {
+        final ExecutionLimiter documentReconcilerLimiter = new ExecutionLimiter(500, true) {
 
             @Override
             protected void execute(boolean isFinalExecution) {
@@ -170,6 +170,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                         getControl().getDisplay().asyncExec(new Runnable() {
 
                             public void run() {
+                                System.out.println(System.currentTimeMillis());
                                 updateContents();
                                 if (document.get().length() != 0) {
                                     calculatePositions();
