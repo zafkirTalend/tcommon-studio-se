@@ -102,6 +102,8 @@ public class ExtractMetaDataFromDataBase {
      */
     private static Map<String, String> tableTypeMap = new Hashtable<String, String>();
 
+    private static Map<String, String> tableSchemaMap = new Hashtable<String, String>();
+
     /**
      * DOC cantoine. Method to return a Collection of Tables for a DB connection.
      * 
@@ -127,7 +129,7 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
             }
-            getMetadataTables(medataTables, rsTables);
+            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions());
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -145,7 +147,8 @@ public class ExtractMetaDataFromDataBase {
      * @param rsTables
      * @throws SQLException
      */
-    private static void getMetadataTables(List<IMetadataTable> medataTables, ResultSet rsTables) throws SQLException {
+    private static void getMetadataTables(List<IMetadataTable> medataTables, ResultSet rsTables, boolean supportSchema)
+            throws SQLException {
         if (rsTables == null) {
             return;
         }
@@ -155,6 +158,9 @@ public class ExtractMetaDataFromDataBase {
             medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
             medataTable.setTableName(medataTable.getLabel());
             medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
+            if (supportSchema) {
+                tableSchemaMap.put(medataTable.getLabel(), rsTables.getString("TABLE_SCHEM"));
+            }
             try {
                 tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
             } catch (Exception e) {
@@ -265,11 +271,15 @@ public class ExtractMetaDataFromDataBase {
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
 
         try {
+            String originSchema = tableSchemaMap.get(medataTable.getLabel());
+            if (!"".equals(metadataConnection.getSchema()) && (metadataConnection.getSchema() != null)) {
+                originSchema = metadataConnection.getSchema();
+            }
 
             try {
                 ResultSet keys;
-                if (dbMetaData.supportsSchemasInDataManipulation() && !"".equals(metadataConnection.getSchema())) {
-                    keys = dbMetaData.getPrimaryKeys(null, metadataConnection.getSchema(), medataTable.getLabel());
+                if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
+                    keys = dbMetaData.getPrimaryKeys(null, originSchema, medataTable.getLabel());
                 } else {
                     keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
                 }
@@ -287,8 +297,8 @@ public class ExtractMetaDataFromDataBase {
             checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
             String tableName = medataTable.getTableName();
             ResultSet columns;
-            if (dbMetaData.supportsSchemasInDataManipulation() && !"".equals(metadataConnection.getSchema())) {
-                columns = dbMetaData.getColumns(null, metadataConnection.getSchema(), tableName, null);
+            if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
+                columns = dbMetaData.getColumns(null, originSchema, tableName, null);
             } else {
                 columns = dbMetaData.getColumns(null, null, tableName, null);
             }
