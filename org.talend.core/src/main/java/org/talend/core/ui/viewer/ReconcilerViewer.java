@@ -170,7 +170,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                         getControl().getDisplay().asyncExec(new Runnable() {
 
                             public void run() {
-                                System.out.println(System.currentTimeMillis());
+                                // System.out.println(System.currentTimeMillis());
                                 updateContents();
                                 if (document.get().length() != 0) {
                                     calculatePositions();
