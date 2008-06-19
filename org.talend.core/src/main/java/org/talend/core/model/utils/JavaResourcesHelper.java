@@ -56,10 +56,7 @@ public class JavaResourcesHelper {
                 Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
 
-        String name = project.getLabel();
-        name = name.replaceAll(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
-        name = name.toLowerCase();
-
+        String name = project.getTechnicalLabel().toLowerCase();
         return name;
     }
 
