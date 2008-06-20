@@ -80,11 +80,7 @@ public class RepositoryEditorInput extends FileEditorInput {
         this.readOnly = readOnly;
     }
 
-    // see bug 4088. Don't override equals() to make the JavaEditor context actions not open a new JavaEditor
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return true;
-        }
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
