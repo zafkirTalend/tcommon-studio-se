@@ -508,7 +508,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         } else {
             nameStatus = createOkStatus();
         }
-        if (property != null) {
+        if (property != null && nameStatus.getSeverity() == IStatus.OK) {
             property.setLabel(StringUtils.trimToNull(nameText.getText()));
         }
         updatePageStatus();
