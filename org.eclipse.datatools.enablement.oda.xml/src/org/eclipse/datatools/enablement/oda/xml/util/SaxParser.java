@@ -8,6 +8,7 @@
 
 package org.eclipse.datatools.enablement.oda.xml.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -112,7 +113,7 @@ public class SaxParser extends DefaultHandler implements Runnable {
                     this.inputStream.init();
                     xr.parse(new InputSource(this.inputStream));
                 } else {
-                    xr.parse(fileName);
+                    xr.parse(new File(fileName).toURI().toString());
                 }
             } catch (ThreadStopException tsE) {
                 // This exception is thrown out to stop the execution of current
