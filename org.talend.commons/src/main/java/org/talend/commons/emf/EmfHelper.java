@@ -14,6 +14,7 @@ package org.talend.commons.emf;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +28,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.talend.commons.exception.PersistenceException;
 
 /***/
 public class EmfHelper {
@@ -122,6 +126,35 @@ public class EmfHelper {
         }
 
         resource.save(null);
+    }
+
+    
+    public static void saveResource(Resource resource) throws PersistenceException {
+        try {
+            // HashMap options = new HashMap(2);
+            // options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+            // options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+            // resource.save(options);
+
+            resource.save(null);
+
+        } catch (IOException e) {
+            throw new PersistenceException(e);
+        } catch (RuntimeException e) {
+            // if use the xml version 1.0 to store failed, try to use the xml version 1.1 to store again
+            if (e.getMessage() != null && e.getMessage().contains("An invalid XML character")) {
+                HashMap options = new HashMap(2);
+                options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+                options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+                try {
+                    resource.save(options);
+                } catch (IOException e1) {
+                    throw new PersistenceException(e);
+                }
+            } else {
+                throw new PersistenceException(e);
+            }
+        }
     }
 
 }

@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.FileItem;
@@ -173,32 +174,8 @@ public class XmiResourceManager {
         resource.setURI(URIHelper.convert(path));
     }
 
-    public void saveResource(Resource resource) throws PersistenceException {
-        try {
-            // HashMap options = new HashMap(2);
-            // options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-            // options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
-            // resource.save(options);
-
-            resource.save(null);
-
-        } catch (IOException e) {
-            throw new PersistenceException(e);
-        } catch (RuntimeException e) {
-            // if use the xml version 1.0 to store failed, try to use the xml version 1.1 to store again
-            if (e.getMessage() != null && e.getMessage().contains("An invalid XML character")) {
-                HashMap options = new HashMap(2);
-                options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-                options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
-                try {
-                    resource.save(options);
-                } catch (IOException e1) {
-                    throw new PersistenceException(e);
-                }
-            } else {
-                throw new PersistenceException(e);
-            }
-        }
+    public static void saveResource(Resource resource) throws PersistenceException {
+        EmfHelper.saveResource(resource);
     }
 
     private URI getItemResourceURI(URI propertyResourceURI) {
