@@ -20,8 +20,9 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.process.IContext;
-import org.talend.core.ui.images.ECoreImage;
-import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.update.EUpdateItemType;
+import org.talend.core.model.update.IUpdateManager;
 import org.talend.core.ui.images.ECoreImage;
 
 /**
@@ -53,6 +54,12 @@ public class ConfigureContextAction extends Action {
             Command command = new Command() {
 
                 public void execute() {
+                    if (manager.getProcess() != null && manager.getProcess() instanceof IProcess2) {
+                        IUpdateManager updateManager = ((IProcess2) manager.getProcess()).getUpdateManager();
+                        if (updateManager != null) {
+                            updateManager.update(EUpdateItemType.CONTEXT);
+                        }
+                    }
                     manager.refresh();
                 }
             };
