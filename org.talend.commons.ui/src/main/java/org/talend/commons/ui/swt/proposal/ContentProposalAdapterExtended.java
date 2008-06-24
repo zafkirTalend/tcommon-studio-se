@@ -37,6 +37,7 @@ import org.eclipse.jface.fieldassist.IControlContentAdapter;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusAdapter;
@@ -144,8 +145,7 @@ public class ContentProposalAdapterExtended {
                         public void run() {
                             if (!control.isDisposed()) {
                                 Control focusControl = control.getDisplay().getFocusControl();
-                                if (focusControl != control && focusControl != proposalTable
-                                        && focusControl != getShell()) {
+                                if (focusControl != control && focusControl != proposalTable && focusControl != getShell()) {
                                     authorizedClose();
                                 }
                             }
@@ -211,8 +211,7 @@ public class ContentProposalAdapterExtended {
                                 // the popup shell on the Mac.
                                 // Check the active shell.
                                 Shell activeShell = e.display.getActiveShell();
-                                if (activeShell == getShell()
-                                        || (infoPopup != null && infoPopup.getShell() == activeShell)) {
+                                if (activeShell == getShell() || (infoPopup != null && infoPopup.getShell() == activeShell)) {
                                     return;
                                 }
                                 System.out.println("close focusout");
@@ -467,8 +466,8 @@ public class ContentProposalAdapterExtended {
                     // Modifier keys are explicitly checked and ignored because
                     // they are not complete yet (no character).
                     default:
-                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1
-                                && e.keyCode != SWT.MOD2 && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
+                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1 && e.keyCode != SWT.MOD2
+                                && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
                             authorizedClose();
                         }
                         return;
@@ -577,6 +576,7 @@ public class ContentProposalAdapterExtended {
             /*
              * Create a text control for showing the info about a proposal.
              */
+            @Override
             protected Control createDialogArea(Composite parent) {
                 text = new Text(parent, SWT.MULTI | SWT.READ_ONLY | SWT.WRAP | SWT.NO_FOCUS);
 
@@ -590,6 +590,7 @@ public class ContentProposalAdapterExtended {
                 // since SWT.NO_FOCUS is only a hint...
                 text.addFocusListener(new FocusAdapter() {
 
+                    @Override
                     public void focusGained(FocusEvent event) {
                         // ContentProposalPopup.this.close();
                     }
@@ -600,6 +601,7 @@ public class ContentProposalAdapterExtended {
             /*
              * Adjust the bounds so that we appear adjacent to our parent shell
              */
+            @Override
             protected void adjustBounds() {
                 Rectangle parentBounds = getParentShell().getBounds();
                 Rectangle proposedBounds;
@@ -610,15 +612,14 @@ public class ContentProposalAdapterExtended {
                 rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
                 // If it won't fit on the right, try the left
                 if (rightProposedBounds.intersects(parentBounds)) {
-                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width
-                            - POPUP_HORIZONTALSPACING - 1, parentBounds.y, parentBounds.width, parentBounds.height);
+                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING
+                            - 1, parentBounds.y, parentBounds.width, parentBounds.height);
                     leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                     // If it won't fit on the left, choose the proposed bounds
                     // that fits the best
                     if (leftProposedBounds.intersects(parentBounds)) {
                         if (rightProposedBounds.x - parentBounds.x >= parentBounds.x - leftProposedBounds.x) {
-                            rightProposedBounds.x = parentBounds.x + parentBounds.width
-                                    + PopupDialog.POPUP_HORIZONTALSPACING;
+                            rightProposedBounds.x = parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING;
                             proposedBounds = rightProposedBounds;
                         } else {
                             leftProposedBounds.width = parentBounds.x - POPUP_HORIZONTALSPACING - leftProposedBounds.x;
@@ -723,6 +724,7 @@ public class ContentProposalAdapterExtended {
          * 
          * @see org.eclipse.jface.dialogs.PopupDialog#createContents(org.eclipse.swt.widgets.Composite)
          */
+        @Override
         protected Control createContents(Composite parent) {
             Control contents = super.createContents(parent);
             changeDefaultColors(parent);
@@ -743,6 +745,7 @@ public class ContentProposalAdapterExtended {
          * 
          * @param parent The parent composite to contain the dialog area; must not be <code>null</code>.
          */
+        @Override
         protected final Control createDialogArea(final Composite parent) {
             // Use virtual where appropriate (see flag definition).
             if (USE_VIRTUAL) {
@@ -792,6 +795,7 @@ public class ContentProposalAdapterExtended {
          * 
          * @see org.eclipse.jface.dialogs.PopupDialog.adjustBounds()
          */
+        @Override
         protected void adjustBounds() {
             // Get our control's location in display coordinates.
             Point location = control.getDisplay().map(control.getParent(), null, control.getLocation());
@@ -977,6 +981,7 @@ public class ContentProposalAdapterExtended {
          * 
          * @see org.eclipse.jface.window.Window#open()
          */
+        @Override
         public int open() {
             // System.out.println("open");
 
@@ -1005,6 +1010,7 @@ public class ContentProposalAdapterExtended {
          * @return <code>true</code> if the window is (or was already) closed, and <code>false</code> if it is still
          * open
          */
+        @Override
         public boolean close() {
             return false;
         }
@@ -1164,8 +1170,7 @@ public class ContentProposalAdapterExtended {
             int results = 0;
             boolean continueSearching = true;
             String currentFilter = EMPTY;
-            for (int indexStartFilter = 0; results == 0 && continueSearching
-                    && indexStartFilter < filterString.length(); indexStartFilter++) {
+            for (int indexStartFilter = 0; results == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
                 currentFilter = filterString.substring(indexStartFilter);
                 // System.out.println("currentFilter="+currentFilter);
 
@@ -1729,13 +1734,12 @@ public class ContentProposalAdapterExtended {
                         if (triggerKeyStroke != null) {
                             // Either there are no modifiers for the trigger and we
                             // check the character field...
-                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke
-                                    .getNaturalKey() == e.character)
+                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke.getNaturalKey() == e.character)
                                     ||
                                     // ...or there are modifiers, in which case the
                                     // keycode and state must match
-                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke
-                                            .getModifierKeys() & e.stateMask) == triggerKeyStroke.getModifierKeys()))) {
+                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke.getModifierKeys() & e.stateMask) == triggerKeyStroke
+                                            .getModifierKeys()))) {
                                 // We never propagate the keystroke for an explicit
                                 // keystroke invocation of the popup
                                 e.doit = false;
@@ -1886,6 +1890,10 @@ public class ContentProposalAdapterExtended {
         if (controlContentAdapter instanceof IControlContentAdapterExtended) {
             ((IControlContentAdapterExtended) controlContentAdapter).setUsedFilterValue(filterText);
         }
+
+        // Remove the selected text before applying proposal. See bug 0004266: Replace value with context value using
+        // CTRL+Space.
+        removeSelectedText();
         switch (proposalAcceptanceStyle) {
         case (PROPOSAL_REPLACE):
             setControlContent(proposal.getContent(), proposal.getCursorPosition());
@@ -1902,6 +1910,29 @@ public class ContentProposalAdapterExtended {
         // In all cases, notify listeners of an accepted proposal.
         for (int i = 0; i < listenerArray.length; i++) {
             ((IContentProposalListener) listenerArray[i]).proposalAccepted(proposal);
+        }
+    }
+
+    /**
+     * DOC hcw Comment method "removeSelectedText".
+     */
+    private void removeSelectedText() {
+        if (control instanceof Text) {
+            Text text = ((Text) control);
+            if (text.getSelectionCount() > 0) {
+                Point selection = text.getSelection();
+                String content = text.getText().substring(0, selection.x) + text.getText().substring(selection.y);
+                insertionPos = text.getSelection().x;
+                text.setText(content);
+            }
+        } else if (control instanceof StyledText) {
+            StyledText text = ((StyledText) control);
+            if (text.getSelectionCount() > 0) {
+                Point selection = text.getSelection();
+                String content = text.getText().substring(0, selection.x) + text.getText().substring(selection.y);
+                insertionPos = text.getSelection().x;
+                text.setText(content);
+            }
         }
     }
 
