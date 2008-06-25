@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -75,7 +76,9 @@ public class MigrationToolService implements IMigrationToolService {
         });
 
         for (IProjectMigrationTask task : toExecute) {
-
+            if (monitorWrap.isCanceled()) {
+                throw new OperationCanceledException("Migration task is canceled during " + task.getName() + ".");
+            }
             if (!done.contains(task.getId())) {
                 monitorWrap.setTaskName("Migration task " + task.getName() + " run in progress...");
                 monitorWrap.worked(2);
