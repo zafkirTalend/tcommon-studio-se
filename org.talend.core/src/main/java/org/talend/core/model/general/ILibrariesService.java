@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.IService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
@@ -65,7 +66,7 @@ public interface ILibrariesService extends IService {
 
     public List<Problem> getProblems(INode node, Element element);
 
-    public void syncLibraries();
+    public void syncLibraries(IProgressMonitor... monitorWrap);
 
     public void checkLibraries();
 

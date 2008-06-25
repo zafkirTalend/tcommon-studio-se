@@ -87,4 +87,17 @@ public class RepositoryConstants {
         }
         return label.equalsIgnoreCase(ERepositoryObjectType.JOBS.toString());
     }
+
+    /**
+     * DOC tang Comment method "isJobletsFolder".
+     * 
+     * @param label
+     * @return
+     */
+    public static boolean isJobletsFolder(String label) {
+        if (label == null) {
+            return false;
+        }
+        return label.equalsIgnoreCase(ERepositoryObjectType.JOBLETS.toString());
+    }
 }
