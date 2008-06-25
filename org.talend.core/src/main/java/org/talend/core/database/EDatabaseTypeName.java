@@ -18,18 +18,18 @@ package org.talend.core.database;
  */
 public enum EDatabaseTypeName {
     MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"),
-    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL"),
-    PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS"),
-    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE"),
-    ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE"),
+    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE"),
+    PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"),
+    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"),
+    ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE"),
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"),
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"),
-    IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2"),
+    IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"),
     SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"),
 
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"),
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER"),
+    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"),
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"),
     HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"),
@@ -66,6 +66,9 @@ public enum EDatabaseTypeName {
     // product used for the mappings.
     private String product;
 
+    // needs a mapping for bug 0004305
+    private String xmlType;
+
     public String getDisplayName() {
         return this.displayName;
     }
@@ -82,11 +85,24 @@ public enum EDatabaseTypeName {
         return this.product;
     }
 
+    public String getXMLType() {
+        return this.xmlType;
+    }
+
     EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product) {
         this.displayName = displayName;
         this.isNeedSchema = isNeedSchema;
         this.dbType = dbType;
         this.product = product;
+        this.xmlType = product;
+    }
+
+    EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product, String xmlType) {
+        this.displayName = displayName;
+        this.isNeedSchema = isNeedSchema;
+        this.dbType = dbType;
+        this.product = product;
+        this.xmlType = xmlType;
     }
 
     public static EDatabaseTypeName getTypeFromDbType(String dbType) {
@@ -121,4 +137,5 @@ public enum EDatabaseTypeName {
         }
         return false;
     }
+
 }
