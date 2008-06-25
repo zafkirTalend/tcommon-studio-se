@@ -24,11 +24,10 @@ import org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -114,7 +113,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             throw new RuntimeException(e);
         }
 
-        return computeCompletionProposals(prefix, context.getInvocationOffset(), monitor);
+        return computeCompletionProposals(context.getViewer(), prefix, context.getInvocationOffset(), monitor);
     }
 
     /*
@@ -123,13 +122,20 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
      * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeCompletionProposals(org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext,
      * org.eclipse.core.runtime.IProgressMonitor)
      */
-    public List computeCompletionProposals(String prefix, int offset, IProgressMonitor monitor) {
+    public List computeCompletionProposals(ITextViewer textViewer, String prefix, int offset, IProgressMonitor monitor) {
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
 
         IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
 
         if (process == null) {
             return Collections.EMPTY_LIST;
+        }
+
+        // Compute the length of replacement for proposal. See bug 0004266: Replace value with context value using
+        // CTRL+Space.
+        int replacementLength = textViewer.getSelectedRange().y;
+        if (replacementLength == 0) {
+            replacementLength = prefix.length();
         }
 
         // Proposals based on process context
@@ -141,8 +147,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             String description = getContextDescription(ctxParam, display);
 
             if (prefix.equals("") || display.startsWith(prefix)) {
-                TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                        .length(), code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
+                TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
+                        replacementLength, code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null,
+                        description);
                 proposal.setType(TalendCompletionProposal.CONTEXT);
                 proposals.add(proposal);
             }
@@ -161,9 +168,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
                     String description = getNodeReturnDescription(nodeReturn, node, display);
 
-                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), ImageProvider.getImage(node.getComponent().getIcon16()), display, null,
-                            description);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
+                            replacementLength, code.length(), ImageProvider.getImage(node.getComponent().getIcon16()), display,
+                            null, description);
                     proposal.setType(TalendCompletionProposal.NODE_RETURN);
                     proposals.add(proposal);
                 }
@@ -182,8 +189,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 if (prefix.equals("") || display.startsWith(prefix)) {
                     String code = javavars[i].getContent();
                     String description = getPerlGlobalVarDescription(javavars[i], display);
-                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
+                            replacementLength, code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null,
+                            description);
                     proposal.setType(TalendCompletionProposal.VARIABLE);
                     proposals.add(proposal);
                 }
@@ -198,8 +206,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 if (prefix.equals("") || display.startsWith(prefix)) {
                     String code = vars[i].getContent();
                     String description = getPerlGlobalVarDescription(vars[i], display);
-                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
+                            replacementLength, code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null,
+                            description);
                     proposal.setType(TalendCompletionProposal.VARIABLE);
                     proposals.add(proposal);
                 }
@@ -217,8 +226,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
                     String description = getFunctionDescription(function, display, code);
 
-                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), ImageProvider.getImage(ECoreImage.ROUTINE_ICON), display, null, description);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
+                            replacementLength, code.length(), ImageProvider.getImage(ECoreImage.ROUTINE_ICON), display, null,
+                            description);
                     proposal.setType(TalendCompletionProposal.ROUTINE);
                     proposals.add(proposal);
 
@@ -235,8 +245,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
     private String getContextContent(IContextParameter contextParameter) {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
-        return ContextParameterUtils.getNewScriptCode(contextParameter
-                .getName(), language);
+        return ContextParameterUtils.getNewScriptCode(contextParameter.getName(), language);
 
     }
 
