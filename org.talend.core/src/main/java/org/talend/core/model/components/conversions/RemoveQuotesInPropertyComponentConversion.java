@@ -32,7 +32,7 @@ public class RemoveQuotesInPropertyComponentConversion implements IComponentConv
 
     public void transform(NodeType node) {
         String value = ComponentUtilities.getNodePropertyValue(node, propertyToModify);
-        if (isWithinQuote(value)) {
+        if (value != null && isWithinQuote(value)) {
             String newValue = value.substring(1, value.length() - 1);
             ComponentUtilities.setNodeValue(node, propertyToModify, newValue);
         }
