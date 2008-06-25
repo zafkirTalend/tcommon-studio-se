@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Registration Plug-in
+Bundle-SymbolicName: org.talend.registration
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: .Talend SA.
+Require-Bundle: org.apache.axis,
+ javax.xml.rpc
