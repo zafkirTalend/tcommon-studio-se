@@ -94,8 +94,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55
+ * 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -644,7 +644,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (label.equalsIgnoreCase(BIN)) {
             return false;
         } else if (RepositoryConstants.isSystemFolder(label) || RepositoryConstants.isGeneratedFolder(label)
-                || RepositoryConstants.isJobsFolder(label)) {
+                || RepositoryConstants.isJobsFolder(label) || RepositoryConstants.isJobletsFolder(label)) {
             // can't create the "system" ,"Generated", "Jobs" folder in the root.
             return false;
         } else {
@@ -667,7 +667,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
         // If the "System", "Generated", "Jobs" folder is created in the root, it can't be deleted .
         if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
-                || RepositoryConstants.isJobsFolder(path.toString())) {
+                || RepositoryConstants.isJobsFolder(path.toString()) || RepositoryConstants.isJobletsFolder(path.toString())) {
             return;
         }
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
