@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
@@ -107,8 +108,8 @@ public class LibrariesService implements ILibrariesService {
         return this.getLibrariesService().getTalendRoutines();
     }
 
-    public void syncLibraries() {
-        this.getLibrariesService().syncLibraries();
+    public void syncLibraries(IProgressMonitor... monitorWrap) {
+        this.getLibrariesService().syncLibraries(monitorWrap);
     }
 
     public void checkLibraries() {

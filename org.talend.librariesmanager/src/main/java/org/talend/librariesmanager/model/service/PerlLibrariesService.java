@@ -24,6 +24,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
@@ -79,8 +80,8 @@ public class PerlLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
-        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER
-                + "/system/", ".pm");
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER + "/system/",
+                ".pm");
     }
 
     public List<URL> getSystemSQLPatterns() {
@@ -107,19 +108,19 @@ public class PerlLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#syncLibraries()
      */
-    public void syncLibraries() {
+    public void syncLibraries(IProgressMonitor... monitorWrap) {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
             File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/")).getFile());
-            FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSystemFilesFilter(), null, true);
+            FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSystemFilesFilter(), null, true, monitorWrap);
 
             // 2. Components libraries
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils
-                    .getExcludeSystemFilesFilter(), FilesUtils.getAcceptPMFilesFilter(), "modules");
+            SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptPMFilesFilter(), "modules", monitorWrap);
 
             log.debug("Perl libraries synchronization done");
             this.isLibSynchronized = true;
@@ -169,8 +170,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
             IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
-            service.perlExec(out, err, new Path(checkPerlModuleAbsolutePath), null, Level.DEBUG, "", null, -1, -1,
-                    params);
+            service.perlExec(out, err, new Path(checkPerlModuleAbsolutePath), null, Level.DEBUG, "", null, -1, -1, params);
 
             analyzeResponse(out, componentsByModules);
 
@@ -204,8 +204,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
                 String path = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
                 if (lines[i].indexOf(PerlLibrariesService.START_T) == 0) {
                     File file = new File(path + File.separatorChar + lines[i].split("::")[0] + File.separatorChar
-                            + lines[i].split("::")[1].substring(0, lines[i].split("::")[1].indexOf(RESULT_SEPARATOR))
-                            + ".pm");
+                            + lines[i].split("::")[1].substring(0, lines[i].split("::")[1].indexOf(RESULT_SEPARATOR)) + ".pm");
                     if (file.exists()) {
                         lines[i] = lines[i].substring(0, lines[i].indexOf(RESULT_SEPARATOR) + 4) + RESULT_KEY_OK
                                 + lines[i].substring(lines[i].indexOf(RESULT_SEPARATOR) + 6, lines[i].length());
