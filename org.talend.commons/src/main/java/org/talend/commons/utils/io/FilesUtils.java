@@ -30,6 +30,8 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
@@ -43,7 +45,12 @@ import org.talend.commons.exception.CommonExceptionHandler;
 public class FilesUtils {
 
     public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
-            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
+            final FileFilter sourceFileFilter, boolean copyFolder, IProgressMonitor... monitorWrap) throws IOException {
+        IProgressMonitor monitor = null;
+        if (monitorWrap != null && monitorWrap.length == 1) {
+            monitor = monitorWrap[0];
+        }
+
         if (!target.exists()) {
             target.mkdirs();
         }
@@ -68,6 +75,9 @@ public class FilesUtils {
         };
 
         for (File current : source.listFiles(folderFilter)) {
+            if (monitor != null && monitor.isCanceled()) {
+                throw new OperationCanceledException("Operation is canceled during copying folders or files.");
+            }
             if (copyFolder) {
                 File newFolder = new File(target, current.getName());
                 newFolder.mkdir();
@@ -78,6 +88,9 @@ public class FilesUtils {
         }
 
         for (File current : source.listFiles(fileFilter)) {
+            if (monitor != null && monitor.isCanceled()) {
+                throw new OperationCanceledException("");
+            }
             File out = new File(target, current.getName());
             copyFile(current, out);
         }
