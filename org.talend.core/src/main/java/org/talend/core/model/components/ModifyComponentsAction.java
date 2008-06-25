@@ -49,17 +49,12 @@ public class ModifyComponentsAction {
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
         boolean modified = false;
         for (Object o : item.getProcess().getNode()) {
-            NodeType currentNode = (NodeType) o;
-
-            if (filter.accept(currentNode)) {
-                for (IComponentConversion conversion : conversions) {
-                    conversion.transform(currentNode);
-                    modified = true;
-                }
+            if (searchAndModify((NodeType) o, filter, conversions)) {
+                modified = true;
             }
         }
         if (modified) {
-            factory.save(item,true);
+            factory.save(item, true);
         }
     }
 
@@ -77,5 +72,19 @@ public class ModifyComponentsAction {
                 searchAndModify(item, filter, conversions);
             }
         }
+    }
+
+    public static boolean searchAndModify(NodeType node, IComponentFilter filter, List<IComponentConversion> conversions) {
+        if (node == null || filter == null || conversions == null) {
+            return false;
+        }
+        boolean modified = false;
+        if (filter.accept(node)) {
+            for (IComponentConversion conversion : conversions) {
+                conversion.transform(node);
+                modified = true;
+            }
+        }
+        return modified;
     }
 }
