@@ -682,7 +682,7 @@
   <TalendProperties:ItemState xmi:id="_RBm8sC7oEdyI57s4DtRT5A"/>
   <TalendProperties:Property xmi:id="_RBm8sS7oEdyI57s4DtRT5A" id="_RBm8ry7oEdyI57s4DtRT5A" label="t01_Components" creationDate="2007-07-10T15:20:02.410+0200" version="0.1" item="_RBm8si7oEdyI57s4DtRT5A" author="_xsqf0OKEEdu0cpdFV7EhTQ"/>
   <TalendProperties:ItemState xmi:id="_RBm8tC7oEdyI57s4DtRT5A"/>
-  <TalendProperties:Property xmi:id="_RBm8tS7oEdyI57s4DtRT5A" id="_RBm8sy7oEdyI57s4DtRT5A" label="System" creationDate="2007-07-10T15:20:02.410+0200" version="0.1" item="_RBm8ti7oEdyI57s4DtRT5A" author="_xsqf0OKEEdu0cpdFV7EhTQ"/>
+  <TalendProperties:Property xmi:id="_RBm8tS7oEdyI57s4DtRT5A" id="_RBm8sy7oEdyI57s4DtRT5A" label="System_Comp" creationDate="2007-07-10T15:20:02.410+0200" version="0.1" item="_RBm8ti7oEdyI57s4DtRT5A" author="_xsqf0OKEEdu0cpdFV7EhTQ"/>
   <TalendProperties:ItemState xmi:id="_RBm8uC7oEdyI57s4DtRT5A"/>
   <TalendProperties:Property xmi:id="_RBm8uS7oEdyI57s4DtRT5A" id="_RBm8ty7oEdyI57s4DtRT5A" label="tRunJob" creationDate="2007-07-10T15:20:02.410+0200" version="0.1" item="_RBm8ui7oEdyI57s4DtRT5A" author="_xsqf0OKEEdu0cpdFV7EhTQ"/>
   <TalendProperties:ItemState xmi:id="_RBwGkS7oEdyI57s4DtRT5A"/>
