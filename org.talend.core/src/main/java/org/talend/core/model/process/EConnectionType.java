@@ -109,13 +109,13 @@ public enum EConnectionType implements IConnectionCategory {
 
     SYNCHRONIZE(12, "SYNCHRONIZE", //$NON-NLS-1$
                 EConnectionCategory.MAIN,
-                EXECUTION_ORDER,
+                EXECUTION_ORDER | DEPENDENCY,
                 "Synchronize", Messages.getString("EConnectionType.synchronize"), //$NON-NLS-1$ //$NON-NLS-2$
                 new Integer(Graphics.LINE_DASH),
                 new RGB(0, 50, 150)),
     PARALLELIZE(13, "PARALLELIZE", //$NON-NLS-1$
                 EConnectionCategory.MAIN,
-                EXECUTION_ORDER,
+                EXECUTION_ORDER | DEPENDENCY,
                 "Parallelize", Messages.getString("EConnectionType.parallelize"), //$NON-NLS-1$ //$NON-NLS-2$
                 new Integer(Graphics.LINE_DASH),
                 new RGB(0, 50, 150));
