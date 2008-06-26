@@ -53,6 +53,14 @@ public interface IProcessor {
     public void generateCode(boolean statistics, boolean trace, boolean context) throws ProcessorException;
 
     /**
+     * 
+     * Only generate context code, not main code.
+     * 
+     * @throws ProcessorException
+     */
+    public void generateContextCode() throws ProcessorException;
+
+    /**
      * Run the process.
      * 
      * To use this method, the code must be generated first. (for compatibility, if the code has never been generated,

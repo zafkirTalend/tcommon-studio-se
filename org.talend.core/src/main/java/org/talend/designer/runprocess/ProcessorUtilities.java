@@ -347,22 +347,20 @@ public class ProcessorUtilities {
             }
             IProcessor processor = getProcessor(currentProcess);
 
-            // See issue 2188
-            if (generateAllContexts) {
-                List<IContext> list = currentProcess.getContextManager().getListContext();
-                for (IContext context : list) {
-                    if (context.getName().equals(currentContext.getName())) {
-                        continue;
-                    }
-                    processor.setContext(context);
-                    try {
-                        // main job will use stats / traces
-                        processor.generateCode(statistics, trace, properties);
-                    } catch (ProcessorException pe) {
-                        MessageBoxExceptionHandler.process(pe);
-                    }
+            // always generate all context files.
+            List<IContext> list = currentProcess.getContextManager().getListContext();
+            for (IContext context : list) {
+                if (context.getName().equals(currentContext.getName())) {
+                    continue;
+                }
+                processor.setContext(context);
+                try {
+                    processor.generateContextCode();
+                } catch (ProcessorException pe) {
+                    MessageBoxExceptionHandler.process(pe);
                 }
             }
+
             processor.setContext(currentContext);
             try {
                 // main job will use stats / traces
