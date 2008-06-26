@@ -49,7 +49,7 @@ public abstract class CopyPushButton extends ExtendedPushButton {
      */
     @Override
     public boolean getEnabledState() {
-        return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
+        return super.getEnabledState() || !getExtendedControlViewer().isReadOnly();
     }
 
 }
