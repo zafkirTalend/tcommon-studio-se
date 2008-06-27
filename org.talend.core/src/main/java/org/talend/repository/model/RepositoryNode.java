@@ -67,8 +67,7 @@ public class RepositoryNode {
      */
     public enum EProperties {
         LABEL,
-        CONTENT_TYPE,
-        NEED_REFRESH;
+        CONTENT_TYPE;
     }
 
     private String id;
