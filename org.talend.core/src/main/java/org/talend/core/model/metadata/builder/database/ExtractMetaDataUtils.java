@@ -280,7 +280,7 @@ public class ExtractMetaDataUtils {
      */
     public static void closeConnection() {
         try {
-            if (!conn.isClosed()) {
+            if (conn != null && !conn.isClosed()) {
                 if (isReconnect) {
                     conn.close();
                 }
