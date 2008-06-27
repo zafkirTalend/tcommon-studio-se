@@ -1655,13 +1655,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__DATABASE_TYPE = CONNECTION_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Driver Jar Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__DRIVER_JAR_PATH = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
      * The feature id for the '<em><b>Driver Class</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__DRIVER_CLASS = CONNECTION_FEATURE_COUNT + 1;
+    int DATABASE_CONNECTION__DRIVER_CLASS = CONNECTION_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>URL</b></em>' attribute.
@@ -1669,7 +1678,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__URL = CONNECTION_FEATURE_COUNT + 2;
+    int DATABASE_CONNECTION__URL = CONNECTION_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -1677,7 +1686,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__PORT = CONNECTION_FEATURE_COUNT + 3;
+    int DATABASE_CONNECTION__PORT = CONNECTION_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Username</b></em>' attribute.
@@ -1685,7 +1694,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__USERNAME = CONNECTION_FEATURE_COUNT + 4;
+    int DATABASE_CONNECTION__USERNAME = CONNECTION_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
@@ -1693,7 +1702,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__PASSWORD = CONNECTION_FEATURE_COUNT + 5;
+    int DATABASE_CONNECTION__PASSWORD = CONNECTION_FEATURE_COUNT + 6;
 
     /**
      * The feature id for the '<em><b>Server Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1702,7 +1711,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__SERVER_NAME = CONNECTION_FEATURE_COUNT + 6;
+    int DATABASE_CONNECTION__SERVER_NAME = CONNECTION_FEATURE_COUNT + 7;
 
     /**
      * The feature id for the '<em><b>Datasource Name</b></em>' attribute.
@@ -1711,7 +1720,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__DATASOURCE_NAME = CONNECTION_FEATURE_COUNT + 7;
+    int DATABASE_CONNECTION__DATASOURCE_NAME = CONNECTION_FEATURE_COUNT + 8;
 
     /**
      * The feature id for the '<em><b>File Field Name</b></em>' attribute.
@@ -1720,7 +1729,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__FILE_FIELD_NAME = CONNECTION_FEATURE_COUNT + 8;
+    int DATABASE_CONNECTION__FILE_FIELD_NAME = CONNECTION_FEATURE_COUNT + 9;
 
     /**
      * The feature id for the '<em><b>Schema</b></em>' attribute.
@@ -1728,7 +1737,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__SCHEMA = CONNECTION_FEATURE_COUNT + 9;
+    int DATABASE_CONNECTION__SCHEMA = CONNECTION_FEATURE_COUNT + 10;
 
     /**
      * The feature id for the '<em><b>SID</b></em>' attribute.
@@ -1736,7 +1745,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__SID = CONNECTION_FEATURE_COUNT + 10;
+    int DATABASE_CONNECTION__SID = CONNECTION_FEATURE_COUNT + 11;
 
     /**
      * The feature id for the '<em><b>Sql Synthax</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1745,7 +1754,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__SQL_SYNTHAX = CONNECTION_FEATURE_COUNT + 11;
+    int DATABASE_CONNECTION__SQL_SYNTHAX = CONNECTION_FEATURE_COUNT + 12;
 
     /**
      * The feature id for the '<em><b>String Quote</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1754,7 +1763,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__STRING_QUOTE = CONNECTION_FEATURE_COUNT + 12;
+    int DATABASE_CONNECTION__STRING_QUOTE = CONNECTION_FEATURE_COUNT + 13;
 
     /**
      * The feature id for the '<em><b>Null Char</b></em>' attribute.
@@ -1762,7 +1771,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__NULL_CHAR = CONNECTION_FEATURE_COUNT + 13;
+    int DATABASE_CONNECTION__NULL_CHAR = CONNECTION_FEATURE_COUNT + 14;
 
     /**
      * The feature id for the '<em><b>Dbms Id</b></em>' attribute.
@@ -1771,7 +1780,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__DBMS_ID = CONNECTION_FEATURE_COUNT + 14;
+    int DATABASE_CONNECTION__DBMS_ID = CONNECTION_FEATURE_COUNT + 15;
 
     /**
      * The feature id for the '<em><b>Product Id</b></em>' attribute.
@@ -1780,7 +1789,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__PRODUCT_ID = CONNECTION_FEATURE_COUNT + 15;
+    int DATABASE_CONNECTION__PRODUCT_ID = CONNECTION_FEATURE_COUNT + 16;
 
     /**
      * The feature id for the '<em><b>DB Root Path</b></em>' attribute.
@@ -1789,7 +1798,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__DB_ROOT_PATH = CONNECTION_FEATURE_COUNT + 16;
+    int DATABASE_CONNECTION__DB_ROOT_PATH = CONNECTION_FEATURE_COUNT + 17;
 
     /**
      * The feature id for the '<em><b>Additional Params</b></em>' attribute.
@@ -1798,7 +1807,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__ADDITIONAL_PARAMS = CONNECTION_FEATURE_COUNT + 17;
+    int DATABASE_CONNECTION__ADDITIONAL_PARAMS = CONNECTION_FEATURE_COUNT + 18;
 
     /**
      * The feature id for the '<em><b>Standard SQL</b></em>' attribute.
@@ -1807,7 +1816,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__STANDARD_SQL = CONNECTION_FEATURE_COUNT + 18;
+    int DATABASE_CONNECTION__STANDARD_SQL = CONNECTION_FEATURE_COUNT + 19;
 
     /**
      * The feature id for the '<em><b>System SQL</b></em>' attribute.
@@ -1816,7 +1825,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__SYSTEM_SQL = CONNECTION_FEATURE_COUNT + 19;
+    int DATABASE_CONNECTION__SYSTEM_SQL = CONNECTION_FEATURE_COUNT + 20;
 
     /**
      * The feature id for the '<em><b>Cdc Conns</b></em>' containment reference.
@@ -1825,7 +1834,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION__CDC_CONNS = CONNECTION_FEATURE_COUNT + 20;
+    int DATABASE_CONNECTION__CDC_CONNS = CONNECTION_FEATURE_COUNT + 21;
 
     /**
      * The number of structural features of the '<em>Database Connection</em>' class.
@@ -1834,7 +1843,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 21;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
@@ -4992,6 +5001,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_DatabaseType();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath <em>Driver Jar Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Driver Jar Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_DriverJarPath();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverClass <em>Driver Class</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Driver Class</em>'.
@@ -6832,6 +6852,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__DATABASE_TYPE = eINSTANCE.getDatabaseConnection_DatabaseType();
+
+        /**
+         * The meta object literal for the '<em><b>Driver Jar Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__DRIVER_JAR_PATH = eINSTANCE.getDatabaseConnection_DriverJarPath();
 
         /**
          * The meta object literal for the '<em><b>Driver Class</b></em>' attribute feature.

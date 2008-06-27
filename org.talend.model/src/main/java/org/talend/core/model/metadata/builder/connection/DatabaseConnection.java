@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDatabaseType <em>Database Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath <em>Driver Jar Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverClass <em>Driver Class</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getURL <em>URL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPort <em>Port</em>}</li>
@@ -71,6 +72,32 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setDatabaseType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Driver Jar Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Driver Jar Path</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Driver Jar Path</em>' attribute.
+     * @see #setDriverJarPath(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DriverJarPath()
+     * @model
+     * @generated
+     */
+    String getDriverJarPath();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath <em>Driver Jar Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Driver Jar Path</em>' attribute.
+     * @see #getDriverJarPath()
+     * @generated
+     */
+    void setDriverJarPath(String value);
 
     /**
      * Returns the value of the '<em><b>Driver Class</b></em>' attribute.

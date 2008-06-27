@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDatabaseType <em>Database Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverJarPath <em>Driver Jar Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverClass <em>Driver Class</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getURL <em>URL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPort <em>Port</em>}</li>
@@ -75,6 +76,26 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String databaseType = DATABASE_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDriverJarPath() <em>Driver Jar Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDriverJarPath()
+     * @generated
+     * @ordered
+     */
+    protected static final String DRIVER_JAR_PATH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDriverJarPath() <em>Driver Jar Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDriverJarPath()
+     * @generated
+     * @ordered
+     */
+    protected String driverJarPath = DRIVER_JAR_PATH_EDEFAULT;
 
     /**
      * The default value of the '{@link #getDriverClass() <em>Driver Class</em>}' attribute.
@@ -503,6 +524,27 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         databaseType = newDatabaseType;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE, oldDatabaseType, databaseType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDriverJarPath() {
+        return driverJarPath;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDriverJarPath(String newDriverJarPath) {
+        String oldDriverJarPath = driverJarPath;
+        driverJarPath = newDriverJarPath;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH, oldDriverJarPath, driverJarPath));
     }
 
     /**
@@ -984,6 +1026,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
                 return getDatabaseType();
+            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+                return getDriverJarPath();
             case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
                 return getDriverClass();
             case ConnectionPackage.DATABASE_CONNECTION__URL:
@@ -1037,6 +1081,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
                 setDatabaseType((String)newValue);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+                setDriverJarPath((String)newValue);
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
                 setDriverClass((String)newValue);
@@ -1112,6 +1159,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
                 setDatabaseType(DATABASE_TYPE_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+                setDriverJarPath(DRIVER_JAR_PATH_EDEFAULT);
+                return;
             case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
                 setDriverClass(DRIVER_CLASS_EDEFAULT);
                 return;
@@ -1185,6 +1235,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
                 return DATABASE_TYPE_EDEFAULT == null ? databaseType != null : !DATABASE_TYPE_EDEFAULT.equals(databaseType);
+            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+                return DRIVER_JAR_PATH_EDEFAULT == null ? driverJarPath != null : !DRIVER_JAR_PATH_EDEFAULT.equals(driverJarPath);
             case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
                 return DRIVER_CLASS_EDEFAULT == null ? driverClass != null : !DRIVER_CLASS_EDEFAULT.equals(driverClass);
             case ConnectionPackage.DATABASE_CONNECTION__URL:
@@ -1240,6 +1292,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (DatabaseType: ");
         result.append(databaseType);
+        result.append(", DriverJarPath: ");
+        result.append(driverJarPath);
         result.append(", DriverClass: ");
         result.append(driverClass);
         result.append(", URL: ");
