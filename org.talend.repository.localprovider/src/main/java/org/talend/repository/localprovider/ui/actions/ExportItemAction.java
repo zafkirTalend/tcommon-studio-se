@@ -24,10 +24,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.model.metadata.builder.connection.CDCConnection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.actions.AContextualAction;
 
@@ -60,14 +64,37 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
 
                 // Avoid to show this action on Node "Generated"/"Jobs" and Node JOB_DOC, JOBLET_DOC.
                 RepositoryNode node = (RepositoryNode) object;
-                if (node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.JOB_DOC
-                        && node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.JOBLET_DOC
-                        && node.getContentType() != ERepositoryObjectType.GENERATED
-                        && node.getContentType() != ERepositoryObjectType.JOBS
-                        && node.getContentType() != ERepositoryObjectType.JOBLETS
-                        && node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.METADATA_CON_TABLE
-                        && node.getContentType() != ERepositoryObjectType.SQLPATTERNS) {
+
+                Object nodProperty = node.getProperties(EProperties.CONTENT_TYPE);
+                ERepositoryObjectType contentType = node.getContentType();
+
+                if (nodProperty != ERepositoryObjectType.JOB_DOC && nodProperty != ERepositoryObjectType.JOBLET_DOC
+                        && contentType != ERepositoryObjectType.GENERATED && contentType != ERepositoryObjectType.JOBS
+                        && contentType != ERepositoryObjectType.JOBLETS && contentType != ERepositoryObjectType.SQLPATTERNS
+                        && nodProperty != ERepositoryObjectType.METADATA_CON_CDC
+                        && nodProperty != ERepositoryObjectType.METADATA_CON_TABLE
+                        && nodProperty != ERepositoryObjectType.METADATA_CON_QUERY) {
                     visible = true;
+                }
+                // for cdc
+                if (ENodeType.STABLE_SYSTEM_FOLDER.equals(node.getType())) {
+                    if (node.getParent() != null) {
+                        RepositoryNode pNode = node.getParent().getParent();
+                        if (pNode != null) {
+                            ERepositoryObjectType nodeType = (ERepositoryObjectType) pNode
+                                    .getProperties(EProperties.CONTENT_TYPE);
+                            if (ERepositoryObjectType.METADATA_CONNECTIONS.equals(nodeType) && pNode.getObject() != null) {
+                                DatabaseConnection connection = (DatabaseConnection) ((DatabaseConnectionItem) pNode.getObject()
+                                        .getProperty().getItem()).getConnection();
+                                if (connection != null) {
+                                    CDCConnection cdcConns = connection.getCdcConns();
+                                    if (cdcConns != null) {
+                                        visible = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
