@@ -53,7 +53,10 @@ public enum EDatabaseTypeName {
 
     VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA"),
 
-    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB");
+    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB"),
+
+    // General JDBC not support schema defalut
+    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "GENERAL_JDBC");
 
     // displayName is used in Java code.
     private String displayName;

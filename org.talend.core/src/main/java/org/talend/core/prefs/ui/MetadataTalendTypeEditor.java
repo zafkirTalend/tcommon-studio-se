@@ -40,6 +40,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -56,7 +57,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.dialogs.SourceViewerDialog;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
@@ -90,6 +90,8 @@ public class MetadataTalendTypeEditor extends FieldEditor {
     private Button exportButton;
 
     private Button editButton;
+
+    private String selectId = "mysql_id"; // default_id
 
     TmpFilesManager tmpFileManager = new TmpFilesManager();
 
@@ -259,7 +261,8 @@ public class MetadataTalendTypeEditor extends FieldEditor {
     protected void editItem() {
         FileInfo fileSelected = getSelection();
 
-        MappingFileCheckViewerDialog sourceViewerDialog = new MappingFileCheckViewerDialog(this.getShell(), Messages.getString("MetadataTalendTypeEditor.editMappingDialog.title")); //$NON-NLS-1$
+        MappingFileCheckViewerDialog sourceViewerDialog = new MappingFileCheckViewerDialog(this.getShell(), Messages
+                .getString("MetadataTalendTypeEditor.editMappingDialog.title")); //$NON-NLS-1$
         sourceViewerDialog.setValidater(validater);
         if (fileSelected.fileContent != null) {
             // This indicates that the FileInfo has been edited.
@@ -317,7 +320,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
      * @see org.talend.commons.ui.swt.preferences.TableEditor#createButtons(org.eclipse.swt.widgets.Composite)
      */
     protected void createButtons(Composite box) {
-        addButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.import"));  //$NON-NLS-1$
+        addButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.import")); //$NON-NLS-1$
         addButton.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -325,7 +328,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
             }
         });
 
-        exportButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.export"));  //$NON-NLS-1$
+        exportButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.export")); //$NON-NLS-1$
         exportButton.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -377,7 +380,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
     }
 
     private Shell getShell() {
-        return this.getPage().getShell();
+        return getLabelControl().getShell();
     }
 
     private FileInfo getSelection() {
@@ -487,7 +490,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         try {
             // TODO amaumont : temporary disabled to load new version of mapping files
             // TODO amaumont : create a new xsd before enable it
-//            validater.validateWithDom(xmlFile);
+            // validater.validateWithDom(xmlFile);
 
             return xmlFile;
         } catch (Exception e) {
@@ -509,6 +512,18 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         setControlEnable(exportButton, selected);
         setControlEnable(editButton, selected);
         setControlEnable(removeButton, selected);
+
+        StructuredSelection select = (StructuredSelection) viewer.getSelection();
+        if (select != null) {
+            FileInfo info = (FileInfo) select.getFirstElement();
+            if (info != null) {
+                String infoName = info.fileName;
+                int begin = "mapping_".length();
+                int end = infoName.lastIndexOf(".");
+                String id = infoName.substring(begin, end);
+                setSelectId(id.toLowerCase() + "_id");
+            }
+        }
     }
 
     protected void setControlEnable(Control control, boolean enable) {
@@ -533,6 +548,23 @@ public class MetadataTalendTypeEditor extends FieldEditor {
     @Override
     protected void doLoad() {
         viewer.setInput(tmpFileManager.getTempFiles());
+    }
+
+    /**
+     * Method use for mapping select dialog
+     * <p>
+     * DOC YeXiaowei Comment method "forceLoad".
+     */
+    public void forceLoad() {
+        viewer.setInput(tmpFileManager.getTempFiles());
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "forceStore".
+     */
+    public void forceStore() {
+        doStore();
     }
 
     /*
@@ -631,5 +663,23 @@ public class MetadataTalendTypeEditor extends FieldEditor {
      */
     public int getNumberOfControls() {
         return 2;
+    }
+
+    /**
+     * Getter for selectId.
+     * 
+     * @return the selectId
+     */
+    public String getSelectId() {
+        return this.selectId;
+    }
+
+    /**
+     * Sets the selectId.
+     * 
+     * @param selectId the selectId to set
+     */
+    public void setSelectId(String selectId) {
+        this.selectId = selectId;
     }
 }

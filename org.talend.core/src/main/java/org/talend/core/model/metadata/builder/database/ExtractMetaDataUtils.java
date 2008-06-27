@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -197,6 +198,21 @@ public class ExtractMetaDataUtils {
     }
 
     /**
+     * 
+     * DOC YeXiaowei Comment method "isValidJarFile".
+     * 
+     * @param driverJarFilePath
+     * @return
+     */
+    private static boolean isValidJarFile(final String driverJarFilePath) {
+        if (driverJarFilePath == null || driverJarFilePath.equals("")) {
+            return false;
+        }
+        File jarFile = new File(driverJarFilePath);
+        return jarFile.exists() && jarFile.isFile();
+    }
+
+    /**
      * DOC cantoine. Method to connect to DataBase.
      * 
      * @param String driverClass
@@ -205,7 +221,8 @@ public class ExtractMetaDataUtils {
      * @param String pwd
      * @param String schemaBase
      */
-    public static void getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase) {
+    public static void getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
+            final String driverClassName, final String driverJarPath) {
         boolean isColsed = false;
         try {
             if (conn != null) {
@@ -216,8 +233,23 @@ public class ExtractMetaDataUtils {
         }
         if (isReconnect || conn == null || isColsed) {
             try {
-                Class.forName(getDriverClassByDbType(dbType)).newInstance();
-                conn = DriverManager.getConnection(url, username, pwd);
+
+                String driverClass = driverClassName;
+
+                if (driverClassName == null || driverClassName.equals("")) {
+                    driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+                }
+
+                // Load driver class
+                if (isValidJarFile(driverJarPath)) {
+                    // Load jdbc driver class dynamicly
+                    JDBCDriverLoader loader = new JDBCDriverLoader();
+                    conn = loader.getConnection(driverJarPath, driverClassName, url, username, driverClass);
+                } else {
+                    Class.forName(driverClass).newInstance();
+                    conn = DriverManager.getConnection(url, username, pwd);
+                }
+
                 if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
                     final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
                             EDatabaseTypeName.ORACLEFORSID.getProduct());

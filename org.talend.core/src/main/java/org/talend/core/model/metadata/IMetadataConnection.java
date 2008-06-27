@@ -26,6 +26,10 @@ public interface IMetadataConnection extends IMetadata {
 
     public void setDbType(String dbType);
 
+    public String getDriverJarPath();
+
+    public void setDriverJarPath(String driverJarPath);
+
     public String getDriverClass();
 
     public void setDriverClass(String driverClass);

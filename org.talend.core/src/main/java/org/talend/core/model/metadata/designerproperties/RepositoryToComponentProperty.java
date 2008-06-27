@@ -12,13 +12,17 @@
 // ============================================================================
 package org.talend.core.model.metadata.designerproperties;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -312,6 +316,58 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(connection.getAdditionalParams());
             }
         }
+
+        // add new class name property
+        if (value.equals("DRIVER_CLASS")) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getDriverClass())) {
+                return connection.getDriverClass();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDriverClass());
+            }
+        }
+
+        if (value.equals("URL")) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getURL())) {
+                return connection.getURL();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getURL());
+            }
+        }
+
+        if (value.equals("DRIVER_JAR")) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getDriverJarPath())) {
+                return connection.getDriverJarPath();
+            } else {
+                String userDir = System.getProperty("user.dir");
+                String pathSeparator = System.getProperty("path.separator");
+                String defaultPath = userDir + pathSeparator + "lib" + pathSeparator + "java";
+                String jarPath = connection.getDriverJarPath();
+
+                if (jarPath == null) {
+                    return null;
+                }
+
+                try {
+                    String fileName = new File(jarPath).getName();
+
+                    if (!jarPath.equals(defaultPath + pathSeparator + fileName)) {
+                        // Copy jar file to Talend libs location
+                        try {
+                            FileUtils.copyFile(new File(jarPath), new File(defaultPath));
+                        } catch (IOException e) {
+                            ExceptionHandler.process(e);
+                            return null;
+                        }
+                    }
+
+                    return TalendTextUtils.addQuotes(new File(jarPath).getName());
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+        }
+
         return null;
     }
 

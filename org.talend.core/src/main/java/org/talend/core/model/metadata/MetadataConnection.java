@@ -30,6 +30,8 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
 
     private String driverClass;
 
+    private String driverJarPath;
+
     private String url;
 
     private String port;
@@ -415,6 +417,24 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
      */
     public void setAdditionalParams(String additionalParams) {
         this.additionalParams = additionalParams;
+    }
+
+    /**
+     * Getter for driverJarPath.
+     * 
+     * @return the driverJarPath
+     */
+    public String getDriverJarPath() {
+        return this.driverJarPath;
+    }
+
+    /**
+     * Sets the driverJarPath.
+     * 
+     * @param driverJarPath the driverJarPath to set
+     */
+    public void setDriverJarPath(String driverJarPath) {
+        this.driverJarPath = driverJarPath;
     }
 
 }

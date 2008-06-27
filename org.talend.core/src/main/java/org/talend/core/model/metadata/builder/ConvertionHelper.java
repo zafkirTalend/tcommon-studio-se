@@ -41,8 +41,8 @@ public final class ConvertionHelper {
         }
         // if sourceConnection is not context mode, will be same as before.
         DatabaseConnection connection = null;
-        DatabaseConnection originalValueConnection = CorePlugin.getDefault().getRepositoryService()
-                .cloneOriginalValueConnection(sourceConnection);
+        DatabaseConnection originalValueConnection = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(
+                sourceConnection);
         if (originalValueConnection == null) {
             connection = sourceConnection;
         } else {
@@ -53,6 +53,7 @@ public final class ConvertionHelper {
         result.setDatabase(connection.getSID());
         result.setDataSourceName(connection.getDatasourceName());
         result.setDbType(connection.getDatabaseType());
+        result.setDriverJarPath(connection.getDriverJarPath());
         result.setDriverClass(connection.getDriverClass());
         result.setFileFieldName(connection.getFileFieldName());
         result.setId(connection.getId());

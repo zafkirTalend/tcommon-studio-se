@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -187,7 +188,7 @@ public class ExtractMetaDataFromDataBase {
             // WARNING Schema equals sid or database
             ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                     .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                    .getSchema());
+                    .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
@@ -455,14 +456,31 @@ public class ExtractMetaDataFromDataBase {
      * @param String pwd
      * @return ConnectionStatus : the result of connection(boolean Result, String messageException)
      */
-    public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema) {
+    public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema,
+            final String driverClassName, final String driverJarPath) {
 
         Connection connection;
         ConnectionStatus connectionStatus = new ConnectionStatus();
         connectionStatus.setResult(false);
         try {
-            Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
-            connection = DriverManager.getConnection(url, username, pwd);
+            /*
+             * For general jdbc, driver class is specific by user.
+             */
+            String driverClass = driverClassName;
+            if (driverClassName == null || driverClassName.equals("")) {
+                driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+            }
+
+            // Load driver class
+            if (isValidJarFile(driverJarPath)) {
+                // Load jdbc driver class dynamicly
+                JDBCDriverLoader loader = new JDBCDriverLoader();
+                connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
+            } else {
+                Class.forName(driverClass).newInstance();
+                connection = DriverManager.getConnection(url, username, pwd);
+            }
+
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
                 final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
                 final boolean equals = product.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
@@ -472,6 +490,7 @@ public class ExtractMetaDataFromDataBase {
                     return connectionStatus;
                 }
             }
+
             // testConnection to alert if you have filled a Wrong Database
             // field.
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
@@ -486,6 +505,21 @@ public class ExtractMetaDataFromDataBase {
             connectionStatus.setMessageException(e.getMessage());
         }
         return connectionStatus;
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "isValidJarFile".
+     * 
+     * @param driverJarFilePath
+     * @return
+     */
+    private static boolean isValidJarFile(final String driverJarFilePath) {
+        if (driverJarFilePath == null || driverJarFilePath.equals("")) {
+            return false;
+        }
+        File jarFile = new File(driverJarFilePath);
+        return jarFile.exists() && jarFile.isFile();
     }
 
     /**
@@ -532,7 +566,7 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema());
+                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
@@ -561,7 +595,7 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema());
+                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
@@ -592,15 +626,6 @@ public class ExtractMetaDataFromDataBase {
     }
 
     /**
-     * Getter for driveClass.
-     * 
-     * @return the driveClass
-     */
-    public static String getDriveClass() {
-        return driveClass;
-    }
-
-    /**
      * Sets the driveClass.
      * 
      * @param driveClass the driveClass to set
@@ -622,7 +647,7 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema());
+                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
         try {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {
