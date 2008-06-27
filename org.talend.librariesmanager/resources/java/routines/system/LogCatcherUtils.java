@@ -75,7 +75,8 @@ public class LogCatcherUtils {
         }
     }
 
-    java.util.List<LogCatcherMessage> messages = new java.util.ArrayList<LogCatcherMessage>();
+    java.util.List<LogCatcherMessage> messages = java.util.Collections
+            .synchronizedList(new java.util.ArrayList<LogCatcherMessage>());
 
     public void addMessage(String type, String origin, int priority, String message, int code) {
         LogCatcherMessage lcm = new LogCatcherMessage(type, origin, priority, message, code);

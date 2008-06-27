@@ -122,7 +122,8 @@ public class StatCatcherUtils {
         }
     }
 
-    java.util.List<StatCatcherMessage> messages = new java.util.ArrayList<StatCatcherMessage>();
+    java.util.List<StatCatcherMessage> messages = java.util.Collections
+            .synchronizedList(new java.util.ArrayList<StatCatcherMessage>());
 
     String jobId = "";
 
@@ -144,8 +145,7 @@ public class StatCatcherUtils {
         } else if (message.compareTo("failure") == 0) {
             messageType = "end";
         }
-        StatCatcherMessage scm = new StatCatcherMessage(message, messageType, origin, duration, this.jobVersion,
-                this.jobId);
+        StatCatcherMessage scm = new StatCatcherMessage(message, messageType, origin, duration, this.jobVersion, this.jobId);
         messages.add(scm);
     }
 

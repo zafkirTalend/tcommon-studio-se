@@ -25,6 +25,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MetterCatcherUtils {
 
@@ -135,7 +136,8 @@ public class MetterCatcherUtils {
         }
     }
 
-    java.util.List<MetterCatcherMessage> messages = new java.util.ArrayList<MetterCatcherMessage>();
+    java.util.List<MetterCatcherMessage> messages = java.util.Collections
+            .synchronizedList(new java.util.ArrayList<MetterCatcherMessage>());
 
     String jobId = "";
 
@@ -148,8 +150,8 @@ public class MetterCatcherUtils {
 
     public void addMessage(String label, Integer count, String referense, String thresholds, String origin) {
 
-        MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin,
-                this.jobVersion, this.jobId);
+        MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin, this.jobVersion,
+                this.jobId);
         messages.add(scm);
     }
 
@@ -162,7 +164,7 @@ public class MetterCatcherUtils {
         return messagesToSend;
     }
 
-    private static HashMap<String, Integer> connCountMap = new HashMap<String, Integer>();
+    private static Map<String, Integer> connCountMap = java.util.Collections.synchronizedMap(new HashMap<String, Integer>());
 
     public static void addLineToRow(String connName) {
         if (connCountMap.containsKey(connName)) {

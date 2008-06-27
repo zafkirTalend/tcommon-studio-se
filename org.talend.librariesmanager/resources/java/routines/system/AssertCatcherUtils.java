@@ -36,8 +36,8 @@ public class AssertCatcherUtils {
 
         private String description;
 
-        public AssertCatcherMessage(String pid, String project, String job, String language, String origin,
-                String status, String substatus, String description) {
+        public AssertCatcherMessage(String pid, String project, String job, String language, String origin, String status,
+                String substatus, String description) {
             this.moment = java.util.Calendar.getInstance().getTime();
             this.pid = pid;
             this.project = project;
@@ -212,12 +212,12 @@ public class AssertCatcherUtils {
         }
     }
 
-    java.util.List<AssertCatcherMessage> messages = new java.util.ArrayList<AssertCatcherMessage>();
+    java.util.List<AssertCatcherMessage> messages = java.util.Collections
+            .synchronizedList(new java.util.ArrayList<AssertCatcherMessage>());
 
     public void addMessage(String pid, String project, String job, String language, String origin, String status,
             String substatus, String description) {
-        AssertCatcherMessage lcm = new AssertCatcherMessage(pid, project, job, language, origin, status, substatus,
-                description);
+        AssertCatcherMessage lcm = new AssertCatcherMessage(pid, project, job, language, origin, status, substatus, description);
         messages.add(lcm);
     }
 
