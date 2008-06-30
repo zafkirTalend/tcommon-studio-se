@@ -14,9 +14,11 @@ package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -69,7 +71,12 @@ public class ProcessorUtilities {
     private static IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
             .getService(IDesignerCoreService.class);
 
+    // cache will be cleared at the begining of any code generation, to ensure
+    // there is no problem and that old items are not kept.
+    private static Map<String, ProcessItem> processItemCache = new HashMap<String, ProcessItem>();
+
     public static void addOpenEditor(IEditorPart editor) {
+        processItemCache.clear();
         openedEditors.add(editor);
     }
 
@@ -90,6 +97,7 @@ public class ProcessorUtilities {
         if (processId == null || "".equals(processId)) {
             return null;
         }
+        ProcessItem lastVersionOfProcess = processItemCache.get(processId + " -- " + LATEST_JOB_VERSION);
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
@@ -97,7 +105,9 @@ public class ProcessorUtilities {
             if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
                 return null;
             }
-            ProcessItem lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
+            lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
+            processItemCache.put(processId + " -- " + LATEST_JOB_VERSION, lastVersionOfProcess);
+            processItemCache.put(processId + " -- " + lastVersionOfProcess.getProperty().getVersion(), lastVersionOfProcess);
             return lastVersionOfProcess;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -112,7 +122,10 @@ public class ProcessorUtilities {
         if (version == null || LATEST_JOB_VERSION.equals(version)) {
             return getProcessItem(processId);
         }
-        ProcessItem selectedProcessItem = null;
+        ProcessItem selectedProcessItem = processItemCache.get(processId + " -- " + version);
+        if (selectedProcessItem != null) {
+            return selectedProcessItem;
+        }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
 
@@ -124,6 +137,7 @@ public class ProcessorUtilities {
                     }
                 }
             }
+            processItemCache.put(processId + " -- " + version, selectedProcessItem);
             return selectedProcessItem;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -256,6 +270,12 @@ public class ProcessorUtilities {
 
     private static boolean generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean properties, int option) {
+        if (jobInfo.getFatherJobInfo() == null) {
+            // if it's the father, reset the processMap to ensure to have a good
+            // code generation
+            processItemCache.clear();
+        }
+
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem;
