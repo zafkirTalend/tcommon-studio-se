@@ -58,6 +58,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.extended.table.ModifyBeanValueCommand;
+import org.talend.commons.ui.swt.proposal.ExtendedTextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
@@ -2086,6 +2087,32 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         if (tableEditorManager != null) {
             tableEditorManager.refresh();
         }
+    }
+
+    /**
+     * DOC amaumont Comment method "applyActivatedCellEditor".
+     */
+    public void applyActivatedCellEditor() {
+        TableViewer tableViewer = getTableViewer();
+        if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+            CellEditor activatedCellEditor = null;
+            if (tableViewer.isCellEditorActive()) {
+                CellEditor[] cellEditors = tableViewer.getCellEditors();
+                for (int i = 0; i < cellEditors.length; i++) {
+                    CellEditor cellEditor = cellEditors[i];
+                    if (cellEditor != null && cellEditor.isActivated()
+                            && cellEditor instanceof ExtendedTextCellEditorWithProposal) {
+                        ((ExtendedTextCellEditorWithProposal) cellEditor).fireApplyEditorValue();
+                        activatedCellEditor = cellEditor;
+                    }
+                }
+            }
+            if (activatedCellEditor != null) {
+                Object currentModifiedBean = getModifiedObjectInfo().getCurrentModifiedBean();
+                tableViewer.refresh(currentModifiedBean, true);
+            }
+        }
+
     }
 
 }
