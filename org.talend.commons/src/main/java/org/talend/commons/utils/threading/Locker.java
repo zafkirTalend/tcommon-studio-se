@@ -334,7 +334,7 @@ public class Locker<B, KP> {
      * @return true unlock has been done, else false if no lock was exist
      * @throws IllegalArgumentException if bean is null
      */
-    public synchronized boolean unlockBean(B bean) {
+    public boolean unlockBean(B bean) {
         return unlockBean(bean, UNDEFINED_CONTEXT_INFO);
     }
 
@@ -370,7 +370,7 @@ public class Locker<B, KP> {
      * @param key
      * @return
      */
-    public boolean unlock(KP key, String contextInfo) {
+    public synchronized boolean unlock(KP key, String contextInfo) {
         check(key);
         if (Locker.verbose) {
             log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo=" + contextInfo + "...");
