@@ -335,6 +335,17 @@ public class Locker<B, KP> {
      * @throws IllegalArgumentException if bean is null
      */
     public synchronized boolean unlockBean(B bean) {
+        return unlockBean(bean, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * Unlock.
+     * 
+     * @param bean
+     * @return true unlock has been done, else false if no lock was exist
+     * @throws IllegalArgumentException if bean is null
+     */
+    public synchronized boolean unlockBean(B bean, String contextInfo) {
         if (bean == null) {
             return false;
         }
@@ -350,9 +361,19 @@ public class Locker<B, KP> {
      * @return
      */
     public boolean unlock(KP key) {
+        return unlock(key, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * DOC amaumont Comment method "unlock".
+     * 
+     * @param key
+     * @return
+     */
+    public boolean unlock(KP key, String contextInfo) {
         check(key);
         if (Locker.verbose) {
-            log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + "...");
+            log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo=" + contextInfo + "...");
         }
         matchingKey.key = key;
         Thread thread = lockKeyToThreadsMap.remove(matchingKey);
