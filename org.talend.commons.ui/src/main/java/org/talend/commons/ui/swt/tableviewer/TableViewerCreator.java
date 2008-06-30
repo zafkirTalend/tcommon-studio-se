@@ -758,10 +758,29 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             CellEditor cellEditor = column.getCellEditor();
             if (cellEditor != null && cellEditor.getControl() != null) {
-                cellEditor.getControl().addTraverseListener(traverseListenerForControls);
+                addTraverseListenerRecursivly(cellEditor.getControl(), traverseListenerForControls);
             }
         }
 
+    }
+
+    /**
+     * DOC amaumont Comment method "addTraversListenerRecursivly".
+     * 
+     * @param control
+     * @param traverseListenerForControls
+     */
+    private void addTraverseListenerRecursivly(Control control, TraverseListener traverseListenerForControls) {
+        if (control instanceof Composite) {
+            control.addTraverseListener(traverseListenerForControls);
+            Composite composite = (Composite) control;
+            Control[] children = composite.getChildren();
+            for (Control controlChild : children) {
+                addTraverseListenerRecursivly(controlChild, traverseListenerForControls);
+            }
+        } else {
+            control.addTraverseListener(traverseListenerForControls);
+        }
     }
 
     /**
@@ -801,7 +820,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             if (!controlLostFocusIsTableEditor) {
                 for (TableViewerCreatorColumn column : columns) {
-                    if (column.getCellEditor() != null && column.getCellEditor().getControl() == currentControl) {
+                    if (column.getCellEditor() != null && isEqualsOrChildOf(currentControl, column.getCellEditor().getControl())) {
                         indexColumnStart = column.getIndex();
                         itemIndexStart = getTable().getSelectionIndex();
                         break;
@@ -810,100 +829,127 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             }
         }
 
-        final int indexColumnStartFinal = indexColumnStart;
-        final int itemIndexStartFinal = itemIndexStart;
+        if (indexColumnStart != -1 && itemIndexStart != -1) {
 
-        controlClicked = null;
+            final int indexColumnStartFinal = indexColumnStart;
+            final int itemIndexStartFinal = itemIndexStart;
 
-        Runnable runnable = new Runnable() {
+            controlClicked = null;
 
-            public void run() {
+            Runnable runnable = new Runnable() {
 
-                boolean continueRun = (keyPressed == SWT.TRAVERSE_TAB_NEXT || keyPressed == SWT.TRAVERSE_TAB_PREVIOUS
-                        || keyPressed == SWT.TRAVERSE_RETURN || keyPressed == SWT.F2);
+                public void run() {
 
-                if (!continueRun || getTable().isDisposed()) {
-                    return;
-                }
+                    boolean continueRun = (keyPressed == SWT.TRAVERSE_TAB_NEXT || keyPressed == SWT.TRAVERSE_TAB_PREVIOUS
+                            || keyPressed == SWT.TRAVERSE_RETURN || keyPressed == SWT.F2);
 
-                List<B> inputList = TableViewerCreator.this.getInputList();
-
-                int currentIndexColumn = indexColumnStartFinal;
-                int currentItemIndex = itemIndexStartFinal;
-
-                CellEditor cellEditorToActivate = null;
-                Control controlToFocusIn = null;
-
-                boolean found = false;
-
-                boolean firstLoop = true;
-
-                while (true) {
-
-                    if (keyPressed == SWT.TRAVERSE_TAB_NEXT || !firstLoop
-                            && (keyPressed == SWT.F2 || keyPressed == SWT.TRAVERSE_RETURN)) {
-                        currentIndexColumn++;
-                        if (currentIndexColumn >= columns.size()) {
-                            currentIndexColumn = 0;
-                            currentItemIndex++;
-                            if (currentItemIndex >= inputList.size()) {
-                                break;
-                            }
-                        }
-                    } else if (keyPressed == SWT.TRAVERSE_TAB_PREVIOUS) {
-                        currentIndexColumn--;
-                        if (currentIndexColumn < 0) {
-                            currentIndexColumn = columns.size() - 1;
-                            currentItemIndex--;
-                            if (currentItemIndex < 0) {
-                                break;
-                            }
-                        }
-                    } else if (keyPressed == SWT.TRAVERSE_RETURN) {
-
+                    if (!continueRun || getTable().isDisposed()) {
+                        return;
                     }
-                    TableViewerCreatorColumn tableViewerCreatorColumn = columns.get(currentIndexColumn);
-                    if (tableViewerCreatorColumn.getTableEditorContent() != null) {
-                        TableItem tableItem = getTable().getItem(currentItemIndex);
-                        if (tableEditorManager != null) {
-                            List<TableEditor> tableEditorList = tableEditorManager.getTableEditorList();
-                            for (TableEditor editor : tableEditorList) {
-                                if (editor.getColumn() == currentIndexColumn && editor.getItem() == tableItem) {
-                                    controlToFocusIn = editor.getEditor();
-                                    found = true;
+
+                    List<B> inputList = TableViewerCreator.this.getInputList();
+
+                    int currentIndexColumn = indexColumnStartFinal;
+                    int currentItemIndex = itemIndexStartFinal;
+
+                    CellEditor cellEditorToActivate = null;
+                    Control controlToFocusIn = null;
+
+                    boolean found = false;
+
+                    boolean firstLoop = true;
+
+                    while (true) {
+
+                        if (keyPressed == SWT.TRAVERSE_TAB_NEXT || !firstLoop
+                                && (keyPressed == SWT.F2 || keyPressed == SWT.TRAVERSE_RETURN)) {
+                            currentIndexColumn++;
+                            if (currentIndexColumn >= columns.size()) {
+                                currentIndexColumn = 0;
+                                currentItemIndex++;
+                                if (currentItemIndex >= inputList.size()) {
                                     break;
                                 }
                             }
-                        }
-                    } else if (tableViewerCreatorColumn.getCellEditor() != null) {
-                        cellEditorToActivate = tableViewerCreatorColumn.getCellEditor();
-                        found = true;
-                    }
-                    firstLoop = false;
+                        } else if (keyPressed == SWT.TRAVERSE_TAB_PREVIOUS) {
+                            currentIndexColumn--;
+                            if (currentIndexColumn < 0) {
+                                currentIndexColumn = columns.size() - 1;
+                                currentItemIndex--;
+                                if (currentItemIndex < 0) {
+                                    break;
+                                }
+                            }
+                        } else if (keyPressed == SWT.TRAVERSE_RETURN) {
 
-                    if (found) {
+                        }
+                        TableViewerCreatorColumn tableViewerCreatorColumn = columns.get(currentIndexColumn);
+                        if (tableViewerCreatorColumn.getTableEditorContent() != null) {
+                            TableItem tableItem = getTable().getItem(currentItemIndex);
+                            if (tableEditorManager != null) {
+                                List<TableEditor> tableEditorList = tableEditorManager.getTableEditorList();
+                                for (TableEditor editor : tableEditorList) {
+                                    if (editor.getColumn() == currentIndexColumn && editor.getItem() == tableItem) {
+                                        controlToFocusIn = editor.getEditor();
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (tableViewerCreatorColumn.getCellEditor() != null) {
+                            cellEditorToActivate = tableViewerCreatorColumn.getCellEditor();
+                            found = true;
+                        }
+                        firstLoop = false;
 
-                        if (controlToFocusIn != null) {
-                            getTable().setSelection(currentItemIndex);
-                            controlToFocusIn.setFocus();
-                            break;
-                        } else if (getCellModifier() != null
-                                && getCellModifier().canModify(inputList.get(currentItemIndex),
-                                        getColumns().get(currentIndexColumn).getId()) && cellEditorToActivate != null) {
-                            TableViewerCreator.this.getTableViewer().editElement(inputList.get(currentItemIndex),
-                                    currentIndexColumn);
-                            break;
-                        } else {
-                            found = false;
+                        if (found) {
+
+                            if (controlToFocusIn != null) {
+                                getTable().setSelection(currentItemIndex);
+                                controlToFocusIn.setFocus();
+                                break;
+                            } else if (getCellModifier() != null
+                                    && getCellModifier().canModify(inputList.get(currentItemIndex),
+                                            getColumns().get(currentIndexColumn).getId()) && cellEditorToActivate != null) {
+                                TableViewerCreator.this.getTableViewer().editElement(inputList.get(currentItemIndex),
+                                        currentIndexColumn);
+                                break;
+                            } else {
+                                found = false;
+                            }
                         }
                     }
+                    keyPressed = 0;
                 }
-                keyPressed = 0;
+            };
+
+            new AsynchronousThreading(10, false, getTable().getDisplay(), runnable).start();
+        }
+
+    }
+
+    /**
+     * DOC amaumont Comment method "isEqualsOrChildOf".
+     * 
+     * @param currentControl
+     * @param control
+     * @return
+     */
+    private boolean isEqualsOrChildOf(Control equalsOrChild, Control controlRef) {
+
+        if (equalsOrChild == controlRef) {
+            return true;
+        } else if (controlRef instanceof Composite) {
+            Composite composite = (Composite) controlRef;
+            Control[] children = composite.getChildren();
+            for (Control controlChildRef : children) {
+                return isEqualsOrChildOf(equalsOrChild, controlChildRef);
             }
-        };
+        } else {
+            return false;
+        }
 
-        new AsynchronousThreading(10, false, getTable().getDisplay(), runnable).start();
-
+        return false;
     }
 
     /**
