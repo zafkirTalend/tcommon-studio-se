@@ -14,9 +14,11 @@ package org.talend.commons.utils.threading;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.list.SynchronizedList;
 import org.apache.log4j.Logger;
@@ -31,9 +33,98 @@ import org.talend.commons.utils.data.map.MultiLazyValuesMap;
  */
 public class Locker<B, KP> {
 
+    private static final String UNDEFINED_CONTEXT_INFO = "UNDEFINED";
+
     private static Logger log = Logger.getLogger(Locker.class);
 
-    private HashMap<KP, Thread> lockKeyToThreadsMap = new HashMap<KP, Thread>();
+    private Map<InternalKeyLock, Thread> lockKeyToThreadsMap = Collections
+            .synchronizedMap(new HashMap<InternalKeyLock, Thread>());
+
+    private InternalKeyLock<KP> matchingKey = new InternalKeyLock<KP>();
+
+    /**
+     * 
+     * DOC amaumont Locker class global comment. Detailled comment <br/>
+     * 
+     * @param <KP>
+     */
+    class InternalKeyLock<KP> {
+
+        private String contextInfo;
+
+        private KP key;
+
+        /**
+         * DOC amaumont InternalKeyLock constructor comment.
+         * 
+         * @param key2
+         */
+        public InternalKeyLock(KP key) {
+            this.key = key;
+        }
+
+        /**
+         * DOC amaumont InternalKeyLock constructor comment.
+         * 
+         * @param key2
+         * @param contextInfo2
+         */
+        public InternalKeyLock(KP key, String contextInfo) {
+            this(key);
+            this.contextInfo = contextInfo;
+        }
+
+        /**
+         * DOC amaumont InternalKeyLock constructor comment.
+         */
+        public InternalKeyLock() {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((this.key == null) ? 0 : this.key.hashCode());
+            return result;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final InternalKeyLock other = (InternalKeyLock) obj;
+            if (this.key == null) {
+                if (other.key != null) {
+                    return false;
+                }
+            } else if (!this.key.equals(other.key)) {
+                return false;
+            }
+            return true;
+        }
+
+        public String toString() {
+            return "key=" + String.valueOf(key) + ", contextInfo=" + contextInfo;
+        }
+
+    }
 
     private MultiLazyValuesMap waitingThreadsByKey = new MultiLazyValuesMap(new Hashtable()) {
 
@@ -46,31 +137,15 @@ public class Locker<B, KP> {
 
     private IGetterPropertyAccessor<B, KP> getterId;
 
-    private boolean verbose;
+    private static boolean verbose = false;
 
-    private boolean detectSameThread;
-
-    /**
-     * DOC amaumont Locker constructor comment.
-     */
-    public Locker(boolean detectSameThread) {
-        super();
-        this.detectSameThread = detectSameThread;
-    }
+    private boolean detectSameThread = true;
 
     /**
      * DOC amaumont Locker constructor comment.
      */
     public Locker() {
         super();
-    }
-
-    /**
-     * DOC amaumont Locker constructor comment.
-     */
-    public Locker(boolean detectSameThread, IGetterPropertyAccessor<B, KP> getterId) {
-        this(getterId);
-        this.detectSameThread = detectSameThread;
     }
 
     /**
@@ -98,7 +173,8 @@ public class Locker<B, KP> {
      */
     public synchronized boolean isLocked(KP key) {
         check(key);
-        Thread lockingThread = lockKeyToThreadsMap.get(key);
+        matchingKey.key = key;
+        Thread lockingThread = lockKeyToThreadsMap.get(matchingKey);
         if (lockingThread == null) {
             return false;
         } else {
@@ -114,9 +190,20 @@ public class Locker<B, KP> {
      * @throws IllegalArgumentException if bean is null
      */
     public synchronized boolean lockBean(B bean) {
+        return lockBean(bean, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * Lock.
+     * 
+     * @param bean
+     * @return previous lock state, true was locked
+     * @throws IllegalArgumentException if bean is null
+     */
+    public synchronized boolean lockBean(B bean, String contextInfo) {
         checkBean(bean);
         KP key = getterId.get(bean);
-        return lock(key);
+        return lock(key, contextInfo);
     }
 
     /**
@@ -126,11 +213,21 @@ public class Locker<B, KP> {
      * @return
      */
     public boolean lock(KP key) {
+        return lock(key, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * DOC amaumont Comment method "lock".
+     * 
+     * @param key
+     * @return
+     */
+    public boolean lock(KP key, String contextInfo) {
         check(key);
-        if (verbose) {
-            log.info("Locking (" + Thread.currentThread().toString() + ") key=" + key + "...");
+        if (Locker.verbose) {
+            log.info("Locking (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo=" + contextInfo + "...");
         }
-        Thread thread = lockKeyToThreadsMap.put(key, Thread.currentThread());
+        Thread thread = lockKeyToThreadsMap.put(new InternalKeyLock<KP>(key, contextInfo), Thread.currentThread());
         if (thread == null) {
             return false;
         } else {
@@ -146,13 +243,25 @@ public class Locker<B, KP> {
      * @throws IllegalArgumentException if bean is null
      */
     public synchronized boolean lockIfUnlockedBean(B bean) {
+        return lockIfUnlockedBean(bean, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * Lock if it is already unlocked.
+     * 
+     * @param bean
+     * @return true if lock has been done or current thread has already locked the same bean, else false.
+     * @throws IllegalArgumentException if bean is null
+     */
+    public synchronized boolean lockIfUnlockedBean(B bean, String contextInfo) {
         checkBean(bean);
         if (!isLockedBean(bean)) {
-            lockBean(bean);
+            lockBean(bean, contextInfo);
             return true;
         } else {
             KP key = getterId.get(bean);
-            Thread thread = lockKeyToThreadsMap.get(key);
+            matchingKey.key = key;
+            Thread thread = lockKeyToThreadsMap.get(matchingKey);
             if (detectSameThread && Thread.currentThread() == thread) {
                 return true;
             } else {
@@ -169,14 +278,26 @@ public class Locker<B, KP> {
      * @throws IllegalArgumentException if bean is null
      */
     public synchronized boolean lockIfUnlocked(KP key) {
+        return lockIfUnlocked(key, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * Lock if it is already unlocked.
+     * 
+     * @param bean
+     * @return true if lock has been done or current thread has already locked the same bean, else false.
+     * @throws IllegalArgumentException if bean is null
+     */
+    public synchronized boolean lockIfUnlocked(KP key, String contextInfo) {
         check(key);
         if (!isLocked(key)) {
             lock(key);
             return true;
         } else {
-            Thread thread = lockKeyToThreadsMap.get(key);
+            matchingKey.key = key;
+            Thread thread = lockKeyToThreadsMap.get(matchingKey);
             if (detectSameThread && Thread.currentThread() == thread) {
-                System.out.println("Same thread");
+                // System.out.println("Same thread");
                 return true;
             } else {
                 return false;
@@ -214,6 +335,9 @@ public class Locker<B, KP> {
      * @throws IllegalArgumentException if bean is null
      */
     public synchronized boolean unlockBean(B bean) {
+        if (bean == null) {
+            return false;
+        }
         checkBean(bean);
         KP key = getterId.get(bean);
         return unlock(key);
@@ -227,10 +351,11 @@ public class Locker<B, KP> {
      */
     public boolean unlock(KP key) {
         check(key);
-        if (verbose) {
+        if (Locker.verbose) {
             log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + "...");
         }
-        Thread thread = lockKeyToThreadsMap.remove(key);
+        matchingKey.key = key;
+        Thread thread = lockKeyToThreadsMap.remove(matchingKey);
         List<Thread> waitingThreads = (List<Thread>) waitingThreadsByKey.getCollection(key);
         if (waitingThreads != null && waitingThreads.size() > 0) {
             synchronized (waitingThreads.get(0)) {
@@ -245,6 +370,16 @@ public class Locker<B, KP> {
     }
 
     /**
+     * DOC amaumont Comment method "waitForLockBean".
+     * 
+     * @param executionTask
+     * @param idLockForceInitCheck
+     */
+    public boolean waitForLockBean(B bean) throws InterruptedException {
+        return waitForLockBean(bean, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
      * Lock if it is unlocked, else waiting for unlocked to lock.
      * 
      * @param bean
@@ -252,21 +387,21 @@ public class Locker<B, KP> {
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
      */
-    public boolean waitForLockBean(B bean) throws InterruptedException {
+    public boolean waitForLockBean(B bean, String contextInfo) throws InterruptedException {
         checkBean(bean);
-        if (!lockIfUnlockedBean(bean)) {
+        if (!lockIfUnlockedBean(bean, contextInfo)) {
             synchronized (Thread.currentThread()) {
 
                 waitingThreadsByKey.put(getterId.get(bean), Thread.currentThread());
                 try {
-                    if (verbose) {
-                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key="
-                                + getterId.get(bean) + "...");
+                    if (Locker.verbose) {
+                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key=" + getterId.get(bean)
+                                + ", contextInfo=" + contextInfo + "...");
                     }
                     Thread.currentThread().wait();
-                    if (verbose) {
+                    if (Locker.verbose) {
                         log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + getterId.get(bean)
-                                + "...");
+                                + ", contextInfo=" + contextInfo + "...");
                     }
                     waitForLockBean(bean);
                 } catch (InterruptedException e) {
@@ -289,20 +424,34 @@ public class Locker<B, KP> {
      * @throws IllegalArgumentException if bean is null
      */
     public boolean waitForLock(KP key) throws InterruptedException {
+        return waitForLock(key, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * 
+     * @param bean
+     * @return true if thread has wait a time, else false.
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     */
+    public boolean waitForLock(KP key, String contextInfo) throws InterruptedException {
         check(key);
-        if (!lockIfUnlocked(key)) {
+        if (!lockIfUnlocked(key, contextInfo)) {
             synchronized (Thread.currentThread()) {
 
                 waitingThreadsByKey.put(key, Thread.currentThread());
                 try {
-                    if (verbose) {
-                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key=" + key + "...");
+                    if (Locker.verbose) {
+                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo="
+                                + contextInfo + "...");
                     }
                     Thread.currentThread().wait();
-                    if (verbose) {
-                        log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + key + "...");
+                    if (Locker.verbose) {
+                        log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo="
+                                + contextInfo + "...");
                     }
-                    waitForLock(key);
+                    waitForLock(key, contextInfo);
                 } catch (InterruptedException e) {
                     throw e;
                 } finally {
@@ -334,6 +483,15 @@ public class Locker<B, KP> {
                 }
             }
         }
+    }
+
+    public static void setVerbose(boolean verbose) {
+        Locker.verbose = verbose;
+    }
+
+    public String toString() {
+        return "lockKeyToThreadsMap=" + String.valueOf(lockKeyToThreadsMap) + ", waitingThreadsByKey="
+                + String.valueOf(waitingThreadsByKey);
     }
 
     public static void main(String[] args) {
@@ -458,4 +616,5 @@ public class Locker<B, KP> {
         }.start();
 
     }
+
 }
