@@ -2076,4 +2076,16 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
+    /**
+     * DOC amaumont Comment method "refresh".
+     */
+    public void refresh() {
+        if (tableViewer != null) {
+            tableViewer.refresh();
+        }
+        if (tableEditorManager != null) {
+            tableEditorManager.refresh();
+        }
+    }
+
 }

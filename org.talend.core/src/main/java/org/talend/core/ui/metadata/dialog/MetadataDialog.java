@@ -316,7 +316,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         MetadataTool.copyTable(getInputMetaData(), getOutputMetaData());
-                        outputMetaView.getTableViewerCreator().getTableViewer().refresh();
+                        outputMetaView.getTableViewerCreator().refresh();
                     }
                 }
             });
@@ -336,7 +336,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         MetadataTool.copyTable(getOutputMetaData(), getInputMetaData());
-                        inputMetaView.getTableViewerCreator().getTableViewer().refresh();
+                        inputMetaView.getTableViewerCreator().refresh();
                     }
                 }
             });
@@ -370,7 +370,7 @@ public class MetadataDialog extends Dialog {
                 if ((inputMetaTable != null) && outputMetaTable.isReadOnly()
                         && outputNode.getComponent().isSchemaAutoPropagated()) {
                     MetadataTool.copyTable(inputMetaTable, outputMetaTable);
-                    outputMetaView.getTableViewerCreator().getTableViewer().refresh();
+                    outputMetaView.getTableViewerCreator().refresh();
                 }
                 if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                     IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
