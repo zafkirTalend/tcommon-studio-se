@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor.control;
 
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -21,7 +22,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlModel;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
+import org.talend.commons.ui.swt.extended.table.ExtendedButtonEvent;
 import org.talend.commons.ui.swt.extended.table.ExtendedControlEvent;
+import org.talend.commons.ui.swt.extended.table.IExtendedButtonListener;
 import org.talend.commons.ui.swt.extended.table.IExtendedControlListener;
 
 /**
@@ -38,13 +41,19 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
 
     private Command commandToExecute;
 
+    /*
+     * The list of listeners who wish to be notified when something significant happens.
+     */
+    private ListenerList beforeCommandListeners;
+
+    private ListenerList afterCommandListeners;
+
     /**
      * DOC amaumont ExtendedTableButton constructor comment.
      * 
      * @param extendedViewer
      */
-    public ExtendedPushButton(Composite parent, AbstractExtendedControlViewer extendedViewer, String tooltip,
-            Image image) {
+    public ExtendedPushButton(Composite parent, AbstractExtendedControlViewer extendedViewer, String tooltip, Image image) {
         super();
         this.extendedControlViewer = extendedViewer;
         init(parent, tooltip, image);
@@ -133,6 +142,8 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
      * 
      */
     protected void beforeCommandExecution() {
+        fireEvent(new ExtendedButtonEvent(true));
+
         // override it if needed
     }
 
@@ -149,7 +160,52 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
      * @param executedCommand
      */
     protected void afterCommandExecution(Command executedCommand) {
+        fireEvent(new ExtendedButtonEvent(false));
         // override it if needed
+    }
+
+    public void addListener(IExtendedButtonListener listener, boolean before) {
+        if (before) {
+            if (beforeCommandListeners == null) {
+                beforeCommandListeners = new ListenerList();
+            }
+            this.beforeCommandListeners.add(listener);
+        } else {
+            if (afterCommandListeners == null) {
+                afterCommandListeners = new ListenerList();
+            }
+            this.afterCommandListeners.add(listener);
+        }
+    }
+
+    public void removeListener(IExtendedButtonListener listener, boolean before) {
+        if (before && beforeCommandListeners != null) {
+            this.beforeCommandListeners.remove(listener);
+        } else if (!before && afterCommandListeners != null) {
+            this.afterCommandListeners.remove(listener);
+        }
+    }
+
+    /**
+     * DOC amaumont Comment method "fireEvent".
+     * 
+     * @param event
+     */
+    protected void fireEvent(ExtendedButtonEvent event) {
+
+        ListenerList listeners = null;
+        if (event.isBefore()) {
+            listeners = beforeCommandListeners;
+        } else {
+            listeners = afterCommandListeners;
+        }
+        if (listeners != null) {
+            final Object[] listenerArray = listeners.getListeners();
+            for (int i = 0; i < listenerArray.length; i++) {
+                ((IExtendedButtonListener) listenerArray[i]).handleEvent(event);
+            }
+        }
+
     }
 
     public boolean getEnabledState() {
