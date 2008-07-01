@@ -235,7 +235,7 @@ public class ExtractMetaDataFromDataBase {
      */
     public static String getTableNameBySynonym(Connection conn, String name) {
         try {
-            String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-2$
+            String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
             Statement sta;
             sta = conn.createStatement();
             ResultSet resultSet = sta.executeQuery(sql);
@@ -328,7 +328,7 @@ public class ExtractMetaDataFromDataBase {
 
                     String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
                     dbType = handleDBtype(dbType);
-                    metadataColumn.setSourceType(dbType); //$NON-NLS-1$
+                    metadataColumn.setSourceType(dbType);
 
                     metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
                     // Convert dbmsType to TalendType
@@ -469,6 +469,11 @@ public class ExtractMetaDataFromDataBase {
             String driverClass = driverClassName;
             if (driverClassName == null || driverClassName.equals("")) {
                 driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+                // see bug 4404: Exit TOS when Edit Access Schema in repository
+                if (dbType.equals("Access")) {
+                    // throw exception to prevent getting connection, which may crash
+                    ExtractMetaDataUtils.checkAccessDbq(url);
+                }
             }
 
             // Load driver class

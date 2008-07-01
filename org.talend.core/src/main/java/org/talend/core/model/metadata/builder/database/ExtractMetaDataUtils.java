@@ -238,6 +238,11 @@ public class ExtractMetaDataUtils {
 
                 if (driverClassName == null || driverClassName.equals("")) {
                     driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+                    // see bug 4404: Exit TOS when Edit Access Schema in repository
+                    if (dbType.equals("Access")) {
+                        // throw exception to prevent getting connection, which may crash
+                        checkAccessDbq(url);
+                    }
                 }
 
                 // Load driver class
@@ -291,6 +296,21 @@ public class ExtractMetaDataUtils {
         } catch (Exception e) {
             log.error(e.toString());
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void checkAccessDbq(String connString) throws Exception {
+        for (String s : connString.split(";")) {
+            s = s.toLowerCase();
+            int pos = s.indexOf("dbq");
+            if (pos > -1) {
+                s = s.substring(pos + 3).replaceAll("=", "").trim();
+                // check the value of dbp
+                if (!s.endsWith(".mdb")) {
+                    throw new Exception("No data found.");
+                }
+                return;
+            }
         }
     }
 }
