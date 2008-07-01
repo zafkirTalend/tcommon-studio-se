@@ -29,10 +29,10 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getElementValue <em>Element Value</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getField <em>Field</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl#isContextMode <em>Context Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,35 +48,6 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
      * @ordered
      */
     protected EList elementValue;
-
-    /**
-     * The default value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isContextMode()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean CONTEXT_MODE_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isContextMode()
-     * @generated
-     * @ordered
-     */
-    protected boolean contextMode = CONTEXT_MODE_EDEFAULT;
-
-    /**
-     * This is true if the Context Mode attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean contextModeESet;
 
     /**
      * The default value of the '{@link #getField() <em>Field</em>}' attribute.
@@ -137,6 +108,35 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
      * @ordered
      */
     protected String value = VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isContextMode()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CONTEXT_MODE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isContextMode() <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isContextMode()
+     * @generated
+     * @ordered
+     */
+    protected boolean contextMode = CONTEXT_MODE_EDEFAULT;
+
+    /**
+     * This is true if the Context Mode attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean contextModeESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -299,14 +299,14 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         switch (featureID) {
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 return getElementValue();
-            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
-                return isContextMode() ? Boolean.TRUE : Boolean.FALSE;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 return getField();
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__NAME:
                 return getName();
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__VALUE:
                 return getValue();
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                return isContextMode() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -322,9 +322,6 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
                 getElementValue().clear();
                 getElementValue().addAll((Collection)newValue);
                 return;
-            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
-                setContextMode(((Boolean)newValue).booleanValue());
-                return;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 setField((String)newValue);
                 return;
@@ -333,6 +330,9 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
                 return;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__VALUE:
                 setValue((String)newValue);
+                return;
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                setContextMode(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -348,9 +348,6 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 getElementValue().clear();
                 return;
-            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
-                unsetContextMode();
-                return;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 setField(FIELD_EDEFAULT);
                 return;
@@ -359,6 +356,9 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
                 return;
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__VALUE:
                 setValue(VALUE_EDEFAULT);
+                return;
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                unsetContextMode();
                 return;
         }
         super.eUnset(featureID);
@@ -373,14 +373,14 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         switch (featureID) {
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE:
                 return elementValue != null && !elementValue.isEmpty();
-            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
-                return isSetContextMode();
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? field != null : !FIELD_EDEFAULT.equals(field);
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+            case TalendFilePackage.ELEMENT_PARAMETER_TYPE__CONTEXT_MODE:
+                return isSetContextMode();
         }
         return super.eIsSet(featureID);
     }
@@ -394,14 +394,14 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (contextMode: ");
-        if (contextModeESet) result.append(contextMode); else result.append("<unset>");
-        result.append(", field: ");
+        result.append(" (field: ");
         result.append(field);
         result.append(", name: ");
         result.append(name);
         result.append(", value: ");
         result.append(value);
+        result.append(", contextMode: ");
+        if (contextModeESet) result.append(contextMode); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

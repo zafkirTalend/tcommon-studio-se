@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getElementValue <em>Element Value</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getField <em>Field</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType#isContextMode <em>Context Mode</em>}</li>
  * </ul>
  * </p>
  *
