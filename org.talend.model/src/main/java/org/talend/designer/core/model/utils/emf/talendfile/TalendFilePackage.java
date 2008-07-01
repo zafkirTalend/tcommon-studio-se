@@ -574,37 +574,37 @@ public interface TalendFilePackage extends EPackage {
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__CONTEXT_MODE = 4;
+    int ELEMENT_PARAMETER_TYPE__CONTEXT_MODE = 1;
 
     /**
      * The feature id for the '<em><b>Field</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__FIELD = 1;
+    int ELEMENT_PARAMETER_TYPE__FIELD = 2;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__NAME = 2;
+    int ELEMENT_PARAMETER_TYPE__NAME = 3;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      * @ordered
      */
-    int ELEMENT_PARAMETER_TYPE__VALUE = 3;
+    int ELEMENT_PARAMETER_TYPE__VALUE = 4;
 
     /**
      * The number of structural features of the '<em>Element Parameter Type</em>' class.
