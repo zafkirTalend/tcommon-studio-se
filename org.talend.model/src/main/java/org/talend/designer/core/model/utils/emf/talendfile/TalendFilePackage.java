@@ -1239,22 +1239,13 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__NOTE = 6;
 
     /**
-     * The feature id for the '<em><b>Subjob</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROCESS_TYPE__SUBJOB = 7;
-
-    /**
      * The feature id for the '<em><b>Logs</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__LOGS = 8;
+    int PROCESS_TYPE__LOGS = 7;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' attribute.
@@ -1263,7 +1254,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__AUTHOR = 9;
+    int PROCESS_TYPE__AUTHOR = 8;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -1272,7 +1263,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__COMMENT = 10;
+    int PROCESS_TYPE__COMMENT = 9;
 
     /**
      * The feature id for the '<em><b>Default Context</b></em>' attribute.
@@ -1281,7 +1272,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__DEFAULT_CONTEXT = 11;
+    int PROCESS_TYPE__DEFAULT_CONTEXT = 10;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1290,7 +1281,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NAME = 12;
+    int PROCESS_TYPE__NAME = 11;
 
     /**
      * The feature id for the '<em><b>Purpose</b></em>' attribute.
@@ -1299,7 +1290,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__PURPOSE = 13;
+    int PROCESS_TYPE__PURPOSE = 12;
 
     /**
      * The feature id for the '<em><b>Repository Context Id</b></em>' attribute.
@@ -1308,7 +1299,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 14;
+    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 13;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -1317,7 +1308,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__STATUS = 15;
+    int PROCESS_TYPE__STATUS = 14;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1326,7 +1317,16 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__VERSION = 16;
+    int PROCESS_TYPE__VERSION = 15;
+
+    /**
+     * The feature id for the '<em><b>Subjob</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__SUBJOB = 16;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
