@@ -707,36 +707,36 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public EAttribute getElementParameterType_ContextMode() {
+    public EAttribute getElementParameterType_Field() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public EAttribute getElementParameterType_Field() {
+    public EAttribute getElementParameterType_Name() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public EAttribute getElementParameterType_Name() {
+    public EAttribute getElementParameterType_Value() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public EAttribute getElementParameterType_Value() {
+    public EAttribute getElementParameterType_ContextMode() {
         return (EAttribute)elementParameterTypeEClass.getEStructuralFeatures().get(4);
     }
 
