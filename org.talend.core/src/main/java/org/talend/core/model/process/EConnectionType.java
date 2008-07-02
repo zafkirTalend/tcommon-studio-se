@@ -33,7 +33,7 @@ public enum EConnectionType implements IConnectionCategory {
 
     ON_SUBJOB_OK(1, "SUBJOB_OK", //$NON-NLS-1$
                  EConnectionCategory.OTHER,
-                 EXECUTION_ORDER | DEPENDENCY,
+                 EXECUTION_ORDER | DEPENDENCY | UNIQUE_NAME,
                  "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                  new Integer(Graphics.LINE_SOLID),
                  new RGB(0, 100, 0)),
@@ -47,27 +47,27 @@ public enum EConnectionType implements IConnectionCategory {
 
     ON_COMPONENT_OK(3, "COMPONENT_OK", //$NON-NLS-1$
                     EConnectionCategory.OTHER,
-                    CONDITION | DEPENDENCY,
+                    CONDITION | DEPENDENCY | UNIQUE_NAME,
                     "OnComponentOk", Messages.getString("EConnectionType.onComponentOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                     new Integer(Graphics.LINE_SOLID),
                     new RGB(0, 150, 0)),
 
     ON_SUBJOB_ERROR(4, "SUBJOB_ERROR", //$NON-NLS-1$
                     EConnectionCategory.OTHER,
-                    EXECUTION_ORDER | DEPENDENCY,
+                    EXECUTION_ORDER | DEPENDENCY | UNIQUE_NAME,
                     "OnSubjobError", Messages.getString("EConnectionType.onSubjobErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                     new Integer(Graphics.LINE_SOLID),
                     new RGB(128, 0, 0)),
 
     ON_COMPONENT_ERROR(5, "COMPONENT_ERROR", //$NON-NLS-1$
                        EConnectionCategory.OTHER,
-                       CONDITION | DEPENDENCY,
+                       CONDITION | DEPENDENCY | UNIQUE_NAME,
                        "OnComponentError", Messages.getString("EConnectionType.onComponentErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                        new Integer(Graphics.LINE_SOLID),
                        new RGB(200, 0, 0)),
     RUN_IF(6, "RUN_IF", //$NON-NLS-1$
            EConnectionCategory.OTHER,
-           CONDITION | DEPENDENCY | CUSTOM_NAME,
+           CONDITION | DEPENDENCY | CUSTOM_NAME | UNIQUE_NAME,
            "If", Messages.getString("EConnectionType.runIfMenu"), //$NON-NLS-1$ //$NON-NLS-2$
            new Integer(Graphics.LINE_DASHDOTDOT),
            new RGB(180, 100, 30)),
