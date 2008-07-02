@@ -14,16 +14,13 @@ package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.ui.IEditorPart;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -37,7 +34,6 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -64,19 +60,12 @@ public class ProcessorUtilities {
 
     private static boolean exportConfig = false;
 
-    public static final String LATEST_JOB_VERSION = "Latest";
-
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
     private static IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
             .getService(IDesignerCoreService.class);
 
-    // cache will be cleared at the begining of any code generation, to ensure
-    // there is no problem and that old items are not kept.
-    private static Map<String, ProcessItem> processItemCache = new HashMap<String, ProcessItem>();
-
     public static void addOpenEditor(IEditorPart editor) {
-        processItemCache.clear();
         openedEditors.add(editor);
     }
 
@@ -92,66 +81,6 @@ public class ProcessorUtilities {
     // replaced by the correct separator
     // corresponding to the selected platform.
     public static final String TEMP_JAVA_CLASSPATH_SEPARATOR = "@";
-
-    public static ProcessItem getProcessItem(String processId) {
-        if (processId == null || "".equals(processId)) {
-            return null;
-        }
-        ProcessItem lastVersionOfProcess = processItemCache.get(processId + " -- " + LATEST_JOB_VERSION);
-
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        try {
-            IRepositoryObject object = factory.getLastVersion(processId);
-            if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
-                return null;
-            }
-            lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
-            processItemCache.put(processId + " -- " + LATEST_JOB_VERSION, lastVersionOfProcess);
-            processItemCache.put(processId + " -- " + lastVersionOfProcess.getProperty().getVersion(), lastVersionOfProcess);
-            return lastVersionOfProcess;
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
-    }
-
-    public static ProcessItem getProcessItem(String processId, String version) {
-        if (processId == null || "".equals(processId)) {
-            return null;
-        }
-        if (version == null || LATEST_JOB_VERSION.equals(version)) {
-            return getProcessItem(processId);
-        }
-        ProcessItem selectedProcessItem = processItemCache.get(processId + " -- " + version);
-        if (selectedProcessItem != null) {
-            return selectedProcessItem;
-        }
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        try {
-
-            List<IRepositoryObject> allVersions = factory.getAllVersion(processId);
-            for (IRepositoryObject ro : allVersions) {
-                if (ro.getType() == ERepositoryObjectType.PROCESS) {
-                    if (ro.getVersion().equals(version)) {
-                        selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
-                    }
-                }
-            }
-            processItemCache.put(processId + " -- " + version, selectedProcessItem);
-            return selectedProcessItem;
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        return null;
-    }
-
-    public static String getProcessNameByProcessId(String processId) {
-        ProcessItem item = ProcessorUtilities.getProcessItem(processId);
-        if (item != null) {
-            return item.getProperty().getLabel();
-        }
-        return null;
-    }
 
     /**
      * Process need to be loaded to use this function.
@@ -273,7 +202,7 @@ public class ProcessorUtilities {
         if (jobInfo.getFatherJobInfo() == null) {
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
-            processItemCache.clear();
+            ItemCacheManager.clearCache();
         }
 
         IProcess currentProcess = null;
@@ -283,10 +212,10 @@ public class ProcessorUtilities {
         selectedProcessItem = jobInfo.getProcessItem();
         if (selectedProcessItem == null) {
             if (jobInfo.getJobVersion() != null) {
-                selectedProcessItem = getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
+                selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
             } else {
                 // child job
-                selectedProcessItem = getProcessItem(jobInfo.getJobId());
+                selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
             }
         }
 
@@ -315,18 +244,15 @@ public class ProcessorUtilities {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS");
                     String jobId = (String) processIdparam.getValue();
-                    ProcessItem processItem = (ProcessItem) processIdparam.getLinkedRepositoryItem();
+                    ProcessItem processItem = null;
 
                     String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
                     String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
                     JobInfo subJobInfo = null;
-                    if (processItem != null) {
-                        subJobInfo = new JobInfo(processItem, context);
-                    } else {
-                        subJobInfo = new JobInfo(jobId, context, version);
-                        // get processitem from job
-                        processItem = getProcessItem(jobId, version);
-                    }
+                    subJobInfo = new JobInfo(jobId, context, version);
+                    // get processitem from job
+                    processItem = ItemCacheManager.getProcessItem(jobId, version);
+
                     if (jobInfo.isApplyContextToChildren()) {
                         subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
                         // see bug 0003862: Export job with the flag "Apply to children" if the child don't have the
@@ -576,14 +502,14 @@ public class ProcessorUtilities {
      */
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
-        ProcessItem selectedProcessItem = getProcessItem(processId);
+        ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId);
         return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, statisticPort, tracePort,
                 codeOptions);
     }
 
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             String version, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
-        ProcessItem selectedProcessItem = getProcessItem(processId, version);
+        ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId, version);
         return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, statisticPort, tracePort,
                 codeOptions);
     }
@@ -611,11 +537,7 @@ public class ProcessorUtilities {
             int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = null;
-        if (processVersion == null || processVersion.equals(LATEST_JOB_VERSION)) {
-            selectedProcessItem = getProcessItem(processName);
-        } else {
-            selectedProcessItem = getProcessItem(processName, processVersion);
-        }
+        selectedProcessItem = ItemCacheManager.getProcessItem(processName, processVersion);
         if (selectedProcessItem != null) {
             IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
             currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
@@ -691,7 +613,7 @@ public class ProcessorUtilities {
                         jobVersion = element.getValue();
                     }
                 }
-                ProcessItem item = ProcessorUtilities.getProcessItem(jobId, jobVersion);
+                ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {
                     JobInfo jobInfo = new JobInfo(item, jobContext);
                     if (!jobInfos.contains(jobInfo)) {
@@ -703,4 +625,5 @@ public class ProcessorUtilities {
         }
         return jobInfos;
     }
+
 }

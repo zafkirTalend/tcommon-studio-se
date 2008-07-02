@@ -26,7 +26,7 @@ import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.designer.runprocess.ProcessorUtilities;
+import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -280,9 +280,9 @@ public final class ElementParameterParser {
 
         if (value instanceof String) {
 
-            if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(ProcessorUtilities.LATEST_JOB_VERSION)) {
+            if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(ItemCacheManager.LATEST_VERSION)) {
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue();
-                ProcessItem processItem = ProcessorUtilities.getProcessItem(jobId);
+                ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
                     return "";
                 }
