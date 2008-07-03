@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.collections.set.MapBackedSet;
 import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
@@ -70,7 +70,10 @@ public class TableEditorManager {
 
     private HashSet<TableItem> previousItemsHash;
 
-    MultiLazyValuesMap dataToMultipleDataEditor = new MultiLazyValuesMap(new HashMap()) {
+    ////////////////////////////////////
+    // Warning: using identity comparison
+    ////////////////////////////////////
+    MultiLazyValuesMap dataToMultipleDataEditor = new MultiLazyValuesMap(new IdentityHashMap()) {
 
         @Override
         public Collection instanciateNewCollection() {
@@ -279,8 +282,12 @@ public class TableEditorManager {
         Table table = tableViewerCreator.getTable();
         TableItem[] items = table.getItems();
 
-        HashSet dataHash = new HashSet(Arrays.asList((Object[]) event.swapedObjects));
-
+        ////////////////////////////////////
+        // Warning: using identity comparison
+        ////////////////////////////////////
+        Set dataHash = MapBackedSet.decorate(new IdentityHashMap());
+        dataHash.addAll(Arrays.asList((Object[]) event.swapedObjects));
+;
         for (int i = 0; i < items.length; i++) {
             TableItem tableItem = items[i];
             Object data = tableItem.getData();
@@ -353,15 +360,15 @@ public class TableEditorManager {
         Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
         Control control = tableEditorContent.initialize(tableItem.getParent(), tableEditor, column, currentRowObject, value);
 
-        control.addDisposeListener(new DisposeListener() {
-
-            public void widgetDisposed(DisposeEvent e) {
-
-                // System.out.println(e);
-
-            }
-
-        });
+//        control.addDisposeListener(new DisposeListener() {
+//
+//            public void widgetDisposed(DisposeEvent e) {
+//
+//                // System.out.println(e);
+//
+//            }
+//
+//        });
 
         if (tableItem != null && !tableItem.isDisposed()) {
             tableEditor.setEditor(control, tableItem, column.getIndex());

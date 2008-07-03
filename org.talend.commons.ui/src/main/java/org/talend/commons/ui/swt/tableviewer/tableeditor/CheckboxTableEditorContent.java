@@ -15,6 +15,8 @@ package org.talend.commons.ui.swt.tableviewer.tableeditor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -28,7 +30,6 @@ import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -67,6 +68,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
     public Control initialize(final Table table, final TableEditor tableEditor,
             final TableViewerCreatorColumn currentColumn, final Object currentRowObject, final Object currentCellValue) {
 
+        
+        
         /*
          * Do not set check control as field because one instance of CheckboxTableEditorContent is shared by all checks
          * of a same column
@@ -76,6 +79,9 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         final TableViewerCreator<Object> tableViewerCreator = currentColumn.getTableViewerCreator();
 
         final Button check = new Button(table, SWT.CHECK);
+
+//        System.out.println("Intitlalize:" + CheckboxTableEditorContent.this + " with check " + check.hashCode());
+        
         boolean enabled = currentColumn.isModifiable()
                 && (tableViewerCreator.getCellModifier() == null || tableViewerCreator.getCellModifier().canModify(
                         currentRowObject, currentColumn.getId()));
@@ -93,21 +99,24 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         if (bgColorCheck == null) {
             bgColorCheck = new Color(check.getDisplay(), 28, 81, 128);
         }
-        check.addSelectionListener(new SelectionListener() {
+        
+        final SelectionListener selectionListener = new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
             }
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
+//                System.out.println("Checking " + check.hashCode());
                 tableViewerCreator.getCellModifier().modify(tableEditor.getItem(), currentColumn.getId(),
                         ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED);
                 tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 
-        });
+        };
+        check.addSelectionListener(selectionListener);
 
-        tableViewerCreator.addModifiedBeanListener(new IModifiedBeanListener<Object>() {
+        final IModifiedBeanListener<Object> modifiedBeanListener = new IModifiedBeanListener<Object>() {
 
             public void handleEvent(ModifiedBeanEvent<Object> event) {
                 if (check.isDisposed()) {
@@ -120,9 +129,10 @@ public class CheckboxTableEditorContent extends TableEditorContent {
                 }
             }
 
-        });
+        };
+        tableViewerCreator.addModifiedBeanListener(modifiedBeanListener);
 
-        check.addFocusListener(new FocusListener() {
+        final FocusListener focusListener = new FocusListener() {
 
             public synchronized void focusGained(final FocusEvent e) {
                 check.setBackground(bgColorCheck);
@@ -132,8 +142,21 @@ public class CheckboxTableEditorContent extends TableEditorContent {
                 check.setBackground(table.getBackground());
             }
 
+        };
+        check.addFocusListener(focusListener);
+
+        check.addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+//                System.out.println("Disposing:" + CheckboxTableEditorContent.this + " with check " + check.hashCode());
+                check.removeFocusListener(focusListener);
+                tableViewerCreator.removeModifiedBeanListener(modifiedBeanListener);
+                check.removeSelectionListener(selectionListener);
+            }
+            
         });
 
+        
         // Set attributes of the editor
         tableEditor.horizontalAlignment = SWT.CENTER;
 
