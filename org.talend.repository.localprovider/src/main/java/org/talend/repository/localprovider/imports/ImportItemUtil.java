@@ -132,7 +132,7 @@ public class ImportItemUtil {
             try {
                 Item tmpItem = itemRecord.getItem();
                 IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                if (importedItems++ > 10) {
+                if (importedItems++ > 2) {
                     importedItems = 0;
                     repFactory.initialize();
                 }
