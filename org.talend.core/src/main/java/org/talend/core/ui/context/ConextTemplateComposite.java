@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -24,21 +23,18 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorListener;
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -46,31 +42,22 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.ExportPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveDownPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
-import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -78,6 +65,17 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.context.model.template.ContextCellModifier;
+import org.talend.core.ui.context.model.template.ContextColumnSorterListener;
+import org.talend.core.ui.context.model.template.ContextConstant;
+import org.talend.core.ui.context.model.template.ContextParameterParent;
+import org.talend.core.ui.context.model.template.ContextParameterSon;
+import org.talend.core.ui.context.model.template.ContextParameterSortedParent;
+import org.talend.core.ui.context.model.template.ContextParameterSortedSon;
+import org.talend.core.ui.context.model.template.ContextViewerProvier;
+import org.talend.core.ui.context.model.template.ContextViewerSorter;
+import org.talend.core.ui.context.model.template.GroupByNothingProvier;
+import org.talend.core.ui.context.model.template.GroupBySourceProvier;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
@@ -86,31 +84,6 @@ import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
  * 
  */
 public class ConextTemplateComposite extends AbstractContextTabEditComposite {
-
-    /**
-     * 
-     */
-    private static final String BUILT_IN = IContextParameter.BUILT_IN;
-
-    private static final String NAME_COLUMN_NAME = "Name";
-
-    private static final String SOURCE_COLUMN_NAME = "Source";
-
-    private static final String TYPE_COLUMN_NAME = "Type";
-
-    private static final String SCRIPTCODE_COLUMN_NAME = "Script code";
-
-    private static final String COMMENT_COLUMN_NAME = "Comment";
-
-    private static final String[] GROUP_BY_SOURCE_COLUMN_PROPERTIES = new String[] { NAME_COLUMN_NAME, SOURCE_COLUMN_NAME,
-            TYPE_COLUMN_NAME, SCRIPTCODE_COLUMN_NAME, COMMENT_COLUMN_NAME };
-
-    private static final String[] GROUP_BY_REPOSITORYSOURCE_COLUMN_PROPERTIES = new String[] { NAME_COLUMN_NAME,
-            TYPE_COLUMN_NAME, SCRIPTCODE_COLUMN_NAME, COMMENT_COLUMN_NAME };
-
-    private static final String[] ITEMS = new String[] { "boolean | Boolean", "char | Character", "Date", "double | Double",
-            "float | Float", "int | Integer", "long | Long", "short | Short", "String", "BigDecimal", "Object", "File",
-            "Directory", "List Of Value" };
 
     public static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
 
@@ -122,9 +95,9 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
     private TreeViewer viewer;
 
-    private ViewerProvier provider;
+    private ContextViewerProvier provider;
 
-    private CellModifier cellModifier;
+    private ContextCellModifier cellModifier;
 
     private static final int CNUM_DEFAULT = 4;
 
@@ -135,6 +108,16 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private ICellEditorListener editorListener;
 
     private List<Button> buttonList;
+
+    private Listener sortListener;
+
+    private Button moveDownButton;
+
+    private Button moveUpButton;
+
+    private Button orderButton;
+
+    private Button removeButton;
 
     /**
      * bqian ConextTemplateComposite constructor comment.
@@ -190,30 +173,30 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         tree.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         TreeColumn column = new TreeColumn(tree, SWT.NONE);
-        column.setText(NAME_COLUMN_NAME);
+        column.setText(ContextConstant.NAME_COLUMN_NAME);
         column.setWidth(120);
 
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             column = new TreeColumn(tree, SWT.NONE);
-            column.setText(SOURCE_COLUMN_NAME);
+            column.setText(ContextConstant.SOURCE_COLUMN_NAME);
             column.setWidth(80);
         }
 
         column = new TreeColumn(tree, SWT.NONE);
-        column.setText(TYPE_COLUMN_NAME);
+        column.setText(ContextConstant.TYPE_COLUMN_NAME);
         column.setWidth(80);
 
         column = new TreeColumn(tree, SWT.NONE);
-        column.setText(SCRIPTCODE_COLUMN_NAME);
+        column.setText(ContextConstant.SCRIPTCODE_COLUMN_NAME);
         column.setWidth(250);
 
         column = new TreeColumn(tree, SWT.NONE);
-        column.setText(COMMENT_COLUMN_NAME);
+        column.setText(ContextConstant.COMMENT_COLUMN_NAME);
         column.setWidth(300);
 
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboBoxCellEditor = new ComboBoxCellEditor(tree, ITEMS);
+            comboBoxCellEditor = new ComboBoxCellEditor(tree, ContextConstant.ITEMS);
         } else {
             String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
             comboBoxCellEditor = new ComboBoxCellEditor(tree, values);
@@ -222,26 +205,26 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                 && ((ContextComposite) modelManager).isRepositoryContext();
 
         if (!isRepositoryContext) {
-            viewer.setColumnProperties(GROUP_BY_SOURCE_COLUMN_PROPERTIES);
+            viewer.setColumnProperties(ContextConstant.GROUP_BY_SOURCE_COLUMN_PROPERTIES);
             viewer.setCellEditors(new CellEditor[] { new TextCellEditor(tree), null, comboBoxCellEditor,
                     new TextCellEditor(tree), new TextCellEditor(tree) });
             ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
         } else {
-            viewer.setColumnProperties(GROUP_BY_REPOSITORYSOURCE_COLUMN_PROPERTIES);
+            viewer.setColumnProperties(ContextConstant.GROUP_BY_REPOSITORYSOURCE_COLUMN_PROPERTIES);
             viewer.setCellEditors(new CellEditor[] { new TextCellEditor(tree), comboBoxCellEditor, new TextCellEditor(tree),
                     new TextCellEditor(tree) });
             ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
         }
 
-        cellModifier = new CellModifier();
+        cellModifier = new ContextCellModifier(this);
         viewer.setCellModifier(cellModifier);
 
-        provider = new ViewerProvier();
+        provider = new ContextViewerProvier(modelManager);
 
         if (isGroupBySource()) {
-            provider.setProvider(new GroupBySourceProvier());
+            provider.setProvider(new GroupBySourceProvier(modelManager));
         } else {
-            provider.setProvider(new GroupByNothingProvier());
+            provider.setProvider(new GroupByNothingProvier(modelManager));
         }
 
         viewer.setLabelProvider(provider);
@@ -279,72 +262,64 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
             }
         });
 
+        viewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+
+            public void selectionChanged(SelectionChangedEvent event) {
+                checkButtonEnableState();
+            }
+        });
+
         final Composite buttonsComposite = new Composite(this, SWT.NONE);
-        buttonsComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(4).create());
-        GridDataFactory.swtDefaults().align(SWT.LEFT, SWT.DOWN).grab(true, false).applyTo(buttonsComposite);
+        buttonsComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComposite);
         buttonList.clear();
         Button addButton = createAddPushButton(buttonsComposite);
         buttonList.add(addButton);
-        Button removeButton = createRemovePushButton(buttonsComposite);
+        removeButton = createRemovePushButton(buttonsComposite);
         buttonList.add(removeButton);
+
+        moveUpButton = createMoveUpPushButton(buttonsComposite);
+        buttonList.add(moveUpButton);
+        moveDownButton = createMoveDownPushButton(buttonsComposite);
+        buttonList.add(moveDownButton);
 
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComposite);
             buttonList.add(selectContextVariablesButton);
             createDefaultContext(buttonsComposite);
         }
+        orderButton = createOrderCheckButton(buttonsComposite);
+        buttonList.add(orderButton);
     }
 
     private void addSorter(final TreeViewer viewer2) {
         final Tree table = viewer2.getTree();
-        Listener sortListener = new Listener() {
-
-            private int direction = 1;
-
-            public void handleEvent(Event e) {
-                final TreeColumn column = (TreeColumn) e.widget;
-
-                if (column == table.getSortColumn()) {
-                    direction = -direction;
-                }
-                if (direction == 1) {
-                    table.setSortDirection(SWT.UP);
-                } else {
-                    table.setSortDirection(SWT.DOWN);
-                }
-
-                table.setSortColumn(column);
-                viewer2.setSorter(new ViewerSorter() {
-
-                    int index = 0;
-
-                    @Override
-                    public void sort(Viewer viewer, Object[] elements) {
-                        while (index < table.getColumns().length && table.getColumn(index) != column) {
-                            index++;
-                        }
-                        super.sort(viewer, elements);
-                    }
-
-                    @Override
-                    public int compare(Viewer viewer, Object e1, Object e2) {
-                        ITableLabelProvider labelProvider = (ITableLabelProvider) viewer2.getLabelProvider();
-                        String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
-                                index) : "";
-                        String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
-                                index) : "";
-                        return getComparator().compare(columnText, columnText2) * direction;
-                    }
-                });
-                // viewer2.expandAll();
-            }
-        };
+        if (sortListener == null) {
+            sortListener = new ContextColumnSorterListener(viewer2);
+        }
         table.getColumn(0).addListener(SWT.Selection, sortListener);
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             table.getColumn(1).addListener(SWT.Selection, sortListener);
         }
+
         table.setSortColumn(table.getColumn(0));
         table.setSortDirection(SWT.UP);
+        viewer2.setSorter(new ContextViewerSorter(viewer2, table.getColumn(0), 1));
+
+    }
+
+    private void removeSorter(final TreeViewer viewer2) {
+        final Tree table = viewer2.getTree();
+        if (sortListener != null) {
+            table.getColumn(0).removeListener(SWT.Selection, sortListener);
+            if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+                table.getColumn(1).removeListener(SWT.Selection, sortListener);
+            }
+        }
+        // re-order to original orders
+        table.setSortDirection(SWT.NONE);
+        viewer2.setSorter(new ContextViewerSorter(getContextManager()));
+
     }
 
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
@@ -398,7 +373,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
     };
 
-    private boolean renameParameter(final String oldParamName, final String newParamName) {
+    public boolean renameParameter(final String oldParamName, final String newParamName) {
         IContextParameter param = getContextManager().getDefaultContext().getContextParameter(oldParamName);
         if (param != null && !param.isBuiltIn()) {
             // not built-in, not update
@@ -561,14 +536,18 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         }
     };
 
-    private boolean isGroupBySource() {
+    public boolean isGroupBySource() {
         boolean isRepositoryContext = false;
         if (modelManager != null) {
             isRepositoryContext = (modelManager instanceof ContextComposite)
                     && ((ContextComposite) modelManager).isRepositoryContext();
         }
         boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
-        return value && !isRepositoryContext;
+        boolean order = false;
+        if (this.orderButton != null) {
+            order = orderButton.getSelection();
+        }
+        return value && !isRepositoryContext && !order;
 
     }
 
@@ -581,20 +560,24 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     public void refresh() {
 
         if (isGroupBySource()) {
-            provider.setProvider(new GroupBySourceProvier());
+            provider.setProvider(new GroupBySourceProvier(modelManager));
         } else {
-            provider.setProvider(new GroupByNothingProvier());
+            provider.setProvider(new GroupByNothingProvier(modelManager));
         }
 
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
 
-        IContextManager cm = modelManager.getContextManager();
-        viewer.setInput(cm.getListContext());
-        viewer.expandAll();
-
         List<IContext> contexts = getContextManager().getListContext();
+
         refreshVariableSource(contexts);
+
+        viewer.setInput(contexts);
+
+        checkButtonEnableState();
+
+        viewer.refresh();
+        viewer.expandAll();
     }
 
     private void refreshVariableSource(List<IContext> contexts) {
@@ -654,15 +637,9 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private Button createAddPushButton(final Composite parent) {
 
         Button addPushButton = new Button(parent, SWT.PUSH);
-        addPushButton.addSelectionListener(new SelectionListener() {
+        addPushButton.addSelectionListener(new SelectionAdapter() {
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-             */
             public void widgetSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
                 IContextParameter parameter = (IContextParameter) createNewEntry();
                 if (parameter != null) {
                     // set the source to built-in
@@ -671,11 +648,12 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
                     TreeItem[] treeItemArray = viewer.getTree().getItems();
                     for (TreeItem treeitem : treeItemArray) {
-                        if (treeitem.getData() instanceof GroupBySourceProvier.Parent) {
-                            if (BUILT_IN.equals(((GroupBySourceProvier.Parent) treeitem.getData()).sourceName)) {
-                                if (((GroupBySourceProvier.Parent) treeitem.getData()).builtContextParameter != null) {
+                        if (treeitem.getData() instanceof ContextParameterSortedParent) {
+                            if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) treeitem.getData())
+                                    .getSourceName())) {
+                                if (((ContextParameterSortedParent) treeitem.getData()).getParameter() != null) {
                                     if (parameter.getName().equals(
-                                            ((GroupBySourceProvier.Parent) treeitem.getData()).builtContextParameter.getName())) {
+                                            ((ContextParameterSortedParent) treeitem.getData()).getParameter().getName())) {
                                         viewer.getTree().setSelection(treeitem);
                                     }
                                 }
@@ -685,15 +663,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                 }
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-             */
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
-
-            }
         });
         Image image = ImageProvider.getImage(EImage.ADD_ICON);
         addPushButton.setImage(image);
@@ -742,15 +711,9 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
     private Button createRemovePushButton(final Composite parent) {
         Button removePushButton = new Button(parent, SWT.PUSH);
-        removePushButton.addSelectionListener(new SelectionListener() {
+        removePushButton.addSelectionListener(new SelectionAdapter() {
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-             */
             public void widgetSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
 
                 IContextParameter parameter = null;
                 TreeItem[] items = viewer.getTree().getSelection();
@@ -759,34 +722,24 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                     if (object == null) {
                         return;
                     }
-                    if (object instanceof GroupBySourceProvier.Parent) {
-                        if (BUILT_IN.equals(((GroupBySourceProvier.Parent) object).sourceName)) {
-                            parameter = ((GroupBySourceProvier.Parent) object).builtContextParameter;
+                    if (object instanceof ContextParameterSortedParent) {
+                        if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceName())) {
+                            parameter = ((ContextParameterSortedParent) object).getParameter();
                             removeParameter(parameter);
                         } else {
-                            for (GroupBySourceProvier.Son son : ((GroupBySourceProvier.Parent) object).son) {
-                                parameter = son.parameter;
+                            for (ContextParameterSon son : ((ContextParameterSortedParent) object).getSon()) {
+                                parameter = ((ContextParameterSortedSon) son).getParameter();
                                 removeParameter(parameter);
                             }
                         }
-                    } else if (object instanceof GroupBySourceProvier.Son) {
-                        parameter = ((GroupBySourceProvier.Son) object).parameter;
+                    } else if (object instanceof ContextParameterSortedSon) {
+                        parameter = ((ContextParameterSortedSon) object).getParameter();
                         removeParameter(parameter);
-                    } else if (object instanceof GroupByNothingProvier.Parent) {
-                        parameter = ((GroupByNothingProvier.Parent) object).parameter;
+                    } else if (object instanceof ContextParameterParent) {
+                        parameter = ((ContextParameterParent) object).getParameter();
                         removeParameter(parameter);
                     }
                 }
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-             */
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
-
             }
 
         });
@@ -810,30 +763,15 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private Button createSelectContextVariablesPushButton(final Composite parent) {
         Button selectContextVariablesPushButton = new Button(parent, SWT.PUSH);
         Image image = ImageProvider.getImage(ECoreImage.CONTEXT_ICON);
-        selectContextVariablesPushButton.addSelectionListener(new SelectionListener() {
+        selectContextVariablesPushButton.addSelectionListener(new SelectionAdapter() {
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-             */
             public void widgetSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
                 SelectRepositoryContextDialog dialog = new SelectRepositoryContextDialog(getContextModelManager(), parent
                         .getShell(), helper);
                 dialog.open();
                 refresh();
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-             */
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // TODO Auto-generated method stub
-
-            }
         });
         selectContextVariablesPushButton.setImage(image);
         return selectContextVariablesPushButton;
@@ -854,28 +792,90 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
     }
 
-    private CopyPushButton createCopyPushButton() {
-        return null;
+    private Button createMoveUpPushButton(final Composite parent) {
+        Button moveUpPushButton = new Button(parent, SWT.PUSH);
+        Image image = ImageProvider.getImage(EImage.UP_ICON);
+        moveUpPushButton.setImage(image);
+        moveUpPushButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                if (ContextManagerHelper.changeContextOrder(viewer, modelManager, true)) {
+                    checkButtonEnableState();
+                    viewer.getTree().setFocus();
+                }
+            }
+
+        });
+        return moveUpPushButton;
     }
 
-    private MoveDownPushButton createMoveDownPushButton() {
-        return null;
+    private Button createMoveDownPushButton(final Composite parent) {
+        Button moveDownPushButton = new Button(parent, SWT.PUSH);
+        Image image = ImageProvider.getImage(EImage.DOWN_ICON);
+        moveDownPushButton.setImage(image);
+        moveDownPushButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                if (ContextManagerHelper.changeContextOrder(viewer, modelManager, false)) {
+                    checkButtonEnableState();
+                    viewer.getTree().setFocus();
+                }
+            }
+
+        });
+        return moveDownPushButton;
     }
 
-    private MoveUpPushButton createMoveUpPushButton() {
-        return null;
+    private Button createOrderCheckButton(final Composite parent) {
+        Composite orderComposite = new Composite(parent, SWT.NONE);
+        orderComposite.setBackground(parent.getBackground());
+
+        orderComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(10, 0).margins(5, 0).create());
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(orderComposite);
+
+        final Button orderBtn = new Button(orderComposite, SWT.CHECK);
+        orderBtn.setText(Messages.getString("ConextTemplateComposite.OrderText")); //$NON-NLS-1$
+        orderBtn.setToolTipText(Messages.getString("ConextTemplateComposite.OrderMessages")); //$NON-NLS-1$
+        orderBtn.setAlignment(SWT.LEFT);
+        GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).grab(true, false).applyTo(orderBtn);
+
+        orderBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (orderBtn.getSelection()) {
+                    removeSorter(viewer);
+                } else {
+                    addSorter(viewer);
+                }
+                refresh();
+            }
+
+        });
+        return orderBtn;
     }
 
-    private PastePushButton createPastePushButton() {
-        return null;
-    }
+    private void checkButtonEnableState() {
+        boolean orderEnable = false;
+        boolean selectionEnable = false;
+        if (this.orderButton != null) {
+            orderEnable = this.orderButton.getSelection();
+        }
+        if (this.viewer != null) {
+            ISelection selection = this.viewer.getSelection();
+            selectionEnable = !selection.isEmpty();
+        }
 
-    private ExportPushButton createExportPushButton() {
-        return null;
-    }
-
-    private ImportPushButton createImportPushButton() {
-        return null;
+        boolean moveState = orderEnable && selectionEnable;
+        if (this.moveUpButton != null) {
+            this.moveUpButton.setEnabled(moveState);
+        }
+        if (this.moveDownButton != null) {
+            this.moveDownButton.setEnabled(moveState);
+        }
+        if (this.removeButton != null) {
+            this.removeButton.setEnabled(selectionEnable);
+        }
     }
 
     protected void onContextRenameParameter(IContextManager contextManager, String oldName, String newName) {
@@ -887,7 +887,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     }
 
     /**
-     * DOC bqian Comment method "getProcess".
+     * bqian Comment method "getProcess".
      * 
      * @return
      */
@@ -896,7 +896,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     }
 
     /**
-     * DOC bqian Comment method "getCommandStack".
+     * bqian Comment method "getCommandStack".
      * 
      * @return
      */
@@ -905,1237 +905,12 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         return this.getContextManager().getDefaultContext();
     }
 
-    /**
-     * zwang ConextTableValuesComposite class global comment. Detailled comment <br/>
-     * 
-     */
-    class CellModifier implements ICellModifier {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
-         */
-        public boolean canModify(Object element, String property) {
-            if (modelManager.isReadOnly()) {
-                return false;
-            }
-            IContextParameter para = getRealParameter(element);
-            if (para == null) {
-                return false;
-            }
-
-            if (!para.isBuiltIn()) {
-                // not built-in, not update
-                return false;
-
-            }
-
-            if (property.equals(SOURCE_COLUMN_NAME) || property.equals(SCRIPTCODE_COLUMN_NAME)) {
-                return false;
-            }
-
-            return true;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
-         */
-        public Object getValue(Object element, String property) {
-            IContextParameter para = getRealParameter(element);
-
-            if (para != null) {
-                if (property.equals(NAME_COLUMN_NAME)) {
-                    return para.getName();
-                } else if (property.equals(TYPE_COLUMN_NAME)) {
-                    String s = convertFormat(para.getType());
-                    final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                    if (codeLanguage == ECodeLanguage.JAVA) {
-                        for (int i = 0; i < ITEMS.length; i++) {
-                            if (s.equals(ITEMS[i])) {
-                                return i;
-                            }
-                        }
-                        return -1;
-                    } else {
-                        for (int i = 0; i < ContextParameterJavaTypeManager.getPerlTypesLabels().length; i++) {
-                            if (s.equals(ContextParameterJavaTypeManager.getPerlTypesLabels()[i])) {
-                                return i;
-                            }
-                        }
-                        return -1;
-                    }
-
-                } else if (property.equals(COMMENT_COLUMN_NAME)) {
-                    return para.getComment();
-                }
-            }
-            return "";
-        }
-
-        /**
-         * zwang Comment method "getRealParameter".
-         * 
-         * @param property
-         * @param templatePara
-         * @return
-         */
-        private IContextParameter getRealParameter(Object element) {
-            IContextParameter para = null;
-            IContext context = getContextManager().getDefaultContext();
-
-            if (isGroupBySource()) {
-                if (element instanceof GroupBySourceProvier.Parent) {
-                    if (BUILT_IN.equals(((GroupBySourceProvier.Parent) element).sourceName)) {
-                        para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter
-                                .getName());
-                    }
-                } else if (element instanceof GroupBySourceProvier.Son) {
-                    para = context.getContextParameter((((GroupBySourceProvier.Son) element).parameter).getName());
-                }
-            } else {
-                if (element instanceof GroupByNothingProvier.Parent) {
-                    para = context.getContextParameter(((GroupByNothingProvier.Parent) element).parameter.getName());
-                }
-            }
-            return para;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ICellModifier#modify(java.lang.Object, java.lang.String, java.lang.Object)
-         */
-        public void modify(Object element, final String property, final Object value) {
-            TreeItem item = (TreeItem) element;
-            final Object object = item.getData();
-
-            final IContextParameter para = getRealParameter(object);
-            if (para == null) {
-                return;
-            }
-
-            if (property.equals(NAME_COLUMN_NAME)) {
-                if (para.getName().equals(value)) {
-                    return;
-                }
-                String name = para.getName();
-                renameParameter(name, (String) value);
-            } else if (property.equals(TYPE_COLUMN_NAME)) {
-                int index = -1;
-                String s = convertFormat(para.getType());
-                final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                if (codeLanguage == ECodeLanguage.JAVA) {
-                    for (int i = 0; i < ITEMS.length; i++) {
-                        if (s.equals(ITEMS[i])) {
-                            index = i;
-                        }
-                    }
-                    if (index == ((Integer) value)) {
-                        return;
-                    }
-                    String newType = getRealType(ITEMS[(Integer) value]);
-                    String name = para.getName();
-                    for (IContext context : getContextManager().getListContext()) {
-                        for (IContextParameter contextParameter : context.getContextParameterList()) {
-                            if (name.equals(contextParameter.getName())) {
-                                contextParameter.setType(newType);
-                            }
-                        }
-                    }
-                } else {
-                    for (int i = 0; i < ContextParameterJavaTypeManager.getPerlTypesLabels().length; i++) {
-                        if (s.equals(ContextParameterJavaTypeManager.getPerlTypesLabels()[i])) {
-                            index = i;
-                        }
-                    }
-                    if (index == ((Integer) value)) {
-                        return;
-                    }
-                    String newType = getRealType(ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) value]);
-                    String name = para.getName();
-                    for (IContext context : getContextManager().getListContext()) {
-                        for (IContextParameter contextParameter : context.getContextParameterList()) {
-                            if (name.equals(contextParameter.getName())) {
-                                contextParameter.setType(newType);
-                            }
-                        }
-                    }
-                }
-            } else if (property.equals(COMMENT_COLUMN_NAME)) {
-                if (para.getComment().equals(value)) {
-                    return;
-                }
-                String name = para.getName();
-                for (IContext context : getContextManager().getListContext()) {
-                    for (IContextParameter contextParameter : context.getContextParameterList()) {
-                        if (name.equals(contextParameter.getName())) {
-                            contextParameter.setComment((String) value);
-                        }
-                    }
-                }
-            }
-
-            viewer.update(object, null);
-            setNeedRefresh(false);
-
-            Command command = new Command() {
-
-                @Override
-                public void execute() {
-                    modelManager.refresh();
-                }
-            };
-
-            runCommand(command);
-
-            // set updated flag.
-            if (modelManager != null) {
-                IContextManager manager = modelManager.getContextManager();
-                if (manager != null && manager instanceof JobContextManager) {
-                    ((JobContextManager) manager).setModified(true);
-                }
-            }
-        }
-    }
-
     private IPreferenceStore getPreferenceStore() {
         return CorePlugin.getDefault().getPreferenceStore();
     }
 
-    private void runCommand(Command command) {
-        if (modelManager.getCommandStack() == null) {
-            command.execute();
-        } else {
-            modelManager.getCommandStack().execute(command);
-        }
+    public TreeViewer getViewer() {
+        return this.viewer;
     }
 
-    private String convertFormat(String contextParameterType) {
-        String newType = null;
-
-        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-        if (codeLanguage == ECodeLanguage.JAVA) {
-            String[] values = ITEMS;
-            newType = contextParameterType.substring(3, contextParameterType.length());
-            for (String format : values) {
-                if (format.indexOf("|") != -1) {
-                    String[] formats = format.split("\\|");
-                    for (String aformat : formats) {
-                        if (newType.trim().equals(aformat.trim())) {
-                            return format;
-                        }
-                    }
-                } else {
-                    if (newType.trim().equals(format.trim())) {
-                        return format;
-                    }
-                }
-            }
-        } else {
-            String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            if ("".equals(contextParameterType)) {
-                newType = "";
-            } else {
-                newType = contextParameterType;
-            }
-            for (String format : values) {
-                if (format.indexOf("|") != -1) {
-                    String[] formats = format.split("\\|");
-                    for (String aformat : formats) {
-                        if (newType.trim().equals(aformat.trim())) {
-                            return format;
-                        }
-                    }
-                } else {
-                    if (newType.trim().equals(format.trim())) {
-                        return format;
-                    }
-                }
-            }
-        }
-        return "";
-    }
-
-    private String getRealType(String type) {
-        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-        if (codeLanguage == ECodeLanguage.JAVA) {
-            StringBuffer sb = new StringBuffer("id_");
-            JavaType javaType = JavaTypesManager.getJavaTypeFromLabel(type);
-            if (type.indexOf("|") != -1) {
-                return javaType.getId();
-            } else {
-                if (javaType != null) {
-                    return javaType.getId();
-                } else {
-                    return sb.append(type.trim()).toString();
-                }
-
-            }
-        } else {
-            return type;
-        }
-    }
-
-    /**
-     * A label and content provider for the treeviewer which groups the Contexts by source.
-     * 
-     */
-    class GroupBySourceProvier extends ProviderProxy {
-
-        /**
-         * Temporary model for provider. <br/>
-         * 
-         */
-        class Parent {
-
-            String sourceName;
-
-            IContextParameter builtContextParameter;
-
-            List<Son> son = new ArrayList<Son>();
-        }
-
-        /**
-         * Temporary model for provider. <br/>
-         * 
-         */
-        class Son {
-
-            Parent parent;
-
-            IContextParameter parameter;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
-         */
-        public String getColumnText(Object element, int columnIndex) {
-            // int index = -1;
-            // String name=getContextManager().getDefaultContext().getName();
-            if (element instanceof Parent) {
-                switch (columnIndex) {
-                case 0:
-                    if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                        if (((Parent) element).builtContextParameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).builtContextParameter.getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).builtContextParameter.getName()).getName();
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        if (((Parent) element).sourceName != null) {
-                            return ((Parent) element).sourceName;
-                        } else {
-                            break;
-                        }
-                    }
-                case 1:
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                            if (((Parent) element).builtContextParameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).builtContextParameter.getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()).getSource();
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            if (((Parent) element).sourceName != null) {
-                                return ((Parent) element).sourceName;
-                            } else {
-                                break;
-                            }
-                        }
-                    } else {
-                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                            if (((Parent) element).builtContextParameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).builtContextParameter.getName()) != null) {
-                                    String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()).getType();
-                                    String s = convertFormat(contextParameterType);
-                                    String[] string = null;
-                                    if (s.indexOf("|") != -1) {
-                                        string = s.split("\\|");
-                                        if ("".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getValue())
-                                                || "null".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).getValue())) {
-                                            if ("boolean | Boolean".equals(s)) {
-                                                getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).setValue("false");
-                                            }
-                                            return string[1];
-                                        } else {
-                                            if ("boolean | Boolean".equals(s)) {
-                                                if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).getValue()))
-                                                        && !("false".equals(getContextManager().getDefaultContext()
-                                                                .getContextParameter(
-                                                                        ((Parent) element).builtContextParameter.getName())
-                                                                .getValue()))) {
-                                                    getContextManager().getDefaultContext().getContextParameter(
-                                                            ((Parent) element).builtContextParameter.getName()).setValue("false");
-                                                }
-                                            }
-                                            return string[0];
-                                        }
-                                    } else {
-                                        return convertFormat(contextParameterType);
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            if (((Parent) element).sourceName != null) {
-                                return "-";
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                case 2:
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                            if (((Parent) element).builtContextParameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).builtContextParameter.getName()) != null) {
-                                    String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()).getType();
-                                    String s = convertFormat(contextParameterType);
-                                    String[] string = null;
-                                    if (s.indexOf("|") != -1) {
-                                        string = s.split("\\|");
-                                        if ("".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getValue())
-                                                || "null".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).getValue())) {
-                                            if ("boolean | Boolean".equals(s)) {
-                                                getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).setValue("false");
-                                            }
-                                            return string[1];
-                                        } else {
-                                            if ("boolean | Boolean".equals(s)) {
-                                                if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).getValue()))
-                                                        && !("false".equals(getContextManager().getDefaultContext()
-                                                                .getContextParameter(
-                                                                        ((Parent) element).builtContextParameter.getName())
-                                                                .getValue()))) {
-                                                    getContextManager().getDefaultContext().getContextParameter(
-                                                            ((Parent) element).builtContextParameter.getName()).setValue("false");
-                                                }
-                                            }
-                                            return string[0];
-                                        }
-                                    } else {
-                                        return convertFormat(contextParameterType);
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            if (((Parent) element).sourceName != null) {
-                                return "-";
-                            } else {
-                                break;
-                            }
-                        }
-                    } else {
-                        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                        if (codeLanguage == ECodeLanguage.JAVA) {
-                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                                if (((Parent) element).builtContextParameter != null) {
-                                    if (getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return "context."
-                                                + getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).getName();
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                if (((Parent) element).sourceName != null) {
-                                    return "-";
-                                } else {
-                                    break;
-                                }
-                            }
-                        } else {
-                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                                if (((Parent) element).builtContextParameter != null) {
-                                    if (getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return getContextManager().getDefaultContext().getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getScriptCode();
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                if (((Parent) element).sourceName != null) {
-                                    return "-";
-                                } else {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                case 3:
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                        if (codeLanguage == ECodeLanguage.JAVA) {
-                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                                if (((Parent) element).builtContextParameter != null) {
-                                    if (getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return "context."
-                                                + getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).builtContextParameter.getName()).getName();
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                if (((Parent) element).sourceName != null) {
-                                    return "-";
-                                } else {
-                                    break;
-                                }
-                            }
-                        } else {
-                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                                if (((Parent) element).builtContextParameter != null) {
-                                    if (getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return getContextManager().getDefaultContext().getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getScriptCode();
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                if (((Parent) element).sourceName != null) {
-                                    return "-";
-                                } else {
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
-                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                            if (((Parent) element).builtContextParameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).builtContextParameter.getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).builtContextParameter.getName()).getComment();
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            if (((Parent) element).sourceName != null) {
-                                return "-";
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                case 4:
-                    if (BUILT_IN.equals(((Parent) element).sourceName)) {
-                        if (((Parent) element).builtContextParameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).builtContextParameter.getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).builtContextParameter.getName()).getComment();
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        if (((Parent) element).sourceName != null) {
-                            return "-";
-                        } else {
-                            break;
-                        }
-                    }
-                }
-            } else {
-                Son son = (Son) element;
-                switch (columnIndex) {
-                case 0:
-                    // name column
-                    if (son.parameter != null) {
-                        if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()).getName();
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                case 1:
-                    // source column
-                    if (son.parameter != null) {
-                        if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                    .getSource();
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                case 2:
-                    // type column
-                    if (son.parameter != null) {
-                        if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                            String sonType = getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                    .getType();
-                            String s = convertFormat(sonType);
-                            String[] string = null;
-                            if (s.indexOf("|") != -1) {
-                                string = s.split("\\|");
-                                if ("".equals(getContextManager().getDefaultContext()
-                                        .getContextParameter(son.parameter.getName()).getValue())
-                                        || "null".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                son.parameter.getName()).getValue())) {
-                                    if ("boolean | Boolean".equals(s)) {
-                                        getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                                .setValue("false");
-                                    }
-                                    return string[1];
-                                } else {
-                                    if ("boolean | Boolean".equals(s)) {
-                                        if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                son.parameter.getName()).getValue()))
-                                                && !("false".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                        son.parameter.getName()).getValue()))) {
-                                            getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                                    .setValue("false");
-                                        }
-                                    }
-                                    return string[0];
-                                }
-                            } else {
-                                return convertFormat(sonType);
-                            }
-                            // return convertFormat(sonType);
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                case 3:
-                    // script code column
-                    final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                    if (codeLanguage == ECodeLanguage.JAVA) {
-                        if (son.parameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                                return "context."
-                                        + getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                                .getName();
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        if (son.parameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                        .getScriptCode();
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    }
-                case 4:
-                    // comment column
-                    if (son.parameter != null) {
-                        if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
-                                    .getComment();
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-            }
-            return "";
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.core.ui.context.ConextTreeValuesComposite.ProviderProxy#getColumnImage(java.lang.Object, int)
-         */
-        @Override
-        public Image getColumnImage(Object element, int columnIndex) {
-            return null;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
-         */
-        public Object[] getElements(Object inputElement) {
-            boolean flag = false;
-            boolean b = false;
-            boolean builtin = false;
-            List<String> containers = new ArrayList<String>();
-            List<String> nameContainers = new ArrayList<String>();
-            List<String> oldBuiltinName = new ArrayList<String>();
-
-            List<IContext> contexts = (List<IContext>) inputElement;
-            if (!contexts.isEmpty()) {
-                // because all the contexts have the save templ
-                for (IContextParameter para : contexts.get(0).getContextParameterList()) {
-                    flag = false;
-                    if (!containers.isEmpty()) {
-                        for (String source : containers) {
-                            if (source.equals(para.getSource())) {
-                                if (!(BUILT_IN.equals(para.getSource()))) {
-                                    flag = true;
-                                }
-                            }
-                        }
-                        if (!flag) {
-                            containers.add(para.getSource());
-                        }
-                    } else {
-                        containers.add(para.getSource());
-                    }
-                }
-            }
-
-            if (!contexts.isEmpty()) {
-                for (IContextParameter para : contexts.get(0).getContextParameterList()) {
-                    nameContainers.add(para.getName());
-                }
-            }
-
-            List<Parent> root = new ArrayList<Parent>();
-
-            if (!contexts.isEmpty()) {
-                IContext context = contexts.get(0);
-                oldBuiltinName.clear();
-                for (String sourceName : containers) {
-                    builtin = false;
-                    Parent parent = new Parent();
-                    parent.sourceName = sourceName;
-                    for (String paraName : nameContainers) {
-                        IContextParameter contextPara = context.getContextParameter(paraName);
-                        if (!(BUILT_IN.equals(contextPara.getSource()))) {
-                            if (parent.sourceName.equals(contextPara.getSource())) {
-                                Son son = new Son();
-                                son.parameter = contextPara;
-                                son.parent = parent;
-                                parent.son.add(son);
-                            }
-                        } else {
-                            if (BUILT_IN.equals(parent.sourceName)) {
-                                if (!builtin) {
-                                    b = false;
-                                    for (String name : oldBuiltinName) {
-                                        if (name.equals(contextPara.getName())) {
-                                            b = true;
-                                        }
-                                    }
-                                    if (!b) {
-                                        parent.builtContextParameter = contextPara;
-                                        oldBuiltinName.add(contextPara.getName());
-                                        builtin = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    root.add(parent);
-                }
-            }
-            return root.toArray();
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
-         */
-        public Object[] getChildren(Object parentElement) {
-            if (parentElement instanceof Parent) {
-                return ((Parent) parentElement).son.toArray();
-            }
-            return new Object[0];
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
-         */
-        public Object getParent(Object element) {
-            if (element instanceof Son) {
-                return ((Son) element).parent;
-            }
-            return null;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
-         */
-        public boolean hasChildren(Object element) {
-            if (element instanceof Parent) {
-                return !((Parent) element).son.isEmpty();
-            }
-            return false;
-        }
-    }
-
-    /**
-     * A label and content provider for the treeviewer which groups the Contexts by nothing.
-     * 
-     */
-    class GroupByNothingProvier extends ProviderProxy {
-
-        /**
-         * Temporary model for provider. <br/>
-         * 
-         */
-        class Parent {
-
-            IContextParameter parameter;
-
-            List<Son> son = new ArrayList<Son>();
-        }
-
-        /**
-         * Temporary model for provider. <br/>
-         * 
-         */
-        class Son {
-
-            Parent parent;
-
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
-         */
-        public String getColumnText(Object element, int columnIndex) {
-            if (element instanceof Parent) {
-                switch (columnIndex) {
-                case 0:
-                    if (((Parent) element).parameter != null) {
-                        if (getContextManager().getDefaultContext().getContextParameter(((Parent) element).parameter.getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).parameter.getName()).getName();
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                case 1:
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        if (((Parent) element).parameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).parameter.getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()).getSource();
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        if (((Parent) element).parameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).parameter.getName()) != null) {
-                                String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()).getType();
-                                String s = convertFormat(contextParameterType);
-                                String[] string = null;
-                                if (s.indexOf("|") != -1) {
-                                    string = s.split("\\|");
-                                    if ("".equals(getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).parameter.getName()).getValue())
-                                            || "null".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).getValue())) {
-                                        if ("boolean | Boolean".equals(s)) {
-                                            getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).setValue("false");
-                                        }
-                                        return string[1];
-                                    } else {
-                                        if ("boolean | Boolean".equals(s)) {
-                                            if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).getValue()))
-                                                    && !("false".equals(getContextManager().getDefaultContext()
-                                                            .getContextParameter(((Parent) element).parameter.getName())
-                                                            .getValue()))) {
-                                                getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).parameter.getName()).setValue("false");
-                                            }
-                                        }
-                                        return string[0];
-                                    }
-                                } else {
-                                    return convertFormat(contextParameterType);
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    }
-                case 2:
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        if (((Parent) element).parameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).parameter.getName()) != null) {
-                                String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()).getType();
-                                String s = convertFormat(contextParameterType);
-                                String[] string = null;
-                                if (s.indexOf("|") != -1) {
-                                    string = s.split("\\|");
-                                    if ("".equals(getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).parameter.getName()).getValue())
-                                            || "null".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).getValue())) {
-                                        if ("boolean | Boolean".equals(s)) {
-                                            getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).setValue("false");
-                                        }
-                                        return string[1];
-                                    } else {
-                                        if ("boolean | Boolean".equals(s)) {
-                                            if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).getValue()))
-                                                    && !("false".equals(getContextManager().getDefaultContext()
-                                                            .getContextParameter(((Parent) element).parameter.getName())
-                                                            .getValue()))) {
-                                                getContextManager().getDefaultContext().getContextParameter(
-                                                        ((Parent) element).parameter.getName()).setValue("false");
-                                            }
-                                        }
-                                        return string[0];
-                                    }
-                                } else {
-                                    return convertFormat(contextParameterType);
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                        if (codeLanguage == ECodeLanguage.JAVA) {
-                            if (((Parent) element).parameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()) != null) {
-                                    return "context."
-                                            + getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).getName();
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            if (((Parent) element).parameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).parameter.getName()).getScriptCode();
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                case 3:
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-                        if (codeLanguage == ECodeLanguage.JAVA) {
-                            if (((Parent) element).parameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()) != null) {
-                                    return "context."
-                                            + getContextManager().getDefaultContext().getContextParameter(
-                                                    ((Parent) element).parameter.getName()).getName();
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            if (((Parent) element).parameter != null) {
-                                if (getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()) != null) {
-                                    return getContextManager().getDefaultContext().getContextParameter(
-                                            ((Parent) element).parameter.getName()).getScriptCode();
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        }
-                    } else {
-                        if (((Parent) element).parameter != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).parameter.getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(
-                                        ((Parent) element).parameter.getName()).getComment();
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    }
-                case 4:
-                    if (((Parent) element).parameter != null) {
-                        if (getContextManager().getDefaultContext().getContextParameter(((Parent) element).parameter.getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(
-                                    ((Parent) element).parameter.getName()).getComment();
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-            }
-            return "";
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.core.ui.context.ConextTreeValuesComposite.ProviderProxy#getColumnImage(java.lang.Object, int)
-         */
-        @Override
-        public Image getColumnImage(Object element, int columnIndex) {
-            return null;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
-         */
-        public Object[] getElements(Object inputElement) {
-            List<IContext> contexts = (List<IContext>) inputElement;
-            List<Parent> root = new ArrayList<Parent>();
-
-            if (!contexts.isEmpty()) {
-                IContext context = contexts.get(0);
-                for (IContextParameter contextParameter : context.getContextParameterList()) {
-                    Parent parent = new Parent();
-                    parent.parameter = contextParameter;
-
-                    root.add(parent);
-                }
-            }
-            return root.toArray();
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
-         */
-        public Object[] getChildren(Object parentElement) {
-            if (parentElement instanceof Parent) {
-                return ((Parent) parentElement).son.toArray();
-            }
-            return new Object[0];
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
-         */
-        public Object getParent(Object element) {
-            if (element instanceof Son) {
-                return ((Son) element).parent;
-            }
-            return null;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
-         */
-        public boolean hasChildren(Object element) {
-            if (element instanceof Parent) {
-                return !((Parent) element).son.isEmpty();
-            }
-            return false;
-        }
-    }
-
-    /**
-     * A label and content provider for the treeviewer which groups the Contexts by source.
-     * 
-     */
-    abstract class ProviderProxy extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
-         */
-        public Image getColumnImage(Object element, int columnIndex) {
-            return null;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
-         * java.lang.Object, java.lang.Object)
-         */
-        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        }
-    }
-
-    /**
-     * A label and content provider for the treeviewer which groups the Contexts by variable.
-     * 
-     */
-    class ViewerProvier extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
-
-        ProviderProxy provider = new GroupBySourceProvier();
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
-         */
-        public Image getColumnImage(Object element, int columnIndex) {
-            return provider.getColumnImage(element, columnIndex);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
-         * java.lang.Object, java.lang.Object)
-         */
-        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
-         */
-        public String getColumnText(Object element, int columnIndex) {
-            return provider.getColumnText(element, columnIndex);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
-         */
-        public Object[] getChildren(Object parentElement) {
-            return provider.getChildren(parentElement);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
-         */
-        public Object getParent(Object element) {
-            return provider.getParent(element);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
-         */
-        public boolean hasChildren(Object element) {
-            return provider.hasChildren(element);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
-         */
-        public Object[] getElements(Object inputElement) {
-            return provider.getElements(inputElement);
-        }
-
-        /**
-         * Sets the provider.
-         * 
-         * @param provider the provider to set
-         */
-        public void setProvider(ProviderProxy provider) {
-            this.provider = provider;
-        }
-    }
 }

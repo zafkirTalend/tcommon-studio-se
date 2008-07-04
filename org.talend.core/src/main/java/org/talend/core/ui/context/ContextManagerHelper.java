@@ -19,6 +19,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
@@ -30,6 +36,9 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.ui.context.cmd.OrderContextParameterCommand;
+import org.talend.core.ui.context.model.template.ContextConstant;
+import org.talend.core.ui.context.model.template.ContextParameterParent;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.ERepositoryStatus;
@@ -397,4 +406,121 @@ public final class ContextManagerHelper {
         return false;
     }
 
+    /**
+     * 
+     * ggu Comment method "convertFormat".
+     * 
+     * @param contextParameterType
+     * @return
+     */
+    public static String convertFormat(String contextParameterType) {
+        String newType = null;
+
+        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            String[] values = ContextConstant.ITEMS;
+            newType = contextParameterType.substring(3, contextParameterType.length());
+            for (String format : values) {
+                if (format.indexOf(ContextConstant.DOWNWARDS_STRING) != -1) {
+                    String[] formats = format.split(ContextConstant.SPLIT_CHAR);
+                    for (String aformat : formats) {
+                        if (newType.trim().equals(aformat.trim())) {
+                            return format;
+                        }
+                    }
+                } else {
+                    if (newType.trim().equals(format.trim())) {
+                        return format;
+                    }
+                }
+            }
+        } else {
+            String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
+            if ("".equals(contextParameterType)) { //$NON-NLS-1$
+                newType = ""; //$NON-NLS-1$
+            } else {
+                newType = contextParameterType;
+            }
+            for (String format : values) {
+                if (format.indexOf(ContextConstant.DOWNWARDS_STRING) != -1) {
+                    String[] formats = format.split(ContextConstant.SPLIT_CHAR);
+                    for (String aformat : formats) {
+                        if (newType.trim().equals(aformat.trim())) {
+                            return format;
+                        }
+                    }
+                } else {
+                    if (newType.trim().equals(format.trim())) {
+                        return format;
+                    }
+                }
+            }
+        }
+        return ""; //$NON-NLS-1$
+    }
+
+    /**
+     * 
+     * ggu Comment method "changeContextOrder".
+     * 
+     * order the context parameter
+     */
+    public static boolean changeContextOrder(TreeViewer viewer, IContextModelManager modelManager, boolean up) {
+        if (viewer == null || modelManager == null) {
+            return false;
+        }
+        final ISelection selection = viewer.getSelection();
+        if (selection == null || selection.isEmpty()) {
+            return false;
+        }
+        if (!(selection instanceof IStructuredSelection)) {
+            return false;
+        }
+        IStructuredSelection sSection = (IStructuredSelection) selection;
+        if (sSection.size() != 1) { // not support multi-selection
+            return false;
+        }
+
+        Object element = sSection.getFirstElement();
+        IContextParameter movedParam = null;
+        if (element instanceof ContextParameterParent) {
+            movedParam = ((ContextParameterParent) element).getParameter();
+        }
+        if (movedParam == null) {
+            return false;
+        }
+
+        OrderContextParameterCommand orderCommand = new OrderContextParameterCommand(modelManager.getContextManager(),
+                movedParam, up);
+        final CommandStack commandStack = modelManager.getCommandStack();
+        if (commandStack != null) {
+            commandStack.execute(orderCommand);
+        } else {
+            orderCommand.execute();
+        }
+        //
+        modelManager.refresh();
+
+        recovertTreeSelection(viewer, movedParam);
+
+        return orderCommand.isExecution();
+    }
+
+    private static void recovertTreeSelection(TreeViewer viewer, IContextParameter param) {
+        if (viewer == null || param == null) {
+            return;
+        }
+        final Tree tree = viewer.getTree();
+
+        for (TreeItem item : tree.getItems()) {
+            final Object data = item.getData();
+            if (data != null && data instanceof ContextParameterParent) {
+                ContextParameterParent parent = (ContextParameterParent) data;
+                if (parent.getParameter() != null && param.getName().equals(parent.getParameter().getName())) {
+                    tree.setSelection(item);
+                    return;
+                }
+            }
+        }
+    }
 }
