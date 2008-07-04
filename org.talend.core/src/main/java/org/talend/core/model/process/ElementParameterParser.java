@@ -19,10 +19,13 @@ import java.util.Map;
 
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.utils.PerlVarParserUtils;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -45,7 +48,7 @@ public final class ElementParameterParser {
         if (text == null) {
             return newText;
         }
-        IElementParameter param;
+        IElementParameter param = null;
         boolean end = false;
 
         List<IElementParameter> params = (List<IElementParameter>) node.getElementParametersWithChildrens();
@@ -56,6 +59,22 @@ public final class ElementParameterParser {
                 end = true;
             }
         }
+
+        // see feature 3725 replace tMsgBox MESSAGE parameter
+        if (node instanceof INode) {
+            INode valueNode = (INode) node;
+            /*
+             * Apply to all components or just tMsgBox component?
+             */
+            if (valueNode.getUniqueName().startsWith("tMsgBox_") && param.getField() == EParameterFieldType.MEMO
+                    && param.getName().equals("MESSAGE")) {
+                if (isPerlProject()) {
+                    return PerlVarParserUtils.findAndReplacesAll(newText, valueNode);
+                }
+            }
+
+        }
+
         return newText;
     }
 
@@ -326,6 +345,7 @@ public final class ElementParameterParser {
             stringValues += "}"; //$NON-NLS-1$
             return stringValues;
         }
+
         return new String(""); //$NON-NLS-1$
     }
 
@@ -343,6 +363,24 @@ public final class ElementParameterParser {
             }
         }
         return ""; //$NON-NLS-1$
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "isPerlProject".
+     * 
+     * @return
+     */
+    public static boolean isPerlProject() {
+
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+
+        switch (language) {
+        case PERL:
+            return true;
+        default: // PERL
+            return false;
+        }
     }
 
 }

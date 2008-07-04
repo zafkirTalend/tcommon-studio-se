@@ -22,6 +22,8 @@ import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContextManager;
+import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
@@ -65,8 +67,7 @@ public class TalendProposalProvider implements IContentProposalProvider {
 
         if (process != null) {
             // Proposals based on process context
-            List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext()
-                    .getContextParameterList();
+            List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
             for (IContextParameter ctxParam : ctxParams) {
                 proposals.add(new ContextParameterProposal(ctxParam));
             }
@@ -85,8 +86,8 @@ public class TalendProposalProvider implements IContentProposalProvider {
             List<IContextParameter> ctxParams = new ArrayList<IContextParameter>();
             if (allContextItem != null) {
                 for (ContextItem item : allContextItem) {
-                    List<IContextParameter> tmpParams = new JobContextManager(item.getContext(), item
-                            .getDefaultContext()).getDefaultContext().getContextParameterList();
+                    List<IContextParameter> tmpParams = new JobContextManager(item.getContext(), item.getDefaultContext())
+                            .getDefaultContext().getContextParameterList();
                     ctxParams.addAll(tmpParams);
                 }
             }
@@ -112,6 +113,28 @@ public class TalendProposalProvider implements IContentProposalProvider {
             for (int i = 0; i < vars.length; i++) {
                 proposals.add(vars[i]);
             }
+
+            // Add specifical prososal see feature:3725
+            List<? extends INode> nodes = process.getGraphicalNodes();
+            for (INode node : nodes) {
+
+                if (!node.getUniqueName().startsWith("tMsgBox_")) {
+                    continue;
+                }
+
+                IContentProposal[] varsAssists = getRowColumnsProposals(node);
+
+                if (varsAssists == null) {
+                    continue;
+                }
+
+                for (int i = 0; i < varsAssists.length; i++) {
+                    if (!proposals.contains(varsAssists[i])) {
+                        proposals.add(varsAssists[i]);
+                    }
+                }
+            }
+
         }
         // Proposals based on routines
         FunctionManager functionManager = new FunctionManager();
@@ -140,5 +163,77 @@ public class TalendProposalProvider implements IContentProposalProvider {
         IContentProposal[] res = new IContentProposal[proposals.size()];
         res = proposals.toArray(res);
         return res;
+    }
+
+    private IContentProposal[] getRowColumnsProposals(final INode node) {
+        List<IMetadataTable> metaTables = node.getMetadataList();
+        if (metaTables != null) {
+            IMetadataTable table = metaTables.get(0);// iterater all or just iterater first one?
+            if (table != null) {
+                List<IMetadataColumn> columns = table.getListColumns();
+                if (columns != null && !columns.isEmpty()) {
+                    IContentProposal[] res = new IContentProposal[columns.size()];
+                    for (int i = 0; i < columns.size(); i++) {
+                        IMetadataColumn column = columns.get(i);
+                        StringBuilder proposal = new StringBuilder();
+                        proposal.append("$row[");
+                        proposal.append(column.getLabel());
+                        proposal.append("]");
+                        res[i] = makeContentProposal(proposal.toString(), node.getUniqueName() + "." + proposal.toString(),
+                                proposal.toString() + " would be automatically converted to " + node.getUniqueName()
+                                        + "->[index] in the generated code");
+                    }
+                    return res;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /*
+     * Make an IContentProposal for showing the specified String.
+     */
+    private IContentProposal makeContentProposal(final String proposal, final String label, final String description) {
+        return new IContentProposal() {
+
+            public String getContent() {
+                return proposal;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public String getLabel() {
+                return label;
+            }
+
+            public int getCursorPosition() {
+                return proposal.length();
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see java.lang.Object#hashCode()
+             */
+            @Override
+            public int hashCode() {
+                return getLabel().hashCode() ^ getDescription().hashCode() ^ getContent().hashCode();
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (obj == null || !(obj instanceof IContentProposal)) {
+                    return false;
+                }
+                IContentProposal proposal = (IContentProposal) obj;
+
+                return proposal.getContent().equals(getContent()) && proposal.getLabel().equals(getLabel())
+                        && proposal.getDescription().equals(getDescription());
+            }
+
+        };
     }
 }
