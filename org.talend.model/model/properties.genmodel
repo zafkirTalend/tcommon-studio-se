@@ -207,6 +207,7 @@
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//License">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/license"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/customerName"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//GenericSchemaConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//UserModuleAuthorization">
@@ -338,6 +339,7 @@
     <genClasses ecoreClass="properties.ecore#//ComponentSetting">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ComponentSetting/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ComponentSetting/hidden"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ComponentSetting/family"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ComponentSetting#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ComponentSetting#isHidden <em>Hidden</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ComponentSetting#getFamily <em>Family</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +78,31 @@ public interface ComponentSetting extends EObject {
      * @generated
      */
     void setHidden(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Family</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Family</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Family</em>' attribute.
+     * @see #setFamily(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getComponentSetting_Family()
+     * @model
+     * @generated
+     */
+    String getFamily();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ComponentSetting#getFamily <em>Family</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Family</em>' attribute.
+     * @see #getFamily()
+     * @generated
+     */
+    void setFamily(String value);
 
 } // ComponentSetting

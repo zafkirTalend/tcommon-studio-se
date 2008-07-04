@@ -2719,6 +2719,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getComponentSetting_Family() {
+        return (EAttribute)componentSettingEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3135,6 +3144,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         componentSettingEClass = createEClass(COMPONENT_SETTING);
         createEAttribute(componentSettingEClass, COMPONENT_SETTING__NAME);
         createEAttribute(componentSettingEClass, COMPONENT_SETTING__HIDDEN);
+        createEAttribute(componentSettingEClass, COMPONENT_SETTING__FAMILY);
 
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
@@ -3534,6 +3544,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(componentSettingEClass, ComponentSetting.class, "ComponentSetting", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getComponentSetting_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentSetting_Hidden(), theEcorePackage.getEBoolean(), "hidden", null, 0, 1, ComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getComponentSetting_Family(), theEcorePackage.getEString(), "family", null, 0, 1, ComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

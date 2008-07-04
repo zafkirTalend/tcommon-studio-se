@@ -4054,13 +4054,22 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT_SETTING__HIDDEN = 1;
 
     /**
+     * The feature id for the '<em><b>Family</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_SETTING__FAMILY = 2;
+
+    /**
      * The number of structural features of the '<em>Component Setting</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_SETTING_FEATURE_COUNT = 2;
+    int COMPONENT_SETTING_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
@@ -6912,6 +6921,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getComponentSetting_Hidden();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ComponentSetting#getFamily <em>Family</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Family</em>'.
+     * @see org.talend.core.model.properties.ComponentSetting#getFamily()
+     * @see #getComponentSetting()
+     * @generated
+     */
+    EAttribute getComponentSetting_Family();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -9235,6 +9255,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT_SETTING__HIDDEN = eINSTANCE.getComponentSetting_Hidden();
+
+        /**
+         * The meta object literal for the '<em><b>Family</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT_SETTING__FAMILY = eINSTANCE.getComponentSetting_Family();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
