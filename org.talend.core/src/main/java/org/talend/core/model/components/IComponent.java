@@ -93,6 +93,8 @@ public interface IComponent {
 
     public boolean isVisible();
 
+    public boolean isVisible(String family);
+
     public List<ModuleNeeded> getModulesNeeded();
 
     public String getPathSource();

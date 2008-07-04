@@ -15,6 +15,8 @@ package org.talend.repository.model;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gef.palette.PaletteEntry;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.IllegalPluginConfigurationException;
 import org.talend.core.CorePlugin;
@@ -38,6 +40,8 @@ import org.talend.core.model.properties.PropertiesFactory;
  * $Id: ComponentsFactoryProvider.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  */
 public class ComponentsFactoryProvider {
+
+    public static final String FAMILY_SEPARATOR_REGEX = "\\|";
 
     private static IComponentsFactory factorySingleton = null;
 
@@ -74,7 +78,7 @@ public class ComponentsFactoryProvider {
     /**
      * save the Component Visibility Status for pallete settings.
      */
-    public static void saveComponentVisibilityStatus(boolean reset,boolean persist) {
+    public static void saveComponentVisibilityStatus(boolean reset, boolean persist) {
         IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
         List<IComponent> components = componentsFactory.getComponents();
 
@@ -92,13 +96,17 @@ public class ComponentsFactoryProvider {
         }
 
         for (IComponent component : components) {
-            ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
-            setting.setName(component.getName());
-            setting.setHidden(!component.isVisibleInComponentDefinition());
-            list.add(setting);
+            String[] families = component.getFamily().split(FAMILY_SEPARATOR_REGEX);
+            for (String family : families) {
+                ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
+                setting.setFamily(family);
+                setting.setName(component.getName());
+                setting.setHidden(!component.isVisibleInComponentDefinition());
+                list.add(setting);
+            }
         }
-        
-        if(persist){
+
+        if (persist) {
             IProxyRepositoryFactory prf = CorePlugin.getDefault().getProxyRepositoryFactory();
 
             try {
@@ -108,11 +116,30 @@ public class ComponentsFactoryProvider {
             }
         }
     }
-    public static void saveComponentVisibilityStatus() {
-        saveComponentVisibilityStatus(false,true);
+
+    /**
+     * Get the family string of specific palette entry, need to remove first '/'.
+     * 
+     * yzhang Comment method "getPaletteEntryFamily".
+     * 
+     * @param entry
+     * @return
+     */
+    public static String getPaletteEntryFamily(PaletteEntry entry) {
+        String family = "";
+        if (!(entry instanceof PaletteRoot)) {
+            family = entry.getLabel();
+            family = getPaletteEntryFamily(entry.getParent()) + "/" + family;
+        }
+        return family;
     }
+
+    public static void saveComponentVisibilityStatus() {
+        saveComponentVisibilityStatus(false, true);
+    }
+
     public static void restoreComponentVisibilityStatus() {
-        saveComponentVisibilityStatus(true,false);
+        saveComponentVisibilityStatus(true, false);
     }
 
 }
