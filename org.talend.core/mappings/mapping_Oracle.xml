@@ -69,7 +69,8 @@
 					<dbType type="PLS_INTEGER"/>
 				</talendType>
 				<talendType type="id_Long">
-					<dbType type="LONG" default="true"/>
+					<dbType type="NUMBER" default="true"/>
+					<dbType type="LONG" />
 					<dbType type="REAL"/>
 				</talendType>
 				<talendType type="id_Object">
