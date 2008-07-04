@@ -92,7 +92,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private Text pathText;
 
-    private IStatus nameStatus;
+    protected IStatus nameStatus;
 
     private IStatus purposeStatus;
 
@@ -493,6 +493,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected void evaluateFields() {
         evaluateTextField();
+
     }
 
     protected void evaluateTextField() {
