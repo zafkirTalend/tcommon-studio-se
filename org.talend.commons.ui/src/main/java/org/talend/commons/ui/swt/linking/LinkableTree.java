@@ -46,6 +46,8 @@ public class LinkableTree implements ILinkableControl {
 
     private SelectionListener selectionListener;
 
+    private boolean forceDrawLinksGtk;
+
     /**
      * DOC amaumont LinkableTable constructor comment.
      * 
@@ -54,6 +56,22 @@ public class LinkableTree implements ILinkableControl {
      */
     public LinkableTree(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Tree tree,
             BgDrawableComposite bgDrawableComposite) {
+        this(controlsLinker, backgroundRefresher, tree, bgDrawableComposite, true);
+    }
+
+    /**
+     * 
+     * DOC amaumont LinkableTree constructor comment.
+     * 
+     * @param controlsLinker
+     * @param backgroundRefresher
+     * @param tree
+     * @param bgDrawableComposite
+     * @param forceDrawLinksGtk useful only for GTK systems, it forces redraw links at each paint event on tree, default
+     * is true
+     */
+    public LinkableTree(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Tree tree,
+            BgDrawableComposite bgDrawableComposite, boolean forceDrawLinksGtk) {
         super();
         this.tree = tree;
         this.controlsLinker = controlsLinker;
@@ -63,11 +81,14 @@ public class LinkableTree implements ILinkableControl {
         this.tree.setBackgroundMode(SWT.INHERIT_NONE);
 
         this.backgroundRefresher = backgroundRefresher;
+        this.forceDrawLinksGtk = forceDrawLinksGtk;
         init();
     }
 
     /**
      * DOC amaumont Comment method "init".
+     * 
+     * @param forceDrawLinksGtk2
      */
     private void init() {
         addListeners();
@@ -84,9 +105,11 @@ public class LinkableTree implements ILinkableControl {
 
     /**
      * DOC amaumont Comment method "addListeners".
+     * 
+     * @param forceDrawLinksGtk2
      */
     private void addListeners() {
-        if (WindowSystem.isGTK()) {
+        if (WindowSystem.isGTK() && forceDrawLinksGtk) {
             tree.addListener(SWT.Paint, new Listener() {
 
                 public void handleEvent(Event event) {
@@ -135,13 +158,6 @@ public class LinkableTree implements ILinkableControl {
 
         ScrollBar vBarTree = tree.getVerticalBar();
         ScrollBar hBarTree = tree.getHorizontalBar();
-
-        vBarTree.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent event) {
-                backgroundRefresher.refreshBackground();
-            }
-        });
 
         SelectionListener scrollListener = new SelectionAdapter() {
 

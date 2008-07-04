@@ -164,7 +164,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         final ExecutionLimiter documentReconcilerLimiter = new ExecutionLimiter(500, true) {
 
             @Override
-            protected void execute(boolean isFinalExecution) {
+            protected void execute(boolean isFinalExecution, Object data) {
                 if (isFinalExecution) {
                     if (getControl() != null && !getControl().isDisposed()) {
                         getControl().getDisplay().asyncExec(new Runnable() {
@@ -190,7 +190,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
             public void documentChanged(DocumentEvent event) {
                 documentReconcilerLimiter.resetTimer();
-                documentReconcilerLimiter.startIfExecutable(true);
+                documentReconcilerLimiter.startIfExecutable(true, null);
             }
         });
     }

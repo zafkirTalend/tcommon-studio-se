@@ -182,7 +182,7 @@ public class ColorStyledText extends StyledText {
         public void modifyText(ExtendedModifyEvent event) {
             if (ColorStyledText.this.getCharCount() > MAXIMUM_CHARACTERS_BEFORE_USE_TIMER) {
                 colorizeLimiter.resetTimer();
-                colorizeLimiter.startIfExecutable(true);
+                colorizeLimiter.startIfExecutable(true, null);
             } else {
                 getDisplay().asyncExec(new Runnable() {
 
@@ -239,7 +239,7 @@ public class ColorStyledText extends StyledText {
             removeExtendedModifyListener(modifyListener);
         } else if (wasDifferent) {
             colorizeLimiter.resetTimer();
-            colorizeLimiter.startIfExecutable(true);
+            colorizeLimiter.startIfExecutable(true, null);
             addExtendedModifyListener(modifyListener);
         }
     }
@@ -258,7 +258,7 @@ public class ColorStyledText extends StyledText {
     private final ExecutionLimiter colorizeLimiter = new ExecutionLimiter(1000, true) {
 
         @Override
-        public void execute(final boolean isFinalExecution) {
+        public void execute(final boolean isFinalExecution, Object data) {
             if (!isDisposed()) {
                 getDisplay().asyncExec(new Runnable() {
 

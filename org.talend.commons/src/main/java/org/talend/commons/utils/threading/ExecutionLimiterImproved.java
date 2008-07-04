@@ -14,6 +14,7 @@ package org.talend.commons.utils.threading;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * 
@@ -38,7 +39,15 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
 
     private FinalExecution finalExecutionThreadWait;
 
-    private Executor executor = Executors.newCachedThreadPool();
+    private Executor executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
+
+        public Thread newThread(Runnable r) {
+            Thread newThread = Executors.defaultThreadFactory().newThread(r);
+            newThread.setName(newThread.getName() + "_" + ExecutionLimiterImproved.class.getSimpleName());
+            return newThread;
+        }
+
+    });
 
     private Locker locker = new Locker();
 
@@ -66,7 +75,11 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
     }
 
     public boolean startIfExecutable() {
-        return startIfExecutable(false);
+        return startIfExecutable(false, null);
+    }
+
+    public boolean startIfExecutable(Object data) {
+        return startIfExecutable(false, data);
     }
 
     /**
@@ -78,9 +91,12 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
      * @return true if executable, false else
      */
     @SuppressWarnings("unchecked")
-    public boolean startIfExecutable(final boolean executeAtEndOfTime) {
+    public boolean startIfExecutable(final boolean executeAtEndOfTime, final Object data) {
+
+//        System.out.println("startIfExecutable: " + System.currentTimeMillis());
 
         boolean locked = false;
+        boolean executable = false;
 
         synchronized (this) {
             locked = locker.lockIfUnlocked(ExecutionLimiterImproved.this);
@@ -89,17 +105,20 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                 atLeastOneCallRefused = false;
             }
 
+            executable = isExecutable(executeAtEndOfTime);
+            if (locked && executable) {
+                inExecution = true;
+                startTime = System.currentTimeMillis();
+            }
         }
 
         if (locked) {
 
-            final boolean executable = isExecutable(executeAtEndOfTime);
             if (executable) {
                 executor.execute(new Runnable() {
 
                     public void run() {
                         try {
-                            inExecution = true;
                             if (executeAtEndOfTime) {
 
                                 try {
@@ -114,8 +133,8 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                                     }
                                     // System.out.println("Call executed: executeAtEndOfTime" +
                                     // ExecutionLimiter.this.hashCode() + " " + this.hashCode());
-                                    callExecute();
-                                    callFinalExecute();
+                                    callExecute(data);
+                                    callFinalExecute(data);
                                 } catch (InterruptedException e) {
                                     // System.out.println("=======> executeAtEndOfTime interrupted" +
                                     // ExecutionLimiter.this.hashCode() + " " + this.hashCode());
@@ -125,11 +144,11 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                                 }
                             } else {
                                 // System.out.println( "Call executed : now");
-                                callExecute();
-                                callFinalExecute();
+                                callExecute(data);
+                                callFinalExecute(data);
                             }
-                            inExecution = false;
                         } finally {
+                            inExecution = false;
                             // System.out.println("UNlocked");
                             locker.unlock(ExecutionLimiterImproved.this);
                         }
@@ -137,12 +156,16 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                 });
                 return true;
             } else {
-                // System.out.println("Execution rejected: not executable");
+//                System.out.println("#####################################");
+//                System.out.println("Execution rejected: not executable");
+//                System.out.println("#####################################");
                 atLeastOneCallRefused = true;
                 return false;
             }
         } else {
-            // System.out.println("Execution rejected: locked");
+//            System.out.println("#####################################");
+//            System.out.println("Execution rejected: locked");
+//            System.out.println("#####################################");
             atLeastOneCallRefused = true;
             return false;
         }
@@ -150,8 +173,10 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
 
     /**
      * DOC amaumont Comment method "callFinalExecute".
+     * 
+     * @param data
      */
-    private void callFinalExecute() {
+    private void callFinalExecute(Object data) {
         // System.out.println("before test final execute");
         if (finalExecute) {
             // System.out.println("try to final execution");
@@ -166,24 +191,23 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                 }
                 if (!atLeastOneCallRefused) {
                     // System.out.println("Final execution");
-                    execute(true);
+                    execute(true, data);
                     atLeastOneCallRefused = false;
                     break;
                 }
                 atLeastOneCallRefused = false;
                 // System.out.println("Intermediate execution");
-                execute(false);
+                execute(false, data);
             }
         }
 
     }
 
-    private void callExecute() {
-        startTime = System.currentTimeMillis();
-        execute(false);
+    private void callExecute(Object data) {
+        execute(false, data);
     }
 
-    protected abstract void execute(boolean isFinalExecution);
+    protected abstract void execute(boolean isFinalExecution, Object data);
 
     private boolean isExecutable(boolean executeAtEndOfTime) {
         boolean returnValue = false;
@@ -193,11 +217,13 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
             if (timeBeforeNewExecution == 0) {
                 returnValue = !inExecution;
             } else {
-                returnValue = System.currentTimeMillis() - startTime >= timeBeforeNewExecution;
-                // System.out.println(System.currentTimeMillis() - startTime + " >= " + timeBeforeNewExecution + " " +
-                // returnValue);
+                returnValue = !inExecution && System.currentTimeMillis() - startTime >= timeBeforeNewExecution;
+//                 System.out.println(System.currentTimeMillis() - startTime + " >= " + timeBeforeNewExecution + " " +
+//                 returnValue);
             }
         }
+
+//        System.out.println("IS EXECUTABLE: " + returnValue);
         return returnValue;
     }
 

@@ -91,9 +91,9 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         this.display = tree.getDisplay();
         this.backgroundRefresher = backgroundRefresher;
         for (Table table : tables) {
-            new LinkableTable(this, backgroundRefresher, table);
+            new LinkableTable(this, backgroundRefresher, table, (BgDrawableComposite) this, false);
         }
-        new LinkableTree(this, backgroundRefresher, tree, (BgDrawableComposite) this);
+        new LinkableTree(this, backgroundRefresher, tree, (BgDrawableComposite) this, true);
         this.tables = Arrays.asList(tables);
         this.tree = tree;
     }

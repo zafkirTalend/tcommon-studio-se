@@ -173,8 +173,7 @@ public class TreeUtils {
     private static TreeItem getTreeItemFromData(Object dataOfTableItem, TreeItem[] treeItems) {
         TreeItem found = null;
         for (int i = 0; i < treeItems.length; i++) {
-            Object data = treeItems[i].getData();
-            if (dataOfTableItem.equals(data)) {
+            if (dataOfTableItem == treeItems[i].getData()) {
                 found = treeItems[i];
                 break;
             } else if (treeItems[i].getItems().length != 0) {

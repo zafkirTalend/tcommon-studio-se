@@ -59,18 +59,23 @@ public abstract class ExecutionLimiter {
     }
 
     public boolean startIfExecutable() {
-        return startIfExecutable(false);
+        return startIfExecutable(false, null);
     }
 
+    public boolean startIfExecutable(Object data) {
+        return startIfExecutable(false, data);
+    }
+    
     /**
      * Start execution if executable, after <code>timeBeforeNewExecute</code> is elapsed if
      * <code>executeAtEndOfTime</code> is true.
      * 
      * @param executeAtEndOfTime if true call <code>execute()</code> now, else call <code>execute()</code> at end of
      * <code>timeBeforeNewExecute</code>
+     * @param data TODO
      * @return true if executable, false else
      */
-    public boolean startIfExecutable(boolean executeAtEndOfTime) {
+    public boolean startIfExecutable(boolean executeAtEndOfTime, final Object data) {
         boolean executable = false;
         executable = isExecutable(executeAtEndOfTime);
         if (executable) {
@@ -92,7 +97,7 @@ public abstract class ExecutionLimiter {
                             }
                             // System.out.println("Call executed: executeAtEndOfTime" + ExecutionLimiter.this.hashCode()
                             // + " " + this.hashCode());
-                            callExecute();
+                            callExecute(data);
                         } catch (InterruptedException e) {
                             // System.out.println("=======> executeAtEndOfTime interrupted" +
                             // ExecutionLimiter.this.hashCode() + " " + this.hashCode());
@@ -106,14 +111,14 @@ public abstract class ExecutionLimiter {
                 }).start();
             } else {
                 // //System.out.println( "Call executed : now");
-                callExecute();
+                callExecute(data);
             }
         } else {
             // //System.out.println( "Call rejected");
         }
         if (finalExecute) {
             // System.out.println("startThreadForFinalExecution();");
-            startThreadForFinalExecution();
+            startThreadForFinalExecution(data);
         }
         if (executable && !executeAtEndOfTime) {
             inExecution = false;
@@ -121,20 +126,21 @@ public abstract class ExecutionLimiter {
         return executable;
     }
 
-    private void callExecute() {
+    private void callExecute(Object data) {
         startTime = System.currentTimeMillis();
-        execute(false);
+        execute(false, data);
     }
 
     /**
      * DOC amaumont Comment method "startThreadForFinalExecution".
+     * @param data 
      */
-    private void startThreadForFinalExecution() {
+    private void startThreadForFinalExecution(final Object data) {
         (new Thread() {
 
             @Override
             public void run() {
-                FinalExecution finalThread = new FinalExecution();
+                FinalExecution finalThread = new FinalExecution(data);
                 if (finalExecutionThreadWait != null && !finalExecutionThreadWait.isInterrupted()) {
                     finalExecutionThreadWait.interrupt();
                 }
@@ -154,6 +160,12 @@ public abstract class ExecutionLimiter {
      */
     class FinalExecution extends Thread {
 
+        private Object data;
+
+        public FinalExecution(Object data) {
+            this.data = data;
+        }
+
         public void run() {
             try {
                 synchronized (this) {
@@ -169,12 +181,18 @@ public abstract class ExecutionLimiter {
             // System.out.println("FinalExecution Not Interrupted " + ExecutionLimiter.this.hashCode() + " " +
             // this.hashCode());
             // System.out.println("Final thread executed");
-            execute(true);
+            execute(true, data);
         }
 
     }
 
-    protected abstract void execute(boolean isFinalExecution);
+    /**
+     * 
+     * DOC amaumont Comment method "execute".
+     * @param isFinalExecution
+     * @param data can be null
+     */
+    protected abstract void execute(boolean isFinalExecution, Object data);
 
     private boolean isExecutable(boolean executeAtEndOfTime) {
         boolean returnValue = false;

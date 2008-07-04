@@ -12,17 +12,24 @@
 // ============================================================================
 package org.talend.commons.ui.swt.linking;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
+import org.talend.commons.ui.ws.WindowSystem;
+import org.talend.commons.utils.threading.ExecutionLimiter;
+import org.talend.commons.utils.threading.ExecutionLimiterImproved;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -40,31 +47,29 @@ public class LinkableTable implements ILinkableControl {
 
     private TableViewerCreator tableViewerCreator;
 
-    /**
-     * DOC amaumont LinkableTable constructor comment.
-     * 
-     * @param table
-     */
-    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Table table) {
-        super();
-        this.table = table;
-        this.controlsLinker = controlsLinker;
-        this.backgroundRefresher = backgroundRefresher;
-        init();
+    private BgDrawableComposite bgDrawableComposite;
+
+    private boolean forceDrawLinksGtk = true;
+
+    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Table table,
+            BgDrawableComposite bgDrawableComposite) {
+        this(controlsLinker, backgroundRefresher, table, bgDrawableComposite, true);
     }
 
     /**
      * DOC amaumont LinkableTable constructor comment.
      * 
      * @param table
+     * @param bgDrawableComposite TODO
      */
-    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher,
-            TableViewerCreator tableViewerCreator) {
+    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Table table,
+            BgDrawableComposite bgDrawableComposite, boolean forceDrawLinksGtk) {
         super();
-        this.tableViewerCreator = tableViewerCreator;
-        this.table = this.tableViewerCreator.getTable();
+        this.table = table;
         this.controlsLinker = controlsLinker;
         this.backgroundRefresher = backgroundRefresher;
+        this.bgDrawableComposite = bgDrawableComposite;
+        this.forceDrawLinksGtk = forceDrawLinksGtk;
         init();
     }
 
@@ -88,6 +93,19 @@ public class LinkableTable implements ILinkableControl {
      * DOC amaumont Comment method "addListeners".
      */
     private void addListeners() {
+
+        // to correct graphic bug under Linux-GTK when the wizard is opened the first time
+        if (WindowSystem.isGTK() && forceDrawLinksGtk) {
+            table.addListener(SWT.Paint, new Listener() {
+
+                public void handleEvent(Event event) {
+//                    System.out.println("table Paint");
+                    paintEvent(event);
+                }
+
+            });
+        }
+
         ControlListener controlListener = new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
@@ -132,6 +150,18 @@ public class LinkableTable implements ILinkableControl {
         };
         vBarTable.addSelectionListener(scrollListener);
 
+    }
+
+    private void paintEvent(Event event) {
+//        System.out.println("event.gc=" + event.gc);
+
+        Point offsetPoint = event.display.map(bgDrawableComposite.getBgDrawableComposite(), table,
+                new Point(0, 0));
+        bgDrawableComposite.setOffset(offsetPoint);
+//        System.out.println("paintEvent.gc="+event.gc);
+        bgDrawableComposite.drawBackground(event.gc);
+
+        //        executionLimiter.startIfExecutable(event);
     }
 
 }
