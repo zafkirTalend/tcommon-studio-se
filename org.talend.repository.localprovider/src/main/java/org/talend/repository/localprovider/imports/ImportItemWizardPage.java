@@ -23,9 +23,12 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -37,6 +40,8 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -45,11 +50,13 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.SearchPattern;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.ArchiveFileManipulations;
@@ -73,6 +80,7 @@ import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.i18n.Messages;
+import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
@@ -117,6 +125,10 @@ class ImportItemWizardPage extends WizardPage {
 
     private ResourcesManager manager;
 
+    private Text nameFilter;
+
+    private Combo typeFilter;
+
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
     }
@@ -129,8 +141,81 @@ class ImportItemWizardPage extends WizardPage {
         workArea.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
 
         createItemRoot(workArea);
+        // see feature 4395: Add an items filter in import/export job Dialog
+        createFilter(workArea);
         createItemList(workArea);
         createErrorsList(workArea);
+    }
+
+    /**
+     * DOC hcw Comment method "createFilter".
+     * 
+     * @param workArea
+     */
+    private void createFilter(Composite workArea) {
+        Composite filterComposite = new Composite(workArea, SWT.NONE);
+        GridLayoutFactory.swtDefaults().numColumns(3).margins(0, 0).applyTo(filterComposite);
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).applyTo(filterComposite);
+
+        Label label = new Label(filterComposite, SWT.NONE);
+        label.setText("Items Filter:");
+        GridDataFactory.swtDefaults().applyTo(label);
+
+        nameFilter = new Text(filterComposite, SWT.BORDER);
+        nameFilter.setToolTipText("Enter type name prefix or pattern(*,?,or camel case).");
+        nameFilter.setEditable(true);
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, true).applyTo(nameFilter);
+
+        nameFilter.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                applyFilter();
+            }
+        });
+
+        typeFilter = new Combo(filterComposite, SWT.READ_ONLY);
+        GridDataFactory.swtDefaults().applyTo(typeFilter);
+        typeFilter.setItems(getAvailableItems());
+        typeFilter.select(0);
+        typeFilter.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                applyFilter();
+            }
+        });
+    }
+
+    /**
+     * DOC hcw Comment method "getAvailableItems".
+     * 
+     * @return
+     */
+    private String[] getAvailableItems() {
+        boolean jobTemplateEnabled = (Platform.getBundle("org.talend.designer.jobtemplate") == null ? false : true);
+        ERepositoryObjectType types[] = { ERepositoryObjectType.BUSINESS_PROCESS, ERepositoryObjectType.PROCESS,
+                ERepositoryObjectType.JOBLET, ERepositoryObjectType.CONTEXT, ERepositoryObjectType.METADATA_CONNECTIONS,
+                ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
+                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
+                ERepositoryObjectType.METADATA_FILE_EXCEL, ERepositoryObjectType.METADATA_FILE_LDIF,
+                ERepositoryObjectType.METADATA_LDAP_SCHEMA, ERepositoryObjectType.METADATA_GENERIC_SCHEMA,
+                ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA,
+                ERepositoryObjectType.ROUTINES, ERepositoryObjectType.SQLPATTERNS };
+        List<String> list = new ArrayList<String>(types.length + 1);
+        list.add("All");
+        for (ERepositoryObjectType type : types) {
+            list.add(type.toString());
+        }
+        if (!jobTemplateEnabled) {
+            // remove joblet
+            list.remove(ERepositoryObjectType.JOBLET.toString());
+        }
+        return list.toArray(new String[list.size()]);
+    }
+
+    private void applyFilter() {
+        itemsList.refresh(true);
+        itemsList.setCheckedElements(checkValidItems());
     }
 
     private void createErrorsList(Composite workArea) {
@@ -165,6 +250,7 @@ class ImportItemWizardPage extends WizardPage {
 
         errorsList.setLabelProvider(new LabelProvider() {
 
+            @Override
             public String getText(Object element) {
                 return element.toString();
             }
@@ -234,6 +320,7 @@ class ImportItemWizardPage extends WizardPage {
 
         itemsList.setLabelProvider(new LabelProvider() {
 
+            @Override
             public String getText(Object element) {
                 return ((ItemRecord) element).getItemName();
             }
@@ -258,6 +345,7 @@ class ImportItemWizardPage extends WizardPage {
         selectAll.setText(DataTransferMessages.DataTransfer_selectAll);
         selectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 itemsList.setCheckedElements(selectedItems);
             }
@@ -269,6 +357,7 @@ class ImportItemWizardPage extends WizardPage {
         deselectAll.setText(DataTransferMessages.DataTransfer_deselectAll);
         deselectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 itemsList.setCheckedElements(new Object[0]);
             }
@@ -280,6 +369,7 @@ class ImportItemWizardPage extends WizardPage {
         refresh.setText(DataTransferMessages.DataTransfer_refresh);
         refresh.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (itemFromDirectoryRadio.getSelection()) {
                     updateItemsList(directoryPathField.getText().trim());
@@ -331,6 +421,7 @@ class ImportItemWizardPage extends WizardPage {
 
         browseDirectoriesButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 handleLocationDirectoryButtonPressed();
             }
@@ -338,6 +429,7 @@ class ImportItemWizardPage extends WizardPage {
 
         browseArchivesButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 handleLocationArchiveButtonPressed();
             }
@@ -356,6 +448,7 @@ class ImportItemWizardPage extends WizardPage {
 
         directoryPathField.addFocusListener(new FocusAdapter() {
 
+            @Override
             public void focusLost(org.eclipse.swt.events.FocusEvent e) {
                 updateItemsList(directoryPathField.getText().trim());
             }
@@ -374,6 +467,7 @@ class ImportItemWizardPage extends WizardPage {
 
         archivePathField.addFocusListener(new FocusAdapter() {
 
+            @Override
             public void focusLost(org.eclipse.swt.events.FocusEvent e) {
                 updateItemsList(archivePathField.getText().trim());
             }
@@ -381,6 +475,7 @@ class ImportItemWizardPage extends WizardPage {
 
         itemFromDirectoryRadio.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 directoryRadioSelected();
             }
@@ -388,6 +483,7 @@ class ImportItemWizardPage extends WizardPage {
 
         itemFromArchiveRadio.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 archiveRadioSelected();
             }
@@ -488,7 +584,7 @@ class ImportItemWizardPage extends WizardPage {
             selectedItems = new ItemRecord[0];
             itemsList.refresh(true);
             itemsList.setCheckedElements(selectedItems);
-            hasValidItems();
+            checkValidItems();
             return;
         }
 
@@ -566,15 +662,16 @@ class ImportItemWizardPage extends WizardPage {
         }
 
         itemsList.refresh(true);
-        itemsList.setCheckedElements(getValidItems());
-        hasValidItems();
+        itemsList.setCheckedElements(checkValidItems());
     }
 
-    private void hasValidItems() {
-        boolean hasValidItems = getValidItems().length > 0;
+    private ItemRecord[] checkValidItems() {
+        ItemRecord[] validItems = getValidItems();
+        boolean hasValidItems = validItems.length > 0;
 
         setPageComplete(hasValidItems);
         itemListInfo.setVisible(!hasValidItems);
+        return validItems;
     }
 
     protected ZipFile getSpecifiedZipSourceFile() {
@@ -628,11 +725,20 @@ class ImportItemWizardPage extends WizardPage {
     }
 
     public ItemRecord[] getValidItems() {
+        String type = typeFilter.getItem(typeFilter.getSelectionIndex());
+
+        String name = nameFilter.getText();
+        SearchPattern matcher = new SearchPattern();
+        matcher.setPattern(name);
+
         List validItems = new ArrayList();
         for (int i = 0; i < selectedItems.length; i++) {
             ItemRecord itemRecord = selectedItems[i];
-            if (itemRecord.isValid()) {
-                validItems.add(itemRecord);
+            if (itemRecord.isValid() && matcher.matches(itemRecord.getProperty().getLabel())) {
+                String itemType = ERepositoryObjectType.getItemType(itemRecord.getItem()).toString();
+                if (type.equals("All") || type.equals(itemType)) {
+                    validItems.add(itemRecord);
+                }
             }
         }
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
