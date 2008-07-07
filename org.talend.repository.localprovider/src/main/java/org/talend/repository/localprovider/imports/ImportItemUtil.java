@@ -18,7 +18,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
@@ -52,7 +56,9 @@ import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
+import org.talend.repository.localprovider.imports.ItemRecord.State;
 import org.talend.repository.localprovider.model.XmiResourceManager;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
@@ -69,6 +75,14 @@ public class ImportItemUtil {
 
     private int importedItems = 0;
 
+    private RepositoryObjectCache cache = new RepositoryObjectCache();
+
+    private Set<String> deletedItems = new HashSet<String>();
+
+    public void clear() {
+        deletedItems.clear();
+    }
+
     public void setErrors(boolean errors) {
         this.hasErrors = errors;
     }
@@ -77,7 +91,7 @@ public class ImportItemUtil {
         return hasErrors;
     }
 
-    private boolean checkItem(ItemRecord itemRecord) {
+    private boolean checkItem(ItemRecord itemRecord, boolean overwrite) {
         boolean result = false;
 
         try {
@@ -102,10 +116,36 @@ public class ImportItemUtil {
                         itemRecord.addError(Messages.getString("RepositoryUtil.isSystemRoutine")); //$NON-NLS-1$ 
                     }
                 } else {
-                    itemRecord.addError(Messages.getString("RepositoryUtil.idUsed")); //$NON-NLS-1$
+                    // same id but different name
+                    itemRecord.setState(State.ID_EXISTED);
+                    if (overwrite) {
+                        result = true;
+                    } else {
+                        itemRecord.addError(Messages.getString("RepositoryUtil.idUsed")); //$NON-NLS-1$
+                    }
                 }
             } else {
-                itemRecord.addError(Messages.getString("RepositoryUtil.nameUsed")); //$NON-NLS-1$
+                if (idAvailable) {
+                    // same name but different id
+                    itemRecord.setState(State.NAME_EXISTED);
+                } else {
+                    // same name and same id
+                    itemRecord.setState(State.ID_EXISTED);
+                    if (overwrite) {
+                        result = true;
+                    }
+                }
+                if (!result) {
+                    itemRecord.addError(Messages.getString("RepositoryUtil.nameUsed")); //$NON-NLS-1$
+                }
+            }
+
+            if (result && overwrite && itemRecord.getState() == State.ID_EXISTED) {
+                // if item is locked, cannot overwrite
+                if (checkIfLocked(itemRecord)) {
+                    itemRecord.addError(Messages.getString("RepositoryUtil.itemLocked")); //$NON-NLS-1$
+                    result = false;
+                }
             }
         } catch (Exception e) {
             // ignore
@@ -114,7 +154,36 @@ public class ImportItemUtil {
         return result;
     }
 
-    public Item importItemRecord(ResourcesManager manager, ItemRecord itemRecord) throws PersistenceException {
+    /**
+     * DOC hcw Comment method "checkIfLocked".
+     * 
+     * @param itemRecord
+     * @return
+     * @throws PersistenceException
+     */
+    private boolean checkIfLocked(ItemRecord itemRecord) throws PersistenceException {
+        Boolean lockState = cache.getItemLockState(itemRecord);
+        if (lockState != null) {
+            return lockState.booleanValue();
+        }
+
+        ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
+
+        for (IRepositoryObject obj : list) {
+            ERepositoryStatus status = factory.getStatus(obj);
+            if (status == ERepositoryStatus.LOCK_BY_OTHER || status == ERepositoryStatus.LOCK_BY_USER) {
+                itemRecord.setLocked(true);
+                cache.setItemLockState(itemRecord, true);
+                return true;
+            }
+        }
+
+        cache.setItemLockState(itemRecord, false);
+        return false;
+    }
+
+    public Item importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) throws PersistenceException {
         resolveItem(manager, itemRecord);
         Item newItem = null;
         if (itemRecord.getItem() != null) {
@@ -131,6 +200,19 @@ public class ImportItemUtil {
 
             try {
                 Item tmpItem = itemRecord.getItem();
+
+                // delete existing items before importing, this should be done once for a different id
+                String id = itemRecord.getProperty().getId();
+                if (overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
+                        && !deletedItems.contains(id)) {
+                    List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
+                    if (!list.isEmpty()) {
+                        // this code will delete all version of item with same id
+                        repFactory.forceDeleteObjectPhysical(list.get(0));
+                        deletedItems.add(id);
+                    }
+                }
+
                 IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
                 if (importedItems++ > 2) {
                     importedItems = 0;
@@ -191,7 +273,8 @@ public class ImportItemUtil {
     /**
      * need to returns sorted items by version to correctly import them later.
      */
-    public List<ItemRecord> populateItems(ResourcesManager collector) {
+    public List<ItemRecord> populateItems(ResourcesManager collector, boolean overwrite) {
+        cache.clear();
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
         for (IPath path : collector.getPaths()) {
@@ -203,7 +286,7 @@ public class ImportItemUtil {
                         ItemRecord itemRecord = new ItemRecord(path, property);
                         items.add(itemRecord);
 
-                        if (checkItem(itemRecord)) {
+                        if (checkItem(itemRecord, overwrite)) {
                             InternalEObject author = (InternalEObject) property.getAuthor();
                             URI uri = null;
                             if (author != null) {
@@ -432,4 +515,58 @@ public class ImportItemUtil {
         return path.removeFileExtension().addFileExtension(FileConstants.ITEM_EXTENSION);
     }
 
+    /**
+     * 
+     * DOC hcw ImportItemUtil class global comment. Detailled comment
+     */
+    static class RepositoryObjectCache {
+
+        static ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+        private Set<ERepositoryObjectType> types = new HashSet<ERepositoryObjectType>();
+
+        private Map<String, Boolean> lockState = new HashMap<String, Boolean>();
+
+        // key is id of IRepositoryObject, value is a list of IRepositoryObject with same id
+        private Map<String, List<IRepositoryObject>> cache = new HashMap<String, List<IRepositoryObject>>();
+
+        public List<IRepositoryObject> findObjectsByItem(ItemRecord itemRecord) throws PersistenceException {
+            Item item = itemRecord.getItem();
+            ERepositoryObjectType type = ERepositoryObjectType.getItemType(item);
+            if (!types.contains(type)) {
+                types.add(type);
+                // load object by type
+                List<IRepositoryObject> list = factory.getAll(type, true, true);
+                for (IRepositoryObject obj : list) {
+                    // items with same id
+                    List<IRepositoryObject> items = cache.get(obj.getId());
+                    if (items == null) {
+                        items = new ArrayList<IRepositoryObject>();
+                        cache.put(obj.getId(), items);
+                    }
+                    items.add(obj);
+                }
+            }
+
+            List<IRepositoryObject> result = cache.get(itemRecord.getProperty().getId());
+            if (result == null) {
+                result = Collections.EMPTY_LIST;
+            }
+            return result;
+        }
+
+        public void setItemLockState(ItemRecord itemRecord, boolean state) {
+            lockState.put(itemRecord.getProperty().getId(), state);
+        }
+
+        public Boolean getItemLockState(ItemRecord itemRecord) {
+            return lockState.get(itemRecord.getProperty().getId());
+        }
+
+        public void clear() {
+            types.clear();
+            cache.clear();
+            lockState.clear();
+        }
+    }
 }

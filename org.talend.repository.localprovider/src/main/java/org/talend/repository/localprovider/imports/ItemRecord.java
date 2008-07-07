@@ -36,6 +36,10 @@ public class ItemRecord {
 
     private boolean resolved = false;
 
+    private State state = State.NON_EXISTED;
+
+    private boolean locked;
+
     public ItemRecord(IPath path, Property property) {
         this.path = path;
         this.property = property;
@@ -97,6 +101,32 @@ public class ItemRecord {
 
     public void setResolved(boolean resolved) {
         this.resolved = resolved;
+    }
+
+    /**
+     * 
+     * DOC hcw ItemRecord class global comment. Detailled comment
+     */
+    enum State {
+        NAME_EXISTED,
+        ID_EXISTED,
+        NON_EXISTED
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
 }

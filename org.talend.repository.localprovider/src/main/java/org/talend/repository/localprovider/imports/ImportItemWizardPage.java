@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -76,11 +77,11 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
@@ -129,6 +130,10 @@ class ImportItemWizardPage extends WizardPage {
 
     private Combo typeFilter;
 
+    private Button overwriteButton;
+
+    boolean overwrite = false;
+
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
     }
@@ -145,6 +150,21 @@ class ImportItemWizardPage extends WizardPage {
         createFilter(workArea);
         createItemList(workArea);
         createErrorsList(workArea);
+
+        // see feature 3949
+        overwriteButton = new Button(workArea, SWT.CHECK);
+        overwriteButton.setText("overwrite existing items");
+        overwriteButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                overwrite = overwriteButton.getSelection();
+                if (StringUtils.isNotEmpty(directoryPathField.getText()) || StringUtils.isNotEmpty(archivePathField.getText())) {
+                    populateItems();
+                }
+            }
+
+        });
     }
 
     /**
@@ -643,7 +663,14 @@ class ImportItemWizardPage extends WizardPage {
             // Nothing to do if the user interrupts.
         }
 
-        items = repositoryUtil.populateItems(manager);
+        populateItems();
+    }
+
+    /**
+     * DOC hcw Comment method "populateItems".
+     */
+    private void populateItems() {
+        items = repositoryUtil.populateItems(manager, overwrite);
 
         errors.clear();
         for (ItemRecord itemRecord : items) {
@@ -755,6 +782,7 @@ class ImportItemWizardPage extends WizardPage {
                     monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
 
                     repositoryUtil.setErrors(false);
+                    repositoryUtil.clear();
 
                     ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
 
@@ -765,7 +793,7 @@ class ImportItemWizardPage extends WizardPage {
                             monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
 
                             try {
-                                Item importItem = repositoryUtil.importItemRecord(manager, itemRecord);
+                                Item importItem = repositoryUtil.importItemRecord(manager, itemRecord, overwrite);
 
                                 // Generated documentaiton for imported item.
                                 if (importItem != null && PluginChecker.isDocumentationPluginLoaded()) {
