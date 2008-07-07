@@ -30,7 +30,7 @@ public class Perspective implements IPerspectiveFactory {
      * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
      */
     public void createInitialLayout(IPageLayout layout) {
-        String propertyId = "org.eclipse.ui.views.PropertySheet"; //$NON-NLS-1$
+        // String propertyId = "org.eclipse.ui.views.PropertySheet"; //$NON-NLS-1$
         String componentSettingViewerId = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";//$NON-NLS-1$
         String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
         String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
@@ -69,15 +69,15 @@ public class Perspective implements IPerspectiveFactory {
         // bottomLayout
         IFolderLayout bottomLayout = layout.createFolder("bottomLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
-        bottomLayout.addView(propertyId);
-        bottomLayout.addView(componentSettingViewerId);
+        // bottomLayout.addView(propertyId);
         bottomLayout.addView(jobSettingsViewId);
+        bottomLayout.addView(contextsViewId);
+        bottomLayout.addView(componentSettingViewerId);
         // bottomLayout.addView(epicPerlDocId);
         // bottomLayout.addView(epicRegExpViewId);
         // bottomLayout.addView(epicExplainErrorsViewId);
         // bottomLayout.addView(epicBrowserViewId);
         // bottomLayout.addView(pdeErrorViewId);
-        bottomLayout.addView(contextsViewId);
         // bottomLayout.addView(pdeTaskViewId);
         bottomLayout.addView(runProcessViewId);
         bottomLayout.addView(problemsViewId);
