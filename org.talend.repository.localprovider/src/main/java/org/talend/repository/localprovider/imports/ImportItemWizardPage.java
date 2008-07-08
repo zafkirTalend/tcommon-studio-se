@@ -18,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -779,24 +780,28 @@ class ImportItemWizardPage extends WizardPage {
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
+                    boolean docPluginLoaded = PluginChecker.isDocumentationPluginLoaded();
+                    int nbItems = (checkedElements.length + 1) * 2 + 1;
+                    monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), nbItems); //$NON-NLS-1$
 
                     repositoryUtil.setErrors(false);
-                    repositoryUtil.clear();
 
                     ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
 
+                    List<ItemRecord> itemRecords = new ArrayList<ItemRecord>();
                     for (int i = 0; i < checkedElements.length; i++) {
-                        if (!monitor.isCanceled()) {
-                            ItemRecord itemRecord = (ItemRecord) checkedElements[i];
+                        ItemRecord itemRecord = (ItemRecord) checkedElements[i];
+                        itemRecords.add(itemRecord);
+                    }
 
-                            monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
+                    Map<ItemRecord, Item> itemsMap = repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite);
 
+                    monitor.subTask("Check documentation and routines"); //$NON-NLS-1$
+                    if (docPluginLoaded && !monitor.isCanceled()) {
+                        for (ItemRecord itemRecord : itemsMap.keySet()) {
+                            Item importItem = itemsMap.get(itemRecord);
                             try {
-                                Item importItem = repositoryUtil.importItemRecord(manager, itemRecord, overwrite);
-
-                                // Generated documentaiton for imported item.
-                                if (importItem != null && PluginChecker.isDocumentationPluginLoaded()) {
+                                if (importItem != null && docPluginLoaded) {
                                     IDocumentationService service = (IDocumentationService) GlobalServiceRegister.getDefault()
                                             .getService(IDocumentationService.class);
                                     if (importItem instanceof ProcessItem) {
@@ -812,15 +817,15 @@ class ImportItemWizardPage extends WizardPage {
                                     routineSynchronizer.syncRoutine(item, true);
                                     routineSynchronizer.getFile(item);
                                 }
-
+                                if (monitor.isCanceled()) {
+                                    break;
+                                }
                             } catch (Exception e) {
                                 throw new InvocationTargetException(e);
                             }
-
-                            monitor.worked(1);
                         }
+                        monitor.worked(1);
                     }
-
                     monitor.done();
 
                     if (repositoryUtil.hasErrors()) {
