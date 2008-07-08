@@ -1721,10 +1721,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     public void refreshTableEditorControls() {
         if (tableEditorManager != null) {
-            if (tableEditorManager != null) {
-                tableEditorManager.refresh();
-                tableEditorManager.redrawControls();
-            }
+            tableEditorManager.refresh();
+            tableEditorManager.redrawControls();
         }
     }
 
