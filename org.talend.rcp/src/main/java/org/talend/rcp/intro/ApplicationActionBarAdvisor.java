@@ -118,6 +118,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         actionBarConfigurer.registerGlobalAction(ActionFactory.PASTE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.DELETE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.SELECT_ALL.create(window));
+        actionBarConfigurer.registerGlobalAction(ActionFactory.REFRESH.create(window));
+
         // IContextService contextService = (IContextService) Activator.getDefault().getWorkbench()
         // .getAdapter(IContextService.class);
         // contextService.activateContext("talend.global");
