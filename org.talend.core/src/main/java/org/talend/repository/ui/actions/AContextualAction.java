@@ -322,6 +322,17 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return isUnderUserDefined(node.getParent());
     }
 
+    protected boolean isUnderDBConnection(RepositoryNode node) {
+        if (node == null) {
+            return false;
+        }
+        if (node.getType() == ENodeType.SYSTEM_FOLDER
+                && node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_CONNECTIONS) {
+            return true;
+        }
+        return isUnderDBConnection(node.getParent());
+    }
+
     /**
      * Display a "Save job" prompt dialog if the job eidtor of the selectedNode is unsaved.
      */
