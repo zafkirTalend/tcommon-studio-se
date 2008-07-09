@@ -767,6 +767,14 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementParameter" lowerBound="1"
+        upperBound="-1" eType="#//ElementParameterType" containment="true" resolveProxies="false">
+      <eAnnotations source="ExtendedMetaData">
+        <details key="kind" value="element"/>
+        <details key="name" value="ElementParameterType"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParametersType">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

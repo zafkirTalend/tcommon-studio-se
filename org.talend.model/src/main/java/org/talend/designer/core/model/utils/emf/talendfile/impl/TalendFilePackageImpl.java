@@ -1177,6 +1177,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getNoteType_ElementParameter() {
+        return (EReference)noteTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getParametersType() {
         return parametersTypeEClass;
     }
@@ -1533,6 +1542,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(noteTypeEClass, NOTE_TYPE__SIZE_HEIGHT);
         createEAttribute(noteTypeEClass, NOTE_TYPE__SIZE_WIDTH);
         createEAttribute(noteTypeEClass, NOTE_TYPE__TEXT);
+        createEReference(noteTypeEClass, NOTE_TYPE__ELEMENT_PARAMETER);
 
         parametersTypeEClass = createEClass(PARAMETERS_TYPE);
         createEReference(parametersTypeEClass, PARAMETERS_TYPE__ELEMENT_PARAMETER);
@@ -1709,6 +1719,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getNoteType_SizeHeight(), theXMLTypePackage.getInt(), "sizeHeight", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNoteType_SizeWidth(), theXMLTypePackage.getInt(), "sizeWidth", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNoteType_Text(), theXMLTypePackage.getString(), "text", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNoteType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(parametersTypeEClass, ParametersType.class, "ParametersType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getParametersType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, ParametersType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1744,6 +1755,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         // Create annotations
         // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
         createExtendedMetaDataAnnotations();
+        // ExtendedMetaData
+        createExtendedMetaData_1Annotations();
     }
 
     /**
@@ -2565,7 +2578,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "attribute",
              "name", "text",
              "namespace", "##targetNamespace"
-           });		
+           });			
         addAnnotation
           (parametersTypeEClass, 
            source, 
@@ -2754,6 +2767,24 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "name", "ElementParameter",
              "namespace", "##targetNamespace"
            });
+    }
+
+    /**
+     * Initializes the annotations for <b>ExtendedMetaData</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createExtendedMetaData_1Annotations() {
+        String source = "ExtendedMetaData";																																																																																																										
+        addAnnotation
+          (getNoteType_ElementParameter(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "ElementParameterType",
+             "namespace", "##targetNamespace"
+           });																								
     }
 
 } //TalendFilePackageImpl

@@ -6,13 +6,21 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
@@ -29,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl#getSizeHeight <em>Size Height</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl#getSizeWidth <em>Size Width</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl#getText <em>Text</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl#getElementParameter <em>Element Parameter</em>}</li>
  * </ul>
  * </p>
  *
@@ -199,6 +208,16 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * @ordered
      */
     protected String text = TEXT_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getElementParameter() <em>Element Parameter</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getElementParameter()
+     * @generated
+     * @ordered
+     */
+    protected EList elementParameter;
 
     /**
      * <!-- begin-user-doc -->
@@ -474,6 +493,31 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getElementParameter() {
+        if (elementParameter == null) {
+            elementParameter = new EObjectContainmentEList(ElementParameterType.class, this, TalendFilePackage.NOTE_TYPE__ELEMENT_PARAMETER);
+        }
+        return elementParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case TalendFilePackage.NOTE_TYPE__ELEMENT_PARAMETER:
+                return ((InternalEList)getElementParameter()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case TalendFilePackage.NOTE_TYPE__OPAQUE:
@@ -488,6 +532,8 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
                 return new Integer(getSizeWidth());
             case TalendFilePackage.NOTE_TYPE__TEXT:
                 return getText();
+            case TalendFilePackage.NOTE_TYPE__ELEMENT_PARAMETER:
+                return getElementParameter();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -516,6 +562,10 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
                 return;
             case TalendFilePackage.NOTE_TYPE__TEXT:
                 setText((String)newValue);
+                return;
+            case TalendFilePackage.NOTE_TYPE__ELEMENT_PARAMETER:
+                getElementParameter().clear();
+                getElementParameter().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -546,6 +596,9 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
             case TalendFilePackage.NOTE_TYPE__TEXT:
                 setText(TEXT_EDEFAULT);
                 return;
+            case TalendFilePackage.NOTE_TYPE__ELEMENT_PARAMETER:
+                getElementParameter().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -569,6 +622,8 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
                 return isSetSizeWidth();
             case TalendFilePackage.NOTE_TYPE__TEXT:
                 return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+            case TalendFilePackage.NOTE_TYPE__ELEMENT_PARAMETER:
+                return elementParameter != null && !elementParameter.isEmpty();
         }
         return super.eIsSet(featureID);
     }

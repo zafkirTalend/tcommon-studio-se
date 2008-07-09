@@ -6,6 +6,7 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getSizeHeight <em>Size Height</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getSizeWidth <em>Size Width</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getText <em>Text</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getElementParameter <em>Element Parameter</em>}</li>
  * </ul>
  * </p>
  *
@@ -326,5 +328,22 @@ public interface NoteType extends EObject {
      * @generated
      */
     void setText(String value);
+
+    /**
+     * Returns the value of the '<em><b>Element Parameter</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Element Parameter</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Element Parameter</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_ElementParameter()
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType" containment="true" required="true"
+     *        annotation="ExtendedMetaData kind='element' name='ElementParameterType' namespace='##targetNamespace'"
+     * @generated
+     */
+    EList getElementParameter();
 
 } // NoteType

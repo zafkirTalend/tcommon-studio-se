@@ -1129,13 +1129,22 @@ public interface TalendFilePackage extends EPackage {
     int NOTE_TYPE__TEXT = 5;
 
     /**
+     * The feature id for the '<em><b>Element Parameter</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__ELEMENT_PARAMETER = 6;
+
+    /**
      * The number of structural features of the '<em>Note Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NOTE_TYPE_FEATURE_COUNT = 6;
+    int NOTE_TYPE_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl <em>Parameters Type</em>}' class.
@@ -2515,6 +2524,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getNoteType_Text();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getElementParameter <em>Element Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Element Parameter</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#getElementParameter()
+     * @see #getNoteType()
+     * @generated
+     */
+    EReference getNoteType_ElementParameter();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ParametersType <em>Parameters Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3649,6 +3669,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute NOTE_TYPE__TEXT = eINSTANCE.getNoteType_Text();
+
+        /**
+         * The meta object literal for the '<em><b>Element Parameter</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference NOTE_TYPE__ELEMENT_PARAMETER = eINSTANCE.getNoteType_ElementParameter();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl <em>Parameters Type</em>}' class.
