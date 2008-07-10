@@ -15,10 +15,17 @@ package org.talend.repository.localprovider.ui.actions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -32,15 +39,19 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.ui.views.CheckboxRepositoryTreeViewer;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryContentProvider;
 import org.talend.repository.ui.views.RepositoryView;
@@ -70,8 +81,16 @@ class ExportItemWizardPage extends WizardPage {
 
     private String lastPath;
 
-    protected ExportItemWizardPage(String pageName) {
+    private CheckboxRepositoryView exportItemsTreeViewer;
+
+    private IRepositoryView repositoryView;
+
+    private IStructuredSelection selection;
+
+    protected ExportItemWizardPage(String pageName, IStructuredSelection selection) {
         super(pageName);
+        repositoryView = RepositoryView.show();
+        this.selection = selection;
     }
 
     public void createControl(Composite parent) {
@@ -82,6 +101,41 @@ class ExportItemWizardPage extends WizardPage {
         workArea.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
 
         createItemRoot(workArea);
+        createItemList(workArea);
+    }
+
+    /**
+     * DOC hcw Comment method "createItemList".
+     * 
+     * @param workArea
+     */
+    private void createItemList(Composite workArea) {
+        Composite itemComposite = new Composite(workArea, SWT.NONE);
+        GridLayoutFactory.swtDefaults().applyTo(itemComposite);
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(500, 400).applyTo(itemComposite);
+
+        Label label = new Label(itemComposite, SWT.NONE);
+        label.setText("Select the items to export:");
+
+        exportItemsTreeViewer = new CheckboxRepositoryView();
+        try {
+            exportItemsTreeViewer.init(repositoryView.getViewSite());
+        } catch (PartInitException e) {
+            e.printStackTrace();
+        }
+
+        exportItemsTreeViewer.createPartControl(itemComposite);
+        exportItemsTreeViewer.refresh();
+        // force loading all nodes
+        exportItemsTreeViewer.getViewer().expandAll();
+        exportItemsTreeViewer.getViewer().collapseAll();
+        // expand to level of metadata connection
+        exportItemsTreeViewer.getViewer().expandToLevel(3);
+
+        // if user has select some items in repository view, mark them as checked
+        if (!selection.isEmpty()) {
+            ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(selection.toArray());
+        }
     }
 
     @SuppressWarnings("restriction")
@@ -124,6 +178,7 @@ class ExportItemWizardPage extends WizardPage {
 
         browseDirectoriesButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 handleLocationDirectoryButtonPressed();
             }
@@ -131,6 +186,7 @@ class ExportItemWizardPage extends WizardPage {
 
         browseArchivesButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 handleLocationArchiveButtonPressed();
             }
@@ -149,6 +205,7 @@ class ExportItemWizardPage extends WizardPage {
 
         directoryPathField.addFocusListener(new FocusAdapter() {
 
+            @Override
             public void focusLost(org.eclipse.swt.events.FocusEvent e) {
                 lastPath = directoryPathField.getText().trim();
             }
@@ -167,6 +224,7 @@ class ExportItemWizardPage extends WizardPage {
 
         archivePathField.addFocusListener(new FocusAdapter() {
 
+            @Override
             public void focusLost(org.eclipse.swt.events.FocusEvent e) {
                 lastPath = archivePathField.getText().trim();
             }
@@ -174,6 +232,7 @@ class ExportItemWizardPage extends WizardPage {
 
         itemFromDirectoryRadio.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 directoryRadioSelected();
             }
@@ -181,6 +240,7 @@ class ExportItemWizardPage extends WizardPage {
 
         itemFromArchiveRadio.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 archiveRadioSelected();
             }
@@ -281,17 +341,7 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        IRepositoryView repositoryView = RepositoryView.show();
-        IStructuredSelection selection = (IStructuredSelection) repositoryView.getSite().getSelectionProvider()
-                .getSelection();
-
-        Collection<Item> items = new ArrayList<Item>();
-        if (selection.isEmpty()) {
-            collectNodes(items, repositoryView.getRoot());
-        } else {
-            collectNodes(items, selection.toArray());
-        }
-
+        Collection<Item> items = getSelectedItems();
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
             items = exportItemUtil.getAllVersions(items);
@@ -301,6 +351,48 @@ class ExportItemWizardPage extends WizardPage {
         }
 
         return true;
+    }
+
+    /**
+     * Get all selected items to export.
+     * 
+     * @return
+     */
+    private Collection<Item> getSelectedItems() {
+        Object[] checkedElements = ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).getCheckedElements();
+        Object[] grayedElements = ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).getGrayedElements();
+        Object[] elements = removeGrayedElements(checkedElements, grayedElements);
+
+        Collection<Item> items = new ArrayList<Item>();
+        collectNodes(items, elements);
+
+        return items;
+    }
+
+    /**
+     * Remove some nodes with grayed checkbox to prevent exporting unnecessary child nodes of those grayed nodes.
+     * 
+     * @param checkedElements
+     * @param grayedElements
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    private Object[] removeGrayedElements(Object[] checkedElements, Object[] grayedElements) {
+        Set temp = new HashSet(checkedElements.length);
+        for (Object obj : checkedElements) {
+            temp.add(obj);
+        }
+
+        for (Object obj : grayedElements) {
+            temp.remove(obj);
+        }
+        Object[] elements = new Object[temp.size()];
+        int i = 0;
+        for (Object obj : temp) {
+            elements[i++] = obj;
+        }
+
+        return elements;
     }
 
     @SuppressWarnings("unchecked")
@@ -322,12 +414,69 @@ class ExportItemWizardPage extends WizardPage {
                 items.add(repositoryNode.getParent().getObject().getProperty().getItem());
             }
         }
-        RepositoryContentProvider repositoryContentProvider = (RepositoryContentProvider) RepositoryView.show()
-                .getViewer().getContentProvider();
+        RepositoryContentProvider repositoryContentProvider = (RepositoryContentProvider) RepositoryView.show().getViewer()
+                .getContentProvider();
         collectNodes(items, repositoryContentProvider.getChildren(repositoryNode));
     }
 
     public boolean performCancel() {
         return true;
+    }
+
+    /**
+     * 
+     * A repository view with checkbox on the left.
+     */
+    class CheckboxRepositoryView extends RepositoryView {
+
+        @Override
+        protected TreeViewer createTreeViewer(Composite parent) {
+            return new CheckboxRepositoryTreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.ui.views.RepositoryView#createPartControl(org.eclipse.swt.widgets.Composite)
+         */
+        @Override
+        public void createPartControl(Composite parent) {
+            super.createPartControl(parent);
+            CorePlugin.getDefault().getRepositoryService().removeRepositoryChangedListener(this);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.ui.views.RepositoryView#refresh(java.lang.Object)
+         */
+        @Override
+        public void refresh(Object object) {
+            refresh();
+            if (object != null) {
+                getViewer().expandToLevel(object, AbstractTreeViewer.ALL_LEVELS);
+            }
+        }
+
+        @Override
+        protected void makeActions() {
+        }
+
+        @Override
+        protected void hookContextMenu() {
+        }
+
+        @Override
+        protected void contributeToActionBars() {
+        }
+
+        @Override
+        protected void initDragAndDrop() {
+        }
+
+        @Override
+        protected void hookDoubleClickAction() {
+        }
+
     }
 }

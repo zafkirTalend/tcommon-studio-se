@@ -23,23 +23,29 @@ public class ExportItemWizard extends Wizard implements IImportWizard {
 
     private ExportItemWizardPage mainPage;
 
+    private IStructuredSelection selection;
+
     public ExportItemWizard() {
         super();
     }
 
+    @Override
     public void addPages() {
         super.addPages();
-        mainPage = new ExportItemWizardPage(getWindowTitle()); //$NON-NLS-1$
+        mainPage = new ExportItemWizardPage(getWindowTitle(), selection);
         addPage(mainPage);
     }
 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
+        this.selection = selection;
     }
 
+    @Override
     public boolean performCancel() {
         return mainPage.performCancel();
     }
 
+    @Override
     public boolean performFinish() {
         return mainPage.performFinish();
     }
