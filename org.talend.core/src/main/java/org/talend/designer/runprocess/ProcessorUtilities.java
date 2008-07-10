@@ -210,13 +210,22 @@ public class ProcessorUtilities {
         ProcessItem selectedProcessItem;
 
         selectedProcessItem = jobInfo.getProcessItem();
-        if (selectedProcessItem == null) {
-            if (jobInfo.getJobVersion() != null) {
-                selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
-            } else {
-                // child job
-                selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
-            }
+        // if (selectedProcessItem == null) {
+        // if (jobInfo.getJobVersion() != null) {
+        // selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
+        // } else {
+        // // child job
+        // selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
+        // }
+        // }
+
+        if (selectedProcessItem == null && jobInfo.getJobVersion() == null) {
+            // child job
+            selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
+        }
+
+        if (jobInfo.getJobVersion() != null) {
+            selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
         }
 
         if (selectedProcessItem == null) {
@@ -425,6 +434,18 @@ public class ProcessorUtilities {
             boolean applyContextToChildren) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, contextName);
+        jobInfo.setApplyContextToChildren(applyContextToChildren);
+        generateAllContexts = true;
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
+        generateAllContexts = false;
+        jobList.clear();
+        return result;
+    }
+
+    public static boolean generateCode(ProcessItem process, String contextName, String version, boolean statistics,
+            boolean trace, boolean applyContextToChildren) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         generateAllContexts = true;
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);

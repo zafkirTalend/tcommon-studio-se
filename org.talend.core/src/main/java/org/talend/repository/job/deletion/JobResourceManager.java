@@ -123,6 +123,7 @@ public class JobResourceManager {
         } catch (CoreException e) {
             // can't delete don't cause problem in the application so ignore it
             // RuntimeExceptionHandler.process(e);
+            e.printStackTrace();
         }
 
     }

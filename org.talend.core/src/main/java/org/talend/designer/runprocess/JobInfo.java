@@ -73,6 +73,20 @@ public class JobInfo {
         jobVersion = processItem.getProperty().getVersion();
     }
 
+    /**
+     * DOC nrousseau JobInfo constructor comment.
+     * 
+     * @param process2
+     * @param contextName2
+     */
+    public JobInfo(ProcessItem processItem, String contextName, String processVersion) {
+        this.processItem = processItem;
+        jobId = processItem.getProperty().getId();
+        jobName = processItem.getProperty().getLabel();
+        this.contextName = contextName;
+        jobVersion = processVersion;
+    }
+
     public String getContextName() {
         return contextName;
     }
