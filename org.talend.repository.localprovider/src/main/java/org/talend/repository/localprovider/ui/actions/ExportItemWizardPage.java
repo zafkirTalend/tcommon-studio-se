@@ -111,11 +111,12 @@ class ExportItemWizardPage extends WizardPage {
      */
     private void createItemList(Composite workArea) {
         Composite itemComposite = new Composite(workArea, SWT.NONE);
-        GridLayoutFactory.swtDefaults().applyTo(itemComposite);
+        GridLayoutFactory.swtDefaults().numColumns(2).applyTo(itemComposite);
         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(500, 400).applyTo(itemComposite);
 
         Label label = new Label(itemComposite, SWT.NONE);
         label.setText("Select the items to export:");
+        GridDataFactory.swtDefaults().span(2, 1).applyTo(label);
 
         exportItemsTreeViewer = new CheckboxRepositoryView();
         try {
@@ -125,6 +126,9 @@ class ExportItemWizardPage extends WizardPage {
         }
 
         exportItemsTreeViewer.createPartControl(itemComposite);
+
+        createSelectionButton(itemComposite);
+
         exportItemsTreeViewer.refresh();
         // force loading all nodes
         exportItemsTreeViewer.getViewer().expandAll();
@@ -136,6 +140,42 @@ class ExportItemWizardPage extends WizardPage {
         if (!selection.isEmpty()) {
             ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(selection.toArray());
         }
+    }
+
+    /**
+     * DOC hcw Comment method "createSelectionButton".
+     * 
+     * @param itemComposite
+     */
+    private void createSelectionButton(Composite itemComposite) {
+        Composite buttonComposite = new Composite(itemComposite, SWT.NONE);
+        GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(buttonComposite);
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(buttonComposite);
+
+        Button selectAll = new Button(buttonComposite, SWT.PUSH);
+        selectAll.setText(DataTransferMessages.DataTransfer_selectAll);
+        selectAll.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setAllChecked(true);
+            }
+        });
+
+        setButtonLayoutData(selectAll);
+
+        Button deselectAll = new Button(buttonComposite, SWT.PUSH);
+        deselectAll.setText(DataTransferMessages.DataTransfer_deselectAll);
+        deselectAll.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setAllChecked(false);
+            }
+        });
+
+        setButtonLayoutData(deselectAll);
+
     }
 
     @SuppressWarnings("restriction")
@@ -262,7 +302,7 @@ class ExportItemWizardPage extends WizardPage {
     protected void handleLocationDirectoryButtonPressed() {
 
         DirectoryDialog dialog = new DirectoryDialog(directoryPathField.getShell());
-        dialog.setMessage(DataTransferMessages.WizardProjectsImportPage_SelectDialogTitle);
+        dialog.setMessage(DataTransferMessages.FileExport_selectDestinationTitle);
 
         String dirName = directoryPathField.getText().trim();
         if (dirName.length() == 0) {
@@ -293,9 +333,9 @@ class ExportItemWizardPage extends WizardPage {
     @SuppressWarnings("restriction")
     protected void handleLocationArchiveButtonPressed() {
 
-        FileDialog dialog = new FileDialog(archivePathField.getShell());
+        FileDialog dialog = new FileDialog(archivePathField.getShell(), SWT.SAVE);
         dialog.setFilterExtensions(FILE_EXPORT_MASK);
-        dialog.setText(DataTransferMessages.WizardProjectsImportPage_SelectArchiveDialogTitle);
+        dialog.setText(DataTransferMessages.ArchiveExport_selectDestinationTitle);
 
         String fileName = archivePathField.getText().trim();
         if (fileName.length() == 0) {
