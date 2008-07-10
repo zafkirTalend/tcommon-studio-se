@@ -65,6 +65,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
+import org.talend.core.ui.context.model.ContextValueErrorChecker;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -118,6 +119,8 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
     private ConfigureContextAction configContext;
 
     private ToolItem contextConfigButton;
+
+    private ContextValueErrorChecker valueChecker;
 
     /**
      * bqian ConextTemplateComposite constructor comment.
@@ -211,6 +214,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
             }
         });
 
+        valueChecker = new ContextValueErrorChecker(viewer);
     }
 
     /**
@@ -274,15 +278,16 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
     }
 
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
-
         IContextParameter para = cellModifier.getRealParameter(item.getData());
         if (para == null) {
             return;
         }
+        valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX);
         if (!para.isBuiltIn()) {
             // not built-in
             return;
         }
+
         cellEditor = cellFactory.getCustomCellEditor(para, tree);
 
         if (cellEditor == null) {
@@ -298,6 +303,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
             cellEditor = null;
             return;
         }
+        valueChecker.register(control);
         // add our editor listener
         cellEditor.addListener(createEditorListener(treeEditor));
 
@@ -320,6 +326,10 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
     private void deactivateCellEditor(final TreeEditor tableEditor) {
         tableEditor.setEditor(null, null, VARIABLE_COLUMN_INDEX);
         if (cellEditor != null) {
+            Control control = cellEditor.getControl();
+            if (control != null) {
+                valueChecker.unregister(control);
+            }
             cellEditor.deactivate();
             cellEditor.removeListener(editorListener);
             cellEditor = null;
@@ -402,6 +412,22 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         viewer.setInput(cm.getListContext());
         viewer.expandAll();
         contextConfigButton.setEnabled(!modelManager.isReadOnly());
+
+        // (feature 1597)
+        checkItemValueErrors(viewer.getTree().getItems());
+    }
+
+    private void checkItemValueErrors(final TreeItem[] items) {
+        if (items == null) {
+            return;
+        }
+        for (TreeItem item : items) {
+            IContextParameter para = cellModifier.getRealParameter(item.getData());
+            if (para != null && para instanceof IContextParameter) {
+                valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX);
+            }
+            checkItemValueErrors(item.getItems());
+        }
     }
 
     /**
@@ -794,6 +820,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return;
                 }
                 para.setValue((String) value);
+                valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX, (String) value);
             } else if (property.equals(PROMPT_COLUMN_NAME)) {
                 if (para.getPrompt().equals(value)) {
                     return;
@@ -966,6 +993,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     new TextCellEditor(tree) });
             viewer.refresh();
             viewer.expandAll();
+            checkItemValueErrors(tree.getItems());
         }
     }
 
@@ -1000,6 +1028,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     new TextCellEditor(tree) });
             viewer.refresh();
             viewer.expandAll();
+            checkItemValueErrors(tree.getItems());
         }
     }
 

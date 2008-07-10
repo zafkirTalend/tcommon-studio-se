@@ -19,6 +19,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -28,8 +29,10 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.TalendTextUtils;
 
@@ -76,6 +79,16 @@ public final class DefaultCellEditorFactory {
 
     }
 
+    private void setModifyFlag() {
+        // set updated flag.
+        if (modelManager != null) {
+            IContextManager manager = modelManager.getContextManager();
+            if (manager != null && manager instanceof JobContextManager) {
+                ((JobContextManager) manager).setModified(true);
+            }
+        }
+    }
+
     public CellEditor getCustomCellEditor(final IContextParameter para, final Composite table) {
         this.para = para;
         String defalutDataValue = para.getValue();
@@ -91,18 +104,21 @@ public final class DefaultCellEditorFactory {
 
                     protected void focusLost() {
                         super.focusLost();
+                        String value = doGetValue().toString();
+                        if (para.getValue().equals(value)) {
+                            return;
+                        }
+                        para.setValue(value);
                         refreshAll();
+                        setModifyFlag();
                     }
 
                     public Object doGetValue() {
                         // Get the index into the list via this call to super.
                         //
                         int index = ((Integer) super.doGetValue()).intValue();
-                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super
-                                .doGetValue()).intValue()) : null;
-                        if (string != null) {
-                            para.setValue(string.toString());
-                        }
+                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue())
+                                .intValue()) : null;
                         return string;
                     }
                 };
@@ -122,18 +138,22 @@ public final class DefaultCellEditorFactory {
 
                     protected void focusLost() {
                         super.focusLost();
+                        String value = doGetValue().toString();
+                        if (para.getValue().equals(value)) {
+                            return;
+                        }
+                        para.setValue(value);
                         refreshAll();
+                        setModifyFlag();
                     }
 
                     public Object doGetValue() {
                         // Get the index into the list via this call to super.
                         //
                         int index = ((Integer) super.doGetValue()).intValue();
-                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super
-                                .doGetValue()).intValue()) : null;
-                        if (string != null) {
-                            para.setValue(string.toString());
-                        }
+                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue())
+                                .intValue()) : null;
+
                         return string;
                     }
                 };
@@ -162,10 +182,28 @@ public final class DefaultCellEditorFactory {
         }
 
         if (cellEditor == null) {
-            return null;
+            cellEditor = createDefaultTextCellEditor(table);
         }
         cellEditor.setValue(defalutDataValue);
         return cellEditor;
+    }
+
+    private CellEditor createDefaultTextCellEditor(Composite parent) {
+        return new TextCellEditor(parent) {
+
+            @Override
+            protected void focusLost() {
+                super.focusLost();
+                String value = doGetValue().toString();
+                if (para.getValue().equals(value)) {
+                    return;
+                }
+                para.setValue(value);
+                refreshAll();
+                setModifyFlag();
+            }
+
+        };
     }
 
     private CellEditor createDirectoryCellEditor(Composite parent, final String defaultPath) {
@@ -206,6 +244,7 @@ public final class DefaultCellEditorFactory {
                 updateContents(para.getDisplayValue());
                 if (value instanceof String[]) {
                     refreshAll();
+                    setModifyFlag();
                 }
 
             }
@@ -391,6 +430,7 @@ public final class DefaultCellEditorFactory {
             para.setValue(value.toString());
             // }
             refreshAll();
+            setModifyFlag();
         }
     }
 }

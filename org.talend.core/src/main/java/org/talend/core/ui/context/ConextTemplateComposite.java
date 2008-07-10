@@ -645,21 +645,8 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                     // set the source to built-in
                     parameter.setSource(IContextParameter.BUILT_IN);
                     modelManager.onContextAddParameter(getContextManager(), parameter);
-
-                    TreeItem[] treeItemArray = viewer.getTree().getItems();
-                    for (TreeItem treeitem : treeItemArray) {
-                        if (treeitem.getData() instanceof ContextParameterSortedParent) {
-                            if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) treeitem.getData())
-                                    .getSourceName())) {
-                                if (((ContextParameterSortedParent) treeitem.getData()).getParameter() != null) {
-                                    if (parameter.getName().equals(
-                                            ((ContextParameterSortedParent) treeitem.getData()).getParameter().getName())) {
-                                        viewer.getTree().setSelection(treeitem);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    ContextManagerHelper.revertTreeSelection(getViewer(), parameter);
+                    checkButtonEnableState();
                 }
             }
 
@@ -718,6 +705,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                 IContextParameter parameter = null;
                 TreeItem[] items = viewer.getTree().getSelection();
                 if (items.length > 0) {
+                    IContextParameter beforeParam = ContextManagerHelper.getNearParameterBySelectionItem(getViewer());
                     Object object = items[0].getData();
                     if (object == null) {
                         return;
@@ -739,6 +727,9 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                         parameter = ((ContextParameterParent) object).getParameter();
                         removeParameter(parameter);
                     }
+
+                    ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
+                    checkButtonEnableState();
                 }
             }
 
@@ -757,7 +748,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
             return;
         }
 
-        viewer.getTree().setSelection(viewer.getTree().getItem(0));
     }
 
     private Button createSelectContextVariablesPushButton(final Composite parent) {

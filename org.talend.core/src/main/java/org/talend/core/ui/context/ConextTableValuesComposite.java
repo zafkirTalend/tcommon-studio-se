@@ -56,6 +56,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.context.model.ContextValueErrorChecker;
 
 /**
  * DOC zwang class global comment. Detailled comment <br/>
@@ -82,6 +83,8 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
     private ToolItem contextConfigButton;
 
     private CellEditor[] cellEditors;
+
+    private ContextValueErrorChecker valueChecker;
 
     /**
      * Constructor.
@@ -185,6 +188,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                 }
             }
         });
+        valueChecker = new ContextValueErrorChecker(viewer);
     }
 
     private IPreferenceStore getPreferenceStore() {
@@ -251,6 +255,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         if (para == null) {
             return;
         }
+        valueChecker.checkErrors(item, column);
         if (!para.isBuiltIn()) {
             // not built-in
             return;
@@ -271,6 +276,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             cellEditor = null;
             return;
         }
+        valueChecker.register(control);
         // add our editor listener
         cellEditor.addListener(createEditorListener(treeEditor, column));
 
@@ -294,6 +300,10 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
     private void deactivateCellEditor(final TreeEditor tableEditor, int columnIndex) {
         tableEditor.setEditor(null, null, columnIndex);
         if (cellEditor != null) {
+            Control control = cellEditor.getControl();
+            if (control != null) {
+                valueChecker.unregister(control);
+            }
             cellEditor.deactivate();
             cellEditor.removeListener(editorListener);
             cellEditor = null;
@@ -411,6 +421,23 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         viewer.setInput(contextTemplate);
         viewer.expandAll();
         contextConfigButton.setEnabled(!modelManager.isReadOnly());
+        // (feature 1597)
+        checkItemValueErrors(tree.getItems());
+    }
+
+    private void checkItemValueErrors(final TreeItem[] items) {
+        if (items == null) {
+            return;
+        }
+        for (TreeItem item : items) {
+            for (int i = 1; i < viewer.getColumnProperties().length; i++) {
+                IContextParameter para = cellModifier.getRealParameter((String) viewer.getColumnProperties()[i], item.getData());
+                if (para != null && para instanceof IContextParameter) {
+                    valueChecker.checkErrors(item, i);
+                }
+            }
+            checkItemValueErrors(item.getItems());
+        }
     }
 
     /**
@@ -500,10 +527,9 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
          * @param templatePara
          * @return
          */
-        private IContextParameter getRealParameter(String property, Object element) {
+        public IContextParameter getRealParameter(String property, Object element) {
             IContextParameter para = null;
             IContext context = null;
-            List<IContext> contextList = getContexts();
 
             if (!(property.equals(COLUMN_NAME_PROPERTY))) {
                 context = modelManager.getContextManager().getContext(property);
@@ -513,9 +539,11 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             }
 
             if (element instanceof GroupBySourceProvier.Parent) {
-                if ("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName)) {
+                if (IContextParameter.BUILT_IN.equals(((GroupBySourceProvier.Parent) element).sourceName)) {
                     para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
                 }
+            } else if (element instanceof GroupBySourceProvier.Son) {
+                para = context.getContextParameter(((GroupBySourceProvier.Son) element).parameter.getName());
             } else if (element instanceof GroupByNothingProvier.Parent) {
                 para = context.getContextParameter(((GroupByNothingProvier.Parent) element).parameter.getName());
             }
@@ -537,6 +565,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             for (int i = 0; i < (contextList.size() + 1); i++) {
                 if (property.equals(properties[i])) {
                     para = getRealParameter(properties[i], object);
+                    valueChecker.checkErrors(item, i, (String) value);
                 }
             }
 

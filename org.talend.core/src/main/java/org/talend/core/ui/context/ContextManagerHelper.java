@@ -39,6 +39,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.ui.context.cmd.OrderContextParameterCommand;
 import org.talend.core.ui.context.model.template.ContextConstant;
 import org.talend.core.ui.context.model.template.ContextParameterParent;
+import org.talend.core.ui.context.model.template.ContextParameterSortedSon;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.model.ERepositoryStatus;
@@ -501,26 +502,148 @@ public final class ContextManagerHelper {
         //
         modelManager.refresh();
 
-        recovertTreeSelection(viewer, movedParam);
+        revertTreeSelection(viewer, movedParam);
 
         return orderCommand.isExecution();
     }
 
-    private static void recovertTreeSelection(TreeViewer viewer, IContextParameter param) {
-        if (viewer == null || param == null) {
+    /**
+     * 
+     * revert selection according to parameter.
+     */
+    public static void revertTreeSelection(TreeViewer viewer, IContextParameter param) {
+        if (viewer == null) {
             return;
         }
         final Tree tree = viewer.getTree();
+        final TreeItem[] items = tree.getItems();
 
-        for (TreeItem item : tree.getItems()) {
+        TreeItem item = retrieveTreeItem(items, param);
+        if (item == null) {
+            if (items.length > 0) { // select first
+                tree.setSelection(items[0]);
+            }
+        } else {
+            tree.setSelection(item);
+        }
+    }
+
+    private static TreeItem retrieveTreeItem(final TreeItem[] items, IContextParameter param) {
+        if (items == null || param == null) {
+            return null;
+        }
+        for (TreeItem item : items) {
             final Object data = item.getData();
-            if (data != null && data instanceof ContextParameterParent) {
-                ContextParameterParent parent = (ContextParameterParent) data;
-                if (parent.getParameter() != null && param.getName().equals(parent.getParameter().getName())) {
-                    tree.setSelection(item);
-                    return;
+            if (data != null) {
+                if (data instanceof ContextParameterParent) {
+                    ContextParameterParent parent = (ContextParameterParent) data;
+                    if (parent.getParameter() != null && param.getName().equals(parent.getParameter().getName())) {
+                        return item;
+                    }
+                } else if (data instanceof ContextParameterSortedSon) {
+                    ContextParameterSortedSon son = (ContextParameterSortedSon) data;
+                    if (son.getParameter() != null && param.getName().equals(son.getParameter().getName())) {
+                        return item;
+                    }
                 }
             }
+            // search child item
+            TreeItem childItem = retrieveTreeItem(item.getItems(), param);
+            if (childItem != null) {
+                return childItem;
+            }
         }
+        return null;
+    }
+
+    /**
+     * 
+     * search before context parameter item.
+     */
+    public static IContextParameter getNearParameterBySelectionItem(final TreeViewer viewer) {
+        if (viewer == null) {
+            return null;
+        }
+        final Tree tree = viewer.getTree();
+        TreeItem[] selection = tree.getSelection();
+
+        final TreeItem[] items = tree.getItems();
+        if (selection != null && selection.length == 1) {
+            TreeItem movedItem = selection[0];
+            Object data = movedItem.getData();
+            if (data != null) {
+                return searchNearItemParam(items, movedItem);
+
+            }
+        }
+        return null;
+
+    }
+
+    /**
+     * 
+     * return the item of real context parameter.
+     */
+    private static IContextParameter searchNearItemParam(final TreeItem[] items, final TreeItem searchItem) {
+        if (items == null || searchItem == null) {
+            return null;
+        }
+        for (int i = items.length - 1; i >= 0; i--) {
+            TreeItem item = items[i];
+            IContextParameter param = searchNearItemParam(item.getItems(), searchItem);
+            if (param != null) {
+                return param;
+            }
+            //
+            if (item == searchItem) {
+                if (i > 0) { // before item
+                    return searchEndItemParam(items[i - 1]);
+                } else { // first in current
+                    if (i + 1 < items.length) { // next item
+                        return searchEndItemParam(items[i + 1]);
+                    } else { // only one left
+                        TreeItem parentItem = item.getParentItem();
+                        if (parentItem != null) {
+                            final Tree parentTree = item.getParent();
+                            final int index = parentTree.indexOf(parentItem);
+                            if (index > -1) { // in tree root
+                                if (index > 0) {
+                                    return searchEndItemParam(parentTree.getItem(index - 1));
+                                } else { // is first
+                                    return null;
+                                }
+                            } else { // not found
+                                return null;
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return null;
+    }
+
+    private static IContextParameter searchEndItemParam(final TreeItem item) {
+        if (item == null) {
+            return null;
+        }
+        TreeItem foundItem = item; // self
+        final TreeItem[] items = item.getItems();
+        if (items != null && items.length > 0) {
+            foundItem = items[items.length - 1];
+
+        }
+        final Object data = foundItem.getData();
+
+        if (data == null) {
+            return null;
+        } else if (data instanceof ContextParameterSortedSon) {
+            return ((ContextParameterSortedSon) data).getParameter();
+        } else if (data instanceof ContextParameterParent) {
+            return ((ContextParameterParent) data).getParameter();
+        }
+        return null;
     }
 }
