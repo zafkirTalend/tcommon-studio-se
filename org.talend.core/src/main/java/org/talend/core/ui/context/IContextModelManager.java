@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
+import java.util.Set;
+
 import org.eclipse.gef.commands.CommandStack;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -44,6 +46,8 @@ public interface IContextModelManager {
     public void onContextAddParameter(IContextManager contextManager, IContextParameter parameter);
 
     public void onContextRemoveParameter(IContextManager contextManager, String paramName);
+
+    public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames);
 
     public boolean isReadOnly();
 }

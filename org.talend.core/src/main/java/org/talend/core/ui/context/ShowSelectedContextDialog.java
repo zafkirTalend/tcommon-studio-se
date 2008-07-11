@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
+import java.util.Set;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -108,6 +110,10 @@ public class ShowSelectedContextDialog extends Dialog {
         }
 
         public void onContextRenameParameter(IContextManager contextManager, String oldName, String newName) {
+
+        }
+
+        public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames) {
 
         }
 

@@ -14,7 +14,9 @@ package org.talend.core.ui.context;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -713,19 +715,21 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                     if (object instanceof ContextParameterSortedParent) {
                         if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceName())) {
                             parameter = ((ContextParameterSortedParent) object).getParameter();
-                            removeParameter(parameter);
+                            modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
                         } else {
+                            Set<String> names = new HashSet<String>();
                             for (ContextParameterSon son : ((ContextParameterSortedParent) object).getSon()) {
                                 parameter = ((ContextParameterSortedSon) son).getParameter();
-                                removeParameter(parameter);
+                                names.add(parameter.getName());
                             }
+                            modelManager.onContextRemoveParameter(getContextManager(), names);
                         }
                     } else if (object instanceof ContextParameterSortedSon) {
                         parameter = ((ContextParameterSortedSon) object).getParameter();
-                        removeParameter(parameter);
+                        modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
                     } else if (object instanceof ContextParameterParent) {
                         parameter = ((ContextParameterParent) object).getParameter();
-                        removeParameter(parameter);
+                        modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
                     }
 
                     ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
@@ -737,17 +741,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         Image image = ImageProvider.getImage(EImage.DELETE_ICON);
         removePushButton.setImage(image);
         return removePushButton;
-    }
-
-    private void removeParameter(IContextParameter parameter) {
-        List<IContextParameter> list = getContextManager().getDefaultContext().getContextParameterList();
-
-        modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
-
-        if (list.isEmpty()) {
-            return;
-        }
-
     }
 
     private Button createSelectContextVariablesPushButton(final Composite parent) {
