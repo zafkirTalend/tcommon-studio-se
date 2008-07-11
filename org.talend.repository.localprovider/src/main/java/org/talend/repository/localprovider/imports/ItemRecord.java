@@ -40,6 +40,8 @@ public class ItemRecord {
 
     private boolean locked;
 
+    private boolean imported = false;
+
     public ItemRecord(IPath path, Property property) {
         this.path = path;
         this.property = property;
@@ -74,6 +76,7 @@ public class ItemRecord {
     }
 
     public boolean isValid() {
+        // TODO mhelleboid split validation in two steps to be able to filter a valid item and avoid adding an error
         return errors.isEmpty();
     }
 
@@ -129,4 +132,11 @@ public class ItemRecord {
         this.locked = locked;
     }
 
+    public void setImported(boolean imported) {
+        this.imported = imported;
+    }
+
+    public boolean isImported() {
+        return imported;
+    }
 }

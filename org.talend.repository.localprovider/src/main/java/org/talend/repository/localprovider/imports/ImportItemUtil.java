@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -38,12 +39,17 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IProjectMigrationTask.ExecutionResult;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -52,8 +58,11 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.constants.FileConstants;
+import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ItemRecord.State;
@@ -73,7 +82,7 @@ public class ImportItemUtil {
 
     private boolean hasErrors = false;
 
-    private int importedItems = 0;
+    private int usedItems = 0;
 
     private RepositoryObjectCache cache = new RepositoryObjectCache();
 
@@ -183,9 +192,48 @@ public class ImportItemUtil {
         return false;
     }
 
-    public Item importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) throws PersistenceException {
+    public List<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords,
+            IProgressMonitor monitor, boolean overwrite) {
+        monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
+        for (ItemRecord itemRecord : itemRecords) {
+            if (!monitor.isCanceled()) {
+                monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
+                if (itemRecord.isValid()) {
+                    reinitRepository();
+                    importItemRecord(manager, itemRecord, overwrite);
+                    monitor.worked(1);
+                }
+            }
+        }
+        monitor.done();
+
+        // cannot cancel this part
+        monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
+        for (ItemRecord itemRecord : itemRecords) {
+            if (itemRecord.isImported()) {
+                reinitRepository();
+                applyMigrationTasks(itemRecord, monitor);
+            }
+            monitor.worked(1);
+        }
+        monitor.done();
+
+        return itemRecords;
+    }
+
+    private void reinitRepository() {
+        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+        if (usedItems++ > 2) {
+            usedItems = 0;
+            try {
+                repFactory.initialize();
+            } catch (PersistenceException e) {
+            }
+        }
+    }
+
+    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) {
         resolveItem(manager, itemRecord);
-        Item newItem = null;
         if (itemRecord.getItem() != null) {
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
             IPath path = new Path(itemRecord.getItem().getState().getPath());
@@ -194,8 +242,8 @@ public class ImportItemUtil {
             try {
                 repFactory.createParentFoldersRecursively(itemType, path);
             } catch (Exception e) {
-                path = new Path(""); //$NON-NLS-1$
                 logError(e);
+                path = new Path(""); //$NON-NLS-1$
             }
 
             try {
@@ -214,10 +262,6 @@ public class ImportItemUtil {
                 }
 
                 IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                if (importedItems++ > 2) {
-                    importedItems = 0;
-                    repFactory.initialize();
-                }
 
                 User author = itemRecord.getProperty().getAuthor();
                 if (author != null) {
@@ -228,38 +272,109 @@ public class ImportItemUtil {
 
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
-                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
+                    itemRecord.setImported(true);
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
+                        .getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
+                    itemRecord.setImported(true);
                 } else {
-                    logError(new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist."));
+                    PersistenceException e = new PersistenceException("A newer version of " + tmpItem.getProperty()
+                            + " already exist.");
+                    itemRecord.addError(e.getMessage());
+                    logError(e);
                 }
-
-                lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                newItem = lastVersion.getProperty().getItem();
-
-                Context ctx = CorePlugin.getContext();
-                RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-                for (String taskId : itemRecord.getMigrationTasksToApply()) {
-                    IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
-                    if (task == null) {
-                        log.warn("Task " + taskId + " found in project doesn't exist anymore !");
-                    } else {
-                        ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
-                        if (executionResult == ExecutionResult.FAILURE) {
-                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
-                                    + " failed)");
-                            // TODO smallet add a warning/error to the job using model
-                        }
-                    }
-                }
-            } catch (PersistenceException e) {
-                logError(e);
-                throw e;
             } catch (Exception e) {
+                itemRecord.addError(e.getMessage());
                 logError(e);
             }
         }
-        return newItem;
+    }
+
+    private void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
+        Context ctx = CorePlugin.getContext();
+        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
+
+        Item item = null;
+        try {
+            item = ProxyRepositoryFactory.getInstance().getUptodateProperty(itemRecord.getItem().getProperty())
+                    .getItem();
+        } catch (Exception e) {
+            logError(e);
+        }
+
+        for (String taskId : itemRecord.getMigrationTasksToApply()) {
+            IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
+            if (task == null) {
+                log.warn("Task " + taskId + " found in project doesn't exist anymore !");
+            } else {
+                monitor.subTask("apply migration task " + task.getName() + " on item " + itemRecord.getItemName());
+
+                try {
+                    if (item != null) {
+                        ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
+                        if (executionResult == ExecutionResult.FAILURE) {
+                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task "
+                                    + task.getName() + " failed)");
+                            // TODO smallet add a warning/error to the job using model
+                        }
+                    }
+                } catch (Exception e) {
+                    log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task "
+                            + task.getName() + " failed)");
+                }
+            }
+        }
+
+        try {
+            // Generated documentaiton for imported item.
+            if (item != null && PluginChecker.isDocumentationPluginLoaded()) {
+                IDocumentationService service = (IDocumentationService) GlobalServiceRegister.getDefault().getService(
+                        IDocumentationService.class);
+                if (item instanceof ProcessItem) {
+                    service.saveDocumentNode(item);
+                } else if (item instanceof JobletProcessItem && PluginChecker.isJobLetPluginLoaded()) {
+                    service.saveDocumentNode(item);
+                }
+
+            }
+        } catch (Exception e) {
+            logError(e);
+        }
+
+        try {
+            if (item != null && item instanceof RoutineItem) {
+                RoutineItem routineItem = (RoutineItem) item;
+                routineSynchronizer.syncRoutine(routineItem, true);
+                routineSynchronizer.getFile(routineItem);
+            }
+        } catch (Exception e) {
+            logError(e);
+        }
+
+    }
+
+    private ITalendSynchronizer getRoutineSynchronizer() {
+
+        ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                ICodeGeneratorService.class);
+
+        ECodeLanguage lang = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
+        ITalendSynchronizer routineSynchronizer = null;
+        switch (lang) {
+        case JAVA:
+            routineSynchronizer = service.createJavaRoutineSynchronizer();
+            break;
+        case PERL:
+            routineSynchronizer = service.createPerlRoutineSynchronizer();
+            break;
+        default:
+            throw new UnsupportedOperationException("Unknow language: " + lang);
+        }
+
+        return routineSynchronizer;
+
     }
 
     private void logError(Exception e) {
