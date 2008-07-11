@@ -24,6 +24,8 @@ import org.talend.core.CorePlugin;
  */
 public enum ECoreImage implements IImage {
 
+    PROJECT_ICON("/icons/prj_obj.gif"), //$NON-NLS-1$
+
     TALEND_PICTO("/icons/talend-picto-small.gif"), //$NON-NLS-1$
 
     DEFAULT_WIZ("/icons/defaultWizard.png"), //$NON-NLS-1$
