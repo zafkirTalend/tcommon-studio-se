@@ -140,6 +140,10 @@ public class ExportFileResource {
         return map.get(path);
     }
 
+    public void removeAllMap() {
+        this.map = new HashMap<String, Set<URL>>();
+    }
+
     /**
      * Gets the count of the files.
      * 
