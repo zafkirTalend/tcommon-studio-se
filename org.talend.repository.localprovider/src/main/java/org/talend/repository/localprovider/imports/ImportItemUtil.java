@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -36,7 +35,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
@@ -54,7 +52,6 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.core.model.repository.RepositoryObject;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
@@ -186,179 +183,6 @@ public class ImportItemUtil {
         return false;
     }
 
-    /**
-     * Import a list of item record to the project, then apply the migration tasks on this item list.
-     * 
-     * @param manager
-     * @param itemRecords
-     * @param monitor
-     * @return
-     */
-    public Map<ItemRecord, Item> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords,
-            IProgressMonitor monitor) {
-        return importItemRecords(manager, itemRecords, monitor, false);
-    }
-
-    /**
-     * Import a list of item record to the project, then apply the migration tasks on this item list.
-     * 
-     * @param manager
-     * @param itemRecords
-     * @param monitor Monitor should have at least twice times the items will be checked 2 times.
-     * @return
-     */
-    public Map<ItemRecord, Item> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords,
-            IProgressMonitor monitor, boolean overwrite) {
-        Map<ItemRecord, Item> itemsMap = importItemRecordsWithoutMigration(manager, itemRecords, monitor, overwrite);
-
-        clear();
-        if (!monitor.isCanceled()) {
-            applyMigrationTasksOnItems(monitor, itemsMap);
-        }
-
-        // TODO Need to check the action done when cancel the import.
-
-        // If there was a cancel during the import, delete the items imported.
-        // This won't remove the folder created while importing, only items.
-        if (monitor.isCanceled()) {
-            ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-            for (Item item : itemsMap.values()) {
-                try {
-                    repFactory.deleteObjectPhysical(new RepositoryObject(item.getProperty()));
-                } catch (PersistenceException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-            itemsMap.clear();
-        }
-
-        return itemsMap;
-    }
-
-    private void applyMigrationTasksOnItems(IProgressMonitor monitor, Map<ItemRecord, Item> itemsMap) {
-        Context ctx = CorePlugin.getContext();
-        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-
-        for (ItemRecord itemRecord : itemsMap.keySet()) {
-            monitor.subTask("Apply migration tasks on " + itemRecord.getItemName());
-
-            for (String taskId : itemRecord.getMigrationTasksToApply()) {
-                IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
-                if (task == null) {
-                    log.warn("Task " + taskId + " found in project doesn't exist anymore !");
-                } else {
-                    ExecutionResult executionResult = task.execute(repositoryContext.getProject(), itemsMap.get(itemRecord));
-                    if (executionResult == ExecutionResult.FAILURE) {
-                        log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
-                                + " failed)");
-                    }
-                }
-            }
-            monitor.worked(1);
-            if (monitor.isCanceled()) {
-                return;
-            }
-        }
-    }
-
-    private Map<ItemRecord, Item> importItemRecordsWithoutMigration(ResourcesManager manager, List<ItemRecord> itemRecords,
-            IProgressMonitor monitor, boolean overwrite) {
-        Map<ItemRecord, Item> itemsMap = new HashMap<ItemRecord, Item>();
-
-        for (ItemRecord itemRecord : itemRecords) {
-            monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName());
-            resolveItem(manager, itemRecord);
-            Item newItem = null;
-            if (itemRecord.getItem() != null) {
-                ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
-                IPath path = new Path(itemRecord.getItem().getState().getPath());
-                ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-
-                try {
-                    repFactory.createParentFoldersRecursively(itemType, path);
-                } catch (Exception e) {
-                    path = new Path(""); //$NON-NLS-1$
-                    logError(e);
-                }
-
-                try {
-                    Item tmpItem = itemRecord.getItem();
-
-                    // delete existing items before importing, this should be done once for a different id
-                    String id = itemRecord.getProperty().getId();
-                    if (overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
-                            && !deletedItems.contains(id)) {
-                        List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
-                        if (!list.isEmpty()) {
-                            // this code will delete all version of item with same id
-                            repFactory.forceDeleteObjectPhysical(list.get(0));
-                            deletedItems.add(id);
-                        }
-                    }
-
-                    IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                    if (importedItems++ > 2) {
-                        importedItems = 0;
-                        repFactory.initialize();
-                    }
-
-                    User author = itemRecord.getProperty().getAuthor();
-                    if (author != null) {
-                        if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
-                            tmpItem.getProperty().setAuthor(null); // author will be the logged user in create method
-                        }
-                    }
-
-                    if (lastVersion == null) {
-                        repFactory.create(tmpItem, path, true);
-                    } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
-                        repFactory.forceCreate(tmpItem, path);
-                    } else {
-                        logError(new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist."));
-                    }
-
-                    lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                    newItem = lastVersion.getProperty().getItem();
-                } catch (PersistenceException e) {
-                    logError(e);
-                } catch (Exception e) {
-                    logError(e);
-                }
-            }
-            if (newItem != null) {
-                itemsMap.put(itemRecord, newItem);
-            }
-            monitor.worked(1);
-            if (monitor.isCanceled()) {
-                return itemsMap;
-            }
-        }
-        return itemsMap;
-    }
-
-    /**
-     * Added only for compatibility.
-     * 
-     * @param manager
-     * @param itemRecord
-     * @return
-     * @throws PersistenceException
-     * @deprecated
-     */
-    public Item importItemRecord(ResourcesManager manager, ItemRecord itemRecord) throws PersistenceException {
-        return importItemRecord(manager, itemRecord, false);
-    }
-
-    /**
-     * DOC nrousseau Comment method "importItemRecord".
-     * 
-     * @param manager
-     * @param itemRecord
-     * @param overwrite
-     * @return
-     * @throws PersistenceException
-     * @deprecated
-     */
     public Item importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) throws PersistenceException {
         resolveItem(manager, itemRecord);
         Item newItem = null;
@@ -444,10 +268,6 @@ public class ImportItemUtil {
         String messageStatus = e.getMessage() != null ? e.getMessage() : ""; //$NON-NLS-1$
         status = new Status(IStatus.ERROR, RepositoryLocalProviderPlugin.PLUGIN_ID, IStatus.OK, messageStatus, e);
         RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
-    }
-
-    public List<ItemRecord> populateItems(ResourcesManager collector) {
-        return populateItems(collector, false);
     }
 
     /**
