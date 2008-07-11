@@ -41,17 +41,21 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.genhtml.FileCopyUtils;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.HTMLHandler;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
+import org.talend.core.model.genhtml.IJobSettingConstants;
 import org.talend.core.model.genhtml.XMLHandler;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -60,8 +64,12 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.repository.documentation.ExportFileResource;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -333,6 +341,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
         Element jobElement = generateJobInfo(item, projectElement, version);
 
+        // This two element see feature 4162
+        generateContextInfo((ProcessItem) item, jobElement);
+
+        generateJobSettingInfo((ProcessItem) item, jobElement);
+
         List<List> allList = seperateNodes(item);
         if (allList == null || allList.size() != 3) {
             return;
@@ -393,6 +406,254 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 + IHTMLDocConstants.XML_FILE_SUFFIX;
 
         XMLHandler.generateXMLFile(tempFolderPath, filePath, document);
+    }
+
+    /**
+     * DOC YeXiaowei Comment method "genereateJobSettingInfo".
+     * 
+     * @return
+     */
+    private void generateJobSettingInfo(final ProcessItem item, final Element element) {
+        Element jobSettingInfoElement = DocumentHelper.createElement("jobSetting");
+
+        ParametersType jobDirectParams = item.getProcess().getParameters();
+
+        if (jobDirectParams == null || jobDirectParams.getElementParameter() == null
+                || jobDirectParams.getElementParameter().isEmpty()) {
+            return;
+        }
+
+        EList params = jobDirectParams.getElementParameter();
+
+        Map<String, String> nameValueMap = new HashMap<String, String>();
+
+        for (int i = 0; i < params.size(); i++) {
+            ElementParameterType param = (ElementParameterType) params.get(i);
+            nameValueMap.put(param.getName(), HTMLDocUtils.checkString(param.getValue()));
+        }
+        // Main setting see job info
+
+        // Extra setting
+        Element extraElement = DocumentHelper.createElement("extra");
+        jobSettingInfoElement.add(extraElement);
+
+        createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.COMP_DEFAULT_FILE_DIR));
+
+        createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.MULTI_THREAD_EXECATION));
+
+        createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.IMPLICIT_TCONTEXTLOAD));
+        if (nameValueMap.get(IJobSettingConstants.IMPLICIT_TCONTEXTLOAD).equals("true")) {
+
+            if (nameValueMap.get(IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT).equals("true")) {
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
+                        IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
+                        IJobSettingConstants.IMPLICIT_TCONTEXTLOAD_FILE));
+            }
+
+            if (nameValueMap.get(IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT).equals("true")) {
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
+                        IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT));
+
+                // some params about databse setting
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
+                        IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE));
+                if (!nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE).equalsIgnoreCase(
+                        "built_in")) {
+                    createSingleJobParameter(extraElement, getConnectionLabelById(makeNameValue(nameValueMap,
+                            IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_REPOSITORY_PROPERTY_TYPE), null));
+                }
+
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DB_TYPE_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.HOST_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.PORT_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DBNAME_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
+                        IJobSettingConstants.SCHEMA_DB_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.USER_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.PASS_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DBFILE_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DBTABLE_IMPLICIT_CONTEXT));
+                createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
+                        IJobSettingConstants.QUERY_CONDITION_IMPLICIT_CONTEXT));
+
+            }
+            // print operation
+            createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.PRINT_OPERATIONS));
+
+            // diable warnings
+            createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.DISABLE_WARNINGS));
+
+        }
+
+        // Stats & logs setting
+        Element statsAndLotsElement = DocumentHelper.createElement("Statslogs");
+        jobSettingInfoElement.add(statsAndLotsElement);
+
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_STATCATCHER_FLAG));
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_LOGCATCHER_FLAG));
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_METERCATCHER_FLAG));
+
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_CONSOLE_FLAG));
+
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_FILES_FLAG));
+        if (nameValueMap.get(IJobSettingConstants.ON_FILES_FLAG).equals("true")) {
+            // add on file details
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILE_PATH));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILENAME_LOGS));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILENAME_METTER));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILENAME_STATS));
+        }
+
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_DATABASE_FLAG));
+        if (nameValueMap.get(IJobSettingConstants.ON_DATABASE_FLAG).equals("true")) {
+            // add on database details
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap,
+                    IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE));
+            if (!nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE).equalsIgnoreCase("built_in")) {
+                createSingleJobParameter(statsAndLotsElement, getConnectionLabelById(makeNameValue(nameValueMap,
+                        IJobSettingConstants.PROPERTY_TYPE_REPOSITORY_PROPERTY_TYPE), null));
+            }
+
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.DB_TYPE));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.HOST));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PORT));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.DBNAME));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PROPERTIES));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.SCHEMA_DB));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.USER));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PASS));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.DBFILE));
+
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.TABLE_LOGS));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.TABLE_METER));
+            createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.TABLE_STATS));
+        }
+
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.CATCH_REALTIME_STATS));
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.CATCH_RUNTIME_ERRORS));
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.CATCH_USER_ERRORS));
+        createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.CATCH_USER_WARNING));
+
+        // verson setting see job info
+
+        element.add(jobSettingInfoElement);
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "createSingleJobParameter".
+     * 
+     * @param root
+     * @param nameValue
+     * @return
+     */
+    private Element createSingleJobParameter(final Element root, final String... nameValue) {
+        Element param = DocumentHelper.createElement("jobParameter");
+
+        // Use label replace name
+        String displayName = CorePlugin.getDefault().getDesignerCoreService().getDisplayForProcessParameterFromName(nameValue[0]);
+        param.addAttribute("name", displayName);
+        param.addAttribute("value", nameValue[1]);
+        root.add(param);
+        return param;
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getConnectionLabelById".
+     * 
+     * @param nameValue
+     * @param replaceName
+     * @return
+     */
+    private String[] getConnectionLabelById(String[] nameValue, String replaceName) {
+
+        String[] res = new String[2];
+
+        // Repalce attribute name
+        res[0] = replaceName == null ? nameValue[0] : replaceName;
+
+        // replace attribute value from id to label
+        ConnectionItem connItem = getConnectionItemById(nameValue[1]);
+        if (connItem != null) {
+            res[1] = connItem.getProperty().getLabel();
+        } else {
+            res[1] = nameValue[1];
+        }
+
+        return res;
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "makeNameValue".
+     * 
+     * @param map
+     * @param key
+     * @return
+     */
+    private String[] makeNameValue(Map<String, String> map, final String key) {
+        return new String[] { key, map.get(key) };
+    }
+
+    /**
+     * DOC YeXiaowei Comment method "generateContextInfo".
+     * 
+     * @return
+     */
+    private void generateContextInfo(final ProcessItem item, final Element element) {
+
+        EList contexts = item.getProcess().getContext();
+
+        if (contexts == null || contexts.isEmpty()) {
+            return;
+        }
+
+        Element contextListElement = DocumentHelper.createElement("contextList"); // Context root
+
+        for (int i = 0, n = contexts.size(); i < n; i++) {
+            // export single context infomation
+            Element contextElement = DocumentHelper.createElement("context");
+            ContextType context = (ContextType) contexts.get(i);
+
+            // Attributes
+            contextElement.addAttribute("name", HTMLDocUtils.checkString(context.getName()));
+
+            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
+            // Context parameters as children
+            EList params = context.getContextParameter();
+            if (params != null && !params.isEmpty()) {
+                for (int j = 0, k = params.size(); j < k; j++) {
+                    /*
+                     * <contextParameter comment="Give server name" name="server" prompt="Default Server "
+                     * promptNeeded="false" repositoryContextId="_crJMkCCQEd2Oweh7yRMWjQ" type=""
+                     * value="'192.168.0.109'"/>
+                     */
+                    ContextParameterType param = (ContextParameterType) params.get(j);
+                    Element contextParamElement = DocumentHelper.createElement("contextParameter");
+                    contextParamElement.addAttribute("name", HTMLDocUtils.checkString(param.getName()));
+                    contextParamElement.addAttribute("prompt", HTMLDocUtils.checkString(param.getPrompt()));
+                    contextParamElement.addAttribute("promptNeeded", HTMLDocUtils.checkString(Boolean.toString(param
+                            .isPromptNeeded())));
+                    contextParamElement.addAttribute("type", HTMLDocUtils.checkString(param.getType()));
+                    contextParamElement.addAttribute("value", HTMLDocUtils.checkString(param.getValue()));
+
+                    // replace repository id with context label
+                    if (param.getRepositoryContextId() != null) {
+                        ContextItem contextItem = ContextUtils.getContextItemById(param.getRepositoryContextId());
+                        String label = contextItem.getProperty().getLabel();
+                        contextParamElement.addAttribute("source", HTMLDocUtils.checkString(label));
+                    }
+                    contextElement.add(contextParamElement);
+                }
+            }
+
+            contextListElement.add(contextElement);
+        }
+
+        element.add(contextListElement);
     }
 
     /**
@@ -778,5 +1039,34 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         fos.write(result.toByteArray());
         fos.close();
 
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getConnectionItemById".
+     * 
+     * @param id
+     * @return
+     */
+    private ConnectionItem getConnectionItemById(final String id) {
+
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+
+        List<ConnectionItem> connectionItems = null;
+
+        try {
+            connectionItems = factory.getMetadataConnectionsItem();
+            if (connectionItems != null && !connectionItems.isEmpty()) {
+                for (ConnectionItem item : connectionItems) {
+                    if (item.getProperty().getId().equals(id)) {
+                        return item;
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            return null;
+        }
+
+        return null;
     }
 }

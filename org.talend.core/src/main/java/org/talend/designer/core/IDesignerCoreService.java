@@ -103,4 +103,13 @@ public interface IDesignerCoreService extends IService {
     public boolean executeUpdatesManager(List<UpdateResult> results);
 
     public Map<String, Date> getJobModificationDateMap(IProcess process);
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getDisplayForProcessParameterFromName".
+     * 
+     * @param name
+     * @return
+     */
+    public String getDisplayForProcessParameterFromName(final String name);
 }
