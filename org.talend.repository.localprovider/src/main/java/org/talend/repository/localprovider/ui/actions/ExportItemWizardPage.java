@@ -42,6 +42,8 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
+import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
@@ -91,6 +93,8 @@ class ExportItemWizardPage extends WizardPage {
         super(pageName);
         repositoryView = RepositoryView.show();
         this.selection = selection;
+        setDescription("Export items to an archive file or directory.");
+        setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_EXPORT_WIZ));
     }
 
     public void createControl(Composite parent) {
@@ -112,7 +116,7 @@ class ExportItemWizardPage extends WizardPage {
     private void createItemList(Composite workArea) {
         Composite itemComposite = new Composite(workArea, SWT.NONE);
         GridLayoutFactory.swtDefaults().numColumns(2).applyTo(itemComposite);
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(500, 400).applyTo(itemComposite);
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(500, 300).applyTo(itemComposite);
 
         Label label = new Label(itemComposite, SWT.NONE);
         label.setText("Select the items to export:");

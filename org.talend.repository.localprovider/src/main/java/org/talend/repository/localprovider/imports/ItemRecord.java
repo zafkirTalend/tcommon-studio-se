@@ -16,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.swt.graphics.Image;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.ui.images.CoreImageProvider;
 
 /**
  */
@@ -104,6 +106,14 @@ public class ItemRecord {
 
     public void setResolved(boolean resolved) {
         this.resolved = resolved;
+    }
+
+    public ERepositoryObjectType getType() {
+        return ERepositoryObjectType.getItemType(getItem());
+    }
+
+    public Image getImage() {
+        return CoreImageProvider.getImage(getType());
     }
 
     /**

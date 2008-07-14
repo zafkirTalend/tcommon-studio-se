@@ -28,36 +28,34 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.SearchPattern;
+import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
+import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.ArchiveFileManipulations;
@@ -69,6 +67,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
+import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
@@ -113,16 +112,16 @@ class ImportItemWizardPage extends WizardPage {
 
     private ResourcesManager manager;
 
-    private Text nameFilter;
-
-    private Combo typeFilter;
-
     private Button overwriteButton;
 
     boolean overwrite = false;
 
+    private FilteredCheckboxTree filteredCheckboxTree;
+
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
+        setDescription("Import items from an archive file or directory.");
+        setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
     }
 
     public void createControl(Composite parent) {
@@ -133,8 +132,7 @@ class ImportItemWizardPage extends WizardPage {
         workArea.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
 
         createItemRoot(workArea);
-        // see feature 4395: Add an items filter in import/export job Dialog
-        createFilter(workArea);
+
         createItemList(workArea);
         createErrorsList(workArea);
 
@@ -151,45 +149,6 @@ class ImportItemWizardPage extends WizardPage {
                 }
             }
 
-        });
-    }
-
-    /**
-     * DOC hcw Comment method "createFilter".
-     * 
-     * @param workArea
-     */
-    private void createFilter(Composite workArea) {
-        Composite filterComposite = new Composite(workArea, SWT.NONE);
-        GridLayoutFactory.swtDefaults().numColumns(3).margins(0, 0).applyTo(filterComposite);
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).applyTo(filterComposite);
-
-        Label label = new Label(filterComposite, SWT.NONE);
-        label.setText("Items Filter:");
-        GridDataFactory.swtDefaults().applyTo(label);
-
-        nameFilter = new Text(filterComposite, SWT.BORDER);
-        nameFilter.setToolTipText("Enter type name prefix or pattern(*,?,or camel case).");
-        nameFilter.setEditable(true);
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, true).applyTo(nameFilter);
-
-        nameFilter.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                applyFilter();
-            }
-        });
-
-        typeFilter = new Combo(filterComposite, SWT.READ_ONLY);
-        GridDataFactory.swtDefaults().applyTo(typeFilter);
-        typeFilter.setItems(getAvailableItems());
-        typeFilter.select(0);
-        typeFilter.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                applyFilter();
-            }
         });
     }
 
@@ -291,24 +250,39 @@ class ImportItemWizardPage extends WizardPage {
         listComposite.setLayout(layout2);
 
         GridData gridData = new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH);
-        gridData.heightHint = 100;
+        gridData.heightHint = 250;
+        gridData.widthHint = 600;
         listComposite.setLayoutData(gridData);
 
-        itemsList = new CheckboxTreeViewer(listComposite, SWT.BORDER);
-        GridData listData = gridData;
-        itemsList.getControl().setLayoutData(listData);
+        itemsList = (CheckboxTreeViewer) createTreeViewer(listComposite);
 
-        itemsList.setContentProvider(new ITreeContentProvider() {
+        createSelectionButtons(listComposite);
+
+    }
+
+    private TreeViewer createTreeViewer(Composite listComposite) {
+        filteredCheckboxTree = new FilteredCheckboxTree(listComposite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
+
+        TreeViewer viewer = filteredCheckboxTree.getViewer();
+
+        viewer.setContentProvider(new ITreeContentProvider() {
 
             public Object[] getChildren(Object parentElement) {
+                if (parentElement instanceof IContainerNode) {
+                    return ((IContainerNode) parentElement).getChildren().toArray();
+                }
                 return null;
             }
 
             public Object[] getElements(Object inputElement) {
-                return getValidItems();
+                // return getValidItems();
+                return repositoryUtil.getTreeViewInput().toArray();
             }
 
             public boolean hasChildren(Object element) {
+                if (element instanceof IContainerNode) {
+                    return ((IContainerNode) element).hasChildren();
+                }
                 return false;
             }
 
@@ -325,17 +299,31 @@ class ImportItemWizardPage extends WizardPage {
 
         });
 
-        itemsList.setLabelProvider(new LabelProvider() {
+        viewer.setLabelProvider(new LabelProvider() {
 
             @Override
             public String getText(Object element) {
+                if (element instanceof IContainerNode) {
+                    return ((IContainerNode) element).getLabel();
+                }
                 return ((ItemRecord) element).getItemName();
             }
-        });
 
-        itemsList.setInput(this);
-        itemsList.setSorter(new ViewerSorter());
-        createSelectionButtons(listComposite);
+            @Override
+            public Image getImage(Object element) {
+                if (element instanceof IContainerNode) {
+                    return ((IContainerNode) element).getImage();
+                } else if (element instanceof ItemRecord) {
+                    return ((ItemRecord) element).getImage();
+                }
+
+                return super.getImage(element);
+            }
+
+        });
+        viewer.setSorter(TreeBuilder.createSorter());
+        viewer.setInput(this);
+        return viewer;
 
     }
 
@@ -343,7 +331,7 @@ class ImportItemWizardPage extends WizardPage {
         Composite buttonsComposite = new Composite(listComposite, SWT.NONE);
         GridLayout layout = new GridLayout();
         layout.marginWidth = 0;
-        layout.marginHeight = 0;
+        layout.marginHeight = 25;
         buttonsComposite.setLayout(layout);
 
         buttonsComposite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
@@ -676,6 +664,7 @@ class ImportItemWizardPage extends WizardPage {
         }
 
         itemsList.refresh(true);
+        itemsList.expandAll();
         itemsList.setCheckedElements(checkValidItems());
     }
 
@@ -739,20 +728,13 @@ class ImportItemWizardPage extends WizardPage {
     }
 
     public ItemRecord[] getValidItems() {
-        String type = typeFilter.getItem(typeFilter.getSelectionIndex());
-
-        String name = nameFilter.getText();
-        SearchPattern matcher = new SearchPattern();
-        matcher.setPattern(name);
 
         List validItems = new ArrayList();
         for (int i = 0; i < selectedItems.length; i++) {
             ItemRecord itemRecord = selectedItems[i];
-            if (itemRecord.isValid() && matcher.matches(itemRecord.getProperty().getLabel())) {
-                String itemType = ERepositoryObjectType.getItemType(itemRecord.getItem()).toString();
-                if (type.equals("All") || type.equals(itemType)) {
-                    validItems.add(itemRecord);
-                }
+            if (itemRecord.isValid()) {
+                validItems.add(itemRecord);
+
             }
         }
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
@@ -760,7 +742,7 @@ class ImportItemWizardPage extends WizardPage {
 
     public boolean performFinish() {
 
-        final Object[] checkedElements = itemsList.getCheckedElements();
+        final Object[] checkedElements = filteredCheckboxTree.getCheckedLeafNodes();
         List<ItemRecord> tempItemRecords = new ArrayList<ItemRecord>();
         for (int i = 0; i < checkedElements.length; i++) {
             tempItemRecords.add((ItemRecord) checkedElements[i]);
@@ -773,8 +755,8 @@ class ImportItemWizardPage extends WizardPage {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     repositoryUtil.setErrors(false);
                     repositoryUtil.clear();
-                    List<ItemRecord> importItemRecords = repositoryUtil.importItemRecords(manager, itemRecords,
-                            monitor, overwrite);
+                    List<ItemRecord> importItemRecords = repositoryUtil.importItemRecords(manager, itemRecords, monitor,
+                            overwrite);
 
                     if (repositoryUtil.hasErrors()) {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$
@@ -801,4 +783,5 @@ class ImportItemWizardPage extends WizardPage {
         ArchiveFileManipulations.clearProviderCache(getContainer().getShell());
         return true;
     }
+
 }

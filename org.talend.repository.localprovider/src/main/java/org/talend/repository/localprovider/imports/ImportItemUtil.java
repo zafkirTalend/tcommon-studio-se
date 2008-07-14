@@ -66,6 +66,7 @@ import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ItemRecord.State;
+import org.talend.repository.localprovider.imports.TreeBuilder.ProjectNode;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -85,6 +86,8 @@ public class ImportItemUtil {
     private int usedItems = 0;
 
     private RepositoryObjectCache cache = new RepositoryObjectCache();
+
+    private TreeBuilder treeBuilder = new TreeBuilder();
 
     private Set<String> deletedItems = new HashSet<String>();
 
@@ -192,8 +195,8 @@ public class ImportItemUtil {
         return false;
     }
 
-    public List<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords,
-            IProgressMonitor monitor, boolean overwrite) {
+    public List<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords, IProgressMonitor monitor,
+            boolean overwrite) {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
         for (ItemRecord itemRecord : itemRecords) {
             if (!monitor.isCanceled()) {
@@ -273,8 +276,7 @@ public class ImportItemUtil {
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
                     itemRecord.setImported(true);
-                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty()
-                        .getVersion()) < 0) {
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
                     itemRecord.setImported(true);
                 } else {
@@ -297,8 +299,7 @@ public class ImportItemUtil {
 
         Item item = null;
         try {
-            item = ProxyRepositoryFactory.getInstance().getUptodateProperty(itemRecord.getItem().getProperty())
-                    .getItem();
+            item = ProxyRepositoryFactory.getInstance().getUptodateProperty(itemRecord.getItem().getProperty()).getItem();
         } catch (Exception e) {
             logError(e);
         }
@@ -314,14 +315,14 @@ public class ImportItemUtil {
                     if (item != null) {
                         ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
                         if (executionResult == ExecutionResult.FAILURE) {
-                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task "
-                                    + task.getName() + " failed)");
+                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
+                                    + " failed)");
                             // TODO smallet add a warning/error to the job using model
                         }
                     }
                 } catch (Exception e) {
-                    log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task "
-                            + task.getName() + " failed)");
+                    log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
+                            + " failed)");
                 }
             }
         }
@@ -385,10 +386,15 @@ public class ImportItemUtil {
         RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
     }
 
+    public List<ProjectNode> getTreeViewInput() {
+        return treeBuilder.getInput();
+    }
+
     /**
      * need to returns sorted items by version to correctly import them later.
      */
     public List<ItemRecord> populateItems(ResourcesManager collector, boolean overwrite) {
+        treeBuilder.clear();
         cache.clear();
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
@@ -412,6 +418,7 @@ public class ImportItemUtil {
                             if (projectFilePath != null) {
                                 Project project = computeProject(collector, itemRecord, projectFilePath);
                                 if (checkProject(project, itemRecord)) {
+                                    treeBuilder.addItem(project, itemRecord);
                                     // we can try to import item
                                     // and we will try to resolve user
                                     User user = (User) project.eResource().getEObject(uri.fragment());

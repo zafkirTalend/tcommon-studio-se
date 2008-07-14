@@ -34,6 +34,8 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.actions.AContextualAction;
+import org.talend.repository.ui.views.IRepositoryView;
+import org.talend.repository.ui.views.RepositoryView;
 
 /**
  */
@@ -47,6 +49,8 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
 
     private static final String EXPORT_ITEM = Messages.getString("ExportItemAction.Label"); //$NON-NLS-1$
 
+    private boolean toolbarAction = false;
+
     /*
      * (non-Javadoc)
      * 
@@ -54,6 +58,7 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
      * org.eclipse.jface.viewers.IStructuredSelection)
      */
     public void init(TreeViewer viewer, IStructuredSelection selection) {
+        toolbarAction = false;
         boolean visible = false;
         if (selection.isEmpty()) {
             visible = false;
@@ -108,11 +113,19 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.EXPORT_ICON));
     }
 
+    @Override
     public void run() {
         ExportItemWizard wizard = new ExportItemWizard();
         IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
         wizard.setWindowTitle(EXPORT_ITEM);
-        wizard.init(workbench, (IStructuredSelection) this.getSelection());
+        if (toolbarAction == false) {
+            wizard.init(workbench, (IStructuredSelection) this.getSelection());
+        } else {
+            IRepositoryView repositoryView = RepositoryView.show();
+            IStructuredSelection selection = (IStructuredSelection) repositoryView.getViewer().getSelection();
+
+            wizard.init(workbench, selection);
+        }
 
         Shell activeShell = Display.getCurrent().getActiveShell();
         WizardDialog dialog = new WizardDialog(activeShell, wizard);
@@ -126,9 +139,11 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
     }
 
     public void run(IAction action) {
+        toolbarAction = true;
         run();
     }
 
     public void selectionChanged(IAction action, ISelection selection) {
+        ISelection test = selection;
     }
 }
