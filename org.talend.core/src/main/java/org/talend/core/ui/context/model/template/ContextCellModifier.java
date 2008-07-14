@@ -205,6 +205,7 @@ public class ContextCellModifier implements ICellModifier {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {
                         if (name.equals(contextParameter.getName())) {
                             contextParameter.setType(newType);
+                            ContextManagerHelper.checkAndSetDefaultValue(contextParameter);
                         }
                     }
                 }

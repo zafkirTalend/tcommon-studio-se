@@ -24,7 +24,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -32,14 +31,9 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.TreeEditor;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -50,8 +44,6 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
-import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
-import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
@@ -59,7 +51,6 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
-import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -79,7 +70,6 @@ import org.talend.core.ui.context.model.template.ContextViewerSorter;
 import org.talend.core.ui.context.model.template.GroupByNothingProvier;
 import org.talend.core.ui.context.model.template.GroupBySourceProvier;
 import org.talend.core.ui.images.ECoreImage;
-import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
 /**
  * zwang class global comment. Detailled comment <br/>
@@ -90,10 +80,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     public static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
 
     private boolean readOnly;
-
-    private CellEditor cellEditor;
-
-    private DefaultCellEditorFactory cellFactory;
 
     private TreeViewer viewer;
 
@@ -106,8 +92,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private IContextModelManager modelManager = null;
 
     private ContextManagerHelper helper;
-
-    private ICellEditorListener editorListener;
 
     private List<Button> buttonList;
 
@@ -131,7 +115,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         super(parent, SWT.NONE);
         buttonList = new ArrayList<Button>();
         modelManager = manager;
-        cellFactory = new DefaultCellEditorFactory(modelManager);
         this.helper = new ContextManagerHelper(manager.getContextManager());
         this.setBackground(parent.getBackground());
         this.setLayout(new GridLayout());
@@ -234,36 +217,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
         addSorter(viewer);
 
-        final TreeEditor treeEditor = new TreeEditor(tree);
-        createEditorListener(treeEditor);
-        tree.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseDown(MouseEvent e) {
-                Rectangle rect = null;
-                if (modelManager.isReadOnly()) {
-                    return;
-                }
-                Point pt = new Point(e.x, e.y);
-                TreeItem item = tree.getItem(pt);
-                // deactivate the current cell editor
-                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-                    deactivateCellEditor(treeEditor);
-                }
-                if (item != null && !item.isDisposed()) {
-                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        rect = item.getBounds(CNUM_DEFAULT);
-                    } else {
-                        rect = item.getBounds(CNUM_DEFAULT - 1);
-                    }
-
-                    if (rect.contains(pt)) {
-                        handleSelect(item, tree, treeEditor);
-                    }
-                }
-            }
-        });
-
         viewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
 
             public void selectionChanged(SelectionChangedEvent event) {
@@ -324,57 +277,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
     }
 
-    private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
-        // ensure the cell editor is visible
-        tree.showSelection();
-    }
-
-    protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
-        // get the new selection
-        // activateCellEditor(item, tree, treeEditor);
-    }
-
-    private void deactivateCellEditor(final TreeEditor tableEditor) {
-        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-            tableEditor.setEditor(null, null, CNUM_DEFAULT);
-        } else {
-            tableEditor.setEditor(null, null, CNUM_DEFAULT - 1);
-        }
-        if (cellEditor != null) {
-            cellEditor.deactivate();
-            cellEditor.removeListener(editorListener);
-            cellEditor = null;
-        }
-    }
-
-    private ICellEditorListener createEditorListener(final TreeEditor tableEditor) {
-        editorListener = new ICellEditorListener() {
-
-            public void cancelEditor() {
-                deactivateCellEditor(tableEditor);
-            }
-
-            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-            }
-
-            public void applyEditorValue() {
-            }
-        };
-        return editorListener;
-    }
-
-    IBeanPropertyAccessors<IContextParameter, Boolean> nullableAccessors = new IBeanPropertyAccessors<IContextParameter, Boolean>() {
-
-        public Boolean get(IContextParameter bean) {
-            return Boolean.FALSE; // new Boolean(bean.isNullable());
-        }
-
-        public void set(IContextParameter bean, Boolean value) {
-            // bean.setNullable(value);
-        }
-
-    };
-
     public boolean renameParameter(final String oldParamName, final String newParamName) {
         IContextParameter param = getContextManager().getDefaultContext().getContextParameter(oldParamName);
         if (param != null && !param.isBuiltIn()) {
@@ -402,141 +304,6 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     public boolean isReadOnly() {
         return readOnly;
     }
-
-    CellEditorValueAdapter perlComboCellEditorValueAdapter = new CellEditorValueAdapter() {
-
-        @Override
-        public Object getCellEditorTypedValue(final CellEditor cellEditor, final Object originalTypedValue) {
-            Integer intValue = new Integer(-1);
-            String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (int j = 0; j < values.length && intValue == -1; j++) {
-                if (values[j].equals(originalTypedValue)) {
-                    intValue = new Integer(j);
-                }
-            }
-            return super.getCellEditorTypedValue(cellEditor, intValue);
-        }
-
-        @Override
-        public Object getOriginalTypedValue(final CellEditor cellEditor, final Object cellEditorTypedValue) {
-            Integer intValue = (Integer) cellEditorTypedValue;
-            String value = ""; //$NON-NLS-1$
-            if (intValue > 0) {
-                value = ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) cellEditorTypedValue];
-            }
-            return super.getOriginalTypedValue(cellEditor, value);
-        }
-
-        public String getColumnText(final CellEditor cellEditor, final Object cellEditorValue) {
-            return (String) cellEditorValue;
-        }
-    };
-
-    JavaTypeComboValueAdapter<IContextParameter> javaComboCellEditorValueAdapter = new JavaTypeComboValueAdapter<IContextParameter>(
-            ContextParameterJavaTypeManager.getDefaultJavaType(), nullableAccessors) {
-
-        @Override
-        public Object getCellEditorTypedValue(CellEditor cellEditor, Object originalTypedValue) {
-            String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-
-            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
-
-            String label = javaType.getLabel();
-
-            if (originalTypedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
-                label = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
-            }
-
-            for (int i = 0; i < items.length; i++) {
-                if (items[i].equals(label)) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        @Override
-        public Object getOriginalTypedValue(CellEditor cellEditor, Object cellEditorTypedValue) {
-            JavaType[] javaTypes = ContextParameterJavaTypeManager.getJavaTypes();
-            int i = (Integer) cellEditorTypedValue;
-            if (i >= 0) {
-                return javaTypes[i].getId();
-            }
-            throw new IllegalStateException("No selection is invalid"); //$NON-NLS-1$
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor,
-         * java.lang.Object, java.lang.Object)
-         */
-        // @Override
-        // public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
-        // JavaType javaType =
-        //
-        // Class primitiveClass = javaType.getPrimitiveClass();
-        // Boolean nullable = nullableAccessors.get((IContextParameter) bean);
-        // String displayedValue = null;
-        // if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
-        // displayedValue = primitiveClass.getSimpleName();
-        // } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
-        // || originalTypedValue.equals(JavaTypesManager.FILE.getId())
-        // || originalTypedValue.equals(JavaTypesManager.VALUE_LIST.getId())) {
-        // displayedValue = javaType.getLabel();
-        // } else {
-        // displayedValue = javaType.getNullableClass().getSimpleName();
-        // }
-        //
-        // return displayedValue;
-        // }
-        @Override
-        protected JavaType getJavaType(Object originalTypedValue) {
-            return ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
-        }
-
-        @Override
-        protected String getDefaultDisplayValue(String displayedValue) {
-            if (displayedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
-                displayedValue = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
-            }
-            return displayedValue;
-        }
-    };
-
-    CellEditorValueAdapter paramNameCellEditorValueAdapter = new CellEditorValueAdapter() {
-
-        private String oldName;
-
-        @Override
-        public Object getCellEditorTypedValue(final CellEditor cellEditor, final Object originalTypedValue) {
-            oldName = (String) originalTypedValue;
-            return super.getCellEditorTypedValue(cellEditor, originalTypedValue);
-        }
-
-        @Override
-        public Object getOriginalTypedValue(final CellEditor cellEditor, final Object cellEditorTypedValue) {
-            if (!oldName.equals(cellEditorTypedValue)) {
-                if (!renameParameter(oldName, (String) cellEditorTypedValue)) {
-                    return super.getOriginalTypedValue(cellEditor, oldName);
-                }
-            }
-            return super.getOriginalTypedValue(cellEditor, cellEditorTypedValue);
-        }
-    };
-
-    private CellEditorValueAdapter setDirtyValueAdapter = new CellEditorValueAdapter() {
-
-        @Override
-        public Object getCellEditorTypedValue(final CellEditor cellEditor, final Object originalTypedValue) {
-            return super.getCellEditorTypedValue(cellEditor, originalTypedValue);
-        }
-
-        @Override
-        public Object getOriginalTypedValue(final CellEditor cellEditor, final Object cellEditorTypedValue) {
-            return super.getOriginalTypedValue(cellEditor, cellEditorTypedValue);
-        }
-    };
 
     public boolean isGroupBySource() {
         boolean isRepositoryContext = false;

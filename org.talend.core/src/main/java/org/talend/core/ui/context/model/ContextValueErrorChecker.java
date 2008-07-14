@@ -174,8 +174,12 @@ public class ContextValueErrorChecker {
             return;
         }
 
+        final String text = item.getText(column);
         if (value == null) {
-            value = item.getText(column);
+            value = text;
+        }
+        if (!value.equals(text)) {
+            item.setText(column, value);
         }
         List<Problem> problems = checkProblems(value);
 

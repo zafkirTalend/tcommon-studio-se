@@ -646,4 +646,31 @@ public final class ContextManagerHelper {
         }
         return null;
     }
+
+    /**
+     * 
+     * ggu Comment method "checkAndSetDefaultValue".
+     * 
+     * if value is null or empty. will return the undef value (bug 4420).
+     */
+    public static void checkAndSetDefaultValue(final IContextParameter param) {
+        if (param == null) {
+            return;
+        }
+        final String value = param.getValue();
+        final String type = param.getType();
+
+        if (param.isBuiltIn() && (value == null || "".equals(value.trim()))) {
+            final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+            switch (codeLanguage) {
+            case JAVA:
+                //
+                break;
+            case PERL:
+            default:
+                param.setValue("undef"); //$NON-NLS-1$
+            }
+        }
+        return;
+    }
 }
