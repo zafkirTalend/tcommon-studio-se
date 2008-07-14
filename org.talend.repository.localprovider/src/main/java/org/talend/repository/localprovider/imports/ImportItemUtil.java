@@ -40,7 +40,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -48,8 +47,6 @@ import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IProjectMigrationTask.ExecutionResult;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.JobletProcessItem;
-import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -62,7 +59,6 @@ import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.constants.FileConstants;
-import org.talend.repository.documentation.IDocumentationService;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ItemRecord.State;
@@ -325,22 +321,6 @@ public class ImportItemUtil {
                             + " failed)");
                 }
             }
-        }
-
-        try {
-            // Generated documentaiton for imported item.
-            if (item != null && PluginChecker.isDocumentationPluginLoaded()) {
-                IDocumentationService service = (IDocumentationService) GlobalServiceRegister.getDefault().getService(
-                        IDocumentationService.class);
-                if (item instanceof ProcessItem) {
-                    service.saveDocumentNode(item);
-                } else if (item instanceof JobletProcessItem && PluginChecker.isJobLetPluginLoaded()) {
-                    service.saveDocumentNode(item);
-                }
-
-            }
-        } catch (Exception e) {
-            logError(e);
         }
 
         try {
