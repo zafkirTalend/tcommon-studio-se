@@ -624,10 +624,29 @@ public class FilteredCheckboxTree extends Composite {
                     unchecked.add(obj);
                 }
             } else {
-                // container node
+                // to handle some special case, such as database connection
+                if (isNodeCollectable(item)) {
+                    Object obj = item.getData();
+                    if (item.getChecked()) {
+                        checked.add(obj);
+                    } else {
+                        unchecked.add(obj);
+                    }
+                }
+                // collect children of this container node
                 collectLeafNodes(children, checked, unchecked);
             }
         }
+    }
+
+    /**
+     * DOC hcw Comment method "isNodeCollectable".
+     * 
+     * @param item
+     * @return
+     */
+    protected boolean isNodeCollectable(TreeItem item) {
+        return false;
     }
 
     protected void refreshCompleted() {

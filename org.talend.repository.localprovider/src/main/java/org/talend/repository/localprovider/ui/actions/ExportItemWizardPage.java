@@ -15,7 +15,9 @@ package org.talend.repository.localprovider.ui.actions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
@@ -41,6 +43,7 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
@@ -50,6 +53,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.localprovider.imports.FilteredCheckboxTree;
@@ -162,6 +166,18 @@ class ExportItemWizardPage extends WizardPage {
             protected void refreshCompleted() {
                 getViewer().expandToLevel(3);
                 restoreCheckedElements();
+            }
+
+            @Override
+            protected boolean isNodeCollectable(TreeItem item) {
+                Object obj = item.getData();
+                if (obj instanceof RepositoryNode) {
+                    RepositoryNode node = (RepositoryNode) obj;
+                    if (node.getObjectType() == ERepositoryObjectType.METADATA_CONNECTIONS) {
+                        return true;
+                    }
+                }
+                return false;
             }
         };
         filteredCheckboxTree.getViewer();
@@ -406,7 +422,7 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        Collection<Item> items = getSelectedItems();
+        Collection<Item> items = new ArrayList(getSelectedItems());
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
             items = exportItemUtil.getAllVersions(items);
@@ -449,29 +465,31 @@ class ExportItemWizardPage extends WizardPage {
 
         Object[] elements = checkedElements.toArray();
 
-        Collection<Item> items = new ArrayList<Item>();
+        Map<String, Item> items = new HashMap<String, Item>();
         collectNodes(items, elements);
 
-        return items;
+        return items.values();
     }
 
     @SuppressWarnings("unchecked")
-    private void collectNodes(Collection<Item> items, Object[] objects) {
+    private void collectNodes(Map<String, Item> items, Object[] objects) {
         for (int i = 0; i < objects.length; i++) {
             RepositoryNode repositoryNode = (RepositoryNode) objects[i];
             collectNodes(items, repositoryNode);
         }
     }
 
-    private void collectNodes(Collection<Item> items, RepositoryNode repositoryNode) {
+    private void collectNodes(Map<String, Item> items, RepositoryNode repositoryNode) {
         IRepositoryObject repositoryObject = repositoryNode.getObject();
         if (repositoryObject != null) {
             if (repositoryObject.getType().isResourceItem()) {
-                items.add(repositoryObject.getProperty().getItem());
+                Item item = repositoryObject.getProperty().getItem();
+                items.put(item.getProperty().getId(), item);
             }
         } else {
             if (repositoryNode.getParent() != null && repositoryNode.getParent().getObject() != null) {
-                items.add(repositoryNode.getParent().getObject().getProperty().getItem());
+                Item item = repositoryNode.getParent().getObject().getProperty().getItem();
+                items.put(item.getProperty().getId(), item);
             }
         }
         RepositoryContentProvider repositoryContentProvider = (RepositoryContentProvider) RepositoryView.show().getViewer()

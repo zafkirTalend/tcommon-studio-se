@@ -310,7 +310,7 @@ class ImportItemWizardPage extends WizardPage {
                 if (element instanceof IContainerNode) {
                     return ((IContainerNode) element).getLabel();
                 }
-                return ((ItemRecord) element).getItemName();
+                return ((ItemRecord) element).getLabel();
             }
 
             @Override

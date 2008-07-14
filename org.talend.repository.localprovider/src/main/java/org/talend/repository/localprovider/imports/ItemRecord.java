@@ -44,6 +44,8 @@ public class ItemRecord {
 
     private boolean imported = false;
 
+    private String label;
+
     public ItemRecord(IPath path, Property property) {
         this.path = path;
         this.property = property;
@@ -148,5 +150,12 @@ public class ItemRecord {
 
     public boolean isImported() {
         return imported;
+    }
+
+    public String getLabel() {
+        if (label == null) {
+            label = property.getLabel() + " " + property.getVersion();
+        }
+        return label;
     }
 }

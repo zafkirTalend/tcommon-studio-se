@@ -43,7 +43,8 @@ public class TreeBuilder {
             ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
             ERepositoryObjectType.METADATA_FILE_EXCEL, ERepositoryObjectType.METADATA_FILE_LDIF,
             ERepositoryObjectType.METADATA_LDAP_SCHEMA, ERepositoryObjectType.METADATA_GENERIC_SCHEMA,
-            ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA };
+            ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA,
+            ERepositoryObjectType.DOCUMENTATION };
 
     static Map<ERepositoryObjectType, Integer> typeOrders = new HashMap<ERepositoryObjectType, Integer>();
 
@@ -186,7 +187,7 @@ public class TreeBuilder {
                 Collections.sort(nodes, new Comparator<FolderNode>() {
 
                     public int compare(FolderNode o1, FolderNode o2) {
-                        return typeOrders.get(o1.type).intValue() - typeOrders.get(o2.type).intValue();
+                        return TreeBuilder.compare(o1, o2);
                     }
                 });
 
@@ -198,6 +199,7 @@ public class TreeBuilder {
             List<FolderNode> nodes = new ArrayList<FolderNode>(typeMap.values());
             // sort the folder by type
             sort(nodes);
+
             return nodes;
         }
 
