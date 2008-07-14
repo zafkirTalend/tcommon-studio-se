@@ -12,41 +12,20 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor;
 
-import java.util.List;
-
-import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.TraverseEvent;
-import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManagerEvent;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.ITableEditorManagerListener;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager.EVENT_TYPE;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**
@@ -140,8 +119,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param mainCompositeStyle
      * @param extendedTableModel
      */
-    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle,
-            ExtendedTableModel<B> extendedTableModel) {
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel) {
         this(parentComposite, mainCompositeStyle, extendedTableModel, false, true, true);
     }
 
@@ -179,8 +157,7 @@ public abstract class AbstractDataTableEditorView<B> {
     public void initGraphicComponents() {
 
         mainComposite = new Composite(parentComposite, SWT.NONE);
-        if (parentComposite.getBackground() != null
-                && !parentComposite.getBackground().equals(mainComposite.getBackground())) {
+        if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(mainComposite.getBackground())) {
             mainComposite.setBackground(parentComposite.getBackground());
         }
         GridLayout layout = new GridLayout();
@@ -188,8 +165,7 @@ public abstract class AbstractDataTableEditorView<B> {
         if (this.labelVisible) {
             titleLabel = new Label(mainComposite, SWT.NONE);
             titleLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            if (parentComposite.getBackground() != null
-                    && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
+            if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
                 titleLabel.setBackground(parentComposite.getBackground());
             }
             titleLabel.setVisible(true);
@@ -204,6 +180,7 @@ public abstract class AbstractDataTableEditorView<B> {
         if (toolbarVisible) {
             this.extendedToolbar = initToolBar();
         }
+        extendedTableViewer.setBindingToolbar(getExtendedToolbar());
 
         addListeners();
 
@@ -239,8 +216,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * DOC amaumont Comment method "initTable".
      */
     protected void initTable() {
-        this.extendedTableViewer = new AbstractExtendedTableViewer<B>(this.extendedTableModel, mainComposite,
-                this.readOnly) {
+        this.extendedTableViewer = new AbstractExtendedTableViewer<B>(this.extendedTableModel, mainComposite, this.readOnly) {
 
             @Override
             protected void createColumns(TableViewerCreator<B> tableViewerCreator, Table table) {

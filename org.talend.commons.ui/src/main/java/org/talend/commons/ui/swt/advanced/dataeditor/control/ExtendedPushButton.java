@@ -138,6 +138,14 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
     }
 
     /**
+     * 
+     * DOC YeXiaowei Comment method "callSelectionAction".
+     */
+    public void callSelectionAction() {
+        button.notifyListeners(SWT.Selection, null);
+    }
+
+    /**
      * This method is called before getCommandToExecute() to prepare data for command instanciation if needed.
      * 
      */

@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -30,6 +31,8 @@ public abstract class AbstractExtendedControlViewer {
     private Composite parentComposite;
 
     private CommandStack commandStack;
+
+    private AbstractExtendedToolbar bindingToolbar = null;
 
     private boolean readOnly;
 
@@ -77,8 +80,7 @@ public abstract class AbstractExtendedControlViewer {
      * @param parentComposite
      * @param readOnly
      */
-    public AbstractExtendedControlViewer(AbstractExtendedControlModel extendedControl, Composite parentComposite,
-            boolean readOnly) {
+    public AbstractExtendedControlViewer(AbstractExtendedControlModel extendedControl, Composite parentComposite, boolean readOnly) {
         super();
         this.extendedControlModel = extendedControl;
         this.parentComposite = parentComposite;
@@ -125,8 +127,7 @@ public abstract class AbstractExtendedControlViewer {
     /**
      * DOC amaumont Comment method "modelChanged".
      */
-    protected abstract void modelChanged(AbstractExtendedControlModel previousModel,
-            AbstractExtendedControlModel newModel);
+    protected abstract void modelChanged(AbstractExtendedControlModel previousModel, AbstractExtendedControlModel newModel);
 
     /**
      * Getter for parentComposite.
@@ -195,6 +196,24 @@ public abstract class AbstractExtendedControlViewer {
             this.readOnly = readOnly;
             fireEvent(new ExtendedControlEvent(EVENT_TYPE.READ_ONLY_CHANGED));
         }
+    }
+
+    /**
+     * Getter for bindingToolbar.
+     * 
+     * @return the bindingToolbar
+     */
+    public AbstractExtendedToolbar getBindingToolbar() {
+        return this.bindingToolbar;
+    }
+
+    /**
+     * Sets the bindingToolbar.
+     * 
+     * @param bindingToolbar the bindingToolbar to set
+     */
+    public void setBindingToolbar(AbstractExtendedToolbar bindingToolbar) {
+        this.bindingToolbar = bindingToolbar;
     }
 
 }

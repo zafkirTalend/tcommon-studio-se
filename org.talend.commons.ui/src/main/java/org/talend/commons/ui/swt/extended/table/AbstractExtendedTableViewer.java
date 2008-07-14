@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.table;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -27,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
@@ -172,17 +172,58 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         };
         table.addDisposeListener(disposeListener);
 
-        table.addListener(SWT.KeyDown, new Listener() {
+        table.addListener(SWT.KeyUp, new Listener() {
 
             public void handleEvent(Event event) {
+
                 if (event.character == '\u0001') { // CTRL + A
                     forceExecuteSelectionEvent = true;
                     selectionHelper.selectAll();
                     forceExecuteSelectionEvent = false;
+                } else if (event.character == '\u0003') {
+                    copyMetdataItem();
+                } else if (event.character == '\u0016') {
+                    pasteMetadataItem();
                 }
             }
 
         });
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "copyMetdataItem".
+     */
+    private void copyMetdataItem() {
+        if (getBindingToolbar() == null) {
+            return;
+        }
+
+        if (getBindingToolbar() instanceof ExtendedToolbarView) {
+            ExtendedToolbarView toolbar = ((ExtendedToolbarView) getBindingToolbar());
+            if (toolbar.getCopyButton() != null) {
+                toolbar.getCopyButton().callSelectionAction();
+            }
+        }
+
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "pasteMetadataItem".
+     */
+    private void pasteMetadataItem() {
+
+        if (getBindingToolbar() == null) {
+            return;
+        }
+
+        if (getBindingToolbar() instanceof ExtendedToolbarView) {
+            ExtendedToolbarView toolbar = ((ExtendedToolbarView) getBindingToolbar());
+            if (toolbar.getPasteButton() != null) {
+                toolbar.getPasteButton().callSelectionAction();
+            }
+        }
     }
 
     /**
@@ -243,8 +284,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                                 tableViewerCreator.getSelectionHelper().setSelection(event.index,
                                         event.index + event.addedObjects.size() - 1);
                             } else if (event.indicesTarget != null) {
-                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget
-                                        .toArray(new Integer[0]));
+                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
                                 tableViewerCreator.getSelectionHelper().setSelection(selection);
 
                             }
@@ -267,8 +307,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                         } else if (event.type == TYPE.SWAPED) {
                             if (event.indicesTarget != null) {
-                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget
-                                        .toArray(new Integer[0]));
+                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
                                 tableViewerCreator.getSelectionHelper().setSelection(selection);
                             }
                         }
