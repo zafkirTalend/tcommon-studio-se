@@ -14,9 +14,7 @@ package org.talend.core.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +31,27 @@ public class CsvArray {
 
     private static final String ENCODING = "ISO-8859-15";
 
-    private  List<String[]> rows;
+    private List<String[]> rows;
 
-    public  CsvArray createFrom(File is) throws IOException {
+    public CsvArray createFrom(File is) throws IOException {
+        return createFrom(is, ENCODING);
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "createFrom".
+     * 
+     * @param is
+     * @return
+     * @throws IOException
+     */
+    public CsvArray createFrom(File is, final String encoding) throws IOException {
         CsvArray array = new CsvArray();
 
         String[] row = null;
+
         CsvReader csvReader = new CsvReader(new BufferedReader(new InputStreamReader(new java.io.FileInputStream(is),
-                ENCODING)), ';');
+                encoding == null ? ENCODING : encoding)), ';');
         csvReader.setRecordDelimiter('\n');
         csvReader.setSkipEmptyRecords(true);
         csvReader.setTextQualifier('"');
@@ -67,7 +78,6 @@ public class CsvArray {
         super();
         rows = new ArrayList<String[]>();
     }
-    
 
     // public static void main(String[]args) throws IOException{
     // CsvArray c = new CsvArray();
@@ -79,7 +89,7 @@ public class CsvArray {
     // }
     // System.out.println();
     //            
-    //        }
+    // }
     //        
-    //    }
+    // }
 }
