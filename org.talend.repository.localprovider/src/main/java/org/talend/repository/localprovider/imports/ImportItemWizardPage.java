@@ -17,7 +17,11 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -740,9 +744,33 @@ class ImportItemWizardPage extends WizardPage {
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
     }
 
+    @SuppressWarnings("unchecked")
+    private Object[] getCheckedElements() {
+        // add this if user use filter
+        Set checkedElements = new HashSet();
+        for (Object obj : filteredCheckboxTree.getCheckedLeafNodes()) {
+            checkedElements.add(obj);
+        }
+        // add this if user does not use filter
+        for (Object obj : itemsList.getCheckedElements()) {
+            if (obj instanceof ItemRecord) {
+                checkedElements.add(obj);
+            }
+        }
+        // sort the item
+        List list = new ArrayList(checkedElements);
+        Collections.sort(list, new Comparator<ItemRecord>() {
+
+            public int compare(ItemRecord o1, ItemRecord o2) {
+                return TreeBuilder.compare(o1, o2);
+            }
+        });
+        return list.toArray();
+    }
+
     public boolean performFinish() {
 
-        final Object[] checkedElements = filteredCheckboxTree.getCheckedLeafNodes();
+        final Object[] checkedElements = getCheckedElements();
         List<ItemRecord> tempItemRecords = new ArrayList<ItemRecord>();
         for (int i = 0; i < checkedElements.length; i++) {
             tempItemRecords.add((ItemRecord) checkedElements[i]);

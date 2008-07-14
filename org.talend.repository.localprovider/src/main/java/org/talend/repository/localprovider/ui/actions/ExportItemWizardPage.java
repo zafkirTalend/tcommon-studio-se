@@ -52,7 +52,9 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.local.ExportItemUtil;
+import org.talend.repository.localprovider.imports.FilteredCheckboxTree;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.ui.views.CheckboxRepositoryTreeViewer;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.ui.views.RepositoryContentProvider;
@@ -89,6 +91,8 @@ class ExportItemWizardPage extends WizardPage {
 
     private IStructuredSelection selection;
 
+    private FilteredCheckboxTree filteredCheckboxTree;
+
     protected ExportItemWizardPage(String pageName, IStructuredSelection selection) {
         super(pageName);
         repositoryView = RepositoryView.show();
@@ -122,14 +126,7 @@ class ExportItemWizardPage extends WizardPage {
         label.setText("Select the items to export:");
         GridDataFactory.swtDefaults().span(2, 1).applyTo(label);
 
-        exportItemsTreeViewer = new CheckboxRepositoryView();
-        try {
-            exportItemsTreeViewer.init(repositoryView.getViewSite());
-        } catch (PartInitException e) {
-            e.printStackTrace();
-        }
-
-        exportItemsTreeViewer.createPartControl(itemComposite);
+        createTreeViewer(itemComposite);
 
         createSelectionButton(itemComposite);
 
@@ -146,6 +143,30 @@ class ExportItemWizardPage extends WizardPage {
         }
     }
 
+    private void createTreeViewer(Composite itemComposite) {
+        filteredCheckboxTree = new FilteredCheckboxTree(itemComposite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI) {
+
+            @Override
+            protected CheckboxTreeViewer doCreateTreeViewer(Composite parent, int style) {
+                exportItemsTreeViewer = new CheckboxRepositoryView();
+                try {
+                    exportItemsTreeViewer.init(repositoryView.getViewSite());
+                } catch (PartInitException e) {
+                    e.printStackTrace();
+                }
+                exportItemsTreeViewer.createPartControl(parent);
+                return (CheckboxTreeViewer) exportItemsTreeViewer.getViewer();
+            }
+
+            @Override
+            protected void refreshCompleted() {
+                getViewer().expandToLevel(3);
+                restoreCheckedElements();
+            }
+        };
+        filteredCheckboxTree.getViewer();
+    }
+
     /**
      * DOC hcw Comment method "createSelectionButton".
      * 
@@ -153,7 +174,7 @@ class ExportItemWizardPage extends WizardPage {
      */
     private void createSelectionButton(Composite itemComposite) {
         Composite buttonComposite = new Composite(itemComposite, SWT.NONE);
-        GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(buttonComposite);
+        GridLayoutFactory.swtDefaults().margins(0, 25).applyTo(buttonComposite);
         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.BEGINNING).applyTo(buttonComposite);
 
         Button selectAll = new Button(buttonComposite, SWT.PUSH);
@@ -397,46 +418,41 @@ class ExportItemWizardPage extends WizardPage {
         return true;
     }
 
+    private static boolean isRepositoryFolder(RepositoryNode node) {
+        final ENodeType type = node.getType();
+        if (type == ENodeType.SIMPLE_FOLDER || type == ENodeType.STABLE_SYSTEM_FOLDER || type == ENodeType.SYSTEM_FOLDER) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Get all selected items to export.
      * 
      * @return
      */
     private Collection<Item> getSelectedItems() {
-        Object[] checkedElements = ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).getCheckedElements();
-        Object[] grayedElements = ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).getGrayedElements();
-        Object[] elements = removeGrayedElements(checkedElements, grayedElements);
+
+        // add this if user use filter
+        Set checkedElements = new HashSet();
+        for (Object obj : filteredCheckboxTree.getCheckedLeafNodes()) {
+            checkedElements.add(obj);
+        }
+
+        // add this if user does not use filter
+        for (Object obj : filteredCheckboxTree.getViewer().getCheckedElements()) {
+            RepositoryNode repositoryNode = (RepositoryNode) obj;
+            if (!isRepositoryFolder(repositoryNode)) {
+                checkedElements.add(obj);
+            }
+        }
+
+        Object[] elements = checkedElements.toArray();
 
         Collection<Item> items = new ArrayList<Item>();
         collectNodes(items, elements);
 
         return items;
-    }
-
-    /**
-     * Remove some nodes with grayed checkbox to prevent exporting unnecessary child nodes of those grayed nodes.
-     * 
-     * @param checkedElements
-     * @param grayedElements
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    private Object[] removeGrayedElements(Object[] checkedElements, Object[] grayedElements) {
-        Set temp = new HashSet(checkedElements.length);
-        for (Object obj : checkedElements) {
-            temp.add(obj);
-        }
-
-        for (Object obj : grayedElements) {
-            temp.remove(obj);
-        }
-        Object[] elements = new Object[temp.size()];
-        int i = 0;
-        for (Object obj : temp) {
-            elements[i++] = obj;
-        }
-
-        return elements;
     }
 
     @SuppressWarnings("unchecked")
