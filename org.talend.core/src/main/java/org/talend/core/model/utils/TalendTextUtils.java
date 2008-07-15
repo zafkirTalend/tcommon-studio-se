@@ -234,6 +234,9 @@ public class TalendTextUtils {
     }
 
     public static String addQuotesWithSpaceField(String fieldName, String dbType) {
+        if (fieldName == null) {
+            fieldName = "";
+        }
         if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
             return fieldName;
         }
