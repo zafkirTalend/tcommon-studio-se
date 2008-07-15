@@ -615,7 +615,7 @@ public class ProcessorUtilities {
         return null;
     }
 
-    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem) {
+    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem, String... selectedJobVersion) {
         Set<JobInfo> jobInfos = new HashSet<JobInfo>();
         List<NodeType> list = processItem.getProcess().getNode();
         for (NodeType nodeType : list) {
@@ -634,6 +634,11 @@ public class ProcessorUtilities {
                         jobVersion = element.getValue();
                     }
                 }
+
+                if (selectedJobVersion != null && selectedJobVersion.length == 1) {
+                    jobVersion = selectedJobVersion[0];
+                }
+
                 ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {
                     JobInfo jobInfo = new JobInfo(item, jobContext);
