@@ -342,4 +342,38 @@ public class QueryUtil {
         return ContextParameterUtils.containContextVariables(str);
     }
 
+    /**
+     * 
+     * ggu Comment method "checkAndAddQuotes".
+     * 
+     * if the query start with quote, will not add quotes.
+     */
+    public static String checkAndAddQuotes(String query) {
+        if (query == null) {
+            query = "";
+        }
+        query = query.trim();
+        if (!query.startsWith(TalendTextUtils.getQuoteChar())) { // perhaps, need improve
+            return TalendTextUtils.addSQLQuotes(query);
+        }
+        return query; // keep it
+    }
+
+    /**
+     * 
+     * ggu Comment method "checkAndRemoveQuotes".
+     * 
+     * if the query is common string and start with quote, will remove the quotes.
+     */
+    public static String checkAndRemoveQuotes(String query) {
+        if (query == null) {
+            query = "";
+        }
+        query = query.trim();
+        if (query.startsWith(TalendTextUtils.getQuoteChar()) && TalendTextUtils.isCommonString(query)) {
+            return TalendTextUtils.removeQuotes(query);
+        }
+        return query; // keep it
+    }
+
 }
