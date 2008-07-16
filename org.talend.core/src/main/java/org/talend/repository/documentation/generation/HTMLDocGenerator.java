@@ -353,9 +353,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         Element jobElement = generateJobInfo(item, projectElement, version);
 
         // This two element see feature 4162
-        generateContextInfo((ProcessItem) item, jobElement);
+        generateContextInfo(item, jobElement);
 
-        generateJobSettingInfo((ProcessItem) item, jobElement);
+        generateJobSettingInfo(item, jobElement);
 
         List<List> allList = seperateNodes(item);
         if (allList == null || allList.size() != 3) {
@@ -386,8 +386,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-             * ,
-             */);
+                                         * ,
+                                         */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
@@ -417,7 +417,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 + IHTMLDocConstants.XML_FILE_SUFFIX;
 
         // This element see feature 4382
-        generateSourceCodeInfo((ProcessItem) item, jobElement);
+        if (item instanceof ProcessItem) {
+            generateSourceCodeInfo((ProcessItem) item, jobElement);
+        }
 
         XMLHandler.generateXMLFile(tempFolderPath, filePath, document);
     }
@@ -499,10 +501,16 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * 
      * @return
      */
-    private void generateJobSettingInfo(final ProcessItem item, final Element element) {
+    private void generateJobSettingInfo(final Item item, final Element element) {
         Element jobSettingInfoElement = DocumentHelper.createElement("jobSetting");
 
-        ParametersType jobDirectParams = item.getProcess().getParameters();
+        ParametersType jobDirectParams = null;
+
+        if (item instanceof ProcessItem) {
+            jobDirectParams = ((ProcessItem) item).getProcess().getParameters();
+        } else if (item instanceof JobletProcessItem) {
+            jobDirectParams = ((JobletProcessItem) item).getJobletProcess().getParameters();
+        }
 
         if (jobDirectParams == null || jobDirectParams.getElementParameter() == null
                 || jobDirectParams.getElementParameter().isEmpty()) {
@@ -522,6 +530,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         // Extra setting
         Element extraElement = DocumentHelper.createElement("extra");
         jobSettingInfoElement.add(extraElement);
+
+        if (item instanceof JobletProcessItem) {
+            createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.STARTABLE));
+            element.add(jobSettingInfoElement);
+            return;
+        }
 
         createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.COMP_DEFAULT_FILE_DIR));
 
@@ -694,9 +708,15 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * 
      * @return
      */
-    private void generateContextInfo(final ProcessItem item, final Element element) {
+    private void generateContextInfo(final Item item, final Element element) {
 
-        EList contexts = item.getProcess().getContext();
+        EList contexts = null;
+
+        if (item instanceof ProcessItem) {
+            contexts = ((ProcessItem) item).getProcess().getContext();
+        } else if (item instanceof JobletProcessItem) {
+            contexts = ((JobletProcessItem) item).getJobletProcess().getContext();
+        }
 
         if (contexts == null || contexts.isEmpty()) {
             return;

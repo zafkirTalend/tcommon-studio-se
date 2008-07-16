@@ -18,6 +18,10 @@ package org.talend.core.model.genhtml;
  */
 public interface IJobSettingConstants {
 
+    // Just for joblet
+
+    public static final String STARTABLE = "STARTABLE";
+
     public static final String COMP_DEFAULT_FILE_DIR = "COMP_DEFAULT_FILE_DIR";
 
     public static final String DISPLAYSUBJOBS = "displaySubjobs";
