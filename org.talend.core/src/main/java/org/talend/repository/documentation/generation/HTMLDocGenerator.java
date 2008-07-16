@@ -12,10 +12,13 @@
 // ============================================================================
 package org.talend.repository.documentation.generation;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -30,6 +33,7 @@ import org.apache.derby.iapi.services.io.FileUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -52,6 +56,7 @@ import org.talend.core.model.genhtml.HTMLHandler;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.genhtml.IJobSettingConstants;
 import org.talend.core.model.genhtml.XMLHandler;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
@@ -61,13 +66,19 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
+import org.talend.designer.runprocess.IProcessor;
+import org.talend.designer.runprocess.ProcessorException;
+import org.talend.designer.runprocess.ProcessorUtilities;
 import org.talend.repository.documentation.ExportFileResource;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
@@ -375,8 +386,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-                                         * ,
-                                         */);
+             * ,
+             */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
@@ -405,7 +416,82 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         String filePath = tempFolderPath + File.separatorChar + item.getProperty().getLabel() + versionPath
                 + IHTMLDocConstants.XML_FILE_SUFFIX;
 
+        // This element see feature 4382
+        generateSourceCodeInfo((ProcessItem) item, jobElement);
+
         XMLHandler.generateXMLFile(tempFolderPath, filePath, document);
+    }
+
+    /**
+     * DOC qwei Comment method "generateSourceCodeInfo".
+     */
+    private void generateSourceCodeInfo(ProcessItem item, Element element) {
+        if (CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_GENERATESOURCECODE)) {
+            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+            IProcess process = service.getProcessFromProcessItem(item);
+            IProcessor processor = ProcessorUtilities.getProcessor(process, process.getContextManager().getDefaultContext());
+            if (CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)) {
+                hideSourcecodePassword(process);
+            }
+            try {
+                processor.generateCode(false, true, false);
+            } catch (ProcessorException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Element sourceCodeInfoElement = DocumentHelper.createElement("sourcecodes");
+            ITalendSynchronizer synchronizer = CorePlugin.getDefault().getCodeGeneratorService().createRoutineSynchronizer();
+            // StringBuffer componentsCode = new StringBuffer();
+            try {
+                IFile codeFile = synchronizer.getFile(item);
+                String tempStr = "";
+                InputStream in = codeFile.getContents();
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(in));
+                while ((tempStr = buffer.readLine()) != null) {
+                    Element codeElement = DocumentHelper.createElement("code");
+                    // componentsCode.append(tempStr).append("\n");
+                    codeElement.addAttribute("content", tempStr);
+                    sourceCodeInfoElement.add(codeElement);
+                }
+                buffer.close();
+                in.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            element.add(sourceCodeInfoElement);
+        }
+
+    }
+
+    /**
+     * DOC qwei Comment method "hideSourcecodePassword".
+     */
+    private void hideSourcecodePassword(IProcess process) {
+        List<? extends IElementParameter> processParam = process.getElementParameters();
+        for (IElementParameter elementParameter : processParam) {
+            if (elementParameter.getRepositoryValue() != null && elementParameter.getRepositoryValue().equals("PASSWORD")
+                    && !ContextParameterUtils.containContextVariables((String) elementParameter.getValue())) {
+                elementParameter.setValue("******");
+
+            }
+
+        }
+        List<? extends INode> nodes = process.getGraphicalNodes();
+        for (INode node : nodes) {
+            List<? extends IElementParameter> nodeParamList = node.getElementParameters();
+            for (IElementParameter nodeParam : nodeParamList) {
+                if (nodeParam.getRepositoryValue() != null && nodeParam.getRepositoryValue().equals("PASSWORD")
+                        && !ContextParameterUtils.containContextVariables((String) nodeParam.getValue())) {
+                    nodeParam.setValue("******");
+
+                }
+
+            }
+
+        }
+
     }
 
     /**
@@ -431,7 +517,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             ElementParameterType param = (ElementParameterType) params.get(i);
             nameValueMap.put(param.getName(), HTMLDocUtils.checkString(param.getValue()));
         }
-        // Main setting see job info
+        // Main settinparam info
 
         // Extra setting
         Element extraElement = DocumentHelper.createElement("extra");
@@ -523,6 +609,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PROPERTIES));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.SCHEMA_DB));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.USER));
+
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PASS));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.DBFILE));
 
@@ -595,7 +682,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return
      */
     private String[] makeNameValue(Map<String, String> map, final String key) {
-        return new String[] { key, map.get(key) };
+        if (key.equals(IJobSettingConstants.PASS)) {
+            return new String[] { key, "******" };
+        } else {
+            return new String[] { key, map.get(key) };
+        }
     }
 
     /**
@@ -694,7 +785,6 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 x = point.x + screenshotOffset.x;
                 y = point.y + screenshotOffset.y;
             }
-
             ImageData imageData = node.getComponent().getIcon32().getImageData();
             if (imageData != null) {
                 width = imageData.width;

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Element;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.process.EComponentCategory;
@@ -24,6 +25,8 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
 
 /**
@@ -120,7 +123,6 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
      */
     private void generateComponentElementParamInfo(boolean istRunJob, Element parametersElement, List elementParameterList,
             INode node) {
-
         List<IElementParameter> copyElementParameterList = new ArrayList(elementParameterList);
 
         if (elementParameterList != null && elementParameterList.size() != 0) {
@@ -174,7 +176,11 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                 // int index = type.getIndexOfItemFromList(type.getDisplayName());
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
-
+                else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD")
+                        && CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)
+                        && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
+                    value = "******";
+                }
                 Element columnElement = parametersElement.addElement("column");
                 columnElement.addAttribute("name", HTMLDocUtils.checkString(elemparameter.getDisplayName()));
 

@@ -65,4 +65,8 @@ public interface ITalendCorePrefConstants {
 
     String IREPORT_PATH = "ireport_path"; //$NON-NLS-1$
 
+    String DOC_HIDEPASSWORDS = "doc_hidepasswords"; //$NON-NLS-1$
+
+    String DOC_GENERATESOURCECODE = "doc_generatesourcecode"; //$NON-NLS-1$
+
 }
