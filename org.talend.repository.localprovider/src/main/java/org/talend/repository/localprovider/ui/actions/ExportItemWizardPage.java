@@ -13,7 +13,6 @@
 package org.talend.repository.localprovider.ui.actions;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -422,7 +421,7 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        Collection<Item> items = new ArrayList(getSelectedItems());
+        Collection<Item> items = getSelectedItems();
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
             items = exportItemUtil.getAllVersions(items);

@@ -144,6 +144,5 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
     }
 
     public void selectionChanged(IAction action, ISelection selection) {
-        ISelection test = selection;
     }
 }

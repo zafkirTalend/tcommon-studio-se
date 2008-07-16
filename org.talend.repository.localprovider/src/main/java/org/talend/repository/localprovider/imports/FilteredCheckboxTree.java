@@ -402,7 +402,9 @@ public class FilteredCheckboxTree extends Composite {
                         treeViewer.getTree().setTopItem(items[0]);
                     }
                     redrawFalseControl.setRedraw(true);
-                    refreshCompleted();
+                    if (!initial) {
+                        refreshCompleted();
+                    }
                 }
                 return Status.OK_STATUS;
             }
