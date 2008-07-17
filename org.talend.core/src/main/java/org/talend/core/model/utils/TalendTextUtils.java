@@ -60,6 +60,8 @@ public class TalendTextUtils {
 
     private static final String PERL_CONNECT_STRING = ".";
 
+    private static final String PASS_COVER = "*";
+
     /*
      * ((?<!\\)".*?(?<!\\)") or ((?<!\\)'.*?(?<!\\)')
      */
@@ -600,5 +602,29 @@ public class TalendTextUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "hidePassword".
+     * 
+     * @param password
+     * @return
+     */
+    public static String hidePassword(final String password) {
+
+        if (password == null) {
+            return "**"; // Means two quote
+        }
+
+        int length = password.length() + 2;
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            builder.append(PASS_COVER);
+        }
+
+        return builder.toString();
+
     }
 }
