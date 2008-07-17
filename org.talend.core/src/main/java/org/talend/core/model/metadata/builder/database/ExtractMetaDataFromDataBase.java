@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -120,7 +121,8 @@ public class ExtractMetaDataFromDataBase {
             String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
                     ETableTypes.TABLETYPE_SYNONYM.getName() };
             while (rsTableTypes.next()) {
-                String currentTableType = rsTableTypes.getString("TABLE_TYPE");
+                // StringUtils.trimToEmpty(name) is because bug 4547
+                String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE"));
                 if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
                     availableTableTypes.add(currentTableType);
                 }
@@ -204,7 +206,8 @@ public class ExtractMetaDataFromDataBase {
 
             String name = getTableTypeByTableName(metaTable1.getLabel());
 
-            if (name != null && name.equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
+            // StringUtils.trimToEmpty(name) is because bug 4547
+            if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
                 metaTable1.setLabel(tableName);
                 metaTable1.setTableName(tableName);
