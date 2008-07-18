@@ -282,7 +282,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         if (para == null) {
             return;
         }
-        valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX);
+        valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX, para);
         if (!para.isBuiltIn()) {
             // not built-in
             return;
@@ -424,7 +424,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         for (TreeItem item : items) {
             IContextParameter para = cellModifier.getRealParameter(item.getData());
             if (para != null && para instanceof IContextParameter) {
-                valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX);
+                valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX, para);
             }
             checkItemValueErrors(item.getItems());
         }
@@ -820,7 +820,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return;
                 }
                 para.setValue((String) value);
-                valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX, (String) value);
+                valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX, para);
             } else if (property.equals(PROMPT_COLUMN_NAME)) {
                 if (para.getPrompt().equals(value)) {
                     return;

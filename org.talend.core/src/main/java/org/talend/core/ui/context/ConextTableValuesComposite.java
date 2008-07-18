@@ -255,7 +255,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         if (para == null) {
             return;
         }
-        valueChecker.checkErrors(item, column);
+        valueChecker.checkErrors(item, column, para);
         if (!para.isBuiltIn()) {
             // not built-in
             return;
@@ -433,7 +433,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             for (int i = 1; i < viewer.getColumnProperties().length; i++) {
                 IContextParameter para = cellModifier.getRealParameter((String) viewer.getColumnProperties()[i], item.getData());
                 if (para != null && para instanceof IContextParameter) {
-                    valueChecker.checkErrors(item, i);
+                    valueChecker.checkErrors(item, i, para);
                 }
             }
             checkItemValueErrors(item.getItems());
@@ -565,7 +565,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             for (int i = 0; i < (contextList.size() + 1); i++) {
                 if (property.equals(properties[i])) {
                     para = getRealParameter(properties[i], object);
-                    valueChecker.checkErrors(item, i, (String) value);
+                    valueChecker.checkErrors(item, i, para);
                 }
             }
 

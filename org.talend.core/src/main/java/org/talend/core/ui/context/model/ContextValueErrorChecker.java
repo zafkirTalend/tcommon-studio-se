@@ -34,6 +34,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.ICodeProblemsChecker;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -166,20 +167,18 @@ public class ContextValueErrorChecker {
         return null;
     }
 
-    public void checkErrors(final TreeItem item, final int column, String value) {
+    public void checkErrors(final TreeItem item, final int column, IContextParameter param) {
         if (item == null || item.isDisposed() || column < 0) {
             return;
         }
         if (column >= viewer.getTree().getColumnCount()) {
             return;
         }
-
-        final String text = item.getText(column);
-        if (value == null) {
-            value = text;
-        }
-        if (!value.equals(text)) {
-            item.setText(column, value);
+        String value = null;
+        if (param == null) {
+            value = item.getText(column);
+        } else {
+            value = param.getValue();
         }
         List<Problem> problems = checkProblems(value);
 
