@@ -97,6 +97,8 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     // used to calculate the full document displayed (in the visible part, no matter if there is annotations or not)
     private IRegion viewerStartRegion, viewerEndRegion;
 
+    private int oldDocLength;
+
     /**
      * Preference key for highlighting current line.
      */
@@ -175,6 +177,8 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                                 if (document.get().length() != 0) {
                                     calculatePositions();
                                 }
+                                // (bug 4289)
+                                updateVisibleRegion();
                             }
                         });
                     }
@@ -550,7 +554,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
             return;
         }
         if (getDocument().getLength() > start) {
-            viewerEndRegion = new Region(start + 1, getDocument().getLength() - start);
+            viewerEndRegion = new Region(start + 1 + length, getDocument().getLength() - start - length);
         } else {
             viewerEndRegion = new Region(start, 0);
         }
@@ -565,5 +569,27 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     @Override
     protected StyledText createTextWidget(Composite parent, int styles) {
         return new ReconcilerStyledText(parent, styles, this);
+    }
+
+    /**
+     * 
+     * ggu Comment method "updateVisibleRegion".
+     */
+    protected void updateVisibleRegion() {
+        if (this.getDocument() == null || this.viewerEndRegion == null || this.getVisibleDocument() == null) {
+            return;
+        }
+        final String docText = this.getDocument().get();
+        final int newDocLength = docText.length();
+        if (this.oldDocLength != newDocLength) {
+            final String visibleText = this.getVisibleDocument().get(); // get visible text
+
+            final int newLength = visibleText.length();
+            final int newStart = newDocLength - newLength - this.viewerEndRegion.getLength();
+
+            setVisibleRegion(newStart, newLength);
+
+            this.oldDocLength = newDocLength;
+        }
     }
 }
