@@ -12,12 +12,13 @@
 // ============================================================================
 package routines.system;
 
+import routines.TalendDate;
+
 public class FormatterUtils {
 
     public static String format_Date(java.util.Date date, String pattern) {
         if (date != null) {
-            java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
-            return simpleDateFormat.format(date);
+            return TalendDate.formatDate(pattern, date) ;
         } else {
             return null;
         }
