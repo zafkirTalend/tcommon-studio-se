@@ -12,7 +12,15 @@
 // ============================================================================
 package org.talend.commons.ui.swt.thread;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.talend.commons.ui.i18n.Messages;
 
 /**
  * bqian This class can start a thread to execute the backgroud job that user spcified, and have the ability to refresh
@@ -114,6 +122,36 @@ public abstract class SWTUIThreadProcessor {
      */
     public boolean isStopped() {
         return this.isStopped;
+    }
+
+    /**
+     * ftang Comment method "handleErrorOutput".
+     */
+    protected void handleErrorOutput(Composite outputComposite, CTabFolder tabFolder, CTabItem outputTabItem, Exception... e) {
+        Font font = new Font(Display.getDefault(), "courier", 8, SWT.NONE); //$NON-NLS-1$
+
+        StyledText text = new StyledText(outputComposite, SWT.WRAP | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.READ_ONLY);
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        text.setLayoutData(gridData);
+        outputComposite.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+
+        Exception exception = getException();
+        if (e != null && e.length == 1) {
+            exception = e[0];
+        }
+
+        String errorInfo = exception.getMessage() + "\n";
+        errorInfo = errorInfo + Messages.getString("FileStep2.previewFailure") + "\n";
+        StackTraceElement[] stackTrace = exception.getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            errorInfo = errorInfo + stackTraceElement.toString() + "\n";
+
+        }
+        text.setText(errorInfo);
+        text.setForeground(Display.getDefault().getSystemColor(SWT.COLOR_RED));
+        text.setFont(font);
+
+        tabFolder.setSelection(outputTabItem);
     }
 
 }
