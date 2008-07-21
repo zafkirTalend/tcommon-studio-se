@@ -50,6 +50,7 @@
 				<talendType type="id_Byte">
 					<dbType type="TINYINT" default="true"/>
 					<dbType type="TINYINT IDENTITY"/>
+					<dbType type="BIT"/>
 				</talendType>
 				<talendType type="id_byte[]">
 				</talendType>
@@ -143,8 +144,8 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="BIT">
-					<talendType type="id_Boolean" default="true" />
-					<talendType type="id_Byte" />
+					<talendType type="id_Byte"  default="true" />
+					<talendType type="id_Boolean" />
 				</dbType>
 				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
@@ -301,7 +302,8 @@
 					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="BIT">
-					<talendType type="boolean" default="true" />
+					<talendType type="int" default="true" />
+					<talendType type="boolean" />
 				</dbType>
 				<dbType type="CHAR">
 					<talendType type="string" default="true" />
