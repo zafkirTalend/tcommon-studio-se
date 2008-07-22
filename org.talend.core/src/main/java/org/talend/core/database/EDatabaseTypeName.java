@@ -44,7 +44,7 @@ public enum EDatabaseTypeName {
     INFORMIX("Informix", "Informix", new Boolean(false), "INFORMIX"), // "INFORMIX");
 
     ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS");
-    TERADATA("Teradata", "Teradata", new Boolean(false), "TERADATA"), // "TERADATA");
+    TERADATA("Teradata", "Teradata", new Boolean(true), "TERADATA"), // "TERADATA");
     AS400("AS400", "AS400", new Boolean(false), "AS400"),
 
     JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"),
