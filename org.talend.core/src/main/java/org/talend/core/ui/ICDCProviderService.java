@@ -33,4 +33,5 @@ public interface ICDCProviderService extends IService {
      */
     void createCDCTypes(RepositoryNode recBinNode, RepositoryNode cdcNode, CDCConnection connection);
 
+    public boolean isSubscriberTableNode(RepositoryNode node);
 }
