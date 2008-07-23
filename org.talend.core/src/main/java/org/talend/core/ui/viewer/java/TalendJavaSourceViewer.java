@@ -103,7 +103,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
             boolean showAnnotationsOverview, int styles, IAnnotationAccess annotationAccess, ISharedTextColors sharedColors,
             boolean checkCode, IDocument document) {
         super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, annotationAccess, sharedColors, checkCode,
-                document);
+                document, null);
 
         IPath packagePath = new Path("/.Java/src/internal");
         filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java";

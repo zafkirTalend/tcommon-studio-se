@@ -64,15 +64,11 @@ public final class ElementParameterParser {
         if (node instanceof INode) {
             INode valueNode = (INode) node;
             /*
-             * Apply to all components or just tMsgBox component?
+             * Apply to all components in Perl mode
              */
-            if (valueNode.getUniqueName().startsWith("tMsgBox_") && param.getField() == EParameterFieldType.MEMO
-                    && param.getName().equals("MESSAGE")) {
-                if (isPerlProject()) {
-                    return PerlVarParserUtils.findAndReplacesAll(newText, valueNode);
-                }
+            if (isPerlProject()) {
+                return PerlVarParserUtils.findAndReplacesAll(newText, valueNode);
             }
-
         }
 
         return newText;

@@ -40,8 +40,10 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.proposal.IExternalProposals;
 import org.talend.core.ui.proposal.JavaGlobalUtils;
+import org.talend.core.ui.proposal.PerlDynamicProposalUtil;
 import org.talend.core.ui.proposal.PerlGlobalUtils;
 import org.talend.core.ui.proposal.ProposalFactory;
+import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.designer.rowgenerator.data.Function;
 import org.talend.designer.rowgenerator.data.FunctionManager;
 import org.talend.designer.rowgenerator.data.TalendType;
@@ -211,6 +213,26 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                             description);
                     proposal.setType(TalendCompletionProposal.VARIABLE);
                     proposals.add(proposal);
+                }
+            }
+
+            // see feature 3725
+            if (textViewer instanceof ReconcilerViewer) {
+                INode node = ((ReconcilerViewer) textViewer).getHostNode();
+                if (node != null) {
+                    List<IContentProposal> contentProposals = PerlDynamicProposalUtil.createDynamicProposals(node);
+                    if (contentProposals != null && !contentProposals.isEmpty()) {
+                        for (IContentProposal proposal : contentProposals) {
+                            String display = proposal.getLabel();
+                            String code = proposal.getContent();
+                            String description = proposal.getDescription();
+                            TalendCompletionProposal completionProposal = new TalendCompletionProposal(code, offset
+                                    - prefix.length(), replacementLength, code.length(), ImageProvider
+                                    .getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                            completionProposal.setType(TalendCompletionProposal.VARIABLE);
+                            proposals.add(completionProposal);
+                        }
+                    }
                 }
             }
         }

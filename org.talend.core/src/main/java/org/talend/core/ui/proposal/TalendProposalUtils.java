@@ -16,6 +16,7 @@ import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.swt.widgets.Control;
 import org.talend.commons.ui.swt.proposal.ContentProposalAdapterExtended;
 import org.talend.commons.ui.swt.proposal.ProposalUtils;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 
 /**
@@ -32,14 +33,26 @@ public class TalendProposalUtils {
      * @param control Text component on wich proposals are installed.
      * @param process Process from wich proposals are built.
      */
-    public static ContentProposalAdapterExtended installOn(Control control, IProcess process) {
+    public static ContentProposalAdapterExtended installOn(Control control, IProcess process, final INode node) {
         IContentProposalProvider proposalProvider = null;
         if (process != null) {
-            proposalProvider = new TalendProposalProvider(process);
+            proposalProvider = new TalendProposalProvider(process, node);
         } else {
             proposalProvider = new TalendProposalProvider();
         }
         return ProposalUtils.getCommonProposal(control, proposalProvider);
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "installOn".
+     * 
+     * @param control
+     * @param process
+     * @return
+     */
+    public static ContentProposalAdapterExtended installOn(Control control, IProcess process) {
+        return installOn(control, process, null);
     }
 
 }

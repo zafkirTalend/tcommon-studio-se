@@ -71,6 +71,7 @@ import org.epic.core.model.SourceFile;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.threading.ExecutionLimiter;
+import org.talend.core.model.process.INode;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -99,6 +100,8 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
     private int oldDocLength;
 
+    private INode hostNode = null;
+
     /**
      * Preference key for highlighting current line.
      */
@@ -126,12 +129,13 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
     public ReconcilerViewer(Composite parent, IVerticalRuler verticalRuler, IOverviewRuler overviewRuler,
             boolean showAnnotationsOverview, int styles, IAnnotationAccess annotationAccess, ISharedTextColors sharedColors,
-            boolean checkCode, IDocument document) {
+            boolean checkCode, IDocument document, final INode node) {
         super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles);
         fOverviewRuler = overviewRuler;
         this.annotationAccess = annotationAccess;
         this.sharedColors = sharedColors;
         this.checkCode = checkCode;
+        this.hostNode = node;
 
         initializeViewer(document);
     }
@@ -591,5 +595,23 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
             this.oldDocLength = newDocLength;
         }
+    }
+
+    /**
+     * Getter for hostNode.
+     * 
+     * @return the hostNode
+     */
+    public INode getHostNode() {
+        return this.hostNode;
+    }
+
+    /**
+     * Sets the hostNode.
+     * 
+     * @param hostNode the hostNode to set
+     */
+    public void setHostNode(INode hostNode) {
+        this.hostNode = hostNode;
     }
 }

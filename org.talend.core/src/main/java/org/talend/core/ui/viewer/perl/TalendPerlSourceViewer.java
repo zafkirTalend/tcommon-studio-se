@@ -42,6 +42,7 @@ import org.epic.perleditor.editors.util.PerlValidator;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.process.INode;
 import org.talend.core.ui.viewer.ReconcilerViewer;
 
 /**
@@ -66,12 +67,45 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
      */
     protected TalendPerlSourceViewer(Composite parent, IVerticalRuler verticalRuler, IOverviewRuler overviewRuler,
             boolean showAnnotationsOverview, int styles, IAnnotationAccess annotationAccess, ISharedTextColors sharedColors,
-            boolean checkCode) {
+            boolean checkCode, final INode node) {
         super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, annotationAccess, sharedColors, checkCode,
-                new Document());
+                new Document(), node);
     }
 
+    /**
+     * 
+     * DOC YeXiaowei TalendPerlSourceViewer constructor comment.
+     * 
+     * @param parent
+     * @param verticalRuler
+     * @param overviewRuler
+     * @param showAnnotationsOverview
+     * @param styles
+     * @param annotationAccess
+     * @param sharedColors
+     * @param checkCode
+     */
+    protected TalendPerlSourceViewer(Composite parent, IVerticalRuler verticalRuler, IOverviewRuler overviewRuler,
+            boolean showAnnotationsOverview, int styles, IAnnotationAccess annotationAccess, ISharedTextColors sharedColors,
+            boolean checkCode) {
+        super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, annotationAccess, sharedColors, checkCode,
+                new Document(), null);
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "createViewer".
+     * 
+     * @param composite
+     * @param styles
+     * @param checkCode
+     * @return
+     */
     public static ReconcilerViewer createViewer(Composite composite, int styles, boolean checkCode) {
+        return createViewer(composite, styles, checkCode, null);
+    }
+
+    public static ReconcilerViewer createViewer(Composite composite, int styles, boolean checkCode, final INode node) {
         IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
         ISharedTextColors sharedColors = EditorsPlugin.getDefault().getSharedTextColors();
         IOverviewRuler overviewRuler = null;
@@ -88,7 +122,7 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
         verticalRuler = new CompositeRuler(12);
 
         return new TalendPerlSourceViewer(composite, verticalRuler, overviewRuler, checkCode, styles, annotationAccess,
-                sharedColors, checkCode);
+                sharedColors, checkCode, node);
     }
 
     /*
