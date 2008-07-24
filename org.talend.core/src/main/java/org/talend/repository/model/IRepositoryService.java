@@ -63,8 +63,8 @@ public interface IRepositoryService extends IService {
      */
     public void registerRepositoryChangedListenerAsFirst(IRepositoryChangedListener listener);
 
-    public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation,
-            ISelection selection, String[] existingNames, boolean isSinglePageOnly);
+    public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation, ISelection selection,
+            String[] existingNames, boolean isSinglePageOnly);
 
     public Property getPropertyFromWizardDialog();
 
@@ -83,8 +83,6 @@ public interface IRepositoryService extends IService {
     public boolean isRCPMode();
 
     public void setRCPMode();
-
-    public boolean isFromRecycleBin(RepositoryNode node);
 
     public void openMetadataConnection(IRepositoryObject o);
 

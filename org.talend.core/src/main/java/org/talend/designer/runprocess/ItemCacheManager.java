@@ -19,6 +19,7 @@ import java.util.Map;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -43,7 +44,7 @@ public class ItemCacheManager {
         jobletItemCache.clear();
     }
 
-    public static ProcessItem getProcessItem(String processId) {
+    public static ProcessItem getProcessItem(Project project, String processId) {
         if (processId == null || "".equals(processId)) {
             return null;
         }
@@ -51,7 +52,7 @@ public class ItemCacheManager {
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            IRepositoryObject object = factory.getLastVersion(processId);
+            IRepositoryObject object = factory.getLastVersion(project, processId);
             if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
                 return null;
             }
@@ -65,12 +66,22 @@ public class ItemCacheManager {
         return null;
     }
 
+    public static ProcessItem getProcessItem(String processId) {
+        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
+        return getProcessItem(project, processId);
+    }
+
     public static ProcessItem getProcessItem(String processId, String version) {
+        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
+        return getProcessItem(project, processId, version);
+    }
+
+    public static ProcessItem getProcessItem(Project project, String processId, String version) {
         if (processId == null || "".equals(processId)) {
             return null;
         }
         if (version == null || LATEST_VERSION.equals(version)) {
-            return getProcessItem(processId);
+            return getProcessItem(project, processId);
         }
         ProcessItem selectedProcessItem = processItemCache.get(processId + " -- " + version);
         if (selectedProcessItem != null) {
@@ -79,7 +90,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
 
-            List<IRepositoryObject> allVersions = factory.getAllVersion(processId);
+            List<IRepositoryObject> allVersions = factory.getAllVersion(project, processId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.PROCESS) {
                     processItemCache.put(processId + " -- " + ro.getVersion(), (ProcessItem) ro.getProperty().getItem());
@@ -95,15 +106,7 @@ public class ItemCacheManager {
         return null;
     }
 
-    public static String getProcessNameByProcessId(String processId) {
-        ProcessItem item = getProcessItem(processId);
-        if (item != null) {
-            return item.getProperty().getLabel();
-        }
-        return null;
-    }
-
-    public static JobletProcessItem getJobletProcessItem(String jobletId) {
+    public static JobletProcessItem getJobletProcessItem(Project project, String jobletId) {
         if (jobletId == null || "".equals(jobletId)) {
             return null;
         }
@@ -111,7 +114,7 @@ public class ItemCacheManager {
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            IRepositoryObject object = factory.getLastVersion(jobletId);
+            IRepositoryObject object = factory.getLastVersion(project, jobletId);
             if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
                 return null;
             }
@@ -125,7 +128,12 @@ public class ItemCacheManager {
         return null;
     }
 
-    public static JobletProcessItem getJobletProcessItem(String jobletId, String version) {
+    public static JobletProcessItem getJobletProcessItem(String jobletId) {
+        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
+        return getJobletProcessItem(project, jobletId);
+    }
+
+    public static JobletProcessItem getJobletProcessItem(Project project, String jobletId, String version) {
         if (jobletId == null || "".equals(jobletId)) {
             return null;
         }
@@ -139,7 +147,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
 
-            List<IRepositoryObject> allVersions = factory.getAllVersion(jobletId);
+            List<IRepositoryObject> allVersions = factory.getAllVersion(project, jobletId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.JOBLET) {
                     jobletItemCache.put(jobletId + " -- " + ro.getVersion(), (JobletProcessItem) ro.getProperty().getItem());
@@ -153,5 +161,10 @@ public class ItemCacheManager {
             ExceptionHandler.process(e);
         }
         return null;
+    }
+
+    public static JobletProcessItem getJobletProcessItem(String jobletId, String version) {
+        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
+        return getJobletProcessItem(project, jobletId, version);
     }
 }

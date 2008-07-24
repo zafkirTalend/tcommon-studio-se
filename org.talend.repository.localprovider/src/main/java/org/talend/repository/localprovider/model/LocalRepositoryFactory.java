@@ -17,7 +17,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -67,6 +66,7 @@ import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -94,8 +94,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -130,13 +130,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @return a structure of all object of type in the project
      * @throws PersistenceException if project, folder or resource cannot be found
      */
-    protected <K, T> RootContainer<K, T> getObjectFromFolder(ERepositoryObjectType type, boolean onlyLastVersion)
+    protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type, boolean onlyLastVersion)
             throws PersistenceException {
         long currentTime = System.currentTimeMillis();
 
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        IProject fsProject = ResourceModelUtils.getProject(project);
 
         IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
 
@@ -777,12 +777,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * org.talend.core.model.repository.IRepositoryObject)
      */
     public void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException {
+        // can only delete in the main project
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
                 + IPath.SEPARATOR + BIN, true);
 
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(objToDelete.getId());
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState state = objToDelete.getProperty().getItem().getState();
             state.setDeleted(true);
@@ -801,7 +802,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException {
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(objToDelete.getId());
+        // can only delete in the main project
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
             for (Resource resource : affectedResources) {
@@ -817,7 +819,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(objToRestore.getId());
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
@@ -850,7 +852,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
-        List<IRepositoryObject> allVersionToMove = getAllVersion(objToMove.getId());
+        List<IRepositoryObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId());
         for (IRepositoryObject obj : allVersionToMove) {
             ItemState state = obj.getProperty().getItem().getState();
             state.setPath(newPath.toString());
@@ -1215,7 +1217,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void propagateFileName(Property property) throws PersistenceException {
-        List<IRepositoryObject> allVersionToMove = getAllVersion(property.getId());
+        List<IRepositoryObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), property.getId());
         for (IRepositoryObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
@@ -1429,7 +1431,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public List<org.talend.core.model.properties.Project> getReferencedProjects() {
-        return Collections.EMPTY_LIST;
+        List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
+        for (ProjectReference refProject : (List<ProjectReference>) getRepositoryContext().getProject().getEmfProject()
+                .getReferencedProjects()) {
+            refProjectList.add(refProject.getReferencedProject());
+        }
+        return refProjectList;
     }
 
     public Boolean hasChildren(Object parent) {

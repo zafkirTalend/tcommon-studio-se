@@ -87,8 +87,8 @@ public class SaveAsGenericSchemaCommand extends Command {
 
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
 
-            WizardDialog dialog = repositoryService.getGenericSchemaWizardDialog(new Shell(),
-                    PlatformUI.getWorkbench(), false, null, null, true);
+            WizardDialog dialog = repositoryService.getGenericSchemaWizardDialog(new Shell(), PlatformUI.getWorkbench(), false,
+                    null, null, true);
             dialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);
             dialog.create();
             Property property = null;

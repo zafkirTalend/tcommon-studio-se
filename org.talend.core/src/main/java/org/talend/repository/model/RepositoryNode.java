@@ -23,12 +23,13 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.ui.images.CoreImageProvider;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
  * Node used to fill the repository view TreeViewer. Each node has a type defines in ENodeType enum. Object isn't stored
  * in the node but retrieve using the provider at each getObject call.<br/>
  * 
- * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 十二月 2006) bqian $
+ * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
  * 
  */
 public class RepositoryNode {
@@ -38,7 +39,7 @@ public class RepositoryNode {
     /**
      * Represents differents type of node.<br/>
      * 
-     * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 十二月 2006) bqian $
+     * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
      * 
      */
     public enum ENodeType {
@@ -62,7 +63,7 @@ public class RepositoryNode {
      * 
      * Represents available properties on a node.<br/>
      * 
-     * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 十二月 2006) bqian $
+     * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
      * 
      */
     public enum EProperties {
@@ -81,6 +82,8 @@ public class RepositoryNode {
     protected ENodeType type;
 
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
+
+    private IProjectRepositoryNode root;
 
     private boolean initialized = false;
 
@@ -106,6 +109,11 @@ public class RepositoryNode {
     // this.process = process;
     // }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#isInitialized()
+     */
     public boolean isInitialized() {
         return initialized;
     }
@@ -121,7 +129,8 @@ public class RepositoryNode {
      * 
      * @param id
      * @param object
-     * @param parent
+     * @param parent Parent Node
+     * @param root Root Node (project)
      * @param type
      */
     public RepositoryNode(IRepositoryObject object, RepositoryNode parent, ENodeType type) {
@@ -130,6 +139,7 @@ public class RepositoryNode {
         this.object = object;
         this.parent = parent;
         this.type = type;
+        this.root = (parent == null ? null : parent.getRoot());
     }
 
     public String toString() {
@@ -146,10 +156,10 @@ public class RepositoryNode {
         }
     }
 
-    /**
-     * Getter for children.
+    /*
+     * (non-Javadoc)
      * 
-     * @return the children
+     * @see org.talend.repository.model.RepositoryNode#getChildren()
      */
     public List<RepositoryNode> getChildren() {
         if (true) {
@@ -170,14 +180,19 @@ public class RepositoryNode {
         return toReturn;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#hasChildren()
+     */
     public boolean hasChildren() {
         return !getChildren().isEmpty();
     }
 
-    /**
-     * Getter for id.
+    /*
+     * (non-Javadoc)
      * 
-     * @return the id
+     * @see org.talend.repository.model.RepositoryNode#getId()
      */
     public String getId() {
         return this.id;
@@ -192,19 +207,19 @@ public class RepositoryNode {
         this.id = id;
     }
 
-    /**
-     * Getter for object.
+    /*
+     * (non-Javadoc)
      * 
-     * @return the object
+     * @see org.talend.repository.model.RepositoryNode#getObject()
      */
     public IRepositoryObject getObject() {
         return this.object;
     }
 
-    /**
-     * Getter for parent.
+    /*
+     * (non-Javadoc)
      * 
-     * @return the parent
+     * @see org.talend.repository.model.RepositoryNode#getParent()
      */
     public RepositoryNode getParent() {
         return this.parent;
@@ -219,10 +234,10 @@ public class RepositoryNode {
         this.parent = parent;
     }
 
-    /**
-     * Getter for type.
+    /*
+     * (non-Javadoc)
      * 
-     * @return the type
+     * @see org.talend.repository.model.RepositoryNode#getType()
      */
     public ENodeType getType() {
         if (type == ENodeType.REPOSITORY_ELEMENT && getObject().getType() == ERepositoryObjectType.FOLDER) {
@@ -231,6 +246,11 @@ public class RepositoryNode {
         return type;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#getObjectType()
+     */
     public ERepositoryObjectType getObjectType() {
         if (getObject() != null) {
             return getObject().getType();
@@ -238,6 +258,11 @@ public class RepositoryNode {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#getContentType()
+     */
     public ERepositoryObjectType getContentType() {
         if (getObject() != null) {
             if (getObject() instanceof Folder) {
@@ -258,6 +283,11 @@ public class RepositoryNode {
         this.type = type;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#getLabel()
+     */
     public String getLabel() {
         switch (getType()) {
         case REFERENCED_PROJECT:
@@ -270,6 +300,11 @@ public class RepositoryNode {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#getIcon()
+     */
     public IImage getIcon() {
         switch (getType()) {
         case REPOSITORY_ELEMENT:
@@ -285,10 +320,20 @@ public class RepositoryNode {
     }
 
     // TODO SML Remove theses props
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#getProperties(org.talend.repository.model.RepositoryNode.EProperties)
+     */
     public Object getProperties(EProperties key) {
         return properties.get(key);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.RepositoryNode#isBin()
+     */
     public boolean isBin() {
         return false;
     }
@@ -351,6 +396,19 @@ public class RepositoryNode {
             return false;
         }
         return true;
+    }
+
+    public IProjectRepositoryNode getRoot() {
+        return this.root;
+    }
+
+    /**
+     * Sets the root.
+     * 
+     * @param root the root to set
+     */
+    public void setRoot(IProjectRepositoryNode root) {
+        this.root = root;
     }
 
 }
