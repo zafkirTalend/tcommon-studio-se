@@ -639,6 +639,10 @@ public class TalendTextUtils {
         if (component.startsWith("tOracleOutput")) {
             return "tOracleOutput";
         }
+        if (component.startsWith("tOracleInput")) {
+            return "tOracleInput";
+        }
+
         return component;
     }
 }
