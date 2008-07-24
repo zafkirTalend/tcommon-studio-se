@@ -1,3 +1,20 @@
-INSERT INTO </TABLE_NAME_TARGET/> (</ELT_METADATA_SHEMA/>)
-SELECT </OPERATION/>, </GROUPBY/> FROM </TABLE_NAME/>
-GROUP BY </GROUPBY/>;
+<% 
+	EXTRACT(__GROUPBY__);
+	SCHEMA(__ELT_METADATA_SCHEMA__);
+	EXTRACT(__OPERATION__);
+	String operation = "";
+	boolean flag=false;
+	for(int i=0; i < __OPERATION_INPUT_COLUMN__.length; i++){
+	 if(flag){
+	  operation += ",";
+	 }else{
+	  flag=true;
+	 }
+	 operation += (__OPERATION_FUNCTION__[i] + "(" + __OPERATION_INPUT_COLUMN__[i] + ")");
+	}
+	
+%>
+
+INSERT INTO <%=__TABLE_NAME_TARGET__%> <%=StringUtils.list(__ELT_METADATA_SCHEMA_NAME__, ",", "(", ")") %>
+SELECT <%= operation %>, <%= StringUtils.list(__GROUPBY_OUTPUT_COLUMN__) %> FROM <%= __TABLE_NAME__ %>
+GROUP BY <%=StringUtils.list(__GROUPBY_OUTPUT_COLUMN__, ",", "(", ")") %>;

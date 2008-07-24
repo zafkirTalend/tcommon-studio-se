@@ -1,0 +1,44 @@
+<%
+	SCHEMA(__ELT_METADATA_SCHEMA__);
+	String fields = "";
+	boolean flag=false;
+	for(int i=0; i < __ELT_METADATA_SCHEMA__.length; i++){
+	 if(flag){
+		 fields += ",";
+	 }else{
+		 flag=true;
+	 }
+	 	if(__ELT_METADATA_SCHEMA_DBTYPE__[i].equals("DECIMAL") || __ELT_METADATA_SCHEMA_DBTYPE__[i].equals("VARCHAR") || __ELT_METADATA_SCHEMA_DBTYPE__[i].equals("CHAR") || __ELT_METADATA_SCHEMA_DBTYPE__[i].equals("BYTE") || __ELT_METADATA_SCHEMA_DBTYPE__[i].equals("VARBYTE")){
+
+	 		fields += (__ELT_METADATA_SCHEMA_NAME__[i] + " " + __ELT_METADATA_SCHEMA_DBTYPE__[i] +" ("+ __ELT_METADATA_SCHEMA_LENGTH__[i] +") ");	
+
+	 		//	 	} else if(__ELT_METADATA_SCHEMA_DBTYPE__[i].equals("DECIMAL")){
+//	 		fields += (__ELT_METADATA_SCHEMA_NAME__[i] + " " + __ELT_METADATA_SCHEMA_DBTYPE__[i] +" ("+ __ELT_METADATA_SCHEMA_LENGTH__[i] +","+ __ELT_METADATA_SCHEMA_PRECISION__[i] +") ");	
+	 	} else {
+	 		fields += (__ELT_METADATA_SCHEMA_NAME__[i] + " " + __ELT_METADATA_SCHEMA_DBTYPE__[i]);
+	    }
+	 	if(__ELT_METADATA_SCHEMA_NULLABLE__[i].equals("false")){
+	 		fields += " NOT NULL";
+	 	}
+	}
+	String primary = "";
+	for(int j=0; j < __ELT_METADATA_SCHEMA__.length; j++){
+		if(__ELT_METADATA_SCHEMA_ISKEY__[j].equals("true") && __ELT_METADATA_SCHEMA_NULLABLE__[j].equals("false")){
+			if(primary.startsWith(" , PRIMARY KEY")) {
+				primary += ","+__ELT_METADATA_SCHEMA_NAME__[j];
+			} else {
+				primary += " , PRIMARY KEY ("+__ELT_METADATA_SCHEMA_NAME__[j];	
+			}
+		}
+	}
+	if(!primary.equals("")){
+		fields += primary+")";
+	}
+%>
+
+CREATE MULTISET TABLE <%= __DATABASE_NAME__ %>.<%= __TABLE_NAME__ %> ,NO FALLBACK ,
+NO BEFORE JOURNAL,
+NO AFTER JOURNAL,
+CHECKSUM = DEFAULT
+(
+ <%= fields %>); 
