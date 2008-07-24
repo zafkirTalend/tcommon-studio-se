@@ -125,7 +125,8 @@ public abstract class RepositoryUpdateManager {
     }
 
     public boolean needForcePropagation() {
-        return !getContextRenamedMap().isEmpty() || !getSchemaRenamedMap().isEmpty();
+        return (getContextRenamedMap() != null && !getContextRenamedMap().isEmpty())
+                || (getSchemaRenamedMap() != null && !getSchemaRenamedMap().isEmpty());
     }
 
     public boolean doWork(boolean show) {
