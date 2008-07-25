@@ -106,6 +106,14 @@ public class ItemCacheManager {
         return null;
     }
 
+    public static String getProcessNameByProcessId(String processId) {
+        ProcessItem item = getProcessItem(processId);
+        if (item != null) {
+            return item.getProperty().getLabel();
+        }
+        return null;
+    }
+
     public static JobletProcessItem getJobletProcessItem(Project project, String jobletId) {
         if (jobletId == null || "".equals(jobletId)) {
             return null;
