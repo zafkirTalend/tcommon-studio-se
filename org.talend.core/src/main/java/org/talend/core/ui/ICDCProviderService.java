@@ -14,6 +14,7 @@ package org.talend.core.ui;
 
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -34,4 +35,6 @@ public interface ICDCProviderService extends IService {
     void createCDCTypes(RepositoryNode recBinNode, RepositoryNode cdcNode, CDCConnection connection);
 
     public boolean isSubscriberTableNode(RepositoryNode node);
+
+    public boolean canCreateCDCConnection(DatabaseConnection conn);
 }
