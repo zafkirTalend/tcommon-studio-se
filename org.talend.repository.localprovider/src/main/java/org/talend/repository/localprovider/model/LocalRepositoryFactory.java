@@ -276,6 +276,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         property = xmiResourceManager.loadProperty(current);
                     } catch (RuntimeException e) {
                         // property will be null
+                        ExceptionHandler.process(e);
                     }
                     if (property != null) {
                         if (id == null || property.getId().equals(id)) {
