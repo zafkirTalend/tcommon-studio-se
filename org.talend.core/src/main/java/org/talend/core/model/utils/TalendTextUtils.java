@@ -483,6 +483,23 @@ public class TalendTextUtils {
         }
     }
 
+    public static String removeQuotesIfExist(String text) {
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+
+        switch (language) {
+        case JAVA:
+            if (text.startsWith(QUOTATION_MARK))
+                return removeQuotes(text, QUOTATION_MARK);
+            else
+                return text;
+        default: // PERL
+            if (text.startsWith(SINGLE_QUOTE))
+                return removeQuotes(text, SINGLE_QUOTE);
+            else
+                return text;
+        }
+    }
+
     /**
      * qzhang Comment method "removeQuotes".
      * 
