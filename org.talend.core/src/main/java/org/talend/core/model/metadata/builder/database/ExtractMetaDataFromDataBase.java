@@ -134,9 +134,11 @@ public class ExtractMetaDataFromDataBase {
             }
             getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions());
         } catch (SQLException e) {
+            e.printStackTrace();
             log.error(e.toString());
             throw new RuntimeException(e);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e.toString());
             throw new RuntimeException(e);
         }

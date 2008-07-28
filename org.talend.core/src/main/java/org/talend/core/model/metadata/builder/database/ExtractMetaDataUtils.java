@@ -249,7 +249,7 @@ public class ExtractMetaDataUtils {
                 if (isValidJarFile(driverJarPath)) {
                     // Load jdbc driver class dynamicly
                     JDBCDriverLoader loader = new JDBCDriverLoader();
-                    conn = loader.getConnection(driverJarPath, driverClassName, url, username, driverClass);
+                    conn = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
                 } else {
                     Class.forName(driverClass).newInstance();
                     conn = DriverManager.getConnection(url, username, pwd);

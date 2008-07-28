@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -351,15 +351,17 @@ public class RepositoryToComponentProperty {
                     String fileName = new File(jarPath).getName();
 
                     if (!jarPath.equals(defaultPath + pathSeparator + fileName)) {
-                        // Copy jar file to Talend libs location
+                        // deploy this library
                         try {
-                            FileUtils.copyFile(new File(jarPath), new File(defaultPath));
+                            CorePlugin.getDefault().getLibrariesService().deployLibrary(
+                                    Path.fromOSString(jarPath).toFile().toURL());
+                            // FileUtils.copyFile(new File(jarPath), new File(defaultPath));
                         } catch (IOException e) {
                             ExceptionHandler.process(e);
                             return null;
                         }
                     }
-
+                    CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
                     return TalendTextUtils.addQuotes(new File(jarPath).getName());
                 } catch (Exception e) {
                     return null;
