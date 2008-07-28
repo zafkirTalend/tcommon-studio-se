@@ -55,6 +55,7 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -62,6 +63,8 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
 public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
     protected Property property = PropertiesFactory.eINSTANCE.createProperty();
+
+    private RepositoryNode repositoryNode;
 
     public RepositoryObject() {
     }
@@ -306,8 +309,7 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
                 final DatabaseConnection connection = (DatabaseConnection) item.getConnection();
 
-                DatabaseConnection conn = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(
-                        connection);
+                DatabaseConnection conn = CorePlugin.getDefault().getRepositoryService().cloneOriginalValueConnection(connection);
 
                 final QueriesConnection queries = connection.getQueries();
                 QueriesConnection newQ = null;
@@ -390,5 +392,25 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
     public Object getAdapter(Class adapter) {
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryNode()
+     */
+    public RepositoryNode getRepositoryNode() {
+        // TODO Auto-generated method stub
+        return this.repositoryNode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
+     */
+    public void setRepositoryNode(RepositoryNode node) {
+        this.repositoryNode = node;
+
     }
 }

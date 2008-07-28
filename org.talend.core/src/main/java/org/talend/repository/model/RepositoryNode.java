@@ -140,6 +140,10 @@ public class RepositoryNode {
         this.parent = parent;
         this.type = type;
         this.root = (parent == null ? null : parent.getRoot());
+
+        if (object != null) {
+            object.setRepositoryNode(this);
+        }
     }
 
     public String toString() {

@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * Defines a repository object, an object that can be stored in the repository. <br/>
@@ -84,4 +85,8 @@ public interface IRepositoryObject {
     public void setProperty(Property property);
 
     public List<IRepositoryObject> getChildren();
+
+    public void setRepositoryNode(RepositoryNode node);
+
+    public RepositoryNode getRepositoryNode();
 }

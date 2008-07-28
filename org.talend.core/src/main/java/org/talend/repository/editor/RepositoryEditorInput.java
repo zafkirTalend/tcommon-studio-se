@@ -208,7 +208,13 @@ public class RepositoryEditorInput extends FileEditorInput {
      * @param processItem
      * @throws PersistenceException
      */
-    protected boolean checkReadOnly() throws PersistenceException {
+    public boolean checkReadOnly() throws PersistenceException {
+
+        // Check if the node is under reference project
+        if (this.repositoryNode != null && !this.repositoryNode.getRoot().isMainProject()) {
+            return true;
+        }
+
         return loadedProcess.checkReadOnly();
     }
 
