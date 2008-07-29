@@ -211,7 +211,8 @@ public class RepositoryEditorInput extends FileEditorInput {
     public boolean checkReadOnly() throws PersistenceException {
 
         // Check if the node is under reference project
-        if (this.repositoryNode != null && !this.repositoryNode.getRoot().isMainProject()) {
+        if (this.repositoryNode != null && this.repositoryNode.getRoot() != null
+                && !this.repositoryNode.getRoot().isMainProject()) {
             return true;
         }
 
