@@ -339,7 +339,7 @@ public final class MetadataTalendType {
         ArrayList<Dbms> list = new ArrayList<Dbms>();
         for (int i = 0; i < allDbmsArray.length; i++) {
             Dbms dbms = allDbmsArray[i];
-            if (getMapProductName(product).equals(dbms.getProduct())) {
+            if (sameDBProductType(product, dbms.getProduct())) {
                 list.add(dbms);
             }
         }
@@ -354,7 +354,7 @@ public final class MetadataTalendType {
         Dbms defaultDbms = null;
         for (int i = 0; i < allDbmsArray.length; i++) {
             Dbms dbms = allDbmsArray[i];
-            if (getMapProductName(product).equals(dbms.getProduct())) {
+            if (sameDBProductType(product, dbms.getProduct())) {
                 if (dbms.isDefaultDbms()) {
                     return dbms;
                 }
@@ -526,6 +526,17 @@ public final class MetadataTalendType {
      */
     public static String[] getPerlTypes() {
         return PERL_TYPES.clone();
+    }
+
+    public static boolean sameDBProductType(String sourceProduct, String targetProduct) {
+        if (sourceProduct == null || targetProduct == null) {
+            return false;
+        }
+        if (sourceProduct.equals(targetProduct) || sourceProduct.equals(getMapProductName(targetProduct))) {
+            return true;
+        }
+        return false;
+
     }
 
     public static void main(String[] args) {
