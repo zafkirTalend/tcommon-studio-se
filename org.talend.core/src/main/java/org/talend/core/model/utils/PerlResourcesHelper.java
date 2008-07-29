@@ -58,6 +58,7 @@ public class PerlResourcesHelper {
 
         String name = project.getLabel();
         name = name.replaceAll(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+        name = name.replaceAll("-", "_"); //$NON-NLS-1$ //$NON-NLS-2$
         name = name.toUpperCase();
 
         return name;
