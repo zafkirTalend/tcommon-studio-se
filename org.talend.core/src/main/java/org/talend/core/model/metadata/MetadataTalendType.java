@@ -331,7 +331,7 @@ public final class MetadataTalendType {
      * @param product
      * @return array of Dbms which have the given product value
      */
-    public static Dbms[] getDbmsArrayFromProduct(String product) {
+    public static Dbms[] getDbmsArrayFromProduct(final String product) {
         if (product == null) {
             throw new IllegalArgumentException();
         }
@@ -339,14 +339,14 @@ public final class MetadataTalendType {
         ArrayList<Dbms> list = new ArrayList<Dbms>();
         for (int i = 0; i < allDbmsArray.length; i++) {
             Dbms dbms = allDbmsArray[i];
-            if (product.equals(dbms.getProduct())) {
+            if (getMapProductName(product).equals(dbms.getProduct())) {
                 list.add(dbms);
             }
         }
         return list.toArray(new Dbms[0]);
     }
 
-    public static Dbms getDefaultDbmsFromProduct(String product) {
+    public static Dbms getDefaultDbmsFromProduct(final String product) {
         if (product == null) {
             throw new IllegalArgumentException();
         }
@@ -354,7 +354,7 @@ public final class MetadataTalendType {
         Dbms defaultDbms = null;
         for (int i = 0; i < allDbmsArray.length; i++) {
             Dbms dbms = allDbmsArray[i];
-            if (product.equals(dbms.getProduct())) {
+            if (getMapProductName(product).equals(dbms.getProduct())) {
                 if (dbms.isDefaultDbms()) {
                     return dbms;
                 }
@@ -363,6 +363,20 @@ public final class MetadataTalendType {
             }
         }
         return defaultDbms;
+    }
+
+    // See bug 4565. ORACLE product is separated to two types, ORACLE_SID and ORACLE_SERVICE
+    public static String getMapProductName(final String product) {
+
+        String temp = product.toUpperCase();
+
+        // ORACLE_SID and ORACLE_SERVICE are all ORACLE type dbms
+        if (temp.startsWith("ORACLE")) {
+            return "ORACLE";
+        }
+
+        // Other db just return the product name
+        return temp;
     }
 
     /**
