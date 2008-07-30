@@ -31,8 +31,15 @@ public class ModelSelectionDialog extends SelectionDialog {
 
     public enum EEditSelection {
         SHOW_SCHEMA,
+        SHOW_QUERY,
         BUILDIN,
         REPOSITORY;
+    }
+
+    public enum ESelectionType {
+        SCHEMA,
+        QUERY,
+        NORMAL;
     }
 
     private static final String TITLE = Messages.getString("ModelSelectionDialog.Title"); //$NON-NLS-1$
@@ -41,25 +48,28 @@ public class ModelSelectionDialog extends SelectionDialog {
 
     private EEditSelection optionValue;
 
-    private Button showSchema, buildIn, repository;
+    private Button showSchema, showQuery, buildIn, repository;
 
-    private Boolean readOnlyJob, noSchema;
+    private Boolean readOnlyJob;
+
+    private ESelectionType selectionType;
 
     /**
      * DOC yzhang ModelSelectionDialog constructor comment.
      */
-    public ModelSelectionDialog(Shell parentShell, boolean noSchema) {
-        this(parentShell, noSchema, false);
-        this.noSchema = noSchema;
+
+    public ModelSelectionDialog(Shell parentShell, ESelectionType selectionType) {
+        this(parentShell, selectionType, false);
     }
 
-    public ModelSelectionDialog(Shell parentShell, boolean noSchema, boolean isReadOnly) {
+    public ModelSelectionDialog(Shell parentShell, ESelectionType selectionType, boolean isReadOnly) {
         super(parentShell);
         setHelpAvailable(false);
         setTitle(TITLE);
         setMessage(MESSAGE);
+        this.selectionType = selectionType;
         this.readOnlyJob = isReadOnly;
-        this.noSchema = noSchema;
+
     }
 
     /*
@@ -92,9 +102,13 @@ public class ModelSelectionDialog extends SelectionDialog {
         gridLayout.horizontalSpacing = 10;
         group.setLayout(gridLayout);
         group.setLayoutData(gridData);
-        if (noSchema) {
+        if (selectionType == ESelectionType.SCHEMA) {
             showSchema = new Button(group, SWT.RADIO);
-            showSchema.setText("View Schema (read only)");
+            showSchema.setText(Messages.getString("ModelSelectionDialog.ViewSchema")); //$NON-NLS-1$
+        }
+        if (selectionType == ESelectionType.QUERY) {
+            showQuery = new Button(group, SWT.RADIO);
+            showQuery.setText(Messages.getString("ModelSelectionDialog.ViewQuery")); //$NON-NLS-1$
         }
 
         buildIn = new Button(group, SWT.RADIO);
@@ -129,9 +143,13 @@ public class ModelSelectionDialog extends SelectionDialog {
             setOptionValue(EEditSelection.BUILDIN);
         if (repository.getSelection())
             setOptionValue(EEditSelection.REPOSITORY);
-        if (noSchema) {
+        if (selectionType == ESelectionType.SCHEMA) {
             if (showSchema.getSelection())
                 setOptionValue(EEditSelection.SHOW_SCHEMA);
+        }
+        if (selectionType == ESelectionType.QUERY) {
+            if (showQuery.getSelection())
+                setOptionValue(EEditSelection.SHOW_QUERY);
         }
 
         super.okPressed();

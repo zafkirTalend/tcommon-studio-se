@@ -91,6 +91,7 @@ public class ColorStyledText extends StyledText {
                 paste();
             }
         });
+        pasteItem.setEnabled(getEditable());
 
         this.setMenu(popupMenu);
         MenuItem selectAllItem = new MenuItem(popupMenu, SWT.PUSH);
@@ -215,7 +216,9 @@ public class ColorStyledText extends StyledText {
     @Override
     public void setEditable(boolean editable) {
         super.setEditable(editable);
-        pasteItem.setEnabled(editable);
+        if (pasteItem != null) {
+            pasteItem.setEnabled(editable);
+        }
     }
 
     /**
