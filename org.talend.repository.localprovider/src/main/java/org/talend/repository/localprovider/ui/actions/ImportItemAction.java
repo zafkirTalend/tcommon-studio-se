@@ -27,6 +27,8 @@ import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemWizard;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.ui.actions.AContextualAction;
@@ -39,10 +41,15 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
 
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         boolean canWork = false;
-
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         if (selection.size() == 1) {
             if (selection.getFirstElement() instanceof RepositoryNode) {
                 RepositoryNode repositoryNode = (RepositoryNode) selection.getFirstElement();
+                if (factory.isUserReadOnlyOnCurrentProject()
+                        || !repositoryNode.getRoot().getProject().equals(factory.getRepositoryContext().getProject())) {
+                    setEnabled(false);
+                    return;
+                }
                 if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)) {
                     canWork = true;
                 }

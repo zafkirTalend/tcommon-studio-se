@@ -580,4 +580,7 @@ public interface IProxyRepositoryFactory {
 
     public Property getUptodateProperty(Property property) throws PersistenceException;
 
+    public boolean isMainProjectItem(Item item);
+
+    public boolean isMainProjectItem(IRepositoryObject obj);
 }
