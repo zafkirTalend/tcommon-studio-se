@@ -163,6 +163,7 @@ public class DocumentationHelper {
                 for (Item toGenerate : docsToGenerate) {
                     ExportFileResource resource = new ExportFileResource(toGenerate, toGenerate.getProperty().getLabel() + "_"
                             + toGenerate.getProperty().getVersion());
+                    resource.setNode(node);
                     list.add(resource);
                 }
             }
@@ -185,6 +186,7 @@ public class DocumentationHelper {
             if (repositoryObject.getProperty().getItem() instanceof Item) {
                 Item processItem = repositoryObject.getProperty().getItem();
                 ExportFileResource resource = new ExportFileResource(processItem, path);
+                resource.setNode(node);
                 list.add(resource);
             }
         }
@@ -388,15 +390,14 @@ public class DocumentationHelper {
     public static IRepositoryView getViewPart() {
         IWorkbenchWindow[] workbenchWindows = PlatformUI.getWorkbench().getWorkbenchWindows();
         for (IWorkbenchWindow workbenchWindow : workbenchWindows) {
-			IWorkbenchPage[] pages = workbenchWindow.getPages();
-			for (IWorkbenchPage workbenchPage : pages) {
-				IViewPart findView = workbenchPage.findView(IRepositoryView.VIEW_ID);
-				if(findView!=null)
-				{
-					return (IRepositoryView)findView;
-				}
-			}
-		}
+            IWorkbenchPage[] pages = workbenchWindow.getPages();
+            for (IWorkbenchPage workbenchPage : pages) {
+                IViewPart findView = workbenchPage.findView(IRepositoryView.VIEW_ID);
+                if (findView != null) {
+                    return (IRepositoryView) findView;
+                }
+            }
+        }
         return null;
     }
 

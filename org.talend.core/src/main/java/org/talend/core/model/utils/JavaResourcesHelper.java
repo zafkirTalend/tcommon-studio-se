@@ -21,6 +21,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Item;
 
 /**
  * An util tools for java version resources. Detailled comment <br/>
@@ -67,4 +68,12 @@ public class JavaResourcesHelper {
             return jobName.replaceAll(" ", "_").toLowerCase();
         }
     }
+
+    public static String getProjectFolderName(Item item) {
+        org.talend.core.model.properties.Project p = CorePlugin.getDefault().getProxyRepositoryFactory().getProject(item);
+        String projectFolderName = p.getTechnicalLabel();
+        projectFolderName = projectFolderName.toLowerCase();
+        return projectFolderName;
+    }
+
 }

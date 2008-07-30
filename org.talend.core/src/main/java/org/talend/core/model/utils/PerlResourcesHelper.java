@@ -21,6 +21,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Item;
 
 /**
  * bqian An util tools for perl version resources. <br/>
@@ -62,6 +63,12 @@ public class PerlResourcesHelper {
         name = name.toUpperCase();
 
         return name;
+    }
+
+    public static String getProjectName(Item item) {
+        org.talend.core.model.properties.Project p = CorePlugin.getDefault().getProxyRepositoryFactory().getProject(item);
+        String projectFolderName = p.getTechnicalLabel();
+        return projectFolderName;
     }
 
     /**

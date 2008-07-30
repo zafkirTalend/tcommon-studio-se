@@ -537,6 +537,10 @@ public interface IProxyRepositoryFactory {
      */
     public abstract boolean isEditableAndLockIfPossible(IRepositoryObject obj);
 
+    public org.talend.core.model.properties.Project getProject(Item item);
+
+    public boolean isUnderRefProjects(Item item);
+
     /*
      * (non-Javadoc)
      * 
