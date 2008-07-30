@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess;
@@ -249,7 +250,14 @@ public abstract class RepositoryUpdateManager {
         if (checkResultSchema(result, object, parameter)) {
             return true;
         }
-
+        // query for wizard
+        if (parameter instanceof QueriesConnection && object instanceof Query) {
+            for (Query query : (List<Query>) ((QueriesConnection) parameter).getQuery()) {
+                if (query.getId().equals(((Query) object).getId())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -335,7 +343,7 @@ public abstract class RepositoryUpdateManager {
             // get all version
             List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>((int) (processList.size() * 1.1));
             for (IRepositoryObject repositoryObj : processList) {
-                if (checkOnlyLastVersion == false) {
+                if (!checkOnlyLastVersion) {
                     List<IRepositoryObject> allVersion = factory.getAllVersion(repositoryObj.getId());
                     for (IRepositoryObject object : allVersion) {
                         if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
@@ -793,9 +801,9 @@ public abstract class RepositoryUpdateManager {
      * 
      * for repository wizard.
      */
-    public static boolean updateQuery(Query query) {
+    public static boolean updateQuery(QueriesConnection queryConn) {
 
-        return updateQuery(query, true);
+        return updateQueryObject(queryConn, true);
     }
 
     /**
@@ -805,7 +813,11 @@ public abstract class RepositoryUpdateManager {
      * if show is false, will work for context menu action.
      */
     public static boolean updateQuery(Query query, boolean show) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(query) {
+        return updateQueryObject(query, show);
+    }
+
+    private static boolean updateQueryObject(Object parameter, boolean show) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
