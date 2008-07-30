@@ -58,7 +58,6 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
-import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -72,6 +71,7 @@ import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.localprovider.imports.FilteredCheckboxTree;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.ui.views.CheckboxRepositoryTreeViewer;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -112,6 +112,8 @@ class ExportItemWizardPage extends WizardPage {
     private FilteredCheckboxTree filteredCheckboxTree;
 
     private Button exportDependencies;
+
+    Collection<RepositoryNode> repositoryNodes = new ArrayList<RepositoryNode>();
 
     protected ExportItemWizardPage(String pageName, IStructuredSelection selection) {
         super(pageName);
@@ -160,6 +162,7 @@ class ExportItemWizardPage extends WizardPage {
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
             ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(selection.toArray());
+            repositoryNodes.addAll(selection.toList());
         }
     }
 
@@ -345,6 +348,223 @@ class ExportItemWizardPage extends WizardPage {
 
         exportDependencies = new Button(workArea, SWT.CHECK);
         exportDependencies.setText("Export Dependencies");
+        exportDependencies.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                exportDependenciesSelected();
+            }
+
+        });
+    }
+
+    /**
+     * DOC qwei Comment method "exportDependenciesSelected".
+     */
+    private void exportDependenciesSelected() {
+        List<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        Collection<IRepositoryObject> repContextObjects = getContextRepositoryObject(getSelectedItems());
+        if (repContextObjects != null) {
+            repositoryObjects.addAll(repContextObjects);
+        }
+        Collection<IRepositoryObject> repMetadataObjects = getMetadataRepositoryObject(getSelectedItems());
+        if (repMetadataObjects != null) {
+            repositoryObjects.addAll(repMetadataObjects);
+        }
+        Collection<IRepositoryObject> repChildProcessObjects = getChildPorcessRepositoryObject(getSelectedItems());
+        if (repChildProcessObjects != null) {
+            repositoryObjects.addAll(repChildProcessObjects);
+        }
+        if (exportDependencies.getSelection()) {
+            for (IRepositoryObject repositoryObject : repositoryObjects) {
+                repositoryNodes.add(RepositoryNodeUtilities.getRepositoryNode(repositoryObject));
+            }
+            ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(repositoryNodes.toArray());
+        } else {
+            for (IRepositoryObject repositoryObject : repositoryObjects) {
+                if (repositoryNodes.contains(RepositoryNodeUtilities.getRepositoryNode(repositoryObject))) {
+                    repositoryNodes.remove(RepositoryNodeUtilities.getRepositoryNode(repositoryObject));
+                }
+            }
+            ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(repositoryNodes.toArray());
+        }
+    }
+
+    private Collection<IRepositoryObject> getContextRepositoryObject(Collection<Item> items) {
+        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        for (Item item : items) {
+            if (item == null) {
+                return null;
+            }
+            //
+            ProcessType process = null;
+            if (item instanceof ProcessItem) {
+                process = ((ProcessItem) item).getProcess();
+            } else if (item instanceof JobletProcessItem) {
+                process = ((JobletProcessItem) item).getJobletProcess();
+            }
+            if (process != null) {
+                ContextType contextType = (ContextType) process.getContext().get(0);
+                for (ContextParameterType param : (List<ContextParameterType>) contextType.getContextParameter()) {
+                    String repositoryContextId = param.getRepositoryContextId();
+                    if (repositoryContextId != null && !"".equals(repositoryContextId)) {
+                        try {
+                            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                            IRepositoryObject lastVersion = factory.getLastVersion(repositoryContextId);
+                            if (lastVersion != null) {
+                                if (!repositoryObjects.contains(lastVersion)) {
+                                    repositoryObjects.add(lastVersion);
+                                }
+                            }
+
+                        } catch (PersistenceException e) {
+                            ExceptionHandler.process(e);
+                        }
+
+                    }
+                }
+
+            }
+        }
+        return repositoryObjects;
+    }
+
+    /**
+     * DOC qwei Comment method "getMetadataRepositoryObject".
+     */
+    private Collection<IRepositoryObject> getMetadataRepositoryObject(Collection<Item> items) {
+        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        for (Item item : items) {
+            if (item == null) {
+                return null;
+            }
+            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+            if (designerCoreService == null) {
+                return null;
+            }
+            IProcess process = null;
+            if (item instanceof ProcessItem) {
+                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
+            } else if (item instanceof JobletProcessItem) {
+                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
+            }
+            if (process != null) {
+                List<INode> nodes = (List<INode>) process.getGraphicalNodes();
+                for (INode node : nodes) {
+                    List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
+                    for (IElementParameter elementParameter : eleParams) {
+                        String repositoryMetadataId = "";
+                        if (elementParameter.getName().equals("PROPERTY")) {
+                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_PROPERTY_TYPE")
+                                    .getValue();
+                        }
+                        if (elementParameter.getName().equals("SCHEMA")) {
+                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_SCHEMA_TYPE")
+                                    .getValue();
+                        }
+                        if (elementParameter.getName().equals("QUERYSTORE")) {
+                            repositoryMetadataId = (String) elementParameter.getChildParameters().get(
+                                    "REPOSITORY_QUERYSTORE_TYPE").getValue();
+                        }
+                        String[] id = repositoryMetadataId.split("-");
+                        if (id.length > 0) {
+
+                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) {
+                                try {
+                                    IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                                    IRepositoryObject lastVersion = factory.getLastVersion(id[0].trim());
+                                    if (lastVersion != null) {
+                                        if (!repositoryObjects.contains(lastVersion)) {
+                                            repositoryObjects.add(lastVersion);
+                                        }
+                                    }
+                                } catch (PersistenceException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+        return repositoryObjects;
+
+    }
+
+    /**
+     * DOC qwei Comment method "getChildPorcessRepositoryObject".
+     */
+    private Collection<IRepositoryObject> getChildPorcessRepositoryObject(Collection<Item> items) {
+        List<IRepositoryObject> returnListObject = new ArrayList<IRepositoryObject>();
+        Map<String, Item> returnItems = new HashMap<String, Item>();
+        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        for (Item item : items) {
+            if (item == null) {
+                return null;
+            }
+            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+            if (designerCoreService == null) {
+                return null;
+            }
+            IProcess process = null;
+            if (item instanceof ProcessItem) {
+                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
+            } else if (item instanceof JobletProcessItem) {
+                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
+            }
+
+            if (process != null) {
+                List<INode> nodes = (List<INode>) process.getGraphicalNodes();
+                for (INode node : nodes) {
+                    List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
+                    for (IElementParameter elementParameter : eleParams) {
+
+                        if (elementParameter.getName().equals("PROCESS")) {
+                            String repositoryMetadataId = (String) elementParameter.getChildParameters().get(
+                                    "PROCESS_TYPE_PROCESS").getValue();
+                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) {
+                                try {
+                                    IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                                    IRepositoryObject lastVersion = factory.getLastVersion(repositoryMetadataId);
+                                    if (lastVersion != null) {
+                                        if (!repositoryObjects.contains(lastVersion)) {
+                                            repositoryObjects.add(lastVersion);
+                                            returnListObject.add(lastVersion);
+                                        }
+                                        Item item2 = lastVersion.getProperty().getItem();
+                                        if (item2 != null) {
+                                            Item foundItem = returnItems.get(item2.getProperty().getId());
+                                            if (foundItem == null) {
+                                                returnItems.put(item2.getProperty().getId(), item2);
+                                                returnListObject.addAll(getContextRepositoryObject(returnItems.values()));
+                                                returnListObject.addAll(getMetadataRepositoryObject(returnItems.values()));
+                                                returnListObject.addAll(getChildPorcessRepositoryObject(returnItems.values()));
+                                            }
+                                        }
+
+                                    }
+                                } catch (PersistenceException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+        return returnListObject;
+
     }
 
     private void archiveRadioSelected() {
@@ -441,223 +661,16 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        List<Item> items = new ArrayList<Item>();
         Collection<Item> selectedItems = getSelectedItems();
-        if (selectedItems != null) {
-            items.addAll(selectedItems);
-        }
-        if (exportDependencies.getSelection()) {
-            Collection<Item> returnItems = getContextItem(items);
-            if (returnItems != null) {
-                items.addAll(returnItems);
-            }
-            returnItems = getMetadataItem(items);
-            if (returnItems != null) {
-                items.addAll(returnItems);
-            }
-            returnItems = getChildPorcessItem(items);
-            if (returnItems != null) {
-                items.addAll(returnItems);
-            }
-
-        }
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
-            Collection<Item> allItems = exportItemUtil.getAllVersions(items);
+            Collection<Item> allItems = exportItemUtil.getAllVersions(selectedItems);
             exportItemUtil.exportItems(new File(lastPath), allItems);
         } catch (Exception e) {
             MessageBoxExceptionHandler.process(e);
         }
 
         return true;
-    }
-
-    /**
-     * DOC qwei Comment method "getChildPorcessItem".
-     */
-    private Collection<Item> getChildPorcessItem(Collection<Item> items) {
-        List<Item> returnListItem = new ArrayList<Item>();
-        Map<String, Item> returnItems = new HashMap<String, Item>();
-        for (Item item : items) {
-            if (item == null) {
-                return null;
-            }
-            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-            if (designerCoreService == null) {
-                return null;
-            }
-            IProcess process = null;
-            if (item instanceof ProcessItem) {
-                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-            } else if (item instanceof JobletProcessItem) {
-                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-            }
-
-            if (process != null) {
-                List<INode> nodes = (List<INode>) process.getGraphicalNodes();
-                for (INode node : nodes) {
-                    List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
-                    for (IElementParameter elementParameter : eleParams) {
-
-                        if (elementParameter.getName().equals("PROCESS")) {
-                            String repositoryMetadataId = (String) elementParameter.getChildParameters().get(
-                                    "PROCESS_TYPE_PROCESS").getValue();
-                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")
-                                    && !returnItems.keySet().contains(repositoryMetadataId)) {
-                                try {
-                                    IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                                    IRepositoryObject lastVersion = factory.getLastVersion(repositoryMetadataId);
-                                    if (lastVersion != null) {
-                                        Item item2 = lastVersion.getProperty().getItem();
-                                        if (item2 != null) {
-                                            Item foundItem = returnItems.get(item2.getProperty().getId());
-                                            if (foundItem == null) {
-                                                returnItems.put(item2.getProperty().getId(), item2);
-                                                returnListItem.add(item2);
-                                                returnListItem.addAll(getContextItem(returnItems.values()));
-                                                returnListItem.addAll(getMetadataItem(returnItems.values()));
-                                                returnListItem.addAll(getChildPorcessItem(returnItems.values()));
-                                            }
-                                        }
-                                    }
-                                } catch (PersistenceException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-        }
-        return returnListItem;
-
-    }
-
-    /**
-     * DOC qwei Comment method "getMetadataItem".
-     */
-    private Collection<Item> getMetadataItem(Collection<Item> items) {
-        Map<String, Item> returnItems = new HashMap<String, Item>();
-        for (Item item : items) {
-            if (item == null) {
-                return null;
-            }
-            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-            if (designerCoreService == null) {
-                return null;
-            }
-            IProcess process = null;
-            if (item instanceof ProcessItem) {
-                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-            } else if (item instanceof JobletProcessItem) {
-                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-            }
-            if (process != null) {
-                List<INode> nodes = (List<INode>) process.getGraphicalNodes();
-                for (INode node : nodes) {
-                    List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
-                    for (IElementParameter elementParameter : eleParams) {
-                        String repositoryMetadataId = "";
-                        if (elementParameter.getName().equals("PROPERTY")) {
-                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_PROPERTY_TYPE")
-                                    .getValue();
-                        }
-                        if (elementParameter.getName().equals("SCHEMA")) {
-                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_SCHEMA_TYPE")
-                                    .getValue();
-                        }
-                        if (elementParameter.getName().equals("QUERYSTORE")) {
-                            repositoryMetadataId = (String) elementParameter.getChildParameters().get(
-                                    "REPOSITORY_QUERYSTORE_TYPE").getValue();
-                        }
-                        String[] id = repositoryMetadataId.split("-");
-                        if (id.length > 0) {
-
-                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")
-                                    && !returnItems.keySet().contains(id[0].trim())) {
-                                try {
-                                    IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                                    IRepositoryObject lastVersion = factory.getLastVersion(id[0].trim());
-                                    if (lastVersion != null) {
-                                        Item item2 = lastVersion.getProperty().getItem();
-                                        if (item2 != null) {
-                                            Item foundItem = returnItems.get(item2.getProperty().getId());
-                                            if (foundItem == null) {
-                                                returnItems.put(item2.getProperty().getId(), item2);
-                                            }
-                                        }
-                                    }
-                                } catch (PersistenceException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-        return returnItems.values();
-
-    }
-
-    /**
-     * DOC qwei Comment method "getJobContext".
-     */
-    private Collection<Item> getContextItem(Collection<Item> items) {
-        Map<String, Item> returnItems = new HashMap<String, Item>();
-        for (Item item : items) {
-            if (item == null) {
-                return null;
-            }
-            //
-            ProcessType process = null;
-            if (item instanceof ProcessItem) {
-                process = ((ProcessItem) item).getProcess();
-            } else if (item instanceof JobletProcessItem) {
-                process = ((JobletProcessItem) item).getJobletProcess();
-            }
-            if (process != null) {
-                ContextType contextType = (ContextType) process.getContext().get(0);
-                for (ContextParameterType param : (List<ContextParameterType>) contextType.getContextParameter()) {
-                    String repositoryContextId = param.getRepositoryContextId();
-                    if (repositoryContextId != null && !"".equals(repositoryContextId)
-                            && !returnItems.keySet().contains(repositoryContextId)) {
-                        try {
-                            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-
-                            IRepositoryObject lastVersion = factory.getLastVersion(repositoryContextId);
-                            if (lastVersion != null) {
-                                Item item2 = lastVersion.getProperty().getItem();
-                                if (item2 != null && item2 instanceof ContextItem) {
-                                    Item foundItem = returnItems.get(item2.getProperty().getId());
-                                    if (foundItem == null) {
-                                        returnItems.put(item2.getProperty().getId(), item2);
-
-                                    }
-                                }
-                            }
-
-                        } catch (PersistenceException e) {
-                            ExceptionHandler.process(e);
-                        }
-
-                    }
-                }
-
-            }
-        }
-        return returnItems.values();
     }
 
     private static boolean isRepositoryFolder(RepositoryNode node) {
