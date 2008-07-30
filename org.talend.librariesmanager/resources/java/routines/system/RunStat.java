@@ -100,12 +100,10 @@ public class RunStat implements Runnable {
 
     private String str = "";
 
-    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException,
-            java.net.UnknownHostException {
+    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
-        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
-                true);
+        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
         System.out.println("[statistics] connected");
         Thread t = new Thread(this);
         t.start();
@@ -153,7 +151,7 @@ public class RunStat implements Runnable {
 
     }
 
-    public void updateStatOnConnection(String connectionId, int mode, int nbLine) {
+    public synchronized void updateStatOnConnection(String connectionId, int mode, int nbLine) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
@@ -164,6 +162,12 @@ public class RunStat implements Runnable {
         bean.setEndTime(System.currentTimeMillis());
         bean.setNbLine(bean.getNbLine() + nbLine);
         processStats.put(connectionId, bean);
+
+        // if tFileList-->tFileInputDelimited-->tFileOuputDelimited, it should clear the data every iterate
+        if (mode == BEGIN) {
+            bean.setNbLine(0);
+            sendMessages();
+        }
     }
 
     public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
