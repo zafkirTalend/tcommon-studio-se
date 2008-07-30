@@ -160,11 +160,12 @@ public class ExtractMetaDataFromDataBase {
         while (rsTables.next()) {
             MetadataTable medataTable = new MetadataTable();
             medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
+            String schema = rsTables.getString("TABLE_SCHEM");
             medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
             medataTable.setTableName(medataTable.getLabel());
             medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
             if (supportSchema) {
-                tableSchemaMap.put(medataTable.getLabel(), rsTables.getString("TABLE_SCHEM"));
+                tableSchemaMap.put(medataTable.getLabel(), schema);
             }
             try {
                 tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
