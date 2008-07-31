@@ -165,8 +165,10 @@ public final class ElementParameterParser {
     private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
             final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
-        for (Map<String, Object> currentLine : paramValues) {
-            tableValues.add(copyLine(currentLine, param));
+        if (paramValues != null) {
+            for (Map<String, Object> currentLine : paramValues) {
+                tableValues.add(copyLine(currentLine, param));
+            }
         }
         return tableValues;
     }
@@ -289,7 +291,7 @@ public final class ElementParameterParser {
         return newText;
     }
 
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     private static String getDisplayValue(final IElementParameter param) {
         Object value = param.getValue();
 
