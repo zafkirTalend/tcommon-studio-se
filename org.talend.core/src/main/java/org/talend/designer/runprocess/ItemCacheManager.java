@@ -24,6 +24,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -67,13 +68,31 @@ public class ItemCacheManager {
     }
 
     public static ProcessItem getProcessItem(String processId) {
-        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
-        return getProcessItem(project, processId);
+        ProjectManager projectManager = ProjectManager.getInstance();
+        ProcessItem processItem = getProcessItem(projectManager.getCurrentProject(), processId);
+        if (processItem == null) {
+            for (Project p : projectManager.getReferencedProjects()) {
+                processItem = getProcessItem(p, processId);
+                if (processItem != null) {
+                    break;
+                }
+            }
+        }
+        return processItem;
     }
 
     public static ProcessItem getProcessItem(String processId, String version) {
-        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
-        return getProcessItem(project, processId, version);
+        ProjectManager projectManager = ProjectManager.getInstance();
+        ProcessItem processItem = getProcessItem(projectManager.getCurrentProject(), processId, version);
+        if (processItem == null) {
+            for (Project p : projectManager.getReferencedProjects()) {
+                processItem = getProcessItem(p, processId, version);
+                if (processItem != null) {
+                    break;
+                }
+            }
+        }
+        return processItem;
     }
 
     public static ProcessItem getProcessItem(Project project, String processId, String version) {
@@ -137,8 +156,18 @@ public class ItemCacheManager {
     }
 
     public static JobletProcessItem getJobletProcessItem(String jobletId) {
-        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
-        return getJobletProcessItem(project, jobletId);
+        ProjectManager projectManager = ProjectManager.getInstance();
+        JobletProcessItem jobletProcessItem = getJobletProcessItem(projectManager.getCurrentProject(), jobletId);
+
+        if (jobletProcessItem == null) {
+            for (Project p : projectManager.getReferencedProjects()) {
+                jobletProcessItem = getJobletProcessItem(p, jobletId);
+                if (jobletProcessItem != null) {
+                    break;
+                }
+            }
+        }
+        return jobletProcessItem;
     }
 
     public static JobletProcessItem getJobletProcessItem(Project project, String jobletId, String version) {
@@ -172,7 +201,17 @@ public class ItemCacheManager {
     }
 
     public static JobletProcessItem getJobletProcessItem(String jobletId, String version) {
-        Project project = CorePlugin.getDefault().getProxyRepositoryFactory().getRepositoryContext().getProject();
-        return getJobletProcessItem(project, jobletId, version);
+        ProjectManager projectManager = ProjectManager.getInstance();
+        JobletProcessItem jobletProcessItem = getJobletProcessItem(projectManager.getCurrentProject(), jobletId, version);
+
+        if (jobletProcessItem == null) {
+            for (Project p : projectManager.getReferencedProjects()) {
+                jobletProcessItem = getJobletProcessItem(p, jobletId, version);
+                if (jobletProcessItem != null) {
+                    break;
+                }
+            }
+        }
+        return jobletProcessItem;
     }
 }
