@@ -7,3 +7,4 @@ Bundle-Vendor: .Talend SA.
 Require-Bundle: org.apache.axis,
  javax.xml.rpc
 Export-Package: org.talend.repository.registeruser.proxy
+Bundle-ClassPath: .
