@@ -14,16 +14,22 @@ package org.talend.repository.documentation.generation;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Element;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
+import org.talend.core.model.process.EComponentCategory;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IComponentDocumentation;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
 
 /**
@@ -94,6 +100,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
      * @see org.talend.repository.ui.wizards.genHTMLDoc.IComponentHandler#generateComponentInfo(org.dom4j.Element,
      * java.util.List)
      */
+    @Override
     public void generateComponentInfo() {
 
         for (INode externalNode : this.componentsList) {
@@ -110,7 +117,9 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             // Checks if generating html file for external node failed, generating the same information as internal node
             // instead.
             if (componentDocumentation == null) {
-                generateElementParamInfo(parametersElement, elementParameterList);
+                // generateElementParamInfo(parametersElement, elementParameterList);
+                // see 3328, document for scd is generated similar to internal node
+                generateComponentElementParamInfo(parametersElement, elementParameterList);
                 generateComponentSchemaInfo(externalNode, componentElement);
             } else {
                 URL fileURL = componentDocumentation.getHTMLFile();
@@ -157,6 +166,154 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             file.mkdirs();
         }
         return tempExternalPath;
+    }
+
+    /**
+     * Generates the element parameters information of component.
+     * 
+     * @param parametersElement
+     * @param elementParameterList
+     */
+    private void generateComponentElementParamInfo(Element parametersElement, List elementParameterList) {
+        List<IElementParameter> copyElementParameterList = new ArrayList(elementParameterList);
+
+        if (elementParameterList != null && elementParameterList.size() != 0) {
+            for (int j = 0; j < elementParameterList.size(); j++) {
+                IElementParameter elemparameter = (IElementParameter) elementParameterList.get(j);
+
+                if ((!elemparameter.isShow(copyElementParameterList) && (!elemparameter.getName().equals(
+                        EParameterFieldType.SCHEMA_TYPE.getName())))
+                        || elemparameter.getCategory().equals(EComponentCategory.MAIN)
+                        || elemparameter.getCategory().equals(EComponentCategory.VIEW)
+                        || elemparameter.getName().equals(IHTMLDocConstants.REPOSITORY)
+                        || elemparameter.getName().equals("SCHEMA")
+                        || elemparameter.getName().equals("QUERYSTORE")
+                        || elemparameter.getName().equals("PROPERTY")
+                        || elemparameter.getName().equals(EParameterFieldType.ENCODING_TYPE.getName())) {
+                    continue;
+                }
+                // String value = HTMLDocUtils.checkString(elemparameter.getValue().toString());
+                Object eleObj = elemparameter.getValue();
+                String value = "";
+                if (eleObj != null) {
+                    value = eleObj.toString();
+                }
+
+                if (elemparameter.getName().equals(EParameterFieldType.PROPERTY_TYPE.getName())
+                        && value.equals(IHTMLDocConstants.REPOSITORY)) {
+                    String repositoryValueForPropertyType = getRepositoryValueForPropertyType(copyElementParameterList,
+                            "REPOSITORY_PROPERTY_TYPE");
+                    value = repositoryValueForPropertyType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
+                            .toLowerCase()
+                            + ": " + repositoryValueForPropertyType;
+                } else if (elemparameter.getName().equals(EParameterFieldType.SCHEMA_TYPE.getName())
+                        && value.equals(IHTMLDocConstants.REPOSITORY)) {
+                    String repositoryValueForSchemaType = getRepositoryValueForSchemaType(copyElementParameterList,
+                            "REPOSITORY_SCHEMA_TYPE");
+                    value = repositoryValueForSchemaType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
+                            .toLowerCase()
+                            + ": " + repositoryValueForSchemaType;
+                }
+
+                else if (elemparameter.getName().equals(EParameterFieldType.QUERYSTORE_TYPE.getName())
+                        && value.equals(IHTMLDocConstants.REPOSITORY)) {
+
+                    String repositoryValueForQueryStoreType = getRepositoryValueForQueryStoreType(copyElementParameterList,
+                            "REPOSITORY_QUERYSTORE_TYPE");
+                    value = repositoryValueForQueryStoreType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
+                            .toLowerCase()
+                            + ": " + repositoryValueForQueryStoreType;
+                }
+                // } else if (type.getName().equals("TYPE")) {
+                // int index = type.getIndexOfItemFromList(type.getDisplayName());
+                // value = checkString(type.getListItemsDisplayName()[index]);
+                // }
+                else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD")
+                        && CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)
+                        && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
+                    value = "******";
+                }
+                Element columnElement = parametersElement.addElement("column");
+                columnElement.addAttribute("name", HTMLDocUtils.checkString(elemparameter.getDisplayName()));
+
+                if (value.equalsIgnoreCase(IHTMLDocConstants.REPOSITORY_BUILT_IN)) {
+                    value = IHTMLDocConstants.DISPLAY_BUILT_IN;
+                }
+                columnElement.setText(value);
+            }
+        }
+    }
+
+    /**
+     * Gets the repository value.
+     * 
+     * @param newList
+     * @param repositoryName
+     * @return
+     */
+    private String getRepositoryValueForPropertyType(List<IElementParameter> copyElementParameterList, String repositoryName) {
+        String value = null;
+        for (IElementParameter elemParameter : copyElementParameterList) {
+            if (elemParameter.getName().equals(repositoryName)) {
+                ConnectionItem connectionItem = repositoryConnectionItemMap.get(elemParameter.getValue());
+                if (connectionItem != null) {
+                    String aliasName = designerCoreService.getRepositoryAliasName(connectionItem);
+                    value = aliasName + ":" + connectionItem.getProperty().getLabel();
+                    return value;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the repository value.
+     * 
+     * @param newList
+     * @param repositoryName
+     * @return
+     */
+    private String getRepositoryValueForSchemaType(List<IElementParameter> copyElementParameterList, String repositoryName) {
+        String value = null;
+        for (IElementParameter elemParameter : copyElementParameterList) {
+            if (elemParameter.getName().equals(repositoryName)) {
+                if (elemParameter.getValue() != null && elemParameter.getValue().toString().length() > 0) {
+                    value = elemParameter.getValue().toString();
+                    String newValue = value.substring(0, value.indexOf("-")).trim();
+                    if (repositoryDBIdAndNameMap.containsKey(newValue)) {
+                        value = value.replace(newValue, repositoryDBIdAndNameMap.get(newValue));
+                        return value;
+                    }
+                }
+
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the repository value.
+     * 
+     * @param newList
+     * @param repositoryName
+     * @return
+     */
+    private String getRepositoryValueForQueryStoreType(List<IElementParameter> copyElementParameterList, String repositoryName) {
+        String value = null;
+        for (IElementParameter elemParameter : copyElementParameterList) {
+            if (elemParameter.getName().equals(repositoryName)) {
+                if (elemParameter.getValue() != null && elemParameter.getValue().toString().length() > 0) {
+                    value = elemParameter.getValue().toString();
+                    String newValue = value.substring(0, value.indexOf("-")).trim();
+                    if (repositoryDBIdAndNameMap.containsKey(newValue)) {
+                        value = value.replace(newValue, repositoryDBIdAndNameMap.get(newValue));
+                        return value;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }
