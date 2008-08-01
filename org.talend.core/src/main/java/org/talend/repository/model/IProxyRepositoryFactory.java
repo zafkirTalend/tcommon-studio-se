@@ -539,8 +539,6 @@ public interface IProxyRepositoryFactory {
 
     public org.talend.core.model.properties.Project getProject(Item item);
 
-    public boolean isUnderRefProjects(Item item);
-
     /*
      * (non-Javadoc)
      * 
