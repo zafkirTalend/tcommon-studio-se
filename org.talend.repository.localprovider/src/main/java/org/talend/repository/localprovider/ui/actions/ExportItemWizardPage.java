@@ -377,17 +377,24 @@ class ExportItemWizardPage extends WizardPage {
         }
         if (exportDependencies.getSelection()) {
             for (IRepositoryObject repositoryObject : repositoryObjects) {
-                repositoryNodes.add(RepositoryNodeUtilities.getRepositoryNode(repositoryObject));
+                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
+                if (repositoryNode != null && !repositoryNodes.contains(repositoryNode)) {
+                    repositoryNodes.add(repositoryNode);
+                }
+
             }
-            ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(repositoryNodes.toArray());
         } else {
             for (IRepositoryObject repositoryObject : repositoryObjects) {
-                if (repositoryNodes.contains(RepositoryNodeUtilities.getRepositoryNode(repositoryObject))) {
-                    repositoryNodes.remove(RepositoryNodeUtilities.getRepositoryNode(repositoryObject));
+                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
+                if (repositoryNode != null && repositoryNodes.contains(repositoryNode)) {
+                    repositoryNodes.remove(repositoryNode);
                 }
             }
-            ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(repositoryNodes.toArray());
         }
+        CheckboxTreeViewer viewer = (CheckboxTreeViewer) exportItemsTreeViewer.getViewer();
+        viewer.getTree().deselectAll();
+        viewer.setCheckedElements(repositoryNodes.toArray());
+
     }
 
     private Collection<IRepositoryObject> getContextRepositoryObject(Collection<Item> items) {
@@ -466,7 +473,7 @@ class ExportItemWizardPage extends WizardPage {
                             repositoryMetadataId = (String) elementParameter.getChildParameters().get(
                                     "REPOSITORY_QUERYSTORE_TYPE").getValue();
                         }
-                        String[] id = repositoryMetadataId.split("-");
+                        String[] id = repositoryMetadataId.split(" - ");
                         if (id.length > 0) {
 
                             if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) {
