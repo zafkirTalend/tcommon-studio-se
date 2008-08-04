@@ -215,11 +215,14 @@ public final class UpdateContextVariablesHelper {
         String out = "context." + varName + "=";
         out = "$1" + out + "$3;";
 
-        if (java.util.regex.Pattern.compile(regex).matcher(fullContent).matches()) {
-            return fullContent.replaceAll(regex, out);
-        } else {
-            return fullContent;
-        }
+        return fullContent.replaceAll(regex, out);
+
+        // java.util.regex.Pattern.compile(regex).matcher(fullContent).matches() always return false.
+        // if (java.util.regex.Pattern.compile(regex).matcher(fullContent).matches()) {
+        //          
+        // } else {
+        // return fullContent;
+        // }
     }
 
     private static String hasAndReplaceValue(final String value, final String oldScriptCode, final String newScriptCode,
