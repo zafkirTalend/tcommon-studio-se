@@ -19,6 +19,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.i18n.Messages;
 
@@ -128,6 +129,17 @@ public abstract class SWTUIThreadProcessor {
      * ftang Comment method "handleErrorOutput".
      */
     protected void handleErrorOutput(Composite outputComposite, CTabFolder tabFolder, CTabItem outputTabItem, Exception... e) {
+
+        // Dispose all existing controls.
+        if (!outputComposite.isDisposed()) {
+            Control[] children = outputComposite.getChildren();
+            for (Control control : children) {
+                if (!control.isDisposed()) {
+                    control.dispose();
+                }
+            }
+        }
+
         Font font = new Font(Display.getDefault(), "courier", 8, SWT.NONE); //$NON-NLS-1$
 
         StyledText text = new StyledText(outputComposite, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.READ_ONLY);
@@ -152,6 +164,7 @@ public abstract class SWTUIThreadProcessor {
         text.setFont(font);
 
         tabFolder.setSelection(outputTabItem);
+        outputComposite.layout(true);
     }
 
 }
