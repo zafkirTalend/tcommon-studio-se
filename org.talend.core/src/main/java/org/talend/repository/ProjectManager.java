@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -80,7 +81,7 @@ public final class ProjectManager {
      * 
      */
     public Project getCurrentProject() {
-        if (this.currentProject == null) {
+        if (this.currentProject == null || CommonsPlugin.isHeadless()) {
             initCurrentProject();
         }
         return this.currentProject;
@@ -92,7 +93,7 @@ public final class ProjectManager {
      * return the referenced projects of current project.
      */
     public List<Project> getReferencedProjects() {
-        if (this.referencedprojects.isEmpty()) {
+        if (this.referencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
             retrieveReferencedProjects();
         }
         return this.referencedprojects;
