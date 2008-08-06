@@ -56,13 +56,7 @@ public class PerlResourcesHelper {
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
-
-        String name = project.getLabel();
-        name = name.replaceAll(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
-        name = name.replaceAll("-", "_"); //$NON-NLS-1$ //$NON-NLS-2$
-        name = name.toUpperCase();
-
-        return name;
+        return project.getTechnicalLabel();
     }
 
     /**
