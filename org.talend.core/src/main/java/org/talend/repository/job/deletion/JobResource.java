@@ -100,16 +100,17 @@ public class JobResource {
                             + JavaResourcesHelper.getJobFolderName(jobInfo.getJobName(), jobInfo.getJobVersion()));
             resources.add(res);
         } else if (language == ECodeLanguage.PERL) {
-
+            String rootProjectName = PerlResourcesHelper.getRootProjectName(projectName);
             res = workspace.getRoot().findMember(
-                    ".Perl" + "/" + PerlResourcesHelper.getJobFileName(jobInfo.getJobName(), jobInfo.getJobVersion()));
+                    ".Perl" + "/"
+                            + PerlResourcesHelper.getJobFileName(rootProjectName, jobInfo.getJobName(), jobInfo.getJobVersion()));
             resources.add(res);
 
             res = workspace.getRoot().findMember(
                     ".Perl"
                             + "/"
-                            + PerlResourcesHelper.getContextFileName(jobInfo.getJobName(), jobInfo.getJobVersion(),
-                                    jobInfo.getContextName()));
+                            + PerlResourcesHelper.getContextFileName(rootProjectName, jobInfo.getJobName(), jobInfo
+                                    .getJobVersion(), jobInfo.getContextName()));
             resources.add(res);
         }
         return resources;

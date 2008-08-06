@@ -65,12 +65,6 @@ public class PerlResourcesHelper {
         return name;
     }
 
-    public static String getProjectName(Item item) {
-        org.talend.core.model.properties.Project p = CorePlugin.getDefault().getProxyRepositoryFactory().getProject(item);
-        String projectFolderName = p.getTechnicalLabel();
-        return projectFolderName;
-    }
-
     /**
      * ftang Comment method "escapeSpace".
      * 
@@ -81,8 +75,18 @@ public class PerlResourcesHelper {
         return name != null ? name.replace(" ", "") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
-    public static String getJobFileName(String jobName, String version) {
-        String jobFileName = getCurrentProjectName() + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
+    public static String getRootProjectName(Item item) {
+        org.talend.core.model.properties.Project p = CorePlugin.getDefault().getProxyRepositoryFactory().getProject(item);
+        String projectFolderName = p.getTechnicalLabel();
+        return projectFolderName;
+    }
+
+    public static String getRootProjectName(String name) {
+        return name.toUpperCase();
+    }
+
+    public static String getJobFileName(String projectName, String jobName, String version) {
+        String jobFileName = projectName + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
         if (USE_VERSIONING) {
             jobFileName += "_" + version;
         }
@@ -91,8 +95,12 @@ public class PerlResourcesHelper {
         return jobFileName;
     }
 
-    public static String getContextFileName(String jobName, String version, String context) {
-        String contextFileName = getCurrentProjectName() + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
+    public static String getJobFileName(String jobName, String version) {
+        return getJobFileName(getCurrentProjectName(), jobName, version);
+    }
+
+    public static String getContextFileName(String projectName, String jobName, String version, String context) {
+        String contextFileName = projectName + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
         if (USE_VERSIONING) {
             contextFileName += "_" + version;
         }
