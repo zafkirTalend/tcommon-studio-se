@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
@@ -121,4 +123,19 @@ public final class ProjectManager {
         return Collections.emptyList();
     }
 
+    /**
+     * 
+     * return the project by object.
+     */
+    public org.talend.core.model.properties.Project getProject(EObject object) {
+        if (object != null) {
+            // if object is in current project, the rootObj will be self.
+            EObject rootObj = EcoreUtil.getRootContainer(object);
+            if (rootObj != null && rootObj instanceof org.talend.core.model.properties.Project) {
+                return (org.talend.core.model.properties.Project) rootObj;
+            }
+        }
+        // default
+        return getCurrentProject().getEmfProject();
+    }
 }

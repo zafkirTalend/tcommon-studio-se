@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -55,11 +56,13 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.Project;
 import org.talend.core.ui.context.cmd.AddRepositoryContextGroupCommand;
 import org.talend.core.ui.context.cmd.AddRepositoryContextVariablesCommand;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.repository.ProjectManager;
 
 /**
  * ggu class global comment. Detailled comment <br/>
@@ -100,7 +103,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         setTitle(TITILE);
         setMessage(DEFAULTMESAGE);
         setHelpAvailable(false);
-        setShellStyle(getShellStyle() | SWT.RESIZE);
+        setShellStyle(getShellStyle() | SWT.RESIZE | SWT.MAX);
         this.modelManager = modelManager;
         this.manager = modelManager.getContextManager();
         this.helper = helper;
@@ -134,6 +137,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         treeViewer.setContentProvider(new ContextTreeContentProvider());
         treeViewer.setLabelProvider(new ContextTreeLabelProvider());
         treeViewer.setFilters(new ViewerFilter[] { new ContextViewerFilter() });
+        treeViewer.setSorter(new ContextViewerSorter());
         treeViewer.setInput(contextItemList);
         treeViewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
         addTreeListener();
@@ -556,16 +560,34 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     class ContextTreeLabelProvider implements ILabelProvider {
 
         public Image getImage(Object element) {
-            // if (element instanceof ContextItem) {
-            // return ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage();
-            // }
+            if (element instanceof ContextItem) {
+                ContextItem item = (ContextItem) element;
+
+                ProjectManager projectManager = ProjectManager.getInstance();
+                Project project = projectManager.getProject(item);
+
+                if (projectManager.getCurrentProject().getEmfProject().equals(project)) {
+                    // current project items
+                    return ImageProvider.getImage(ECoreImage.CONTEXT_ICON);
+                } else {
+                    // context items in referenced project.
+                    return ImageProvider.getImage(ECoreImage.REFERENCED_ICON);
+                }
+            }
             return null;
         }
 
         public String getText(Object element) {
             if (element instanceof ContextItem) {
                 ContextItem item = (ContextItem) element;
-                return "Context: " + item.getProperty().getLabel(); //$NON-NLS-1$
+
+                ProjectManager projectManager = ProjectManager.getInstance();
+                Project project = projectManager.getProject(item);
+                String suffix = "";
+                if (!projectManager.getCurrentProject().getEmfProject().equals(project)) {
+                    suffix = " (" + project.getLabel() + ")";
+                }
+                return "Context: " + item.getProperty().getLabel() + suffix; //$NON-NLS-1$
             }
             if (element instanceof ContextParameterType) {
                 ContextParameterType paramType = (ContextParameterType) element;
@@ -612,6 +634,47 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
                 }
             }
             return true;
+        }
+
+    }
+
+    /**
+     * 
+     * ggu ContextViewerSorter class global comment. Detailled comment
+     */
+    class ContextViewerSorter extends ViewerSorter {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public int compare(Viewer viewer, Object e1, Object e2) {
+            if (e1 instanceof ContextItem && e2 instanceof ContextItem) {
+                ProjectManager projectManager = ProjectManager.getInstance();
+                ContextItem item1 = (ContextItem) e1;
+                ContextItem item2 = (ContextItem) e2;
+
+                Project project1 = projectManager.getProject(item1);
+                Project project2 = projectManager.getProject(item2);
+                Project curProject = projectManager.getCurrentProject().getEmfProject();
+
+                // in current project
+                if (project1.equals(curProject) && project2.equals(curProject)) {
+                    return getComparator().compare(item1.getProperty().getLabel(), item2.getProperty().getLabel());
+                } else if (!project1.equals(curProject) && !project2.equals(curProject)) { // in referenced project.
+                    int compare = getComparator().compare(project1.getLabel(), project2.getLabel());
+                    if (compare == 0) {
+                        compare = getComparator().compare(item1.getProperty().getLabel(), item2.getProperty().getLabel());
+                    }
+                    return compare;
+                } else if (project1.equals(curProject)) { // item1 is in current project
+                    return -1;
+                } else if (project2.equals(curProject)) { // item2 is in current project
+                    return 1;
+                }
+            }
+            if (e1 instanceof ContextParameterType && e2 instanceof ContextParameterType) {
+                return getComparator().compare(((ContextParameterType) e1).getName(), ((ContextParameterType) e2).getName());
+            }
+            return super.compare(viewer, e1, e2);
         }
 
     }
