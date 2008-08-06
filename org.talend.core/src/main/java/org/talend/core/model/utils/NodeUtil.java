@@ -15,7 +15,9 @@ package org.talend.core.model.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
@@ -178,4 +180,32 @@ public class NodeUtil {
         return result;
     }
 
+    /**
+     * DOC xtan
+     * <p>
+     * InLineJob means all nodes after a iterate link(The nodes will execute many times on every iterate).
+     * </p>
+     * Notice: The search method don't consider the second branch of the tUnite, but it is ok.
+     * 
+     * @param node
+     * @return
+     */
+    public static Set<? extends IConnection> getAllInLineJobConnections(INode node) {
+        Set<IConnection> conns = new HashSet<IConnection>();
+
+        List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
+        if (outgoingConnections != null) {
+
+            conns.addAll(outgoingConnections); // add all
+
+            for (int i = 0; i < outgoingConnections.size(); i++) {
+
+                IConnection connection = outgoingConnections.get(i);
+                INode nextNode = connection.getTarget();
+
+                conns.addAll(getAllInLineJobConnections(nextNode)); // follow this way
+            }
+        }
+        return conns;
+    }
 }

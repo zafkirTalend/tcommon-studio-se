@@ -35,4 +35,6 @@ public interface IPerformance {
      * clear performance status for running next time.
      */
     public void resetStatus();
+
+    public void clearPerformanceDataOnUI();
 }
