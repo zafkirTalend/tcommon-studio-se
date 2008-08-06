@@ -20,13 +20,18 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IEditorPart;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
@@ -203,6 +208,8 @@ public class ProcessorUtilities {
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
             ItemCacheManager.clearCache();
+            // if it's the father or main job, initialize the routines name
+            CodeGeneratorRoutine.initializeRoutinesName();
         }
 
         IProcess currentProcess = null;
@@ -330,6 +337,16 @@ public class ProcessorUtilities {
 
             if (currentProcess instanceof IProcess2) {
                 ((IProcess2) currentProcess).setNeedRegenerateCode(false);
+            }
+        }
+        if (jobInfo.getFatherJobInfo() == null) {
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                try {
+                    CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject().build(
+                            IncrementalProjectBuilder.AUTO_BUILD, null);
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
             }
         }
 
