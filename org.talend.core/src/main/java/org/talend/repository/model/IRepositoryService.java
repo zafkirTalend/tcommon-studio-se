@@ -78,7 +78,7 @@ public interface IRepositoryService extends IService {
      */
     public void initializeForTalendStartupJob();
 
-    public void initializeTalend();
+    public void initializePluginMode();
 
     public boolean isRCPMode();
 

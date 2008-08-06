@@ -14,6 +14,10 @@ package org.talend.rcp.intro;
 
 import java.lang.management.ManagementFactory;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
@@ -23,6 +27,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
@@ -30,6 +35,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.Activator;
 import org.talend.repository.i18n.Messages;
@@ -87,9 +93,28 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     @Override
     public void postStartup() {
         super.postStartup();
-        // Start Code Generation Init
+        // remove the auto-build to enhance the build speed and application's use
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IWorkspaceDescription description = workspace.getDescription();
+        description.setAutoBuilding(false);
+        try {
+            workspace.setDescription(description);
+        } catch (CoreException e) {
+            // do nothing
+        }
+
+        IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                IRunProcessService.class);
+        // clean workspace
+        runProcessService.deleteAllJobs(false);
         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                 ICodeGeneratorService.class);
+        try {
+            codeGenService.createRoutineSynchronizer().syncAllRoutines();
+        } catch (SystemException e1) {
+            //
+        }
+        // Start Code Generation Init
         codeGenService.initializeTemplates();
 
         // Start Web Service Registration

@@ -70,7 +70,5 @@ public interface ICodeGeneratorService extends IService {
 
     public ITalendSynchronizer createRoutineSynchronizer();
 
-    public void generationInit();
-
     public ISQLPatternSynchronizer getSQLPatternSynchronizer();
 }
