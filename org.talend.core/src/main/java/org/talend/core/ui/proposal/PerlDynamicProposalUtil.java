@@ -71,9 +71,9 @@ public class PerlDynamicProposalUtil {
                         proposal.append("$row[");
                         proposal.append(column.getLabel());
                         proposal.append("]");
-                        res[i] = makeContentProposal(proposal.toString(), node.getUniqueName() + "." + proposal.toString(),
-                                proposal.toString() + " would be automatically converted to " + node.getUniqueName()
-                                        + "->[index] in the generated code");
+                        res[i] = makeContentProposal(proposal.toString(), proposal.toString(), proposal.toString()
+                                + " would be automatically converted to " + node.getUniqueName()
+                                + "->[index] in the generated code");
                     }
                     return res;
                 }

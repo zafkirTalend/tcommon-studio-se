@@ -150,7 +150,7 @@ public class TalendProposalProvider implements IContentProposalProvider {
         Collections.sort(proposals, new Comparator<IContentProposal>() {
 
             public int compare(IContentProposal arg0, IContentProposal arg1) {
-                return arg0.getLabel().compareToIgnoreCase(arg1.getLabel());
+                return compareRowAndContextProposal(arg0.getLabel(), arg1.getLabel());
             }
 
         });
@@ -159,4 +159,23 @@ public class TalendProposalProvider implements IContentProposalProvider {
         res = proposals.toArray(res);
         return res;
     }
+
+    /**
+     * Make sure the $row proposal follow the context proposal see feature 3725 DOC YeXiaowei Comment method
+     * "compareRowAndContextProposal".
+     * 
+     * @param label0
+     * @param label1
+     * @return
+     */
+    private int compareRowAndContextProposal(String label0, String label1) {
+        if (label0.startsWith("$row[") && label1.startsWith("context")) {
+            return 1;
+        } else if (label1.startsWith("$row[") && label0.startsWith("context")) {
+            return -1;
+        } else {
+            return label0.compareToIgnoreCase(label1);
+        }
+    }
+
 }
