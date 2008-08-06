@@ -20,6 +20,8 @@ public class RunStat implements Runnable {
 
     public static int END = 2;
 
+    public static int CLEAR = 3;
+
     private class StatBean {
 
         private String connectionId;
@@ -137,14 +139,19 @@ public class RunStat implements Runnable {
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
             str = sb.getConnectionId();
-            if (sb.getExec() == null) {
-                str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
+            if (sb.getState() == RunStat.CLEAR) {
+                str += "|" + "clear";
             } else {
-                str += "|" + sb.getExec();
-            }
-            if (sb.getState() != RunStat.RUNNING) {
-                str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop");
-                processStats.remove(sb.getConnectionId());
+
+                if (sb.getExec() == null) {
+                    str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
+                } else {
+                    str += "|" + sb.getExec();
+                }
+                if (sb.getState() != RunStat.RUNNING) {
+                    str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop");
+                    processStats.remove(sb.getConnectionId());
+                }
             }
             pred.println(str); // envoi d'un message
         }
