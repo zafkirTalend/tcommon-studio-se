@@ -68,6 +68,10 @@ public abstract class UpdateResult {
         switch (resultType) {
         case UPDATE:
             break;
+        case ADD:
+        case DELETE:
+            setChecked(true);
+            break;
         default:
             setChecked(true);
             setReadOnly(true);
@@ -136,6 +140,7 @@ public abstract class UpdateResult {
 
     public abstract String getJobInfor();
 
+    @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append(checkValues(getJobInfor()));

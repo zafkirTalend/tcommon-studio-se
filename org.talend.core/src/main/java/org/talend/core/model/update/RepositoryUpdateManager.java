@@ -79,6 +79,8 @@ public abstract class RepositoryUpdateManager {
      */
     private Object parameter;
 
+    private Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
+
     public RepositoryUpdateManager(Object parameter) {
         super();
         this.parameter = parameter;
@@ -481,6 +483,7 @@ public abstract class RepositoryUpdateManager {
             if (contextManager instanceof JobContextManager) {
                 JobContextManager jobContextManager = (JobContextManager) contextManager;
                 jobContextManager.setRepositoryRenamedMap(getContextRenamedMap());
+                jobContextManager.setNewParametersMap(getNewParametersMap());
             }
             // schema rename
             IUpdateManager updateManager = process2.getUpdateManager();
@@ -868,8 +871,24 @@ public abstract class RepositoryUpdateManager {
                 repositoryRenamedMap.put(item, repositoryContextManager.getNameMap());
             }
             repositoryUpdateManager.setContextRenamedMap(repositoryRenamedMap);
+
+            // newly added parameters
+            Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
+            if (!repositoryContextManager.getNewParameters().isEmpty()) {
+                newParametersMap.put(item, repositoryContextManager.getNewParameters());
+            }
+            repositoryUpdateManager.setNewParametersMap(newParametersMap);
+
         }
         return repositoryUpdateManager.doWork(show);
+    }
+
+    public Map<ContextItem, Set<String>> getNewParametersMap() {
+        return newParametersMap;
+    }
+
+    public void setNewParametersMap(Map<ContextItem, Set<String>> newParametersMap) {
+        this.newParametersMap = newParametersMap;
     }
 
     public static boolean updateAllJob() {

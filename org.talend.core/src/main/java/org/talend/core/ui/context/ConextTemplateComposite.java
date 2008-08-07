@@ -48,6 +48,8 @@ import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
@@ -408,6 +410,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         Button addPushButton = new Button(parent, SWT.PUSH);
         addPushButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 IContextParameter parameter = (IContextParameter) createNewEntry();
                 if (parameter != null) {
@@ -416,6 +419,19 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
                     modelManager.onContextAddParameter(getContextManager(), parameter);
                     ContextManagerHelper.revertTreeSelection(getViewer(), parameter);
                     checkButtonEnableState();
+
+                    // see feature 4661: Add an option to propagate when add or remove a variable in a repository
+                    // context to jobs/joblets.
+                    if (ContextUtils.isPropagateContextVariable() && getContextManager() != null) {
+                        IContextManager manager = getContextManager();
+                        if (manager != null && manager instanceof JobContextManager) {
+                            JobContextManager jobManger = (JobContextManager) manager;
+                            // set updated flag.
+                            jobManger.setModified(true);
+                            jobManger.addNewParameters(parameter.getName());
+                        }
+                    }
+
                 }
             }
 
@@ -469,6 +485,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         Button removePushButton = new Button(parent, SWT.PUSH);
         removePushButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
 
                 IContextParameter parameter = null;
@@ -515,6 +532,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         Image image = ImageProvider.getImage(ECoreImage.CONTEXT_ICON);
         selectContextVariablesPushButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 SelectRepositoryContextDialog dialog = new SelectRepositoryContextDialog(getContextModelManager(), parent
                         .getShell(), helper);
@@ -548,6 +566,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         moveUpPushButton.setImage(image);
         moveUpPushButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (ContextManagerHelper.changeContextOrder(viewer, modelManager, true)) {
                     checkButtonEnableState();
@@ -565,6 +584,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         moveDownPushButton.setImage(image);
         moveDownPushButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 if (ContextManagerHelper.changeContextOrder(viewer, modelManager, false)) {
                     checkButtonEnableState();

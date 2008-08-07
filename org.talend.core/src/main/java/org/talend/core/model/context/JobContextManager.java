@@ -69,6 +69,10 @@ public class JobContextManager implements IContextManager {
      */
     private Set<String> lostParameters = new HashSet<String>();
 
+    private Set<String> newParameters = new HashSet<String>();
+
+    private Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
+
     public JobContextManager() {
         listContext.add(defaultContext);
     }
@@ -306,6 +310,9 @@ public class JobContextManager implements IContextManager {
         } else {
             nameMap.put(newName, oldName);
         }
+
+        // check if the newly added parameters is renamed
+        updateNewParameters(newName, oldName);
     }
 
     public Map<String, String> getNameMap() {
@@ -361,6 +368,38 @@ public class JobContextManager implements IContextManager {
             this.repositoryRenamedMap.put(item, tmpMap);
         }
 
+    }
+
+    public void addNewParameters(String param) {
+        newParameters.add(param);
+    }
+
+    public Set<String> getNewParameters() {
+        return newParameters;
+    }
+
+    public void setNewParameters(Set<String> newParameters) {
+        this.newParameters = newParameters;
+    }
+
+    /**
+     * The newly added parameter is renamed.
+     * 
+     * @param newName
+     * @param oldName
+     */
+    private void updateNewParameters(String newName, String oldName) {
+        if (newParameters.remove(oldName)) {
+            newParameters.add(newName);
+        }
+    }
+
+    public Map<ContextItem, Set<String>> getNewParametersMap() {
+        return newParametersMap;
+    }
+
+    public void setNewParametersMap(Map<ContextItem, Set<String>> newParametersMap) {
+        this.newParametersMap = newParametersMap;
     }
 
 }

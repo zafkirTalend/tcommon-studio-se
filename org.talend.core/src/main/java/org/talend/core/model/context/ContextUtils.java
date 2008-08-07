@@ -115,7 +115,7 @@ public class ContextUtils {
         if (sourceItem == null) {
             return null;
         }
-        List<ContextType> contextTypeList = (List<ContextType>) sourceItem.getContext();
+        List<ContextType> contextTypeList = sourceItem.getContext();
 
         if (byDefault) {
             return getContextTypeByName(contextTypeList, contextName, sourceItem.getDefaultContext());
@@ -140,7 +140,7 @@ public class ContextUtils {
         }
         ContextType contextType = null;
         ContextType defaultContextType = null;
-        for (ContextType type : (List<ContextType>) contextTypeList) {
+        for (ContextType type : contextTypeList) {
             if (contextName != null && type.getName().equals(contextName)) {
                 contextType = type;
             } else if (defaultContextName != null && type.getName().equals(defaultContextName)) {
@@ -406,5 +406,11 @@ public class ContextUtils {
             return true;
         }
         return false;
+    }
+
+    public static boolean isPropagateContextVariable() {
+        // preference name must match TalendDesignerPrefConstants.PROPAGATE_CONTEXT_VARIABLE
+        return Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
+                "propagateContextVariable"));
     }
 }
