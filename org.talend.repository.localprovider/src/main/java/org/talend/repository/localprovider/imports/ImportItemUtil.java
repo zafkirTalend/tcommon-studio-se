@@ -25,6 +25,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
+import org.apache.oro.text.regex.Perl5Substitution;
+import org.apache.oro.text.regex.Util;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -38,6 +45,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
@@ -58,6 +66,7 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.migrationtool.model.GetTasksHelper;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
@@ -271,9 +280,11 @@ public class ImportItemUtil {
 
                 if (lastVersion == null) {
                     repFactory.create(tmpItem, path, true);
+                    changeRoutinesPackage(tmpItem);
                     itemRecord.setImported(true);
                 } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
                     repFactory.forceCreate(tmpItem, path);
+                    changeRoutinesPackage(tmpItem);
                     itemRecord.setImported(true);
                 } else {
                     PersistenceException e = new PersistenceException("A newer version of " + tmpItem.getProperty()
@@ -284,6 +295,49 @@ public class ImportItemUtil {
             } catch (Exception e) {
                 itemRecord.addError(e.getMessage());
                 logError(e);
+            }
+        }
+    }
+
+    public void changeRoutinesPackage(Item item) {
+        if (item == null) {
+            return;
+        }
+        ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+        if (ERepositoryObjectType.ROUTINES.equals(itemType) && item instanceof RoutineItem) {
+            RoutineItem rItem = (RoutineItem) item;
+            if (!rItem.isBuiltIn()) {
+                //
+                String routineContent = new String(rItem.getContent().getInnerContent());
+                ProjectManager pManager = ProjectManager.getInstance();
+                org.talend.core.model.general.Project currentProject = pManager.getCurrentProject();
+                //
+                String curProjectName = currentProject.getTechnicalLabel().toLowerCase();
+                String oldPackage = "package(\\s)+" + JavaUtils.JAVA_ROUTINES_DIRECTORY + "\\.((\\w)+)(\\s)*;";
+                String newPackage = "package " + JavaUtils.JAVA_ROUTINES_DIRECTORY + "." + curProjectName + ";";
+                try {
+                    PatternCompiler compiler = new Perl5Compiler();
+                    Perl5Matcher matcher = new Perl5Matcher();
+                    matcher.setMultiline(true);
+                    Pattern pattern = compiler.compile(oldPackage);
+
+                    if (matcher.contains(routineContent, pattern)) {
+                        String group = matcher.getMatch().group(2);
+                        if (!curProjectName.equals(group)) { // not same
+                            Perl5Substitution substitution = new Perl5Substitution(newPackage, Perl5Substitution.INTERPOLATE_ALL);
+                            routineContent = Util.substitute(matcher, pattern, substitution, routineContent, Util.SUBSTITUTE_ALL);
+
+                            rItem.getContent().setInnerContent(routineContent.getBytes());
+                            ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+
+                            repFactory.save(rItem);
+                        }
+                    }
+                } catch (MalformedPatternException e) {
+                    logError(e);
+                } catch (PersistenceException e) {
+                    logError(e);
+                }
             }
         }
     }

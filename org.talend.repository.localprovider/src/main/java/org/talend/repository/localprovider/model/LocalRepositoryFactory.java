@@ -82,6 +82,7 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
+import org.talend.repository.localprovider.imports.ImportItemUtil;
 import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
@@ -1413,6 +1414,24 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         synchronizeRoutines(project2);
         synchronizeSqlpatterns(project2);
         synchronizeFolders(project2, project.getEmfProject());
+        changeRoutinesPackage(project);
+
+    }
+
+    private void changeRoutinesPackage(Project project) {
+        if (project == null) {
+            return;
+        }
+        try {
+            ImportItemUtil util = new ImportItemUtil();
+            List<IRepositoryObject> allRoutines = getAll(project, ERepositoryObjectType.ROUTINES, true, true);
+            for (IRepositoryObject object : allRoutines) {
+                Item item = object.getProperty().getItem();
+                util.changeRoutinesPackage(item);
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     /*
