@@ -17,11 +17,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.repository.ProjectManager;
 
 /**
  * An util tools for java version resources. Detailled comment <br/>
@@ -53,10 +52,8 @@ public class JavaResourcesHelper {
      * @return
      */
     public static String getCurrentProjectName() {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        Project project = repositoryContext.getProject();
-
+        ProjectManager pManager = ProjectManager.getInstance();
+        Project project = pManager.getCurrentProject();
         String name = project.getTechnicalLabel().toLowerCase();
         return name;
     }
@@ -70,7 +67,8 @@ public class JavaResourcesHelper {
     }
 
     public static String getProjectFolderName(Item item) {
-        org.talend.core.model.properties.Project p = CorePlugin.getDefault().getProxyRepositoryFactory().getProject(item);
+        ProjectManager pManager = ProjectManager.getInstance();
+        org.talend.core.model.properties.Project p = pManager.getProject(item);
         String projectFolderName = p.getTechnicalLabel();
         projectFolderName = projectFolderName.toLowerCase();
         return projectFolderName;

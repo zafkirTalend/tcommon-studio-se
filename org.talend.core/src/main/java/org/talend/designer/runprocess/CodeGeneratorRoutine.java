@@ -18,8 +18,6 @@ import java.util.List;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
@@ -27,6 +25,7 @@ import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -36,67 +35,62 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * 
  */
 public final class CodeGeneratorRoutine {
-	private static List<String> routinesName;
 
-	/**
-	 * Default Constructor. Must not be used.
-	 */
-	private CodeGeneratorRoutine() {
-	}
+    private static List<String> routinesName;
 
-	/**
-	 * Actually used in ProcessorUtilities.generateCode.
-	 */
-	public static void initializeRoutinesName() {
-		ECodeLanguage currentLanguage = ((RepositoryContext) CorePlugin
-				.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-				.getProject().getLanguage();
-		List<String> toReturn = new ArrayList<String>();
+    /**
+     * Default Constructor. Must not be used.
+     */
+    private CodeGeneratorRoutine() {
+    }
 
-		RepositoryContext repositoryContext = (RepositoryContext) CorePlugin
-				.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
-		Project project = repositoryContext.getProject();
+    /**
+     * Actually used in ProcessorUtilities.generateCode.
+     */
+    public static void initializeRoutinesName() {
+        ProjectManager pManager = ProjectManager.getInstance();
+        Project currentProject = pManager.getCurrentProject();
+        ECodeLanguage currentLanguage = currentProject.getLanguage();
+        List<String> toReturn = new ArrayList<String>();
 
-		IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault()
-				.getRepositoryService().getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
 
-		String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER
-				+ "::" + "system" + "::";
-		String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::"
-				+ project.getTechnicalLabel() + "::";
+        String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::";
+        String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::";
 
-		try {
-			List<IRepositoryObject> routines = repositoryFactory
-					.getAll(ERepositoryObjectType.ROUTINES);
-			for (IRepositoryObject routine : routines) {
-				if (currentLanguage.equals(ECodeLanguage.JAVA)) {
-					InformationLevel level = routine.getProperty()
-							.getMaxInformationLevel();
-					if (level.getValue() == InformationLevel.ERROR) {
-						continue;
-					}
-					toReturn.add(routine.getLabel());
-				} else {
-					RoutineItem item = (RoutineItem) routine.getProperty()
-							.getItem();
-					if (item.isBuiltIn()) {
-						toReturn.add(builtInPath + routine.getLabel());
-					} else {
-						toReturn.add(userPath + routine.getLabel());
-					}
-				}
-			}
-		} catch (PersistenceException e) {
-			ExceptionHandler.process(e);
-		}
-		routinesName = toReturn;
-	}
+        try {
+            List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES);
+            for (IRepositoryObject routine : routines) {
+                RoutineItem item = (RoutineItem) routine.getProperty().getItem();
+                if (currentLanguage.equals(ECodeLanguage.JAVA)) {
+                    org.talend.core.model.properties.Project project = pManager.getProject(item);
+                    InformationLevel level = routine.getProperty().getMaxInformationLevel();
+                    if (level.getValue() == InformationLevel.ERROR) {
+                        continue;
+                    }
+                    if (item.isBuiltIn()) {
+                        toReturn.add(routine.getLabel());
+                    } else {
+                        toReturn.add(project.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
+                    }
+                } else {
+                    if (item.isBuiltIn()) {
+                        toReturn.add(builtInPath + routine.getLabel());
+                    } else {
+                        toReturn.add(userPath + routine.getLabel());
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        routinesName = toReturn;
+    }
 
-	/**
-	 * initializeRoutinesName must be called first or it might return wrong list
-	 * name or null.
-	 */
-	public static List<String> getRoutineName() {
-		return routinesName;
-	}
+    /**
+     * initializeRoutinesName must be called first or it might return wrong list name or null.
+     */
+    public static List<String> getRoutineName() {
+        return routinesName;
+    }
 }

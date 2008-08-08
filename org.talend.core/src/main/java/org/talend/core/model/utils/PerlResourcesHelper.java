@@ -17,11 +17,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.repository.ProjectManager;
 
 /**
  * bqian An util tools for perl version resources. <br/>
@@ -53,9 +52,8 @@ public class PerlResourcesHelper {
      * @return
      */
     public static String getCurrentProjectName() {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        Project project = repositoryContext.getProject();
+        ProjectManager pManager = ProjectManager.getInstance();
+        Project project = pManager.getCurrentProject();
         return project.getTechnicalLabel();
     }
 
@@ -70,7 +68,8 @@ public class PerlResourcesHelper {
     }
 
     public static String getRootProjectName(Item item) {
-        org.talend.core.model.properties.Project p = CorePlugin.getDefault().getProxyRepositoryFactory().getProject(item);
+        ProjectManager pManager = ProjectManager.getInstance();
+        org.talend.core.model.properties.Project p = pManager.getProject(item);
         String projectFolderName = p.getTechnicalLabel();
         return projectFolderName;
     }

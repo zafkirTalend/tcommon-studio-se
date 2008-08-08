@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.SourceType;
 import org.eclipse.jdt.ui.JavadocContentAccess;
 import org.talend.commons.exception.ExceptionHandler;
@@ -36,9 +37,11 @@ import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
@@ -87,9 +90,13 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             if (javaProject != null) {
                 IProject project = javaProject.getProject();
                 IFolder srcFolder = project.getFolder(JavaUtils.JAVA_SRC_DIRECTORY);
+
                 IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(srcFolder);
-                IPackageFragment routinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY);
-                IJavaElement[] elements = routinesPkg.getChildren();
+
+                List<IJavaElement> elements = new ArrayList<IJavaElement>();
+
+                addEveryProjectElements(root, elements);
+
                 for (IJavaElement element : elements) {
                     if (element instanceof ICompilationUnit) {
                         ICompilationUnit compilationUnit = (ICompilationUnit) element;
@@ -124,6 +131,34 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
+        }
+    }
+
+    private void addEveryProjectElements(IPackageFragmentRoot root, List<IJavaElement> elements) throws JavaModelException {
+        if (root == null || elements == null) {
+            return;
+        }
+        // system
+        IPackageFragment routinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY);
+        if (routinesPkg != null && routinesPkg.exists()) {
+            elements.addAll(Arrays.asList(routinesPkg.getChildren()));
+        }
+
+        ProjectManager projectManager = ProjectManager.getInstance();
+        Project currentProject = projectManager.getCurrentProject();
+        // current project
+        IPackageFragment userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "."
+                + currentProject.getLabel().toLowerCase());
+        if (userRoutinesPkg != null && userRoutinesPkg.exists()) {
+            elements.addAll(Arrays.asList(userRoutinesPkg.getChildren()));
+        }
+        // referenced project.
+        projectManager.retrieveReferencedProjects();
+        for (Project p : projectManager.getReferencedProjects()) {
+            userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "." + p.getLabel().toLowerCase());
+            if (userRoutinesPkg != null && userRoutinesPkg.exists()) {
+                elements.addAll(Arrays.asList(userRoutinesPkg.getChildren()));
+            }
         }
     }
 
