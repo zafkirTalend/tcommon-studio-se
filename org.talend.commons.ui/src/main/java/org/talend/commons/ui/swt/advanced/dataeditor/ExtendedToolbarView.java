@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.AddAllPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButtonForExtendedTable;
@@ -44,6 +45,8 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 public class ExtendedToolbarView extends AbstractExtendedToolbar {
 
     protected AddPushButton addButton;
+
+    protected AddAllPushButton addallButton;
 
     protected RemovePushButton removeButton;
 
@@ -86,6 +89,7 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
      * 
      */
     protected void createComponents(Composite parent) {
+
         addButton = createAddPushButton();
 
         removeButton = createRemovePushButton();
@@ -97,6 +101,8 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         copyButton = createCopyPushButton();
 
         pasteButton = createPastePushButton();
+
+        addallButton = createAddAllPushButton();
 
         exportButton = createExportPushButton();
 
@@ -113,6 +119,15 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         // exportButton = new Button(toolbar, SWT.PUSH);
         // exportButton.setToolTipText("Export");
         // exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
+    }
+
+    /**
+     * DOC YeXiaowei Comment method "createAddAllPushButton".
+     * 
+     * @return
+     */
+    protected AddAllPushButton createAddAllPushButton() {
+        return null;
     }
 
     protected AddPushButton createAddPushButton() {
@@ -304,6 +319,11 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         if (getSelectContextVariablesButton() != null) {
             list.add(getSelectContextVariablesButton());
         }
+
+        if (getAddallButton() != null) {
+            list.add(getAddallButton());
+        }
+
         return list;
     }
 
@@ -314,6 +334,15 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
      */
     public SaveAsGenericSchemaPushButton getSaveAsGenericSchemaButton() {
         return saveAsGenericSchemaButton;
+    }
+
+    /**
+     * Getter for addallButton.
+     * 
+     * @return the addallButton
+     */
+    public AddAllPushButton getAddallButton() {
+        return this.addallButton;
     }
 }
 
