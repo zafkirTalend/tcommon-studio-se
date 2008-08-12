@@ -17,11 +17,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
-import org.talend.core.model.general.Project;
-import org.talend.repository.model.ResourceModelUtils;
+import org.talend.core.model.properties.Item;
+import org.talend.repository.ProjectManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -31,51 +28,29 @@ import org.talend.repository.model.ResourceModelUtils;
  */
 public class DocumentationPathProvider {
 
-    public static IProject getProject() throws PersistenceException {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        Project project = repositoryContext.getProject();
-        return ResourceModelUtils.getProject(project);
-    }
-
-    public static IPath getPathRootProject() {
-
+    public static IPath getPathProjectFolder(Item item, String folderName) {
         try {
-            IProject iProject = getProject();
-            return iProject.getFullPath();
+            IProject iProject = ProjectManager.getInstance().getResourceProject(item);
+            if (iProject != null) {
+                IFolder folder = ResourceUtils.getFolder(iProject, folderName, true);
+                return folder.getLocation();
+            }
         } catch (PersistenceException e) {
-            return null;
+            //
         }
-    }
-
-    public static IPath getPathProjectFolder(String folderName) {
-        try {
-            IProject iProject = getProject();
-            IFolder folder = ResourceUtils.getFolder(iProject, folderName, true);
-            return folder.getLocation();
-        } catch (PersistenceException e) {
-            return null;
-        }
+        return null;
 
     }
 
-    public static IFolder getFolder(String folderName) {
-        try {
-            IProject iProject = getProject();
-            IFolder folder = ResourceUtils.getFolder(iProject, folderName, true);
-            return folder;
-        } catch (PersistenceException e) {
-            return null;
+    public static IPath getPathFileName(Item item, String folderName, String fileName) {
+        IPath pathProjectFolder = getPathProjectFolder(item, folderName);
+        if (pathProjectFolder != null) {
+            return pathProjectFolder.append(fileName);
         }
+        return null;
     }
 
     public static IPath getPathFileName(String folderName, String fileName) {
-        IPath pathProjectFolder = getPathProjectFolder(folderName);
-        if (pathProjectFolder == null) {
-            // ExceptionHandler.process(new RuntimeException("Gets the path of file " + fileName + " failed."));
-            return null;
-        }
-        return pathProjectFolder.append(fileName);
+        return getPathFileName(null, folderName, fileName);
     }
-
 }

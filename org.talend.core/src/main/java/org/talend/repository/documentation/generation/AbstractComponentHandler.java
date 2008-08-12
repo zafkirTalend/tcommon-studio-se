@@ -119,7 +119,8 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         if (isExternalNodeComponent) {
             previewImagePath = getPreviewImagePath(elementParameters);
             if (!previewImagePath.equals("")) {
-                IPath filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY, previewImagePath);
+                IPath filePath = DocumentationPathProvider.getPathFileName(node.getProcess().getProperty().getItem(),
+                        RepositoryConstants.IMG_DIRECTORY, previewImagePath);
                 File file = new File(filePath.toOSString());
                 if (file.exists()) {
                     storedPreviewImagePath = filePath.toOSString();

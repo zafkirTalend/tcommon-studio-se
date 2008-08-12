@@ -79,6 +79,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.designer.runprocess.ProcessorUtilities;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.ExportFileResource;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
@@ -111,7 +112,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
     private static Map<Integer, ByteArrayOutputStream> logoImageCache = new HashMap<Integer, ByteArrayOutputStream>();
 
-    public HTMLDocGenerator(ERepositoryObjectType repositoryObjectType) {
+    private Project project;
+
+    public HTMLDocGenerator(Project project, ERepositoryObjectType repositoryObjectType) {
+        this.project = project;
         this.designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
         this.mapList = designerCoreService.getMaps();
         this.repositoryConnectionItemMap = mapList.get(0);
@@ -386,8 +390,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-                                         * ,
-                                         */);
+             * ,
+             */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
@@ -953,9 +957,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
         IPath filePath = null;
         if (item instanceof ProcessItem) {
-            filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
+            filePath = DocumentationPathProvider.getPathFileName(item, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
         } else if (item instanceof JobletProcessItem) {
-            filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOBLET_OUTLINE, picName);
+            filePath = DocumentationPathProvider.getPathFileName(item, RepositoryConstants.IMG_DIRECTORY_OF_JOBLET_OUTLINE,
+                    picName);
         }
 
         Element previewElement = jobElement.addElement("preview");
@@ -1018,8 +1023,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return an instance of <code>Project</code>
      */
     protected Project getProject() {
-        return ((org.talend.core.context.RepositoryContext) CorePlugin.getContext().getProperty(
-                org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject();
+        if (this.project == null) {
+            return ProjectManager.getInstance().getCurrentProject();
+        }
+        return this.project;
     }
 
     /**

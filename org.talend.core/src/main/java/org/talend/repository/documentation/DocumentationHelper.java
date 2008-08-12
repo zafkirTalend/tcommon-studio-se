@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -36,6 +35,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.generation.DocumentationPathProvider;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
@@ -197,15 +197,17 @@ public class DocumentationHelper {
         for (int i = 0; i < nodes.length; i++) {
 
             String label = ((RepositoryNode) nodes[i]).getProperties(EProperties.LABEL).toString();
-            String version = "";
+            String version = ""; //$NON-NLS-1$
             IRepositoryObject object = ((RepositoryNode) nodes[i]).getObject();
             if (((RepositoryNode) nodes[i]).getType() != ENodeType.SIMPLE_FOLDER && object != null) {
                 version = object.getProperty().getVersion();
             }
-
-            if (version.equals("")) {
-                addTreeNode((RepositoryNode) nodes[i], path + "/" //$NON-NLS-1$
-                        + label, list, allVersions);
+            String nodePath = ""; //$NON-NLS-1$
+            if (path != null && !"".equals(path)) {
+                nodePath = path + "/"; //$NON-NLS-1$
+            }
+            if (version.equals("")) { //$NON-NLS-1$
+                addTreeNode((RepositoryNode) nodes[i], nodePath + label, list, allVersions);
             } else {
                 if (allVersions) {
                     IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
@@ -214,16 +216,14 @@ public class DocumentationHelper {
                         List<IRepositoryObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
                         for (IRepositoryObject curObj : objects) {
                             RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) nodes[i]).getType());
-                            addTreeNode(repNode, path + "/" //$NON-NLS-1$
-                                    + curObj.getProperty().getLabel() + "_" + curObj.getProperty().getVersion(), list,
-                                    allVersions);
+                            addTreeNode(repNode, nodePath + curObj.getProperty().getLabel() + "_"
+                                    + curObj.getProperty().getVersion(), list, allVersions);
                         }
                     } catch (PersistenceException e) {
                         ExceptionHandler.process(e);
                     }
                 } else {
-                    addTreeNode((RepositoryNode) nodes[i], path + "/" //$NON-NLS-1$
-                            + label + "_" + version, list, allVersions);
+                    addTreeNode((RepositoryNode) nodes[i], nodePath + label + "_" + version, list, allVersions);
                 }
             }
         }
@@ -236,15 +236,19 @@ public class DocumentationHelper {
      * @return
      */
     public static File getHTMLFilePath(RepositoryNode currentNode, String docRootPath) {
-        String jobNodeDocRootPath = getJobNodeDocumentationRoot(docRootPath);
+        String jobNodeDocRootPath = null;
         if (currentNode.getObject() != null) {
             String jobName = currentNode.getObject().getProperty().getLabel();
 
             // Gets the related path of current node
-            String currentJobPath = currentNode.getObject().getProperty().getItem().getState().getPath();
-            currentJobPath = currentJobPath == null ? "" : currentJobPath;
+            Item item = currentNode.getObject().getProperty().getItem();
+            String currentJobPath = item.getState().getPath();
+            jobNodeDocRootPath = getJobNodeDocumentationRoot(item, docRootPath);
+            currentJobPath = currentJobPath == null ? "" : IPath.SEPARATOR + currentJobPath;
 
-            jobNodeDocRootPath = jobNodeDocRootPath + IPath.SEPARATOR + currentJobPath + IPath.SEPARATOR + jobName;
+            jobNodeDocRootPath = jobNodeDocRootPath + currentJobPath + IPath.SEPARATOR + jobName;
+        } else {
+            jobNodeDocRootPath = getJobNodeDocumentationRoot(currentNode.getRoot().getProject(), docRootPath);
         }
 
         java.io.File folder = new File(jobNodeDocRootPath);
@@ -256,8 +260,19 @@ public class DocumentationHelper {
      * 
      * @return
      */
-    public static String getJobNodeDocumentationRoot(String docRootPath) {
-        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
+    public static String getJobNodeDocumentationRoot(Item item, String docRootPath) {
+        IProject project = ProjectManager.getInstance().getResourceProject(item);
+        java.io.File file = project.getLocation().toFile();
+        String jobNodeDocRootPath = file.toString() + IPath.SEPARATOR + docRootPath;
+        return jobNodeDocRootPath;
+    }
+
+    public static String getJobNodeDocumentationRoot(Project p, String docRootPath) {
+        org.talend.core.model.properties.Project emfProject = null;
+        if (p != null) {
+            emfProject = p.getEmfProject();
+        }
+        IProject project = ProjectManager.getInstance().getResourceProject(emfProject);
         java.io.File file = project.getLocation().toFile();
         String jobNodeDocRootPath = file.toString() + IPath.SEPARATOR + docRootPath;
         return jobNodeDocRootPath;
@@ -276,16 +291,6 @@ public class DocumentationHelper {
     // IHTMLDocConstants.JOBLET_NODE_DOCUMENTATION_ROOT_PATH;
     // return jobletNodeDocRootPath;
     // }
-
-    /**
-     * Get the current project.
-     * 
-     * @return an instance of <code>Project</code>
-     */
-    public static Project getProject() {
-        return ((org.talend.core.context.RepositoryContext) CorePlugin.getContext().getProperty(
-                org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject();
-    }
 
     /**
      * Gets the documentation node which in the Recycle bin for current job node.
@@ -462,7 +467,7 @@ public class DocumentationHelper {
      * @param jobName
      * @param versionList
      */
-    public static void deletePreviewPictures(String jobName, List<String> versionList) {
+    public static void deletePreviewPictures(Item item, String jobName, List<String> versionList) {
 
         if (versionList == null || versionList.size() == 0) {
             return;
@@ -471,7 +476,8 @@ public class DocumentationHelper {
         String picName = "";
         for (String version : versionList) {
             picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
-            IPath filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
+            IPath filePath = DocumentationPathProvider.getPathFileName(item, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE,
+                    picName);
             if (filePath == null) {
                 return;
             }

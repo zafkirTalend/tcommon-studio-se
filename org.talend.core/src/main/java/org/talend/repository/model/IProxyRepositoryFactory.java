@@ -75,7 +75,12 @@ public interface IProxyRepositoryFactory {
      */
     public abstract boolean isNameAvailable(Item item, String name) throws PersistenceException;
 
+    public abstract boolean isNameAvailable(Project project, Item item, String name) throws PersistenceException;
+
     public abstract boolean isPathValid(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
+
+    public abstract boolean isPathValid(Project proejct, ERepositoryObjectType type, IPath path, String label)
+            throws PersistenceException;
 
     /**
      * @param label
@@ -103,6 +108,9 @@ public interface IProxyRepositoryFactory {
      */
     public abstract Folder createFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
 
+    public abstract Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label)
+            throws PersistenceException;
+
     /**
      * @param project
      * @param type
@@ -112,6 +120,8 @@ public interface IProxyRepositoryFactory {
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath)
      */
     public abstract void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException;
+
+    public abstract void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException;
 
     /**
      * @param project
@@ -308,7 +318,13 @@ public interface IProxyRepositoryFactory {
      */
     public abstract void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException, BusinessException;
 
+    public abstract void deleteObjectLogical(Project project, IRepositoryObject objToDelete) throws PersistenceException,
+            BusinessException;
+
     public abstract void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
+
+    public abstract void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException,
+            BusinessException;
 
     public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException, BusinessException;
 
@@ -430,6 +446,14 @@ public interface IProxyRepositoryFactory {
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
             throws PersistenceException;
 
+    public abstract List<IRepositoryObject> getAll(Project project, ERepositoryObjectType type) throws PersistenceException;
+
+    public abstract List<IRepositoryObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted)
+            throws PersistenceException;
+
+    public abstract List<IRepositoryObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted,
+            boolean allVersions) throws PersistenceException;
+
     public abstract List<String> getFolders(ERepositoryObjectType type) throws PersistenceException;
 
     /**
@@ -478,9 +502,15 @@ public interface IProxyRepositoryFactory {
     // public abstract String isServerValid();
     public abstract void create(Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
+    public abstract void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException;
+
     public abstract void save(Item item, boolean... isMigrationTask) throws PersistenceException;
 
+    public abstract void save(Project project, Item item, boolean... isMigrationTask) throws PersistenceException;
+
     public abstract void save(Property property, String... originalNameAndVersion) throws PersistenceException;
+
+    public abstract void save(Project project, Property property, String... originalNameAndVersion) throws PersistenceException;
 
     public abstract Item copy(Item item, IPath path) throws PersistenceException, BusinessException;
 
@@ -574,7 +604,12 @@ public interface IProxyRepositoryFactory {
 
     public void forceCreate(Item item, IPath path) throws PersistenceException;
 
+    public void forceCreate(Project project, Item item, IPath path) throws PersistenceException;
+
     public void createParentFoldersRecursively(ERepositoryObjectType itemType, IPath path) throws PersistenceException;
+
+    public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path)
+            throws PersistenceException;
 
     public void forceDeleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
 

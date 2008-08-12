@@ -16,9 +16,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -137,5 +141,20 @@ public final class ProjectManager {
         }
         // default
         return getCurrentProject().getEmfProject();
+    }
+
+    public IProject getResourceProject(org.talend.core.model.properties.Project project) {
+        if (project != null) {
+            try {
+                return ResourceUtils.getProject(project.getTechnicalLabel());
+            } catch (PersistenceException e) {
+                //
+            }
+        }
+        return ResourcesPlugin.getWorkspace().getRoot().getProject(getCurrentProject().getEmfProject().getTechnicalLabel());
+    }
+
+    public IProject getResourceProject(EObject object) {
+        return getResourceProject(getProject(object));
     }
 }
