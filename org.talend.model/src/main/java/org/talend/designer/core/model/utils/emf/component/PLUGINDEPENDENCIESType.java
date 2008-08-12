@@ -28,20 +28,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface PLUGINDEPENDENCIESType extends EObject {
     /**
-     * Returns the value of the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
+	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType}.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>PLUGINDEPENDENCY</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>PLUGINDEPENDENCY</em>' containment reference list.
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPLUGINDEPENDENCIESType_PLUGINDEPENDENCY()
-     * @model type="org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType" containment="true"
-     *        extendedMetaData="kind='element' name='PLUGINDEPENDENCY' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>PLUGINDEPENDENCY</em>' containment reference list.
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPLUGINDEPENDENCIESType_PLUGINDEPENDENCY()
+	 * @model type="org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType" containment="true"
+	 *        extendedMetaData="kind='element' name='PLUGINDEPENDENCY' namespace='##targetNamespace'"
+	 * @generated
+	 */
     EList getPLUGINDEPENDENCY();
 
 } // PLUGINDEPENDENCIESType

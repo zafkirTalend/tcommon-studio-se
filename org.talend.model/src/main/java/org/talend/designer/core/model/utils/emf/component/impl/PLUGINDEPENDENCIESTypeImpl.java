@@ -39,118 +39,118 @@ import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
  */
 public class PLUGINDEPENDENCIESTypeImpl extends EObjectImpl implements PLUGINDEPENDENCIESType {
     /**
-     * The cached value of the '{@link #getPLUGINDEPENDENCY() <em>PLUGINDEPENDENCY</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPLUGINDEPENDENCY() <em>PLUGINDEPENDENCY</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPLUGINDEPENDENCY()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPLUGINDEPENDENCY()
+	 * @generated
+	 * @ordered
+	 */
     protected EList pLUGINDEPENDENCY;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected PLUGINDEPENDENCIESTypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.PLUGINDEPENDENCIES_TYPE;
-    }
+		return ComponentPackage.Literals.PLUGINDEPENDENCIES_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getPLUGINDEPENDENCY() {
-        if (pLUGINDEPENDENCY == null) {
-            pLUGINDEPENDENCY = new EObjectContainmentEList(PLUGINDEPENDENCYType.class, this, ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY);
-        }
-        return pLUGINDEPENDENCY;
-    }
+		if (pLUGINDEPENDENCY == null) {
+			pLUGINDEPENDENCY = new EObjectContainmentEList(PLUGINDEPENDENCYType.class, this, ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY);
+		}
+		return pLUGINDEPENDENCY;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
-                return ((InternalEList)getPLUGINDEPENDENCY()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
+				return ((InternalEList)getPLUGINDEPENDENCY()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
-                return getPLUGINDEPENDENCY();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
+				return getPLUGINDEPENDENCY();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
-                getPLUGINDEPENDENCY().clear();
-                getPLUGINDEPENDENCY().addAll((Collection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
+				getPLUGINDEPENDENCY().clear();
+				getPLUGINDEPENDENCY().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
-                getPLUGINDEPENDENCY().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
+				getPLUGINDEPENDENCY().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
-                return pLUGINDEPENDENCY != null && !pLUGINDEPENDENCY.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY:
+				return pLUGINDEPENDENCY != null && !pLUGINDEPENDENCY.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //PLUGINDEPENDENCIESTypeImpl

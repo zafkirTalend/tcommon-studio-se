@@ -27,20 +27,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IMPORTSType extends EObject {
     /**
-     * Returns the value of the '<em><b>IMPORT</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.IMPORTType}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>IMPORT</b></em>' containment reference list.
+	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.IMPORTType}.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>IMPORT</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>IMPORT</em>' containment reference list.
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTSType_IMPORT()
-     * @model type="org.talend.designer.core.model.utils.emf.component.IMPORTType" containment="true" required="true"
-     *        extendedMetaData="kind='element' name='IMPORT' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>IMPORT</em>' containment reference list.
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTSType_IMPORT()
+	 * @model type="org.talend.designer.core.model.utils.emf.component.IMPORTType" containment="true" required="true"
+	 *        extendedMetaData="kind='element' name='IMPORT' namespace='##targetNamespace'"
+	 * @generated
+	 */
     EList getIMPORT();
 
 } // IMPORTSType

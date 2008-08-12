@@ -250,7 +250,8 @@ On CLOSED_LIST mode:
 	<xs:element name="PARAMETER">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="DEFAULT" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="DEFAULT" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							Used for TEXT or CHECK field
@@ -259,8 +260,10 @@ On CLOSED_LIST mode:
 					<xs:complexType>
 						<xs:simpleContent>
 							<xs:extension base="xs:string">
-								<xs:attribute name="IF" type="xs:string" use="optional"/>
-								<xs:attribute name="NOT_IF" type="xs:string" use="optional"/>
+								<xs:attribute name="IF" type="xs:string"
+									use="optional" />
+								<xs:attribute name="NOT_IF"
+									type="xs:string" use="optional" />
 							</xs:extension>
 						</xs:simpleContent>
 					</xs:complexType>
@@ -272,7 +275,8 @@ On CLOSED_LIST mode:
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="TABLE" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="TABLE" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							Used only for SCHEMA_TYPE field
@@ -280,44 +284,68 @@ On CLOSED_LIST mode:
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="COLUMN" minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="COLUMN" minOccurs="0"
+								maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:attribute name="NAME" type="xs:string"/>
-									<xs:attribute name="TYPE" type="xs:string"/>
-									<xs:attribute name="LENGTH" type="xs:int"/>
-									<xs:attribute name="PRECISION" type="xs:int" use="optional" default="0"/>
-									<xs:attribute name="KEY" type="xs:boolean" use="optional" default="false"/>
-									<xs:attribute name="NULLABLE" type="xs:boolean" use="optional" default="true"/>
-									<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
-									<xs:attribute name="PATTERN" type="xs:string" use="optional"/>
-									<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
-									<xs:attribute name="CUSTOM" type="xs:boolean" use="optional" default="false"/>
-									<xs:attribute name="COMMENT" type="xs:string" use="optional"/>
+									<xs:attribute name="NAME"
+										type="xs:string" />
+									<xs:attribute name="TYPE"
+										type="xs:string" />
+									<xs:attribute name="LENGTH"
+										type="xs:int" />
+									<xs:attribute name="PRECISION"
+										type="xs:int" use="optional" default="0" />
+									<xs:attribute name="KEY"
+										type="xs:boolean" use="optional" default="false" />
+									<xs:attribute name="NULLABLE"
+										type="xs:boolean" use="optional" default="true" />
+									<xs:attribute name="DEFAULT"
+										type="xs:string" use="optional" />
+									<xs:attribute name="PATTERN"
+										type="xs:string" use="optional" />
+									<xs:attribute name="READONLY"
+										type="xs:boolean" use="optional" />
+									<xs:attribute name="CUSTOM"
+										type="xs:boolean" use="optional" default="false" />
+									<xs:attribute name="COMMENT"
+										type="xs:string" use="optional" />
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
-						<xs:attribute name="READONLY" type="xs:boolean" use="optional" default="false"/>
-						<xs:attribute name="IF" type="xs:string" use="optional"/>
-						<xs:attribute name="NOT_IF" type="xs:string" use="optional"/>
+						<xs:attribute name="READONLY" type="xs:boolean"
+							use="optional" default="false" />
+						<xs:attribute name="IF" type="xs:string"
+							use="optional" />
+						<xs:attribute name="NOT_IF" type="xs:string"
+							use="optional" />
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="NAME" type="xs:string" use="required"/>
-			<xs:attribute name="FIELD" type="xs:string" use="required"/>
-			<xs:attribute name="NB_LINES" type="xs:int" use="optional" default="3"/>
-			<xs:attribute name="NUM_ROW" type="xs:int" use="required"/>
-			<xs:attribute name="SHOW" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="REQUIRED" type="xs:boolean" use="optional" default="false"/>
-			<xs:attribute name="READONLY" type="xs:boolean" use="optional" default="false"/>
-			<xs:attribute name="REPOSITORY_VALUE" type="xs:string" use="optional"/>
-			<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
-			<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>
-			<xs:attribute name="FILTER" type="xs:string" use="optional"/>
-			<xs:attribute name="CONTEXT" type="xs:string" use="optional"/>
-			<xs:attribute name="GROUP" type="xs:string"/>
-			<xs:attribute name="CONTEXT_MODE" type="xs:boolean"/>
-			<xs:attribute name="COLOR" type="xs:string"/>
-			<xs:attribute name="BACKGROUND" type="xs:string"/>
+			<xs:attribute name="NAME" type="xs:string" use="required" />
+			<xs:attribute name="FIELD" type="xs:string" use="required" />
+			<xs:attribute name="NB_LINES" type="xs:int" use="optional"
+				default="3" />
+			<xs:attribute name="NUM_ROW" type="xs:int" use="required" />
+			<xs:attribute name="SHOW" type="xs:boolean" use="optional"
+				default="true" />
+			<xs:attribute name="REQUIRED" type="xs:boolean"
+				use="optional" default="false" />
+			<xs:attribute name="READONLY" type="xs:boolean"
+				use="optional" default="false" />
+			<xs:attribute name="REPOSITORY_VALUE" type="xs:string"
+				use="optional" />
+			<xs:attribute name="SHOW_IF" type="xs:string"
+				use="optional" />
+			<xs:attribute name="NOT_SHOW_IF" type="xs:string"
+				use="optional" />
+			<xs:attribute name="FILTER" type="xs:string" use="optional" />
+			<xs:attribute name="CONTEXT" type="xs:string"
+				use="optional" />
+			<xs:attribute name="GROUP" type="xs:string" />
+			<xs:attribute name="CONTEXT_MODE" type="xs:boolean" />
+			<xs:attribute name="COLOR" type="xs:string" />
+			<xs:attribute name="BACKGROUND" type="xs:string" />
+			<xs:attribute name="DYNAMIC_SETTINGS" type="xs:boolean"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

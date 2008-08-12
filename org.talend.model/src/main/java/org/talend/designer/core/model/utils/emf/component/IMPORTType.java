@@ -34,227 +34,227 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IMPORTType extends EObject {
     /**
-     * Returns the value of the '<em><b>INSTALL</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.INSTALLType}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>INSTALL</b></em>' containment reference list.
+	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.INSTALLType}.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>INSTALL</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>INSTALL</em>' containment reference list.
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_INSTALL()
-     * @model type="org.talend.designer.core.model.utils.emf.component.INSTALLType" containment="true"
-     *        extendedMetaData="kind='element' name='INSTALL' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>INSTALL</em>' containment reference list.
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_INSTALL()
+	 * @model type="org.talend.designer.core.model.utils.emf.component.INSTALLType" containment="true"
+	 *        extendedMetaData="kind='element' name='INSTALL' namespace='##targetNamespace'"
+	 * @generated
+	 */
     EList getINSTALL();
 
     /**
-     * Returns the value of the '<em><b>URL</b></em>' attribute list.
-     * The list contents are of type {@link java.lang.String}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>URL</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>URL</em>' attribute list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>URL</em>' attribute list.
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_URL()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='element' name='URL' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>URL</em>' attribute list.
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_URL()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='element' name='URL' namespace='##targetNamespace'"
+	 * @generated
+	 */
     EList getURL();
 
     /**
-     * Returns the value of the '<em><b>MESSAGE</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>MESSAGE</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>MESSAGE</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>MESSAGE</em>' attribute.
-     * @see #setMESSAGE(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MESSAGE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='MESSAGE' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>MESSAGE</em>' attribute.
+	 * @see #setMESSAGE(String)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MESSAGE()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='MESSAGE' namespace='##targetNamespace'"
+	 * @generated
+	 */
     String getMESSAGE();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>MESSAGE</em>' attribute.
-     * @see #getMESSAGE()
-     * @generated
-     */
+	 * @param value the new value of the '<em>MESSAGE</em>' attribute.
+	 * @see #getMESSAGE()
+	 * @generated
+	 */
     void setMESSAGE(String value);
 
     /**
-     * Returns the value of the '<em><b>MODULE</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>MODULE</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>MODULE</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>MODULE</em>' attribute.
-     * @see #setMODULE(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MODULE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='MODULE' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>MODULE</em>' attribute.
+	 * @see #setMODULE(String)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MODULE()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='MODULE' namespace='##targetNamespace'"
+	 * @generated
+	 */
     String getMODULE();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>MODULE</em>' attribute.
-     * @see #getMODULE()
-     * @generated
-     */
+	 * @param value the new value of the '<em>MODULE</em>' attribute.
+	 * @see #getMODULE()
+	 * @generated
+	 */
     void setMODULE(String value);
 
     /**
-     * Returns the value of the '<em><b>NAME</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>NAME</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>NAME</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>NAME</em>' attribute.
-     * @see #setNAME(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_NAME()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>NAME</em>' attribute.
+	 * @see #setNAME(String)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_NAME()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
+	 * @generated
+	 */
     String getNAME();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>NAME</em>' attribute.
-     * @see #getNAME()
-     * @generated
-     */
+	 * @param value the new value of the '<em>NAME</em>' attribute.
+	 * @see #getNAME()
+	 * @generated
+	 */
     void setNAME(String value);
 
     /**
-     * Returns the value of the '<em><b>REQUIRED</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>REQUIRED</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>REQUIRED</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>REQUIRED</em>' attribute.
-     * @see #isSetREQUIRED()
-     * @see #unsetREQUIRED()
-     * @see #setREQUIRED(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_REQUIRED()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='REQUIRED' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>REQUIRED</em>' attribute.
+	 * @see #isSetREQUIRED()
+	 * @see #unsetREQUIRED()
+	 * @see #setREQUIRED(boolean)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_REQUIRED()
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+	 *        extendedMetaData="kind='attribute' name='REQUIRED' namespace='##targetNamespace'"
+	 * @generated
+	 */
     boolean isREQUIRED();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>REQUIRED</em>' attribute.
-     * @see #isSetREQUIRED()
-     * @see #unsetREQUIRED()
-     * @see #isREQUIRED()
-     * @generated
-     */
+	 * @param value the new value of the '<em>REQUIRED</em>' attribute.
+	 * @see #isSetREQUIRED()
+	 * @see #unsetREQUIRED()
+	 * @see #isREQUIRED()
+	 * @generated
+	 */
     void setREQUIRED(boolean value);
 
     /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isSetREQUIRED()
-     * @see #isREQUIRED()
-     * @see #setREQUIRED(boolean)
-     * @generated
-     */
+	 * @see #isSetREQUIRED()
+	 * @see #isREQUIRED()
+	 * @see #setREQUIRED(boolean)
+	 * @generated
+	 */
     void unsetREQUIRED();
 
     /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}' attribute is set.
-     * <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return whether the value of the '<em>REQUIRED</em>' attribute is set.
-     * @see #unsetREQUIRED()
-     * @see #isREQUIRED()
-     * @see #setREQUIRED(boolean)
-     * @generated
-     */
+	 * @return whether the value of the '<em>REQUIRED</em>' attribute is set.
+	 * @see #unsetREQUIRED()
+	 * @see #isREQUIRED()
+	 * @see #setREQUIRED(boolean)
+	 * @generated
+	 */
     boolean isSetREQUIRED();
 
     /**
-     * Returns the value of the '<em><b>SHOW</b></em>' attribute.
-     * The default value is <code>"true"</code>.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>SHOW</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>SHOW</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>SHOW</em>' attribute.
-     * @see #isSetSHOW()
-     * @see #unsetSHOW()
-     * @see #setSHOW(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_SHOW()
-     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='SHOW' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>SHOW</em>' attribute.
+	 * @see #isSetSHOW()
+	 * @see #unsetSHOW()
+	 * @see #setSHOW(boolean)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_SHOW()
+	 * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+	 *        extendedMetaData="kind='attribute' name='SHOW' namespace='##targetNamespace'"
+	 * @generated
+	 */
     boolean isSHOW();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>SHOW</em>' attribute.
-     * @see #isSetSHOW()
-     * @see #unsetSHOW()
-     * @see #isSHOW()
-     * @generated
-     */
+	 * @param value the new value of the '<em>SHOW</em>' attribute.
+	 * @see #isSetSHOW()
+	 * @see #unsetSHOW()
+	 * @see #isSHOW()
+	 * @generated
+	 */
     void setSHOW(boolean value);
 
     /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isSetSHOW()
-     * @see #isSHOW()
-     * @see #setSHOW(boolean)
-     * @generated
-     */
+	 * @see #isSetSHOW()
+	 * @see #isSHOW()
+	 * @see #setSHOW(boolean)
+	 * @generated
+	 */
     void unsetSHOW();
 
     /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute is set.
-     * <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return whether the value of the '<em>SHOW</em>' attribute is set.
-     * @see #unsetSHOW()
-     * @see #isSHOW()
-     * @see #setSHOW(boolean)
-     * @generated
-     */
+	 * @return whether the value of the '<em>SHOW</em>' attribute is set.
+	 * @see #unsetSHOW()
+	 * @see #isSHOW()
+	 * @see #setSHOW(boolean)
+	 * @generated
+	 */
     boolean isSetSHOW();
 
 } // IMPORTType

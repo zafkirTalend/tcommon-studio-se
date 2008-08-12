@@ -28,84 +28,84 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface RETURNType extends EObject {
     /**
-     * Returns the value of the '<em><b>AVAILABILITY</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>AVAILABILITY</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>AVAILABILITY</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>AVAILABILITY</em>' attribute.
-     * @see #setAVAILABILITY(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_AVAILABILITY()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
-     *        extendedMetaData="kind='attribute' name='AVAILABILITY' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>AVAILABILITY</em>' attribute.
+	 * @see #setAVAILABILITY(String)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_AVAILABILITY()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 *        extendedMetaData="kind='attribute' name='AVAILABILITY' namespace='##targetNamespace'"
+	 * @generated
+	 */
     String getAVAILABILITY();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getAVAILABILITY <em>AVAILABILITY</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getAVAILABILITY <em>AVAILABILITY</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>AVAILABILITY</em>' attribute.
-     * @see #getAVAILABILITY()
-     * @generated
-     */
+	 * @param value the new value of the '<em>AVAILABILITY</em>' attribute.
+	 * @see #getAVAILABILITY()
+	 * @generated
+	 */
     void setAVAILABILITY(String value);
 
     /**
-     * Returns the value of the '<em><b>NAME</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>NAME</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>NAME</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>NAME</em>' attribute.
-     * @see #setNAME(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_NAME()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
-     *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>NAME</em>' attribute.
+	 * @see #setNAME(String)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_NAME()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
+	 * @generated
+	 */
     String getNAME();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getNAME <em>NAME</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getNAME <em>NAME</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>NAME</em>' attribute.
-     * @see #getNAME()
-     * @generated
-     */
+	 * @param value the new value of the '<em>NAME</em>' attribute.
+	 * @see #getNAME()
+	 * @generated
+	 */
     void setNAME(String value);
 
     /**
-     * Returns the value of the '<em><b>TYPE</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>TYPE</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>TYPE</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>TYPE</em>' attribute.
-     * @see #setTYPE(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_TYPE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
-     *        extendedMetaData="kind='attribute' name='TYPE' namespace='##targetNamespace'"
-     * @generated
-     */
+	 * @return the value of the '<em>TYPE</em>' attribute.
+	 * @see #setTYPE(String)
+	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_TYPE()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 *        extendedMetaData="kind='attribute' name='TYPE' namespace='##targetNamespace'"
+	 * @generated
+	 */
     String getTYPE();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getTYPE <em>TYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.RETURNType#getTYPE <em>TYPE</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>TYPE</em>' attribute.
-     * @see #getTYPE()
-     * @generated
-     */
+	 * @param value the new value of the '<em>TYPE</em>' attribute.
+	 * @see #getTYPE()
+	 * @generated
+	 */
     void setTYPE(String value);
 
 } // RETURNType

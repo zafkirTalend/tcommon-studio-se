@@ -30,243 +30,243 @@ import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
  */
 public class DEFAULTTypeImpl extends EObjectImpl implements DEFAULTType {
     /**
-     * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getValue()
-     * @generated
-     * @ordered
-     */
+	 * @see #getValue()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String VALUE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getValue()
-     * @generated
-     * @ordered
-     */
+	 * @see #getValue()
+	 * @generated
+	 * @ordered
+	 */
     protected String value = VALUE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIF() <em>IF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getIF() <em>IF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIF()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String IF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getIF() <em>IF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIF() <em>IF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIF()
+	 * @generated
+	 * @ordered
+	 */
     protected String iF = IF_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getNOTIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNOTIF()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String NOTIF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getNOTIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNOTIF()
+	 * @generated
+	 * @ordered
+	 */
     protected String nOTIF = NOTIF_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected DEFAULTTypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.DEFAULT_TYPE;
-    }
+		return ComponentPackage.Literals.DEFAULT_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getValue() {
-        return value;
-    }
+		return value;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setValue(String newValue) {
-        String oldValue = value;
-        value = newValue;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DEFAULT_TYPE__VALUE, oldValue, value));
-    }
+		String oldValue = value;
+		value = newValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DEFAULT_TYPE__VALUE, oldValue, value));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getIF() {
-        return iF;
-    }
+		return iF;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setIF(String newIF) {
-        String oldIF = iF;
-        iF = newIF;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DEFAULT_TYPE__IF, oldIF, iF));
-    }
+		String oldIF = iF;
+		iF = newIF;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DEFAULT_TYPE__IF, oldIF, iF));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getNOTIF() {
-        return nOTIF;
-    }
+		return nOTIF;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setNOTIF(String newNOTIF) {
-        String oldNOTIF = nOTIF;
-        nOTIF = newNOTIF;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DEFAULT_TYPE__NOTIF, oldNOTIF, nOTIF));
-    }
+		String oldNOTIF = nOTIF;
+		nOTIF = newNOTIF;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DEFAULT_TYPE__NOTIF, oldNOTIF, nOTIF));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.DEFAULT_TYPE__VALUE:
-                return getValue();
-            case ComponentPackage.DEFAULT_TYPE__IF:
-                return getIF();
-            case ComponentPackage.DEFAULT_TYPE__NOTIF:
-                return getNOTIF();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.DEFAULT_TYPE__VALUE:
+				return getValue();
+			case ComponentPackage.DEFAULT_TYPE__IF:
+				return getIF();
+			case ComponentPackage.DEFAULT_TYPE__NOTIF:
+				return getNOTIF();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.DEFAULT_TYPE__VALUE:
-                setValue((String)newValue);
-                return;
-            case ComponentPackage.DEFAULT_TYPE__IF:
-                setIF((String)newValue);
-                return;
-            case ComponentPackage.DEFAULT_TYPE__NOTIF:
-                setNOTIF((String)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.DEFAULT_TYPE__VALUE:
+				setValue((String)newValue);
+				return;
+			case ComponentPackage.DEFAULT_TYPE__IF:
+				setIF((String)newValue);
+				return;
+			case ComponentPackage.DEFAULT_TYPE__NOTIF:
+				setNOTIF((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.DEFAULT_TYPE__VALUE:
-                setValue(VALUE_EDEFAULT);
-                return;
-            case ComponentPackage.DEFAULT_TYPE__IF:
-                setIF(IF_EDEFAULT);
-                return;
-            case ComponentPackage.DEFAULT_TYPE__NOTIF:
-                setNOTIF(NOTIF_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.DEFAULT_TYPE__VALUE:
+				setValue(VALUE_EDEFAULT);
+				return;
+			case ComponentPackage.DEFAULT_TYPE__IF:
+				setIF(IF_EDEFAULT);
+				return;
+			case ComponentPackage.DEFAULT_TYPE__NOTIF:
+				setNOTIF(NOTIF_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.DEFAULT_TYPE__VALUE:
-                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-            case ComponentPackage.DEFAULT_TYPE__IF:
-                return IF_EDEFAULT == null ? iF != null : !IF_EDEFAULT.equals(iF);
-            case ComponentPackage.DEFAULT_TYPE__NOTIF:
-                return NOTIF_EDEFAULT == null ? nOTIF != null : !NOTIF_EDEFAULT.equals(nOTIF);
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.DEFAULT_TYPE__VALUE:
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case ComponentPackage.DEFAULT_TYPE__IF:
+				return IF_EDEFAULT == null ? iF != null : !IF_EDEFAULT.equals(iF);
+			case ComponentPackage.DEFAULT_TYPE__NOTIF:
+				return NOTIF_EDEFAULT == null ? nOTIF != null : !NOTIF_EDEFAULT.equals(nOTIF);
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (value: ");
-        result.append(value);
-        result.append(", iF: ");
-        result.append(iF);
-        result.append(", nOTIF: ");
-        result.append(nOTIF);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (value: ");
+		result.append(value);
+		result.append(", iF: ");
+		result.append(iF);
+		result.append(", nOTIF: ");
+		result.append(nOTIF);
+		result.append(')');
+		return result.toString();
+	}
 
 } //DEFAULTTypeImpl

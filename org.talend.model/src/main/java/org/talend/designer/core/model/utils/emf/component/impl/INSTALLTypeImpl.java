@@ -32,190 +32,190 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  */
 public class INSTALLTypeImpl extends EObjectImpl implements INSTALLType {
     /**
-     * The default value of the '{@link #getCOMMAND() <em>COMMAND</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getCOMMAND() <em>COMMAND</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCOMMAND()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCOMMAND()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String COMMAND_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCOMMAND() <em>COMMAND</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCOMMAND() <em>COMMAND</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCOMMAND()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCOMMAND()
+	 * @generated
+	 * @ordered
+	 */
     protected String cOMMAND = COMMAND_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getOS() <em>OS</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getOS() <em>OS</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getOS()
-     * @generated
-     * @ordered
-     */
+	 * @see #getOS()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String OS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getOS() <em>OS</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getOS() <em>OS</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getOS()
-     * @generated
-     * @ordered
-     */
+	 * @see #getOS()
+	 * @generated
+	 * @ordered
+	 */
     protected String oS = OS_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected INSTALLTypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.INSTALL_TYPE;
-    }
+		return ComponentPackage.Literals.INSTALL_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getCOMMAND() {
-        return cOMMAND;
-    }
+		return cOMMAND;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setCOMMAND(String newCOMMAND) {
-        String oldCOMMAND = cOMMAND;
-        cOMMAND = newCOMMAND;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.INSTALL_TYPE__COMMAND, oldCOMMAND, cOMMAND));
-    }
+		String oldCOMMAND = cOMMAND;
+		cOMMAND = newCOMMAND;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.INSTALL_TYPE__COMMAND, oldCOMMAND, cOMMAND));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getOS() {
-        return oS;
-    }
+		return oS;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setOS(String newOS) {
-        String oldOS = oS;
-        oS = newOS;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.INSTALL_TYPE__OS, oldOS, oS));
-    }
+		String oldOS = oS;
+		oS = newOS;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.INSTALL_TYPE__OS, oldOS, oS));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.INSTALL_TYPE__COMMAND:
-                return getCOMMAND();
-            case ComponentPackage.INSTALL_TYPE__OS:
-                return getOS();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.INSTALL_TYPE__COMMAND:
+				return getCOMMAND();
+			case ComponentPackage.INSTALL_TYPE__OS:
+				return getOS();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.INSTALL_TYPE__COMMAND:
-                setCOMMAND((String)newValue);
-                return;
-            case ComponentPackage.INSTALL_TYPE__OS:
-                setOS((String)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.INSTALL_TYPE__COMMAND:
+				setCOMMAND((String)newValue);
+				return;
+			case ComponentPackage.INSTALL_TYPE__OS:
+				setOS((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.INSTALL_TYPE__COMMAND:
-                setCOMMAND(COMMAND_EDEFAULT);
-                return;
-            case ComponentPackage.INSTALL_TYPE__OS:
-                setOS(OS_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.INSTALL_TYPE__COMMAND:
+				setCOMMAND(COMMAND_EDEFAULT);
+				return;
+			case ComponentPackage.INSTALL_TYPE__OS:
+				setOS(OS_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.INSTALL_TYPE__COMMAND:
-                return COMMAND_EDEFAULT == null ? cOMMAND != null : !COMMAND_EDEFAULT.equals(cOMMAND);
-            case ComponentPackage.INSTALL_TYPE__OS:
-                return OS_EDEFAULT == null ? oS != null : !OS_EDEFAULT.equals(oS);
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.INSTALL_TYPE__COMMAND:
+				return COMMAND_EDEFAULT == null ? cOMMAND != null : !COMMAND_EDEFAULT.equals(cOMMAND);
+			case ComponentPackage.INSTALL_TYPE__OS:
+				return OS_EDEFAULT == null ? oS != null : !OS_EDEFAULT.equals(oS);
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cOMMAND: ");
-        result.append(cOMMAND);
-        result.append(", oS: ");
-        result.append(oS);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (cOMMAND: ");
+		result.append(cOMMAND);
+		result.append(", oS: ");
+		result.append(oS);
+		result.append(')');
+		return result.toString();
+	}
 
 } //INSTALLTypeImpl

@@ -26,158 +26,165 @@ import org.talend.core.model.properties.Item;
  */
 public interface IElementParameter extends Cloneable {
 
-    public void setName(final String s);
+	public void setName(final String s);
 
-    public String getVariableName();
+	public String getVariableName();
 
-    public void setCategory(final EComponentCategory cat);
+	public void setCategory(final EComponentCategory cat);
 
-    public EComponentCategory getCategory();
+	public EComponentCategory getCategory();
 
-    public void setDisplayName(final String s);
+	public void setDisplayName(final String s);
 
-    public void setField(final EParameterFieldType type);
+	public void setField(final EParameterFieldType type);
 
-    public void setValue(final Object o);
+	public void setValue(final Object o);
 
-    public String getName();
+	public String getName();
 
-    public String getDisplayName();
+	public String getDisplayName();
 
-    public EParameterFieldType getField();
+	public EParameterFieldType getField();
 
-    public Object getValue();
+	public Object getValue();
 
-    public int getNbLines();
+	public int getNbLines();
 
-    public void setNbLines(final int nbLines);
+	public void setNbLines(final int nbLines);
 
-    public int getNumRow();
+	public int getNumRow();
 
-    public void setNumRow(final int numRow);
+	public void setNumRow(final int numRow);
 
-    public boolean isReadOnly();
+	public boolean isReadOnly();
 
-    public void setReadOnly(final boolean readOnly);
+	public void setReadOnly(final boolean readOnly);
 
-    public boolean isRequired();
+	public boolean isRequired();
 
-    public void setRequired(final boolean required);
+	public void setRequired(final boolean required);
 
-    public void setShow(final boolean show);
+	public void setShow(final boolean show);
 
-    public void setLinkedRepositoryItem(final Item item);
+	public void setLinkedRepositoryItem(final Item item);
 
-    public Item getLinkedRepositoryItem();
+	public Item getLinkedRepositoryItem();
 
-    // for combo box (CLOSED_LIST)
-    public void setDefaultClosedListValue(final Object o);
+	// for combo box (CLOSED_LIST)
+	public void setDefaultClosedListValue(final Object o);
 
-    public void setListItemsDisplayName(final String[] list);
+	public void setListItemsDisplayName(final String[] list);
 
-    public void setListItemsDisplayCodeName(final String[] list);
+	public void setListItemsDisplayCodeName(final String[] list);
 
-    public void setListItemsValue(final Object[] list);
+	public void setListItemsValue(final Object[] list);
 
-    public Object getDefaultClosedListValue();
+	public Object getDefaultClosedListValue();
 
-    public String[] getListItemsDisplayName();
+	public String[] getListItemsDisplayName();
 
-    public String[] getListItemsDisplayCodeName();
+	public String[] getListItemsDisplayCodeName();
 
-    public Object[] getListItemsValue();
+	public Object[] getListItemsValue();
 
-    public String getRepositoryValue();
+	public String getRepositoryValue();
 
-    public void setRepositoryValue(String repositoryValue);
+	public void setRepositoryValue(String repositoryValue);
 
-    public boolean isRepositoryValueUsed();
+	public boolean isRepositoryValueUsed();
 
-    public void setRepositoryValueUsed(boolean repositoryUsed);
+	public void setRepositoryValueUsed(boolean repositoryUsed);
 
-    public String[] getListRepositoryItems();
+	public String[] getListRepositoryItems();
 
-    public void setListRepositoryItems(final String[] list);
+	public void setListRepositoryItems(final String[] list);
 
-    public int getIndexOfItemFromList(String item);
+	public int getIndexOfItemFromList(String item);
 
-    public String getShowIf();
+	public String getShowIf();
 
-    public void setShowIf(String showIf);
+	public void setShowIf(String showIf);
 
-    public String getNotShowIf();
+	public String getNotShowIf();
 
-    public void setNotShowIf(String notShowIf);
+	public void setNotShowIf(String notShowIf);
 
-    public boolean isShow(List<? extends IElementParameter> listParam);
+	public boolean isShow(List<? extends IElementParameter> listParam);
 
-    public void setListItemsShowIf(final String[] list);
+	public void setListItemsShowIf(final String[] list);
 
-    public String[] getListItemsShowIf();
+	public String[] getListItemsShowIf();
 
-    public void setListItemsNotShowIf(final String[] list);
+	public void setListItemsNotShowIf(final String[] list);
 
-    public String[] getListItemsNotShowIf();
+	public String[] getListItemsNotShowIf();
 
-    public boolean isShow(String conditionShowIf, String conditionNotShowIf, List<? extends IElementParameter> listParam);
+	public boolean isShow(String conditionShowIf, String conditionNotShowIf,
+			List<? extends IElementParameter> listParam);
 
-    public List<IElementParameterDefaultValue> getDefaultValues();
+	public List<IElementParameterDefaultValue> getDefaultValues();
 
-    public void setDefaultValues(List<IElementParameterDefaultValue> defaultValues);
+	public void setDefaultValues(
+			List<IElementParameterDefaultValue> defaultValues);
 
-    public void setValueToDefault(List<? extends IElementParameter> listParam);
+	public void setValueToDefault(List<? extends IElementParameter> listParam);
 
-    public void setElement(IElement element);
+	public void setElement(IElement element);
 
-    public IElement getElement();
+	public IElement getElement();
 
-    public boolean isBasedOnSchema();
+	public boolean isBasedOnSchema();
 
-    public void setBasedOnSchema(boolean basedOnSchema);
+	public void setBasedOnSchema(boolean basedOnSchema);
 
-    public boolean isBasedOnSubjobStarts();
+	public boolean isBasedOnSubjobStarts();
 
-    public void setBasedOnSubjobStarts(boolean basedOnSubjobStarts);
+	public void setBasedOnSubjobStarts(boolean basedOnSubjobStarts);
 
-    public String getFilter();
+	public String getFilter();
 
-    public void setFilter(String filter);
+	public void setFilter(String filter);
 
-    public boolean isNoCheck();
+	public boolean isNoCheck();
 
-    public void setNoCheck(boolean noCheck);
+	public void setNoCheck(boolean noCheck);
 
-    public String getContext();
+	public String getContext();
 
-    public void setContext(String context);
+	public void setContext(String context);
 
-    public String getGroup();
+	public String getGroup();
 
-    public void setGroup(String groupName);
+	public void setGroup(String groupName);
 
-    public void setGroupDisplayName(String groupDisplayName);
+	public void setGroupDisplayName(String groupDisplayName);
 
-    public String getGroupDisplayName();
+	public String getGroupDisplayName();
 
-    public Map<String, IElementParameter> getChildParameters();
+	public Map<String, IElementParameter> getChildParameters();
 
-    public IElementParameter getParentParameter();
+	public IElementParameter getParentParameter();
 
-    public void setParentParameter(IElementParameter parentParameter);
+	public void setParentParameter(IElementParameter parentParameter);
 
-    public boolean isContextMode();
+	public boolean isContextMode();
 
-    public void setContextMode(boolean mode);
+	public void setContextMode(boolean mode);
 
-    public void setLabelFromRepository(String label);
+	public void setLabelFromRepository(String label);
 
-    public String getLabelFromRepository();
+	public String getLabelFromRepository();
 
-    public void setBackgroundColor(Color bgColor);
+	public void setBackgroundColor(Color bgColor);
 
-    public Color getBackgroundColor();
+	public Color getBackgroundColor();
 
-    public void setColor(Color color);
+	public void setColor(Color color);
 
-    public Color getColor();
+	public Color getColor();
+
+	public boolean isDynamicSettings();
+
+	public void setDynamicSettings(boolean dynamicSettings);
+
 }

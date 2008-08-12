@@ -41,326 +41,326 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  */
 public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
     /**
-     * The cached value of the '{@link #getTEMPLATE() <em>TEMPLATE</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getTEMPLATE() <em>TEMPLATE</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTEMPLATE()
-     * @generated
-     * @ordered
-     */
+	 * @see #getTEMPLATE()
+	 * @generated
+	 * @ordered
+	 */
     protected EList tEMPLATE;
 
     /**
-     * The cached value of the '{@link #getTEMPLATEPARAM() <em>TEMPLATEPARAM</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getTEMPLATEPARAM() <em>TEMPLATEPARAM</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTEMPLATEPARAM()
-     * @generated
-     * @ordered
-     */
+	 * @see #getTEMPLATEPARAM()
+	 * @generated
+	 * @ordered
+	 */
     protected EList tEMPLATEPARAM;
 
     /**
-     * The default value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCONNECTOR()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCONNECTOR()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CONNECTOR_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCONNECTOR()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCONNECTOR()
+	 * @generated
+	 * @ordered
+	 */
     protected String cONNECTOR = CONNECTOR_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getINPUT() <em>INPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getINPUT() <em>INPUT</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getINPUT()
-     * @generated
-     * @ordered
-     */
+	 * @see #getINPUT()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String INPUT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getINPUT() <em>INPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getINPUT() <em>INPUT</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getINPUT()
-     * @generated
-     * @ordered
-     */
+	 * @see #getINPUT()
+	 * @generated
+	 * @ordered
+	 */
     protected String iNPUT = INPUT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getOUTPUT() <em>OUTPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getOUTPUT() <em>OUTPUT</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getOUTPUT()
-     * @generated
-     * @ordered
-     */
+	 * @see #getOUTPUT()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String OUTPUT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getOUTPUT() <em>OUTPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getOUTPUT() <em>OUTPUT</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getOUTPUT()
-     * @generated
-     * @ordered
-     */
+	 * @see #getOUTPUT()
+	 * @generated
+	 * @ordered
+	 */
     protected String oUTPUT = OUTPUT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected TEMPLATESTypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.TEMPLATES_TYPE;
-    }
+		return ComponentPackage.Literals.TEMPLATES_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getTEMPLATE() {
-        if (tEMPLATE == null) {
-            tEMPLATE = new EObjectContainmentEList(TEMPLATEType.class, this, ComponentPackage.TEMPLATES_TYPE__TEMPLATE);
-        }
-        return tEMPLATE;
-    }
+		if (tEMPLATE == null) {
+			tEMPLATE = new EObjectContainmentEList(TEMPLATEType.class, this, ComponentPackage.TEMPLATES_TYPE__TEMPLATE);
+		}
+		return tEMPLATE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getTEMPLATEPARAM() {
-        if (tEMPLATEPARAM == null) {
-            tEMPLATEPARAM = new EObjectContainmentEList(TEMPLATEPARAMType.class, this, ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM);
-        }
-        return tEMPLATEPARAM;
-    }
+		if (tEMPLATEPARAM == null) {
+			tEMPLATEPARAM = new EObjectContainmentEList(TEMPLATEPARAMType.class, this, ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM);
+		}
+		return tEMPLATEPARAM;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getCONNECTOR() {
-        return cONNECTOR;
-    }
+		return cONNECTOR;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setCONNECTOR(String newCONNECTOR) {
-        String oldCONNECTOR = cONNECTOR;
-        cONNECTOR = newCONNECTOR;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__CONNECTOR, oldCONNECTOR, cONNECTOR));
-    }
+		String oldCONNECTOR = cONNECTOR;
+		cONNECTOR = newCONNECTOR;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__CONNECTOR, oldCONNECTOR, cONNECTOR));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getINPUT() {
-        return iNPUT;
-    }
+		return iNPUT;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setINPUT(String newINPUT) {
-        String oldINPUT = iNPUT;
-        iNPUT = newINPUT;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__INPUT, oldINPUT, iNPUT));
-    }
+		String oldINPUT = iNPUT;
+		iNPUT = newINPUT;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__INPUT, oldINPUT, iNPUT));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getOUTPUT() {
-        return oUTPUT;
-    }
+		return oUTPUT;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setOUTPUT(String newOUTPUT) {
-        String oldOUTPUT = oUTPUT;
-        oUTPUT = newOUTPUT;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__OUTPUT, oldOUTPUT, oUTPUT));
-    }
+		String oldOUTPUT = oUTPUT;
+		oUTPUT = newOUTPUT;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__OUTPUT, oldOUTPUT, oUTPUT));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
-                return ((InternalEList)getTEMPLATE()).basicRemove(otherEnd, msgs);
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
-                return ((InternalEList)getTEMPLATEPARAM()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
+				return ((InternalEList)getTEMPLATE()).basicRemove(otherEnd, msgs);
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
+				return ((InternalEList)getTEMPLATEPARAM()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
-                return getTEMPLATE();
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
-                return getTEMPLATEPARAM();
-            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
-                return getCONNECTOR();
-            case ComponentPackage.TEMPLATES_TYPE__INPUT:
-                return getINPUT();
-            case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
-                return getOUTPUT();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
+				return getTEMPLATE();
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
+				return getTEMPLATEPARAM();
+			case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+				return getCONNECTOR();
+			case ComponentPackage.TEMPLATES_TYPE__INPUT:
+				return getINPUT();
+			case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
+				return getOUTPUT();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
-                getTEMPLATE().clear();
-                getTEMPLATE().addAll((Collection)newValue);
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
-                getTEMPLATEPARAM().clear();
-                getTEMPLATEPARAM().addAll((Collection)newValue);
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
-                setCONNECTOR((String)newValue);
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__INPUT:
-                setINPUT((String)newValue);
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
-                setOUTPUT((String)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
+				getTEMPLATE().clear();
+				getTEMPLATE().addAll((Collection)newValue);
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
+				getTEMPLATEPARAM().clear();
+				getTEMPLATEPARAM().addAll((Collection)newValue);
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+				setCONNECTOR((String)newValue);
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__INPUT:
+				setINPUT((String)newValue);
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
+				setOUTPUT((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
-                getTEMPLATE().clear();
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
-                getTEMPLATEPARAM().clear();
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
-                setCONNECTOR(CONNECTOR_EDEFAULT);
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__INPUT:
-                setINPUT(INPUT_EDEFAULT);
-                return;
-            case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
-                setOUTPUT(OUTPUT_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
+				getTEMPLATE().clear();
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
+				getTEMPLATEPARAM().clear();
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+				setCONNECTOR(CONNECTOR_EDEFAULT);
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__INPUT:
+				setINPUT(INPUT_EDEFAULT);
+				return;
+			case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
+				setOUTPUT(OUTPUT_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
-                return tEMPLATE != null && !tEMPLATE.isEmpty();
-            case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
-                return tEMPLATEPARAM != null && !tEMPLATEPARAM.isEmpty();
-            case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
-                return CONNECTOR_EDEFAULT == null ? cONNECTOR != null : !CONNECTOR_EDEFAULT.equals(cONNECTOR);
-            case ComponentPackage.TEMPLATES_TYPE__INPUT:
-                return INPUT_EDEFAULT == null ? iNPUT != null : !INPUT_EDEFAULT.equals(iNPUT);
-            case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
-                return OUTPUT_EDEFAULT == null ? oUTPUT != null : !OUTPUT_EDEFAULT.equals(oUTPUT);
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
+				return tEMPLATE != null && !tEMPLATE.isEmpty();
+			case ComponentPackage.TEMPLATES_TYPE__TEMPLATEPARAM:
+				return tEMPLATEPARAM != null && !tEMPLATEPARAM.isEmpty();
+			case ComponentPackage.TEMPLATES_TYPE__CONNECTOR:
+				return CONNECTOR_EDEFAULT == null ? cONNECTOR != null : !CONNECTOR_EDEFAULT.equals(cONNECTOR);
+			case ComponentPackage.TEMPLATES_TYPE__INPUT:
+				return INPUT_EDEFAULT == null ? iNPUT != null : !INPUT_EDEFAULT.equals(iNPUT);
+			case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
+				return OUTPUT_EDEFAULT == null ? oUTPUT != null : !OUTPUT_EDEFAULT.equals(oUTPUT);
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cONNECTOR: ");
-        result.append(cONNECTOR);
-        result.append(", iNPUT: ");
-        result.append(iNPUT);
-        result.append(", oUTPUT: ");
-        result.append(oUTPUT);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (cONNECTOR: ");
+		result.append(cONNECTOR);
+		result.append(", iNPUT: ");
+		result.append(iNPUT);
+		result.append(", oUTPUT: ");
+		result.append(oUTPUT);
+		result.append(')');
+		return result.toString();
+	}
 
 } //TEMPLATESTypeImpl

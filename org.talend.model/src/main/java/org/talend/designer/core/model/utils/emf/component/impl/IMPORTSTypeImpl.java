@@ -34,118 +34,118 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  */
 public class IMPORTSTypeImpl extends EObjectImpl implements IMPORTSType {
     /**
-     * The cached value of the '{@link #getIMPORT() <em>IMPORT</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIMPORT() <em>IMPORT</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIMPORT()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIMPORT()
+	 * @generated
+	 * @ordered
+	 */
     protected EList iMPORT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected IMPORTSTypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.IMPORTS_TYPE;
-    }
+		return ComponentPackage.Literals.IMPORTS_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getIMPORT() {
-        if (iMPORT == null) {
-            iMPORT = new EObjectContainmentEList(IMPORTType.class, this, ComponentPackage.IMPORTS_TYPE__IMPORT);
-        }
-        return iMPORT;
-    }
+		if (iMPORT == null) {
+			iMPORT = new EObjectContainmentEList(IMPORTType.class, this, ComponentPackage.IMPORTS_TYPE__IMPORT);
+		}
+		return iMPORT;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ComponentPackage.IMPORTS_TYPE__IMPORT:
-                return ((InternalEList)getIMPORT()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case ComponentPackage.IMPORTS_TYPE__IMPORT:
+				return ((InternalEList)getIMPORT()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.IMPORTS_TYPE__IMPORT:
-                return getIMPORT();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.IMPORTS_TYPE__IMPORT:
+				return getIMPORT();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.IMPORTS_TYPE__IMPORT:
-                getIMPORT().clear();
-                getIMPORT().addAll((Collection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.IMPORTS_TYPE__IMPORT:
+				getIMPORT().clear();
+				getIMPORT().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.IMPORTS_TYPE__IMPORT:
-                getIMPORT().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.IMPORTS_TYPE__IMPORT:
+				getIMPORT().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.IMPORTS_TYPE__IMPORT:
-                return iMPORT != null && !iMPORT.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.IMPORTS_TYPE__IMPORT:
+				return iMPORT != null && !iMPORT.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //IMPORTSTypeImpl

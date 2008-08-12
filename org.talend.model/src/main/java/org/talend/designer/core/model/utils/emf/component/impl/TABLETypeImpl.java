@@ -44,325 +44,325 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  */
 public class TABLETypeImpl extends EObjectImpl implements TABLEType {
     /**
-     * The cached value of the '{@link #getCOLUMN() <em>COLUMN</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCOLUMN() <em>COLUMN</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCOLUMN()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCOLUMN()
+	 * @generated
+	 * @ordered
+	 */
     protected EList cOLUMN;
 
     /**
-     * The default value of the '{@link #getIF() <em>IF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getIF() <em>IF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIF()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String IF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getIF() <em>IF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIF() <em>IF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIF()
+	 * @generated
+	 * @ordered
+	 */
     protected String iF = IF_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getNOTIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNOTIF()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String NOTIF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getNOTIF()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNOTIF()
+	 * @generated
+	 * @ordered
+	 */
     protected String nOTIF = NOTIF_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isREADONLY()
-     * @generated
-     * @ordered
-     */
+	 * @see #isREADONLY()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean READONLY_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isREADONLY()
-     * @generated
-     * @ordered
-     */
+	 * @see #isREADONLY()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean rEADONLY = READONLY_EDEFAULT;
 
     /**
-     * This is true if the READONLY attribute has been set.
-     * <!-- begin-user-doc -->
+	 * This is true if the READONLY attribute has been set.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     protected boolean rEADONLYESet;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected TABLETypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.TABLE_TYPE;
-    }
+		return ComponentPackage.Literals.TABLE_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getCOLUMN() {
-        if (cOLUMN == null) {
-            cOLUMN = new EObjectContainmentEList(COLUMNType.class, this, ComponentPackage.TABLE_TYPE__COLUMN);
-        }
-        return cOLUMN;
-    }
+		if (cOLUMN == null) {
+			cOLUMN = new EObjectContainmentEList(COLUMNType.class, this, ComponentPackage.TABLE_TYPE__COLUMN);
+		}
+		return cOLUMN;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isREADONLY() {
-        return rEADONLY;
-    }
+		return rEADONLY;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setREADONLY(boolean newREADONLY) {
-        boolean oldREADONLY = rEADONLY;
-        rEADONLY = newREADONLY;
-        boolean oldREADONLYESet = rEADONLYESet;
-        rEADONLYESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
-    }
+		boolean oldREADONLY = rEADONLY;
+		rEADONLY = newREADONLY;
+		boolean oldREADONLYESet = rEADONLYESet;
+		rEADONLYESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void unsetREADONLY() {
-        boolean oldREADONLY = rEADONLY;
-        boolean oldREADONLYESet = rEADONLYESet;
-        rEADONLY = READONLY_EDEFAULT;
-        rEADONLYESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
-    }
+		boolean oldREADONLY = rEADONLY;
+		boolean oldREADONLYESet = rEADONLYESet;
+		rEADONLY = READONLY_EDEFAULT;
+		rEADONLYESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isSetREADONLY() {
-        return rEADONLYESet;
-    }
+		return rEADONLYESet;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getIF() {
-        return iF;
-    }
+		return iF;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setIF(String newIF) {
-        String oldIF = iF;
-        iF = newIF;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__IF, oldIF, iF));
-    }
+		String oldIF = iF;
+		iF = newIF;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__IF, oldIF, iF));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getNOTIF() {
-        return nOTIF;
-    }
+		return nOTIF;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setNOTIF(String newNOTIF) {
-        String oldNOTIF = nOTIF;
-        nOTIF = newNOTIF;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__NOTIF, oldNOTIF, nOTIF));
-    }
+		String oldNOTIF = nOTIF;
+		nOTIF = newNOTIF;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__NOTIF, oldNOTIF, nOTIF));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ComponentPackage.TABLE_TYPE__COLUMN:
-                return ((InternalEList)getCOLUMN()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case ComponentPackage.TABLE_TYPE__COLUMN:
+				return ((InternalEList)getCOLUMN()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.TABLE_TYPE__COLUMN:
-                return getCOLUMN();
-            case ComponentPackage.TABLE_TYPE__IF:
-                return getIF();
-            case ComponentPackage.TABLE_TYPE__NOTIF:
-                return getNOTIF();
-            case ComponentPackage.TABLE_TYPE__READONLY:
-                return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.TABLE_TYPE__COLUMN:
+				return getCOLUMN();
+			case ComponentPackage.TABLE_TYPE__IF:
+				return getIF();
+			case ComponentPackage.TABLE_TYPE__NOTIF:
+				return getNOTIF();
+			case ComponentPackage.TABLE_TYPE__READONLY:
+				return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.TABLE_TYPE__COLUMN:
-                getCOLUMN().clear();
-                getCOLUMN().addAll((Collection)newValue);
-                return;
-            case ComponentPackage.TABLE_TYPE__IF:
-                setIF((String)newValue);
-                return;
-            case ComponentPackage.TABLE_TYPE__NOTIF:
-                setNOTIF((String)newValue);
-                return;
-            case ComponentPackage.TABLE_TYPE__READONLY:
-                setREADONLY(((Boolean)newValue).booleanValue());
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.TABLE_TYPE__COLUMN:
+				getCOLUMN().clear();
+				getCOLUMN().addAll((Collection)newValue);
+				return;
+			case ComponentPackage.TABLE_TYPE__IF:
+				setIF((String)newValue);
+				return;
+			case ComponentPackage.TABLE_TYPE__NOTIF:
+				setNOTIF((String)newValue);
+				return;
+			case ComponentPackage.TABLE_TYPE__READONLY:
+				setREADONLY(((Boolean)newValue).booleanValue());
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.TABLE_TYPE__COLUMN:
-                getCOLUMN().clear();
-                return;
-            case ComponentPackage.TABLE_TYPE__IF:
-                setIF(IF_EDEFAULT);
-                return;
-            case ComponentPackage.TABLE_TYPE__NOTIF:
-                setNOTIF(NOTIF_EDEFAULT);
-                return;
-            case ComponentPackage.TABLE_TYPE__READONLY:
-                unsetREADONLY();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.TABLE_TYPE__COLUMN:
+				getCOLUMN().clear();
+				return;
+			case ComponentPackage.TABLE_TYPE__IF:
+				setIF(IF_EDEFAULT);
+				return;
+			case ComponentPackage.TABLE_TYPE__NOTIF:
+				setNOTIF(NOTIF_EDEFAULT);
+				return;
+			case ComponentPackage.TABLE_TYPE__READONLY:
+				unsetREADONLY();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.TABLE_TYPE__COLUMN:
-                return cOLUMN != null && !cOLUMN.isEmpty();
-            case ComponentPackage.TABLE_TYPE__IF:
-                return IF_EDEFAULT == null ? iF != null : !IF_EDEFAULT.equals(iF);
-            case ComponentPackage.TABLE_TYPE__NOTIF:
-                return NOTIF_EDEFAULT == null ? nOTIF != null : !NOTIF_EDEFAULT.equals(nOTIF);
-            case ComponentPackage.TABLE_TYPE__READONLY:
-                return isSetREADONLY();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.TABLE_TYPE__COLUMN:
+				return cOLUMN != null && !cOLUMN.isEmpty();
+			case ComponentPackage.TABLE_TYPE__IF:
+				return IF_EDEFAULT == null ? iF != null : !IF_EDEFAULT.equals(iF);
+			case ComponentPackage.TABLE_TYPE__NOTIF:
+				return NOTIF_EDEFAULT == null ? nOTIF != null : !NOTIF_EDEFAULT.equals(nOTIF);
+			case ComponentPackage.TABLE_TYPE__READONLY:
+				return isSetREADONLY();
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (iF: ");
-        result.append(iF);
-        result.append(", nOTIF: ");
-        result.append(nOTIF);
-        result.append(", rEADONLY: ");
-        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (iF: ");
+		result.append(iF);
+		result.append(", nOTIF: ");
+		result.append(nOTIF);
+		result.append(", rEADONLY: ");
+		if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+		result.append(')');
+		return result.toString();
+	}
 
 } //TABLETypeImpl

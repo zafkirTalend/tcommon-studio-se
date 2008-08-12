@@ -29,190 +29,190 @@ import org.talend.designer.core.model.utils.emf.component.LINKTOType;
  */
 public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
     /**
-     * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCTYPE()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCTYPE()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CTYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCTYPE()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCTYPE()
+	 * @generated
+	 * @ordered
+	 */
     protected String cTYPE = CTYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getNAME()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNAME()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getNAME()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNAME()
+	 * @generated
+	 * @ordered
+	 */
     protected String nAME = NAME_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected LINKTOTypeImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ComponentPackage.Literals.LINKTO_TYPE;
-    }
+		return ComponentPackage.Literals.LINKTO_TYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getCTYPE() {
-        return cTYPE;
-    }
+		return cTYPE;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setCTYPE(String newCTYPE) {
-        String oldCTYPE = cTYPE;
-        cTYPE = newCTYPE;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.LINKTO_TYPE__CTYPE, oldCTYPE, cTYPE));
-    }
+		String oldCTYPE = cTYPE;
+		cTYPE = newCTYPE;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.LINKTO_TYPE__CTYPE, oldCTYPE, cTYPE));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getNAME() {
-        return nAME;
-    }
+		return nAME;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setNAME(String newNAME) {
-        String oldNAME = nAME;
-        nAME = newNAME;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.LINKTO_TYPE__NAME, oldNAME, nAME));
-    }
+		String oldNAME = nAME;
+		nAME = newNAME;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.LINKTO_TYPE__NAME, oldNAME, nAME));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ComponentPackage.LINKTO_TYPE__CTYPE:
-                return getCTYPE();
-            case ComponentPackage.LINKTO_TYPE__NAME:
-                return getNAME();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ComponentPackage.LINKTO_TYPE__CTYPE:
+				return getCTYPE();
+			case ComponentPackage.LINKTO_TYPE__NAME:
+				return getNAME();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ComponentPackage.LINKTO_TYPE__CTYPE:
-                setCTYPE((String)newValue);
-                return;
-            case ComponentPackage.LINKTO_TYPE__NAME:
-                setNAME((String)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ComponentPackage.LINKTO_TYPE__CTYPE:
+				setCTYPE((String)newValue);
+				return;
+			case ComponentPackage.LINKTO_TYPE__NAME:
+				setNAME((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.LINKTO_TYPE__CTYPE:
-                setCTYPE(CTYPE_EDEFAULT);
-                return;
-            case ComponentPackage.LINKTO_TYPE__NAME:
-                setNAME(NAME_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.LINKTO_TYPE__CTYPE:
+				setCTYPE(CTYPE_EDEFAULT);
+				return;
+			case ComponentPackage.LINKTO_TYPE__NAME:
+				setNAME(NAME_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ComponentPackage.LINKTO_TYPE__CTYPE:
-                return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
-            case ComponentPackage.LINKTO_TYPE__NAME:
-                return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ComponentPackage.LINKTO_TYPE__CTYPE:
+				return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
+			case ComponentPackage.LINKTO_TYPE__NAME:
+				return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cTYPE: ");
-        result.append(cTYPE);
-        result.append(", nAME: ");
-        result.append(nAME);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (cTYPE: ");
+		result.append(cTYPE);
+		result.append(", nAME: ");
+		result.append(nAME);
+		result.append(')');
+		return result.toString();
+	}
 
 } //LINKTOTypeImpl
