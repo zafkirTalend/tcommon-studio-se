@@ -622,7 +622,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.designer.core.extension.IRepositoryFactory#createFolder(org.talend.core.model.temp.Project,
      * org.talend.core.model.repository.EObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
-    public Folder createFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
+
+    public Folder createFolder(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         if (type == null) {
             throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException01")); //$NON-NLS-1$
         }
@@ -633,13 +634,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException03")); //$NON-NLS-1$
         }
 
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        IProject fsProject = ResourceModelUtils.getProject(project);
 
         String parentPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
 
         String completePath = parentPath + IPath.SEPARATOR + label;
-        FolderItem folderItem = getFolderHelper(getRepositoryContext().getProject().getEmfProject()).createFolder(completePath);
-        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
+        FolderItem folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
+        xmiResourceManager.saveResource(project.getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
         if (!folder.exists()) {
@@ -655,7 +656,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.repository.model.IRepositoryFactory#isValid(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
-    public boolean isPathValid(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
+
+    public boolean isPathValid(Project project, ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         if (path == null) {
             return false;
         }
@@ -668,7 +670,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return false;
         } else {
             // TODO SML Delete this ?
-            IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+            IProject fsProject = ResourceModelUtils.getProject(project);
             String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
 
             // if label is "", don't need to added label into completePath (used for job's documentation and for folder
@@ -683,20 +685,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
+    public void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException {
+
         // If the "System", "Generated", "Jobs" folder is created in the root, it can't be deleted .
         if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
                 || RepositoryConstants.isJobsFolder(path.toString()) || RepositoryConstants.isJobletsFolder(path.toString())) {
             return;
         }
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        IProject fsProject = ResourceModelUtils.getProject(project);
 
         String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
 
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
-        getFolderHelper(getRepositoryContext().getProject().getEmfProject()).deleteFolder(completePath);
-        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
+        getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
+        xmiResourceManager.saveResource(project.getEmfProject().eResource());
 
         ResourceUtils.deleteResource(folder);
     }
@@ -720,7 +723,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
         FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
 
-        createFolder(type, targetPath, emfFolder.getProperty().getLabel());
+        createFolder(getRepositoryContext().getProject(), type, targetPath, emfFolder.getProperty().getLabel());
 
         Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
         for (int i = 0; i < childrens.length; i++) {
@@ -741,7 +744,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
         }
 
-        deleteFolder(type, sourcePath);
+        deleteFolder(getRepositoryContext().getProject(), type, sourcePath);
 
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
     }
@@ -796,14 +799,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.IRepositoryObject)
      */
-    public void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException {
+
+    public void deleteObjectLogical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
+
         // can only delete in the main project
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        IProject fsProject = ResourceModelUtils.getProject(project);
 
         IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
                 + IPath.SEPARATOR + BIN, true);
 
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToDelete.getId());
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState state = objToDelete.getProperty().getItem().getState();
             state.setDeleted(true);
@@ -821,9 +826,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    public void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException {
+    public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
+
         // can only delete in the main project
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToDelete.getId());
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
             for (Resource resource : affectedResources) {
@@ -981,8 +987,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return ""; //$NON-NLS-1$
     }
 
-    private Resource create(BusinessProcessItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
+    private Resource create(IProject project, BusinessProcessItem item, IPath path) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path,
                 ERepositoryObjectType.BUSINESS_PROCESS, false);
         // notation depends on semantic ...
         // in case of new(=empty) diagram, we don't care about order
@@ -994,16 +1000,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(ConnectionItem item, ERepositoryObjectType type, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, false);
+    private Resource create(IProject project, ConnectionItem item, ERepositoryObjectType type, IPath path)
+            throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
 
         itemResource.getContents().add(item.getConnection());
 
         return itemResource;
     }
 
-    private Resource create(JobDocumentationItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, true);
+    private Resource create(IProject project, JobDocumentationItem item, IPath path, ERepositoryObjectType type)
+            throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, true);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getContent());
 
@@ -1029,8 +1037,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(FileItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, true);
+    private Resource create(IProject project, FileItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, true);
 
         itemResource.getContents().add(item.getContent());
 
@@ -1047,23 +1055,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(ProcessItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.PROCESS,
-                false);
+    private Resource create(IProject project, ProcessItem item, IPath path) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, ERepositoryObjectType.PROCESS, false);
         itemResource.getContents().add(item.getProcess());
 
         return itemResource;
     }
 
-    private Resource create(JobletProcessItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, false);
+    private Resource create(IProject project, JobletProcessItem item, IPath path, ERepositoryObjectType type)
+            throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
         itemResource.getContents().add(item.getJobletProcess());
         return itemResource;
     }
 
-    private Resource create(ContextItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.CONTEXT,
-                false);
+    private Resource create(IProject project, ContextItem item, IPath path) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, ERepositoryObjectType.CONTEXT, false);
         itemResource.getContents().addAll(item.getContext());
 
         return itemResource;
@@ -1078,9 +1085,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(SnippetItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.SNIPPETS,
-                false);
+    private Resource create(IProject project, SnippetItem item, IPath path) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, ERepositoryObjectType.SNIPPETS, false);
         itemResource.getContents().addAll(item.getVariables());
 
         return itemResource;
@@ -1113,9 +1119,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(LinkDocumentationItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
-                ERepositoryObjectType.DOCUMENTATION, false);
+    private Resource create(IProject project, LinkDocumentationItem item, IPath path) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path, ERepositoryObjectType.DOCUMENTATION,
+                false);
         itemResource.getContents().add(item.getLink());
 
         return itemResource;
@@ -1130,7 +1136,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    public void save(Item item) throws PersistenceException {
+    public void save(Project project, Item item) throws PersistenceException {
         computePropertyMaxInformationLevel(item.getProperty());
 
         item.getProperty().setModificationDate(new Date());
@@ -1195,16 +1201,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new UnsupportedOperationException();
         }
 
-        propagateFileName(item.getProperty());
+        propagateFileName(project, item.getProperty());
 
         xmiResourceManager.saveResource(item.eResource());
         xmiResourceManager.saveResource(itemResource);
     }
 
-    public void save(Property property) throws PersistenceException {
+    public void save(Project project, Property property) throws PersistenceException {
         computePropertyMaxInformationLevel(property);
 
-        propagateFileName(property);
+        propagateFileName(project, property);
 
         property.setModificationDate(new Date());
         Resource propertyResource = property.eResource();
@@ -1227,7 +1233,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
             Item newItem = copyFromResource(createResource, changeLabelWithCopyPrefix);
-            create(newItem, path);
+            create(getRepositoryContext().getProject(), newItem, path);
             return newItem;
         } catch (IOException e) {
             e.printStackTrace();
@@ -1236,14 +1242,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return null;
     }
 
-    private void propagateFileName(Property property) throws PersistenceException {
-        List<IRepositoryObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), property.getId());
+    private void propagateFileName(Project project, Property property) throws PersistenceException {
+        List<IRepositoryObject> allVersionToMove = getAllVersion(project, property.getId());
         for (IRepositoryObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
     }
 
-    public void create(Item item, IPath path) throws PersistenceException {
+    public void create(Project project, Item item, IPath path) throws PersistenceException {
         computePropertyMaxInformationLevel(item.getProperty());
 
         if (item.getProperty().getVersion() == null) {
@@ -1259,76 +1265,76 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         itemState.setPath(path.toString());
 
         item.setState(itemState);
-
+        IProject project2 = ResourceModelUtils.getProject(project);
         Resource itemResource;
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
-                itemResource = create((BusinessProcessItem) item, path);
+                itemResource = create(project2, (BusinessProcessItem) item, path);
                 break;
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);
                 break;
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_DELIMITED, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_DELIMITED, path);
                 break;
             case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_POSITIONAL, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_POSITIONAL, path);
                 break;
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_REGEXP, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_REGEXP, path);
                 break;
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_XML, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_XML, path);
                 break;
             case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_EXCEL, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_EXCEL, path);
                 break;
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_LDIF, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_LDIF, path);
                 break;
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_GENERIC_SCHEMA, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_GENERIC_SCHEMA, path);
                 break;
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_LDAP_SCHEMA, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_LDAP_SCHEMA, path);
                 break;
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_WSDL_SCHEMA, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_WSDL_SCHEMA, path);
                 break;
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
-                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, path);
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, path);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
-                itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);
+                itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);
                 break;
             case PropertiesPackage.JOB_DOCUMENTATION_ITEM:
-                itemResource = create((JobDocumentationItem) item, path, ERepositoryObjectType.JOB_DOC);
+                itemResource = create(project2, (JobDocumentationItem) item, path, ERepositoryObjectType.JOB_DOC);
                 break;
             case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM:
-                itemResource = create((JobletDocumentationItem) item, path, ERepositoryObjectType.JOBLET_DOC);
+                itemResource = create(project2, (JobletDocumentationItem) item, path, ERepositoryObjectType.JOBLET_DOC);
                 break;
             case PropertiesPackage.ROUTINE_ITEM:
-                itemResource = create((FileItem) item, path, ERepositoryObjectType.ROUTINES);
+                itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.ROUTINES);
                 break;
             case PropertiesPackage.SQL_PATTERN_ITEM:
-                itemResource = create((FileItem) item, path, ERepositoryObjectType.SQLPATTERNS);
+                itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.SQLPATTERNS);
                 break;
             case PropertiesPackage.PROCESS_ITEM:
-                itemResource = create((ProcessItem) item, path);
+                itemResource = create(project2, (ProcessItem) item, path);
                 break;
             case PropertiesPackage.JOBLET_PROCESS_ITEM:
-                itemResource = create((JobletProcessItem) item, path, ERepositoryObjectType.JOBLET);
+                itemResource = create(project2, (JobletProcessItem) item, path, ERepositoryObjectType.JOBLET);
                 break;
             case PropertiesPackage.CONTEXT_ITEM:
-                itemResource = create((ContextItem) item, path);
+                itemResource = create(project2, (ContextItem) item, path);
                 break;
             case PropertiesPackage.SNIPPET_ITEM:
-                itemResource = create((SnippetItem) item, path);
+                itemResource = create(project2, (SnippetItem) item, path);
                 break;
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM:
-                itemResource = create((LinkDocumentationItem) item, path);
+                itemResource = create(project2, (LinkDocumentationItem) item, path);
                 break;
             default:
                 throw new UnsupportedOperationException();
@@ -1342,10 +1348,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
 
-        String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
-                + path.toString();
-        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-        FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
+        // String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) +
+        // IPath.SEPARATOR
+        // + path.toString();
+        // FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
+        // FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
         // parentFolderItem.getChildren().add(item);
 
         xmiResourceManager.saveResource(itemResource);
