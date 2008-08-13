@@ -101,4 +101,8 @@ public interface IMetadataConnection extends IMetadata {
     public String getAdditionalParams();
 
     public void setAdditionalParams(String additionalParams);
+
+    public String getDbVersionString();
+
+    public void setDbVersionString(String dbVersionString);
 }

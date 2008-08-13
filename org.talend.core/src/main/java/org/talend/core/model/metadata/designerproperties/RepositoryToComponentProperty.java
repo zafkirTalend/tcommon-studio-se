@@ -43,6 +43,7 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.core.model.metadata.builder.database.EDatabaseDriver4Version;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -317,6 +318,15 @@ public class RepositoryToComponentProperty {
             }
         }
 
+        if (value.equals("DB_VERSION")) { //$NON-NLS-1$
+            String driverValue = EDatabaseDriver4Version.getDriverByVersion(connection.getDbVersionString());
+            if (isConetxtMode(connection, connection.getDbVersionString())) {
+                return connection.getDbVersionString();
+            } else {
+                return driverValue;
+            }
+        }
+
         // add new class name property
         if (value.equals("DRIVER_CLASS")) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getDriverClass())) {
@@ -355,7 +365,6 @@ public class RepositoryToComponentProperty {
                         try {
                             CorePlugin.getDefault().getLibrariesService().deployLibrary(
                                     Path.fromOSString(jarPath).toFile().toURL());
-                            // FileUtils.copyFile(new File(jarPath), new File(defaultPath));
                         } catch (IOException e) {
                             ExceptionHandler.process(e);
                             return null;

@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
-import java.net.URLClassLoader;
-import java.net.URL;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 import org.talend.commons.exception.ExceptionHandler;
 

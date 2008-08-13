@@ -320,7 +320,8 @@ public class ExtractMetaDataFromDataBase {
                     // Validate the column if it contains space or illegal
                     // characters.
                     if (repositoryService != null) {
-                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
+                        //metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                        // columnIndex));
                         metadataColumn.setLabel(repositoryService.validateColumnName(metadataColumn.getLabel(), columnIndex));
                     }
                     columnIndex++;
@@ -529,6 +530,7 @@ public class ExtractMetaDataFromDataBase {
         if (driverJarFilePath == null || driverJarFilePath.equals("")) {
             return false;
         }
+        // return true;
         File jarFile = new File(driverJarFilePath);
         return jarFile.exists() && jarFile.isFile();
     }

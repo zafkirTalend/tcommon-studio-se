@@ -26,6 +26,8 @@ import org.talend.core.model.repository.RepositoryObject;
  */
 public class MetadataConnection extends RepositoryObject implements IMetadataConnection {
 
+    private String dbVersionString;
+
     private String dbType;
 
     private String driverClass;
@@ -435,6 +437,24 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
      */
     public void setDriverJarPath(String driverJarPath) {
         this.driverJarPath = driverJarPath;
+    }
+
+    /**
+     * Getter for dbVersionString.
+     * 
+     * @return the dbVersionString
+     */
+    public String getDbVersionString() {
+        return this.dbVersionString;
+    }
+
+    /**
+     * Sets the dbVersionString.
+     * 
+     * @param dbVersionString the dbVersionString to set
+     */
+    public void setDbVersionString(String dbVersionString) {
+        this.dbVersionString = dbVersionString;
     }
 
 }
