@@ -842,10 +842,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_Port() {
+    public EAttribute getDatabaseConnection_DbVersionString() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(4);
     }
 
@@ -853,7 +854,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_Username() {
+    public EAttribute getDatabaseConnection_Port() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(5);
     }
 
@@ -861,7 +862,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_Password() {
+    public EAttribute getDatabaseConnection_Username() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(6);
     }
 
@@ -869,7 +870,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_ServerName() {
+    public EAttribute getDatabaseConnection_Password() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(7);
     }
 
@@ -877,7 +878,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_DatasourceName() {
+    public EAttribute getDatabaseConnection_ServerName() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(8);
     }
 
@@ -885,7 +886,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_FileFieldName() {
+    public EAttribute getDatabaseConnection_DatasourceName() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(9);
     }
 
@@ -893,7 +894,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_Schema() {
+    public EAttribute getDatabaseConnection_FileFieldName() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(10);
     }
 
@@ -901,7 +902,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_SID() {
+    public EAttribute getDatabaseConnection_Schema() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(11);
     }
 
@@ -909,7 +910,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_SqlSynthax() {
+    public EAttribute getDatabaseConnection_SID() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(12);
     }
 
@@ -917,7 +918,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_StringQuote() {
+    public EAttribute getDatabaseConnection_SqlSynthax() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(13);
     }
 
@@ -925,7 +926,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_NullChar() {
+    public EAttribute getDatabaseConnection_StringQuote() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(14);
     }
 
@@ -933,7 +934,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_DbmsId() {
+    public EAttribute getDatabaseConnection_NullChar() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(15);
     }
 
@@ -941,7 +942,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_ProductId() {
+    public EAttribute getDatabaseConnection_DbmsId() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(16);
     }
 
@@ -949,16 +950,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_DBRootPath() {
+    public EAttribute getDatabaseConnection_ProductId() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(17);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_AdditionalParams() {
+    public EAttribute getDatabaseConnection_DBRootPath() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(18);
     }
 
@@ -967,7 +967,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_StandardSQL() {
+    public EAttribute getDatabaseConnection_AdditionalParams() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(19);
     }
 
@@ -976,7 +976,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDatabaseConnection_SystemSQL() {
+    public EAttribute getDatabaseConnection_StandardSQL() {
         return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(20);
     }
 
@@ -985,8 +985,17 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getDatabaseConnection_SystemSQL() {
+        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(21);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getDatabaseConnection_CdcConns() {
-        return (EReference)databaseConnectionEClass.getEStructuralFeatures().get(21);
+        return (EReference)databaseConnectionEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -1960,6 +1969,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DRIVER_JAR_PATH);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DRIVER_CLASS);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__URL);
+        createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DB_VERSION_STRING);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__PORT);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__USERNAME);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__PASSWORD);
@@ -2219,6 +2229,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getDatabaseConnection_DriverJarPath(), ecorePackage.getEString(), "DriverJarPath", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_DriverClass(), ecorePackage.getEString(), "DriverClass", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_URL(), ecorePackage.getEString(), "URL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DbVersionString(), ecorePackage.getEString(), "dbVersionString", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

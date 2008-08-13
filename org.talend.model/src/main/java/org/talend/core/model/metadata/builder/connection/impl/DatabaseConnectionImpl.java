@@ -32,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverJarPath <em>Driver Jar Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDriverClass <em>Driver Class</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getURL <em>URL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbVersionString <em>Db Version String</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPort <em>Port</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUsername <em>Username</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getPassword <em>Password</em>}</li>
@@ -136,6 +137,26 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String url = URL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDbVersionString() <em>Db Version String</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDbVersionString()
+     * @generated
+     * @ordered
+     */
+    protected static final String DB_VERSION_STRING_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDbVersionString() <em>Db Version String</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDbVersionString()
+     * @generated
+     * @ordered
+     */
+    protected String dbVersionString = DB_VERSION_STRING_EDEFAULT;
 
     /**
      * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
@@ -594,6 +615,27 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDbVersionString() {
+        return dbVersionString;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDbVersionString(String newDbVersionString) {
+        String oldDbVersionString = dbVersionString;
+        dbVersionString = newDbVersionString;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING, oldDbVersionString, dbVersionString));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getPort() {
         return port;
     }
@@ -1032,6 +1074,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return getDriverClass();
             case ConnectionPackage.DATABASE_CONNECTION__URL:
                 return getURL();
+            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+                return getDbVersionString();
             case ConnectionPackage.DATABASE_CONNECTION__PORT:
                 return getPort();
             case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
@@ -1090,6 +1134,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__URL:
                 setURL((String)newValue);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+                setDbVersionString((String)newValue);
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__PORT:
                 setPort((String)newValue);
@@ -1168,6 +1215,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__URL:
                 setURL(URL_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+                setDbVersionString(DB_VERSION_STRING_EDEFAULT);
+                return;
             case ConnectionPackage.DATABASE_CONNECTION__PORT:
                 setPort(PORT_EDEFAULT);
                 return;
@@ -1241,6 +1291,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return DRIVER_CLASS_EDEFAULT == null ? driverClass != null : !DRIVER_CLASS_EDEFAULT.equals(driverClass);
             case ConnectionPackage.DATABASE_CONNECTION__URL:
                 return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
+            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+                return DB_VERSION_STRING_EDEFAULT == null ? dbVersionString != null : !DB_VERSION_STRING_EDEFAULT.equals(dbVersionString);
             case ConnectionPackage.DATABASE_CONNECTION__PORT:
                 return PORT_EDEFAULT == null ? port != null : !PORT_EDEFAULT.equals(port);
             case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
@@ -1298,6 +1350,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(driverClass);
         result.append(", URL: ");
         result.append(url);
+        result.append(", dbVersionString: ");
+        result.append(dbVersionString);
         result.append(", Port: ");
         result.append(port);
         result.append(", Username: ");

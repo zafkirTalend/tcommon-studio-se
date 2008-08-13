@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath <em>Driver Jar Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverClass <em>Driver Class</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getURL <em>URL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbVersionString <em>Db Version String</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPort <em>Port</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUsername <em>Username</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPassword <em>Password</em>}</li>
@@ -150,6 +151,32 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setURL(String value);
+
+    /**
+     * Returns the value of the '<em><b>Db Version String</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Db Version String</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Db Version String</em>' attribute.
+     * @see #setDbVersionString(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DbVersionString()
+     * @model
+     * @generated
+     */
+    String getDbVersionString();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbVersionString <em>Db Version String</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Db Version String</em>' attribute.
+     * @see #getDbVersionString()
+     * @generated
+     */
+    void setDbVersionString(String value);
 
     /**
      * Returns the value of the '<em><b>Port</b></em>' attribute.
