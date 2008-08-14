@@ -44,6 +44,7 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
@@ -138,9 +139,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
         IProject fsProject = ResourceModelUtils.getProject(project);
-
-        IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
-
+        IFolder objectFolder = null;
+        try {
+            objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
+        } catch (ResourceNotFoundException rex) {
+            // log.info(rex.getMessage());
+            return new RootContainer<K, T>(); // return empty
+        }
         addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion);
 
         String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
@@ -167,7 +172,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Object objectFolder, boolean onlyLastVersion) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem currentFolderItem = folderHelper.getFolder(((IFolder) objectFolder).getProjectRelativePath());
-        // FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
+        // FolderItem folder =
+        // folderHelper.getFolder(current.getProjectRelativePath());
 
         for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
             if (current instanceof IFile) {
@@ -268,8 +274,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @param folder - the folder to search in
      * @param id - the id of the object searched. Specify <code>null</code> to get all objects.
      * @param type - the type searched
-     * @param allVersion - <code>true</code> if all version of each object must be return or <code>false</code> if
-     * only the most recent version
+     * @param allVersion - <code>true</code> if all version of each object must be return or <code>false</code> if only
+     * the most recent version
      * @return a list (may be empty) of objects found
      * @throws PersistenceException
      */
@@ -304,7 +310,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                     }
                 }
-            } else if (current instanceof IFolder) { // && (!current.getName().equals("bin"))) {
+            } else if (current instanceof IFolder) { // &&
+                // (!current.getName().equals
+                // ("bin"))) {
                 if (searchInChildren) {
                     toReturn
                             .addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true, withDeleted));
@@ -321,7 +329,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private static List<ERepositoryObjectType> needsBinFolder = new ArrayList<ERepositoryObjectType>();
 
     static {
-        // /PTODO tgu quick fix for registering the emf package. needed to make the extention point work
+        // /PTODO tgu quick fix for registering the emf package. needed to make
+        // the extention point work
         ConnectionPackage.eINSTANCE.getClass();
 
         needsBinFolder.add(ERepositoryObjectType.BUSINESS_PROCESS);
@@ -619,7 +628,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.designer.core.extension.IRepositoryFactory#createFolder(org.talend.core.model.temp.Project,
+     * @see org.talend.designer.core.extension.IRepositoryFactory#createFolder(org .talend.core.model.temp.Project,
      * org.talend.core.model.repository.EObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
 
@@ -653,7 +662,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#isValid(org.talend.core.model.general.Project,
+     * @see org.talend.repository.model.IRepositoryFactory#isValid(org.talend.core .model.general.Project,
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
 
@@ -666,14 +675,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return false;
         } else if (RepositoryConstants.isSystemFolder(label) || RepositoryConstants.isGeneratedFolder(label)
                 || RepositoryConstants.isJobsFolder(label) || RepositoryConstants.isJobletsFolder(label)) {
-            // can't create the "system" ,"Generated", "Jobs" folder in the root.
+            // can't create the "system" ,"Generated", "Jobs" folder in the
+            // root.
             return false;
         } else {
             // TODO SML Delete this ?
             IProject fsProject = ResourceModelUtils.getProject(project);
             String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
 
-            // if label is "", don't need to added label into completePath (used for job's documentation and for folder
+            // if label is "", don't need to added label into completePath (used
+            // for job's documentation and for folder
             // only)
             // if (!label.equals("")) {
             completePath = completePath + IPath.SEPARATOR + label;
@@ -687,7 +698,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException {
 
-        // If the "System", "Generated", "Jobs" folder is created in the root, it can't be deleted .
+        // If the "System", "Generated", "Jobs" folder is created in the root,
+        // it can't be deleted .
         if (RepositoryConstants.isSystemFolder(path.toString()) || RepositoryConstants.isGeneratedFolder(path.toString())
                 || RepositoryConstants.isJobsFolder(path.toString()) || RepositoryConstants.isJobletsFolder(path.toString())) {
             return;
@@ -757,7 +769,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
 
         // IPath targetPath = new
-        // Path(SystemFolderNameFactory.getFolderName(type)).append(path).removeLastSegments(1).append(label);
+        // Path(SystemFolderNameFactory.getFolderName(type)).append(path).
+        // removeLastSegments(1).append(label);
         IPath targetPath = new Path(label);
         getFolderHelper(getRepositoryContext().getProject().getEmfProject()).renameFolder(completePath, label);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
@@ -796,7 +809,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend.core.model.general.Project,
+     * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend .core.model.general.Project,
      * org.talend.core.model.repository.IRepositoryObject)
      */
 
@@ -842,7 +855,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
         IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore.getType()),
                 true);
-        // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
+        // IPath thePath = (path == null ? typeRootFolder.getFullPath() :
+        // typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
         List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId());
@@ -870,7 +884,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#moveObject(org.talend.core.model.general.Project,
+     * @see org.talend.repository.model.IRepositoryFactory#moveObject(org.talend. core.model.general.Project,
      * org.talend.core.model.repository.IRepositoryObject, org.eclipse.core.runtime.IPath)
      */
     public void moveObject(IRepositoryObject objToMove, IPath newPath) throws PersistenceException {
@@ -899,7 +913,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
-            // lockedObject.put(item.getProperty().getId(), new LockedObject(new Date(), repositoryContext.getUser()));
+            // lockedObject.put(item.getProperty().getId(), new LockedObject(new
+            // Date(), repositoryContext.getUser()));
             item.getState().setLockDate(new Date());
             item.getState().setLocker(getRepositoryContext().getUser());
             item.getState().setLocked(true);
@@ -981,7 +996,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#isServerValid(java.lang.String, java.lang.String, int)
+     * @see org.talend.repository.model.IRepositoryFactory#isServerValid(java.lang .String, java.lang.String, int)
      */
     public String isServerValid() {
         return ""; //$NON-NLS-1$
@@ -992,7 +1007,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 ERepositoryObjectType.BUSINESS_PROCESS, false);
         // notation depends on semantic ...
         // in case of new(=empty) diagram, we don't care about order
-        // in other cases, the ordered addition references between notaion and semantic will be updated
+        // in other cases, the ordered addition references between notaion and
+        // semantic will be updated
         itemResource.getContents().add(item.getSemantic());
         itemResource.getContents().add(item.getNotationHolder());
         item.computeNotationHolder();
@@ -1157,15 +1173,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
-                // not really usefull for ConnectionItem : it's not copied to another resource for edition
+                // not really usefull for ConnectionItem : it's not copied to
+                // another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
-                // not really usefull for ConnectionItem : it's not copied to another resource for edition
+                // not really usefull for ConnectionItem : it's not copied to
+                // another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
-                // not really usefull for ConnectionItem : it's not copied to another resource for edition
+                // not really usefull for ConnectionItem : it's not copied to
+                // another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
@@ -1348,7 +1367,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
 
-        // String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) +
+        // String parentPath =
+        // ERepositoryObjectType.getFolderName(ERepositoryObjectType
+        // .getItemType(item)) +
         // IPath.SEPARATOR
         // + path.toString();
         // FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
@@ -1444,7 +1465,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#getStatus(org.talend.core.model.properties.Item)
+     * @see org.talend.repository.model.IRepositoryFactory#getStatus(org.talend.core .model.properties.Item)
      */
     public ERepositoryStatus getStatus(Item item) {
         if (item != null) {
@@ -1480,7 +1501,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(project);
-        return ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
+        try {
+            return ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
+        } catch (ResourceNotFoundException rex) {
+            //
+        }
+        return null;
     }
 
     public List<org.talend.core.model.properties.Project> getReferencedProjects() {

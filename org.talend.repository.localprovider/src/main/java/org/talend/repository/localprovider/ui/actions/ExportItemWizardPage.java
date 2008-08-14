@@ -13,6 +13,7 @@
 package org.talend.repository.localprovider.ui.actions;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,10 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -41,6 +44,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -48,8 +52,8 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
-import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
@@ -70,6 +74,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.localprovider.imports.FilteredCheckboxTree;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.model.RepositoryNode.ENodeType;
@@ -154,15 +159,29 @@ class ExportItemWizardPage extends WizardPage {
 
         exportItemsTreeViewer.refresh();
         // force loading all nodes
-        exportItemsTreeViewer.getViewer().expandAll();
-        exportItemsTreeViewer.getViewer().collapseAll();
+        TreeViewer viewer = exportItemsTreeViewer.getViewer();
+        viewer.expandAll();
+        viewer.collapseAll();
         // expand to level of metadata connection
-        exportItemsTreeViewer.getViewer().expandToLevel(3);
+        viewer.expandToLevel(4);
 
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
-            ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(selection.toArray());
             repositoryNodes.addAll(selection.toList());
+            ((CheckboxTreeViewer) viewer).setCheckedElements(repositoryNodes.toArray());
+            for (RepositoryNode node : repositoryNodes) {
+                expandParent(viewer, node);
+                exportItemsTreeViewer.refresh(node);
+            }
+        }
+
+    }
+
+    private void expandParent(TreeViewer viewer, RepositoryNode node) {
+        RepositoryNode parent = node.getParent();
+        if (parent != null) {
+            expandParent(viewer, parent);
+            viewer.setExpandedState(parent, true);
         }
     }
 
@@ -199,7 +218,6 @@ class ExportItemWizardPage extends WizardPage {
                 return false;
             }
         };
-        filteredCheckboxTree.getViewer();
     }
 
     /**
@@ -236,6 +254,27 @@ class ExportItemWizardPage extends WizardPage {
 
         setButtonLayoutData(deselectAll);
 
+        Button expandBtn = new Button(buttonComposite, SWT.PUSH);
+        expandBtn.setText("Expand All");
+        expandBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                exportItemsTreeViewer.getViewer().expandAll();
+            }
+        });
+        setButtonLayoutData(expandBtn);
+
+        Button collapseBtn = new Button(buttonComposite, SWT.PUSH);
+        collapseBtn.setText("Collapse All");
+        collapseBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                exportItemsTreeViewer.getViewer().collapseAll();
+            }
+        });
+        setButtonLayoutData(collapseBtn);
     }
 
     @SuppressWarnings("restriction")
@@ -362,38 +401,90 @@ class ExportItemWizardPage extends WizardPage {
      * DOC qwei Comment method "exportDependenciesSelected".
      */
     private void exportDependenciesSelected() {
-        List<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
-        Collection<IRepositoryObject> repContextObjects = getContextRepositoryObject(getSelectedItems());
-        if (repContextObjects != null) {
-            repositoryObjects.addAll(repContextObjects);
-        }
-        Collection<IRepositoryObject> repMetadataObjects = getMetadataRepositoryObject(getSelectedItems());
-        if (repMetadataObjects != null) {
-            repositoryObjects.addAll(repMetadataObjects);
-        }
-        Collection<IRepositoryObject> repChildProcessObjects = getChildPorcessRepositoryObject(getSelectedItems());
-        if (repChildProcessObjects != null) {
-            repositoryObjects.addAll(repChildProcessObjects);
-        }
-        if (exportDependencies.getSelection()) {
-            for (IRepositoryObject repositoryObject : repositoryObjects) {
-                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
-                if (repositoryNode != null && !repositoryNodes.contains(repositoryNode)) {
-                    repositoryNodes.add(repositoryNode);
-                }
+        final Collection<Item> selectedItems = getSelectedItems();
+        IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                monitor.beginTask("Dependencies", 100);
+                monitor.setCanceled(false);
+                //
+                final List<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+                // context
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        Collection<IRepositoryObject> repContextObjects = getContextRepositoryObject(selectedItems);
+                        if (repContextObjects != null) {
+                            repositoryObjects.addAll(repContextObjects);
+                        }
+                    }
+                });
+                monitor.worked(20);
+                // metadata
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        Collection<IRepositoryObject> repMetadataObjects = getMetadataRepositoryObject(selectedItems);
+                        if (repMetadataObjects != null) {
+                            repositoryObjects.addAll(repMetadataObjects);
+                        }
+                    }
+                });
+                monitor.worked(20);
+                // child job
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        Collection<IRepositoryObject> repChildProcessObjects = getChildPorcessRepositoryObject(selectedItems);
+                        if (repChildProcessObjects != null) {
+                            repositoryObjects.addAll(repChildProcessObjects);
+                        }
+                    }
+                });
+                monitor.worked(20);
+                //
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        if (exportDependencies.getSelection()) {
+                            for (IRepositoryObject repositoryObject : repositoryObjects) {
+                                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
+                                if (repositoryNode != null && !repositoryNodes.contains(repositoryNode)) {
+                                    repositoryNodes.add(repositoryNode);
+                                }
+
+                            }
+                        } else {
+                            for (IRepositoryObject repositoryObject : repositoryObjects) {
+                                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
+                                if (repositoryNode != null && repositoryNodes.contains(repositoryNode)) {
+                                    repositoryNodes.remove(repositoryNode);
+                                }
+                            }
+                        }
+                    }
+                });
+                monitor.worked(20);
+                // selection
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        CheckboxTreeViewer viewer = (CheckboxTreeViewer) exportItemsTreeViewer.getViewer();
+                        viewer.setCheckedElements(repositoryNodes.toArray());
+                    }
+                });
+                monitor.done();
             }
-        } else {
-            for (IRepositoryObject repositoryObject : repositoryObjects) {
-                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
-                if (repositoryNode != null && repositoryNodes.contains(repositoryNode)) {
-                    repositoryNodes.remove(repositoryNode);
-                }
-            }
+
+        };
+        final ProgressMonitorJobsDialog dialog = new ProgressMonitorJobsDialog(getShell());
+        try {
+            dialog.run(true, false, runnable);
+        } catch (InvocationTargetException e) {
+            //
+        } catch (InterruptedException e) {
+            // 
         }
-        CheckboxTreeViewer viewer = (CheckboxTreeViewer) exportItemsTreeViewer.getViewer();
-        viewer.getTree().deselectAll();
-        viewer.setCheckedElements(repositoryNodes.toArray());
 
     }
 
@@ -658,16 +749,10 @@ class ExportItemWizardPage extends WizardPage {
         }
     }
 
-    protected void displayErrorDialog(String message) {
-        MessageDialog.openError(getContainer().getShell(), getErrorDialogTitle(), message);
-    }
-
-    @SuppressWarnings("restriction")
-    protected String getErrorDialogTitle() {
-        return IDEWorkbenchMessages.WizardExportPage_internalErrorTitle;
-    }
-
     public boolean performFinish() {
+        if (!checkExportFile()) {
+            return false;
+        }
         Collection<Item> selectedItems = getSelectedItems();
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
@@ -677,6 +762,14 @@ class ExportItemWizardPage extends WizardPage {
             MessageBoxExceptionHandler.process(e);
         }
 
+        return true;
+    }
+
+    private boolean checkExportFile() {
+        if (lastPath == null || "".equals(lastPath.trim())) {
+            MessageDialog.openError(getShell(), "Error", "Must input the export path or archive file.");
+            return false;
+        }
         return true;
     }
 
@@ -693,6 +786,7 @@ class ExportItemWizardPage extends WizardPage {
      * 
      * @return
      */
+    @SuppressWarnings("unchecked")
     private Collection<Item> getSelectedItems() {
         // add this if user use filter
         Set checkedElements = new HashSet();
@@ -703,7 +797,7 @@ class ExportItemWizardPage extends WizardPage {
         // add this if user does not use filter
         for (Object obj : filteredCheckboxTree.getViewer().getCheckedElements()) {
             RepositoryNode repositoryNode = (RepositoryNode) obj;
-            if (!isRepositoryFolder(repositoryNode)) {
+            if (!isRepositoryFolder(repositoryNode) && !(repositoryNode instanceof ProjectRepositoryNode)) {
                 checkedElements.add(obj);
             }
         }
