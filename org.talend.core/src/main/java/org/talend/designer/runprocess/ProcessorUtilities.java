@@ -24,7 +24,6 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -316,7 +315,7 @@ public class ProcessorUtilities {
                 try {
                     processor.generateContextCode();
                 } catch (ProcessorException pe) {
-                    MessageBoxExceptionHandler.process(pe);
+                    ExceptionHandler.process(pe);
                 }
             }
 
@@ -325,7 +324,7 @@ public class ProcessorUtilities {
                 // main job will use stats / traces
                 processor.generateCode(statistics, trace, properties);
             } catch (ProcessorException pe) {
-                MessageBoxExceptionHandler.process(pe);
+            	ExceptionHandler.process(pe);
             }
             if (jobInfo.getProcessItem() != null) {
                 designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(jobInfo.getJobId(),
