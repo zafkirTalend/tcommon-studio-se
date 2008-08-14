@@ -57,6 +57,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.ERepositoryStatus;
@@ -138,6 +139,13 @@ public abstract class RepositoryUpdateManager {
         boolean showed = false;
         if (show) {
             if (parameter != null && !needForcePropagation()) {
+                // see feature 4786
+                boolean deactive = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
+                        ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE));
+                if (deactive) {
+                    return false;
+                }
+
                 checked = openPropagationDialog();
                 showed = true;
             }
