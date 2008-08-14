@@ -64,8 +64,11 @@ public enum EImage implements IImage {
 
     PROPERTIES_WIZ("/icons/editpref_wiz.gif"),
 
-    TRACES_EXPAND("/icons/traces_expand.gif"),
-    TRACES_COLLAPSE("/icons/traces_collapse.gif"),
+    TRACES_EXPAND("/icons/traces_expand.png"),
+    TRACES_COLLAPSE("/icons/traces_collapse.png"),
+
+    SUBJOB_EXPAND("/icons/subjob_expand.png"),
+    SUBJOB_COLLAPSE("/icons/subjob_collapse.png"),
 
     COMPACT_VIEW("/icons/compact.png"),
     NO_COMPACT_VIEW("/icons/noCompact.png"),
