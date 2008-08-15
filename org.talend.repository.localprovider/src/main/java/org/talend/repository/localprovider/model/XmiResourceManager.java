@@ -13,9 +13,7 @@
 package org.talend.repository.localprovider.model;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -25,22 +23,25 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.local.ResourceFilenameHelper;
 import org.talend.repository.local.ResourceFilenameHelper.FileName;
@@ -73,8 +74,8 @@ public class XmiResourceManager {
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
         Resource resource = resourceSet.getResource(uri, true);
-        Project emfProject = (Project) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
-                .getProject());
+        Project emfProject = (Project) EcoreUtil
+                .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
         return emfProject;
     }
 
@@ -86,8 +87,7 @@ public class XmiResourceManager {
     }
 
     public Property loadProperty(IResource iResource) {
-        Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(iResource.getFullPath().toString()),
-                true);
+        Resource resource = resourceSet.getResource(URIHelper.convert(iResource.getFullPath()), true);
         Property property = (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
                 .getProperty());
         return property;
@@ -95,8 +95,7 @@ public class XmiResourceManager {
 
     private IPath getFolderPath(IProject project, ERepositoryObjectType repositoryObjectType, IPath relativePath)
             throws PersistenceException {
-        IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(
-                relativePath);
+        IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
         return folder.getFullPath();
     }
 
@@ -106,7 +105,7 @@ public class XmiResourceManager {
     }
 
     private URI getProjectResourceUri(IProject project) {
-        URI uri = URI.createPlatformResourceURI(project.getFullPath().append(getProjectFilename()).toString());
+        URI uri = URIHelper.convert(project.getFullPath().append(getProjectFilename()));
         return uri;
     }
 
@@ -115,8 +114,8 @@ public class XmiResourceManager {
         return resourceSet.createResource(propertyResourceURI);
     }
 
-    public Resource createItemResource(IProject project, Item item, IPath path,
-            ERepositoryObjectType repositoryObjectType, boolean byteArrayResource) throws PersistenceException {
+    public Resource createItemResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
+            boolean byteArrayResource) throws PersistenceException {
         URI itemResourceURI = getItemResourceURI(project, repositoryObjectType, path, item);
 
         Resource itemResource = createItemResource(byteArrayResource, itemResourceURI);
@@ -141,7 +140,7 @@ public class XmiResourceManager {
     }
 
     public Resource getItemResource(Item item) {
-        URI itemResourceURI = getItemResourceURI(item.eResource().getURI());
+        URI itemResourceURI = getItemResourceURI(getItemURI(item));
         Resource itemResource = resourceSet.getResource(itemResourceURI, false);
 
         if (itemResource == null) {
@@ -153,6 +152,32 @@ public class XmiResourceManager {
         }
 
         return itemResource;
+    }
+
+    private URI getItemURI(Item item) {
+        ProjectManager pManager = ProjectManager.getInstance();
+        org.talend.core.model.general.Project project = new org.talend.core.model.general.Project(pManager.getProject(item));
+        // referenced item
+        if (project != null && !project.equals(pManager.getCurrentProject())) {
+            String folder = null;
+            if (item instanceof JobDocumentationItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOB_DOC);
+
+            }
+            if (item instanceof JobletDocumentationItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOBLET_DOC);
+            }
+            if (folder != null) {
+                IPath path = new Path(project.getTechnicalLabel());
+                path = path.append(folder);
+                path = path.append(item.getState().getPath());
+                Property property = item.getProperty();
+                String itemStr = property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION;
+                path = path.append(itemStr);
+                return URIHelper.convert(path);
+            }
+        }
+        return item.eResource().getURI();
     }
 
     public List<Resource> getAffectedResources(Property property) {
@@ -190,10 +215,9 @@ public class XmiResourceManager {
             throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
         FileName fileName = ResourceFilenameHelper.create(item.getProperty());
-        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath,
-                FileConstants.ITEM_EXTENSION);
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, FileConstants.ITEM_EXTENSION);
 
-        return URI.createPlatformResourceURI(resourcePath.toOSString());
+        return URIHelper.convert(resourcePath);
     }
 
     public boolean isPropertyFile(IFile file) {
@@ -251,8 +275,7 @@ public class XmiResourceManager {
         if (previousVersionProperty != null) {
             List<Resource> previousVersionResources = getAffectedResources(previousVersionProperty);
             for (Resource resource : previousVersionResources) {
-                FileName fileName = ResourceFilenameHelper.create(resource, previousVersionProperty,
-                        lastVersionProperty);
+                FileName fileName = ResourceFilenameHelper.create(resource, previousVersionProperty, lastVersionProperty);
 
                 if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                     IPath expectedFilePath = ResourceFilenameHelper.getExpectedFilePath(fileName, true);

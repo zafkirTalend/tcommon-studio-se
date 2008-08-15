@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Project;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -29,8 +30,12 @@ import org.talend.repository.ProjectManager;
 public class DocumentationPathProvider {
 
     public static IPath getPathProjectFolder(Item item, String folderName) {
+        return getPathProjectFolder(ProjectManager.getInstance().getProject(item), folderName);
+    }
+
+    public static IPath getPathProjectFolder(Project project, String folderName) {
         try {
-            IProject iProject = ProjectManager.getInstance().getResourceProject(item);
+            IProject iProject = ProjectManager.getInstance().getResourceProject(project);
             if (iProject != null) {
                 IFolder folder = ResourceUtils.getFolder(iProject, folderName, true);
                 return folder.getLocation();
@@ -39,7 +44,6 @@ public class DocumentationPathProvider {
             //
         }
         return null;
-
     }
 
     public static IPath getPathFileName(Item item, String folderName, String fileName) {
@@ -50,7 +54,12 @@ public class DocumentationPathProvider {
         return null;
     }
 
-    public static IPath getPathFileName(String folderName, String fileName) {
-        return getPathFileName(null, folderName, fileName);
+    public static IPath getPathFileName(Project project, String folderName, String fileName) {
+        IPath pathProjectFolder = getPathProjectFolder(project, folderName);
+        if (pathProjectFolder != null) {
+            return pathProjectFolder.append(fileName);
+        }
+        return null;
     }
+
 }
