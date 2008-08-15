@@ -13,7 +13,9 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -21,7 +23,9 @@ import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.InformationLevel;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -36,7 +40,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public final class CodeGeneratorRoutine {
 
-    private static List<String> routinesName;
+    private static Map<org.talend.core.model.properties.Project, List<String>> routinesName = new HashMap<org.talend.core.model.properties.Project, List<String>>();
 
     /**
      * Default Constructor. Must not be used.
@@ -46,10 +50,16 @@ public final class CodeGeneratorRoutine {
 
     /**
      * Actually used in ProcessorUtilities.generateCode.
+     * 
+     * @param processItem
      */
-    public static void initializeRoutinesName() {
+    public static void initializeRoutinesName(Item processItem) {
         ProjectManager pManager = ProjectManager.getInstance();
-        Project currentProject = pManager.getCurrentProject();
+
+        org.talend.core.model.properties.Project emfProject = pManager.getProject(processItem);
+
+        Project currentProject = new Project(emfProject);
+
         ECodeLanguage currentLanguage = currentProject.getLanguage();
         List<String> toReturn = new ArrayList<String>();
 
@@ -57,13 +67,11 @@ public final class CodeGeneratorRoutine {
 
         String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::";
         String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::";
-
         try {
-            List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES);
+            List<IRepositoryObject> routines = repositoryFactory.getAll(currentProject, ERepositoryObjectType.ROUTINES);
             for (IRepositoryObject routine : routines) {
                 RoutineItem item = (RoutineItem) routine.getProperty().getItem();
                 if (currentLanguage.equals(ECodeLanguage.JAVA)) {
-                    org.talend.core.model.properties.Project project = pManager.getProject(item);
                     InformationLevel level = routine.getProperty().getMaxInformationLevel();
                     if (level.getValue() == InformationLevel.ERROR) {
                         continue;
@@ -71,7 +79,7 @@ public final class CodeGeneratorRoutine {
                     if (item.isBuiltIn()) {
                         toReturn.add(routine.getLabel());
                     } else {
-                        toReturn.add(project.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
+                        toReturn.add(emfProject.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
                     }
                 } else {
                     if (item.isBuiltIn()) {
@@ -84,13 +92,35 @@ public final class CodeGeneratorRoutine {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
-        routinesName = toReturn;
+        routinesName.put(emfProject, toReturn);
     }
 
     /**
      * initializeRoutinesName must be called first or it might return wrong list name or null.
      */
     public static List<String> getRoutineName() {
-        return routinesName;
+        // return routinesName;
+        return new ArrayList<String>();
     }
+
+    /**
+     * DOC bqian Comment method "getRoutineName".
+     * 
+     * @param process
+     * @return
+     */
+    public static List<String> getRoutineName(IProcess process) {
+        Item processItem = process.getProperty().getItem();
+        ProjectManager pManager = ProjectManager.getInstance();
+
+        org.talend.core.model.properties.Project emfProject = pManager.getProject(processItem);
+        List<String> routines = routinesName.get(emfProject);
+
+        if (routines == null) {
+            initializeRoutinesName(processItem);
+            routines = routinesName.get(emfProject);
+        }
+        return routines;
+    }
+
 }

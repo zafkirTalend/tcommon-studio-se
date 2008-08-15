@@ -208,7 +208,7 @@ public class ProcessorUtilities {
             // code generation
             ItemCacheManager.clearCache();
             // if it's the father or main job, initialize the routines name
-            CodeGeneratorRoutine.initializeRoutinesName();
+            CodeGeneratorRoutine.initializeRoutinesName(jobInfo.getProcess().getProperty().getItem());
         }
 
         IProcess currentProcess = null;
