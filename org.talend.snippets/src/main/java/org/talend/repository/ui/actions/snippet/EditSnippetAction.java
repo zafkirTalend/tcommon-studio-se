@@ -21,6 +21,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.actions.AContextualAction;
 import org.talend.repository.ui.wizards.snippet.SnippetWizard;
@@ -78,7 +79,8 @@ public class EditSnippetAction extends AContextualAction {
      * @see org.eclipse.jface.action.Action#run()
      */
     public void run() {
-        SnippetWizard snippetWizard = new SnippetWizard(PlatformUI.getWorkbench(), false, getSelection(), false);
+        boolean readOnly = !ProjectManager.getInstance().isInCurrentMainProject(node);
+        SnippetWizard snippetWizard = new SnippetWizard(PlatformUI.getWorkbench(), false, getSelection(), readOnly);
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), snippetWizard);
         dlg.open();
 

@@ -22,6 +22,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.images.OverlayImageProvider;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.EProperties;
@@ -83,6 +84,9 @@ public class CreateSnippetAction extends AContextualAction {
                 break;
             default:
                 canWork = false;
+            }
+            if (canWork) {
+                canWork = ProjectManager.getInstance().isInCurrentMainProject(node);
             }
         }
         setEnabled(canWork);
