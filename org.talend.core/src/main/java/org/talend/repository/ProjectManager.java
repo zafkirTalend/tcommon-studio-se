@@ -29,6 +29,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * ggu class global comment. Detailled comment
@@ -156,5 +157,39 @@ public final class ProjectManager {
 
     public IProject getResourceProject(EObject object) {
         return getResourceProject(getProject(object));
+    }
+
+    /**
+     * 
+     * ggu Comment method "isInCurrentMainProject".
+     * 
+     * check the EObject in current main project.
+     */
+    public boolean isInCurrentMainProject(EObject object) {
+        if (object != null) {
+            org.talend.core.model.properties.Project project = getProject(object);
+            if (project != null) {
+                return project.equals(getCurrentProject().getEmfProject());
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * ggu Comment method "isInCurrentMainProject".
+     * 
+     * check the node in current main project.
+     */
+    public boolean isInCurrentMainProject(RepositoryNode node) {
+        if (node != null) {
+            Project project = node.getRoot().getProject();
+            if (project != null) {
+                return project.equals(getCurrentProject());
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 }
