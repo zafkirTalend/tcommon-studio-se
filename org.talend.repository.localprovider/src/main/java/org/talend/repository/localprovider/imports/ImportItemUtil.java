@@ -96,6 +96,8 @@ public class ImportItemUtil {
 
     private Set<String> deletedItems = new HashSet<String>();
 
+    ProjectManager projectManager = ProjectManager.getInstance();
+
     public void clear() {
         deletedItems.clear();
     }
@@ -114,7 +116,8 @@ public class ImportItemUtil {
         try {
             boolean nameAvailable = ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
                     itemRecord.getProperty().getLabel());
-            boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(itemRecord.getProperty().getId()) == null;
+            org.talend.core.model.general.Project project = projectManager.getCurrentProject();
+            boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(project, itemRecord.getProperty().getId()) == null;
 
             boolean isSystemRoutine = false;
             // we do not import built in routines
@@ -269,7 +272,8 @@ public class ImportItemUtil {
                     }
                 }
 
-                IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
+                org.talend.core.model.general.Project project = projectManager.getCurrentProject();
+                IRepositoryObject lastVersion = repFactory.getLastVersion(project, tmpItem.getProperty().getId());
 
                 User author = itemRecord.getProperty().getAuthor();
                 if (author != null) {
@@ -480,9 +484,10 @@ public class ImportItemUtil {
     private boolean checkProject(Project project, ItemRecord itemRecord) {
         boolean checkProject = false;
 
-        Context ctx = CorePlugin.getContext();
-        RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        Project currentProject = repositoryContext.getProject().getEmfProject();
+        // Context ctx = CorePlugin.getContext();
+        // RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        // Project currentProject = repositoryContext.getProject().getEmfProject();
+        Project currentProject = projectManager.getCurrentProject().getEmfProject();
 
         if (project != null) {
             if (project.getLanguage().equals(currentProject.getLanguage())) {
