@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -613,41 +611,6 @@ public class TalendTextUtils {
 
 		}
 		return nonQuoteStr;
-	}
-
-	/**
-	 * 
-	 * DOC YeXiaowei Comment method "spellStringByQuote".
-	 * 
-	 * @param newStr
-	 * @return
-	 */
-	public static List<KeyString> spellStringByQuote(final String newStr) {
-
-		if (newStr == null || newStr.equals("")) {
-			return null;
-		}
-
-		Pattern regex = Pattern.compile(QUOTE_PATTERN, Pattern.CANON_EQ
-				| Pattern.MULTILINE);
-		List<KeyString> res = new ArrayList<KeyString>();
-		Matcher regexMatcher = regex.matcher(newStr);
-		int nextBegin = 0;
-		while (regexMatcher.find()) {
-			int start = regexMatcher.start();
-			int end = regexMatcher.end();
-			if (nextBegin < start) {
-				String firstPart = newStr.substring(nextBegin, start);
-				res.add(new KeyString(firstPart, false));
-			}
-			String matchPart = newStr.substring(start, end);
-			res.add(new KeyString(matchPart, true));
-			nextBegin = end;
-		}
-		if (nextBegin < newStr.length()) {
-			res.add(new KeyString(newStr.substring(nextBegin), false));
-		}
-		return res;
 	}
 
 	private static String replaceNewLine(final String str) {

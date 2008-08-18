@@ -29,8 +29,6 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IMultipleComponentManager;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.model.utils.TalendTextUtils.KeyString;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -466,15 +464,14 @@ public abstract class AbstractNode implements INode {
 		}
 
 		for (IElementParameter param : this.getElementParameters()) {
-			if (param.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$
+			if (param.getName().equals("UNIQUE_NAME") || isSQLQueryParameter(param)) { //$NON-NLS-1$
 				continue;
 			}
 			if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
 				String value = (String) param.getValue();
 				if (value.contains(oldName)) {
 					// param.setValue(value.replaceAll(oldName, newName));
-					String newValue = renameValuesIgnoreQuote(value, oldName,
-							newName);
+					String newValue = renameValues(value, oldName, newName);
 					if (!value.equals(newValue)) {
 						param.setValue(newValue);
 					}
@@ -492,8 +489,8 @@ public abstract class AbstractNode implements INode {
 							if (value.contains(oldName)) {
 								// line.put(key, value.replaceAll(oldName,
 								// newName));
-								String newValue = renameValuesIgnoreQuote(
-										value, oldName, newName);
+								String newValue = renameValues(value, oldName,
+										newName);
 								if (!value.equals(newValue)) {
 									line.put(key, newValue);
 								}
@@ -503,6 +500,19 @@ public abstract class AbstractNode implements INode {
 				}
 			}
 		}
+	}
+
+	/**
+	 * see bug 4733
+	 * <p>
+	 * DOC YeXiaowei Comment method "isSQLQueryParameter".
+	 * 
+	 * @param parameter
+	 * @return
+	 */
+	private boolean isSQLQueryParameter(final IElementParameter parameter) {
+		return parameter.getField().equals(EParameterFieldType.MEMO_SQL)
+				&& parameter.getName().equals("QUERY");
 	}
 
 	private boolean valueContains(String value, String toTest) {
@@ -696,37 +706,6 @@ public abstract class AbstractNode implements INode {
 	 */
 	public void setListConnector(List<? extends INodeConnector> listConnector) {
 		this.listConnector = listConnector;
-	}
-
-	/**
-	 * 
-	 * DOC YeXiaowei Comment method "renameValuesIgnoreQuote".
-	 * 
-	 * @param value
-	 * @param oldName
-	 * @param newName
-	 * @return
-	 */
-	protected String renameValuesIgnoreQuote(final String value,
-			final String oldName, final String newName) {
-		List<KeyString> result = TalendTextUtils.spellStringByQuote(value);
-
-		if (result == null || result.isEmpty()) {
-			return renameValues(value, oldName, newName);
-		}
-
-		StringBuilder builder = new StringBuilder();
-		for (KeyString keyString : result) {
-			if (keyString.isKey()) {
-				builder.append(keyString.getString());
-			} else {
-				builder.append(renameValues(keyString.getString(), oldName,
-						newName));
-			}
-		}
-
-		return builder.toString();
-
 	}
 
 	/**
