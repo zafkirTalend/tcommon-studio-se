@@ -136,6 +136,14 @@ public class JobInfo {
     }
 
     public ProcessItem getProcessItem() {
+        if (processItem != null) {
+            return processItem;
+        }
+
+        if (getProcess() != null) {
+            return (ProcessItem) getProcess().getProperty().getItem();
+        }
+
         return this.processItem;
     }
 

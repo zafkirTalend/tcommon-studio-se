@@ -208,7 +208,7 @@ public class ProcessorUtilities {
             // code generation
             ItemCacheManager.clearCache();
             // if it's the father or main job, initialize the routines name
-            CodeGeneratorRoutine.initializeRoutinesName(jobInfo.getProcess().getProperty().getItem());
+            CodeGeneratorRoutine.initializeRoutinesName(jobInfo.getProcessItem());
         }
 
         IProcess currentProcess = null;
@@ -324,7 +324,7 @@ public class ProcessorUtilities {
                 // main job will use stats / traces
                 processor.generateCode(statistics, trace, properties);
             } catch (ProcessorException pe) {
-            	ExceptionHandler.process(pe);
+                ExceptionHandler.process(pe);
             }
             if (jobInfo.getProcessItem() != null) {
                 designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(jobInfo.getJobId(),
