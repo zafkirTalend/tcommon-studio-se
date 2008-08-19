@@ -675,24 +675,6 @@ public class TalendTextUtils {
 
 	/**
 	 * 
-	 * DOC YeXiaowei Comment method "filterOracleComponentName".
-	 * 
-	 * @param component
-	 * @return
-	 */
-	public static String filterOracleComponentName(final String component) {
-		if (component.startsWith("tOracleOutput")) {
-			return "tOracleOutput";
-		}
-		if (component.startsWith("tOracleInput")) {
-			return "tOracleInput";
-		}
-
-		return component;
-	}
-
-	/**
-	 * 
 	 * DOC YeXiaowei KeyString class global comment. Detailled comment <br/>
 	 * 
 	 */
