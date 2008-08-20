@@ -34,6 +34,11 @@
             class="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
             id="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
             name="Metadata of TalendType"/>
+       <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.ui.MetadataTypeLengthPreferencePage"
+            id="org.talend.core.prefs.ui.MetadataTypeLengthPreferencePage"
+            name="Default Type and Length"/>
    </extension> 
    <extension
          point="org.eclipse.core.runtime.preferences">

@@ -20,7 +20,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.language.LanguageManager;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.DbDefaultLengthAndPrecision;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -273,6 +273,12 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             public void set(MetadataColumn bean, String value) {
                 String oldTalendType = bean.getTalendType();
                 bean.setTalendType(value);
+                if (!oldTalendType.equals(value)) {
+                    String typeLength = getCurrentTypeLength(value);
+                    if (typeLength != null && !typeLength.equals("")) {
+                        bean.setLength(Integer.parseInt(typeLength));
+                    }
+                }
                 String dbms = getCurrentDbms();
                 if (showDbTypeColumn && (dbms != null)) {
                     String oldDbType = bean.getSourceType();
@@ -344,7 +350,9 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#configureDefaultColumn(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+     * @see
+     * org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#configureDefaultColumn(org.talend.commons.
+     * ui.swt.tableviewer.TableViewerCreator)
      */
     @Override
     protected void configureDefaultColumn(TableViewerCreator<MetadataColumn> tableViewerCreator) {
@@ -364,5 +372,9 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
         };
+    }
+
+    public String getCurrentTypeLength(String value) {
+        return CorePlugin.getDefault().getPreferenceStore().getString(value.toUpperCase());
     }
 }

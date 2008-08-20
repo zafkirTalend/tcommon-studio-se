@@ -21,6 +21,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
+import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -29,7 +30,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
-import org.talend.core.utils.KeywordsValidator;
+import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -111,8 +112,8 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         Perl5Matcher matcher = new Perl5Matcher();
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
 
-        if (!match || KeywordsValidator.isKeyword(columnName)) {
-            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] { columnName }); //$NON-NLS-1$ 
+        if (!match) {
+            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] { columnName }); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         int lstSize = getBeansList().size();
@@ -154,16 +155,41 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         metadataColumn.setLabel(columnName);
         metadataColumn.setNullable(true);
         metadataColumn.setOriginalDbColumnName(columnName);
-
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
-            if (metadataTable.getDbms() != null) {
-                metadataColumn.setType(TypesManager.getDBTypeFromTalendType(metadataTable.getDbms(), JavaTypesManager
-                        .getDefaultJavaType().getId()));
+            if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE) != null
+                    && !CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE)
+                            .equals("")) {
+                metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
+                        MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
+                if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH) != null
+                        && !CorePlugin.getDefault().getPreferenceStore().getString(
+                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) {
+                    metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
+                            MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH)));
+                }
+            } else {
+                metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
+                if (metadataTable.getDbms() != null) {
+                    metadataColumn.setType(TypesManager.getDBTypeFromTalendType(metadataTable.getDbms(), metadataColumn
+                            .getTalendType()));
+                }
+            }
+        } else {
+            if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE) != null
+                    && !CorePlugin.getDefault().getPreferenceStore().getString(
+                            MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE).equals("")) {
+                metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
+                        MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE));
+                if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH) != null
+                        && !CorePlugin.getDefault().getPreferenceStore().getString(
+                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) {
+                    metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
+                            MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH)));
+                }
             }
         }
+
         return metadataColumn;
     }
-
 }

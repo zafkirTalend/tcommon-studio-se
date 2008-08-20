@@ -21,6 +21,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
+import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -29,6 +30,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
+import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 
 /**
@@ -192,11 +194,39 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
         metadataColumn.setOriginalField(columnName);
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
-            if (dbmsId != null) {
-                metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn.getTalendType()));
+            if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE) != null
+                    && !CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE)
+                            .equals("")) {
+                metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
+                        MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
+                if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH) != null
+                        && !CorePlugin.getDefault().getPreferenceStore().getString(
+                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) {
+                    metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
+                            MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH)));
+                }
+
+            } else {
+                metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
+                if (dbmsId != null) {
+                    metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn.getTalendType()));
+                }
+            }
+        } else {
+            if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE) != null
+                    && !CorePlugin.getDefault().getPreferenceStore().getString(
+                            MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE).equals("")) {
+                metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
+                        MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE));
+                if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH) != null
+                        && !CorePlugin.getDefault().getPreferenceStore().getString(
+                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) {
+                    metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
+                            MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH)));
+                }
             }
         }
+
         return metadataColumn;
     }
 
