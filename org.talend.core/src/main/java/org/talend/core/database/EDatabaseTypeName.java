@@ -55,6 +55,9 @@ public enum EDatabaseTypeName {
 
     MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB"),
 
+    GREENPLUM("Greenplum", "Greenplum", new Boolean(true), "GREENPLUM", "GREENPLUM"),
+    PARACCEL("ParAccel", "ParAccel", new Boolean(true), "PARACCEL", "PARACCEL"),
+
     // General JDBC not support schema defalut
     GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "GENERAL_JDBC");
 

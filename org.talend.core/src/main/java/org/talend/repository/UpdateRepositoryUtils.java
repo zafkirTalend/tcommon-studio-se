@@ -18,6 +18,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -46,7 +47,7 @@ public final class UpdateRepositoryUtils {
      * 
      * get Query
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public static Query getQueryById(Item item, final String queryId) {
         if (item == null || queryId == null) {
             return null;
@@ -116,7 +117,7 @@ public final class UpdateRepositoryUtils {
      * 
      * get MetadataTable
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public static MetadataTable getTableById(Item item, final String tableId) {
         if (item == null || tableId == null) {
             return null;
@@ -385,7 +386,7 @@ public final class UpdateRepositoryUtils {
         return source;
     }
 
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public static IMetadataTable getTableByName(ConnectionItem item, String name) {
         if (item == null || name == null) {
             return null;
@@ -408,7 +409,7 @@ public final class UpdateRepositoryUtils {
         return null;
     }
 
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public static Query getQueryByName(ConnectionItem item, String name) {
         if (item == null || name == null) {
             return null;
@@ -431,5 +432,27 @@ public final class UpdateRepositoryUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * ftang used for handling greenplum and paraccel dabatbase as their connection are used as same as postgresql.
+     * 
+     * @param currentDbType
+     * @param repositoryValue
+     * @return
+     */
+    public static String getNeededDbType(String currentDbType, String repositoryValue) {
+        String neededDbType = repositoryValue.substring(repositoryValue.indexOf(":") + 1);
+
+        if (neededDbType.equals(EDatabaseTypeName.PSQL.getProduct())) {
+            if (currentDbType.equals(EDatabaseTypeName.GREENPLUM.getProduct())) {
+                return EDatabaseTypeName.GREENPLUM.getProduct();
+            }
+            if (currentDbType.equals(EDatabaseTypeName.PARACCEL.getProduct())) {
+                return EDatabaseTypeName.PARACCEL.getProduct();
+            }
+        }
+
+        return neededDbType;
     }
 }
