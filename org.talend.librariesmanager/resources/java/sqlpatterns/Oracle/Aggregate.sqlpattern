@@ -1,6 +1,5 @@
 <% 
 	EXTRACT(__GROUPBY__);
-	SCHEMA(__ELT_METADATA_SCHEMA__);
 	EXTRACT(__OPERATION__);
 	String operation = "";
 	boolean flag=false;
