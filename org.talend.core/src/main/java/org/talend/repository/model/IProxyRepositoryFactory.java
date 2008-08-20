@@ -556,14 +556,16 @@ public interface IProxyRepositoryFactory {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#getStatusAndLockIfPossible(org.talend.core.model.properties.Item)
+     * @see
+     * org.talend.repository.model.IRepositoryFactory#getStatusAndLockIfPossible(org.talend.core.model.properties.Item)
      */
     public abstract boolean isEditableAndLockIfPossible(Item item);
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#isEditable(org.talend.core.model.repository.IRepositoryObject)
+     * @see
+     * org.talend.repository.model.IRepositoryFactory#isEditable(org.talend.core.model.repository.IRepositoryObject)
      */
     public abstract boolean isEditableAndLockIfPossible(IRepositoryObject obj);
 
@@ -572,7 +574,8 @@ public interface IProxyRepositoryFactory {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#isPotentiallyEditable(org.talend.core.model.repository.IRepositoryObject)
+     * @seeorg.talend.repository.model.IRepositoryFactory#isPotentiallyEditable(org.talend.core.model.repository.
+     * IRepositoryObject)
      */
     public abstract boolean isPotentiallyEditable(IRepositoryObject obj);
 
@@ -617,7 +620,4 @@ public interface IProxyRepositoryFactory {
 
     public Property getUptodateProperty(Property property) throws PersistenceException;
 
-    public boolean isMainProjectItem(Item item);
-
-    public boolean isMainProjectItem(IRepositoryObject obj);
 }

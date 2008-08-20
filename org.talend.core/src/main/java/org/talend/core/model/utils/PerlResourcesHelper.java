@@ -20,6 +20,8 @@ import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -88,8 +90,12 @@ public class PerlResourcesHelper {
         return jobFileName;
     }
 
-    public static String getJobFileName(String jobName, String version) {
-        return getJobFileName(getCurrentProjectName(), jobName, version);
+    public static String getJobFileName(String jobId, String version) {
+        ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
+        if (processItem != null) {
+            return getJobFileName(getRootProjectName(processItem), processItem.getProperty().getLabel(), version);
+        }
+        return null;
     }
 
     public static String getContextFileName(String projectName, String jobName, String version, String context) {

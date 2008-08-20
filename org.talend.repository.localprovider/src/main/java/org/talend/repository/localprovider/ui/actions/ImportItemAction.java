@@ -25,6 +25,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemWizard;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -46,7 +47,7 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
             if (selection.getFirstElement() instanceof RepositoryNode) {
                 RepositoryNode repositoryNode = (RepositoryNode) selection.getFirstElement();
                 if (factory.isUserReadOnlyOnCurrentProject()
-                        || !repositoryNode.getRoot().getProject().equals(factory.getRepositoryContext().getProject())) {
+                        || !ProjectManager.getInstance().isInCurrentMainProject(repositoryNode)) {
                     setEnabled(false);
                     return;
                 }
