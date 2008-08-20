@@ -52,1508 +52,1508 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  */
 public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
     /**
-	 * The default value of the '{@link #getSIGNATURE() <em>SIGNATURE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getSIGNATURE() <em>SIGNATURE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getSIGNATURE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSIGNATURE()
+     * @generated
+     * @ordered
+     */
     protected static final String SIGNATURE_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getSIGNATURE() <em>SIGNATURE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getSIGNATURE() <em>SIGNATURE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getSIGNATURE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSIGNATURE()
+     * @generated
+     * @ordered
+     */
     protected String sIGNATURE = SIGNATURE_EDEFAULT;
 
     /**
-	 * The cached value of the '{@link #getFORMAT() <em>FORMAT</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getFORMAT() <em>FORMAT</em>}' containment reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getFORMAT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getFORMAT()
+     * @generated
+     * @ordered
+     */
     protected FORMATType fORMAT;
 
     /**
-	 * The default value of the '{@link #getAUTHOR() <em>AUTHOR</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getAUTHOR() <em>AUTHOR</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getAUTHOR()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAUTHOR()
+     * @generated
+     * @ordered
+     */
     protected static final String AUTHOR_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getAUTHOR() <em>AUTHOR</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getAUTHOR() <em>AUTHOR</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getAUTHOR()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAUTHOR()
+     * @generated
+     * @ordered
+     */
     protected String aUTHOR = AUTHOR_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getCOMPATIBILITY() <em>COMPATIBILITY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getCOMPATIBILITY() <em>COMPATIBILITY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCOMPATIBILITY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCOMPATIBILITY()
+     * @generated
+     * @ordered
+     */
     protected static final String COMPATIBILITY_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getCOMPATIBILITY() <em>COMPATIBILITY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCOMPATIBILITY() <em>COMPATIBILITY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCOMPATIBILITY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCOMPATIBILITY()
+     * @generated
+     * @ordered
+     */
     protected String cOMPATIBILITY = COMPATIBILITY_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isDATAAUTOPROPAGATE() <em>DATAAUTOPROPAGATE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isDATAAUTOPROPAGATE() <em>DATAAUTOPROPAGATE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isDATAAUTOPROPAGATE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isDATAAUTOPROPAGATE()
+     * @generated
+     * @ordered
+     */
     protected static final boolean DATAAUTOPROPAGATE_EDEFAULT = true;
 
     /**
-	 * The cached value of the '{@link #isDATAAUTOPROPAGATE() <em>DATAAUTOPROPAGATE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isDATAAUTOPROPAGATE() <em>DATAAUTOPROPAGATE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isDATAAUTOPROPAGATE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isDATAAUTOPROPAGATE()
+     * @generated
+     * @ordered
+     */
     protected boolean dATAAUTOPROPAGATE = DATAAUTOPROPAGATE_EDEFAULT;
 
     /**
-	 * This is true if the DATAAUTOPROPAGATE attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the DATAAUTOPROPAGATE attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean dATAAUTOPROPAGATEESet;
 
     /**
-	 * The default value of the '{@link #getEXTENSION() <em>EXTENSION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getEXTENSION() <em>EXTENSION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getEXTENSION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getEXTENSION()
+     * @generated
+     * @ordered
+     */
     protected static final String EXTENSION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getEXTENSION() <em>EXTENSION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getEXTENSION() <em>EXTENSION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getEXTENSION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getEXTENSION()
+     * @generated
+     * @ordered
+     */
     protected String eXTENSION = EXTENSION_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isHASCONDITIONALOUTPUTS() <em>HASCONDITIONALOUTPUTS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isHASCONDITIONALOUTPUTS() <em>HASCONDITIONALOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isHASCONDITIONALOUTPUTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @generated
+     * @ordered
+     */
     protected static final boolean HASCONDITIONALOUTPUTS_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isHASCONDITIONALOUTPUTS() <em>HASCONDITIONALOUTPUTS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isHASCONDITIONALOUTPUTS() <em>HASCONDITIONALOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isHASCONDITIONALOUTPUTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @generated
+     * @ordered
+     */
     protected boolean hASCONDITIONALOUTPUTS = HASCONDITIONALOUTPUTS_EDEFAULT;
 
     /**
-	 * This is true if the HASCONDITIONALOUTPUTS attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the HASCONDITIONALOUTPUTS attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean hASCONDITIONALOUTPUTSESet;
 
     /**
-	 * The default value of the '{@link #isHASHCOMPONENT() <em>HASHCOMPONENT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isHASHCOMPONENT() <em>HASHCOMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isHASHCOMPONENT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isHASHCOMPONENT()
+     * @generated
+     * @ordered
+     */
     protected static final boolean HASHCOMPONENT_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isHASHCOMPONENT() <em>HASHCOMPONENT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isHASHCOMPONENT() <em>HASHCOMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isHASHCOMPONENT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isHASHCOMPONENT()
+     * @generated
+     * @ordered
+     */
     protected boolean hASHCOMPONENT = HASHCOMPONENT_EDEFAULT;
 
     /**
-	 * This is true if the HASHCOMPONENT attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the HASHCOMPONENT attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean hASHCOMPONENTESet;
 
     /**
-	 * The default value of the '{@link #isISMULTIPLYINGOUTPUTS() <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isISMULTIPLYINGOUTPUTS() <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isISMULTIPLYINGOUTPUTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isISMULTIPLYINGOUTPUTS()
+     * @generated
+     * @ordered
+     */
     protected static final boolean ISMULTIPLYINGOUTPUTS_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isISMULTIPLYINGOUTPUTS() <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isISMULTIPLYINGOUTPUTS() <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isISMULTIPLYINGOUTPUTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isISMULTIPLYINGOUTPUTS()
+     * @generated
+     * @ordered
+     */
     protected boolean iSMULTIPLYINGOUTPUTS = ISMULTIPLYINGOUTPUTS_EDEFAULT;
 
     /**
-	 * This is true if the ISMULTIPLYINGOUTPUTS attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the ISMULTIPLYINGOUTPUTS attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean iSMULTIPLYINGOUTPUTSESet;
 
     /**
-	 * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPLATEFORM()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPLATEFORM()
+     * @generated
+     * @ordered
+     */
     protected static final String PLATEFORM_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPLATEFORM()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPLATEFORM()
+     * @generated
+     * @ordered
+     */
     protected String pLATEFORM = PLATEFORM_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getRELEASEDATE() <em>RELEASEDATE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getRELEASEDATE() <em>RELEASEDATE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getRELEASEDATE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getRELEASEDATE()
+     * @generated
+     * @ordered
+     */
     protected static final String RELEASEDATE_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getRELEASEDATE() <em>RELEASEDATE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getRELEASEDATE() <em>RELEASEDATE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getRELEASEDATE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getRELEASEDATE()
+     * @generated
+     * @ordered
+     */
     protected String rELEASEDATE = RELEASEDATE_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isSCHEMAAUTOPROPAGATE() <em>SCHEMAAUTOPROPAGATE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isSCHEMAAUTOPROPAGATE() <em>SCHEMAAUTOPROPAGATE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSCHEMAAUTOPROPAGATE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSCHEMAAUTOPROPAGATE()
+     * @generated
+     * @ordered
+     */
     protected static final boolean SCHEMAAUTOPROPAGATE_EDEFAULT = true;
 
     /**
-	 * The cached value of the '{@link #isSCHEMAAUTOPROPAGATE() <em>SCHEMAAUTOPROPAGATE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isSCHEMAAUTOPROPAGATE() <em>SCHEMAAUTOPROPAGATE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSCHEMAAUTOPROPAGATE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSCHEMAAUTOPROPAGATE()
+     * @generated
+     * @ordered
+     */
     protected boolean sCHEMAAUTOPROPAGATE = SCHEMAAUTOPROPAGATE_EDEFAULT;
 
     /**
-	 * This is true if the SCHEMAAUTOPROPAGATE attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the SCHEMAAUTOPROPAGATE attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean sCHEMAAUTOPROPAGATEESet;
 
     /**
-	 * The default value of the '{@link #getSERIAL() <em>SERIAL</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getSERIAL() <em>SERIAL</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getSERIAL()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSERIAL()
+     * @generated
+     * @ordered
+     */
     protected static final String SERIAL_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getSERIAL() <em>SERIAL</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getSERIAL() <em>SERIAL</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getSERIAL()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSERIAL()
+     * @generated
+     * @ordered
+     */
     protected String sERIAL = SERIAL_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSINGLETON()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSINGLETON()
+     * @generated
+     * @ordered
+     */
     protected static final boolean SINGLETON_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSINGLETON()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSINGLETON()
+     * @generated
+     * @ordered
+     */
     protected boolean sINGLETON = SINGLETON_EDEFAULT;
 
     /**
-	 * This is true if the SINGLETON attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the SINGLETON attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean sINGLETONESet;
 
     /**
-	 * The default value of the '{@link #isSTARTABLE() <em>STARTABLE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isSTARTABLE() <em>STARTABLE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSTARTABLE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSTARTABLE()
+     * @generated
+     * @ordered
+     */
     protected static final boolean STARTABLE_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isSTARTABLE() <em>STARTABLE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isSTARTABLE() <em>STARTABLE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSTARTABLE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSTARTABLE()
+     * @generated
+     * @ordered
+     */
     protected boolean sTARTABLE = STARTABLE_EDEFAULT;
 
     /**
-	 * This is true if the STARTABLE attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the STARTABLE attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean sTARTABLEESet;
 
     /**
-	 * The default value of the '{@link #getSTATUS() <em>STATUS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getSTATUS() <em>STATUS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getSTATUS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSTATUS()
+     * @generated
+     * @ordered
+     */
     protected static final String STATUS_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getSTATUS() <em>STATUS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getSTATUS() <em>STATUS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getSTATUS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSTATUS()
+     * @generated
+     * @ordered
+     */
     protected String sTATUS = STATUS_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isTECHNICAL()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isTECHNICAL()
+     * @generated
+     * @ordered
+     */
     protected static final boolean TECHNICAL_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isTECHNICAL()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isTECHNICAL()
+     * @generated
+     * @ordered
+     */
     protected boolean tECHNICAL = TECHNICAL_EDEFAULT;
 
     /**
-	 * This is true if the TECHNICAL attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the TECHNICAL attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean tECHNICALESet;
 
     /**
-	 * The default value of the '{@link #isTSTATCATCHERSTATS() <em>TSTATCATCHERSTATS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isTSTATCATCHERSTATS() <em>TSTATCATCHERSTATS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isTSTATCATCHERSTATS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isTSTATCATCHERSTATS()
+     * @generated
+     * @ordered
+     */
     protected static final boolean TSTATCATCHERSTATS_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isTSTATCATCHERSTATS() <em>TSTATCATCHERSTATS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isTSTATCATCHERSTATS() <em>TSTATCATCHERSTATS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isTSTATCATCHERSTATS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isTSTATCATCHERSTATS()
+     * @generated
+     * @ordered
+     */
     protected boolean tSTATCATCHERSTATS = TSTATCATCHERSTATS_EDEFAULT;
 
     /**
-	 * This is true if the TSTATCATCHERSTATS attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the TSTATCATCHERSTATS attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean tSTATCATCHERSTATSESet;
 
     /**
-	 * The default value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getVERSION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getVERSION()
+     * @generated
+     * @ordered
+     */
     protected static final BigDecimal VERSION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getVERSION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getVERSION()
+     * @generated
+     * @ordered
+     */
     protected BigDecimal vERSION = VERSION_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isVISIBLE() <em>VISIBLE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isVISIBLE() <em>VISIBLE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isVISIBLE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isVISIBLE()
+     * @generated
+     * @ordered
+     */
     protected static final boolean VISIBLE_EDEFAULT = true;
 
     /**
-	 * The cached value of the '{@link #isVISIBLE() <em>VISIBLE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isVISIBLE() <em>VISIBLE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isVISIBLE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isVISIBLE()
+     * @generated
+     * @ordered
+     */
     protected boolean vISIBLE = VISIBLE_EDEFAULT;
 
     /**
-	 * This is true if the VISIBLE attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the VISIBLE attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean vISIBLEESet;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected HEADERTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.HEADER_TYPE;
-	}
+        return ComponentPackage.Literals.HEADER_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getSIGNATURE() {
-		return sIGNATURE;
-	}
+        return sIGNATURE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSIGNATURE(String newSIGNATURE) {
-		String oldSIGNATURE = sIGNATURE;
-		sIGNATURE = newSIGNATURE;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SIGNATURE, oldSIGNATURE, sIGNATURE));
-	}
+        String oldSIGNATURE = sIGNATURE;
+        sIGNATURE = newSIGNATURE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SIGNATURE, oldSIGNATURE, sIGNATURE));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FORMATType getFORMAT() {
-		return fORMAT;
-	}
+        return fORMAT;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain basicSetFORMAT(FORMATType newFORMAT, NotificationChain msgs) {
-		FORMATType oldFORMAT = fORMAT;
-		fORMAT = newFORMAT;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__FORMAT, oldFORMAT, newFORMAT);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        FORMATType oldFORMAT = fORMAT;
+        fORMAT = newFORMAT;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__FORMAT, oldFORMAT, newFORMAT);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setFORMAT(FORMATType newFORMAT) {
-		if (newFORMAT != fORMAT) {
-			NotificationChain msgs = null;
-			if (fORMAT != null)
-				msgs = ((InternalEObject)fORMAT).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.HEADER_TYPE__FORMAT, null, msgs);
-			if (newFORMAT != null)
-				msgs = ((InternalEObject)newFORMAT).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.HEADER_TYPE__FORMAT, null, msgs);
-			msgs = basicSetFORMAT(newFORMAT, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__FORMAT, newFORMAT, newFORMAT));
-	}
+        if (newFORMAT != fORMAT) {
+            NotificationChain msgs = null;
+            if (fORMAT != null)
+                msgs = ((InternalEObject)fORMAT).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.HEADER_TYPE__FORMAT, null, msgs);
+            if (newFORMAT != null)
+                msgs = ((InternalEObject)newFORMAT).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.HEADER_TYPE__FORMAT, null, msgs);
+            msgs = basicSetFORMAT(newFORMAT, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__FORMAT, newFORMAT, newFORMAT));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getAUTHOR() {
-		return aUTHOR;
-	}
+        return aUTHOR;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setAUTHOR(String newAUTHOR) {
-		String oldAUTHOR = aUTHOR;
-		aUTHOR = newAUTHOR;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__AUTHOR, oldAUTHOR, aUTHOR));
-	}
+        String oldAUTHOR = aUTHOR;
+        aUTHOR = newAUTHOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__AUTHOR, oldAUTHOR, aUTHOR));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getCOMPATIBILITY() {
-		return cOMPATIBILITY;
-	}
+        return cOMPATIBILITY;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setCOMPATIBILITY(String newCOMPATIBILITY) {
-		String oldCOMPATIBILITY = cOMPATIBILITY;
-		cOMPATIBILITY = newCOMPATIBILITY;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__COMPATIBILITY, oldCOMPATIBILITY, cOMPATIBILITY));
-	}
+        String oldCOMPATIBILITY = cOMPATIBILITY;
+        cOMPATIBILITY = newCOMPATIBILITY;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__COMPATIBILITY, oldCOMPATIBILITY, cOMPATIBILITY));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isDATAAUTOPROPAGATE() {
-		return dATAAUTOPROPAGATE;
-	}
+        return dATAAUTOPROPAGATE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setDATAAUTOPROPAGATE(boolean newDATAAUTOPROPAGATE) {
-		boolean oldDATAAUTOPROPAGATE = dATAAUTOPROPAGATE;
-		dATAAUTOPROPAGATE = newDATAAUTOPROPAGATE;
-		boolean oldDATAAUTOPROPAGATEESet = dATAAUTOPROPAGATEESet;
-		dATAAUTOPROPAGATEESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE, oldDATAAUTOPROPAGATE, dATAAUTOPROPAGATE, !oldDATAAUTOPROPAGATEESet));
-	}
+        boolean oldDATAAUTOPROPAGATE = dATAAUTOPROPAGATE;
+        dATAAUTOPROPAGATE = newDATAAUTOPROPAGATE;
+        boolean oldDATAAUTOPROPAGATEESet = dATAAUTOPROPAGATEESet;
+        dATAAUTOPROPAGATEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE, oldDATAAUTOPROPAGATE, dATAAUTOPROPAGATE, !oldDATAAUTOPROPAGATEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetDATAAUTOPROPAGATE() {
-		boolean oldDATAAUTOPROPAGATE = dATAAUTOPROPAGATE;
-		boolean oldDATAAUTOPROPAGATEESet = dATAAUTOPROPAGATEESet;
-		dATAAUTOPROPAGATE = DATAAUTOPROPAGATE_EDEFAULT;
-		dATAAUTOPROPAGATEESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE, oldDATAAUTOPROPAGATE, DATAAUTOPROPAGATE_EDEFAULT, oldDATAAUTOPROPAGATEESet));
-	}
+        boolean oldDATAAUTOPROPAGATE = dATAAUTOPROPAGATE;
+        boolean oldDATAAUTOPROPAGATEESet = dATAAUTOPROPAGATEESet;
+        dATAAUTOPROPAGATE = DATAAUTOPROPAGATE_EDEFAULT;
+        dATAAUTOPROPAGATEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE, oldDATAAUTOPROPAGATE, DATAAUTOPROPAGATE_EDEFAULT, oldDATAAUTOPROPAGATEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetDATAAUTOPROPAGATE() {
-		return dATAAUTOPROPAGATEESet;
-	}
+        return dATAAUTOPROPAGATEESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getEXTENSION() {
-		return eXTENSION;
-	}
+        return eXTENSION;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setEXTENSION(String newEXTENSION) {
-		String oldEXTENSION = eXTENSION;
-		eXTENSION = newEXTENSION;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__EXTENSION, oldEXTENSION, eXTENSION));
-	}
+        String oldEXTENSION = eXTENSION;
+        eXTENSION = newEXTENSION;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__EXTENSION, oldEXTENSION, eXTENSION));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isHASCONDITIONALOUTPUTS() {
-		return hASCONDITIONALOUTPUTS;
-	}
+        return hASCONDITIONALOUTPUTS;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setHASCONDITIONALOUTPUTS(boolean newHASCONDITIONALOUTPUTS) {
-		boolean oldHASCONDITIONALOUTPUTS = hASCONDITIONALOUTPUTS;
-		hASCONDITIONALOUTPUTS = newHASCONDITIONALOUTPUTS;
-		boolean oldHASCONDITIONALOUTPUTSESet = hASCONDITIONALOUTPUTSESet;
-		hASCONDITIONALOUTPUTSESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS, oldHASCONDITIONALOUTPUTS, hASCONDITIONALOUTPUTS, !oldHASCONDITIONALOUTPUTSESet));
-	}
+        boolean oldHASCONDITIONALOUTPUTS = hASCONDITIONALOUTPUTS;
+        hASCONDITIONALOUTPUTS = newHASCONDITIONALOUTPUTS;
+        boolean oldHASCONDITIONALOUTPUTSESet = hASCONDITIONALOUTPUTSESet;
+        hASCONDITIONALOUTPUTSESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS, oldHASCONDITIONALOUTPUTS, hASCONDITIONALOUTPUTS, !oldHASCONDITIONALOUTPUTSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetHASCONDITIONALOUTPUTS() {
-		boolean oldHASCONDITIONALOUTPUTS = hASCONDITIONALOUTPUTS;
-		boolean oldHASCONDITIONALOUTPUTSESet = hASCONDITIONALOUTPUTSESet;
-		hASCONDITIONALOUTPUTS = HASCONDITIONALOUTPUTS_EDEFAULT;
-		hASCONDITIONALOUTPUTSESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS, oldHASCONDITIONALOUTPUTS, HASCONDITIONALOUTPUTS_EDEFAULT, oldHASCONDITIONALOUTPUTSESet));
-	}
+        boolean oldHASCONDITIONALOUTPUTS = hASCONDITIONALOUTPUTS;
+        boolean oldHASCONDITIONALOUTPUTSESet = hASCONDITIONALOUTPUTSESet;
+        hASCONDITIONALOUTPUTS = HASCONDITIONALOUTPUTS_EDEFAULT;
+        hASCONDITIONALOUTPUTSESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS, oldHASCONDITIONALOUTPUTS, HASCONDITIONALOUTPUTS_EDEFAULT, oldHASCONDITIONALOUTPUTSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetHASCONDITIONALOUTPUTS() {
-		return hASCONDITIONALOUTPUTSESet;
-	}
+        return hASCONDITIONALOUTPUTSESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isHASHCOMPONENT() {
-		return hASHCOMPONENT;
-	}
+        return hASHCOMPONENT;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setHASHCOMPONENT(boolean newHASHCOMPONENT) {
-		boolean oldHASHCOMPONENT = hASHCOMPONENT;
-		hASHCOMPONENT = newHASHCOMPONENT;
-		boolean oldHASHCOMPONENTESet = hASHCOMPONENTESet;
-		hASHCOMPONENTESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__HASHCOMPONENT, oldHASHCOMPONENT, hASHCOMPONENT, !oldHASHCOMPONENTESet));
-	}
+        boolean oldHASHCOMPONENT = hASHCOMPONENT;
+        hASHCOMPONENT = newHASHCOMPONENT;
+        boolean oldHASHCOMPONENTESet = hASHCOMPONENTESet;
+        hASHCOMPONENTESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__HASHCOMPONENT, oldHASHCOMPONENT, hASHCOMPONENT, !oldHASHCOMPONENTESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetHASHCOMPONENT() {
-		boolean oldHASHCOMPONENT = hASHCOMPONENT;
-		boolean oldHASHCOMPONENTESet = hASHCOMPONENTESet;
-		hASHCOMPONENT = HASHCOMPONENT_EDEFAULT;
-		hASHCOMPONENTESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__HASHCOMPONENT, oldHASHCOMPONENT, HASHCOMPONENT_EDEFAULT, oldHASHCOMPONENTESet));
-	}
+        boolean oldHASHCOMPONENT = hASHCOMPONENT;
+        boolean oldHASHCOMPONENTESet = hASHCOMPONENTESet;
+        hASHCOMPONENT = HASHCOMPONENT_EDEFAULT;
+        hASHCOMPONENTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__HASHCOMPONENT, oldHASHCOMPONENT, HASHCOMPONENT_EDEFAULT, oldHASHCOMPONENTESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetHASHCOMPONENT() {
-		return hASHCOMPONENTESet;
-	}
+        return hASHCOMPONENTESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isISMULTIPLYINGOUTPUTS() {
-		return iSMULTIPLYINGOUTPUTS;
-	}
+        return iSMULTIPLYINGOUTPUTS;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setISMULTIPLYINGOUTPUTS(boolean newISMULTIPLYINGOUTPUTS) {
-		boolean oldISMULTIPLYINGOUTPUTS = iSMULTIPLYINGOUTPUTS;
-		iSMULTIPLYINGOUTPUTS = newISMULTIPLYINGOUTPUTS;
-		boolean oldISMULTIPLYINGOUTPUTSESet = iSMULTIPLYINGOUTPUTSESet;
-		iSMULTIPLYINGOUTPUTSESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS, oldISMULTIPLYINGOUTPUTS, iSMULTIPLYINGOUTPUTS, !oldISMULTIPLYINGOUTPUTSESet));
-	}
+        boolean oldISMULTIPLYINGOUTPUTS = iSMULTIPLYINGOUTPUTS;
+        iSMULTIPLYINGOUTPUTS = newISMULTIPLYINGOUTPUTS;
+        boolean oldISMULTIPLYINGOUTPUTSESet = iSMULTIPLYINGOUTPUTSESet;
+        iSMULTIPLYINGOUTPUTSESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS, oldISMULTIPLYINGOUTPUTS, iSMULTIPLYINGOUTPUTS, !oldISMULTIPLYINGOUTPUTSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetISMULTIPLYINGOUTPUTS() {
-		boolean oldISMULTIPLYINGOUTPUTS = iSMULTIPLYINGOUTPUTS;
-		boolean oldISMULTIPLYINGOUTPUTSESet = iSMULTIPLYINGOUTPUTSESet;
-		iSMULTIPLYINGOUTPUTS = ISMULTIPLYINGOUTPUTS_EDEFAULT;
-		iSMULTIPLYINGOUTPUTSESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS, oldISMULTIPLYINGOUTPUTS, ISMULTIPLYINGOUTPUTS_EDEFAULT, oldISMULTIPLYINGOUTPUTSESet));
-	}
+        boolean oldISMULTIPLYINGOUTPUTS = iSMULTIPLYINGOUTPUTS;
+        boolean oldISMULTIPLYINGOUTPUTSESet = iSMULTIPLYINGOUTPUTSESet;
+        iSMULTIPLYINGOUTPUTS = ISMULTIPLYINGOUTPUTS_EDEFAULT;
+        iSMULTIPLYINGOUTPUTSESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS, oldISMULTIPLYINGOUTPUTS, ISMULTIPLYINGOUTPUTS_EDEFAULT, oldISMULTIPLYINGOUTPUTSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetISMULTIPLYINGOUTPUTS() {
-		return iSMULTIPLYINGOUTPUTSESet;
-	}
+        return iSMULTIPLYINGOUTPUTSESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getPLATEFORM() {
-		return pLATEFORM;
-	}
+        return pLATEFORM;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setPLATEFORM(String newPLATEFORM) {
-		String oldPLATEFORM = pLATEFORM;
-		pLATEFORM = newPLATEFORM;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__PLATEFORM, oldPLATEFORM, pLATEFORM));
-	}
+        String oldPLATEFORM = pLATEFORM;
+        pLATEFORM = newPLATEFORM;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__PLATEFORM, oldPLATEFORM, pLATEFORM));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getRELEASEDATE() {
-		return rELEASEDATE;
-	}
+        return rELEASEDATE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setRELEASEDATE(String newRELEASEDATE) {
-		String oldRELEASEDATE = rELEASEDATE;
-		rELEASEDATE = newRELEASEDATE;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__RELEASEDATE, oldRELEASEDATE, rELEASEDATE));
-	}
+        String oldRELEASEDATE = rELEASEDATE;
+        rELEASEDATE = newRELEASEDATE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__RELEASEDATE, oldRELEASEDATE, rELEASEDATE));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSCHEMAAUTOPROPAGATE() {
-		return sCHEMAAUTOPROPAGATE;
-	}
+        return sCHEMAAUTOPROPAGATE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSCHEMAAUTOPROPAGATE(boolean newSCHEMAAUTOPROPAGATE) {
-		boolean oldSCHEMAAUTOPROPAGATE = sCHEMAAUTOPROPAGATE;
-		sCHEMAAUTOPROPAGATE = newSCHEMAAUTOPROPAGATE;
-		boolean oldSCHEMAAUTOPROPAGATEESet = sCHEMAAUTOPROPAGATEESet;
-		sCHEMAAUTOPROPAGATEESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE, oldSCHEMAAUTOPROPAGATE, sCHEMAAUTOPROPAGATE, !oldSCHEMAAUTOPROPAGATEESet));
-	}
+        boolean oldSCHEMAAUTOPROPAGATE = sCHEMAAUTOPROPAGATE;
+        sCHEMAAUTOPROPAGATE = newSCHEMAAUTOPROPAGATE;
+        boolean oldSCHEMAAUTOPROPAGATEESet = sCHEMAAUTOPROPAGATEESet;
+        sCHEMAAUTOPROPAGATEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE, oldSCHEMAAUTOPROPAGATE, sCHEMAAUTOPROPAGATE, !oldSCHEMAAUTOPROPAGATEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetSCHEMAAUTOPROPAGATE() {
-		boolean oldSCHEMAAUTOPROPAGATE = sCHEMAAUTOPROPAGATE;
-		boolean oldSCHEMAAUTOPROPAGATEESet = sCHEMAAUTOPROPAGATEESet;
-		sCHEMAAUTOPROPAGATE = SCHEMAAUTOPROPAGATE_EDEFAULT;
-		sCHEMAAUTOPROPAGATEESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE, oldSCHEMAAUTOPROPAGATE, SCHEMAAUTOPROPAGATE_EDEFAULT, oldSCHEMAAUTOPROPAGATEESet));
-	}
+        boolean oldSCHEMAAUTOPROPAGATE = sCHEMAAUTOPROPAGATE;
+        boolean oldSCHEMAAUTOPROPAGATEESet = sCHEMAAUTOPROPAGATEESet;
+        sCHEMAAUTOPROPAGATE = SCHEMAAUTOPROPAGATE_EDEFAULT;
+        sCHEMAAUTOPROPAGATEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE, oldSCHEMAAUTOPROPAGATE, SCHEMAAUTOPROPAGATE_EDEFAULT, oldSCHEMAAUTOPROPAGATEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetSCHEMAAUTOPROPAGATE() {
-		return sCHEMAAUTOPROPAGATEESet;
-	}
+        return sCHEMAAUTOPROPAGATEESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getSERIAL() {
-		return sERIAL;
-	}
+        return sERIAL;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSERIAL(String newSERIAL) {
-		String oldSERIAL = sERIAL;
-		sERIAL = newSERIAL;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SERIAL, oldSERIAL, sERIAL));
-	}
+        String oldSERIAL = sERIAL;
+        sERIAL = newSERIAL;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SERIAL, oldSERIAL, sERIAL));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSINGLETON() {
-		return sINGLETON;
-	}
+        return sINGLETON;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSINGLETON(boolean newSINGLETON) {
-		boolean oldSINGLETON = sINGLETON;
-		sINGLETON = newSINGLETON;
-		boolean oldSINGLETONESet = sINGLETONESet;
-		sINGLETONESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SINGLETON, oldSINGLETON, sINGLETON, !oldSINGLETONESet));
-	}
+        boolean oldSINGLETON = sINGLETON;
+        sINGLETON = newSINGLETON;
+        boolean oldSINGLETONESet = sINGLETONESet;
+        sINGLETONESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SINGLETON, oldSINGLETON, sINGLETON, !oldSINGLETONESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetSINGLETON() {
-		boolean oldSINGLETON = sINGLETON;
-		boolean oldSINGLETONESet = sINGLETONESet;
-		sINGLETON = SINGLETON_EDEFAULT;
-		sINGLETONESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__SINGLETON, oldSINGLETON, SINGLETON_EDEFAULT, oldSINGLETONESet));
-	}
+        boolean oldSINGLETON = sINGLETON;
+        boolean oldSINGLETONESet = sINGLETONESet;
+        sINGLETON = SINGLETON_EDEFAULT;
+        sINGLETONESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__SINGLETON, oldSINGLETON, SINGLETON_EDEFAULT, oldSINGLETONESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetSINGLETON() {
-		return sINGLETONESet;
-	}
+        return sINGLETONESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSTARTABLE() {
-		return sTARTABLE;
-	}
+        return sTARTABLE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSTARTABLE(boolean newSTARTABLE) {
-		boolean oldSTARTABLE = sTARTABLE;
-		sTARTABLE = newSTARTABLE;
-		boolean oldSTARTABLEESet = sTARTABLEESet;
-		sTARTABLEESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__STARTABLE, oldSTARTABLE, sTARTABLE, !oldSTARTABLEESet));
-	}
+        boolean oldSTARTABLE = sTARTABLE;
+        sTARTABLE = newSTARTABLE;
+        boolean oldSTARTABLEESet = sTARTABLEESet;
+        sTARTABLEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__STARTABLE, oldSTARTABLE, sTARTABLE, !oldSTARTABLEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetSTARTABLE() {
-		boolean oldSTARTABLE = sTARTABLE;
-		boolean oldSTARTABLEESet = sTARTABLEESet;
-		sTARTABLE = STARTABLE_EDEFAULT;
-		sTARTABLEESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__STARTABLE, oldSTARTABLE, STARTABLE_EDEFAULT, oldSTARTABLEESet));
-	}
+        boolean oldSTARTABLE = sTARTABLE;
+        boolean oldSTARTABLEESet = sTARTABLEESet;
+        sTARTABLE = STARTABLE_EDEFAULT;
+        sTARTABLEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__STARTABLE, oldSTARTABLE, STARTABLE_EDEFAULT, oldSTARTABLEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetSTARTABLE() {
-		return sTARTABLEESet;
-	}
+        return sTARTABLEESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getSTATUS() {
-		return sTATUS;
-	}
+        return sTATUS;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSTATUS(String newSTATUS) {
-		String oldSTATUS = sTATUS;
-		sTATUS = newSTATUS;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__STATUS, oldSTATUS, sTATUS));
-	}
+        String oldSTATUS = sTATUS;
+        sTATUS = newSTATUS;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__STATUS, oldSTATUS, sTATUS));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isTECHNICAL() {
-		return tECHNICAL;
-	}
+        return tECHNICAL;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setTECHNICAL(boolean newTECHNICAL) {
-		boolean oldTECHNICAL = tECHNICAL;
-		tECHNICAL = newTECHNICAL;
-		boolean oldTECHNICALESet = tECHNICALESet;
-		tECHNICALESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, tECHNICAL, !oldTECHNICALESet));
-	}
+        boolean oldTECHNICAL = tECHNICAL;
+        tECHNICAL = newTECHNICAL;
+        boolean oldTECHNICALESet = tECHNICALESet;
+        tECHNICALESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, tECHNICAL, !oldTECHNICALESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetTECHNICAL() {
-		boolean oldTECHNICAL = tECHNICAL;
-		boolean oldTECHNICALESet = tECHNICALESet;
-		tECHNICAL = TECHNICAL_EDEFAULT;
-		tECHNICALESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, TECHNICAL_EDEFAULT, oldTECHNICALESet));
-	}
+        boolean oldTECHNICAL = tECHNICAL;
+        boolean oldTECHNICALESet = tECHNICALESet;
+        tECHNICAL = TECHNICAL_EDEFAULT;
+        tECHNICALESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, TECHNICAL_EDEFAULT, oldTECHNICALESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetTECHNICAL() {
-		return tECHNICALESet;
-	}
+        return tECHNICALESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isTSTATCATCHERSTATS() {
-		return tSTATCATCHERSTATS;
-	}
+        return tSTATCATCHERSTATS;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setTSTATCATCHERSTATS(boolean newTSTATCATCHERSTATS) {
-		boolean oldTSTATCATCHERSTATS = tSTATCATCHERSTATS;
-		tSTATCATCHERSTATS = newTSTATCATCHERSTATS;
-		boolean oldTSTATCATCHERSTATSESet = tSTATCATCHERSTATSESet;
-		tSTATCATCHERSTATSESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS, oldTSTATCATCHERSTATS, tSTATCATCHERSTATS, !oldTSTATCATCHERSTATSESet));
-	}
+        boolean oldTSTATCATCHERSTATS = tSTATCATCHERSTATS;
+        tSTATCATCHERSTATS = newTSTATCATCHERSTATS;
+        boolean oldTSTATCATCHERSTATSESet = tSTATCATCHERSTATSESet;
+        tSTATCATCHERSTATSESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS, oldTSTATCATCHERSTATS, tSTATCATCHERSTATS, !oldTSTATCATCHERSTATSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetTSTATCATCHERSTATS() {
-		boolean oldTSTATCATCHERSTATS = tSTATCATCHERSTATS;
-		boolean oldTSTATCATCHERSTATSESet = tSTATCATCHERSTATSESet;
-		tSTATCATCHERSTATS = TSTATCATCHERSTATS_EDEFAULT;
-		tSTATCATCHERSTATSESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS, oldTSTATCATCHERSTATS, TSTATCATCHERSTATS_EDEFAULT, oldTSTATCATCHERSTATSESet));
-	}
+        boolean oldTSTATCATCHERSTATS = tSTATCATCHERSTATS;
+        boolean oldTSTATCATCHERSTATSESet = tSTATCATCHERSTATSESet;
+        tSTATCATCHERSTATS = TSTATCATCHERSTATS_EDEFAULT;
+        tSTATCATCHERSTATSESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS, oldTSTATCATCHERSTATS, TSTATCATCHERSTATS_EDEFAULT, oldTSTATCATCHERSTATSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetTSTATCATCHERSTATS() {
-		return tSTATCATCHERSTATSESet;
-	}
+        return tSTATCATCHERSTATSESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public BigDecimal getVERSION() {
-		return vERSION;
-	}
+        return vERSION;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setVERSION(BigDecimal newVERSION) {
-		BigDecimal oldVERSION = vERSION;
-		vERSION = newVERSION;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__VERSION, oldVERSION, vERSION));
-	}
+        BigDecimal oldVERSION = vERSION;
+        vERSION = newVERSION;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__VERSION, oldVERSION, vERSION));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isVISIBLE() {
-		return vISIBLE;
-	}
+        return vISIBLE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setVISIBLE(boolean newVISIBLE) {
-		boolean oldVISIBLE = vISIBLE;
-		vISIBLE = newVISIBLE;
-		boolean oldVISIBLEESet = vISIBLEESet;
-		vISIBLEESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__VISIBLE, oldVISIBLE, vISIBLE, !oldVISIBLEESet));
-	}
+        boolean oldVISIBLE = vISIBLE;
+        vISIBLE = newVISIBLE;
+        boolean oldVISIBLEESet = vISIBLEESet;
+        vISIBLEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__VISIBLE, oldVISIBLE, vISIBLE, !oldVISIBLEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetVISIBLE() {
-		boolean oldVISIBLE = vISIBLE;
-		boolean oldVISIBLEESet = vISIBLEESet;
-		vISIBLE = VISIBLE_EDEFAULT;
-		vISIBLEESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__VISIBLE, oldVISIBLE, VISIBLE_EDEFAULT, oldVISIBLEESet));
-	}
+        boolean oldVISIBLE = vISIBLE;
+        boolean oldVISIBLEESet = vISIBLEESet;
+        vISIBLE = VISIBLE_EDEFAULT;
+        vISIBLEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__VISIBLE, oldVISIBLE, VISIBLE_EDEFAULT, oldVISIBLEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetVISIBLE() {
-		return vISIBLEESet;
-	}
+        return vISIBLEESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.HEADER_TYPE__FORMAT:
-				return basicSetFORMAT(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                return basicSetFORMAT(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.HEADER_TYPE__SIGNATURE:
-				return getSIGNATURE();
-			case ComponentPackage.HEADER_TYPE__FORMAT:
-				return getFORMAT();
-			case ComponentPackage.HEADER_TYPE__AUTHOR:
-				return getAUTHOR();
-			case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
-				return getCOMPATIBILITY();
-			case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
-				return isDATAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__EXTENSION:
-				return getEXTENSION();
-			case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
-				return isHASCONDITIONALOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
-				return isHASHCOMPONENT() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
-				return isISMULTIPLYINGOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__PLATEFORM:
-				return getPLATEFORM();
-			case ComponentPackage.HEADER_TYPE__RELEASEDATE:
-				return getRELEASEDATE();
-			case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
-				return isSCHEMAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__SERIAL:
-				return getSERIAL();
-			case ComponentPackage.HEADER_TYPE__SINGLETON:
-				return isSINGLETON() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__STARTABLE:
-				return isSTARTABLE() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__STATUS:
-				return getSTATUS();
-			case ComponentPackage.HEADER_TYPE__TECHNICAL:
-				return isTECHNICAL() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
-				return isTSTATCATCHERSTATS() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.HEADER_TYPE__VERSION:
-				return getVERSION();
-			case ComponentPackage.HEADER_TYPE__VISIBLE:
-				return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.HEADER_TYPE__SIGNATURE:
+                return getSIGNATURE();
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                return getFORMAT();
+            case ComponentPackage.HEADER_TYPE__AUTHOR:
+                return getAUTHOR();
+            case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
+                return getCOMPATIBILITY();
+            case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
+                return isDATAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__EXTENSION:
+                return getEXTENSION();
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                return isHASCONDITIONALOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                return isHASHCOMPONENT() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
+                return isISMULTIPLYINGOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__PLATEFORM:
+                return getPLATEFORM();
+            case ComponentPackage.HEADER_TYPE__RELEASEDATE:
+                return getRELEASEDATE();
+            case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
+                return isSCHEMAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__SERIAL:
+                return getSERIAL();
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                return isSINGLETON() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__STARTABLE:
+                return isSTARTABLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__STATUS:
+                return getSTATUS();
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                return isTECHNICAL() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
+                return isTSTATCATCHERSTATS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__VERSION:
+                return getVERSION();
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.HEADER_TYPE__SIGNATURE:
-				setSIGNATURE((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__FORMAT:
-				setFORMAT((FORMATType)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__AUTHOR:
-				setAUTHOR((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
-				setCOMPATIBILITY((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
-				setDATAAUTOPROPAGATE(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__EXTENSION:
-				setEXTENSION((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
-				setHASCONDITIONALOUTPUTS(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
-				setHASHCOMPONENT(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
-				setISMULTIPLYINGOUTPUTS(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__PLATEFORM:
-				setPLATEFORM((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__RELEASEDATE:
-				setRELEASEDATE((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
-				setSCHEMAAUTOPROPAGATE(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__SERIAL:
-				setSERIAL((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__SINGLETON:
-				setSINGLETON(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__STARTABLE:
-				setSTARTABLE(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__STATUS:
-				setSTATUS((String)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__TECHNICAL:
-				setTECHNICAL(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
-				setTSTATCATCHERSTATS(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.HEADER_TYPE__VERSION:
-				setVERSION((BigDecimal)newValue);
-				return;
-			case ComponentPackage.HEADER_TYPE__VISIBLE:
-				setVISIBLE(((Boolean)newValue).booleanValue());
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.HEADER_TYPE__SIGNATURE:
+                setSIGNATURE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                setFORMAT((FORMATType)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__AUTHOR:
+                setAUTHOR((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
+                setCOMPATIBILITY((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
+                setDATAAUTOPROPAGATE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__EXTENSION:
+                setEXTENSION((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                setHASCONDITIONALOUTPUTS(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                setHASHCOMPONENT(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
+                setISMULTIPLYINGOUTPUTS(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__PLATEFORM:
+                setPLATEFORM((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__RELEASEDATE:
+                setRELEASEDATE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
+                setSCHEMAAUTOPROPAGATE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__SERIAL:
+                setSERIAL((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                setSINGLETON(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__STARTABLE:
+                setSTARTABLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__STATUS:
+                setSTATUS((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                setTECHNICAL(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
+                setTSTATCATCHERSTATS(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__VERSION:
+                setVERSION((BigDecimal)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                setVISIBLE(((Boolean)newValue).booleanValue());
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.HEADER_TYPE__SIGNATURE:
-				setSIGNATURE(SIGNATURE_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__FORMAT:
-				setFORMAT((FORMATType)null);
-				return;
-			case ComponentPackage.HEADER_TYPE__AUTHOR:
-				setAUTHOR(AUTHOR_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
-				setCOMPATIBILITY(COMPATIBILITY_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
-				unsetDATAAUTOPROPAGATE();
-				return;
-			case ComponentPackage.HEADER_TYPE__EXTENSION:
-				setEXTENSION(EXTENSION_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
-				unsetHASCONDITIONALOUTPUTS();
-				return;
-			case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
-				unsetHASHCOMPONENT();
-				return;
-			case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
-				unsetISMULTIPLYINGOUTPUTS();
-				return;
-			case ComponentPackage.HEADER_TYPE__PLATEFORM:
-				setPLATEFORM(PLATEFORM_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__RELEASEDATE:
-				setRELEASEDATE(RELEASEDATE_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
-				unsetSCHEMAAUTOPROPAGATE();
-				return;
-			case ComponentPackage.HEADER_TYPE__SERIAL:
-				setSERIAL(SERIAL_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__SINGLETON:
-				unsetSINGLETON();
-				return;
-			case ComponentPackage.HEADER_TYPE__STARTABLE:
-				unsetSTARTABLE();
-				return;
-			case ComponentPackage.HEADER_TYPE__STATUS:
-				setSTATUS(STATUS_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__TECHNICAL:
-				unsetTECHNICAL();
-				return;
-			case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
-				unsetTSTATCATCHERSTATS();
-				return;
-			case ComponentPackage.HEADER_TYPE__VERSION:
-				setVERSION(VERSION_EDEFAULT);
-				return;
-			case ComponentPackage.HEADER_TYPE__VISIBLE:
-				unsetVISIBLE();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.HEADER_TYPE__SIGNATURE:
+                setSIGNATURE(SIGNATURE_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                setFORMAT((FORMATType)null);
+                return;
+            case ComponentPackage.HEADER_TYPE__AUTHOR:
+                setAUTHOR(AUTHOR_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
+                setCOMPATIBILITY(COMPATIBILITY_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
+                unsetDATAAUTOPROPAGATE();
+                return;
+            case ComponentPackage.HEADER_TYPE__EXTENSION:
+                setEXTENSION(EXTENSION_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                unsetHASCONDITIONALOUTPUTS();
+                return;
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                unsetHASHCOMPONENT();
+                return;
+            case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
+                unsetISMULTIPLYINGOUTPUTS();
+                return;
+            case ComponentPackage.HEADER_TYPE__PLATEFORM:
+                setPLATEFORM(PLATEFORM_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__RELEASEDATE:
+                setRELEASEDATE(RELEASEDATE_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
+                unsetSCHEMAAUTOPROPAGATE();
+                return;
+            case ComponentPackage.HEADER_TYPE__SERIAL:
+                setSERIAL(SERIAL_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                unsetSINGLETON();
+                return;
+            case ComponentPackage.HEADER_TYPE__STARTABLE:
+                unsetSTARTABLE();
+                return;
+            case ComponentPackage.HEADER_TYPE__STATUS:
+                setSTATUS(STATUS_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                unsetTECHNICAL();
+                return;
+            case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
+                unsetTSTATCATCHERSTATS();
+                return;
+            case ComponentPackage.HEADER_TYPE__VERSION:
+                setVERSION(VERSION_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                unsetVISIBLE();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.HEADER_TYPE__SIGNATURE:
-				return SIGNATURE_EDEFAULT == null ? sIGNATURE != null : !SIGNATURE_EDEFAULT.equals(sIGNATURE);
-			case ComponentPackage.HEADER_TYPE__FORMAT:
-				return fORMAT != null;
-			case ComponentPackage.HEADER_TYPE__AUTHOR:
-				return AUTHOR_EDEFAULT == null ? aUTHOR != null : !AUTHOR_EDEFAULT.equals(aUTHOR);
-			case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
-				return COMPATIBILITY_EDEFAULT == null ? cOMPATIBILITY != null : !COMPATIBILITY_EDEFAULT.equals(cOMPATIBILITY);
-			case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
-				return isSetDATAAUTOPROPAGATE();
-			case ComponentPackage.HEADER_TYPE__EXTENSION:
-				return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
-			case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
-				return isSetHASCONDITIONALOUTPUTS();
-			case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
-				return isSetHASHCOMPONENT();
-			case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
-				return isSetISMULTIPLYINGOUTPUTS();
-			case ComponentPackage.HEADER_TYPE__PLATEFORM:
-				return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
-			case ComponentPackage.HEADER_TYPE__RELEASEDATE:
-				return RELEASEDATE_EDEFAULT == null ? rELEASEDATE != null : !RELEASEDATE_EDEFAULT.equals(rELEASEDATE);
-			case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
-				return isSetSCHEMAAUTOPROPAGATE();
-			case ComponentPackage.HEADER_TYPE__SERIAL:
-				return SERIAL_EDEFAULT == null ? sERIAL != null : !SERIAL_EDEFAULT.equals(sERIAL);
-			case ComponentPackage.HEADER_TYPE__SINGLETON:
-				return isSetSINGLETON();
-			case ComponentPackage.HEADER_TYPE__STARTABLE:
-				return isSetSTARTABLE();
-			case ComponentPackage.HEADER_TYPE__STATUS:
-				return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
-			case ComponentPackage.HEADER_TYPE__TECHNICAL:
-				return isSetTECHNICAL();
-			case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
-				return isSetTSTATCATCHERSTATS();
-			case ComponentPackage.HEADER_TYPE__VERSION:
-				return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
-			case ComponentPackage.HEADER_TYPE__VISIBLE:
-				return isSetVISIBLE();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.HEADER_TYPE__SIGNATURE:
+                return SIGNATURE_EDEFAULT == null ? sIGNATURE != null : !SIGNATURE_EDEFAULT.equals(sIGNATURE);
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                return fORMAT != null;
+            case ComponentPackage.HEADER_TYPE__AUTHOR:
+                return AUTHOR_EDEFAULT == null ? aUTHOR != null : !AUTHOR_EDEFAULT.equals(aUTHOR);
+            case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
+                return COMPATIBILITY_EDEFAULT == null ? cOMPATIBILITY != null : !COMPATIBILITY_EDEFAULT.equals(cOMPATIBILITY);
+            case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
+                return isSetDATAAUTOPROPAGATE();
+            case ComponentPackage.HEADER_TYPE__EXTENSION:
+                return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                return isSetHASCONDITIONALOUTPUTS();
+            case ComponentPackage.HEADER_TYPE__HASHCOMPONENT:
+                return isSetHASHCOMPONENT();
+            case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
+                return isSetISMULTIPLYINGOUTPUTS();
+            case ComponentPackage.HEADER_TYPE__PLATEFORM:
+                return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
+            case ComponentPackage.HEADER_TYPE__RELEASEDATE:
+                return RELEASEDATE_EDEFAULT == null ? rELEASEDATE != null : !RELEASEDATE_EDEFAULT.equals(rELEASEDATE);
+            case ComponentPackage.HEADER_TYPE__SCHEMAAUTOPROPAGATE:
+                return isSetSCHEMAAUTOPROPAGATE();
+            case ComponentPackage.HEADER_TYPE__SERIAL:
+                return SERIAL_EDEFAULT == null ? sERIAL != null : !SERIAL_EDEFAULT.equals(sERIAL);
+            case ComponentPackage.HEADER_TYPE__SINGLETON:
+                return isSetSINGLETON();
+            case ComponentPackage.HEADER_TYPE__STARTABLE:
+                return isSetSTARTABLE();
+            case ComponentPackage.HEADER_TYPE__STATUS:
+                return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                return isSetTECHNICAL();
+            case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
+                return isSetTSTATCATCHERSTATS();
+            case ComponentPackage.HEADER_TYPE__VERSION:
+                return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                return isSetVISIBLE();
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (sIGNATURE: ");
-		result.append(sIGNATURE);
-		result.append(", aUTHOR: ");
-		result.append(aUTHOR);
-		result.append(", cOMPATIBILITY: ");
-		result.append(cOMPATIBILITY);
-		result.append(", dATAAUTOPROPAGATE: ");
-		if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
-		result.append(", eXTENSION: ");
-		result.append(eXTENSION);
-		result.append(", hASCONDITIONALOUTPUTS: ");
-		if (hASCONDITIONALOUTPUTSESet) result.append(hASCONDITIONALOUTPUTS); else result.append("<unset>");
-		result.append(", hASHCOMPONENT: ");
-		if (hASHCOMPONENTESet) result.append(hASHCOMPONENT); else result.append("<unset>");
-		result.append(", iSMULTIPLYINGOUTPUTS: ");
-		if (iSMULTIPLYINGOUTPUTSESet) result.append(iSMULTIPLYINGOUTPUTS); else result.append("<unset>");
-		result.append(", pLATEFORM: ");
-		result.append(pLATEFORM);
-		result.append(", rELEASEDATE: ");
-		result.append(rELEASEDATE);
-		result.append(", sCHEMAAUTOPROPAGATE: ");
-		if (sCHEMAAUTOPROPAGATEESet) result.append(sCHEMAAUTOPROPAGATE); else result.append("<unset>");
-		result.append(", sERIAL: ");
-		result.append(sERIAL);
-		result.append(", sINGLETON: ");
-		if (sINGLETONESet) result.append(sINGLETON); else result.append("<unset>");
-		result.append(", sTARTABLE: ");
-		if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
-		result.append(", sTATUS: ");
-		result.append(sTATUS);
-		result.append(", tECHNICAL: ");
-		if (tECHNICALESet) result.append(tECHNICAL); else result.append("<unset>");
-		result.append(", tSTATCATCHERSTATS: ");
-		if (tSTATCATCHERSTATSESet) result.append(tSTATCATCHERSTATS); else result.append("<unset>");
-		result.append(", vERSION: ");
-		result.append(vERSION);
-		result.append(", vISIBLE: ");
-		if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (sIGNATURE: ");
+        result.append(sIGNATURE);
+        result.append(", aUTHOR: ");
+        result.append(aUTHOR);
+        result.append(", cOMPATIBILITY: ");
+        result.append(cOMPATIBILITY);
+        result.append(", dATAAUTOPROPAGATE: ");
+        if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
+        result.append(", eXTENSION: ");
+        result.append(eXTENSION);
+        result.append(", hASCONDITIONALOUTPUTS: ");
+        if (hASCONDITIONALOUTPUTSESet) result.append(hASCONDITIONALOUTPUTS); else result.append("<unset>");
+        result.append(", hASHCOMPONENT: ");
+        if (hASHCOMPONENTESet) result.append(hASHCOMPONENT); else result.append("<unset>");
+        result.append(", iSMULTIPLYINGOUTPUTS: ");
+        if (iSMULTIPLYINGOUTPUTSESet) result.append(iSMULTIPLYINGOUTPUTS); else result.append("<unset>");
+        result.append(", pLATEFORM: ");
+        result.append(pLATEFORM);
+        result.append(", rELEASEDATE: ");
+        result.append(rELEASEDATE);
+        result.append(", sCHEMAAUTOPROPAGATE: ");
+        if (sCHEMAAUTOPROPAGATEESet) result.append(sCHEMAAUTOPROPAGATE); else result.append("<unset>");
+        result.append(", sERIAL: ");
+        result.append(sERIAL);
+        result.append(", sINGLETON: ");
+        if (sINGLETONESet) result.append(sINGLETON); else result.append("<unset>");
+        result.append(", sTARTABLE: ");
+        if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
+        result.append(", sTATUS: ");
+        result.append(sTATUS);
+        result.append(", tECHNICAL: ");
+        if (tECHNICALESet) result.append(tECHNICAL); else result.append("<unset>");
+        result.append(", tSTATCATCHERSTATS: ");
+        if (tSTATCATCHERSTATSESet) result.append(tSTATCATCHERSTATS); else result.append("<unset>");
+        result.append(", vERSION: ");
+        result.append(vERSION);
+        result.append(", vISIBLE: ");
+        if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
+        result.append(')');
+        return result.toString();
+    }
 
 } //HEADERTypeImpl

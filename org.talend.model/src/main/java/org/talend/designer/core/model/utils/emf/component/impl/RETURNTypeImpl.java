@@ -30,243 +30,243 @@ import org.talend.designer.core.model.utils.emf.component.RETURNType;
  */
 public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
     /**
-	 * The default value of the '{@link #getAVAILABILITY() <em>AVAILABILITY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getAVAILABILITY() <em>AVAILABILITY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getAVAILABILITY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAVAILABILITY()
+     * @generated
+     * @ordered
+     */
     protected static final String AVAILABILITY_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getAVAILABILITY() <em>AVAILABILITY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getAVAILABILITY() <em>AVAILABILITY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getAVAILABILITY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAVAILABILITY()
+     * @generated
+     * @ordered
+     */
     protected String aVAILABILITY = AVAILABILITY_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getNAME()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getNAME()
+     * @generated
+     * @ordered
+     */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getNAME()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getNAME()
+     * @generated
+     * @ordered
+     */
     protected String nAME = NAME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTYPE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
     protected static final String TYPE_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTYPE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
     protected String tYPE = TYPE_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected RETURNTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.RETURN_TYPE;
-	}
+        return ComponentPackage.Literals.RETURN_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getAVAILABILITY() {
-		return aVAILABILITY;
-	}
+        return aVAILABILITY;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setAVAILABILITY(String newAVAILABILITY) {
-		String oldAVAILABILITY = aVAILABILITY;
-		aVAILABILITY = newAVAILABILITY;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__AVAILABILITY, oldAVAILABILITY, aVAILABILITY));
-	}
+        String oldAVAILABILITY = aVAILABILITY;
+        aVAILABILITY = newAVAILABILITY;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__AVAILABILITY, oldAVAILABILITY, aVAILABILITY));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getNAME() {
-		return nAME;
-	}
+        return nAME;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setNAME(String newNAME) {
-		String oldNAME = nAME;
-		nAME = newNAME;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__NAME, oldNAME, nAME));
-	}
+        String oldNAME = nAME;
+        nAME = newNAME;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__NAME, oldNAME, nAME));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getTYPE() {
-		return tYPE;
-	}
+        return tYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setTYPE(String newTYPE) {
-		String oldTYPE = tYPE;
-		tYPE = newTYPE;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__TYPE, oldTYPE, tYPE));
-	}
+        String oldTYPE = tYPE;
+        tYPE = newTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.RETURN_TYPE__TYPE, oldTYPE, tYPE));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.RETURN_TYPE__AVAILABILITY:
-				return getAVAILABILITY();
-			case ComponentPackage.RETURN_TYPE__NAME:
-				return getNAME();
-			case ComponentPackage.RETURN_TYPE__TYPE:
-				return getTYPE();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURN_TYPE__AVAILABILITY:
+                return getAVAILABILITY();
+            case ComponentPackage.RETURN_TYPE__NAME:
+                return getNAME();
+            case ComponentPackage.RETURN_TYPE__TYPE:
+                return getTYPE();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.RETURN_TYPE__AVAILABILITY:
-				setAVAILABILITY((String)newValue);
-				return;
-			case ComponentPackage.RETURN_TYPE__NAME:
-				setNAME((String)newValue);
-				return;
-			case ComponentPackage.RETURN_TYPE__TYPE:
-				setTYPE((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURN_TYPE__AVAILABILITY:
+                setAVAILABILITY((String)newValue);
+                return;
+            case ComponentPackage.RETURN_TYPE__NAME:
+                setNAME((String)newValue);
+                return;
+            case ComponentPackage.RETURN_TYPE__TYPE:
+                setTYPE((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.RETURN_TYPE__AVAILABILITY:
-				setAVAILABILITY(AVAILABILITY_EDEFAULT);
-				return;
-			case ComponentPackage.RETURN_TYPE__NAME:
-				setNAME(NAME_EDEFAULT);
-				return;
-			case ComponentPackage.RETURN_TYPE__TYPE:
-				setTYPE(TYPE_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURN_TYPE__AVAILABILITY:
+                setAVAILABILITY(AVAILABILITY_EDEFAULT);
+                return;
+            case ComponentPackage.RETURN_TYPE__NAME:
+                setNAME(NAME_EDEFAULT);
+                return;
+            case ComponentPackage.RETURN_TYPE__TYPE:
+                setTYPE(TYPE_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.RETURN_TYPE__AVAILABILITY:
-				return AVAILABILITY_EDEFAULT == null ? aVAILABILITY != null : !AVAILABILITY_EDEFAULT.equals(aVAILABILITY);
-			case ComponentPackage.RETURN_TYPE__NAME:
-				return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
-			case ComponentPackage.RETURN_TYPE__TYPE:
-				return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURN_TYPE__AVAILABILITY:
+                return AVAILABILITY_EDEFAULT == null ? aVAILABILITY != null : !AVAILABILITY_EDEFAULT.equals(aVAILABILITY);
+            case ComponentPackage.RETURN_TYPE__NAME:
+                return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
+            case ComponentPackage.RETURN_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (aVAILABILITY: ");
-		result.append(aVAILABILITY);
-		result.append(", nAME: ");
-		result.append(nAME);
-		result.append(", tYPE: ");
-		result.append(tYPE);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (aVAILABILITY: ");
+        result.append(aVAILABILITY);
+        result.append(", nAME: ");
+        result.append(nAME);
+        result.append(", tYPE: ");
+        result.append(tYPE);
+        result.append(')');
+        return result.toString();
+    }
 
 } //RETURNTypeImpl

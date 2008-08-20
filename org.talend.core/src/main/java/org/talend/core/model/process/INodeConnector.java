@@ -44,9 +44,24 @@ public interface INodeConnector {
 
     public void setMinLinkOutput(int minLinkOutput);
 
+    /**
+     * Built In field allow to create new schemas directly in the right click on the component. A Built In schema will
+     * always be Dynamic.
+     * 
+     * @return
+     */
     public boolean isBuiltIn();
 
     public void setBuiltIn(final boolean builtIn);
+
+    /**
+     * Dynamic is set when the component can have several schemas on one connector.
+     * 
+     * @return
+     */
+    public boolean isMultiSchema();
+
+    public void setMultiSchema(final boolean multi);
 
     public int getCurLinkNbInput();
 

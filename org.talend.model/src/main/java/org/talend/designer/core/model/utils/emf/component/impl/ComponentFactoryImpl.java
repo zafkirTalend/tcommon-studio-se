@@ -44,384 +44,384 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  */
 public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFactory {
     /**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
+     * Creates the default factory implementation.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public static ComponentFactory init() {
-		try {
-			ComponentFactory theComponentFactory = (ComponentFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/Component.xsd"); 
-			if (theComponentFactory != null) {
-				return theComponentFactory;
-			}
-		}
-		catch (Exception exception) {
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new ComponentFactoryImpl();
-	}
+        try {
+            ComponentFactory theComponentFactory = (ComponentFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/Component.xsd"); 
+            if (theComponentFactory != null) {
+                return theComponentFactory;
+            }
+        }
+        catch (Exception exception) {
+            EcorePlugin.INSTANCE.log(exception);
+        }
+        return new ComponentFactoryImpl();
+    }
 
     /**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ComponentFactoryImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public EObject create(EClass eClass) {
-		switch (eClass.getClassifierID()) {
-			case ComponentPackage.ADVANCEDPARAMETERS_TYPE: return createADVANCEDPARAMETERSType();
-			case ComponentPackage.CODEGENERATION_TYPE: return createCODEGENERATIONType();
-			case ComponentPackage.COLUMN_TYPE: return createCOLUMNType();
-			case ComponentPackage.COMPONENT_TYPE: return createCOMPONENTType();
-			case ComponentPackage.CONNECTORS_TYPE: return createCONNECTORSType();
-			case ComponentPackage.CONNECTOR_TYPE: return createCONNECTORType();
-			case ComponentPackage.DEFAULT_TYPE: return createDEFAULTType();
-			case ComponentPackage.DOCUMENTATION_TYPE: return createDOCUMENTATIONType();
-			case ComponentPackage.DOCUMENT_ROOT: return createDocumentRoot();
-			case ComponentPackage.FORMAT_TYPE: return createFORMATType();
-			case ComponentPackage.HEADER_TYPE: return createHEADERType();
-			case ComponentPackage.IMPORTS_TYPE: return createIMPORTSType();
-			case ComponentPackage.IMPORT_TYPE: return createIMPORTType();
-			case ComponentPackage.INSTALL_TYPE: return createINSTALLType();
-			case ComponentPackage.ITEMS_TYPE: return createITEMSType();
-			case ComponentPackage.ITEM_TYPE: return createITEMType();
-			case ComponentPackage.LINKTO_TYPE: return createLINKTOType();
-			case ComponentPackage.PARAMETERS_TYPE: return createPARAMETERSType();
-			case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
-			case ComponentPackage.PLUGINDEPENDENCIES_TYPE: return createPLUGINDEPENDENCIESType();
-			case ComponentPackage.PLUGINDEPENDENCY_TYPE: return createPLUGINDEPENDENCYType();
-			case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
-			case ComponentPackage.RETURN_TYPE: return createRETURNType();
-			case ComponentPackage.SQLPATTERNS_TYPE: return createSQLPATTERNSType();
-			case ComponentPackage.SQLPATTERN_TYPE: return createSQLPATTERNType();
-			case ComponentPackage.TABLE_TYPE: return createTABLEType();
-			case ComponentPackage.TEMPLATEPARAM_TYPE: return createTEMPLATEPARAMType();
-			case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
-			case ComponentPackage.TEMPLATE_TYPE: return createTEMPLATEType();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eClass.getClassifierID()) {
+            case ComponentPackage.ADVANCEDPARAMETERS_TYPE: return createADVANCEDPARAMETERSType();
+            case ComponentPackage.CODEGENERATION_TYPE: return createCODEGENERATIONType();
+            case ComponentPackage.COLUMN_TYPE: return createCOLUMNType();
+            case ComponentPackage.COMPONENT_TYPE: return createCOMPONENTType();
+            case ComponentPackage.CONNECTORS_TYPE: return createCONNECTORSType();
+            case ComponentPackage.CONNECTOR_TYPE: return createCONNECTORType();
+            case ComponentPackage.DEFAULT_TYPE: return createDEFAULTType();
+            case ComponentPackage.DOCUMENTATION_TYPE: return createDOCUMENTATIONType();
+            case ComponentPackage.DOCUMENT_ROOT: return createDocumentRoot();
+            case ComponentPackage.FORMAT_TYPE: return createFORMATType();
+            case ComponentPackage.HEADER_TYPE: return createHEADERType();
+            case ComponentPackage.IMPORTS_TYPE: return createIMPORTSType();
+            case ComponentPackage.IMPORT_TYPE: return createIMPORTType();
+            case ComponentPackage.INSTALL_TYPE: return createINSTALLType();
+            case ComponentPackage.ITEMS_TYPE: return createITEMSType();
+            case ComponentPackage.ITEM_TYPE: return createITEMType();
+            case ComponentPackage.LINKTO_TYPE: return createLINKTOType();
+            case ComponentPackage.PARAMETERS_TYPE: return createPARAMETERSType();
+            case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
+            case ComponentPackage.PLUGINDEPENDENCIES_TYPE: return createPLUGINDEPENDENCIESType();
+            case ComponentPackage.PLUGINDEPENDENCY_TYPE: return createPLUGINDEPENDENCYType();
+            case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
+            case ComponentPackage.RETURN_TYPE: return createRETURNType();
+            case ComponentPackage.SQLPATTERNS_TYPE: return createSQLPATTERNSType();
+            case ComponentPackage.SQLPATTERN_TYPE: return createSQLPATTERNType();
+            case ComponentPackage.TABLE_TYPE: return createTABLEType();
+            case ComponentPackage.TEMPLATEPARAM_TYPE: return createTEMPLATEPARAMType();
+            case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
+            case ComponentPackage.TEMPLATE_TYPE: return createTEMPLATEType();
+            default:
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        }
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ADVANCEDPARAMETERSType createADVANCEDPARAMETERSType() {
-		ADVANCEDPARAMETERSTypeImpl advancedparametersType = new ADVANCEDPARAMETERSTypeImpl();
-		return advancedparametersType;
-	}
+        ADVANCEDPARAMETERSTypeImpl advancedparametersType = new ADVANCEDPARAMETERSTypeImpl();
+        return advancedparametersType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public CODEGENERATIONType createCODEGENERATIONType() {
-		CODEGENERATIONTypeImpl codegenerationType = new CODEGENERATIONTypeImpl();
-		return codegenerationType;
-	}
+        CODEGENERATIONTypeImpl codegenerationType = new CODEGENERATIONTypeImpl();
+        return codegenerationType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public COLUMNType createCOLUMNType() {
-		COLUMNTypeImpl columnType = new COLUMNTypeImpl();
-		return columnType;
-	}
+        COLUMNTypeImpl columnType = new COLUMNTypeImpl();
+        return columnType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public COMPONENTType createCOMPONENTType() {
-		COMPONENTTypeImpl componentType = new COMPONENTTypeImpl();
-		return componentType;
-	}
+        COMPONENTTypeImpl componentType = new COMPONENTTypeImpl();
+        return componentType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public CONNECTORSType createCONNECTORSType() {
-		CONNECTORSTypeImpl connectorsType = new CONNECTORSTypeImpl();
-		return connectorsType;
-	}
+        CONNECTORSTypeImpl connectorsType = new CONNECTORSTypeImpl();
+        return connectorsType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public CONNECTORType createCONNECTORType() {
-		CONNECTORTypeImpl connectorType = new CONNECTORTypeImpl();
-		return connectorType;
-	}
+        CONNECTORTypeImpl connectorType = new CONNECTORTypeImpl();
+        return connectorType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public DEFAULTType createDEFAULTType() {
-		DEFAULTTypeImpl defaultType = new DEFAULTTypeImpl();
-		return defaultType;
-	}
+        DEFAULTTypeImpl defaultType = new DEFAULTTypeImpl();
+        return defaultType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public DOCUMENTATIONType createDOCUMENTATIONType() {
-		DOCUMENTATIONTypeImpl documentationType = new DOCUMENTATIONTypeImpl();
-		return documentationType;
-	}
+        DOCUMENTATIONTypeImpl documentationType = new DOCUMENTATIONTypeImpl();
+        return documentationType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public DocumentRoot createDocumentRoot() {
-		DocumentRootImpl documentRoot = new DocumentRootImpl();
-		return documentRoot;
-	}
+        DocumentRootImpl documentRoot = new DocumentRootImpl();
+        return documentRoot;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FORMATType createFORMATType() {
-		FORMATTypeImpl formatType = new FORMATTypeImpl();
-		return formatType;
-	}
+        FORMATTypeImpl formatType = new FORMATTypeImpl();
+        return formatType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public HEADERType createHEADERType() {
-		HEADERTypeImpl headerType = new HEADERTypeImpl();
-		return headerType;
-	}
+        HEADERTypeImpl headerType = new HEADERTypeImpl();
+        return headerType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public IMPORTSType createIMPORTSType() {
-		IMPORTSTypeImpl importsType = new IMPORTSTypeImpl();
-		return importsType;
-	}
+        IMPORTSTypeImpl importsType = new IMPORTSTypeImpl();
+        return importsType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public IMPORTType createIMPORTType() {
-		IMPORTTypeImpl importType = new IMPORTTypeImpl();
-		return importType;
-	}
+        IMPORTTypeImpl importType = new IMPORTTypeImpl();
+        return importType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public INSTALLType createINSTALLType() {
-		INSTALLTypeImpl installType = new INSTALLTypeImpl();
-		return installType;
-	}
+        INSTALLTypeImpl installType = new INSTALLTypeImpl();
+        return installType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ITEMSType createITEMSType() {
-		ITEMSTypeImpl itemsType = new ITEMSTypeImpl();
-		return itemsType;
-	}
+        ITEMSTypeImpl itemsType = new ITEMSTypeImpl();
+        return itemsType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ITEMType createITEMType() {
-		ITEMTypeImpl itemType = new ITEMTypeImpl();
-		return itemType;
-	}
+        ITEMTypeImpl itemType = new ITEMTypeImpl();
+        return itemType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public LINKTOType createLINKTOType() {
-		LINKTOTypeImpl linktoType = new LINKTOTypeImpl();
-		return linktoType;
-	}
+        LINKTOTypeImpl linktoType = new LINKTOTypeImpl();
+        return linktoType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public PARAMETERSType createPARAMETERSType() {
-		PARAMETERSTypeImpl parametersType = new PARAMETERSTypeImpl();
-		return parametersType;
-	}
+        PARAMETERSTypeImpl parametersType = new PARAMETERSTypeImpl();
+        return parametersType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public PARAMETERType createPARAMETERType() {
-		PARAMETERTypeImpl parameterType = new PARAMETERTypeImpl();
-		return parameterType;
-	}
+        PARAMETERTypeImpl parameterType = new PARAMETERTypeImpl();
+        return parameterType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public PLUGINDEPENDENCIESType createPLUGINDEPENDENCIESType() {
-		PLUGINDEPENDENCIESTypeImpl plugindependenciesType = new PLUGINDEPENDENCIESTypeImpl();
-		return plugindependenciesType;
-	}
+        PLUGINDEPENDENCIESTypeImpl plugindependenciesType = new PLUGINDEPENDENCIESTypeImpl();
+        return plugindependenciesType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public PLUGINDEPENDENCYType createPLUGINDEPENDENCYType() {
-		PLUGINDEPENDENCYTypeImpl plugindependencyType = new PLUGINDEPENDENCYTypeImpl();
-		return plugindependencyType;
-	}
+        PLUGINDEPENDENCYTypeImpl plugindependencyType = new PLUGINDEPENDENCYTypeImpl();
+        return plugindependencyType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public RETURNSType createRETURNSType() {
-		RETURNSTypeImpl returnsType = new RETURNSTypeImpl();
-		return returnsType;
-	}
+        RETURNSTypeImpl returnsType = new RETURNSTypeImpl();
+        return returnsType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public RETURNType createRETURNType() {
-		RETURNTypeImpl returnType = new RETURNTypeImpl();
-		return returnType;
-	}
+        RETURNTypeImpl returnType = new RETURNTypeImpl();
+        return returnType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public SQLPATTERNSType createSQLPATTERNSType() {
-		SQLPATTERNSTypeImpl sqlpatternsType = new SQLPATTERNSTypeImpl();
-		return sqlpatternsType;
-	}
+        SQLPATTERNSTypeImpl sqlpatternsType = new SQLPATTERNSTypeImpl();
+        return sqlpatternsType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public SQLPATTERNType createSQLPATTERNType() {
-		SQLPATTERNTypeImpl sqlpatternType = new SQLPATTERNTypeImpl();
-		return sqlpatternType;
-	}
+        SQLPATTERNTypeImpl sqlpatternType = new SQLPATTERNTypeImpl();
+        return sqlpatternType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public TABLEType createTABLEType() {
-		TABLETypeImpl tableType = new TABLETypeImpl();
-		return tableType;
-	}
+        TABLETypeImpl tableType = new TABLETypeImpl();
+        return tableType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public TEMPLATEPARAMType createTEMPLATEPARAMType() {
-		TEMPLATEPARAMTypeImpl templateparamType = new TEMPLATEPARAMTypeImpl();
-		return templateparamType;
-	}
+        TEMPLATEPARAMTypeImpl templateparamType = new TEMPLATEPARAMTypeImpl();
+        return templateparamType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public TEMPLATESType createTEMPLATESType() {
-		TEMPLATESTypeImpl templatesType = new TEMPLATESTypeImpl();
-		return templatesType;
-	}
+        TEMPLATESTypeImpl templatesType = new TEMPLATESTypeImpl();
+        return templatesType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public TEMPLATEType createTEMPLATEType() {
-		TEMPLATETypeImpl templateType = new TEMPLATETypeImpl();
-		return templateType;
-	}
+        TEMPLATETypeImpl templateType = new TEMPLATETypeImpl();
+        return templateType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ComponentPackage getComponentPackage() {
-		return (ComponentPackage)getEPackage();
-	}
+        return (ComponentPackage)getEPackage();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
+     * @deprecated
+     * @generated
+     */
     @Deprecated
     public static ComponentPackage getPackage() {
-		return ComponentPackage.eINSTANCE;
-	}
+        return ComponentPackage.eINSTANCE;
+    }
 
 } //ComponentFactoryImpl

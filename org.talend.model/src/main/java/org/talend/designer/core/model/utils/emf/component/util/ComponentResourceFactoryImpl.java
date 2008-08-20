@@ -25,44 +25,44 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  */
 public class ComponentResourceFactoryImpl extends ResourceFactoryImpl {
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected ExtendedMetaData extendedMetaData;
 
     /**
-	 * Creates an instance of the resource factory.
-	 * <!-- begin-user-doc -->
+     * Creates an instance of the resource factory.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ComponentResourceFactoryImpl() {
-		super();
-		extendedMetaData = new BasicExtendedMetaData(new EPackageRegistryImpl(EPackage.Registry.INSTANCE));
-		extendedMetaData.putPackage(null, ComponentPackage.eINSTANCE);
-	}
+        super();
+        extendedMetaData = new BasicExtendedMetaData(new EPackageRegistryImpl(EPackage.Registry.INSTANCE));
+        extendedMetaData.putPackage(null, ComponentPackage.eINSTANCE);
+    }
 
     /**
-	 * Creates an instance of the resource.
-	 * <!-- begin-user-doc -->
+     * Creates an instance of the resource.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     public Resource createResource(URI uri) {
-		XMLResource result = new ComponentResourceImpl(uri);
-		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
-		result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
+        XMLResource result = new ComponentResourceImpl(uri);
+        result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
+        result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
 
-		result.getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+        result.getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
 
-		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-		result.getDefaultSaveOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+        result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+        result.getDefaultSaveOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
 
-		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_LEXICAL_HANDLER, Boolean.TRUE);
-		return result;
-	}
+        result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_LEXICAL_HANDLER, Boolean.TRUE);
+        return result;
+    }
 
 } //ComponentResourceFactoryImpl

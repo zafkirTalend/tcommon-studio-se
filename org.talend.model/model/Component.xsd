@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
-<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
-<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
-<!-- edited with XMLSpy v2006 rel. 3 U (http://www.altova.com) by Rousseau Nicolas (*) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="COMPONENT">
 		<xs:complexType>
@@ -72,22 +68,38 @@
 						<xs:documentation>BUILTIN can only be used when CTYPE = 'FLOW'</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
-						<xs:attribute name="NAME" type="xs:string" use="optional"/>
-						<xs:attribute name="CTYPE" type="xs:string" use="required"/>
-						<xs:attribute name="MAX_INPUT" type="xs:int" use="optional"/>
-						<xs:attribute name="MIN_INPUT" type="xs:int" use="optional"/>
-						<xs:attribute name="MAX_OUTPUT" type="xs:int" use="optional"/>
-						<xs:attribute name="MIN_OUTPUT" type="xs:int" use="optional"/>
-						<xs:attribute name="BUILTIN" type="xs:boolean" use="optional"/>
-						<xs:attribute name="LINE_STYLE" type="xs:int" use="optional"/>
-						<xs:attribute name="COLOR" type="xs:string" use="optional"/>
-						<xs:attribute name="BASE_SCHEMA" type="xs:string" use="optional"/>
-						<xs:attribute name="COMPONENT" type="xs:string" use="optional">
+						<xs:attribute name="NAME" type="xs:string"
+							use="optional" />
+						<xs:attribute name="CTYPE" type="xs:string"
+							use="required" />
+						<xs:attribute name="MAX_INPUT" type="xs:int"
+							use="optional" />
+						<xs:attribute name="MIN_INPUT" type="xs:int"
+							use="optional" />
+						<xs:attribute name="MAX_OUTPUT" type="xs:int"
+							use="optional" />
+						<xs:attribute name="MIN_OUTPUT" type="xs:int"
+							use="optional" />
+						<xs:attribute name="BUILTIN" type="xs:boolean"
+							use="optional" />
+						<xs:attribute name="LINE_STYLE" type="xs:int"
+							use="optional" />
+						<xs:attribute name="COLOR" type="xs:string"
+							use="optional" />
+						<xs:attribute name="BASE_SCHEMA"
+							type="xs:string" use="optional" />
+						<xs:attribute name="COMPONENT" type="xs:string"
+							use="optional">
 							<xs:annotation>
-								<xs:documentation source="Used only for LOOKUP type, for the hash component"/>
+								<xs:documentation
+									source="Used only for LOOKUP type, for the hash component" />
 							</xs:annotation>
 						</xs:attribute>
-						<xs:attribute name="INPUT_LINK_SELECTION" type="xs:boolean" use="optional" default="false"/>
+						<xs:attribute name="INPUT_LINK_SELECTION"
+							type="xs:boolean" use="optional" default="false" />
+						<xs:attribute name="MULTI_SCHEMA"
+							type="xs:boolean">
+						</xs:attribute>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

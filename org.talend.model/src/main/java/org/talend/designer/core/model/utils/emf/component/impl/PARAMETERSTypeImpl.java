@@ -34,118 +34,118 @@ import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
  */
 public class PARAMETERSTypeImpl extends EObjectImpl implements PARAMETERSType {
     /**
-	 * The cached value of the '{@link #getPARAMETER() <em>PARAMETER</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPARAMETER() <em>PARAMETER</em>}' containment reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPARAMETER()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPARAMETER()
+     * @generated
+     * @ordered
+     */
     protected EList pARAMETER;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected PARAMETERSTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.PARAMETERS_TYPE;
-	}
+        return ComponentPackage.Literals.PARAMETERS_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EList getPARAMETER() {
-		if (pARAMETER == null) {
-			pARAMETER = new EObjectContainmentEList(PARAMETERType.class, this, ComponentPackage.PARAMETERS_TYPE__PARAMETER);
-		}
-		return pARAMETER;
-	}
+        if (pARAMETER == null) {
+            pARAMETER = new EObjectContainmentEList(PARAMETERType.class, this, ComponentPackage.PARAMETERS_TYPE__PARAMETER);
+        }
+        return pARAMETER;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
-				return ((InternalEList)getPARAMETER()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
+                return ((InternalEList)getPARAMETER()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
-				return getPARAMETER();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
+                return getPARAMETER();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
-				getPARAMETER().clear();
-				getPARAMETER().addAll((Collection)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
+                getPARAMETER().clear();
+                getPARAMETER().addAll((Collection)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
-				getPARAMETER().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
+                getPARAMETER().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
-				return pARAMETER != null && !pARAMETER.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.PARAMETERS_TYPE__PARAMETER:
+                return pARAMETER != null && !pARAMETER.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //PARAMETERSTypeImpl

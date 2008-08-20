@@ -31,118 +31,118 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface TEMPLATESType extends EObject {
     /**
-	 * Returns the value of the '<em><b>TEMPLATE</b></em>' containment reference list.
-	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>TEMPLATE</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>TEMPLATE</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>TEMPLATE</em>' containment reference list.
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_TEMPLATE()
-	 * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATEType" containment="true" required="true"
-	 *        extendedMetaData="kind='element' name='TEMPLATE' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>TEMPLATE</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_TEMPLATE()
+     * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATEType" containment="true" required="true"
+     *        extendedMetaData="kind='element' name='TEMPLATE' namespace='##targetNamespace'"
+     * @generated
+     */
     EList getTEMPLATE();
 
     /**
-	 * Returns the value of the '<em><b>TEMPLATEPARAM</b></em>' containment reference list.
-	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>TEMPLATEPARAM</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>TEMPLATEPARAM</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>TEMPLATEPARAM</em>' containment reference list.
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_TEMPLATEPARAM()
-	 * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType" containment="true"
-	 *        extendedMetaData="kind='element' name='TEMPLATE_PARAM' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>TEMPLATEPARAM</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_TEMPLATEPARAM()
+     * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType" containment="true"
+     *        extendedMetaData="kind='element' name='TEMPLATE_PARAM' namespace='##targetNamespace'"
+     * @generated
+     */
     EList getTEMPLATEPARAM();
 
     /**
-	 * Returns the value of the '<em><b>CONNECTOR</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>CONNECTOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>CONNECTOR</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>CONNECTOR</em>' attribute.
-	 * @see #setCONNECTOR(String)
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_CONNECTOR()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="kind='attribute' name='CONNECTOR' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>CONNECTOR</em>' attribute.
+     * @see #setCONNECTOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_CONNECTOR()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='CONNECTOR' namespace='##targetNamespace'"
+     * @generated
+     */
     String getCONNECTOR();
 
     /**
-	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getCONNECTOR <em>CONNECTOR</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getCONNECTOR <em>CONNECTOR</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>CONNECTOR</em>' attribute.
-	 * @see #getCONNECTOR()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>CONNECTOR</em>' attribute.
+     * @see #getCONNECTOR()
+     * @generated
+     */
     void setCONNECTOR(String value);
 
     /**
-	 * Returns the value of the '<em><b>INPUT</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>INPUT</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>INPUT</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>INPUT</em>' attribute.
-	 * @see #setINPUT(String)
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_INPUT()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="kind='attribute' name='INPUT' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>INPUT</em>' attribute.
+     * @see #setINPUT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_INPUT()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='INPUT' namespace='##targetNamespace'"
+     * @generated
+     */
     String getINPUT();
 
     /**
-	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getINPUT <em>INPUT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getINPUT <em>INPUT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>INPUT</em>' attribute.
-	 * @see #getINPUT()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>INPUT</em>' attribute.
+     * @see #getINPUT()
+     * @generated
+     */
     void setINPUT(String value);
 
     /**
-	 * Returns the value of the '<em><b>OUTPUT</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>OUTPUT</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>OUTPUT</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>OUTPUT</em>' attribute.
-	 * @see #setOUTPUT(String)
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_OUTPUT()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 *        extendedMetaData="kind='attribute' name='OUTPUT' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>OUTPUT</em>' attribute.
+     * @see #setOUTPUT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_OUTPUT()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='OUTPUT' namespace='##targetNamespace'"
+     * @generated
+     */
     String getOUTPUT();
 
     /**
-	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getOUTPUT <em>OUTPUT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getOUTPUT <em>OUTPUT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>OUTPUT</em>' attribute.
-	 * @see #getOUTPUT()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>OUTPUT</em>' attribute.
+     * @see #getOUTPUT()
+     * @generated
+     */
     void setOUTPUT(String value);
 
 } // TEMPLATESType

@@ -41,871 +41,871 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  */
 public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
     /**
-	 * The default value of the '{@link #getCOMMENT() <em>COMMENT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getCOMMENT() <em>COMMENT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCOMMENT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCOMMENT()
+     * @generated
+     * @ordered
+     */
     protected static final String COMMENT_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getCOMMENT() <em>COMMENT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCOMMENT() <em>COMMENT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCOMMENT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCOMMENT()
+     * @generated
+     * @ordered
+     */
     protected String cOMMENT = COMMENT_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isCUSTOM() <em>CUSTOM</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isCUSTOM() <em>CUSTOM</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isCUSTOM()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isCUSTOM()
+     * @generated
+     * @ordered
+     */
     protected static final boolean CUSTOM_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isCUSTOM() <em>CUSTOM</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isCUSTOM() <em>CUSTOM</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isCUSTOM()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isCUSTOM()
+     * @generated
+     * @ordered
+     */
     protected boolean cUSTOM = CUSTOM_EDEFAULT;
 
     /**
-	 * This is true if the CUSTOM attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the CUSTOM attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean cUSTOMESet;
 
     /**
-	 * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDEFAULT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDEFAULT()
+     * @generated
+     * @ordered
+     */
     protected static final String DEFAULT_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDEFAULT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDEFAULT()
+     * @generated
+     * @ordered
+     */
     protected String dEFAULT = DEFAULT_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isKEY() <em>KEY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isKEY() <em>KEY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isKEY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isKEY()
+     * @generated
+     * @ordered
+     */
     protected static final boolean KEY_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isKEY() <em>KEY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isKEY() <em>KEY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isKEY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isKEY()
+     * @generated
+     * @ordered
+     */
     protected boolean kEY = KEY_EDEFAULT;
 
     /**
-	 * This is true if the KEY attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the KEY attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean kEYESet;
 
     /**
-	 * The default value of the '{@link #getLENGTH() <em>LENGTH</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getLENGTH() <em>LENGTH</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLENGTH()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLENGTH()
+     * @generated
+     * @ordered
+     */
     protected static final int LENGTH_EDEFAULT = 0;
 
     /**
-	 * The cached value of the '{@link #getLENGTH() <em>LENGTH</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLENGTH() <em>LENGTH</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLENGTH()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLENGTH()
+     * @generated
+     * @ordered
+     */
     protected int lENGTH = LENGTH_EDEFAULT;
 
     /**
-	 * This is true if the LENGTH attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the LENGTH attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean lENGTHESet;
 
     /**
-	 * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getNAME()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getNAME()
+     * @generated
+     * @ordered
+     */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getNAME()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getNAME()
+     * @generated
+     * @ordered
+     */
     protected String nAME = NAME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isNULLABLE() <em>NULLABLE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isNULLABLE() <em>NULLABLE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isNULLABLE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isNULLABLE()
+     * @generated
+     * @ordered
+     */
     protected static final boolean NULLABLE_EDEFAULT = true;
 
     /**
-	 * The cached value of the '{@link #isNULLABLE() <em>NULLABLE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isNULLABLE() <em>NULLABLE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isNULLABLE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isNULLABLE()
+     * @generated
+     * @ordered
+     */
     protected boolean nULLABLE = NULLABLE_EDEFAULT;
 
     /**
-	 * This is true if the NULLABLE attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the NULLABLE attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean nULLABLEESet;
 
     /**
-	 * The default value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPATTERN()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPATTERN()
+     * @generated
+     * @ordered
+     */
     protected static final String PATTERN_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPATTERN()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPATTERN()
+     * @generated
+     * @ordered
+     */
     protected String pATTERN = PATTERN_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getPRECISION() <em>PRECISION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getPRECISION() <em>PRECISION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPRECISION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPRECISION()
+     * @generated
+     * @ordered
+     */
     protected static final int PRECISION_EDEFAULT = 0;
 
     /**
-	 * The cached value of the '{@link #getPRECISION() <em>PRECISION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPRECISION() <em>PRECISION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPRECISION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPRECISION()
+     * @generated
+     * @ordered
+     */
     protected int pRECISION = PRECISION_EDEFAULT;
 
     /**
-	 * This is true if the PRECISION attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the PRECISION attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean pRECISIONESet;
 
     /**
-	 * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isREADONLY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
     protected static final boolean READONLY_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isREADONLY()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
     protected boolean rEADONLY = READONLY_EDEFAULT;
 
     /**
-	 * This is true if the READONLY attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the READONLY attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean rEADONLYESet;
 
     /**
-	 * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTYPE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
     protected static final String TYPE_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTYPE()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTYPE()
+     * @generated
+     * @ordered
+     */
     protected String tYPE = TYPE_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected COLUMNTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.COLUMN_TYPE;
-	}
+        return ComponentPackage.Literals.COLUMN_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getCOMMENT() {
-		return cOMMENT;
-	}
+        return cOMMENT;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setCOMMENT(String newCOMMENT) {
-		String oldCOMMENT = cOMMENT;
-		cOMMENT = newCOMMENT;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__COMMENT, oldCOMMENT, cOMMENT));
-	}
+        String oldCOMMENT = cOMMENT;
+        cOMMENT = newCOMMENT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__COMMENT, oldCOMMENT, cOMMENT));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isCUSTOM() {
-		return cUSTOM;
-	}
+        return cUSTOM;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setCUSTOM(boolean newCUSTOM) {
-		boolean oldCUSTOM = cUSTOM;
-		cUSTOM = newCUSTOM;
-		boolean oldCUSTOMESet = cUSTOMESet;
-		cUSTOMESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__CUSTOM, oldCUSTOM, cUSTOM, !oldCUSTOMESet));
-	}
+        boolean oldCUSTOM = cUSTOM;
+        cUSTOM = newCUSTOM;
+        boolean oldCUSTOMESet = cUSTOMESet;
+        cUSTOMESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__CUSTOM, oldCUSTOM, cUSTOM, !oldCUSTOMESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetCUSTOM() {
-		boolean oldCUSTOM = cUSTOM;
-		boolean oldCUSTOMESet = cUSTOMESet;
-		cUSTOM = CUSTOM_EDEFAULT;
-		cUSTOMESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__CUSTOM, oldCUSTOM, CUSTOM_EDEFAULT, oldCUSTOMESet));
-	}
+        boolean oldCUSTOM = cUSTOM;
+        boolean oldCUSTOMESet = cUSTOMESet;
+        cUSTOM = CUSTOM_EDEFAULT;
+        cUSTOMESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__CUSTOM, oldCUSTOM, CUSTOM_EDEFAULT, oldCUSTOMESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetCUSTOM() {
-		return cUSTOMESet;
-	}
+        return cUSTOMESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getDEFAULT() {
-		return dEFAULT;
-	}
+        return dEFAULT;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setDEFAULT(String newDEFAULT) {
-		String oldDEFAULT = dEFAULT;
-		dEFAULT = newDEFAULT;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__DEFAULT, oldDEFAULT, dEFAULT));
-	}
+        String oldDEFAULT = dEFAULT;
+        dEFAULT = newDEFAULT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__DEFAULT, oldDEFAULT, dEFAULT));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isKEY() {
-		return kEY;
-	}
+        return kEY;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setKEY(boolean newKEY) {
-		boolean oldKEY = kEY;
-		kEY = newKEY;
-		boolean oldKEYESet = kEYESet;
-		kEYESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__KEY, oldKEY, kEY, !oldKEYESet));
-	}
+        boolean oldKEY = kEY;
+        kEY = newKEY;
+        boolean oldKEYESet = kEYESet;
+        kEYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__KEY, oldKEY, kEY, !oldKEYESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetKEY() {
-		boolean oldKEY = kEY;
-		boolean oldKEYESet = kEYESet;
-		kEY = KEY_EDEFAULT;
-		kEYESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__KEY, oldKEY, KEY_EDEFAULT, oldKEYESet));
-	}
+        boolean oldKEY = kEY;
+        boolean oldKEYESet = kEYESet;
+        kEY = KEY_EDEFAULT;
+        kEYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__KEY, oldKEY, KEY_EDEFAULT, oldKEYESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetKEY() {
-		return kEYESet;
-	}
+        return kEYESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public int getLENGTH() {
-		return lENGTH;
-	}
+        return lENGTH;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setLENGTH(int newLENGTH) {
-		int oldLENGTH = lENGTH;
-		lENGTH = newLENGTH;
-		boolean oldLENGTHESet = lENGTHESet;
-		lENGTHESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__LENGTH, oldLENGTH, lENGTH, !oldLENGTHESet));
-	}
+        int oldLENGTH = lENGTH;
+        lENGTH = newLENGTH;
+        boolean oldLENGTHESet = lENGTHESet;
+        lENGTHESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__LENGTH, oldLENGTH, lENGTH, !oldLENGTHESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetLENGTH() {
-		int oldLENGTH = lENGTH;
-		boolean oldLENGTHESet = lENGTHESet;
-		lENGTH = LENGTH_EDEFAULT;
-		lENGTHESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__LENGTH, oldLENGTH, LENGTH_EDEFAULT, oldLENGTHESet));
-	}
+        int oldLENGTH = lENGTH;
+        boolean oldLENGTHESet = lENGTHESet;
+        lENGTH = LENGTH_EDEFAULT;
+        lENGTHESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__LENGTH, oldLENGTH, LENGTH_EDEFAULT, oldLENGTHESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetLENGTH() {
-		return lENGTHESet;
-	}
+        return lENGTHESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getNAME() {
-		return nAME;
-	}
+        return nAME;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setNAME(String newNAME) {
-		String oldNAME = nAME;
-		nAME = newNAME;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__NAME, oldNAME, nAME));
-	}
+        String oldNAME = nAME;
+        nAME = newNAME;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__NAME, oldNAME, nAME));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isNULLABLE() {
-		return nULLABLE;
-	}
+        return nULLABLE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setNULLABLE(boolean newNULLABLE) {
-		boolean oldNULLABLE = nULLABLE;
-		nULLABLE = newNULLABLE;
-		boolean oldNULLABLEESet = nULLABLEESet;
-		nULLABLEESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__NULLABLE, oldNULLABLE, nULLABLE, !oldNULLABLEESet));
-	}
+        boolean oldNULLABLE = nULLABLE;
+        nULLABLE = newNULLABLE;
+        boolean oldNULLABLEESet = nULLABLEESet;
+        nULLABLEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__NULLABLE, oldNULLABLE, nULLABLE, !oldNULLABLEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetNULLABLE() {
-		boolean oldNULLABLE = nULLABLE;
-		boolean oldNULLABLEESet = nULLABLEESet;
-		nULLABLE = NULLABLE_EDEFAULT;
-		nULLABLEESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__NULLABLE, oldNULLABLE, NULLABLE_EDEFAULT, oldNULLABLEESet));
-	}
+        boolean oldNULLABLE = nULLABLE;
+        boolean oldNULLABLEESet = nULLABLEESet;
+        nULLABLE = NULLABLE_EDEFAULT;
+        nULLABLEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__NULLABLE, oldNULLABLE, NULLABLE_EDEFAULT, oldNULLABLEESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetNULLABLE() {
-		return nULLABLEESet;
-	}
+        return nULLABLEESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getPATTERN() {
-		return pATTERN;
-	}
+        return pATTERN;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setPATTERN(String newPATTERN) {
-		String oldPATTERN = pATTERN;
-		pATTERN = newPATTERN;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__PATTERN, oldPATTERN, pATTERN));
-	}
+        String oldPATTERN = pATTERN;
+        pATTERN = newPATTERN;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__PATTERN, oldPATTERN, pATTERN));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public int getPRECISION() {
-		return pRECISION;
-	}
+        return pRECISION;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setPRECISION(int newPRECISION) {
-		int oldPRECISION = pRECISION;
-		pRECISION = newPRECISION;
-		boolean oldPRECISIONESet = pRECISIONESet;
-		pRECISIONESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__PRECISION, oldPRECISION, pRECISION, !oldPRECISIONESet));
-	}
+        int oldPRECISION = pRECISION;
+        pRECISION = newPRECISION;
+        boolean oldPRECISIONESet = pRECISIONESet;
+        pRECISIONESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__PRECISION, oldPRECISION, pRECISION, !oldPRECISIONESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetPRECISION() {
-		int oldPRECISION = pRECISION;
-		boolean oldPRECISIONESet = pRECISIONESet;
-		pRECISION = PRECISION_EDEFAULT;
-		pRECISIONESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__PRECISION, oldPRECISION, PRECISION_EDEFAULT, oldPRECISIONESet));
-	}
+        int oldPRECISION = pRECISION;
+        boolean oldPRECISIONESet = pRECISIONESet;
+        pRECISION = PRECISION_EDEFAULT;
+        pRECISIONESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__PRECISION, oldPRECISION, PRECISION_EDEFAULT, oldPRECISIONESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetPRECISION() {
-		return pRECISIONESet;
-	}
+        return pRECISIONESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isREADONLY() {
-		return rEADONLY;
-	}
+        return rEADONLY;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setREADONLY(boolean newREADONLY) {
-		boolean oldREADONLY = rEADONLY;
-		rEADONLY = newREADONLY;
-		boolean oldREADONLYESet = rEADONLYESet;
-		rEADONLYESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
-	}
+        boolean oldREADONLY = rEADONLY;
+        rEADONLY = newREADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetREADONLY() {
-		boolean oldREADONLY = rEADONLY;
-		boolean oldREADONLYESet = rEADONLYESet;
-		rEADONLY = READONLY_EDEFAULT;
-		rEADONLYESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
-	}
+        boolean oldREADONLY = rEADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLY = READONLY_EDEFAULT;
+        rEADONLYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetREADONLY() {
-		return rEADONLYESet;
-	}
+        return rEADONLYESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getTYPE() {
-		return tYPE;
-	}
+        return tYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setTYPE(String newTYPE) {
-		String oldTYPE = tYPE;
-		tYPE = newTYPE;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__TYPE, oldTYPE, tYPE));
-	}
+        String oldTYPE = tYPE;
+        tYPE = newTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__TYPE, oldTYPE, tYPE));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.COLUMN_TYPE__COMMENT:
-				return getCOMMENT();
-			case ComponentPackage.COLUMN_TYPE__CUSTOM:
-				return isCUSTOM() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.COLUMN_TYPE__DEFAULT:
-				return getDEFAULT();
-			case ComponentPackage.COLUMN_TYPE__KEY:
-				return isKEY() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.COLUMN_TYPE__LENGTH:
-				return new Integer(getLENGTH());
-			case ComponentPackage.COLUMN_TYPE__NAME:
-				return getNAME();
-			case ComponentPackage.COLUMN_TYPE__NULLABLE:
-				return isNULLABLE() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.COLUMN_TYPE__PATTERN:
-				return getPATTERN();
-			case ComponentPackage.COLUMN_TYPE__PRECISION:
-				return new Integer(getPRECISION());
-			case ComponentPackage.COLUMN_TYPE__READONLY:
-				return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.COLUMN_TYPE__TYPE:
-				return getTYPE();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                return getCOMMENT();
+            case ComponentPackage.COLUMN_TYPE__CUSTOM:
+                return isCUSTOM() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                return getDEFAULT();
+            case ComponentPackage.COLUMN_TYPE__KEY:
+                return isKEY() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.COLUMN_TYPE__LENGTH:
+                return new Integer(getLENGTH());
+            case ComponentPackage.COLUMN_TYPE__NAME:
+                return getNAME();
+            case ComponentPackage.COLUMN_TYPE__NULLABLE:
+                return isNULLABLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                return getPATTERN();
+            case ComponentPackage.COLUMN_TYPE__PRECISION:
+                return new Integer(getPRECISION());
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                return getTYPE();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.COLUMN_TYPE__COMMENT:
-				setCOMMENT((String)newValue);
-				return;
-			case ComponentPackage.COLUMN_TYPE__CUSTOM:
-				setCUSTOM(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.COLUMN_TYPE__DEFAULT:
-				setDEFAULT((String)newValue);
-				return;
-			case ComponentPackage.COLUMN_TYPE__KEY:
-				setKEY(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.COLUMN_TYPE__LENGTH:
-				setLENGTH(((Integer)newValue).intValue());
-				return;
-			case ComponentPackage.COLUMN_TYPE__NAME:
-				setNAME((String)newValue);
-				return;
-			case ComponentPackage.COLUMN_TYPE__NULLABLE:
-				setNULLABLE(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.COLUMN_TYPE__PATTERN:
-				setPATTERN((String)newValue);
-				return;
-			case ComponentPackage.COLUMN_TYPE__PRECISION:
-				setPRECISION(((Integer)newValue).intValue());
-				return;
-			case ComponentPackage.COLUMN_TYPE__READONLY:
-				setREADONLY(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.COLUMN_TYPE__TYPE:
-				setTYPE((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                setCOMMENT((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__CUSTOM:
+                setCUSTOM(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                setDEFAULT((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__KEY:
+                setKEY(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__LENGTH:
+                setLENGTH(((Integer)newValue).intValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__NAME:
+                setNAME((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__NULLABLE:
+                setNULLABLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                setPATTERN((String)newValue);
+                return;
+            case ComponentPackage.COLUMN_TYPE__PRECISION:
+                setPRECISION(((Integer)newValue).intValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                setREADONLY(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                setTYPE((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.COLUMN_TYPE__COMMENT:
-				setCOMMENT(COMMENT_EDEFAULT);
-				return;
-			case ComponentPackage.COLUMN_TYPE__CUSTOM:
-				unsetCUSTOM();
-				return;
-			case ComponentPackage.COLUMN_TYPE__DEFAULT:
-				setDEFAULT(DEFAULT_EDEFAULT);
-				return;
-			case ComponentPackage.COLUMN_TYPE__KEY:
-				unsetKEY();
-				return;
-			case ComponentPackage.COLUMN_TYPE__LENGTH:
-				unsetLENGTH();
-				return;
-			case ComponentPackage.COLUMN_TYPE__NAME:
-				setNAME(NAME_EDEFAULT);
-				return;
-			case ComponentPackage.COLUMN_TYPE__NULLABLE:
-				unsetNULLABLE();
-				return;
-			case ComponentPackage.COLUMN_TYPE__PATTERN:
-				setPATTERN(PATTERN_EDEFAULT);
-				return;
-			case ComponentPackage.COLUMN_TYPE__PRECISION:
-				unsetPRECISION();
-				return;
-			case ComponentPackage.COLUMN_TYPE__READONLY:
-				unsetREADONLY();
-				return;
-			case ComponentPackage.COLUMN_TYPE__TYPE:
-				setTYPE(TYPE_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                setCOMMENT(COMMENT_EDEFAULT);
+                return;
+            case ComponentPackage.COLUMN_TYPE__CUSTOM:
+                unsetCUSTOM();
+                return;
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                setDEFAULT(DEFAULT_EDEFAULT);
+                return;
+            case ComponentPackage.COLUMN_TYPE__KEY:
+                unsetKEY();
+                return;
+            case ComponentPackage.COLUMN_TYPE__LENGTH:
+                unsetLENGTH();
+                return;
+            case ComponentPackage.COLUMN_TYPE__NAME:
+                setNAME(NAME_EDEFAULT);
+                return;
+            case ComponentPackage.COLUMN_TYPE__NULLABLE:
+                unsetNULLABLE();
+                return;
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                setPATTERN(PATTERN_EDEFAULT);
+                return;
+            case ComponentPackage.COLUMN_TYPE__PRECISION:
+                unsetPRECISION();
+                return;
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                unsetREADONLY();
+                return;
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                setTYPE(TYPE_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.COLUMN_TYPE__COMMENT:
-				return COMMENT_EDEFAULT == null ? cOMMENT != null : !COMMENT_EDEFAULT.equals(cOMMENT);
-			case ComponentPackage.COLUMN_TYPE__CUSTOM:
-				return isSetCUSTOM();
-			case ComponentPackage.COLUMN_TYPE__DEFAULT:
-				return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
-			case ComponentPackage.COLUMN_TYPE__KEY:
-				return isSetKEY();
-			case ComponentPackage.COLUMN_TYPE__LENGTH:
-				return isSetLENGTH();
-			case ComponentPackage.COLUMN_TYPE__NAME:
-				return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
-			case ComponentPackage.COLUMN_TYPE__NULLABLE:
-				return isSetNULLABLE();
-			case ComponentPackage.COLUMN_TYPE__PATTERN:
-				return PATTERN_EDEFAULT == null ? pATTERN != null : !PATTERN_EDEFAULT.equals(pATTERN);
-			case ComponentPackage.COLUMN_TYPE__PRECISION:
-				return isSetPRECISION();
-			case ComponentPackage.COLUMN_TYPE__READONLY:
-				return isSetREADONLY();
-			case ComponentPackage.COLUMN_TYPE__TYPE:
-				return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                return COMMENT_EDEFAULT == null ? cOMMENT != null : !COMMENT_EDEFAULT.equals(cOMMENT);
+            case ComponentPackage.COLUMN_TYPE__CUSTOM:
+                return isSetCUSTOM();
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
+            case ComponentPackage.COLUMN_TYPE__KEY:
+                return isSetKEY();
+            case ComponentPackage.COLUMN_TYPE__LENGTH:
+                return isSetLENGTH();
+            case ComponentPackage.COLUMN_TYPE__NAME:
+                return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
+            case ComponentPackage.COLUMN_TYPE__NULLABLE:
+                return isSetNULLABLE();
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                return PATTERN_EDEFAULT == null ? pATTERN != null : !PATTERN_EDEFAULT.equals(pATTERN);
+            case ComponentPackage.COLUMN_TYPE__PRECISION:
+                return isSetPRECISION();
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                return isSetREADONLY();
+            case ComponentPackage.COLUMN_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (cOMMENT: ");
-		result.append(cOMMENT);
-		result.append(", cUSTOM: ");
-		if (cUSTOMESet) result.append(cUSTOM); else result.append("<unset>");
-		result.append(", dEFAULT: ");
-		result.append(dEFAULT);
-		result.append(", kEY: ");
-		if (kEYESet) result.append(kEY); else result.append("<unset>");
-		result.append(", lENGTH: ");
-		if (lENGTHESet) result.append(lENGTH); else result.append("<unset>");
-		result.append(", nAME: ");
-		result.append(nAME);
-		result.append(", nULLABLE: ");
-		if (nULLABLEESet) result.append(nULLABLE); else result.append("<unset>");
-		result.append(", pATTERN: ");
-		result.append(pATTERN);
-		result.append(", pRECISION: ");
-		if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>");
-		result.append(", rEADONLY: ");
-		if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
-		result.append(", tYPE: ");
-		result.append(tYPE);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (cOMMENT: ");
+        result.append(cOMMENT);
+        result.append(", cUSTOM: ");
+        if (cUSTOMESet) result.append(cUSTOM); else result.append("<unset>");
+        result.append(", dEFAULT: ");
+        result.append(dEFAULT);
+        result.append(", kEY: ");
+        if (kEYESet) result.append(kEY); else result.append("<unset>");
+        result.append(", lENGTH: ");
+        if (lENGTHESet) result.append(lENGTH); else result.append("<unset>");
+        result.append(", nAME: ");
+        result.append(nAME);
+        result.append(", nULLABLE: ");
+        if (nULLABLEESet) result.append(nULLABLE); else result.append("<unset>");
+        result.append(", pATTERN: ");
+        result.append(pATTERN);
+        result.append(", pRECISION: ");
+        if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>");
+        result.append(", rEADONLY: ");
+        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+        result.append(", tYPE: ");
+        result.append(tYPE);
+        result.append(')');
+        return result.toString();
+    }
 
 } //COLUMNTypeImpl

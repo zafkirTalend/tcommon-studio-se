@@ -34,118 +34,118 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  */
 public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
     /**
-	 * The cached value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCONNECTOR() <em>CONNECTOR</em>}' containment reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCONNECTOR()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCONNECTOR()
+     * @generated
+     * @ordered
+     */
     protected EList cONNECTOR;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected CONNECTORSTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.CONNECTORS_TYPE;
-	}
+        return ComponentPackage.Literals.CONNECTORS_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EList getCONNECTOR() {
-		if (cONNECTOR == null) {
-			cONNECTOR = new EObjectContainmentEList(CONNECTORType.class, this, ComponentPackage.CONNECTORS_TYPE__CONNECTOR);
-		}
-		return cONNECTOR;
-	}
+        if (cONNECTOR == null) {
+            cONNECTOR = new EObjectContainmentEList(CONNECTORType.class, this, ComponentPackage.CONNECTORS_TYPE__CONNECTOR);
+        }
+        return cONNECTOR;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
-				return ((InternalEList)getCONNECTOR()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
+                return ((InternalEList)getCONNECTOR()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
-				return getCONNECTOR();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
+                return getCONNECTOR();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
-				getCONNECTOR().clear();
-				getCONNECTOR().addAll((Collection)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
+                getCONNECTOR().clear();
+                getCONNECTOR().addAll((Collection)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
-				getCONNECTOR().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
+                getCONNECTOR().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
-				return cONNECTOR != null && !cONNECTOR.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
+                return cONNECTOR != null && !cONNECTOR.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //CONNECTORSTypeImpl

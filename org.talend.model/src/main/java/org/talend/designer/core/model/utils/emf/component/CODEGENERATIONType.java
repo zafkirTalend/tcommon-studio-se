@@ -28,50 +28,50 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface CODEGENERATIONType extends EObject {
     /**
-	 * Returns the value of the '<em><b>TEMPLATES</b></em>' containment reference list.
-	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>TEMPLATES</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>TEMPLATES</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Used only for virtual components
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>TEMPLATES</em>' containment reference list.
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCODEGENERATIONType_TEMPLATES()
-	 * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATESType" containment="true"
-	 *        extendedMetaData="kind='element' name='TEMPLATES' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * <!-- begin-model-doc -->
+     * Used only for virtual components
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>TEMPLATES</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCODEGENERATIONType_TEMPLATES()
+     * @model type="org.talend.designer.core.model.utils.emf.component.TEMPLATESType" containment="true"
+     *        extendedMetaData="kind='element' name='TEMPLATES' namespace='##targetNamespace'"
+     * @generated
+     */
     EList getTEMPLATES();
 
     /**
-	 * Returns the value of the '<em><b>IMPORTS</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>IMPORTS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>IMPORTS</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>IMPORTS</em>' containment reference.
-	 * @see #setIMPORTS(IMPORTSType)
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCODEGENERATIONType_IMPORTS()
-	 * @model containment="true"
-	 *        extendedMetaData="kind='element' name='IMPORTS' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>IMPORTS</em>' containment reference.
+     * @see #setIMPORTS(IMPORTSType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCODEGENERATIONType_IMPORTS()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='IMPORTS' namespace='##targetNamespace'"
+     * @generated
+     */
     IMPORTSType getIMPORTS();
 
     /**
-	 * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType#getIMPORTS <em>IMPORTS</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType#getIMPORTS <em>IMPORTS</em>}' containment reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>IMPORTS</em>' containment reference.
-	 * @see #getIMPORTS()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>IMPORTS</em>' containment reference.
+     * @see #getIMPORTS()
+     * @generated
+     */
     void setIMPORTS(IMPORTSType value);
 
 } // CODEGENERATIONType

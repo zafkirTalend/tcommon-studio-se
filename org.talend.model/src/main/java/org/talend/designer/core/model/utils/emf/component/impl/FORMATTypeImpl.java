@@ -33,243 +33,243 @@ import org.talend.designer.core.model.utils.emf.component.FORMATType;
  */
 public class FORMATTypeImpl extends EObjectImpl implements FORMATType {
     /**
-	 * The default value of the '{@link #getCONNECTION() <em>CONNECTION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getCONNECTION() <em>CONNECTION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCONNECTION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCONNECTION()
+     * @generated
+     * @ordered
+     */
     protected static final String CONNECTION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getCONNECTION() <em>CONNECTION</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCONNECTION() <em>CONNECTION</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCONNECTION()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCONNECTION()
+     * @generated
+     * @ordered
+     */
     protected String cONNECTION = CONNECTION_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getHINT() <em>HINT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getHINT() <em>HINT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getHINT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getHINT()
+     * @generated
+     * @ordered
+     */
     protected static final String HINT_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getHINT() <em>HINT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getHINT() <em>HINT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getHINT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getHINT()
+     * @generated
+     * @ordered
+     */
     protected String hINT = HINT_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getLABEL() <em>LABEL</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getLABEL() <em>LABEL</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLABEL()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLABEL()
+     * @generated
+     * @ordered
+     */
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getLABEL() <em>LABEL</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLABEL() <em>LABEL</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLABEL()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLABEL()
+     * @generated
+     * @ordered
+     */
     protected String lABEL = LABEL_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected FORMATTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.FORMAT_TYPE;
-	}
+        return ComponentPackage.Literals.FORMAT_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getCONNECTION() {
-		return cONNECTION;
-	}
+        return cONNECTION;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setCONNECTION(String newCONNECTION) {
-		String oldCONNECTION = cONNECTION;
-		cONNECTION = newCONNECTION;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.FORMAT_TYPE__CONNECTION, oldCONNECTION, cONNECTION));
-	}
+        String oldCONNECTION = cONNECTION;
+        cONNECTION = newCONNECTION;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.FORMAT_TYPE__CONNECTION, oldCONNECTION, cONNECTION));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getHINT() {
-		return hINT;
-	}
+        return hINT;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setHINT(String newHINT) {
-		String oldHINT = hINT;
-		hINT = newHINT;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.FORMAT_TYPE__HINT, oldHINT, hINT));
-	}
+        String oldHINT = hINT;
+        hINT = newHINT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.FORMAT_TYPE__HINT, oldHINT, hINT));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getLABEL() {
-		return lABEL;
-	}
+        return lABEL;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setLABEL(String newLABEL) {
-		String oldLABEL = lABEL;
-		lABEL = newLABEL;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.FORMAT_TYPE__LABEL, oldLABEL, lABEL));
-	}
+        String oldLABEL = lABEL;
+        lABEL = newLABEL;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.FORMAT_TYPE__LABEL, oldLABEL, lABEL));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.FORMAT_TYPE__CONNECTION:
-				return getCONNECTION();
-			case ComponentPackage.FORMAT_TYPE__HINT:
-				return getHINT();
-			case ComponentPackage.FORMAT_TYPE__LABEL:
-				return getLABEL();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.FORMAT_TYPE__CONNECTION:
+                return getCONNECTION();
+            case ComponentPackage.FORMAT_TYPE__HINT:
+                return getHINT();
+            case ComponentPackage.FORMAT_TYPE__LABEL:
+                return getLABEL();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.FORMAT_TYPE__CONNECTION:
-				setCONNECTION((String)newValue);
-				return;
-			case ComponentPackage.FORMAT_TYPE__HINT:
-				setHINT((String)newValue);
-				return;
-			case ComponentPackage.FORMAT_TYPE__LABEL:
-				setLABEL((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.FORMAT_TYPE__CONNECTION:
+                setCONNECTION((String)newValue);
+                return;
+            case ComponentPackage.FORMAT_TYPE__HINT:
+                setHINT((String)newValue);
+                return;
+            case ComponentPackage.FORMAT_TYPE__LABEL:
+                setLABEL((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.FORMAT_TYPE__CONNECTION:
-				setCONNECTION(CONNECTION_EDEFAULT);
-				return;
-			case ComponentPackage.FORMAT_TYPE__HINT:
-				setHINT(HINT_EDEFAULT);
-				return;
-			case ComponentPackage.FORMAT_TYPE__LABEL:
-				setLABEL(LABEL_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.FORMAT_TYPE__CONNECTION:
+                setCONNECTION(CONNECTION_EDEFAULT);
+                return;
+            case ComponentPackage.FORMAT_TYPE__HINT:
+                setHINT(HINT_EDEFAULT);
+                return;
+            case ComponentPackage.FORMAT_TYPE__LABEL:
+                setLABEL(LABEL_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.FORMAT_TYPE__CONNECTION:
-				return CONNECTION_EDEFAULT == null ? cONNECTION != null : !CONNECTION_EDEFAULT.equals(cONNECTION);
-			case ComponentPackage.FORMAT_TYPE__HINT:
-				return HINT_EDEFAULT == null ? hINT != null : !HINT_EDEFAULT.equals(hINT);
-			case ComponentPackage.FORMAT_TYPE__LABEL:
-				return LABEL_EDEFAULT == null ? lABEL != null : !LABEL_EDEFAULT.equals(lABEL);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.FORMAT_TYPE__CONNECTION:
+                return CONNECTION_EDEFAULT == null ? cONNECTION != null : !CONNECTION_EDEFAULT.equals(cONNECTION);
+            case ComponentPackage.FORMAT_TYPE__HINT:
+                return HINT_EDEFAULT == null ? hINT != null : !HINT_EDEFAULT.equals(hINT);
+            case ComponentPackage.FORMAT_TYPE__LABEL:
+                return LABEL_EDEFAULT == null ? lABEL != null : !LABEL_EDEFAULT.equals(lABEL);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (cONNECTION: ");
-		result.append(cONNECTION);
-		result.append(", hINT: ");
-		result.append(hINT);
-		result.append(", lABEL: ");
-		result.append(lABEL);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (cONNECTION: ");
+        result.append(cONNECTION);
+        result.append(", hINT: ");
+        result.append(hINT);
+        result.append(", lABEL: ");
+        result.append(lABEL);
+        result.append(')');
+        return result.toString();
+    }
 
 } //FORMATTypeImpl

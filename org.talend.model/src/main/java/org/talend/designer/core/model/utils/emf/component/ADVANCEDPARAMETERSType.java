@@ -27,20 +27,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ADVANCEDPARAMETERSType extends EObject {
     /**
-	 * Returns the value of the '<em><b>PARAMETER</b></em>' containment reference list.
-	 * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.PARAMETERType}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>PARAMETER</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.PARAMETERType}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>PARAMETER</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>PARAMETER</em>' containment reference list.
-	 * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getADVANCEDPARAMETERSType_PARAMETER()
-	 * @model type="org.talend.designer.core.model.utils.emf.component.PARAMETERType" containment="true"
-	 *        extendedMetaData="kind='element' name='PARAMETER' namespace='##targetNamespace'"
-	 * @generated
-	 */
+     * @return the value of the '<em>PARAMETER</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getADVANCEDPARAMETERSType_PARAMETER()
+     * @model type="org.talend.designer.core.model.utils.emf.component.PARAMETERType" containment="true"
+     *        extendedMetaData="kind='element' name='PARAMETER' namespace='##targetNamespace'"
+     * @generated
+     */
     EList getPARAMETER();
 
 } // ADVANCEDPARAMETERSType

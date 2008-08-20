@@ -113,7 +113,7 @@ public class MetadataDialog extends Dialog {
         if (inputNode != null) {
             this.titleInput = inputMetaTable.getTableName() + " (Input)";
             INodeConnector connector = inputNode.getConnectorFromName(inputMetaTable.getAttachedConnector());
-            if (!connector.isBuiltIn()) {
+            if (!connector.isMultiSchema()) {
                 this.titleInput = inputNode.getLabel() + " (Input - " + connector.getLinkName() + ")";
             }
         }

@@ -37,183 +37,183 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATESType;
  */
 public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIONType {
     /**
-	 * The cached value of the '{@link #getTEMPLATES() <em>TEMPLATES</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTEMPLATES() <em>TEMPLATES</em>}' containment reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTEMPLATES()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTEMPLATES()
+     * @generated
+     * @ordered
+     */
     protected EList tEMPLATES;
 
     /**
-	 * The cached value of the '{@link #getIMPORTS() <em>IMPORTS</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getIMPORTS() <em>IMPORTS</em>}' containment reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getIMPORTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getIMPORTS()
+     * @generated
+     * @ordered
+     */
     protected IMPORTSType iMPORTS;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected CODEGENERATIONTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.CODEGENERATION_TYPE;
-	}
+        return ComponentPackage.Literals.CODEGENERATION_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EList getTEMPLATES() {
-		if (tEMPLATES == null) {
-			tEMPLATES = new EObjectContainmentEList(TEMPLATESType.class, this, ComponentPackage.CODEGENERATION_TYPE__TEMPLATES);
-		}
-		return tEMPLATES;
-	}
+        if (tEMPLATES == null) {
+            tEMPLATES = new EObjectContainmentEList(TEMPLATESType.class, this, ComponentPackage.CODEGENERATION_TYPE__TEMPLATES);
+        }
+        return tEMPLATES;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public IMPORTSType getIMPORTS() {
-		return iMPORTS;
-	}
+        return iMPORTS;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain basicSetIMPORTS(IMPORTSType newIMPORTS, NotificationChain msgs) {
-		IMPORTSType oldIMPORTS = iMPORTS;
-		iMPORTS = newIMPORTS;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.CODEGENERATION_TYPE__IMPORTS, oldIMPORTS, newIMPORTS);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        IMPORTSType oldIMPORTS = iMPORTS;
+        iMPORTS = newIMPORTS;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.CODEGENERATION_TYPE__IMPORTS, oldIMPORTS, newIMPORTS);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setIMPORTS(IMPORTSType newIMPORTS) {
-		if (newIMPORTS != iMPORTS) {
-			NotificationChain msgs = null;
-			if (iMPORTS != null)
-				msgs = ((InternalEObject)iMPORTS).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.CODEGENERATION_TYPE__IMPORTS, null, msgs);
-			if (newIMPORTS != null)
-				msgs = ((InternalEObject)newIMPORTS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.CODEGENERATION_TYPE__IMPORTS, null, msgs);
-			msgs = basicSetIMPORTS(newIMPORTS, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CODEGENERATION_TYPE__IMPORTS, newIMPORTS, newIMPORTS));
-	}
+        if (newIMPORTS != iMPORTS) {
+            NotificationChain msgs = null;
+            if (iMPORTS != null)
+                msgs = ((InternalEObject)iMPORTS).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.CODEGENERATION_TYPE__IMPORTS, null, msgs);
+            if (newIMPORTS != null)
+                msgs = ((InternalEObject)newIMPORTS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.CODEGENERATION_TYPE__IMPORTS, null, msgs);
+            msgs = basicSetIMPORTS(newIMPORTS, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CODEGENERATION_TYPE__IMPORTS, newIMPORTS, newIMPORTS));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-				return ((InternalEList)getTEMPLATES()).basicRemove(otherEnd, msgs);
-			case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
-				return basicSetIMPORTS(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
+                return ((InternalEList)getTEMPLATES()).basicRemove(otherEnd, msgs);
+            case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
+                return basicSetIMPORTS(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-				return getTEMPLATES();
-			case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
-				return getIMPORTS();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
+                return getTEMPLATES();
+            case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
+                return getIMPORTS();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-				getTEMPLATES().clear();
-				getTEMPLATES().addAll((Collection)newValue);
-				return;
-			case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
-				setIMPORTS((IMPORTSType)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
+                getTEMPLATES().clear();
+                getTEMPLATES().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
+                setIMPORTS((IMPORTSType)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-				getTEMPLATES().clear();
-				return;
-			case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
-				setIMPORTS((IMPORTSType)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
+                getTEMPLATES().clear();
+                return;
+            case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
+                setIMPORTS((IMPORTSType)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
-				return tEMPLATES != null && !tEMPLATES.isEmpty();
-			case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
-				return iMPORTS != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.CODEGENERATION_TYPE__TEMPLATES:
+                return tEMPLATES != null && !tEMPLATES.isEmpty();
+            case ComponentPackage.CODEGENERATION_TYPE__IMPORTS:
+                return iMPORTS != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //CODEGENERATIONTypeImpl

@@ -39,359 +39,359 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  */
 public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
     /**
-	 * The cached value of the '{@link #getITEM() <em>ITEM</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getITEM() <em>ITEM</em>}' containment reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getITEM()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getITEM()
+     * @generated
+     * @ordered
+     */
     protected EList iTEM;
 
     /**
-	 * The default value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isBASEDONSCHEMA()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isBASEDONSCHEMA()
+     * @generated
+     * @ordered
+     */
     protected static final boolean BASEDONSCHEMA_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isBASEDONSCHEMA()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isBASEDONSCHEMA()
+     * @generated
+     * @ordered
+     */
     protected boolean bASEDONSCHEMA = BASEDONSCHEMA_EDEFAULT;
 
     /**
-	 * This is true if the BASEDONSCHEMA attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the BASEDONSCHEMA attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean bASEDONSCHEMAESet;
 
     /**
-	 * The default value of the '{@link #isBASEDONSUBJOBSTARTS() <em>BASEDONSUBJOBSTARTS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isBASEDONSUBJOBSTARTS() <em>BASEDONSUBJOBSTARTS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isBASEDONSUBJOBSTARTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @generated
+     * @ordered
+     */
     protected static final boolean BASEDONSUBJOBSTARTS_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isBASEDONSUBJOBSTARTS() <em>BASEDONSUBJOBSTARTS</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isBASEDONSUBJOBSTARTS() <em>BASEDONSUBJOBSTARTS</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isBASEDONSUBJOBSTARTS()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isBASEDONSUBJOBSTARTS()
+     * @generated
+     * @ordered
+     */
     protected boolean bASEDONSUBJOBSTARTS = BASEDONSUBJOBSTARTS_EDEFAULT;
 
     /**
-	 * This is true if the BASEDONSUBJOBSTARTS attribute has been set.
-	 * <!-- begin-user-doc -->
+     * This is true if the BASEDONSUBJOBSTARTS attribute has been set.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
+     * @generated
+     * @ordered
+     */
     protected boolean bASEDONSUBJOBSTARTSESet;
 
     /**
-	 * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDEFAULT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDEFAULT()
+     * @generated
+     * @ordered
+     */
     protected static final String DEFAULT_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDEFAULT()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDEFAULT()
+     * @generated
+     * @ordered
+     */
     protected String dEFAULT = DEFAULT_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected ITEMSTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.ITEMS_TYPE;
-	}
+        return ComponentPackage.Literals.ITEMS_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EList getITEM() {
-		if (iTEM == null) {
-			iTEM = new EObjectContainmentEList(ITEMType.class, this, ComponentPackage.ITEMS_TYPE__ITEM);
-		}
-		return iTEM;
-	}
+        if (iTEM == null) {
+            iTEM = new EObjectContainmentEList(ITEMType.class, this, ComponentPackage.ITEMS_TYPE__ITEM);
+        }
+        return iTEM;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isBASEDONSCHEMA() {
-		return bASEDONSCHEMA;
-	}
+        return bASEDONSCHEMA;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setBASEDONSCHEMA(boolean newBASEDONSCHEMA) {
-		boolean oldBASEDONSCHEMA = bASEDONSCHEMA;
-		bASEDONSCHEMA = newBASEDONSCHEMA;
-		boolean oldBASEDONSCHEMAESet = bASEDONSCHEMAESet;
-		bASEDONSCHEMAESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA, oldBASEDONSCHEMA, bASEDONSCHEMA, !oldBASEDONSCHEMAESet));
-	}
+        boolean oldBASEDONSCHEMA = bASEDONSCHEMA;
+        bASEDONSCHEMA = newBASEDONSCHEMA;
+        boolean oldBASEDONSCHEMAESet = bASEDONSCHEMAESet;
+        bASEDONSCHEMAESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA, oldBASEDONSCHEMA, bASEDONSCHEMA, !oldBASEDONSCHEMAESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetBASEDONSCHEMA() {
-		boolean oldBASEDONSCHEMA = bASEDONSCHEMA;
-		boolean oldBASEDONSCHEMAESet = bASEDONSCHEMAESet;
-		bASEDONSCHEMA = BASEDONSCHEMA_EDEFAULT;
-		bASEDONSCHEMAESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA, oldBASEDONSCHEMA, BASEDONSCHEMA_EDEFAULT, oldBASEDONSCHEMAESet));
-	}
+        boolean oldBASEDONSCHEMA = bASEDONSCHEMA;
+        boolean oldBASEDONSCHEMAESet = bASEDONSCHEMAESet;
+        bASEDONSCHEMA = BASEDONSCHEMA_EDEFAULT;
+        bASEDONSCHEMAESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA, oldBASEDONSCHEMA, BASEDONSCHEMA_EDEFAULT, oldBASEDONSCHEMAESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetBASEDONSCHEMA() {
-		return bASEDONSCHEMAESet;
-	}
+        return bASEDONSCHEMAESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isBASEDONSUBJOBSTARTS() {
-		return bASEDONSUBJOBSTARTS;
-	}
+        return bASEDONSUBJOBSTARTS;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setBASEDONSUBJOBSTARTS(boolean newBASEDONSUBJOBSTARTS) {
-		boolean oldBASEDONSUBJOBSTARTS = bASEDONSUBJOBSTARTS;
-		bASEDONSUBJOBSTARTS = newBASEDONSUBJOBSTARTS;
-		boolean oldBASEDONSUBJOBSTARTSESet = bASEDONSUBJOBSTARTSESet;
-		bASEDONSUBJOBSTARTSESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS, oldBASEDONSUBJOBSTARTS, bASEDONSUBJOBSTARTS, !oldBASEDONSUBJOBSTARTSESet));
-	}
+        boolean oldBASEDONSUBJOBSTARTS = bASEDONSUBJOBSTARTS;
+        bASEDONSUBJOBSTARTS = newBASEDONSUBJOBSTARTS;
+        boolean oldBASEDONSUBJOBSTARTSESet = bASEDONSUBJOBSTARTSESet;
+        bASEDONSUBJOBSTARTSESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS, oldBASEDONSUBJOBSTARTS, bASEDONSUBJOBSTARTS, !oldBASEDONSUBJOBSTARTSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void unsetBASEDONSUBJOBSTARTS() {
-		boolean oldBASEDONSUBJOBSTARTS = bASEDONSUBJOBSTARTS;
-		boolean oldBASEDONSUBJOBSTARTSESet = bASEDONSUBJOBSTARTSESet;
-		bASEDONSUBJOBSTARTS = BASEDONSUBJOBSTARTS_EDEFAULT;
-		bASEDONSUBJOBSTARTSESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS, oldBASEDONSUBJOBSTARTS, BASEDONSUBJOBSTARTS_EDEFAULT, oldBASEDONSUBJOBSTARTSESet));
-	}
+        boolean oldBASEDONSUBJOBSTARTS = bASEDONSUBJOBSTARTS;
+        boolean oldBASEDONSUBJOBSTARTSESet = bASEDONSUBJOBSTARTSESet;
+        bASEDONSUBJOBSTARTS = BASEDONSUBJOBSTARTS_EDEFAULT;
+        bASEDONSUBJOBSTARTSESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS, oldBASEDONSUBJOBSTARTS, BASEDONSUBJOBSTARTS_EDEFAULT, oldBASEDONSUBJOBSTARTSESet));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSetBASEDONSUBJOBSTARTS() {
-		return bASEDONSUBJOBSTARTSESet;
-	}
+        return bASEDONSUBJOBSTARTSESet;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getDEFAULT() {
-		return dEFAULT;
-	}
+        return dEFAULT;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setDEFAULT(String newDEFAULT) {
-		String oldDEFAULT = dEFAULT;
-		dEFAULT = newDEFAULT;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__DEFAULT, oldDEFAULT, dEFAULT));
-	}
+        String oldDEFAULT = dEFAULT;
+        dEFAULT = newDEFAULT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__DEFAULT, oldDEFAULT, dEFAULT));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.ITEMS_TYPE__ITEM:
-				return ((InternalEList)getITEM()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ComponentPackage.ITEMS_TYPE__ITEM:
+                return ((InternalEList)getITEM()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.ITEMS_TYPE__ITEM:
-				return getITEM();
-			case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
-				return isBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
-				return isBASEDONSUBJOBSTARTS() ? Boolean.TRUE : Boolean.FALSE;
-			case ComponentPackage.ITEMS_TYPE__DEFAULT:
-				return getDEFAULT();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.ITEMS_TYPE__ITEM:
+                return getITEM();
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                return isBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                return isBASEDONSUBJOBSTARTS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.ITEMS_TYPE__DEFAULT:
+                return getDEFAULT();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.ITEMS_TYPE__ITEM:
-				getITEM().clear();
-				getITEM().addAll((Collection)newValue);
-				return;
-			case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
-				setBASEDONSCHEMA(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
-				setBASEDONSUBJOBSTARTS(((Boolean)newValue).booleanValue());
-				return;
-			case ComponentPackage.ITEMS_TYPE__DEFAULT:
-				setDEFAULT((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.ITEMS_TYPE__ITEM:
+                getITEM().clear();
+                getITEM().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                setBASEDONSCHEMA(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                setBASEDONSUBJOBSTARTS(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.ITEMS_TYPE__DEFAULT:
+                setDEFAULT((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.ITEMS_TYPE__ITEM:
-				getITEM().clear();
-				return;
-			case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
-				unsetBASEDONSCHEMA();
-				return;
-			case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
-				unsetBASEDONSUBJOBSTARTS();
-				return;
-			case ComponentPackage.ITEMS_TYPE__DEFAULT:
-				setDEFAULT(DEFAULT_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.ITEMS_TYPE__ITEM:
+                getITEM().clear();
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                unsetBASEDONSCHEMA();
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                unsetBASEDONSUBJOBSTARTS();
+                return;
+            case ComponentPackage.ITEMS_TYPE__DEFAULT:
+                setDEFAULT(DEFAULT_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.ITEMS_TYPE__ITEM:
-				return iTEM != null && !iTEM.isEmpty();
-			case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
-				return isSetBASEDONSCHEMA();
-			case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
-				return isSetBASEDONSUBJOBSTARTS();
-			case ComponentPackage.ITEMS_TYPE__DEFAULT:
-				return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.ITEMS_TYPE__ITEM:
+                return iTEM != null && !iTEM.isEmpty();
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                return isSetBASEDONSCHEMA();
+            case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
+                return isSetBASEDONSUBJOBSTARTS();
+            case ComponentPackage.ITEMS_TYPE__DEFAULT:
+                return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (bASEDONSCHEMA: ");
-		if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
-		result.append(", bASEDONSUBJOBSTARTS: ");
-		if (bASEDONSUBJOBSTARTSESet) result.append(bASEDONSUBJOBSTARTS); else result.append("<unset>");
-		result.append(", dEFAULT: ");
-		result.append(dEFAULT);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (bASEDONSCHEMA: ");
+        if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
+        result.append(", bASEDONSUBJOBSTARTS: ");
+        if (bASEDONSUBJOBSTARTSESet) result.append(bASEDONSUBJOBSTARTS); else result.append("<unset>");
+        result.append(", dEFAULT: ");
+        result.append(dEFAULT);
+        result.append(')');
+        return result.toString();
+    }
 
 } //ITEMSTypeImpl

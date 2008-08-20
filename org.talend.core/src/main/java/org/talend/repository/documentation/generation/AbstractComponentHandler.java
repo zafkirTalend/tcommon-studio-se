@@ -202,8 +202,8 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         Element schemasElement = null;
         if (metaDataList != null && metaDataList.size() != 0) {
             schemasElement = componentElement.addElement("schemas");
-            boolean isBuiltIn = node.getConnectorFromName(EConnectionType.FLOW_MAIN.getName()).isBuiltIn()
-                    || node.getConnectorFromName(EConnectionType.TABLE.getName()).isBuiltIn();
+            boolean isBuiltIn = node.getConnectorFromName(EConnectionType.FLOW_MAIN.getName()).isMultiSchema()
+                    || node.getConnectorFromName(EConnectionType.TABLE.getName()).isMultiSchema();
 
             for (int j = 0; j < metaDataList.size(); j++) {
                 if ((!isBuiltIn) && (j > 0)) {

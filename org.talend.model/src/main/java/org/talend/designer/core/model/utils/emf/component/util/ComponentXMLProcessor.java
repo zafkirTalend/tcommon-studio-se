@@ -22,31 +22,31 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  */
 public class ComponentXMLProcessor extends XMLProcessor {
     /**
-	 * Public constructor to instantiate the helper.
-	 * <!-- begin-user-doc -->
+     * Public constructor to instantiate the helper.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ComponentXMLProcessor() {
-		super(new EPackageRegistryImpl(EPackage.Registry.INSTANCE));
-		extendedMetaData.putPackage(null, ComponentPackage.eINSTANCE);
-	}
+        super(new EPackageRegistryImpl(EPackage.Registry.INSTANCE));
+        extendedMetaData.putPackage(null, ComponentPackage.eINSTANCE);
+    }
     
     /**
-	 * Register for "*" and "xml" file extensions the ComponentResourceFactoryImpl factory.
-	 * <!-- begin-user-doc -->
+     * Register for "*" and "xml" file extensions the ComponentResourceFactoryImpl factory.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     protected Map getRegistrations() {
-		if (registrations == null) {
-			super.getRegistrations();
-			registrations.put(XML_EXTENSION, new ComponentResourceFactoryImpl());
-			registrations.put(STAR_EXTENSION, new ComponentResourceFactoryImpl());
-		}
-		return registrations;
-	}
+        if (registrations == null) {
+            super.getRegistrations();
+            registrations.put(XML_EXTENSION, new ComponentResourceFactoryImpl());
+            registrations.put(STAR_EXTENSION, new ComponentResourceFactoryImpl());
+        }
+        return registrations;
+    }
 
 } //ComponentXMLProcessor

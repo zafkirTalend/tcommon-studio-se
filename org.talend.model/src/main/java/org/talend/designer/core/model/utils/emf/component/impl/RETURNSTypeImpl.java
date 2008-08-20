@@ -34,118 +34,118 @@ import org.talend.designer.core.model.utils.emf.component.RETURNType;
  */
 public class RETURNSTypeImpl extends EObjectImpl implements RETURNSType {
     /**
-	 * The cached value of the '{@link #getRETURN() <em>RETURN</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getRETURN() <em>RETURN</em>}' containment reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getRETURN()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getRETURN()
+     * @generated
+     * @ordered
+     */
     protected EList rETURN;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected RETURNSTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
-		return ComponentPackage.Literals.RETURNS_TYPE;
-	}
+        return ComponentPackage.Literals.RETURNS_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EList getRETURN() {
-		if (rETURN == null) {
-			rETURN = new EObjectContainmentEList(RETURNType.class, this, ComponentPackage.RETURNS_TYPE__RETURN);
-		}
-		return rETURN;
-	}
+        if (rETURN == null) {
+            rETURN = new EObjectContainmentEList(RETURNType.class, this, ComponentPackage.RETURNS_TYPE__RETURN);
+        }
+        return rETURN;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.RETURNS_TYPE__RETURN:
-				return ((InternalEList)getRETURN()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURNS_TYPE__RETURN:
+                return ((InternalEList)getRETURN()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.RETURNS_TYPE__RETURN:
-				return getRETURN();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURNS_TYPE__RETURN:
+                return getRETURN();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.RETURNS_TYPE__RETURN:
-				getRETURN().clear();
-				getRETURN().addAll((Collection)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURNS_TYPE__RETURN:
+                getRETURN().clear();
+                getRETURN().addAll((Collection)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.RETURNS_TYPE__RETURN:
-				getRETURN().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURNS_TYPE__RETURN:
+                getRETURN().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     @Override
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ComponentPackage.RETURNS_TYPE__RETURN:
-				return rETURN != null && !rETURN.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ComponentPackage.RETURNS_TYPE__RETURN:
+                return rETURN != null && !rETURN.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //RETURNSTypeImpl
