@@ -390,8 +390,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-             * ,
-             */);
+                                        * ,
+                                        */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
@@ -1037,7 +1037,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     protected void getSourceAndTargetConnection(Item item) {
         if (item instanceof ProcessItem) {
             EList connectionList = ((ProcessItem) item).getProcess().getConnection();
-            if (connectionList != null || connectionList.size() != 0) {
+            if (connectionList != null && connectionList.size() != 0) {
                 handleSourceAndTargetConnection(connectionList);
             }
         }
