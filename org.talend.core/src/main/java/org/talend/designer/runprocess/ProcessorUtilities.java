@@ -202,7 +202,7 @@ public class ProcessorUtilities {
     }
 
     private static boolean generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
-            boolean properties, int option) {
+            boolean properties, int option) throws ProcessorException {
         if (jobInfo.getFatherJobInfo() == null) {
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
@@ -320,12 +320,8 @@ public class ProcessorUtilities {
             }
 
             processor.setContext(currentContext);
-            try {
-                // main job will use stats / traces
-                processor.generateCode(statistics, trace, properties);
-            } catch (ProcessorException pe) {
-                ExceptionHandler.process(pe);
-            }
+            // main job will use stats / traces
+            processor.generateCode(statistics, trace, properties);
             if (jobInfo.getProcessItem() != null) {
                 designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(jobInfo.getJobId(),
                         jobInfo.getProcessItem().getProperty().getModificationDate());
@@ -341,7 +337,7 @@ public class ProcessorUtilities {
                     CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject().build(
                             IncrementalProjectBuilder.AUTO_BUILD, null);
                 } catch (CoreException e) {
-                    ExceptionHandler.process(e);
+                    throw new ProcessorException(e);
                 }
             }
         }
@@ -413,8 +409,10 @@ public class ProcessorUtilities {
      * @param processName
      * @param contextName
      * @param version null if no specific version required
+     * @throws ProcessorException
      */
-    public static boolean generateCode(String processName, String contextName, String version, boolean statistics, boolean trace) {
+    public static boolean generateCode(String processName, String contextName, String version, boolean statistics, boolean trace)
+            throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName, version);
         boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
@@ -430,9 +428,10 @@ public class ProcessorUtilities {
      * @param processName
      * @param contextName
      * @param version null if no specific version required
+     * @throws ProcessorException
      */
     public static boolean generateCode(String processId, String contextName, String version, boolean statistics, boolean trace,
-            boolean applyContextToChildren) {
+            boolean applyContextToChildren) throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
@@ -444,7 +443,7 @@ public class ProcessorUtilities {
     }
 
     public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace,
-            boolean applyContextToChildren) {
+            boolean applyContextToChildren) throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, contextName);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
@@ -456,7 +455,7 @@ public class ProcessorUtilities {
     }
 
     public static boolean generateCode(ProcessItem process, String contextName, String version, boolean statistics,
-            boolean trace, boolean applyContextToChildren) {
+            boolean trace, boolean applyContextToChildren) throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
@@ -467,12 +466,13 @@ public class ProcessorUtilities {
         return result;
     }
 
-    public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace) {
+    public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace)
+            throws ProcessorException {
         return generateCode(process, contextName, statistics, trace, false);
     }
 
     public static boolean generateCode(String processId, String contextName, String version, boolean statistics, boolean trace,
-            int option) {
+            int option) throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
         boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, option);
@@ -480,7 +480,8 @@ public class ProcessorUtilities {
         return genCode;
     }
 
-    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties) {
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties)
+            throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getId(), context.getName(), process.getVersion());
         jobInfo.setProcess(process);
@@ -492,7 +493,7 @@ public class ProcessorUtilities {
     }
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
-            int option) {
+            int option) throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, context);
         boolean genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, option);
