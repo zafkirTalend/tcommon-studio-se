@@ -39,6 +39,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getEndTime <em>End Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getPreviousFireTime <em>Previous Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getFinalFireTime <em>Final Fire Time</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getIdQuartzTrigger <em>Id Quartz Trigger</em>}</li>
  * </ul>
  * </p>
  *
@@ -224,6 +225,26 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * @ordered
      */
     protected Date finalFireTime = FINAL_FIRE_TIME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIdQuartzTrigger()
+     * @generated
+     * @ordered
+     */
+    protected static final int ID_QUARTZ_TRIGGER_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIdQuartzTrigger()
+     * @generated
+     * @ordered
+     */
+    protected int idQuartzTrigger = ID_QUARTZ_TRIGGER_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -478,6 +499,27 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getIdQuartzTrigger() {
+        return idQuartzTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setIdQuartzTrigger(int newIdQuartzTrigger) {
+        int oldIdQuartzTrigger = idQuartzTrigger;
+        idQuartzTrigger = newIdQuartzTrigger;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER, oldIdQuartzTrigger, idQuartzTrigger));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
@@ -541,6 +583,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return getPreviousFireTime();
             case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
                 return getFinalFireTime();
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                return new Integer(getIdQuartzTrigger());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -581,6 +625,9 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return;
             case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
                 setFinalFireTime((Date)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                setIdQuartzTrigger(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -623,6 +670,9 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
             case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
                 setFinalFireTime(FINAL_FIRE_TIME_EDEFAULT);
                 return;
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                setIdQuartzTrigger(ID_QUARTZ_TRIGGER_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -654,6 +704,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return PREVIOUS_FIRE_TIME_EDEFAULT == null ? previousFireTime != null : !PREVIOUS_FIRE_TIME_EDEFAULT.equals(previousFireTime);
             case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
                 return FINAL_FIRE_TIME_EDEFAULT == null ? finalFireTime != null : !FINAL_FIRE_TIME_EDEFAULT.equals(finalFireTime);
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                return idQuartzTrigger != ID_QUARTZ_TRIGGER_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -685,6 +737,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
         result.append(previousFireTime);
         result.append(", finalFireTime: ");
         result.append(finalFireTime);
+        result.append(", idQuartzTrigger: ");
+        result.append(idQuartzTrigger);
         result.append(')');
         return result.toString();
     }

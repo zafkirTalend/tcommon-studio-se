@@ -2915,13 +2915,22 @@ public interface PropertiesPackage extends EPackage {
     int TALEND_TRIGGER__FINAL_FIRE_TIME = 9;
 
     /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__ID_QUARTZ_TRIGGER = 10;
+
+    /**
      * The number of structural features of the '<em>Talend Trigger</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TALEND_TRIGGER_FEATURE_COUNT = 10;
+    int TALEND_TRIGGER_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
@@ -3022,6 +3031,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CRON_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__ID_QUARTZ_TRIGGER = TALEND_TRIGGER__ID_QUARTZ_TRIGGER;
 
     /**
      * The feature id for the '<em><b>Cron Expression</b></em>' attribute.
@@ -3140,6 +3158,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CRON_UI_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__ID_QUARTZ_TRIGGER = TALEND_TRIGGER__ID_QUARTZ_TRIGGER;
 
     /**
      * The feature id for the '<em><b>List Days Of Week</b></em>' attribute.
@@ -3303,6 +3330,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SIMPLE_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__ID_QUARTZ_TRIGGER = TALEND_TRIGGER__ID_QUARTZ_TRIGGER;
 
     /**
      * The feature id for the '<em><b>Repeat Count</b></em>' attribute.
@@ -3503,6 +3539,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int FILE_TRIGGER__FINAL_FIRE_TIME = SIMPLE_TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__ID_QUARTZ_TRIGGER = SIMPLE_TALEND_TRIGGER__ID_QUARTZ_TRIGGER;
 
     /**
      * The feature id for the '<em><b>Repeat Count</b></em>' attribute.
@@ -6407,6 +6452,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTalendTrigger_FinalFireTime();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getIdQuartzTrigger <em>Id Quartz Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Quartz Trigger</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getIdQuartzTrigger()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_IdQuartzTrigger();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.CronTalendTrigger <em>Cron Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8843,6 +8899,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TALEND_TRIGGER__FINAL_FIRE_TIME = eINSTANCE.getTalendTrigger_FinalFireTime();
+
+        /**
+         * The meta object literal for the '<em><b>Id Quartz Trigger</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__ID_QUARTZ_TRIGGER = eINSTANCE.getTalendTrigger_IdQuartzTrigger();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.

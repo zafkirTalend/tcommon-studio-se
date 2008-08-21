@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getEndTime <em>End Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getPreviousFireTime <em>Previous Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getFinalFireTime <em>Final Fire Time</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getIdQuartzTrigger <em>Id Quartz Trigger</em>}</li>
  * </ul>
  * </p>
  *
@@ -297,5 +298,31 @@ public interface TalendTrigger extends EObject {
      * @generated
      */
     void setFinalFireTime(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id Quartz Trigger</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id Quartz Trigger</em>' attribute.
+     * @see #setIdQuartzTrigger(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_IdQuartzTrigger()
+     * @model
+     * @generated
+     */
+    int getIdQuartzTrigger();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getIdQuartzTrigger <em>Id Quartz Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id Quartz Trigger</em>' attribute.
+     * @see #getIdQuartzTrigger()
+     * @generated
+     */
+    void setIdQuartzTrigger(int value);
 
 } // TalendTrigger
