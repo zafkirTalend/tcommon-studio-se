@@ -33,6 +33,7 @@ public enum EImage implements IImage {
     DELETE_ICON("/icons/delete.gif"),
     RESTORE_ICON("/icons/add.gif"),
     ADD_ICON("/icons/add.gif"),
+    ADD_ALL_ICON("/icons/addall.gif"),
     MINUS_ICON("/icons/delete.gif"),
     REFRESH_ICON("/icons/refresh.gif"),
     EDIT_ICON("/icons/write_obj.gif"),

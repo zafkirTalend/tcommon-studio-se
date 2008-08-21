@@ -28,30 +28,35 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
  */
 public abstract class AddAllPushButton extends ExtendedPushButton {
 
-    /**
-     * DOC YeXiaowei AddAllPustButton constructor comment.
-     * 
-     * @param parent
-     * @param extendedViewer
-     * @param tooltip
-     * @param image
-     */
-    public AddAllPushButton(Composite parent, AbstractExtendedControlViewer extendedViewer) {
-        super(parent, extendedViewer, Messages.getString("AddAllPushButton.AddAllButton.Tip"), ImageProvider
-                .getImage(EImage.ADD_ICON));
-    }
+	/**
+	 * DOC YeXiaowei AddAllPustButton constructor comment.
+	 * 
+	 * @param parent
+	 * @param extendedViewer
+	 * @param tooltip
+	 * @param image
+	 */
+	public AddAllPushButton(Composite parent,
+			AbstractExtendedControlViewer extendedViewer) {
+		super(parent, extendedViewer, Messages
+				.getString("AddAllPushButton.AddAllButton.Tip"), ImageProvider
+				.getImage(EImage.ADD_ALL_ICON));
+	}
 
-    protected abstract Command getCommandToExecute();
+	protected abstract Command getCommandToExecute();
 
-    protected abstract List<Object> getObjectToAdd();
+	protected abstract List<Object> getObjectToAdd();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
-     */
-    @Override
-    public boolean getEnabledState() {
-        return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton
+	 * #getEnabledState()
+	 */
+	@Override
+	public boolean getEnabledState() {
+		return super.getEnabledState()
+				&& !getExtendedControlViewer().isReadOnly();
+	}
 }
