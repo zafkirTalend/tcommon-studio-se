@@ -1,5 +1,5 @@
 <%
-	SCHEMA(__SCHEMA__);
+	EXTRACT(__SCHEMA__);
 	String fields = "";
 	boolean flag=false;
 	for(int i=0; i < __SCHEMA__.length; i++){
