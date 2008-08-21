@@ -21,4 +21,6 @@ public interface ISubjobContainer extends IElement {
      * DOC nrousseau Comment method "updateSubjobContainer".
      */
     public void updateSubjobContainer();
+
+    public boolean isDisplayed();
 }
