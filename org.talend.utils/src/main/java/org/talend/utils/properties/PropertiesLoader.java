@@ -101,8 +101,8 @@ public final class PropertiesLoader {
         return prop;
     }
 
-    public static synchronized void setProperties(Class<?> clazz, String propertiesFilename, String key,
-            String oldValue, String newValue) {
+    public static synchronized void setProperties(Class<?> clazz, String propertiesFilename, String key, String oldValue,
+            String newValue) {
         if (oldValue.equals(newValue)) {
             return;
         }
@@ -133,7 +133,14 @@ public final class PropertiesLoader {
         return prop;
     }
 
-    private static synchronized boolean initialize(TypedProperties prop, File in) {
+    /**
+     * Method "initialize" initializes the given properties with the content of the given file.
+     * 
+     * @param prop the output properties (filled in with the input file)
+     * @param in a properties file
+     * @return true if ok.
+     */
+    public static synchronized boolean initialize(TypedProperties prop, File in) {
         boolean ok = true;
         try {
             if (in.exists()) {
