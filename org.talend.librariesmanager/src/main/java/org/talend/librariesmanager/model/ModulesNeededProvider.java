@@ -32,11 +32,17 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -74,25 +80,21 @@ public class ModulesNeededProvider {
         if (componentImportNeedsList.isEmpty()) {
             // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
             componentImportNeedsList.addAll(getModulesNeededForRoutines());
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
-                    "ModulesNeededProvider.getModulesNeededForRoutines");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForRoutines");
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
             componentImportNeedsList.addAll(getModulesNeededForApplication());
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
-                    "ModulesNeededProvider.getModulesNeededForApplication");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication");
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForJobs");
             if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
                 componentImportNeedsList.addAll(getModulesNeededForJobs());
             }
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
-                    "ModulesNeededProvider.getModulesNeededForJobs");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForJobs");
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForComponents");
             componentImportNeedsList.addAll(getModulesNeededForComponents());
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
-                    "ModulesNeededProvider.getModulesNeededForComponents");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForComponents");
         }
 
         /*
@@ -122,6 +124,63 @@ public class ModulesNeededProvider {
         componentImportNeedsList.clear();
     }
 
+    /**
+     * ftang Comment method "needToUpdateModules".
+     * 
+     * @param item
+     * @return
+     */
+    public static void resetCurrentJobNeededModuleList(Item item) {
+
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        IRepositoryObject job = null;
+        try {
+            job = repositoryFactory.getLastVersion(item.getProperty().getId());
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        if (job != null && repositoryFactory.getStatus(job) != ERepositoryStatus.DELETED) {
+            ProcessItem processItem = (ProcessItem) job.getProperty().getItem();
+            List<NodeType> nodes = processItem.getProcess().getNode();
+            for (NodeType node : nodes) {
+                List<ElementParameterType> elementParameter = node.getElementParameter();
+                for (ElementParameterType elementParam : elementParameter) {
+                    if (elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
+
+                        // Step 1: removed all modules for current job;
+                        List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
+                        String label = item.getProperty().getLabel();
+                        for (ModuleNeeded module : componentImportNeedsList) {
+                            if (module.getContext().equals("Job " + label)) {
+                                moduleForCurrentJobList.add(module);
+                            }
+                        }
+                        componentImportNeedsList.removeAll(moduleForCurrentJobList);
+
+                        // Step 2: re-added modules
+                        String uniquename = ElementParameterParser.getUNIQUENAME(node);
+                        ModuleNeeded toAdd = new ModuleNeeded("Job " + label, elementParam.getValue(),
+                                "Required for using component : " + uniquename + ".", true);
+
+                        componentImportNeedsList.add(toAdd);
+
+                        // Step 3: removed added modules from unusedModule list
+                        ModuleNeeded unusedModule = null;
+                        for (ModuleNeeded module : unUsedModules) {
+                            if (module.getModuleName().equals(TalendTextUtils.removeQuotes(elementParam.getValue()))) {
+                                unusedModule = module;
+                            }
+                        }
+                        if (unusedModule != null) {
+                            unUsedModules.remove(unusedModule);
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
     private static List<ModuleNeeded> getModulesNeededForComponents() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
@@ -133,8 +192,7 @@ public class ModulesNeededProvider {
     }
 
     public static List<ModuleNeeded> getModulesNeededForJobs() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
 
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
@@ -149,8 +207,7 @@ public class ModulesNeededProvider {
 
     public static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
             List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
             for (IRepositoryObject current : routines) {
@@ -161,8 +218,8 @@ public class ModulesNeededProvider {
                     for (Object o : imports) {
                         IMPORTType currentImport = (IMPORTType) o;
                         // FIXME SML i18n
-                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport
-                                .getMODULE(), currentImport.getMESSAGE(), currentImport.isREQUIRED());
+                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(),
+                                currentImport.getMESSAGE(), currentImport.isREQUIRED());
                         // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
                         importNeedsList.add(toAdd);
                     }
@@ -181,8 +238,8 @@ public class ModulesNeededProvider {
                 "org.talend.core.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
         List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
-        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
+        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
         for (IConfigurationElement current : extension) {
             ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
             if (lang == projectLanguage) {

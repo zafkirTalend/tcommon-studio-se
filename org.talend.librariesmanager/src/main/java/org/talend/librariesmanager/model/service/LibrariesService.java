@@ -26,6 +26,7 @@ import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.Problem;
+import org.talend.core.model.properties.Item;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -149,5 +150,17 @@ public class LibrariesService implements ILibrariesService {
      */
     public List<URL> getSystemSQLPatterns() {
         return this.getLibrariesService().getSystemSQLPatterns();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.general.ILibrariesService#resetModulesNeededForCurrentJob(org.talend.core.model.properties
+     * .Item)
+     */
+    public void updateModulesNeededForCurrentJob(Item item) {
+        this.getLibrariesService().updateModulesNeededForCurrentJob(item);
+
     }
 }

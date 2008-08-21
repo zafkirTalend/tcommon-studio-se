@@ -29,6 +29,7 @@ import org.talend.core.model.process.Element;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
+import org.talend.core.model.properties.Item;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 
@@ -61,8 +62,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         File sourceFile = new File(source.getFile());
         File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
         FilesUtils.copyFile(sourceFile, targetFile);
-        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(),
-                ELibraryInstallStatus.INSTALLED);
+        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
             addResolvedClasspathPath(targetFile);
         }
@@ -111,5 +111,18 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         for (IChangedLibrariesListener current : listeners) {
             current.afterChangingLibraries();
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.general.ILibrariesService#resetModulesNeededForCurrentJob(org.talend.core.model.properties
+     * .Item)
+     */
+    public void updateModulesNeededForCurrentJob(Item item) {
+        ModulesNeededProvider.resetCurrentJobNeededModuleList(item);
+        checkLibraries();
+
     }
 }
