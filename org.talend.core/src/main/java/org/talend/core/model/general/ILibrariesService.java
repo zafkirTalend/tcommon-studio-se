@@ -22,8 +22,8 @@ import org.talend.core.IService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.Problem;
-import org.talend.core.model.properties.Item;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -75,7 +75,7 @@ public interface ILibrariesService extends IService {
 
     public void resetModulesNeeded();
 
-    public void updateModulesNeededForCurrentJob(Item item);
+    public void updateModulesNeededForCurrentJob(IProcess2 process);
 
     public boolean isLibSynchronized();
 
