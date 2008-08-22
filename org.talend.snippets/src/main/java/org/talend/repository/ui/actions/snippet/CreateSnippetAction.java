@@ -107,6 +107,7 @@ public class CreateSnippetAction extends AContextualAction {
         SnippetWizard contextWizard;
         if (isToolbar()) {
             contextWizard = new SnippetWizard(PlatformUI.getWorkbench(), true, snippetNode, false);
+            contextWizard.setToolbar(true);
         } else {
             contextWizard = new SnippetWizard(PlatformUI.getWorkbench(), true, getSelection(), false);
         }

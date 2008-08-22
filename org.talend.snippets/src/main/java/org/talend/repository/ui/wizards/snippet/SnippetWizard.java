@@ -60,6 +60,17 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
 
     private SnippetPage snippetPage;
 
+    private boolean isToolbar;
+
+    /**
+     * Sets the isToolbar.
+     * 
+     * @param isToolbar the isToolbar to set
+     */
+    public void setToolbar(boolean isToolbar) {
+        this.isToolbar = isToolbar;
+    }
+
     /**
      * Constructor for FileWizard.
      * 
@@ -80,8 +91,8 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
             snippetItem = PropertiesFactory.eINSTANCE.createSnippetItem();
 
             contextProperty = PropertiesFactory.eINSTANCE.createProperty();
-            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(
-                    Context.REPOSITORY_CONTEXT_KEY)).getUser());
+            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                    .getUser());
             contextProperty.setVersion(VersionUtils.DEFAULT_VERSION);
             contextProperty.setStatusCode(""); //$NON-NLS-1$
 
@@ -111,8 +122,8 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
             snippetItem = PropertiesFactory.eINSTANCE.createSnippetItem();
 
             contextProperty = PropertiesFactory.eINSTANCE.createProperty();
-            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(
-                    Context.REPOSITORY_CONTEXT_KEY)).getUser());
+            contextProperty.setAuthor(((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                    .getUser());
             contextProperty.setVersion(VersionUtils.DEFAULT_VERSION);
             contextProperty.setStatusCode(""); //$NON-NLS-1$
 
@@ -134,6 +145,9 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
      */
     public void addPages() {
         setWindowTitle("Create / Edit a snippet");
+        if (isToolbar) {
+            pathToSave = null;
+        }
         contextWizardPage0 = new Step0WizardPage(contextProperty, pathToSave, ERepositoryObjectType.CONTEXT,
                 !isRepositoryObjectEditable(), creation);
         contextWizardPage0.setTitle(Messages.getString("ContextWizard.step0Title")); //$NON-NLS-1$
