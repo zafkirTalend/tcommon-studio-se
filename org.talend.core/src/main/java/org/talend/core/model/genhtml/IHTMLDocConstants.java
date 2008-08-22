@@ -30,7 +30,7 @@ public interface IHTMLDocConstants {
 
     public static final String VERSION = " VERSION "; //$NON-NLS-1$
 
-    public static final String JOB_PREVIEW_PIC_SUFFIX = ".jpg"; //$NON-NLS-1$
+    public static final String JOB_PREVIEW_PIC_SUFFIX = ".png"; //$NON-NLS-1$
 
     public static final String PICTUREFOLDERPATH = "pictures/"; //$NON-NLS-1$
 
