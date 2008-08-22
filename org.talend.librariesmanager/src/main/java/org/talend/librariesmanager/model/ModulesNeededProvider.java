@@ -131,17 +131,6 @@ public class ModulesNeededProvider {
      */
     public static void resetCurrentJobNeededModuleList(IProcess2 process) {
 
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        IRepositoryObject job = null;
-        try {
-            job = repositoryFactory.getLastVersion(process.getProperty().getId());
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
-        if (job == null || repositoryFactory.getStatus(job) == ERepositoryStatus.DELETED) {
-            return;
-        }
-
         List<? extends INode> graphicalNodes = process.getGraphicalNodes();
         for (INode node : graphicalNodes) {
             List<? extends IElementParameter> elementParameters = node.getElementParameters();
@@ -150,7 +139,7 @@ public class ModulesNeededProvider {
                     continue;
                 }
 
-                // Step 1: removed all modules for current job;
+                // Step 1: remove all modules for current job;
                 Set<String> neededLibraries = process.getNeededLibraries(true);
                 List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
                 for (String libName : neededLibraries) {
@@ -162,7 +151,7 @@ public class ModulesNeededProvider {
                 }
                 componentImportNeedsList.removeAll(moduleForCurrentJobList);
 
-                // Step 2: re-added modules
+                // Step 2: re-add modules
                 String uniquename = node.getUniqueName();
                 String moduleName = TalendTextUtils.removeQuotes(elementParameter.getValue().toString());
                 ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), moduleName,
@@ -170,7 +159,7 @@ public class ModulesNeededProvider {
 
                 componentImportNeedsList.add(toAdd);
 
-                // Step 3: removed added modules from unusedModule list
+                // Step 3: remove added modules from unusedModule list
                 ModuleNeeded unusedModule = null;
                 for (ModuleNeeded module : unUsedModules) {
                     if (module.getModuleName().equals(moduleName)) {
