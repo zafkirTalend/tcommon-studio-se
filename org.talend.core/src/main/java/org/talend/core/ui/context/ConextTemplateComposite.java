@@ -635,7 +635,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
             ISelection selection = this.viewer.getSelection();
             selectionEnable = !selection.isEmpty();
         }
-
+        selectionEnable = selectionEnable && !modelManager.isReadOnly();
         boolean moveState = orderEnable && selectionEnable;
         if (this.moveUpButton != null) {
             this.moveUpButton.setEnabled(moveState);

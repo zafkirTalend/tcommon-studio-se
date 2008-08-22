@@ -30,6 +30,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
  * ggu class global comment. Detailled comment
@@ -183,11 +184,14 @@ public final class ProjectManager {
      */
     public boolean isInCurrentMainProject(RepositoryNode node) {
         if (node != null) {
-            Project project = node.getRoot().getProject();
-            if (project != null) {
-                return project.equals(getCurrentProject());
-            } else {
-                return true;
+            IProjectRepositoryNode root = node.getRoot();
+            if (root != null) {
+                Project project = root.getProject();
+                if (project != null) {
+                    return project.equals(getCurrentProject());
+                } else {
+                    return true;
+                }
             }
         }
         return false;
