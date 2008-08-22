@@ -114,6 +114,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
+    private static final boolean NEED_CANCEL_BUTTON = true;
+
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
         this(pageName, property, destinationPath, false, true);
     }
@@ -308,10 +310,16 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
                 @Override
                 public void widgetSelected(SelectionEvent e) {
-                    openFolderSelectionDialog();
+                    openFolderSelectionDialog(NEED_CANCEL_BUTTON);
                 }
             });
+
+            if (destinationPath == null) {
+                openFolderSelectionDialog(!NEED_CANCEL_BUTTON);
+            }
+
         }
+
     }
 
     /**
@@ -368,14 +376,17 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     }
 
-    private void openFolderSelectionDialog() {
+    private void openFolderSelectionDialog(boolean needCancelButton) {
+
         ListDialog dlg = new ListDialog(getShell());
         dlg.setInput(getRepositoryObjectType());
         dlg.setContentProvider(new FoldersContentProvider());
         dlg.setLabelProvider(new LabelProvider());
         dlg.setTitle(Messages.getString("PropertiesWizardPage.SelectfolderTitle")); //$NON-NLS-1$
         dlg.setMessage(Messages.getString("PropertiesWizardPage.SelectfolderMessage")); //$NON-NLS-1$
-
+        if (!needCancelButton) {
+            dlg.setAddCancelButton(false);
+        }
         String defaultValue = (pathText.getText().equals("") ? FoldersContentProvider.DEFAULT : pathText.getText()); //$NON-NLS-1$
         dlg.setInitialSelections(new String[] { defaultValue });
 
