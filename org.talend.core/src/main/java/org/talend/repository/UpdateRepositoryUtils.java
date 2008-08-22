@@ -433,26 +433,4 @@ public final class UpdateRepositoryUtils {
         }
         return null;
     }
-
-    /**
-     * ftang used for handling greenplum and paraccel dabatbase as their connection are used as same as postgresql.
-     * 
-     * @param currentDbType
-     * @param repositoryValue
-     * @return
-     */
-    public static String getNeededDbType(String currentDbType, String repositoryValue) {
-        String neededDbType = repositoryValue.substring(repositoryValue.indexOf(":") + 1);
-
-        if (neededDbType.equals(EDatabaseTypeName.PSQL.getProduct())) {
-            if (currentDbType.equals(EDatabaseTypeName.GREENPLUM.getProduct())) {
-                return EDatabaseTypeName.GREENPLUM.getProduct();
-            }
-            if (currentDbType.equals(EDatabaseTypeName.PARACCEL.getProduct())) {
-                return EDatabaseTypeName.PARACCEL.getProduct();
-            }
-        }
-
-        return neededDbType;
-    }
 }
