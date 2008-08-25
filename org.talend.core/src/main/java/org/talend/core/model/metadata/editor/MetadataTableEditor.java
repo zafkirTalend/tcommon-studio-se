@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
+import org.talend.core.utils.KeywordsValidator;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -112,8 +113,8 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         Perl5Matcher matcher = new Perl5Matcher();
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
 
-        if (!match) {
-            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] { columnName }); //$NON-NLS-1$ //$NON-NLS-2$
+        if (!match || KeywordsValidator.isKeyword(columnName)) {
+            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] { columnName }); //$NON-NLS-1$ 
         }
 
         int lstSize = getBeansList().size();
