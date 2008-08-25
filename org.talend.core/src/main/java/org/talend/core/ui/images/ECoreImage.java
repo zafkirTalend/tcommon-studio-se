@@ -111,7 +111,9 @@ public enum ECoreImage implements IImage {
     CDC_ACTIVATED_OVERLAY("/icons/cdc_activated_overlay.png"),
 
     ERROR_OVERLAY("/icons/error_co.gif"), //$NON-NLS-1$
-    WARN_OVERLAY("/icons/warning_co.gif"); //$NON-NLS-1$
+    WARN_OVERLAY("/icons/warning_co.gif"), //$NON-NLS-1$
+
+    UNKNOWN();
 
     private String path;
 

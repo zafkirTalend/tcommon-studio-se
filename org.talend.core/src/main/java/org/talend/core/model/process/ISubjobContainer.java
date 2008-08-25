@@ -23,4 +23,6 @@ public interface ISubjobContainer extends IElement {
     public void updateSubjobContainer();
 
     public boolean isDisplayed();
+
+    public void updateSubjobDisplay();
 }
