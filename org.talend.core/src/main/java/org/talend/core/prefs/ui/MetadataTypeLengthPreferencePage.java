@@ -98,7 +98,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
                 strvalueType[i][1] = strTypeValue[i];
 
             }
-            comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, Messages
+            comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, Messages
                     .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
         }
 
@@ -235,13 +235,16 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
      */
     @Override
     public boolean performOk() {
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, comboValueTypeField.getFieldValue());
+
         getPreferenceStore().setValue(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH, valueLengthField.getStringValue());
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, comboValueTypeField.getFieldValue());
             getPreferenceStore().setValue(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, comboFieldTypeField.getFieldValue());
         } else {
             getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE,
                     comboFieldTypeField.getFieldValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE,
+                    comboValueTypeField.getFieldValue());
         }
         getPreferenceStore().setValue(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH, fieldLengthField.getStringValue());
         getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BOOLEAN, booleanField.getStringValue());

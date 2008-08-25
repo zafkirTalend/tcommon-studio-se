@@ -19,6 +19,8 @@ public class MetadataTypeLengthConstants {
 
     public static final String VALUE_DEFAULT_TYPE = "VALUE_DEFAULT_TYPE";
 
+    public static final String PERL_VALUE_DEFAULT_TYPE = "PERL_VALUE_DEFAULT_TYPE";
+
     public static final String VALUE_DEFAULT_LENGTH = "VALUE_DEFAULT_LENGTH";
 
     public static final String FIELD_DEFAULT_TYPE = "FIELD_DEFAULT_TYPE";
