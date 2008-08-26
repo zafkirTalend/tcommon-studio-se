@@ -14,6 +14,7 @@ package org.talend.expressionbuilder;
 
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.IService;
+import org.talend.core.model.process.INode;
 import org.talend.expressionbuilder.ui.IExpressionBuilderDialogController;
 
 /**
@@ -24,7 +25,7 @@ import org.talend.expressionbuilder.ui.IExpressionBuilderDialogController;
  */
 public interface IExpressionBuilderDialogService extends IService {
 
-    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent,
-            IExpressionDataBean dataBean);
+    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean,
+            INode component);
 
 }
