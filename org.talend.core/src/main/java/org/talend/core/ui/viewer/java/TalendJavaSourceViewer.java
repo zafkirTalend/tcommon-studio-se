@@ -323,6 +323,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         this.setRangeIndicator(new DefaultRangeIndicator());
 
         IAnnotationModel model;
+        IDocument document;
         if (checkCode) {
             IDocumentProvider provider = JavaPlugin.getDefault().getCompilationUnitDocumentProvider();
             IEditorInput ei = new FileEditorInput(file);
@@ -331,12 +332,13 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
             } catch (CoreException e) {
                 ExceptionHandler.process(e);
             }
+            document = provider.getDocument(ei);
             model = provider.getAnnotationModel(ei);
         } else {
             model = new AnnotationModel();
+            document = getDocument();
+            model.connect(document);
         }
-        IDocument document = getDocument();
-        model.connect(document);
 
         if (document != null) {
             setDocument(document, model);
