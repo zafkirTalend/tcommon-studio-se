@@ -75,37 +75,140 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         valueGroup.setLayoutData(gd);
         Composite com = new Composite(valueGroup, SWT.NONE);
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            JavaType[] strTypeValue = JavaTypesManager.JAVA_TYPES;
-            String[] strDisplay = new String[strTypeValue.length];
-            String[] strValue = new String[strTypeValue.length];
-            for (int i = 0; i < strDisplay.length; i++) {
-                strDisplay[i] = strTypeValue[i].getNullableClass().getSimpleName();
-                strValue[i] = strTypeValue[i].getId();
-            }
-            String[][] strvalueType = new String[strDisplay.length][2];
-            for (int i = 0; i < strDisplay.length; i++) {
-                strvalueType[i][0] = strDisplay[i];
-                strvalueType[i][1] = strValue[i];
-
-            }
-            comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, Messages
-                    .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
+            createJavaFieldEditors(com);
         } else {
-            String[] strTypeValue = MetadataTalendType.getPerlTypes();
-            String[][] strvalueType = new String[strTypeValue.length][2];
-            for (int i = 0; i < strTypeValue.length; i++) {
-                strvalueType[i][0] = strTypeValue[i];
-                strvalueType[i][1] = strTypeValue[i];
-
-            }
-            comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, Messages
-                    .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
+            createPerlFieldEditors(com);
         }
+    }
 
+    /**
+     * DOC qwei Comment method "createPerlFieldEditors".
+     * 
+     * @param com
+     */
+    private void createPerlFieldEditors(Composite com) {
+        // TODO Auto-generated method stub
+        String[] strTypeValue = MetadataTalendType.getPerlTypes();
+        String[][] strvalueType = new String[strTypeValue.length][2];
+        for (int i = 0; i < strTypeValue.length; i++) {
+            strvalueType[i][0] = strTypeValue[i];
+            strvalueType[i][1] = strTypeValue[i];
+
+        }
+        comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, Messages
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
+        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+        gridData.horizontalSpan = 4;
+        com.setLayoutData(gridData);
+        GridLayout gridLayout = (GridLayout) com.getLayout();
+        gridLayout.numColumns = 6;
+        com.setLayout(gridLayout);
+        valueLengthField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH, Messages
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH"), valueGroup);
+        addField(comboValueTypeField);
+        addField(valueLengthField);
+        /**
+         * set Fields
+         * 
+         */
+        fieldGroup = new Group(parent, SWT.NONE);
+        fieldGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.FIELD"));
+        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+        fieldGroup.setLayoutData(gd);
+        com = new Composite(fieldGroup, SWT.NONE);
+        comboFieldTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE, Messages
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com);
         gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 4;
         com.setLayoutData(gridData);
         gridLayout = (GridLayout) com.getLayout();
+        gridLayout.numColumns = 6;
+        com.setLayout(gridLayout);
+        fieldLengthField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH, Messages
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH"), fieldGroup);
+        /**
+         * set data Type
+         */
+        dbTypeGroup = new Group(parent, SWT.NONE);
+        dbTypeGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.DBTYPE"));
+        gd = new GridData(GridData.FILL_HORIZONTAL);
+        dbTypeGroup.setLayoutData(gd);
+        booleanField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_BOOLEAN, Messages
+                .getString("MetadataTypeLengthConstants.BOOLEAN_LENGTH"), dbTypeGroup);
+        bigDecimalField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DECIMAL, Messages
+                .getString("MetadataTypeLengthConstants.BIGDECIMAL_LENGTH"), dbTypeGroup);
+        // byteField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BYTE, Messages
+        // .getString("MetadataTypeLengthConstants.BYTE_LENGTH"), dbTypeGroup);
+        integerField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_INT, Messages
+                .getString("MetadataTypeLengthConstants.INTEGER_LENGTH"), dbTypeGroup);
+        // bytearrayField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BYTEARRAY, Messages
+        // .getString("MetadataTypeLengthConstants.BYTEARRAY_LENGTH"), dbTypeGroup);
+        // longField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LONG, Messages
+        // .getString("MetadataTypeLengthConstants.LONG_LENGTH"), dbTypeGroup);
+        // characterField = new StringFieldEditor(MetadataTypeLengthConstants.ID_CHARACTER, Messages
+        // .getString("MetadataTypeLengthConstants.CHARACTER_LENGTH"), dbTypeGroup);
+        // objectField = new StringFieldEditor(MetadataTypeLengthConstants.ID_OBJECT, Messages
+        // .getString("MetadataTypeLengthConstants.OBJECT_LENGTH"), dbTypeGroup);
+        dateField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DATE, Messages
+                .getString("MetadataTypeLengthConstants.DATE_LENGHT"), dbTypeGroup);
+        // shortField = new StringFieldEditor(MetadataTypeLengthConstants.ID_SHORT, Messages
+        // .getString("MetadataTypeLengthConstants.SHORT_LENGTH"), dbTypeGroup);
+        // doubleField = new StringFieldEditor(MetadataTypeLengthConstants.ID_DOUBLE, Messages
+        // .getString("MetadataTypeLengthConstants.DOUBLE_LENGTH"), dbTypeGroup);
+        stringField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_STRING, Messages
+                .getString("MetadataTypeLengthConstants.STRING_LENGTH"), dbTypeGroup);
+        // floatField = new StringFieldEditor(MetadataTypeLengthConstants.ID_FLOAT, Messages
+        // .getString("MetadataTypeLengthConstants.FLOAT_LENGTH"), dbTypeGroup);
+        // listField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LIST, Messages
+        // .getString("MetadataTypeLengthConstants.LIST_LENGTH"), dbTypeGroup);
+        datetimeField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DATETIME, Messages
+                .getString("MetadataTypeLengthConstants.DATETIME_LENGTH"), dbTypeGroup);
+
+        addField(comboFieldTypeField);
+        addField(fieldLengthField);
+        gridLayout = (GridLayout) dbTypeGroup.getLayout();
+        gridLayout.numColumns = 4;
+        dbTypeGroup.setLayout(gridLayout);
+        addField(bigDecimalField);
+        addField(booleanField);
+        // addField(byteField);
+        addField(integerField);
+        // addField(bytearrayField);
+        // addField(longField);
+        // addField(characterField);
+        // addField(objectField);
+        addField(dateField);
+        // addField(shortField);
+        // addField(doubleField);
+        addField(stringField);
+        // addField(floatField);
+        // addField(listField);
+        addField(datetimeField);
+    }
+
+    /**
+     * DOC qwei Comment method "createJavaFieldEditors".
+     */
+    private void createJavaFieldEditors(Composite com) {
+        JavaType[] strTypeValue = JavaTypesManager.JAVA_TYPES;
+        String[] strDisplay = new String[strTypeValue.length];
+        String[] strValue = new String[strTypeValue.length];
+        for (int i = 0; i < strDisplay.length; i++) {
+            strDisplay[i] = strTypeValue[i].getNullableClass().getSimpleName();
+            strValue[i] = strTypeValue[i].getId();
+        }
+        String[][] strvalueType = new String[strDisplay.length][2];
+        for (int i = 0; i < strDisplay.length; i++) {
+            strvalueType[i][0] = strDisplay[i];
+            strvalueType[i][1] = strValue[i];
+
+        }
+        comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, Messages
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
+        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+        gridData.horizontalSpan = 4;
+        com.setLayoutData(gridData);
+        GridLayout gridLayout = (GridLayout) com.getLayout();
         gridLayout.numColumns = 6;
         com.setLayout(gridLayout);
         valueLengthField = new StringFieldEditor(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH, Messages
@@ -119,37 +222,11 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
          */
         fieldGroup = new Group(parent, SWT.NONE);
         fieldGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.FIELD"));
-        gd = new GridData(GridData.FILL_HORIZONTAL);
+        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         fieldGroup.setLayoutData(gd);
         com = new Composite(fieldGroup, SWT.NONE);
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            JavaType[] strTypeValue = JavaTypesManager.JAVA_TYPES;
-            String[] strDisplay = new String[strTypeValue.length];
-            String[] strValue = new String[strTypeValue.length];
-            for (int i = 0; i < strDisplay.length; i++) {
-                strDisplay[i] = strTypeValue[i].getNullableClass().getSimpleName();
-                strValue[i] = strTypeValue[i].getId();
-            }
-            String[][] strvalueType = new String[strDisplay.length][2];
-            for (int i = 0; i < strDisplay.length; i++) {
-                strvalueType[i][0] = strDisplay[i];
-                strvalueType[i][1] = strValue[i];
-
-            }
-            comboFieldTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, Messages
-                    .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com);
-        } else {
-            String[] strTypeValue = MetadataTalendType.getPerlTypes();
-            String[][] strvalueType = new String[strTypeValue.length][2];
-            for (int i = 0; i < strTypeValue.length; i++) {
-                strvalueType[i][0] = strTypeValue[i];
-                strvalueType[i][1] = strTypeValue[i];
-
-            }
-            comboFieldTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE, Messages
-                    .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com);
-        }
-
+        comboFieldTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, Messages
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com);
         gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 4;
         com.setLayoutData(gridData);
@@ -158,9 +235,6 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         com.setLayout(gridLayout);
         fieldLengthField = new StringFieldEditor(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH, Messages
                 .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH"), fieldGroup);
-        addField(comboFieldTypeField);
-        addField(fieldLengthField);
-
         /**
          * set data Type
          */
@@ -196,8 +270,8 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
                 .getString("MetadataTypeLengthConstants.FLOAT_LENGTH"), dbTypeGroup);
         listField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LIST, Messages
                 .getString("MetadataTypeLengthConstants.LIST_LENGTH"), dbTypeGroup);
-        datetimeField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DATETIME, Messages
-                .getString("MetadataTypeLengthConstants.DATETIME_LENGTH"), dbTypeGroup);
+        addField(comboFieldTypeField);
+        addField(fieldLengthField);
         gridLayout = (GridLayout) dbTypeGroup.getLayout();
         gridLayout.numColumns = 4;
         dbTypeGroup.setLayout(gridLayout);
@@ -215,7 +289,6 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         addField(stringField);
         addField(floatField);
         addField(listField);
-        addField(datetimeField);
     }
 
     /*
@@ -236,37 +309,41 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
     @Override
     public boolean performOk() {
 
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH, valueLengthField.getStringValue());
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             getPreferenceStore().setValue(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, comboValueTypeField.getFieldValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH, valueLengthField.getStringValue());
             getPreferenceStore().setValue(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, comboFieldTypeField.getFieldValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH, fieldLengthField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BOOLEAN, booleanField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BIGDECIMAL, bigDecimalField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BYTE, byteField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_INTEGER, integerField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BYTEARRAY, bytearrayField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_LONG, longField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_CHARACTER, characterField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_OBJECT, objectField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_DATE, dateField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_SHORT, shortField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_DOUBLE, doubleField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_STRING, stringField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_FLOAT, floatField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_LIST, listField.getStringValue());
         } else {
             getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE,
                     comboFieldTypeField.getFieldValue());
             getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE,
                     comboValueTypeField.getFieldValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH,
+                    valueLengthField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH,
+                    fieldLengthField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_DATE, dateField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_BOOLEAN, booleanField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_INT, integerField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_DECIMAL, bigDecimalField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_STRING, stringField.getStringValue());
+            getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_DATETIME, datetimeField.getStringValue());
         }
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH, fieldLengthField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BOOLEAN, booleanField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BIGDECIMAL, bigDecimalField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BYTE, byteField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_INTEGER, integerField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_BYTEARRAY, bytearrayField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_LONG, longField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_CHARACTER, characterField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_OBJECT, objectField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_DATE, dateField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_SHORT, shortField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_DOUBLE, doubleField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_STRING, stringField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_FLOAT, floatField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.ID_LIST, listField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_DATE, dateField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_BOOLEAN, booleanField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_INT, integerField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_DECIMAL, bigDecimalField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_STRING, stringField.getStringValue());
-        getPreferenceStore().setValue(MetadataTypeLengthConstants.PERL_DATETIME, datetimeField.getStringValue());
         return super.performOk();
     }
 }

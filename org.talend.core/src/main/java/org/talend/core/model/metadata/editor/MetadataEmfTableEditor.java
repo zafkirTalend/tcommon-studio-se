@@ -218,11 +218,11 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
                             MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE).equals("")) {
                 metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
                         MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE));
-                if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH) != null
+                if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH) != null
                         && !CorePlugin.getDefault().getPreferenceStore().getString(
-                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) {
+                                MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH).equals("")) {
                     metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
-                            MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH)));
+                            MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH)));
                 }
             }
         }

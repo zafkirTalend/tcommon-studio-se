@@ -23,11 +23,15 @@ public class MetadataTypeLengthConstants {
 
     public static final String VALUE_DEFAULT_LENGTH = "VALUE_DEFAULT_LENGTH";
 
+    public static final String PERL_VALUE_DEFAULT_LENGTH = "PERL_VALUE_DEFAULT_LENGTH";
+
     public static final String FIELD_DEFAULT_TYPE = "FIELD_DEFAULT_TYPE";
 
     public static final String PERL_FIELD_DEFAULT_TYPE = "PERL_FIELD_DEFAULT_TYPE";
 
     public static final String FIELD_DEFAULT_LENGTH = "FIELD_DEFAULT_LENGTH";
+
+    public static final String PERL_FIELD_DEFAULT_LENGTH = "PERL_FIELD_DEFAULT_LENGTH";
 
     public static final String ID_BOOLEAN = "ID_BOOLEAN";
 
