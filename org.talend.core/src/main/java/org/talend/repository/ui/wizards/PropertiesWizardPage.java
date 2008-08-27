@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -21,8 +21,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreeExpansionEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
@@ -32,15 +35,20 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.swt.dialogs.RepositoryFolderSelectionDialog;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -51,6 +59,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
@@ -323,12 +332,188 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     /**
+     * yzhang PropertiesWizardPage class global comment. Detailled comment <br/>
+     * 
+     * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
+     * 
+     */
+    private class Folder {
+
+        public static final String ROOT_FOLDER = FoldersContentProvider.DEFAULT;
+
+        private String name;
+
+        private List<Folder> children;
+
+        private Folder parent;
+
+        public Folder(String name) {
+            this.name = name;
+            children = new ArrayList<Folder>();
+        }
+
+        /**
+         * Getter for parent.
+         * 
+         * @return the parent
+         */
+        public Folder getParent() {
+            return this.parent;
+        }
+
+        /**
+         * Sets the parent.
+         * 
+         * @param parent the parent to set
+         */
+        public void setParent(Folder parent) {
+            this.parent = parent;
+        }
+
+        /**
+         * Getter for name.
+         * 
+         * @return the name
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Getter for path.
+         * 
+         * @return the path
+         */
+        public String getPath() {
+            if (parent == null) {
+                return null;
+            }
+            return parent.getName() + "/" + name;
+        }
+
+        /**
+         * Sets the name.
+         * 
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * yzhang Comment method "addChildFolder".
+         * 
+         * @param folder
+         */
+        public void addChildFolder(Folder folder) {
+            folder.setParent(this);
+            this.children.add(folder);
+        }
+
+        /**
+         * yzhang Comment method "getChildren".
+         * 
+         * @return
+         */
+        public List<Folder> getChildren() {
+            return this.children;
+        }
+
+    }
+
+    /**
+     * yzhang PropertiesWizardPage class global comment. Detailled comment <br/>
+     * 
+     * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
+     * 
+     */
+    private class FoldersLabelProvider extends LabelProvider {
+
+        private RepositoryFolderSelectionDialog dialog;
+
+        /**
+         * yzhang PropertiesWizardPage.FoldersLabelProvider constructor comment.
+         */
+        public FoldersLabelProvider(RepositoryFolderSelectionDialog dialog) {
+            this.dialog = dialog;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
+         */
+        public Image getImage(Object element) {
+            ECoreImage image = (dialog.getExpandedState(element) ? ECoreImage.FOLDER_OPEN_ICON : ECoreImage.FOLDER_CLOSE_ICON);
+            return ImageProvider.getImage(image);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
+         */
+        public String getText(Object element) {
+            return ((Folder) element).getName();
+        }
+
+    }
+
+    private Folder formdFolderTree(List<String> paths) {
+
+        Folder root = new Folder(Folder.ROOT_FOLDER);
+        for (String path : paths) {
+            String[] splitedPaths = path.split("/");
+            Folder lastFolder = null;
+            for (int i = 0; i < splitedPaths.length; i++) {
+                String folderLabel = splitedPaths[i];
+                Folder existFolder = findFolder(root, folderLabel);
+                if (existFolder == null) {
+                    if (i == 0) {
+                        lastFolder = new Folder(folderLabel);
+                        root.addChildFolder(lastFolder);
+                    } else {
+                        Folder newFolder = new Folder(folderLabel);
+                        lastFolder.addChildFolder(newFolder);
+                        lastFolder = newFolder;
+                    }
+                } else {
+                    lastFolder = existFolder;
+                }
+
+            }
+        }
+
+        return root;
+    }
+
+    /**
+     * yzhang Comment method "findFolder".
+     * 
+     * @param folder
+     * @param name
+     * @return
+     */
+    private Folder findFolder(Folder folder, String name) {
+
+        Folder toRreturn = null;
+
+        if (folder.getName().equals(name)) {
+            return folder;
+        }
+        for (Folder f : folder.getChildren()) {
+            toRreturn = findFolder(f, name);
+        }
+        return toRreturn;
+    }
+
+    /**
      * Provides all user folders for a given type.<br/>
      * 
      * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
      * 
      */
-    private class FoldersContentProvider implements IStructuredContentProvider {
+    private class FoldersContentProvider implements ITreeContentProvider {
 
         private static final String DEFAULT = "(default)"; //$NON-NLS-1$
 
@@ -343,10 +528,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     IRepositoryService.class)).getProxyRepositoryFactory();
             try {
                 List<String> folders = factory.getFolders(type);
-                folders.add(DEFAULT);
-                Collections.sort(folders);
-                String[] toReturn = folders.toArray(new String[0]);
-                return toReturn;
+                Folder root = formdFolderTree(folders);
+
+                return new Folder[] { root };
             } catch (PersistenceException e) {
                 ExceptionHandler.process(e);
                 return new String[0];
@@ -374,32 +558,140 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+         */
+        public Object[] getChildren(Object parentElement) {
+            return ((Folder) parentElement).getChildren().toArray();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
+         */
+        public Object getParent(Object element) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+         */
+        public boolean hasChildren(Object element) {
+            return ((Folder) element).getChildren().size() > 0;
+        }
+
     }
 
     private void openFolderSelectionDialog(boolean needCancelButton) {
 
-        ListDialog dlg = new ListDialog(getShell());
-        dlg.setInput(getRepositoryObjectType());
-        dlg.setContentProvider(new FoldersContentProvider());
-        dlg.setLabelProvider(new LabelProvider());
-        dlg.setTitle(Messages.getString("PropertiesWizardPage.SelectfolderTitle")); //$NON-NLS-1$
-        dlg.setMessage(Messages.getString("PropertiesWizardPage.SelectfolderMessage")); //$NON-NLS-1$
-        if (!needCancelButton) {
-            dlg.setAddCancelButton(false);
-        }
-        String defaultValue = (pathText.getText().equals("") ? FoldersContentProvider.DEFAULT : pathText.getText()); //$NON-NLS-1$
-        dlg.setInitialSelections(new String[] { defaultValue });
+        // ListDialog dlg = new ListDialog(getShell());
+        // dlg.setInput(getRepositoryObjectType());
+        // dlg.setContentProvider(new FoldersContentProvider());
+        // dlg.setLabelProvider(new LabelProvider());
+        //        dlg.setTitle(Messages.getString("PropertiesWizardPage.SelectfolderTitle")); //$NON-NLS-1$
+        //        dlg.setMessage(Messages.getString("PropertiesWizardPage.SelectfolderMessage")); //$NON-NLS-1$
+        // if (!needCancelButton) {
+        // dlg.setAddCancelButton(false);
+        // }
+        //        String defaultValue = (pathText.getText().equals("") ? FoldersContentProvider.DEFAULT : pathText.getText()); //$NON-NLS-1$
+        // dlg.setInitialSelections(new String[] { defaultValue });
+        //
+        // if (dlg.open() == Window.OK) {
+        // String string = (String) dlg.getResult()[0];
+        // if (string.equals(FoldersContentProvider.DEFAULT)) {
+        //                pathText.setText(""); //$NON-NLS-1$
+        // } else {
+        // pathText.setText(string);
+        // this.path = string;
+        // }
+        // }
 
-        if (dlg.open() == Window.OK) {
-            String string = (String) dlg.getResult()[0];
-            if (string.equals(FoldersContentProvider.DEFAULT)) {
-                pathText.setText(""); //$NON-NLS-1$
+        RepositoryFolderSelectionDialog dialog = new RepositoryFolderSelectionDialog(getShell());
+        dialog.setInput(getRepositoryObjectType());
+        dialog.setContentProvider(new FoldersContentProvider());
+        dialog.setLabelProvider(new FoldersLabelProvider(dialog));
+        dialog.setTreeListener(new ITreeViewerListener() {
+
+            public void treeCollapsed(TreeExpansionEvent event) {
+                setItemImage(event, true);
+            }
+
+            public void treeExpanded(TreeExpansionEvent event) {
+                setItemImage(event, false);
+            }
+
+            /**
+             * yzhang Comment method "setItemImage".
+             * 
+             * @param event
+             */
+            private void setItemImage(TreeExpansionEvent event, boolean isCollpased) {
+                Tree tree = ((TreeViewer) event.getSource()).getTree();
+                Object element = event.getElement();
+                TreeItem item = getTreeObject(tree, element);
+                if (isCollpased) {
+                    item.setImage(ImageProvider.getImage(ECoreImage.FOLDER_CLOSE_ICON));
+                } else {
+                    item.setImage(ImageProvider.getImage(ECoreImage.FOLDER_OPEN_ICON));
+                }
+            }
+        });
+        dialog.setTitle(Messages.getString("PropertiesWizardPage.SelectfolderTitle")); //$NON-NLS-1$
+        dialog.setMessage(Messages.getString("PropertiesWizardPage.SelectfolderMessage")); //$NON-NLS-1$
+        if (dialog.open() == Window.OK) {
+            Folder folder = (Folder) dialog.getResult()[0];
+            String pathString = folder.getPath();
+            if (pathString == null) {
+                pathText.setText("");
             } else {
-                pathText.setText(string);
-                this.path = string;
+                pathText.setText(pathString);
+                this.path = pathString;
             }
         }
 
+    }
+
+    /**
+     * yzhang Comment method "getTreeObject".
+     * 
+     * @param item
+     * @param element
+     * @return
+     */
+    private TreeItem getTreeObject(TreeItem item, Object element) {
+        if (element.equals(item.getData())) {
+            return item;
+        }
+        for (TreeItem treeItem : item.getItems()) {
+            TreeItem toReturn = getTreeObject(treeItem, element);
+            if (toReturn != null) {
+                return toReturn;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * yzhang Comment method "getTreeObject".
+     * 
+     * @param tree
+     * @param objectToFind
+     * @return
+     */
+    private TreeItem getTreeObject(Tree tree, Object objectToFind) {
+        for (TreeItem item : tree.getItems()) {
+            TreeItem toReturn = getTreeObject(item, objectToFind);
+            if (toReturn != null) {
+                return toReturn;
+            }
+        }
+        return null;
     }
 
     public String[] toArray(List<org.talend.core.model.properties.Status> status) {
