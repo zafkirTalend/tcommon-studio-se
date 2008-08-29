@@ -46,6 +46,10 @@ public class PluginChecker {
         return isLoaded;
     }
 
+    public static boolean isTIS() {
+        return isJobLetPluginLoaded();
+    }
+
     public static Plugin getWSDLPlugin() {
         return Platform.getPlugin(WSDL_PLUGIN_ID);
     }
