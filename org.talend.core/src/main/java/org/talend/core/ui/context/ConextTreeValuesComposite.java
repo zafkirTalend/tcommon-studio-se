@@ -49,6 +49,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
@@ -64,6 +65,7 @@ import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
 
@@ -302,6 +304,14 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
             cellEditor.deactivate();
             cellEditor = null;
             return;
+        }
+        Text textControl = valueChecker.getTextControl(control);
+        if (textControl != null) {
+            if (ContextParameterUtils.isPasswordType(para)) {
+                textControl.setEchoChar('*');
+            } else {
+                textControl.setEchoChar((char) 0);
+            }
         }
         valueChecker.register(control);
         // add our editor listener
@@ -631,7 +641,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return son.parameter.getPrompt();
                 case 4:
                     // value column
-                    return son.parameter.getDisplayValue();
+                    return ContextParameterUtils.checkAndHideValue(son.parameter);
                 case 5:
                     // comment column
                     return son.parameter.getComment();
@@ -893,7 +903,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return para.getPrompt();
                 case 4:
                     // value column
-                    return para.getDisplayValue();
+                    return ContextParameterUtils.checkAndHideValue(para);
                 }
             }
             return "";

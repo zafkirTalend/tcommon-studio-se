@@ -212,7 +212,7 @@ public final class UpdateContextVariablesHelper {
         }
         regex = "(.*?)(" + regex + ")(.*?)\\);";
 
-        String out = "context." + varName + "=";
+        String out = ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX + varName + "=";
         out = "$1" + out + "$3;";
 
         return fullContent.replaceAll(regex, out);

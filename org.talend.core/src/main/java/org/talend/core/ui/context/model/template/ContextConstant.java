@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.ui.context.model.template;
 
+import org.talend.core.model.metadata.types.JavaTypesManager;
+
 /**
  * ggu class global comment. Detailled comment
  */
@@ -35,8 +37,8 @@ public class ContextConstant {
             "Date", "double | Double", //$NON-NLS-1$ //$NON-NLS-2$
             "float | Float", "int | Integer", "long | Long", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             "short | Short", "String", //$NON-NLS-1$ //$NON-NLS-2$
-            "BigDecimal", "Object", "File", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            "Directory", "List Of Value" }; //$NON-NLS-1$ //$NON-NLS-2$
+            "BigDecimal", "Object", JavaTypesManager.FILE.getLabel(), //$NON-NLS-1$ //$NON-NLS-2$
+            JavaTypesManager.DIRECTORY.getLabel(), JavaTypesManager.VALUE_LIST.getLabel(), JavaTypesManager.PASSWORD.getLabel() };
 
     /*
      * columns

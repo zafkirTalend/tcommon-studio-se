@@ -16,13 +16,11 @@ import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.fieldassist.IContentProposal;
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.repository.ProjectManager;
 
 /**
  * Content proposal based on a IContextParameter. <br/>
@@ -49,15 +47,9 @@ public class ContextParameterProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getContent()
      */
     public String getContent() {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        ECodeLanguage language = repositoryContext.getProject().getLanguage();
-        if (language == ECodeLanguage.JAVA) {
-            return "context." + contextParameter.getName();
-        } else {
-            return ContextParameterUtils.getScriptCode(contextParameter, language);
-        }
 
+        ECodeLanguage language = ProjectManager.getInstance().getCurrentProject().getLanguage();
+        return ContextParameterUtils.getNewScriptCode(contextParameter.getName(), language);
     }
 
     /*
@@ -98,7 +90,7 @@ public class ContextParameterProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
-        return "context." + contextParameter.getName(); //$NON-NLS-1$
+        return ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX + contextParameter.getName();
     }
 
 }

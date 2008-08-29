@@ -44,6 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
@@ -55,8 +56,10 @@ import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
+import org.talend.core.ui.context.model.template.ContextConstant;
 
 /**
  * DOC zwang class global comment. Detailled comment <br/>
@@ -276,6 +279,15 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             cellEditor = null;
             return;
         }
+        Text textControl = valueChecker.getTextControl(control);
+        if (textControl != null) {
+            if (ContextParameterUtils.isPasswordType(para)) {
+                textControl.setEchoChar('*');
+            } else {
+                textControl.setEchoChar((char) 0);
+            }
+        }
+
         valueChecker.register(control);
         // add our editor listener
         cellEditor.addListener(createEditorListener(treeEditor, column));
@@ -669,8 +681,8 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                         if (columnIndex == j) {
                             if (((Parent) element).parameter != null) {
                                 if (contextList.get(columnIndex - 1).getContextParameter(((Parent) element).parameter.getName()) != null) {
-                                    return contextList.get(columnIndex - 1).getContextParameter(
-                                            ((Parent) element).parameter.getName()).getDisplayValue();
+                                    return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
+                                            .getContextParameter(((Parent) element).parameter.getName()));
                                 }
                             }
                         }
@@ -678,8 +690,8 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                         if (columnIndex == j) {
                             if (((Parent) element).parameter != null) {
                                 if (contextList.get(columnIndex - 1).getContextParameter(((Parent) element).parameter.getName()) != null) {
-                                    return contextList.get(columnIndex - 1).getContextParameter(
-                                            ((Parent) element).parameter.getName()).getDisplayValue();
+                                    return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
+                                            .getContextParameter(((Parent) element).parameter.getName()));
                                 }
                             }
                         }
@@ -798,7 +810,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
             if (element instanceof Parent) {
                 if (columnIndex == 0) {
-                    if ("built-in".equals(((Parent) element).sourceName)) {
+                    if (IContextParameter.BUILT_IN.equals(((Parent) element).sourceName)) {
                         if (((Parent) element).builtContextParameter != null) {
                             if (modelManager.getContextManager().getDefaultContext().getContextParameter(
                                     ((Parent) element).builtContextParameter.getName()) != null) {
@@ -816,12 +828,12 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                 for (int j = 1; j <= count; j++) {
                     if (j == 1) {
                         if (columnIndex == j) {
-                            if ("built-in".equals(((Parent) element).sourceName)) {
+                            if (IContextParameter.BUILT_IN.equals(((Parent) element).sourceName)) {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (contextList.get(columnIndex - 1).getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return contextList.get(columnIndex - 1).getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getDisplayValue();
+                                        return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
+                                                .getContextParameter(((Parent) element).builtContextParameter.getName()));
                                     }
                                 }
                             } else {
@@ -831,10 +843,10 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                         for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
                                                 .getContextParameterList()) {
                                             if (son.parameter.getName().equals(contextParameter.getName())) {
-                                                if ("null".equals(contextParameter.getValue())) {
+                                                if (ContextConstant.NULL_STRING.equals(contextParameter.getValue())) {
                                                     sb.append("" + "/");
                                                 } else {
-                                                    sb.append(contextParameter.getValue() + "/");
+                                                    sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/");
                                                 }
                                             }
                                         }
@@ -847,12 +859,12 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                         }
                     } else {
                         if (columnIndex == j) {
-                            if ("built-in".equals(((Parent) element).sourceName)) {
+                            if (IContextParameter.BUILT_IN.equals(((Parent) element).sourceName)) {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (contextList.get(columnIndex - 1).getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
-                                        return contextList.get(columnIndex - 1).getContextParameter(
-                                                ((Parent) element).builtContextParameter.getName()).getDisplayValue();
+                                        return ContextParameterUtils.checkAndHideValue(contextList.get(columnIndex - 1)
+                                                .getContextParameter(((Parent) element).builtContextParameter.getName()));
                                     }
                                 }
                             } else {
@@ -862,10 +874,10 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                         for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
                                                 .getContextParameterList()) {
                                             if (son.parameter.getName().equals(contextParameter.getName())) {
-                                                if ("null".equals(contextParameter.getValue())) {
+                                                if (ContextConstant.NULL_STRING.equals(contextParameter.getValue())) {
                                                     sb.append("" + "/");
                                                 } else {
-                                                    sb.append(contextParameter.getValue() + "/");
+                                                    sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/");
                                                 }
                                             }
                                         }
@@ -896,7 +908,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                 for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
                                         .getContextParameterList()) {
                                     if (son.parameter.getName().equals(contextParameter.getName())) {
-                                        return contextParameter.getValue();
+                                        return ContextParameterUtils.checkAndHideValue(contextParameter);
                                     }
                                 }
                             }
@@ -907,7 +919,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                 for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
                                         .getContextParameterList()) {
                                     if (son.parameter.getName().equals(contextParameter.getName())) {
-                                        return contextParameter.getValue();
+                                        return ContextParameterUtils.checkAndHideValue(contextParameter);
                                     }
                                 }
                             }
@@ -956,7 +968,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     if (!containers.isEmpty()) {
                         for (String source : containers) {
                             if (source.equals(para.getSource())) {
-                                if (!("built-in".equals(para.getSource()))) {
+                                if (!(IContextParameter.BUILT_IN.equals(para.getSource()))) {
                                     flag = true;
                                 }
                             }
@@ -990,7 +1002,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                             }
                         }
                         IContextParameter contextPara = contexts.get(index);
-                        if (!("built-in".equals(contextPara.getSource()))) {
+                        if (!(IContextParameter.BUILT_IN.equals(contextPara.getSource()))) {
                             if (parent.sourceName.equals(contextPara.getSource())) {
                                 Son son = new Son();
                                 son.parameter = contextPara;
@@ -998,7 +1010,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                 parent.son.add(son);
                             }
                         } else {
-                            if ("built-in".equals(parent.sourceName)) {
+                            if (IContextParameter.BUILT_IN.equals(parent.sourceName)) {
                                 if (!builtin) {
                                     b = false;
                                     for (String name : oldBuiltinName) {

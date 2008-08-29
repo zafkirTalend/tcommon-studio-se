@@ -32,13 +32,16 @@ public class ContextParameterJavaTypeManager {
     public static final JavaType[] JAVA_TYPES = new JavaType[] { JavaTypesManager.BOOLEAN, JavaTypesManager.CHARACTER,
             JavaTypesManager.DATE, JavaTypesManager.DOUBLE, JavaTypesManager.FLOAT, JavaTypesManager.INTEGER,
             JavaTypesManager.LONG, JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.OBJECT,
-            JavaTypesManager.BIGDECIMAL, JavaTypesManager.FILE, JavaTypesManager.DIRECTORY, JavaTypesManager.VALUE_LIST };
+            JavaTypesManager.BIGDECIMAL, JavaTypesManager.FILE, JavaTypesManager.DIRECTORY, JavaTypesManager.VALUE_LIST,
+            JavaTypesManager.PASSWORD };
 
-    public static final String PERL_FILE = "File";
+    public static final String PERL_FILE = JavaTypesManager.FILE.getLabel();
 
-    public static final String PERL_DIRECTORY = "Directory";
+    public static final String PERL_DIRECTORY = JavaTypesManager.DIRECTORY.getLabel();
 
-    public static final String PERL_VALUE_LIST = "List Of Value";
+    public static final String PERL_VALUE_LIST = JavaTypesManager.VALUE_LIST.getLabel();
+
+    public static final String PERL_PASSWORD = JavaTypesManager.PASSWORD.getLabel();
 
     public static final String PERL_DAY = "Day";
 
@@ -85,6 +88,7 @@ public class ContextParameterJavaTypeManager {
         perlTypes.add(PERL_FILE);
         perlTypes.add(PERL_DIRECTORY);
         perlTypes.add(PERL_VALUE_LIST);
+        perlTypes.add(PERL_PASSWORD);
 
     }
 

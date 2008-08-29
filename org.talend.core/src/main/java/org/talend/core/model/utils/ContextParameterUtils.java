@@ -24,6 +24,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -37,7 +38,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
  */
 public final class ContextParameterUtils {
 
-    private static final String JAVA_NEW_CONTEXT_PREFIX = "context."; //$NON-NLS-1$
+    public static final String JAVA_NEW_CONTEXT_PREFIX = "context."; //$NON-NLS-1$
 
     private static final String PERL_STARTWITH = "$_context{"; //$NON-NLS-1$
 
@@ -374,4 +375,43 @@ public final class ContextParameterUtils {
         return getVariableFromCode(nonQuoteStr) != null;
     }
 
+    /**
+     * 
+     * ggu Comment method "checkAndHideParameter".
+     * 
+     * hide the value. if the type is password
+     */
+    public static String checkAndHideValue(IContextParameter parameter) {
+        if (parameter == null) {
+            return null;
+        }
+
+        final String displayValue = parameter.getDisplayValue();
+        if (isPasswordType(parameter)) {
+            if ("".equals(displayValue)) { //$NON-NLS-1$
+                return "****"; //$NON-NLS-1$
+            } else {
+                return displayValue.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        } else {
+            return displayValue;
+        }
+    }
+
+    /**
+     * 
+     * ggu Comment method "isPasswordType".
+     * 
+     * 
+     */
+    public static boolean isPasswordType(IContextParameter parameter) {
+        if (parameter == null) {
+            return false;
+        }
+        String passwordType = JavaTypesManager.PASSWORD.getLabel(); // perl
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            passwordType = JavaTypesManager.PASSWORD.getId();
+        }
+        return parameter.getType().equals(passwordType);
+    }
 }

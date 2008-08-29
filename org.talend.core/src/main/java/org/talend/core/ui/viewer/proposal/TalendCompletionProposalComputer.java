@@ -53,7 +53,7 @@ import org.talend.designer.rowgenerator.data.TalendType;
  */
 public class TalendCompletionProposalComputer implements IJavaCompletionProposalComputer {
 
-    private static final String CONTEXT_PREFIX = "context.";
+    private static final String CONTEXT_PREFIX = ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX;
 
     private static final String PERL_GLOBAL_PREFIX = "global.";
 
@@ -121,8 +121,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeCompletionProposals(org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext,
-     * org.eclipse.core.runtime.IProgressMonitor)
+     * @see
+     * org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeCompletionProposals(org.eclipse.jdt.ui.text
+     * .java.ContentAssistInvocationContext, org.eclipse.core.runtime.IProgressMonitor)
      */
     public List computeCompletionProposals(ITextViewer textViewer, String prefix, int offset, IProgressMonitor monitor) {
         List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
@@ -336,8 +337,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeContextInformation(org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext,
-     * org.eclipse.core.runtime.IProgressMonitor)
+     * @see
+     * org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeContextInformation(org.eclipse.jdt.ui.text
+     * .java.ContentAssistInvocationContext, org.eclipse.core.runtime.IProgressMonitor)
      */
     public List computeContextInformation(ContentAssistInvocationContext context, IProgressMonitor monitor) {
         return Collections.EMPTY_LIST;

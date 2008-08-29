@@ -146,7 +146,7 @@ public class ContextValueErrorChecker {
 
     }
 
-    private Text getTextControl(final Control control) {
+    public Text getTextControl(final Control control) {
         if (control == null || control.isDisposed()) {
             return null;
         }
