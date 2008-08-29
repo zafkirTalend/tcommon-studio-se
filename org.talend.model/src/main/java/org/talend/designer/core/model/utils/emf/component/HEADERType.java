@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED <em>MAINCODECALLED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -403,6 +404,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetISMULTIPLYINGOUTPUTS();
+
+    /**
+     * Returns the value of the '<em><b>MAINCODECALLED</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>MAINCODECALLED</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>MAINCODECALLED</em>' attribute.
+     * @see #isSetMAINCODECALLED()
+     * @see #unsetMAINCODECALLED()
+     * @see #setMAINCODECALLED(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_MAINCODECALLED()
+     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='MAIN_CODE_CALLED' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isMAINCODECALLED();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED <em>MAINCODECALLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>MAINCODECALLED</em>' attribute.
+     * @see #isSetMAINCODECALLED()
+     * @see #unsetMAINCODECALLED()
+     * @see #isMAINCODECALLED()
+     * @generated
+     */
+    void setMAINCODECALLED(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED <em>MAINCODECALLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetMAINCODECALLED()
+     * @see #isMAINCODECALLED()
+     * @see #setMAINCODECALLED(boolean)
+     * @generated
+     */
+    void unsetMAINCODECALLED();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED <em>MAINCODECALLED</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>MAINCODECALLED</em>' attribute is set.
+     * @see #unsetMAINCODECALLED()
+     * @see #isMAINCODECALLED()
+     * @see #setMAINCODECALLED(boolean)
+     * @generated
+     */
+    boolean isSetMAINCODECALLED();
 
     /**
      * Returns the value of the '<em><b>PLATEFORM</b></em>' attribute.

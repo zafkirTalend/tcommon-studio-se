@@ -34,6 +34,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isMAINCODECALLED <em>MAINCODECALLED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -256,6 +257,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean iSMULTIPLYINGOUTPUTSESet;
+
+    /**
+     * The default value of the '{@link #isMAINCODECALLED() <em>MAINCODECALLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMAINCODECALLED()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean MAINCODECALLED_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isMAINCODECALLED() <em>MAINCODECALLED</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMAINCODECALLED()
+     * @generated
+     * @ordered
+     */
+    protected boolean mAINCODECALLED = MAINCODECALLED_EDEFAULT;
+
+    /**
+     * This is true if the MAINCODECALLED attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean mAINCODECALLEDESet;
 
     /**
      * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
@@ -866,6 +896,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isMAINCODECALLED() {
+        return mAINCODECALLED;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMAINCODECALLED(boolean newMAINCODECALLED) {
+        boolean oldMAINCODECALLED = mAINCODECALLED;
+        mAINCODECALLED = newMAINCODECALLED;
+        boolean oldMAINCODECALLEDESet = mAINCODECALLEDESet;
+        mAINCODECALLEDESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__MAINCODECALLED, oldMAINCODECALLED, mAINCODECALLED, !oldMAINCODECALLEDESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetMAINCODECALLED() {
+        boolean oldMAINCODECALLED = mAINCODECALLED;
+        boolean oldMAINCODECALLEDESet = mAINCODECALLEDESet;
+        mAINCODECALLED = MAINCODECALLED_EDEFAULT;
+        mAINCODECALLEDESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__MAINCODECALLED, oldMAINCODECALLED, MAINCODECALLED_EDEFAULT, oldMAINCODECALLEDESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMAINCODECALLED() {
+        return mAINCODECALLEDESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getPLATEFORM() {
         return pLATEFORM;
     }
@@ -1282,6 +1358,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isHASHCOMPONENT() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 return isISMULTIPLYINGOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
+                return isMAINCODECALLED() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return getPLATEFORM();
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1342,6 +1420,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 setISMULTIPLYINGOUTPUTS(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
+                setMAINCODECALLED(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM((String)newValue);
@@ -1415,6 +1496,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 unsetISMULTIPLYINGOUTPUTS();
                 return;
+            case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
+                unsetMAINCODECALLED();
+                return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM(PLATEFORM_EDEFAULT);
                 return;
@@ -1478,6 +1562,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetHASHCOMPONENT();
             case ComponentPackage.HEADER_TYPE__ISMULTIPLYINGOUTPUTS:
                 return isSetISMULTIPLYINGOUTPUTS();
+            case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
+                return isSetMAINCODECALLED();
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1530,6 +1616,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (hASHCOMPONENTESet) result.append(hASHCOMPONENT); else result.append("<unset>");
         result.append(", iSMULTIPLYINGOUTPUTS: ");
         if (iSMULTIPLYINGOUTPUTSESet) result.append(iSMULTIPLYINGOUTPUTS); else result.append("<unset>");
+        result.append(", mAINCODECALLED: ");
+        if (mAINCODECALLEDESet) result.append(mAINCODECALLED); else result.append("<unset>");
         result.append(", pLATEFORM: ");
         result.append(pLATEFORM);
         result.append(", rELEASEDATE: ");

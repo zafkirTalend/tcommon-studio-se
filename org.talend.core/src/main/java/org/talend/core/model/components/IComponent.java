@@ -119,4 +119,6 @@ public interface IComponent {
     public boolean isVisibleInComponentDefinition();
 
     public boolean isSingleton();
+
+    public boolean isMainCodeCalled();
 }

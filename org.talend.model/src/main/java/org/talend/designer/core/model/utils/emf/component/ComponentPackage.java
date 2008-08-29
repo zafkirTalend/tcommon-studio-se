@@ -873,13 +873,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__ISMULTIPLYINGOUTPUTS = 8;
 
     /**
+     * The feature id for the '<em><b>MAINCODECALLED</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__MAINCODECALLED = 9;
+
+    /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__PLATEFORM = 9;
+    int HEADER_TYPE__PLATEFORM = 10;
 
     /**
      * The feature id for the '<em><b>RELEASEDATE</b></em>' attribute.
@@ -888,7 +897,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__RELEASEDATE = 10;
+    int HEADER_TYPE__RELEASEDATE = 11;
 
     /**
      * The feature id for the '<em><b>SCHEMAAUTOPROPAGATE</b></em>' attribute.
@@ -897,7 +906,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 11;
+    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 12;
 
     /**
      * The feature id for the '<em><b>SERIAL</b></em>' attribute.
@@ -906,7 +915,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SERIAL = 12;
+    int HEADER_TYPE__SERIAL = 13;
 
     /**
      * The feature id for the '<em><b>SINGLETON</b></em>' attribute.
@@ -915,7 +924,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SINGLETON = 13;
+    int HEADER_TYPE__SINGLETON = 14;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -924,7 +933,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 14;
+    int HEADER_TYPE__STARTABLE = 15;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -933,7 +942,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 15;
+    int HEADER_TYPE__STATUS = 16;
 
     /**
      * The feature id for the '<em><b>TECHNICAL</b></em>' attribute.
@@ -942,7 +951,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TECHNICAL = 16;
+    int HEADER_TYPE__TECHNICAL = 17;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -951,7 +960,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 17;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 18;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -960,7 +969,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 18;
+    int HEADER_TYPE__VERSION = 19;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -969,7 +978,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 19;
+    int HEADER_TYPE__VISIBLE = 20;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -978,7 +987,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 20;
+    int HEADER_TYPE_FEATURE_COUNT = 21;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2830,6 +2839,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_ISMULTIPLYINGOUTPUTS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED <em>MAINCODECALLED</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>MAINCODECALLED</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_MAINCODECALLED();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4597,6 +4617,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__ISMULTIPLYINGOUTPUTS = eINSTANCE.getHEADERType_ISMULTIPLYINGOUTPUTS();
+
+        /**
+         * The meta object literal for the '<em><b>MAINCODECALLED</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__MAINCODECALLED = eINSTANCE.getHEADERType_MAINCODECALLED();
 
         /**
          * The meta object literal for the '<em><b>PLATEFORM</b></em>' attribute feature.
