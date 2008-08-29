@@ -37,35 +37,30 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     public final ExecutionResult execute(Project project) {
         setProject(project);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
         ExecutionResult executeFinal = null;
         List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
-                list.addAll(factory.getAll(curTyp, true));
+                list.addAll(factory.getAll(curTyp, true, true));
             }
 
             if (list.isEmpty()) {
                 return ExecutionResult.NOTHING_TO_DO;
             }
 
-            for (IRepositoryObject mainobject : list) {
-                List<IRepositoryObject> allVersion = factory.getAllVersion(mainobject.getId());
-                for (IRepositoryObject object : allVersion) {
-                    ExecutionResult execute = null;
-                    Item item = object.getProperty().getItem();
+            for (IRepositoryObject object : list) {
+                ExecutionResult execute = null;
+                Item item = object.getProperty().getItem();
 
-                    execute = execute(item);
-                    if (execute == ExecutionResult.FAILURE) {
-                        log.warn("Migration task " + this.getName() + " failed on item "
-                                + item.getProperty().getLabel());
-                        executeFinal = ExecutionResult.FAILURE;
-                    }
-                    if (executeFinal != ExecutionResult.FAILURE) {
-                        executeFinal = execute;
-                    }
+                execute = execute(item);
+                if (execute == ExecutionResult.FAILURE) {
+                    log.warn("Migration task " + this.getName() + " failed on item " + item.getProperty().getLabel());
+                    executeFinal = ExecutionResult.FAILURE;
+                }
+                if (executeFinal != ExecutionResult.FAILURE) {
+                    executeFinal = execute;
                 }
             }
 
