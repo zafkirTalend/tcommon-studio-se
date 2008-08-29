@@ -173,6 +173,8 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     protected void addChoiceComponents(Composite composite) {
+        // it is hidden by feature 0004334: set default context in context management popup
+        composite.setVisible(false);
         CLabel label = new CLabel(composite, SWT.NONE);
         label.setBackground(this.getBackground());
         label.setText(Messages.getString("ContextProcessSection.49")); //$NON-NLS-1$
@@ -200,6 +202,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private SelectionListener listenerSelection = new SelectionAdapter() {
 
+        @Override
         public void widgetSelected(final SelectionEvent e) {
             for (int i = 0; i < getContextManager().getListContext().size(); i++) {
                 if (getContextManager().getListContext().get(i).getName().equals(contextCombo.getText())) {

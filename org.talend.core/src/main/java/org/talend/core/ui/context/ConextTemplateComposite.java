@@ -553,6 +553,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.CENTER;
         defaultComposite.setLayout(layout);
+        defaultComposite.setLayoutData(gridData);
         if (getContextModelManager() instanceof ContextComposite) {
             ContextComposite cComposite = (ContextComposite) getContextModelManager();
             cComposite.addChoiceComponents(defaultComposite);

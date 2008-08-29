@@ -18,9 +18,13 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.image.ImageProvider;
@@ -38,7 +42,7 @@ import org.talend.repository.model.RepositoryConstants;
  */
 public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContext> {
 
-    private static String defaultMesage = "Configure Contexts for Job                                      ";
+    private static String defaultMesage = "Configure Contexts for Job. Click to Set Default Context.         ";
 
     IContextModelManager manager = null;
 
@@ -48,13 +52,20 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
      */
     public class ContextLabelProvider extends LabelProvider {
 
+        @Override
         public Image getImage(Object object) {
             return ImageProvider.getImage(ECoreImage.CONTEXT_ICON);
         }
 
+        @Override
         public String getText(Object object) {
             IContext context = (IContext) object;
-            return context.getName();
+            IContext defaultContext = manager.getContextManager().getDefaultContext();
+            if (context.equals(defaultContext)) {
+                return context.getName() + " (Default)";
+            } else {
+                return context.getName();
+            }
         }
     }
 
@@ -68,6 +79,38 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         setShellStyle(getShellStyle() | SWT.RESIZE);
     }
 
+    @Override
+    protected void initTableInput() {
+        super.initTableInput();
+        ((CheckboxTableViewer) fTableViewer).setCheckedElements(new Object[] { manager.getContextManager().getDefaultContext() });
+        fTableViewer.refresh();
+    }
+
+    @Override
+    protected void createTableViewer(Composite parent) {
+        fTableViewer = CheckboxTableViewer.newCheckList(parent, SWT.NONE);
+        initTableViewer(parent);
+        ((CheckboxTableViewer) fTableViewer).setCheckedElements(new Object[] { manager.getContextManager().getDefaultContext() });
+        fTableViewer.refresh();
+        ((CheckboxTableViewer) fTableViewer).addCheckStateListener(new ICheckStateListener() {
+
+            public void checkStateChanged(CheckStateChangedEvent event) {
+                Object obj = event.getElement();
+                boolean checked = event.getChecked();
+                if (obj.equals(manager.getContextManager().getDefaultContext())) {
+                    // keep check status
+                    int index = getData().indexOf(obj);
+                    fTableViewer.getTable().getItem(index).setChecked(true);
+                } else {
+                    int index = getData().indexOf(manager.getContextManager().getDefaultContext());
+                    fTableViewer.getTable().getItem(index).setChecked(false);
+                    manager.onContextChangeDefault(manager.getContextManager(), (IContext) obj);
+                    fTableViewer.refresh(true);
+                }
+            }
+        });
+    }
+
     public List<IContext> getResultContexts() {
         return getData();
     }
@@ -76,6 +119,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         return new ContextLabelProvider();
     }
 
+    @Override
     public void createElement() {
         InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.6"), //$NON-NLS-1$
                 Messages.getString("ContextProcessSection.7"), "", null); //$NON-NLS-1$ //$NON-NLS-2$
@@ -103,7 +147,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
     }
 
     public List<IContext> getAllContexts() {
-        return (List<IContext>) getData();
+        return getData();
     }
 
     private boolean isContextExisting(String name) {
@@ -135,6 +179,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         getAllContexts().add(newContext);
     }
 
+    @Override
     protected void editSelectedElement() {
         IContext selectedContext = (IContext) (getSelection()).getFirstElement();
         String contextName = selectedContext.getName();
@@ -163,6 +208,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
     /**
      * Updates the modify buttons' enabled state based on the current seleciton.
      */
+    @Override
     protected void updateButtonAvailability() {
         super.updateButtonAvailability();
 
@@ -184,4 +230,47 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         }
 
     }
+
+    // /**
+    // *
+    // * DOC chuang ContextSetConfigurationDialog class global comment. Detailled comment
+    // */
+    // class MyCheckboxTableViewer extends CheckboxTableViewer {
+    //
+    // MyCheckboxTableViewer(Table table) {
+    // super(table);
+    // }
+    //
+    // /*
+    // * (non-Javadoc) Method declared on StructuredViewer.
+    // */
+    // @Override
+    // public void handleSelect(SelectionEvent event) {
+    // super.handleSelect(event);
+    // // if (event.detail == SWT.CHECK) {
+    // // TableItem item = (TableItem) event.item;
+    // // if (item.getChecked()) {
+    // // return;
+    // // } else {
+    // // Table table = getTable();
+    // // table.setRedraw(false);
+    // // for (TableItem it : table.getItems()) {
+    // // it.setChecked(false);
+    // // }
+    // // item.setChecked(true);
+    // // for (IContext context : manager.getContextManager().getListContext()) {
+    // // if (context.equals(item.getData())) {
+    // // manager.onContextChangeDefault(manager.getContextManager(), context);
+    // // }
+    // // }
+    // // // manager.getContextManager().setDefaultContext(null);
+    // // table.setRedraw(true);
+    // // refresh();
+    // // }
+    // // } else {
+    // // super.handleSelect(event);
+    // // }
+    // }
+    //
+    // }
 }

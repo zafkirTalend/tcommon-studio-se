@@ -49,7 +49,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
 
     private List<B> data;
 
-    private TableViewer fTableViewer;
+    protected TableViewer fTableViewer;
 
     private Button fNewButton;
 
@@ -89,6 +89,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected Control createContents(Composite parent) {
         Control control = super.createContents(parent);
         updateButtonAvailability();
@@ -98,6 +99,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
         composite.setFont(parent.getFont());
@@ -114,13 +116,26 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         createTableViewer(inner);
         createOrderButtons(inner);
         createModifyButtons(composite);
-        fTableViewer.setInput(data);
+        initTableInput();
 
         return composite;
     }
 
-    private void createTableViewer(Composite parent) {
+    protected void initTableInput() {
+        fTableViewer.setInput(data);
+    }
+
+    protected void createTableViewer(Composite parent) {
         fTableViewer = new TableViewer(parent);
+        initTableViewer(parent);
+    }
+
+    /**
+     * DOC chuang Comment method "initTableViewer".
+     * 
+     * @param parent
+     */
+    protected void initTableViewer(Composite parent) {
         fTableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
             public void selectionChanged(SelectionChangedEvent event) {
@@ -152,6 +167,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         fNewButton.setFont(composite.getFont());
         fNewButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 createElement();
             }
@@ -162,6 +178,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         fEditButton.setFont(composite.getFont());
         fEditButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 editSelectedElement();
             }
@@ -172,6 +189,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         fRemoveButton.setFont(composite.getFont());
         fRemoveButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 removeSelectedContexts();
             }
@@ -193,6 +211,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         setButtonLayoutData(fUpButton);
         fUpButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 moveUp(((IStructuredSelection) fTableViewer.getSelection()).toList());
             }
@@ -204,6 +223,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         setButtonLayoutData(fDownButton);
         fDownButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 moveDown(((IStructuredSelection) fTableViewer.getSelection()).toList());
             }
@@ -215,6 +235,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         setButtonLayoutData(fSelectAll);
         fSelectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll();
             }
@@ -226,6 +247,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
         setButtonLayoutData(fDeselectAll);
         fDeselectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 deselectAll();
             }
@@ -235,6 +257,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void okPressed() {
         List<B> newResult = getData();
         setResult(newResult);
