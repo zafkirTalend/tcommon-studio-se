@@ -629,7 +629,9 @@ public class ProcessorUtilities {
         return null;
     }
 
-    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem, String... selectedJobVersion) {
+    // see bug 0004939: making tRunjobs work loop will cause a error of "out of memory" .
+    private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<ProcessItem> searchItems, String... selectedJobVersion) {
+        searchItems.add(processItem);
         Set<JobInfo> jobInfos = new HashSet<JobInfo>();
         List<NodeType> list = processItem.getProcess().getNode();
         for (NodeType nodeType : list) {
@@ -656,14 +658,20 @@ public class ProcessorUtilities {
                 ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {
                     JobInfo jobInfo = new JobInfo(item, jobContext);
-                    if (!jobInfos.contains(jobInfo)) {
+                    if (!jobInfos.contains(jobInfo) && !searchItems.contains(item)) {
                         jobInfos.add(jobInfo);
-                        jobInfos.addAll(getChildrenJobInfo(item));
+                        jobInfos.addAll(getAllJobInfo(item, searchItems));
                     }
                 }
             }
         }
         return jobInfos;
+    }
+
+    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem, String... selectedJobVersion) {
+        // delegate to the new method, prevent dead loop method call. see bug 0004939: making tRunjobs work loop will
+        // cause a error of "out of memory" .
+        return getAllJobInfo(processItem, new HashSet<ProcessItem>(), selectedJobVersion);
     }
 
 }
