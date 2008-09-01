@@ -33,7 +33,7 @@ public class ComboFieldEditor extends FieldEditor {
     /**
      * The <code>Combo</code> widget.
      */
-    private Combo fCombo;
+    protected Combo fCombo;
 
     /**
      * The value (not the name) of the currently selected item in the Combo widget.
@@ -66,6 +66,7 @@ public class ComboFieldEditor extends FieldEditor {
         return true;
     }
 
+    @Override
     protected void adjustForNumColumns(int numColumns) {
         Control control = getLabelControl();
         if (control != null) {
@@ -74,6 +75,7 @@ public class ComboFieldEditor extends FieldEditor {
         ((GridData) fCombo.getLayoutData()).horizontalSpan = numColumns;
     }
 
+    @Override
     protected void doFillIntoGrid(Composite parent, int numColumns) {
         Control control = getLabelControl(parent);
         GridData gd = new GridData();
@@ -85,14 +87,17 @@ public class ComboFieldEditor extends FieldEditor {
         control.setLayoutData(gd);
     }
 
+    @Override
     protected void doLoad() {
         updateComboForValue(getPreferenceStore().getString(getPreferenceName()));
     }
 
+    @Override
     protected void doLoadDefault() {
         updateComboForValue(getPreferenceStore().getDefaultString(getPreferenceName()));
     }
 
+    @Override
     protected void doStore() {
         if (fValue == null) {
             getPreferenceStore().setToDefault(getPreferenceName());
@@ -102,6 +107,7 @@ public class ComboFieldEditor extends FieldEditor {
         getPreferenceStore().setValue(getPreferenceName(), fValue);
     }
 
+    @Override
     public int getNumberOfControls() {
         return 1;
     }
@@ -115,6 +121,7 @@ public class ComboFieldEditor extends FieldEditor {
             fCombo.setFont(parent.getFont());
             fCombo.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent evt) {
                     String oldValue = fValue;
                     String name = fCombo.getText();
