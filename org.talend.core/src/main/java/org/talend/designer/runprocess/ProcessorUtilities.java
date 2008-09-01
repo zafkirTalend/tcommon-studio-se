@@ -659,7 +659,7 @@ public class ProcessorUtilities {
                     JobInfo jobInfo = new JobInfo(item, jobContext);
                     if (!jobInfos.contains(jobInfo)) {
                         jobInfos.add(jobInfo);
-                        jobInfos.addAll(getAllJobInfo(item, jobInfos));
+                        getAllJobInfo(item, jobInfos);
                     }
                 }
             }
