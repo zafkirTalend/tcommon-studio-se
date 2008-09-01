@@ -186,20 +186,20 @@ public class JobInfo {
         } else if (!jobId.equals(other.jobId)) {
             return false;
         }
-        if (context == null) {
-            if (other.context != null) {
-                return false;
-            }
-        } else if (!context.equals(other.context)) {
-            return false;
-        }
-        if (process == null) {
-            if (other.process != null) {
-                return false;
-            }
-        } else if (!process.equals(other.process)) {
-            return false;
-        }
+        // if (context == null) {
+        // if (other.context != null) {
+        // return false;
+        // }
+        // } else if (!context.equals(other.context)) {
+        // return false;
+        // }
+        // if (process == null) {
+        // if (other.process != null) {
+        // return false;
+        // }
+        // } else if (!process.equals(other.process)) {
+        // return false;
+        // }
         if (jobVersion == null) {
             if (other.jobVersion != null) {
                 return false;
