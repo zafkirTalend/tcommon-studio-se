@@ -6,6 +6,7 @@
 				<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
 				<dbType type="BLOB" defaultLength="10" ignorePre="true"/>
 				<dbType type="CHARACTER" defaultLength="50" ignorePre="true"/>
+				<dbType type="CHAR" defaultLength="50" ignorePre="true"/>
 				<dbType type="CLOB" ignorePre="true"/>
 				<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
 				<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
@@ -34,6 +35,8 @@
 					<dbType type="CHARACTER" default="true"/>
 					<dbType type="VARCHAR"/>
 					<dbType type="LONG VARCHAR"/>
+					<dbType type="CHAR"/>
+					
 				</talendType>				
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true"/>
@@ -88,6 +91,9 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHARACTER">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="CLOB">
@@ -178,6 +184,9 @@
 					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="CHARACTER">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="CHAR">
 					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="CLOB">
