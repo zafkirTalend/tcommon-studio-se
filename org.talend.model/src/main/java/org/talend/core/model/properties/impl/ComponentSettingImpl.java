@@ -21,20 +21,20 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.properties.impl.ComponentSettingImpl#getName <em>Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ComponentSettingImpl#isHidden <em>Hidden</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ComponentSettingImpl#getFamily <em>Family</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ComponentSettingImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ComponentSettingImpl#isHidden <em>Hidden</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ComponentSettingImpl#getFamily <em>Family</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ComponentSettingImpl extends EObjectImpl implements ComponentSetting {
 
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getName()
      * @generated
      * @ordered
@@ -52,9 +52,9 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isHidden()
      * @generated
      * @ordered
@@ -62,9 +62,9 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
     protected static final boolean HIDDEN_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isHidden() <em>Hidden</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isHidden()
      * @generated
      * @ordered
@@ -72,9 +72,9 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
     protected boolean hidden = HIDDEN_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFamily() <em>Family</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getFamily() <em>Family</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getFamily()
      * @generated
      * @ordered
@@ -82,9 +82,9 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
     protected static final String FAMILY_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFamily() <em>Family</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getFamily() <em>Family</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getFamily()
      * @generated
      * @ordered
@@ -93,7 +93,6 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ComponentSettingImpl() {
@@ -102,7 +101,6 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -111,7 +109,6 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getName() {
@@ -120,7 +117,6 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setName(String newName) {
@@ -132,7 +128,6 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isHidden() {
@@ -141,20 +136,17 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setHidden(boolean newHidden) {
         boolean oldHidden = hidden;
         hidden = newHidden;
-
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.COMPONENT_SETTING__HIDDEN, oldHidden, hidden));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFamily() {
@@ -163,7 +155,6 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFamily(String newFamily) {
@@ -175,86 +166,80 @@ public class ComponentSettingImpl extends EObjectImpl implements ComponentSettin
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.COMPONENT_SETTING__NAME:
-            return getName();
-        case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
-            return isHidden() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.COMPONENT_SETTING__FAMILY:
-            return getFamily();
+            case PropertiesPackage.COMPONENT_SETTING__NAME:
+                return getName();
+            case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
+                return isHidden() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.COMPONENT_SETTING__FAMILY:
+                return getFamily();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.COMPONENT_SETTING__NAME:
-            setName((String) newValue);
-            return;
-        case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
-            setHidden(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.COMPONENT_SETTING__FAMILY:
-            setFamily((String) newValue);
-            return;
+            case PropertiesPackage.COMPONENT_SETTING__NAME:
+                setName((String)newValue);
+                return;
+            case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
+                setHidden(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.COMPONENT_SETTING__FAMILY:
+                setFamily((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.COMPONENT_SETTING__NAME:
-            setName(NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
-            setHidden(HIDDEN_EDEFAULT);
-            return;
-        case PropertiesPackage.COMPONENT_SETTING__FAMILY:
-            setFamily(FAMILY_EDEFAULT);
-            return;
+            case PropertiesPackage.COMPONENT_SETTING__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
+                setHidden(HIDDEN_EDEFAULT);
+                return;
+            case PropertiesPackage.COMPONENT_SETTING__FAMILY:
+                setFamily(FAMILY_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.COMPONENT_SETTING__NAME:
-            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-        case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
-            return hidden != HIDDEN_EDEFAULT;
-        case PropertiesPackage.COMPONENT_SETTING__FAMILY:
-            return FAMILY_EDEFAULT == null ? family != null : !FAMILY_EDEFAULT.equals(family);
+            case PropertiesPackage.COMPONENT_SETTING__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case PropertiesPackage.COMPONENT_SETTING__HIDDEN:
+                return hidden != HIDDEN_EDEFAULT;
+            case PropertiesPackage.COMPONENT_SETTING__FAMILY:
+                return FAMILY_EDEFAULT == null ? family != null : !FAMILY_EDEFAULT.equals(family);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (name: ");

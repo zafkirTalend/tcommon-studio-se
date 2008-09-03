@@ -50,6 +50,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/spagoBiServer"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/productVersion"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/componentsSettings"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/url"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ProjectComponentAuthorisation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProjectComponentAuthorisation/project"/>

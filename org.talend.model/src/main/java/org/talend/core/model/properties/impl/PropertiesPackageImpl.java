@@ -523,11 +523,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         // Initialize simple dependencies
         BusinessPackage.eINSTANCE.eClass();
         ComponentPackage.eINSTANCE.eClass();
-        EcorePackage.eINSTANCE.eClass();
         JobletPackage.eINSTANCE.eClass();
         ConnectionPackage.eINSTANCE.eClass();
         NotationPackage.eINSTANCE.eClass();
-        TalendFilePackage.eINSTANCE.eClass();
         XMLTypePackage.eINSTANCE.eClass();
 
         // Create package meta-data objects
@@ -702,6 +700,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getProject_ComponentsSettings() {
         return (EReference)projectEClass.getEStructuralFeatures().get(21);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProject_Url() {
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -2849,6 +2856,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(projectEClass, PROJECT__SPAGO_BI_SERVER);
         createEAttribute(projectEClass, PROJECT__PRODUCT_VERSION);
         createEReference(projectEClass, PROJECT__COMPONENTS_SETTINGS);
+        createEAttribute(projectEClass, PROJECT__URL);
 
         projectComponentAuthorisationEClass = createEClass(PROJECT_COMPONENT_AUTHORISATION);
         createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__PROJECT);
@@ -3250,6 +3258,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProject_SpagoBiServer(), this.getSpagoBiServer(), null, "spagoBiServer", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getProject_ProductVersion(), theEcorePackage.getEString(), "productVersion", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_ComponentsSettings(), this.getComponentSetting(), null, "componentsSettings", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEAttribute(getProject_Url(), theEcorePackage.getEString(), "url", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(projectComponentAuthorisationEClass, ProjectComponentAuthorisation.class, "ProjectComponentAuthorisation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProjectComponentAuthorisation_Project(), this.getProject(), this.getProject_AllowedComponents(), "project", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

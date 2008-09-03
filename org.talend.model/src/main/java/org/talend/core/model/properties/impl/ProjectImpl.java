@@ -57,6 +57,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getProductVersion <em>Product Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getComponentsSettings <em>Components Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUrl <em>Url</em>}</li>
  * </ul>
  * </p>
  *
@@ -392,6 +393,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList componentsSettings;
 
     /**
+     * The default value of the '{@link #getUrl() <em>Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUrl()
+     * @generated
+     * @ordered
+     */
+    protected static final String URL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getUrl() <em>Url</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUrl()
+     * @generated
+     * @ordered
+     */
+    protected String url = URL_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -659,6 +680,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUrl(String newUrl) {
+        String oldUrl = url;
+        url = newUrl;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__URL, oldUrl, url));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -861,6 +903,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getProductVersion();
             case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
                 return getComponentsSettings();
+            case PropertiesPackage.PROJECT__URL:
+                return getUrl();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -947,6 +991,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getComponentsSettings().clear();
                 getComponentsSettings().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__URL:
+                setUrl((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1023,6 +1070,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
                 getComponentsSettings().clear();
                 return;
+            case PropertiesPackage.PROJECT__URL:
+                setUrl(URL_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1077,6 +1127,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return PRODUCT_VERSION_EDEFAULT == null ? productVersion != null : !PRODUCT_VERSION_EDEFAULT.equals(productVersion);
             case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
                 return componentsSettings != null && !componentsSettings.isEmpty();
+            case PropertiesPackage.PROJECT__URL:
+                return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
         }
         return super.eIsSet(featureID);
     }
@@ -1113,6 +1165,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(masterJobId);
         result.append(", productVersion: ");
         result.append(productVersion);
+        result.append(", url: ");
+        result.append(url);
         result.append(')');
         return result.toString();
     }
