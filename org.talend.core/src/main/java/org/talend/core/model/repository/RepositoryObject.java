@@ -86,6 +86,24 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
         this.setLabel(label);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RepositoryObject)) {
+            return false;
+        }
+        if (property == null) {
+            return super.equals(obj);
+        }
+        RepositoryObject another = (RepositoryObject) obj;
+
+        return getProperty().equals(another.getProperty());
+    }
+
     public User getAuthor() {
         return this.property.getAuthor();
     }
@@ -184,7 +202,9 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobletProcessItem(org.talend.core.model.properties.JobletProcessItem)
+             * @see
+             * org.talend.core.model.properties.util.PropertiesSwitch#caseJobletProcessItem(org.talend.core.model.properties
+             * .JobletProcessItem)
              */
             @Override
             public Object caseJobletProcessItem(JobletProcessItem object) {
@@ -206,7 +226,9 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseSQLPatternItem(org.talend.core.model.properties.SQLPatternItem)
+             * @see
+             * org.talend.core.model.properties.util.PropertiesSwitch#caseSQLPatternItem(org.talend.core.model.properties
+             * .SQLPatternItem)
              */
             @Override
             public Object caseSQLPatternItem(SQLPatternItem object) {
@@ -407,7 +429,8 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
+     * @see
+     * org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
      */
     public void setRepositoryNode(RepositoryNode node) {
         this.repositoryNode = node;
