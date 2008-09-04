@@ -28,6 +28,8 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -195,5 +197,24 @@ public final class ProjectManager {
             }
         }
         return false;
+    }
+
+    public static IProjectRepositoryNode researchProjectNode(Project project) {
+        IProjectRepositoryNode root = (IProjectRepositoryNode) RepositoryManager.getRepositoryView().getRoot();
+        if (project == null || root.getProject().equals(project)) {
+            return root;
+        }
+        RepositoryNode refRoot = root.getRootRepositoryNode(ERepositoryObjectType.REFERENCED_PROJECTS);
+        if (refRoot != null) {
+            for (RepositoryNode node : refRoot.getChildren()) {
+                if (node instanceof IProjectRepositoryNode) {
+                    IProjectRepositoryNode pNode = (IProjectRepositoryNode) node;
+                    if (pNode.getProject().equals(project)) {
+                        return pNode;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

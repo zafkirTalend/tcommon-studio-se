@@ -15,6 +15,7 @@ package org.talend.repository.model;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -97,4 +98,8 @@ public interface IRepositoryService extends IService {
     public void addRepositoryTreeViewListener(ISelectionChangedListener listener);
 
     public void removeRepositoryTreeViewListener(ISelectionChangedListener listener);
+
+    public IPreferenceStore getRepositoryPreferenceStore();
+
+    public RepositoryNode getRepositoryNode(String id);
 }

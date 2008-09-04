@@ -18,6 +18,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.LocalRepositoryFactory;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -43,7 +44,7 @@ public class ReloadSystemRoutinesAction extends Action {
             LocalRepositoryFactory.getInstance().synchronizeRoutines(null);
             IWorkbenchPage iwp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
             IRepositoryView viewPart = (IRepositoryView) iwp.findView(IRepositoryView.VIEW_ID);
-            viewPart.refresh();
+            viewPart.refresh(ERepositoryObjectType.ROUTINES);
             log.info(Messages.getString("ReloadSystemRoutinesAction.logInfo.sysRoutinesSuccessfullyReloaded")); //$NON-NLS-1$
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);

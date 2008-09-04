@@ -21,23 +21,17 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.utils.data.container.Content;
-import org.talend.commons.utils.data.container.ContentList;
-import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNode.ENodeType;
-import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -188,7 +182,7 @@ public class RepositoryEditorInput extends FileEditorInput {
      */
     private void refresh() {
         if (view != null && repositoryNode != null) {
-            view.refresh(repositoryNode);
+            RepositoryManager.refreshSavedNode(repositoryNode);
         }
     }
 
@@ -235,28 +229,29 @@ public class RepositoryEditorInput extends FileEditorInput {
         if (repositoryNode != null) {
             this.repositoryNode = repositoryNode;
         } else {
-            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-            IRepositoryObject repositoryObject = null;
-            RepositoryNode parentNode = null;
-            try {
-                RootContainer<String, IRepositoryObject> processContainer = factory.getProcess();
-                ContentList<String, IRepositoryObject> processAbsoluteMembers = processContainer.getAbsoluteMembers();
-
-                for (Content<String, IRepositoryObject> object : processAbsoluteMembers.values()) {
-                    IRepositoryObject process = (IRepositoryObject) object.getContent();
-                    if (process.getLabel().equals(this.getProcessItem().getProperty().getLabel())) {
-                        repositoryObject = process;
-                    }
-                }
-            } catch (PersistenceException e) {
-                e.printStackTrace();
-            }
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(this.getProcessItem());
-            if (repositoryObject != null) {
-                this.repositoryNode = new RepositoryNode(repositoryObject, parentNode, ENodeType.REPOSITORY_ELEMENT);
-                this.repositoryNode.setProperties(EProperties.CONTENT_TYPE, itemType);
-            }
-
+            // IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+            // IRepositoryObject repositoryObject = null;
+            // RepositoryNode parentNode = null;
+            // try {
+            // RootContainer<String, IRepositoryObject> processContainer = factory.getProcess();
+            // ContentList<String, IRepositoryObject> processAbsoluteMembers = processContainer.getAbsoluteMembers();
+            //
+            // for (Content<String, IRepositoryObject> object : processAbsoluteMembers.values()) {
+            // IRepositoryObject process = (IRepositoryObject) object.getContent();
+            // if (process.getLabel().equals(this.getProcessItem().getProperty().getLabel())) {
+            // repositoryObject = process;
+            // }
+            // }
+            // } catch (PersistenceException e) {
+            // e.printStackTrace();
+            // }
+            // ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(this.getProcessItem());
+            // if (repositoryObject != null) {
+            // this.repositoryNode = new RepositoryNode(repositoryObject, parentNode, ENodeType.REPOSITORY_ELEMENT);
+            // this.repositoryNode.setProperties(EProperties.CONTENT_TYPE, itemType);
+            // }
+            this.repositoryNode = CorePlugin.getDefault().getRepositoryService().getRepositoryNode(
+                    getItem().getProperty().getId());
         }
     }
 

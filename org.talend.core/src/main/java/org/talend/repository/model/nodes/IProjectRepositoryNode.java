@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.model.nodes;
 
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -133,4 +134,7 @@ public interface IProjectRepositoryNode {
 
     public boolean isMainProject();
 
+    public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
+
+    public RepositoryNode getRecBinNode();
 }
