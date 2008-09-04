@@ -13,6 +13,7 @@
 package org.talend.commons.ui.swt.actions;
 
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IWorkbenchPart;
@@ -69,4 +70,6 @@ public interface ITreeContextualAction extends IAction {
     public boolean isPropertiesAction();
 
     public void setPropertiesAction(boolean propertiesAction);
+
+    public void setSpecialSelection(ISelectionProvider selectionProvider);
 }
