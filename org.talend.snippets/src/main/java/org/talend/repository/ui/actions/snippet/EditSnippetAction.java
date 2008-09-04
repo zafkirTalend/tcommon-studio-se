@@ -20,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.RepositoryNode;
@@ -85,7 +86,7 @@ public class EditSnippetAction extends AContextualAction {
         dlg.open();
 
         if (node != null) {
-            refresh(node);
+            RepositoryManager.refreshSavedNode(node);
         }
     }
 
