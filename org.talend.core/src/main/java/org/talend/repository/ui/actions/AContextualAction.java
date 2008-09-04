@@ -20,6 +20,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -64,6 +65,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     private boolean propertiesAction = false;
 
     private boolean isToolbar = false;
+
+    private ISelectionProvider specialSelectionProvider = null;
 
     public boolean isEditAction() {
         return editAction;
@@ -177,6 +180,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @return the selection
      */
     public ISelection getSelection() {
+        if (specialSelectionProvider != null) {
+            return specialSelectionProvider.getSelection();
+        }
+
         // useful for version property tab
         IWorkbenchPart activePart = getActivePage().getActivePart();
 
@@ -386,6 +393,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
         };
         return dialog.open();
+    }
+
+    public void setSpecialSelection(ISelectionProvider selectionProvider) {
+        this.specialSelectionProvider = selectionProvider;
     }
 
 }
