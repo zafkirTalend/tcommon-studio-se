@@ -212,8 +212,19 @@ public class VariableItemEditor implements ISnippetEditor {
 
     protected StringPropertyTableViewer fTableViewer = null;
 
+    private Button addButton, removeButton, insertVariableButton;
+
+    private SourceViewer sourceViewer;
+
+    private boolean readonly = false;
+
     public VariableItemEditor() {
         super();
+    }
+
+    public VariableItemEditor(boolean readonly) {
+        super();
+        this.readonly = readonly;
     }
 
     public Control createContents(Composite parent) {
@@ -273,7 +284,7 @@ public class VariableItemEditor implements ISnippetEditor {
         // user
         // input.
         // TODO: for usability, throw up a dialog in the middle
-        Button addButton = new Button(variableButtons, SWT.PUSH);
+        addButton = new Button(variableButtons, SWT.PUSH);
         addButton.setText("New");
         addButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         addButton.addSelectionListener(new SelectionListener() {
@@ -296,7 +307,7 @@ public class VariableItemEditor implements ISnippetEditor {
         });
         // add the Remove button with a listener to enable it only when a
         // cell is selected and in focus
-        final Button removeButton = new Button(variableButtons, SWT.PUSH);
+        removeButton = new Button(variableButtons, SWT.PUSH);
         removeButton.setText("Remove");
         removeButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
@@ -306,7 +317,7 @@ public class VariableItemEditor implements ISnippetEditor {
 
         // create a source viewer for to edit the text (makes it easier to
         // hook into content assist)
-        final SourceViewer sourceViewer = new SourceViewer(parent, null, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+        sourceViewer = new SourceViewer(parent, null, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
         sourceViewer.setEditable(true);
 
         // Update EOLs bug 80231
@@ -421,7 +432,7 @@ public class VariableItemEditor implements ISnippetEditor {
          * I'm not sure I like this idea as it's mostly a crutch for not making content assist obviously available in
          * the source viewer.
          */
-        final Button insertVariableButton = new Button(parent, SWT.PUSH);
+        insertVariableButton = new Button(parent, SWT.PUSH);
         insertVariableButton.setText("Insert &Variable Placeholder...");
         insertVariableButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
         insertVariableButton.setEnabled(fTableViewer.getTable().getItemCount() > 0);
@@ -465,8 +476,8 @@ public class VariableItemEditor implements ISnippetEditor {
             }
         });
         // set the initial enabled state
+        checkStates();
         removeButton.setEnabled(false);
-
         return parent;
     }
 
@@ -513,5 +524,13 @@ public class VariableItemEditor implements ISnippetEditor {
             var.setValue((String) fTableViewer.getColumnData()[2].get(key));
             fItem.getVariables().add(var);
         }
+    }
+
+    private void checkStates() {
+        fTableViewer.getTable().setEnabled(!readonly);
+        addButton.setEnabled(!readonly);
+        removeButton.setEnabled(!readonly);
+        insertVariableButton.setEnabled(!readonly);
+        sourceViewer.setEditable(!readonly);
     }
 }

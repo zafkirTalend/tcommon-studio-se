@@ -67,21 +67,25 @@ public final class RepositoryManager {
      *for create
      */
     public static void refreshCreatedNode(ERepositoryObjectType type) {
-        if (isRefreshCreated()) {
+        if (isRefreshManually() || !isRefreshCreated()) {
             refresh(type);
+        } else {
+            getRepositoryView().refresh();
         }
 
     }
 
     public static void refreshCreatedNode(IProjectRepositoryNode projectNode, ERepositoryObjectType type) {
-        if (isRefreshCreated() && !type.isSubItem()) {
+        if ((isRefreshManually() || !isRefreshCreated()) && !type.isSubItem()) {
             if (projectNode != null) {
                 RepositoryNode rootNode = projectNode.getRootRepositoryNode(type);
                 getRepositoryView().refreshAllChildNodes(rootNode);
             } else {
+                // main project
                 refresh(type);
-                ; // main project
             }
+        } else {
+            getRepositoryView().refresh();
         }
 
     }
@@ -91,7 +95,7 @@ public final class RepositoryManager {
      * for delete
      */
     public static void refreshDeletedNode(Set<ERepositoryObjectType> types) {
-        if (isRefreshDeleted()) {
+        if (isRefreshManually() || !isRefreshDeleted()) {
             IRepositoryView repositoryView = getRepositoryView();
 
             RepositoryNode root = repositoryView.getRoot();
@@ -120,6 +124,8 @@ public final class RepositoryManager {
                 repositoryView.refresh(recBinNode);
             }
 
+        } else {
+            getRepositoryView().refresh();
         }
     }
 
@@ -131,8 +137,10 @@ public final class RepositoryManager {
         if (node == null) {
             return;
         }
-        if (isRefreshSaved()) {
+        if (isRefreshManually() || !isRefreshSaved()) {
             getRepositoryView().refresh(node);
+        } else {
+            getRepositoryView().refresh();
         }
     }
 
