@@ -17,11 +17,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gef.palette.PaletteContainer;
+import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
+import org.talend.designer.core.IFilter;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -98,6 +101,87 @@ public class ComponentUtilities {
             extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
         }
 
+    }
+
+    /**
+     * yzhang Comment method "filterPalette".
+     * 
+     * @param filer
+     */
+    public static void filterPalette(String filer) {
+        CorePlugin.getDefault().getDesignerCoreService().setPaletteFilter(filer);
+        ComponentUtilities.updatePalette();
+        markEmptyDrawer(paletteRoot);
+        emptyEntry.clear();
+        recordEmptyDrawer(paletteRoot);
+        removeEmptyDrawer();
+
+    }
+
+    private static List<PaletteEntry> emptyEntry = new ArrayList<PaletteEntry>();
+
+    /**
+     * yzhang Comment method "removeEmptyDrawer".
+     */
+    private static void removeEmptyDrawer() {
+        for (PaletteEntry entry : emptyEntry) {
+            PaletteContainer container = entry.getParent();
+            if (container != null) {
+                container.remove(entry);
+            }
+        }
+    }
+
+    /**
+     * yzhang Comment method "recordEmptyDrawer".
+     * 
+     * @param entry
+     */
+    private static void recordEmptyDrawer(PaletteEntry entry) {
+        if (entry instanceof PaletteRoot) {
+            List<PaletteEntry> entries = ((PaletteRoot) entry).getChildren();
+            for (PaletteEntry paletteEntry : entries) {
+                if (paletteEntry instanceof PaletteDrawer) {
+                    recordEmptyDrawer(paletteEntry);
+                }
+            }
+        } else if (entry instanceof PaletteDrawer) {
+            PaletteDrawer drawer = (PaletteDrawer) entry;
+            if (drawer instanceof IFilter && ((IFilter) entry).isFiltered()) {
+                emptyEntry.add(entry);
+            } else {
+                List children = drawer.getChildren();
+                for (Object obj : children) {
+                    recordEmptyDrawer((PaletteEntry) obj);
+                }
+            }
+        }
+    }
+
+    /**
+     * yzhang Comment method "filterEmptyDrawer".
+     * 
+     * @param entry
+     */
+    private static void markEmptyDrawer(PaletteEntry entry) {
+        if (entry instanceof PaletteRoot) {
+            List<PaletteEntry> entries = ((PaletteRoot) entry).getChildren();
+            for (PaletteEntry paletteEntry : entries) {
+                if (paletteEntry instanceof PaletteDrawer) {
+                    markEmptyDrawer(paletteEntry);
+                }
+            }
+        } else if (entry instanceof PaletteDrawer) {
+            PaletteDrawer drawer = (PaletteDrawer) entry;
+            for (Object obj : drawer.getChildren()) {
+                markEmptyDrawer((PaletteEntry) obj);
+            }
+            return;
+        }
+        PaletteEntry parentEntry = entry.getParent();
+        if (parentEntry instanceof IFilter) {
+            ((IFilter) parentEntry).setFiltered(false);
+        }
     }
 
     public static String getNodePropertyValue(NodeType node, String property) {

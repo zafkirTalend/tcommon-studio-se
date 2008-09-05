@@ -79,6 +79,8 @@ public interface IDesignerCoreService extends IService {
 
     public PaletteRoot getAllNodeStructure(IComponentsFactory factory);
 
+    public void setPaletteFilter(String filter);
+
     public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root);
 
     public IAction getCreateProcessAction(boolean isToolbar);
