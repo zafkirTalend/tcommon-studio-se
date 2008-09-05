@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.editor;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -98,6 +97,7 @@ public class RepositoryEditionManager {
             IEditorDescriptor editorDesc = IDE.getEditorDescriptor(file);
             RepositoryEditorInput repositoryEditorInput = new RepositoryEditorInput(file, item);
             repositoryEditorInput.setReadOnly(forceReadOnly);
+            repositoryEditorInput.setRepositoryNode(null);
             IEditorPart editorPart = IDE.openEditor(page, repositoryEditorInput, editorDesc.getId());
             editors.put(editorPart, repositoryEditorInput);
         } catch (PartInitException e) {
