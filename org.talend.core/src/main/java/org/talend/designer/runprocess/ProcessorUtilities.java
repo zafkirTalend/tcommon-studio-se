@@ -66,6 +66,8 @@ public class ProcessorUtilities {
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
+    static Set<ProcessItem> processItems = new HashSet<ProcessItem>();
+
     private static IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
             .getService(IDesignerCoreService.class);
 
@@ -285,6 +287,7 @@ public class ProcessorUtilities {
                     subJobInfo.setFatherJobInfo(jobInfo);
 
                     if (!jobList.contains(subJobInfo)) {
+                        processItems.add(processItem);
                         // children won't have stats / traces
                         if (option == GENERATE_WITH_FIRST_CHILD) {
                             toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_MAIN_ONLY);
@@ -480,8 +483,14 @@ public class ProcessorUtilities {
         return genCode;
     }
 
+    public static List<ProcessItem> getAllProcessItems() {
+        return new ArrayList<ProcessItem>(processItems);
+    }
+
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties)
             throws ProcessorException {
+        processItems.clear();
+        processItems.add((ProcessItem) process.getProperty().getItem());
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getId(), context.getName(), process.getVersion());
         jobInfo.setProcess(process);
