@@ -23,6 +23,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.actions.AContextualAction;
 import org.talend.repository.ui.wizards.snippet.SnippetWizard;
@@ -81,6 +83,8 @@ public class EditSnippetAction extends AContextualAction {
      */
     public void run() {
         boolean readOnly = !ProjectManager.getInstance().isInCurrentMainProject(node);
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        factory.isEditableAndLockIfPossible(node.getObject());
         SnippetWizard snippetWizard = new SnippetWizard(PlatformUI.getWorkbench(), false, getSelection(), readOnly);
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), snippetWizard);
         dlg.open();

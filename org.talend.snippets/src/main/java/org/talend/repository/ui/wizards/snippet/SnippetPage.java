@@ -50,7 +50,7 @@ public class SnippetPage extends WizardPage {
         composite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
         composite.setFont(parent.getFont());
 
-        snippetEditor = new VariableItemEditor();
+        snippetEditor = new VariableItemEditor(readOnly);
         snippetEditor.setItem(snippetItem);
         snippetEditor.createContents(composite);
         setControl(composite);
