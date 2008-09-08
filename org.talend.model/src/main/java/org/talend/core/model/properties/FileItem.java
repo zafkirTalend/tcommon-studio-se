@@ -24,19 +24,19 @@ package org.talend.core.model.properties;
 public interface FileItem extends Item {
 
     /**
-     * Returns the value of the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Name</em>' attribute.
-     * @see #setName(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getFileItem_Name()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.talend.core.model.properties.PropertiesPackage#getFileItem_Name()
+	 * @model
+	 * @generated
+	 */
     String getName();
 
     /**
@@ -50,53 +50,53 @@ public interface FileItem extends Item {
     void setName(String value);
 
     /**
-     * Returns the value of the '<em><b>Extension</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Extension</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Extension</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Extension</em>' attribute.
-     * @see #setExtension(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getFileItem_Extension()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Extension</em>' attribute.
+	 * @see #setExtension(String)
+	 * @see org.talend.core.model.properties.PropertiesPackage#getFileItem_Extension()
+	 * @model
+	 * @generated
+	 */
     String getExtension();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getExtension <em>Extension</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Extension</em>' attribute.
-     * @see #getExtension()
-     * @generated
-     */
+	 * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getExtension <em>Extension</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Extension</em>' attribute.
+	 * @see #getExtension()
+	 * @generated
+	 */
     void setExtension(String value);
 
     /**
-     * Returns the value of the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Content</b></em>' reference.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Content</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Content</em>' reference.
-     * @see #setContent(ByteArray)
-     * @see org.talend.core.model.properties.PropertiesPackage#getFileItem_Content()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Content</em>' reference.
+	 * @see #setContent(ByteArray)
+	 * @see org.talend.core.model.properties.PropertiesPackage#getFileItem_Content()
+	 * @model
+	 * @generated
+	 */
     ByteArray getContent();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getContent <em>Content</em>}' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Content</em>' reference.
-     * @see #getContent()
-     * @generated
-     */
+	 * Sets the value of the '{@link org.talend.core.model.properties.FileItem#getContent <em>Content</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Content</em>' reference.
+	 * @see #getContent()
+	 * @generated
+	 */
     void setContent(ByteArray value);
 
 } // FileItem

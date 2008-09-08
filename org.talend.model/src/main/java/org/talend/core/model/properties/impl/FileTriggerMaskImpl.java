@@ -42,567 +42,567 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask {
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int ID_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isActive()
-     * @generated
-     * @ordered
-     */
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean ACTIVE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isActive()
-     * @generated
-     * @ordered
-     */
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean active = ACTIVE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
     protected String label = LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getFileTrigger() <em>File Trigger</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFileTrigger() <em>File Trigger</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFileTrigger()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFileTrigger()
+	 * @generated
+	 * @ordered
+	 */
     protected FileTrigger fileTrigger;
 
     /**
-     * The default value of the '{@link #getFolderPath() <em>Folder Path</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getFolderPath() <em>Folder Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFolderPath()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFolderPath()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String FOLDER_PATH_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFolderPath() <em>Folder Path</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFolderPath() <em>Folder Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFolderPath()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFolderPath()
+	 * @generated
+	 * @ordered
+	 */
     protected String folderPath = FOLDER_PATH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFileMask() <em>File Mask</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getFileMask() <em>File Mask</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFileMask()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFileMask()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String FILE_MASK_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFileMask() <em>File Mask</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFileMask() <em>File Mask</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFileMask()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFileMask()
+	 * @generated
+	 * @ordered
+	 */
     protected String fileMask = FILE_MASK_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContextParameterBaseName() <em>Context Parameter Base Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getContextParameterBaseName() <em>Context Parameter Base Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContextParameterBaseName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContextParameterBaseName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CONTEXT_PARAMETER_BASE_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextParameterBaseName() <em>Context Parameter Base Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getContextParameterBaseName() <em>Context Parameter Base Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContextParameterBaseName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContextParameterBaseName()
+	 * @generated
+	 * @ordered
+	 */
     protected String contextParameterBaseName = CONTEXT_PARAMETER_BASE_NAME_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getCheckFileServer() <em>Check File Server</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCheckFileServer() <em>Check File Server</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCheckFileServer()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCheckFileServer()
+	 * @generated
+	 * @ordered
+	 */
     protected ExecutionServer checkFileServer;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected FileTriggerMaskImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.FILE_TRIGGER_MASK;
-    }
+		return PropertiesPackage.Literals.FILE_TRIGGER_MASK;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getId() {
-        return id;
-    }
+		return id;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setId(int newId) {
-        int oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__ID, oldId, id));
-    }
+		int oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__ID, oldId, id));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isActive() {
-        return active;
-    }
+		return active;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setActive(boolean newActive) {
-        boolean oldActive = active;
-        active = newActive;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE, oldActive, active));
-    }
+		boolean oldActive = active;
+		active = newActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE, oldActive, active));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getLabel() {
-        return label;
-    }
+		return label;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLabel(String newLabel) {
-        String oldLabel = label;
-        label = newLabel;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__LABEL, oldLabel, label));
-    }
+		String oldLabel = label;
+		label = newLabel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__LABEL, oldLabel, label));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getDescription() {
-        return description;
-    }
+		return description;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setDescription(String newDescription) {
-        String oldDescription = description;
-        description = newDescription;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION, oldDescription, description));
-    }
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION, oldDescription, description));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FileTrigger getFileTrigger() {
-        if (fileTrigger != null && fileTrigger.eIsProxy()) {
-            InternalEObject oldFileTrigger = (InternalEObject)fileTrigger;
-            fileTrigger = (FileTrigger)eResolveProxy(oldFileTrigger);
-            if (fileTrigger != oldFileTrigger) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER, oldFileTrigger, fileTrigger));
-            }
-        }
-        return fileTrigger;
-    }
+		if (fileTrigger != null && fileTrigger.eIsProxy()) {
+			InternalEObject oldFileTrigger = (InternalEObject)fileTrigger;
+			fileTrigger = (FileTrigger)eResolveProxy(oldFileTrigger);
+			if (fileTrigger != oldFileTrigger) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER, oldFileTrigger, fileTrigger));
+			}
+		}
+		return fileTrigger;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FileTrigger basicGetFileTrigger() {
-        return fileTrigger;
-    }
+		return fileTrigger;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFileTrigger(FileTrigger newFileTrigger) {
-        FileTrigger oldFileTrigger = fileTrigger;
-        fileTrigger = newFileTrigger;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER, oldFileTrigger, fileTrigger));
-    }
+		FileTrigger oldFileTrigger = fileTrigger;
+		fileTrigger = newFileTrigger;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER, oldFileTrigger, fileTrigger));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getFolderPath() {
-        return folderPath;
-    }
+		return folderPath;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFolderPath(String newFolderPath) {
-        String oldFolderPath = folderPath;
-        folderPath = newFolderPath;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH, oldFolderPath, folderPath));
-    }
+		String oldFolderPath = folderPath;
+		folderPath = newFolderPath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH, oldFolderPath, folderPath));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getFileMask() {
-        return fileMask;
-    }
+		return fileMask;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFileMask(String newFileMask) {
-        String oldFileMask = fileMask;
-        fileMask = newFileMask;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK, oldFileMask, fileMask));
-    }
+		String oldFileMask = fileMask;
+		fileMask = newFileMask;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK, oldFileMask, fileMask));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getContextParameterBaseName() {
-        return contextParameterBaseName;
-    }
+		return contextParameterBaseName;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setContextParameterBaseName(String newContextParameterBaseName) {
-        String oldContextParameterBaseName = contextParameterBaseName;
-        contextParameterBaseName = newContextParameterBaseName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME, oldContextParameterBaseName, contextParameterBaseName));
-    }
+		String oldContextParameterBaseName = contextParameterBaseName;
+		contextParameterBaseName = newContextParameterBaseName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME, oldContextParameterBaseName, contextParameterBaseName));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExecutionServer getCheckFileServer() {
-        if (checkFileServer != null && checkFileServer.eIsProxy()) {
-            InternalEObject oldCheckFileServer = (InternalEObject)checkFileServer;
-            checkFileServer = (ExecutionServer)eResolveProxy(oldCheckFileServer);
-            if (checkFileServer != oldCheckFileServer) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER, oldCheckFileServer, checkFileServer));
-            }
-        }
-        return checkFileServer;
-    }
+		if (checkFileServer != null && checkFileServer.eIsProxy()) {
+			InternalEObject oldCheckFileServer = (InternalEObject)checkFileServer;
+			checkFileServer = (ExecutionServer)eResolveProxy(oldCheckFileServer);
+			if (checkFileServer != oldCheckFileServer) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER, oldCheckFileServer, checkFileServer));
+			}
+		}
+		return checkFileServer;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExecutionServer basicGetCheckFileServer() {
-        return checkFileServer;
-    }
+		return checkFileServer;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setCheckFileServer(ExecutionServer newCheckFileServer) {
-        ExecutionServer oldCheckFileServer = checkFileServer;
-        checkFileServer = newCheckFileServer;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER, oldCheckFileServer, checkFileServer));
-    }
+		ExecutionServer oldCheckFileServer = checkFileServer;
+		checkFileServer = newCheckFileServer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER, oldCheckFileServer, checkFileServer));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.FILE_TRIGGER_MASK__ID:
-                return new Integer(getId());
-            case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
-                return isActive() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
-                return getLabel();
-            case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
-                return getDescription();
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
-                if (resolve) return getFileTrigger();
-                return basicGetFileTrigger();
-            case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
-                return getFolderPath();
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
-                return getFileMask();
-            case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
-                return getContextParameterBaseName();
-            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
-                if (resolve) return getCheckFileServer();
-                return basicGetCheckFileServer();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.FILE_TRIGGER_MASK__ID:
+				return new Integer(getId());
+			case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
+				return isActive() ? Boolean.TRUE : Boolean.FALSE;
+			case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
+				return getLabel();
+			case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
+				return getDescription();
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
+				if (resolve) return getFileTrigger();
+				return basicGetFileTrigger();
+			case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
+				return getFolderPath();
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
+				return getFileMask();
+			case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
+				return getContextParameterBaseName();
+			case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+				if (resolve) return getCheckFileServer();
+				return basicGetCheckFileServer();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.FILE_TRIGGER_MASK__ID:
-                setId(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
-                setActive(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
-                setLabel((String)newValue);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
-                setFileTrigger((FileTrigger)newValue);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
-                setFolderPath((String)newValue);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
-                setFileMask((String)newValue);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
-                setContextParameterBaseName((String)newValue);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
-                setCheckFileServer((ExecutionServer)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.FILE_TRIGGER_MASK__ID:
+				setId(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
+				setActive(((Boolean)newValue).booleanValue());
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
+				setLabel((String)newValue);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
+				setDescription((String)newValue);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
+				setFileTrigger((FileTrigger)newValue);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
+				setFolderPath((String)newValue);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
+				setFileMask((String)newValue);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
+				setContextParameterBaseName((String)newValue);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+				setCheckFileServer((ExecutionServer)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.FILE_TRIGGER_MASK__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
-                setActive(ACTIVE_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
-                setLabel(LABEL_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
-                setFileTrigger((FileTrigger)null);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
-                setFolderPath(FOLDER_PATH_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
-                setFileMask(FILE_MASK_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
-                setContextParameterBaseName(CONTEXT_PARAMETER_BASE_NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
-                setCheckFileServer((ExecutionServer)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.FILE_TRIGGER_MASK__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
+				setActive(ACTIVE_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
+				setLabel(LABEL_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
+				setFileTrigger((FileTrigger)null);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
+				setFolderPath(FOLDER_PATH_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
+				setFileMask(FILE_MASK_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
+				setContextParameterBaseName(CONTEXT_PARAMETER_BASE_NAME_EDEFAULT);
+				return;
+			case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+				setCheckFileServer((ExecutionServer)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.FILE_TRIGGER_MASK__ID:
-                return id != ID_EDEFAULT;
-            case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
-                return active != ACTIVE_EDEFAULT;
-            case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
-                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
-                return fileTrigger != null;
-            case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
-                return FOLDER_PATH_EDEFAULT == null ? folderPath != null : !FOLDER_PATH_EDEFAULT.equals(folderPath);
-            case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
-                return FILE_MASK_EDEFAULT == null ? fileMask != null : !FILE_MASK_EDEFAULT.equals(fileMask);
-            case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
-                return CONTEXT_PARAMETER_BASE_NAME_EDEFAULT == null ? contextParameterBaseName != null : !CONTEXT_PARAMETER_BASE_NAME_EDEFAULT.equals(contextParameterBaseName);
-            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
-                return checkFileServer != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.FILE_TRIGGER_MASK__ID:
+				return id != ID_EDEFAULT;
+			case PropertiesPackage.FILE_TRIGGER_MASK__ACTIVE:
+				return active != ACTIVE_EDEFAULT;
+			case PropertiesPackage.FILE_TRIGGER_MASK__LABEL:
+				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+			case PropertiesPackage.FILE_TRIGGER_MASK__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_TRIGGER:
+				return fileTrigger != null;
+			case PropertiesPackage.FILE_TRIGGER_MASK__FOLDER_PATH:
+				return FOLDER_PATH_EDEFAULT == null ? folderPath != null : !FOLDER_PATH_EDEFAULT.equals(folderPath);
+			case PropertiesPackage.FILE_TRIGGER_MASK__FILE_MASK:
+				return FILE_MASK_EDEFAULT == null ? fileMask != null : !FILE_MASK_EDEFAULT.equals(fileMask);
+			case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
+				return CONTEXT_PARAMETER_BASE_NAME_EDEFAULT == null ? contextParameterBaseName != null : !CONTEXT_PARAMETER_BASE_NAME_EDEFAULT.equals(contextParameterBaseName);
+			case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+				return checkFileServer != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
-        result.append(id);
-        result.append(", active: ");
-        result.append(active);
-        result.append(", label: ");
-        result.append(label);
-        result.append(", description: ");
-        result.append(description);
-        result.append(", folderPath: ");
-        result.append(folderPath);
-        result.append(", fileMask: ");
-        result.append(fileMask);
-        result.append(", contextParameterBaseName: ");
-        result.append(contextParameterBaseName);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (id: ");
+		result.append(id);
+		result.append(", active: ");
+		result.append(active);
+		result.append(", label: ");
+		result.append(label);
+		result.append(", description: ");
+		result.append(description);
+		result.append(", folderPath: ");
+		result.append(folderPath);
+		result.append(", fileMask: ");
+		result.append(fileMask);
+		result.append(", contextParameterBaseName: ");
+		result.append(contextParameterBaseName);
+		result.append(')');
+		return result.toString();
+	}
 
 } //FileTriggerMaskImpl

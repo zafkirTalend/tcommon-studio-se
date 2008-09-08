@@ -40,50 +40,50 @@ import org.talend.designer.business.model.business.BusinessProcess;
 public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcessItem {
 
     /**
-     * The cached value of the '{@link #getNotation() <em>Notation</em>}' reference.
-     * <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getNotation() <em>Notation</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * @see #getNotation()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNotation()
+	 * @generated
+	 * @ordered
+	 */
     protected Diagram notation;
 
     /**
-     * The cached value of the '{@link #getSemantic() <em>Semantic</em>}' reference.
-     * <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getSemantic() <em>Semantic</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * @see #getSemantic()
-     * @generated
-     * @ordered
-     */
+	 * @see #getSemantic()
+	 * @generated
+	 * @ordered
+	 */
     protected BusinessProcess semantic;
 
     /**
-     * The cached value of the '{@link #getNotationHolder() <em>Notation Holder</em>}' reference.
-     * <!-- begin-user-doc
+	 * The cached value of the '{@link #getNotationHolder() <em>Notation Holder</em>}' reference.
+	 * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * @see #getNotationHolder()
-     * @generated
-     * @ordered
-     */
+	 * @see #getNotationHolder()
+	 * @generated
+	 * @ordered
+	 */
     protected NotationHolder notationHolder;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected BusinessProcessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.BUSINESS_PROCESS_ITEM;
-    }
+		return PropertiesPackage.Literals.BUSINESS_PROCESS_ITEM;
+	}
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -146,165 +146,165 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Diagram basicGetNotation() {
-        return notation;
-    }
+		return notation;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void setNotation(Diagram newNotation) {
-        Diagram oldNotation = notation;
-        notation = newNotation;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION, oldNotation, notation));
-    }
+		Diagram oldNotation = notation;
+		notation = newNotation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION, oldNotation, notation));
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public BusinessProcess getSemantic() {
-        if (semantic != null && semantic.eIsProxy()) {
-            InternalEObject oldSemantic = (InternalEObject)semantic;
-            semantic = (BusinessProcess)eResolveProxy(oldSemantic);
-            if (semantic != oldSemantic) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC, oldSemantic, semantic));
-            }
-        }
-        return semantic;
-    }
+		if (semantic != null && semantic.eIsProxy()) {
+			InternalEObject oldSemantic = (InternalEObject)semantic;
+			semantic = (BusinessProcess)eResolveProxy(oldSemantic);
+			if (semantic != oldSemantic) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC, oldSemantic, semantic));
+			}
+		}
+		return semantic;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public BusinessProcess basicGetSemantic() {
-        return semantic;
-    }
+		return semantic;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void setSemantic(BusinessProcess newSemantic) {
-        BusinessProcess oldSemantic = semantic;
-        semantic = newSemantic;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC, oldSemantic, semantic));
-    }
+		BusinessProcess oldSemantic = semantic;
+		semantic = newSemantic;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC, oldSemantic, semantic));
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public NotationHolder getNotationHolder() {
-        if (notationHolder != null && notationHolder.eIsProxy()) {
-            InternalEObject oldNotationHolder = (InternalEObject)notationHolder;
-            notationHolder = (NotationHolder)eResolveProxy(oldNotationHolder);
-            if (notationHolder != oldNotationHolder) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER, oldNotationHolder, notationHolder));
-            }
-        }
-        return notationHolder;
-    }
+		if (notationHolder != null && notationHolder.eIsProxy()) {
+			InternalEObject oldNotationHolder = (InternalEObject)notationHolder;
+			notationHolder = (NotationHolder)eResolveProxy(oldNotationHolder);
+			if (notationHolder != oldNotationHolder) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER, oldNotationHolder, notationHolder));
+			}
+		}
+		return notationHolder;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public NotationHolder basicGetNotationHolder() {
-        return notationHolder;
-    }
+		return notationHolder;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void setNotationHolder(NotationHolder newNotationHolder) {
-        NotationHolder oldNotationHolder = notationHolder;
-        notationHolder = newNotationHolder;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER, oldNotationHolder, notationHolder));
-    }
+		NotationHolder oldNotationHolder = notationHolder;
+		notationHolder = newNotationHolder;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER, oldNotationHolder, notationHolder));
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
-                if (resolve) return getNotation();
-                return basicGetNotation();
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
-                if (resolve) return getSemantic();
-                return basicGetSemantic();
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
-                if (resolve) return getNotationHolder();
-                return basicGetNotationHolder();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
+				if (resolve) return getNotation();
+				return basicGetNotation();
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
+				if (resolve) return getSemantic();
+				return basicGetSemantic();
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
+				if (resolve) return getNotationHolder();
+				return basicGetNotationHolder();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
-                setNotation((Diagram)newValue);
-                return;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
-                setSemantic((BusinessProcess)newValue);
-                return;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
-                setNotationHolder((NotationHolder)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
+				setNotation((Diagram)newValue);
+				return;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
+				setSemantic((BusinessProcess)newValue);
+				return;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
+				setNotationHolder((NotationHolder)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
-                setNotation((Diagram)null);
-                return;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
-                setSemantic((BusinessProcess)null);
-                return;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
-                setNotationHolder((NotationHolder)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
+				setNotation((Diagram)null);
+				return;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
+				setSemantic((BusinessProcess)null);
+				return;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
+				setNotationHolder((NotationHolder)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
-                return notation != null;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
-                return semantic != null;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
-                return notationHolder != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION:
+				return notation != null;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__SEMANTIC:
+				return semantic != null;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
+				return notationHolder != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } // BusinessProcessItemImpl

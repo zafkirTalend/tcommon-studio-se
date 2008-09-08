@@ -91,6 +91,12 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.DELIMITED_FILE_CONNECTION: return createDelimitedFileConnection();
             case ConnectionPackage.POSITIONAL_FILE_CONNECTION: return createPositionalFileConnection();
             case ConnectionPackage.DATABASE_CONNECTION: return createDatabaseConnection();
+            case ConnectionPackage.SAP_CONNECTION: return createSAPConnection();
+            case ConnectionPackage.SAP_FUNCTION_UNIT: return createSAPFunctionUnit();
+            case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: return createSAPFunctionParameterColumn();
+            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE: return createSAPFunctionParameterTable();
+            case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE: return createInputSAPFunctionParameterTable();
+            case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE: return createOutputSAPFunctionParameterTable();
             case ConnectionPackage.REGEXP_FILE_CONNECTION: return createRegexpFileConnection();
             case ConnectionPackage.XML_FILE_CONNECTION: return createXmlFileConnection();
             case ConnectionPackage.SCHEMA_TARGET: return createSchemaTarget();
@@ -222,6 +228,66 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public DatabaseConnection createDatabaseConnection() {
         DatabaseConnectionImpl databaseConnection = new DatabaseConnectionImpl();
         return databaseConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPConnection createSAPConnection() {
+        SAPConnectionImpl sapConnection = new SAPConnectionImpl();
+        return sapConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionUnit createSAPFunctionUnit() {
+        SAPFunctionUnitImpl sapFunctionUnit = new SAPFunctionUnitImpl();
+        return sapFunctionUnit;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionParameterColumn createSAPFunctionParameterColumn() {
+        SAPFunctionParameterColumnImpl sapFunctionParameterColumn = new SAPFunctionParameterColumnImpl();
+        return sapFunctionParameterColumn;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionParameterTable createSAPFunctionParameterTable() {
+        SAPFunctionParameterTableImpl sapFunctionParameterTable = new SAPFunctionParameterTableImpl();
+        return sapFunctionParameterTable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public InputSAPFunctionParameterTable createInputSAPFunctionParameterTable() {
+        InputSAPFunctionParameterTableImpl inputSAPFunctionParameterTable = new InputSAPFunctionParameterTableImpl();
+        return inputSAPFunctionParameterTable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public OutputSAPFunctionParameterTable createOutputSAPFunctionParameterTable() {
+        OutputSAPFunctionParameterTableImpl outputSAPFunctionParameterTable = new OutputSAPFunctionParameterTableImpl();
+        return outputSAPFunctionParameterTable;
     }
 
     /**

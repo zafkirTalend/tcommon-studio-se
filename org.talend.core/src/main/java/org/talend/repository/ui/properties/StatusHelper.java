@@ -33,80 +33,82 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public class StatusHelper {
 
-    private Map<String, Status> code2status;
+	private Map<String, Status> code2status;
 
-    private Map<String, String> label2code;
+	private Map<String, String> label2code;
 
-    private IProxyRepositoryFactory repositoryFactory;
+	private IProxyRepositoryFactory repositoryFactory;
 
-    public StatusHelper(IProxyRepositoryFactory repositoryFactory) {
-        super();
-        this.repositoryFactory = repositoryFactory;
-    }
+	public StatusHelper(IProxyRepositoryFactory repositoryFactory) {
+		super();
+		this.repositoryFactory = repositoryFactory;
+	}
 
-    public String getStatusLabel(String statusCode) {
-        if (statusCode == null) {
-            return ""; //$NON-NLS-1$
-        }
-        Status status = code2status.get(statusCode);
-        return status == null ? statusCode : status.getLabel();
-    }
+	public String getStatusLabel(String statusCode) {
+		if (statusCode == null) {
+			return ""; //$NON-NLS-1$
+		}
+		Status status = code2status.get(statusCode);
+		return status == null ? statusCode : status.getLabel();
+	}
 
-    public String getStatusCode(String label) {
-        String text;
-        text = label2code.get(label);
-        return (text == null ? label : text);
-    }
+	public String getStatusCode(String label) {
+		String text;
+		text = label2code.get(label);
+		return (text == null ? label : text);
+	}
 
-    public List<Status> getStatusList(Property property) throws PersistenceException {
-        List<Status> status = null;
-        Item item = property.getItem();
-        if (item != null) {
-            EClass propertyEClass = item.eClass();
-            int i = propertyEClass.getClassifierID();
-            switch (propertyEClass.getClassifierID()) {
-            case PropertiesPackage.CSV_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.DATABASE_CONNECTION_ITEM:
-            case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.CONTEXT_ITEM:
-            case PropertiesPackage.PROCESS_ITEM:
-            case PropertiesPackage.ROUTINE_ITEM:
-            case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
-            case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
-            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM:
-            case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
-            case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
-                status = repositoryFactory.getTechnicalStatus();
-                break;
-            case PropertiesPackage.BUSINESS_PROCESS_ITEM:
-            case PropertiesPackage.DOCUMENTATION_ITEM:
-                status = repositoryFactory.getDocumentationStatus();
-                break;
-            }
-        }
-        if (status == null) {
-            status = new ArrayList<Status>();
-        }
-        toMaps(status);
-        return status;
-    }
+	public List<Status> getStatusList(Property property)
+			throws PersistenceException {
+		List<Status> status = null;
+		Item item = property.getItem();
+		if (item != null) {
+			EClass propertyEClass = item.eClass();
+			int i = propertyEClass.getClassifierID();
+			switch (propertyEClass.getClassifierID()) {
+			case PropertiesPackage.CSV_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.DATABASE_CONNECTION_ITEM:
+			case PropertiesPackage.SAP_CONNECTION_ITEM:
+			case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.CONTEXT_ITEM:
+			case PropertiesPackage.PROCESS_ITEM:
+			case PropertiesPackage.ROUTINE_ITEM:
+			case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
+			case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
+			case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM:
+			case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
+			case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
+				status = repositoryFactory.getTechnicalStatus();
+				break;
+			case PropertiesPackage.BUSINESS_PROCESS_ITEM:
+			case PropertiesPackage.DOCUMENTATION_ITEM:
+				status = repositoryFactory.getDocumentationStatus();
+				break;
+			}
+		}
+		if (status == null) {
+			status = new ArrayList<Status>();
+		}
+		toMaps(status);
+		return status;
+	}
 
-    /**
-     * DOC tguiu Comment method "asMap".
-     * 
-     * @param status
-     * @return
-     */
-    private void toMaps(List<Status> status) {
-        code2status = new HashMap<String, Status>();
-        label2code = new HashMap<String, String>();
-        for (Status s : status) {
-            code2status.put(s.getCode(), s);
-            label2code.put(s.getLabel(), s.getCode());
-        }
-    }
+	/**
+	 * DOC tguiu Comment method "asMap".
+	 * 
+	 * @param status
+	 * @return
+	 */
+	private void toMaps(List<Status> status) {
+		code2status = new HashMap<String, Status>();
+		label2code = new HashMap<String, String>();
+		for (Status s : status) {
+			code2status.put(s.getCode(), s);
+			label2code.put(s.getLabel(), s.getCode());
+		}
+	}
 }

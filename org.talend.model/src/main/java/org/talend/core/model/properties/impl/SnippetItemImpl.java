@@ -39,217 +39,217 @@ import org.talend.core.model.properties.SnippetVariable;
  */
 public class SnippetItemImpl extends ItemImpl implements SnippetItem {
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContent()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContent()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CONTENT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContent()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContent()
+	 * @generated
+	 * @ordered
+	 */
     protected String content = CONTENT_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getVariables() <em>Variables</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getVariables()
-     * @generated
-     * @ordered
-     */
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
     protected EList variables;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected SnippetItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.SNIPPET_ITEM;
-    }
+		return PropertiesPackage.Literals.SNIPPET_ITEM;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getName() {
-        return name;
-    }
+		return name;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setName(String newName) {
-        String oldName = name;
-        name = newName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SNIPPET_ITEM__NAME, oldName, name));
-    }
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SNIPPET_ITEM__NAME, oldName, name));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getContent() {
-        return content;
-    }
+		return content;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setContent(String newContent) {
-        String oldContent = content;
-        content = newContent;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SNIPPET_ITEM__CONTENT, oldContent, content));
-    }
+		String oldContent = content;
+		content = newContent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SNIPPET_ITEM__CONTENT, oldContent, content));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getVariables() {
-        if (variables == null) {
-            variables = new EObjectResolvingEList(SnippetVariable.class, this, PropertiesPackage.SNIPPET_ITEM__VARIABLES);
-        }
-        return variables;
-    }
+		if (variables == null) {
+			variables = new EObjectResolvingEList(SnippetVariable.class, this, PropertiesPackage.SNIPPET_ITEM__VARIABLES);
+		}
+		return variables;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.SNIPPET_ITEM__NAME:
-                return getName();
-            case PropertiesPackage.SNIPPET_ITEM__CONTENT:
-                return getContent();
-            case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
-                return getVariables();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SNIPPET_ITEM__NAME:
+				return getName();
+			case PropertiesPackage.SNIPPET_ITEM__CONTENT:
+				return getContent();
+			case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
+				return getVariables();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.SNIPPET_ITEM__NAME:
-                setName((String)newValue);
-                return;
-            case PropertiesPackage.SNIPPET_ITEM__CONTENT:
-                setContent((String)newValue);
-                return;
-            case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
-                getVariables().clear();
-                getVariables().addAll((Collection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SNIPPET_ITEM__NAME:
+				setName((String)newValue);
+				return;
+			case PropertiesPackage.SNIPPET_ITEM__CONTENT:
+				setContent((String)newValue);
+				return;
+			case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.SNIPPET_ITEM__NAME:
-                setName(NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.SNIPPET_ITEM__CONTENT:
-                setContent(CONTENT_EDEFAULT);
-                return;
-            case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
-                getVariables().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SNIPPET_ITEM__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case PropertiesPackage.SNIPPET_ITEM__CONTENT:
+				setContent(CONTENT_EDEFAULT);
+				return;
+			case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
+				getVariables().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.SNIPPET_ITEM__NAME:
-                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case PropertiesPackage.SNIPPET_ITEM__CONTENT:
-                return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
-            case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
-                return variables != null && !variables.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SNIPPET_ITEM__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case PropertiesPackage.SNIPPET_ITEM__CONTENT:
+				return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
+			case PropertiesPackage.SNIPPET_ITEM__VARIABLES:
+				return variables != null && !variables.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (name: ");
-        result.append(name);
-        result.append(", content: ");
-        result.append(content);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", content: ");
+		result.append(content);
+		result.append(')');
+		return result.toString();
+	}
 
 } //SnippetItemImpl

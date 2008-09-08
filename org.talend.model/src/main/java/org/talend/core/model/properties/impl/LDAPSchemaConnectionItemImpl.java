@@ -22,21 +22,21 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class LDAPSchemaConnectionItemImpl extends ConnectionItemImpl implements LDAPSchemaConnectionItem {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected LDAPSchemaConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.LDAP_SCHEMA_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.LDAP_SCHEMA_CONNECTION_ITEM;
+	}
 
 } //LDAPSchemaConnectionItemImpl

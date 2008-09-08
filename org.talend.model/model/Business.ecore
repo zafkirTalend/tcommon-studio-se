@@ -31,6 +31,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Routine" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Documentation" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SapFunctionMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="TableMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileDelimitedMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FilePositionalMetadata" eSuperTypes="#//TalendItem"/>

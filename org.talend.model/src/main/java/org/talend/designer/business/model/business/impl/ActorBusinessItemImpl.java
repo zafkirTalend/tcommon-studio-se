@@ -29,21 +29,21 @@ public class ActorBusinessItemImpl extends BusinessItemShapeImpl implements Acto
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected ActorBusinessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.ACTOR_BUSINESS_ITEM;
-    }
+		return BusinessPackage.Literals.ACTOR_BUSINESS_ITEM;
+	}
 
 } //ActorBusinessItemImpl

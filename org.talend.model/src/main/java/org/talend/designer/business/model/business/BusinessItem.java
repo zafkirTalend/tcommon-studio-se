@@ -33,73 +33,73 @@ public interface BusinessItem extends EObject {
     String copyright = ""; //$NON-NLS-1$
 
     /**
-     * Returns the value of the '<em><b>Business Process</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessProcess#getBusinessItems <em>Business Items</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Business Process</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessProcess#getBusinessItems <em>Business Items</em>}'.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Business Process</em>' container reference isn't clear, there really should be
      * more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Business Process</em>' container reference.
-     * @see #setBusinessProcess(BusinessProcess)
-     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_BusinessProcess()
-     * @see org.talend.designer.business.model.business.BusinessProcess#getBusinessItems
-     * @model opposite="businessItems" required="true" transient="false"
-     * @generated
-     */
+	 * @return the value of the '<em>Business Process</em>' container reference.
+	 * @see #setBusinessProcess(BusinessProcess)
+	 * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_BusinessProcess()
+	 * @see org.talend.designer.business.model.business.BusinessProcess#getBusinessItems
+	 * @model opposite="businessItems" required="true" transient="false"
+	 * @generated
+	 */
     BusinessProcess getBusinessProcess();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.BusinessItem#getBusinessProcess <em>Business Process</em>}' container reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Business Process</em>' container reference.
-     * @see #getBusinessProcess()
-     * @generated
-     */
+	 * Sets the value of the '{@link org.talend.designer.business.model.business.BusinessItem#getBusinessProcess <em>Business Process</em>}' container reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Business Process</em>' container reference.
+	 * @see #getBusinessProcess()
+	 * @generated
+	 */
     void setBusinessProcess(BusinessProcess value);
 
     /**
-     * Returns the value of the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Name</em>' attribute.
-     * @see #setName(String)
-     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_Name()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_Name()
+	 * @model
+	 * @generated
+	 */
     String getName();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.BusinessItem#getName <em>Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Name</em>' attribute.
-     * @see #getName()
-     * @generated
-     */
+	 * Sets the value of the '{@link org.talend.designer.business.model.business.BusinessItem#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
     void setName(String value);
 
     /**
-     * Returns the value of the '<em><b>Assignments</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.business.model.business.BusinessAssignment}.
-     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessAssignment#getBusinessItem <em>Business Item</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Assignments</b></em>' containment reference list.
+	 * The list contents are of type {@link org.talend.designer.business.model.business.BusinessAssignment}.
+	 * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessAssignment#getBusinessItem <em>Business Item</em>}'.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Assignments</em>' containment reference list isn't clear, there really should be
      * more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Assignments</em>' containment reference list.
-     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_Assignments()
-     * @see org.talend.designer.business.model.business.BusinessAssignment#getBusinessItem
-     * @model type="org.talend.designer.business.model.business.BusinessAssignment" opposite="businessItem" containment="true"
-     * @generated
-     */
+	 * @return the value of the '<em>Assignments</em>' containment reference list.
+	 * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_Assignments()
+	 * @see org.talend.designer.business.model.business.BusinessAssignment#getBusinessItem
+	 * @model type="org.talend.designer.business.model.business.BusinessAssignment" opposite="businessItem" containment="true"
+	 * @generated
+	 */
     EList getAssignments();
 
 } // BusinessItem

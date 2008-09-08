@@ -81,6 +81,60 @@ public interface ConnectionFactory extends EFactory {
     DatabaseConnection createDatabaseConnection();
 
     /**
+     * Returns a new object of class '<em>SAP Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Connection</em>'.
+     * @generated
+     */
+    SAPConnection createSAPConnection();
+
+    /**
+     * Returns a new object of class '<em>SAP Function Unit</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Function Unit</em>'.
+     * @generated
+     */
+    SAPFunctionUnit createSAPFunctionUnit();
+
+    /**
+     * Returns a new object of class '<em>SAP Function Parameter Column</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Function Parameter Column</em>'.
+     * @generated
+     */
+    SAPFunctionParameterColumn createSAPFunctionParameterColumn();
+
+    /**
+     * Returns a new object of class '<em>SAP Function Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Function Parameter Table</em>'.
+     * @generated
+     */
+    SAPFunctionParameterTable createSAPFunctionParameterTable();
+
+    /**
+     * Returns a new object of class '<em>Input SAP Function Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Input SAP Function Parameter Table</em>'.
+     * @generated
+     */
+    InputSAPFunctionParameterTable createInputSAPFunctionParameterTable();
+
+    /**
+     * Returns a new object of class '<em>Output SAP Function Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Output SAP Function Parameter Table</em>'.
+     * @generated
+     */
+    OutputSAPFunctionParameterTable createOutputSAPFunctionParameterTable();
+
+    /**
      * Returns a new object of class '<em>Regexp File Connection</em>'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 

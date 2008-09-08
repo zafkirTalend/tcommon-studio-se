@@ -82,11 +82,11 @@
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//MetadataTable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/sourceName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/columns"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/connection"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/tableType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/attachedCDC"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/activatedCDC"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/columns"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/connection"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//FileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/Server"/>
@@ -139,6 +139,43 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/StandardSQL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SystemSQL"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//DatabaseConnection/cdcConns"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SAPConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Client"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/SystemNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Language"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPConnection/Funtions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/currentFucntion"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SAPFunctionUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/Document"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/InputParameterTable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/OutputParameterTable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/MetadataTable"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/connection"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/ParameterType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/StructureOrTableName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/DataType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Value"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionParameterColumn/ParameterTable"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterTable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionParameterTable/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//InputSAPFunctionParameterTable">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//InputSAPFunctionParameterTable/functionUnit"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//OutputSAPFunctionParameterTable">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//OutputSAPFunctionParameterTable/functionUnit"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//RegexpFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//RegexpFileConnection/FieldSeparatorType"/>

@@ -48,6 +48,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
@@ -221,6 +222,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
                 return ERepositoryObjectType.METADATA_CONNECTIONS;
+            }
+
+            public Object caseSAPConnectionItem(SAPConnectionItem object) {
+                return ERepositoryObjectType.METADATA_SAPCONNECTIONS;
             }
 
             /*

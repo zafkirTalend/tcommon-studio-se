@@ -29,28 +29,28 @@ import org.eclipse.emf.ecore.EObject;
 public interface ByteArray extends EObject {
 
     /**
-     * Returns the value of the '<em><b>Inner Content</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Inner Content</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Inner Content</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Inner Content</em>' attribute.
-     * @see #setInnerContent(byte[])
-     * @see org.talend.core.model.properties.PropertiesPackage#getByteArray_InnerContent()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Inner Content</em>' attribute.
+	 * @see #setInnerContent(byte[])
+	 * @see org.talend.core.model.properties.PropertiesPackage#getByteArray_InnerContent()
+	 * @model
+	 * @generated
+	 */
     byte[] getInnerContent();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ByteArray#getInnerContent <em>Inner Content</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Inner Content</em>' attribute.
-     * @see #getInnerContent()
-     * @generated
-     */
+	 * Sets the value of the '{@link org.talend.core.model.properties.ByteArray#getInnerContent <em>Inner Content</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Inner Content</em>' attribute.
+	 * @see #getInnerContent()
+	 * @generated
+	 */
     void setInnerContent(byte[] value);
 
     void setInnerContentFromFile(IFile file) throws IOException, CoreException;

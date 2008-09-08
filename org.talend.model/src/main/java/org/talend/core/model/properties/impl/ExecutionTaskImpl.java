@@ -71,1586 +71,1586 @@ import org.talend.core.model.properties.TalendTrigger;
  */
 public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int ID_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
     protected String label = LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getExecutionServer() <em>Execution Server</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getExecutionServer() <em>Execution Server</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getExecutionServer()
-     * @generated
-     * @ordered
-     */
+	 * @see #getExecutionServer()
+	 * @generated
+	 * @ordered
+	 */
     protected ExecutionServer executionServer;
 
     /**
-     * The cached value of the '{@link #getProject() <em>Project</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getProject() <em>Project</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getProject()
-     * @generated
-     * @ordered
-     */
+	 * @see #getProject()
+	 * @generated
+	 * @ordered
+	 */
     protected Project project;
 
     /**
-     * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContext()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CONTEXT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContext()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
     protected String context = CONTEXT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getJobVersion() <em>Job Version</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getJobVersion() <em>Job Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobVersion()
-     * @generated
-     * @ordered
-     */
+	 * @see #getJobVersion()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String JOB_VERSION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getJobVersion() <em>Job Version</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getJobVersion() <em>Job Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobVersion()
-     * @generated
-     * @ordered
-     */
+	 * @see #getJobVersion()
+	 * @generated
+	 * @ordered
+	 */
     protected String jobVersion = JOB_VERSION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isActive()
-     * @generated
-     * @ordered
-     */
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean ACTIVE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isActive()
-     * @generated
-     * @ordered
-     */
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean active = ACTIVE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIdQuartzJob()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIdQuartzJob()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int ID_QUARTZ_JOB_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIdQuartzJob()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIdQuartzJob()
+	 * @generated
+	 * @ordered
+	 */
     protected int idQuartzJob = ID_QUARTZ_JOB_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastScriptGenerationDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastScriptGenerationDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date LAST_SCRIPT_GENERATION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastScriptGenerationDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastScriptGenerationDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date lastScriptGenerationDate = LAST_SCRIPT_GENERATION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIdRemoteJob()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIdRemoteJob()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String ID_REMOTE_JOB_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIdRemoteJob()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIdRemoteJob()
+	 * @generated
+	 * @ordered
+	 */
     protected String idRemoteJob = ID_REMOTE_JOB_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIdRemoteJobExecution() <em>Id Remote Job Execution</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getIdRemoteJobExecution() <em>Id Remote Job Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIdRemoteJobExecution()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIdRemoteJobExecution()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String ID_REMOTE_JOB_EXECUTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getIdRemoteJobExecution() <em>Id Remote Job Execution</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIdRemoteJobExecution() <em>Id Remote Job Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getIdRemoteJobExecution()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIdRemoteJobExecution()
+	 * @generated
+	 * @ordered
+	 */
     protected String idRemoteJobExecution = ID_REMOTE_JOB_EXECUTION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getChecksumArchive() <em>Checksum Archive</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getChecksumArchive() <em>Checksum Archive</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getChecksumArchive()
-     * @generated
-     * @ordered
-     */
+	 * @see #getChecksumArchive()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CHECKSUM_ARCHIVE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getChecksumArchive() <em>Checksum Archive</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getChecksumArchive() <em>Checksum Archive</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getChecksumArchive()
-     * @generated
-     * @ordered
-     */
+	 * @see #getChecksumArchive()
+	 * @generated
+	 * @ordered
+	 */
     protected String checksumArchive = CHECKSUM_ARCHIVE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getJobScriptArchiveFilename() <em>Job Script Archive Filename</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getJobScriptArchiveFilename() <em>Job Script Archive Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobScriptArchiveFilename()
-     * @generated
-     * @ordered
-     */
+	 * @see #getJobScriptArchiveFilename()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getJobScriptArchiveFilename() <em>Job Script Archive Filename</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getJobScriptArchiveFilename() <em>Job Script Archive Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobScriptArchiveFilename()
-     * @generated
-     * @ordered
-     */
+	 * @see #getJobScriptArchiveFilename()
+	 * @generated
+	 * @ordered
+	 */
     protected String jobScriptArchiveFilename = JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getStatus()
-     * @generated
-     * @ordered
-     */
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getStatus()
-     * @generated
-     * @ordered
-     */
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
     protected String status = STATUS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isProcessingState()
-     * @generated
-     * @ordered
-     */
+	 * @see #isProcessingState()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean PROCESSING_STATE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isProcessingState()
-     * @generated
-     * @ordered
-     */
+	 * @see #isProcessingState()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean processingState = PROCESSING_STATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getErrorStatus()
-     * @generated
-     * @ordered
-     */
+	 * @see #getErrorStatus()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String ERROR_STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getErrorStatus()
-     * @generated
-     * @ordered
-     */
+	 * @see #getErrorStatus()
+	 * @generated
+	 * @ordered
+	 */
     protected String errorStatus = ERROR_STATUS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastRunDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastRunDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date LAST_RUN_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastRunDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastRunDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date lastRunDate = LAST_RUN_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLastDeploymentDate() <em>Last Deployment Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastDeploymentDate() <em>Last Deployment Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastDeploymentDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastDeploymentDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date LAST_DEPLOYMENT_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastDeploymentDate() <em>Last Deployment Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastDeploymentDate() <em>Last Deployment Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastDeploymentDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastDeploymentDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date lastDeploymentDate = LAST_DEPLOYMENT_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLastEndedRunDate() <em>Last Ended Run Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastEndedRunDate() <em>Last Ended Run Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastEndedRunDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastEndedRunDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date LAST_ENDED_RUN_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastEndedRunDate() <em>Last Ended Run Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastEndedRunDate() <em>Last Ended Run Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastEndedRunDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastEndedRunDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date lastEndedRunDate = LAST_ENDED_RUN_DATE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTriggers()
-     * @generated
-     * @ordered
-     */
+	 * @see #getTriggers()
+	 * @generated
+	 * @ordered
+	 */
     protected EList triggers;
 
     /**
-     * The default value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getJobId()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String JOB_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getJobId()
+	 * @generated
+	 * @ordered
+	 */
     protected String jobId = JOB_ID_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getVirtualServer() <em>Virtual Server</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getVirtualServer() <em>Virtual Server</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getVirtualServer()
-     * @generated
-     * @ordered
-     */
+	 * @see #getVirtualServer()
+	 * @generated
+	 * @ordered
+	 */
     protected ExecutionVirtualServer virtualServer;
 
     /**
-     * The default value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isConcurrentExecution()
-     * @generated
-     * @ordered
-     */
+	 * @see #isConcurrentExecution()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean CONCURRENT_EXECUTION_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isConcurrentExecution()
-     * @generated
-     * @ordered
-     */
+	 * @see #isConcurrentExecution()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean concurrentExecution = CONCURRENT_EXECUTION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getMaxConcurrentExecutions()
-     * @generated
-     * @ordered
-     */
+	 * @see #getMaxConcurrentExecutions()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int MAX_CONCURRENT_EXECUTIONS_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getMaxConcurrentExecutions()
-     * @generated
-     * @ordered
-     */
+	 * @see #getMaxConcurrentExecutions()
+	 * @generated
+	 * @ordered
+	 */
     protected int maxConcurrentExecutions = MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getGeneratedProjectName() <em>Generated Project Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getGeneratedProjectName() <em>Generated Project Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getGeneratedProjectName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getGeneratedProjectName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String GENERATED_PROJECT_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getGeneratedProjectName() <em>Generated Project Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getGeneratedProjectName() <em>Generated Project Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getGeneratedProjectName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getGeneratedProjectName()
+	 * @generated
+	 * @ordered
+	 */
     protected String generatedProjectName = GENERATED_PROJECT_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getGeneratedJobName() <em>Generated Job Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getGeneratedJobName() <em>Generated Job Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getGeneratedJobName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getGeneratedJobName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String GENERATED_JOB_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getGeneratedJobName() <em>Generated Job Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getGeneratedJobName() <em>Generated Job Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getGeneratedJobName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getGeneratedJobName()
+	 * @generated
+	 * @ordered
+	 */
     protected String generatedJobName = GENERATED_JOB_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isApplyContextToChildren()
-     * @generated
-     * @ordered
-     */
+	 * @see #isApplyContextToChildren()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean APPLY_CONTEXT_TO_CHILDREN_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isApplyContextToChildren()
-     * @generated
-     * @ordered
-     */
+	 * @see #isApplyContextToChildren()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean applyContextToChildren = APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected ExecutionTaskImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.EXECUTION_TASK;
-    }
+		return PropertiesPackage.Literals.EXECUTION_TASK;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getId() {
-        return id;
-    }
+		return id;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setId(int newId) {
-        int oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID, oldId, id));
-    }
+		int oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID, oldId, id));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getLabel() {
-        return label;
-    }
+		return label;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLabel(String newLabel) {
-        String oldLabel = label;
-        label = newLabel;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LABEL, oldLabel, label));
-    }
+		String oldLabel = label;
+		label = newLabel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LABEL, oldLabel, label));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getDescription() {
-        return description;
-    }
+		return description;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setDescription(String newDescription) {
-        String oldDescription = description;
-        description = newDescription;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__DESCRIPTION, oldDescription, description));
-    }
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__DESCRIPTION, oldDescription, description));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExecutionServer getExecutionServer() {
-        if (executionServer != null && executionServer.eIsProxy()) {
-            InternalEObject oldExecutionServer = (InternalEObject)executionServer;
-            executionServer = (ExecutionServer)eResolveProxy(oldExecutionServer);
-            if (executionServer != oldExecutionServer) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER, oldExecutionServer, executionServer));
-            }
-        }
-        return executionServer;
-    }
+		if (executionServer != null && executionServer.eIsProxy()) {
+			InternalEObject oldExecutionServer = (InternalEObject)executionServer;
+			executionServer = (ExecutionServer)eResolveProxy(oldExecutionServer);
+			if (executionServer != oldExecutionServer) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER, oldExecutionServer, executionServer));
+			}
+		}
+		return executionServer;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExecutionServer basicGetExecutionServer() {
-        return executionServer;
-    }
+		return executionServer;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setExecutionServer(ExecutionServer newExecutionServer) {
-        ExecutionServer oldExecutionServer = executionServer;
-        executionServer = newExecutionServer;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER, oldExecutionServer, executionServer));
-    }
+		ExecutionServer oldExecutionServer = executionServer;
+		executionServer = newExecutionServer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER, oldExecutionServer, executionServer));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Project getProject() {
-        if (project != null && project.eIsProxy()) {
-            InternalEObject oldProject = (InternalEObject)project;
-            project = (Project)eResolveProxy(oldProject);
-            if (project != oldProject) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__PROJECT, oldProject, project));
-            }
-        }
-        return project;
-    }
+		if (project != null && project.eIsProxy()) {
+			InternalEObject oldProject = (InternalEObject)project;
+			project = (Project)eResolveProxy(oldProject);
+			if (project != oldProject) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__PROJECT, oldProject, project));
+			}
+		}
+		return project;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Project basicGetProject() {
-        return project;
-    }
+		return project;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setProject(Project newProject) {
-        Project oldProject = project;
-        project = newProject;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROJECT, oldProject, project));
-    }
+		Project oldProject = project;
+		project = newProject;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROJECT, oldProject, project));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getContext() {
-        return context;
-    }
+		return context;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setContext(String newContext) {
-        String oldContext = context;
-        context = newContext;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CONTEXT, oldContext, context));
-    }
+		String oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CONTEXT, oldContext, context));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getJobVersion() {
-        return jobVersion;
-    }
+		return jobVersion;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setJobVersion(String newJobVersion) {
-        String oldJobVersion = jobVersion;
-        jobVersion = newJobVersion;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_VERSION, oldJobVersion, jobVersion));
-    }
+		String oldJobVersion = jobVersion;
+		jobVersion = newJobVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_VERSION, oldJobVersion, jobVersion));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isActive() {
-        return active;
-    }
+		return active;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setActive(boolean newActive) {
-        boolean oldActive = active;
-        active = newActive;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ACTIVE, oldActive, active));
-    }
+		boolean oldActive = active;
+		active = newActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ACTIVE, oldActive, active));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getIdQuartzJob() {
-        return idQuartzJob;
-    }
+		return idQuartzJob;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setIdQuartzJob(int newIdQuartzJob) {
-        int oldIdQuartzJob = idQuartzJob;
-        idQuartzJob = newIdQuartzJob;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB, oldIdQuartzJob, idQuartzJob));
-    }
+		int oldIdQuartzJob = idQuartzJob;
+		idQuartzJob = newIdQuartzJob;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB, oldIdQuartzJob, idQuartzJob));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getLastScriptGenerationDate() {
-        return lastScriptGenerationDate;
-    }
+		return lastScriptGenerationDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastScriptGenerationDate(Date newLastScriptGenerationDate) {
-        Date oldLastScriptGenerationDate = lastScriptGenerationDate;
-        lastScriptGenerationDate = newLastScriptGenerationDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE, oldLastScriptGenerationDate, lastScriptGenerationDate));
-    }
+		Date oldLastScriptGenerationDate = lastScriptGenerationDate;
+		lastScriptGenerationDate = newLastScriptGenerationDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE, oldLastScriptGenerationDate, lastScriptGenerationDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getIdRemoteJob() {
-        return idRemoteJob;
-    }
+		return idRemoteJob;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setIdRemoteJob(String newIdRemoteJob) {
-        String oldIdRemoteJob = idRemoteJob;
-        idRemoteJob = newIdRemoteJob;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB, oldIdRemoteJob, idRemoteJob));
-    }
+		String oldIdRemoteJob = idRemoteJob;
+		idRemoteJob = newIdRemoteJob;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB, oldIdRemoteJob, idRemoteJob));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getIdRemoteJobExecution() {
-        return idRemoteJobExecution;
-    }
+		return idRemoteJobExecution;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setIdRemoteJobExecution(String newIdRemoteJobExecution) {
-        String oldIdRemoteJobExecution = idRemoteJobExecution;
-        idRemoteJobExecution = newIdRemoteJobExecution;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION, oldIdRemoteJobExecution, idRemoteJobExecution));
-    }
+		String oldIdRemoteJobExecution = idRemoteJobExecution;
+		idRemoteJobExecution = newIdRemoteJobExecution;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION, oldIdRemoteJobExecution, idRemoteJobExecution));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getChecksumArchive() {
-        return checksumArchive;
-    }
+		return checksumArchive;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setChecksumArchive(String newChecksumArchive) {
-        String oldChecksumArchive = checksumArchive;
-        checksumArchive = newChecksumArchive;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE, oldChecksumArchive, checksumArchive));
-    }
+		String oldChecksumArchive = checksumArchive;
+		checksumArchive = newChecksumArchive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE, oldChecksumArchive, checksumArchive));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getJobScriptArchiveFilename() {
-        return jobScriptArchiveFilename;
-    }
+		return jobScriptArchiveFilename;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setJobScriptArchiveFilename(String newJobScriptArchiveFilename) {
-        String oldJobScriptArchiveFilename = jobScriptArchiveFilename;
-        jobScriptArchiveFilename = newJobScriptArchiveFilename;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME, oldJobScriptArchiveFilename, jobScriptArchiveFilename));
-    }
+		String oldJobScriptArchiveFilename = jobScriptArchiveFilename;
+		jobScriptArchiveFilename = newJobScriptArchiveFilename;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME, oldJobScriptArchiveFilename, jobScriptArchiveFilename));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getStatus() {
-        return status;
-    }
+		return status;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setStatus(String newStatus) {
-        String oldStatus = status;
-        status = newStatus;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__STATUS, oldStatus, status));
-    }
+		String oldStatus = status;
+		status = newStatus;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__STATUS, oldStatus, status));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isProcessingState() {
-        return processingState;
-    }
+		return processingState;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setProcessingState(boolean newProcessingState) {
-        boolean oldProcessingState = processingState;
-        processingState = newProcessingState;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE, oldProcessingState, processingState));
-    }
+		boolean oldProcessingState = processingState;
+		processingState = newProcessingState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE, oldProcessingState, processingState));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getErrorStatus() {
-        return errorStatus;
-    }
+		return errorStatus;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setErrorStatus(String newErrorStatus) {
-        String oldErrorStatus = errorStatus;
-        errorStatus = newErrorStatus;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ERROR_STATUS, oldErrorStatus, errorStatus));
-    }
+		String oldErrorStatus = errorStatus;
+		errorStatus = newErrorStatus;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ERROR_STATUS, oldErrorStatus, errorStatus));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getLastRunDate() {
-        return lastRunDate;
-    }
+		return lastRunDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastRunDate(Date newLastRunDate) {
-        Date oldLastRunDate = lastRunDate;
-        lastRunDate = newLastRunDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE, oldLastRunDate, lastRunDate));
-    }
+		Date oldLastRunDate = lastRunDate;
+		lastRunDate = newLastRunDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE, oldLastRunDate, lastRunDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getLastDeploymentDate() {
-        return lastDeploymentDate;
-    }
+		return lastDeploymentDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastDeploymentDate(Date newLastDeploymentDate) {
-        Date oldLastDeploymentDate = lastDeploymentDate;
-        lastDeploymentDate = newLastDeploymentDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE, oldLastDeploymentDate, lastDeploymentDate));
-    }
+		Date oldLastDeploymentDate = lastDeploymentDate;
+		lastDeploymentDate = newLastDeploymentDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE, oldLastDeploymentDate, lastDeploymentDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getLastEndedRunDate() {
-        return lastEndedRunDate;
-    }
+		return lastEndedRunDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastEndedRunDate(Date newLastEndedRunDate) {
-        Date oldLastEndedRunDate = lastEndedRunDate;
-        lastEndedRunDate = newLastEndedRunDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE, oldLastEndedRunDate, lastEndedRunDate));
-    }
+		Date oldLastEndedRunDate = lastEndedRunDate;
+		lastEndedRunDate = newLastEndedRunDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE, oldLastEndedRunDate, lastEndedRunDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getTriggers() {
-        if (triggers == null) {
-            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK);
-        }
-        return triggers;
-    }
+		if (triggers == null) {
+			triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK);
+		}
+		return triggers;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getJobId() {
-        return jobId;
-    }
+		return jobId;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setJobId(String newJobId) {
-        String oldJobId = jobId;
-        jobId = newJobId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_ID, oldJobId, jobId));
-    }
+		String oldJobId = jobId;
+		jobId = newJobId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_ID, oldJobId, jobId));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExecutionVirtualServer getVirtualServer() {
-        if (virtualServer != null && virtualServer.eIsProxy()) {
-            InternalEObject oldVirtualServer = (InternalEObject)virtualServer;
-            virtualServer = (ExecutionVirtualServer)eResolveProxy(oldVirtualServer);
-            if (virtualServer != oldVirtualServer) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER, oldVirtualServer, virtualServer));
-            }
-        }
-        return virtualServer;
-    }
+		if (virtualServer != null && virtualServer.eIsProxy()) {
+			InternalEObject oldVirtualServer = (InternalEObject)virtualServer;
+			virtualServer = (ExecutionVirtualServer)eResolveProxy(oldVirtualServer);
+			if (virtualServer != oldVirtualServer) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER, oldVirtualServer, virtualServer));
+			}
+		}
+		return virtualServer;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExecutionVirtualServer basicGetVirtualServer() {
-        return virtualServer;
-    }
+		return virtualServer;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setVirtualServer(ExecutionVirtualServer newVirtualServer) {
-        ExecutionVirtualServer oldVirtualServer = virtualServer;
-        virtualServer = newVirtualServer;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER, oldVirtualServer, virtualServer));
-    }
+		ExecutionVirtualServer oldVirtualServer = virtualServer;
+		virtualServer = newVirtualServer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER, oldVirtualServer, virtualServer));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isConcurrentExecution() {
-        return concurrentExecution;
-    }
+		return concurrentExecution;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setConcurrentExecution(boolean newConcurrentExecution) {
-        boolean oldConcurrentExecution = concurrentExecution;
-        concurrentExecution = newConcurrentExecution;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION, oldConcurrentExecution, concurrentExecution));
-    }
+		boolean oldConcurrentExecution = concurrentExecution;
+		concurrentExecution = newConcurrentExecution;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION, oldConcurrentExecution, concurrentExecution));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getMaxConcurrentExecutions() {
-        return maxConcurrentExecutions;
-    }
+		return maxConcurrentExecutions;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setMaxConcurrentExecutions(int newMaxConcurrentExecutions) {
-        int oldMaxConcurrentExecutions = maxConcurrentExecutions;
-        maxConcurrentExecutions = newMaxConcurrentExecutions;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS, oldMaxConcurrentExecutions, maxConcurrentExecutions));
-    }
+		int oldMaxConcurrentExecutions = maxConcurrentExecutions;
+		maxConcurrentExecutions = newMaxConcurrentExecutions;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS, oldMaxConcurrentExecutions, maxConcurrentExecutions));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getGeneratedProjectName() {
-        return generatedProjectName;
-    }
+		return generatedProjectName;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setGeneratedProjectName(String newGeneratedProjectName) {
-        String oldGeneratedProjectName = generatedProjectName;
-        generatedProjectName = newGeneratedProjectName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME, oldGeneratedProjectName, generatedProjectName));
-    }
+		String oldGeneratedProjectName = generatedProjectName;
+		generatedProjectName = newGeneratedProjectName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME, oldGeneratedProjectName, generatedProjectName));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getGeneratedJobName() {
-        return generatedJobName;
-    }
+		return generatedJobName;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setGeneratedJobName(String newGeneratedJobName) {
-        String oldGeneratedJobName = generatedJobName;
-        generatedJobName = newGeneratedJobName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME, oldGeneratedJobName, generatedJobName));
-    }
+		String oldGeneratedJobName = generatedJobName;
+		generatedJobName = newGeneratedJobName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME, oldGeneratedJobName, generatedJobName));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isApplyContextToChildren() {
-        return applyContextToChildren;
-    }
+		return applyContextToChildren;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setApplyContextToChildren(boolean newApplyContextToChildren) {
-        boolean oldApplyContextToChildren = applyContextToChildren;
-        applyContextToChildren = newApplyContextToChildren;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN, oldApplyContextToChildren, applyContextToChildren));
-    }
+		boolean oldApplyContextToChildren = applyContextToChildren;
+		applyContextToChildren = newApplyContextToChildren;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN, oldApplyContextToChildren, applyContextToChildren));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
-                return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+				return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
-                return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+				return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_TASK__ID:
-                return new Integer(getId());
-            case PropertiesPackage.EXECUTION_TASK__LABEL:
-                return getLabel();
-            case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
-                return getDescription();
-            case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
-                if (resolve) return getExecutionServer();
-                return basicGetExecutionServer();
-            case PropertiesPackage.EXECUTION_TASK__PROJECT:
-                if (resolve) return getProject();
-                return basicGetProject();
-            case PropertiesPackage.EXECUTION_TASK__CONTEXT:
-                return getContext();
-            case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
-                return getJobVersion();
-            case PropertiesPackage.EXECUTION_TASK__ACTIVE:
-                return isActive() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                return new Integer(getIdQuartzJob());
-            case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
-                return getLastScriptGenerationDate();
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
-                return getIdRemoteJob();
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
-                return getIdRemoteJobExecution();
-            case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
-                return getChecksumArchive();
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
-                return getJobScriptArchiveFilename();
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                return getStatus();
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                return getErrorStatus();
-            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
-                return getLastRunDate();
-            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
-                return getLastDeploymentDate();
-            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
-                return getLastEndedRunDate();
-            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
-                return getTriggers();
-            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
-                return getJobId();
-            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
-                if (resolve) return getVirtualServer();
-                return basicGetVirtualServer();
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
-                return new Integer(getMaxConcurrentExecutions());
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
-                return getGeneratedProjectName();
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
-                return getGeneratedJobName();
-            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
-                return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.EXECUTION_TASK__ID:
+				return new Integer(getId());
+			case PropertiesPackage.EXECUTION_TASK__LABEL:
+				return getLabel();
+			case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
+				return getDescription();
+			case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
+				if (resolve) return getExecutionServer();
+				return basicGetExecutionServer();
+			case PropertiesPackage.EXECUTION_TASK__PROJECT:
+				if (resolve) return getProject();
+				return basicGetProject();
+			case PropertiesPackage.EXECUTION_TASK__CONTEXT:
+				return getContext();
+			case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
+				return getJobVersion();
+			case PropertiesPackage.EXECUTION_TASK__ACTIVE:
+				return isActive() ? Boolean.TRUE : Boolean.FALSE;
+			case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+				return new Integer(getIdQuartzJob());
+			case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
+				return getLastScriptGenerationDate();
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
+				return getIdRemoteJob();
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
+				return getIdRemoteJobExecution();
+			case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
+				return getChecksumArchive();
+			case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+				return getJobScriptArchiveFilename();
+			case PropertiesPackage.EXECUTION_TASK__STATUS:
+				return getStatus();
+			case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+				return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
+			case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+				return getErrorStatus();
+			case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+				return getLastRunDate();
+			case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+				return getLastDeploymentDate();
+			case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+				return getLastEndedRunDate();
+			case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+				return getTriggers();
+			case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+				return getJobId();
+			case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+				if (resolve) return getVirtualServer();
+				return basicGetVirtualServer();
+			case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+				return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
+			case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+				return new Integer(getMaxConcurrentExecutions());
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+				return getGeneratedProjectName();
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+				return getGeneratedJobName();
+			case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+				return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_TASK__ID:
-                setId(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LABEL:
-                setLabel((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
-                setExecutionServer((ExecutionServer)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROJECT:
-                setProject((Project)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CONTEXT:
-                setContext((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
-                setJobVersion((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ACTIVE:
-                setActive(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                setIdQuartzJob(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
-                setLastScriptGenerationDate((Date)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
-                setIdRemoteJob((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
-                setIdRemoteJobExecution((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
-                setChecksumArchive((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
-                setJobScriptArchiveFilename((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                setStatus((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                setProcessingState(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                setErrorStatus((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
-                setLastRunDate((Date)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
-                setLastDeploymentDate((Date)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
-                setLastEndedRunDate((Date)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
-                getTriggers().clear();
-                getTriggers().addAll((Collection)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
-                setJobId((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
-                setVirtualServer((ExecutionVirtualServer)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                setConcurrentExecution(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
-                setMaxConcurrentExecutions(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
-                setGeneratedProjectName((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
-                setGeneratedJobName((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
-                setApplyContextToChildren(((Boolean)newValue).booleanValue());
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.EXECUTION_TASK__ID:
+				setId(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LABEL:
+				setLabel((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
+				setDescription((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
+				setExecutionServer((ExecutionServer)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__PROJECT:
+				setProject((Project)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__CONTEXT:
+				setContext((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
+				setJobVersion((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ACTIVE:
+				setActive(((Boolean)newValue).booleanValue());
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+				setIdQuartzJob(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
+				setLastScriptGenerationDate((Date)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
+				setIdRemoteJob((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
+				setIdRemoteJobExecution((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
+				setChecksumArchive((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+				setJobScriptArchiveFilename((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__STATUS:
+				setStatus((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+				setProcessingState(((Boolean)newValue).booleanValue());
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+				setErrorStatus((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+				setLastRunDate((Date)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+				setLastDeploymentDate((Date)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+				setLastEndedRunDate((Date)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+				getTriggers().clear();
+				getTriggers().addAll((Collection)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+				setJobId((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+				setVirtualServer((ExecutionVirtualServer)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+				setConcurrentExecution(((Boolean)newValue).booleanValue());
+				return;
+			case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+				setMaxConcurrentExecutions(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+				setGeneratedProjectName((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+				setGeneratedJobName((String)newValue);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+				setApplyContextToChildren(((Boolean)newValue).booleanValue());
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_TASK__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LABEL:
-                setLabel(LABEL_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
-                setExecutionServer((ExecutionServer)null);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROJECT:
-                setProject((Project)null);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CONTEXT:
-                setContext(CONTEXT_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
-                setJobVersion(JOB_VERSION_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ACTIVE:
-                setActive(ACTIVE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
-                setLastScriptGenerationDate(LAST_SCRIPT_GENERATION_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
-                setIdRemoteJob(ID_REMOTE_JOB_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
-                setIdRemoteJobExecution(ID_REMOTE_JOB_EXECUTION_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
-                setChecksumArchive(CHECKSUM_ARCHIVE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
-                setJobScriptArchiveFilename(JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                setStatus(STATUS_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                setProcessingState(PROCESSING_STATE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                setErrorStatus(ERROR_STATUS_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
-                setLastRunDate(LAST_RUN_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
-                setLastDeploymentDate(LAST_DEPLOYMENT_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
-                setLastEndedRunDate(LAST_ENDED_RUN_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
-                getTriggers().clear();
-                return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
-                setJobId(JOB_ID_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
-                setVirtualServer((ExecutionVirtualServer)null);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                setConcurrentExecution(CONCURRENT_EXECUTION_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
-                setMaxConcurrentExecutions(MAX_CONCURRENT_EXECUTIONS_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
-                setGeneratedProjectName(GENERATED_PROJECT_NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
-                setGeneratedJobName(GENERATED_JOB_NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
-                setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.EXECUTION_TASK__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LABEL:
+				setLabel(LABEL_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
+				setExecutionServer((ExecutionServer)null);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__PROJECT:
+				setProject((Project)null);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
+				setJobVersion(JOB_VERSION_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ACTIVE:
+				setActive(ACTIVE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+				setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
+				setLastScriptGenerationDate(LAST_SCRIPT_GENERATION_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
+				setIdRemoteJob(ID_REMOTE_JOB_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
+				setIdRemoteJobExecution(ID_REMOTE_JOB_EXECUTION_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
+				setChecksumArchive(CHECKSUM_ARCHIVE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+				setJobScriptArchiveFilename(JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__STATUS:
+				setStatus(STATUS_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+				setProcessingState(PROCESSING_STATE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+				setErrorStatus(ERROR_STATUS_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+				setLastRunDate(LAST_RUN_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+				setLastDeploymentDate(LAST_DEPLOYMENT_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+				setLastEndedRunDate(LAST_ENDED_RUN_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+				getTriggers().clear();
+				return;
+			case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+				setJobId(JOB_ID_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+				setVirtualServer((ExecutionVirtualServer)null);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+				setConcurrentExecution(CONCURRENT_EXECUTION_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+				setMaxConcurrentExecutions(MAX_CONCURRENT_EXECUTIONS_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+				setGeneratedProjectName(GENERATED_PROJECT_NAME_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+				setGeneratedJobName(GENERATED_JOB_NAME_EDEFAULT);
+				return;
+			case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+				setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_TASK__ID:
-                return id != ID_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__LABEL:
-                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-            case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
-                return executionServer != null;
-            case PropertiesPackage.EXECUTION_TASK__PROJECT:
-                return project != null;
-            case PropertiesPackage.EXECUTION_TASK__CONTEXT:
-                return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
-            case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
-                return JOB_VERSION_EDEFAULT == null ? jobVersion != null : !JOB_VERSION_EDEFAULT.equals(jobVersion);
-            case PropertiesPackage.EXECUTION_TASK__ACTIVE:
-                return active != ACTIVE_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
-                return LAST_SCRIPT_GENERATION_DATE_EDEFAULT == null ? lastScriptGenerationDate != null : !LAST_SCRIPT_GENERATION_DATE_EDEFAULT.equals(lastScriptGenerationDate);
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
-                return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
-            case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
-                return ID_REMOTE_JOB_EXECUTION_EDEFAULT == null ? idRemoteJobExecution != null : !ID_REMOTE_JOB_EXECUTION_EDEFAULT.equals(idRemoteJobExecution);
-            case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
-                return CHECKSUM_ARCHIVE_EDEFAULT == null ? checksumArchive != null : !CHECKSUM_ARCHIVE_EDEFAULT.equals(checksumArchive);
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
-                return JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT == null ? jobScriptArchiveFilename != null : !JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT.equals(jobScriptArchiveFilename);
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                return processingState != PROCESSING_STATE_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                return ERROR_STATUS_EDEFAULT == null ? errorStatus != null : !ERROR_STATUS_EDEFAULT.equals(errorStatus);
-            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
-                return LAST_RUN_DATE_EDEFAULT == null ? lastRunDate != null : !LAST_RUN_DATE_EDEFAULT.equals(lastRunDate);
-            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
-                return LAST_DEPLOYMENT_DATE_EDEFAULT == null ? lastDeploymentDate != null : !LAST_DEPLOYMENT_DATE_EDEFAULT.equals(lastDeploymentDate);
-            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
-                return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
-            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
-                return triggers != null && !triggers.isEmpty();
-            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
-                return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
-            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
-                return virtualServer != null;
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
-                return maxConcurrentExecutions != MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
-                return GENERATED_PROJECT_NAME_EDEFAULT == null ? generatedProjectName != null : !GENERATED_PROJECT_NAME_EDEFAULT.equals(generatedProjectName);
-            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
-                return GENERATED_JOB_NAME_EDEFAULT == null ? generatedJobName != null : !GENERATED_JOB_NAME_EDEFAULT.equals(generatedJobName);
-            case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
-                return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.EXECUTION_TASK__ID:
+				return id != ID_EDEFAULT;
+			case PropertiesPackage.EXECUTION_TASK__LABEL:
+				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+			case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case PropertiesPackage.EXECUTION_TASK__EXECUTION_SERVER:
+				return executionServer != null;
+			case PropertiesPackage.EXECUTION_TASK__PROJECT:
+				return project != null;
+			case PropertiesPackage.EXECUTION_TASK__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+			case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
+				return JOB_VERSION_EDEFAULT == null ? jobVersion != null : !JOB_VERSION_EDEFAULT.equals(jobVersion);
+			case PropertiesPackage.EXECUTION_TASK__ACTIVE:
+				return active != ACTIVE_EDEFAULT;
+			case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+				return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
+			case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
+				return LAST_SCRIPT_GENERATION_DATE_EDEFAULT == null ? lastScriptGenerationDate != null : !LAST_SCRIPT_GENERATION_DATE_EDEFAULT.equals(lastScriptGenerationDate);
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
+				return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
+			case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
+				return ID_REMOTE_JOB_EXECUTION_EDEFAULT == null ? idRemoteJobExecution != null : !ID_REMOTE_JOB_EXECUTION_EDEFAULT.equals(idRemoteJobExecution);
+			case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
+				return CHECKSUM_ARCHIVE_EDEFAULT == null ? checksumArchive != null : !CHECKSUM_ARCHIVE_EDEFAULT.equals(checksumArchive);
+			case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+				return JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT == null ? jobScriptArchiveFilename != null : !JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT.equals(jobScriptArchiveFilename);
+			case PropertiesPackage.EXECUTION_TASK__STATUS:
+				return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+			case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+				return processingState != PROCESSING_STATE_EDEFAULT;
+			case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+				return ERROR_STATUS_EDEFAULT == null ? errorStatus != null : !ERROR_STATUS_EDEFAULT.equals(errorStatus);
+			case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+				return LAST_RUN_DATE_EDEFAULT == null ? lastRunDate != null : !LAST_RUN_DATE_EDEFAULT.equals(lastRunDate);
+			case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+				return LAST_DEPLOYMENT_DATE_EDEFAULT == null ? lastDeploymentDate != null : !LAST_DEPLOYMENT_DATE_EDEFAULT.equals(lastDeploymentDate);
+			case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+				return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
+			case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+				return triggers != null && !triggers.isEmpty();
+			case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+				return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
+			case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+				return virtualServer != null;
+			case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+				return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
+			case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+				return maxConcurrentExecutions != MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
+				return GENERATED_PROJECT_NAME_EDEFAULT == null ? generatedProjectName != null : !GENERATED_PROJECT_NAME_EDEFAULT.equals(generatedProjectName);
+			case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+				return GENERATED_JOB_NAME_EDEFAULT == null ? generatedJobName != null : !GENERATED_JOB_NAME_EDEFAULT.equals(generatedJobName);
+			case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
+				return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
-        result.append(id);
-        result.append(", label: ");
-        result.append(label);
-        result.append(", description: ");
-        result.append(description);
-        result.append(", context: ");
-        result.append(context);
-        result.append(", jobVersion: ");
-        result.append(jobVersion);
-        result.append(", active: ");
-        result.append(active);
-        result.append(", idQuartzJob: ");
-        result.append(idQuartzJob);
-        result.append(", lastScriptGenerationDate: ");
-        result.append(lastScriptGenerationDate);
-        result.append(", idRemoteJob: ");
-        result.append(idRemoteJob);
-        result.append(", idRemoteJobExecution: ");
-        result.append(idRemoteJobExecution);
-        result.append(", checksumArchive: ");
-        result.append(checksumArchive);
-        result.append(", jobScriptArchiveFilename: ");
-        result.append(jobScriptArchiveFilename);
-        result.append(", status: ");
-        result.append(status);
-        result.append(", processingState: ");
-        result.append(processingState);
-        result.append(", errorStatus: ");
-        result.append(errorStatus);
-        result.append(", lastRunDate: ");
-        result.append(lastRunDate);
-        result.append(", lastDeploymentDate: ");
-        result.append(lastDeploymentDate);
-        result.append(", lastEndedRunDate: ");
-        result.append(lastEndedRunDate);
-        result.append(", jobId: ");
-        result.append(jobId);
-        result.append(", concurrentExecution: ");
-        result.append(concurrentExecution);
-        result.append(", maxConcurrentExecutions: ");
-        result.append(maxConcurrentExecutions);
-        result.append(", generatedProjectName: ");
-        result.append(generatedProjectName);
-        result.append(", generatedJobName: ");
-        result.append(generatedJobName);
-        result.append(", applyContextToChildren: ");
-        result.append(applyContextToChildren);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (id: ");
+		result.append(id);
+		result.append(", label: ");
+		result.append(label);
+		result.append(", description: ");
+		result.append(description);
+		result.append(", context: ");
+		result.append(context);
+		result.append(", jobVersion: ");
+		result.append(jobVersion);
+		result.append(", active: ");
+		result.append(active);
+		result.append(", idQuartzJob: ");
+		result.append(idQuartzJob);
+		result.append(", lastScriptGenerationDate: ");
+		result.append(lastScriptGenerationDate);
+		result.append(", idRemoteJob: ");
+		result.append(idRemoteJob);
+		result.append(", idRemoteJobExecution: ");
+		result.append(idRemoteJobExecution);
+		result.append(", checksumArchive: ");
+		result.append(checksumArchive);
+		result.append(", jobScriptArchiveFilename: ");
+		result.append(jobScriptArchiveFilename);
+		result.append(", status: ");
+		result.append(status);
+		result.append(", processingState: ");
+		result.append(processingState);
+		result.append(", errorStatus: ");
+		result.append(errorStatus);
+		result.append(", lastRunDate: ");
+		result.append(lastRunDate);
+		result.append(", lastDeploymentDate: ");
+		result.append(lastDeploymentDate);
+		result.append(", lastEndedRunDate: ");
+		result.append(lastEndedRunDate);
+		result.append(", jobId: ");
+		result.append(jobId);
+		result.append(", concurrentExecution: ");
+		result.append(concurrentExecution);
+		result.append(", maxConcurrentExecutions: ");
+		result.append(maxConcurrentExecutions);
+		result.append(", generatedProjectName: ");
+		result.append(generatedProjectName);
+		result.append(", generatedJobName: ");
+		result.append(generatedJobName);
+		result.append(", applyContextToChildren: ");
+		result.append(applyContextToChildren);
+		result.append(')');
+		return result.toString();
+	}
 
 } //ExecutionTaskImpl

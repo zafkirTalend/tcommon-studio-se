@@ -30,11 +30,11 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSourceName <em>Source Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getTableType <em>Table Type</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isAttachedCDC <em>Attached CDC</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#isActivatedCDC <em>Activated CDC</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,16 +61,6 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * @ordered
      */
     protected String sourceName = SOURCE_NAME_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getColumns() <em>Columns</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getColumns()
-     * @generated
-     * @ordered
-     */
-    protected EList columns;
 
     /**
      * The default value of the '{@link #getTableType() <em>Table Type</em>}' attribute.
@@ -131,6 +121,16 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * @ordered
      */
     protected boolean activatedCDC = ACTIVATED_CDC_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getColumns() <em>Columns</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getColumns()
+     * @generated
+     * @ordered
+     */
+    protected EList columns;
 
     /**
      * <!-- begin-user-doc -->
@@ -346,16 +346,16 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         switch (featureID) {
             case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
                 return getSourceName();
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                return getColumns();
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                return getConnection();
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 return getTableType();
             case ConnectionPackage.METADATA_TABLE__ATTACHED_CDC:
                 return isAttachedCDC() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
                 return isActivatedCDC() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.METADATA_TABLE__COLUMNS:
+                return getColumns();
+            case ConnectionPackage.METADATA_TABLE__CONNECTION:
+                return getConnection();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -370,13 +370,6 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
                 setSourceName((String)newValue);
                 return;
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                getColumns().clear();
-                getColumns().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                setConnection((Connection)newValue);
-                return;
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 setTableType((String)newValue);
                 return;
@@ -385,6 +378,13 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
                 return;
             case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
                 setActivatedCDC(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.METADATA_TABLE__COLUMNS:
+                getColumns().clear();
+                getColumns().addAll((Collection)newValue);
+                return;
+            case ConnectionPackage.METADATA_TABLE__CONNECTION:
+                setConnection((Connection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -400,12 +400,6 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
                 setSourceName(SOURCE_NAME_EDEFAULT);
                 return;
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                getColumns().clear();
-                return;
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                setConnection((Connection)null);
-                return;
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 setTableType(TABLE_TYPE_EDEFAULT);
                 return;
@@ -414,6 +408,12 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
                 return;
             case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
                 setActivatedCDC(ACTIVATED_CDC_EDEFAULT);
+                return;
+            case ConnectionPackage.METADATA_TABLE__COLUMNS:
+                getColumns().clear();
+                return;
+            case ConnectionPackage.METADATA_TABLE__CONNECTION:
+                setConnection((Connection)null);
                 return;
         }
         super.eUnset(featureID);
@@ -428,16 +428,16 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         switch (featureID) {
             case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
                 return SOURCE_NAME_EDEFAULT == null ? sourceName != null : !SOURCE_NAME_EDEFAULT.equals(sourceName);
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                return columns != null && !columns.isEmpty();
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                return getConnection() != null;
             case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
                 return TABLE_TYPE_EDEFAULT == null ? tableType != null : !TABLE_TYPE_EDEFAULT.equals(tableType);
             case ConnectionPackage.METADATA_TABLE__ATTACHED_CDC:
                 return attachedCDC != ATTACHED_CDC_EDEFAULT;
             case ConnectionPackage.METADATA_TABLE__ACTIVATED_CDC:
                 return activatedCDC != ACTIVATED_CDC_EDEFAULT;
+            case ConnectionPackage.METADATA_TABLE__COLUMNS:
+                return columns != null && !columns.isEmpty();
+            case ConnectionPackage.METADATA_TABLE__CONNECTION:
+                return getConnection() != null;
         }
         return super.eIsSet(featureID);
     }

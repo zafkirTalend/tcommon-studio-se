@@ -26,19 +26,19 @@ public class ListBusinessItemImpl extends BusinessItemShapeImpl implements ListB
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected ListBusinessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.LIST_BUSINESS_ITEM;
-    }
+		return BusinessPackage.Literals.LIST_BUSINESS_ITEM;
+	}
 
 } // ListBusinessItemImpl

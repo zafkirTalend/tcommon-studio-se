@@ -26,19 +26,19 @@ public class DatabaseMetadataImpl extends TalendItemImpl implements DatabaseMeta
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected DatabaseMetadataImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.DATABASE_METADATA;
-    }
+		return BusinessPackage.Literals.DATABASE_METADATA;
+	}
 
 } // DatabaseMetadataImpl

@@ -26,19 +26,19 @@ public class TerminalBusinessItemImpl extends BusinessItemShapeImpl implements T
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected TerminalBusinessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.TERMINAL_BUSINESS_ITEM;
-    }
+		return BusinessPackage.Literals.TERMINAL_BUSINESS_ITEM;
+	}
 
 } // TerminalBusinessItemImpl

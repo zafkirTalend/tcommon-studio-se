@@ -60,1096 +60,1096 @@ import org.talend.core.model.properties.UserRole;
  */
 public class UserImpl extends EObjectImpl implements User {
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int ID_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLogin() <em>Login</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLogin() <em>Login</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLogin()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLogin()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String LOGIN_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLogin() <em>Login</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLogin() <em>Login</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLogin()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLogin()
+	 * @generated
+	 * @ordered
+	 */
     protected String login = LOGIN_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPassword()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPassword()
+	 * @generated
+	 * @ordered
+	 */
     protected static final byte[] PASSWORD_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPassword()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPassword()
+	 * @generated
+	 * @ordered
+	 */
     protected byte[] password = PASSWORD_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFirstName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFirstName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String FIRST_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFirstName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFirstName()
+	 * @generated
+	 * @ordered
+	 */
     protected String firstName = FIRST_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLastName() <em>Last Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastName() <em>Last Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String LAST_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastName() <em>Last Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastName() <em>Last Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastName()
+	 * @generated
+	 * @ordered
+	 */
     protected String lastName = LAST_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCreationDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCreationDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date CREATION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCreationDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCreationDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date creationDate = CREATION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDeleteDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDeleteDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date DELETE_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDeleteDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDeleteDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date deleteDate = DELETE_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isDeleted()
-     * @generated
-     * @ordered
-     */
+	 * @see #isDeleted()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean DELETED_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isDeleted()
-     * @generated
-     * @ordered
-     */
+	 * @see #isDeleted()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean deleted = DELETED_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isAllowedToModifyComponents()
-     * @generated
-     * @ordered
-     */
+	 * @see #isAllowedToModifyComponents()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isAllowedToModifyComponents()
-     * @generated
-     * @ordered
-     */
+	 * @see #isAllowedToModifyComponents()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean allowedToModifyComponents = ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getComment()
-     * @generated
-     * @ordered
-     */
+	 * @see #getComment()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String COMMENT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getComment()
-     * @generated
-     * @ordered
-     */
+	 * @see #getComment()
+	 * @generated
+	 * @ordered
+	 */
     protected String comment = COMMENT_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getRole() <em>Role</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getRole() <em>Role</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getRole()
-     * @generated
-     * @ordered
-     */
+	 * @see #getRole()
+	 * @generated
+	 * @ordered
+	 */
     protected UserRole role;
 
     /**
-     * The cached value of the '{@link #getProjectAuthorization() <em>Project Authorization</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getProjectAuthorization() <em>Project Authorization</em>}' reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getProjectAuthorization()
-     * @generated
-     * @ordered
-     */
+	 * @see #getProjectAuthorization()
+	 * @generated
+	 * @ordered
+	 */
     protected EList projectAuthorization;
 
     /**
-     * The cached value of the '{@link #getModuleAuthorization() <em>Module Authorization</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getModuleAuthorization() <em>Module Authorization</em>}' reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getModuleAuthorization()
-     * @generated
-     * @ordered
-     */
+	 * @see #getModuleAuthorization()
+	 * @generated
+	 * @ordered
+	 */
     protected EList moduleAuthorization;
 
     /**
-     * The cached value of the '{@link #getPreferredDashboardConnection() <em>Preferred Dashboard Connection</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPreferredDashboardConnection() <em>Preferred Dashboard Connection</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPreferredDashboardConnection()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPreferredDashboardConnection()
+	 * @generated
+	 * @ordered
+	 */
     protected DashboardConnection preferredDashboardConnection;
 
     /**
-     * The default value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastAdminConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastAdminConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date LAST_ADMIN_CONNECTION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastAdminConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastAdminConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date lastAdminConnectionDate = LAST_ADMIN_CONNECTION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastStudioConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastStudioConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date LAST_STUDIO_CONNECTION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLastStudioConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLastStudioConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date lastStudioConnectionDate = LAST_STUDIO_CONNECTION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFirstAdminConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFirstAdminConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date FIRST_ADMIN_CONNECTION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFirstAdminConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFirstAdminConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date firstAdminConnectionDate = FIRST_ADMIN_CONNECTION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFirstStudioConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFirstStudioConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Date FIRST_STUDIO_CONNECTION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFirstStudioConnectionDate()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFirstStudioConnectionDate()
+	 * @generated
+	 * @ordered
+	 */
     protected Date firstStudioConnectionDate = FIRST_STUDIO_CONNECTION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getAdminConnexionNumber()
-     * @generated
-     * @ordered
-     */
+	 * @see #getAdminConnexionNumber()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int ADMIN_CONNEXION_NUMBER_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getAdminConnexionNumber()
-     * @generated
-     * @ordered
-     */
+	 * @see #getAdminConnexionNumber()
+	 * @generated
+	 * @ordered
+	 */
     protected int adminConnexionNumber = ADMIN_CONNEXION_NUMBER_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getStudioConnexionNumber()
-     * @generated
-     * @ordered
-     */
+	 * @see #getStudioConnexionNumber()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int STUDIO_CONNEXION_NUMBER_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getStudioConnexionNumber()
-     * @generated
-     * @ordered
-     */
+	 * @see #getStudioConnexionNumber()
+	 * @generated
+	 * @ordered
+	 */
     protected int studioConnexionNumber = STUDIO_CONNEXION_NUMBER_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected UserImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.USER;
-    }
+		return PropertiesPackage.Literals.USER;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getId() {
-        return id;
-    }
+		return id;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setId(int newId) {
-        int oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ID, oldId, id));
-    }
+		int oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ID, oldId, id));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getLogin() {
-        return login;
-    }
+		return login;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLogin(String newLogin) {
-        String oldLogin = login;
-        login = newLogin;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LOGIN, oldLogin, login));
-    }
+		String oldLogin = login;
+		login = newLogin;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LOGIN, oldLogin, login));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public byte[] getPassword() {
-        return password;
-    }
+		return password;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setPassword(byte[] newPassword) {
-        byte[] oldPassword = password;
-        password = newPassword;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__PASSWORD, oldPassword, password));
-    }
+		byte[] oldPassword = password;
+		password = newPassword;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__PASSWORD, oldPassword, password));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getFirstName() {
-        return firstName;
-    }
+		return firstName;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFirstName(String newFirstName) {
-        String oldFirstName = firstName;
-        firstName = newFirstName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_NAME, oldFirstName, firstName));
-    }
+		String oldFirstName = firstName;
+		firstName = newFirstName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_NAME, oldFirstName, firstName));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getLastName() {
-        return lastName;
-    }
+		return lastName;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastName(String newLastName) {
-        String oldLastName = lastName;
-        lastName = newLastName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_NAME, oldLastName, lastName));
-    }
+		String oldLastName = lastName;
+		lastName = newLastName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_NAME, oldLastName, lastName));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getCreationDate() {
-        return creationDate;
-    }
+		return creationDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setCreationDate(Date newCreationDate) {
-        Date oldCreationDate = creationDate;
-        creationDate = newCreationDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__CREATION_DATE, oldCreationDate, creationDate));
-    }
+		Date oldCreationDate = creationDate;
+		creationDate = newCreationDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__CREATION_DATE, oldCreationDate, creationDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getDeleteDate() {
-        return deleteDate;
-    }
+		return deleteDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setDeleteDate(Date newDeleteDate) {
-        Date oldDeleteDate = deleteDate;
-        deleteDate = newDeleteDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__DELETE_DATE, oldDeleteDate, deleteDate));
-    }
+		Date oldDeleteDate = deleteDate;
+		deleteDate = newDeleteDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__DELETE_DATE, oldDeleteDate, deleteDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isDeleted() {
-        return deleted;
-    }
+		return deleted;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setDeleted(boolean newDeleted) {
-        boolean oldDeleted = deleted;
-        deleted = newDeleted;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__DELETED, oldDeleted, deleted));
-    }
+		boolean oldDeleted = deleted;
+		deleted = newDeleted;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__DELETED, oldDeleted, deleted));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isAllowedToModifyComponents() {
-        return allowedToModifyComponents;
-    }
+		return allowedToModifyComponents;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setAllowedToModifyComponents(boolean newAllowedToModifyComponents) {
-        boolean oldAllowedToModifyComponents = allowedToModifyComponents;
-        allowedToModifyComponents = newAllowedToModifyComponents;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS, oldAllowedToModifyComponents, allowedToModifyComponents));
-    }
+		boolean oldAllowedToModifyComponents = allowedToModifyComponents;
+		allowedToModifyComponents = newAllowedToModifyComponents;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS, oldAllowedToModifyComponents, allowedToModifyComponents));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getComment() {
-        return comment;
-    }
+		return comment;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setComment(String newComment) {
-        String oldComment = comment;
-        comment = newComment;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__COMMENT, oldComment, comment));
-    }
+		String oldComment = comment;
+		comment = newComment;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__COMMENT, oldComment, comment));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public UserRole getRole() {
-        if (role != null && role.eIsProxy()) {
-            InternalEObject oldRole = (InternalEObject)role;
-            role = (UserRole)eResolveProxy(oldRole);
-            if (role != oldRole) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__ROLE, oldRole, role));
-            }
-        }
-        return role;
-    }
+		if (role != null && role.eIsProxy()) {
+			InternalEObject oldRole = (InternalEObject)role;
+			role = (UserRole)eResolveProxy(oldRole);
+			if (role != oldRole) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__ROLE, oldRole, role));
+			}
+		}
+		return role;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public UserRole basicGetRole() {
-        return role;
-    }
+		return role;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setRole(UserRole newRole) {
-        UserRole oldRole = role;
-        role = newRole;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ROLE, oldRole, role));
-    }
+		UserRole oldRole = role;
+		role = newRole;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ROLE, oldRole, role));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getProjectAuthorization() {
-        if (projectAuthorization == null) {
-            projectAuthorization = new EObjectWithInverseResolvingEList(UserProjectAuthorization.class, this, PropertiesPackage.USER__PROJECT_AUTHORIZATION, PropertiesPackage.USER_PROJECT_AUTHORIZATION__USER);
-        }
-        return projectAuthorization;
-    }
+		if (projectAuthorization == null) {
+			projectAuthorization = new EObjectWithInverseResolvingEList(UserProjectAuthorization.class, this, PropertiesPackage.USER__PROJECT_AUTHORIZATION, PropertiesPackage.USER_PROJECT_AUTHORIZATION__USER);
+		}
+		return projectAuthorization;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList getModuleAuthorization() {
-        if (moduleAuthorization == null) {
-            moduleAuthorization = new EObjectWithInverseResolvingEList(UserModuleAuthorization.class, this, PropertiesPackage.USER__MODULE_AUTHORIZATION, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER);
-        }
-        return moduleAuthorization;
-    }
+		if (moduleAuthorization == null) {
+			moduleAuthorization = new EObjectWithInverseResolvingEList(UserModuleAuthorization.class, this, PropertiesPackage.USER__MODULE_AUTHORIZATION, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER);
+		}
+		return moduleAuthorization;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public DashboardConnection getPreferredDashboardConnection() {
-        if (preferredDashboardConnection != null && preferredDashboardConnection.eIsProxy()) {
-            InternalEObject oldPreferredDashboardConnection = (InternalEObject)preferredDashboardConnection;
-            preferredDashboardConnection = (DashboardConnection)eResolveProxy(oldPreferredDashboardConnection);
-            if (preferredDashboardConnection != oldPreferredDashboardConnection) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION, oldPreferredDashboardConnection, preferredDashboardConnection));
-            }
-        }
-        return preferredDashboardConnection;
-    }
+		if (preferredDashboardConnection != null && preferredDashboardConnection.eIsProxy()) {
+			InternalEObject oldPreferredDashboardConnection = (InternalEObject)preferredDashboardConnection;
+			preferredDashboardConnection = (DashboardConnection)eResolveProxy(oldPreferredDashboardConnection);
+			if (preferredDashboardConnection != oldPreferredDashboardConnection) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION, oldPreferredDashboardConnection, preferredDashboardConnection));
+			}
+		}
+		return preferredDashboardConnection;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public DashboardConnection basicGetPreferredDashboardConnection() {
-        return preferredDashboardConnection;
-    }
+		return preferredDashboardConnection;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setPreferredDashboardConnection(DashboardConnection newPreferredDashboardConnection) {
-        DashboardConnection oldPreferredDashboardConnection = preferredDashboardConnection;
-        preferredDashboardConnection = newPreferredDashboardConnection;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION, oldPreferredDashboardConnection, preferredDashboardConnection));
-    }
+		DashboardConnection oldPreferredDashboardConnection = preferredDashboardConnection;
+		preferredDashboardConnection = newPreferredDashboardConnection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION, oldPreferredDashboardConnection, preferredDashboardConnection));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getLastAdminConnectionDate() {
-        return lastAdminConnectionDate;
-    }
+		return lastAdminConnectionDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastAdminConnectionDate(Date newLastAdminConnectionDate) {
-        Date oldLastAdminConnectionDate = lastAdminConnectionDate;
-        lastAdminConnectionDate = newLastAdminConnectionDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE, oldLastAdminConnectionDate, lastAdminConnectionDate));
-    }
+		Date oldLastAdminConnectionDate = lastAdminConnectionDate;
+		lastAdminConnectionDate = newLastAdminConnectionDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE, oldLastAdminConnectionDate, lastAdminConnectionDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getLastStudioConnectionDate() {
-        return lastStudioConnectionDate;
-    }
+		return lastStudioConnectionDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLastStudioConnectionDate(Date newLastStudioConnectionDate) {
-        Date oldLastStudioConnectionDate = lastStudioConnectionDate;
-        lastStudioConnectionDate = newLastStudioConnectionDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE, oldLastStudioConnectionDate, lastStudioConnectionDate));
-    }
+		Date oldLastStudioConnectionDate = lastStudioConnectionDate;
+		lastStudioConnectionDate = newLastStudioConnectionDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE, oldLastStudioConnectionDate, lastStudioConnectionDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getFirstAdminConnectionDate() {
-        return firstAdminConnectionDate;
-    }
+		return firstAdminConnectionDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFirstAdminConnectionDate(Date newFirstAdminConnectionDate) {
-        Date oldFirstAdminConnectionDate = firstAdminConnectionDate;
-        firstAdminConnectionDate = newFirstAdminConnectionDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE, oldFirstAdminConnectionDate, firstAdminConnectionDate));
-    }
+		Date oldFirstAdminConnectionDate = firstAdminConnectionDate;
+		firstAdminConnectionDate = newFirstAdminConnectionDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE, oldFirstAdminConnectionDate, firstAdminConnectionDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Date getFirstStudioConnectionDate() {
-        return firstStudioConnectionDate;
-    }
+		return firstStudioConnectionDate;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFirstStudioConnectionDate(Date newFirstStudioConnectionDate) {
-        Date oldFirstStudioConnectionDate = firstStudioConnectionDate;
-        firstStudioConnectionDate = newFirstStudioConnectionDate;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE, oldFirstStudioConnectionDate, firstStudioConnectionDate));
-    }
+		Date oldFirstStudioConnectionDate = firstStudioConnectionDate;
+		firstStudioConnectionDate = newFirstStudioConnectionDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE, oldFirstStudioConnectionDate, firstStudioConnectionDate));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getAdminConnexionNumber() {
-        return adminConnexionNumber;
-    }
+		return adminConnexionNumber;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setAdminConnexionNumber(int newAdminConnexionNumber) {
-        int oldAdminConnexionNumber = adminConnexionNumber;
-        adminConnexionNumber = newAdminConnexionNumber;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER, oldAdminConnexionNumber, adminConnexionNumber));
-    }
+		int oldAdminConnexionNumber = adminConnexionNumber;
+		adminConnexionNumber = newAdminConnexionNumber;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER, oldAdminConnexionNumber, adminConnexionNumber));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getStudioConnexionNumber() {
-        return studioConnexionNumber;
-    }
+		return studioConnexionNumber;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setStudioConnexionNumber(int newStudioConnexionNumber) {
-        int oldStudioConnexionNumber = studioConnexionNumber;
-        studioConnexionNumber = newStudioConnexionNumber;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER, oldStudioConnexionNumber, studioConnexionNumber));
-    }
+		int oldStudioConnexionNumber = studioConnexionNumber;
+		studioConnexionNumber = newStudioConnexionNumber;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER, oldStudioConnexionNumber, studioConnexionNumber));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
-                return ((InternalEList)getProjectAuthorization()).basicAdd(otherEnd, msgs);
-            case PropertiesPackage.USER__MODULE_AUTHORIZATION:
-                return ((InternalEList)getModuleAuthorization()).basicAdd(otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+				return ((InternalEList)getProjectAuthorization()).basicAdd(otherEnd, msgs);
+			case PropertiesPackage.USER__MODULE_AUTHORIZATION:
+				return ((InternalEList)getModuleAuthorization()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
-                return ((InternalEList)getProjectAuthorization()).basicRemove(otherEnd, msgs);
-            case PropertiesPackage.USER__MODULE_AUTHORIZATION:
-                return ((InternalEList)getModuleAuthorization()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+				return ((InternalEList)getProjectAuthorization()).basicRemove(otherEnd, msgs);
+			case PropertiesPackage.USER__MODULE_AUTHORIZATION:
+				return ((InternalEList)getModuleAuthorization()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.USER__ID:
-                return new Integer(getId());
-            case PropertiesPackage.USER__LOGIN:
-                return getLogin();
-            case PropertiesPackage.USER__PASSWORD:
-                return getPassword();
-            case PropertiesPackage.USER__FIRST_NAME:
-                return getFirstName();
-            case PropertiesPackage.USER__LAST_NAME:
-                return getLastName();
-            case PropertiesPackage.USER__CREATION_DATE:
-                return getCreationDate();
-            case PropertiesPackage.USER__DELETE_DATE:
-                return getDeleteDate();
-            case PropertiesPackage.USER__DELETED:
-                return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
-                return isAllowedToModifyComponents() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.USER__COMMENT:
-                return getComment();
-            case PropertiesPackage.USER__ROLE:
-                if (resolve) return getRole();
-                return basicGetRole();
-            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
-                return getProjectAuthorization();
-            case PropertiesPackage.USER__MODULE_AUTHORIZATION:
-                return getModuleAuthorization();
-            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
-                if (resolve) return getPreferredDashboardConnection();
-                return basicGetPreferredDashboardConnection();
-            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
-                return getLastAdminConnectionDate();
-            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
-                return getLastStudioConnectionDate();
-            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
-                return getFirstAdminConnectionDate();
-            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
-                return getFirstStudioConnectionDate();
-            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
-                return new Integer(getAdminConnexionNumber());
-            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
-                return new Integer(getStudioConnexionNumber());
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.USER__ID:
+				return new Integer(getId());
+			case PropertiesPackage.USER__LOGIN:
+				return getLogin();
+			case PropertiesPackage.USER__PASSWORD:
+				return getPassword();
+			case PropertiesPackage.USER__FIRST_NAME:
+				return getFirstName();
+			case PropertiesPackage.USER__LAST_NAME:
+				return getLastName();
+			case PropertiesPackage.USER__CREATION_DATE:
+				return getCreationDate();
+			case PropertiesPackage.USER__DELETE_DATE:
+				return getDeleteDate();
+			case PropertiesPackage.USER__DELETED:
+				return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
+			case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
+				return isAllowedToModifyComponents() ? Boolean.TRUE : Boolean.FALSE;
+			case PropertiesPackage.USER__COMMENT:
+				return getComment();
+			case PropertiesPackage.USER__ROLE:
+				if (resolve) return getRole();
+				return basicGetRole();
+			case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+				return getProjectAuthorization();
+			case PropertiesPackage.USER__MODULE_AUTHORIZATION:
+				return getModuleAuthorization();
+			case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+				if (resolve) return getPreferredDashboardConnection();
+				return basicGetPreferredDashboardConnection();
+			case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+				return getLastAdminConnectionDate();
+			case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+				return getLastStudioConnectionDate();
+			case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+				return getFirstAdminConnectionDate();
+			case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+				return getFirstStudioConnectionDate();
+			case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+				return new Integer(getAdminConnexionNumber());
+			case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+				return new Integer(getStudioConnexionNumber());
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.USER__ID:
-                setId(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.USER__LOGIN:
-                setLogin((String)newValue);
-                return;
-            case PropertiesPackage.USER__PASSWORD:
-                setPassword((byte[])newValue);
-                return;
-            case PropertiesPackage.USER__FIRST_NAME:
-                setFirstName((String)newValue);
-                return;
-            case PropertiesPackage.USER__LAST_NAME:
-                setLastName((String)newValue);
-                return;
-            case PropertiesPackage.USER__CREATION_DATE:
-                setCreationDate((Date)newValue);
-                return;
-            case PropertiesPackage.USER__DELETE_DATE:
-                setDeleteDate((Date)newValue);
-                return;
-            case PropertiesPackage.USER__DELETED:
-                setDeleted(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
-                setAllowedToModifyComponents(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.USER__COMMENT:
-                setComment((String)newValue);
-                return;
-            case PropertiesPackage.USER__ROLE:
-                setRole((UserRole)newValue);
-                return;
-            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
-                getProjectAuthorization().clear();
-                getProjectAuthorization().addAll((Collection)newValue);
-                return;
-            case PropertiesPackage.USER__MODULE_AUTHORIZATION:
-                getModuleAuthorization().clear();
-                getModuleAuthorization().addAll((Collection)newValue);
-                return;
-            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
-                setPreferredDashboardConnection((DashboardConnection)newValue);
-                return;
-            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
-                setLastAdminConnectionDate((Date)newValue);
-                return;
-            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
-                setLastStudioConnectionDate((Date)newValue);
-                return;
-            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
-                setFirstAdminConnectionDate((Date)newValue);
-                return;
-            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
-                setFirstStudioConnectionDate((Date)newValue);
-                return;
-            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
-                setAdminConnexionNumber(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
-                setStudioConnexionNumber(((Integer)newValue).intValue());
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.USER__ID:
+				setId(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.USER__LOGIN:
+				setLogin((String)newValue);
+				return;
+			case PropertiesPackage.USER__PASSWORD:
+				setPassword((byte[])newValue);
+				return;
+			case PropertiesPackage.USER__FIRST_NAME:
+				setFirstName((String)newValue);
+				return;
+			case PropertiesPackage.USER__LAST_NAME:
+				setLastName((String)newValue);
+				return;
+			case PropertiesPackage.USER__CREATION_DATE:
+				setCreationDate((Date)newValue);
+				return;
+			case PropertiesPackage.USER__DELETE_DATE:
+				setDeleteDate((Date)newValue);
+				return;
+			case PropertiesPackage.USER__DELETED:
+				setDeleted(((Boolean)newValue).booleanValue());
+				return;
+			case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
+				setAllowedToModifyComponents(((Boolean)newValue).booleanValue());
+				return;
+			case PropertiesPackage.USER__COMMENT:
+				setComment((String)newValue);
+				return;
+			case PropertiesPackage.USER__ROLE:
+				setRole((UserRole)newValue);
+				return;
+			case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+				getProjectAuthorization().clear();
+				getProjectAuthorization().addAll((Collection)newValue);
+				return;
+			case PropertiesPackage.USER__MODULE_AUTHORIZATION:
+				getModuleAuthorization().clear();
+				getModuleAuthorization().addAll((Collection)newValue);
+				return;
+			case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+				setPreferredDashboardConnection((DashboardConnection)newValue);
+				return;
+			case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+				setLastAdminConnectionDate((Date)newValue);
+				return;
+			case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+				setLastStudioConnectionDate((Date)newValue);
+				return;
+			case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+				setFirstAdminConnectionDate((Date)newValue);
+				return;
+			case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+				setFirstStudioConnectionDate((Date)newValue);
+				return;
+			case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+				setAdminConnexionNumber(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+				setStudioConnexionNumber(((Integer)newValue).intValue());
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.USER__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__LOGIN:
-                setLogin(LOGIN_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__PASSWORD:
-                setPassword(PASSWORD_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__FIRST_NAME:
-                setFirstName(FIRST_NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__LAST_NAME:
-                setLastName(LAST_NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__CREATION_DATE:
-                setCreationDate(CREATION_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__DELETE_DATE:
-                setDeleteDate(DELETE_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__DELETED:
-                setDeleted(DELETED_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
-                setAllowedToModifyComponents(ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__COMMENT:
-                setComment(COMMENT_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__ROLE:
-                setRole((UserRole)null);
-                return;
-            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
-                getProjectAuthorization().clear();
-                return;
-            case PropertiesPackage.USER__MODULE_AUTHORIZATION:
-                getModuleAuthorization().clear();
-                return;
-            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
-                setPreferredDashboardConnection((DashboardConnection)null);
-                return;
-            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
-                setLastAdminConnectionDate(LAST_ADMIN_CONNECTION_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
-                setLastStudioConnectionDate(LAST_STUDIO_CONNECTION_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
-                setFirstAdminConnectionDate(FIRST_ADMIN_CONNECTION_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
-                setFirstStudioConnectionDate(FIRST_STUDIO_CONNECTION_DATE_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
-                setAdminConnexionNumber(ADMIN_CONNEXION_NUMBER_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
-                setStudioConnexionNumber(STUDIO_CONNEXION_NUMBER_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.USER__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__LOGIN:
+				setLogin(LOGIN_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__PASSWORD:
+				setPassword(PASSWORD_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__FIRST_NAME:
+				setFirstName(FIRST_NAME_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__LAST_NAME:
+				setLastName(LAST_NAME_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__CREATION_DATE:
+				setCreationDate(CREATION_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__DELETE_DATE:
+				setDeleteDate(DELETE_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__DELETED:
+				setDeleted(DELETED_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
+				setAllowedToModifyComponents(ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__COMMENT:
+				setComment(COMMENT_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__ROLE:
+				setRole((UserRole)null);
+				return;
+			case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+				getProjectAuthorization().clear();
+				return;
+			case PropertiesPackage.USER__MODULE_AUTHORIZATION:
+				getModuleAuthorization().clear();
+				return;
+			case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+				setPreferredDashboardConnection((DashboardConnection)null);
+				return;
+			case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+				setLastAdminConnectionDate(LAST_ADMIN_CONNECTION_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+				setLastStudioConnectionDate(LAST_STUDIO_CONNECTION_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+				setFirstAdminConnectionDate(FIRST_ADMIN_CONNECTION_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+				setFirstStudioConnectionDate(FIRST_STUDIO_CONNECTION_DATE_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+				setAdminConnexionNumber(ADMIN_CONNEXION_NUMBER_EDEFAULT);
+				return;
+			case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+				setStudioConnexionNumber(STUDIO_CONNEXION_NUMBER_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.USER__ID:
-                return id != ID_EDEFAULT;
-            case PropertiesPackage.USER__LOGIN:
-                return LOGIN_EDEFAULT == null ? login != null : !LOGIN_EDEFAULT.equals(login);
-            case PropertiesPackage.USER__PASSWORD:
-                return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
-            case PropertiesPackage.USER__FIRST_NAME:
-                return FIRST_NAME_EDEFAULT == null ? firstName != null : !FIRST_NAME_EDEFAULT.equals(firstName);
-            case PropertiesPackage.USER__LAST_NAME:
-                return LAST_NAME_EDEFAULT == null ? lastName != null : !LAST_NAME_EDEFAULT.equals(lastName);
-            case PropertiesPackage.USER__CREATION_DATE:
-                return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
-            case PropertiesPackage.USER__DELETE_DATE:
-                return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
-            case PropertiesPackage.USER__DELETED:
-                return deleted != DELETED_EDEFAULT;
-            case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
-                return allowedToModifyComponents != ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT;
-            case PropertiesPackage.USER__COMMENT:
-                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-            case PropertiesPackage.USER__ROLE:
-                return role != null;
-            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
-                return projectAuthorization != null && !projectAuthorization.isEmpty();
-            case PropertiesPackage.USER__MODULE_AUTHORIZATION:
-                return moduleAuthorization != null && !moduleAuthorization.isEmpty();
-            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
-                return preferredDashboardConnection != null;
-            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
-                return LAST_ADMIN_CONNECTION_DATE_EDEFAULT == null ? lastAdminConnectionDate != null : !LAST_ADMIN_CONNECTION_DATE_EDEFAULT.equals(lastAdminConnectionDate);
-            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
-                return LAST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? lastStudioConnectionDate != null : !LAST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(lastStudioConnectionDate);
-            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
-                return FIRST_ADMIN_CONNECTION_DATE_EDEFAULT == null ? firstAdminConnectionDate != null : !FIRST_ADMIN_CONNECTION_DATE_EDEFAULT.equals(firstAdminConnectionDate);
-            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
-                return FIRST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? firstStudioConnectionDate != null : !FIRST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(firstStudioConnectionDate);
-            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
-                return adminConnexionNumber != ADMIN_CONNEXION_NUMBER_EDEFAULT;
-            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
-                return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.USER__ID:
+				return id != ID_EDEFAULT;
+			case PropertiesPackage.USER__LOGIN:
+				return LOGIN_EDEFAULT == null ? login != null : !LOGIN_EDEFAULT.equals(login);
+			case PropertiesPackage.USER__PASSWORD:
+				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+			case PropertiesPackage.USER__FIRST_NAME:
+				return FIRST_NAME_EDEFAULT == null ? firstName != null : !FIRST_NAME_EDEFAULT.equals(firstName);
+			case PropertiesPackage.USER__LAST_NAME:
+				return LAST_NAME_EDEFAULT == null ? lastName != null : !LAST_NAME_EDEFAULT.equals(lastName);
+			case PropertiesPackage.USER__CREATION_DATE:
+				return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
+			case PropertiesPackage.USER__DELETE_DATE:
+				return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
+			case PropertiesPackage.USER__DELETED:
+				return deleted != DELETED_EDEFAULT;
+			case PropertiesPackage.USER__ALLOWED_TO_MODIFY_COMPONENTS:
+				return allowedToModifyComponents != ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT;
+			case PropertiesPackage.USER__COMMENT:
+				return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+			case PropertiesPackage.USER__ROLE:
+				return role != null;
+			case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+				return projectAuthorization != null && !projectAuthorization.isEmpty();
+			case PropertiesPackage.USER__MODULE_AUTHORIZATION:
+				return moduleAuthorization != null && !moduleAuthorization.isEmpty();
+			case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+				return preferredDashboardConnection != null;
+			case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+				return LAST_ADMIN_CONNECTION_DATE_EDEFAULT == null ? lastAdminConnectionDate != null : !LAST_ADMIN_CONNECTION_DATE_EDEFAULT.equals(lastAdminConnectionDate);
+			case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+				return LAST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? lastStudioConnectionDate != null : !LAST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(lastStudioConnectionDate);
+			case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+				return FIRST_ADMIN_CONNECTION_DATE_EDEFAULT == null ? firstAdminConnectionDate != null : !FIRST_ADMIN_CONNECTION_DATE_EDEFAULT.equals(firstAdminConnectionDate);
+			case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+				return FIRST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? firstStudioConnectionDate != null : !FIRST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(firstStudioConnectionDate);
+			case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+				return adminConnexionNumber != ADMIN_CONNEXION_NUMBER_EDEFAULT;
+			case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+				return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
     public String toString() {
         if (firstName != null && lastName != null)

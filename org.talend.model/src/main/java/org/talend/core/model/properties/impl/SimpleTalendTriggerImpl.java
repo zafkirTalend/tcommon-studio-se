@@ -32,237 +32,237 @@ import org.talend.core.model.properties.SimpleTalendTrigger;
  */
 public class SimpleTalendTriggerImpl extends TalendTriggerImpl implements SimpleTalendTrigger {
     /**
-     * The default value of the '{@link #getRepeatCount() <em>Repeat Count</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getRepeatCount() <em>Repeat Count</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getRepeatCount()
-     * @generated
-     * @ordered
-     */
+	 * @see #getRepeatCount()
+	 * @generated
+	 * @ordered
+	 */
     protected static final Integer REPEAT_COUNT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getRepeatCount() <em>Repeat Count</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getRepeatCount() <em>Repeat Count</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getRepeatCount()
-     * @generated
-     * @ordered
-     */
+	 * @see #getRepeatCount()
+	 * @generated
+	 * @ordered
+	 */
     protected Integer repeatCount = REPEAT_COUNT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getRepeatInterval() <em>Repeat Interval</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getRepeatInterval() <em>Repeat Interval</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getRepeatInterval()
-     * @generated
-     * @ordered
-     */
+	 * @see #getRepeatInterval()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int REPEAT_INTERVAL_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getRepeatInterval() <em>Repeat Interval</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getRepeatInterval() <em>Repeat Interval</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getRepeatInterval()
-     * @generated
-     * @ordered
-     */
+	 * @see #getRepeatInterval()
+	 * @generated
+	 * @ordered
+	 */
     protected int repeatInterval = REPEAT_INTERVAL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTimesTriggered() <em>Times Triggered</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getTimesTriggered() <em>Times Triggered</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTimesTriggered()
-     * @generated
-     * @ordered
-     */
+	 * @see #getTimesTriggered()
+	 * @generated
+	 * @ordered
+	 */
     protected static final int TIMES_TRIGGERED_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getTimesTriggered() <em>Times Triggered</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getTimesTriggered() <em>Times Triggered</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTimesTriggered()
-     * @generated
-     * @ordered
-     */
+	 * @see #getTimesTriggered()
+	 * @generated
+	 * @ordered
+	 */
     protected int timesTriggered = TIMES_TRIGGERED_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected SimpleTalendTriggerImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.SIMPLE_TALEND_TRIGGER;
-    }
+		return PropertiesPackage.Literals.SIMPLE_TALEND_TRIGGER;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Integer getRepeatCount() {
-        return repeatCount;
-    }
+		return repeatCount;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setRepeatCount(Integer newRepeatCount) {
-        Integer oldRepeatCount = repeatCount;
-        repeatCount = newRepeatCount;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT, oldRepeatCount, repeatCount));
-    }
+		Integer oldRepeatCount = repeatCount;
+		repeatCount = newRepeatCount;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT, oldRepeatCount, repeatCount));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getRepeatInterval() {
-        return repeatInterval;
-    }
+		return repeatInterval;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setRepeatInterval(int newRepeatInterval) {
-        int oldRepeatInterval = repeatInterval;
-        repeatInterval = newRepeatInterval;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL, oldRepeatInterval, repeatInterval));
-    }
+		int oldRepeatInterval = repeatInterval;
+		repeatInterval = newRepeatInterval;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL, oldRepeatInterval, repeatInterval));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public int getTimesTriggered() {
-        return timesTriggered;
-    }
+		return timesTriggered;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setTimesTriggered(int newTimesTriggered) {
-        int oldTimesTriggered = timesTriggered;
-        timesTriggered = newTimesTriggered;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED, oldTimesTriggered, timesTriggered));
-    }
+		int oldTimesTriggered = timesTriggered;
+		timesTriggered = newTimesTriggered;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED, oldTimesTriggered, timesTriggered));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
-                return getRepeatCount();
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
-                return new Integer(getRepeatInterval());
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
-                return new Integer(getTimesTriggered());
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
+				return getRepeatCount();
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
+				return new Integer(getRepeatInterval());
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
+				return new Integer(getTimesTriggered());
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
-                setRepeatCount((Integer)newValue);
-                return;
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
-                setRepeatInterval(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
-                setTimesTriggered(((Integer)newValue).intValue());
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
+				setRepeatCount((Integer)newValue);
+				return;
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
+				setRepeatInterval(((Integer)newValue).intValue());
+				return;
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
+				setTimesTriggered(((Integer)newValue).intValue());
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
-                setRepeatCount(REPEAT_COUNT_EDEFAULT);
-                return;
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
-                setRepeatInterval(REPEAT_INTERVAL_EDEFAULT);
-                return;
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
-                setTimesTriggered(TIMES_TRIGGERED_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
+				setRepeatCount(REPEAT_COUNT_EDEFAULT);
+				return;
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
+				setRepeatInterval(REPEAT_INTERVAL_EDEFAULT);
+				return;
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
+				setTimesTriggered(TIMES_TRIGGERED_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
-                return REPEAT_COUNT_EDEFAULT == null ? repeatCount != null : !REPEAT_COUNT_EDEFAULT.equals(repeatCount);
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
-                return repeatInterval != REPEAT_INTERVAL_EDEFAULT;
-            case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
-                return timesTriggered != TIMES_TRIGGERED_EDEFAULT;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_COUNT:
+				return REPEAT_COUNT_EDEFAULT == null ? repeatCount != null : !REPEAT_COUNT_EDEFAULT.equals(repeatCount);
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL:
+				return repeatInterval != REPEAT_INTERVAL_EDEFAULT;
+			case PropertiesPackage.SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED:
+				return timesTriggered != TIMES_TRIGGERED_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (repeatCount: ");
-        result.append(repeatCount);
-        result.append(", repeatInterval: ");
-        result.append(repeatInterval);
-        result.append(", timesTriggered: ");
-        result.append(timesTriggered);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (repeatCount: ");
+		result.append(repeatCount);
+		result.append(", repeatInterval: ");
+		result.append(repeatInterval);
+		result.append(", timesTriggered: ");
+		result.append(timesTriggered);
+		result.append(')');
+		return result.toString();
+	}
 
 } //SimpleTalendTriggerImpl

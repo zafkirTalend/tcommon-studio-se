@@ -22,21 +22,21 @@ import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
  */
 public class SalesforceSchemaConnectionItemImpl extends ConnectionItemImpl implements SalesforceSchemaConnectionItem {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected SalesforceSchemaConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.SALESFORCE_SCHEMA_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.SALESFORCE_SCHEMA_CONNECTION_ITEM;
+	}
 
 } //SalesforceSchemaConnectionItemImpl

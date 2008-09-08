@@ -27,55 +27,55 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface LinkType extends EObject {
     /**
-     * Returns the value of the '<em><b>URI</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>URI</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>URI</em>' attribute.
-     * @see #setURI(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getLinkType_URI()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>URI</em>' attribute.
+	 * @see #setURI(String)
+	 * @see org.talend.core.model.properties.PropertiesPackage#getLinkType_URI()
+	 * @model
+	 * @generated
+	 */
     String getURI();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.LinkType#getURI <em>URI</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.core.model.properties.LinkType#getURI <em>URI</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>URI</em>' attribute.
-     * @see #getURI()
-     * @generated
-     */
+	 * @param value the new value of the '<em>URI</em>' attribute.
+	 * @see #getURI()
+	 * @generated
+	 */
     void setURI(String value);
 
     /**
-     * Returns the value of the '<em><b>State</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>State</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>State</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>State</em>' attribute.
-     * @see #setState(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getLinkType_State()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>State</em>' attribute.
+	 * @see #setState(boolean)
+	 * @see org.talend.core.model.properties.PropertiesPackage#getLinkType_State()
+	 * @model
+	 * @generated
+	 */
     boolean isState();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.LinkType#isState <em>State</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.talend.core.model.properties.LinkType#isState <em>State</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>State</em>' attribute.
-     * @see #isState()
-     * @generated
-     */
+	 * @param value the new value of the '<em>State</em>' attribute.
+	 * @see #isState()
+	 * @generated
+	 */
     void setState(boolean value);
 
 } // LinkType

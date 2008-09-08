@@ -26,19 +26,19 @@ public class InputBusinessItemImpl extends BusinessItemShapeImpl implements Inpu
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected InputBusinessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.INPUT_BUSINESS_ITEM;
-    }
+		return BusinessPackage.Literals.INPUT_BUSINESS_ITEM;
+	}
 
 } // InputBusinessItemImpl

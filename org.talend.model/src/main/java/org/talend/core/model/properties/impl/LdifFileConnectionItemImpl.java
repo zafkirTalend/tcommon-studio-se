@@ -22,21 +22,21 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class LdifFileConnectionItemImpl extends ConnectionItemImpl implements LdifFileConnectionItem {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected LdifFileConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.LDIF_FILE_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.LDIF_FILE_CONNECTION_ITEM;
+	}
 
 } //LdifFileConnectionItemImpl

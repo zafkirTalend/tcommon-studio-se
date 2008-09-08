@@ -34,237 +34,237 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class InformationImpl extends EObjectImpl implements Information {
     /**
-     * The default value of the '{@link #getLevel() <em>Level</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getLevel() <em>Level</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLevel()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLevel()
+	 * @generated
+	 * @ordered
+	 */
     protected static final InformationLevel LEVEL_EDEFAULT = InformationLevel.DEBUG_LITERAL;
 
     /**
-     * The cached value of the '{@link #getLevel() <em>Level</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLevel() <em>Level</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLevel()
-     * @generated
-     * @ordered
-     */
+	 * @see #getLevel()
+	 * @generated
+	 * @ordered
+	 */
     protected InformationLevel level = LEVEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getType()
-     * @generated
-     * @ordered
-     */
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String TYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getType()
-     * @generated
-     * @ordered
-     */
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
     protected String type = TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getText() <em>Text</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getText()
-     * @generated
-     * @ordered
-     */
+	 * @see #getText()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String TEXT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getText()
-     * @generated
-     * @ordered
-     */
+	 * @see #getText()
+	 * @generated
+	 * @ordered
+	 */
     protected String text = TEXT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected InformationImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.INFORMATION;
-    }
+		return PropertiesPackage.Literals.INFORMATION;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public InformationLevel getLevel() {
-        return level;
-    }
+		return level;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setLevel(InformationLevel newLevel) {
-        InformationLevel oldLevel = level;
-        level = newLevel == null ? LEVEL_EDEFAULT : newLevel;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.INFORMATION__LEVEL, oldLevel, level));
-    }
+		InformationLevel oldLevel = level;
+		level = newLevel == null ? LEVEL_EDEFAULT : newLevel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.INFORMATION__LEVEL, oldLevel, level));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getType() {
-        return type;
-    }
+		return type;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setType(String newType) {
-        String oldType = type;
-        type = newType;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.INFORMATION__TYPE, oldType, type));
-    }
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.INFORMATION__TYPE, oldType, type));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getText() {
-        return text;
-    }
+		return text;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setText(String newText) {
-        String oldText = text;
-        text = newText;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.INFORMATION__TEXT, oldText, text));
-    }
+		String oldText = text;
+		text = newText;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.INFORMATION__TEXT, oldText, text));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.INFORMATION__LEVEL:
-                return getLevel();
-            case PropertiesPackage.INFORMATION__TYPE:
-                return getType();
-            case PropertiesPackage.INFORMATION__TEXT:
-                return getText();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.INFORMATION__LEVEL:
+				return getLevel();
+			case PropertiesPackage.INFORMATION__TYPE:
+				return getType();
+			case PropertiesPackage.INFORMATION__TEXT:
+				return getText();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.INFORMATION__LEVEL:
-                setLevel((InformationLevel)newValue);
-                return;
-            case PropertiesPackage.INFORMATION__TYPE:
-                setType((String)newValue);
-                return;
-            case PropertiesPackage.INFORMATION__TEXT:
-                setText((String)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.INFORMATION__LEVEL:
+				setLevel((InformationLevel)newValue);
+				return;
+			case PropertiesPackage.INFORMATION__TYPE:
+				setType((String)newValue);
+				return;
+			case PropertiesPackage.INFORMATION__TEXT:
+				setText((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.INFORMATION__LEVEL:
-                setLevel(LEVEL_EDEFAULT);
-                return;
-            case PropertiesPackage.INFORMATION__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
-            case PropertiesPackage.INFORMATION__TEXT:
-                setText(TEXT_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.INFORMATION__LEVEL:
+				setLevel(LEVEL_EDEFAULT);
+				return;
+			case PropertiesPackage.INFORMATION__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
+			case PropertiesPackage.INFORMATION__TEXT:
+				setText(TEXT_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.INFORMATION__LEVEL:
-                return level != LEVEL_EDEFAULT;
-            case PropertiesPackage.INFORMATION__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-            case PropertiesPackage.INFORMATION__TEXT:
-                return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.INFORMATION__LEVEL:
+				return level != LEVEL_EDEFAULT;
+			case PropertiesPackage.INFORMATION__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case PropertiesPackage.INFORMATION__TEXT:
+				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (level: ");
-        result.append(level);
-        result.append(", type: ");
-        result.append(type);
-        result.append(", text: ");
-        result.append(text);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (level: ");
+		result.append(level);
+		result.append(", type: ");
+		result.append(type);
+		result.append(", text: ");
+		result.append(text);
+		result.append(')');
+		return result.toString();
+	}
 
 } //InformationImpl

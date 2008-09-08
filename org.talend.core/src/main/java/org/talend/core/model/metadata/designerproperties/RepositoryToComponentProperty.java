@@ -38,6 +38,10 @@ import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
@@ -79,9 +83,109 @@ public class RepositoryToComponentProperty {
 			return getExcelFileValue((FileExcelConnection) connection, value);
 		}
 
+		if (connection instanceof SAPConnection) {
+			return getSAPValue((SAPConnection) connection, value);
+		}
+
 		if (connection instanceof SalesforceSchemaConnection) {
 			return getSalesforceSchemaValue(
 					(SalesforceSchemaConnection) connection, value);
+		}
+
+		return null;
+	}
+
+	/**
+	 * 
+	 * DOC YeXiaowei Comment method "getSAPInputAndOutputValue".
+	 * 
+	 * @param conn
+	 * @param value2
+	 * @param functionName
+	 * @param isInput
+	 * @return
+	 */
+	public static void getSAPInputAndOutputValue(SAPConnection conn,
+			List<Map<String, Object>> value2, String functionName,
+			boolean isInput) {
+		SAPFunctionUnit unit = null;
+		for (int i = 0; i < conn.getFuntions().size(); i++) {
+			unit = (SAPFunctionUnit) conn.getFuntions().get(i);
+			if (unit.getName().equals(functionName)) {
+				break;
+			}
+		}
+		if (unit == null) {
+			return;
+		}
+
+		SAPFunctionParameterTable table = isInput ? unit
+				.getInputParameterTable() : unit.getOutputParameterTable();
+		if (table == null || table.getColumns() == null
+				|| table.getColumns().isEmpty()) {
+			return;
+		}
+		for (int i = 0; i < table.getColumns().size(); i++) {
+			SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) table
+					.getColumns().get(i);
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (isInput) {
+				map.put("SAP_PARAMETER_VALUE", column.getValue());
+			}
+			map.put("SAP_PARAMETER_TYPE", column.getParameterType().replace(
+					'.', '_'));
+			map.put("SAP_TABLE_NAME", column.getStructureOrTableName());
+			map.put("SAP_PARAMETER_NAME", column.getName());
+			value2.add(map);
+		}
+	}
+
+	/**
+	 * 
+	 * DOC YeXiaowei Comment method "getSAPValue".
+	 * 
+	 * @param connection
+	 * @param value
+	 * @return
+	 */
+	public static Object getSAPValue(SAPConnection connection, String value) {
+
+		if ("CLIENT".equals(value)) {
+			if (isConetxtMode(connection, connection.getClient())) {
+				return connection.getClient();
+			} else {
+				return TalendTextUtils.addQuotes(connection.getClient());
+			}
+		} else if ("USERID".equals(value)) {
+			if (isConetxtMode(connection, connection.getUsername())) {
+				return connection.getUsername();
+			} else {
+				return TalendTextUtils.addQuotes(connection.getUsername());
+			}
+		} else if ("PASSWORD".equals(value)) {
+			if (isConetxtMode(connection, connection.getPassword())) {
+				return connection.getPassword();
+			} else {
+				return TalendTextUtils.addQuotes(connection.getPassword());
+			}
+		} else if ("LANGUAGE".equals(value)) {
+			if (isConetxtMode(connection, connection.getLanguage())) {
+				return connection.getLanguage();
+			} else {
+				return TalendTextUtils.addQuotes(connection.getLanguage());
+			}
+		} else if ("HOSTNAME".equals(value)) {
+			if (isConetxtMode(connection, connection.getHost())) {
+				return connection.getHost();
+			} else {
+				return TalendTextUtils.addQuotes(connection.getHost());
+			}
+		} else if ("SYSTEMNUMBER".equals(value)) {
+			if (isConetxtMode(connection, connection.getSystemNumber())) {
+				return connection.getSystemNumber();
+			} else {
+				return TalendTextUtils.addQuotes(connection.getSystemNumber());
+			}
 		}
 
 		return null;

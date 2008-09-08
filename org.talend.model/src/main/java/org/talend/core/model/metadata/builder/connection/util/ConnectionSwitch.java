@@ -163,6 +163,51 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.SAP_CONNECTION: {
+                SAPConnection sapConnection = (SAPConnection)theEObject;
+                Object result = caseSAPConnection(sapConnection);
+                if (result == null) result = caseConnection(sapConnection);
+                if (result == null) result = caseAbstractMetadataObject(sapConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.SAP_FUNCTION_UNIT: {
+                SAPFunctionUnit sapFunctionUnit = (SAPFunctionUnit)theEObject;
+                Object result = caseSAPFunctionUnit(sapFunctionUnit);
+                if (result == null) result = caseAbstractMetadataObject(sapFunctionUnit);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: {
+                SAPFunctionParameterColumn sapFunctionParameterColumn = (SAPFunctionParameterColumn)theEObject;
+                Object result = caseSAPFunctionParameterColumn(sapFunctionParameterColumn);
+                if (result == null) result = caseAbstractMetadataObject(sapFunctionParameterColumn);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE: {
+                SAPFunctionParameterTable sapFunctionParameterTable = (SAPFunctionParameterTable)theEObject;
+                Object result = caseSAPFunctionParameterTable(sapFunctionParameterTable);
+                if (result == null) result = caseAbstractMetadataObject(sapFunctionParameterTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE: {
+                InputSAPFunctionParameterTable inputSAPFunctionParameterTable = (InputSAPFunctionParameterTable)theEObject;
+                Object result = caseInputSAPFunctionParameterTable(inputSAPFunctionParameterTable);
+                if (result == null) result = caseSAPFunctionParameterTable(inputSAPFunctionParameterTable);
+                if (result == null) result = caseAbstractMetadataObject(inputSAPFunctionParameterTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE: {
+                OutputSAPFunctionParameterTable outputSAPFunctionParameterTable = (OutputSAPFunctionParameterTable)theEObject;
+                Object result = caseOutputSAPFunctionParameterTable(outputSAPFunctionParameterTable);
+                if (result == null) result = caseSAPFunctionParameterTable(outputSAPFunctionParameterTable);
+                if (result == null) result = caseAbstractMetadataObject(outputSAPFunctionParameterTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ConnectionPackage.REGEXP_FILE_CONNECTION: {
                 RegexpFileConnection regexpFileConnection = (RegexpFileConnection)theEObject;
                 Object result = caseRegexpFileConnection(regexpFileConnection);
@@ -401,6 +446,96 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseDatabaseConnection(DatabaseConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>SAP Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SAP Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSAPConnection(SAPConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>SAP Function Unit</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SAP Function Unit</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSAPFunctionUnit(SAPFunctionUnit object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>SAP Function Parameter Column</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SAP Function Parameter Column</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSAPFunctionParameterColumn(SAPFunctionParameterColumn object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>SAP Function Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SAP Function Parameter Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSAPFunctionParameterTable(SAPFunctionParameterTable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Input SAP Function Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Input SAP Function Parameter Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseInputSAPFunctionParameterTable(InputSAPFunctionParameterTable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Output SAP Function Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Output SAP Function Parameter Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseOutputSAPFunctionParameterTable(OutputSAPFunctionParameterTable object) {
         return null;
     }
 

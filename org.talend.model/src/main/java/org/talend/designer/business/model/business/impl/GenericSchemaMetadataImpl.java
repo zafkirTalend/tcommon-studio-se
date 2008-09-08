@@ -22,21 +22,21 @@ import org.talend.designer.business.model.business.GenericSchemaMetadata;
  */
 public class GenericSchemaMetadataImpl extends TalendItemImpl implements GenericSchemaMetadata {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected GenericSchemaMetadataImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.GENERIC_SCHEMA_METADATA;
-    }
+		return BusinessPackage.Literals.GENERIC_SCHEMA_METADATA;
+	}
 
 } //GenericSchemaMetadataImpl

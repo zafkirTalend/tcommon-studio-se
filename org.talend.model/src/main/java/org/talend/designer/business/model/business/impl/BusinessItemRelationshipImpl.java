@@ -31,19 +31,19 @@ public class BusinessItemRelationshipImpl extends BaseBusinessItemRelationshipIm
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected BusinessItemRelationshipImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.BUSINESS_ITEM_RELATIONSHIP;
-    }
+		return BusinessPackage.Literals.BUSINESS_ITEM_RELATIONSHIP;
+	}
 
 } // BusinessItemRelationshipImpl

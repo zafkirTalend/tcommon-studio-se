@@ -29,21 +29,21 @@ public class EllipseBusinessItemImpl extends BusinessItemShapeImpl implements El
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EllipseBusinessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.ELLIPSE_BUSINESS_ITEM;
-    }
+		return BusinessPackage.Literals.ELLIPSE_BUSINESS_ITEM;
+	}
 
 } //EllipseBusinessItemImpl

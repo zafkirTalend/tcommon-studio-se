@@ -29,21 +29,21 @@ public class FileLdifMetadataImpl extends TalendItemImpl implements FileLdifMeta
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected FileLdifMetadataImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.FILE_LDIF_METADATA;
-    }
+		return BusinessPackage.Literals.FILE_LDIF_METADATA;
+	}
 
 } //FileLdifMetadataImpl

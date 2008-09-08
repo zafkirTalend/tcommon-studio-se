@@ -22,21 +22,21 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class GenericSchemaConnectionItemImpl extends ConnectionItemImpl implements GenericSchemaConnectionItem {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected GenericSchemaConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.GENERIC_SCHEMA_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.GENERIC_SCHEMA_CONNECTION_ITEM;
+	}
 
 } //GenericSchemaConnectionItemImpl

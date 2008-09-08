@@ -20,19 +20,19 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class PositionalFileConnectionItemImpl extends ConnectionItemImpl implements PositionalFileConnectionItem {
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected PositionalFileConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.POSITIONAL_FILE_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.POSITIONAL_FILE_CONNECTION_ITEM;
+	}
 
 } // PositionalFileConnectionItemImpl

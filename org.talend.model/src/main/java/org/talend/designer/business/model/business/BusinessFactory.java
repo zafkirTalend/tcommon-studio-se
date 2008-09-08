@@ -22,118 +22,127 @@ public interface BusinessFactory extends EFactory {
     String copyright = ""; //$NON-NLS-1$
 
     /**
-     * The singleton instance of the factory.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     BusinessFactory eINSTANCE = org.talend.designer.business.model.business.impl.BusinessFactoryImpl.init();
 
     /**
-     * Returns a new object of class '<em>Repository</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Repository</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Repository</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Repository</em>'.
+	 * @generated
+	 */
     Repository createRepository();
 
     /**
-     * Returns a new object of class '<em>Process</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Process</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Process</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Process</em>'.
+	 * @generated
+	 */
     BusinessProcess createBusinessProcess();
 
     /**
-     * Returns a new object of class '<em>Process</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Process</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Process</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Process</em>'.
+	 * @generated
+	 */
     org.talend.designer.business.model.business.Process createProcess();
 
     /**
-     * Returns a new object of class '<em>Routine</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Routine</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Routine</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Routine</em>'.
+	 * @generated
+	 */
     Routine createRoutine();
 
     /**
-     * Returns a new object of class '<em>Documentation</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Documentation</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Documentation</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Documentation</em>'.
+	 * @generated
+	 */
     Documentation createDocumentation();
 
     /**
-     * Returns a new object of class '<em>Database Metadata</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Database Metadata</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Database Metadata</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Database Metadata</em>'.
+	 * @generated
+	 */
     DatabaseMetadata createDatabaseMetadata();
 
     /**
-     * Returns a new object of class '<em>Table Metadata</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Table Metadata</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Sap Function Metadata</em>'.
+	 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sap Function Metadata</em>'.
+	 * @generated
+	 */
+    SapFunctionMetadata createSapFunctionMetadata();
+
+    /**
+	 * Returns a new object of class '<em>Table Metadata</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Table Metadata</em>'.
+	 * @generated
+	 */
     TableMetadata createTableMetadata();
 
     /**
-     * Returns a new object of class '<em>File Delimited Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>File Delimited Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>File Delimited Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>File Delimited Metadata</em>'.
+	 * @generated
+	 */
     FileDelimitedMetadata createFileDelimitedMetadata();
 
     /**
-     * Returns a new object of class '<em>File Positional Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>File Positional Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>File Positional Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>File Positional Metadata</em>'.
+	 * @generated
+	 */
     FilePositionalMetadata createFilePositionalMetadata();
 
     /**
-     * Returns a new object of class '<em>Assignment</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Assignment</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Assignment</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assignment</em>'.
+	 * @generated
+	 */
     BusinessAssignment createBusinessAssignment();
 
     /**
-     * Returns a new object of class '<em>Item Relationship</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Item Relationship</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Item Relationship</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Item Relationship</em>'.
+	 * @generated
+	 */
     BusinessItemRelationship createBusinessItemRelationship();
 
     /**
-     * Returns a new object of class '<em>Directional Business Item Relationship</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Directional Business Item Relationship</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Directional Business Item Relationship</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Directional Business Item Relationship</em>'.
+	 * @generated
+	 */
     DirectionalBusinessItemRelationship createDirectionalBusinessItemRelationship();
 
     /**
-     * Returns a new object of class '<em>Bidirectional Business Item Relationship</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Bidirectional Business Item Relationship</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Bidirectional Business Item Relationship</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Bidirectional Business Item Relationship</em>'.
+	 * @generated
+	 */
     BidirectionalBusinessItemRelationship createBidirectionalBusinessItemRelationship();
 
     /**
@@ -146,11 +155,11 @@ public interface BusinessFactory extends EFactory {
     DecisionBusinessItem createDecisionBusinessItem();
 
     /**
-     * Returns a new object of class '<em>Action Business Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Action Business Item</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Action Business Item</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Action Business Item</em>'.
+	 * @generated
+	 */
     ActionBusinessItem createActionBusinessItem();
 
     /**
@@ -163,11 +172,11 @@ public interface BusinessFactory extends EFactory {
     TerminalBusinessItem createTerminalBusinessItem();
 
     /**
-     * Returns a new object of class '<em>Data Business Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Data Business Item</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Data Business Item</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Business Item</em>'.
+	 * @generated
+	 */
     DataBusinessItem createDataBusinessItem();
 
     /**
@@ -180,19 +189,19 @@ public interface BusinessFactory extends EFactory {
     DocumentBusinessItem createDocumentBusinessItem();
 
     /**
-     * Returns a new object of class '<em>Input Business Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Input Business Item</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>Input Business Item</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>Input Business Item</em>'.
+	 * @generated
+	 */
     InputBusinessItem createInputBusinessItem();
 
     /**
-     * Returns a new object of class '<em>List Business Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>List Business Item</em>'.
-     * @generated
-     */
+	 * Returns a new object of class '<em>List Business Item</em>'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return a new object of class '<em>List Business Item</em>'.
+	 * @generated
+	 */
     ListBusinessItem createListBusinessItem();
 
     /**
@@ -205,92 +214,92 @@ public interface BusinessFactory extends EFactory {
     DatabaseBusinessItem createDatabaseBusinessItem();
 
     /**
-     * Returns a new object of class '<em>File Regexp Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>File Regexp Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>File Regexp Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>File Regexp Metadata</em>'.
+	 * @generated
+	 */
     FileRegexpMetadata createFileRegexpMetadata();
 
     /**
-     * Returns a new object of class '<em>Actor Business Item</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Actor Business Item</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Actor Business Item</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Actor Business Item</em>'.
+	 * @generated
+	 */
     ActorBusinessItem createActorBusinessItem();
 
     /**
-     * Returns a new object of class '<em>Ellipse Business Item</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Ellipse Business Item</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Ellipse Business Item</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Ellipse Business Item</em>'.
+	 * @generated
+	 */
     EllipseBusinessItem createEllipseBusinessItem();
 
     /**
-     * Returns a new object of class '<em>Gear Business Item</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Gear Business Item</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Gear Business Item</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Gear Business Item</em>'.
+	 * @generated
+	 */
     GearBusinessItem createGearBusinessItem();
 
     /**
-     * Returns a new object of class '<em>Context</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Context</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Context</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Context</em>'.
+	 * @generated
+	 */
     Context createContext();
 
     /**
-     * Returns a new object of class '<em>File Xml Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>File Xml Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>File Xml Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>File Xml Metadata</em>'.
+	 * @generated
+	 */
     FileXmlMetadata createFileXmlMetadata();
 
     /**
-     * Returns a new object of class '<em>File Excel Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>File Excel Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>File Excel Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>File Excel Metadata</em>'.
+	 * @generated
+	 */
     FileExcelMetadata createFileExcelMetadata();
 
     /**
-     * Returns a new object of class '<em>File Ldif Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>File Ldif Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>File Ldif Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>File Ldif Metadata</em>'.
+	 * @generated
+	 */
     FileLdifMetadata createFileLdifMetadata();
 
     /**
-     * Returns a new object of class '<em>Generic Schema Metadata</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Generic Schema Metadata</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Generic Schema Metadata</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Generic Schema Metadata</em>'.
+	 * @generated
+	 */
     GenericSchemaMetadata createGenericSchemaMetadata();
 
     /**
-     * Returns the package supported by this factory.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the package supported by this factory.
-     * @generated
-     */
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
     BusinessPackage getBusinessPackage();
 
 } // BusinessFactory

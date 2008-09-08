@@ -20,19 +20,19 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class DelimitedFileConnectionItemImpl extends ConnectionItemImpl implements DelimitedFileConnectionItem {
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected DelimitedFileConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.DELIMITED_FILE_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.DELIMITED_FILE_CONNECTION_ITEM;
+	}
 
 } // DelimitedFileConnectionItemImpl

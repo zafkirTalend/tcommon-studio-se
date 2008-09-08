@@ -31,21 +31,21 @@ public interface Repository extends EObject {
     String copyright = ""; //$NON-NLS-1$
 
     /**
-     * Returns the value of the '<em><b>Talenditems</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.business.model.business.TalendItem}.
-     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.TalendItem#getRepository <em>Repository</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Talenditems</b></em>' containment reference list.
+	 * The list contents are of type {@link org.talend.designer.business.model.business.TalendItem}.
+	 * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.TalendItem#getRepository <em>Repository</em>}'.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Talenditems</em>' containment reference list isn't clear, there really should be
      * more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Talenditems</em>' containment reference list.
-     * @see org.talend.designer.business.model.business.BusinessPackage#getRepository_Talenditems()
-     * @see org.talend.designer.business.model.business.TalendItem#getRepository
-     * @model type="org.talend.designer.business.model.business.TalendItem" opposite="repository" containment="true"
-     * @generated
-     */
+	 * @return the value of the '<em>Talenditems</em>' containment reference list.
+	 * @see org.talend.designer.business.model.business.BusinessPackage#getRepository_Talenditems()
+	 * @see org.talend.designer.business.model.business.TalendItem#getRepository
+	 * @model type="org.talend.designer.business.model.business.TalendItem" opposite="repository" containment="true"
+	 * @generated
+	 */
     EList getTalenditems();
 
 } // Repository

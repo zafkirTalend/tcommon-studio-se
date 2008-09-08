@@ -28,116 +28,116 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 public class ProcessItemImpl extends ItemImpl implements ProcessItem {
 
     /**
-     * The cached value of the '{@link #getProcess() <em>Process</em>}' reference.
-     * <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getProcess() <em>Process</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * @see #getProcess()
-     * @generated
-     * @ordered
-     */
+	 * @see #getProcess()
+	 * @generated
+	 * @ordered
+	 */
     protected ProcessType process;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected ProcessItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.PROCESS_ITEM;
-    }
+		return PropertiesPackage.Literals.PROCESS_ITEM;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public ProcessType getProcess() {
-        if (process != null && process.eIsProxy()) {
-            InternalEObject oldProcess = (InternalEObject)process;
-            process = (ProcessType)eResolveProxy(oldProcess);
-            if (process != oldProcess) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROCESS_ITEM__PROCESS, oldProcess, process));
-            }
-        }
-        return process;
-    }
+		if (process != null && process.eIsProxy()) {
+			InternalEObject oldProcess = (InternalEObject)process;
+			process = (ProcessType)eResolveProxy(oldProcess);
+			if (process != oldProcess) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROCESS_ITEM__PROCESS, oldProcess, process));
+			}
+		}
+		return process;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public ProcessType basicGetProcess() {
-        return process;
-    }
+		return process;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setProcess(ProcessType newProcess) {
-        ProcessType oldProcess = process;
-        process = newProcess;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROCESS_ITEM__PROCESS, oldProcess, process));
-    }
+		ProcessType oldProcess = process;
+		process = newProcess;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROCESS_ITEM__PROCESS, oldProcess, process));
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.PROCESS_ITEM__PROCESS:
-                if (resolve) return getProcess();
-                return basicGetProcess();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.PROCESS_ITEM__PROCESS:
+				if (resolve) return getProcess();
+				return basicGetProcess();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.PROCESS_ITEM__PROCESS:
-                setProcess((ProcessType)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.PROCESS_ITEM__PROCESS:
+				setProcess((ProcessType)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.PROCESS_ITEM__PROCESS:
-                setProcess((ProcessType)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.PROCESS_ITEM__PROCESS:
+				setProcess((ProcessType)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.PROCESS_ITEM__PROCESS:
-                return process != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.PROCESS_ITEM__PROCESS:
+				return process != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } // ProcessItemImpl

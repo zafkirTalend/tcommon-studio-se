@@ -51,13 +51,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetadataTable" eSuperTypes="#//AbstractMetadataObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attachedCDC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="activatedCDC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
         eType="#//MetadataColumn" containment="true" eOpposite="#//MetadataColumn/table"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//Connection"
         eOpposite="#//Connection/tables"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attachedCDC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="activatedCDC" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Map" instanceClassName="java.util.HashMap"/>
   <eClassifiers xsi:type="ecore:EEnum" name="DatabaseProperties">
@@ -163,6 +163,52 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemSQL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cdcConns" eType="#//CDCConnection"
         containment="true" eOpposite="#//CDCConnection/connection"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPConnection" eSuperTypes="#//Connection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Username" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Client" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Funtions" upperBound="-1"
+        eType="#//SAPFunctionUnit" containment="true" eOpposite="#//SAPFunctionUnit/connection"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentFucntion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionUnit" eSuperTypes="#//AbstractMetadataObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Document" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="InputParameterTable" eType="#//InputSAPFunctionParameterTable"
+        containment="true" eOpposite="#//InputSAPFunctionParameterTable/functionUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="OutputParameterTable" eType="#//OutputSAPFunctionParameterTable"
+        containment="true" eOpposite="#//OutputSAPFunctionParameterTable/functionUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MetadataTable" eType="#//MetadataTable"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//SAPConnection"
+        eOpposite="#//SAPConnection/Funtions"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionParameterColumn" eSuperTypes="#//AbstractMetadataObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ParameterType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="StructureOrTableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DataType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Length" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ParameterTable" eType="#//SAPFunctionParameterTable"
+        eOpposite="#//SAPFunctionParameterTable/columns"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionParameterTable" eSuperTypes="#//AbstractMetadataObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//SAPFunctionParameterColumn" containment="true" eOpposite="#//SAPFunctionParameterColumn/ParameterTable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InputSAPFunctionParameterTable" eSuperTypes="#//SAPFunctionParameterTable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="functionUnit" eType="#//SAPFunctionUnit"
+        eOpposite="#//SAPFunctionUnit/InputParameterTable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OutputSAPFunctionParameterTable" eSuperTypes="#//SAPFunctionParameterTable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="functionUnit" eType="#//SAPFunctionUnit"
+        eOpposite="#//SAPFunctionUnit/OutputParameterTable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RegexpFileConnection" eSuperTypes="#//FileConnection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="FieldSeparatorType" lowerBound="1"

@@ -28,116 +28,116 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class ConnectionItemImpl extends ItemImpl implements ConnectionItem {
 
     /**
-     * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
-     * <!-- begin-user-doc --> <!--
+	 * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * @see #getConnection()
-     * @generated
-     * @ordered
-     */
+	 * @see #getConnection()
+	 * @generated
+	 * @ordered
+	 */
     protected Connection connection;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected ConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.CONNECTION_ITEM;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Connection getConnection() {
-        if (connection != null && connection.eIsProxy()) {
-            InternalEObject oldConnection = (InternalEObject)connection;
-            connection = (Connection)eResolveProxy(oldConnection);
-            if (connection != oldConnection) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.CONNECTION_ITEM__CONNECTION, oldConnection, connection));
-            }
-        }
-        return connection;
-    }
+		if (connection != null && connection.eIsProxy()) {
+			InternalEObject oldConnection = (InternalEObject)connection;
+			connection = (Connection)eResolveProxy(oldConnection);
+			if (connection != oldConnection) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.CONNECTION_ITEM__CONNECTION, oldConnection, connection));
+			}
+		}
+		return connection;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Connection basicGetConnection() {
-        return connection;
-    }
+		return connection;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setConnection(Connection newConnection) {
-        Connection oldConnection = connection;
-        connection = newConnection;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.CONNECTION_ITEM__CONNECTION, oldConnection, connection));
-    }
+		Connection oldConnection = connection;
+		connection = newConnection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.CONNECTION_ITEM__CONNECTION, oldConnection, connection));
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
-                if (resolve) return getConnection();
-                return basicGetConnection();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
+				if (resolve) return getConnection();
+				return basicGetConnection();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
-                setConnection((Connection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
+				setConnection((Connection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
-                setConnection((Connection)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
+				setConnection((Connection)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
-                return connection != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case PropertiesPackage.CONNECTION_ITEM__CONNECTION:
+				return connection != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } // ConnectionItemImpl

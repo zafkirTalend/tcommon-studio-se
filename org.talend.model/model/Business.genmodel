@@ -28,6 +28,7 @@
     <genClasses ecoreClass="Business.ecore#//Routine"/>
     <genClasses ecoreClass="Business.ecore#//Documentation"/>
     <genClasses ecoreClass="Business.ecore#//DatabaseMetadata"/>
+    <genClasses ecoreClass="Business.ecore#//SapFunctionMetadata"/>
     <genClasses ecoreClass="Business.ecore#//TableMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FileDelimitedMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FilePositionalMetadata"/>

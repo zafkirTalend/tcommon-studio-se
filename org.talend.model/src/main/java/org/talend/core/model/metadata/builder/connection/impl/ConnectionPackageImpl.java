@@ -33,16 +33,22 @@ import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
@@ -109,6 +115,48 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass databaseConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapFunctionUnitEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapFunctionParameterColumnEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapFunctionParameterTableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass inputSAPFunctionParameterTableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass outputSAPFunctionParameterTableEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -401,7 +449,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getMetadataTable_Columns() {
-        return (EReference)metadataTableEClass.getEStructuralFeatures().get(1);
+        return (EReference)metadataTableEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -409,7 +457,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getMetadataTable_Connection() {
-        return (EReference)metadataTableEClass.getEStructuralFeatures().get(2);
+        return (EReference)metadataTableEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -417,7 +465,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMetadataTable_TableType() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -426,7 +474,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMetadataTable_AttachedCDC() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -435,7 +483,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMetadataTable_ActivatedCDC() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -996,6 +1044,285 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EReference getDatabaseConnection_CdcConns() {
         return (EReference)databaseConnectionEClass.getEStructuralFeatures().get(22);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPConnection() {
+        return sapConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_Host() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_Username() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_Password() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_Client() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_SystemNumber() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_Language() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPConnection_Funtions() {
+        return (EReference)sapConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPConnection_CurrentFucntion() {
+        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPFunctionUnit() {
+        return sapFunctionUnitEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionUnit_Name() {
+        return (EAttribute)sapFunctionUnitEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionUnit_Document() {
+        return (EAttribute)sapFunctionUnitEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionUnit_InputParameterTable() {
+        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionUnit_OutputParameterTable() {
+        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionUnit_MetadataTable() {
+        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionUnit_Connection() {
+        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPFunctionParameterColumn() {
+        return sapFunctionParameterColumnEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_Name() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_ParameterType() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_StructureOrTableName() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_DataType() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_Length() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_Description() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPFunctionParameterColumn_Value() {
+        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionParameterColumn_ParameterTable() {
+        return (EReference)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPFunctionParameterTable() {
+        return sapFunctionParameterTableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionParameterTable_Columns() {
+        return (EReference)sapFunctionParameterTableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getInputSAPFunctionParameterTable() {
+        return inputSAPFunctionParameterTableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getInputSAPFunctionParameterTable_FunctionUnit() {
+        return (EReference)inputSAPFunctionParameterTableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getOutputSAPFunctionParameterTable() {
+        return outputSAPFunctionParameterTableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getOutputSAPFunctionParameterTable_FunctionUnit() {
+        return (EReference)outputSAPFunctionParameterTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1930,11 +2257,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         metadataTableEClass = createEClass(METADATA_TABLE);
         createEAttribute(metadataTableEClass, METADATA_TABLE__SOURCE_NAME);
-        createEReference(metadataTableEClass, METADATA_TABLE__COLUMNS);
-        createEReference(metadataTableEClass, METADATA_TABLE__CONNECTION);
         createEAttribute(metadataTableEClass, METADATA_TABLE__TABLE_TYPE);
         createEAttribute(metadataTableEClass, METADATA_TABLE__ATTACHED_CDC);
         createEAttribute(metadataTableEClass, METADATA_TABLE__ACTIVATED_CDC);
+        createEReference(metadataTableEClass, METADATA_TABLE__COLUMNS);
+        createEReference(metadataTableEClass, METADATA_TABLE__CONNECTION);
 
         fileConnectionEClass = createEClass(FILE_CONNECTION);
         createEAttribute(fileConnectionEClass, FILE_CONNECTION__SERVER);
@@ -1988,6 +2315,43 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__STANDARD_SQL);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SYSTEM_SQL);
         createEReference(databaseConnectionEClass, DATABASE_CONNECTION__CDC_CONNS);
+
+        sapConnectionEClass = createEClass(SAP_CONNECTION);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__HOST);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__USERNAME);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__PASSWORD);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__CLIENT);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__SYSTEM_NUMBER);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__LANGUAGE);
+        createEReference(sapConnectionEClass, SAP_CONNECTION__FUNTIONS);
+        createEAttribute(sapConnectionEClass, SAP_CONNECTION__CURRENT_FUCNTION);
+
+        sapFunctionUnitEClass = createEClass(SAP_FUNCTION_UNIT);
+        createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__NAME);
+        createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__DOCUMENT);
+        createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE);
+        createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE);
+        createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__METADATA_TABLE);
+        createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__CONNECTION);
+
+        sapFunctionParameterColumnEClass = createEClass(SAP_FUNCTION_PARAMETER_COLUMN);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__NAME);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TYPE);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__STRUCTURE_OR_TABLE_NAME);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__DATA_TYPE);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__LENGTH);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__DESCRIPTION);
+        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__VALUE);
+        createEReference(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE);
+
+        sapFunctionParameterTableEClass = createEClass(SAP_FUNCTION_PARAMETER_TABLE);
+        createEReference(sapFunctionParameterTableEClass, SAP_FUNCTION_PARAMETER_TABLE__COLUMNS);
+
+        inputSAPFunctionParameterTableEClass = createEClass(INPUT_SAP_FUNCTION_PARAMETER_TABLE);
+        createEReference(inputSAPFunctionParameterTableEClass, INPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT);
+
+        outputSAPFunctionParameterTableEClass = createEClass(OUTPUT_SAP_FUNCTION_PARAMETER_TABLE);
+        createEReference(outputSAPFunctionParameterTableEClass, OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT);
 
         regexpFileConnectionEClass = createEClass(REGEXP_FILE_CONNECTION);
         createEAttribute(regexpFileConnectionEClass, REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE);
@@ -2143,6 +2507,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         delimitedFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         positionalFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         databaseConnectionEClass.getESuperTypes().add(this.getConnection());
+        sapConnectionEClass.getESuperTypes().add(this.getConnection());
+        sapFunctionUnitEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        sapFunctionParameterColumnEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        sapFunctionParameterTableEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        inputSAPFunctionParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
+        outputSAPFunctionParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
         regexpFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         xmlFileConnectionEClass.getESuperTypes().add(this.getConnection());
         queryEClass.getESuperTypes().add(this.getAbstractMetadataObject());
@@ -2190,11 +2560,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(metadataTableEClass, MetadataTable.class, "MetadataTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getMetadataTable_SourceName(), ecorePackage.getEString(), "sourceName", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMetadataTable_Columns(), this.getMetadataColumn(), this.getMetadataColumn_Table(), "columns", null, 0, -1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMetadataTable_Connection(), this.getConnection(), this.getConnection_Tables(), "connection", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataTable_TableType(), ecorePackage.getEString(), "tableType", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataTable_AttachedCDC(), ecorePackage.getEBoolean(), "attachedCDC", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataTable_ActivatedCDC(), ecorePackage.getEBoolean(), "activatedCDC", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadataTable_Columns(), this.getMetadataColumn(), this.getMetadataColumn_Table(), "columns", null, 0, -1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadataTable_Connection(), this.getConnection(), this.getConnection_Tables(), "connection", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(fileConnectionEClass, FileConnection.class, "FileConnection", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2248,6 +2618,43 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getDatabaseConnection_StandardSQL(), ecorePackage.getEBoolean(), "StandardSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_SystemSQL(), ecorePackage.getEBoolean(), "SystemSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDatabaseConnection_CdcConns(), this.getCDCConnection(), this.getCDCConnection_Connection(), "cdcConns", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapConnectionEClass, SAPConnection.class, "SAPConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Client(), ecorePackage.getEString(), "Client", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_SystemNumber(), ecorePackage.getEString(), "SystemNumber", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Language(), ecorePackage.getEString(), "Language", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPConnection_Funtions(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_Connection(), "Funtions", null, 0, -1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_CurrentFucntion(), ecorePackage.getEString(), "currentFucntion", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapFunctionUnitEClass, SAPFunctionUnit.class, "SAPFunctionUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPFunctionUnit_Name(), ecorePackage.getEString(), "Name", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionUnit_Document(), ecorePackage.getEString(), "Document", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_InputParameterTable(), this.getInputSAPFunctionParameterTable(), this.getInputSAPFunctionParameterTable_FunctionUnit(), "InputParameterTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_OutputParameterTable(), this.getOutputSAPFunctionParameterTable(), this.getOutputSAPFunctionParameterTable_FunctionUnit(), "OutputParameterTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_MetadataTable(), this.getMetadataTable(), null, "MetadataTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_Connection(), this.getSAPConnection(), this.getSAPConnection_Funtions(), "connection", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapFunctionParameterColumnEClass, SAPFunctionParameterColumn.class, "SAPFunctionParameterColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPFunctionParameterColumn_Name(), ecorePackage.getEString(), "Name", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_ParameterType(), ecorePackage.getEString(), "ParameterType", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_StructureOrTableName(), ecorePackage.getEString(), "StructureOrTableName", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_DataType(), ecorePackage.getEString(), "DataType", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_Length(), ecorePackage.getEString(), "Length", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_Description(), ecorePackage.getEString(), "Description", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_Value(), ecorePackage.getEString(), "Value", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionParameterColumn_ParameterTable(), this.getSAPFunctionParameterTable(), this.getSAPFunctionParameterTable_Columns(), "ParameterTable", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapFunctionParameterTableEClass, SAPFunctionParameterTable.class, "SAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSAPFunctionParameterTable_Columns(), this.getSAPFunctionParameterColumn(), this.getSAPFunctionParameterColumn_ParameterTable(), "columns", null, 0, -1, SAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(inputSAPFunctionParameterTableEClass, InputSAPFunctionParameterTable.class, "InputSAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getInputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_InputParameterTable(), "functionUnit", null, 0, 1, InputSAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(outputSAPFunctionParameterTableEClass, OutputSAPFunctionParameterTable.class, "OutputSAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getOutputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_OutputParameterTable(), "functionUnit", null, 0, 1, OutputSAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(regexpFileConnectionEClass, RegexpFileConnection.class, "RegexpFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getRegexpFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType", null, 1, 1, RegexpFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

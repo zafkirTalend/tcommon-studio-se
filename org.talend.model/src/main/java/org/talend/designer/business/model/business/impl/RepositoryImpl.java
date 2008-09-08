@@ -49,105 +49,105 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
     protected EList talenditems;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected RepositoryImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.REPOSITORY;
-    }
+		return BusinessPackage.Literals.REPOSITORY;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public EList getTalenditems() {
-        if (talenditems == null) {
-            talenditems = new EObjectContainmentWithInverseEList(TalendItem.class, this, BusinessPackage.REPOSITORY__TALENDITEMS, BusinessPackage.TALEND_ITEM__REPOSITORY);
-        }
-        return talenditems;
-    }
+		if (talenditems == null) {
+			talenditems = new EObjectContainmentWithInverseEList(TalendItem.class, this, BusinessPackage.REPOSITORY__TALENDITEMS, BusinessPackage.TALEND_ITEM__REPOSITORY);
+		}
+		return talenditems;
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case BusinessPackage.REPOSITORY__TALENDITEMS:
-                return ((InternalEList)getTalenditems()).basicAdd(otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case BusinessPackage.REPOSITORY__TALENDITEMS:
+				return ((InternalEList)getTalenditems()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case BusinessPackage.REPOSITORY__TALENDITEMS:
-                return ((InternalEList)getTalenditems()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case BusinessPackage.REPOSITORY__TALENDITEMS:
+				return ((InternalEList)getTalenditems()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case BusinessPackage.REPOSITORY__TALENDITEMS:
-                return getTalenditems();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case BusinessPackage.REPOSITORY__TALENDITEMS:
+				return getTalenditems();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case BusinessPackage.REPOSITORY__TALENDITEMS:
-                getTalenditems().clear();
-                getTalenditems().addAll((Collection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case BusinessPackage.REPOSITORY__TALENDITEMS:
+				getTalenditems().clear();
+				getTalenditems().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case BusinessPackage.REPOSITORY__TALENDITEMS:
-                getTalenditems().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case BusinessPackage.REPOSITORY__TALENDITEMS:
+				getTalenditems().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case BusinessPackage.REPOSITORY__TALENDITEMS:
-                return talenditems != null && !talenditems.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case BusinessPackage.REPOSITORY__TALENDITEMS:
+				return talenditems != null && !talenditems.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } // RepositoryImpl

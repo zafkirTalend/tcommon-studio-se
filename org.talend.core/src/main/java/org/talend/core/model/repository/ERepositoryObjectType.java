@@ -35,6 +35,7 @@ import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
@@ -64,9 +65,13 @@ public enum ERepositoryObjectType {
 	METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
 	METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
 	METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
+	METADATA_SAP_FUNCTION("repository.SAPFunction", true),
 
 	METADATA_CONNECTIONS(
 			"repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+	METADATA_SAPCONNECTIONS("repository.metadataSAPConnections",
+			"repository.metadataSAPConnections.alias"),
+
 	SQLPATTERNS(
 			"repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
 	METADATA_FILE_DELIMITED(
@@ -172,6 +177,8 @@ public enum ERepositoryObjectType {
 			return "metadata"; //$NON-NLS-1$
 		case METADATA_CONNECTIONS:
 			return "metadata/connections"; //$NON-NLS-1$
+		case METADATA_SAPCONNECTIONS:
+			return "metadata/sapconnections";
 		case METADATA_FILE_DELIMITED:
 			return "metadata/fileDelimited"; //$NON-NLS-1$
 		case METADATA_FILE_POSITIONAL:
@@ -314,6 +321,11 @@ public enum ERepositoryObjectType {
 			public Object caseDatabaseConnectionItem(
 					DatabaseConnectionItem object) {
 				return METADATA_CONNECTIONS;
+			}
+
+			@Override
+			public Object caseSAPConnectionItem(SAPConnectionItem object) {
+				return METADATA_SAPCONNECTIONS;
 			}
 
 			public Object caseDelimitedFileConnectionItem(

@@ -22,21 +22,21 @@ import org.talend.designer.business.model.business.Context;
  */
 public class ContextImpl extends TalendItemImpl implements Context {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected ContextImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return BusinessPackage.Literals.CONTEXT;
-    }
+		return BusinessPackage.Literals.CONTEXT;
+	}
 
 } //ContextImpl

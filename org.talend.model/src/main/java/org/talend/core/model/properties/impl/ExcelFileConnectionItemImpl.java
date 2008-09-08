@@ -22,21 +22,21 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class ExcelFileConnectionItemImpl extends ConnectionItemImpl implements ExcelFileConnectionItem {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected ExcelFileConnectionItemImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.EXCEL_FILE_CONNECTION_ITEM;
-    }
+		return PropertiesPackage.Literals.EXCEL_FILE_CONNECTION_ITEM;
+	}
 
 } //ExcelFileConnectionItemImpl

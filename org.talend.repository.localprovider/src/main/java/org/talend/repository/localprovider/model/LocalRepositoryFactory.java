@@ -336,6 +336,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.BUSINESS_PROCESS);
         needsBinFolder.add(ERepositoryObjectType.DOCUMENTATION);
         needsBinFolder.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
         needsBinFolder.add(ERepositoryObjectType.SQLPATTERNS);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
@@ -1173,6 +1174,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
+            case PropertiesPackage.SAP_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to
                 // another resource for edition
                 itemResource = save((ConnectionItem) item);
@@ -1294,6 +1296,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);
+                break;
+            case PropertiesPackage.SAP_CONNECTION_ITEM:
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_SAPCONNECTIONS, path);
                 break;
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_DELIMITED, path);
