@@ -16,10 +16,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.properties.Property;
+import org.talend.repository.editor.RepositoryEditorInput;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -161,5 +170,96 @@ public final class RepositoryManager {
                 repositoryView.refresh(type);
             }
         }
+    }
+
+    /**
+     * 
+     * ggu Comment method "isOpenedItemInEditor".
+     * 
+     * for jobs/joblets/business diagrams/routines/sql patterns
+     */
+    public static boolean isOpenedItemInEditor(IRepositoryObject objectToMove) {
+        try {
+            if (objectToMove != null) {
+                IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                if (activeWorkbenchWindow != null) {
+                    IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+                    if (activePage != null) {
+                        IEditorReference[] editorReferences = activePage.getEditorReferences();
+                        if (editorReferences != null) {
+                            Property property = objectToMove.getProperty().getItem().getProperty();
+                            //
+                            for (IEditorReference editorReference : editorReferences) {
+                                IEditorInput editorInput = editorReference.getEditorInput();
+                                if (editorInput != null && editorInput instanceof RepositoryEditorInput) {
+                                    RepositoryEditorInput rInput = (RepositoryEditorInput) editorInput;
+                                    Property openedProperty = rInput.getItem().getProperty();
+                                    if (openedProperty.getId().equals(property.getId())
+                                            && VersionUtils.compareTo(openedProperty.getVersion(), property.getVersion()) == 0) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (PartInitException e) {
+            ExceptionHandler.process(e);
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * ggu Comment method "isEditableItemInEditor".
+     * 
+     * it's editable also.
+     * 
+     * for jobs/joblets/business diagrams/routines/sql patterns
+     */
+    public static boolean isEditableItemInEditor(IRepositoryObject objectToMove) {
+        try {
+            if (objectToMove != null) {
+                IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                if (activeWorkbenchWindow != null) {
+                    IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+                    if (activePage != null) {
+                        IEditorReference[] editorReferences = activePage.getEditorReferences();
+                        if (editorReferences != null) {
+                            Property property = objectToMove.getProperty().getItem().getProperty();
+
+                            for (IEditorReference editorReference : editorReferences) {
+                                IEditorInput editorInput = editorReference.getEditorInput();
+                                if (editorInput != null) {
+                                    RepositoryEditorInput rInput = null;
+                                    // for business/routine/sql pattern
+                                    IPersistableElement persistableElement = editorInput.getPersistable();
+                                    if (persistableElement != null && persistableElement instanceof RepositoryEditorInput) {
+                                        rInput = (RepositoryEditorInput) persistableElement;
+                                    }
+                                    // for job/joblet/routine/sql pattern
+                                    if (editorInput instanceof RepositoryEditorInput) {
+                                        rInput = (RepositoryEditorInput) editorInput;
+                                    }
+                                    if (rInput != null) {
+                                        Property openedProperty = rInput.getItem().getProperty();
+                                        if (openedProperty.getId().equals(property.getId())
+                                                && VersionUtils.compareTo(openedProperty.getVersion(), property.getVersion()) == 0
+                                                && !rInput.isReadOnly()) {
+
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (PartInitException e) {
+            ExceptionHandler.process(e);
+        }
+        return false;
     }
 }
