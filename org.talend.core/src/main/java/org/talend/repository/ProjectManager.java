@@ -91,11 +91,8 @@ public final class ProjectManager {
      * 
      */
     public Project getCurrentProject() {
-        if (this.currentProject == null || CommonsPlugin.isHeadless()) {
-            initCurrentProject();
-        }
+        initCurrentProject();
         return this.currentProject;
-
     }
 
     /**
