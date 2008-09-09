@@ -59,7 +59,7 @@ public class XmiResourceManager {
 
     // PTODO mhelleboid should use a custom ResourceFactory
     // PTODO mhelleboid test duplicate resourcesUri in resourceSet !
-    private static ResourceSet resourceSet = new ResourceSetImpl();
+    public static ResourceSet resourceSet = new ResourceSetImpl();
 
     private boolean useOldProjectFile;
 

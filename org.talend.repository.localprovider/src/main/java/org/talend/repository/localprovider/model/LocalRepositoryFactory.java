@@ -910,7 +910,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    private XmiResourceManager xmiResourceManager = new XmiResourceManager();
+    protected XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
@@ -1426,7 +1426,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(projectResource);
     }
 
-    public void initialize() {
+    public void initialize() throws PersistenceException {
         // xmiResourceManager.unloadResources();
     }
 
