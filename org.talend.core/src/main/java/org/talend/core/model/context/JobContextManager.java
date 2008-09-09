@@ -71,6 +71,11 @@ public class JobContextManager implements IContextManager {
 
     private Set<String> newParameters = new HashSet<String>();
 
+    /*
+     * record the original parameters (bug 4988)
+     */
+    private Set<String> originalParamerters = new HashSet<String>();
+
     private Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
 
     public JobContextManager() {
@@ -232,6 +237,7 @@ public class JobContextManager implements IContextManager {
                 contextParam.setContext(context);
                 contextParam.setName(contextParamType.getName());
                 contextParam.setPrompt(contextParamType.getPrompt());
+                originalParamerters.add(contextParam.getName());
                 boolean exists = false;
                 ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
                 if (curLanguage == ECodeLanguage.JAVA) {
@@ -402,4 +408,21 @@ public class JobContextManager implements IContextManager {
         this.newParametersMap = newParametersMap;
     }
 
+    /**
+     * 
+     * ggu Comment method "isOriginalParameter".
+     * 
+     * (bug 4988)
+     */
+    public boolean isOriginalParameter(String name) {
+        if (name != null) {
+            String oldName = nameMap.get(name);
+            if (oldName != null) { // renamed
+                return originalParamerters.contains(oldName);
+            } else {
+                return originalParamerters.contains(name);
+            }
+        }
+        return false;
+    }
 }

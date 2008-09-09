@@ -241,7 +241,12 @@ public class ContextCellModifier implements ICellModifier {
         if (getContextManager() != null) {
             IContextManager manager = getContextManager();
             if (manager != null && manager instanceof JobContextManager) {
-                ((JobContextManager) manager).setModified(true);
+                JobContextManager jobContextManager = (JobContextManager) manager;
+                // not added new
+                if (!getContextModelManager().isRepositoryContext() || getContextModelManager().isRepositoryContext()
+                        && jobContextManager.isOriginalParameter(para.getName())) {
+                    jobContextManager.setModified(true);
+                }
             }
         }
     }

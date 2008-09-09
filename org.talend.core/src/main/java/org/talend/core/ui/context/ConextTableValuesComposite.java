@@ -611,7 +611,11 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             if (modelManager != null) {
                 IContextManager manager = modelManager.getContextManager();
                 if (manager != null && manager instanceof JobContextManager) {
-                    ((JobContextManager) manager).setModified(true);
+                    JobContextManager jobContextManager = (JobContextManager) manager;
+                    if (!modelManager.isRepositoryContext() || modelManager.isRepositoryContext()
+                            && jobContextManager.isOriginalParameter(para.getName())) {
+                        jobContextManager.setModified(true);
+                    }
                 }
             }
         }

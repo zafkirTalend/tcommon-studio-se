@@ -50,4 +50,6 @@ public interface IContextModelManager {
     public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames);
 
     public boolean isReadOnly();
+
+    public boolean isRepositoryContext();
 }
