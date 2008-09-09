@@ -1,24 +1,24 @@
 <%
 	EXTRACT(__SCHEMA__);
-	String fields = "";
-	boolean flag=false;
+	String fieldsSource = "";
+	boolean flagSource=false;
 	for(int i=0; i < __SCHEMA__.length; i++){
-	 if(flag){
-		 fields += ",";
+	 if(flagSource){
+		 fieldsSource += ",";
 	 }else{
-		 flag=true;
+		 flagSource=true;
 	 }
 	 	if(__SCHEMA_DBTYPE__[i].equals("DECIMAL") || __SCHEMA_DBTYPE__[i].equals("VARCHAR") || __SCHEMA_DBTYPE__[i].equals("CHAR") || __SCHEMA_DBTYPE__[i].equals("BYTE") || __SCHEMA_DBTYPE__[i].equals("VARBYTE")){
 
-	 		fields += (__SCHEMA_NAME__[i] + " " + __SCHEMA_DBTYPE__[i] +" ("+ __SCHEMA_LENGTH__[i] +") ");	
+	 		fieldsSource += (__SCHEMA_NAME__[i] + " " + __SCHEMA_DBTYPE__[i] +" ("+ __SCHEMA_LENGTH__[i] +") ");	
 
-	 		//	 	} else if(__SCHEMA_DBTYPE__[i].equals("DECIMAL")){
-//	 		fields += (__SCHEMA_NAME__[i] + " " + __SCHEMA_DBTYPE__[i] +" ("+ __SCHEMA_LENGTH__[i] +","+ __SCHEMA_PRECISION__[i] +") ");	
+	 	} else if(__SCHEMA_DBTYPE__[i].equals("DECIMAL")){
+	 		fieldsSource += (__SCHEMA_NAME__[i] + " " + __SCHEMA_DBTYPE__[i] +" ("+ __SCHEMA_LENGTH__[i] +","+ __SCHEMA_PRECISION__[i] +") ");	
 	 	} else {
-	 		fields += (__SCHEMA_NAME__[i] + " " + __SCHEMA_DBTYPE__[i]);
+	 		fieldsSource += (__SCHEMA_NAME__[i] + " " + __SCHEMA_DBTYPE__[i]);
 	    }
 	 	if(__SCHEMA_NULLABLE__[i].equals("false")){
-	 		fields += " NOT NULL";
+	 		fieldsSource += " NOT NULL";
 	 	}
 	}
 	String primary = "";
@@ -32,7 +32,7 @@
 		}
 	}
 	if(!primary.equals("")){
-		fields += primary+")";
+		fieldsSource += primary+")";
 	}
 %>
 
@@ -41,4 +41,4 @@ NO BEFORE JOURNAL,
 NO AFTER JOURNAL,
 CHECKSUM = DEFAULT
 (
- <%= fields %>); 
+ <%= fieldsSource %>); 
