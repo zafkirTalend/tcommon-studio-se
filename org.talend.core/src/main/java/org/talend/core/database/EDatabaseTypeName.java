@@ -57,6 +57,7 @@ public enum EDatabaseTypeName {
 
     GREENPLUM("Greenplum", "Greenplum", new Boolean(true), "GREENPLUM", "GREENPLUM"),
     PARACCEL("ParAccel", "ParAccel", new Boolean(true), "PARACCEL", "PARACCEL"),
+    NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"),
 
     // General JDBC not support schema defalut
     GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "GENERAL_JDBC");
