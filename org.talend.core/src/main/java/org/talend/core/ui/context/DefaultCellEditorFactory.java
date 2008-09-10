@@ -108,6 +108,7 @@ public final class DefaultCellEditorFactory {
 
                     final List<String> list = Arrays.asList(BOOLEANS);
 
+                    @Override
                     protected void focusLost() {
                         super.focusLost();
                         String value = doGetValue().toString();
@@ -119,6 +120,7 @@ public final class DefaultCellEditorFactory {
                         setModifyFlag();
                     }
 
+                    @Override
                     public Object doGetValue() {
                         // Get the index into the list via this call to super.
                         //
@@ -142,6 +144,7 @@ public final class DefaultCellEditorFactory {
 
                     final List<String> list = Arrays.asList(BOOLEANS);
 
+                    @Override
                     protected void focusLost() {
                         super.focusLost();
                         String value = doGetValue().toString();
@@ -153,6 +156,7 @@ public final class DefaultCellEditorFactory {
                         setModifyFlag();
                     }
 
+                    @Override
                     public Object doGetValue() {
                         // Get the index into the list via this call to super.
                         //
@@ -178,7 +182,7 @@ public final class DefaultCellEditorFactory {
             if (isFile(type)) {
                 cellEditor = createFileCellEditor(table, defalutDataValue);
             } else if (isDate(type)) {
-                cellEditor = createDateCellEditor(table);
+                cellEditor = createDateCellEditor(table, para);
             } else if (isDirectory(type)) {
                 cellEditor = createDirectoryCellEditor(table, defalutDataValue);
             } else if (isList(type)) {
@@ -215,6 +219,7 @@ public final class DefaultCellEditorFactory {
     private CellEditor createDirectoryCellEditor(Composite parent, final String defaultPath) {
         return new CustomCellEditor(parent) {
 
+            @Override
             protected Object openDialogBox(Control cellEditorWindow) {
                 DirectoryDialog dialog = new DirectoryDialog(cellEditorWindow.getShell());
                 String path = defaultPath;
@@ -241,6 +246,7 @@ public final class DefaultCellEditorFactory {
              * @see org.talend.core.ui.context.DefaultCellEditorFactory.CustomCellEditor#doSetValue(java.lang.Object)
              */
             // @Override
+            @Override
             protected void doSetValue(Object value) {
                 if (value instanceof String[]) {
                     para2.setValueList((String[]) value);
@@ -255,10 +261,12 @@ public final class DefaultCellEditorFactory {
 
             }
 
+            @Override
             protected boolean isTextEditable() {
                 return false;
             }
 
+            @Override
             protected Object openDialogBox(Control cellEditorWindow) {
                 // Because the text is not editable.
                 // String input = getDefaultLabel().getText();
@@ -276,11 +284,12 @@ public final class DefaultCellEditorFactory {
         };
     }
 
-    private CellEditor createDateCellEditor(Composite parent) {
+    private CellEditor createDateCellEditor(Composite parent, final IContextParameter param) {
         return new CustomCellEditor(parent) {
 
+            @Override
             protected Object openDialogBox(Control cellEditorWindow) {
-                DateDialog d = new DateDialog(cellEditorWindow.getShell());
+                DateDialog d = new PatternCalendarDialog(cellEditorWindow.getShell(), param);
                 int res = d.open();
                 if (res == Dialog.OK) {
                     return getAddQuoteString(d.getTalendDateString());
@@ -289,6 +298,7 @@ public final class DefaultCellEditorFactory {
                 }
             }
 
+            @Override
             public void deactivate() {
                 super.deactivate();
             }
@@ -298,6 +308,7 @@ public final class DefaultCellEditorFactory {
     private CellEditor createFileCellEditor(Composite parent, final String defaultPath) {
         return new CustomCellEditor(parent) {
 
+            @Override
             protected Object openDialogBox(Control cellEditorWindow) {
                 FileDialog dialog = new FileDialog(cellEditorWindow.getShell());
                 String path = defaultPath;
@@ -312,6 +323,7 @@ public final class DefaultCellEditorFactory {
                 return getAddQuoteString(path);
             }
 
+            @Override
             public void deactivate() {
                 super.deactivate();
             }
