@@ -205,12 +205,12 @@ public class ImportItemUtil {
 
     public List<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords, IProgressMonitor monitor,
             boolean overwrite) {
+        reinitRepository();
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
         for (ItemRecord itemRecord : itemRecords) {
             if (!monitor.isCanceled()) {
                 monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                 if (itemRecord.isValid()) {
-                    reinitRepository();
                     importItemRecord(manager, itemRecord, overwrite);
                     monitor.worked(1);
                 }
@@ -222,7 +222,6 @@ public class ImportItemUtil {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
         for (ItemRecord itemRecord : itemRecords) {
             if (itemRecord.isImported()) {
-                reinitRepository();
                 applyMigrationTasks(itemRecord, monitor);
             }
             monitor.worked(1);

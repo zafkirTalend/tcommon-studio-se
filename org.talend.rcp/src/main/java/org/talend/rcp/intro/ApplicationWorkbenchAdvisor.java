@@ -14,10 +14,6 @@ package org.talend.rcp.intro;
 
 import java.lang.management.ManagementFactory;
 
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceDescription;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
@@ -93,15 +89,6 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     @Override
     public void postStartup() {
         super.postStartup();
-        // remove the auto-build to enhance the build speed and application's use
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        IWorkspaceDescription description = workspace.getDescription();
-        description.setAutoBuilding(false);
-        try {
-            workspace.setDescription(description);
-        } catch (CoreException e) {
-            // do nothing
-        }
 
         IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                 IRunProcessService.class);

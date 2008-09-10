@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.derby.iapi.services.io.FileUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -133,10 +134,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     }
 
     /*
-     * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code>
-     * (non-Javadoc)
+     * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code> (non-Javadoc)
      * 
-     * @see org.talend.repository.documentation.generation.IDocumentationGenerator#generateHTMLFile(org.talend.repository.documentation.ExportFileResource)
+     * @see
+     * org.talend.repository.documentation.generation.IDocumentationGenerator#generateHTMLFile(org.talend.repository
+     * .documentation.ExportFileResource)
      */
     public void generateHTMLFile(ExportFileResource resource) {
         try {
@@ -198,11 +200,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     }
 
     /*
-     * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code>
-     * (non-Javadoc)
+     * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code> (non-Javadoc)
      * 
-     * @see org.talend.repository.documentation.generation.IDocumentationGenerator#generateDocumentation(org.talend.repository.documentation.ExportFileResource,
-     * java.lang.String, java.lang.String[])
+     * @see
+     * org.talend.repository.documentation.generation.IDocumentationGenerator#generateDocumentation(org.talend.repository
+     * .documentation.ExportFileResource, java.lang.String, java.lang.String[])
      */
     public void generateDocumentation(ExportFileResource resource, String targetPath, String... jobVersion) throws Exception {
 
@@ -546,24 +548,24 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.MULTI_THREAD_EXECATION));
 
         createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.IMPLICIT_TCONTEXTLOAD));
-        if (nameValueMap.get(IJobSettingConstants.IMPLICIT_TCONTEXTLOAD).equals("true")) {
+        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.IMPLICIT_TCONTEXTLOAD), "true")) {
 
-            if (nameValueMap.get(IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT).equals("true")) {
+            if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT), "true")) {
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.IMPLICIT_TCONTEXTLOAD_FILE));
             }
 
-            if (nameValueMap.get(IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT).equals("true")) {
+            if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT), "true")) {
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT));
 
                 // some params about databse setting
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE));
-                if (!nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE).equalsIgnoreCase(
-                        "built_in")) {
+                if (!StringUtils.equalsIgnoreCase(nameValueMap
+                        .get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE), "built_in")) {
                     createSingleJobParameter(extraElement, getConnectionLabelById(makeNameValue(nameValueMap,
                             IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_REPOSITORY_PROPERTY_TYPE), null));
                 }
@@ -601,7 +603,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_CONSOLE_FLAG));
 
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_FILES_FLAG));
-        if (nameValueMap.get(IJobSettingConstants.ON_FILES_FLAG).equals("true")) {
+        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_FILES_FLAG), "true")) {
             // add on file details
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILE_PATH));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILENAME_LOGS));
@@ -610,12 +612,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         }
 
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_DATABASE_FLAG));
-        if (nameValueMap.get(IJobSettingConstants.ON_DATABASE_FLAG).equals("true")) {
+        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_DATABASE_FLAG), "true")) {
             // add on database details
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap,
                     IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE));
-            if (!nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE).equalsIgnoreCase("built_in")) {
+            if (!StringUtils.equalsIgnoreCase(nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE), "built_in")) {
                 createSingleJobParameter(statsAndLotsElement, getConnectionLabelById(makeNameValue(nameValueMap,
                         IJobSettingConstants.PROPERTY_TYPE_REPOSITORY_PROPERTY_TYPE), null));
             }
