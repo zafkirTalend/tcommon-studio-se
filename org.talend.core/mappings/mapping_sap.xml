@@ -107,7 +107,7 @@
 					<talendType type="id_Byte" default="true" />
 				</dbType>
 				<dbType type="TIME">
-					<talendType type="id_DATE" default="true" />
+					<talendType type="id_Date" default="true" />
 				</dbType>
 				<dbType type="TABLE">
 					<talendType type="id_Object" default="true" />
@@ -217,7 +217,7 @@
 					<talendType type="id_Byte" default="true" />
 				</dbType>
 				<dbType type="TIME">
-					<talendType type="id_DATE" default="true" />
+					<talendType type="id_Date" default="true" />
 				</dbType>
 				<dbType type="TABLE">
 					<talendType type="id_Object" default="true" />
