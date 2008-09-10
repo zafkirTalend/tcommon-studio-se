@@ -39,6 +39,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}</li>
  * </ul>
  * </p>
  *
@@ -923,5 +925,60 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetVISIBLE();
+
+    /**
+     * Returns the value of the '<em><b>SUBJOB COLOR</b></em>' attribute.
+     * The default value is <code>""</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SUBJOB COLOR</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SUBJOB COLOR</em>' attribute.
+     * @see #setSUBJOB_COLOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUBJOB_COLOR()
+     * @model default="" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SUBJOB_COLOR' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSUBJOB_COLOR();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SUBJOB COLOR</em>' attribute.
+     * @see #getSUBJOB_COLOR()
+     * @generated
+     */
+    void setSUBJOB_COLOR(String value);
+
+    /**
+     * Returns the value of the '<em><b>SUBJOB TITLE COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SUBJOB TITLE COLOR</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SUBJOB TITLE COLOR</em>' attribute.
+     * @see #setSUBJOB_TITLE_COLOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUBJOB_TITLE_COLOR()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SUBJOB_TITLE_COLOR' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSUBJOB_TITLE_COLOR();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SUBJOB TITLE COLOR</em>' attribute.
+     * @see #getSUBJOB_TITLE_COLOR()
+     * @generated
+     */
+    void setSUBJOB_TITLE_COLOR(String value);
 
 } // HEADERType

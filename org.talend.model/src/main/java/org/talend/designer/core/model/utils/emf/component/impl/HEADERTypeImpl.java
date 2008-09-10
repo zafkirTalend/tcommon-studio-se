@@ -46,6 +46,8 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}</li>
  * </ul>
  * </p>
  *
@@ -560,6 +562,46 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean vISIBLEESet;
+
+    /**
+     * The default value of the '{@link #getSUBJOB_COLOR() <em>SUBJOB COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOB_COLOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String SUBJOB_COLOR_EDEFAULT = "";
+
+    /**
+     * The cached value of the '{@link #getSUBJOB_COLOR() <em>SUBJOB COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOB_COLOR()
+     * @generated
+     * @ordered
+     */
+    protected String sUBJOB_COLOR = SUBJOB_COLOR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSUBJOB_TITLE_COLOR() <em>SUBJOB TITLE COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOB_TITLE_COLOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String SUBJOB_TITLE_COLOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSUBJOB_TITLE_COLOR() <em>SUBJOB TITLE COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOB_TITLE_COLOR()
+     * @generated
+     * @ordered
+     */
+    protected String sUBJOB_TITLE_COLOR = SUBJOB_TITLE_COLOR_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1323,6 +1365,48 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSUBJOB_COLOR() {
+        return sUBJOB_COLOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSUBJOB_COLOR(String newSUBJOB_COLOR) {
+        String oldSUBJOB_COLOR = sUBJOB_COLOR;
+        sUBJOB_COLOR = newSUBJOB_COLOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUBJOB_COLOR, oldSUBJOB_COLOR, sUBJOB_COLOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getSUBJOB_TITLE_COLOR() {
+        return sUBJOB_TITLE_COLOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSUBJOB_TITLE_COLOR(String newSUBJOB_TITLE_COLOR) {
+        String oldSUBJOB_TITLE_COLOR = sUBJOB_TITLE_COLOR;
+        sUBJOB_TITLE_COLOR = newSUBJOB_TITLE_COLOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR, oldSUBJOB_TITLE_COLOR, sUBJOB_TITLE_COLOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -1382,6 +1466,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
+                return getSUBJOB_COLOR();
+            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
+                return getSUBJOB_TITLE_COLOR();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1456,6 +1544,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 setVISIBLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
+                setSUBJOB_COLOR((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
+                setSUBJOB_TITLE_COLOR((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1532,6 +1626,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 unsetVISIBLE();
                 return;
+            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
+                setSUBJOB_COLOR(SUBJOB_COLOR_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
+                setSUBJOB_TITLE_COLOR(SUBJOB_TITLE_COLOR_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1586,6 +1686,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isSetVISIBLE();
+            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
+                return SUBJOB_COLOR_EDEFAULT == null ? sUBJOB_COLOR != null : !SUBJOB_COLOR_EDEFAULT.equals(sUBJOB_COLOR);
+            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
+                return SUBJOB_TITLE_COLOR_EDEFAULT == null ? sUBJOB_TITLE_COLOR != null : !SUBJOB_TITLE_COLOR_EDEFAULT.equals(sUBJOB_TITLE_COLOR);
         }
         return super.eIsSet(featureID);
     }
@@ -1640,6 +1744,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(vERSION);
         result.append(", vISIBLE: ");
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
+        result.append(", sUBJOB_COLOR: ");
+        result.append(sUBJOB_COLOR);
+        result.append(", sUBJOB_TITLE_COLOR: ");
+        result.append(sUBJOB_TITLE_COLOR);
         result.append(')');
         return result.toString();
     }

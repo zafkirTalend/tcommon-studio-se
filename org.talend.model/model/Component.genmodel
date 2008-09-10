@@ -5,8 +5,8 @@
     modelPluginID="org.talend.model" templateDirectory="" modelName="component" editPluginClass="org.talend.designer.core.model.utils.emf.component.provider.componentEditPlugin"
     editorPluginClass="org.talend.designer.core.model.utils.emf.component.presentation.componentEditorPlugin"
     testSuiteClass="org.talend.designer.core.model.utils.emf.component.tests.componentAllTests"
-    importerID="org.eclipse.xsd.ecore.importer">
-  <foreignModel>Component.xsd</foreignModel>
+    importerID="org.eclipse.emf.importer.ecore">
+  <foreignModel>Component.ecore</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
     <genClasses ecoreClass="Component.ecore#//ADVANCEDPARAMETERSType">
@@ -110,6 +110,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tSTATCATCHERSTATS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vISIBLE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sUBJOB_COLOR"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sUBJOB_TITLE_COLOR"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTSType/iMPORT"/>

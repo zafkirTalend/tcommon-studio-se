@@ -67,7 +67,11 @@
 				use="optional" default="false" />
 			<xs:attribute name="SINGLETON" type="xs:boolean"
 				use="optional" default="false" />
-			<xs:attribute name="MAIN_CODE_CALLED" type="xs:boolean" use="optional" default="true"></xs:attribute>
+			<xs:attribute name="MAIN_CODE_CALLED" type="xs:boolean"
+				use="optional" default="true">
+			</xs:attribute>
+			<xs:attribute name="SUBJOB_COLOR" type="xs:string" use="optional"></xs:attribute>
+			<xs:attribute name="SUBJOB_TITLE_COLOR" type="xs:string" use="optional"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">

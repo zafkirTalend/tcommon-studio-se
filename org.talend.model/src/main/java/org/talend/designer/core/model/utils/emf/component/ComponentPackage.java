@@ -981,13 +981,31 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__VISIBLE = 20;
 
     /**
+     * The feature id for the '<em><b>SUBJOB COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SUBJOB_COLOR = 21;
+
+    /**
+     * The feature id for the '<em><b>SUBJOB TITLE COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SUBJOB_TITLE_COLOR = 22;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 21;
+    int HEADER_TYPE_FEATURE_COUNT = 23;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2971,6 +2989,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_VISIBLE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SUBJOB COLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SUBJOB_COLOR();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SUBJOB TITLE COLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SUBJOB_TITLE_COLOR();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType <em>IMPORTS Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4713,6 +4753,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
+
+        /**
+         * The meta object literal for the '<em><b>SUBJOB COLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SUBJOB_COLOR = eINSTANCE.getHEADERType_SUBJOB_COLOR();
+
+        /**
+         * The meta object literal for the '<em><b>SUBJOB TITLE COLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SUBJOB_TITLE_COLOR = eINSTANCE.getHEADERType_SUBJOB_TITLE_COLOR();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
