@@ -552,7 +552,10 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
             if (element instanceof GroupBySourceProvier.Parent) {
                 if (IContextParameter.BUILT_IN.equals(((GroupBySourceProvier.Parent) element).sourceName)) {
-                    para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
+                    IContextParameter builtContextParameter = ((GroupBySourceProvier.Parent) element).builtContextParameter;
+                    if (builtContextParameter != null) {
+                        para = context.getContextParameter(builtContextParameter.getName());
+                    }
                 }
             } else if (element instanceof GroupBySourceProvier.Son) {
                 para = context.getContextParameter(((GroupBySourceProvier.Son) element).parameter.getName());

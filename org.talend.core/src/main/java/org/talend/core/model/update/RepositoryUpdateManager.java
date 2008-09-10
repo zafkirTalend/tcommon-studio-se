@@ -124,13 +124,23 @@ public abstract class RepositoryUpdateManager {
                 Messages.getString("RepositoryUpdateManager.NoModificationMessages")); //$NON-NLS-1$
     }
 
+    private boolean openRenameCheckedDialog() {
+        return MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), Messages
+                .getString("RepositoryUpdateManager.RenameContextTitle"), //$NON-NLS-1$
+                Messages.getString("RepositoryUpdateManager.RenameContextMessages")); //$NON-NLS-1$
+
+    }
+
     public boolean doWork() {
         return doWork(true);
     }
 
     public boolean needForcePropagation() {
-        return (getContextRenamedMap() != null && !getContextRenamedMap().isEmpty())
-                || (getSchemaRenamedMap() != null && !getSchemaRenamedMap().isEmpty());
+        return needForcePropagationForContext() || (getSchemaRenamedMap() != null && !getSchemaRenamedMap().isEmpty());
+    }
+
+    private boolean needForcePropagationForContext() {
+        return getContextRenamedMap() != null && !getContextRenamedMap().isEmpty();
     }
 
     public boolean doWork(boolean show) {
@@ -138,7 +148,10 @@ public abstract class RepositoryUpdateManager {
         boolean checked = true;
         boolean showed = false;
         if (show) {
-            if (parameter != null && !needForcePropagation()) {
+            if (needForcePropagationForContext()) {
+                checked = openRenameCheckedDialog(); // bug 4988
+                showed = true;
+            } else if (parameter != null && !needForcePropagation()) {
                 // see feature 4786
                 boolean deactive = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
                         ITalendCorePrefConstants.DEACTIVE_REPOSITORY_UPDATE));
@@ -349,7 +362,7 @@ public abstract class RepositoryUpdateManager {
             }
             // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
             boolean checkOnlyLastVersion = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService()
-                    .getPreferenceStore("checkOnlyLastVersion"));
+                    .getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
             // get all version
             List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>((int) (processList.size() * 1.1));
             for (IRepositoryObject repositoryObj : processList) {
