@@ -190,6 +190,8 @@ public class ExtractMetaDataUtils {
 
             hashTable.put("MaxDB", "com.sap.dbtech.jdbc.DriverSapDB"); //$NON-NLS-1$ //$NON-NLS-2$
 
+            hashTable.put("Netezza", "org.netezza.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {
