@@ -1,6 +1,22 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//   
+// ============================================================================
 package routines.system;
 
 public class TalendThreadPool {
+
+    private volatile boolean stopAllWorkers = false;
+
+    private TalendThread errorThread = null;
 
     private ThreadQueue idleWorkers;
 
@@ -15,14 +31,19 @@ public class TalendThreadPool {
         }
     }
 
-    public void execute(Runnable target) throws InterruptedException {
-        ThreadPoolWorker worker = (ThreadPoolWorker) idleWorkers.remove();
-        worker.process(target);
+    public void execute(TalendThread target) throws InterruptedException {
+        if (!stopAllWorkers) {
+            ThreadPoolWorker worker = (ThreadPoolWorker) idleWorkers.remove();
+            target.talendThreadPool = this;
+            if (worker != null) {
+                worker.process(target);
+            }
+        }
     }
 
     public void waitForEndOfQueue() {
         try {
-            while (idleWorkers.getSize() != workerList.length) {
+            while (!stopAllWorkers && idleWorkers.getSize() != workerList.length) {
                 Thread.sleep(100);
             }
             for (int i = 0; i < workerList.length; i++) {
@@ -32,6 +53,34 @@ public class TalendThreadPool {
                 }
             }
         } catch (InterruptedException x) {
+        }
+    }
+
+    public void stopAllWorkers() {
+        if (!stopAllWorkers) {
+            try {
+                stopAllWorkers = true;
+                idleWorkers.destory();
+                for (int i = 0; i < workerList.length; i++) {
+                    workerList[i].stopRequest();
+                    while (workerList[i].isAlive()) {
+                        Thread.sleep(100);
+                    }
+                }
+            } catch (InterruptedException x) {
+            }
+
+        }
+    }
+
+    public TalendThread getErrorThread() {
+        return errorThread;
+    }
+
+    // only keep the first ErrorThread
+    public void setErrorThread(TalendThread errorThread) {
+        if (this.errorThread == null) {
+            this.errorThread = errorThread;
         }
     }
 }
@@ -130,6 +179,8 @@ class ThreadQueue {
 
     private int tail;
 
+    private volatile boolean isDestory = false;
+
     public ThreadQueue(int cap) {
         maxSize = (cap > 0) ? cap : 1; // at least 1
         queue = new Object[maxSize];
@@ -199,8 +250,9 @@ class ThreadQueue {
         }
     }
 
+    // "remove" work with sign "isDestory"
     public synchronized void waitWhileEmpty() throws InterruptedException {
-        while (isEmpty()) {
+        while (!isDestory && isEmpty()) {
             wait();
         }
     }
@@ -211,9 +263,16 @@ class ThreadQueue {
         }
     }
 
+    // "add" work with sign "isDestory"
     public synchronized void waitWhileFull() throws InterruptedException {
-        while (isFull()) {
+        while (!isDestory && isFull()) {
             wait();
         }
     }
+
+    public synchronized void destory() throws InterruptedException {
+        isDestory = true;
+        this.notify();
+    }
+
 }
