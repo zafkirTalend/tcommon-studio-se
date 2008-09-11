@@ -130,4 +130,16 @@ public class ColorUtils {
         return parseStringToColor(color).getRGB();
     }
 
+    /**
+     * 
+     * ggu Comment method "transform".
+     * 
+     * "255,255,255" (such as preference value) transform to "255;255;255"
+     */
+    public static String transform(String color) {
+        if (color == null) {
+            return null;
+        }
+        return color.replaceAll(COMMA, SEMICOLON);
+    }
 }
