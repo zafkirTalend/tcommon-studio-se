@@ -18,11 +18,14 @@ public class TalendThreadPool {
 
     private TalendThread errorThread = null;
 
+    private TalendThreadResult threadResult = null;
+
     private ThreadQueue idleWorkers;
 
     private ThreadPoolWorker[] workerList;
 
     public TalendThreadPool(int numberOfThreads) {
+        threadResult = new TalendThreadResult();
         numberOfThreads = Math.max(1, numberOfThreads);
         idleWorkers = new ThreadQueue(numberOfThreads);
         workerList = new ThreadPoolWorker[numberOfThreads];
@@ -82,6 +85,10 @@ public class TalendThreadPool {
         if (this.errorThread == null) {
             this.errorThread = errorThread;
         }
+    }
+
+    public TalendThreadResult getTalendThreadResult() {
+        return threadResult;
     }
 }
 
