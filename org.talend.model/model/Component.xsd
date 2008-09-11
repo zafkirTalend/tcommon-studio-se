@@ -72,6 +72,12 @@
 			</xs:attribute>
 			<xs:attribute name="SUBJOB_COLOR" type="xs:string" use="optional"></xs:attribute>
 			<xs:attribute name="SUBJOB_TITLE_COLOR" type="xs:string" use="optional"></xs:attribute>
+			<xs:attribute name="PARALLELIZE" type="xs:boolean"
+				use="optional" default="false">
+			</xs:attribute>
+			<xs:attribute name="NUMBER_PARALLELIZE" type="xs:string"
+				use="optional" default="2">
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">

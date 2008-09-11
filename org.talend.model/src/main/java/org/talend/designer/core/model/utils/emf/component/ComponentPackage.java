@@ -882,13 +882,31 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__MAINCODECALLED = 9;
 
     /**
+     * The feature id for the '<em><b>NUMBERPARALLELIZE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__NUMBERPARALLELIZE = 10;
+
+    /**
+     * The feature id for the '<em><b>PARALLELIZE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__PARALLELIZE = 11;
+
+    /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__PLATEFORM = 10;
+    int HEADER_TYPE__PLATEFORM = 12;
 
     /**
      * The feature id for the '<em><b>RELEASEDATE</b></em>' attribute.
@@ -897,7 +915,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__RELEASEDATE = 11;
+    int HEADER_TYPE__RELEASEDATE = 13;
 
     /**
      * The feature id for the '<em><b>SCHEMAAUTOPROPAGATE</b></em>' attribute.
@@ -906,7 +924,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 12;
+    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 14;
 
     /**
      * The feature id for the '<em><b>SERIAL</b></em>' attribute.
@@ -915,7 +933,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SERIAL = 13;
+    int HEADER_TYPE__SERIAL = 15;
 
     /**
      * The feature id for the '<em><b>SINGLETON</b></em>' attribute.
@@ -924,7 +942,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SINGLETON = 14;
+    int HEADER_TYPE__SINGLETON = 16;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -933,7 +951,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 15;
+    int HEADER_TYPE__STARTABLE = 17;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -942,7 +960,25 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 16;
+    int HEADER_TYPE__STATUS = 18;
+
+    /**
+     * The feature id for the '<em><b>SUBJOBCOLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SUBJOBCOLOR = 19;
+
+    /**
+     * The feature id for the '<em><b>SUBJOBTITLECOLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SUBJOBTITLECOLOR = 20;
 
     /**
      * The feature id for the '<em><b>TECHNICAL</b></em>' attribute.
@@ -951,7 +987,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TECHNICAL = 17;
+    int HEADER_TYPE__TECHNICAL = 21;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -960,7 +996,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 18;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 22;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -969,7 +1005,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 19;
+    int HEADER_TYPE__VERSION = 23;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -978,25 +1014,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 20;
-
-    /**
-     * The feature id for the '<em><b>SUBJOB COLOR</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__SUBJOB_COLOR = 21;
-
-    /**
-     * The feature id for the '<em><b>SUBJOB TITLE COLOR</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__SUBJOB_TITLE_COLOR = 22;
+    int HEADER_TYPE__VISIBLE = 24;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -1005,7 +1023,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 23;
+    int HEADER_TYPE_FEATURE_COUNT = 25;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2868,6 +2886,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_MAINCODECALLED();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getNUMBERPARALLELIZE <em>NUMBERPARALLELIZE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NUMBERPARALLELIZE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getNUMBERPARALLELIZE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_NUMBERPARALLELIZE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isPARALLELIZE <em>PARALLELIZE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>PARALLELIZE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isPARALLELIZE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_PARALLELIZE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2945,6 +2985,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_STATUS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBCOLOR <em>SUBJOBCOLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SUBJOBCOLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBCOLOR()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SUBJOBCOLOR();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBTITLECOLOR <em>SUBJOBTITLECOLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SUBJOBTITLECOLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBTITLECOLOR()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SUBJOBTITLECOLOR();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2987,28 +3049,6 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_VISIBLE();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>SUBJOB COLOR</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_SUBJOB_COLOR();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>SUBJOB TITLE COLOR</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_SUBJOB_TITLE_COLOR();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType <em>IMPORTS Type</em>}'.
@@ -4667,6 +4707,22 @@ public interface ComponentPackage extends EPackage {
         EAttribute HEADER_TYPE__MAINCODECALLED = eINSTANCE.getHEADERType_MAINCODECALLED();
 
         /**
+         * The meta object literal for the '<em><b>NUMBERPARALLELIZE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__NUMBERPARALLELIZE = eINSTANCE.getHEADERType_NUMBERPARALLELIZE();
+
+        /**
+         * The meta object literal for the '<em><b>PARALLELIZE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__PARALLELIZE = eINSTANCE.getHEADERType_PARALLELIZE();
+
+        /**
          * The meta object literal for the '<em><b>PLATEFORM</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4723,6 +4779,22 @@ public interface ComponentPackage extends EPackage {
         EAttribute HEADER_TYPE__STATUS = eINSTANCE.getHEADERType_STATUS();
 
         /**
+         * The meta object literal for the '<em><b>SUBJOBCOLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SUBJOBCOLOR = eINSTANCE.getHEADERType_SUBJOBCOLOR();
+
+        /**
+         * The meta object literal for the '<em><b>SUBJOBTITLECOLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SUBJOBTITLECOLOR = eINSTANCE.getHEADERType_SUBJOBTITLECOLOR();
+
+        /**
          * The meta object literal for the '<em><b>TECHNICAL</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4753,22 +4825,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
-
-        /**
-         * The meta object literal for the '<em><b>SUBJOB COLOR</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__SUBJOB_COLOR = eINSTANCE.getHEADERType_SUBJOB_COLOR();
-
-        /**
-         * The meta object literal for the '<em><b>SUBJOB TITLE COLOR</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__SUBJOB_TITLE_COLOR = eINSTANCE.getHEADERType_SUBJOB_TITLE_COLOR();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.

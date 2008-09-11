@@ -35,6 +35,8 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isMAINCODECALLED <em>MAINCODECALLED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getNUMBERPARALLELIZE <em>NUMBERPARALLELIZE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isPARALLELIZE <em>PARALLELIZE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -42,12 +44,12 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSINGLETON <em>SINGLETON</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSUBJOBCOLOR <em>SUBJOBCOLOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSUBJOBTITLECOLOR <em>SUBJOBTITLECOLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTECHNICAL <em>TECHNICAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}</li>
  * </ul>
  * </p>
  *
@@ -290,6 +292,64 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
     protected boolean mAINCODECALLEDESet;
 
     /**
+     * The default value of the '{@link #getNUMBERPARALLELIZE() <em>NUMBERPARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNUMBERPARALLELIZE()
+     * @generated
+     * @ordered
+     */
+    protected static final String NUMBERPARALLELIZE_EDEFAULT = "2";
+
+    /**
+     * The cached value of the '{@link #getNUMBERPARALLELIZE() <em>NUMBERPARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNUMBERPARALLELIZE()
+     * @generated
+     * @ordered
+     */
+    protected String nUMBERPARALLELIZE = NUMBERPARALLELIZE_EDEFAULT;
+
+    /**
+     * This is true if the NUMBERPARALLELIZE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean nUMBERPARALLELIZEESet;
+
+    /**
+     * The default value of the '{@link #isPARALLELIZE() <em>PARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isPARALLELIZE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean PARALLELIZE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isPARALLELIZE() <em>PARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isPARALLELIZE()
+     * @generated
+     * @ordered
+     */
+    protected boolean pARALLELIZE = PARALLELIZE_EDEFAULT;
+
+    /**
+     * This is true if the PARALLELIZE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean pARALLELIZEESet;
+
+    /**
      * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -457,6 +517,46 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
     protected String sTATUS = STATUS_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getSUBJOBCOLOR() <em>SUBJOBCOLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOBCOLOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String SUBJOBCOLOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSUBJOBCOLOR() <em>SUBJOBCOLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOBCOLOR()
+     * @generated
+     * @ordered
+     */
+    protected String sUBJOBCOLOR = SUBJOBCOLOR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSUBJOBTITLECOLOR() <em>SUBJOBTITLECOLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOBTITLECOLOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String SUBJOBTITLECOLOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSUBJOBTITLECOLOR() <em>SUBJOBTITLECOLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSUBJOBTITLECOLOR()
+     * @generated
+     * @ordered
+     */
+    protected String sUBJOBTITLECOLOR = SUBJOBTITLECOLOR_EDEFAULT;
+
+    /**
      * The default value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -562,46 +662,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean vISIBLEESet;
-
-    /**
-     * The default value of the '{@link #getSUBJOB_COLOR() <em>SUBJOB COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getSUBJOB_COLOR()
-     * @generated
-     * @ordered
-     */
-    protected static final String SUBJOB_COLOR_EDEFAULT = "";
-
-    /**
-     * The cached value of the '{@link #getSUBJOB_COLOR() <em>SUBJOB COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getSUBJOB_COLOR()
-     * @generated
-     * @ordered
-     */
-    protected String sUBJOB_COLOR = SUBJOB_COLOR_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getSUBJOB_TITLE_COLOR() <em>SUBJOB TITLE COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getSUBJOB_TITLE_COLOR()
-     * @generated
-     * @ordered
-     */
-    protected static final String SUBJOB_TITLE_COLOR_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getSUBJOB_TITLE_COLOR() <em>SUBJOB TITLE COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getSUBJOB_TITLE_COLOR()
-     * @generated
-     * @ordered
-     */
-    protected String sUBJOB_TITLE_COLOR = SUBJOB_TITLE_COLOR_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -984,6 +1044,98 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getNUMBERPARALLELIZE() {
+        return nUMBERPARALLELIZE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNUMBERPARALLELIZE(String newNUMBERPARALLELIZE) {
+        String oldNUMBERPARALLELIZE = nUMBERPARALLELIZE;
+        nUMBERPARALLELIZE = newNUMBERPARALLELIZE;
+        boolean oldNUMBERPARALLELIZEESet = nUMBERPARALLELIZEESet;
+        nUMBERPARALLELIZEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__NUMBERPARALLELIZE, oldNUMBERPARALLELIZE, nUMBERPARALLELIZE, !oldNUMBERPARALLELIZEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNUMBERPARALLELIZE() {
+        String oldNUMBERPARALLELIZE = nUMBERPARALLELIZE;
+        boolean oldNUMBERPARALLELIZEESet = nUMBERPARALLELIZEESet;
+        nUMBERPARALLELIZE = NUMBERPARALLELIZE_EDEFAULT;
+        nUMBERPARALLELIZEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__NUMBERPARALLELIZE, oldNUMBERPARALLELIZE, NUMBERPARALLELIZE_EDEFAULT, oldNUMBERPARALLELIZEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNUMBERPARALLELIZE() {
+        return nUMBERPARALLELIZEESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isPARALLELIZE() {
+        return pARALLELIZE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPARALLELIZE(boolean newPARALLELIZE) {
+        boolean oldPARALLELIZE = pARALLELIZE;
+        pARALLELIZE = newPARALLELIZE;
+        boolean oldPARALLELIZEESet = pARALLELIZEESet;
+        pARALLELIZEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__PARALLELIZE, oldPARALLELIZE, pARALLELIZE, !oldPARALLELIZEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetPARALLELIZE() {
+        boolean oldPARALLELIZE = pARALLELIZE;
+        boolean oldPARALLELIZEESet = pARALLELIZEESet;
+        pARALLELIZE = PARALLELIZE_EDEFAULT;
+        pARALLELIZEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__PARALLELIZE, oldPARALLELIZE, PARALLELIZE_EDEFAULT, oldPARALLELIZEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetPARALLELIZE() {
+        return pARALLELIZEESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getPLATEFORM() {
         return pLATEFORM;
     }
@@ -1206,6 +1358,48 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSUBJOBCOLOR() {
+        return sUBJOBCOLOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSUBJOBCOLOR(String newSUBJOBCOLOR) {
+        String oldSUBJOBCOLOR = sUBJOBCOLOR;
+        sUBJOBCOLOR = newSUBJOBCOLOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUBJOBCOLOR, oldSUBJOBCOLOR, sUBJOBCOLOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getSUBJOBTITLECOLOR() {
+        return sUBJOBTITLECOLOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSUBJOBTITLECOLOR(String newSUBJOBTITLECOLOR) {
+        String oldSUBJOBTITLECOLOR = sUBJOBTITLECOLOR;
+        sUBJOBTITLECOLOR = newSUBJOBTITLECOLOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUBJOBTITLECOLOR, oldSUBJOBTITLECOLOR, sUBJOBTITLECOLOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isTECHNICAL() {
         return tECHNICAL;
     }
@@ -1365,48 +1559,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getSUBJOB_COLOR() {
-        return sUBJOB_COLOR;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setSUBJOB_COLOR(String newSUBJOB_COLOR) {
-        String oldSUBJOB_COLOR = sUBJOB_COLOR;
-        sUBJOB_COLOR = newSUBJOB_COLOR;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUBJOB_COLOR, oldSUBJOB_COLOR, sUBJOB_COLOR));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getSUBJOB_TITLE_COLOR() {
-        return sUBJOB_TITLE_COLOR;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setSUBJOB_TITLE_COLOR(String newSUBJOB_TITLE_COLOR) {
-        String oldSUBJOB_TITLE_COLOR = sUBJOB_TITLE_COLOR;
-        sUBJOB_TITLE_COLOR = newSUBJOB_TITLE_COLOR;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR, oldSUBJOB_TITLE_COLOR, sUBJOB_TITLE_COLOR));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -1444,6 +1596,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isISMULTIPLYINGOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
                 return isMAINCODECALLED() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.HEADER_TYPE__NUMBERPARALLELIZE:
+                return getNUMBERPARALLELIZE();
+            case ComponentPackage.HEADER_TYPE__PARALLELIZE:
+                return isPARALLELIZE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return getPLATEFORM();
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1458,6 +1614,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSTARTABLE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__STATUS:
                 return getSTATUS();
+            case ComponentPackage.HEADER_TYPE__SUBJOBCOLOR:
+                return getSUBJOBCOLOR();
+            case ComponentPackage.HEADER_TYPE__SUBJOBTITLECOLOR:
+                return getSUBJOBTITLECOLOR();
             case ComponentPackage.HEADER_TYPE__TECHNICAL:
                 return isTECHNICAL() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
@@ -1466,10 +1626,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
-            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
-                return getSUBJOB_COLOR();
-            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
-                return getSUBJOB_TITLE_COLOR();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1512,6 +1668,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
                 setMAINCODECALLED(((Boolean)newValue).booleanValue());
                 return;
+            case ComponentPackage.HEADER_TYPE__NUMBERPARALLELIZE:
+                setNUMBERPARALLELIZE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__PARALLELIZE:
+                setPARALLELIZE(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM((String)newValue);
                 return;
@@ -1533,6 +1695,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__STATUS:
                 setSTATUS((String)newValue);
                 return;
+            case ComponentPackage.HEADER_TYPE__SUBJOBCOLOR:
+                setSUBJOBCOLOR((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SUBJOBTITLECOLOR:
+                setSUBJOBTITLECOLOR((String)newValue);
+                return;
             case ComponentPackage.HEADER_TYPE__TECHNICAL:
                 setTECHNICAL(((Boolean)newValue).booleanValue());
                 return;
@@ -1544,12 +1712,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 setVISIBLE(((Boolean)newValue).booleanValue());
-                return;
-            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
-                setSUBJOB_COLOR((String)newValue);
-                return;
-            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
-                setSUBJOB_TITLE_COLOR((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1593,6 +1755,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
                 unsetMAINCODECALLED();
                 return;
+            case ComponentPackage.HEADER_TYPE__NUMBERPARALLELIZE:
+                unsetNUMBERPARALLELIZE();
+                return;
+            case ComponentPackage.HEADER_TYPE__PARALLELIZE:
+                unsetPARALLELIZE();
+                return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM(PLATEFORM_EDEFAULT);
                 return;
@@ -1614,6 +1782,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__STATUS:
                 setSTATUS(STATUS_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__SUBJOBCOLOR:
+                setSUBJOBCOLOR(SUBJOBCOLOR_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__SUBJOBTITLECOLOR:
+                setSUBJOBTITLECOLOR(SUBJOBTITLECOLOR_EDEFAULT);
+                return;
             case ComponentPackage.HEADER_TYPE__TECHNICAL:
                 unsetTECHNICAL();
                 return;
@@ -1625,12 +1799,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 unsetVISIBLE();
-                return;
-            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
-                setSUBJOB_COLOR(SUBJOB_COLOR_EDEFAULT);
-                return;
-            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
-                setSUBJOB_TITLE_COLOR(SUBJOB_TITLE_COLOR_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -1664,6 +1832,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetISMULTIPLYINGOUTPUTS();
             case ComponentPackage.HEADER_TYPE__MAINCODECALLED:
                 return isSetMAINCODECALLED();
+            case ComponentPackage.HEADER_TYPE__NUMBERPARALLELIZE:
+                return isSetNUMBERPARALLELIZE();
+            case ComponentPackage.HEADER_TYPE__PARALLELIZE:
+                return isSetPARALLELIZE();
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1678,6 +1850,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetSTARTABLE();
             case ComponentPackage.HEADER_TYPE__STATUS:
                 return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
+            case ComponentPackage.HEADER_TYPE__SUBJOBCOLOR:
+                return SUBJOBCOLOR_EDEFAULT == null ? sUBJOBCOLOR != null : !SUBJOBCOLOR_EDEFAULT.equals(sUBJOBCOLOR);
+            case ComponentPackage.HEADER_TYPE__SUBJOBTITLECOLOR:
+                return SUBJOBTITLECOLOR_EDEFAULT == null ? sUBJOBTITLECOLOR != null : !SUBJOBTITLECOLOR_EDEFAULT.equals(sUBJOBTITLECOLOR);
             case ComponentPackage.HEADER_TYPE__TECHNICAL:
                 return isSetTECHNICAL();
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
@@ -1686,10 +1862,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
                 return isSetVISIBLE();
-            case ComponentPackage.HEADER_TYPE__SUBJOB_COLOR:
-                return SUBJOB_COLOR_EDEFAULT == null ? sUBJOB_COLOR != null : !SUBJOB_COLOR_EDEFAULT.equals(sUBJOB_COLOR);
-            case ComponentPackage.HEADER_TYPE__SUBJOB_TITLE_COLOR:
-                return SUBJOB_TITLE_COLOR_EDEFAULT == null ? sUBJOB_TITLE_COLOR != null : !SUBJOB_TITLE_COLOR_EDEFAULT.equals(sUBJOB_TITLE_COLOR);
         }
         return super.eIsSet(featureID);
     }
@@ -1722,6 +1894,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (iSMULTIPLYINGOUTPUTSESet) result.append(iSMULTIPLYINGOUTPUTS); else result.append("<unset>");
         result.append(", mAINCODECALLED: ");
         if (mAINCODECALLEDESet) result.append(mAINCODECALLED); else result.append("<unset>");
+        result.append(", nUMBERPARALLELIZE: ");
+        if (nUMBERPARALLELIZEESet) result.append(nUMBERPARALLELIZE); else result.append("<unset>");
+        result.append(", pARALLELIZE: ");
+        if (pARALLELIZEESet) result.append(pARALLELIZE); else result.append("<unset>");
         result.append(", pLATEFORM: ");
         result.append(pLATEFORM);
         result.append(", rELEASEDATE: ");
@@ -1736,6 +1912,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
         result.append(", sTATUS: ");
         result.append(sTATUS);
+        result.append(", sUBJOBCOLOR: ");
+        result.append(sUBJOBCOLOR);
+        result.append(", sUBJOBTITLECOLOR: ");
+        result.append(sUBJOBTITLECOLOR);
         result.append(", tECHNICAL: ");
         if (tECHNICALESet) result.append(tECHNICAL); else result.append("<unset>");
         result.append(", tSTATCATCHERSTATS: ");
@@ -1744,10 +1924,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(vERSION);
         result.append(", vISIBLE: ");
         if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
-        result.append(", sUBJOB_COLOR: ");
-        result.append(sUBJOB_COLOR);
-        result.append(", sUBJOB_TITLE_COLOR: ");
-        result.append(sUBJOB_TITLE_COLOR);
         result.append(')');
         return result.toString();
     }

@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASHCOMPONENT <em>HASHCOMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isMAINCODECALLED <em>MAINCODECALLED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getNUMBERPARALLELIZE <em>NUMBERPARALLELIZE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isPARALLELIZE <em>PARALLELIZE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -35,12 +37,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBCOLOR <em>SUBJOBCOLOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBTITLECOLOR <em>SUBJOBTITLECOLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}</li>
  * </ul>
  * </p>
  *
@@ -463,6 +465,116 @@ public interface HEADERType extends EObject {
     boolean isSetMAINCODECALLED();
 
     /**
+     * Returns the value of the '<em><b>NUMBERPARALLELIZE</b></em>' attribute.
+     * The default value is <code>"2"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NUMBERPARALLELIZE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NUMBERPARALLELIZE</em>' attribute.
+     * @see #isSetNUMBERPARALLELIZE()
+     * @see #unsetNUMBERPARALLELIZE()
+     * @see #setNUMBERPARALLELIZE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_NUMBERPARALLELIZE()
+     * @model default="2" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='NUMBER_PARALLELIZE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getNUMBERPARALLELIZE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getNUMBERPARALLELIZE <em>NUMBERPARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NUMBERPARALLELIZE</em>' attribute.
+     * @see #isSetNUMBERPARALLELIZE()
+     * @see #unsetNUMBERPARALLELIZE()
+     * @see #getNUMBERPARALLELIZE()
+     * @generated
+     */
+    void setNUMBERPARALLELIZE(String value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getNUMBERPARALLELIZE <em>NUMBERPARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNUMBERPARALLELIZE()
+     * @see #getNUMBERPARALLELIZE()
+     * @see #setNUMBERPARALLELIZE(String)
+     * @generated
+     */
+    void unsetNUMBERPARALLELIZE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getNUMBERPARALLELIZE <em>NUMBERPARALLELIZE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>NUMBERPARALLELIZE</em>' attribute is set.
+     * @see #unsetNUMBERPARALLELIZE()
+     * @see #getNUMBERPARALLELIZE()
+     * @see #setNUMBERPARALLELIZE(String)
+     * @generated
+     */
+    boolean isSetNUMBERPARALLELIZE();
+
+    /**
+     * Returns the value of the '<em><b>PARALLELIZE</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>PARALLELIZE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>PARALLELIZE</em>' attribute.
+     * @see #isSetPARALLELIZE()
+     * @see #unsetPARALLELIZE()
+     * @see #setPARALLELIZE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_PARALLELIZE()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='PARALLELIZE' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isPARALLELIZE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isPARALLELIZE <em>PARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>PARALLELIZE</em>' attribute.
+     * @see #isSetPARALLELIZE()
+     * @see #unsetPARALLELIZE()
+     * @see #isPARALLELIZE()
+     * @generated
+     */
+    void setPARALLELIZE(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isPARALLELIZE <em>PARALLELIZE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetPARALLELIZE()
+     * @see #isPARALLELIZE()
+     * @see #setPARALLELIZE(boolean)
+     * @generated
+     */
+    void unsetPARALLELIZE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isPARALLELIZE <em>PARALLELIZE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>PARALLELIZE</em>' attribute is set.
+     * @see #unsetPARALLELIZE()
+     * @see #isPARALLELIZE()
+     * @see #setPARALLELIZE(boolean)
+     * @generated
+     */
+    boolean isSetPARALLELIZE();
+
+    /**
      * Returns the value of the '<em><b>PLATEFORM</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -735,6 +847,60 @@ public interface HEADERType extends EObject {
     void setSTATUS(String value);
 
     /**
+     * Returns the value of the '<em><b>SUBJOBCOLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SUBJOBCOLOR</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SUBJOBCOLOR</em>' attribute.
+     * @see #setSUBJOBCOLOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUBJOBCOLOR()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SUBJOB_COLOR' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSUBJOBCOLOR();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBCOLOR <em>SUBJOBCOLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SUBJOBCOLOR</em>' attribute.
+     * @see #getSUBJOBCOLOR()
+     * @generated
+     */
+    void setSUBJOBCOLOR(String value);
+
+    /**
+     * Returns the value of the '<em><b>SUBJOBTITLECOLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SUBJOBTITLECOLOR</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SUBJOBTITLECOLOR</em>' attribute.
+     * @see #setSUBJOBTITLECOLOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUBJOBTITLECOLOR()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SUBJOB_TITLE_COLOR' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSUBJOBTITLECOLOR();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOBTITLECOLOR <em>SUBJOBTITLECOLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SUBJOBTITLECOLOR</em>' attribute.
+     * @see #getSUBJOBTITLECOLOR()
+     * @generated
+     */
+    void setSUBJOBTITLECOLOR(String value);
+
+    /**
      * Returns the value of the '<em><b>TECHNICAL</b></em>' attribute.
      * The default value is <code>"false"</code>.
      * <!-- begin-user-doc -->
@@ -925,60 +1091,5 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetVISIBLE();
-
-    /**
-     * Returns the value of the '<em><b>SUBJOB COLOR</b></em>' attribute.
-     * The default value is <code>""</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>SUBJOB COLOR</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>SUBJOB COLOR</em>' attribute.
-     * @see #setSUBJOB_COLOR(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUBJOB_COLOR()
-     * @model default="" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='SUBJOB_COLOR' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getSUBJOB_COLOR();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_COLOR <em>SUBJOB COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>SUBJOB COLOR</em>' attribute.
-     * @see #getSUBJOB_COLOR()
-     * @generated
-     */
-    void setSUBJOB_COLOR(String value);
-
-    /**
-     * Returns the value of the '<em><b>SUBJOB TITLE COLOR</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>SUBJOB TITLE COLOR</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>SUBJOB TITLE COLOR</em>' attribute.
-     * @see #setSUBJOB_TITLE_COLOR(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SUBJOB_TITLE_COLOR()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='SUBJOB_TITLE_COLOR' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getSUBJOB_TITLE_COLOR();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSUBJOB_TITLE_COLOR <em>SUBJOB TITLE COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>SUBJOB TITLE COLOR</em>' attribute.
-     * @see #getSUBJOB_TITLE_COLOR()
-     * @generated
-     */
-    void setSUBJOB_TITLE_COLOR(String value);
 
 } // HEADERType
