@@ -31,13 +31,6 @@ public enum EConnectionType implements IConnectionCategory {
               new Integer(Graphics.LINE_SOLID),
               new RGB(230, 100, 0)),
 
-    ON_SUBJOB_OK(1, "SUBJOB_OK", //$NON-NLS-1$
-                 EConnectionCategory.OTHER,
-                 EXECUTION_ORDER | DEPENDENCY | UNIQUE_NAME,
-                 "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                 new Integer(Graphics.LINE_SOLID),
-                 new RGB(0, 100, 0)),
-
     RUN_AFTER(2, "AFTER", //$NON-NLS-1$
               EConnectionCategory.OTHER,
               EXECUTION_ORDER | DEPENDENCY,
@@ -45,12 +38,19 @@ public enum EConnectionType implements IConnectionCategory {
               new Integer(Graphics.LINE_SOLID),
               new RGB(100, 100, 100)),
 
-    ON_COMPONENT_OK(3, "COMPONENT_OK", //$NON-NLS-1$
-                    EConnectionCategory.OTHER,
-                    CONDITION | DEPENDENCY | UNIQUE_NAME,
-                    "OnComponentOk", Messages.getString("EConnectionType.onComponentOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                    new Integer(Graphics.LINE_SOLID),
-                    new RGB(0, 150, 0)),
+    RUN_IF(6, "RUN_IF", //$NON-NLS-1$
+           EConnectionCategory.OTHER,
+           CONDITION | DEPENDENCY | CUSTOM_NAME | UNIQUE_NAME,
+           "If", Messages.getString("EConnectionType.runIfMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+           new Integer(Graphics.LINE_DASHDOTDOT),
+           new RGB(180, 100, 30)),
+
+    ON_SUBJOB_OK(1, "SUBJOB_OK", //$NON-NLS-1$
+                 EConnectionCategory.OTHER,
+                 EXECUTION_ORDER | DEPENDENCY | UNIQUE_NAME,
+                 "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                 new Integer(Graphics.LINE_SOLID),
+                 new RGB(0, 100, 0)),
 
     ON_SUBJOB_ERROR(4, "SUBJOB_ERROR", //$NON-NLS-1$
                     EConnectionCategory.OTHER,
@@ -59,18 +59,26 @@ public enum EConnectionType implements IConnectionCategory {
                     new Integer(Graphics.LINE_SOLID),
                     new RGB(128, 0, 0)),
 
+    ON_COMPONENT_OK(3, "COMPONENT_OK", //$NON-NLS-1$
+                    EConnectionCategory.OTHER,
+                    CONDITION | DEPENDENCY | UNIQUE_NAME,
+                    "OnComponentOk", Messages.getString("EConnectionType.onComponentOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                    new Integer(Graphics.LINE_SOLID),
+                    new RGB(0, 150, 0)),
+
     ON_COMPONENT_ERROR(5, "COMPONENT_ERROR", //$NON-NLS-1$
                        EConnectionCategory.OTHER,
                        CONDITION | DEPENDENCY | UNIQUE_NAME,
                        "OnComponentError", Messages.getString("EConnectionType.onComponentErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                        new Integer(Graphics.LINE_SOLID),
                        new RGB(200, 0, 0)),
-    RUN_IF(6, "RUN_IF", //$NON-NLS-1$
-           EConnectionCategory.OTHER,
-           CONDITION | DEPENDENCY | CUSTOM_NAME | UNIQUE_NAME,
-           "If", Messages.getString("EConnectionType.runIfMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-           new Integer(Graphics.LINE_DASHDOTDOT),
-           new RGB(180, 100, 30)),
+
+    ON_ROWS_END(11, "ROWS_END", //$NON-NLS-1$
+                EConnectionCategory.MAIN,
+                MAIN | USE_ITERATE,
+                "OnRowsEnd", Messages.getString("EConnectionType.onRowsEndMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                new Integer(Graphics.LINE_SOLID),
+                new RGB(0, 150, 0)),
 
     ITERATE(7, "ITERATE", //$NON-NLS-1$
             EConnectionCategory.MAIN,
@@ -82,7 +90,7 @@ public enum EConnectionType implements IConnectionCategory {
     FLOW_REF(8, "LOOKUP", //$NON-NLS-1$
              EConnectionCategory.OTHER,
              DATA | FLOW | CUSTOM_NAME | USE_HASH | UNIQUE_NAME,
-             "Lookup", Messages.getString("EDesignerConnection.lookupMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+             "Lookup", Messages.getString("EConnectionType.lookupMenu"), //$NON-NLS-1$ //$NON-NLS-2$
              new Integer(Graphics.LINE_DOT),
              new RGB(230, 100, 0)),
 
@@ -99,13 +107,6 @@ public enum EConnectionType implements IConnectionCategory {
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
                new RGB(230, 100, 0)),
-
-    ON_ROWS_END(11, "ROWS_END", //$NON-NLS-1$
-                EConnectionCategory.MAIN,
-                MAIN | USE_ITERATE,
-                "OnRowsEnd", Messages.getString("EConnectionType.onRowsEndMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                new Integer(Graphics.LINE_SOLID),
-                new RGB(0, 150, 0)),
 
     SYNCHRONIZE(12, "SYNCHRONIZE", //$NON-NLS-1$
                 EConnectionCategory.MAIN,
