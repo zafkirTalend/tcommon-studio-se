@@ -59,4 +59,8 @@ public interface IMetadataTable extends IRepositoryObject {
     public String getAttachedConnector();
 
     public void setAttachedConnector(String attachedConnector);
+
+    public String getReadOnlyColumnPosition();
+
+    public void setReadOnlyColumnPosition(String readOnlyColumnPosition);
 }

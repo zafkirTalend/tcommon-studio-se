@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
+import org.talend.core.model.components.EReadOnlyComlumnPosition;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
 
@@ -38,6 +39,16 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     private String dbms;
 
     private String attachedConnector;
+
+    private String readOnlyColumnPosition;
+
+    public String getReadOnlyColumnPosition() {
+        return this.readOnlyColumnPosition;
+    }
+
+    public void setReadOnlyColumnPosition(String readOnlyColumnPosition) {
+        this.readOnlyColumnPosition = readOnlyColumnPosition;
+    }
 
     @Override
     public String toString() {
@@ -183,8 +194,8 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     }
 
     public boolean sameMetadataAs(IMetadataTable other) {
-        return sameMetadataAs(other, IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME
-                | IMetadataColumn.OPTIONS_IGNORE_DEFAULT | IMetadataColumn.OPTIONS_IGNORE_COMMENT);
+        return sameMetadataAs(other, IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME | IMetadataColumn.OPTIONS_IGNORE_DEFAULT
+                | IMetadataColumn.OPTIONS_IGNORE_COMMENT);
     }
 
     /**
@@ -237,24 +248,40 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     public void sortCustomColumns() {
         List<IMetadataColumn> customColumns = new ArrayList<IMetadataColumn>();
+        List<IMetadataColumn> tempCustomColumns = new ArrayList<IMetadataColumn>();
+        List<IMetadataColumn> noCustomColumns = new ArrayList<IMetadataColumn>();
+
         for (int i = 0; i < listColumns.size(); i++) {
             IMetadataColumn column = listColumns.get(i);
             if (column.isCustom()) {
-                customColumns.add(column);
+                tempCustomColumns.add(column);
             }
         }
-        listColumns.removeAll(customColumns);
+
+        listColumns.removeAll(tempCustomColumns);
+
+        noCustomColumns.addAll(listColumns);
+
         int nbDone = 0;
-        while (nbDone < customColumns.size()) {
+        while (nbDone < tempCustomColumns.size()) {
             boolean found = false;
-            for (int i = 0; i < customColumns.size() && !found; i++) {
-                IMetadataColumn column = customColumns.get(i);
+            for (int i = 0; i < tempCustomColumns.size() && !found; i++) {
+                IMetadataColumn column = tempCustomColumns.get(i);
                 if (column.getCustomId() == nbDone) {
-                    listColumns.add(column);
+                    customColumns.add(column);
                     found = true;
                 }
             }
             nbDone++;
+        }
+
+        listColumns.clear();
+        if (this.readOnlyColumnPosition != null && this.readOnlyColumnPosition.equals(EReadOnlyComlumnPosition.TOP.getName())) {
+            listColumns.addAll(customColumns);
+            listColumns.addAll(noCustomColumns);
+        } else {
+            listColumns.addAll(noCustomColumns);
+            listColumns.addAll(customColumns);
         }
     }
 
