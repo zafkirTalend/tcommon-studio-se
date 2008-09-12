@@ -37,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getIF <em>IF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getNOTIF <em>NOTIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#isREADONLY <em>READONLY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getREAD_ONLY_COLUMN_POSITION <em>READ ONLY COLUMN POSITION</em>}</li>
  * </ul>
  * </p>
  *
@@ -123,6 +124,26 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
     protected boolean rEADONLYESet;
 
     /**
+     * The default value of the '{@link #getREAD_ONLY_COLUMN_POSITION() <em>READ ONLY COLUMN POSITION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getREAD_ONLY_COLUMN_POSITION()
+     * @generated
+     * @ordered
+     */
+    protected static final String READ_ONLY_COLUMN_POSITION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getREAD_ONLY_COLUMN_POSITION() <em>READ ONLY COLUMN POSITION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getREAD_ONLY_COLUMN_POSITION()
+     * @generated
+     * @ordered
+     */
+    protected String rEAD_ONLY_COLUMN_POSITION = READ_ONLY_COLUMN_POSITION_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -204,6 +225,27 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getREAD_ONLY_COLUMN_POSITION() {
+        return rEAD_ONLY_COLUMN_POSITION;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREAD_ONLY_COLUMN_POSITION(String newREAD_ONLY_COLUMN_POSITION) {
+        String oldREAD_ONLY_COLUMN_POSITION = rEAD_ONLY_COLUMN_POSITION;
+        rEAD_ONLY_COLUMN_POSITION = newREAD_ONLY_COLUMN_POSITION;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__READ_ONLY_COLUMN_POSITION, oldREAD_ONLY_COLUMN_POSITION, rEAD_ONLY_COLUMN_POSITION));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getIF() {
         return iF;
     }
@@ -271,6 +313,8 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
                 return getNOTIF();
             case ComponentPackage.TABLE_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.TABLE_TYPE__READ_ONLY_COLUMN_POSITION:
+                return getREAD_ONLY_COLUMN_POSITION();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -297,6 +341,9 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
             case ComponentPackage.TABLE_TYPE__READONLY:
                 setREADONLY(((Boolean)newValue).booleanValue());
                 return;
+            case ComponentPackage.TABLE_TYPE__READ_ONLY_COLUMN_POSITION:
+                setREAD_ONLY_COLUMN_POSITION((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -321,6 +368,9 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
             case ComponentPackage.TABLE_TYPE__READONLY:
                 unsetREADONLY();
                 return;
+            case ComponentPackage.TABLE_TYPE__READ_ONLY_COLUMN_POSITION:
+                setREAD_ONLY_COLUMN_POSITION(READ_ONLY_COLUMN_POSITION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -341,6 +391,8 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
                 return NOTIF_EDEFAULT == null ? nOTIF != null : !NOTIF_EDEFAULT.equals(nOTIF);
             case ComponentPackage.TABLE_TYPE__READONLY:
                 return isSetREADONLY();
+            case ComponentPackage.TABLE_TYPE__READ_ONLY_COLUMN_POSITION:
+                return READ_ONLY_COLUMN_POSITION_EDEFAULT == null ? rEAD_ONLY_COLUMN_POSITION != null : !READ_ONLY_COLUMN_POSITION_EDEFAULT.equals(rEAD_ONLY_COLUMN_POSITION);
         }
         return super.eIsSet(featureID);
     }
@@ -361,6 +413,8 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
         result.append(nOTIF);
         result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+        result.append(", rEAD_ONLY_COLUMN_POSITION: ");
+        result.append(rEAD_ONLY_COLUMN_POSITION);
         result.append(')');
         return result.toString();
     }

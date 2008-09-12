@@ -1851,13 +1851,22 @@ public interface ComponentPackage extends EPackage {
     int TABLE_TYPE__READONLY = 3;
 
     /**
+     * The feature id for the '<em><b>READ ONLY COLUMN POSITION</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_TYPE__READ_ONLY_COLUMN_POSITION = 4;
+
+    /**
      * The number of structural features of the '<em>TABLE Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TABLE_TYPE_FEATURE_COUNT = 4;
+    int TABLE_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.
@@ -3850,6 +3859,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getTABLEType_READONLY();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getREAD_ONLY_COLUMN_POSITION <em>READ ONLY COLUMN POSITION</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READ ONLY COLUMN POSITION</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TABLEType#getREAD_ONLY_COLUMN_POSITION()
+     * @see #getTABLEType()
+     * @generated
+     */
+    EAttribute getTABLEType_READ_ONLY_COLUMN_POSITION();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getIF <em>IF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5447,6 +5467,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TABLE_TYPE__READONLY = eINSTANCE.getTABLEType_READONLY();
+
+        /**
+         * The meta object literal for the '<em><b>READ ONLY COLUMN POSITION</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TABLE_TYPE__READ_ONLY_COLUMN_POSITION = eINSTANCE.getTABLEType_READ_ONLY_COLUMN_POSITION();
 
         /**
          * The meta object literal for the '<em><b>IF</b></em>' attribute feature.

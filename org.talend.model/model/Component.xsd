@@ -357,6 +357,8 @@ On CLOSED_LIST mode:
 							use="optional" />
 						<xs:attribute name="NOT_IF" type="xs:string"
 							use="optional" />
+						<xs:attribute name="READ_ONLY_COLUMN_POSITION"
+							type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

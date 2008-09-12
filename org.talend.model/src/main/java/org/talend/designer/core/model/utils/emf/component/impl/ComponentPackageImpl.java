@@ -1851,6 +1851,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getTABLEType_READ_ONLY_COLUMN_POSITION() {
+        return (EAttribute)tableTypeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EAttribute getTABLEType_IF() {
         return (EAttribute)tableTypeEClass.getEStructuralFeatures().get(1);
     }
@@ -2214,6 +2223,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(tableTypeEClass, TABLE_TYPE__IF);
         createEAttribute(tableTypeEClass, TABLE_TYPE__NOTIF);
         createEAttribute(tableTypeEClass, TABLE_TYPE__READONLY);
+        createEAttribute(tableTypeEClass, TABLE_TYPE__READ_ONLY_COLUMN_POSITION);
 
         templateparamTypeEClass = createEClass(TEMPLATEPARAM_TYPE);
         createEAttribute(templateparamTypeEClass, TEMPLATEPARAM_TYPE__SOURCE);
@@ -2458,6 +2468,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getTABLEType_IF(), theXMLTypePackage.getString(), "iF", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTABLEType_NOTIF(), theXMLTypePackage.getString(), "nOTIF", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTABLEType_READONLY(), theXMLTypePackage.getBoolean(), "rEADONLY", "false", 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTABLEType_READ_ONLY_COLUMN_POSITION(), ecorePackage.getEString(), "rEAD_ONLY_COLUMN_POSITION", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(templateparamTypeEClass, TEMPLATEPARAMType.class, "TEMPLATEPARAMType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTEMPLATEPARAMType_SOURCE(), theXMLTypePackage.getString(), "sOURCE", null, 0, 1, TEMPLATEPARAMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3834,6 +3845,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "READONLY",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTABLEType_READ_ONLY_COLUMN_POSITION(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READ_ONLY_COLUMN_POSITION",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
