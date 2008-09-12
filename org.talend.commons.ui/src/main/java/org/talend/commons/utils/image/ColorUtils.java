@@ -32,14 +32,6 @@ public class ColorUtils {
 
     private final static String COMMA = ","; //$NON-NLS-1$
 
-    public final static Color SUBJOB_TITLE_COLOR = new Color(null, 160, 190, 240);
-
-    public final static Color SUBJOB_COLOR = new Color(null, 220, 220, 250);
-
-    public final static String SUBJOB_TITLE_COLOR_NAME = "subjobTitleColor"; //$NON-NLS-1$
-
-    public final static String SUBJOB_COLOR_NAME = "subjobColor"; //$NON-NLS-1$
-
     /*
      * for tPostjob/tPrejob components
      */
