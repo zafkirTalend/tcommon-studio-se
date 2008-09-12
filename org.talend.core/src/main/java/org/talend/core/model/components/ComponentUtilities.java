@@ -63,6 +63,8 @@ public class ComponentUtilities {
 
     private static List<PaletteEntry> extraPaletteEntry;
 
+    private static boolean skipUpdatePalette;
+
     public static PaletteRoot getPaletteRoot() {
         if (paletteRoot == null) {
             updatePalette();
@@ -78,8 +80,14 @@ public class ComponentUtilities {
         }
     }
 
-    public static void updatePalette() {
+    public static void setSkipUpdatePalette(boolean skipUpdatePalette) {
+        ComponentUtilities.skipUpdatePalette = skipUpdatePalette;
+    }
 
+    public static void updatePalette() {
+        if (skipUpdatePalette) {
+            return;
+        }
         IComponentsFactory components = ComponentsFactoryProvider.getInstance();
         if (paletteRoot != null) {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
@@ -236,7 +244,7 @@ public class ComponentUtilities {
     }
 
     public static String getNodeUniqueName(NodeType node) {
-        return ComponentUtilities.getNodePropertyValue(node, UNIQUE_NAME); //$NON-NLS-1$
+        return ComponentUtilities.getNodePropertyValue(node, UNIQUE_NAME);
     }
 
     public static void setNodeUniqueName(NodeType node, String newName) {
