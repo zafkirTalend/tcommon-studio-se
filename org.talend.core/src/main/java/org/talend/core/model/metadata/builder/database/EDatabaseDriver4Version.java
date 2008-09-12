@@ -19,10 +19,10 @@ package org.talend.core.model.metadata.builder.database;
 public enum EDatabaseDriver4Version {
     // see feature 4720
     // just now , for oracle
-
-    ORACLE_10("Oracle_10", "ojdbc5.jar"),
-    ORACLE_9("Oracle_9", "ojdbc_for_9.jar"),
-    ORACLE_8("Oracle_8", "ojdbc_for_8.jar");
+    ORACLE_11("Oracle_11", "ojdbc5-11g.jar"),
+    ORACLE_10("Oracle_10", "ojdbc14-10g.jar"),
+    ORACLE_9("Oracle_9", "ojdbc14-9i.jar"),
+    ORACLE_8("Oracle_8", "ojdbc12-8i.jar");
 
     private String dbVersionName;
 
@@ -41,6 +41,11 @@ public enum EDatabaseDriver4Version {
      * @return the driverName
      */
     public String getDriverName() {
+        if (this.getDbVersionName().equals(ORACLE_11.dbVersionName)) {
+            if (System.getProperty("java.version").startsWith("1.6")) {
+                return "ojdbc6-11g.jar";
+            }
+        }
         return this.driverName;
     }
 
