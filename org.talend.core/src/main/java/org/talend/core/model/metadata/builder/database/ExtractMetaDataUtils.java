@@ -75,6 +75,30 @@ public class ExtractMetaDataUtils {
             // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
             // //$NON-NLS-2$
         } catch (SQLException e) {
+            //log.error(e.toString());
+            return metaDataInfo;
+        } catch (Exception e) {
+            //log.error(e.toString());
+            return metaDataInfo;
+        }
+        return metaDataInfo;
+    }
+    
+    /**
+     * 
+     * DOC xye Comment method "getStringMetaDataInfo".
+     * @param columns
+     * @param infoType
+     * @return
+     */
+    public static String getStringMetaDataInfo(ResultSet columns, int infoType) {
+        String metaDataInfo = null;
+        try {
+            metaDataInfo = columns.getString(infoType);
+            // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
+            // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
+            // //$NON-NLS-2$
+        } catch (SQLException e) {
             // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
