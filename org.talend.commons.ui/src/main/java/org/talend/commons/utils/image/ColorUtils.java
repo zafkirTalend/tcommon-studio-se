@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Display;
  */
 public class ColorUtils {
 
-    private static Color DEFAULT_COLOR = new Color(Display.getDefault(), 0, 0, 0);// white
+    private static Color DEFAULT_COLOR = new Color(Display.getDefault(), 255, 255, 255);// white
 
     private final static String SEMICOLON = ";"; //$NON-NLS-1$
 
