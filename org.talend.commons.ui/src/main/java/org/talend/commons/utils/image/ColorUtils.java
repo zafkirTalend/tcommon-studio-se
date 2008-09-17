@@ -16,7 +16,6 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.resource.StringConverter;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
@@ -26,7 +25,7 @@ import org.eclipse.swt.widgets.Display;
  */
 public class ColorUtils {
 
-    private final static Color DEFAULT_COLOR = Display.getDefault().getSystemColor(SWT.COLOR_WHITE);
+    private static Color DEFAULT_COLOR = new Color(Display.getDefault(), 0, 0, 0);// white
 
     private final static String SEMICOLON = ";"; //$NON-NLS-1$
 
