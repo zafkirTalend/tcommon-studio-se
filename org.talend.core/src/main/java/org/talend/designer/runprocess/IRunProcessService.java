@@ -21,6 +21,7 @@ import org.eclipse.jface.action.IAction;
 import org.talend.core.IService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.ICodeProblemsChecker;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 
 /**
@@ -107,4 +108,6 @@ public interface IRunProcessService extends IService {
     public void deleteAllJobs(boolean fromPluginModel);
 
     public IAction getRunProcessAction();
+
+    public IContext getSelectedContext();
 }
