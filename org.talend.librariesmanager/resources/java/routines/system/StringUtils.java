@@ -91,4 +91,40 @@ public class StringUtils {
 
         return result.toString();
     }
+
+    /**
+     * to discuss the case: src == null || regex == null || replacement == null
+     * 
+     */
+    public static String replaceAll(String src, String regex, String replacement) {
+
+        // case 1:
+        if (regex == null) {
+            if (src == null) {
+                return replacement; // regex == null && src == null
+            } else {
+                return src; // regex == null && src != null
+            }
+        } else {
+            // case 2:
+            if (src == null) {
+                return null; // regex != null && src == null
+            } else {
+                // case 3:
+                if (replacement == null) {
+                    if (src.matches(regex)) {
+                        // regex != null && src != null && replacement != null, and match the whole src
+                        return replacement;
+                    } else {
+                        return src; // can't match the whole src
+                    }
+
+                } else {
+                    // regex != null && src != null && replacement != null
+                    return src.replaceAll(regex, replacement);
+
+                }
+            }
+        }
+    }
 }
