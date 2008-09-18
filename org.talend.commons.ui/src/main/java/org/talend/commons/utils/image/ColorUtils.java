@@ -18,14 +18,13 @@ import java.util.StringTokenizer;
 import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * ggu class global comment. Detailled comment
  */
 public class ColorUtils {
 
-    private static Color DEFAULT_COLOR = new Color(Display.getDefault(), 255, 255, 255);// white
+    private static RGB DEFAULT_COLOR = new RGB(255, 255, 255);// white
 
     private final static String SEMICOLON = ";"; //$NON-NLS-1$
 
@@ -41,16 +40,17 @@ public class ColorUtils {
      * return such as "255;255;255"
      */
     public static String getColorValue(Color color) {
+        RGB value = color.getRGB();
         if (color == null) {
-            color = DEFAULT_COLOR;
+            value = DEFAULT_COLOR;
         }
         StringBuffer sb = new StringBuffer();
 
-        sb.append(color.getRed());
+        sb.append(value.red);
         sb.append(SEMICOLON);
-        sb.append(color.getGreen());
+        sb.append(value.green);
         sb.append(SEMICOLON);
-        sb.append(color.getBlue());
+        sb.append(value.blue);
 
         return sb.toString();
     }
@@ -58,9 +58,9 @@ public class ColorUtils {
     /**
      * return such as "255;255;255"
      */
-    public static String getColorValue(RGB rgb) {
+    public static String getRGBValue(RGB rgb) {
         if (rgb == null) {
-            rgb = DEFAULT_COLOR.getRGB();
+            rgb = DEFAULT_COLOR;
         }
         StringBuffer sb = new StringBuffer();
 
@@ -73,8 +73,8 @@ public class ColorUtils {
         return sb.toString();
     }
 
-    public static Color parseStringToColor(String color) {
-        return parseStringToColor(color, null);
+    public static RGB parseStringToRGB(String color) {
+        return parseStringToRGB(color, null);
     }
 
     /**
@@ -83,7 +83,7 @@ public class ColorUtils {
      * 
      * can parse the "255,255,255" and "255;255;255".
      */
-    public static Color parseStringToColor(String color, Color defaultColor) {
+    public static RGB parseStringToRGB(String color, RGB defaultColor) {
         if (defaultColor == null) {
             defaultColor = DEFAULT_COLOR;
         }
@@ -91,8 +91,8 @@ public class ColorUtils {
             return defaultColor;
         }
         if (color.contains(COMMA)) {
-            RGB rgb = StringConverter.asRGB(color, defaultColor.getRGB());
-            return new Color(null, rgb);
+            RGB rgb = StringConverter.asRGB(color, defaultColor);
+            return rgb;
         }
         if (color.contains(SEMICOLON)) {
             try {
@@ -107,7 +107,7 @@ public class ColorUtils {
                 gval = Integer.parseInt(green);
                 bval = Integer.parseInt(blue);
 
-                return new Color(null, rval, gval, bval);
+                return new RGB(rval, gval, bval);
             } catch (NumberFormatException e) {
                 return defaultColor;
             } catch (NoSuchElementException e) {
@@ -115,10 +115,6 @@ public class ColorUtils {
             }
         }
         return defaultColor;
-    }
-
-    public static RGB parserStringToRGB(String color) {
-        return parseStringToColor(color).getRGB();
     }
 
     /**

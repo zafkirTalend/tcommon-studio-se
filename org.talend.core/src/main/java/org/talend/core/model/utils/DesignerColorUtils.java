@@ -14,7 +14,6 @@ package org.talend.core.model.utils;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.talend.commons.utils.image.ColorUtils;
 import org.talend.core.CorePlugin;
@@ -25,9 +24,9 @@ import org.talend.core.model.process.EConnectionType;
  */
 public final class DesignerColorUtils {
 
-    public static final Color SUBJOB_TITLE_COLOR = new Color(null, 160, 190, 240);
+    public static final RGB SUBJOB_TITLE_COLOR = new RGB(160, 190, 240);
 
-    public static final Color SUBJOB_COLOR = new Color(null, 220, 220, 250);
+    public static final RGB SUBJOB_COLOR = new RGB(220, 220, 250);
 
     public static final String SUBJOB_TITLE_COLOR_NAME = "subjobTitleColor"; //$NON-NLS-1$
 
@@ -45,7 +44,7 @@ public final class DesignerColorUtils {
             return defaultRGB;
         }
         String rgb = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(getPreferenceConnectionName(connType));
-        return ColorUtils.parseStringToColor(rgb, new Color(null, defaultRGB)).getRGB();
+        return ColorUtils.parseStringToRGB(rgb, defaultRGB);
     }
 
     public static RGB getPreferenceConnectionColor(EConnectionType connType) {
@@ -60,9 +59,8 @@ public final class DesignerColorUtils {
             return;
         }
         // subjob
-        PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_COLOR_NAME, DesignerColorUtils.SUBJOB_COLOR.getRGB());
-        PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME, DesignerColorUtils.SUBJOB_TITLE_COLOR
-                .getRGB());
+        PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_COLOR_NAME, DesignerColorUtils.SUBJOB_COLOR);
+        PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME, DesignerColorUtils.SUBJOB_TITLE_COLOR);
         // connection
         for (EConnectionType connType : EConnectionType.values()) {
             PreferenceConverter.setDefault(store, getPreferenceConnectionName(connType), connType.getRGB());
@@ -77,11 +75,11 @@ public final class DesignerColorUtils {
      * @param defaultColor if can't found the preference value, will use the default color.
      * @return
      */
-    public static Color getPreferenceSubjobColor(String name, Color defaultColor) {
+    public static RGB getPreferenceSubjobRGB(String name, RGB defaultColor) {
         if (name == null || defaultColor == null || (!name.equals(SUBJOB_COLOR_NAME) && !name.equals(SUBJOB_TITLE_COLOR_NAME))) {
             return defaultColor;
         }
         String colorStr = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(name);
-        return ColorUtils.parseStringToColor(colorStr, defaultColor);
+        return ColorUtils.parseStringToRGB(colorStr, defaultColor);
     }
 }
