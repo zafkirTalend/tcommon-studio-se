@@ -59,12 +59,20 @@ public final class RepositoryManager {
     }
 
     public static IRepositoryView getRepositoryView() {
-        IViewPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(IRepositoryView.VIEW_ID);
-        if (part == null) {
-            try {
-                part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(IRepositoryView.VIEW_ID);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
+        IViewPart part = null;
+        IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (activeWorkbenchWindow != null) {
+            IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+            if (activePage != null) {
+                part = activePage.findView(IRepositoryView.VIEW_ID);
+
+                if (part == null) {
+                    try {
+                        part = activePage.showView(IRepositoryView.VIEW_ID);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
             }
         }
 
@@ -79,22 +87,28 @@ public final class RepositoryManager {
         if (isRefreshManually() || !isRefreshCreated()) {
             refresh(type);
         } else {
-            getRepositoryView().refresh();
+            IRepositoryView repositoryView = getRepositoryView();
+            if (repositoryView != null) {
+                repositoryView.refresh();
+            }
         }
 
     }
 
     public static void refreshCreatedNode(IProjectRepositoryNode projectNode, ERepositoryObjectType type) {
-        if ((isRefreshManually() || !isRefreshCreated()) && !type.isSubItem()) {
-            if (projectNode != null) {
-                RepositoryNode rootNode = projectNode.getRootRepositoryNode(type);
-                getRepositoryView().refreshAllChildNodes(rootNode);
+        IRepositoryView repositoryView = getRepositoryView();
+        if (repositoryView != null) {
+            if ((isRefreshManually() || !isRefreshCreated()) && !type.isSubItem()) {
+                if (projectNode != null) {
+                    RepositoryNode rootNode = projectNode.getRootRepositoryNode(type);
+                    repositoryView.refreshAllChildNodes(rootNode);
+                } else {
+                    // main project
+                    refresh(type);
+                }
             } else {
-                // main project
-                refresh(type);
+                repositoryView.refresh();
             }
-        } else {
-            getRepositoryView().refresh();
         }
 
     }
@@ -104,37 +118,39 @@ public final class RepositoryManager {
      * for delete
      */
     public static void refreshDeletedNode(Set<ERepositoryObjectType> types) {
-        if (isRefreshManually() || !isRefreshDeleted()) {
-            IRepositoryView repositoryView = getRepositoryView();
+        IRepositoryView repositoryView = getRepositoryView();
+        if (repositoryView != null) {
+            if (isRefreshManually() || !isRefreshDeleted()) {
 
-            RepositoryNode root = repositoryView.getRoot();
-            if (root != null && root instanceof IProjectRepositoryNode) {
-                RepositoryNode recBinNode = ((IProjectRepositoryNode) root).getRecBinNode();
+                RepositoryNode root = repositoryView.getRoot();
+                if (root != null && root instanceof IProjectRepositoryNode) {
+                    RepositoryNode recBinNode = ((IProjectRepositoryNode) root).getRecBinNode();
 
-                Set<ERepositoryObjectType> existedTypes = new HashSet<ERepositoryObjectType>();
-                for (RepositoryNode child : recBinNode.getChildren()) {
-                    ERepositoryObjectType objectType = child.getObjectType();
-                    if (objectType.isSubItem()) {
-                        RepositoryNode parent = child.getParent();
-                        if (parent.getObject() == null) { // for db connection
-                            parent = parent.getParent();
+                    Set<ERepositoryObjectType> existedTypes = new HashSet<ERepositoryObjectType>();
+                    for (RepositoryNode child : recBinNode.getChildren()) {
+                        ERepositoryObjectType objectType = child.getObjectType();
+                        if (objectType.isSubItem()) {
+                            RepositoryNode parent = child.getParent();
+                            if (parent.getObject() == null) { // for db connection
+                                parent = parent.getParent();
+                            }
+                            existedTypes.add(parent.getObjectType());
                         }
-                        existedTypes.add(parent.getObjectType());
                     }
-                }
-                repositoryView.refreshAllChildNodes(recBinNode);
+                    repositoryView.refreshAllChildNodes(recBinNode);
 
-                if (types != null) {
-                    refresh(types);
-                    existedTypes.removeAll(types);
-                }
-                refresh(existedTypes);
+                    if (types != null) {
+                        refresh(types);
+                        existedTypes.removeAll(types);
+                    }
+                    refresh(existedTypes);
 
-                repositoryView.refresh(recBinNode);
+                    repositoryView.refresh(recBinNode);
+                }
+
+            } else {
+                repositoryView.refresh();
             }
-
-        } else {
-            getRepositoryView().refresh();
         }
     }
 
@@ -146,10 +162,13 @@ public final class RepositoryManager {
         if (node == null) {
             return;
         }
-        if (isRefreshManually() || !isRefreshSaved()) {
-            getRepositoryView().refresh(node);
-        } else {
-            getRepositoryView().refresh();
+        IRepositoryView repositoryView = getRepositoryView();
+        if (repositoryView != null) {
+            if (isRefreshManually() || !isRefreshSaved()) {
+                repositoryView.refresh(node);
+            } else {
+                repositoryView.refresh();
+            }
         }
     }
 
@@ -159,13 +178,16 @@ public final class RepositoryManager {
      */
     public static void refresh(ERepositoryObjectType type) {
         if (type != null) {
-            getRepositoryView().refresh(type);
+            IRepositoryView repositoryView = getRepositoryView();
+            if (repositoryView != null) {
+                repositoryView.refresh(type);
+            }
         }
     }
 
     public static void refresh(Set<ERepositoryObjectType> types) {
         IRepositoryView repositoryView = getRepositoryView();
-        if (types != null) {
+        if (types != null && repositoryView != null) {
             for (ERepositoryObjectType type : types) {
                 repositoryView.refresh(type);
             }
