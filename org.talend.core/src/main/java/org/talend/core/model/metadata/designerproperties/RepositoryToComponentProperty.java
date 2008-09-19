@@ -29,6 +29,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -126,7 +127,8 @@ public class RepositoryToComponentProperty {
             SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) table.getColumns().get(i);
             Map<String, Object> map = new HashMap<String, Object>();
             if (isInput) {
-                if (column.getDataType().contains("string")) {
+                String talendType = getTalendTypeFromJCOType(column.getDataType());
+                if (talendType.contains("String")) {
                     map.put("SAP_PARAMETER_VALUE", TalendTextUtils.addQuotes(column.getValue()));
                 } else {
                     map.put("SAP_PARAMETER_VALUE", column.getValue());
@@ -138,6 +140,20 @@ public class RepositoryToComponentProperty {
             map.put("SAP_PARAMETER_NAME", TalendTextUtils.addQuotes(column.getName()));
             value2.add(map);
         }
+    }
+
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getTalendTypeFromJCOType".
+     * 
+     * @param jcoType
+     * @return
+     */
+    private static String getTalendTypeFromJCOType(final String jcoType) {
+        if (jcoType == null) {
+            return "";
+        }
+        return MetadataTalendType.getMappingTypeRetriever("sap_id").getAdvicedDbToTalendTypes(jcoType).get(0).getTalendType();
     }
 
     /**

@@ -181,7 +181,7 @@ public class MetadataTool {
      * @param conn
      * @return
      */
-    private static EList getMetadataTableFromConnection(final Connection conn) {
+    public static EList getMetadataTableFromConnection(final Connection conn) {
         if (conn == null) {
             return null;
         }
