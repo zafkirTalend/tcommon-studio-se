@@ -45,6 +45,7 @@ public class Perspective implements IPerspectiveFactory {
         String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
         String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
         String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
+        String ecosystemViewId = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
         String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
         String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
         String gefPaletteViewId = "org.eclipse.gef.ui.palette_view";
@@ -82,6 +83,7 @@ public class Perspective implements IPerspectiveFactory {
         bottomLayout.addView(runProcessViewId);
         bottomLayout.addView(problemsViewId);
         bottomLayout.addView(modulesViewId);
+        bottomLayout.addView(ecosystemViewId);
         bottomLayout.addView(schedulerViewId);
 
         // rightTopLayout
