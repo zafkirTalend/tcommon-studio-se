@@ -73,5 +73,7 @@ public interface ITalendCorePrefConstants {
 
     String LINE_SEPERATOR_STR = "lineSeperator";
 
+    String DEFAULT_COMMAND_STR = "%GENERATED_TOS_CALL%";
+
     public static final String DEACTIVE_REPOSITORY_UPDATE = "DEACTIVE_REPOSITORY_UPDATE"; //$NON-NLS-1$
 }
