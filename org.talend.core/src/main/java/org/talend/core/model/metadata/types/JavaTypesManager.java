@@ -80,7 +80,7 @@ public final class JavaTypesManager {
     public static final JavaType PASSWORD = new JavaType(String.class, true, "Password");
 
     public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, BYTE, BYTE_ARRAY, CHARACTER, DATE, DOUBLE, FLOAT,
-            BIGDECIMAL, INTEGER, LONG, OBJECT, SHORT, STRING, LIST };
+            BIGDECIMAL, INTEGER, LONG, OBJECT, SHORT, STRING, LIST, PASSWORD };
 
     private static Map<String, JavaType> shortNameToJavaType;
 

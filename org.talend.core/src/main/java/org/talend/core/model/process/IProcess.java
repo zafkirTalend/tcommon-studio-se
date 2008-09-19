@@ -78,4 +78,13 @@ public interface IProcess extends IRepositoryObject, IElement {
     public IContext getLastRunContext();
 
     public void setLastRunContext(IContext context);
+
+    /**
+     * if need to regenerate the code for the current process.
+     * 
+     * @return
+     */
+    public boolean isNeedRegenerateCode();
+
+    public void setNeedRegenerateCode(boolean regenerateCode);
 }

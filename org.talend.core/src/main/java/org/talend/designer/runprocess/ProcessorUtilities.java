@@ -168,7 +168,7 @@ public class ProcessorUtilities {
         if (jobInfo.isForceRegenerate()) {
             return true;
         }
-        IProcess2 attachedProcess = (IProcess2) jobInfo.getProcess();
+        IProcess attachedProcess = (IProcess) jobInfo.getProcess();
 
         if (jobInfo.getFatherJobInfo() != null) {
             JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
@@ -236,7 +236,7 @@ public class ProcessorUtilities {
             selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
         }
 
-        if (selectedProcessItem == null) {
+        if (selectedProcessItem == null && jobInfo.getProcess() == null) {
             return false;
         }
         if (jobInfo.getProcess() == null) {
