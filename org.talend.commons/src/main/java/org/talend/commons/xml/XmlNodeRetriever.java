@@ -69,6 +69,8 @@ public class XmlNodeRetriever {
 
     private final Map<String, String> prefixToNamespace = new HashMap<String, String>();
 
+    private XPathPrefixHandler prefixHandler;
+
     /**
      * DOC amaumont XMLNodeRetriever constructor comment.
      * 
@@ -156,6 +158,7 @@ public class XmlNodeRetriever {
             prefixToNamespace.clear();
             initLastNodes(document.getDocumentElement());
             prefixToNamespace.put(XMLConstants.XML_NS_PREFIX, XMLConstants.XML_NS_URI);
+            prefixHandler = new XPathPrefixHandler(document.getDocumentElement());
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
@@ -166,7 +169,8 @@ public class XmlNodeRetriever {
         // Create XPath factory for selecting schema and validation roots
         XPathFactory xpf = XPathFactory.newInstance();
         xpath = xpf.newXPath();
-        xpath.setNamespaceContext(namespaceContext);
+        // xpath.setNamespaceContext(namespaceContext);
+        xpath.setNamespaceContext(prefixHandler.getNamespaceContext());
     }
 
     /**
@@ -262,7 +266,8 @@ public class XmlNodeRetriever {
     public synchronized NodeList retrieveNodeList(String xPathExpression) throws XPathExpressionException {
 
         xPathExpression = simplifyXPathExpression(xPathExpression);
-        xPathExpression = addDefaultNS(xPathExpression);
+        // xPathExpression = addDefaultNS(xPathExpression);
+        xPathExpression = prefixHandler.addXPathPrefix(xPathExpression);
         NodeList nodeList = null;
         // System.out.println("xPathExpression = "+xPathExpression);
         XPathExpression xpathSchema = xpath.compile(xPathExpression);
@@ -286,7 +291,7 @@ public class XmlNodeRetriever {
         try {
             pattern = compiler.compile("(.*)/\\s*\\w+\\s*(/(\\.\\.|parent))(.*)");
         } catch (MalformedPatternException e) {
-        	CommonExceptionHandler.process(e);
+            CommonExceptionHandler.process(e);
         }
 
         Perl5Substitution substitution = new Perl5Substitution("$1$4", Perl5Substitution.INTERPOLATE_ALL);
@@ -314,7 +319,8 @@ public class XmlNodeRetriever {
     public synchronized NodeList retrieveNodeListFromNode(String relativeXPathExpression, Node referenceNode)
             throws XPathExpressionException {
         relativeXPathExpression = simplifyXPathExpression(relativeXPathExpression);
-        relativeXPathExpression = addDefaultNS(relativeXPathExpression);
+        // relativeXPathExpression = addDefaultNS(relativeXPathExpression);
+        relativeXPathExpression = prefixHandler.addXPathPrefix(relativeXPathExpression, referenceNode);
         NodeList nodeList = (NodeList) xpath.evaluate(relativeXPathExpression, referenceNode, XPathConstants.NODESET);
         return nodeList;
     }
