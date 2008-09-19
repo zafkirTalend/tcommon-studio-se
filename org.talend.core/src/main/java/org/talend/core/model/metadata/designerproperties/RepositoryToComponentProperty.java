@@ -121,6 +121,7 @@ public class RepositoryToComponentProperty {
         if (table == null || table.getColumns() == null || table.getColumns().isEmpty()) {
             return;
         }
+        value2.clear();// Make sure for this
         for (int i = 0; i < table.getColumns().size(); i++) {
             SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) table.getColumns().get(i);
             Map<String, Object> map = new HashMap<String, Object>();

@@ -185,6 +185,7 @@ public class MetadataTool {
         if (conn == null) {
             return null;
         }
+        // return conn.getTables();
         if (conn instanceof SAPConnection) {
             final SAPConnection sapConnection = (SAPConnection) conn;
             final EList functions = sapConnection.getFuntions();
