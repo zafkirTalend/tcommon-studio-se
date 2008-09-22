@@ -63,7 +63,6 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.core.model.repository.RepositoryObject;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.migrationtool.model.GetTasksHelper;
@@ -89,6 +88,8 @@ public class ImportItemUtil {
 
     private boolean hasErrors = false;
 
+    private int usedItems = 0;
+
     private RepositoryObjectCache cache = new RepositoryObjectCache();
 
     private TreeBuilder treeBuilder = new TreeBuilder();
@@ -96,8 +97,6 @@ public class ImportItemUtil {
     private Set<String> deletedItems = new HashSet<String>();
 
     ProjectManager projectManager = ProjectManager.getInstance();
-
-    private int importedItems = 0;
 
     public void clear() {
         deletedItems.clear();
@@ -204,132 +203,104 @@ public class ImportItemUtil {
         return false;
     }
 
-    /**
-     * Import a list of item record to the project, then apply the migration tasks on this item list.
-     * 
-     * @param manager
-     * @param itemRecords
-     * @param monitor
-     * @return
-     */
-    public Set<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords, IProgressMonitor monitor) {
-        return importItemRecords(manager, itemRecords, monitor, false);
-    }
-
-    /**
-     * Import a list of item record to the project, then apply the migration tasks on this item list.
-     * 
-     * @param manager
-     * @param itemRecords
-     * @param monitor Monitor should have at least twice times the items will be checked 2 times.
-     * @return
-     */
-    public Set<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords, IProgressMonitor monitor,
+    public List<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords, IProgressMonitor monitor,
             boolean overwrite) {
-        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-        try {
-            repFactory.initialize();
-        } catch (PersistenceException e) {
-            logError(e);
-        }
-        monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size()); //$NON-NLS-1$
-        Map<ItemRecord, Item> itemsMap = importItemRecordsWithoutMigration(manager, itemRecords, monitor, overwrite);
-
-        clear();
-        if (!monitor.isCanceled()) {
-            applyMigrationTasksOnItems(monitor, itemsMap);
-        }
-
-        // If there was a cancel during the import, delete the items imported.
-        // This won't remove the folder created while importing, only items.
-        if (monitor.isCanceled()) {
-            for (Item item : itemsMap.values()) {
-                try {
-                    repFactory.deleteObjectPhysical(new RepositoryObject(item.getProperty()));
-                } catch (PersistenceException e) {
-                    logError(e);
-                }
-            }
-            itemsMap.clear();
-        }
-
-        return itemsMap.keySet();
-    }
-
-    private Map<ItemRecord, Item> importItemRecordsWithoutMigration(ResourcesManager manager, List<ItemRecord> itemRecords,
-            IProgressMonitor monitor, boolean overwrite) {
-        Map<ItemRecord, Item> itemsMap = new HashMap<ItemRecord, Item>();
-        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-
+        monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
         for (ItemRecord itemRecord : itemRecords) {
-            monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName());
-            resolveItem(manager, itemRecord);
-            Item newItem = null;
-            if (itemRecord.getItem() != null) {
-                ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
-                IPath path = new Path(itemRecord.getItem().getState().getPath());
-
-                try {
-                    repFactory.createParentFoldersRecursively(itemType, path);
-                } catch (Exception e) {
-                    path = new Path(""); //$NON-NLS-1$
-                    logError(e);
-                }
-
-                try {
-                    Item tmpItem = itemRecord.getItem();
-
-                    // delete existing items before importing, this should be done once for a different id
-                    String id = itemRecord.getProperty().getId();
-                    if (overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
-                            && !deletedItems.contains(id)) {
-                        List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
-                        if (!list.isEmpty()) {
-                            // this code will delete all version of item with same id
-                            repFactory.forceDeleteObjectPhysical(list.get(0));
-                            deletedItems.add(id);
-                        }
-                    }
-
-                    IRepositoryObject lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                    if (importedItems++ > 2) {
-                        importedItems = 0;
-                        repFactory.initialize();
-                    }
-
-                    User author = itemRecord.getProperty().getAuthor();
-                    if (author != null) {
-                        if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
-                            tmpItem.getProperty().setAuthor(null); // author will be the logged user in create method
-                        }
-                    }
-
-                    if (lastVersion == null) {
-                        repFactory.create(tmpItem, path, true);
-                    } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
-                        repFactory.forceCreate(tmpItem, path);
-                    } else {
-                        logError(new PersistenceException("A newer version of " + tmpItem.getProperty() + " already exist."));
-                    }
-
-                    lastVersion = repFactory.getLastVersion(tmpItem.getProperty().getId());
-                    newItem = lastVersion.getProperty().getItem();
-                } catch (PersistenceException e) {
-                    logError(e);
-                } catch (Exception e) {
-                    logError(e);
+            if (!monitor.isCanceled()) {
+                monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
+                if (itemRecord.isValid()) {
+                    reinitRepository();
+                    importItemRecord(manager, itemRecord, overwrite);
+                    monitor.worked(1);
                 }
             }
-            if (newItem != null) {
-                itemsMap.put(itemRecord, newItem);
+        }
+        monitor.done();
+
+        // cannot cancel this part
+        monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
+        for (ItemRecord itemRecord : itemRecords) {
+            if (itemRecord.isImported()) {
+                reinitRepository();
+                applyMigrationTasks(itemRecord, monitor);
             }
             monitor.worked(1);
-            if (monitor.isCanceled()) {
-                return itemsMap;
+        }
+        monitor.done();
+
+        return itemRecords;
+    }
+
+    private void reinitRepository() {
+        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+        if (usedItems++ > 2) {
+            usedItems = 0;
+            try {
+                repFactory.initialize();
+            } catch (PersistenceException e) {
+            }
+        }
+    }
+
+    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) {
+        resolveItem(manager, itemRecord);
+        if (itemRecord.getItem() != null) {
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
+            IPath path = new Path(itemRecord.getItem().getState().getPath());
+            ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+
+            try {
+                repFactory.createParentFoldersRecursively(itemType, path);
+            } catch (Exception e) {
+                logError(e);
+                path = new Path(""); //$NON-NLS-1$
             }
 
+            try {
+                Item tmpItem = itemRecord.getItem();
+
+                // delete existing items before importing, this should be done once for a different id
+                String id = itemRecord.getProperty().getId();
+                if (overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
+                        && !deletedItems.contains(id)) {
+                    List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
+                    if (!list.isEmpty()) {
+                        // this code will delete all version of item with same id
+                        repFactory.forceDeleteObjectPhysical(list.get(0));
+                        deletedItems.add(id);
+                    }
+                }
+
+                org.talend.core.model.general.Project project = projectManager.getCurrentProject();
+                IRepositoryObject lastVersion = repFactory.getLastVersion(project, tmpItem.getProperty().getId());
+
+                User author = itemRecord.getProperty().getAuthor();
+                if (author != null) {
+                    if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
+                        tmpItem.getProperty().setAuthor(null); // author will be the logged user in create method
+                    }
+                }
+
+                if (lastVersion == null) {
+                    repFactory.create(tmpItem, path, true);
+                    changeRoutinesPackage(tmpItem);
+                    itemRecord.setImported(true);
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
+                    repFactory.forceCreate(tmpItem, path);
+                    changeRoutinesPackage(tmpItem);
+                    itemRecord.setImported(true);
+                } else {
+                    PersistenceException e = new PersistenceException("A newer version of " + tmpItem.getProperty()
+                            + " already exist.");
+                    itemRecord.addError(e.getMessage());
+                    logError(e);
+                }
+            } catch (Exception e) {
+                itemRecord.addError(e.getMessage());
+                logError(e);
+            }
         }
-        return itemsMap;
     }
 
     public void changeRoutinesPackage(Item item) {
@@ -375,73 +346,51 @@ public class ImportItemUtil {
         }
     }
 
-    private void applyMigrationTasksOnItems(IProgressMonitor monitor, Map<ItemRecord, Item> itemsMap) {
+    private void applyMigrationTasks(ItemRecord itemRecord, IProgressMonitor monitor) {
         Context ctx = CorePlugin.getContext();
         RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
         ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
-        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
 
-        Set<String> migrationTasksTested = new HashSet<String>();
-        List<IProjectMigrationTask> migrationTasksToApply = new ArrayList<IProjectMigrationTask>();
-
-        for (ItemRecord itemRecord : itemsMap.keySet()) {
-
-            for (String taskId : itemRecord.getMigrationTasksToApply()) {
-                if (migrationTasksTested.contains(taskId)) {
-                    continue;
-                }
-                IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
-                if (task == null) {
-                    log.warn("Task " + taskId + " found in project doesn't exist anymore !");
-                } else {
-                    migrationTasksToApply.add(task);
-                }
-                migrationTasksTested.add(taskId);
-            }
-        }
-        monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), migrationTasksToApply.size()); //$NON-NLS-1$
-
-        Collections.sort(migrationTasksToApply, new Comparator<IProjectMigrationTask>() {
-
-            public int compare(IProjectMigrationTask o1, IProjectMigrationTask o2) {
-                return o1.getOrder().compareTo(o2.getOrder());
-            }
-        });
-
-        for (IProjectMigrationTask task : migrationTasksToApply) {
-            monitor.subTask("Apply migration task :" + task.getDescription());
-            try {
-                repFactory.initialize();
-            } catch (PersistenceException e) {
-                logError(e);
-            }
-
-            // // list the items who need this migration
-            // List<Item> itemList = new ArrayList<Item>();
-            // for (ItemRecord itemToTest : itemsMap.keySet()) {
-            // if (itemToTest.getMigrationTasksToApply().contains(task.getId())) {
-            // itemList.add(itemsMap.get(itemToTest));
-            // }
-            // }
-            //
-            // ExecutionResult executionResult = task.execute(repositoryContext.getProject(), itemList);
-            ExecutionResult executionResult = task.execute(repositoryContext.getProject());
-            if (executionResult == ExecutionResult.FAILURE) {
-                log.warn("Migration " + task.getName() + " failed during import");
-            }
-        }
-        // synchronize routines
+        Item item = null;
         try {
-            for (Item item : itemsMap.values()) {
-                if (item instanceof RoutineItem) {
-                    RoutineItem routineItem = (RoutineItem) item;
-                    routineSynchronizer.syncRoutine(routineItem, true);
-                    routineSynchronizer.getFile(routineItem);
+            item = ProxyRepositoryFactory.getInstance().getUptodateProperty(itemRecord.getItem().getProperty()).getItem();
+        } catch (Exception e) {
+            logError(e);
+        }
+
+        for (String taskId : itemRecord.getMigrationTasksToApply()) {
+            IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
+            if (task == null) {
+                log.warn("Task " + taskId + " found in project doesn't exist anymore !");
+            } else {
+                monitor.subTask("apply migration task " + task.getName() + " on item " + itemRecord.getItemName());
+
+                try {
+                    if (item != null) {
+                        ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
+                        if (executionResult == ExecutionResult.FAILURE) {
+                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
+                                    + " failed)");
+                            // TODO smallet add a warning/error to the job using model
+                        }
+                    }
+                } catch (Exception e) {
+                    log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
+                            + " failed)");
                 }
+            }
+        }
+
+        try {
+            if (item != null && item instanceof RoutineItem) {
+                RoutineItem routineItem = (RoutineItem) item;
+                routineSynchronizer.syncRoutine(routineItem, true);
+                routineSynchronizer.getFile(routineItem);
             }
         } catch (Exception e) {
             logError(e);
         }
+
     }
 
     private ITalendSynchronizer getRoutineSynchronizer() {
