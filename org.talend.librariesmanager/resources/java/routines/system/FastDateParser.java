@@ -35,10 +35,18 @@ public class FastDateParser {
 
     // Warning : DateFormat objects returned by this method are not thread safe
     public static java.text.DateFormat getInstance(String pattern) {
-        return getInstance(pattern, null);
+        return getInstance(pattern, null, true);
+    }
+
+    public static java.text.DateFormat getInstance(String pattern, boolean lenient) {
+        return getInstance(pattern, null, lenient);
     }
 
     public static java.text.DateFormat getInstance(String pattern, Locale locale) {
+        return getInstance(pattern, locale, true);
+    }
+
+    public static java.text.DateFormat getInstance(String pattern, Locale locale, boolean lenient) {
         dateFormatKey.pattern = pattern;
         dateFormatKey.locale = locale;
         java.text.DateFormat format = cache.get(dateFormatKey);
@@ -54,8 +62,10 @@ public class FastDateParser {
                     format = new java.text.SimpleDateFormat(pattern);
                 }
             }
-            format.setLenient(false);
             cache.put(getInstance().new DateFormatKey(pattern, locale), format);
+        }
+        if (format.isLenient() != lenient) {
+            format.setLenient(lenient);
         }
         return format;
     }
