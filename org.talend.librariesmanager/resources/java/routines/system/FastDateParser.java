@@ -54,6 +54,7 @@ public class FastDateParser {
                     format = new java.text.SimpleDateFormat(pattern);
                 }
             }
+            format.setLenient(false);
             cache.put(getInstance().new DateFormatKey(pattern, locale), format);
         }
         return format;
@@ -111,6 +112,7 @@ public class FastDateParser {
                 return calendar.getTime();
             } catch (Exception e) {
                 pos.setErrorIndex(index);
+                e.printStackTrace();
             }
             return null;
         }
@@ -195,6 +197,7 @@ public class FastDateParser {
                 return calendar.getTime();
             } catch (Exception e) {
                 pos.setErrorIndex(index);
+                e.printStackTrace();
             }
             return null;
         }
