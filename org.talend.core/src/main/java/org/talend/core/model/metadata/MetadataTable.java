@@ -171,7 +171,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                     for (int i = 0; i < other.getListColumns().size(); i++) {
                         IMetadataColumn otherColumn = other.getListColumns().get(i);
                         if (!otherColumn.isCustom()) {
-                            IMetadataColumn myColumn = this.listColumns.get(i);
+                            IMetadataColumn myColumn = this.getColumn(otherColumn.getLabel());
                             if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                                 return false;
                             }
