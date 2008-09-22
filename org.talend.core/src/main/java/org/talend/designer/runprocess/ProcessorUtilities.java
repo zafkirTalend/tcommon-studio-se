@@ -314,12 +314,17 @@ public class ProcessorUtilities {
             // always generate all context files.
             List<IContext> list = currentProcess.getContextManager().getListContext();
             for (IContext context : list) {
-                processor.setContext(context);
+                if (context.getName().equals(currentContext.getName())) {
+                    processor.setContext(currentContext); // generate current context.
+                } else {
+                    processor.setContext(context);
+                }
                 try {
                     processor.generateContextCode();
                 } catch (ProcessorException pe) {
                     ExceptionHandler.process(pe);
                 }
+
             }
 
             processor.setContext(currentContext);
