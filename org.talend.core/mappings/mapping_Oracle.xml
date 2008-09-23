@@ -26,7 +26,7 @@
 			<dbType type="CLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="BFILE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="XMLTYPE" ignoreLen="true" ignorePre="true" />
-			<dbType type="RAW" ignoreLen="true" ignorePre="true" />
+			<dbType type="RAW" ignoreLen="false" ignorePre="true" />
 			<dbType type="LONG RAW" ignoreLen="true" ignorePre="true" />
 			<dbType type="ROWID" ignoreLen="true" ignorePre="true"/>
 			<dbType type="UROWID" ignoreLen="true" ignorePre="true" />
