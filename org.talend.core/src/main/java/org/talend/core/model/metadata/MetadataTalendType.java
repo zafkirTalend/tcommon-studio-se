@@ -397,7 +397,7 @@ public final class MetadataTalendType {
                 return dbms;
             }
         }
-        return null;
+        throw new IllegalArgumentException("DBMS Id : "+dbmsId+" can't be found !");
     }
 
     /**
