@@ -73,6 +73,22 @@ public abstract class Element implements Cloneable, IElement {
     }
 
     /**
+     * 
+     * DOC xye Comment method "getPropertyValue".
+     * 
+     * @param id
+     * @param paramName
+     * @return
+     */
+    public Object getPropertyValue(final String id, final String paramName) {
+        IElementParameter param = this.getElementParameter(id, paramName);
+        if (param != null) {
+            return param.getValue();
+        }
+        return null;
+    }
+
+    /**
      * Set the property of the object.
      * 
      * @param id
@@ -124,6 +140,22 @@ public abstract class Element implements Cloneable, IElement {
     }
 
     public IElementParameter getElementParameter(String name) {
+        return findElementParameter(name, null);
+    }
+
+    /**
+     * 
+     * DOC xye Comment method "getElementParameter".
+     * 
+     * @param typeName
+     * @param paramName
+     * @return
+     */
+    public IElementParameter getElementParameter(String typeName, String paramName) {
+        return findElementParameter(typeName, paramName);
+    }
+
+    private IElementParameter findElementParameter(String name, String paramName) {
         if (name.contains(":")) { // look for the parent first, then will retrieve the children
             StringTokenizer token = new StringTokenizer(name, ":");
             String parentId = token.nextToken();
@@ -149,8 +181,14 @@ public abstract class Element implements Cloneable, IElement {
         for (IElementParameter elementParam : listParam) {
             for (String key : elementParam.getChildParameters().keySet()) {
                 IElementParameter param = elementParam.getChildParameters().get(key);
-                if (param.getName().equals(name)) {
-                    return param;
+                if (paramName == null || paramName.equals("")) {
+                    if (param.getName().equals(name)) {
+                        return param;
+                    }
+                } else {
+                    if (param.getName().equals(name) && (elementParam.getName().equals(paramName))) {
+                        return param;
+                    }
                 }
             }
         }
