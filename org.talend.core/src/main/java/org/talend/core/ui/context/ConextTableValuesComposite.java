@@ -333,6 +333,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             }
 
             public void applyEditorValue() {
+                editing = true;
             }
         };
         return editorListener;
@@ -370,6 +371,8 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
     private String[] properties;
 
+    private boolean editing;
+
     /**
      * bqian Comment method "getContexts".
      * 
@@ -386,6 +389,11 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
     @Override
     public void refresh() {
+        if (editing) {
+            viewer.refresh();
+            editing = false;
+            return;
+        }
         final Tree tree = viewer.getTree();
         TreeColumn[] columns = tree.getColumns();
         for (TreeColumn tableColumn : columns) {
