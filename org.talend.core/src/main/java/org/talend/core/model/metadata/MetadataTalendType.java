@@ -112,13 +112,6 @@ public final class MetadataTalendType {
     };
 
     private static List<File> metadataMappingFiles = null;
-    static {
-        try {
-            MetadataTalendType.loadCommonMappings();
-        } catch (SystemException e) {
-            ExceptionHandler.process(e);
-        }
-    }
 
     /**
      * Get the Talend Type for a particular type of a particular database.
@@ -321,6 +314,14 @@ public final class MetadataTalendType {
     }
 
     public static Dbms[] getAllDbmsArray() {
+        if (dbmsSet.isEmpty()) {
+            // if not loaded
+            try {
+                loadCommonMappings();
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+        }
         return dbmsSet.toArray(new Dbms[0]);
     }
 
@@ -397,7 +398,7 @@ public final class MetadataTalendType {
                 return dbms;
             }
         }
-        throw new IllegalArgumentException("DBMS Id : "+dbmsId+" can't be found !");
+        throw new IllegalArgumentException("DBMS Id : " + dbmsId + " can't be found !");
     }
 
     /**
