@@ -25,6 +25,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.model.components.ComponentUtilities;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemWizard;
@@ -80,6 +81,9 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
         WizardDialog dialog = new WizardDialog(activeShell, wizard);
         if (dialog.open() == Window.OK) {
             refresh();
+            if (wizard.isNeedToRefreshPalette()) {
+                ComponentUtilities.updatePalette();
+            }
         }
     }
 

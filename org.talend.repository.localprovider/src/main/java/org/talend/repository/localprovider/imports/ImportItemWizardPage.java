@@ -69,6 +69,8 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
@@ -121,6 +123,8 @@ class ImportItemWizardPage extends WizardPage {
     boolean overwrite = false;
 
     private FilteredCheckboxTree filteredCheckboxTree;
+
+    private boolean needToRefreshPalette;
 
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
@@ -772,6 +776,10 @@ class ImportItemWizardPage extends WizardPage {
         List<ItemRecord> tempItemRecords = new ArrayList<ItemRecord>();
         for (int i = 0; i < checkedElements.length; i++) {
             tempItemRecords.add((ItemRecord) checkedElements[i]);
+            Item item = ((ItemRecord) checkedElements[i]).getProperty().getItem();
+            if (item instanceof JobletProcessItem) {
+                needToRefreshPalette = true;
+            }
         }
         final List<ItemRecord> itemRecords = new ArrayList<ItemRecord>(tempItemRecords);
 
@@ -804,6 +812,15 @@ class ImportItemWizardPage extends WizardPage {
 
     public boolean performCancel() {
         return true;
+    }
+
+    /**
+     * Getter for needToRefreshPalette.
+     * 
+     * @return the needToRefreshPalette
+     */
+    public boolean isNeedToRefreshPalette() {
+        return this.needToRefreshPalette;
     }
 
 }

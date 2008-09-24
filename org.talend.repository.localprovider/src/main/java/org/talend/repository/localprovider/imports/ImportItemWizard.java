@@ -50,4 +50,8 @@ public class ImportItemWizard extends Wizard implements IImportWizard {
         return mainPage.performFinish();
     }
 
+    public boolean isNeedToRefreshPalette() {
+        return mainPage.isNeedToRefreshPalette();
+    }
+
 }
