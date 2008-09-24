@@ -41,8 +41,6 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -168,7 +166,7 @@ public class ProcessorUtilities {
         if (jobInfo.isForceRegenerate()) {
             return true;
         }
-        IProcess attachedProcess = (IProcess) jobInfo.getProcess();
+        IProcess attachedProcess = jobInfo.getProcess();
 
         if (jobInfo.getFatherJobInfo() != null) {
             JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
@@ -256,7 +254,9 @@ public class ProcessorUtilities {
 
         boolean toReturn = true;
         if (option != GENERATE_MAIN_ONLY) {
-            List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
+            // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
+            List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
+            // List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
             for (INode node : graphicalNodes) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS");
@@ -646,23 +646,18 @@ public class ProcessorUtilities {
     // see bug 0004939: making tRunjobs work loop will cause a error of "out of memory" .
     private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos, String... selectedJobVersion) {
 
-        List<NodeType> list = processItem.getProcess().getNode();
-        for (NodeType nodeType : list) {
-            if (nodeType.getComponentName().equals("tRunJob")) { //$NON-NLS-1$
-                String jobId = null, jobContext = null, jobVersion = null;
+        IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+        IProcess process = service.getProcessFromProcessItem(processItem);
 
-                for (Object obj : nodeType.getElementParameter()) {
-                    ElementParameterType element = (ElementParameterType) obj;
-                    if (element.getName().contains("PROCESS_TYPE_PROCESS")) {
-                        jobId = element.getValue();
-                    }
-                    if (element.getName().contains("PROCESS_TYPE_CONTEXT")) {
-                        jobContext = element.getValue();
-                    }
-                    if (element.getName().contains("PROCESS_TYPE_VERSION")) {
-                        jobVersion = element.getValue();
-                    }
-                }
+        List<? extends INode> graphicalNodes = process.getGeneratingNodes();
+
+        for (INode node : graphicalNodes) {
+            if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
+
+                IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS");
+                String jobId = (String) processIdparam.getValue();
+                String jobContext = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
+                String jobVersion = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
 
                 if (selectedJobVersion != null && selectedJobVersion.length == 1) {
                     jobVersion = selectedJobVersion[0];
