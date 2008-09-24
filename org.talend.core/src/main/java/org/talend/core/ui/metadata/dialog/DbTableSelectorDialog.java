@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -105,12 +106,29 @@ public class DbTableSelectorDialog extends Dialog {
         viewer.setLabelProvider(listProvider);
         viewer.setContentProvider(listProvider);
         viewer.setInput(object);
+
+        viewer.setSorter(new ViewerSorter() {
+
+            @Override
+            public int compare(Viewer viewer, Object e1, Object e2) {
+                if ((e1 instanceof DbTableSelectorObject) && (e2 instanceof DbTableSelectorObject)) {
+                    DbTableSelectorObject left = (DbTableSelectorObject) e1;
+                    DbTableSelectorObject right = (DbTableSelectorObject) e2;
+                    int result = left.getLabel().compareToIgnoreCase(right.getLabel());
+                    return result;
+                }
+                return super.compare(viewer, e1, e2);
+            }
+
+        });
+
         viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
             /*
              * (non-Javadoc)
              * 
-             * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
+             * @seeorg.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.
+             * SelectionChangedEvent)
              */
             public void selectionChanged(SelectionChangedEvent event) {
                 if (event.getSelection() instanceof StructuredSelection) {
