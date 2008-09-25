@@ -60,7 +60,7 @@ public enum EDatabaseTypeName {
     NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"),
 
     // General JDBC not support schema defalut
-    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "GENERAL_JDBC");
+    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC");
 
     // displayName is used in Java code.
     private String displayName;
