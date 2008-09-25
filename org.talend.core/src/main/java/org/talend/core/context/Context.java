@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 
 /**
  * Session context of execution. <br/>
@@ -87,6 +88,7 @@ public final class Context {
             nodesByProcess.put(process, nodes);
         }
         nodes.add(node);
+        process.setNeedRegenerateCode(true);
     }
 
     public void removeBreakpoint(IProcess process, INode node) {
@@ -95,6 +97,7 @@ public final class Context {
             List<INode> nodes = nodesByProcess.get(process);
             if (nodes != null) {
                 nodes.remove(node);
+                process.setNeedRegenerateCode(true);
                 if (nodes.isEmpty()) {
                     nodesByProcess.remove(nodes);
                     if (nodesByProcess.isEmpty()) {
@@ -104,4 +107,5 @@ public final class Context {
             }
         }
     }
+
 }
