@@ -83,18 +83,22 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
                 }
                 // for cdc
                 if (ENodeType.STABLE_SYSTEM_FOLDER.equals(node.getType())) {
-                    if (node.getParent() != null) {
-                        RepositoryNode pNode = node.getParent().getParent();
-                        if (pNode != null) {
-                            ERepositoryObjectType nodeType = (ERepositoryObjectType) pNode
-                                    .getProperties(EProperties.CONTENT_TYPE);
-                            if (ERepositoryObjectType.METADATA_CONNECTIONS.equals(nodeType) && pNode.getObject() != null) {
-                                DatabaseConnection connection = (DatabaseConnection) ((DatabaseConnectionItem) pNode.getObject()
-                                        .getProperty().getItem()).getConnection();
-                                if (connection != null) {
-                                    CDCConnection cdcConns = connection.getCdcConns();
-                                    if (cdcConns != null) {
-                                        visible = false;
+                    RepositoryNode parent = node.getParent();
+                    if (parent != null) {
+                        RepositoryNode pNode = parent;
+                        if (ENodeType.STABLE_SYSTEM_FOLDER.equals(parent.getType())) {
+                            pNode = parent.getParent();
+                            if (pNode != null && ENodeType.REPOSITORY_ELEMENT.equals(pNode.getType())) {
+                                ERepositoryObjectType nodeType = (ERepositoryObjectType) pNode
+                                        .getProperties(EProperties.CONTENT_TYPE);
+                                if (ERepositoryObjectType.METADATA_CONNECTIONS.equals(nodeType) && pNode.getObject() != null) {
+                                    DatabaseConnection connection = (DatabaseConnection) ((DatabaseConnectionItem) pNode
+                                            .getObject().getProperty().getItem()).getConnection();
+                                    if (connection != null) {
+                                        CDCConnection cdcConns = connection.getCdcConns();
+                                        if (cdcConns != null) {
+                                            visible = false;
+                                        }
                                     }
                                 }
                             }
