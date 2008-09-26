@@ -169,7 +169,7 @@ public final class ProjectManager {
         if (object != null) {
             org.talend.core.model.properties.Project project = getProject(object);
             if (project != null) {
-                return project.equals(getCurrentProject().getEmfProject());
+                return project.getTechnicalLabel().equals(getCurrentProject().getEmfProject().getTechnicalLabel());
             }
         }
         return false;
@@ -187,7 +187,7 @@ public final class ProjectManager {
             if (root != null) {
                 Project project = root.getProject();
                 if (project != null) {
-                    return project.equals(getCurrentProject());
+                    return project.getTechnicalLabel().equals(getCurrentProject().getTechnicalLabel());
                 } else {
                     return true;
                 }
@@ -206,7 +206,7 @@ public final class ProjectManager {
             for (RepositoryNode node : refRoot.getChildren()) {
                 if (node instanceof IProjectRepositoryNode) {
                     IProjectRepositoryNode pNode = (IProjectRepositoryNode) node;
-                    if (pNode.getProject().equals(project)) {
+                    if (pNode.getProject().getTechnicalLabel().equals(project.getTechnicalLabel())) {
                         return pNode;
                     }
                 }
