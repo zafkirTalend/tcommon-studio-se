@@ -121,10 +121,26 @@ public class TalendTextUtils {
 
     private static String addSQLQuotes(String text, String quoteStyle) {
 
+        String newString = checkAndAddSQLQuote(text, quoteStyle, true);
+
+        // newString = newString.replaceAll("\r", " ");
+        // newString = newString.replaceAll("\n", " ");
+        return widenSQLRestrict(newString, quoteStyle);
+    }
+
+    /*
+     * for cdc component. such as \"field\",
+     */
+    public static String addSQLFieldQuotes(String text, String quoteStyle) {
+        QueryUtil.isContextQuery = false; // clear the flag
+
+        return checkAndAddSQLQuote(text, quoteStyle, false);
+    }
+
+    private static String checkAndAddSQLQuote(String text, String quoteStyle, boolean internal) {
         String newString;
 
         String tempText = text;
-
         tempText = tempText.replaceAll("\r", " ");
         tempText = tempText.replaceAll("\n", " ");
         tempText = tempText.trim();
@@ -133,12 +149,21 @@ public class TalendTextUtils {
             if (tempText.startsWith(SINGLE_QUOTE) && tempText.endsWith(SINGLE_QUOTE)) {
                 newString = text;
             } else {
-                newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
+                newString = SINGLE_QUOTE + (internal ? checkStringQuotes(text) : text) + SINGLE_QUOTE;
+            }
+            if (!internal) {
+                newString = checkStringQuotes(newString);
             }
         } else if (quoteStyle.equals(ANTI_QUOTE)) {
-            newString = ANTI_QUOTE + checkStringQuotationMarks(text) + ANTI_QUOTE;
+            newString = ANTI_QUOTE + (internal ? checkStringQuotationMarks(text) : text) + ANTI_QUOTE;
+            if (!internal) {
+                newString = checkStringQuotationMarks(newString);
+            }
         } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
-            newString = LBRACKET + checkStringQuotationMarks(text) + RBRACKET;
+            newString = LBRACKET + (internal ? checkStringQuotationMarks(text) : text) + RBRACKET;
+            if (!internal) {
+                newString = checkStringQuotationMarks(newString);
+            }
         } else if (QueryUtil.isContextQuery) {
             newString = text;
             QueryUtil.isContextQuery = false;
@@ -146,12 +171,14 @@ public class TalendTextUtils {
             if (tempText.startsWith(QUOTATION_MARK) && tempText.endsWith(QUOTATION_MARK)) {
                 newString = text;
             } else {
-                newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
+                newString = QUOTATION_MARK + (internal ? checkStringQuotationMarks(text) : text) + QUOTATION_MARK;
+            }
+            if (!internal) {
+                newString = checkStringQuotationMarks(newString);
             }
         }
-        // newString = newString.replaceAll("\r", " ");
-        // newString = newString.replaceAll("\n", " ");
-        return widenSQLRestrict(newString, quoteStyle);
+        return newString;
+
     }
 
     /**
