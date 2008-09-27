@@ -181,10 +181,13 @@ public final class DefaultCellEditorFactory {
         if (type != null) {
             if (isFile(type)) {
                 cellEditor = createFileCellEditor(table, defalutDataValue);
+                ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
             } else if (isDate(type)) {
                 cellEditor = createDateCellEditor(table, para);
+                ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
             } else if (isDirectory(type)) {
                 cellEditor = createDirectoryCellEditor(table, defalutDataValue);
+                ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
             } else if (isList(type)) {
                 cellEditor = createListCellEditor(table, para);
                 defalutDataValue = para.getDisplayValue();
@@ -421,6 +424,16 @@ public final class DefaultCellEditorFactory {
         } else {
             return value.equals(ContextParameterJavaTypeManager.PERL_FILE);
         }
+    }
+
+    public static boolean isPassword(final String value) {
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            return value.equals(JavaTypesManager.PASSWORD.getId());
+        } else {
+            return value.equals(ContextParameterJavaTypeManager.PERL_PASSWORD);
+        }
+
     }
 
     /**
