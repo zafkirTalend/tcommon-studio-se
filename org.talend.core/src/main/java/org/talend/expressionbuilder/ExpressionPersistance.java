@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.RuntimeExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
@@ -214,14 +216,27 @@ public class ExpressionPersistance {
      * @return
      */
     public Expression loadExpression() {
+        try {
+            if (!initContents()) {
+                return new Expression();
+            }
 
-        if (!initContents()) {
-            return new Expression();
-        }
-
-        for (EObject eObject : contents) {
-            if (eObject instanceof EMFExpression && ((EMFExpression) eObject).getId().equals(this.ownerId)) {
-                return convert((EMFExpression) eObject);
+            for (EObject eObject : contents) {
+                if (eObject instanceof EMFExpression && ((EMFExpression) eObject).getId().equals(this.ownerId)) {
+                    return convert((EMFExpression) eObject);
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+            // the xml file may be corrupted, just delete it in order to open the expression builder. the see bug
+            // 0004886: Can't open Expression builder in Tmap
+            File file = new File(path);
+            if (file.exists()) {
+                try {
+                    file.delete();
+                } catch (Exception ex) {
+                    ExceptionHandler.process(ex);
+                }
             }
         }
         return new Expression();
@@ -234,8 +249,8 @@ public class ExpressionPersistance {
 
         resourceSet = new ResourceSetImpl();
 
-        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
-                Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
+                new XMIResourceFactoryImpl());
 
         resourceSet.getPackageRegistry().put(ExpressionPackage.eNS_URI, ExpressionPackage.eINSTANCE);
 
@@ -244,6 +259,7 @@ public class ExpressionPersistance {
             return false;
         }
         URI uri = URI.createFileURI(file.getAbsolutePath());
+        Map options = resourceSet.getLoadOptions();
         Resource resource = resourceSet.getResource(uri, true);
         this.contents = resource.getContents();
 
