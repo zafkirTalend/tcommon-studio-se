@@ -24,9 +24,7 @@ import java.util.Set;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -385,10 +383,11 @@ public abstract class RepositoryUpdateManager {
                 }
             }
             //
-            int size = (allVersionList.size() + openedProcessList.size() + 1) * UpdatesConstants.SCALE;
+            int size = allVersionList.size() + openedProcessList.size();
             parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
             checkMonitorCanceled(parentMonitor);
             MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
+            parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate"));
 
             for (IRepositoryObject repositoryObj : allVersionList) {
                 checkMonitorCanceled(parentMonitor);
@@ -397,19 +396,24 @@ public abstract class RepositoryUpdateManager {
                 if (isOpenedItem(item, openProcessMap)) {
                     continue;
                 }
+                parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
                 List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types);
                 if (updatesNeededFromItems != null) {
                     resultList.addAll(updatesNeededFromItems);
                 }
+                parentMonitor.worked(1);
             }
 
             // opened job
             for (IProcess process : openedProcessList) {
                 checkMonitorCanceled(parentMonitor);
-                List<UpdateResult> resultFromProcess = getResultFromProcess(parentMonitor, process, types);
+                parentMonitor.subTask(getUpdateJobInfor(process.getProperty()));
+
+                List<UpdateResult> resultFromProcess = getResultFromProcess(process, types);
                 if (resultFromProcess != null) {
                     resultList.addAll(resultFromProcess);
                 }
+                parentMonitor.worked(1);
             }
 
             // Ok, you also need to update the job setting in "create job with template"
@@ -483,18 +487,10 @@ public abstract class RepositoryUpdateManager {
         return (openProcessMap.get(property.getId(), property.getLabel(), property.getVersion()) != null);
     }
 
-    private List<UpdateResult> getResultFromProcess(IProgressMonitor parentMonitor, IProcess process,
-            final Set<EUpdateItemType> types) {
+    private List<UpdateResult> getResultFromProcess(IProcess process, final Set<EUpdateItemType> types) {
         if (process == null || types == null) {
             return null;
         }
-        if (parentMonitor == null) {
-            parentMonitor = new NullProgressMonitor();
-        }
-        SubProgressMonitor subMonitor = new SubProgressMonitor(parentMonitor, 1 * UpdatesConstants.SCALE,
-                SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
-        subMonitor.beginTask(UpdatesConstants.EMPTY, types.size());
-        subMonitor.subTask(getUpdateJobInfor(process));
 
         List<UpdateResult> resultList = new ArrayList<UpdateResult>();
         if (process instanceof IProcess2) {
@@ -518,10 +514,8 @@ public abstract class RepositoryUpdateManager {
                 if (updatesNeeded != null) {
                     resultList.addAll(updatesNeeded);
                 }
-                subMonitor.worked(1);
             }
         }
-        subMonitor.done();
         return resultList;
     }
 
@@ -545,7 +539,7 @@ public abstract class RepositoryUpdateManager {
         if (process != null && process instanceof IProcess2) {
             IProcess2 process2 = (IProcess2) process;
             // for save item
-            List<UpdateResult> resultFromProcess = getResultFromProcess(parentMonitor, process2, types);
+            List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types);
             // set
             addItemForResult(process2, resultFromProcess);
             return resultFromProcess;
@@ -576,22 +570,16 @@ public abstract class RepositoryUpdateManager {
         return null;
     }
 
-    public static String getUpdateJobInfor(IProcess process) {
-        if (process == null) {
-            return UpdatesConstants.JOB;
-        }
+    public static String getUpdateJobInfor(Property property) {
         StringBuffer infor = new StringBuffer();
         String prefix = UpdatesConstants.JOB;
         String label = null;
         String version = null;
-        if (process instanceof IProcess2) {
-            IProcess2 process2 = (IProcess2) process;
-            if (process2.disableRunJobView()) { // for joblet
-                prefix = UpdatesConstants.JOBLET;
-            }
-            label = process2.getProperty().getLabel();
-            version = process2.getProperty().getVersion();
+        if (property.getItem() instanceof JobletProcessItem) { // for joblet
+            prefix = UpdatesConstants.JOBLET;
         }
+        label = property.getLabel();
+        version = property.getVersion();
         infor.append(prefix);
         if (label != null) {
             infor.append(UpdatesConstants.SPACE);

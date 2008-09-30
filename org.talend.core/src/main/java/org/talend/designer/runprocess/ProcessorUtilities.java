@@ -41,6 +41,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.ui.editor.ITalendJobEditor;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -647,7 +648,22 @@ public class ProcessorUtilities {
     private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos, String... selectedJobVersion) {
 
         IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-        IProcess process = service.getProcessFromProcessItem(processItem);
+        IProcess process = null;
+
+        // check in opened jobs to avoid to reload the job.
+        for (IEditorPart part : openedEditors) {
+            if (part instanceof ITalendJobEditor) {
+                IProcess currentProcess = ((ITalendJobEditor) part).getProcess();
+                if (currentProcess.getLabel().equals(processItem.getProperty().getLabel())
+                        && currentProcess.getVersion().equals(processItem.getProperty().getVersion())) {
+                    process = currentProcess;
+                }
+            }
+        }
+
+        if (process == null) {
+            process = service.getProcessFromProcessItem(processItem);
+        }
 
         List<? extends INode> graphicalNodes = process.getGeneratingNodes();
 
