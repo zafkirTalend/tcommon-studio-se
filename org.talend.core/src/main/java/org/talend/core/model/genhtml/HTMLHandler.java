@@ -31,6 +31,7 @@ import javax.xml.transform.TransformerFactory;
 
 import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.ExceptionHandler;
 
 /**
@@ -142,6 +143,11 @@ public class HTMLHandler {
         try {
             File xmlFile = new File(xmlFilePath);
             javax.xml.transform.Source xmlSource = new javax.xml.transform.stream.StreamSource(xmlFile);
+
+            // will create the path needed
+            Path htmlPath = new Path(htmlFilePath);
+            File htmlFile = new File(htmlPath.removeLastSegments(1).toPortableString());
+            htmlFile.mkdirs();
 
             output = new FileOutputStream(htmlFilePath);
 
