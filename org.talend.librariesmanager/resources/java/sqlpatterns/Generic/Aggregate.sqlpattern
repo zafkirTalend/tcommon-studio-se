@@ -14,6 +14,6 @@
 	
 %>
 
-INSERT INTO <%=__TABLE_NAME_TARGET__%> (<%=StringUtils.list(__OPERATION_OUTPUT_COLUMN__, ",")%> , <%= StringUtils.list(__GROUPBY_OUTPUT_COLUMN__, ",") %> )
-SELECT <%= operation %>, <%= StringUtils.list(__GROUPBY_INPUT_COLUMN__) %> FROM <%= __TABLE_NAME__ %>
-GROUP BY <%=StringUtils.list(__GROUPBY_INPUT_COLUMN__, ",", "(", ")") %>;
+INSERT INTO <%=__DATABASE_NAME__%>.<%=__TABLE_NAME_TARGET__%> (<%=StringUtils.list(__OPERATION_OUTPUT_COLUMN__, ",")%> , <%= StringUtils.list(__GROUPBY_OUTPUT_COLUMN__, ",") %> )
+SELECT <%= operation %>, <%= StringUtils.list(__GROUPBY_INPUT_COLUMN__) %> FROM <%=__DATABASE_NAME__%>.<%= __TABLE_NAME__ %>
+GROUP BY <%=StringUtils.list(__GROUPBY_INPUT_COLUMN__, ",", "(", ")") %>

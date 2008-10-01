@@ -33,8 +33,6 @@
 	if(!primary.equals("")){
 		fieldsCreated += primary+")";
 	}
-
-	System.out.println( fieldsCreated );	
 %>
 
 CREATE TABLE <%= __TABLE_NAME_TARGET__ %> 
