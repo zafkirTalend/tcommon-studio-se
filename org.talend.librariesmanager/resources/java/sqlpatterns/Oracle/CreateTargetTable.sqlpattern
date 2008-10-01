@@ -38,4 +38,4 @@
 CREATE TABLE <%= __TABLE_NAME_TARGET__ %> 
 (
  <%= fieldsCreated %>
- )
+ );
