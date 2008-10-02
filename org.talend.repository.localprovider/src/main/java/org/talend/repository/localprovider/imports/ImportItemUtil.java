@@ -75,6 +75,7 @@ import org.talend.repository.localprovider.imports.TreeBuilder.ProjectNode;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryWorkUnit;
 
 /**
  */
@@ -203,30 +204,40 @@ public class ImportItemUtil {
         return false;
     }
 
-    public List<ItemRecord> importItemRecords(ResourcesManager manager, List<ItemRecord> itemRecords, IProgressMonitor monitor,
-            boolean overwrite) {
+    @SuppressWarnings("unchecked")
+    public List<ItemRecord> importItemRecords(final ResourcesManager manager, final List<ItemRecord> itemRecords,
+            final IProgressMonitor monitor, final boolean overwrite) {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
-        for (ItemRecord itemRecord : itemRecords) {
-            if (!monitor.isCanceled()) {
-                monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
-                if (itemRecord.isValid()) {
-                    reinitRepository();
-                    importItemRecord(manager, itemRecord, overwrite);
+        
+        RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") {
+
+            public void run() throws PersistenceException {
+                for (ItemRecord itemRecord : itemRecords) {
+                    if (!monitor.isCanceled()) {
+                        monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
+                        if (itemRecord.isValid()) {
+                            reinitRepository();
+                            importItemRecord(manager, itemRecord, overwrite);
+                            monitor.worked(1);
+                        }
+                    }
+                }
+                monitor.done();
+
+                // cannot cancel this part
+                monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
+                for (ItemRecord itemRecord : itemRecords) {
+                    if (itemRecord.isImported()) {
+                        reinitRepository();
+                        applyMigrationTasks(itemRecord, monitor);
+                    }
                     monitor.worked(1);
                 }
             }
-        }
-        monitor.done();
-
-        // cannot cancel this part
-        monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
-        for (ItemRecord itemRecord : itemRecords) {
-            if (itemRecord.isImported()) {
-                reinitRepository();
-                applyMigrationTasks(itemRecord, monitor);
-            }
-            monitor.worked(1);
-        }
+        };
+        
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
+        
         monitor.done();
 
         return itemRecords;
