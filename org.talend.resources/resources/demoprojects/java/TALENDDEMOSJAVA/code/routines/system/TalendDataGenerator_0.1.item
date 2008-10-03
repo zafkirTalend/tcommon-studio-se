@@ -5,7 +5,7 @@ public class TalendDataGenerator {
     /**
      * {talendTypes} String
      * 
-     * {Category} TalendTalendDataGenerator
+     * {Category} TalendDataGenerator
      * 
      * {example} getFirstName() # Bill.
      */
