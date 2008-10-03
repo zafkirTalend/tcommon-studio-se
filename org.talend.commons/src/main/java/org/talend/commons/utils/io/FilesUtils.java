@@ -116,7 +116,7 @@ public class FilesUtils {
         }
     }
 
-    public static void removeFile(File target) throws IOException {
+    public static void removeFile(File target) {
         if (target.exists() && target.isFile()) {
             target.delete();
         }
