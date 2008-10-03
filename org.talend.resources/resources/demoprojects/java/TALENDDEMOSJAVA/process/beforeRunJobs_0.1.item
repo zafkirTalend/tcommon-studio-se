@@ -72,7 +72,7 @@
     <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
   </parameters>
-  <node componentName="tFileUnarchive" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="160">
+  <node componentName="tFileUnarchive" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileUnarchive_1" contextMode="false"/>
     <elementParameter field="TEXT" name="COMPONENT_NAME" value="tFileUnarchive" contextMode="false"/>
     <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tFileUnarchive" contextMode="false"/>
@@ -97,7 +97,7 @@
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tFileUnarchive_1"/>
   </node>
-  <node componentName="tFileTouch" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="352">
+  <node componentName="tFileTouch" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileTouch_1" contextMode="false"/>
     <elementParameter field="TEXT" name="COMPONENT_NAME" value="tFileTouch" contextMode="false"/>
     <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tFileTouch" contextMode="false"/>
@@ -109,7 +109,7 @@
     <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="HELP" value="org.talend.help.tFileTouch" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/out/empty.txt&quot;)" contextMode="false"/>
@@ -126,7 +126,7 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
   </connection>
-  <note opaque="true" posX="96" posY="32" sizeHeight="64" sizeWidth="449" text="This job provide several examples files used by the DemoProject">
+  <note opaque="true" posX="96" posY="32" sizeHeight="97" sizeWidth="449" text="This job provide several example files used by the DemoProject.&#xD;&#xA;&#xD;&#xA;Before run this job, open the node Contexts (in the Repository)&#xD;&#xA;and check the settings of the variables root of the globalContext.">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>
     <elementParameter field="COLOR" name="NOTETXT_COLOR" value="0;0;0" contextMode="false"/>
     <elementParameter field="RADIO" name="NOTETXT_LEFT" value="false" contextMode="false"/>
