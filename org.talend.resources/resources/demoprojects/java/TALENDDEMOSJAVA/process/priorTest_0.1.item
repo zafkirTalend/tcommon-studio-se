@@ -39,7 +39,7 @@
     <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
@@ -99,7 +99,7 @@
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tMsgBox_1"/>
   </node>
-  <note opaque="true" posX="64" posY="32" sizeHeight="128" sizeWidth="577" text="In the view &quot;Run job&quot;, click on the button &quot;Run&quot; to execute the generated code&#xD;&#xA;and see the message box &quot;Hello World&quot; on Windows and a simple log on another OS&#xD;&#xA;&#xD;&#xA;Notes: press F6 to launch the current job!">
+  <note opaque="true" posX="64" posY="32" sizeHeight="128" sizeWidth="577" text="In the view &quot;Run job&quot;, click on the button &quot;Run&quot; to execute the generated code&#xD;&#xA;and see the message &quot;Hello World&quot;!&#xD;&#xA;&#xD;&#xA;Notes: press F6 to launch the current job!">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>
     <elementParameter field="COLOR" name="NOTETXT_COLOR" value="0;0;0" contextMode="false"/>
     <elementParameter field="RADIO" name="NOTETXT_LEFT" value="false" contextMode="false"/>
