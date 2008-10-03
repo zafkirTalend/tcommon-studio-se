@@ -25,10 +25,5 @@ Simply follow the steps below:
 			<type>1</type>
 			<locationURI>external_lib_java_path/jakarta-oro-2.0.8.jar</locationURI>
 		</link>
-		<link>
-			<name>lib/java/jakarta-oro-2.0.8.jar</name>
-			<type>1</type>
-			<locationURI>external_lib_java_path/jakarta-oro-2.0.8.jar</locationURI>
-		</link>
 	</linkedResources>
 </projectDescription>
