@@ -101,5 +101,5 @@ public interface IRepositoryService extends IService {
 
     public IPreferenceStore getRepositoryPreferenceStore();
 
-    public RepositoryNode getRepositoryNode(String id);
+    public RepositoryNode getRepositoryNode(String id, boolean expanded);
 }

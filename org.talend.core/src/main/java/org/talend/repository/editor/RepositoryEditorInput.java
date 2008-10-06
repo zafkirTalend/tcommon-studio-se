@@ -53,6 +53,7 @@ public class RepositoryEditorInput extends FileEditorInput {
         this.item = item;
     }
 
+    @Override
     public String getName() {
         // PTODO mhelleboid use RepositoryLabelProvider when ready
         return "Model " + item.getProperty().getLabel(); //$NON-NLS-1$
@@ -74,6 +75,7 @@ public class RepositoryEditorInput extends FileEditorInput {
         this.readOnly = readOnly;
     }
 
+    @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -250,8 +252,10 @@ public class RepositoryEditorInput extends FileEditorInput {
             // this.repositoryNode = new RepositoryNode(repositoryObject, parentNode, ENodeType.REPOSITORY_ELEMENT);
             // this.repositoryNode.setProperties(EProperties.CONTENT_TYPE, itemType);
             // }
+
+            // see bug 0005256: All folders got expanded after job creation in a folder
             this.repositoryNode = CorePlugin.getDefault().getRepositoryService().getRepositoryNode(
-                    getItem().getProperty().getId());
+                    getItem().getProperty().getId(), false);
         }
     }
 
