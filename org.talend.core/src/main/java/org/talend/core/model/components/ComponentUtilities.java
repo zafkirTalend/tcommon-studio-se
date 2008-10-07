@@ -123,7 +123,6 @@ public class ComponentUtilities {
         emptyEntry.clear();
         recordEmptyDrawer(paletteRoot);
         removeEmptyDrawer();
-
     }
 
     private static List<PaletteEntry> emptyEntry = new ArrayList<PaletteEntry>();
