@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Javacsv Plug-in
+Bundle-SymbolicName: org.talend.libraries.javacsv
+Bundle-Version: 1.0.0
+Bundle-Activator: org.talend.libraries.javacsv.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ClassPath: lib/javacsv.jar,
+ .
+Export-Package: com.csvreader,
+ org.talend.libraries.javacsv
