@@ -76,4 +76,8 @@ public interface ITalendCorePrefConstants {
     String DEFAULT_COMMAND_STR = "%GENERATED_TOS_CALL%";
 
     public static final String DEACTIVE_REPOSITORY_UPDATE = "DEACTIVE_REPOSITORY_UPDATE"; //$NON-NLS-1$
+
+    String DB_CONNECTION_TIMEOUT_ACTIVED = "db_conn_timeout_actived"; //$NON-NLS-1$
+
+    String DB_CONNECTION_TIMEOUT = "db_conn_timeout"; //$NON-NLS-1$
 }

@@ -21,7 +21,10 @@ import java.sql.SQLException;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -75,18 +78,19 @@ public class ExtractMetaDataUtils {
             // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
             // //$NON-NLS-2$
         } catch (SQLException e) {
-            //log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
-            //log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         }
         return metaDataInfo;
     }
-    
+
     /**
      * 
      * DOC xye Comment method "getStringMetaDataInfo".
+     * 
      * @param columns
      * @param infoType
      * @return
@@ -272,7 +276,7 @@ public class ExtractMetaDataUtils {
                         checkAccessDbq(url);
                     }
                 }
-
+                checkDBConnectionTimeout();
                 // Load driver class
                 if (isValidJarFile(driverJarPath)) {
                     // Load jdbc driver class dynamicly
@@ -338,6 +342,24 @@ public class ExtractMetaDataUtils {
                     throw new Exception("No data found.");
                 }
                 return;
+            }
+        }
+    }
+
+    /**
+     * 
+     * ggu Comment method "checkDBConnectionTimeout".
+     * 
+     * there is no effect for oracle.
+     */
+    public static void checkDBConnectionTimeout() {
+        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+        if (preferenceStore != null) {
+            if (preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
+                DriverManager.setLoginTimeout(preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT));
+            } else {
+                // disable timeout
+                DriverManager.setLoginTimeout(0);
             }
         }
     }

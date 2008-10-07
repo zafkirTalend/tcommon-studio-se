@@ -127,8 +127,8 @@ public class ExtractMetaDataFromDataBase {
                     availableTableTypes.add(currentTableType);
                 }
             }
-            rsTableTypes.close();//See bug 5029 Avoid "Invalid cursor exception"
-            
+            rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
+
             if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) {
                 rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
             } else {
@@ -162,31 +162,31 @@ public class ExtractMetaDataFromDataBase {
         while (rsTables.next()) {
             MetadataTable medataTable = new MetadataTable();
             medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
-            //See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
+            // See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
             // Must use column index to fetch values.
-            
+
             String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_NAME");
-            if(tableName == null){
+            if (tableName == null) {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
             }
             medataTable.setLabel(tableName); //$NON-NLS-1$
             medataTable.setTableName(medataTable.getLabel());
-            
+
             medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
-            
+
             String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM");
-            if(schema == null){
+            if (schema == null) {
                 schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 2);
             }
             if (supportSchema && schema != null) {
                 tableSchemaMap.put(medataTable.getLabel(), schema);
             }
-            
+
             String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE");
-            if(tableType == null){
+            if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
             }
-            
+
             try {
                 tableTypeMap.put(medataTable.getLabel(), tableType); //$NON-NLS-1$    
             } catch (Exception e) {
@@ -502,7 +502,7 @@ public class ExtractMetaDataFromDataBase {
                     ExtractMetaDataUtils.checkAccessDbq(url);
                 }
             }
-
+            ExtractMetaDataUtils.checkDBConnectionTimeout();
             // Load driver class
             if (isValidJarFile(driverJarPath)) {
                 // Load jdbc driver class dynamicly
