@@ -162,14 +162,24 @@ public class NodeUtil {
         return conns;
     }
 
-    public static boolean checkConnectionAfterNode(INode node, EConnectionType connectionType) {
+    public static boolean checkConnectionAfterNode(INode node, EConnectionType connectionType, List<INode> checkedNodes) {
+        // fix bug 0004935: Error on job save
+        if (checkedNodes.contains(node)) {
+            return false;
+        } else {
+            checkedNodes.add(node);
+        }
+
         boolean result = false;
         List<? extends IConnection> onErrorConns = getOutgoingConnections(node, EConnectionType.ON_COMPONENT_ERROR);
         if (onErrorConns == null || onErrorConns.size() == 0) {
             List<? extends IConnection> conns = getOutgoingSortedConnections(node);
             if (conns != null && conns.size() > 0) {
                 for (IConnection conn : conns) {
-                    result = checkConnectionAfterNode(conn.getTarget(), EConnectionType.ON_COMPONENT_ERROR);
+                    result = checkConnectionAfterNode(conn.getTarget(), EConnectionType.ON_COMPONENT_ERROR, checkedNodes);
+                    if (result) {
+                        break;
+                    }
                 }
             } else {
                 result = false;
@@ -178,6 +188,11 @@ public class NodeUtil {
             result = true;
         }
         return result;
+    }
+
+    public static boolean checkComponentErrorConnectionAfterNode(INode node) {
+        List<INode> checkedNodes = new ArrayList<INode>();
+        return checkConnectionAfterNode(node, EConnectionType.ON_COMPONENT_ERROR, checkedNodes);
     }
 
     /**
