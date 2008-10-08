@@ -116,6 +116,9 @@ public enum ECoreImage implements IImage {
     ERROR_OVERLAY("/icons/error_co.gif"), //$NON-NLS-1$
     WARN_OVERLAY("/icons/warning_co.gif"), //$NON-NLS-1$
 
+    TOGGLE_SUBJOB("/icons/toggleSubjobs.png"),
+    TOGGLE_SUBJOB_DISABLED("/icons/toggleSubjobDisabled.png"),
+
     UNKNOWN();
 
     private String path;
