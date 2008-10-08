@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<TalendMetadata:DatabaseConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" DatabaseType="Access" URL="jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=c:/demotalend.mdb" Port="" Username="root" Password="torr" ServerName="" DatasourceName="" FileFieldName="c:/demoTalend.mdb" Schema="" SID="" SqlSynthax="SQL Syntax" DbmsId="access_id" ProductId="ACCESS" DBRootPath="" AdditionalParams=""/>

@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<TalendMetadata:DatabaseConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" DatabaseType="SQLite" URL="jdbc:sqlite:/d:/demosqllite.db" Port="" Username="" Password="" ServerName="" DatasourceName="" FileFieldName="D:/demoSqlLite.db" Schema="" SID="" SqlSynthax="SQL Syntax" DbmsId="sqlite_id" ProductId="SQLITE" DBRootPath="" AdditionalParams=""/>
