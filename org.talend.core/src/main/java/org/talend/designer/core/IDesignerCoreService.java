@@ -114,4 +114,11 @@ public interface IDesignerCoreService extends IService {
      * @return
      */
     public String getDisplayForProcessParameterFromName(final String name);
+
+    /**
+     * When database connection is renamed, refresh the connection label in the component view of job.
+     * 
+     * @param item
+     */
+    public void refreshComponentView(Item item);
 }
