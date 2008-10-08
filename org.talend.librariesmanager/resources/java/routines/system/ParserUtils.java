@@ -130,6 +130,32 @@ public class ParserUtils {
         return date;
     }
 
+    public static java.util.Date parseTo_Date(String s, String pattern, boolean lenient) {
+        // check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
+        if (s != null) {
+            s = s.trim();
+        }
+        if (s == null || s.length() == 0) {
+            return null;
+        }
+        java.util.Date date = null;
+        // try {
+        // date = FastDateParser.getInstance(pattern).parse(s);
+        // } catch (java.text.ParseException e) {
+        // e.printStackTrace();
+        // System.err.println("Current string to parse '" + s + "'");
+        // }
+        DateFormat format = FastDateParser.getInstance(pattern, lenient);
+        ParsePosition pp = new ParsePosition(0);
+        pp.setIndex(0);
+        date = format.parse(s, pp);
+        if (pp.getIndex() != s.length() || date == null) {
+            throw new RuntimeException("Unparseable date: \"" + s + "\"");
+        }
+
+        return date;
+    }
+    
     public static java.util.Date parseTo_Date(java.util.Date date, String pattern) {
         // java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
         // java.util.Date date = null;
