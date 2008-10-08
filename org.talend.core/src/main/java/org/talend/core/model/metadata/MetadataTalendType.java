@@ -33,6 +33,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
@@ -66,7 +67,7 @@ public final class MetadataTalendType {
 
     private static Logger log = Logger.getLogger(MetadataTalendType.class);
 
-    private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+    private static ECodeLanguage codeLanguage;
 
     private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "int", "decimal", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
@@ -159,7 +160,7 @@ public final class MetadataTalendType {
      */
     public static String[] loadTalendTypes(String dbms, boolean reload) {
 
-        if (codeLanguage == ECodeLanguage.JAVA) {
+        if (getCodeLanguage() == ECodeLanguage.JAVA) {
             return JavaTypesManager.getJavaTypesLabels();
         } else {
             dbms = dbms.toUpperCase();
@@ -293,9 +294,9 @@ public final class MetadataTalendType {
      * @return
      */
     public static String[] getTalendTypesLabels() {
-        if (codeLanguage == ECodeLanguage.JAVA) {
+        if (getCodeLanguage() == ECodeLanguage.JAVA) {
             return JavaTypesManager.getJavaTypesLabels();
-        } else if (codeLanguage == ECodeLanguage.PERL) {
+        } else if (getCodeLanguage() == ECodeLanguage.PERL) {
             // return (String[]) ArrayUtils.clone(PERL_TYPES);
             // return loadTalendTypes("TALENDDEFAULT", false); //before
             return getPerlTypes();
@@ -304,9 +305,9 @@ public final class MetadataTalendType {
     }
 
     public static String[] getCxtParameterTalendTypesLabels() {
-        if (codeLanguage == ECodeLanguage.JAVA) {
+        if (getCodeLanguage() == ECodeLanguage.JAVA) {
             return ContextParameterJavaTypeManager.getJavaTypesLabels();
-        } else if (codeLanguage == ECodeLanguage.PERL) {
+        } else if (getCodeLanguage() == ECodeLanguage.PERL) {
             // return (String[]) ArrayUtils.clone(PERL_TYPES);
             return ContextParameterJavaTypeManager.getPerlTypesLabels();
         }
@@ -439,9 +440,15 @@ public final class MetadataTalendType {
         try {
             if (b != null) {
                 url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
+                System.out.println("[MetadataTalendType]load From :" + url.getPath());
             } else {
                 // for testing only, see org.talend.core\src\test\java\mappings for test files
                 url = MetadataTalendType.class.getResource(dirPath);
+                IPath path = new Path(url.getPath());
+                path = path.removeLastSegments(2);
+                url = new URL("file:/" + path.toPortableString() + dirPath);
+
+                System.out.println("[MetadataTalendType]bundle:" + CorePlugin.PLUGIN_ID + " not found, load:" + url.getPath());
             }
         } catch (IOException e) {
             throw new SystemException(e);
@@ -453,6 +460,7 @@ public final class MetadataTalendType {
             File[] files = dir.listFiles();
             for (File file : files) {
                 if (file.getName().matches("^mapping_.*\\.xml$")) { //$NON-NLS-1$
+                    System.out.println("[MetadataTalendType]loading :" + file.getName());
                     loadMapping(file);
                     metadataMappingFiles.add(file);
                 }
@@ -475,6 +483,9 @@ public final class MetadataTalendType {
      * @return the codeLanguage
      */
     static ECodeLanguage getCodeLanguage() {
+        if (codeLanguage == null) {
+            codeLanguage = LanguageManager.getCurrentLanguage();
+        }
         return codeLanguage;
     }
 
@@ -511,9 +522,9 @@ public final class MetadataTalendType {
      * @return the default Talend type function of the current language
      */
     public static String getDefaultTalendType() {
-        if (codeLanguage == ECodeLanguage.JAVA) {
+        if (getCodeLanguage() == ECodeLanguage.JAVA) {
             return JavaTypesManager.getDefaultJavaType().getId();
-        } else if (codeLanguage == ECodeLanguage.PERL) {
+        } else if (getCodeLanguage() == ECodeLanguage.PERL) {
             return ""; //$NON-NLS-1$
         } else {
             throw new IllegalStateException("Case not found"); //$NON-NLS-1$
@@ -543,13 +554,7 @@ public final class MetadataTalendType {
     public static void main(String[] args) {
         codeLanguage = ECodeLanguage.JAVA;
 
-        try {
-            MetadataTalendType.loadCommonMappings();
-        } catch (SystemException e) {
-            ExceptionHandler.process(e);
-        }
-
-        String dbmsId = "mysql_id"; //$NON-NLS-1$
+        String dbmsId = "oracle_id"; //$NON-NLS-1$
         Dbms dbms = getDbms(dbmsId);
         System.out.println("dbms:" + dbms);
         System.out.println("types:" + Arrays.asList(getDbTypes(dbmsId)));
