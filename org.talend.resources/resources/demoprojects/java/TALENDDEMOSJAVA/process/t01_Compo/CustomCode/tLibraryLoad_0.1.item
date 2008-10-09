@@ -6,7 +6,7 @@
     <elementParameter field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="AUTHOR" value="ocarbone@talend.com" contextMode="false"/>
     <elementParameter field="TEXT" name="STATUS" value="" contextMode="false"/>
-    <elementParameter field="TEXT" name="NAME" value="TLibraryLoad" contextMode="false"/>
+    <elementParameter field="TEXT" name="NAME" value="tLibraryLoad" contextMode="false"/>
     <elementParameter field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
     <elementParameter field="TEXT" name="PURPOSE" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="" contextMode="false"/>
@@ -107,7 +107,7 @@
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String email=&quot;support@talend.com&quot;;&#xA;&#xA;&#xA;Perl5Matcher matcher = new Perl5Matcher();&#xA;Perl5Compiler compiler = new Perl5Compiler();&#xA;Pattern pattern=compiler.compile(&quot;^[\\w_.-]+@[\\w.-]+\\.[\\w]+$&quot;);&#xA;if(matcher.matches(email,pattern))&#xA;{System.out.println(email + &quot; is a correct email address&quot;);}&#xA;else{&#xA;System.err.println(email + &quot; is an incorrect email address&quot;);&#xA;}&#xA;&#xA;" contextMode="false"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String email=&quot;info@talend.com&quot;;&#xA;&#xA;&#xA;Perl5Matcher matcher = new Perl5Matcher();&#xA;Perl5Compiler compiler = new Perl5Compiler();&#xA;Pattern pattern=compiler.compile(&quot;^[\\w_.-]+@[\\w.-]+\\.[\\w]+$&quot;);&#xA;if(matcher.matches(email,pattern))&#xA;{System.out.println(email + &quot; is a correct email address&quot;);}&#xA;else{&#xA;System.err.println(email + &quot; is an incorrect email address&quot;);&#xA;}&#xA;&#xA;" contextMode="false"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="import org.apache.oro.text.regex.MalformedPatternException;&#xA;import org.apache.oro.text.regex.Pattern;&#xA;import org.apache.oro.text.regex.Perl5Compiler;&#xA;import org.apache.oro.text.regex.Perl5Matcher;" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
