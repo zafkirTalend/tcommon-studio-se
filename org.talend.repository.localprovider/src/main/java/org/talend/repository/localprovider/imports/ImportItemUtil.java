@@ -75,7 +75,11 @@ import org.talend.repository.localprovider.imports.TreeBuilder.ProjectNode;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.model.RepositoryWorkUnit;
+import org.talend.repository.model.RepositoryNode.ENodeType;
+import org.talend.repository.model.RepositoryNode.EProperties;
 
 /**
  */
@@ -111,6 +115,33 @@ public class ImportItemUtil {
         return hasErrors;
     }
 
+    private static IPath getPath(RepositoryNode node) {
+
+        if (node.getType() == ENodeType.STABLE_SYSTEM_FOLDER || node.getType() == ENodeType.SYSTEM_FOLDER) {
+            String prefix = "";
+            ERepositoryObjectType type = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+            switch (type) {
+            case METADATA_FILE_DELIMITED:
+            case METADATA_FILE_POSITIONAL:
+            case METADATA_FILE_REGEXP:
+            case METADATA_FILE_XML:
+            case METADATA_FILE_LDIF:
+            case METADATA_FILE_EXCEL:
+            case METADATA_SALESFORCE_SCHEMA:
+            case METADATA_GENERIC_SCHEMA:
+            case METADATA_LDAP_SCHEMA:
+            case METADATA_CONNECTIONS:
+            case METADATA_SAPCONNECTIONS:
+                prefix = ERepositoryObjectType.METADATA.toString();
+
+            }
+            return new Path(prefix).append(node.getLabel());
+        }
+
+        String label = node.getObject().getProperty().getLabel();
+        return getPath(node.getParent()).append(label);
+    }
+
     private boolean checkItem(ItemRecord itemRecord, boolean overwrite) {
         boolean result = false;
 
@@ -118,7 +149,9 @@ public class ImportItemUtil {
             boolean nameAvailable = ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
                     itemRecord.getProperty().getLabel());
             org.talend.core.model.general.Project project = projectManager.getCurrentProject();
-            boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(project, itemRecord.getProperty().getId()) == null;
+            IRepositoryObject itemWithSameId = ProxyRepositoryFactory.getInstance().getLastVersion(project,
+                    itemRecord.getProperty().getId());
+            boolean idAvailable = itemWithSameId == null;
 
             boolean isSystemRoutine = false;
             // we do not import built in routines
@@ -142,7 +175,11 @@ public class ImportItemUtil {
                     if (overwrite) {
                         result = true;
                     } else {
-                        itemRecord.addError(Messages.getString("RepositoryUtil.idUsed")); //$NON-NLS-1$
+                        // see bug 0005222: [Import items] [Errors and Warnings] id is already in use
+                        RepositoryNode nodeWithSameId = RepositoryNodeUtilities.getRepositoryNode(itemWithSameId);
+                        IPath path = getPath(nodeWithSameId);
+                        itemRecord
+                                .addError(Messages.getString("RepositoryUtil.idUsed") + " by item '" + itemWithSameId.getLabel() + "' in '" + path.toOSString() + "'"); //$NON-NLS-1$
                     }
                 }
             } else {
@@ -208,9 +245,10 @@ public class ImportItemUtil {
     public List<ItemRecord> importItemRecords(final ResourcesManager manager, final List<ItemRecord> itemRecords,
             final IProgressMonitor monitor, final boolean overwrite) {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
-        
+
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") {
 
+            @Override
             public void run() throws PersistenceException {
                 for (ItemRecord itemRecord : itemRecords) {
                     if (!monitor.isCanceled()) {
@@ -235,9 +273,9 @@ public class ImportItemUtil {
                 }
             }
         };
-        
+
         ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
-        
+
         monitor.done();
 
         return itemRecords;
