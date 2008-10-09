@@ -474,6 +474,14 @@ public final class MetadataTalendType {
     }
 
     public static List<File> getMetadataMappingFiles() {
+        if (metadataMappingFiles == null) {
+            // in some cases mapping files are not set, depends the actions of the user.
+            try {
+                loadCommonMappings();
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+        }
         return metadataMappingFiles;
     }
 
