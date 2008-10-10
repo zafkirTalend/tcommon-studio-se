@@ -219,6 +219,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         editMenu.appendToGroup(GROUP_DELETE, ActionFactory.SELECT_ALL.create(window));
         editMenu.add(new GroupMarker(IWorkbenchActionConstants.FIND_EXT));
 
+        MenuManager navigateMenu = new MenuManager(
+                Messages.getString("ApplicationActionBarAdvisor.navigateLabel"), IWorkbenchActionConstants.M_NAVIGATE); //$NON-NLS-1$
+        navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.NAV_START));
+        navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+        navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.SHOW_EXT));
+
+        MenuManager gotoMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.gotoLabel"),
+                IWorkbenchActionConstants.GO_TO);
+        navigateMenu.add(gotoMenu);
+
+        menuBar.add(navigateMenu);
+
+        MenuManager projectMenu = new MenuManager(
+                Messages.getString("ApplicationActionBarAdvisor.projectLabel"), IWorkbenchActionConstants.M_PROJECT); //$NON-NLS-1$
+        menuBar.add(projectMenu);
+
         MenuManager perspMenu = new PerspectiveMenuManager();
 
         MenuManager windowMenu = new MenuManager(
