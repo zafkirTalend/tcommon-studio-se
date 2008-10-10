@@ -209,7 +209,6 @@
     <migrationTasks>org.talend.repository.model.migration.AddFamilyFieldProjectMigrationTask</migrationTasks>
     <migrationTasks>org.talend.repository.model.migration.QuoteWraptSSHcommandMigrationTask</migrationTasks>
     <migrationTasks>org.talend.repository.model.migration.MigrationTaskForIssue4449</migrationTasks>
-    <migrationTasks>org.talend.repository.model.migration.FileInputRegexContextVariableMigrationTask</migrationTasks>
     <componentsSettings xmi:id="_sq8mUIZYEd25L9oQFoIjLw" name="tAccessInput" family="Databases/Access"/>
     <componentsSettings xmi:id="_sq8mUYZYEd25L9oQFoIjLw" name="tAccessOutput" family="Databases/Access"/>
     <componentsSettings xmi:id="_sq8mUoZYEd25L9oQFoIjLw" name="tAccessRow" family="Databases/Access"/>
