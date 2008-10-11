@@ -18,7 +18,7 @@ public class FormatterUtils {
 
     public static String format_Date(java.util.Date date, String pattern) {
         if (date != null) {
-            return TalendDate.formatDate(pattern, date) ;
+            return TalendDate.formatDate(pattern, date);
         } else {
             return null;
         }
@@ -32,11 +32,27 @@ public class FormatterUtils {
             return null;
         }
         String result = s;
+        int decimalIndex = s.indexOf(".");
+
+        if (decimalIndex == -1) {
+            if (thousandsSeparator != null) {
+                return formatNumber(result, thousandsSeparator);
+            } else {
+                return result;
+            }
+        }
+
         if (thousandsSeparator != null) {
-            result = formatNumber(s, thousandsSeparator);
+            if (thousandsSeparator != null) {
+                result = formatNumber(s.substring(0, decimalIndex), thousandsSeparator);
+            } else {
+                result = s.substring(0, decimalIndex);
+            }
         }
         if (decimalSeparator != null) {
-            result = result.replace('.', decimalSeparator);
+            result += (s.substring(decimalIndex)).replace('.', decimalSeparator);
+        } else {
+            result += s.substring(decimalIndex);
         }
         return result;
     }
@@ -44,10 +60,7 @@ public class FormatterUtils {
     private static String formatNumber(String s, char thousandsSeparator) {
 
         StringBuilder sb = new StringBuilder(s);
-        int index = sb.indexOf(".");
-        if (index == -1) {
-            index = sb.length();
-        }
+        int index = sb.length();
 
         index = index - 3;
         while (index > 0 && sb.charAt(index - 1) != '-') {
