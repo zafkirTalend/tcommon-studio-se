@@ -43,12 +43,11 @@ public class FormatterUtils {
         }
 
         if (thousandsSeparator != null) {
-            if (thousandsSeparator != null) {
-                result = formatNumber(s.substring(0, decimalIndex), thousandsSeparator);
-            } else {
-                result = s.substring(0, decimalIndex);
-            }
+            result = formatNumber(s.substring(0, decimalIndex), thousandsSeparator);
+        } else {
+            result = s.substring(0, decimalIndex);
         }
+        
         if (decimalSeparator != null) {
             result += (s.substring(decimalIndex)).replace('.', decimalSeparator);
         } else {
