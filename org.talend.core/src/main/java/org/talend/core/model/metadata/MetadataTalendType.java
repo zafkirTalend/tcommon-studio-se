@@ -440,15 +440,12 @@ public final class MetadataTalendType {
         try {
             if (b != null) {
                 url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
-                System.out.println("[MetadataTalendType]load From :" + url.getPath());
             } else {
                 // for testing only, see org.talend.core\src\test\java\mappings for test files
                 url = MetadataTalendType.class.getResource(dirPath);
                 IPath path = new Path(url.getPath());
                 path = path.removeLastSegments(2);
                 url = new URL("file:/" + path.toPortableString() + dirPath);
-
-                System.out.println("[MetadataTalendType]bundle:" + CorePlugin.PLUGIN_ID + " not found, load:" + url.getPath());
             }
         } catch (IOException e) {
             throw new SystemException(e);
@@ -460,7 +457,6 @@ public final class MetadataTalendType {
             File[] files = dir.listFiles();
             for (File file : files) {
                 if (file.getName().matches("^mapping_.*\\.xml$")) { //$NON-NLS-1$
-                    System.out.println("[MetadataTalendType]loading :" + file.getName());
                     loadMapping(file);
                     metadataMappingFiles.add(file);
                 }
