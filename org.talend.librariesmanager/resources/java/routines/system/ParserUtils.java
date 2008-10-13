@@ -104,7 +104,7 @@ public class ParserUtils {
         return new BigDecimal(s);
     }
 
-    public static java.util.Date parseTo_Date(String s, String pattern) {
+    public synchronized static java.util.Date parseTo_Date(String s, String pattern) {
         // check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
         if (s != null) {
             s = s.trim();
@@ -130,7 +130,7 @@ public class ParserUtils {
         return date;
     }
 
-    public static java.util.Date parseTo_Date(String s, String pattern, boolean lenient) {
+    public synchronized static java.util.Date parseTo_Date(String s, String pattern, boolean lenient) {
         // check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
         if (s != null) {
             s = s.trim();
@@ -155,7 +155,7 @@ public class ParserUtils {
 
         return date;
     }
-    
+
     public static java.util.Date parseTo_Date(java.util.Date date, String pattern) {
         // java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
         // java.util.Date date = null;
