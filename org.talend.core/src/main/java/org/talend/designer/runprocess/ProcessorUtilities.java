@@ -675,9 +675,9 @@ public class ProcessorUtilities {
                 String jobContext = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
                 String jobVersion = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
 
-                if (selectedJobVersion != null && selectedJobVersion.length == 1) {
-                    jobVersion = selectedJobVersion[0];
-                }
+                // if (selectedJobVersion != null && selectedJobVersion.length == 1) {
+                // jobVersion = selectedJobVersion[0];
+                // }
 
                 ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {
