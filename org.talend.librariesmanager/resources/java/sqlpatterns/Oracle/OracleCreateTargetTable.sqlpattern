@@ -32,12 +32,10 @@
 	}
 	if(!primary.equals("")){
 		fieldsCreated += primary+")";
-	}
-
-	System.out.println( fieldsCreated );	
+	}	
 %>
 
-CREATE TABLE <%= __TABLE_NAME_TARGET__ %> 
+CREATE TABLE <%= __DATABASE_NAME__ %>.<%= __TABLE_NAME_TARGET__ %> 
 (
  <%= fieldsCreated %>
- )
+ );

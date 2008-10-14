@@ -12,4 +12,4 @@
 	}
 %>
 INSERT INTO <%=__TABLE_NAME_TARGET__%> (<%= fields %>) 
-SELECT <%= fields %> FROM <%= __TABLE_NAME__ %>
+SELECT <%= fields %> FROM <%= __TABLE_NAME__ %>;
