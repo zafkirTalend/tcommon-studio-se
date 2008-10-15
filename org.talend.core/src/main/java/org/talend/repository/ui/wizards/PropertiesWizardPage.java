@@ -44,7 +44,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.dialogs.ListDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.ImageProvider;
@@ -85,6 +84,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     /** Author text. */
     protected Text authorText;
+
+    /** Locker text. */
+    protected Text lockerText;
 
     /** Version text. */
     protected Text versionText;
@@ -251,6 +253,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
         authorText = new Text(parent, SWT.BORDER);
         authorText.setEnabled(false);
         authorText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        // Locker
+        Label lockerLab = new Label(parent, SWT.NONE);
+        lockerLab.setText(Messages.getString("PropertiesWizardPage.Locker")); //$NON-NLS-1$
+
+        lockerText = new Text(parent, SWT.BORDER);
+        lockerText.setEnabled(false);
+        lockerText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // Version
         Label versionLab = new Label(parent, SWT.NONE);
@@ -709,6 +719,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
             purposeText.setText(StringUtils.trimToEmpty(property.getPurpose()));
             descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
             authorText.setText(StringUtils.trimToEmpty(property.getAuthor().getLogin()));
+            lockerText.setText("");
+            try {
+                lockerText.setText(property.getItem().getState().getLocker().getLogin());
+            } catch (Exception e) {
+                // ignore null pointer exceptions
+            }
             versionText.setText(property.getVersion());
             statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
             if (destinationPath != null) {
