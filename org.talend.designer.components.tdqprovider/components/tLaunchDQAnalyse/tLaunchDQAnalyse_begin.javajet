@@ -8,6 +8,7 @@
     	org.talend.core.model.process.IConnection
     	java.util.List
     	java.util.Map
+		java.util.ArrayList
 	"
 %>
 
@@ -22,15 +23,22 @@
 	tdqDirectory = tdqDirectory.replace('\\', '/');
 	String reportFile  = ElementParameterParser.getValue(node, "__REPORT_FILE__");
 
-	String cmd = new String("\"\"");
-	if(tdqInstallDir.indexOf(".exe") > 0){
-		cmd = new String("\"cmd /c \"");
-	}
 %>
-	String command_<%=cid %> = new String(<%= cmd %>+<%= tdqInstallDir %>+" -nosplash -application org.talend.dataprofiler.core.tdq.ReportRunner -consoleLog -data "+<%= tdqDirectory %>/workspace -vmargs -DREPORT_FILES_TO_EXECUTE=/Data Profiling/Reports/"+<%= reportFile %>);
+	java.util.ArrayList<String> command_<%=cid %> = new java.util.ArrayList<String>();
+	command_<%=cid %>.add(<%= tdqInstallDir %>);
+	command_<%=cid %>.add("-nosplash");
+	command_<%=cid %>.add("-application");
+	command_<%=cid %>.add("org.talend.dataprofiler.core.tdq.ReportRunner");
+	command_<%=cid %>.add("-consoleLog");
+	command_<%=cid %>.add("-data");
+	command_<%=cid %>.add(<%= tdqDirectory %>/workspace");
+	command_<%=cid %>.add("-vmargs");
+	command_<%=cid %>.add(<%= tdqDirectory %>/workspace");
+	command_<%=cid %>.add("-DREPORT_FILES_TO_EXECUTE=/Data Profiling/Reports/"+<%= reportFile %>);
+
 	Runtime runtime_<%=cid %> = Runtime.getRuntime();
 	String[] env_<%=cid %>= null;
-	final Process process_<%=cid %> = runtime_<%=cid %>.exec(command_<%=cid %>,env_<%=cid %>);
+	final Process process_<%=cid %> = runtime_<%=cid %>.exec(command_<%=cid %>.toArray(new String[command_<%=cid %>.size()]),env_<%=cid %>);
 	Thread normal_<%=cid %> = new Thread() {
 		public void run() {
 			try {
