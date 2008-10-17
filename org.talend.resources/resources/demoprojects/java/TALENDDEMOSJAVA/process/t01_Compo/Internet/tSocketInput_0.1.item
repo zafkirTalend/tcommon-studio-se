@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default">
-    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C://"/>
+    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C://test/"/>
   </context>
   <parameters>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r17341-V3.0.0M3\workspace" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TIS_EE-All-r18817-V3.0.0\workspace" contextMode="false"/>
     <elementParameter field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="AUTHOR" value="ocarbone@talend.com" contextMode="false"/>
     <elementParameter field="TEXT" name="STATUS" value="" contextMode="false"/>
@@ -84,9 +84,13 @@
     <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="HELP" value="" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLILIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="TEXT" name="HOSTNAME" value="&quot;127.0.0.1&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PORT" value="3456" contextMode="false"/>
     <elementParameter field="TEXT" name="TIMEOUT" value="10000" contextMode="false"/>
@@ -136,12 +140,19 @@
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLILIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true" contextMode="false"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="VERTICAL" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" value="true" contextMode="false"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="PRINT_HEADER" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false" contextMode="false"/>
