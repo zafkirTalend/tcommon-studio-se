@@ -66,9 +66,9 @@ imports="
             java.sql.Statement stmt_<%=cid %> = conn_<%=cid%>.createStatement();
 			String dbquery;
 			if(<%= customPattern %>){
-				dbquery = new String("SELECT * FROM \""+<%= schemaDb %>+"\".\""+<%= table %>+"\" WHERE \"<%= analyzedColumn %>\" !~ "+<%= dqPattern %>+" OR <%= analyzedColumn %> IS NULL");
+				dbquery = new String("SELECT * FROM \""+<%= schemaDb %>+"\".\""+<%= table %>+"\" WHERE \"<%= analyzedColumn %>\" !~ "+<%= dqPattern %>+" OR \"<%= analyzedColumn %>\" IS NULL");
 			} else {
-				dbquery = new String("SELECT * FROM \""+<%= schemaDb %>+"\".\""+<%= table %>+"\" WHERE \"<%= analyzedColumn %>\" !~ <%= patternList %> OR <%= analyzedColumn %> IS NULL");
+				dbquery = new String("SELECT * FROM \""+<%= schemaDb %>+"\".\""+<%= table %>+"\" WHERE \"<%= analyzedColumn %>\" !~ <%= patternList %> OR \"<%= analyzedColumn %>\" IS NULL");
 			}
 
             java.sql.ResultSet rs_<%=cid %> = stmt_<%=cid %>.executeQuery(dbquery);

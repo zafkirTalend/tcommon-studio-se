@@ -83,9 +83,9 @@ imports="
             java.sql.Statement stmt_<%=cid %> = conn_<%=cid%>.createStatement();
 			String dbquery;
 			if(<%= customPattern %>){
-				dbquery = new String("SELECT * FROM "+<%= schemaDb %>.<%= table %>+" WHERE NOT REGEXP_LIKE (<%= analyzedColumn %>, "+<%= dqPattern %>+")");
+				dbquery = new String("SELECT * FROM "+<%= schemaDb %>+"."+<%= table %>+" WHERE NOT REGEXP_LIKE (<%= analyzedColumn %>, "+<%= dqPattern %>+") OR <%= analyzedColumn %> IS NULL ");
 			} else {
-				dbquery = new String("SELECT * FROM "+<%= schemaDb %>.<%= table %>+" WHERE NOT REGEXP_LIKE (<%= analyzedColumn %>, <%= patternList %>)");
+				dbquery = new String("SELECT * FROM "+<%= schemaDb %>+"."+<%= table %>+" WHERE NOT REGEXP_LIKE (<%= analyzedColumn %>, <%= patternList %>) OR <%= analyzedColumn %> IS NULL ");
 			}
 
             java.sql.ResultSet rs_<%=cid %> = stmt_<%=cid %>.executeQuery(dbquery);
