@@ -36,7 +36,8 @@ public class Project {
 		this.project = project;
 	}
 
-	public Project(String label) {
+	
+    public Project(String label) {
 		this.project = PropertiesFactory.eINSTANCE.createProject();
 		project.setLabel(label);
 	}
@@ -181,6 +182,10 @@ public class Project {
 	public org.talend.core.model.properties.Project getEmfProject() {
 		return project;
 	}
+
+    public void setEmfProject(org.talend.core.model.properties.Project project) {
+        this.project = project;
+    }
 
 	public String getMasterJobId() {
 		return project.getMasterJobId();
