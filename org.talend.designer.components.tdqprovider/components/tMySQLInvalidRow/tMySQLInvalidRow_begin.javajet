@@ -75,9 +75,9 @@ imports="
             java.sql.Statement stmt_<%=cid %> = conn_<%=cid%>.createStatement();
 			String dbquery;
 			if(<%= customPattern %>){
-				dbquery = new String("SELECT * FROM "+<%= table %>+" WHERE <%= analyzedColumn %> NOT REGEXP "+<%= dqPattern %>);
+				dbquery = new String("SELECT * FROM "+<%= table %>+" WHERE <%= analyzedColumn %> NOT REGEXP "+<%= dqPattern %>+" OR <%= analyzedColumn %> IS NULL");
 			} else {
-				dbquery = new String("SELECT * FROM "+<%= table %>+" WHERE <%= analyzedColumn %> NOT REGEXP <%= patternList %>");
+				dbquery = new String("SELECT * FROM "+<%= table %>+" WHERE <%= analyzedColumn %> NOT REGEXP <%= patternList %> OR <%= analyzedColumn %> IS NULL");
 			}
 
             java.sql.ResultSet rs_<%=cid %> = stmt_<%=cid %>.executeQuery(dbquery);
