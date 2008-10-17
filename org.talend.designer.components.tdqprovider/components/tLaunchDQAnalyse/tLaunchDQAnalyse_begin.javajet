@@ -29,12 +29,11 @@
 	command_<%=cid %>.add("-nosplash");
 	command_<%=cid %>.add("-application");
 	command_<%=cid %>.add("org.talend.dataprofiler.core.tdq.ReportRunner");
-	command_<%=cid %>.add("-consoleLog");
 	command_<%=cid %>.add("-data");
 	command_<%=cid %>.add(<%= tdqDirectory %>/workspace");
 	command_<%=cid %>.add("-vmargs");
 	command_<%=cid %>.add(<%= tdqDirectory %>/workspace");
-	command_<%=cid %>.add("-DREPORT_FILES_TO_EXECUTE=/Data Profiling/Reports/"+<%= reportFile %>);
+	command_<%=cid %>.add("-DREPORT_FILES_TO_EXECUTE="+<%= reportFile %>);
 
 	Runtime runtime_<%=cid %> = Runtime.getRuntime();
 	String[] env_<%=cid %>= null;

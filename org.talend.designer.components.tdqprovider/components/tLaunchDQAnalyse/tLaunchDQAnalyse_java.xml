@@ -25,7 +25,7 @@
 			<DEFAULT>"__COMP_DEFAULT_FILE_DIR__/TalendDataQuality-win32-x86.exe"</DEFAULT>
 		</PARAMETER>
 		<PARAMETER NAME="REPORT_FILE" FIELD="TEXT" NUM_ROW="2">
-			<DEFAULT>"report.csv"</DEFAULT>
+			<DEFAULT>"/Data Profiling/Reports/..."</DEFAULT>
 		</PARAMETER>
 
 	</PARAMETERS>
