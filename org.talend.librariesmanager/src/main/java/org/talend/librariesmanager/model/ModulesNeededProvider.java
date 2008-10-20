@@ -14,7 +14,6 @@ package org.talend.librariesmanager.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
@@ -33,15 +32,11 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.process.EParameterFieldType;
-import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
@@ -130,45 +125,41 @@ public class ModulesNeededProvider {
      * @param process
      */
     public static void resetCurrentJobNeededModuleList(IProcess2 process) {
+        // Step 1: remove all modules for current job;
+        List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
+        for (ModuleNeeded module : componentImportNeedsList) {
+            if (module.getContext().equals("Job " + process.getProperty().getLabel())) {
+                moduleForCurrentJobList.add(module);
+            }
+        }
+        componentImportNeedsList.removeAll(moduleForCurrentJobList);
 
-        List<? extends INode> graphicalNodes = process.getGraphicalNodes();
-        for (INode node : graphicalNodes) {
-            List<? extends IElementParameter> elementParameters = node.getElementParameters();
-            for (IElementParameter elementParameter : elementParameters) {
-                if (elementParameter.getField() != EParameterFieldType.MODULE_LIST) {
-                    continue;
+        for (String neededLibrary : process.getNeededLibraries(true)) {
+            boolean alreadyInImports = false;
+            for (ModuleNeeded module : componentImportNeedsList) {
+                if (module.getModuleName().equals(neededLibrary)) {
+                    alreadyInImports = true;
                 }
+            }
+            if (alreadyInImports) {
+                continue;
+            }
 
-                // Step 1: remove all modules for current job;
-                Set<String> neededLibraries = process.getNeededLibraries(true);
-                List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
-                for (String libName : neededLibraries) {
-                    for (ModuleNeeded module : componentImportNeedsList) {
-                        if (module.getModuleName().equals(libName)) {
-                            moduleForCurrentJobList.add(module);
-                        }
-                    }
+            // Step 2: re-add specific modules
+            ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), neededLibrary,
+                    "Required for the job " + process.getProperty().getLabel() + ".", true);
+
+            componentImportNeedsList.add(toAdd);
+
+            // Step 3: remove added modules from unusedModule list
+            ModuleNeeded unusedModule = null;
+            for (ModuleNeeded module : unUsedModules) {
+                if (module.getModuleName().equals(neededLibrary)) {
+                    unusedModule = module;
                 }
-                componentImportNeedsList.removeAll(moduleForCurrentJobList);
-
-                // Step 2: re-add modules
-                String uniquename = node.getUniqueName();
-                String moduleName = TalendTextUtils.removeQuotes(elementParameter.getValue().toString());
-                ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), moduleName,
-                        "Required for using component : " + uniquename + ".", true);
-
-                componentImportNeedsList.add(toAdd);
-
-                // Step 3: remove added modules from unusedModule list
-                ModuleNeeded unusedModule = null;
-                for (ModuleNeeded module : unUsedModules) {
-                    if (module.getModuleName().equals(moduleName)) {
-                        unusedModule = module;
-                    }
-                }
-                if (unusedModule != null) {
-                    unUsedModules.remove(unusedModule);
-                }
+            }
+            if (unusedModule != null) {
+                unUsedModules.remove(unusedModule);
             }
         }
     }
