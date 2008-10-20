@@ -73,6 +73,8 @@ public interface ILibrariesService extends IService {
 
     public void addChangeLibrariesListener(IChangedLibrariesListener listener);
 
+    public void removeChangeLibrariesListener(IChangedLibrariesListener listener);
+
     public void resetModulesNeeded();
 
     public void updateModulesNeededForCurrentJob(IProcess2 process);
