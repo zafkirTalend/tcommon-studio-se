@@ -107,6 +107,10 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         listeners.add(listener);
     }
 
+    public void removeChangeLibrariesListener(IChangedLibrariesListener listener) {
+        listeners.remove(listener);
+    }
+
     private void fireLibrariesChanges() {
         for (IChangedLibrariesListener current : listeners) {
             current.afterChangingLibraries();

@@ -121,6 +121,10 @@ public class LibrariesService implements ILibrariesService {
         this.getLibrariesService().addChangeLibrariesListener(listener);
     }
 
+    public void removeChangeLibrariesListener(IChangedLibrariesListener listener) {
+        this.getLibrariesService().removeChangeLibrariesListener(listener);
+    }
+
     public void resetModulesNeeded() {
         this.getLibrariesService().resetModulesNeeded();
     }

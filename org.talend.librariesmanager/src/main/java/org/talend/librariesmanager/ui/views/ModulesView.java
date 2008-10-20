@@ -40,6 +40,8 @@ public class ModulesView extends ViewPart {
 
     private ModulesViewComposite modulesViewComposite;
 
+    private IChangedLibrariesListener changedLibrariesListener;
+
     /**
      * Ask the modules view composite to refresh its content.
      * 
@@ -63,14 +65,23 @@ public class ModulesView extends ViewPart {
         makeActions();
         contributeToActionBars();
 
-        CorePlugin.getDefault().getLibrariesService().addChangeLibrariesListener(new IChangedLibrariesListener() {
+        changedLibrariesListener = new IChangedLibrariesListener() {
 
             public void afterChangingLibraries() {
                 modulesViewComposite.refresh();
             }
-        });
+        };
+        CorePlugin.getDefault().getLibrariesService().addChangeLibrariesListener(changedLibrariesListener);
 
         CorePlugin.getDefault().getLibrariesService().checkLibraries();
+    }
+
+    @Override
+    public void dispose() {
+        if (changedLibrariesListener != null) {
+            CorePlugin.getDefault().getLibrariesService().removeChangeLibrariesListener(changedLibrariesListener);
+        }
+        super.dispose();
     }
 
     /*
