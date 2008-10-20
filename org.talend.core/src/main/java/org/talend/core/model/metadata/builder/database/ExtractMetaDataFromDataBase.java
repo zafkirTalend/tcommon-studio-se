@@ -264,6 +264,7 @@ public class ExtractMetaDataFromDataBase {
             String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
             Statement sta;
             sta = conn.createStatement();
+            ExtractMetaDataUtils.setQueryStatementTimeout(sta);
             ResultSet resultSet = sta.executeQuery(sql);
             while (resultSet.next()) {
                 return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
@@ -428,6 +429,7 @@ public class ExtractMetaDataFromDataBase {
                 PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `"
                         + medataTable.getLabel() + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';");
                 ResultSet keys = null;
+                ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                 if (statement.execute()) {
                     keys = statement.getResultSet();
                     while (keys.next()) {
@@ -685,6 +687,7 @@ public class ExtractMetaDataFromDataBase {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                    ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                     ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
                     itemTablesName = getTableNamesFromQuery(rsTables);
                 }
@@ -728,6 +731,7 @@ public class ExtractMetaDataFromDataBase {
     private static void filterTablesFromRecycleBin(List<String> itemTablesName) {
         try {
             Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+            ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
             ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
             itemTablesName.removeAll(getTableNamesFromQuery(rsTables));
         } catch (SQLException e) {

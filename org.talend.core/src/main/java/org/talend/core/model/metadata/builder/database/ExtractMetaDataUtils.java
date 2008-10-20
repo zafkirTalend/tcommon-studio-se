@@ -18,10 +18,12 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -353,13 +355,30 @@ public class ExtractMetaDataUtils {
      * there is no effect for oracle.
      */
     public static void checkDBConnectionTimeout() {
+        DriverManager.setLoginTimeout(getDBConnectionTimeout());
+    }
+
+    private static int getDBConnectionTimeout() {
         IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
-        if (preferenceStore != null) {
-            if (preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
-                DriverManager.setLoginTimeout(preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT));
-            } else {
-                // disable timeout
-                DriverManager.setLoginTimeout(0);
+        if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
+            return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
+        }
+        // disable timeout
+        return 0;
+    }
+
+    /**
+     * 
+     * ggu Comment method "setQueryStatementTimeout".
+     * 
+     * @param statement
+     */
+    public static void setQueryStatementTimeout(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.setQueryTimeout(getDBConnectionTimeout());
+            } catch (SQLException e) {
+                ExceptionHandler.process(e);
             }
         }
     }
