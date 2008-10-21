@@ -59,6 +59,7 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -153,18 +154,26 @@ public class ImportItemUtil {
                     itemRecord.getProperty().getId());
             boolean idAvailable = itemWithSameId == null;
 
-            boolean isSystemRoutine = false;
+            boolean isSystem = false;
             // we do not import built in routines
             if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
                 RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
                 if (routineItem.isBuiltIn()) {
-                    isSystemRoutine = true;
+                    isSystem = true;
+                }
+            }
+            
+            // we do not import system sql patterns
+            if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getSQLPatternItem())) {
+                SQLPatternItem sqlPatternItem = (SQLPatternItem) itemRecord.getItem();
+                if (sqlPatternItem.isSystem()) {
+                    isSystem = true;
                 }
             }
 
             if (nameAvailable) {
                 if (idAvailable) {
-                    if (!isSystemRoutine) {
+                    if (!isSystem) {
                         result = true;
                     } else {
                         itemRecord.addError(Messages.getString("RepositoryUtil.isSystemRoutine")); //$NON-NLS-1$ 
