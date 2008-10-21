@@ -121,4 +121,6 @@ public interface IComponent {
     public boolean isSingleton();
 
     public boolean isMainCodeCalled();
+
+    public boolean canParallelize();
 }
