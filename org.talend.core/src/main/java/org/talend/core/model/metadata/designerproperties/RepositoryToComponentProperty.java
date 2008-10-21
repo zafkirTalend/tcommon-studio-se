@@ -144,6 +144,36 @@ public class RepositoryToComponentProperty {
 
     /**
      * 
+     * DOC xye Comment method "getSAPValuesForFunction".
+     * 
+     * @param conn
+     * @param functionName
+     * @param paramterName
+     * @return
+     */
+    public static String getSAPValuesForFunction(SAPConnection conn, String functionName, String paramterName) {
+        SAPFunctionUnit unit = null;
+        for (int i = 0; i < conn.getFuntions().size(); i++) {
+            unit = (SAPFunctionUnit) conn.getFuntions().get(i);
+            if (unit.getName().equals(functionName)) {
+                break;
+            }
+        }
+        if (unit == null) {
+            return null;
+        }
+        if (paramterName.equals("SAP_ITERATE_OUT_TYPE")) {
+            if (unit.getOutputType() != null) {
+                return unit.getOutputType().replace(".", "_");
+            }
+        } else if (paramterName.equals("SAP_ITERATE_OUT_TABLENAME")) {
+            return TalendTextUtils.addQuotes(unit.getOutputTableName());
+        }
+        return null;
+    }
+
+    /**
+     * 
      * DOC YeXiaowei Comment method "getTalendTypeFromJCOType".
      * 
      * @param jcoType
