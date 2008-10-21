@@ -2136,13 +2136,31 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_UNIT__NAME = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Output Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__OUTPUT_TYPE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Output Table Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+
+    /**
      * The feature id for the '<em><b>Document</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT__DOCUMENT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
+    int SAP_FUNCTION_UNIT__DOCUMENT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Input Parameter Table</b></em>' containment reference.
@@ -2151,7 +2169,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+    int SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Output Parameter Table</b></em>' containment reference.
@@ -2160,7 +2178,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+    int SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>Metadata Table</b></em>' containment reference.
@@ -2169,7 +2187,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT__METADATA_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
+    int SAP_FUNCTION_UNIT__METADATA_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 6;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -2178,7 +2196,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 5;
+    int SAP_FUNCTION_UNIT__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 7;
 
     /**
      * The number of structural features of the '<em>SAP Function Unit</em>' class.
@@ -2187,7 +2205,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 6;
+    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
@@ -6138,6 +6156,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPFunctionUnit_Name();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputType <em>Output Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Output Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputType()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EAttribute getSAPFunctionUnit_OutputType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputTableName <em>Output Table Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Output Table Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputTableName()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EAttribute getSAPFunctionUnit_OutputTableName();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getDocument <em>Document</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8255,6 +8295,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SAP_FUNCTION_UNIT__NAME = eINSTANCE.getSAPFunctionUnit_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Output Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_UNIT__OUTPUT_TYPE = eINSTANCE.getSAPFunctionUnit_OutputType();
+
+        /**
+         * The meta object literal for the '<em><b>Output Table Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME = eINSTANCE.getSAPFunctionUnit_OutputTableName();
 
         /**
          * The meta object literal for the '<em><b>Document</b></em>' attribute feature.

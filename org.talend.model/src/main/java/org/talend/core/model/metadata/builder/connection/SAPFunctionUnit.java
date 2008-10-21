@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputType <em>Output Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputTableName <em>Output Table Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getDocument <em>Document</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputParameterTable <em>Input Parameter Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputParameterTable <em>Output Parameter Table</em>}</li>
@@ -57,6 +59,58 @@ public interface SAPFunctionUnit extends AbstractMetadataObject {
 	void setName(String value);
 
 	/**
+     * Returns the value of the '<em><b>Output Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Output Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Output Type</em>' attribute.
+     * @see #setOutputType(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_OutputType()
+     * @model
+     * @generated
+     */
+    String getOutputType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputType <em>Output Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Output Type</em>' attribute.
+     * @see #getOutputType()
+     * @generated
+     */
+    void setOutputType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Output Table Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Output Table Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Output Table Name</em>' attribute.
+     * @see #setOutputTableName(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_OutputTableName()
+     * @model
+     * @generated
+     */
+    String getOutputTableName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputTableName <em>Output Table Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Output Table Name</em>' attribute.
+     * @see #getOutputTableName()
+     * @generated
+     */
+    void setOutputTableName(String value);
+
+    /**
      * Returns the value of the '<em><b>Document</b></em>' attribute.
      * <!-- begin-user-doc -->
 	 * <p>

@@ -33,6 +33,8 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getOutputType <em>Output Type</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getOutputTableName <em>Output Table Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getDocument <em>Document</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getInputParameterTable <em>Input Parameter Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getOutputParameterTable <em>Output Parameter Table</em>}</li>
@@ -65,6 +67,46 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
 	protected String name = NAME_EDEFAULT;
 
 	/**
+     * The default value of the '{@link #getOutputType() <em>Output Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputType()
+     * @generated
+     * @ordered
+     */
+    protected static final String OUTPUT_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOutputType() <em>Output Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputType()
+     * @generated
+     * @ordered
+     */
+    protected String outputType = OUTPUT_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getOutputTableName() <em>Output Table Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputTableName()
+     * @generated
+     * @ordered
+     */
+    protected static final String OUTPUT_TABLE_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOutputTableName() <em>Output Table Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputTableName()
+     * @generated
+     * @ordered
+     */
+    protected String outputTableName = OUTPUT_TABLE_NAME_EDEFAULT;
+
+    /**
      * The default value of the '{@link #getDocument() <em>Document</em>}' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -154,6 +196,48 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
     }
 
 	/**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getOutputType() {
+        return outputType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOutputType(String newOutputType) {
+        String oldOutputType = outputType;
+        outputType = newOutputType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TYPE, oldOutputType, outputType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getOutputTableName() {
+        return outputTableName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOutputTableName(String newOutputTableName) {
+        String oldOutputTableName = outputTableName;
+        outputTableName = newOutputTableName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME, oldOutputTableName, outputTableName));
+    }
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -408,6 +492,10 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         switch (featureID) {
             case ConnectionPackage.SAP_FUNCTION_UNIT__NAME:
                 return getName();
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TYPE:
+                return getOutputType();
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME:
+                return getOutputTableName();
             case ConnectionPackage.SAP_FUNCTION_UNIT__DOCUMENT:
                 return getDocument();
             case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE:
@@ -431,6 +519,12 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         switch (featureID) {
             case ConnectionPackage.SAP_FUNCTION_UNIT__NAME:
                 setName((String)newValue);
+                return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TYPE:
+                setOutputType((String)newValue);
+                return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME:
+                setOutputTableName((String)newValue);
                 return;
             case ConnectionPackage.SAP_FUNCTION_UNIT__DOCUMENT:
                 setDocument((String)newValue);
@@ -461,6 +555,12 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
             case ConnectionPackage.SAP_FUNCTION_UNIT__NAME:
                 setName(NAME_EDEFAULT);
                 return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TYPE:
+                setOutputType(OUTPUT_TYPE_EDEFAULT);
+                return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME:
+                setOutputTableName(OUTPUT_TABLE_NAME_EDEFAULT);
+                return;
             case ConnectionPackage.SAP_FUNCTION_UNIT__DOCUMENT:
                 setDocument(DOCUMENT_EDEFAULT);
                 return;
@@ -489,6 +589,10 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         switch (featureID) {
             case ConnectionPackage.SAP_FUNCTION_UNIT__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TYPE:
+                return OUTPUT_TYPE_EDEFAULT == null ? outputType != null : !OUTPUT_TYPE_EDEFAULT.equals(outputType);
+            case ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME:
+                return OUTPUT_TABLE_NAME_EDEFAULT == null ? outputTableName != null : !OUTPUT_TABLE_NAME_EDEFAULT.equals(outputTableName);
             case ConnectionPackage.SAP_FUNCTION_UNIT__DOCUMENT:
                 return DOCUMENT_EDEFAULT == null ? document != null : !DOCUMENT_EDEFAULT.equals(document);
             case ConnectionPackage.SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE:
@@ -514,6 +618,10 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (Name: ");
         result.append(name);
+        result.append(", OutputType: ");
+        result.append(outputType);
+        result.append(", OutputTableName: ");
+        result.append(outputTableName);
         result.append(", Document: ");
         result.append(document);
         result.append(')');
