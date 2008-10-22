@@ -52,10 +52,20 @@ public class Timer {
         startTime = new Date().getTime();
     }
 
+    public void start(PrintWriter printWriter) {
+        start();
+        printWriter.println("Start " + name);
+    }
+
     public void stop() {
         stopTime = new Date().getTime();
         timeDelta = stopTime - startTime;
         times.add(timeDelta);
+    }
+
+    public void stop(PrintWriter printWriter) {
+        stop();
+        printWriter.println("Stop  " + name);
     }
 
     public void print() {
@@ -67,9 +77,14 @@ public class Timer {
     }
 
     public String toString() {
-        long totalTime = computeTotalTime();
-        long averageTime = totalTime / times.size();
-        return "timer " + name + " : " + timeDelta + " avg : " + averageTime + " tot : " + totalTime;
+        if (times.size() == 1) {
+            return "Print " + name + " : " + timeDelta;
+        } else {
+            long totalTime = computeTotalTime();
+            long averageTime = totalTime / times.size();
+            return "Print " + name + " : " + timeDelta + " (" + times.size() + " executions avg : " + averageTime + " tot : "
+                    + totalTime + ")";
+        }
     }
 
     private long computeTotalTime() {
