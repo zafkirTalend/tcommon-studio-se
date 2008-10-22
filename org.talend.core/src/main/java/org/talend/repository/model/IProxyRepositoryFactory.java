@@ -28,7 +28,6 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
-import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -495,8 +494,7 @@ public interface IProxyRepositoryFactory {
 	 * @throws BusinessException
 	 * @see org.talend.repository.model.IRepositoryFactory#lock(org.talend.core.model.properties.Item)
 	 */
-	public abstract void lock(Item item) throws PersistenceException,
-			BusinessException;
+	public abstract void lock(Item item) throws PersistenceException;
 
 	/*
 	 * (non-Javadoc)
