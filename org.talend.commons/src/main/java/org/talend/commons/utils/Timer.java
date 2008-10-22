@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.utils;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,6 +60,10 @@ public class Timer {
 
     public void print() {
         System.out.println(toString());
+    }
+
+    public void print(PrintWriter printWriter) {
+        printWriter.println(toString());
     }
 
     public String toString() {
