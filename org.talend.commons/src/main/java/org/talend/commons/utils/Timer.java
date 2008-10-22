@@ -58,9 +58,13 @@ public class Timer {
     }
 
     public void print() {
+        System.out.println(toString());
+    }
+
+    public String toString() {
         long totalTime = computeTotalTime();
         long averageTime = totalTime / times.size();
-        System.out.println("timer " + name + " : " + timeDelta + " avg : " + averageTime + " tot : " + totalTime); //$NON-NLS-1$
+        return "timer " + name + " : " + timeDelta + " avg : " + averageTime + " tot : " + totalTime;
     }
 
     private long computeTotalTime() {
