@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -572,7 +573,7 @@ class ExportItemWizardPage extends WizardPage {
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
             Collection<Item> allItems = exportItemUtil.getAllVersions(selectedItems);
-            exportItemUtil.exportItems(new File(lastPath), allItems);
+            exportItemUtil.exportItems(new File(lastPath), allItems, new NullProgressMonitor());
         } catch (Exception e) {
             MessageBoxExceptionHandler.process(e);
         }
