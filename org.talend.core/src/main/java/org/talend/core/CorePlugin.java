@@ -174,6 +174,10 @@ public class CorePlugin extends AbstractUIPlugin {
         return (Boolean) CorePlugin.getContext().getProperty("useSQLPattern");
     }
 
+    public boolean useRefproject() {
+        return (Boolean) CorePlugin.getContext().getProperty("useRefProject");
+    }
+
     public IDesignerMapperService getMapperService() {
         return (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(IDesignerMapperService.class);
     }
