@@ -340,7 +340,7 @@ public class ExtractMetaDataUtils {
             if (pos > -1) {
                 s = s.substring(pos + 3).replaceAll("=", "").trim();
                 // check the value of dbp
-                if (!s.endsWith(".mdb")) {
+                if (!s.endsWith(".mdb") && !s.endsWith(".accdb")) {
                     throw new Exception("No data found.");
                 }
                 return;
