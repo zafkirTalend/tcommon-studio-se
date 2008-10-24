@@ -277,7 +277,7 @@ public class TalendTextUtils {
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
-            if (isCheck && !name.equals(EDatabaseTypeName.PSQL) && !name.equals(EDatabaseTypeName.PLUSPSQL)) {
+            if (isCheck && isPSQLSimilar(name)) {
                 return fieldName;
             }
         }
@@ -301,7 +301,7 @@ public class TalendTextUtils {
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
-            if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
+            if (isCheck && isPSQLSimilar(name)) {
                 return fieldName;
             }
         }
@@ -323,7 +323,7 @@ public class TalendTextUtils {
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
         boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
-            if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
+            if (isCheck && isPSQLSimilar(name)) {
                 return fieldName;
             }
         }
@@ -401,6 +401,9 @@ public class TalendTextUtils {
         case ORACLESN:
             return QUOTATION_MARK;
         case PSQL:
+        case GREENPLUM:
+        case PARACCEL:
+        case PLUSPSQL:
             return QUOTATION_MARK;
         case SYBASEASE:
             return QUOTATION_MARK;
@@ -671,6 +674,18 @@ public class TalendTextUtils {
 
         return builder.toString();
 
+    }
+
+    /**
+     * 
+     * DOC xye Comment method "isPSQLSimilar".
+     * 
+     * @param name
+     * @return
+     */
+    private static boolean isPSQLSimilar(EDatabaseTypeName name) {
+        return !name.equals(EDatabaseTypeName.PSQL) && !name.equals(EDatabaseTypeName.PLUSPSQL)
+                && !name.equals(EDatabaseTypeName.GREENPLUM) && !name.equals(EDatabaseTypeName.PARACCEL);
     }
 
     /**
