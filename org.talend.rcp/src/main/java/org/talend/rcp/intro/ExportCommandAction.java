@@ -25,59 +25,54 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
-import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.IWorkbenchHelpContextIds;
-import org.eclipse.ui.internal.WorkbenchImages;
-import org.eclipse.ui.internal.WorkbenchMessages;
 
 /**
  * ggu class global comment. Detailled comment
  */
 public class ExportCommandAction extends Action {
 
-    private IWorkbenchWindow window;
+    private IWorkbenchAction exportAction;
 
     /**
      */
     public ExportCommandAction(IWorkbenchWindow window) {
-        if (window == null) {
-            throw new IllegalArgumentException();
-        }
-        this.window = window;
-        setId("talend_export"); ////$NON-NLS-1$
-        setText(WorkbenchMessages.ExportResourcesAction_text);
-        setToolTipText(WorkbenchMessages.ExportResourcesAction_toolTip);
+        exportAction = ActionFactory.EXPORT.create(window);
+        setId("talend_" + exportAction.getId()); //$NON-NLS-1$
+        setText(exportAction.getText());
+        setToolTipText(exportAction.getToolTipText());
+        setImageDescriptor(exportAction.getImageDescriptor());
         window.getWorkbench().getHelpSystem().setHelp(this, IWorkbenchHelpContextIds.EXPORT_ACTION);
-        setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_ETOOL_EXPORT_WIZ));
     }
 
     @Override
     public void run() {
         super.run();
-        // refresh resource, see bug 5425.
-        try {
-            IRunnableWithProgress runnable = new IRunnableWithProgress() {
+        if (exportAction != null) {
+            // refresh resource, see bug 5425.
+            try {
+                IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
-                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.beginTask(ExportCommandAction.this.getText(), IProgressMonitor.UNKNOWN);
-                    try {
-                        ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
-                    } catch (CoreException e) {
-                        e.printStackTrace();
+                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                        monitor.beginTask(ExportCommandAction.this.getToolTipText(), IProgressMonitor.UNKNOWN);
+                        try {
+                            ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
+                        } catch (CoreException e) {
+                            e.printStackTrace();
+                        }
+                        monitor.done();
+
                     }
-                    monitor.done();
-
-                }
-            };
-            new ProgressMonitorDialog(Display.getCurrent().getActiveShell()).run(true, false, runnable);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+                };
+                new ProgressMonitorDialog(Display.getCurrent().getActiveShell()).run(true, false, runnable);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // call system export
+            exportAction.run();
         }
-
-        IWorkbenchAction systemExportAction = ActionFactory.EXPORT.create(this.window);
-        systemExportAction.run();
     }
 
 }
