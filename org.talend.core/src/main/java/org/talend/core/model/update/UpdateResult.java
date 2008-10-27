@@ -32,6 +32,26 @@ public abstract class UpdateResult {
     private String remark = null;
 
     private Object job = null;
+    
+    private boolean readOnlyProcess = false;
+
+    
+    /**
+     * Getter for readOnlyProcess.
+     * @return the readOnlyProcess
+     */
+    public boolean isReadOnlyProcess() {
+        return this.readOnlyProcess;
+    }
+
+    
+    /**
+     * Sets the readOnlyProcess.
+     * @param readOnlyProcess the readOnlyProcess to set
+     */
+    public void setReadOnlyProcess(boolean readOnlyProcess) {
+        this.readOnlyProcess = readOnlyProcess;
+    }
 
     private boolean readOnly = false;
 
@@ -138,6 +158,10 @@ public abstract class UpdateResult {
         return this.remark;
     }
 
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public abstract String getJobInfor();
 
     @Override
@@ -152,6 +176,7 @@ public abstract class UpdateResult {
         sb.append(checkValues(getResultType()));
         sb.append(UpdatesConstants.SPACE);
         sb.append(checkValues(getRemark()));
+        sb.append(UpdatesConstants.SPACE);
 
         return sb.toString();
     }

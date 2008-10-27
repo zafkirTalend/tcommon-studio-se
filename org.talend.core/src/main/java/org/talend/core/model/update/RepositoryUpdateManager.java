@@ -29,7 +29,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.talend.commons.exception.ExceptionHandler;
@@ -50,6 +52,7 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
@@ -58,6 +61,7 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.UpdateRepositoryUtils;
+import org.talend.repository.editor.RepositoryEditorInput;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -376,8 +380,8 @@ public abstract class RepositoryUpdateManager {
                     // assume that repositoryObj is the last version, otherwise we should call
                     // factory.getLastVersion(repositoryObj.getId());
                     IRepositoryObject lastVersion = repositoryObj; // factory.getLastVersion(repositoryObj.getId());
-                    if (factory.getStatus(lastVersion) != ERepositoryStatus.LOCK_BY_OTHER
-                            && factory.getStatus(lastVersion) != ERepositoryStatus.LOCK_BY_USER) {
+                    ERepositoryStatus status = factory.getStatus(lastVersion);
+                    if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
                         allVersionList.add(lastVersion);
                     }
                 }
