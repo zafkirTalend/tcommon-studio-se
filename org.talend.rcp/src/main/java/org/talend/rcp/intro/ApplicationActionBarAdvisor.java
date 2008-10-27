@@ -200,7 +200,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new Separator());
 
         fileMenu.add(ActionFactory.IMPORT.create(window));
-        fileMenu.add(ActionFactory.EXPORT.create(window));
+        fileMenu.add(new ExportCommandAction(window));
 
         fileMenu.add(new Separator());
         fileMenu.add(ActionFactory.QUIT.create(window));
