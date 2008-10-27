@@ -21,6 +21,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
@@ -181,13 +183,13 @@ public final class DefaultCellEditorFactory {
         if (type != null) {
             if (isFile(type)) {
                 cellEditor = createFileCellEditor(table, defalutDataValue);
-                ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
+                // ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
             } else if (isDate(type)) {
                 cellEditor = createDateCellEditor(table, para);
                 ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
             } else if (isDirectory(type)) {
                 cellEditor = createDirectoryCellEditor(table, defalutDataValue);
-                ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
+                // ((CustomCellEditor) cellEditor).getDefaultLabel().setEditable(false);
             } else if (isList(type)) {
                 cellEditor = createListCellEditor(table, para);
                 defalutDataValue = para.getDisplayValue();
@@ -220,7 +222,7 @@ public final class DefaultCellEditorFactory {
     }
 
     private CellEditor createDirectoryCellEditor(Composite parent, final String defaultPath) {
-        return new CustomCellEditor(parent) {
+        final CustomCellEditor editor = new CustomCellEditor(parent) {
 
             @Override
             protected Object openDialogBox(Control cellEditorWindow) {
@@ -238,6 +240,31 @@ public final class DefaultCellEditorFactory {
             }
 
         };
+        onTextChange(editor);
+        return editor;
+    }
+
+    /**
+     * DOC chuang Comment method "onTextChange".
+     * 
+     * @param editor
+     */
+    private void onTextChange(final CustomCellEditor editor) {
+        editor.getDefaultLabel().addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String value = editor.doGetValue().toString();
+                if (para.getValue().equals(value)) {
+                    return;
+                }
+                para.setValue(value);
+                refreshAll();
+                setModifyFlag();
+
+            }
+        });
+
     }
 
     private CellEditor createListCellEditor(Composite parent, final IContextParameter para2) {
@@ -309,7 +336,7 @@ public final class DefaultCellEditorFactory {
     }
 
     private CellEditor createFileCellEditor(Composite parent, final String defaultPath) {
-        return new CustomCellEditor(parent) {
+        final CustomCellEditor editor = new CustomCellEditor(parent) {
 
             @Override
             protected Object openDialogBox(Control cellEditorWindow) {
@@ -331,6 +358,9 @@ public final class DefaultCellEditorFactory {
                 super.deactivate();
             }
         };
+        onTextChange(editor);
+
+        return editor;
     }
 
     /**
