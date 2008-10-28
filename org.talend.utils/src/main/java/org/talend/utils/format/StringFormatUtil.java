@@ -42,6 +42,13 @@ public final class StringFormatUtil {
         return String.format("%" + size + "s", stringToPad);
     }
 
+    /**
+     * DOC Administrator Comment method "format".
+     * 
+     * @param input
+     * @param style
+     * @return
+     */
     public static Object format(Object input, int style) {
         if (input == null) {
             return "";
