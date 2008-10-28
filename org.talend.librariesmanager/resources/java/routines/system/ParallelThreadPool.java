@@ -91,17 +91,20 @@ public class ParallelThreadPool {
 		try {
 
 			for (ParallelThread tmp : this.threads) {
-				// make sure the parallel thread is waiting for buffer
-				tmp.waitForFree();
-				// set finish
-				tmp.finish();
-				// insert a empty buffer to break the waiting buffer
-				tmp.putBuffer(new ArrayList<String[]>());
+				// if there's little rows, threads isn't full, tmp will be null.
+				if (tmp != null) {
+					// make sure the parallel thread is waiting for buffer
+					tmp.waitForFree();
+					// set finish
+					tmp.finish();
+					// insert a empty buffer to break the waiting buffer
+					tmp.putBuffer(new ArrayList<String[]>());
+				}
 			}
 			while (!stopAllWorkers) {
 				boolean hasThreadWork = false;
 				for (ParallelThread tmp : this.threads) {
-					if (tmp.isAlive()) {
+					if (tmp != null && tmp.isAlive()) {
 						hasThreadWork = true;
 					}
 				}
