@@ -69,7 +69,7 @@ public class ParallelThreadPool {
 	public ParallelThread getFreeThread() {
 		while (!stopAllWorkers) {
 			for (ParallelThread tmp : this.threads) {
-				if (tmp.isFree()) {
+				if (tmp != null && tmp.isFree()) {
 					return tmp;
 				}
 			}
@@ -124,10 +124,12 @@ public class ParallelThreadPool {
 			try {
 				stopAllWorkers = true;
 				for (ParallelThread tmp : this.threads) {
-					tmp.finish();
-					tmp.interrupt();
-					while (tmp.isAlive()) {
-						Thread.sleep(100);
+					if (tmp != null) {
+						tmp.finish();
+						tmp.interrupt();
+						while (tmp.isAlive()) {
+							Thread.sleep(100);
+						}
 					}
 				}
 			} catch (InterruptedException x) {
