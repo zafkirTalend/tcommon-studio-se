@@ -408,6 +408,11 @@ public class FilesUtils {
 
                     InputStream zin = zip.getInputStream(entry);
                     OutputStream fout = new FileOutputStream(file);
+                    // check if parent folder exists
+                    File dir = file.getParentFile();
+                    if (dir.isDirectory() && !dir.exists()) {
+                        dir.mkdirs();
+                    }
 
                     try {
                         while (true) {
