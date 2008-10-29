@@ -19,6 +19,12 @@ import java.io.LineNumberReader;
 
 public class RunTrace implements Runnable {
 
+    private boolean openSocket = true;
+
+    public void openSocket(boolean openSocket) {
+        this.openSocket = openSocket;
+    }
+
     private class TraceBean {
 
         private String componentId;
@@ -46,7 +52,7 @@ public class RunTrace implements Runnable {
         }
     }
 
-    private static java.util.concurrent.ConcurrentHashMap<String, TraceBean> processTraces = new java.util.concurrent.ConcurrentHashMap<String, TraceBean>();
+    private java.util.concurrent.ConcurrentHashMap<String, TraceBean> processTraces = new java.util.concurrent.ConcurrentHashMap<String, TraceBean>();
 
     private java.net.Socket s;
 
@@ -58,12 +64,13 @@ public class RunTrace implements Runnable {
 
     private Thread t;
 
-    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException,
-            java.net.UnknownHostException {
+    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException, java.net.UnknownHostException {
+        if (!openSocket) {
+            return;
+        }
         System.out.println("[trace] connecting to socket on port " + portTraces);
         s = new java.net.Socket(clientHost, portTraces);
-        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
-                true);
+        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
         System.out.println("[trace] connected");
         t = new Thread(this);
         t.start();
@@ -83,6 +90,9 @@ public class RunTrace implements Runnable {
     }
 
     public void stopThreadTrace() {
+        if (!openSocket) {
+            return;
+        }
         jobIsFinished = true;
         try {
             pred.close();
@@ -93,6 +103,9 @@ public class RunTrace implements Runnable {
     }
 
     public boolean isPause() {
+        if (!openSocket) {
+            return false;
+        }
         InputStream in;
         try {
             askForStatus();
@@ -110,6 +123,9 @@ public class RunTrace implements Runnable {
     }
 
     public void sendTrace(String componentId, String datas) {
+        if (!openSocket) {
+            return;
+        }
         TraceBean bean;
         if (processTraces.containsKey(componentId)) {
             bean = processTraces.get(componentId);

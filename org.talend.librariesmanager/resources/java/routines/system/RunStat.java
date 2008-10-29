@@ -14,6 +14,12 @@ package routines.system;
 
 public class RunStat implements Runnable {
 
+    private boolean openSocket = true;
+
+    public void openSocket(boolean openSocket) {
+        this.openSocket = openSocket;
+    }
+
     public static int BEGIN = 0;
 
     public static int RUNNING = 1;
@@ -103,6 +109,9 @@ public class RunStat implements Runnable {
     private String str = "";
 
     public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
+        if (!openSocket) {
+            return;
+        }
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
@@ -126,6 +135,9 @@ public class RunStat implements Runnable {
     }
 
     public void stopThreadStat() {
+        if (!openSocket) {
+            return;
+        }
         jobIsFinished = true;
         try {
             sendMessages();
@@ -137,6 +149,9 @@ public class RunStat implements Runnable {
     }
 
     public void sendMessages() {
+        if (!openSocket) {
+            return;
+        }
         for (StatBean sb : processStats.values()) {
             str = sb.getConnectionId();
             if (sb.getState() == RunStat.CLEAR) {
