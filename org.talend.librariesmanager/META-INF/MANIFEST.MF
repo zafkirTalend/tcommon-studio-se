@@ -16,4 +16,6 @@ Require-Bundle: org.talend.libraries.logging, org.eclipse.ui,
  org.talend.commons.ui
 Eclipse-LazyStart: true
 Export-Package: org.talend.librariesmanager.model,
- org.talend.librariesmanager.prefs
+ org.talend.librariesmanager.prefs,
+ routines,
+ routines.system

@@ -101,7 +101,7 @@ public class LibrariesService implements ILibrariesService {
         return this.getLibrariesService().getSystemRoutines();
     }
 
-    public URL getTalendRoutinesFolder() throws IOException {
+    public List<URL> getTalendRoutinesFolder() throws IOException {
         return this.getLibrariesService().getTalendRoutinesFolder();
     }
 

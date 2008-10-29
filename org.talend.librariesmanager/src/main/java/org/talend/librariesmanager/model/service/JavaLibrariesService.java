@@ -40,6 +40,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
@@ -87,21 +88,15 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER,
                 ".java", false, false);
 
-        // Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER);
-        // for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
-        // String routine = (String) enumer.nextElement();
-        // if (routine.endsWith(".java")) {
-        // URL url = Activator.BUNDLE.getEntry(routine);
-        // toReturn.add(url);
-        // }
-        // }
+        for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
+            toReturn.addAll(routineProvider.getSystemRoutines());
+        }
         return toReturn;
     }
 
     public List<URL> getSystemSQLPatterns() {
         return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER,
                 SQLPATTERN_FILE_SUFFIX, false, true);
-
     }
 
     /*
@@ -109,13 +104,25 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * 
      * @see org.talend.core.model.general.ILibrariesService#getTalendRoutines()
      */
-    public URL getTalendRoutinesFolder() throws IOException {
+    public List<URL> getTalendRoutinesFolder() throws IOException {
+        List<URL> toReturn = new ArrayList<URL>();
         URL url = Activator.BUNDLE.getEntry("resources/java/routines/system"); //$NON-NLS-1$
-        return FileLocator.resolve(url);
+        toReturn.add(FileLocator.resolve(url));
+
+        for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
+            toReturn.add(routineProvider.getTalendRoutinesFolder());
+        }
+
+        return toReturn;
     }
 
     public List<URL> getTalendRoutines() {
-        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system", "");
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system", "");
+        for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
+            toReturn.addAll(routineProvider.getTalendRoutines());
+        }
+
+        return toReturn;
     }
 
     @Override
