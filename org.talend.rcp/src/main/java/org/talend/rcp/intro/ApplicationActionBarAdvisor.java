@@ -224,6 +224,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.NAV_START));
         navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
         navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.SHOW_EXT));
+        // see bug 0005492: Could not read the editor (XML Editor)
+        navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.OPEN_EXT));
 
         MenuManager gotoMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.gotoLabel"),
                 IWorkbenchActionConstants.GO_TO);
