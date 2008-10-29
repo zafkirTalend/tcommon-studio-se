@@ -45,7 +45,7 @@ public interface ILibrariesService extends IService {
 
     public List<URL> getSystemSQLPatterns();
 
-    public URL getTalendRoutinesFolder() throws IOException;
+    public List<URL> getTalendRoutinesFolder() throws IOException;
 
     public List<URL> getTalendRoutines();
 
