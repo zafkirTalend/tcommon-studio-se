@@ -205,7 +205,13 @@ public final class UpdateContextVariablesHelper {
     }
 
     private static String migrateContextPropertySetter(String fullContent, String varName, boolean isExtension) {
-        String regex = "context.setProperty(\"" + varName + "\",";
+        String beginString = "context.setProperty(";
+
+        if (!fullContent.contains(beginString)) {
+            return fullContent;
+        }
+
+        String regex = beginString + "\"" + varName + "\",";
         regex = replaceSpecialChar(regex);
         if (isExtension) {
             regex = regex.replaceAll("\"", "&quot;");
@@ -216,13 +222,6 @@ public final class UpdateContextVariablesHelper {
         out = "$1" + out + "$3;";
 
         return fullContent.replaceAll(regex, out);
-
-        // java.util.regex.Pattern.compile(regex).matcher(fullContent).matches() always return false.
-        // if (java.util.regex.Pattern.compile(regex).matcher(fullContent).matches()) {
-        //          
-        // } else {
-        // return fullContent;
-        // }
     }
 
     private static String hasAndReplaceValue(final String value, final String oldScriptCode, final String newScriptCode,
