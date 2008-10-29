@@ -292,33 +292,24 @@ public final class ElementParameterParser {
     }
 
     /**
+     * 
      * If a database componenet use an existing connection, its label may replace with variable from the existing
      * connection not the component variable. see bug 0005456: Label Format __DBNAME__ not valid when using existing
      * connection
      * 
-     * @param labelToParse2
-     * @param elementParameters
-     * @param elementParameters2
+     * @param text String that contains variables which need to replace
+     * @param variableMap A map contains variable name and IElementParameter in a pair
+     * @return
      */
-    public static String replaceLabelWithExistingConnection(String text, List<? extends IElementParameter> currentParams,
-            List<? extends IElementParameter> connParams) {
+    public static String replaceWithExistingConnection(String text, Map<String, IElementParameter> variableMap) {
+        if (text == null) {
+            return "";
+        }
         String newText = text;
 
-        Map<String, IElementParameter> map = new HashMap<String, IElementParameter>();
-        for (IElementParameter param : currentParams) {
-            map.put(param.getVariableName(), param);
-        }
-
-        // overwrite param by existing connection
-        for (IElementParameter param : connParams) {
-            if (param.getCategory().equals(EComponentCategory.BASIC)) {
-                map.put(param.getVariableName(), param);
-            }
-        }
-
-        for (String var : map.keySet()) {
+        for (String var : variableMap.keySet()) {
             if (newText.contains(var)) {
-                IElementParameter param = map.get(var);
+                IElementParameter param = variableMap.get(var);
                 String value = ElementParameterParser.getDisplayValue(param);
                 newText = newText.replace(param.getVariableName(), value);
             }
