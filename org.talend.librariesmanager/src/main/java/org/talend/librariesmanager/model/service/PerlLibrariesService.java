@@ -219,11 +219,14 @@ public class PerlLibrariesService extends AbstractLibrariesService {
             if (lines[i] != null && lines[i].length() > 0) {
                 String path = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
                 if (lines[i].indexOf(PerlLibrariesService.START_T) == 0) {
-                    File file = new File(path + File.separatorChar + lines[i].split("::")[0] + File.separatorChar
-                            + lines[i].split("::")[1].substring(0, lines[i].split("::")[1].indexOf(RESULT_SEPARATOR)) + ".pm");
-                    if (file.exists()) {
-                        lines[i] = lines[i].substring(0, lines[i].indexOf(RESULT_SEPARATOR) + 4) + RESULT_KEY_OK
-                                + lines[i].substring(lines[i].indexOf(RESULT_SEPARATOR) + 6, lines[i].length());
+                    String[] filePiece = lines[i].split("::");
+                    if (filePiece.length > 1) {
+                        File file = new File(path + File.separatorChar + filePiece[0] + File.separatorChar
+                                + filePiece[1].substring(0, filePiece[1].indexOf(RESULT_SEPARATOR)) + ".pm");
+                        if (file.exists()) {
+                            lines[i] = lines[i].substring(0, lines[i].indexOf(RESULT_SEPARATOR) + 4) + RESULT_KEY_OK
+                                    + lines[i].substring(lines[i].indexOf(RESULT_SEPARATOR) + 6, lines[i].length());
+                        }
                     }
                 }
 
