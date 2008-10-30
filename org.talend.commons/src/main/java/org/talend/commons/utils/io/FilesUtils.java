@@ -109,9 +109,10 @@ public class FilesUtils {
     public static void copyFile(File source, File target) throws IOException {
         // Need to recopy the file in one of these cases:
         // 1. target doesn't exists (never copied)
-        // 2. target exists but source has been modified recently
+        // 2. if the target exists, compare their sizes, once defferent, for the copy.
+        // 2. target exists but source has been modified recently(not used right now)
 
-        if (!target.exists() || source.lastModified() > target.lastModified()) {
+        if (!target.exists() || source.length() != target.length()) {
             copyFile(new FileInputStream(source), target);
         }
     }
