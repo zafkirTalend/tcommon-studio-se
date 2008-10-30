@@ -81,14 +81,12 @@ public class PerlLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER
-                + "/system/", ".pm");
+        List<URL> toReturn = new ArrayList<URL>();
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.PERL)) {
             toReturn.addAll(routineProvider.getSystemRoutines());
         }
 
         return toReturn;
-
     }
 
     public List<URL> getSystemSQLPatterns() {
@@ -104,9 +102,6 @@ public class PerlLibrariesService extends AbstractLibrariesService {
     public List<URL> getTalendRoutinesFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
 
-        URL url = Activator.BUNDLE.getEntry("resources/perl/talend");
-        toReturn.add(FileLocator.toFileURL(url));
-
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.PERL)) {
             toReturn.add(routineProvider.getTalendRoutinesFolder());
         }
@@ -115,7 +110,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
     }
 
     public List<URL> getTalendRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", "");
+        List<URL> toReturn = new ArrayList<URL>();
 
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.PERL)) {
             toReturn.addAll(routineProvider.getTalendRoutines());

@@ -63,4 +63,10 @@
          point="org.eclipse.core.runtime.preferences">
       <initializer class="org.talend.librariesmanager.prefs.PreferenceInitializer"/>
    </extension>
+   <extension
+         point="org.talend.core.routines_provider">
+      <RoutinesProvider
+            class="org.talend.librariesmanager.model.service.TosRoutinesProviderCreator">
+      </RoutinesProvider>
+   </extension>
 </plugin>

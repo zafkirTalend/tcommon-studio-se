@@ -56,7 +56,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(JavaLibrariesService.class);
 
-    private static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines";
+    public static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines";
 
     private static boolean isLibSynchronized;
 
@@ -85,8 +85,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER,
-                ".java", false, false);
+        List<URL> toReturn = new ArrayList<URL>();
 
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
             toReturn.addAll(routineProvider.getSystemRoutines());
@@ -106,8 +105,6 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      */
     public List<URL> getTalendRoutinesFolder() throws IOException {
         List<URL> toReturn = new ArrayList<URL>();
-        URL url = Activator.BUNDLE.getEntry("resources/java/routines/system"); //$NON-NLS-1$
-        toReturn.add(FileLocator.resolve(url));
 
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
             toReturn.add(routineProvider.getTalendRoutinesFolder());
@@ -117,7 +114,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     }
 
     public List<URL> getTalendRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system", "");
+        List<URL> toReturn = new ArrayList<URL>();
         for (IRoutinesProvider routineProvider : RoutineProviderManager.getInstance().getProviders(ECodeLanguage.JAVA)) {
             toReturn.addAll(routineProvider.getTalendRoutines());
         }
