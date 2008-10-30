@@ -119,6 +119,8 @@ public enum ECoreImage implements IImage {
     TOGGLE_SUBJOB("/icons/toggleSubjobs.png"),
     TOGGLE_SUBJOB_DISABLED("/icons/toggleSubjobDisabled.png"),
 
+    PALETTE_OK_ICON("/icons/palette_ok.png"),
+    PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"),
     UNKNOWN();
 
     private String path;
