@@ -47,7 +47,7 @@ imports="
 <%
 								}
 %>
-								String[] results_<%=cid %> = com.talend.qas.QASClient.getRightAddress(<%= wsdlAddress %>, "<%= country %>" , "<%= addressToVerify %>");
+								String[] results_<%=cid %> = com.talend.qas.QASClient.getRightAddress(<%= wsdlAddress %>, "<%= country %>" , <%=conn.getName() %>.<%= addressToVerify %>);
 								if(results_<%=cid %>[0].equals("None") || results_<%=cid %>[0].equals("InteractionRequired")){
 									<%=connout.getName() %>.STATUS = results_<%=cid %>[0];
 								} else {
@@ -69,6 +69,7 @@ imports="
 		                                <%=connout.getName() %>.ADDRESS = results_<%=cid %>[2];
 		                                <%=connout.getName() %>.ZIP_CODE = results_<%=cid %>[3];
 		                                <%=connout.getName() %>.CITY = results_<%=cid %>[4];
+		                                
 <%
 									} if(country.equals("DEU")) {
 %>
