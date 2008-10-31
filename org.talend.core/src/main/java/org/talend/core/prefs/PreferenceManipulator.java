@@ -187,6 +187,14 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         addStringToArray(task, WORKSPACE_TASKS_DONE);
     }
 
+    public boolean getBoolean(String name) {
+        return this.store.getBoolean(name);
+    }
+
+    public void setValue(String name, boolean value) {
+        this.store.setValue(name, value);
+    }
+
     /**
      * 
      * DOC ggu Comment method "save".
