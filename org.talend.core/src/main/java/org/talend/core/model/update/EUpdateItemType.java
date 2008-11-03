@@ -20,6 +20,7 @@ import org.talend.core.i18n.Messages;
 public enum EUpdateItemType {
     NODE_PROPERTY(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     NODE_SCHEMA(Messages.getString("EUpdateItemType.Schema")), //$NON-NLS-1$
+    NODE_SAP_FUNCTION(Messages.getString("EUpdateItemType.SAPFunction")), //$NON-NLS-1$
     NODE_QUERY(Messages.getString("EUpdateItemType.Query")), //$NON-NLS-1$
     JOB_PROPERTY_EXTRA(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     JOB_PROPERTY_STATS_LOGS(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$

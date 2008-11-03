@@ -107,6 +107,9 @@ public class RepositoryToComponentProperty {
      */
     public static void getSAPInputAndOutputValue(SAPConnection conn, List<Map<String, Object>> value2, String functionName,
             boolean isInput) {
+        if (conn == null) {
+            return;
+        }
         SAPFunctionUnit unit = null;
         for (int i = 0; i < conn.getFuntions().size(); i++) {
             unit = (SAPFunctionUnit) conn.getFuntions().get(i);
@@ -153,6 +156,9 @@ public class RepositoryToComponentProperty {
      */
     public static String getSAPValuesForFunction(SAPConnection conn, String functionName, String paramterName) {
         SAPFunctionUnit unit = null;
+        if (conn == null) {
+            return null;
+        }
         for (int i = 0; i < conn.getFuntions().size(); i++) {
             unit = (SAPFunctionUnit) conn.getFuntions().get(i);
             if (unit.getName().equals(functionName)) {

@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -286,6 +287,7 @@ public abstract class RepositoryUpdateManager {
                 }
             }
         }
+
         return false;
     }
 
@@ -308,7 +310,12 @@ public abstract class RepositoryUpdateManager {
                 } else {
                     return table1.getId().equals(table2.getId());
                 }
+            } else if (parameter instanceof SAPFunctionUnit) {
+                // check sap function and schema
+                IMetadataTable table1 = ((IMetadataTable) object);
+                return table1.getId().equals(((SAPFunctionUnit) parameter).getMetadataTable().getId());
             }
+
         }
         return false;
     }
@@ -782,6 +789,41 @@ public abstract class RepositoryUpdateManager {
         }
         return true;
 
+    }
+
+    /**
+     * 
+     * DOC xye Comment method "updateSAPFunction".
+     * 
+     * @param sapFunction
+     * @param show
+     * @return
+     */
+    public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction, boolean show) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapFunction) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_SAP_FUNCTION);
+                types.add(EUpdateItemType.NODE_SCHEMA);
+                return types;
+            }
+
+        };
+
+        return repositoryUpdateManager.doWork(show);
+    }
+
+    /**
+     * 
+     * DOC xye Comment method "updateSAPFunction".
+     * 
+     * @param sapFunction
+     * @return
+     */
+    public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction) {
+        return updateSAPFunction(sapFunction, true);
     }
 
     /**
