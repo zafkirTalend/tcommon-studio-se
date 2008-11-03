@@ -44,6 +44,8 @@ public final class UpdatesConstants {
 
     public static final String RENAME_SIGN = " => "; //$NON-NLS-1$
 
+    public static final String CONTEXT_MODE = "(Context Mode)"; //$NON-NLS-1$
+
     /*
      * Category
      */

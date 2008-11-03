@@ -81,5 +81,4 @@ public interface ITalendCorePrefConstants {
 
     String DB_CONNECTION_TIMEOUT = "db_conn_timeout"; //$NON-NLS-1$
 
-    String METADATA_AUTO_IMPORT_CONTEXT = "metadataAutoImportContext"; //$NON-NLS-1$
 }

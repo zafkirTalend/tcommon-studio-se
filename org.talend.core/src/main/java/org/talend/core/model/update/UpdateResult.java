@@ -13,6 +13,7 @@
 package org.talend.core.model.update;
 
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.properties.ConnectionItem;
 
 /**
  * ggu class global comment. Detailled comment
@@ -32,21 +33,23 @@ public abstract class UpdateResult {
     private String remark = null;
 
     private Object job = null;
-    
+
     private boolean readOnlyProcess = false;
 
-    
+    private ConnectionItem connItem;
+
     /**
      * Getter for readOnlyProcess.
+     * 
      * @return the readOnlyProcess
      */
     public boolean isReadOnlyProcess() {
         return this.readOnlyProcess;
     }
 
-    
     /**
      * Sets the readOnlyProcess.
+     * 
      * @param readOnlyProcess the readOnlyProcess to set
      */
     public void setReadOnlyProcess(boolean readOnlyProcess) {
@@ -184,6 +187,14 @@ public abstract class UpdateResult {
     private Object checkValues(Object obj) {
         return obj == null ? UpdatesConstants.EMPTY : obj;
 
+    }
+
+    public ConnectionItem getContextModeConnectionItem() {
+        return this.connItem;
+    }
+
+    public void setContextModeConnectionItem(ConnectionItem connItem) {
+        this.connItem = connItem;
     }
 
     public abstract String getName();
