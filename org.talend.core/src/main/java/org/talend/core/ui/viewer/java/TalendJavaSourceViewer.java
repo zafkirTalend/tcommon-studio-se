@@ -67,11 +67,15 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.Project;
+import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.test.shadow.Variable;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -86,6 +90,36 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     private static int currentId = 0;
 
     private ICompilationUnit compilationUnit;
+
+    private static final String NL = "\n";
+
+    private static final String TEXT_1 = NL + "    // create and load default properties" + NL
+            + "\tprivate static java.util.Properties defaultProps = new java.util.Properties();" + NL
+            + "\t// create application properties with default" + NL
+            + "\tprivate static class ContextProperties extends java.util.Properties {" + NL + "\t    " + NL
+            + "\t    public ContextProperties(java.util.Properties properties){" + NL + "\t        super(properties);" + NL
+            + "\t    }" + NL + "\t    public ContextProperties(){" + NL + "\t        super();" + NL + "\t    }" + NL + "\t    "
+            + NL + "\t\tpublic void synchronizeContext(){" + NL + "\t\t\t";
+
+    private static final String TEXT_2 = NL + "\t\t\tthis.put(\"";
+
+    private static final String TEXT_3 = "\", ";
+
+    private static final String TEXT_4 = ");" + NL + "\t\t\t";
+
+    private static final String TEXT_5 = NL + "\t\t}" + NL + "\t\t\t    ";
+
+    private static final String TEXT_6 = NL + "     public  static String ";
+
+    private static final String TEXT_7 = ";";
+
+    private static final String TEXT_8 = "      " + NL + " public  static ";
+
+    private static final String TEXT_9 = "  ";
+
+    private static final String TEXT_10 = ";";
+
+    private static final String TEXT_11 = NL + "\t}";
 
     /**
      * DOC nrousseau TalendJavaSourceViewer2 constructor comment.
@@ -169,7 +203,39 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff.append("\npackage internal;\n\n");
         buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
-        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
+
+        List<IContextParameter> params = CorePlugin.getDefault().getRunProcessService().getSelectedContext()
+                .getContextParameterList();
+        buff.append(TEXT_1);
+        for (IContextParameter ctxParam : params) {
+            buff.append(TEXT_2);
+            buff.append(ctxParam.getName());
+            buff.append(TEXT_3);
+            buff.append(ctxParam.getName());
+            buff.append(TEXT_4);
+        }
+        buff.append(TEXT_5);
+        for (IContextParameter ctxParam : params) {
+
+            if (ctxParam.getType().equals("id_List Of Value") || ctxParam.getType().equals("id_File")
+                    || ctxParam.getType().equals("id_Directory") || ctxParam.getType().equals("id_Character")) {
+
+                buff.append(TEXT_6);
+                buff.append(ctxParam.getName());
+                buff.append(TEXT_7);
+
+            } else {
+
+                buff.append(TEXT_8);
+                buff.append(JavaTypesManager.getTypeToGenerate(ctxParam.getType(), true));
+                buff.append(TEXT_9);
+                buff.append(ctxParam.getName());
+                buff.append(TEXT_10);
+            }
+        }
+        buff.append(TEXT_11);
+
+        buff.append("\tprivate static ContextProperties context = new ContextProperties();\n");
         buff
                 .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
 
@@ -292,11 +358,17 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     private static String getImports() {
         String imports = "";
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-
+        Project project = ProjectManager.getInstance().getProject(null);
         try {
             List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES);
             for (IRepositoryObject routine : routines) {
-                imports += "import routines." + routine.getLabel() + ";\n";
+                if (routine.getProperty().getItem() instanceof RoutineItem
+                        && ((RoutineItem) routine.getProperty().getItem()).isBuiltIn()) {
+
+                    imports += "import routines." + routine.getLabel() + ";\n";
+                } else {
+                    imports += "import routines." + project.getTechnicalLabel().toLowerCase() + "." + routine.getLabel() + ";\n";
+                }
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
