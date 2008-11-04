@@ -47,9 +47,39 @@ imports="
 <%
 								}
 %>
-								String[] results_<%=cid %> = com.talend.qas.QASClient.getRightAddress(<%= wsdlAddress %>, "<%= country %>" , <%=conn.getName() %>.<%= addressToVerify %>);
-								if(results_<%=cid %>[0].equals("None") || results_<%=cid %>[0].equals("InteractionRequired")){
+								String[] results_<%=cid %> = null;
+								results_<%=cid %> = com.talend.qas.QASClient.getRightAddress(<%= wsdlAddress %>, "<%= country %>" , <%=conn.getName() %>.<%= addressToVerify %>);
+								if(results_<%=cid %>[0].equals("None") || results_<%=cid %>[0].equals("Multiple")){
 									<%=connout.getName() %>.STATUS = results_<%=cid %>[0];
+<%								
+									if(country.equals("FRX")) {
+%>								
+		                                <%=connout.getName() %>.NOM = "";
+		                                <%=connout.getName() %>.COMPLEMENT_ADDRESSE1 = "";
+		                                <%=connout.getName() %>.COMPLEMENT_ADDRESSE2 = "";
+		                                <%=connout.getName() %>.ADDRESSE = "";
+		                                <%=connout.getName() %>.BOITE_POSTALE = "";
+		                                <%=connout.getName() %>.CODEPOSTAL_VILLE = "";
+<%
+									} if(country.equals("USA")) {
+%>
+		                                <%=connout.getName() %>.NAME = "";
+		                                <%=connout.getName() %>.ADDRESS = "";
+		                                <%=connout.getName() %>.ZIP_CODE = "";
+		                                <%=connout.getName() %>.CITY = "";
+<%
+									} if(country.equals("DEU")) {
+%>
+		                                <%=connout.getName() %>.NAME = "";
+		                                <%=connout.getName() %>.ADDRESS_COMPLEMENT1 = "";
+		                                <%=connout.getName() %>.ADDRESS_COMPLEMENT2 = "";
+		                                <%=connout.getName() %>.ADDRESS = "";
+		                                <%=connout.getName() %>.ZIP_CODE = "";
+		                                <%=connout.getName() %>.CITY = "";
+		                                <%=connout.getName() %>.COUNTRY = "";
+<%
+									}	
+%>
 								} else {
 <%								
 									if(country.equals("FRX")) {
