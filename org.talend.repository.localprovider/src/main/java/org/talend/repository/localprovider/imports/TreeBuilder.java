@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.graphics.Image;
@@ -61,11 +64,15 @@ public class TreeBuilder {
     TreeBuilder() {
     }
 
+    public static int compare(FolderNode o1, FolderNode o2) {
+        return o1.getLabel().compareTo(o2.getLabel());
+    }
+
     public static int compare(ProjectNode o1, ProjectNode o2) {
         return o1.project.getLabel().compareTo(o2.project.getLabel());
     }
 
-    public static int compare(FolderNode o1, FolderNode o2) {
+    public static int compare(TypeNode o1, TypeNode o2) {
         return typeOrders.get(o1.type) - typeOrders.get(o2.type);
     }
 
@@ -86,12 +93,19 @@ public class TreeBuilder {
             public int compare(Viewer v, Object o1, Object o2) {
                 if (o1 instanceof ProjectNode) {
                     return TreeBuilder.compare((ProjectNode) o1, (ProjectNode) o2);
-                } else if (o1 instanceof FolderNode) {
-                    return TreeBuilder.compare((FolderNode) o1, (FolderNode) o2);
-                } else if (o1 instanceof ItemRecord) {
-                    return TreeBuilder.compare((ItemRecord) o1, (ItemRecord) o2);
+                } else if (o1 instanceof TypeNode) {
+                    return TreeBuilder.compare((TypeNode) o1, (TypeNode) o2);
                 }
-                return super.compare(v, o1, o2);
+                // else if (o1 instanceof ItemRecord) {
+                // return TreeBuilder.compare((ItemRecord) o1, (ItemRecord) o2);
+                // } else if (o1 instanceof FolderNode) {
+                // return TreeBuilder.compare((FolderNode) o1, (FolderNode) o2);
+                // }
+                // return super.compare(v, o1, o2);
+
+                // ignore ItemRecord and FolderNode, they are already sorted
+                return 0;
+
             }
 
         };
@@ -155,7 +169,7 @@ public class TreeBuilder {
 
         Set<ERepositoryObjectType> types = new HashSet<ERepositoryObjectType>();
 
-        Map<ERepositoryObjectType, FolderNode> typeMap = new HashMap<ERepositoryObjectType, FolderNode>();
+        Map<ERepositoryObjectType, TypeNode> typeMap = new HashMap<ERepositoryObjectType, TypeNode>();
 
         ProjectNode(Project project) {
             this.project = project;
@@ -173,20 +187,20 @@ public class TreeBuilder {
             sorted = false;
             ERepositoryObjectType type = itemRecord.getType();
             types.add(type);
-            FolderNode folder = typeMap.get(type);
+            TypeNode folder = typeMap.get(type);
             if (folder == null) {
-                folder = new FolderNode(type);
+                folder = new TypeNode(type);
                 typeMap.put(type, folder);
             }
             folder.add(itemRecord);
         }
 
-        private void sort(List<FolderNode> nodes) {
+        private void sort(List<TypeNode> nodes) {
             if (sorted == false) {
 
-                Collections.sort(nodes, new Comparator<FolderNode>() {
+                Collections.sort(nodes, new Comparator<TypeNode>() {
 
-                    public int compare(FolderNode o1, FolderNode o2) {
+                    public int compare(TypeNode o1, TypeNode o2) {
                         return TreeBuilder.compare(o1, o2);
                     }
                 });
@@ -195,8 +209,8 @@ public class TreeBuilder {
             }
         }
 
-        public List<FolderNode> getChildren() {
-            List<FolderNode> nodes = new ArrayList<FolderNode>(typeMap.values());
+        public List<TypeNode> getChildren() {
+            List<TypeNode> nodes = new ArrayList<TypeNode>(typeMap.values());
             // sort the folder by type
             sort(nodes);
 
@@ -210,26 +224,64 @@ public class TreeBuilder {
 
     /**
      * 
-     * DOC hcw ImportItemUtil class global comment. Detailled comment
+     * DOC chuang TreeBuilder class global comment. Detailled comment
      */
     class FolderNode implements IContainerNode {
 
-        ERepositoryObjectType type;
+        private String label;
 
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
+        List<FolderNode> folders = new ArrayList<FolderNode>();
+
         boolean sorted = false;
 
-        public FolderNode(ERepositoryObjectType type) {
-            this.type = type;
+        /**
+         * DOC chuang FolderNode constructor comment.
+         * 
+         * @param lastSegment
+         */
+        public FolderNode(String label) {
+            this.label = label;
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode#getChildren()
+         */
+        public List getChildren() {
+            sort();
+            List list = new ArrayList(folders);
+            list.addAll(items);
+            return list;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode#getImage()
+         */
         public Image getImage() {
-            return CoreImageProvider.getImage(type);
+            return CoreImageProvider.getImage(ERepositoryObjectType.FOLDER);
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode#getLabel()
+         */
         public String getLabel() {
-            return type.toString();
+            return label;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode#hasChildren()
+         */
+        public boolean hasChildren() {
+            return !items.isEmpty() || !folders.isEmpty();
         }
 
         public void add(ItemRecord itemRecord) {
@@ -237,15 +289,21 @@ public class TreeBuilder {
             sorted = false;
         }
 
-        public boolean hasChildren() {
-            return items.size() > 0;
+        /**
+         * DOC chuang Comment method "add".
+         * 
+         * @param folder
+         */
+        public void add(FolderNode folder) {
+            folders.add(folder);
+            sorted = false;
         }
 
         /**
          * 
          * Sort item by label and version.
          */
-        private void sort() {
+        void sort() {
             if (sorted == false) {
 
                 Collections.sort(items, new Comparator<ItemRecord>() {
@@ -261,13 +319,90 @@ public class TreeBuilder {
                     }
                 });
 
+                Collections.sort(folders, new Comparator<FolderNode>() {
+
+                    public int compare(FolderNode o1, FolderNode o2) {
+                        return TreeBuilder.compare(o1, o2);
+                    }
+                });
+
                 sorted = true;
             }
         }
 
-        public List<ItemRecord> getChildren() {
-            sort();
-            return items;
+    }
+
+    /**
+     * 
+     * DOC hcw ImportItemUtil class global comment. Detailled comment
+     */
+    class TypeNode extends FolderNode {
+
+        ERepositoryObjectType type;
+
+        Map<String, FolderNode> folderMap = new HashMap<String, FolderNode>();
+
+        public TypeNode(ERepositoryObjectType type) {
+            super(type.toString());
+            this.type = type;
         }
+
+        @Override
+        public Image getImage() {
+            return CoreImageProvider.getImage(type);
+        }
+
+        @Override
+        public String getLabel() {
+            return type.toString();
+        }
+
+        @Override
+        public void add(ItemRecord itemRecord) {
+
+            String path = itemRecord.getProperty().getItem().getState().getPath();
+            if (StringUtils.isBlank(path)) {
+                super.add(itemRecord);
+            } else {
+                FolderNode folder = folderMap.get(path.toString());
+                if (folder == null) {
+                    folder = createFolder(new Path(path));
+                }
+                folder.add(itemRecord);
+            }
+            sorted = false;
+        }
+
+        /**
+         * DOC chuang Comment method "createFolder".
+         * 
+         * @param path
+         * @return
+         */
+        private FolderNode createFolder(IPath path) {
+            FolderNode folder = folderMap.get(path.toString());
+            if (folder != null) {
+                return folder;
+            }
+
+            String lastSegment = path.lastSegment();
+            if (lastSegment != null) {
+                folder = new FolderNode(lastSegment);
+                folderMap.put(path.toString(), folder);
+                // create parent folder
+                FolderNode parent = createFolder(path.removeLastSegments(1));
+                if (parent != null) {
+                    parent.add(folder);
+                } else {
+                    super.add(folder);
+                }
+
+                return folder;
+            } else {
+                return null;
+            }
+
+        }
+
     }
 }
