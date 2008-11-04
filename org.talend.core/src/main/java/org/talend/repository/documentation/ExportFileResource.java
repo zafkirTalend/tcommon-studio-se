@@ -22,8 +22,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.Property;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -97,7 +101,16 @@ public class ExportFileResource {
     }
 
     public Item getItem() {
-        return item;
+        IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
+        Property property = item.getProperty();
+        try {
+            // bug 5427 and 5513 : reload property to avoid lazy exception
+            property = proxyRepositoryFactory.getUptodateProperty(property);
+        } catch (PersistenceException e) {
+            // ignore me
+        }
+        return property.getItem();
     }
 
     public void setProcess(ProcessItem process) {
