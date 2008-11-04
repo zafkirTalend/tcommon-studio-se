@@ -5,11 +5,12 @@ use warnings;
 
 use Data::Dumper;
 use Term::Prompt;
+use File::Path;
 
 my $svncommand = "/usr/bin/svn";
 
-my $logfile = "/tmp/svnmergelog";
-my $rootpath = "/tmp/svnmerge";
+my $logfile = "/tmp/svnmergelog.".$$;
+my $rootpath = "/tmp/svnmerge.".$$;
 
 my $rooturl = "http://talendforge.org/svn";
 
@@ -193,3 +194,4 @@ for my $rev (@revs) {
     print "\n--------------------------------------------------\n\n";
 }
 
+rmtree($rootpath);
