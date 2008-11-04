@@ -187,11 +187,6 @@ class ImportItemWizardPage extends WizardPage {
         return list.toArray(new String[list.size()]);
     }
 
-    private void applyFilter() {
-        itemsList.refresh(true);
-        itemsList.setCheckedElements(checkValidItems());
-    }
-
     private void createErrorsList(Composite workArea) {
         Composite composite = new Composite(workArea, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -671,7 +666,8 @@ class ImportItemWizardPage extends WizardPage {
 
         itemsList.refresh(true);
         itemsList.expandAll();
-        itemsList.setCheckedElements(checkValidItems());
+        // see feature 0004170: Unselect all items to import
+        // itemsList.setCheckedElements(checkValidItems());
     }
 
     private ItemRecord[] checkValidItems() {
