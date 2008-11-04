@@ -31,29 +31,6 @@
 	
 	<PARAMETER NAME="SCHEMA_UNKNOWN" FIELD="SCHEMA_TYPE"
 			REQUIRED="true" NUM_ROW="7" CONTEXT="UNKNOWN" SHOW="true">
-			      <TABLE READONLY="false" IF="COUNTRY=='FRA'">
-         <COLUMN NAME="NOM" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="COMPLEMENT_ADDRESSE1" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="COMPLEMENT_ADDRESSE2" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESSE" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="BOITE_POSTALE" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="CODEPOSTAL_VILLE" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-	  </TABLE>
-      <TABLE READONLY="false" IF="COUNTRY=='USA'">
-         <COLUMN NAME="NAME" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ZIP_CODE" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="CITY" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-	  </TABLE>
-      <TABLE READONLY="false" IF="COUNTRY=='DEU'">
-         <COLUMN NAME="NAME" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS_COMPLEMENT1" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS_COMPLEMENT2" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ZIP_CODE" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="CITY" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="COUNTRY" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-	  </TABLE>
 	</PARAMETER>
 
     <PARAMETER NAME="WSDL_ADDRESS" FIELD="TEXT" NUM_ROW="1" REQUIRED="true">
@@ -69,29 +46,6 @@
     </PARAMETER>
 
 	<PARAMETER NAME="SCHEMA" FIELD="SCHEMA_TYPE" REQUIRED="true" NUM_ROW="10">
-      <TABLE READONLY="false" IF="COUNTRY=='FRA'">
-         <COLUMN NAME="NOM" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="COMPLEMENT_ADDRESSE1" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="COMPLEMENT_ADDRESSE2" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESSE" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="BOITE_POSTALE" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="CODEPOSTAL_VILLE" TYPE="id_String" LENGTH="38" READONLY="true" CUSTOM="true"/>
-	  </TABLE>
-      <TABLE READONLY="false" IF="COUNTRY=='USA'">
-         <COLUMN NAME="NAME" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ZIP_CODE" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="CITY" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-	  </TABLE>
-      <TABLE READONLY="false" IF="COUNTRY=='DEU'">
-         <COLUMN NAME="NAME" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS_COMPLEMENT1" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS_COMPLEMENT2" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ADDRESS" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="ZIP_CODE" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="CITY" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-         <COLUMN NAME="COUNTRY" TYPE="id_String" LENGTH="60" READONLY="true" CUSTOM="true"/>
-	  </TABLE>
 	</PARAMETER>
 
 	    <PARAMETER

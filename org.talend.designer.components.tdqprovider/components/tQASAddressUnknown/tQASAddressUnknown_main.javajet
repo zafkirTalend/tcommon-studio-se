@@ -44,7 +44,7 @@ if(connsVerified != null && connsVerified.size() > 0) {
 <%       
     }
 }
-
+%>
 	String[] results_<%=cid %> = null;
 	results_<%=cid %> = com.talend.qas.QASClient.getRightAddress(<%= wsdlAddress %>, "<%= country %>" , <%=conn.getName() %>.<%= addressToVerify %>);
 if(results_<%=cid %>[0].equals("None") || results_<%=cid %>[0].equals("Multiple")){
@@ -65,28 +65,8 @@ if(results_<%=cid %>[0].equals("None") || results_<%=cid %>[0].equals("Multiple"
 									IMetadataColumn columnout=columnsout.get(j);
 %>
 									<%=connout.getName() %>.<%=columnout.getLabel() %>=<%=conn.getName() %>.<%=columnout.getLabel() %>;
-<%									} if(country.equals("FRX")) {			%>								
-		                                <%=connout.getName() %>.NOM = results_<%=cid %>[1];
-		                                <%=connout.getName() %>.COMPLEMENT_ADDRESSE1 = results_<%=cid %>[2];
-		                                <%=connout.getName() %>.COMPLEMENT_ADDRESSE2 = results_<%=cid %>[3];
-		                                <%=connout.getName() %>.ADDRESSE = results_<%=cid %>[4];
-		                                <%=connout.getName() %>.BOITE_POSTALE = results_<%=cid %>[5];
-		                                <%=connout.getName() %>.CODEPOSTAL_VILLE = results_<%=cid %>[6];
-<%									} if(country.equals("USA")) {		%>
-										<%=connout.getName() %>.NAME = results_<%=cid %>[1];
-		                                <%=connout.getName() %>.ADDRESS = results_<%=cid %>[2];
-		                                <%=connout.getName() %>.ZIP_CODE = results_<%=cid %>[3];
-		                                <%=connout.getName() %>.CITY = results_<%=cid %>[4];
-		                                
-<%									} if(country.equals("DEU")) {		%>
-										<%=connout.getName() %>.NAME = results_<%=cid %>[1];
-		                                <%=connout.getName() %>.ADDRESS_COMPLEMENT1 = results_<%=cid %>[2];
-		                                <%=connout.getName() %>.ADDRESS_COMPLEMENT2 = results_<%=cid %>[3];
-		                                <%=connout.getName() %>.ADDRESS = results_<%=cid %>[4];
-		                                <%=connout.getName() %>.ZIP_CODE = results_<%=cid %>[5];
-		                                <%=connout.getName() %>.CITY = results_<%=cid %>[6];
-		                                <%=connout.getName() %>.COUNTRY = results_<%=cid %>[7];
-<%									}	
+<%
+								}
 							}
 						}
 					}
