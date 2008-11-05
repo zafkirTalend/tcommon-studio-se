@@ -22,21 +22,21 @@ import org.talend.core.model.properties.SAPConnectionItem;
  */
 public class SAPConnectionItemImpl extends ConnectionItemImpl implements SAPConnectionItem {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected SAPConnectionItemImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.SAP_CONNECTION_ITEM;
-	}
+        return PropertiesPackage.Literals.SAP_CONNECTION_ITEM;
+    }
 
 } //SAPConnectionItemImpl

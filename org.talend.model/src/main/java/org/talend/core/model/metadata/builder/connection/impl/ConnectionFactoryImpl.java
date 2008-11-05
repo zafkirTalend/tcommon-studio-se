@@ -90,6 +90,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.METADATA_TABLE: return createMetadataTable();
             case ConnectionPackage.DELIMITED_FILE_CONNECTION: return createDelimitedFileConnection();
             case ConnectionPackage.POSITIONAL_FILE_CONNECTION: return createPositionalFileConnection();
+            case ConnectionPackage.EBCDIC_CONNECTION: return createEbcdicConnection();
             case ConnectionPackage.DATABASE_CONNECTION: return createDatabaseConnection();
             case ConnectionPackage.SAP_CONNECTION: return createSAPConnection();
             case ConnectionPackage.SAP_FUNCTION_UNIT: return createSAPFunctionUnit();
@@ -219,6 +220,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
         PositionalFileConnectionImpl positionalFileConnection = new PositionalFileConnectionImpl();
         positionalFileConnection.setFieldSeparatorValue("*"); //$NON-NLS-1$
         return positionalFileConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EbcdicConnection createEbcdicConnection() {
+        EbcdicConnectionImpl ebcdicConnection = new EbcdicConnectionImpl();
+        return ebcdicConnection;
     }
 
     /**

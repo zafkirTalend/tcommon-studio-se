@@ -29,19 +29,19 @@ public interface Status extends EObject {
     public static final String DOCUMENTATION_STATUS = "org.talend.repository.properties.status.documentation"; //$NON-NLS-1$
 
     /**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Label</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getStatus_Label()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Label</em>' attribute.
+     * @see #setLabel(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getStatus_Label()
+     * @model
+     * @generated
+     */
     String getLabel();
 
     /**
@@ -55,19 +55,19 @@ public interface Status extends EObject {
     void setLabel(String value);
 
     /**
-	 * Returns the value of the '<em><b>Code</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Code</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Code</em>' attribute.
-	 * @see #setCode(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getStatus_Code()
-	 * @model required="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Code</em>' attribute.
+     * @see #setCode(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getStatus_Code()
+     * @model required="true"
+     * @generated
+     */
     String getCode();
 
     /**

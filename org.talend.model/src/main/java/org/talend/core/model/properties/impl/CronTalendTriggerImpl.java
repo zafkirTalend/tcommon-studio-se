@@ -30,131 +30,131 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class CronTalendTriggerImpl extends TalendTriggerImpl implements CronTalendTrigger {
     /**
-	 * The default value of the '{@link #getCronExpression() <em>Cron Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getCronExpression() <em>Cron Expression</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCronExpression()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCronExpression()
+     * @generated
+     * @ordered
+     */
     protected static final String CRON_EXPRESSION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getCronExpression() <em>Cron Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCronExpression() <em>Cron Expression</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getCronExpression()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getCronExpression()
+     * @generated
+     * @ordered
+     */
     protected String cronExpression = CRON_EXPRESSION_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected CronTalendTriggerImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.CRON_TALEND_TRIGGER;
-	}
+        return PropertiesPackage.Literals.CRON_TALEND_TRIGGER;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getCronExpression() {
-		return cronExpression;
-	}
+        return cronExpression;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setCronExpression(String newCronExpression) {
-		String oldCronExpression = cronExpression;
-		cronExpression = newCronExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION, oldCronExpression, cronExpression));
-	}
+        String oldCronExpression = cronExpression;
+        cronExpression = newCronExpression;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION, oldCronExpression, cronExpression));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
-				return getCronExpression();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
+                return getCronExpression();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
-				setCronExpression((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
+                setCronExpression((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
-				setCronExpression(CRON_EXPRESSION_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
+                setCronExpression(CRON_EXPRESSION_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
-				return CRON_EXPRESSION_EDEFAULT == null ? cronExpression != null : !CRON_EXPRESSION_EDEFAULT.equals(cronExpression);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.CRON_TALEND_TRIGGER__CRON_EXPRESSION:
+                return CRON_EXPRESSION_EDEFAULT == null ? cronExpression != null : !CRON_EXPRESSION_EDEFAULT.equals(cronExpression);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (cronExpression: ");
-		result.append(cronExpression);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (cronExpression: ");
+        result.append(cronExpression);
+        result.append(')');
+        return result.toString();
+    }
 
 } //CronTalendTriggerImpl

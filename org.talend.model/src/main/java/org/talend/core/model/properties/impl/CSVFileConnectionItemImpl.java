@@ -20,19 +20,19 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class CSVFileConnectionItemImpl extends DelimitedFileConnectionItemImpl implements CSVFileConnectionItem {
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected CSVFileConnectionItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.CSV_FILE_CONNECTION_ITEM;
-	}
+        return PropertiesPackage.Literals.CSV_FILE_CONNECTION_ITEM;
+    }
 
 } // CSVFileConnectionItemImpl

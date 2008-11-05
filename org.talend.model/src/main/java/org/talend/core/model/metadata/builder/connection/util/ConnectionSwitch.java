@@ -155,6 +155,15 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.EBCDIC_CONNECTION: {
+                EbcdicConnection ebcdicConnection = (EbcdicConnection)theEObject;
+                Object result = caseEbcdicConnection(ebcdicConnection);
+                if (result == null) result = caseFileConnection(ebcdicConnection);
+                if (result == null) result = caseConnection(ebcdicConnection);
+                if (result == null) result = caseAbstractMetadataObject(ebcdicConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ConnectionPackage.DATABASE_CONNECTION: {
                 DatabaseConnection databaseConnection = (DatabaseConnection)theEObject;
                 Object result = caseDatabaseConnection(databaseConnection);
@@ -432,6 +441,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object casePositionalFileConnection(PositionalFileConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Ebcdic Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Ebcdic Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseEbcdicConnection(EbcdicConnection object) {
         return null;
     }
 

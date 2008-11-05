@@ -38,19 +38,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface Property extends EObject {
 
     /**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id</em>' attribute.
-	 * @see #setId(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Id()
-	 * @model id="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Id</em>' attribute.
+     * @see #setId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Id()
+     * @model id="true"
+     * @generated
+     */
     String getId();
 
     /**
@@ -64,266 +64,266 @@ public interface Property extends EObject {
     void setId(String value);
 
     /**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Label</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Label()
-	 * @model required="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Label</em>' attribute.
+     * @see #setLabel(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Label()
+     * @model required="true"
+     * @generated
+     */
     String getLabel();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getLabel <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Label</em>' attribute.
+     * @see #getLabel()
+     * @generated
+     */
     void setLabel(String value);
 
     /**
-	 * Returns the value of the '<em><b>Purpose</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Purpose</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Purpose</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Purpose</em>' attribute.
-	 * @see #setPurpose(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Purpose()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Purpose</em>' attribute.
+     * @see #setPurpose(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Purpose()
+     * @model
+     * @generated
+     */
     String getPurpose();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getPurpose <em>Purpose</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Purpose</em>' attribute.
-	 * @see #getPurpose()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getPurpose <em>Purpose</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Purpose</em>' attribute.
+     * @see #getPurpose()
+     * @generated
+     */
     void setPurpose(String value);
 
     /**
-	 * Returns the value of the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Description</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Description</em>' attribute.
-	 * @see #setDescription(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Description()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see #setDescription(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Description()
+     * @model
+     * @generated
+     */
     String getDescription();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getDescription <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' attribute.
-	 * @see #getDescription()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Description</em>' attribute.
+     * @see #getDescription()
+     * @generated
+     */
     void setDescription(String value);
 
     /**
-	 * Returns the value of the '<em><b>Creation Date</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Creation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Creation Date</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Creation Date</em>' attribute.
-	 * @see #setCreationDate(Date)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_CreationDate()
-	 * @model unique="false" required="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Creation Date</em>' attribute.
+     * @see #setCreationDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_CreationDate()
+     * @model unique="false" required="true"
+     * @generated
+     */
     Date getCreationDate();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getCreationDate <em>Creation Date</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Creation Date</em>' attribute.
-	 * @see #getCreationDate()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getCreationDate <em>Creation Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Creation Date</em>' attribute.
+     * @see #getCreationDate()
+     * @generated
+     */
     void setCreationDate(Date value);
 
     /**
-	 * Returns the value of the '<em><b>Modification Date</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Modification Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Modification Date</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Modification Date</em>' attribute.
-	 * @see #setModificationDate(Date)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_ModificationDate()
-	 * @model unique="false"
-	 * @generated
-	 */
+     * @return the value of the '<em>Modification Date</em>' attribute.
+     * @see #setModificationDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_ModificationDate()
+     * @model unique="false"
+     * @generated
+     */
     Date getModificationDate();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getModificationDate <em>Modification Date</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Modification Date</em>' attribute.
-	 * @see #getModificationDate()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getModificationDate <em>Modification Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Modification Date</em>' attribute.
+     * @see #getModificationDate()
+     * @generated
+     */
     void setModificationDate(Date value);
 
     /**
-	 * Returns the value of the '<em><b>Author</b></em>' reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Author</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Author</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Author</em>' reference.
-	 * @see #setAuthor(User)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Author()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Author</em>' reference.
+     * @see #setAuthor(User)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Author()
+     * @model
+     * @generated
+     */
     User getAuthor();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getAuthor <em>Author</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Author</em>' reference.
-	 * @see #getAuthor()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getAuthor <em>Author</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Author</em>' reference.
+     * @see #getAuthor()
+     * @generated
+     */
     void setAuthor(User value);
 
     /**
-	 * Returns the value of the '<em><b>Informations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.talend.core.model.properties.Information}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Informations</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.Information}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Informations</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Informations</em>' containment reference list.
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Informations()
-	 * @model type="org.talend.core.model.properties.Information" containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Informations</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Informations()
+     * @model type="org.talend.core.model.properties.Information" containment="true"
+     * @generated
+     */
     EList getInformations();
 
     /**
-	 * Returns the value of the '<em><b>Max Information Level</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.talend.core.model.properties.InformationLevel}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Max Information Level</b></em>' attribute.
+     * The literals are from the enumeration {@link org.talend.core.model.properties.InformationLevel}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Max Information Level</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Max Information Level</em>' attribute.
-	 * @see org.talend.core.model.properties.InformationLevel
-	 * @see #setMaxInformationLevel(InformationLevel)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_MaxInformationLevel()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Max Information Level</em>' attribute.
+     * @see org.talend.core.model.properties.InformationLevel
+     * @see #setMaxInformationLevel(InformationLevel)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_MaxInformationLevel()
+     * @model
+     * @generated
+     */
     InformationLevel getMaxInformationLevel();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Max Information Level</em>' attribute.
-	 * @see org.talend.core.model.properties.InformationLevel
-	 * @see #getMaxInformationLevel()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Max Information Level</em>' attribute.
+     * @see org.talend.core.model.properties.InformationLevel
+     * @see #getMaxInformationLevel()
+     * @generated
+     */
     void setMaxInformationLevel(InformationLevel value);
 
     /**
-	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Version</em>' attribute.
-	 * @see #setVersion(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Version()
-	 * @model required="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Version</em>' attribute.
+     * @see #setVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Version()
+     * @model required="true"
+     * @generated
+     */
     String getVersion();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getVersion <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Version</em>' attribute.
-	 * @see #getVersion()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getVersion <em>Version</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Version</em>' attribute.
+     * @see #getVersion()
+     * @generated
+     */
     void setVersion(String value);
 
     /**
-	 * Returns the value of the '<em><b>Status Code</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Status Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Status Code</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Status Code</em>' attribute.
-	 * @see #setStatusCode(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_StatusCode()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Status Code</em>' attribute.
+     * @see #setStatusCode(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_StatusCode()
+     * @model
+     * @generated
+     */
     String getStatusCode();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.Property#getStatusCode <em>Status Code</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Status Code</em>' attribute.
-	 * @see #getStatusCode()
-	 * @generated
-	 */
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getStatusCode <em>Status Code</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @param value the new value of the '<em>Status Code</em>' attribute.
+     * @see #getStatusCode()
+     * @generated
+     */
     void setStatusCode(String value);
 
     /**
-	 * Returns the value of the '<em><b>Item</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Item#getProperty <em>Property</em>}'.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Item</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Item#getProperty <em>Property</em>}'.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Item</em>' reference isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Item</em>' reference.
-	 * @see #setItem(Item)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Item()
-	 * @see org.talend.core.model.properties.Item#getProperty
-	 * @model opposite="property"
-	 * @generated
-	 */
+     * @return the value of the '<em>Item</em>' reference.
+     * @see #setItem(Item)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Item()
+     * @see org.talend.core.model.properties.Item#getProperty
+     * @model opposite="property"
+     * @generated
+     */
     Item getItem();
 
     /**

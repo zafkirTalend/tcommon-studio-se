@@ -34,243 +34,243 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class LinkDocumentationItemImpl extends ItemImpl implements LinkDocumentationItem {
     /**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
     protected String name = NAME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getExtension()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getExtension()
+     * @generated
+     * @ordered
+     */
     protected static final String EXTENSION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getExtension()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getExtension()
+     * @generated
+     * @ordered
+     */
     protected String extension = EXTENSION_EDEFAULT;
 
     /**
-	 * The cached value of the '{@link #getLink() <em>Link</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLink() <em>Link</em>}' reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLink()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLink()
+     * @generated
+     * @ordered
+     */
     protected LinkType link;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected LinkDocumentationItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.LINK_DOCUMENTATION_ITEM;
-	}
+        return PropertiesPackage.Literals.LINK_DOCUMENTATION_ITEM;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME, oldName, name));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getExtension() {
-		return extension;
-	}
+        return extension;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setExtension(String newExtension) {
-		String oldExtension = extension;
-		extension = newExtension;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION, oldExtension, extension));
-	}
+        String oldExtension = extension;
+        extension = newExtension;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION, oldExtension, extension));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public LinkType getLink() {
-		if (link != null && link.eIsProxy()) {
-			InternalEObject oldLink = (InternalEObject)link;
-			link = (LinkType)eResolveProxy(oldLink);
-			if (link != oldLink) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK, oldLink, link));
-			}
-		}
-		return link;
-	}
+        if (link != null && link.eIsProxy()) {
+            InternalEObject oldLink = (InternalEObject)link;
+            link = (LinkType)eResolveProxy(oldLink);
+            if (link != oldLink) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK, oldLink, link));
+            }
+        }
+        return link;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public LinkType basicGetLink() {
-		return link;
-	}
+        return link;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setLink(LinkType newLink) {
-		LinkType oldLink = link;
-		link = newLink;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK, oldLink, link));
-	}
+        LinkType oldLink = link;
+        link = newLink;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK, oldLink, link));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
-				return getName();
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
-				return getExtension();
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
-				if (resolve) return getLink();
-				return basicGetLink();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
+                return getName();
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
+                return getExtension();
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
+                if (resolve) return getLink();
+                return basicGetLink();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
-				setName((String)newValue);
-				return;
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
-				setExtension((String)newValue);
-				return;
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
-				setLink((LinkType)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
+                setName((String)newValue);
+                return;
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
+                setExtension((String)newValue);
+                return;
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
+                setLink((LinkType)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
-				setExtension(EXTENSION_EDEFAULT);
-				return;
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
-				setLink((LinkType)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
+                setExtension(EXTENSION_EDEFAULT);
+                return;
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
+                setLink((LinkType)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
-				return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
-			case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
-				return link != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__EXTENSION:
+                return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
+            case PropertiesPackage.LINK_DOCUMENTATION_ITEM__LINK:
+                return link != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", extension: ");
-		result.append(extension);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (name: ");
+        result.append(name);
+        result.append(", extension: ");
+        result.append(extension);
+        result.append(')');
+        return result.toString();
+    }
 
 } //LinkDocumentationItemImpl

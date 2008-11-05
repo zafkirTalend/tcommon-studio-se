@@ -47,700 +47,700 @@ import org.talend.core.model.properties.TalendTrigger;
  */
 public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
     /**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getId()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
     protected static final int ID_EDEFAULT = 0;
 
     /**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getId()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
     protected int id = ID_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isActive()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isActive()
+     * @generated
+     * @ordered
+     */
     protected static final boolean ACTIVE_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isActive()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isActive()
+     * @generated
+     * @ordered
+     */
     protected boolean active = ACTIVE_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLabel()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLabel()
+     * @generated
+     * @ordered
+     */
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLabel()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLabel()
+     * @generated
+     * @ordered
+     */
     protected String label = LABEL_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTriggerType()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTriggerType()
+     * @generated
+     * @ordered
+     */
     protected static final String TRIGGER_TYPE_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getTriggerType()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTriggerType()
+     * @generated
+     * @ordered
+     */
     protected String triggerType = TRIGGER_TYPE_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getStartTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getStartTime()
+     * @generated
+     * @ordered
+     */
     protected static final Date START_TIME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getStartTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getStartTime()
+     * @generated
+     * @ordered
+     */
     protected Date startTime = START_TIME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getEndTime() <em>End Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getEndTime() <em>End Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getEndTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getEndTime()
+     * @generated
+     * @ordered
+     */
     protected static final Date END_TIME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getEndTime() <em>End Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getEndTime() <em>End Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getEndTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getEndTime()
+     * @generated
+     * @ordered
+     */
     protected Date endTime = END_TIME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getPreviousFireTime() <em>Previous Fire Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getPreviousFireTime() <em>Previous Fire Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPreviousFireTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPreviousFireTime()
+     * @generated
+     * @ordered
+     */
     protected static final Date PREVIOUS_FIRE_TIME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getPreviousFireTime() <em>Previous Fire Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPreviousFireTime() <em>Previous Fire Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getPreviousFireTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPreviousFireTime()
+     * @generated
+     * @ordered
+     */
     protected Date previousFireTime = PREVIOUS_FIRE_TIME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getFinalFireTime() <em>Final Fire Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getFinalFireTime() <em>Final Fire Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getFinalFireTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getFinalFireTime()
+     * @generated
+     * @ordered
+     */
     protected static final Date FINAL_FIRE_TIME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getFinalFireTime() <em>Final Fire Time</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getFinalFireTime() <em>Final Fire Time</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getFinalFireTime()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getFinalFireTime()
+     * @generated
+     * @ordered
+     */
     protected Date finalFireTime = FINAL_FIRE_TIME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getIdQuartzTrigger()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getIdQuartzTrigger()
+     * @generated
+     * @ordered
+     */
     protected static final int ID_QUARTZ_TRIGGER_EDEFAULT = 0;
 
     /**
-	 * The cached value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getIdQuartzTrigger()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getIdQuartzTrigger()
+     * @generated
+     * @ordered
+     */
     protected int idQuartzTrigger = ID_QUARTZ_TRIGGER_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected TalendTriggerImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.TALEND_TRIGGER;
-	}
+        return PropertiesPackage.Literals.TALEND_TRIGGER;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public int getId() {
-		return id;
-	}
+        return id;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setId(int newId) {
-		int oldId = id;
-		id = newId;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ID, oldId, id));
-	}
+        int oldId = id;
+        id = newId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ID, oldId, id));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setActive(boolean newActive) {
-		boolean oldActive = active;
-		active = newActive;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ACTIVE, oldActive, active));
-	}
+        boolean oldActive = active;
+        active = newActive;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ACTIVE, oldActive, active));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getLabel() {
-		return label;
-	}
+        return label;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setLabel(String newLabel) {
-		String oldLabel = label;
-		label = newLabel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__LABEL, oldLabel, label));
-	}
+        String oldLabel = label;
+        label = newLabel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__LABEL, oldLabel, label));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getDescription() {
-		return description;
-	}
+        return description;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__DESCRIPTION, oldDescription, description));
-	}
+        String oldDescription = description;
+        description = newDescription;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__DESCRIPTION, oldDescription, description));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getTriggerType() {
-		return triggerType;
-	}
+        return triggerType;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setTriggerType(String newTriggerType) {
-		String oldTriggerType = triggerType;
-		triggerType = newTriggerType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE, oldTriggerType, triggerType));
-	}
+        String oldTriggerType = triggerType;
+        triggerType = newTriggerType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE, oldTriggerType, triggerType));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ExecutionTask getExecutionTask() {
-		if (eContainerFeatureID != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK) return null;
-		return (ExecutionTask)eContainer();
-	}
+        if (eContainerFeatureID != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK) return null;
+        return (ExecutionTask)eContainer();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain basicSetExecutionTask(ExecutionTask newExecutionTask, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newExecutionTask, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK, msgs);
-		return msgs;
-	}
+        msgs = eBasicSetContainer((InternalEObject)newExecutionTask, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK, msgs);
+        return msgs;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setExecutionTask(ExecutionTask newExecutionTask) {
-		if (newExecutionTask != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK && newExecutionTask != null)) {
-			if (EcoreUtil.isAncestor(this, newExecutionTask))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newExecutionTask != null)
-				msgs = ((InternalEObject)newExecutionTask).eInverseAdd(this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, ExecutionTask.class, msgs);
-			msgs = basicSetExecutionTask(newExecutionTask, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK, newExecutionTask, newExecutionTask));
-	}
+        if (newExecutionTask != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK && newExecutionTask != null)) {
+            if (EcoreUtil.isAncestor(this, newExecutionTask))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newExecutionTask != null)
+                msgs = ((InternalEObject)newExecutionTask).eInverseAdd(this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, ExecutionTask.class, msgs);
+            msgs = basicSetExecutionTask(newExecutionTask, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK, newExecutionTask, newExecutionTask));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Date getStartTime() {
-		return startTime;
-	}
+        return startTime;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setStartTime(Date newStartTime) {
-		Date oldStartTime = startTime;
-		startTime = newStartTime;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__START_TIME, oldStartTime, startTime));
-	}
+        Date oldStartTime = startTime;
+        startTime = newStartTime;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__START_TIME, oldStartTime, startTime));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Date getEndTime() {
-		return endTime;
-	}
+        return endTime;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setEndTime(Date newEndTime) {
-		Date oldEndTime = endTime;
-		endTime = newEndTime;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__END_TIME, oldEndTime, endTime));
-	}
+        Date oldEndTime = endTime;
+        endTime = newEndTime;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__END_TIME, oldEndTime, endTime));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Date getPreviousFireTime() {
-		return previousFireTime;
-	}
+        return previousFireTime;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setPreviousFireTime(Date newPreviousFireTime) {
-		Date oldPreviousFireTime = previousFireTime;
-		previousFireTime = newPreviousFireTime;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME, oldPreviousFireTime, previousFireTime));
-	}
+        Date oldPreviousFireTime = previousFireTime;
+        previousFireTime = newPreviousFireTime;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME, oldPreviousFireTime, previousFireTime));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Date getFinalFireTime() {
-		return finalFireTime;
-	}
+        return finalFireTime;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setFinalFireTime(Date newFinalFireTime) {
-		Date oldFinalFireTime = finalFireTime;
-		finalFireTime = newFinalFireTime;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME, oldFinalFireTime, finalFireTime));
-	}
+        Date oldFinalFireTime = finalFireTime;
+        finalFireTime = newFinalFireTime;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME, oldFinalFireTime, finalFireTime));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public int getIdQuartzTrigger() {
-		return idQuartzTrigger;
-	}
+        return idQuartzTrigger;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setIdQuartzTrigger(int newIdQuartzTrigger) {
-		int oldIdQuartzTrigger = idQuartzTrigger;
-		idQuartzTrigger = newIdQuartzTrigger;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER, oldIdQuartzTrigger, idQuartzTrigger));
-	}
+        int oldIdQuartzTrigger = idQuartzTrigger;
+        idQuartzTrigger = newIdQuartzTrigger;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER, oldIdQuartzTrigger, idQuartzTrigger));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetExecutionTask((ExecutionTask)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetExecutionTask((ExecutionTask)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				return basicSetExecutionTask(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                return basicSetExecutionTask(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				return eInternalContainer().eInverseRemove(this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, ExecutionTask.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
+        switch (eContainerFeatureID) {
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                return eInternalContainer().eInverseRemove(this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, ExecutionTask.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.TALEND_TRIGGER__ID:
-				return new Integer(getId());
-			case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
-				return isActive() ? Boolean.TRUE : Boolean.FALSE;
-			case PropertiesPackage.TALEND_TRIGGER__LABEL:
-				return getLabel();
-			case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
-				return getDescription();
-			case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
-				return getTriggerType();
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				return getExecutionTask();
-			case PropertiesPackage.TALEND_TRIGGER__START_TIME:
-				return getStartTime();
-			case PropertiesPackage.TALEND_TRIGGER__END_TIME:
-				return getEndTime();
-			case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
-				return getPreviousFireTime();
-			case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
-				return getFinalFireTime();
-			case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
-				return new Integer(getIdQuartzTrigger());
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__ID:
+                return new Integer(getId());
+            case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
+                return isActive() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.TALEND_TRIGGER__LABEL:
+                return getLabel();
+            case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
+                return getDescription();
+            case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
+                return getTriggerType();
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                return getExecutionTask();
+            case PropertiesPackage.TALEND_TRIGGER__START_TIME:
+                return getStartTime();
+            case PropertiesPackage.TALEND_TRIGGER__END_TIME:
+                return getEndTime();
+            case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
+                return getPreviousFireTime();
+            case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
+                return getFinalFireTime();
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                return new Integer(getIdQuartzTrigger());
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.TALEND_TRIGGER__ID:
-				setId(((Integer)newValue).intValue());
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
-				setActive(((Boolean)newValue).booleanValue());
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__LABEL:
-				setLabel((String)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
-				setTriggerType((String)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				setExecutionTask((ExecutionTask)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__START_TIME:
-				setStartTime((Date)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__END_TIME:
-				setEndTime((Date)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
-				setPreviousFireTime((Date)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
-				setFinalFireTime((Date)newValue);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
-				setIdQuartzTrigger(((Integer)newValue).intValue());
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__ID:
+                setId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
+                setActive(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__LABEL:
+                setLabel((String)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
+                setDescription((String)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
+                setTriggerType((String)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                setExecutionTask((ExecutionTask)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__START_TIME:
+                setStartTime((Date)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__END_TIME:
+                setEndTime((Date)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
+                setPreviousFireTime((Date)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
+                setFinalFireTime((Date)newValue);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                setIdQuartzTrigger(((Integer)newValue).intValue());
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.TALEND_TRIGGER__ID:
-				setId(ID_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
-				setActive(ACTIVE_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__LABEL:
-				setLabel(LABEL_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
-				setTriggerType(TRIGGER_TYPE_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				setExecutionTask((ExecutionTask)null);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__START_TIME:
-				setStartTime(START_TIME_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__END_TIME:
-				setEndTime(END_TIME_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
-				setPreviousFireTime(PREVIOUS_FIRE_TIME_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
-				setFinalFireTime(FINAL_FIRE_TIME_EDEFAULT);
-				return;
-			case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
-				setIdQuartzTrigger(ID_QUARTZ_TRIGGER_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__ID:
+                setId(ID_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
+                setActive(ACTIVE_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__LABEL:
+                setLabel(LABEL_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
+                setTriggerType(TRIGGER_TYPE_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                setExecutionTask((ExecutionTask)null);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__START_TIME:
+                setStartTime(START_TIME_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__END_TIME:
+                setEndTime(END_TIME_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
+                setPreviousFireTime(PREVIOUS_FIRE_TIME_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
+                setFinalFireTime(FINAL_FIRE_TIME_EDEFAULT);
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                setIdQuartzTrigger(ID_QUARTZ_TRIGGER_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.TALEND_TRIGGER__ID:
-				return id != ID_EDEFAULT;
-			case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
-				return active != ACTIVE_EDEFAULT;
-			case PropertiesPackage.TALEND_TRIGGER__LABEL:
-				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-			case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
-				return TRIGGER_TYPE_EDEFAULT == null ? triggerType != null : !TRIGGER_TYPE_EDEFAULT.equals(triggerType);
-			case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-				return getExecutionTask() != null;
-			case PropertiesPackage.TALEND_TRIGGER__START_TIME:
-				return START_TIME_EDEFAULT == null ? startTime != null : !START_TIME_EDEFAULT.equals(startTime);
-			case PropertiesPackage.TALEND_TRIGGER__END_TIME:
-				return END_TIME_EDEFAULT == null ? endTime != null : !END_TIME_EDEFAULT.equals(endTime);
-			case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
-				return PREVIOUS_FIRE_TIME_EDEFAULT == null ? previousFireTime != null : !PREVIOUS_FIRE_TIME_EDEFAULT.equals(previousFireTime);
-			case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
-				return FINAL_FIRE_TIME_EDEFAULT == null ? finalFireTime != null : !FINAL_FIRE_TIME_EDEFAULT.equals(finalFireTime);
-			case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
-				return idQuartzTrigger != ID_QUARTZ_TRIGGER_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__ID:
+                return id != ID_EDEFAULT;
+            case PropertiesPackage.TALEND_TRIGGER__ACTIVE:
+                return active != ACTIVE_EDEFAULT;
+            case PropertiesPackage.TALEND_TRIGGER__LABEL:
+                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+            case PropertiesPackage.TALEND_TRIGGER__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
+                return TRIGGER_TYPE_EDEFAULT == null ? triggerType != null : !TRIGGER_TYPE_EDEFAULT.equals(triggerType);
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
+                return getExecutionTask() != null;
+            case PropertiesPackage.TALEND_TRIGGER__START_TIME:
+                return START_TIME_EDEFAULT == null ? startTime != null : !START_TIME_EDEFAULT.equals(startTime);
+            case PropertiesPackage.TALEND_TRIGGER__END_TIME:
+                return END_TIME_EDEFAULT == null ? endTime != null : !END_TIME_EDEFAULT.equals(endTime);
+            case PropertiesPackage.TALEND_TRIGGER__PREVIOUS_FIRE_TIME:
+                return PREVIOUS_FIRE_TIME_EDEFAULT == null ? previousFireTime != null : !PREVIOUS_FIRE_TIME_EDEFAULT.equals(previousFireTime);
+            case PropertiesPackage.TALEND_TRIGGER__FINAL_FIRE_TIME:
+                return FINAL_FIRE_TIME_EDEFAULT == null ? finalFireTime != null : !FINAL_FIRE_TIME_EDEFAULT.equals(finalFireTime);
+            case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
+                return idQuartzTrigger != ID_QUARTZ_TRIGGER_EDEFAULT;
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
-		result.append(id);
-		result.append(", active: ");
-		result.append(active);
-		result.append(", label: ");
-		result.append(label);
-		result.append(", description: ");
-		result.append(description);
-		result.append(", triggerType: ");
-		result.append(triggerType);
-		result.append(", startTime: ");
-		result.append(startTime);
-		result.append(", endTime: ");
-		result.append(endTime);
-		result.append(", previousFireTime: ");
-		result.append(previousFireTime);
-		result.append(", finalFireTime: ");
-		result.append(finalFireTime);
-		result.append(", idQuartzTrigger: ");
-		result.append(idQuartzTrigger);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (id: ");
+        result.append(id);
+        result.append(", active: ");
+        result.append(active);
+        result.append(", label: ");
+        result.append(label);
+        result.append(", description: ");
+        result.append(description);
+        result.append(", triggerType: ");
+        result.append(triggerType);
+        result.append(", startTime: ");
+        result.append(startTime);
+        result.append(", endTime: ");
+        result.append(endTime);
+        result.append(", previousFireTime: ");
+        result.append(previousFireTime);
+        result.append(", finalFireTime: ");
+        result.append(finalFireTime);
+        result.append(", idQuartzTrigger: ");
+        result.append(idQuartzTrigger);
+        result.append(')');
+        return result.toString();
+    }
 
 } //TalendTriggerImpl

@@ -33,124 +33,124 @@ import org.talend.designer.joblet.model.JobletProcess;
  */
 public class JobletProcessItemImpl extends ItemImpl implements JobletProcessItem {
     /**
-	 * The cached value of the '{@link #getJobletProcess() <em>Joblet Process</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getJobletProcess() <em>Joblet Process</em>}' reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getJobletProcess()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getJobletProcess()
+     * @generated
+     * @ordered
+     */
     protected JobletProcess jobletProcess;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected JobletProcessItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.JOBLET_PROCESS_ITEM;
-	}
+        return PropertiesPackage.Literals.JOBLET_PROCESS_ITEM;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public JobletProcess getJobletProcess() {
-		if (jobletProcess != null && jobletProcess.eIsProxy()) {
-			InternalEObject oldJobletProcess = (InternalEObject)jobletProcess;
-			jobletProcess = (JobletProcess)eResolveProxy(oldJobletProcess);
-			if (jobletProcess != oldJobletProcess) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS, oldJobletProcess, jobletProcess));
-			}
-		}
-		return jobletProcess;
-	}
+        if (jobletProcess != null && jobletProcess.eIsProxy()) {
+            InternalEObject oldJobletProcess = (InternalEObject)jobletProcess;
+            jobletProcess = (JobletProcess)eResolveProxy(oldJobletProcess);
+            if (jobletProcess != oldJobletProcess) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS, oldJobletProcess, jobletProcess));
+            }
+        }
+        return jobletProcess;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public JobletProcess basicGetJobletProcess() {
-		return jobletProcess;
-	}
+        return jobletProcess;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setJobletProcess(JobletProcess newJobletProcess) {
-		JobletProcess oldJobletProcess = jobletProcess;
-		jobletProcess = newJobletProcess;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS, oldJobletProcess, jobletProcess));
-	}
+        JobletProcess oldJobletProcess = jobletProcess;
+        jobletProcess = newJobletProcess;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS, oldJobletProcess, jobletProcess));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
-				if (resolve) return getJobletProcess();
-				return basicGetJobletProcess();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
+                if (resolve) return getJobletProcess();
+                return basicGetJobletProcess();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
-				setJobletProcess((JobletProcess)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
+                setJobletProcess((JobletProcess)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
-				setJobletProcess((JobletProcess)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
+                setJobletProcess((JobletProcess)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
-				return jobletProcess != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
+                return jobletProcess != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //JobletProcessItemImpl

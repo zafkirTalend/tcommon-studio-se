@@ -27,55 +27,55 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface License extends EObject {
     /**
-	 * Returns the value of the '<em><b>License</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>License</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>License</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>License</em>' attribute.
-	 * @see #setLicense(byte[])
-	 * @see org.talend.core.model.properties.PropertiesPackage#getLicense_License()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>License</em>' attribute.
+     * @see #setLicense(byte[])
+     * @see org.talend.core.model.properties.PropertiesPackage#getLicense_License()
+     * @model
+     * @generated
+     */
     byte[] getLicense();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.License#getLicense <em>License</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.properties.License#getLicense <em>License</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>License</em>' attribute.
-	 * @see #getLicense()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>License</em>' attribute.
+     * @see #getLicense()
+     * @generated
+     */
     void setLicense(byte[] value);
 
     /**
-	 * Returns the value of the '<em><b>Customer Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Customer Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Customer Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Customer Name</em>' attribute.
-	 * @see #setCustomerName(String)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getLicense_CustomerName()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 * @generated
-	 */
+     * @return the value of the '<em>Customer Name</em>' attribute.
+     * @see #setCustomerName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getLicense_CustomerName()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
     String getCustomerName();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Customer Name</em>' attribute.
-	 * @see #getCustomerName()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Customer Name</em>' attribute.
+     * @see #getCustomerName()
+     * @generated
+     */
     void setCustomerName(String value);
 
 } // License

@@ -38,13 +38,13 @@ import org.talend.core.model.properties.helper.ByteArrayResource;
 public abstract class FileItemImpl extends ItemImpl implements FileItem {
 
     /**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
     protected static final String NAME_EDEFAULT = null;
 
     /**
@@ -58,210 +58,210 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
     protected String name = NAME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-	 * @see #getExtension()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getExtension()
+     * @generated
+     * @ordered
+     */
     protected static final String EXTENSION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-	 * @see #getExtension()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getExtension()
+     * @generated
+     * @ordered
+     */
     protected String extension = EXTENSION_EDEFAULT;
 
     /**
-	 * The cached value of the '{@link #getContent() <em>Content</em>}' reference.
-	 * <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getContent() <em>Content</em>}' reference.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-	 * @see #getContent()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getContent()
+     * @generated
+     * @ordered
+     */
     protected ByteArray content;
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected FileItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.FILE_ITEM;
-	}
+        return PropertiesPackage.Literals.FILE_ITEM;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_ITEM__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_ITEM__NAME, oldName, name));
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public String getExtension() {
-		return extension;
-	}
+        return extension;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void setExtension(String newExtension) {
-		String oldExtension = extension;
-		extension = newExtension;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_ITEM__EXTENSION, oldExtension, extension));
-	}
+        String oldExtension = extension;
+        extension = newExtension;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_ITEM__EXTENSION, oldExtension, extension));
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public ByteArray getContent() {
-		if (content != null && content.eIsProxy()) {
-			InternalEObject oldContent = (InternalEObject)content;
-			content = (ByteArray)eResolveProxy(oldContent);
-			if (content != oldContent) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_ITEM__CONTENT, oldContent, content));
-			}
-		}
-		return content;
-	}
+        if (content != null && content.eIsProxy()) {
+            InternalEObject oldContent = (InternalEObject)content;
+            content = (ByteArray)eResolveProxy(oldContent);
+            if (content != oldContent) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_ITEM__CONTENT, oldContent, content));
+            }
+        }
+        return content;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public ByteArray basicGetContent() {
-		return content;
-	}
+        return content;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void setContent(ByteArray newContent) {
-		ByteArray oldContent = content;
-		content = newContent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_ITEM__CONTENT, oldContent, content));
-	}
+        ByteArray oldContent = content;
+        content = newContent;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_ITEM__CONTENT, oldContent, content));
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_ITEM__NAME:
-				return getName();
-			case PropertiesPackage.FILE_ITEM__EXTENSION:
-				return getExtension();
-			case PropertiesPackage.FILE_ITEM__CONTENT:
-				if (resolve) return getContent();
-				return basicGetContent();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_ITEM__NAME:
+                return getName();
+            case PropertiesPackage.FILE_ITEM__EXTENSION:
+                return getExtension();
+            case PropertiesPackage.FILE_ITEM__CONTENT:
+                if (resolve) return getContent();
+                return basicGetContent();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_ITEM__NAME:
-				setName((String)newValue);
-				return;
-			case PropertiesPackage.FILE_ITEM__EXTENSION:
-				setExtension((String)newValue);
-				return;
-			case PropertiesPackage.FILE_ITEM__CONTENT:
-				setContent((ByteArray)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_ITEM__NAME:
+                setName((String)newValue);
+                return;
+            case PropertiesPackage.FILE_ITEM__EXTENSION:
+                setExtension((String)newValue);
+                return;
+            case PropertiesPackage.FILE_ITEM__CONTENT:
+                setContent((ByteArray)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_ITEM__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case PropertiesPackage.FILE_ITEM__EXTENSION:
-				setExtension(EXTENSION_EDEFAULT);
-				return;
-			case PropertiesPackage.FILE_ITEM__CONTENT:
-				setContent((ByteArray)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_ITEM__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.FILE_ITEM__EXTENSION:
+                setExtension(EXTENSION_EDEFAULT);
+                return;
+            case PropertiesPackage.FILE_ITEM__CONTENT:
+                setContent((ByteArray)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_ITEM__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case PropertiesPackage.FILE_ITEM__EXTENSION:
-				return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
-			case PropertiesPackage.FILE_ITEM__CONTENT:
-				return content != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_ITEM__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case PropertiesPackage.FILE_ITEM__EXTENSION:
+                return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
+            case PropertiesPackage.FILE_ITEM__CONTENT:
+                return content != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", extension: ");
-		result.append(extension);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (name: ");
+        result.append(name);
+        result.append(", extension: ");
+        result.append(extension);
+        result.append(')');
+        return result.toString();
+    }
 
     public EObject eResolveProxy(InternalEObject proxy) {
         if (!proxy.eClass().equals(PropertiesPackage.eINSTANCE.getByteArray())) {

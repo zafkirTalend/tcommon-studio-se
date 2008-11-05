@@ -33,111 +33,111 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class FileTriggerImpl extends SimpleTalendTriggerImpl implements FileTrigger {
     /**
-	 * The cached value of the '{@link #getFileTriggerMasks() <em>File Trigger Masks</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getFileTriggerMasks() <em>File Trigger Masks</em>}' containment reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getFileTriggerMasks()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getFileTriggerMasks()
+     * @generated
+     * @ordered
+     */
     protected EList fileTriggerMasks;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected FileTriggerImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.FILE_TRIGGER;
-	}
+        return PropertiesPackage.Literals.FILE_TRIGGER;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EList getFileTriggerMasks() {
-		if (fileTriggerMasks == null) {
-			fileTriggerMasks = new EObjectContainmentEList(FileTriggerMask.class, this, PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS);
-		}
-		return fileTriggerMasks;
-	}
+        if (fileTriggerMasks == null) {
+            fileTriggerMasks = new EObjectContainmentEList(FileTriggerMask.class, this, PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS);
+        }
+        return fileTriggerMasks;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
-				return ((InternalEList)getFileTriggerMasks()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
+                return ((InternalEList)getFileTriggerMasks()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
-				return getFileTriggerMasks();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
+                return getFileTriggerMasks();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
-				getFileTriggerMasks().clear();
-				getFileTriggerMasks().addAll((Collection)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
+                getFileTriggerMasks().clear();
+                getFileTriggerMasks().addAll((Collection)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
-				getFileTriggerMasks().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
+                getFileTriggerMasks().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
-				return fileTriggerMasks != null && !fileTriggerMasks.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.FILE_TRIGGER__FILE_TRIGGER_MASKS:
+                return fileTriggerMasks != null && !fileTriggerMasks.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //FileTriggerImpl

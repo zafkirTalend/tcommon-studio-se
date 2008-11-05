@@ -1535,13 +1535,320 @@ public interface ConnectionPackage extends EPackage {
     int POSITIONAL_FILE_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl <em>Ebcdic Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEbcdicConnection()
+     * @generated
+     */
+    int EBCDIC_CONNECTION = 8;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__PROPERTIES = FILE_CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__ID = FILE_CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__COMMENT = FILE_CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__LABEL = FILE_CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__READ_ONLY = FILE_CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__SYNCHRONISED = FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__DIVERGENCY = FILE_CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__CONTEXT_MODE = FILE_CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__CONTEXT_ID = FILE_CONNECTION__CONTEXT_ID;
+
+    /**
+     * The feature id for the '<em><b>Server</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__SERVER = FILE_CONNECTION__SERVER;
+
+    /**
+     * The feature id for the '<em><b>File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__FILE_PATH = FILE_CONNECTION__FILE_PATH;
+
+    /**
+     * The feature id for the '<em><b>Format</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__FORMAT = FILE_CONNECTION__FORMAT;
+
+    /**
+     * The feature id for the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__ENCODING = FILE_CONNECTION__ENCODING;
+
+    /**
+     * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__ROW_SEPARATOR_VALUE = FILE_CONNECTION__ROW_SEPARATOR_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__TEXT_IDENTIFIER = FILE_CONNECTION__TEXT_IDENTIFIER;
+
+    /**
+     * The feature id for the '<em><b>Use Header</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__USE_HEADER = FILE_CONNECTION__USE_HEADER;
+
+    /**
+     * The feature id for the '<em><b>Header Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__HEADER_VALUE = FILE_CONNECTION__HEADER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Use Footer</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__USE_FOOTER = FILE_CONNECTION__USE_FOOTER;
+
+    /**
+     * The feature id for the '<em><b>Footer Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__FOOTER_VALUE = FILE_CONNECTION__FOOTER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Use Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__USE_LIMIT = FILE_CONNECTION__USE_LIMIT;
+
+    /**
+     * The feature id for the '<em><b>Limit Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
+
+    /**
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
+
+    /**
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__REMOVE_EMPTY_ROW = FILE_CONNECTION__REMOVE_EMPTY_ROW;
+
+    /**
+     * The feature id for the '<em><b>Escape Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__ESCAPE_TYPE = FILE_CONNECTION__ESCAPE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Escape Char</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__ESCAPE_CHAR = FILE_CONNECTION__ESCAPE_CHAR;
+
+    /**
+     * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__TEXT_ENCLOSURE = FILE_CONNECTION__TEXT_ENCLOSURE;
+
+    /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
+
+    /**
+     * The number of structural features of the '<em>Ebcdic Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseConnection()
      * @generated
      */
-    int DATABASE_CONNECTION = 8;
+    int DATABASE_CONNECTION = 9;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -1862,7 +2169,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPConnection()
      * @generated
      */
-    int SAP_CONNECTION = 9;
+    int SAP_CONNECTION = 10;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2061,7 +2368,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionUnit()
      * @generated
      */
-    int SAP_FUNCTION_UNIT = 10;
+    int SAP_FUNCTION_UNIT = 11;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2215,7 +2522,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterColumn()
      * @generated
      */
-    int SAP_FUNCTION_PARAMETER_COLUMN = 11;
+    int SAP_FUNCTION_PARAMETER_COLUMN = 12;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2369,7 +2676,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterTable()
      * @generated
      */
-    int SAP_FUNCTION_PARAMETER_TABLE = 12;
+    int SAP_FUNCTION_PARAMETER_TABLE = 13;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2460,7 +2767,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInputSAPFunctionParameterTable()
      * @generated
      */
-    int INPUT_SAP_FUNCTION_PARAMETER_TABLE = 13;
+    int INPUT_SAP_FUNCTION_PARAMETER_TABLE = 14;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2560,7 +2867,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOutputSAPFunctionParameterTable()
      * @generated
      */
-    int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = 14;
+    int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = 15;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2659,7 +2966,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRegexpFileConnection()
      * @generated
      */
-    int REGEXP_FILE_CONNECTION = 15;
+    int REGEXP_FILE_CONNECTION = 16;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2961,7 +3268,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlFileConnection()
      * @generated
      */
-    int XML_FILE_CONNECTION = 16;
+    int XML_FILE_CONNECTION = 17;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3135,7 +3442,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
      * @generated
      */
-    int SCHEMA_TARGET = 17;
+    int SCHEMA_TARGET = 18;
 
     /**
      * The feature id for the '<em><b>Relative XPath Query</b></em>' attribute.
@@ -3180,7 +3487,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
      * @generated
      */
-    int QUERIES_CONNECTION = 18;
+    int QUERIES_CONNECTION = 19;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -3217,7 +3524,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
      * @generated
      */
-    int QUERY = 19;
+    int QUERY = 20;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3317,7 +3624,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
      * @generated
      */
-    int LDIF_FILE_CONNECTION = 20;
+    int LDIF_FILE_CONNECTION = 21;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3489,7 +3796,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
      * @generated
      */
-    int FILE_EXCEL_CONNECTION = 21;
+    int FILE_EXCEL_CONNECTION = 22;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3877,7 +4184,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
      * @generated
      */
-    int XML_XPATH_LOOP_DESCRIPTOR = 22;
+    int XML_XPATH_LOOP_DESCRIPTOR = 23;
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
@@ -3932,7 +4239,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
      * @generated
      */
-    int GENERIC_SCHEMA_CONNECTION = 23;
+    int GENERIC_SCHEMA_CONNECTION = 24;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4077,7 +4384,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
      * @generated
      */
-    int LDAP_SCHEMA_CONNECTION = 24;
+    int LDAP_SCHEMA_CONNECTION = 25;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4411,7 +4718,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION = 25;
+    int WSDL_SCHEMA_CONNECTION = 26;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4664,7 +4971,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
      * @generated
      */
-    int SALESFORCE_SCHEMA_CONNECTION = 26;
+    int SALESFORCE_SCHEMA_CONNECTION = 27;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4836,7 +5143,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
      * @generated
      */
-    int CDC_CONNECTION = 27;
+    int CDC_CONNECTION = 28;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -4873,7 +5180,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
      * @generated
      */
-    int CDC_TYPE = 28;
+    int CDC_TYPE = 29;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4982,7 +5289,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
      * @generated
      */
-    int SUBSCRIBER_TABLE = 29;
+    int SUBSCRIBER_TABLE = 30;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5126,7 +5433,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 30;
+    int DATABASE_PROPERTIES = 31;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -5135,7 +5442,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 31;
+    int FILE_FORMAT = 32;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -5144,7 +5451,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 32;
+    int FIELD_SEPARATOR = 33;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -5153,7 +5460,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 33;
+    int ESCAPE = 34;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -5162,7 +5469,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 34;
+    int ROW_SEPARATOR = 35;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -5171,7 +5478,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 35;
+    int MAP = 36;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -5181,7 +5488,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 36;
+    int LIST = 37;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -5787,6 +6094,16 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EClass getPositionalFileConnection();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection <em>Ebcdic Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Ebcdic Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection
+     * @generated
+     */
+    EClass getEbcdicConnection();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
@@ -8010,6 +8327,16 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EClass POSITIONAL_FILE_CONNECTION = eINSTANCE.getPositionalFileConnection();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl <em>Ebcdic Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEbcdicConnection()
+         * @generated
+         */
+        EClass EBCDIC_CONNECTION = eINSTANCE.getEbcdicConnection();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.

@@ -32,6 +32,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
@@ -226,6 +227,11 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseSAPConnectionItem(SAPConnectionItem object) {
                 return ERepositoryObjectType.METADATA_SAPCONNECTIONS;
+            }
+
+            @Override
+            public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_EBCDIC;
             }
 
             /*

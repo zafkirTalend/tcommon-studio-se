@@ -113,6 +113,7 @@
         defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PositionalFileConnection" eSuperTypes="#//FileConnection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EbcdicConnection" eSuperTypes="#//FileConnection"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FileFormat">
     <eLiterals name="UNIX"/>
     <eLiterals name="MAC" value="1"/>

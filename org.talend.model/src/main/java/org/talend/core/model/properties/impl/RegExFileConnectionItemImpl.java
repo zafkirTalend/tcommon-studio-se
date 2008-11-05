@@ -20,19 +20,19 @@ import org.talend.core.model.properties.RegExFileConnectionItem;
 public class RegExFileConnectionItemImpl extends ConnectionItemImpl implements RegExFileConnectionItem {
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected RegExFileConnectionItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.REG_EX_FILE_CONNECTION_ITEM;
-	}
+        return PropertiesPackage.Literals.REG_EX_FILE_CONNECTION_ITEM;
+    }
 
 } // RegExFileConnectionItemImpl

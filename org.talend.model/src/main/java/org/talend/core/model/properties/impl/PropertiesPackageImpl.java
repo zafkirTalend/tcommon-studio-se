@@ -28,6 +28,7 @@ import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
@@ -213,10 +214,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass databaseConnectionItemEClass = null;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     private EClass sapConnectionItemEClass = null;
 
     /**
@@ -279,6 +280,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass excelFileConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ebcdicConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1257,13 +1265,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EClass getSAPConnectionItem() {
-		return sapConnectionItemEClass;
-	}
+        return sapConnectionItemEClass;
+    }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1654,6 +1662,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EClass getExcelFileConnectionItem() {
         return excelFileConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getEbcdicConnectionItem() {
+        return ebcdicConnectionItemEClass;
     }
 
     /**
@@ -2974,13 +2991,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         databaseConnectionItemEClass = createEClass(DATABASE_CONNECTION_ITEM);
 
-		sapConnectionItemEClass = createEClass(SAP_CONNECTION_ITEM);
+        sapConnectionItemEClass = createEClass(SAP_CONNECTION_ITEM);
 
         xmlFileConnectionItemEClass = createEClass(XML_FILE_CONNECTION_ITEM);
 
         ldifFileConnectionItemEClass = createEClass(LDIF_FILE_CONNECTION_ITEM);
 
         excelFileConnectionItemEClass = createEClass(EXCEL_FILE_CONNECTION_ITEM);
+
+        ebcdicConnectionItemEClass = createEClass(EBCDIC_CONNECTION_ITEM);
 
         processItemEClass = createEClass(PROCESS_ITEM);
         createEReference(processItemEClass, PROCESS_ITEM__PROCESS);
@@ -3244,10 +3263,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         regExFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         csvFileConnectionItemEClass.getESuperTypes().add(this.getDelimitedFileConnectionItem());
         databaseConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
-		sapConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        sapConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         xmlFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ldifFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         excelFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        ebcdicConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
         contextItemEClass.getESuperTypes().add(this.getItem());
@@ -3380,13 +3400,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(databaseConnectionItemEClass, DatabaseConnectionItem.class, "DatabaseConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(sapConnectionItemEClass, SAPConnectionItem.class, "SAPConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(sapConnectionItemEClass, SAPConnectionItem.class, "SAPConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(xmlFileConnectionItemEClass, XmlFileConnectionItem.class, "XmlFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(ldifFileConnectionItemEClass, LdifFileConnectionItem.class, "LdifFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(excelFileConnectionItemEClass, ExcelFileConnectionItem.class, "ExcelFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(ebcdicConnectionItemEClass, EbcdicConnectionItem.class, "EbcdicConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(processItemEClass, ProcessItem.class, "ProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProcessItem_Process(), theTalendFilePackage.getProcessType(), null, "process", null, 0, 1, ProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -104,6 +104,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object casePositionalFileConnection(PositionalFileConnection object) {
                 return createPositionalFileConnectionAdapter();
             }
+            public Object caseEbcdicConnection(EbcdicConnection object) {
+                return createEbcdicConnectionAdapter();
+            }
             public Object caseDatabaseConnection(DatabaseConnection object) {
                 return createDatabaseConnectionAdapter();
             }
@@ -279,6 +282,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createPositionalFileConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection <em>Ebcdic Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection
+     * @generated
+     */
+    public Adapter createEbcdicConnectionAdapter() {
         return null;
     }
 

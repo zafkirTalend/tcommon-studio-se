@@ -20,19 +20,19 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class DatabaseConnectionItemImpl extends ConnectionItemImpl implements DatabaseConnectionItem {
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected DatabaseConnectionItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.DATABASE_CONNECTION_ITEM;
-	}
+        return PropertiesPackage.Literals.DATABASE_CONNECTION_ITEM;
+    }
 
 } // DatabaseConnectionItemImpl

@@ -73,6 +73,15 @@ public interface ConnectionFactory extends EFactory {
     PositionalFileConnection createPositionalFileConnection();
 
     /**
+     * Returns a new object of class '<em>Ebcdic Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Ebcdic Connection</em>'.
+     * @generated
+     */
+    EbcdicConnection createEbcdicConnection();
+
+    /**
      * Returns a new object of class '<em>Database Connection</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Database Connection</em>'.

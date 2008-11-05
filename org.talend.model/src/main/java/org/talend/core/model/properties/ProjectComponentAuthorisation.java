@@ -27,59 +27,59 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ProjectComponentAuthorisation extends EObject {
     /**
-	 * Returns the value of the '<em><b>Project</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}'.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Project</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}'.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Project</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Project</em>' reference.
-	 * @see #setProject(Project)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProjectComponentAuthorisation_Project()
-	 * @see org.talend.core.model.properties.Project#getAllowedComponents
-	 * @model opposite="allowedComponents" required="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Project</em>' reference.
+     * @see #setProject(Project)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProjectComponentAuthorisation_Project()
+     * @see org.talend.core.model.properties.Project#getAllowedComponents
+     * @model opposite="allowedComponents" required="true"
+     * @generated
+     */
     Project getProject();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getProject <em>Project</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getProject <em>Project</em>}' reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Project</em>' reference.
-	 * @see #getProject()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Project</em>' reference.
+     * @see #getProject()
+     * @generated
+     */
     void setProject(Project value);
 
     /**
-	 * Returns the value of the '<em><b>Component</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Component#getProjects <em>Projects</em>}'.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Component</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Component#getProjects <em>Projects</em>}'.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Component</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Component</em>' reference.
-	 * @see #setComponent(Component)
-	 * @see org.talend.core.model.properties.PropertiesPackage#getProjectComponentAuthorisation_Component()
-	 * @see org.talend.core.model.properties.Component#getProjects
-	 * @model opposite="projects" required="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Component</em>' reference.
+     * @see #setComponent(Component)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProjectComponentAuthorisation_Component()
+     * @see org.talend.core.model.properties.Component#getProjects
+     * @model opposite="projects" required="true"
+     * @generated
+     */
     Component getComponent();
 
     /**
-	 * Sets the value of the '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent <em>Component</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent <em>Component</em>}' reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Component</em>' reference.
-	 * @see #getComponent()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Component</em>' reference.
+     * @see #getComponent()
+     * @generated
+     */
     void setComponent(Component value);
 
 } // ProjectComponentAuthorisation

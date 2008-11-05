@@ -31,184 +31,184 @@ import org.talend.core.model.properties.SQLPatternItem;
  */
 public class SQLPatternItemImpl extends FileItemImpl implements SQLPatternItem {
     /**
-	 * The default value of the '{@link #isSystem() <em>System</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isSystem() <em>System</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSystem()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSystem()
+     * @generated
+     * @ordered
+     */
     protected static final boolean SYSTEM_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isSystem() <em>System</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isSystem() <em>System</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isSystem()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isSystem()
+     * @generated
+     * @ordered
+     */
     protected boolean system = SYSTEM_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getEltName() <em>Elt Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getEltName() <em>Elt Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getEltName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getEltName()
+     * @generated
+     * @ordered
+     */
     protected static final String ELT_NAME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getEltName() <em>Elt Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getEltName() <em>Elt Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getEltName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getEltName()
+     * @generated
+     * @ordered
+     */
     protected String eltName = ELT_NAME_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected SQLPatternItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.SQL_PATTERN_ITEM;
-	}
+        return PropertiesPackage.Literals.SQL_PATTERN_ITEM;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isSystem() {
-		return system;
-	}
+        return system;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setSystem(boolean newSystem) {
-		boolean oldSystem = system;
-		system = newSystem;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM, oldSystem, system));
-	}
+        boolean oldSystem = system;
+        system = newSystem;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM, oldSystem, system));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getEltName() {
-		return eltName;
-	}
+        return eltName;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setEltName(String newEltName) {
-		String oldEltName = eltName;
-		eltName = newEltName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME, oldEltName, eltName));
-	}
+        String oldEltName = eltName;
+        eltName = newEltName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME, oldEltName, eltName));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
-				return isSystem() ? Boolean.TRUE : Boolean.FALSE;
-			case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
-				return getEltName();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
+                return isSystem() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
+                return getEltName();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
-				setSystem(((Boolean)newValue).booleanValue());
-				return;
-			case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
-				setEltName((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
+                setSystem(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
+                setEltName((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
-				setSystem(SYSTEM_EDEFAULT);
-				return;
-			case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
-				setEltName(ELT_NAME_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
+                setSystem(SYSTEM_EDEFAULT);
+                return;
+            case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
+                setEltName(ELT_NAME_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
-				return system != SYSTEM_EDEFAULT;
-			case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
-				return ELT_NAME_EDEFAULT == null ? eltName != null : !ELT_NAME_EDEFAULT.equals(eltName);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.SQL_PATTERN_ITEM__SYSTEM:
+                return system != SYSTEM_EDEFAULT;
+            case PropertiesPackage.SQL_PATTERN_ITEM__ELT_NAME:
+                return ELT_NAME_EDEFAULT == null ? eltName != null : !ELT_NAME_EDEFAULT.equals(eltName);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (system: ");
-		result.append(system);
-		result.append(", eltName: ");
-		result.append(eltName);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (system: ");
+        result.append(system);
+        result.append(", eltName: ");
+        result.append(eltName);
+        result.append(')');
+        return result.toString();
+    }
 
 } //SQLPatternItemImpl

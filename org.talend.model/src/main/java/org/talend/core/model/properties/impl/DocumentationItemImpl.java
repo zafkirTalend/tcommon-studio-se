@@ -20,19 +20,19 @@ import org.talend.core.model.properties.PropertiesPackage;
 public class DocumentationItemImpl extends FileItemImpl implements DocumentationItem {
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected DocumentationItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.DOCUMENTATION_ITEM;
-	}
+        return PropertiesPackage.Literals.DOCUMENTATION_ITEM;
+    }
 
 } // DocumentationItemImpl

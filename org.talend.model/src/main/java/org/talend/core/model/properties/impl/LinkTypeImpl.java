@@ -32,184 +32,184 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class LinkTypeImpl extends EObjectImpl implements LinkType {
     /**
-	 * The default value of the '{@link #getURI() <em>URI</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getURI() <em>URI</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getURI()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getURI()
+     * @generated
+     * @ordered
+     */
     protected static final String URI_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getURI() <em>URI</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getURI() <em>URI</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getURI()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getURI()
+     * @generated
+     * @ordered
+     */
     protected String uri = URI_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #isState() <em>State</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isState() <em>State</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isState()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isState()
+     * @generated
+     * @ordered
+     */
     protected static final boolean STATE_EDEFAULT = false;
 
     /**
-	 * The cached value of the '{@link #isState() <em>State</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isState() <em>State</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #isState()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isState()
+     * @generated
+     * @ordered
+     */
     protected boolean state = STATE_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected LinkTypeImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.LINK_TYPE;
-	}
+        return PropertiesPackage.Literals.LINK_TYPE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getURI() {
-		return uri;
-	}
+        return uri;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setURI(String newURI) {
-		String oldURI = uri;
-		uri = newURI;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_TYPE__URI, oldURI, uri));
-	}
+        String oldURI = uri;
+        uri = newURI;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_TYPE__URI, oldURI, uri));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean isState() {
-		return state;
-	}
+        return state;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setState(boolean newState) {
-		boolean oldState = state;
-		state = newState;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_TYPE__STATE, oldState, state));
-	}
+        boolean oldState = state;
+        state = newState;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LINK_TYPE__STATE, oldState, state));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_TYPE__URI:
-				return getURI();
-			case PropertiesPackage.LINK_TYPE__STATE:
-				return isState() ? Boolean.TRUE : Boolean.FALSE;
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_TYPE__URI:
+                return getURI();
+            case PropertiesPackage.LINK_TYPE__STATE:
+                return isState() ? Boolean.TRUE : Boolean.FALSE;
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_TYPE__URI:
-				setURI((String)newValue);
-				return;
-			case PropertiesPackage.LINK_TYPE__STATE:
-				setState(((Boolean)newValue).booleanValue());
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_TYPE__URI:
+                setURI((String)newValue);
+                return;
+            case PropertiesPackage.LINK_TYPE__STATE:
+                setState(((Boolean)newValue).booleanValue());
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_TYPE__URI:
-				setURI(URI_EDEFAULT);
-				return;
-			case PropertiesPackage.LINK_TYPE__STATE:
-				setState(STATE_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_TYPE__URI:
+                setURI(URI_EDEFAULT);
+                return;
+            case PropertiesPackage.LINK_TYPE__STATE:
+                setState(STATE_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.LINK_TYPE__URI:
-				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case PropertiesPackage.LINK_TYPE__STATE:
-				return state != STATE_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.LINK_TYPE__URI:
+                return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
+            case PropertiesPackage.LINK_TYPE__STATE:
+                return state != STATE_EDEFAULT;
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (URI: ");
-		result.append(uri);
-		result.append(", state: ");
-		result.append(state);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (URI: ");
+        result.append(uri);
+        result.append(", state: ");
+        result.append(state);
+        result.append(')');
+        return result.toString();
+    }
 
 } //LinkTypeImpl

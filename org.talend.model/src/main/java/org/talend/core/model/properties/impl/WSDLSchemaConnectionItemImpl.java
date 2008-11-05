@@ -22,21 +22,21 @@ import org.talend.core.model.properties.WSDLSchemaConnectionItem;
  */
 public class WSDLSchemaConnectionItemImpl extends ConnectionItemImpl implements WSDLSchemaConnectionItem {
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected WSDLSchemaConnectionItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.WSDL_SCHEMA_CONNECTION_ITEM;
-	}
+        return PropertiesPackage.Literals.WSDL_SCHEMA_CONNECTION_ITEM;
+    }
 
 } //WSDLSchemaConnectionItemImpl

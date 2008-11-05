@@ -27,6 +27,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseProperties;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
@@ -109,6 +110,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass positionalFileConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ebcdicConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -846,6 +854,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EClass getPositionalFileConnection() {
         return positionalFileConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getEbcdicConnection() {
+        return ebcdicConnectionEClass;
     }
 
     /**
@@ -2309,6 +2326,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         positionalFileConnectionEClass = createEClass(POSITIONAL_FILE_CONNECTION);
 
+        ebcdicConnectionEClass = createEClass(EBCDIC_CONNECTION);
+
         databaseConnectionEClass = createEClass(DATABASE_CONNECTION);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATABASE_TYPE);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DRIVER_JAR_PATH);
@@ -2526,6 +2545,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         fileConnectionEClass.getESuperTypes().add(this.getConnection());
         delimitedFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         positionalFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
+        ebcdicConnectionEClass.getESuperTypes().add(this.getFileConnection());
         databaseConnectionEClass.getESuperTypes().add(this.getConnection());
         sapConnectionEClass.getESuperTypes().add(this.getConnection());
         sapFunctionUnitEClass.getESuperTypes().add(this.getAbstractMetadataObject());
@@ -2613,6 +2633,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getDelimitedFileConnection_SplitRecord(), ecorePackage.getEBoolean(), "splitRecord", "false", 0, 1, DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(positionalFileConnectionEClass, PositionalFileConnection.class, "PositionalFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(ebcdicConnectionEClass, EbcdicConnection.class, "EbcdicConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(databaseConnectionEClass, DatabaseConnection.class, "DatabaseConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDatabaseConnection_DatabaseType(), ecorePackage.getEString(), "DatabaseType", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

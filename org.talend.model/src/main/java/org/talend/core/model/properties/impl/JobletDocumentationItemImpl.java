@@ -22,21 +22,21 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class JobletDocumentationItemImpl extends FileItemImpl implements JobletDocumentationItem {
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected JobletDocumentationItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.JOBLET_DOCUMENTATION_ITEM;
-	}
+        return PropertiesPackage.Literals.JOBLET_DOCUMENTATION_ITEM;
+    }
 
 } //JobletDocumentationItemImpl

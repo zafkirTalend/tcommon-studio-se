@@ -62,6 +62,9 @@ public enum ECoreImage implements IImage {
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
     METADATA_CDC_CONN_ICON("/icons/cdc_conn.png"), //$NON-NLS-1$
 
+    METADATA_EBCDIC_CONNECTION_ICON(),
+    METADATA_EBCDIC_CONNECTION_WIZ(),
+
     METADATA_SAPCONNECTION_ICON("/icons/sapconnection.png"),
     METADATA_SAPCONNECTION_WIZ("/icons/connection_wiz.gif"),
 

@@ -36,240 +36,240 @@ import org.talend.core.model.properties.UserModuleAuthorizationType;
  */
 public class UserModuleAuthorizationImpl extends EObjectImpl implements UserModuleAuthorization {
     /**
-	 * The cached value of the '{@link #getUser() <em>User</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getUser() <em>User</em>}' reference.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getUser()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getUser()
+     * @generated
+     * @ordered
+     */
     protected User user;
 
     /**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
     protected static final UserModuleAuthorizationType TYPE_EDEFAULT = UserModuleAuthorizationType.JOB_CONDUCTOR_LITERAL;
 
     /**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
     protected UserModuleAuthorizationType type = TYPE_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected UserModuleAuthorizationImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.USER_MODULE_AUTHORIZATION;
-	}
+        return PropertiesPackage.Literals.USER_MODULE_AUTHORIZATION;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public User getUser() {
-		if (user != null && user.eIsProxy()) {
-			InternalEObject oldUser = (InternalEObject)user;
-			user = (User)eResolveProxy(oldUser);
-			if (user != oldUser) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER, oldUser, user));
-			}
-		}
-		return user;
-	}
+        if (user != null && user.eIsProxy()) {
+            InternalEObject oldUser = (InternalEObject)user;
+            user = (User)eResolveProxy(oldUser);
+            if (user != oldUser) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER, oldUser, user));
+            }
+        }
+        return user;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public User basicGetUser() {
-		return user;
-	}
+        return user;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain basicSetUser(User newUser, NotificationChain msgs) {
-		User oldUser = user;
-		user = newUser;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER, oldUser, newUser);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        User oldUser = user;
+        user = newUser;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER, oldUser, newUser);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setUser(User newUser) {
-		if (newUser != user) {
-			NotificationChain msgs = null;
-			if (user != null)
-				msgs = ((InternalEObject)user).eInverseRemove(this, PropertiesPackage.USER__MODULE_AUTHORIZATION, User.class, msgs);
-			if (newUser != null)
-				msgs = ((InternalEObject)newUser).eInverseAdd(this, PropertiesPackage.USER__MODULE_AUTHORIZATION, User.class, msgs);
-			msgs = basicSetUser(newUser, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER, newUser, newUser));
-	}
+        if (newUser != user) {
+            NotificationChain msgs = null;
+            if (user != null)
+                msgs = ((InternalEObject)user).eInverseRemove(this, PropertiesPackage.USER__MODULE_AUTHORIZATION, User.class, msgs);
+            if (newUser != null)
+                msgs = ((InternalEObject)newUser).eInverseAdd(this, PropertiesPackage.USER__MODULE_AUTHORIZATION, User.class, msgs);
+            msgs = basicSetUser(newUser, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_MODULE_AUTHORIZATION__USER, newUser, newUser));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public UserModuleAuthorizationType getType() {
-		return type;
-	}
+        return type;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setType(UserModuleAuthorizationType newType) {
-		UserModuleAuthorizationType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE, oldType, type));
-	}
+        UserModuleAuthorizationType oldType = type;
+        type = newType == null ? TYPE_EDEFAULT : newType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE, oldType, type));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
-				if (user != null)
-					msgs = ((InternalEObject)user).eInverseRemove(this, PropertiesPackage.USER__MODULE_AUTHORIZATION, User.class, msgs);
-				return basicSetUser((User)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
+                if (user != null)
+                    msgs = ((InternalEObject)user).eInverseRemove(this, PropertiesPackage.USER__MODULE_AUTHORIZATION, User.class, msgs);
+                return basicSetUser((User)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
-				return basicSetUser(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
+                return basicSetUser(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
-				if (resolve) return getUser();
-				return basicGetUser();
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
-				return getType();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
+                if (resolve) return getUser();
+                return basicGetUser();
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
+                return getType();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
-				setUser((User)newValue);
-				return;
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
-				setType((UserModuleAuthorizationType)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
+                setUser((User)newValue);
+                return;
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
+                setType((UserModuleAuthorizationType)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
-				setUser((User)null);
-				return;
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
-				setType(TYPE_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
+                setUser((User)null);
+                return;
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
-				return user != null;
-			case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
-				return type != TYPE_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__USER:
+                return user != null;
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION__TYPE:
+                return type != TYPE_EDEFAULT;
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (type: ");
-		result.append(type);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (type: ");
+        result.append(type);
+        result.append(')');
+        return result.toString();
+    }
 
 } //UserModuleAuthorizationImpl

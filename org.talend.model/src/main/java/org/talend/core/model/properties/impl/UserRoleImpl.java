@@ -30,237 +30,237 @@ import org.talend.core.model.properties.UserRole;
  */
 public class UserRoleImpl extends EObjectImpl implements UserRole {
     /**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getId()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
     protected static final int ID_EDEFAULT = 0;
 
     /**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getId()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
     protected int id = ID_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
     protected String name = NAME_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getLocalizedLabel() <em>Localized Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getLocalizedLabel() <em>Localized Label</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLocalizedLabel()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLocalizedLabel()
+     * @generated
+     * @ordered
+     */
     protected static final String LOCALIZED_LABEL_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getLocalizedLabel() <em>Localized Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLocalizedLabel() <em>Localized Label</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getLocalizedLabel()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLocalizedLabel()
+     * @generated
+     * @ordered
+     */
     protected String localizedLabel = LOCALIZED_LABEL_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected UserRoleImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return PropertiesPackage.Literals.USER_ROLE;
-	}
+        return PropertiesPackage.Literals.USER_ROLE;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public int getId() {
-		return id;
-	}
+        return id;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setId(int newId) {
-		int oldId = id;
-		id = newId;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__ID, oldId, id));
-	}
+        int oldId = id;
+        id = newId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__ID, oldId, id));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__NAME, oldName, name));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String getLocalizedLabel() {
-		return localizedLabel;
-	}
+        return localizedLabel;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void setLocalizedLabel(String newLocalizedLabel) {
-		String oldLocalizedLabel = localizedLabel;
-		localizedLabel = newLocalizedLabel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__LOCALIZED_LABEL, oldLocalizedLabel, localizedLabel));
-	}
+        String oldLocalizedLabel = localizedLabel;
+        localizedLabel = newLocalizedLabel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__LOCALIZED_LABEL, oldLocalizedLabel, localizedLabel));
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case PropertiesPackage.USER_ROLE__ID:
-				return new Integer(getId());
-			case PropertiesPackage.USER_ROLE__NAME:
-				return getName();
-			case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-				return getLocalizedLabel();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_ROLE__ID:
+                return new Integer(getId());
+            case PropertiesPackage.USER_ROLE__NAME:
+                return getName();
+            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
+                return getLocalizedLabel();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case PropertiesPackage.USER_ROLE__ID:
-				setId(((Integer)newValue).intValue());
-				return;
-			case PropertiesPackage.USER_ROLE__NAME:
-				setName((String)newValue);
-				return;
-			case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-				setLocalizedLabel((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_ROLE__ID:
+                setId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.USER_ROLE__NAME:
+                setName((String)newValue);
+                return;
+            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
+                setLocalizedLabel((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.USER_ROLE__ID:
-				setId(ID_EDEFAULT);
-				return;
-			case PropertiesPackage.USER_ROLE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-				setLocalizedLabel(LOCALIZED_LABEL_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_ROLE__ID:
+                setId(ID_EDEFAULT);
+                return;
+            case PropertiesPackage.USER_ROLE__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
+                setLocalizedLabel(LOCALIZED_LABEL_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case PropertiesPackage.USER_ROLE__ID:
-				return id != ID_EDEFAULT;
-			case PropertiesPackage.USER_ROLE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-				return LOCALIZED_LABEL_EDEFAULT == null ? localizedLabel != null : !LOCALIZED_LABEL_EDEFAULT.equals(localizedLabel);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case PropertiesPackage.USER_ROLE__ID:
+                return id != ID_EDEFAULT;
+            case PropertiesPackage.USER_ROLE__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
+                return LOCALIZED_LABEL_EDEFAULT == null ? localizedLabel != null : !LOCALIZED_LABEL_EDEFAULT.equals(localizedLabel);
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
-		result.append(id);
-		result.append(", name: ");
-		result.append(name);
-		result.append(", localizedLabel: ");
-		result.append(localizedLabel);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (id: ");
+        result.append(id);
+        result.append(", name: ");
+        result.append(name);
+        result.append(", localizedLabel: ");
+        result.append(localizedLabel);
+        result.append(')');
+        return result.toString();
+    }
 
 } //UserRoleImpl
