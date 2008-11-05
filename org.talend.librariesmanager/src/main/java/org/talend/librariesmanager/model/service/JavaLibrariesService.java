@@ -124,30 +124,36 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void checkInstalledLibraries() {
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        IJavaProject project = JavaCore.create(prj);
+        // Display whole TOS project libraries status.  No relitionship with dynamic project classpath
+        List<IClasspathEntry> classpath = new ArrayList<IClasspathEntry>();
+        File externalLibDirectory = new File(CorePlugin.getDefault().getLibrariesService().getLibrariesPath());
 
-        List<String> projectLibraries = new ArrayList<String>();
-        try {
-            IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
-            for (IClasspathEntry entry : resolvedClasspath) {
-                IPath path = entry.getPath();
-                projectLibraries.add(path.lastSegment());
+        if ((externalLibDirectory != null) && (externalLibDirectory.isDirectory())) {
+            for (File externalLib : externalLibDirectory.listFiles(FilesUtils.getAcceptJARFilesFilter())) {
+                if (externalLib.isFile()) {
+                    classpath.add(JavaCore.newLibraryEntry(new Path(externalLib.getAbsolutePath()), null, null));
+                }
             }
-        } catch (JavaModelException e) {
-            ExceptionHandler.process(e);
-            return;
+        }
+
+        IClasspathEntry[] entrys = new IClasspathEntry[classpath.size()];
+        classpath.toArray(entrys);
+
+        List<String> existLibraries = new ArrayList<String>();
+        for (IClasspathEntry entry : classpath) {
+            IPath path = entry.getPath();
+            existLibraries.add(path.lastSegment());
         }
 
         List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
         for (ModuleNeeded current : toCheck) {
-            if (projectLibraries.contains(current.getModuleName())) {
+            if (existLibraries.contains(current.getModuleName())) {
                 current.setStatus(ELibraryInstallStatus.INSTALLED);
             } else {
                 current.setStatus(ELibraryInstallStatus.NOT_INSTALLED);
             }
         }
+
         String libpath = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
         File file = new File(libpath);
         if (file.exists() && file.isDirectory()) {
@@ -174,6 +180,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
+            
             FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false, monitorWrap);
 
