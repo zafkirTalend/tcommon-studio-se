@@ -490,10 +490,19 @@ public class ImportItemUtil {
     /**
      * need to returns sorted items by version to correctly import them later.
      */
-    public List<ItemRecord> populateItems(ResourcesManager collector, boolean overwrite) {
+    public List<ItemRecord> populateItems(ResourcesManager collector, boolean overwrite, IProgressMonitor progressMonitor) {
         treeBuilder.clear();
         cache.clear();
         List<ItemRecord> items = new ArrayList<ItemRecord>();
+
+        int nbItems = 0;
+        for (IPath path : collector.getPaths()) {
+            if (isPropertyPath(path)) {
+                nbItems++;
+            }
+        }
+
+        progressMonitor.beginTask("Populate items to import", nbItems);
 
         for (IPath path : collector.getPaths()) {
             if (isPropertyPath(path)) {
@@ -527,6 +536,7 @@ public class ImportItemUtil {
                         }
                     }
                 }
+                progressMonitor.worked(1);
             }
         }
 

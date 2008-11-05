@@ -646,7 +646,18 @@ class ImportItemWizardPage extends WizardPage {
      * DOC hcw Comment method "populateItems".
      */
     private void populateItems() {
-        items = repositoryUtil.populateItems(manager, overwrite);
+        IRunnableWithProgress op = new IRunnableWithProgress() {
+
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                items = repositoryUtil.populateItems(manager, overwrite, monitor);
+            }
+
+        };
+        try {
+            new ProgressMonitorDialog(getShell()).run(true, true, op);
+        } catch (Exception e) {
+            // ignore me
+        }
 
         errors.clear();
         for (ItemRecord itemRecord : items) {
