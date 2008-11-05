@@ -162,7 +162,7 @@ public class ImportItemUtil {
                     isSystem = true;
                 }
             }
-            
+
             // we do not import system sql patterns
             if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getSQLPatternItem())) {
                 SQLPatternItem sqlPatternItem = (SQLPatternItem) itemRecord.getItem();
@@ -567,6 +567,8 @@ public class ImportItemUtil {
         List<String> toReturn = new ArrayList<String>();
 
         toReturn.add("org.talend.repository.documentation.migrationtask.generatejobdocmigrationtask");
+        // old task, added for an old version of TOS, not used anymore.
+        toReturn.add("org.talend.repository.migration.ReplaceOldContextScriptCodeMigrationTask");
 
         return toReturn;
     }
@@ -583,7 +585,7 @@ public class ImportItemUtil {
         if (!projectMigrationTasks.containsAll(itemMigrationTasks)) {
             itemMigrationTasks.removeAll(projectMigrationTasks);
 
-            String message = "Cannot import item " + itemRecord.getItemName() + " -> unknow task(s) " + itemMigrationTasks;
+            String message = "Cannot import item " + itemRecord.getItemName() + " -> unknown task(s) " + itemMigrationTasks;
             itemRecord.addError(message);
             log.info(message);
 
