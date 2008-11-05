@@ -645,7 +645,7 @@ public class ProcessorUtilities {
     }
 
     // see bug 0004939: making tRunjobs work loop will cause a error of "out of memory" .
-    private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos, String... selectedJobVersion) {
+    private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos) {
 
         IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
         IProcess process = null;
@@ -675,10 +675,6 @@ public class ProcessorUtilities {
                 String jobContext = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
                 String jobVersion = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
 
-                // if (selectedJobVersion != null && selectedJobVersion.length == 1) {
-                // jobVersion = selectedJobVersion[0];
-                // }
-
                 ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {
                     JobInfo jobInfo = new JobInfo(item, jobContext);
@@ -692,10 +688,10 @@ public class ProcessorUtilities {
         return jobInfos;
     }
 
-    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem, String... selectedJobVersion) {
+    public static Set<JobInfo> getChildrenJobInfo(ProcessItem processItem) {
         // delegate to the new method, prevent dead loop method call. see bug 0004939: making tRunjobs work loop will
         // cause a error of "out of memory" .
-        return getAllJobInfo(processItem, new HashSet<JobInfo>(), selectedJobVersion);
+        return getAllJobInfo(processItem, new HashSet<JobInfo>());
 
     }
 
