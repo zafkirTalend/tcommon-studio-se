@@ -442,6 +442,7 @@ public class ImportItemUtil {
         try {
             if (item != null && item instanceof RoutineItem) {
                 RoutineItem routineItem = (RoutineItem) item;
+                routineSynchronizer.forceSyncRoutine(routineItem);
                 routineSynchronizer.syncRoutine(routineItem, true);
                 routineSynchronizer.getFile(routineItem);
             }
