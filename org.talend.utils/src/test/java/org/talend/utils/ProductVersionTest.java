@@ -10,9 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons;
+package org.talend.utils;
 
 import junit.framework.TestCase;
+
 
 /***/
 public class ProductVersionTest extends TestCase {
