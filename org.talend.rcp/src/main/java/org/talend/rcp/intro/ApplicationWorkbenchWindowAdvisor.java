@@ -37,6 +37,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
+import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.rcp.Activator;
 import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
@@ -58,10 +59,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         super(configurer);
     }
 
+    @Override
     public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
         return new ApplicationActionBarAdvisor(configurer);
     }
 
+    @Override
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(1000, 750));
@@ -77,7 +80,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         Object buildId = Activator.getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
 
         String appName = configurer.getTitle(); // BrandingService.getInstance().getFullProductName();
-        configurer.setTitle(appName + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
+        configurer
+                .setTitle(appName
+                        + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " | " + prefManipulator.getLastConnection()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     }
 
