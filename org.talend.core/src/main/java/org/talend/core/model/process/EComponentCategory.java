@@ -31,7 +31,7 @@ public enum EComponentCategory {
     BASIC("Basic settings", 10),
     ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED),
     EXTRA("Extra", 12),
-    DYNAMICS_SETTINGS("Dynamics settings", 13),
+    DYNAMICS_SETTINGS("Dynamic settings", 13),
     SQL_PATTERN("SQL Pattern", 14);
 
     private String title;
