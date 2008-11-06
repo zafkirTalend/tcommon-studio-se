@@ -67,7 +67,7 @@ public interface IComponent {
 
     public List<? extends INodeReturn> createReturns();
 
-    public List<? extends INodeConnector> createConnectors();
+    public List<? extends INodeConnector> createConnectors(INode node);
 
     public Boolean hasConditionalOutputs();
 
