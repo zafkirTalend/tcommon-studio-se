@@ -113,7 +113,9 @@
         defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PositionalFileConnection" eSuperTypes="#//FileConnection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EbcdicConnection" eSuperTypes="#//FileConnection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EbcdicConnection" eSuperTypes="#//FileConnection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MidFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FileFormat">
     <eLiterals name="UNIX"/>
     <eLiterals name="MAC" value="1"/>

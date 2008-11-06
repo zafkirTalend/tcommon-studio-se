@@ -115,7 +115,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DelimitedFileConnection/splitRecord"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//PositionalFileConnection"/>
-    <genClasses ecoreClass="metadata.ecore#//EbcdicConnection"/>
+    <genClasses ecoreClass="metadata.ecore#//EbcdicConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/MidFile"/>
+    </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DatabaseConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DatabaseType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DriverJarPath"/>

@@ -1833,13 +1833,22 @@ public interface ConnectionPackage extends EPackage {
     int EBCDIC_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
 
     /**
+     * The feature id for the '<em><b>Mid File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__MID_FILE = FILE_CONNECTION_FEATURE_COUNT + 0;
+
+    /**
      * The number of structural features of the '<em>Ebcdic Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 0;
+    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
@@ -6106,6 +6115,17 @@ public interface ConnectionPackage extends EPackage {
     EClass getEbcdicConnection();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getMidFile <em>Mid File</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mid File</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getMidFile()
+     * @see #getEbcdicConnection()
+     * @generated
+     */
+    EAttribute getEbcdicConnection_MidFile();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Database Connection</em>'.
@@ -8337,6 +8357,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EClass EBCDIC_CONNECTION = eINSTANCE.getEbcdicConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Mid File</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EBCDIC_CONNECTION__MID_FILE = eINSTANCE.getEbcdicConnection_MidFile();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.

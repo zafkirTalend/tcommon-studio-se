@@ -866,6 +866,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEbcdicConnection_MidFile() {
+        return (EAttribute)ebcdicConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2327,6 +2336,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         positionalFileConnectionEClass = createEClass(POSITIONAL_FILE_CONNECTION);
 
         ebcdicConnectionEClass = createEClass(EBCDIC_CONNECTION);
+        createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__MID_FILE);
 
         databaseConnectionEClass = createEClass(DATABASE_CONNECTION);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATABASE_TYPE);
@@ -2635,6 +2645,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(positionalFileConnectionEClass, PositionalFileConnection.class, "PositionalFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(ebcdicConnectionEClass, EbcdicConnection.class, "EbcdicConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getEbcdicConnection_MidFile(), ecorePackage.getEString(), "MidFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(databaseConnectionEClass, DatabaseConnection.class, "DatabaseConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDatabaseConnection_DatabaseType(), ecorePackage.getEString(), "DatabaseType", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
