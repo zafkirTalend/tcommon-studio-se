@@ -15,7 +15,6 @@ package org.talend.core.model.metadata.builder.database;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +31,7 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
@@ -492,28 +492,7 @@ public class ExtractMetaDataFromDataBase {
         ConnectionStatus connectionStatus = new ConnectionStatus();
         connectionStatus.setResult(false);
         try {
-            /*
-             * For general jdbc, driver class is specific by user.
-             */
-            String driverClass = driverClassName;
-            if (driverClassName == null || driverClassName.equals("")) {
-                driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
-                // see bug 4404: Exit TOS when Edit Access Schema in repository
-                if (dbType.equals("Access")) {
-                    // throw exception to prevent getting connection, which may crash
-                    ExtractMetaDataUtils.checkAccessDbq(url);
-                }
-            }
-            ExtractMetaDataUtils.checkDBConnectionTimeout();
-            // Load driver class
-            if (isValidJarFile(driverJarPath)) {
-                // Load jdbc driver class dynamicly
-                JDBCDriverLoader loader = new JDBCDriverLoader();
-                connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
-            } else {
-                Class.forName(driverClass).newInstance();
-                connection = DriverManager.getConnection(url, username, pwd);
-            }
+            connection = ExtractMetaDataUtils.connect(dbType, url, username, pwd, driverClassName, driverJarPath);
 
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
                 final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
@@ -525,17 +504,14 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
 
-            // testConnection to alert if you have filled a Wrong Database
-            // field.
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, schema);
-
             connection.close();
             connectionStatus.setResult(true);
             connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
         } catch (SQLException e) {
+            ExceptionHandler.process(e);
             connectionStatus.setMessageException(e.getMessage());
         } catch (Exception e) {
+            ExceptionHandler.process(e);
             connectionStatus.setMessageException(e.getMessage());
         }
         return connectionStatus;

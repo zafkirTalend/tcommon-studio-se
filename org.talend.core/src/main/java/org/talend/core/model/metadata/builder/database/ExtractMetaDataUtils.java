@@ -15,11 +15,13 @@ package org.talend.core.model.metadata.builder.database;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Hashtable;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -267,27 +269,8 @@ public class ExtractMetaDataUtils {
         }
         if (isReconnect || conn == null || isColsed) {
             try {
-
-                String driverClass = driverClassName;
-
-                if (driverClassName == null || driverClassName.equals("")) {
-                    driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
-                    // see bug 4404: Exit TOS when Edit Access Schema in repository
-                    if (dbType.equals("Access")) {
-                        // throw exception to prevent getting connection, which may crash
-                        checkAccessDbq(url);
-                    }
-                }
                 checkDBConnectionTimeout();
-                // Load driver class
-                if (isValidJarFile(driverJarPath)) {
-                    // Load jdbc driver class dynamicly
-                    JDBCDriverLoader loader = new JDBCDriverLoader();
-                    conn = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
-                } else {
-                    Class.forName(driverClass).newInstance();
-                    conn = DriverManager.getConnection(url, username, pwd);
-                }
+                conn = connect(dbType, url, username, pwd, driverClassName, driverJarPath);
 
                 if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
                     final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
@@ -382,4 +365,79 @@ public class ExtractMetaDataUtils {
             }
         }
     }
+
+    /**
+     * 
+     * DOC xye Comment method "findNetezzaJDBCInTOS".
+     * 
+     * @return
+     */
+    public static String findNetezzaJDBCInTOS() {
+        String path = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
+        File libs = new File(path);
+        if (!libs.exists() || !libs.isDirectory()) {
+            return null;
+        }
+
+        for (File jar : libs.listFiles()) {
+            if (jar.isFile() && jar.getName().equals("nzjdbc.jar")) {
+                return jar.getAbsolutePath();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * DOC xye Comment method "connect".
+     * 
+     * @param dbType
+     * @param url
+     * @param username
+     * @param pwd
+     * @param driverClassName
+     * @param driverJarPath
+     * @return
+     * @throws Exception
+     */
+    public static Connection connect(String dbType, String url, String username, String pwd, final String driverClassName,
+            final String driverJarPath) throws Exception {
+        Connection connection;
+
+        /*
+         * For general jdbc, driver class is specific by user.
+         */
+        String driverClass = driverClassName;
+        if (driverClassName == null || driverClassName.equals("")) {
+            driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+            // see bug 4404: Exit TOS when Edit Access Schema in repository
+            if (dbType.equals("Access")) {
+                // throw exception to prevent getting connection, which may crash
+                ExtractMetaDataUtils.checkAccessDbq(url);
+            }
+        }
+        ExtractMetaDataUtils.checkDBConnectionTimeout();
+        // Load driver class
+        if (dbType != null && dbType.equalsIgnoreCase("General JDBC") && isValidJarFile(driverJarPath)) {
+            // Load jdbc driver class dynamicly
+            JDBCDriverLoader loader = new JDBCDriverLoader();
+            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
+        } else if (dbType != null && dbType.equalsIgnoreCase("Netezza")) {
+            // Netezza work worse with default Eclipse ClassLoader.
+            JDBCDriverLoader loader = new JDBCDriverLoader();
+            connection = loader.getConnection(ExtractMetaDataUtils.findNetezzaJDBCInTOS(), ExtractMetaDataUtils
+                    .getDriverClassByDbType(dbType), url, username, pwd);
+        } else {
+            // Don't use DriverManager
+            Class<?> klazz = Class.forName(driverClass);
+            Properties info = new Properties();
+            info.put("user", username);
+            info.put("password", pwd);
+
+            connection = ((Driver) klazz.newInstance()).connect(url, info);
+        }
+
+        return connection;
+    }
+
 }
