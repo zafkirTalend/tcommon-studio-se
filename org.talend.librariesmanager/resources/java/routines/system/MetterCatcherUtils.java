@@ -166,6 +166,10 @@ public class MetterCatcherUtils {
 
     private static Map<String, Integer> connCountMap = java.util.Collections.synchronizedMap(new HashMap<String, Integer>());
 
+    public static void clearConnCountMap() {
+        connCountMap.clear();
+    }
+
     public static void addLineToRow(String connName) {
         if (connCountMap.containsKey(connName)) {
             Integer count = MetterCatcherUtils.connCountMap.get(connName);
