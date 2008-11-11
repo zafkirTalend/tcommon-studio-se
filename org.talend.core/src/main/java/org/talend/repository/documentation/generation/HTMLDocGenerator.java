@@ -23,6 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -894,8 +896,14 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             } else {
                 internalNodeComponentList.add(node);
             }
-
         }
+
+        // Sorts the component list in alpha-order.
+        Comparator comparator = getComparator();
+        Collections.sort(allNodeComponentList, comparator);
+        Collections.sort(internalNodeComponentList, comparator);
+        Collections.sort(externalNodeComponentList, comparator);
+
         componentsList.add(allNodeComponentList);
         componentsList.add(internalNodeComponentList);
         componentsList.add(externalNodeComponentList);
@@ -1187,5 +1195,32 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         }
 
         return null;
+    }
+
+    /**
+     * It is used for component list sort.
+     * 
+     * @return Comparator.
+     */
+    private Comparator getComparator() {
+
+        return new Comparator() {
+
+            public int compare(Object arg0, Object arg1) {
+
+                if (arg0 == null || arg1 == null) {
+                    return 0;
+                }
+                String name0 = ((INode) arg0).getUniqueName();
+                String name1 = ((INode) arg1).getUniqueName();
+
+                if (name0 == null || name1 == null) {
+                    return 0;
+                }
+
+                return name0.compareTo(name1);
+            }
+
+        };
     }
 }
