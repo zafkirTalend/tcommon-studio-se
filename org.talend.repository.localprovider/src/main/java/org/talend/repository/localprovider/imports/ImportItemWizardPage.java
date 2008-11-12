@@ -677,6 +677,7 @@ class ImportItemWizardPage extends WizardPage {
 
         itemsList.refresh(true);
         itemsList.expandAll();
+        checkValidItems();
         // see feature 0004170: Unselect all items to import
         // itemsList.setCheckedElements(checkValidItems());
     }

@@ -60,6 +60,7 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
         setEnabled(canWork);
     }
 
+    @Override
     public boolean isVisible() {
         return isEnabled();
     }
@@ -71,18 +72,21 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.IMPORT_ICON));
     }
 
+    @Override
     public void run() {
-        ImportItemWizard wizard = new ImportItemWizard();
-        IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
-        wizard.setWindowTitle(IMPORT_ITEM);
-        wizard.init(workbench, (IStructuredSelection) this.getSelection());
+        if (this.getSelection() instanceof IStructuredSelection) {
+            ImportItemWizard wizard = new ImportItemWizard();
+            IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
+            wizard.setWindowTitle(IMPORT_ITEM);
+            wizard.init(workbench, (IStructuredSelection) this.getSelection());
 
-        Shell activeShell = Display.getCurrent().getActiveShell();
-        WizardDialog dialog = new WizardDialog(activeShell, wizard);
-        if (dialog.open() == Window.OK) {
-            refresh();
-            if (wizard.isNeedToRefreshPalette()) {
-                ComponentUtilities.updatePalette();
+            Shell activeShell = Display.getCurrent().getActiveShell();
+            WizardDialog dialog = new WizardDialog(activeShell, wizard);
+            if (dialog.open() == Window.OK) {
+                refresh();
+                if (wizard.isNeedToRefreshPalette()) {
+                    ComponentUtilities.updatePalette();
+                }
             }
         }
     }
