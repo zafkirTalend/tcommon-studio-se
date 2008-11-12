@@ -43,16 +43,15 @@ public final class StringFormatUtil {
     }
 
     /**
-     * DOC Administrator Comment method "format".
+     * DOC Zqin Comment method "format".
      * 
      * @param input
      * @param style
      * @return
      */
     public static Object format(Object input, int style) {
-        if (input == null) {
-            return "";
-        }
+
+        assert input != null;
 
         try {
             Double dbl = new Double(input.toString());
@@ -80,5 +79,42 @@ public final class StringFormatUtil {
         } catch (Exception e) {
             return input;
         }
+    }
+
+    public static String formatPersent(Object input) {
+
+        if (checkInput(input)) {
+            Double db = new Double(input.toString());
+            DecimalFormat format = (DecimalFormat) DecimalFormat.getPercentInstance(Locale.ENGLISH);
+            format.applyPattern("0.00%");
+            return format.format(db);
+        }
+
+        return null;
+    }
+
+    public static Double formatDouble(Object input) {
+
+        if (checkInput(input)) {
+            Double db = new Double(input.toString());
+            DecimalFormat format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
+            format.applyPattern("0.00");
+            return Double.valueOf(format.format(db));
+        }
+
+        return null;
+    }
+
+    private static boolean checkInput(Object input) {
+        if (input == null) {
+            return false;
+        } else {
+            Double db = new Double(input.toString());
+            if (db.equals(Double.NaN)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
