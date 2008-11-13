@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -637,6 +638,26 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof FileExcelConnection) {
             return getExcelFileValue((FileExcelConnection) connection, value);
+        }
+        if (connection instanceof EbcdicConnection) {
+            return getEBCDICFieldValue((EbcdicConnection) connection, value);
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * ggu Comment method "getEBCDICFieldValue".
+     * 
+     */
+    private static Object getEBCDICFieldValue(EbcdicConnection connection, String value) {
+        if ("XC2J_FILE".equals(value)) {
+            if (isConetxtMode(connection, connection.getFilePath())) {
+                return connection.getMidFile();
+            } else {
+                Path p = new Path(connection.getMidFile());
+                return TalendTextUtils.addQuotes(p.toPortableString());
+            }
         }
         return null;
     }
