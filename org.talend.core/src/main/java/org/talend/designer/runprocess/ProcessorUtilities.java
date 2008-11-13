@@ -340,7 +340,15 @@ public class ProcessorUtilities {
                 ((IProcess2) currentProcess).setNeedRegenerateCode(false);
             }
         }
-        if (jobInfo.getFatherJobInfo() == null) {
+
+        boolean isMainJob = jobInfo.getFatherJobInfo() == null;
+        /*
+         * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
+         * libraries.
+         */
+        getProcessor(currentProcess).computeLibrariesPath(isMainJob);
+
+        if (isMainJob) {
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                 try {
                     CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject().build(

@@ -254,4 +254,15 @@ public interface IProcessor {
      * @param codeGenerated boolean to tell if any code has been generated already or not for this job.
      */
     public void setCodeGenerated(boolean codeGenerated);
+
+    /**
+     * Configure the library path for current job/project.
+     * <p>
+     * classpath for Java
+     * <p>
+     * DOC xye Comment method "computeLibrariesPath".
+     * 
+     * @param clear if "clear", remove all old library configuration.
+     */
+    public void computeLibrariesPath(boolean clear);
 }
