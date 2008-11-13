@@ -45,42 +45,47 @@ public final class StringFormatUtil {
     /**
      * DOC Zqin Comment method "format".
      * 
-     * @param input
-     * @param style
-     * @return
+     * @param input the object that was formated.
+     * @param style the style of formated, it should be 0, 1, 99999.
+     * @return the formated object.
      */
     public static Object format(Object input, int style) {
 
-        assert input != null;
-
         try {
-            Double dbl = new Double(input.toString());
-            if (dbl.equals(Double.NaN)) {
-                return String.valueOf(dbl);
+            if (checkInput(input)) {
+                Double db = new Double(input.toString());
+
+                DecimalFormat format = null;
+
+                switch (style) {
+                case 0:
+                    format = (DecimalFormat) DecimalFormat.getPercentInstance(Locale.ENGLISH);
+                    format.applyPattern("0.00%");
+                    break;
+                case 1:
+                    format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
+                    format.applyPattern("0.00");
+                    break;
+                default:
+                    format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+                    return format.parse(input.toString());
+                }
+
+                return format.format(db);
             }
-
-            DecimalFormat format = null;
-
-            switch (style) {
-            case 0:
-                format = (DecimalFormat) DecimalFormat.getPercentInstance(Locale.ENGLISH);
-                format.applyPattern("0.00%");
-                break;
-            case 1:
-                format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
-                format.applyPattern("0.00");
-                break;
-            default:
-                format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
-                return format.parse(input.toString());
-            }
-
-            return format.format(dbl);
         } catch (Exception e) {
             return input;
         }
+
+        return input;
     }
 
+    /**
+     * DOC Zqin Comment method "formatPersent".
+     * 
+     * @param input the object that was formated.
+     * @return the persent form of this valid input object
+     */
     public static String formatPersent(Object input) {
 
         if (checkInput(input)) {
@@ -93,6 +98,12 @@ public final class StringFormatUtil {
         return null;
     }
 
+    /**
+     * DOC Zqin Comment method "formatDouble".
+     * 
+     * @param input the object that was formated.
+     * @return the Double form of this valid input object.
+     */
     public static Double formatDouble(Object input) {
 
         if (checkInput(input)) {
@@ -105,6 +116,12 @@ public final class StringFormatUtil {
         return null;
     }
 
+    /**
+     * DOC Zqin Comment method "checkInput".
+     * 
+     * @param input the object that was formated.
+     * @return true if the input is valid, else false;
+     */
     private static boolean checkInput(Object input) {
         if (input == null) {
             return false;
