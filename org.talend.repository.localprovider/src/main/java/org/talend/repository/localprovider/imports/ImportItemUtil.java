@@ -287,6 +287,12 @@ public class ImportItemUtil {
 
         monitor.done();
 
+        deletedItems.clear();
+        cache.clear();
+        for (ItemRecord itemRecord : itemRecords) {
+            itemRecord.clear();
+        }
+        
         return itemRecords;
     }
 

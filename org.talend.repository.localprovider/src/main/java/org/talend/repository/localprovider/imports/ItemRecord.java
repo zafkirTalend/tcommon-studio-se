@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -157,5 +158,12 @@ public class ItemRecord {
             label = property.getLabel() + " " + property.getVersion();
         }
         return label;
+    }
+
+    public void clear() {
+        for (Resource resource : property.eResource().getResourceSet().getResources()) {
+            resource.unload();
+        }
+        property = null;
     }
 }
