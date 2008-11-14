@@ -17,6 +17,7 @@ import org.talend.designer.joblet.model.JobletProcess;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.JobletProcessItem#getJobletProcess <em>Joblet Process</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.JobletProcessItem#getIcon <em>Icon</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,5 +51,31 @@ public interface JobletProcessItem extends Item {
      * @generated
      */
     void setJobletProcess(JobletProcess value);
+
+    /**
+     * Returns the value of the '<em><b>Icon</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Icon</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Icon</em>' reference.
+     * @see #setIcon(ByteArray)
+     * @see org.talend.core.model.properties.PropertiesPackage#getJobletProcessItem_Icon()
+     * @model
+     * @generated
+     */
+    ByteArray getIcon();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.JobletProcessItem#getIcon <em>Icon</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Icon</em>' reference.
+     * @see #getIcon()
+     * @generated
+     */
+    void setIcon(ByteArray value);
 
 } // JobletProcessItem

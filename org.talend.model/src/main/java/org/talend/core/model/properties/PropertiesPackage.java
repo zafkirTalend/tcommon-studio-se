@@ -3842,13 +3842,22 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_PROCESS_ITEM__JOBLET_PROCESS = ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Icon</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__ICON = ITEM_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Joblet Process Item</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int JOBLET_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+    int JOBLET_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
@@ -6971,6 +6980,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getJobletProcessItem_JobletProcess();
 
     /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.JobletProcessItem#getIcon <em>Icon</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Icon</em>'.
+     * @see org.talend.core.model.properties.JobletProcessItem#getIcon()
+     * @see #getJobletProcessItem()
+     * @generated
+     */
+    EReference getJobletProcessItem_Icon();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.JobDocumentationItem <em>Job Documentation Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9373,6 +9393,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference JOBLET_PROCESS_ITEM__JOBLET_PROCESS = eINSTANCE.getJobletProcessItem_JobletProcess();
+
+        /**
+         * The meta object literal for the '<em><b>Icon</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference JOBLET_PROCESS_ITEM__ICON = eINSTANCE.getJobletProcessItem_Icon();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.

@@ -325,6 +325,7 @@
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//JobletProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//JobletProcessItem/jobletProcess"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//JobletProcessItem/icon"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//JobDocumentationItem"/>
     <genClasses ecoreClass="properties.ecore#//JobletDocumentationItem"/>

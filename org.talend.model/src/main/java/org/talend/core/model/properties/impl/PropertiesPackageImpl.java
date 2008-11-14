@@ -2647,6 +2647,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getJobletProcessItem_Icon() {
+        return (EReference)jobletProcessItemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getJobDocumentationItem() {
         return jobDocumentationItemEClass;
     }
@@ -3188,6 +3197,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         jobletProcessItemEClass = createEClass(JOBLET_PROCESS_ITEM);
         createEReference(jobletProcessItemEClass, JOBLET_PROCESS_ITEM__JOBLET_PROCESS);
+        createEReference(jobletProcessItemEClass, JOBLET_PROCESS_ITEM__ICON);
 
         jobDocumentationItemEClass = createEClass(JOB_DOCUMENTATION_ITEM);
 
@@ -3597,6 +3607,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(jobletProcessItemEClass, JobletProcessItem.class, "JobletProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getJobletProcessItem_JobletProcess(), theJobletPackage.getJobletProcess(), null, "jobletProcess", null, 0, 1, JobletProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getJobletProcessItem_Icon(), this.getByteArray(), null, "icon", null, 0, 1, JobletProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(jobDocumentationItemEClass, JobDocumentationItem.class, "JobDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

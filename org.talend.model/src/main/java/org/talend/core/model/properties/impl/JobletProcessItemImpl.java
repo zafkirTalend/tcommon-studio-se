@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.PropertiesPackage;
 
@@ -26,6 +27,7 @@ import org.talend.designer.joblet.model.JobletProcess;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.JobletProcessItemImpl#getJobletProcess <em>Joblet Process</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.JobletProcessItemImpl#getIcon <em>Icon</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,6 +43,16 @@ public class JobletProcessItemImpl extends ItemImpl implements JobletProcessItem
      * @ordered
      */
     protected JobletProcess jobletProcess;
+
+    /**
+     * The cached value of the '{@link #getIcon() <em>Icon</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIcon()
+     * @generated
+     * @ordered
+     */
+    protected ByteArray icon;
 
     /**
      * <!-- begin-user-doc -->
@@ -103,11 +115,52 @@ public class JobletProcessItemImpl extends ItemImpl implements JobletProcessItem
      * <!-- end-user-doc -->
      * @generated
      */
+    public ByteArray getIcon() {
+        if (icon != null && icon.eIsProxy()) {
+            InternalEObject oldIcon = (InternalEObject)icon;
+            icon = (ByteArray)eResolveProxy(oldIcon);
+            if (icon != oldIcon) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.JOBLET_PROCESS_ITEM__ICON, oldIcon, icon));
+            }
+        }
+        return icon;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ByteArray basicGetIcon() {
+        return icon;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setIcon(ByteArray newIcon) {
+        ByteArray oldIcon = icon;
+        icon = newIcon;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.JOBLET_PROCESS_ITEM__ICON, oldIcon, icon));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
                 if (resolve) return getJobletProcess();
                 return basicGetJobletProcess();
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__ICON:
+                if (resolve) return getIcon();
+                return basicGetIcon();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -121,6 +174,9 @@ public class JobletProcessItemImpl extends ItemImpl implements JobletProcessItem
         switch (featureID) {
             case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
                 setJobletProcess((JobletProcess)newValue);
+                return;
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__ICON:
+                setIcon((ByteArray)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -136,6 +192,9 @@ public class JobletProcessItemImpl extends ItemImpl implements JobletProcessItem
             case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
                 setJobletProcess((JobletProcess)null);
                 return;
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__ICON:
+                setIcon((ByteArray)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -149,6 +208,8 @@ public class JobletProcessItemImpl extends ItemImpl implements JobletProcessItem
         switch (featureID) {
             case PropertiesPackage.JOBLET_PROCESS_ITEM__JOBLET_PROCESS:
                 return jobletProcess != null;
+            case PropertiesPackage.JOBLET_PROCESS_ITEM__ICON:
+                return icon != null;
         }
         return super.eIsSet(featureID);
     }

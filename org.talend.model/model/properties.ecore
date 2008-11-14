@@ -399,6 +399,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JobletProcessItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="jobletProcess" eType="ecore:EClass joblet.ecore#//JobletProcess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="icon" eType="#//ByteArray"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JobDocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="JobletDocumentationItem" eSuperTypes="#//FileItem"/>
