@@ -148,6 +148,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     }
 
+    protected boolean isReadOnly() {
+        return readOnly;
+    }
+
     /**
      * Getter for editPath.
      * 
@@ -920,4 +924,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
         return false;
     }
+
+    public Property getProperty() {
+        return property;
+    }
+
 }
