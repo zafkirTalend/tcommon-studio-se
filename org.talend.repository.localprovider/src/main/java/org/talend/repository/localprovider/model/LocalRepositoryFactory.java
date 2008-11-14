@@ -97,8 +97,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -1087,6 +1087,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
         itemResource.getContents().add(item.getJobletProcess());
+        itemResource.getContents().add(item.getIcon());
         return itemResource;
     }
 
@@ -1136,6 +1137,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getJobletProcess());
+        itemResource.getContents().add(item.getIcon());
 
         return itemResource;
     }
