@@ -79,7 +79,8 @@ public final class CodeGeneratorRoutine {
                     if (item.isBuiltIn()) {
                         toReturn.add(routine.getLabel());
                     } else {
-                        toReturn.add(emfProject.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
+                        toReturn.add(routine.getLabel());
+                        // toReturn.add(emfProject.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
                     }
                 } else {
                     if (item.isBuiltIn()) {
