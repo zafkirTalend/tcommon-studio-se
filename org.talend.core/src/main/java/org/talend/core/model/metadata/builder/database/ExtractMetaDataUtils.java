@@ -367,28 +367,6 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     * 
-     * DOC xye Comment method "findNetezzaJDBCInTOS".
-     * 
-     * @return
-     */
-    public static String findNetezzaJDBCInTOS() {
-        String path = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
-        File libs = new File(path);
-        if (!libs.exists() || !libs.isDirectory()) {
-            return null;
-        }
-
-        for (File jar : libs.listFiles()) {
-            if (jar.isFile() && jar.getName().equals("nzjdbc.jar")) {
-                return jar.getAbsolutePath();
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * DOC xye Comment method "connect".
      * 
      * @param dbType
@@ -411,22 +389,22 @@ public class ExtractMetaDataUtils {
         if (driverClassName == null || driverClassName.equals("")) {
             driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             // see bug 4404: Exit TOS when Edit Access Schema in repository
-            if (dbType.equals("Access")) {
+            if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName())) {
                 // throw exception to prevent getting connection, which may crash
                 ExtractMetaDataUtils.checkAccessDbq(url);
             }
         }
         ExtractMetaDataUtils.checkDBConnectionTimeout();
         // Load driver class
-        if (dbType != null && dbType.equalsIgnoreCase("General JDBC") && isValidJarFile(driverJarPath)) {
+        if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())
+                && isValidJarFile(driverJarPath)) {
             // Load jdbc driver class dynamicly
             JDBCDriverLoader loader = new JDBCDriverLoader();
             connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
-        } else if (dbType != null && dbType.equalsIgnoreCase("Netezza")) {
+        } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.NETEZZA.getXmlName())) {
             // Netezza work worse with default Eclipse ClassLoader.
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnection(ExtractMetaDataUtils.findNetezzaJDBCInTOS(), ExtractMetaDataUtils
-                    .getDriverClassByDbType(dbType), url, username, pwd);
+            connection = loader.getConnectionBySpecialWays(dbType, url, username, pwd, driverClass);
         } else {
             // Don't use DriverManager
             Class<?> klazz = Class.forName(driverClass);
