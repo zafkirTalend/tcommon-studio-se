@@ -12,45 +12,20 @@
 // ============================================================================
 package org.talend.utils.properties;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import org.talend.utils.files.FileUtils;
 
 /**
  * DOC stephane class global comment. Detailled comment
  */
 public class PropertiesReloader {
 
-    public static synchronized void replaceInFile(String path, String oldString, String newString) throws IOException,
-            URISyntaxException {
-        File file = new File(path);
-        File tmpFile = new File(path + ".tmp");
-
-        BufferedReader in = new BufferedReader(new FileReader(file));
-
-        FileWriter out = new FileWriter(tmpFile);
-
-        String line;
-        String newLine;
-        while ((line = in.readLine()) != null) {
-            newLine = line.replace(oldString, newString);
-            out.write(newLine + "\n");
-        }
-
-        out.close();
-        in.close();
-
-        file.delete();
-        tmpFile.renameTo(file);
-    }
-
     public static synchronized void changeProperties(String fileName, String key, String oldValue, String newValue)
             throws IOException, URISyntaxException {
-        replaceInFile(fileName, key + "=" + oldValue, key + "=" + newValue);
+        FileUtils.replaceInFile(fileName, key + "=" + oldValue, key + "=" + newValue);
     }
 
     public static synchronized void setProperties(Class<?> clazz, String propertiesFilename, String key, String oldValue,
