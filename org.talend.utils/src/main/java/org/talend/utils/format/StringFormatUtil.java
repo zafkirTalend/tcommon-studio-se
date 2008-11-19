@@ -13,6 +13,7 @@
 package org.talend.utils.format;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 /**
@@ -53,8 +54,6 @@ public final class StringFormatUtil {
 
         try {
             if (checkInput(input)) {
-                Double db = new Double(input.toString());
-
                 DecimalFormat format = null;
 
                 switch (style) {
@@ -71,13 +70,13 @@ public final class StringFormatUtil {
                     return format.parse(input.toString());
                 }
 
-                return format.format(db);
+                return format.format(new Double(input.toString()));
+            } else {
+                return input;
             }
         } catch (Exception e) {
             return input;
         }
-
-        return input;
     }
 
     /**
@@ -111,6 +110,27 @@ public final class StringFormatUtil {
             DecimalFormat format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
             format.applyPattern("0.00");
             return Double.valueOf(format.format(db));
+        }
+
+        return null;
+    }
+
+    /**
+     * DOC Zqin Comment method "parseDouble".
+     * 
+     * @param input the object that was parsed.
+     * @return the Double object represents this input
+     */
+    public static Double parseDouble(Object input) {
+        if (input != null) {
+            DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+            try {
+                Number number = format.parse(input.toString());
+                return number.doubleValue();
+            } catch (ParseException e) {
+                return null;
+            }
+
         }
 
         return null;
