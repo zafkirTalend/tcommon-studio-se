@@ -87,6 +87,11 @@ public final class PropertiesLoader {
         TypedProperties prop = new TypedProperties();
 
         InputStream inStream = clazz.getClassLoader().getResourceAsStream(propertiesFilename);
+        if (inStream == null) {
+            // try to get it directly from the class (this is for use in Eclipse plugin environment)
+            inStream = clazz.getResourceAsStream(propertiesFilename);
+        }
+
         // System.out.println("url: " + inStream);
 
         if (inStream == null) {
