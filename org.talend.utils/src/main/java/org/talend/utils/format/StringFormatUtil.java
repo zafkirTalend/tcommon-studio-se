@@ -143,7 +143,7 @@ public final class StringFormatUtil {
      * @return true if the input is valid, else false;
      */
     private static boolean checkInput(Object input) {
-        if (input == null) {
+        if (input == null || "".equals(input)) {
             return false;
         } else {
             Double db = new Double(input.toString());
