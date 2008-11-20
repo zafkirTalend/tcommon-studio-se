@@ -41,7 +41,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -588,14 +587,12 @@ public class ImportItemUtil {
 			if (isPropertyPath(path)) {
 				IPath itemPath = getItemPath(path);
 				if (collector.getPaths().contains(itemPath)) {
-					Property property = computeProperty(collector, path);
-					if (property != null) {
-						ItemRecord itemRecord = new ItemRecord(path, property);
+					ItemRecord itemRecord = computeItemRecord(collector, path);
+					if (itemRecord.getProperty() != null) {
 						items.add(itemRecord);
 
 						if (checkItem(itemRecord, overwrite)) {
-							InternalEObject author = (InternalEObject) property
-									.getAuthor();
+							InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
 							URI uri = null;
 							if (author != null) {
 								uri = author.eProxyURI();
@@ -612,7 +609,7 @@ public class ImportItemUtil {
 									// and we will try to resolve user
 									User user = (User) project.eResource()
 											.getEObject(uri.fragment());
-									property.setAuthor(user);
+									itemRecord.getProperty().setAuthor(user);
 								}
 							} else {
 								itemRecord
@@ -637,7 +634,7 @@ public class ImportItemUtil {
 		return items;
 	}
 
-	private boolean checkProject(Project project, ItemRecord itemRecord) {
+    private boolean checkProject(Project project, ItemRecord itemRecord) {
 		boolean checkProject = false;
 
 		// Context ctx = CorePlugin.getContext();
@@ -754,15 +751,20 @@ public class ImportItemUtil {
 		return projectFilePath;
 	}
 
-	private Property computeProperty(ResourcesManager manager, IPath path) {
+   private ItemRecord computeItemRecord(ResourcesManager collector, IPath path) {
+        ItemRecord itemRecord = new ItemRecord(path);
+        computeProperty(collector, itemRecord);
+        return itemRecord;
+    }
+
+    private void computeProperty(ResourcesManager manager, ItemRecord itemRecord) {
 		InputStream stream = null;
 		try {
-			ResourceSet resourceSet = new ResourceSetImpl();
-			stream = manager.getStream(path);
-			Resource resource = createResource(resourceSet, path, false);
+			stream = manager.getStream(itemRecord.getPath());
+            Resource resource = createResource(itemRecord.getResourceSet(), itemRecord.getPath(), false);
 			resource.load(stream, null);
-			return (Property) EcoreUtil.getObjectByType(resource.getContents(),
-					PropertiesPackage.eINSTANCE.getProperty());
+			itemRecord.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
+                    .getProperty()));
 		} catch (IOException e) {
 			// ignore
 		} finally {
@@ -774,8 +776,6 @@ public class ImportItemUtil {
 				}
 			}
 		}
-
-		return null;
 	}
 
 	public void resolveItem(ResourcesManager manager, ItemRecord itemRecord) {
@@ -784,16 +784,14 @@ public class ImportItemUtil {
 		}
 
 		InputStream stream = null;
-		ResourceSet resourceSet = itemRecord.getProperty().eResource()
-				.getResourceSet();
 
 		try {
 			boolean byteArray = (itemRecord.getItem() instanceof FileItem);
 			IPath itemPath = getItemPath(itemRecord.getPath());
 			stream = manager.getStream(itemPath);
-			Resource resource = createResource(resourceSet, itemPath, byteArray);
+			Resource resource = createResource(itemRecord.getResourceSet(), itemPath, byteArray);
 			resource.load(stream, null);
-			EcoreUtil.resolveAll(resourceSet);
+			EcoreUtil.resolveAll(itemRecord.getResourceSet());
 		} catch (IOException e) {
 			// ignore
 		} finally {
@@ -812,12 +810,10 @@ public class ImportItemUtil {
 	private Project computeProject(ResourcesManager manager,
 			ItemRecord itemRecord, IPath path) {
 		InputStream stream = null;
-		ResourceSet resourceSet = itemRecord.getProperty().eResource()
-				.getResourceSet();
 
 		try {
 			stream = manager.getStream(path);
-			Resource resource = createResource(resourceSet, path, false);
+			Resource resource = createResource(itemRecord.getResourceSet(), path, false);
 			resource.load(stream, null);
 			return (Project) EcoreUtil.getObjectByType(resource.getContents(),
 					PropertiesPackage.eINSTANCE.getProject());

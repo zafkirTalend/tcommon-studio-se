@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -28,6 +30,8 @@ import org.talend.core.ui.images.CoreImageProvider;
 public class ItemRecord {
 
     private String itemName;
+
+    private ResourceSet resourceSet = new ResourceSetImpl();
 
     private Property property;
 
@@ -47,15 +51,18 @@ public class ItemRecord {
 
     private String label;
 
-    public ItemRecord(IPath path, Property property) {
+    public ItemRecord(IPath path) {
         this.path = path;
-        this.property = property;
     }
 
     public Item getItem() {
         return property.getItem();
     }
 
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+    
     public Property getProperty() {
         return property;
     }
@@ -160,10 +167,15 @@ public class ItemRecord {
         return label;
     }
 
+    public ResourceSet getResourceSet() {
+        return resourceSet;
+    }
+    
     public void clear() {
-        for (Resource resource : property.eResource().getResourceSet().getResources()) {
+        for (Resource resource : resourceSet.getResources()) {
             resource.unload();
         }
         property = null;
+        resourceSet = null;
     }
 }
