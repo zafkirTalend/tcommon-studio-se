@@ -96,7 +96,7 @@ for my $rev (@revs) {
     my $msglog = `$msglogcommand`;
     my @msgloglines = split("\n", $msglog);
     open(LOGFILE, ">", $logfile) || die "cannot open file $logfile";
-    print LOGFILE "merge -c".$rev." from ".$from." to ".$to."\n";
+    print LOGFILE "merge r".$rev." from ".$from." to ".$to."\n";
     #don't care of three first lines and last line
     for(my $i = 3 ; $i < scalar @msgloglines - 1 ; $i++) {
 	print LOGFILE $msgloglines[$i], "\n";
