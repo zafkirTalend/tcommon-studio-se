@@ -39,6 +39,10 @@ public class RuntimeUtils {
      * @return
      */
     public static Object tRunJobConvertContext(Object o) {
+        if (o == null) {
+            return null;
+        }
+
         // when tRunJob transmit the date to child job, it should format with "yyyy-MM-dd HH:mm:ss"
         if (isDateType(o)) {
             return TalendDate.formatDate("yyyy-MM-dd HH:mm:ss", (Date) o);
