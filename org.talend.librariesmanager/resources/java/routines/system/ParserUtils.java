@@ -29,7 +29,10 @@ public class ParserUtils {
         return null;
     }
 
-    public static char parseTo_Character(String s) {
+    public static Character parseTo_Character(String s) {
+        if (s == null) {
+            return null;
+        }
         return s.charAt(0);
     }
 
@@ -37,7 +40,10 @@ public class ParserUtils {
         return parseTo_Character(s);
     }
 
-    public static byte parseTo_Byte(String s) {
+    public static Byte parseTo_Byte(String s) {
+        if (s == null) {
+            return null;
+        }
         return Byte.decode(s).byteValue();
     }
 
@@ -46,6 +52,9 @@ public class ParserUtils {
     }
 
     public static Double parseTo_Double(String s) {
+        if (s == null) {
+            return null;
+        }
         return Double.parseDouble(s);
     }
 
@@ -58,6 +67,9 @@ public class ParserUtils {
     }
 
     public static Float parseTo_Float(String s) {
+        if (s == null) {
+            return null;
+        }
         return parseTo_float(s);
     }
 
@@ -66,6 +78,9 @@ public class ParserUtils {
     }
 
     public static Integer parseTo_Integer(String s) {
+        if (s == null) {
+            return null;
+        }
         return parseTo_int(s);
     }
 
@@ -74,6 +89,9 @@ public class ParserUtils {
     }
 
     public static Short parseTo_Short(String s) {
+        if (s == null) {
+            return null;
+        }
         return parseTo_short(s);
     }
 
@@ -86,6 +104,9 @@ public class ParserUtils {
     }
 
     public static Boolean parseTo_Boolean(String s) {
+        if (s == null) {
+            return null;
+        }
         if (s.equals("1")) {
             return Boolean.parseBoolean("true");
         }
@@ -101,6 +122,9 @@ public class ParserUtils {
     }
 
     public static BigDecimal parseTo_BigDecimal(String s) {
+        if (s == null) {
+            return null;
+        }
         return new BigDecimal(s);
     }
 
