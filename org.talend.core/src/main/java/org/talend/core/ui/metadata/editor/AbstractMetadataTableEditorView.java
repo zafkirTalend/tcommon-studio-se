@@ -17,6 +17,8 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -35,11 +37,13 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.CheckColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.ColumnCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
+import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.i18n.Messages;
@@ -115,8 +119,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param mainCompositeStyle
      * @param initGraphicsComponents
      */
-    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
-            boolean initGraphicsComponents) {
+    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents) {
         super(parentComposite, mainCompositeStyle, initGraphicsComponents);
     }
 
@@ -178,8 +181,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#createColumns(org.talend.commons.ui.swt.tableviewer.TableViewerCreator,
-     * org.eclipse.swt.widgets.Table)
+     * @see
+     * org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#createColumns(org.talend.commons.ui
+     * .swt.tableviewer.TableViewerCreator, org.eclipse.swt.widgets.Table)
      */
     @Override
     protected void createColumns(TableViewerCreator<B> tableViewerCreator, Table table) {
@@ -214,7 +218,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         //
         // /* (non-Javadoc)
         // * @see
-        // org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent#initialize(org.eclipse.swt.widgets.Table,
+        //org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent#initialize(org.eclipse.swt.widgets.Table,
         // org.eclipse.swt.custom.TableEditor,
         // org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn,
         // java.lang.Object, java.lang.Object)
@@ -421,8 +425,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             column.setColumnCellModifier(columnCellModifier);
 
             JavaSimpleDateFormatProposalProvider proposalProvider = new JavaSimpleDateFormatProposalProvider();
-            TextCellEditorWithProposal patternCellEditor = new TextCellEditorWithProposal(
-                    tableViewerCreator.getTable(), column);
+            TextCellEditorWithProposal patternCellEditor = new TextCellEditorWithProposal(tableViewerCreator.getTable(), column);
             ContentProposalAdapterExtended contentProposalAdapter = patternCellEditor.getContentProposalAdapter();
             contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_NONE);
             contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
@@ -455,6 +458,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setModifiable(!isReadOnly());
         column.setWidth(56);
         column.setDisplayedValue(""); //$NON-NLS-1$
+        column.setSortable(true);
+        column.setTableColumnSelectionListener(new CheckColumnSelectionListener(column, tableViewerCreator));
+        column.setImageHeader(ImageProvider.getImage(EImage.CHECKED_ICON));
         CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent();
         nullableCheckbox.setToolTipText(nullableTitle);
         column.setTableEditorContent(nullableCheckbox);
@@ -628,8 +634,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(),
-                    getNullableAccessor());
+            comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor());
         } else if (codeLanguage == ECodeLanguage.PERL) {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
         }
@@ -686,8 +691,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         if (dbTypeColumnWritable) {
 
-            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory
-                    .getComboAdapterForComboCellEditor();
+            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
             String[] arrayDbTypes = new String[0];
             arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
             // System.out.println("currentDbms:" + getCurrentDbms() + "
@@ -725,7 +729,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#setTableViewerCreatorOptions(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+     * @see
+     * org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#setTableViewerCreatorOptions(org.talend
+     * .commons.ui.swt.tableviewer.TableViewerCreator)
      */
     @Override
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
