@@ -280,9 +280,11 @@ public class ProcessorUtilities {
                         } else {
                             // use the default context of subjob
                             String defaultContext = processItem.getProcess().getDefaultContext();
-                            Element element = (Element) node;
-                            element.setPropertyValue("PROCESS_TYPE_CONTEXT", defaultContext);
-                            subJobInfo.setContextName(defaultContext);
+                            if (node instanceof Element) {
+                                Element element = (Element) node;
+                                element.setPropertyValue("PROCESS_TYPE_CONTEXT", defaultContext);
+                                subJobInfo.setContextName(defaultContext);
+                            }
                         }
                     }
                     subJobInfo.setFatherJobInfo(jobInfo);
@@ -409,10 +411,12 @@ public class ProcessorUtilities {
             for (Iterator<? extends INode> iter = currentProcess.getGraphicalNodes().iterator(); iter.hasNext();) {
                 INode node = iter.next();
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
-                    Element element = (Element) node;
-                    // the corresponding parameter is
-                    // EParameterName.PROCESS_TYPE_CONTEXT
-                    element.setPropertyValue("PROCESS_TYPE_CONTEXT", selectedContextName);
+                    if (node instanceof Element) {
+                        Element element = (Element) node;
+                        // the corresponding parameter is
+                        // EParameterName.PROCESS_TYPE_CONTEXT
+                        element.setPropertyValue("PROCESS_TYPE_CONTEXT", selectedContextName);
+                    }
                 }
             }
         }
