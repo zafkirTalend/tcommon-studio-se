@@ -27,4 +27,6 @@ public interface IJobSettingsView {
 
     public ISelection getSelection();
 
+    public void refreshCurrentViewTab();
+
 }
