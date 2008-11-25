@@ -4,13 +4,13 @@ Bundle-Name: Informix Plug-in
 Bundle-SymbolicName: org.talend.libraries.jdbc.informix
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ClassPath: lib/ifxjdbc.jar,
+Bundle-ClassPath: .,
+ lib/ifxjdbc.jar,
  lib/ifxjdbcx.jar,
  lib/ifxlang.jar,
  lib/ifxlsupp.jar,
  lib/ifxsqlj.jar,
- lib/ifxtools.jar,
- .
+ lib/ifxtools.jar
 Export-Package: com.informix.asf,
  com.informix.csm,
  com.informix.csm.crypto,
