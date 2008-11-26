@@ -395,9 +395,10 @@ public class ExtractMetaDataUtils {
             }
         }
         ExtractMetaDataUtils.checkDBConnectionTimeout();
-        // Load driver class
-        if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())
-                && isValidJarFile(driverJarPath)) {
+        if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
+            JDBCDriverLoader loader = new JDBCDriverLoader();
+            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
+        } else if (dbType != null && isValidJarFile(driverJarPath)) {
             // Load jdbc driver class dynamicly
             JDBCDriverLoader loader = new JDBCDriverLoader();
             connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
