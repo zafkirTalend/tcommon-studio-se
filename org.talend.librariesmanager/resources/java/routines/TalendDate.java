@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import routines.system.FastDateParser;
 import routines.system.LocaleProvider;
@@ -29,8 +28,207 @@ public class TalendDate {
      * 
      * {example} formatDate("yyyy-MM-dd", new Date()) #
      */
+
     public synchronized static String formatDate(String pattern, java.util.Date date) {
         return FastDateParser.getInstance(pattern).format(date);
+    }
+
+    /**
+     * test string value as a date (with right pattern)
+     * 
+     * @param stringDate (A <code>String</code> whose beginning should be parsed)
+     * @param pattern (the pattern to format, like: "yyyy-MM-dd HH:mm:ss")
+     * @return the result wheather the stringDate is a date string that with a right pattern
+     * 
+     * {examples} ->> isDate("2008-11-24 12:15:25", "yyyy-MM-dd HH:mm:ss") return true ->> isDate("2008-11-24 12:15:25",
+     * "yyyy-MM-dd HH:mm") return false ->> isDate("2008-11-32 12:15:25", "yyyy-MM-dd HH:mm:ss") return false
+     */
+    public static boolean isDate(String stringDate, String pattern) {
+
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
+        java.util.Date testDate = null;
+
+        try {
+            testDate = sdf.parse(stringDate);
+        } catch (ParseException e) {
+            return false;
+        }
+
+        if (!sdf.format(testDate).equals(stringDate)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * compare two date
+     * 
+     * @param date1 (first date)
+     * @param date2 (second date)
+     * @param pattern (the pattern to format, example: "yyyy-MM-dd HH:mm:ss")
+     * @return the result wheather two date is the same, if first one less than second one return number -1, equlas
+     * return number 0, bigger than return number 1. (can compare partly)
+     * 
+     * {examples} ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35) return -1 ->> compareDate(2008/11/24
+     * 16:10:35, 2008/11/24 12:15:25) return 1 ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35,"yyyy/MM/dd")
+     * return 0
+     */
+    public static int compareDate(Date date1, Date date2, String pattern) {
+        if (pattern != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            String part1 = sdf.format(date1), part2 = sdf.format(date2);
+            return part1.compareTo(part2);
+        } else {
+            long time1 = date1.getTime(), time2 = date2.getTime();
+            return (time1 < time2 ? -1 : (time1 == time2 ? 0 : 1));
+        }
+    }
+
+    public static int compareDate(Date date1, Date date2) {
+        return compareDate(date1, date2, null);
+    }
+
+    /**
+     * add number of day, month ... to a date
+     * 
+     * @param date (a <code>Date</code> type value)
+     * @param nb (the value to add)
+     * @param dateType (date pattern = ("yyyy","MM","dd","HH","mm","ss","SSS" ))
+     * @return a new date
+     * 
+     * {examples} ->> addDate(2008/11/24 12:15:25, 5,"dd") return 2008/11/29 12:15:25 ->> addDate(2008/11/24 12:15:25,
+     * 5,"yyyy")return 2013/11/25 12:15:25 ->> addDate(2008/11/24 12:15:25, 5,"MM") return 2009/02/24 12:15:25 ->>
+     * addDate(2008/11/24 12:15:25, 5,"ss") return 2008/11/24 12:15:30
+     * 
+     */
+    public static Date addDate(Date date, int nb, String dateType) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date);
+
+        if (dateType.equalsIgnoreCase("yyyy")) {
+            c1.add(Calendar.YEAR, nb);
+        } else if (dateType.equals("MM")) {
+            c1.add(Calendar.MONTH, nb);
+        } else if (dateType.equalsIgnoreCase("dd")) {
+            c1.add(Calendar.DAY_OF_MONTH, nb);
+        } else if (dateType.equals("HH")) {
+            c1.add(Calendar.HOUR, nb);
+        } else if (dateType.equals("mm")) {
+            c1.add(Calendar.MINUTE, nb);
+        } else if (dateType.equalsIgnoreCase("ss")) {
+            c1.add(Calendar.SECOND, nb);
+        } else if (dateType.equalsIgnoreCase("SSS")) {
+            c1.add(Calendar.MILLISECOND, nb);
+        }
+
+        return c1.getTime();
+    }
+
+    /**
+     * return difference between two dates
+     * 
+     * @param Date1 ( first date )
+     * @param Date1 ( second date )
+     * @param dateType value=("yyyy","MM","dd","HH","mm","ss","SSS") for type of return
+     * @return a number of years, months, days ... date1 - date2
+     * 
+     * {examples} ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "yyyy") : return 0 ->> diffDate(2008/11/24
+     * 12:15:25, 2008/10/14 16:10:35, "MM") : return 1 ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "dd") :
+     * return 41
+     */
+    public static long diffDate(Date date1, Date date2, String dateType) {
+
+        dateType = dateType == null ? "" : dateType;
+
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(date1);
+        c2.setTime(date2);
+
+        if (dateType.equalsIgnoreCase("yyyy")) {
+            return c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
+        } else if (dateType.equals("MM")) {
+            return (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)) * 12 + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH));
+        } else if (dateType.equalsIgnoreCase("HH")) {
+            return (date1.getTime() - date2.getTime()) / (1000 * 60 * 60);
+        } else if (dateType.equals("mm")) {
+            return (date1.getTime() - date2.getTime()) / (1000 * 60);
+        } else if (dateType.equalsIgnoreCase("ss")) {
+            return (date1.getTime() - date2.getTime()) / 1000;
+        } else if (dateType.equalsIgnoreCase("SSS")) {
+            return date1.getTime() - date2.getTime();
+        } else {
+            return (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
+        }
+    }
+
+    public static long diffDate(Date date1, Date date2) {
+        return diffDate(date1, date2, null);
+    }
+
+    /**
+     * get first day of the month
+     * 
+     * @param date (a date value)
+     * @return a new date (the date has been changed to the first day)
+     * 
+     * {example} getFirstDayMonth(2008/02/24 12:15:25) return 2008/02/01 12:15:25
+     */
+    public static Date getFirstDayOfMonth(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.DATE, 1);
+        return c.getTime();
+    }
+
+    /**
+     * get last day of the month
+     * 
+     * @param date (a date value)
+     * @return a new date (the date has been changed to the last day)
+     * 
+     * {example} getFirstDayMonth(2008/02/24 12:15:25) return 2008/02/28 12:15:25
+     */
+    public static Date getLastDayOfMonth(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.MONTH, 1);
+        c.set(Calendar.DATE, -1);
+        return c.getTime();
+    }
+
+    /**
+     * 
+     * set a date new value partly
+     * 
+     * @param date (a date value)
+     * @param nb (new number)
+     * @param dateType (the part)
+     * @return a new date
+     * 
+     * {examples} ->> setDate(2008/11/24 12:15:25, 2010, "yyyy") return 2010/11/24 12:15:25 ->> setDate(2008/11/24
+     * 12:15:25, 01, "MM") return 2008/01/24 12:15:25 ->> setDate(2008/11/24 12:15:25, 15, "dd") return 2008/11/15
+     * 12:15:25
+     */
+    public static Date setDate(Date date, int nb, String dateType) {
+        if (nb < 0) {
+            return date;
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        if (dateType.equalsIgnoreCase("yyyy")) {
+            c.set(Calendar.YEAR, nb);
+        } else if (dateType.equals("MM")) {
+            c.set(Calendar.MONTH, nb - 1);
+        } else if (dateType.equalsIgnoreCase("dd")) {
+            c.set(Calendar.DATE, nb);
+        } else if (dateType.equalsIgnoreCase("HH")) {
+            c.set(Calendar.HOUR_OF_DAY, nb);
+        }
+        return c.getTime();
     }
 
     /**
@@ -115,8 +313,7 @@ public class TalendDate {
      */
     public synchronized static Date parseDateLocale(String pattern, String stringDate, String languageOrCountyCode) {
         try {
-            return FastDateParser.getInstance(pattern, LocaleProvider.getLocale(languageOrCountyCode))
-                    .parse(stringDate);
+            return FastDateParser.getInstance(pattern, LocaleProvider.getLocale(languageOrCountyCode)).parse(stringDate);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -215,110 +412,114 @@ public class TalendDate {
      * @param args
      */
     public static void main(String[] args) {
-        final int LOOPS = 100000;
-        final String dateTimeRef_Test1 = "1979-03-23 mars 12:30";
-        Thread test1 = new Thread() {
+        // final int LOOPS = 100000;
+        // final String dateTimeRef_Test1 = "1979-03-23 mars 12:30";
+        // Thread test1 = new Thread() {
+        //
+        // @Override
+        // public void run() {
+        // Calendar calendar = GregorianCalendar.getInstance();
+        // calendar.set(1979, 2, 23, 12, 30, 40);
+        // Date dateCalendar = calendar.getTime();
+        // for (int i = 0; i < LOOPS; i++) {
+        // String date = TalendDate.formatDate("yyyy-MM-dd MMM HH:mm", dateCalendar);
+        // // System.out.println("Test1:" + date + " # " + dateTimeRef_Test1);
+        // if (!dateTimeRef_Test1.equals(date)) {
+        // throw new IllegalStateException("Test1: Date ref : '" + dateTimeRef_Test1 + "' is different of '" + date
+        // + "'");
+        // }
+        // }
+        // System.out.println("test1 ok");
+        // }
+        // };
+        // final String dateTimeRef_Test2 = "1980-03-23 mars 12:30";
+        // Thread test2 = new Thread() {
+        //
+        // @Override
+        // public void run() {
+        // Calendar calendar = GregorianCalendar.getInstance();
+        // calendar.set(1980, 2, 23, 12, 30, 40);
+        // Date dateCalendar = calendar.getTime();
+        // for (int i = 0; i < LOOPS; i++) {
+        // String date = TalendDate.formatDate("yyyy-MM-dd MMM HH:mm", dateCalendar);
+        // // System.out.println("Test2:" + date + " # " + dateTimeRef_Test2);
+        // if (!dateTimeRef_Test2.equals(date)) {
+        // throw new IllegalStateException("Test2: Date ref : '" + dateTimeRef_Test2 + "' is different of '" + date
+        // + "'");
+        // }
+        // }
+        // System.out.println("test2 ok");
+        // }
+        // };
+        //
+        // final String dateTimeRef_Test3 = "1979-03-23 mars 12:30";
+        // Thread test3 = new Thread() {
+        //
+        // @Override
+        // public void run() {
+        // Calendar calendar = GregorianCalendar.getInstance();
+        // calendar.set(1979, 2, 23, 12, 30, 40);
+        // Date dateCalendar = calendar.getTime();
+        // for (int i = 0; i < LOOPS; i++) {
+        // String date = TalendDate.formatDateLocale("yyyy-MM-dd MMM HH:mm", dateCalendar, "FR");
+        // // System.out.println("Test3:" + date + " # " + dateTimeRef_Test3);
+        // if (!dateTimeRef_Test3.equals(date)) {
+        // throw new IllegalStateException("Test3: Date ref : '" + dateTimeRef_Test3 + "' is different of '" + date
+        // + "'");
+        // }
+        // }
+        // System.out.println("test3 ok");
+        // }
+        // };
+        // final String dateTimeRef_Test4 = "1980-03-23 Mar 12:30";
+        // Thread test4 = new Thread() {
+        //
+        // @Override
+        // public void run() {
+        // Calendar calendar = GregorianCalendar.getInstance();
+        // calendar.set(1980, 2, 23, 12, 30, 40);
+        // Date dateCalendar = calendar.getTime();
+        // for (int i = 0; i < LOOPS; i++) {
+        // String date = TalendDate.formatDateLocale("yyyy-MM-dd MMM HH:mm", dateCalendar, "EN");
+        // // System.out.println("Test4:" + date + " # " + dateTimeRef_Test4);
+        // if (!dateTimeRef_Test4.equals(date)) {
+        // throw new IllegalStateException("Test4: Date ref : '" + dateTimeRef_Test4 + "' is different of '" + date
+        // + "'");
+        // }
+        // }
+        // System.out.println("test4 ok");
+        // }
+        // };
+        //
+        // final String dateTimeRef_Test5 = "1979-03-23";
+        // Thread test5 = new Thread() {
+        //
+        // @Override
+        // public void run() {
+        // Calendar calendar = GregorianCalendar.getInstance();
+        // calendar.set(1979, 2, 23, 12, 30, 40);
+        // Date dateCalendar = calendar.getTime();
+        // for (int i = 0; i < LOOPS; i++) {
+        // String date = TalendDate.formatDate("yyyy-MM-dd", dateCalendar);
+        // // System.out.println("Test5:" + date + " # " + dateTimeRef_Test5);
+        // if (!dateTimeRef_Test5.equals(date)) {
+        // throw new IllegalStateException("Test5: Date ref : '" + dateTimeRef_Test5 + "' is different of '" + date
+        // + "'");
+        // }
+        //
+        // }
+        // System.out.println("test5 ok");
+        // }
+        // };
+        //
+        // test1.start();
+        // test2.start();
+        // test3.start();
+        // test4.start();
+        // test5.start();
 
-            @Override
-            public void run() {
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.set(1979, 2, 23, 12, 30, 40);
-                Date dateCalendar = calendar.getTime();
-                for (int i = 0; i < LOOPS; i++) {
-                    String date = TalendDate.formatDate("yyyy-MM-dd MMM HH:mm", dateCalendar);
-                    // System.out.println("Test1:" + date + " # " + dateTimeRef_Test1);
-                    if (!dateTimeRef_Test1.equals(date)) {
-                        throw new IllegalStateException("Test1: Date ref : '" + dateTimeRef_Test1
-                                + "' is different of '" + date + "'");
-                    }
-                }
-                System.out.println("test1 ok");
-            }
-        };
-        final String dateTimeRef_Test2 = "1980-03-23 mars 12:30";
-        Thread test2 = new Thread() {
+        System.out.println("isDate: " + TalendDate.isDate("2008-11-35 12:15:25", "yyyy-MM-dd HH:mm"));
+        System.out.println("compareDate: " + TalendDate.compareDate(new Date(), new Date(System.currentTimeMillis() - 10000)));
 
-            @Override
-            public void run() {
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.set(1980, 2, 23, 12, 30, 40);
-                Date dateCalendar = calendar.getTime();
-                for (int i = 0; i < LOOPS; i++) {
-                    String date = TalendDate.formatDate("yyyy-MM-dd MMM HH:mm", dateCalendar);
-                    // System.out.println("Test2:" + date + " # " + dateTimeRef_Test2);
-                    if (!dateTimeRef_Test2.equals(date)) {
-                        throw new IllegalStateException("Test2: Date ref : '" + dateTimeRef_Test2
-                                + "' is different of '" + date + "'");
-                    }
-                }
-                System.out.println("test2 ok");
-            }
-        };
-
-        final String dateTimeRef_Test3 = "1979-03-23 mars 12:30";
-        Thread test3 = new Thread() {
-
-            @Override
-            public void run() {
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.set(1979, 2, 23, 12, 30, 40);
-                Date dateCalendar = calendar.getTime();
-                for (int i = 0; i < LOOPS; i++) {
-                    String date = TalendDate.formatDateLocale("yyyy-MM-dd MMM HH:mm", dateCalendar, "FR");
-                    // System.out.println("Test3:" + date + " # " + dateTimeRef_Test3);
-                    if (!dateTimeRef_Test3.equals(date)) {
-                        throw new IllegalStateException("Test3: Date ref : '" + dateTimeRef_Test3
-                                + "' is different of '" + date + "'");
-                    }
-                }
-                System.out.println("test3 ok");
-            }
-        };
-        final String dateTimeRef_Test4 = "1980-03-23 Mar 12:30";
-        Thread test4 = new Thread() {
-
-            @Override
-            public void run() {
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.set(1980, 2, 23, 12, 30, 40);
-                Date dateCalendar = calendar.getTime();
-                for (int i = 0; i < LOOPS; i++) {
-                    String date = TalendDate.formatDateLocale("yyyy-MM-dd MMM HH:mm", dateCalendar, "EN");
-                    // System.out.println("Test4:" + date + " # " + dateTimeRef_Test4);
-                    if (!dateTimeRef_Test4.equals(date)) {
-                        throw new IllegalStateException("Test4: Date ref : '" + dateTimeRef_Test4
-                                + "' is different of '" + date + "'");
-                    }
-                }
-                System.out.println("test4 ok");
-            }
-        };
-
-        final String dateTimeRef_Test5 = "1979-03-23";
-        Thread test5 = new Thread() {
-
-            @Override
-            public void run() {
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.set(1979, 2, 23, 12, 30, 40);
-                Date dateCalendar = calendar.getTime();
-                for (int i = 0; i < LOOPS; i++) {
-                    String date = TalendDate.formatDate("yyyy-MM-dd", dateCalendar);
-                    // System.out.println("Test5:" + date + " # " + dateTimeRef_Test5);
-                    if (!dateTimeRef_Test5.equals(date)) {
-                        throw new IllegalStateException("Test5: Date ref : '" + dateTimeRef_Test5
-                                + "' is different of '" + date + "'");
-                    }
-
-                }
-                System.out.println("test5 ok");
-            }
-        };
-
-        test1.start();
-        test2.start();
-        test3.start();
-        test4.start();
-        test5.start();
     }
 }
