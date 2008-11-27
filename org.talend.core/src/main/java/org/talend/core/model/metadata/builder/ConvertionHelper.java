@@ -54,6 +54,7 @@ public final class ConvertionHelper {
         result.setDataSourceName(connection.getDatasourceName());
         result.setDbType(connection.getDatabaseType());
         result.setDriverJarPath(connection.getDriverJarPath());
+        result.setDbVersionString(connection.getDbVersionString());
         result.setDriverClass(connection.getDriverClass());
         result.setFileFieldName(connection.getFileFieldName());
         result.setId(connection.getId());
