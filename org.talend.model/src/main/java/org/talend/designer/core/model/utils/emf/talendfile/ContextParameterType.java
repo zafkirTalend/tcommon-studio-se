@@ -236,6 +236,8 @@ public interface ContextParameterType extends EObject {
      * @generated
      */
     String getValue();
+    
+    String getRawValue();
 
     /**
      * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getValue <em>Value</em>}' attribute.

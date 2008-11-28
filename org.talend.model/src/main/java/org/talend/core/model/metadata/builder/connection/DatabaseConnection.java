@@ -7,7 +7,6 @@
 package org.talend.core.model.metadata.builder.connection;
 
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -245,6 +244,15 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     String getPassword();
+    
+    /**
+	 * 
+	 * Get the password directly without decryption.
+	 * 
+	 * @not generated
+	 * @return
+	 */
+	String getRawPassword();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPassword <em>Password</em>}' attribute.
