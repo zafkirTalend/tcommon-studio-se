@@ -92,7 +92,7 @@ public final class ContextParameterUtils {
         final String string = JAVA_STARTWITH + name + JAVA_ENDWITH;
         switch (language) {
         case PERL:
-            code = PERL_STARTWITH + name + PERL_ENDWITH; //$NON-NLS-1$ //$NON-NLS-2$
+            code = PERL_STARTWITH + name + PERL_ENDWITH; 
             break;
         case JAVA:
             JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(type);
@@ -253,8 +253,9 @@ public final class ContextParameterUtils {
     }
 
     private static boolean containContextPrefix(String code) {
-        if (code == null)
-            return false;
+        if (code == null) {
+			return false;
+		}
         return code.startsWith(JAVA_NEW_CONTEXT_PREFIX);
     }
 
@@ -266,10 +267,11 @@ public final class ContextParameterUtils {
      * @return
      */
     public static String trimContextPrefix(String code) {
-        if (containContextPrefix(code))
-            return code.substring(JAVA_NEW_CONTEXT_PREFIX.length());
-        else
-            return code;
+        if (containContextPrefix(code)) {
+			return code.substring(JAVA_NEW_CONTEXT_PREFIX.length());
+		} else {
+			return code;
+		}
     }
 
     /**
@@ -407,11 +409,15 @@ public final class ContextParameterUtils {
     public static boolean isPasswordType(IContextParameter parameter) {
         if (parameter == null) {
             return false;
-        }
-        String passwordType = JavaTypesManager.PASSWORD.getLabel(); // perl
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            passwordType = JavaTypesManager.PASSWORD.getId();
-        }
-        return parameter.getType().equals(passwordType);
+        }        
+        return isPasswordType(parameter.getType());
+	}
+
+	public static boolean isPasswordType(String type) {
+		String passwordType = JavaTypesManager.PASSWORD.getLabel(); // perl
+		if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+			passwordType = JavaTypesManager.PASSWORD.getId();
+		}
+		return passwordType.equals(type);    	
     }
 }

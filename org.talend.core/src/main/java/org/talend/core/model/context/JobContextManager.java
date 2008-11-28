@@ -21,8 +21,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
@@ -191,7 +193,21 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setName(contextParam.getName());
                     contextParamType.setPrompt(contextParam.getPrompt());
                     contextParamType.setType(contextParam.getType());
-                    contextParamType.setValue(contextParam.getValue());
+                    if (PasswordEncryptUtil.isPasswordType(contextParamType
+							.getType())) {
+						// see 0000949: Encryption of DB passwords in XMI
+						// repository files
+						try {
+							String password = PasswordEncryptUtil
+									.encryptPassword(contextParam.getValue());
+							contextParamType.setValue(password);
+						} catch (Exception e) {
+							ExceptionHandler.process(e);
+						}
+						
+					} else {
+						contextParamType.setValue(contextParam.getValue());
+					}
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {
