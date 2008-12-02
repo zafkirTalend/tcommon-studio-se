@@ -40,8 +40,21 @@ public class TalendDate {
      * @param pattern (the pattern to format, like: "yyyy-MM-dd HH:mm:ss")
      * @return the result wheather the stringDate is a date string that with a right pattern
      * 
-     * {examples} ->> isDate("2008-11-24 12:15:25", "yyyy-MM-dd HH:mm:ss") return true ->> isDate("2008-11-24 12:15:25",
-     * "yyyy-MM-dd HH:mm") return false ->> isDate("2008-11-32 12:15:25", "yyyy-MM-dd HH:mm:ss") return false
+     * {talendTypes} Boolean
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} String(mydate) stringDate : the date to judge
+     * 
+     * {param} String("yyyy-MM-dd HH:mm:ss") pattern : the specified pattern
+     * 
+     * {examples}
+     * 
+     * ->> isDate("2008-11-24 12:15:25", "yyyy-MM-dd HH:mm:ss") return true
+     * 
+     * ->> isDate("2008-11-24 12:15:25", "yyyy-MM-dd HH:mm") return false
+     * 
+     * ->> isDate("2008-11-32 12:15:25", "yyyy-MM-dd HH:mm:ss") return false #
      */
     public static boolean isDate(String stringDate, String pattern) {
 
@@ -66,13 +79,27 @@ public class TalendDate {
      * 
      * @param date1 (first date)
      * @param date2 (second date)
-     * @param pattern (the pattern to format, example: "yyyy-MM-dd HH:mm:ss")
+     * @param pattern (compare specified part, example: "yyyy-MM-dd")
      * @return the result wheather two date is the same, if first one less than second one return number -1, equlas
      * return number 0, bigger than return number 1. (can compare partly)
      * 
-     * {examples} ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35) return -1 ->> compareDate(2008/11/24
-     * 16:10:35, 2008/11/24 12:15:25) return 1 ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35,"yyyy/MM/dd")
-     * return 0
+     * {talendTypes} Integer
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date1 : the first date to compare
+     * 
+     * {param} date(myDate2) date2 : the second date to compare
+     * 
+     * {param} String("yyyy-MM-dd") pattern : compare specified part
+     * 
+     * {examples}
+     * 
+     * ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35) return -1
+     * 
+     * ->> compareDate(2008/11/24 16:10:35, 2008/11/24 12:15:25) return 1
+     * 
+     * ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35,"yyyy/MM/dd") return 0 #
      */
     public static int compareDate(Date date1, Date date2, String pattern) {
         if (pattern != null) {
@@ -85,6 +112,25 @@ public class TalendDate {
         }
     }
 
+    /**
+     * compare two date
+     * 
+     * @param date1 (first date)
+     * @param date2 (second date)
+     * @return the result wheather two date is the same, if first one less than second one return number -1, equlas
+     * return number 0, bigger than return number 1. (can compare partly)
+     * 
+     * {talendTypes} Integer
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date1 : the first date to compare
+     * 
+     * {param} date(myDate2) date2 : the second date to compare
+     * 
+     * {example} compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35) return -1 #
+     * 
+     */
     public static int compareDate(Date date1, Date date2) {
         return compareDate(date1, date2, null);
     }
@@ -97,9 +143,25 @@ public class TalendDate {
      * @param dateType (date pattern = ("yyyy","MM","dd","HH","mm","ss","SSS" ))
      * @return a new date
      * 
-     * {examples} ->> addDate(2008/11/24 12:15:25, 5,"dd") return 2008/11/29 12:15:25 ->> addDate(2008/11/24 12:15:25,
-     * 5,"yyyy")return 2013/11/25 12:15:25 ->> addDate(2008/11/24 12:15:25, 5,"MM") return 2009/02/24 12:15:25 ->>
-     * addDate(2008/11/24 12:15:25, 5,"ss") return 2008/11/24 12:15:30
+     * {talendTypes} Date
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date : the date to update
+     * 
+     * {param} date(addValue) nb : the added value
+     * 
+     * {param} date("MM") dateType : the part to add
+     * 
+     * {examples}
+     * 
+     * ->> addDate(2008/11/24 12:15:25, 5,"dd") return 2008/11/29 12:15:25
+     * 
+     * ->> addDate(2008/11/24 12:15:25, 5,"yyyy")return 2013/11/25 12:15:25
+     * 
+     * ->> addDate(2008/11/24 12:15:25, 5,"MM") return 2009/02/24 12:15:25
+     * 
+     * ->> addDate(2008/11/24 12:15:25, 5,"ss") return 2008/11/24 12:15:30 #
      * 
      */
     public static Date addDate(Date date, int nb, String dateType) {
@@ -133,9 +195,23 @@ public class TalendDate {
      * @param dateType value=("yyyy","MM","dd","HH","mm","ss","SSS") for type of return
      * @return a number of years, months, days ... date1 - date2
      * 
-     * {examples} ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "yyyy") : return 0 ->> diffDate(2008/11/24
-     * 12:15:25, 2008/10/14 16:10:35, "MM") : return 1 ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "dd") :
-     * return 41
+     * {talendTypes} Long
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date1 : the first date to compare
+     * 
+     * {param} date(myDate2) date2 : the second date to compare
+     * 
+     * {param} String("MM") dateType : the difference on the specified part
+     * 
+     * {examples}
+     * 
+     * ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "yyyy") : return 0
+     * 
+     * ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "MM") : return 1
+     * 
+     * ->> diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35, "dd") : return 41 #
      */
     public static long diffDate(Date date1, Date date2, String dateType) {
 
@@ -163,6 +239,24 @@ public class TalendDate {
         }
     }
 
+    /**
+     * return difference between two dates
+     * 
+     * @param Date1 ( first date )
+     * @param Date1 ( second date )
+     * @return a number of years, months, days ... date1 - date2
+     * 
+     * {talendTypes} Long
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date1 : the first date to compare
+     * 
+     * {param} date(myDate) date2 : the second date to compare
+     * 
+     * {examples} diffDate(2008/11/24 12:15:25, 2008/10/14 16:10:35) : return 41 #
+     */
+
     public static long diffDate(Date date1, Date date2) {
         return diffDate(date1, date2, null);
     }
@@ -173,7 +267,13 @@ public class TalendDate {
      * @param date (a date value)
      * @return a new date (the date has been changed to the first day)
      * 
-     * {example} getFirstDayMonth(2008/02/24 12:15:25) return 2008/02/01 12:15:25
+     * {talendTypes} Date
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(mydate) date : the date to get first date of current month
+     * 
+     * {example} getFirstDayMonth(2008/02/24 12:15:25) return 2008/02/01 12:15:25 #
      */
     public static Date getFirstDayOfMonth(Date date) {
         Calendar c = Calendar.getInstance();
@@ -187,6 +287,12 @@ public class TalendDate {
      * 
      * @param date (a date value)
      * @return a new date (the date has been changed to the last day)
+     * 
+     * {talendTypes} Date
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(mydate) date : the date to get last date of current month
      * 
      * {example} getFirstDayMonth(2008/02/24 12:15:25) return 2008/02/28 12:15:25
      */
@@ -207,9 +313,23 @@ public class TalendDate {
      * @param dateType (the part)
      * @return a new date
      * 
-     * {examples} ->> setDate(2008/11/24 12:15:25, 2010, "yyyy") return 2010/11/24 12:15:25 ->> setDate(2008/11/24
-     * 12:15:25, 01, "MM") return 2008/01/24 12:15:25 ->> setDate(2008/11/24 12:15:25, 15, "dd") return 2008/11/15
-     * 12:15:25
+     * {talendTypes} Date
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(mydate) date : the date to set
+     * 
+     * {param} Integer(newValue) nb : the new value
+     * 
+     * {param} String("MM") dateType : the part to set
+     * 
+     * {examples}
+     * 
+     * ->> setDate(2008/11/24 12:15:25, 2010, "yyyy") return 2010/11/24 12:15:25
+     * 
+     * ->> setDate(2008/11/24 12:15:25, 01, "MM") return 2008/01/24 12:15:25
+     * 
+     * ->> setDate(2008/11/24 12:15:25, 15, "dd") return 2008/11/15 12:15:25 #
      */
     public static Date setDate(Date date, int nb, String dateType) {
         if (nb < 0) {
