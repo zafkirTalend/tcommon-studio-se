@@ -25,8 +25,10 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
@@ -102,4 +104,6 @@ public interface IRepositoryService extends IService {
     public IPreferenceStore getRepositoryPreferenceStore();
 
     public RepositoryNode getRepositoryNode(String id, boolean expanded);
+
+    public void openRepositoryReviewDialog(ERepositoryObjectType type, String repositoryType, List<IContextParameter> params);
 }

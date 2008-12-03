@@ -37,7 +37,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private boolean readOnly;
 
-    private ConextTemplateComposite template;
+    private ContextTemplateComposite template;
 
     private ConextTreeValuesComposite treeValues;
 
@@ -213,7 +213,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
     };
 
     private void creatTemplate(CTabFolder tab, CTabItem templateItem) {
-        template = new ConextTemplateComposite(tab, this);
+        template = new ContextTemplateComposite(tab, this);
         templateItem.setControl(template);
     }
 

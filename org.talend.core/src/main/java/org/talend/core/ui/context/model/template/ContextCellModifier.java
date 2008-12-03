@@ -24,7 +24,7 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.ui.context.ConextTemplateComposite;
+import org.talend.core.ui.context.ContextTemplateComposite;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.IContextModelManager;
 
@@ -33,9 +33,9 @@ import org.talend.core.ui.context.IContextModelManager;
  */
 public class ContextCellModifier implements ICellModifier {
 
-    private ConextTemplateComposite parentTool;
+    private ContextTemplateComposite parentTool;
 
-    public ContextCellModifier(ConextTemplateComposite parentComposite) {
+    public ContextCellModifier(ContextTemplateComposite parentComposite) {
         super();
         this.parentTool = parentComposite;
         if (parentComposite == null) {

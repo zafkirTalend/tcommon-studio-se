@@ -18,6 +18,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -26,6 +29,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -39,6 +43,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -60,6 +65,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.context.action.ContextBuiltinToRepositoryAction;
 import org.talend.core.ui.context.model.template.ContextCellModifier;
 import org.talend.core.ui.context.model.template.ContextColumnSorterListener;
 import org.talend.core.ui.context.model.template.ContextConstant;
@@ -77,7 +83,7 @@ import org.talend.core.ui.images.ECoreImage;
  * zwang class global comment. Detailled comment <br/>
  * 
  */
-public class ConextTemplateComposite extends AbstractContextTabEditComposite {
+public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
     public static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
 
@@ -113,7 +119,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
      * @param parent
      * @param style
      */
-    public ConextTemplateComposite(Composite parent, IContextModelManager manager) {
+    public ContextTemplateComposite(Composite parent, IContextModelManager manager) {
         super(parent, SWT.NONE);
         buttonList = new ArrayList<Button>();
         modelManager = manager;
@@ -153,7 +159,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
      */
     private void initializeUI() {
         ComboBoxCellEditor comboBoxCellEditor = null;
-        viewer = new TreeViewer(this, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+        viewer = new TreeViewer(this, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.MULTI);
         final Tree tree = viewer.getTree();
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
@@ -226,6 +232,8 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
             }
         });
 
+        createPopupMenu();
+
         final Composite buttonsComposite = new Composite(this, SWT.NONE);
         buttonsComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComposite);
@@ -247,6 +255,26 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
         }
         orderButton = createOrderCheckButton(buttonsComposite);
         buttonList.add(orderButton);
+    }
+
+    /**
+     * 
+     * DOC xye Comment method "createPopupMenu".
+     */
+    private void createPopupMenu() {
+        final MenuManager menuMgr = new MenuManager("#PopUp"); //$NON-NLS-1$
+        menuMgr.setRemoveAllWhenShown(true);
+        menuMgr.addMenuListener(new IMenuListener() {
+
+            public void menuAboutToShow(IMenuManager mgr) {
+                ContextBuiltinToRepositoryAction action = new ContextBuiltinToRepositoryAction();
+                action.init(viewer, (IStructuredSelection) viewer.getSelection());
+                menuMgr.add(action);
+            }
+        });
+
+        Menu menu = menuMgr.createContextMenu(viewer.getControl());
+        viewer.getControl().setMenu(menu);
     }
 
     private void addSorter(final TreeViewer viewer2) {
@@ -490,38 +518,46 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
 
                 IContextParameter parameter = null;
                 TreeItem[] items = viewer.getTree().getSelection();
+
+                Object[] obj = new Object[items.length];
+
+                for (int i = 0; i < obj.length; i++) {
+                    obj[i] = items[i].getData();
+                }
+
                 if (items.length > 0) {
-                    IContextParameter beforeParam = ContextManagerHelper.getNearParameterBySelectionItem(getViewer());
-                    Object object = items[0].getData();
-                    if (object == null) {
-                        return;
-                    }
-                    if (object instanceof ContextParameterSortedParent) {
-                        if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceName())) {
-                            parameter = ((ContextParameterSortedParent) object).getParameter();
-                            modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
-                        } else {
-                            Set<String> names = new HashSet<String>();
-                            for (ContextParameterSon son : ((ContextParameterSortedParent) object).getSon()) {
-                                parameter = ((ContextParameterSortedSon) son).getParameter();
-                                names.add(parameter.getName());
-                            }
-                            modelManager.onContextRemoveParameter(getContextManager(), names);
+                    for (Object object : obj) {// multi delete
+                        IContextParameter beforeParam = ContextManagerHelper.getNearParameterBySelectionItem(getViewer());
+                        if (object == null) {
+                            return;
                         }
-                    } else if (object instanceof ContextParameterSortedSon) {
-                        parameter = ((ContextParameterSortedSon) object).getParameter();
-                        modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
-                    } else if (object instanceof ContextParameterParent) {
-                        parameter = ((ContextParameterParent) object).getParameter();
-                        modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
+                        if (object instanceof ContextParameterSortedParent) {
+                            if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceName())) {
+                                parameter = ((ContextParameterSortedParent) object).getParameter();
+                                modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
+                            } else {
+                                Set<String> names = new HashSet<String>();
+                                for (ContextParameterSon son : ((ContextParameterSortedParent) object).getSon()) {
+                                    parameter = ((ContextParameterSortedSon) son).getParameter();
+                                    names.add(parameter.getName());
+                                }
+                                modelManager.onContextRemoveParameter(getContextManager(), names);
+                            }
+                        } else if (object instanceof ContextParameterSortedSon) {
+                            parameter = ((ContextParameterSortedSon) object).getParameter();
+                            modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
+                        } else if (object instanceof ContextParameterParent) {
+                            parameter = ((ContextParameterParent) object).getParameter();
+                            modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
+                        }
+                        ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
+                        checkButtonEnableState();
                     }
 
-                    ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
-                    checkButtonEnableState();
                 }
             }
-
         });
+
         Image image = ImageProvider.getImage(EImage.DELETE_ICON);
         removePushButton.setImage(image);
         return removePushButton;
@@ -629,12 +665,21 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
     private void checkButtonEnableState() {
         boolean orderEnable = false;
         boolean selectionEnable = false;
+        boolean removeEnable = false;
         if (this.orderButton != null) {
             orderEnable = this.orderButton.getSelection();
         }
         if (this.viewer != null) {
             ISelection selection = this.viewer.getSelection();
             selectionEnable = !selection.isEmpty();
+            removeEnable = !selection.isEmpty();
+            if (selection instanceof IStructuredSelection) {
+                IStructuredSelection sel = (IStructuredSelection) selection;
+                if (sel.size() > 1) {
+                    // Multi selection, not support sort
+                    selectionEnable = false;
+                }
+            }
         }
         selectionEnable = selectionEnable && !modelManager.isReadOnly();
         boolean moveState = orderEnable && selectionEnable;
@@ -645,7 +690,7 @@ public class ConextTemplateComposite extends AbstractContextTabEditComposite {
             this.moveDownButton.setEnabled(moveState);
         }
         if (this.removeButton != null) {
-            this.removeButton.setEnabled(selectionEnable);
+            this.removeButton.setEnabled(removeEnable);
         }
     }
 

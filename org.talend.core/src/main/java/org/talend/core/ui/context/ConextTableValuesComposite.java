@@ -437,7 +437,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         viewer.setContentProvider(provider);
         addSorter(viewer);
 
-        List<IContextParameter> contextTemplate = ConextTemplateComposite.computeContextTemplate(contextList);
+        List<IContextParameter> contextTemplate = ContextTemplateComposite.computeContextTemplate(contextList);
         viewer.setInput(contextTemplate);
         viewer.expandAll();
         contextConfigButton.setEnabled(!modelManager.isReadOnly());

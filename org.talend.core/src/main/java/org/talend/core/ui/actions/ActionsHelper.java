@@ -44,8 +44,7 @@ public class ActionsHelper {
 
         for (IConfigurationElement current : extension) {
             try {
-                ITreeContextualAction currentAction = (ITreeContextualAction) current
-                        .createExecutableExtension("class"); //$NON-NLS-1$
+                ITreeContextualAction currentAction = (ITreeContextualAction) current.createExecutableExtension("class"); //$NON-NLS-1$
                 try {
                     int level = Integer.parseInt(current.getAttribute("level")); //$NON-NLS-1$
                     currentAction.setLevel(level);
@@ -86,5 +85,24 @@ public class ActionsHelper {
             return l1.compareTo(l2);
         }
 
+    }
+
+    /**
+     * 
+     * DOC xye Comment method "getActionById".
+     * 
+     * @param id
+     * @return
+     */
+    public static ITreeContextualAction getActionById(String id) {
+        List<ITreeContextualAction> actions = getRepositoryContextualsActions();
+        if (actions != null && !actions.isEmpty()) {
+            for (ITreeContextualAction action : actions) {
+                if (action.getId().equals(id)) {
+                    return action;
+                }
+            }
+        }
+        return null;
     }
 }
