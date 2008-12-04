@@ -61,4 +61,4 @@ Export-Package: org.apache.commons.beanutils,
  org.apache.oro.util
 Bundle-Vendor: .Talend SA.
 Eclipse-BuddyPolicy: dependent
-Require-Bundle: org.talend.libraries.logging;resolution:=optional
+Require-Bundle: org.apache.log4j;bundle-version="1.2.13";resolution:=optional
