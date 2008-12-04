@@ -60,7 +60,10 @@ import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -68,6 +71,7 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -194,6 +198,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
 
         final TreeEditor treeEditor = new TreeEditor(tree);
         createEditorListener(treeEditor);
+
         tree.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -217,6 +222,40 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         });
 
         valueChecker = new ContextValueErrorChecker(viewer);
+
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
+            createTreeTooltip(tree);
+        }
+
+    }
+
+    /**
+     * DOC bqian Comment method "createTreeTooltip".
+     * 
+     * @param tree
+     */
+    protected void createTreeTooltip(Tree tree) {
+        new AbstractTreeTooltip(tree) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip#getTooltipContent(org.eclipse.swt.widgets.TreeItem)
+             */
+            @Override
+            public String getTooltipContent(TreeItem item) {
+
+                IContextParameter para = cellModifier.getRealParameter(item.getData());
+
+                if (para.getType().equalsIgnoreCase(getPerlStringType())) {
+                    return Messages.getString("PromptDialog.stringTip");
+                }
+
+                return null;
+            }
+        };
+
     }
 
     /**

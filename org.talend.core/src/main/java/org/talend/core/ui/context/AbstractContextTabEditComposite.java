@@ -13,12 +13,19 @@
 package org.talend.core.ui.context;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
+import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier;
+import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
  * 
  */
 public abstract class AbstractContextTabEditComposite extends Composite {
+
+    private static final String PERL_STRING_TYPE = "string";
 
     /**
      * DOC YeXiaowei AbstractContextTabEditComposite constructor comment.
@@ -38,6 +45,10 @@ public abstract class AbstractContextTabEditComposite extends Composite {
 
     public void setNeedRefresh(boolean refresh) {
         this.needRefresh = refresh;
+    }
+
+    public String getPerlStringType() {
+        return PERL_STRING_TYPE;
     }
 
     public abstract void refresh();

@@ -51,15 +51,22 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier;
+import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Parent;
+import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
 import org.talend.core.ui.context.model.template.ContextConstant;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC zwang class global comment. Detailled comment <br/>
@@ -88,6 +95,8 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
     private CellEditor[] cellEditors;
 
     private ContextValueErrorChecker valueChecker;
+
+    private static final int VALUES_INDEX = 1;
 
     /**
      * Constructor.
@@ -189,9 +198,46 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                 / CONTEXT_COLUMN_WIDTH);
                     }
                 }
+
             }
         });
         valueChecker = new ContextValueErrorChecker(viewer);
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
+            createTreeTooltip(tree);
+        }
+    }
+
+    /**
+     * DOC bqian Comment method "createTreeTooltip".
+     * 
+     * @param tree
+     */
+    protected void createTreeTooltip(final Tree tree) {
+        new AbstractTreeTooltip(tree) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip#getTooltipContent(org.eclipse.swt.widgets.TreeItem)
+             */
+            @Override
+            public String getTooltipContent(TreeItem item) {
+
+                String property = "";
+                if (properties != null && properties.length > VALUES_INDEX ) {
+                    property = properties[VALUES_INDEX];
+                }
+
+                IContextParameter para = cellModifier.getRealParameter(property, item.getData());
+                if (para.getType().equalsIgnoreCase(getPerlStringType())) {
+                    return Messages.getString("PromptDialog.stringTip");
+                }
+
+                return null;
+            }
+        };
+
     }
 
     private IPreferenceStore getPreferenceStore() {
