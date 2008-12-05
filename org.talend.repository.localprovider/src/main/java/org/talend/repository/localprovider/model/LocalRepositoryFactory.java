@@ -14,6 +14,7 @@ package org.talend.repository.localprovider.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -93,6 +94,7 @@ import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.URIHelper;
 import org.talend.repository.model.VersionList;
+import org.talend.repository.ui.views.RepositoryLabelProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -1137,8 +1139,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getJobletProcess());
-        itemResource.getContents().add(item.getIcon());
 
+        if (item.getIcon() != null) {
+            itemResource.getContents().add(item.getIcon());
+        } else {
+            File image = RepositoryLabelProvider.getDefaultJobletImage();
+            item.setIcon(PropertiesFactory.eINSTANCE.createByteArray());
+            try {
+                item.getIcon().setInnerContentFromFile(image);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
         return itemResource;
     }
 
