@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
  * DOC stephane class global comment. Detailled comment
@@ -28,13 +30,17 @@ public abstract class AbstractJobMigrationTask extends AbstractItemMigrationTask
     public List<ERepositoryObjectType> getTypes() {
         List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
         toReturn.add(ERepositoryObjectType.PROCESS);
+        toReturn.add(ERepositoryObjectType.JOBLET);
         return toReturn;
     }
-
-    @Override
-    public final ExecutionResult execute(Item item) {
-        return executeOnProcess((ProcessItem) item);
-    }
-
-    public abstract ExecutionResult executeOnProcess(ProcessItem item);
+    
+    public ProcessType getProcessType(Item item) {
+		if (item instanceof ProcessItem) {
+			return ((ProcessItem) item).getProcess();
+		}
+		if (item instanceof JobletProcessItem) {
+			return ((JobletProcessItem) item).getJobletProcess();
+		}
+		return null;
+	}
 }
