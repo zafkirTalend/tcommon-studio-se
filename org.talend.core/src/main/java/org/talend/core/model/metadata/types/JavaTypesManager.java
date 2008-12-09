@@ -96,8 +96,6 @@ public final class JavaTypesManager {
 
     private static final List<String> JAVA_PRIMITIVE_TYPES = new ArrayList<String>();
 
-    private static final JavaType[] NUMBER_TYPES = new JavaType[] { INTEGER, FLOAT, DOUBLE, LONG, SHORT, BIGDECIMAL, BYTE };
-
     static {
         init();
     }
@@ -244,7 +242,7 @@ public final class JavaTypesManager {
      * @param nullable
      * @return
      */
-    private static String getTypeToGenerate(JavaType javaType, boolean nullable) {
+    public static String getTypeToGenerate(JavaType javaType, boolean nullable) {
         if (javaType == null) {
             return null;
         }
@@ -315,14 +313,23 @@ public final class JavaTypesManager {
      * 
      * @param type
      * @return true if given type represents a primitive java type
+     * @deprecated use same method without boolean <code>nullable</code>
      */
     public static boolean isNumberType(JavaType javaType, boolean nullable) {
-        for (JavaType numbertype : NUMBER_TYPES) {
-            if (numbertype.equals(javaType)) {
-                return true;
-            }
-        }
-        return false;
+        return Number.class.isAssignableFrom(javaType.getNullableClass());
+    }
+
+    /**
+     * They are all the number type.
+     * <p>
+     * int(Integer), float(Float), double(Double), long(Long), short(Short), byte(Byte), BigDecimal.
+     * </p>
+     * 
+     * @param type
+     * @return true if given type represents a primitive java type
+     */
+    public static boolean isNumberType(JavaType javaType) {
+        return Number.class.isAssignableFrom(javaType.getNullableClass());
     }
 
     /**
@@ -402,6 +409,11 @@ public final class JavaTypesManager {
         for (JavaType javaType : javaTypes2) {
             System.out.println("id = " + javaType.getId());
         }
+
+        System.out.println("INTEGER is number:" + isNumberType(INTEGER));
+        System.out.println("BIGDECIMAL is number:" + isNumberType(BIGDECIMAL));
+        System.out.println("LIST is number:" + isNumberType(LIST));
+        System.out.println("STRING is number:" + isNumberType(STRING));
 
         System.out.println(JavaTypesManager.getJavaTypeFromName("String")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("int")); //$NON-NLS-1$
