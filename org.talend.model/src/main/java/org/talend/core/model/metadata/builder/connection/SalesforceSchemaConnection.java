@@ -20,6 +20,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getPassword <em>Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getQueryCondition <em>Query Condition</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName <em>Use Custom Module Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,5 +158,31 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setQueryCondition(String value);
+
+    /**
+     * Returns the value of the '<em><b>Use Custom Module Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use Custom Module Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use Custom Module Name</em>' attribute.
+     * @see #setUseCustomModuleName(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_UseCustomModuleName()
+     * @model
+     * @generated
+     */
+    boolean isUseCustomModuleName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName <em>Use Custom Module Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use Custom Module Name</em>' attribute.
+     * @see #isUseCustomModuleName()
+     * @generated
+     */
+    void setUseCustomModuleName(boolean value);
 
 } // SalesforceSchemaConnection

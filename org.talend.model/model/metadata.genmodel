@@ -281,6 +281,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/password"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/moduleName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/queryCondition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/useCustomModuleName"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//CDCConnection">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//CDCConnection/connection"/>

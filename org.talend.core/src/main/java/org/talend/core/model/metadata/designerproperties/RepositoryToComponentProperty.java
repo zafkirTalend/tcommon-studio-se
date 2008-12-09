@@ -270,8 +270,14 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getPassword());
             }
+        } else if ("CUSTOM_MODULE_NAME".equals(value)) {
+            return TalendTextUtils.addQuotes(connection.getModuleName());
         } else if ("MODULENAME".equals(value)) {
-            return connection.getModuleName();
+            if (connection.isUseCustomModuleName()) {
+                return "CustomModule";
+            } else {
+                return connection.getModuleName();
+            }
         } else if ("QUERY_CONDITION".equals(value)) {
             if (isConetxtMode(connection, connection.getQueryCondition())) {
                 return connection.getQueryCondition();

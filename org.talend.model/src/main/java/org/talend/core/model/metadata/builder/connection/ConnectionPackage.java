@@ -5136,13 +5136,22 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION = CONNECTION_FEATURE_COUNT + 4;
 
     /**
+     * The feature id for the '<em><b>Use Custom Module Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
      * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 6;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
@@ -7677,6 +7686,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceSchemaConnection_QueryCondition();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName <em>Use Custom Module Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Custom Module Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_UseCustomModuleName();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9559,6 +9579,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION = eINSTANCE.getSalesforceSchemaConnection_QueryCondition();
+
+        /**
+         * The meta object literal for the '<em><b>Use Custom Module Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME = eINSTANCE.getSalesforceSchemaConnection_UseCustomModuleName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.

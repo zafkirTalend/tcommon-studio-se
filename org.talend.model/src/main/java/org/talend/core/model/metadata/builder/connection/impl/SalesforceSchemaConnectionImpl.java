@@ -27,6 +27,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getPassword <em>Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getQueryCondition <em>Query Condition</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseCustomModuleName <em>Use Custom Module Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,6 +133,26 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected String queryCondition = QUERY_CONDITION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseCustomModuleName() <em>Use Custom Module Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseCustomModuleName()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_CUSTOM_MODULE_NAME_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseCustomModuleName() <em>Use Custom Module Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseCustomModuleName()
+     * @generated
+     * @ordered
+     */
+    protected boolean useCustomModuleName = USE_CUSTOM_MODULE_NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -261,6 +282,27 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isUseCustomModuleName() {
+        return useCustomModuleName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseCustomModuleName(boolean newUseCustomModuleName) {
+        boolean oldUseCustomModuleName = useCustomModuleName;
+        useCustomModuleName = newUseCustomModuleName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME, oldUseCustomModuleName, useCustomModuleName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
@@ -273,6 +315,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return getModuleName();
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
                 return getQueryCondition();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+                return isUseCustomModuleName() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -298,6 +342,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
                 setQueryCondition((String)newValue);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+                setUseCustomModuleName(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -325,6 +372,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
                 setQueryCondition(QUERY_CONDITION_EDEFAULT);
                 return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+                setUseCustomModuleName(USE_CUSTOM_MODULE_NAME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -346,6 +396,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
                 return QUERY_CONDITION_EDEFAULT == null ? queryCondition != null : !QUERY_CONDITION_EDEFAULT.equals(queryCondition);
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+                return useCustomModuleName != USE_CUSTOM_MODULE_NAME_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -369,6 +421,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(moduleName);
         result.append(", queryCondition: ");
         result.append(queryCondition);
+        result.append(", useCustomModuleName: ");
+        result.append(useCustomModuleName);
         result.append(')');
         return result.toString();
     }

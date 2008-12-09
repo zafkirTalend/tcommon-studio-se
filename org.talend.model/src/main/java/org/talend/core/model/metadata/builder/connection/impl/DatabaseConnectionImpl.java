@@ -539,9 +539,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDatabaseType(String newDatabaseType) {
         String oldDatabaseType = databaseType;
         databaseType = newDatabaseType;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE, oldDatabaseType, databaseType));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE, oldDatabaseType, databaseType));
     }
 
     /**
@@ -561,9 +560,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDriverJarPath(String newDriverJarPath) {
         String oldDriverJarPath = driverJarPath;
         driverJarPath = newDriverJarPath;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH, oldDriverJarPath, driverJarPath));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH, oldDriverJarPath, driverJarPath));
     }
 
     /**
@@ -583,9 +581,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDriverClass(String newDriverClass) {
         String oldDriverClass = driverClass;
         driverClass = newDriverClass;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS, oldDriverClass, driverClass));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS, oldDriverClass, driverClass));
     }
 
     /**
@@ -605,9 +602,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setURL(String newURL) {
         String oldURL = url;
         url = newURL;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__URL, oldURL, url));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__URL, oldURL, url));
     }
 
     /**
@@ -627,9 +623,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDbVersionString(String newDbVersionString) {
         String oldDbVersionString = dbVersionString;
         dbVersionString = newDbVersionString;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING, oldDbVersionString, dbVersionString));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING, oldDbVersionString, dbVersionString));
     }
 
     /**
@@ -649,9 +644,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setPort(String newPort) {
         String oldPort = port;
         port = newPort;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PORT, oldPort, port));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PORT, oldPort, port));
     }
 
     /**
@@ -671,9 +665,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setUsername(String newUsername) {
         String oldUsername = username;
         username = newUsername;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__USERNAME, oldUsername, username));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__USERNAME, oldUsername, username));
     }
 
 	/**
@@ -711,9 +704,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setPassword(String newPassword) {
         String oldPassword = password;
         password = newPassword;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PASSWORD, oldPassword, password));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PASSWORD, oldPassword, password));
     }
 
     /**
@@ -733,9 +725,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setServerName(String newServerName) {
         String oldServerName = serverName;
         serverName = newServerName;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME, oldServerName, serverName));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME, oldServerName, serverName));
     }
 
     /**
@@ -755,9 +746,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDatasourceName(String newDatasourceName) {
         String oldDatasourceName = datasourceName;
         datasourceName = newDatasourceName;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME, oldDatasourceName, datasourceName));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME, oldDatasourceName, datasourceName));
     }
 
     /**
@@ -777,9 +767,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setFileFieldName(String newFileFieldName) {
         String oldFileFieldName = fileFieldName;
         fileFieldName = newFileFieldName;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME, oldFileFieldName, fileFieldName));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME, oldFileFieldName, fileFieldName));
     }
 
     /**
@@ -799,9 +788,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setSchema(String newSchema) {
         String oldSchema = schema;
         schema = newSchema;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SCHEMA, oldSchema, schema));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SCHEMA, oldSchema, schema));
     }
 
     /**
@@ -821,9 +809,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setSID(String newSID) {
         String oldSID = sid;
         sid = newSID;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SID, oldSID, sid));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SID, oldSID, sid));
     }
 
     /**
@@ -843,9 +830,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setSqlSynthax(String newSqlSynthax) {
         String oldSqlSynthax = sqlSynthax;
         sqlSynthax = newSqlSynthax;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX, oldSqlSynthax, sqlSynthax));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX, oldSqlSynthax, sqlSynthax));
     }
 
     /**
@@ -865,9 +851,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setStringQuote(String newStringQuote) {
         String oldStringQuote = stringQuote;
         stringQuote = newStringQuote;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE, oldStringQuote, stringQuote));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE, oldStringQuote, stringQuote));
     }
 
     /**
@@ -887,9 +872,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setNullChar(String newNullChar) {
         String oldNullChar = nullChar;
         nullChar = newNullChar;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR, oldNullChar, nullChar));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR, oldNullChar, nullChar));
     }
 
     /**
@@ -909,9 +893,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDbmsId(String newDbmsId) {
         String oldDbmsId = dbmsId;
         dbmsId = newDbmsId;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DBMS_ID, oldDbmsId, dbmsId));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DBMS_ID, oldDbmsId, dbmsId));
     }
 
     /**
@@ -931,9 +914,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setProductId(String newProductId) {
         String oldProductId = productId;
         productId = newProductId;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID, oldProductId, productId));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID, oldProductId, productId));
     }
 
     /**
@@ -953,9 +935,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setDBRootPath(String newDBRootPath) {
         String oldDBRootPath = dbRootPath;
         dbRootPath = newDBRootPath;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH, oldDBRootPath, dbRootPath));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH, oldDBRootPath, dbRootPath));
     }
 
     /**
@@ -975,9 +956,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setAdditionalParams(String newAdditionalParams) {
         String oldAdditionalParams = additionalParams;
         additionalParams = newAdditionalParams;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS, oldAdditionalParams, additionalParams));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS, oldAdditionalParams, additionalParams));
     }
 
     /**
@@ -997,9 +977,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setStandardSQL(boolean newStandardSQL) {
         boolean oldStandardSQL = standardSQL;
         standardSQL = newStandardSQL;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL, oldStandardSQL, standardSQL));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL, oldStandardSQL, standardSQL));
     }
 
     /**
@@ -1019,9 +998,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setSystemSQL(boolean newSystemSQL) {
         boolean oldSystemSQL = systemSQL;
         systemSQL = newSystemSQL;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL, oldSystemSQL, systemSQL));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL, oldSystemSQL, systemSQL));
     }
 
     /**
@@ -1043,11 +1021,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         cdcConns = newCdcConns;
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, oldCdcConns, newCdcConns);
-            if (msgs == null) {
-				msgs = notification;
-			} else {
-				msgs.add(notification);
-			}
+            if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
     }
@@ -1060,20 +1034,15 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     public void setCdcConns(CDCConnection newCdcConns) {
         if (newCdcConns != cdcConns) {
             NotificationChain msgs = null;
-            if (cdcConns != null) {
-				msgs = ((InternalEObject)cdcConns).eInverseRemove(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
-			}
-            if (newCdcConns != null) {
-				msgs = ((InternalEObject)newCdcConns).eInverseAdd(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
-			}
+            if (cdcConns != null)
+                msgs = ((InternalEObject)cdcConns).eInverseRemove(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
+            if (newCdcConns != null)
+                msgs = ((InternalEObject)newCdcConns).eInverseAdd(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
             msgs = basicSetCdcConns(newCdcConns, msgs);
-            if (msgs != null) {
-				msgs.dispatch();
-			}
+            if (msgs != null) msgs.dispatch();
         }
-        else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, newCdcConns, newCdcConns));
-		}
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, newCdcConns, newCdcConns));
     }
 
     /**
@@ -1085,9 +1054,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-                if (cdcConns != null) {
-					msgs = ((InternalEObject)cdcConns).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, null, msgs);
-				}
+                if (cdcConns != null)
+                    msgs = ((InternalEObject)cdcConns).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, null, msgs);
                 return basicSetCdcConns((CDCConnection)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -1392,9 +1360,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      */
     @Override
 	public String toString() {
-        if (eIsProxy()) {
-			return super.toString();
-		}
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (DatabaseType: ");
