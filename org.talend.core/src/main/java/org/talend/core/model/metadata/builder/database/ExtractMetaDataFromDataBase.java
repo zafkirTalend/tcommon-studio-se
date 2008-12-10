@@ -169,6 +169,10 @@ public class ExtractMetaDataFromDataBase {
             if (tableName == null) {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
             }
+            if (tableName == null) {
+                System.out.println("table name is null");
+            }
+
             medataTable.setLabel(tableName); //$NON-NLS-1$
             medataTable.setTableName(medataTable.getLabel());
 
@@ -185,6 +189,9 @@ public class ExtractMetaDataFromDataBase {
             String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE");
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
+            }
+            if (tableType.equals("T")) {
+                tableType = ETableTypes.TABLETYPE_TABLE.getName();
             }
 
             try {

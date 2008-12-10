@@ -26,6 +26,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -56,7 +57,12 @@ public class ExtractMetaDataUtils {
 
         DatabaseMetaData dbMetaData = null;
         try {
+
             dbMetaData = conn.getMetaData();
+            if (needFakeDatabaseMetaData(dbMetaData)) {
+                dbMetaData = createFakeDatabaseMetaData(conn);
+            }
+
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -65,6 +71,36 @@ public class ExtractMetaDataUtils {
             throw new RuntimeException(e);
         }
         return dbMetaData;
+    }
+
+    /**
+     * check if a FakeDatabaseMetaData is needed. only for db2 on z/os right now.
+     * 
+     * @param dbMetaData
+     * @return
+     */
+    private static boolean needFakeDatabaseMetaData(DatabaseMetaData dbMetaData) {
+        // TODO check if it's db2 for z/os
+        try {
+            if (dbMetaData.getDatabaseProductName().equals("db2 for z/os")) {
+                return false;
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    /**
+     * only for db2 on z/os right now.
+     * 
+     * @param conn2
+     * @return
+     */
+    private static DatabaseMetaData createFakeDatabaseMetaData(Connection conn) {
+        DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
+        return dmd;
     }
 
     /**
