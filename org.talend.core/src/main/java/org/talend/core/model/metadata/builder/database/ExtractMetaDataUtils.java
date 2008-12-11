@@ -83,13 +83,13 @@ public class ExtractMetaDataUtils {
         // TODO check if it's db2 for z/os
         try {
             if (dbMetaData.getDatabaseProductName().equals("db2 for z/os")) {
-                return false;
+                return true;
             }
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
         }
-        return true;
+        return false;
     }
 
     /**
