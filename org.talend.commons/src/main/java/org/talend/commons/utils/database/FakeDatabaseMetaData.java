@@ -15,7 +15,6 @@ package org.talend.commons.utils.database;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.RowIdLifetime;
 import java.sql.SQLException;
 
 /**
@@ -340,10 +339,10 @@ public class FakeDatabaseMetaData implements DatabaseMetaData {
         return 0;
     }
 
-    public RowIdLifetime getRowIdLifetime() throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    // public RowIdLifetime getRowIdLifetime() throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
 
     public ResultSet getSchemas() throws SQLException {
         // TODO Auto-generated method stub

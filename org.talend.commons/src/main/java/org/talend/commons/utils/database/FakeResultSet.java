@@ -20,14 +20,11 @@ import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Date;
-import java.sql.NClob;
 import java.sql.Ref;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
-import java.sql.SQLXML;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -554,21 +551,19 @@ public class FakeResultSet implements ResultSet {
      * 
      * @see java.sql.ResultSet#getNClob(int)
      */
-    public NClob getNClob(int columnIndex) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    // public NClob getNClob(int columnIndex) throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#getNClob(java.lang.String)
      */
-    public NClob getNClob(String columnLabel) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    // public NClob getNClob(String columnLabel) throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
     /*
      * (non-Javadoc)
      * 
@@ -664,41 +659,37 @@ public class FakeResultSet implements ResultSet {
      * 
      * @see java.sql.ResultSet#getRowId(int)
      */
-    public RowId getRowId(int columnIndex) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    // public RowId getRowId(int columnIndex) throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#getRowId(java.lang.String)
      */
-    public RowId getRowId(String columnLabel) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    // public RowId getRowId(String columnLabel) throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#getSQLXML(int)
      */
-    public SQLXML getSQLXML(int columnIndex) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    // public SQLXML getSQLXML(int columnIndex) throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#getSQLXML(java.lang.String)
      */
-    public SQLXML getSQLXML(String columnLabel) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    // public SQLXML getSQLXML(String columnLabel) throws SQLException {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
     /*
      * (non-Javadoc)
      * 
@@ -1614,21 +1605,19 @@ public class FakeResultSet implements ResultSet {
      * 
      * @see java.sql.ResultSet#updateNClob(int, java.sql.NClob)
      */
-    public void updateNClob(int columnIndex, NClob clob) throws SQLException {
-        // TODO Auto-generated method stub
-
-    }
-
+    // public void updateNClob(int columnIndex, NClob clob) throws SQLException {
+    // // TODO Auto-generated method stub
+    //
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#updateNClob(java.lang.String, java.sql.NClob)
      */
-    public void updateNClob(String columnLabel, NClob clob) throws SQLException {
-        // TODO Auto-generated method stub
-
-    }
-
+    // public void updateNClob(String columnLabel, NClob clob) throws SQLException {
+    // // TODO Auto-generated method stub
+    //
+    // }
     /*
      * (non-Javadoc)
      * 
@@ -1784,41 +1773,37 @@ public class FakeResultSet implements ResultSet {
      * 
      * @see java.sql.ResultSet#updateRowId(int, java.sql.RowId)
      */
-    public void updateRowId(int columnIndex, RowId x) throws SQLException {
-        // TODO Auto-generated method stub
-
-    }
-
+    // public void updateRowId(int columnIndex, RowId x) throws SQLException {
+    // // TODO Auto-generated method stub
+    //
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#updateRowId(java.lang.String, java.sql.RowId)
      */
-    public void updateRowId(String columnLabel, RowId x) throws SQLException {
-        // TODO Auto-generated method stub
-
-    }
-
+    // public void updateRowId(String columnLabel, RowId x) throws SQLException {
+    // // TODO Auto-generated method stub
+    //
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#updateSQLXML(int, java.sql.SQLXML)
      */
-    public void updateSQLXML(int columnIndex, SQLXML xmlObject) throws SQLException {
-        // TODO Auto-generated method stub
-
-    }
-
+    // public void updateSQLXML(int columnIndex, SQLXML xmlObject) throws SQLException {
+    // // TODO Auto-generated method stub
+    //
+    // }
     /*
      * (non-Javadoc)
      * 
      * @see java.sql.ResultSet#updateSQLXML(java.lang.String, java.sql.SQLXML)
      */
-    public void updateSQLXML(String columnLabel, SQLXML xmlObject) throws SQLException {
-        // TODO Auto-generated method stub
-
-    }
-
+    // public void updateSQLXML(String columnLabel, SQLXML xmlObject) throws SQLException {
+    // // TODO Auto-generated method stub
+    //
+    // }
     /*
      * (non-Javadoc)
      * 
