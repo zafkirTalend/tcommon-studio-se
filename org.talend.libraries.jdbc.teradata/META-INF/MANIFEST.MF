@@ -1,0 +1,36 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Teradata Plug-in
+Bundle-SymbolicName: org.talend.libraries.jdbc.teradata
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: .Talend SA.
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ClassPath: lib/terajdbc4.jar,
+ lib/tdgssconfig.jar,
+ lib/tdgssjava.jar,
+ .
+Export-Package: com.ncr.teradata,
+ com.ncr.teradata.interfaces,
+ com.ncr.teradata.jalgapi,
+ com.ncr.teradata.jdbc,
+ com.ncr.teradata.jdbc.console,
+ com.ncr.teradata.jdbc.fastload,
+ com.ncr.teradata.jdbc.monitor,
+ com.ncr.teradata.jdbc_3,
+ com.ncr.teradata.jdbc_3.dbmetadata,
+ com.ncr.teradata.jdbc_3.ifjdbc_4,
+ com.ncr.teradata.jdbc_3.util,
+ com.ncr.teradata.jdbc_4,
+ com.ncr.teradata.jdbc_4.ifsupport,
+ com.ncr.teradata.jdbc_4.io,
+ com.ncr.teradata.jdbc_4.logging,
+ com.ncr.teradata.jdbc_4.parcel,
+ com.ncr.teradata.jdbc_4.statemachine,
+ com.ncr.teradata.jdbc_4.util,
+ com.ncr.teradata.jgssp2gss,
+ com.ncr.teradata.jgssp2ldap,
+ com.ncr.teradata.jgssp2td1,
+ com.ncr.teradata.jgssp2td2,
+ com.ncr.teradata.jtdgss,
+ com.ncr.teradata.resource,
+ org.ietf.jgssspi
