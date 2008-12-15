@@ -496,7 +496,7 @@ public class ElapsedTimeTest extends TestCase {
 	 * include this test in a test suite, since it would corrupt the suite's
 	 * result.
 	 */
-	boolean runWithInvalidAssertions = true; // ATTENTION when true, assertions will fail and test will be broken
+	boolean runWithInvalidAssertions = false; // ATTENTION when true, assertions will fail and test will be broken
 
 	public void testPositiveNbDaysDateBeforeEpoch() {
 		if (runWithInvalidAssertions == false) {
