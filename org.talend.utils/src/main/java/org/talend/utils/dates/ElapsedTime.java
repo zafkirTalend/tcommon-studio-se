@@ -48,7 +48,7 @@ public final class ElapsedTime {
     /** temporary calendar reserved in getNbDays(). */
     private static final Calendar TMP_GREG_CAL_2 = new GregorianCalendar();
 
-    private static final int NB_MILLIS_PER_MINUTE = 6000;
+    private static final int NB_MILLIS_PER_MINUTE = 60000;
 
     /**
      * @param first the first date

@@ -26,6 +26,9 @@ import java.util.Set;
  */
 public abstract class ValueAggregate<T, N> {
 
+    /**
+     * map [key -> array of values].
+     */
     protected Map<T, N[]> keyToVal = new HashMap<T, N[]>();
 
     /**
