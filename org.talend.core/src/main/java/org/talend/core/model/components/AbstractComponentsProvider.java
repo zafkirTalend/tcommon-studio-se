@@ -17,11 +17,13 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 
@@ -87,6 +89,13 @@ public abstract class AbstractComponentsProvider {
 
         IPath path = new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER).append(
                 IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER).append(folderName);
+        
+        // bug fix : several headless instance should not use the same folder
+        if (CommonsPlugin.isHeadless()) {
+            String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
+            path = path.append(workspaceName);
+        }
+        
         installationFolder = new File(bundleFolder, path.toOSString());
 
         return installationFolder;
