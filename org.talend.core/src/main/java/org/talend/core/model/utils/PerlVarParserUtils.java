@@ -102,10 +102,12 @@ public final class PerlVarParserUtils {
             PatternMatcherInput input = new PatternMatcherInput(origin);
             PatternMatcher matcher = new Perl5Matcher();
 
+            int lastMatch = 0;
             List<int[]> offsets = new ArrayList<int[]>();
             while (matcher.contains(input, pattern)) {
                 MatchResult result = matcher.getMatch();
                 int[] temp = { result.beginOffset(0), result.endOffset(0) };
+                lastMatch = temp[1];
                 offsets.add(temp);
             }
 
@@ -125,6 +127,11 @@ public final class PerlVarParserUtils {
                     sepStrings.add(sep);
                     previewEnd = end;
                 }
+            }
+
+            // Last part string to replace
+            if (sepStrings != null && origin.length() > lastMatch) {
+                sepStrings.add(new KeyString(origin.substring(lastMatch), false));
             }
 
             // replace
