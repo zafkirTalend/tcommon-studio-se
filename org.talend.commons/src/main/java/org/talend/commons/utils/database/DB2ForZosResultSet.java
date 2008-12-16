@@ -15,6 +15,8 @@ package org.talend.commons.utils.database;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.talend.fakejdbc.FakeResultSet;
+
 /**
  * DOC bqian class global comment. Detailled comment
  */
