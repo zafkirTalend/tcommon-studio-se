@@ -220,6 +220,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         gd.verticalAlignment = GridData.FILL;
         gd.horizontalSpan = numColumns - 1;
         gd.grabExcessHorizontalSpace = true;
+        gd.grabExcessVerticalSpace = true;
         viewer.getTable().setLayoutData(gd);
 
         Composite buttonBox = getButtonBoxControl(parent);
