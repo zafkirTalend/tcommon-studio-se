@@ -165,7 +165,7 @@ for my $rev (@revs) {
     my $continue = 1;
     while ($continue == 1) {
 	print "\n--------------------------------------------------\n\n";
-	my $result = &prompt("a", "commit/status/revert/merge again/quit ?", "c/s/r/m/q", "s" );
+	my $result = &prompt("a", "log/commit/status/revert/merge again/quit ?", "l/c/s/r/m/q", "s" );
 
 	if ($result eq "c") {
 	    #commit
@@ -188,7 +188,15 @@ for my $rev (@revs) {
 	    }
 	} elsif ($result eq "q") {
 	    exit 0;
-	}
+	} elsif ($result eq "l") {
+            print "\n--------------------------------------------------\n";
+            open(my $logfile_ifh, "<", $logfile) || die "cannot open file $logfile for reading";
+            while (<$logfile_ifh>) {
+                print $_;
+            }
+            close($logfile_ifh);
+            print "--------------------------------------------------\n\n";
+        }
     }
 
     print "\n--------------------------------------------------\n\n";
