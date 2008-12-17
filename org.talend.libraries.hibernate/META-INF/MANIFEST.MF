@@ -19,6 +19,7 @@ Bundle-ClassPath: .,
 Require-Bundle: org.talend.libraries.apache,
  org.talend.libraries.jdbc.jtds;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.mysql;resolution:=optional;visibility:=reexport,
+ org.talend.libraries.jdbc.oracle;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.hsql;resolution:=optional,
  org.apache.xerces
 Export-Package: antlr,
