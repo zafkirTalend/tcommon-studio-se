@@ -124,4 +124,6 @@ public interface IDesignerCoreService extends IService {
      * @param item
      */
     public void refreshComponentView(Item item);
+
+    public void removeConnection(INode node, String schemaName);
 }

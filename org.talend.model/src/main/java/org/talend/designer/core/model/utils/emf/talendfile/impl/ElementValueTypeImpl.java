@@ -22,6 +22,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementValueTypeImpl#getElementRef <em>Element Ref</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementValueTypeImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementValueTypeImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,26 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
      * @ordered
      */
     protected String value = VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected static final String TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected String type = TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -133,12 +154,35 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType(String newType) {
+        String oldType = type;
+        type = newType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE, oldType, type));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case TalendFilePackage.ELEMENT_VALUE_TYPE__ELEMENT_REF:
                 return getElementRef();
             case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
                 return getValue();
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -155,6 +199,9 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
                 return;
             case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
                 setValue((String)newValue);
+                return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                setType((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -173,6 +220,9 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
             case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
                 setValue(VALUE_EDEFAULT);
                 return;
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -188,6 +238,8 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
                 return ELEMENT_REF_EDEFAULT == null ? elementRef != null : !ELEMENT_REF_EDEFAULT.equals(elementRef);
             case TalendFilePackage.ELEMENT_VALUE_TYPE__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+            case TalendFilePackage.ELEMENT_VALUE_TYPE__TYPE:
+                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
@@ -205,6 +257,8 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
         result.append(elementRef);
         result.append(", value: ");
         result.append(value);
+        result.append(", type: ");
+        result.append(type);
         result.append(')');
         return result.toString();
     }

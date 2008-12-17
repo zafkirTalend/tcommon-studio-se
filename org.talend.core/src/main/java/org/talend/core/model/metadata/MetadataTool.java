@@ -382,5 +382,24 @@ public class MetadataTool {
             createColumnType.setType(column.getTalendType());
             colTypes.add(createColumnType);
         }
+
+    }
+
+    /**
+     * 
+     * nrousseau Comment method "getMetadataTableFromNode".
+     * 
+     * 
+     */
+    public static IMetadataTable getMetadataTableFromNode(INode node, String name) {
+        if (node == null || name == null) {
+            return null;
+        }
+        for (IMetadataTable metadata : node.getMetadataList()) {
+            if (name.equals(metadata.getLabel())) {
+                return metadata;
+            }
+        }
+        return null;
     }
 }

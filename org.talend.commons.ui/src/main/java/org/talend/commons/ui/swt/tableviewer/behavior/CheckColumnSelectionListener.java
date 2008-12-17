@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006 Talend ¨C www.talend.com
+// Copyright (C) 2006 Talend ï¿½C www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -136,6 +136,9 @@ public class CheckColumnSelectionListener implements ITableColumnSelectionListen
      * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
      */
     public void widgetSelected(SelectionEvent e) {
+        if (tableViewerCreator != null && tableViewerCreator.isReadOnly()) {
+            return;
+        }
         TableItem items[] = tableViewerCreator.getTable().getItems();
         String columnId = tableViewerCreatorColumn.getId();
         boolean modified = false;

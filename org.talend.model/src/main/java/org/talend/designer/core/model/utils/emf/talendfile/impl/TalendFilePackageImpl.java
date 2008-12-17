@@ -772,6 +772,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getElementValueType_Type() {
+        return (EAttribute)elementValueTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getJobType() {
         return jobTypeEClass;
     }
@@ -1489,6 +1498,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         elementValueTypeEClass = createEClass(ELEMENT_VALUE_TYPE);
         createEAttribute(elementValueTypeEClass, ELEMENT_VALUE_TYPE__ELEMENT_REF);
         createEAttribute(elementValueTypeEClass, ELEMENT_VALUE_TYPE__VALUE);
+        createEAttribute(elementValueTypeEClass, ELEMENT_VALUE_TYPE__TYPE);
 
         jobTypeEClass = createEClass(JOB_TYPE);
         createEAttribute(jobTypeEClass, JOB_TYPE__CONTEXT);
@@ -1666,6 +1676,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(elementValueTypeEClass, ElementValueType.class, "ElementValueType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getElementValueType_ElementRef(), theXMLTypePackage.getString(), "elementRef", null, 0, 1, ElementValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getElementValueType_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, ElementValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getElementValueType_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, ElementValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(jobTypeEClass, JobType.class, "JobType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getJobType_Context(), theXMLTypePackage.getString(), "context", null, 0, 1, JobType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

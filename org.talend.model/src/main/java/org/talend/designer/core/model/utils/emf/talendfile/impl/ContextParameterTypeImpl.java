@@ -219,9 +219,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     public void setComment(String newComment) {
         String oldComment = comment;
         comment = newComment;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT, oldComment, comment));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__COMMENT, oldComment, comment));
     }
 
     /**
@@ -241,9 +240,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     public void setName(String newName) {
         String oldName = name;
         name = newName;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME, oldName, name));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__NAME, oldName, name));
     }
 
     /**
@@ -263,9 +261,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     public void setPrompt(String newPrompt) {
         String oldPrompt = prompt;
         prompt = newPrompt;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT, oldPrompt, prompt));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT, oldPrompt, prompt));
     }
 
     /**
@@ -287,9 +284,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         promptNeeded = newPromptNeeded;
         boolean oldPromptNeededESet = promptNeededESet;
         promptNeededESet = true;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED, oldPromptNeeded, promptNeeded, !oldPromptNeededESet));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED, oldPromptNeeded, promptNeeded, !oldPromptNeededESet));
     }
 
     /**
@@ -302,9 +298,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         boolean oldPromptNeededESet = promptNeededESet;
         promptNeeded = PROMPT_NEEDED_EDEFAULT;
         promptNeededESet = false;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED, oldPromptNeeded, PROMPT_NEEDED_EDEFAULT, oldPromptNeededESet));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED, oldPromptNeeded, PROMPT_NEEDED_EDEFAULT, oldPromptNeededESet));
     }
 
     /**
@@ -333,9 +328,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     public void setRepositoryContextId(String newRepositoryContextId) {
         String oldRepositoryContextId = repositoryContextId;
         repositoryContextId = newRepositoryContextId;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
     }
 
     /**
@@ -355,9 +349,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     public void setType(String newType) {
         String oldType = type;
         type = newType;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE, oldType, type));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE, oldType, type));
     }
 
 	/**
@@ -388,9 +381,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
     public void setValue(String newValue) {
         String oldValue = value;
         value = newValue;
-        if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE, oldValue, value));
-		}
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE, oldValue, value));
     }
 
 	/**
@@ -518,9 +510,7 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
      */
     @Override
 	public String toString() {
-        if (eIsProxy()) {
-			return super.toString();
-		}
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (comment: ");
@@ -530,11 +520,7 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         result.append(", prompt: ");
         result.append(prompt);
         result.append(", promptNeeded: ");
-        if (promptNeededESet) {
-			result.append(promptNeeded);
-		} else {
-			result.append("<unset>");
-		}
+        if (promptNeededESet) result.append(promptNeeded); else result.append("<unset>");
         result.append(", repositoryContextId: ");
         result.append(repositoryContextId);
         result.append(", type: ");

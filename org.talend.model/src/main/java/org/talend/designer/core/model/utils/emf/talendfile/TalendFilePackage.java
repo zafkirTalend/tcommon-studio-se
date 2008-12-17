@@ -644,13 +644,22 @@ public interface TalendFilePackage extends EPackage {
     int ELEMENT_VALUE_TYPE__VALUE = 1;
 
     /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELEMENT_VALUE_TYPE__TYPE = 2;
+
+    /**
      * The number of structural features of the '<em>Element Value Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ELEMENT_VALUE_TYPE_FEATURE_COUNT = 2;
+    int ELEMENT_VALUE_TYPE_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.JobTypeImpl <em>Job Type</em>}' class.
@@ -2037,6 +2046,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getElementValueType_Value();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementValueType#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ElementValueType#getType()
+     * @see #getElementValueType()
+     * @generated
+     */
+    EAttribute getElementValueType_Type();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.JobType <em>Job Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3293,6 +3313,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute ELEMENT_VALUE_TYPE__VALUE = eINSTANCE.getElementValueType_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ELEMENT_VALUE_TYPE__TYPE = eINSTANCE.getElementValueType_Type();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.JobTypeImpl <em>Job Type</em>}' class.
