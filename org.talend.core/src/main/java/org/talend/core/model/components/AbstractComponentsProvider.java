@@ -88,12 +88,14 @@ public abstract class AbstractComponentsProvider {
         File bundleFolder = new File(fileUrl.getPath());
 
         IPath path = new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER).append(
-                IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER).append(folderName);
+                IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER);
         
         // bug fix : several headless instance should not use the same folder
         if (CommonsPlugin.isHeadless()) {
             String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
-            path = path.append(workspaceName);
+            path = path.append(folderName + "-" + workspaceName);
+        } else {
+            path = path.append(folderName);
         }
         
         installationFolder = new File(bundleFolder, path.toOSString());
