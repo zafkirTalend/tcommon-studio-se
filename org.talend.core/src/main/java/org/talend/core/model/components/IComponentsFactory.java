@@ -32,7 +32,7 @@ public interface IComponentsFactory {
 
     String COMPONENT_DEFINITION = "org.talend.core.component_definition";
 
-    public void init();
+    public void reset();
 
     public int size();
 
