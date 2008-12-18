@@ -9,6 +9,18 @@ use File::Path;
 
 my $svncommand = "/usr/bin/svn";
 
+#check svn version
+my $svnversioncommand = $svncommand." --version";
+my $svnversioncommandoutput = `$svnversioncommand`;
+my $svnmergeaddparams = "";
+if ( $svnversioncommandoutput =~ m/version 1.4/ ) {
+    #nothing to do
+} elsif ( $svnversioncommandoutput =~ m/version 1.5/ ) {
+    $svnmergeaddparams = "--depth infinity";
+} else {
+    die "this script only support 1.4 and 1.5 versions of svn ";
+}
+
 my $logfile = "/tmp/svnmergelog.".$$;
 my $rootpath = "/tmp/svnmerge.".$$;
 
@@ -153,7 +165,7 @@ for my $rev (@revs) {
     print "\n--------------------------------------------------\n\n";
     my @mergecommands;
     for my $rep (keys %reps) {
-	push @mergecommands, $svncommand." merge -c".$rev." ".$rooturl."/".$rep."/".$fromurl." ".$rootpath."/".$rep."/".$tourl;
+	push @mergecommands, $svncommand." merge ".$svnmergeaddparams." -c".$rev." ".$rooturl."/".$rep."/".$fromurl." ".$rootpath."/".$rep."/".$tourl;
     }
     
     for my $mergecommand (@mergecommands) {
