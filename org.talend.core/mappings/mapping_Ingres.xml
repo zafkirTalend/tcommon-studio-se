@@ -170,7 +170,7 @@
 					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="NCHAR">
-					<talendType type="id_Character" default="true" />
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="NVARCHAR">
 					<talendType type="id_String" default="true" />

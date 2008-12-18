@@ -151,7 +151,7 @@
 					<talendType type="id_Byte" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Character" default="true" />
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="DATETIME">
 					<talendType type="id_Date" default="true" />
