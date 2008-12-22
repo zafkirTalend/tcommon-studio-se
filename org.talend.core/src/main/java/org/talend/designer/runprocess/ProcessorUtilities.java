@@ -31,7 +31,6 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -280,11 +279,8 @@ public class ProcessorUtilities {
                         } else {
                             // use the default context of subjob
                             String defaultContext = processItem.getProcess().getDefaultContext();
-                            if (node instanceof Element) {
-                                Element element = (Element) node;
-                                element.setPropertyValue("PROCESS_TYPE_CONTEXT", defaultContext);
-                                subJobInfo.setContextName(defaultContext);
-                            }
+                            node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext);
+                            subJobInfo.setContextName(defaultContext);
                         }
                     }
                     subJobInfo.setFatherJobInfo(jobInfo);
@@ -408,15 +404,12 @@ public class ProcessorUtilities {
             String selectedContextName) {
 
         if (jobInfo.isApplyContextToChildren()) {
-            for (Iterator<? extends INode> iter = currentProcess.getGraphicalNodes().iterator(); iter.hasNext();) {
+            for (Iterator<? extends INode> iter = currentProcess.getGeneratingNodes().iterator(); iter.hasNext();) {
                 INode node = iter.next();
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
-                    if (node instanceof Element) {
-                        Element element = (Element) node;
-                        // the corresponding parameter is
-                        // EParameterName.PROCESS_TYPE_CONTEXT
-                        element.setPropertyValue("PROCESS_TYPE_CONTEXT", selectedContextName);
-                    }
+                    // the corresponding parameter is
+                    // EParameterName.PROCESS_TYPE_CONTEXT
+                    node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(selectedContextName);
                 }
             }
         }
@@ -441,8 +434,6 @@ public class ProcessorUtilities {
         return genCode;
     }
 
-    private static boolean generateAllContexts = false;
-
     /**
      * This function will generate the code of the process and all of this sub process.
      * 
@@ -456,9 +447,7 @@ public class ProcessorUtilities {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        generateAllContexts = true;
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
-        generateAllContexts = false;
         jobList.clear();
         return result;
     }
@@ -468,9 +457,7 @@ public class ProcessorUtilities {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, contextName);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        generateAllContexts = true;
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
-        generateAllContexts = false;
         jobList.clear();
         return result;
     }
@@ -480,9 +467,7 @@ public class ProcessorUtilities {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        generateAllContexts = true;
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
-        generateAllContexts = false;
         jobList.clear();
         return result;
     }
