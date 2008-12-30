@@ -2916,13 +2916,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__ERROR_STACK_TRACE = 28;
 
     /**
+     * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__LAST_TRIGGERING_DATE = 29;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 29;
+    int EXECUTION_TASK_FEATURE_COUNT = 30;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -2932,7 +2941,472 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
      * @generated
      */
-    int TALEND_TRIGGER = 44;
+    int TALEND_TRIGGER = 45;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.CronTalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
+     * @generated
+     */
+    int CRON_TALEND_TRIGGER = 46;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.CronUITalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
+     * @generated
+     */
+    int CRON_UI_TALEND_TRIGGER = 47;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SimpleTalendTriggerImpl <em>Simple Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SimpleTalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
+     * @generated
+     */
+    int SIMPLE_TALEND_TRIGGER = 48;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl <em>Execution Virtual Server</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionVirtualServerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
+     * @generated
+     */
+    int EXECUTION_VIRTUAL_SERVER = 49;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.FileTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
+     * @generated
+     */
+    int FILE_TRIGGER = 50;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl <em>File Trigger Mask</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.FileTriggerMaskImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
+     * @generated
+     */
+    int FILE_TRIGGER_MASK = 51;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobletProcessItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
+     * @generated
+     */
+    int JOBLET_PROCESS_ITEM = 52;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobDocumentationItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
+     * @generated
+     */
+    int JOB_DOCUMENTATION_ITEM = 53;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletDocumentationItemImpl <em>Joblet Documentation Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobletDocumentationItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
+     * @generated
+     */
+    int JOBLET_DOCUMENTATION_ITEM = 54;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.WSDLSchemaConnectionItemImpl <em>WSDL Schema Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.WSDLSchemaConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getWSDLSchemaConnectionItem()
+     * @generated
+     */
+    int WSDL_SCHEMA_CONNECTION_ITEM = 55;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SchemaInformationImpl <em>Schema Information</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SchemaInformationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
+     * @generated
+     */
+    int SCHEMA_INFORMATION = 56;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.InformationImpl <em>Information</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.InformationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
+     * @generated
+     */
+    int INFORMATION = 57;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SQLPatternItemImpl <em>SQL Pattern Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SQLPatternItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSQLPatternItem()
+     * @generated
+     */
+    int SQL_PATTERN_ITEM = 58;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ComponentSettingImpl <em>Component Setting</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ComponentSettingImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponentSetting()
+     * @generated
+     */
+    int COMPONENT_SETTING = 59;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TaskExecutionHistoryImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTaskExecutionHistory()
+     * @generated
+     */
+    int TASK_EXECUTION_HISTORY = 44;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Fine Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__FINE_STATUS = 1;
+
+    /**
+     * The feature id for the '<em><b>Task Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TASK_LABEL = 2;
+
+    /**
+     * The feature id for the '<em><b>Task Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TASK_DESCRIPTION = 3;
+
+    /**
+     * The feature id for the '<em><b>Project Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__PROJECT_NAME = 4;
+
+    /**
+     * The feature id for the '<em><b>Talend Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TALEND_JOB_NAME = 5;
+
+    /**
+     * The feature id for the '<em><b>Talend Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TALEND_JOB_ID = 6;
+
+    /**
+     * The feature id for the '<em><b>Talend Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION = 7;
+
+    /**
+     * The feature id for the '<em><b>Context Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__CONTEXT_NAME = 8;
+
+    /**
+     * The feature id for the '<em><b>Context Values</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__CONTEXT_VALUES = 9;
+
+    /**
+     * The feature id for the '<em><b>Virtual Server Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME = 10;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = 11;
+
+    /**
+     * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = 12;
+
+    /**
+     * The feature id for the '<em><b>Triggered By</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TRIGGERED_BY = 13;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TRIGGER_TYPE = 14;
+
+    /**
+     * The feature id for the '<em><b>Trigger Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TRIGGER_NAME = 15;
+
+    /**
+     * The feature id for the '<em><b>Trigger Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = 16;
+
+    /**
+     * The feature id for the '<em><b>Task Error Stack Trace</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = 17;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB = 18;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = 19;
+
+    /**
+     * The feature id for the '<em><b>Last Job Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = 20;
+
+    /**
+     * The feature id for the '<em><b>Job Archive Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = 21;
+
+    /**
+     * The feature id for the '<em><b>File Trigger File Mask</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = 22;
+
+    /**
+     * The feature id for the '<em><b>File Trigger Folder Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = 23;
+
+    /**
+     * The feature id for the '<em><b>File Trigger Triggered File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = 24;
+
+    /**
+     * The feature id for the '<em><b>Task Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 25;
+
+    /**
+     * The feature id for the '<em><b>Task End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 26;
+
+    /**
+     * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 27;
+
+    /**
+     * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 28;
+
+    /**
+     * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 29;
+
+    /**
+     * The feature id for the '<em><b>Server Job End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 30;
+
+    /**
+     * The feature id for the '<em><b>Server Job Duration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION = 31;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 32;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 33;
+
+    /**
+     * The number of structural features of the '<em>Task Execution History</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 34;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3041,16 +3515,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int TALEND_TRIGGER_FEATURE_COUNT = 11;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.CronTalendTriggerImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
-     * @generated
-     */
-    int CRON_TALEND_TRIGGER = 45;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3168,16 +3632,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CRON_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 1;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.CronUITalendTriggerImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
-     * @generated
-     */
-    int CRON_UI_TALEND_TRIGGER = 46;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3342,16 +3796,6 @@ public interface PropertiesPackage extends EPackage {
     int CRON_UI_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 6;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.SimpleTalendTriggerImpl <em>Simple Talend Trigger</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.SimpleTalendTriggerImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
-     * @generated
-     */
-    int SIMPLE_TALEND_TRIGGER = 47;
-
-    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3487,16 +3931,6 @@ public interface PropertiesPackage extends EPackage {
     int SIMPLE_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 3;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl <em>Execution Virtual Server</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ExecutionVirtualServerImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
-     * @generated
-     */
-    int EXECUTION_VIRTUAL_SERVER = 48;
-
-    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3549,16 +3983,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EXECUTION_VIRTUAL_SERVER_FEATURE_COUNT = 5;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.FileTriggerImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
-     * @generated
-     */
-    int FILE_TRIGGER = 49;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3705,16 +4129,6 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER_FEATURE_COUNT = SIMPLE_TALEND_TRIGGER_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl <em>File Trigger Mask</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.FileTriggerMaskImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
-     * @generated
-     */
-    int FILE_TRIGGER_MASK = 50;
-
-    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3805,16 +4219,6 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER_MASK_FEATURE_COUNT = 9;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.JobletProcessItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
-     * @generated
-     */
-    int JOBLET_PROCESS_ITEM = 51;
-
-    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3858,16 +4262,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int JOBLET_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.JobDocumentationItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
-     * @generated
-     */
-    int JOB_DOCUMENTATION_ITEM = 52;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3924,16 +4318,6 @@ public interface PropertiesPackage extends EPackage {
     int JOB_DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletDocumentationItemImpl <em>Joblet Documentation Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.JobletDocumentationItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
-     * @generated
-     */
-    int JOBLET_DOCUMENTATION_ITEM = 53;
-
-    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3988,16 +4372,6 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.WSDLSchemaConnectionItemImpl <em>WSDL Schema Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.WSDLSchemaConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getWSDLSchemaConnectionItem()
-     * @generated
-     */
-    int WSDL_SCHEMA_CONNECTION_ITEM = 54;
-
-    /**
      * The feature id for the '<em><b>Property</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4034,16 +4408,6 @@ public interface PropertiesPackage extends EPackage {
     int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.SchemaInformationImpl <em>Schema Information</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.SchemaInformationImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
-     * @generated
-     */
-    int SCHEMA_INFORMATION = 55;
-
-    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4060,16 +4424,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SCHEMA_INFORMATION_FEATURE_COUNT = 1;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.InformationImpl <em>Information</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.InformationImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
-     * @generated
-     */
-    int INFORMATION = 56;
 
     /**
      * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -4106,16 +4460,6 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int INFORMATION_FEATURE_COUNT = 3;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.SQLPatternItemImpl <em>SQL Pattern Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.SQLPatternItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSQLPatternItem()
-     * @generated
-     */
-    int SQL_PATTERN_ITEM = 57;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -4190,16 +4534,6 @@ public interface PropertiesPackage extends EPackage {
     int SQL_PATTERN_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 2;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ComponentSettingImpl <em>Component Setting</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ComponentSettingImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponentSetting()
-     * @generated
-     */
-    int COMPONENT_SETTING = 58;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4242,7 +4576,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 59;
+    int FOLDER_TYPE = 60;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -4252,7 +4586,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 60;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 61;
 
 
     /**
@@ -4263,7 +4597,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 61;
+    int USER_MODULE_AUTHORIZATION_TYPE = 62;
 
 
     /**
@@ -4274,7 +4608,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 62;
+    int INFORMATION_LEVEL = 63;
 
 
     /**
@@ -6493,6 +6827,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_ErrorStackTrace();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Triggering Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_LastTriggeringDate();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7158,6 +7503,390 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getComponentSetting_Family();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Task Execution History</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory
+     * @generated
+     */
+    EClass getTaskExecutionHistory();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getId()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getFineStatus <em>Fine Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Fine Status</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getFineStatus()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_FineStatus();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskLabel <em>Task Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Task Label</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTaskLabel()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TaskLabel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskDescription <em>Task Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Task Description</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTaskDescription()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TaskDescription();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getProjectName <em>Project Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Project Name</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getProjectName()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ProjectName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTalendJobName <em>Talend Job Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Talend Job Name</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTalendJobName()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TalendJobName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTalendJobId <em>Talend Job Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Talend Job Id</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTalendJobId()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TalendJobId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTalendJobVersion <em>Talend Job Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Talend Job Version</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTalendJobVersion()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TalendJobVersion();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getContextName <em>Context Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Name</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getContextName()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ContextName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getContextValues <em>Context Values</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Values</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getContextValues()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ContextValues();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName <em>Virtual Server Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Virtual Server Name</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_VirtualServerName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerName <em>Execution Server Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Execution Server Name</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerName()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ExecutionServerName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#isApplyContextToChildren <em>Apply Context To Children</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Apply Context To Children</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#isApplyContextToChildren()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ApplyContextToChildren();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTriggeredBy <em>Triggered By</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Triggered By</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTriggeredBy()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TriggeredBy();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTriggerType <em>Trigger Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Trigger Type</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTriggerType()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TriggerType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTriggerName <em>Trigger Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Trigger Name</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTriggerName()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TriggerName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTriggerDescription <em>Trigger Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Trigger Description</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTriggerDescription()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TriggerDescription();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskErrorStackTrace <em>Task Error Stack Trace</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Task Error Stack Trace</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTaskErrorStackTrace()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TaskErrorStackTrace();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getIdQuartzJob <em>Id Quartz Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Quartz Job</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getIdQuartzJob()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_IdQuartzJob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getIdQuartzTrigger <em>Id Quartz Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Quartz Trigger</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getIdQuartzTrigger()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_IdQuartzTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getLastJobGenerationDate <em>Last Job Generation Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Job Generation Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getLastJobGenerationDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_LastJobGenerationDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getJobArchiveFilename <em>Job Archive Filename</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Archive Filename</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getJobArchiveFilename()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_JobArchiveFilename();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFileMask <em>File Trigger File Mask</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Trigger File Mask</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFileMask()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_FileTriggerFileMask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFolderPath <em>File Trigger Folder Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Trigger Folder Path</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFolderPath()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_FileTriggerFolderPath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerTriggeredFilePath <em>File Trigger Triggered File Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Trigger Triggered File Path</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerTriggeredFilePath()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_FileTriggerTriggeredFilePath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskStartDate <em>Task Start Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Task Start Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTaskStartDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TaskStartDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskEndDate <em>Task End Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Task End Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getTaskEndDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_TaskEndDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate <em>Admin Job Start Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Admin Job Start Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_AdminJobStartDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate <em>Admin Job End Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Admin Job End Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_AdminJobEndDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobStartDate <em>Server Job Start Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server Job Start Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getServerJobStartDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ServerJobStartDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobEndDate <em>Server Job End Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server Job End Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getServerJobEndDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ServerJobEndDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobDuration <em>Server Job Duration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server Job Duration</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getServerJobDuration()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ServerJobDuration();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJob <em>Id Remote Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Remote Job</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJob()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_IdRemoteJob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Remote Job Execution</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJobExecution()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_IdRemoteJobExecution();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
@@ -9019,6 +9748,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__ERROR_STACK_TRACE = eINSTANCE.getExecutionTask_ErrorStackTrace();
 
         /**
+         * The meta object literal for the '<em><b>Last Triggering Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__LAST_TRIGGERING_DATE = eINSTANCE.getExecutionTask_LastTriggeringDate();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -9543,6 +10280,288 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT_SETTING__FAMILY = eINSTANCE.getComponentSetting_Family();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TaskExecutionHistoryImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTaskExecutionHistory()
+         * @generated
+         */
+        EClass TASK_EXECUTION_HISTORY = eINSTANCE.getTaskExecutionHistory();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ID = eINSTANCE.getTaskExecutionHistory_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Fine Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__FINE_STATUS = eINSTANCE.getTaskExecutionHistory_FineStatus();
+
+        /**
+         * The meta object literal for the '<em><b>Task Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TASK_LABEL = eINSTANCE.getTaskExecutionHistory_TaskLabel();
+
+        /**
+         * The meta object literal for the '<em><b>Task Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TASK_DESCRIPTION = eINSTANCE.getTaskExecutionHistory_TaskDescription();
+
+        /**
+         * The meta object literal for the '<em><b>Project Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__PROJECT_NAME = eINSTANCE.getTaskExecutionHistory_ProjectName();
+
+        /**
+         * The meta object literal for the '<em><b>Talend Job Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TALEND_JOB_NAME = eINSTANCE.getTaskExecutionHistory_TalendJobName();
+
+        /**
+         * The meta object literal for the '<em><b>Talend Job Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TALEND_JOB_ID = eINSTANCE.getTaskExecutionHistory_TalendJobId();
+
+        /**
+         * The meta object literal for the '<em><b>Talend Job Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION = eINSTANCE.getTaskExecutionHistory_TalendJobVersion();
+
+        /**
+         * The meta object literal for the '<em><b>Context Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__CONTEXT_NAME = eINSTANCE.getTaskExecutionHistory_ContextName();
+
+        /**
+         * The meta object literal for the '<em><b>Context Values</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__CONTEXT_VALUES = eINSTANCE.getTaskExecutionHistory_ContextValues();
+
+        /**
+         * The meta object literal for the '<em><b>Virtual Server Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME = eINSTANCE.getTaskExecutionHistory_VirtualServerName();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Server Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = eINSTANCE.getTaskExecutionHistory_ExecutionServerName();
+
+        /**
+         * The meta object literal for the '<em><b>Apply Context To Children</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = eINSTANCE.getTaskExecutionHistory_ApplyContextToChildren();
+
+        /**
+         * The meta object literal for the '<em><b>Triggered By</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TRIGGERED_BY = eINSTANCE.getTaskExecutionHistory_TriggeredBy();
+
+        /**
+         * The meta object literal for the '<em><b>Trigger Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TRIGGER_TYPE = eINSTANCE.getTaskExecutionHistory_TriggerType();
+
+        /**
+         * The meta object literal for the '<em><b>Trigger Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TRIGGER_NAME = eINSTANCE.getTaskExecutionHistory_TriggerName();
+
+        /**
+         * The meta object literal for the '<em><b>Trigger Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = eINSTANCE.getTaskExecutionHistory_TriggerDescription();
+
+        /**
+         * The meta object literal for the '<em><b>Task Error Stack Trace</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = eINSTANCE.getTaskExecutionHistory_TaskErrorStackTrace();
+
+        /**
+         * The meta object literal for the '<em><b>Id Quartz Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB = eINSTANCE.getTaskExecutionHistory_IdQuartzJob();
+
+        /**
+         * The meta object literal for the '<em><b>Id Quartz Trigger</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = eINSTANCE.getTaskExecutionHistory_IdQuartzTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>Last Job Generation Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = eINSTANCE.getTaskExecutionHistory_LastJobGenerationDate();
+
+        /**
+         * The meta object literal for the '<em><b>Job Archive Filename</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = eINSTANCE.getTaskExecutionHistory_JobArchiveFilename();
+
+        /**
+         * The meta object literal for the '<em><b>File Trigger File Mask</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = eINSTANCE.getTaskExecutionHistory_FileTriggerFileMask();
+
+        /**
+         * The meta object literal for the '<em><b>File Trigger Folder Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = eINSTANCE.getTaskExecutionHistory_FileTriggerFolderPath();
+
+        /**
+         * The meta object literal for the '<em><b>File Trigger Triggered File Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = eINSTANCE.getTaskExecutionHistory_FileTriggerTriggeredFilePath();
+
+        /**
+         * The meta object literal for the '<em><b>Task Start Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TASK_START_DATE = eINSTANCE.getTaskExecutionHistory_TaskStartDate();
+
+        /**
+         * The meta object literal for the '<em><b>Task End Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__TASK_END_DATE = eINSTANCE.getTaskExecutionHistory_TaskEndDate();
+
+        /**
+         * The meta object literal for the '<em><b>Admin Job Start Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = eINSTANCE.getTaskExecutionHistory_AdminJobStartDate();
+
+        /**
+         * The meta object literal for the '<em><b>Admin Job End Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = eINSTANCE.getTaskExecutionHistory_AdminJobEndDate();
+
+        /**
+         * The meta object literal for the '<em><b>Server Job Start Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = eINSTANCE.getTaskExecutionHistory_ServerJobStartDate();
+
+        /**
+         * The meta object literal for the '<em><b>Server Job End Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = eINSTANCE.getTaskExecutionHistory_ServerJobEndDate();
+
+        /**
+         * The meta object literal for the '<em><b>Server Job Duration</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION = eINSTANCE.getTaskExecutionHistory_ServerJobDuration();
+
+        /**
+         * The meta object literal for the '<em><b>Id Remote Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = eINSTANCE.getTaskExecutionHistory_IdRemoteJob();
+
+        /**
+         * The meta object literal for the '<em><b>Id Remote Job Execution</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = eINSTANCE.getTaskExecutionHistory_IdRemoteJobExecution();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
