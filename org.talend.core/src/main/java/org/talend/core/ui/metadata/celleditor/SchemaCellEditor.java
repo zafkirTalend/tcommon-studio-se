@@ -148,11 +148,28 @@ public class SchemaCellEditor extends DialogCellEditor {
 
             if (dialogInput.open() == InputDialog.OK) {
                 node.getProcess().addUniqueConnectionName(dialogInput.getValue());
-                MetadataTable table = new MetadataTable();
+                final MetadataTable table = new MetadataTable();
                 table.setLabel(dialogInput.getValue());
                 table.setTableName(dialogInput.getValue());
                 tableToEdit = table;
                 metadatas.add(table);
+                executeCommand(new Command() {
+
+                    @Override
+                    public void execute() {
+                        if (getTableViewer() != null) {
+                            Table tTable = getTableViewer().getTable();
+                            Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+                            if (data instanceof Map) {
+                                final Map<String, Object> valueMap = (Map<String, Object>) data;
+                                Object code = valueMap.get(IEbcdicConstant.FIELD_CODE);
+                                if (code == null || "".equals(code)) {
+                                    valueMap.put(IEbcdicConstant.FIELD_CODE, table.getTableName());
+                                }
+                            }
+                        }
+                    }
+                });
             }
         } else {
             tableToEdit = MetadataTool.getMetadataTableFromNode(node, schemaToEdit);

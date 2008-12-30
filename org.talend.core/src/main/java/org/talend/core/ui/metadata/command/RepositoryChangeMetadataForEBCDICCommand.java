@@ -128,7 +128,7 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
         // if no value, set default field value
         Object fieldValue = valueMap.get(IEbcdicConstant.FIELD_CODE);
         if (fieldValue == null || "".equals(fieldValue)) { //$NON-NLS-1$
-            valueMap.put(IEbcdicConstant.FIELD_CODE, newOutputMetadata.getTableName());
+            valueMap.put(IEbcdicConstant.FIELD_CODE, newOutputMetadata.getLabel());
         }
         valueMap.put(IEbcdicConstant.FIELD_SCHEMA + IEbcdicConstant.REF_TYPE, IEbcdicConstant.REF_ATTR_REPOSITORY);
 
@@ -137,7 +137,7 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
             node.getMetadataList().remove(oldOutputMetadata);
         }
 
-        String uinqueTableName = node.getProcess().generateUniqueConnectionName((String) newPropValue + "_");
+        String uinqueTableName = node.getProcess().generateUniqueConnectionName("row_" + (String) newPropValue + "_");
         newOutputMetadata.setLabel((String) newPropValue);
         newOutputMetadata.setTableName(uinqueTableName);
 
