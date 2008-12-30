@@ -13,7 +13,6 @@
 package org.talend.rcp.intro;
 
 import java.io.IOException;
-import java.util.Map;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.app.IApplication;
@@ -45,8 +44,9 @@ public class Application implements IApplication {
             if (!acquireWorkspaceLock(shell)) {
                 return IApplication.EXIT_OK;
             }
-            setSqlpatternUsibility(context);
-            setRefProjectUsibility(context);
+            /*
+             * setSqlpatternUsibility(context); setRefProjectUsibility(context);
+             */
             CorePlugin.getDefault().getRepositoryService().setRCPMode();
 
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
@@ -83,44 +83,25 @@ public class Application implements IApplication {
      * 
      * @param context
      */
-    private void setSqlpatternUsibility(IApplicationContext context) {
-        Map map = context.getArguments();
-        String[] args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS);
-        if (args == null) {
-            return;
-        }
-
-        boolean use = true;
-        // for (int i = 0; i < args.length; i++) {
-        // if (args[i].equals("-useSQLPattern")) {
-        // use = Boolean.parseBoolean(args[i + 1]);
-        // break;
-        // }
-        // }
-        CorePlugin.getContext().putProperty("useSQLPattern", use);
-    }
-
-    /**
+    /*
+     * private void setSqlpatternUsibility(IApplicationContext context) { Map map = context.getArguments(); String[]
+     * args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS); if (args == null) { return; }
+     * 
+     * boolean use = true; // for (int i = 0; i < args.length; i++) { // if (args[i].equals("-useSQLPattern")) { // use
+     * = Boolean.parseBoolean(args[i + 1]); // break; // } // } CorePlugin.getContext().putProperty("useSQLPattern",
+     * use); }
+     *//**
      * TODO This method should be removed after finishing the refProject
      * 
      * @param context
      */
-    private void setRefProjectUsibility(IApplicationContext context) {
-        Map map = context.getArguments();
-        String[] args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS);
-        if (args == null) {
-            return;
-        }
-
-        boolean use = false;
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-useRefProject")) {
-                use = Boolean.parseBoolean(args[i + 1]);
-                break;
-            }
-        }
-        CorePlugin.getContext().putProperty("useRefProject", use);
-    }
+    /*
+     * private void setRefProjectUsibility(IApplicationContext context) { Map map = context.getArguments(); String[]
+     * args = (String[]) map.get(IApplicationContext.APPLICATION_ARGS); if (args == null) { return; }
+     * 
+     * boolean use = false; for (int i = 0; i < args.length; i++) { if (args[i].equals("-useRefProject")) { use =
+     * Boolean.parseBoolean(args[i + 1]); break; } } CorePlugin.getContext().putProperty("useRefProject", use); }
+     */
 
     /**
      * Return <code>true</code> if the lock could be acquired.
