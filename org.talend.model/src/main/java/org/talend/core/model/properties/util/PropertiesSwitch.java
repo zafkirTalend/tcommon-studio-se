@@ -390,6 +390,12 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.TASK_EXECUTION_HISTORY: {
+                TaskExecutionHistory taskExecutionHistory = (TaskExecutionHistory)theEObject;
+                Object result = caseTaskExecutionHistory(taskExecutionHistory);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.TALEND_TRIGGER: {
                 TalendTrigger talendTrigger = (TalendTrigger)theEObject;
                 Object result = caseTalendTrigger(talendTrigger);
@@ -1380,6 +1386,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseComponentSetting(ComponentSetting object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Task Execution History</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Task Execution History</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTaskExecutionHistory(TaskExecutionHistory object) {
         return null;
     }
 

@@ -508,6 +508,15 @@ public interface PropertiesFactory extends EFactory {
     ComponentSetting createComponentSetting();
 
     /**
+     * Returns a new object of class '<em>Task Execution History</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Task Execution History</em>'.
+     * @generated
+     */
+    TaskExecutionHistory createTaskExecutionHistory();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

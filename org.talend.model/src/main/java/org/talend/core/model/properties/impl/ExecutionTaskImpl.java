@@ -65,6 +65,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedJobName <em>Generated Job Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStackTrace <em>Error Stack Trace</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -610,6 +611,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String errorStackTrace = ERROR_STACK_TRACE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLastTriggeringDate() <em>Last Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastTriggeringDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date LAST_TRIGGERING_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLastTriggeringDate() <em>Last Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastTriggeringDate()
+     * @generated
+     * @ordered
+     */
+    protected Date lastTriggeringDate = LAST_TRIGGERING_DATE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1285,6 +1306,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Date getLastTriggeringDate() {
+        return lastTriggeringDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLastTriggeringDate(Date newLastTriggeringDate) {
+        Date oldLastTriggeringDate = lastTriggeringDate;
+        lastTriggeringDate = newLastTriggeringDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_TRIGGERING_DATE, oldLastTriggeringDate, lastTriggeringDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -1374,6 +1416,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
                 return getErrorStackTrace();
+            case PropertiesPackage.EXECUTION_TASK__LAST_TRIGGERING_DATE:
+                return getLastTriggeringDate();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1473,6 +1517,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
                 setErrorStackTrace((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_TRIGGERING_DATE:
+                setLastTriggeringDate((Date)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1571,6 +1618,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
                 setErrorStackTrace(ERROR_STACK_TRACE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_TRIGGERING_DATE:
+                setLastTriggeringDate(LAST_TRIGGERING_DATE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1640,6 +1690,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
                 return ERROR_STACK_TRACE_EDEFAULT == null ? errorStackTrace != null : !ERROR_STACK_TRACE_EDEFAULT.equals(errorStackTrace);
+            case PropertiesPackage.EXECUTION_TASK__LAST_TRIGGERING_DATE:
+                return LAST_TRIGGERING_DATE_EDEFAULT == null ? lastTriggeringDate != null : !LAST_TRIGGERING_DATE_EDEFAULT.equals(lastTriggeringDate);
         }
         return super.eIsSet(featureID);
     }
@@ -1703,6 +1755,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(applyContextToChildren);
         result.append(", errorStackTrace: ");
         result.append(errorStackTrace);
+        result.append(", lastTriggeringDate: ");
+        result.append(lastTriggeringDate);
         result.append(')');
         return result.toString();
     }

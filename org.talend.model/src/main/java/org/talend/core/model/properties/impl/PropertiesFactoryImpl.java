@@ -131,6 +131,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.DASHBOARD_CONNECTION: return createDashboardConnection();
             case PropertiesPackage.EXECUTION_SERVER: return createExecutionServer();
             case PropertiesPackage.EXECUTION_TASK: return createExecutionTask();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY: return createTaskExecutionHistory();
             case PropertiesPackage.TALEND_TRIGGER: return createTalendTrigger();
             case PropertiesPackage.CRON_TALEND_TRIGGER: return createCronTalendTrigger();
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER: return createCronUITalendTrigger();
@@ -718,6 +719,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ComponentSetting createComponentSetting() {
         ComponentSettingImpl componentSetting = new ComponentSettingImpl();
         return componentSetting;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TaskExecutionHistory createTaskExecutionHistory() {
+        TaskExecutionHistoryImpl taskExecutionHistory = new TaskExecutionHistoryImpl();
+        return taskExecutionHistory;
     }
 
     /**

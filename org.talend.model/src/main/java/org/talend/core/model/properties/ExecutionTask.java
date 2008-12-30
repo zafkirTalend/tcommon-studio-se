@@ -774,4 +774,30 @@ public interface ExecutionTask extends EObject {
      */
     void setErrorStackTrace(String value);
 
+    /**
+     * Returns the value of the '<em><b>Last Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Triggering Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Triggering Date</em>' attribute.
+     * @see #setLastTriggeringDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastTriggeringDate()
+     * @model
+     * @generated
+     */
+    Date getLastTriggeringDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Triggering Date</em>' attribute.
+     * @see #getLastTriggeringDate()
+     * @generated
+     */
+    void setLastTriggeringDate(Date value);
+
 } // ExecutionTask
