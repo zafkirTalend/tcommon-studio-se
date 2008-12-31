@@ -181,7 +181,7 @@ public class StringHandling {
      * {example} LEFT("hello world!",5) # hello
      */
     public static String LEFT(String string, int index) {
-        return string.substring(0, index);
+        return string.substring(0, Math.min(string.length(), index));
     }
 
     /**
@@ -198,7 +198,7 @@ public class StringHandling {
      * {example} RIGHT("hello world!",6) # world!
      */
     public static String RIGHT(String string, int index) {
-        return string.substring(string.length() - index);
+        return string.substring(string.length() - Math.min(string.length(), index));
     }
 
     /**
