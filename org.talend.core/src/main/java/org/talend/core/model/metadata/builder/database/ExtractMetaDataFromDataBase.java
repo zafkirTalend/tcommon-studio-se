@@ -220,7 +220,8 @@ public class ExtractMetaDataFromDataBase {
             // WARNING Schema equals sid or database
             ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                     .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                    .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
+                    .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
+                    iMetadataConnection.getDbVersionString());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
@@ -486,6 +487,8 @@ public class ExtractMetaDataFromDataBase {
     /**
      * DOC cantoine. Method to test DataBaseConnection.
      * 
+     * @param dbVersionString
+     * 
      * @param String driverClass
      * @param String urlString pwd
      * @param String username
@@ -493,13 +496,14 @@ public class ExtractMetaDataFromDataBase {
      * @return ConnectionStatus : the result of connection(boolean Result, String messageException)
      */
     public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema,
-            final String driverClassName, final String driverJarPath) {
+            final String driverClassName, final String driverJarPath, String dbVersionString) {
 
         Connection connection;
         ConnectionStatus connectionStatus = new ConnectionStatus();
         connectionStatus.setResult(false);
         try {
-            connection = ExtractMetaDataUtils.connect(dbType, url, username, pwd, driverClassName, driverJarPath);
+            connection = ExtractMetaDataUtils
+                    .connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersionString);
 
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
                 final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
@@ -584,7 +588,8 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
+                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
+                .getDbVersionString());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
@@ -613,7 +618,8 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
+                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
+                .getDbVersionString());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
@@ -665,7 +671,8 @@ public class ExtractMetaDataFromDataBase {
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath());
+                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
+                .getDbVersionString());
         try {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {

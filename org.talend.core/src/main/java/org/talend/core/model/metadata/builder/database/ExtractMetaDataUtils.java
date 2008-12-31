@@ -294,7 +294,7 @@ public class ExtractMetaDataUtils {
      * @param String schemaBase
      */
     public static void getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
-            final String driverClassName, final String driverJarPath) {
+            final String driverClassName, final String driverJarPath, String dbVersion) {
         boolean isColsed = false;
         try {
             if (conn != null) {
@@ -306,7 +306,7 @@ public class ExtractMetaDataUtils {
         if (isReconnect || conn == null || isColsed) {
             try {
                 checkDBConnectionTimeout();
-                conn = connect(dbType, url, username, pwd, driverClassName, driverJarPath);
+                conn = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion);
 
                 if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
                     final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
@@ -411,19 +411,27 @@ public class ExtractMetaDataUtils {
      * @param pwd
      * @param driverClassName
      * @param driverJarPath
+     * @param dbVersionString
      * @return
      * @throws Exception
      */
-    public static Connection connect(String dbType, String url, String username, String pwd, final String driverClassName,
-            final String driverJarPath) throws Exception {
+    public static Connection connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
+            final String driverJarPathArg, String dbVersion) throws Exception {
         Connection connection;
 
+        String driverClassName = driverClassNameArg;
+        String driverJarPath = driverJarPathArg;
+
+        // see feature 4720&4722
+        if ((driverJarPath == null || driverJarPath.equals("")) && dbVersion != null) {
+            driverJarPath = getJavaLibPath() + EDatabaseDriver4Version.getDriverByVersion(dbVersion);
+            driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+        }
         /*
          * For general jdbc, driver class is specific by user.
          */
-        String driverClass = driverClassName;
         if (driverClassName == null || driverClassName.equals("")) {
-            driverClass = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+            driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             // see bug 4404: Exit TOS when Edit Access Schema in repository
             if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName())) {
                 // throw exception to prevent getting connection, which may crash
@@ -441,10 +449,10 @@ public class ExtractMetaDataUtils {
         } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.NETEZZA.getXmlName())) {
             // Netezza work worse with default Eclipse ClassLoader.
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnectionBySpecialWays(dbType, url, username, pwd, driverClass);
+            connection = loader.getConnectionBySpecialWays(dbType, url, username, pwd, driverClassName);
         } else {
             // Don't use DriverManager
-            Class<?> klazz = Class.forName(driverClass);
+            Class<?> klazz = Class.forName(driverClassName);
             Properties info = new Properties();
             info.put("user", username);
             info.put("password", pwd);
@@ -455,4 +463,15 @@ public class ExtractMetaDataUtils {
         return connection;
     }
 
+    /**
+     * 
+     * DOC YeXiaowei Comment method "getJavaLibPath".
+     * 
+     * @return
+     */
+    private static String getJavaLibPath() {
+        String separator = File.separator;
+        String javaLibPath = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
+        return javaLibPath + separator;
+    }
 }
