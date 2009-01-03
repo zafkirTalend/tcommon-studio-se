@@ -42,8 +42,8 @@ import org.talend.commons.utils.threading.ExecutionLimiter;
  * 
  * The original editor can be found on http://www.gstaff.org/colorEditor/ <br/>
  * 
- * <b>How to use it, example :</b> <br/> ColorStyledText text = new ColorStyledText(parent, SWT.H_SCROLL |
- * SWT.V_SCROLL, CorePlugin.getDefault().getPreferenceStore(), ECodeLanguage.PERL.getName());</i> <br/><br/>
+ * <b>How to use it, example :</b> <br/> ColorStyledText text = new ColorStyledText(parent, SWT.H_SCROLL | SWT.V_SCROLL,
+ * CorePlugin.getDefault().getPreferenceStore(), ECodeLanguage.PERL.getName());</i> <br/><br/>
  * 
  * $Id: ColorStyledText.java 7183 2007-11-23 11:03:36Z amaumont $
  * 
@@ -62,14 +62,44 @@ public class ColorStyledText extends StyledText {
 
     private boolean coloring = true;
 
+    private UndoRedoManager undoRedoManager;
+
     public ColorStyledText(Composite parent, int style, IPreferenceStore store, String languageMode) {
         super(parent, style);
         this.languageMode = languageMode;
         this.colorManager = new ColorManager(store);
 
+        /*
+         * set the Shortcuts of the undo/redo
+         */
+        this.setKeyBinding('Z' | SWT.CTRL, ActionCode.UNDO);
+        this.setKeyBinding('Y' | SWT.CTRL, ActionCode.REDO);
+        UndoRedoManager undoManager = new UndoRedoManager(50);
+        undoManager.connect(this);
+        this.setUndoManager(undoManager);
+
         ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
-        Image image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
         Menu popupMenu = new Menu(this);
+
+        MenuItem redoItem = new MenuItem(popupMenu, SWT.PUSH);
+        redoItem.setText(Messages.getString("ColorStyledText.RedoItem.Text"));
+        redoItem.addListener(SWT.Selection, new Listener() {
+
+            public void handleEvent(Event event) {
+                redo();
+            }
+        });
+
+        MenuItem undoItem = new MenuItem(popupMenu, SWT.PUSH);
+        undoItem.setText(Messages.getString("ColorStyledText.UndoItem.Text"));
+        undoItem.addListener(SWT.Selection, new Listener() {
+
+            public void handleEvent(Event event) {
+                undo();
+            }
+        });
+
+        Image image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
         MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
         copyItem.setText(Messages.getString("ColorStyledText.CopyItem.Text")); //$NON-NLS-1$
         copyItem.setImage(image);
@@ -119,6 +149,63 @@ public class ColorStyledText extends StyledText {
         scanner = new ColoringScanner(mode, colorManager);
 
         addExtendedModifyListener(modifyListener);
+    }
+
+    /**
+     * DOC qli Comment method "invokeAction".
+     * 
+     * @param action
+     * 
+     * */
+    public void invokeAction(int action) {
+        super.invokeAction(action);
+
+        switch (action) {
+        case ActionCode.UNDO:
+            undo(); // ctrl+Z
+            break;
+        case ActionCode.REDO:
+            redo(); // ctrl+Y
+            break;
+        }
+    }
+
+    /**
+     * Getter for undoRedoManager.
+     * 
+     * @return the undoRedoManager
+     */
+    public UndoRedoManager getUndoManager() {
+        return this.undoRedoManager;
+    }
+
+    /**
+     * Sets the undoRedoManager.
+     * 
+     * @param undoRedoManager the undoRedoManager to set
+     */
+    public void setUndoManager(UndoRedoManager undoRedoManager) {
+        this.undoRedoManager = undoRedoManager;
+    }
+
+    public static class ActionCode {
+
+        public static final int UNDO = Integer.MAX_VALUE;
+
+        public static final int REDO = UNDO - 1;
+
+    }
+
+    private void undo() {
+        if (undoRedoManager != null) {
+            undoRedoManager.undo();
+        }
+    }
+
+    private void redo() {
+        if (undoRedoManager != null) {
+            undoRedoManager.redo();
+        }
     }
 
     protected void colorize(final ColoringScanner scanner) {
