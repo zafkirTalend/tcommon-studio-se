@@ -103,7 +103,7 @@ public class DemoRoutines {
      */
     public static String getRandomIndividu() {
     
-    	String individu[] = {"Eric DUPOND", "Jean DURAND", "Michael DELAMONTAGNE", "Sophie DUPUIS", "Laure DELAFORGE", "Martin DUJARDIN", "Sylvie DUPUIT", "Corinne LILOU", "Fr�d�rique LAPTOP"};
+    	String individu[] = {"Eric DUPOND", "Jean DURAND", "Michael DELAMONTAGNE", "Sophie DUPUIS", "Laure DELAFORGE", "Martin DUJARDIN", "Sylvie DUPUIT", "Corinne LILOU", "Frederique LAPTOP"};
         int i = ((Long)Math.round(Math.random() * (8))).intValue();
         return individu[i];
     }
