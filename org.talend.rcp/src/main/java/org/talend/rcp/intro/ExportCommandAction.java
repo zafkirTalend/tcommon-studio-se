@@ -12,16 +12,14 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
@@ -47,29 +45,27 @@ public class ExportCommandAction extends Action {
 
     @Override
     public void run() {
-        super.run();
+        // qli comment
+        // see the bug "0005942",the IRunnableWithProgress can't run on the linux.so the Job is used on here.
         if (exportAction != null) {
-            // refresh resource, see bug 5425.
-            try {
-                IRunnableWithProgress runnable = new IRunnableWithProgress() {
+            Job job = new Job("Refresh workspace") {
 
-                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                        monitor.beginTask(ExportCommandAction.this.getToolTipText(), IProgressMonitor.UNKNOWN);
-                        try {
-                            ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
-                        } catch (CoreException e) {
-                            e.printStackTrace();
-                        }
-                        monitor.done();
-
+                @Override
+                protected IStatus run(IProgressMonitor monitor) {
+                    monitor.beginTask(ExportCommandAction.this.getToolTipText(), IProgressMonitor.UNKNOWN);
+                    try {
+                        ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
+                    } catch (CoreException e) {
+                        e.printStackTrace();
                     }
-                };
-                new ProgressMonitorDialog(Display.getCurrent().getActiveShell()).run(true, false, runnable);
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                    monitor.done();
+                    return Status.OK_STATUS;
+                }
+            };
+            job.setUser(true);
+            job.setPriority(Job.BUILD);
+            job.schedule();
+
             // call system export
             exportAction.run();
         }
