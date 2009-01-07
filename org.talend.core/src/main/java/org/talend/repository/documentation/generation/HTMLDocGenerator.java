@@ -762,8 +762,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     // replace repository id with context label
                     if (param.getRepositoryContextId() != null) {
                         ContextItem contextItem = ContextUtils.getContextItemById(param.getRepositoryContextId());
-                        String label = contextItem.getProperty().getLabel();
-                        contextParamElement.addAttribute("source", HTMLDocUtils.checkString(label));
+                        if (contextItem != null) { // bug 5978: repository link to context item might be lost.
+                            String label = contextItem.getProperty().getLabel();
+                            contextParamElement.addAttribute("source", HTMLDocUtils.checkString(label));
+                        }
                     }
                     contextElement.add(contextParamElement);
                 }
