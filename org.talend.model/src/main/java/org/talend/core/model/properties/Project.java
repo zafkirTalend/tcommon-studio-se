@@ -146,7 +146,7 @@ public interface Project extends EObject {
      * @return the value of the '<em>Description</em>' attribute.
      * @see #setDescription(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_Description()
-     * @model unique="false" required="true"
+     * @model unique="false"
      * @generated
      */
     String getDescription();
