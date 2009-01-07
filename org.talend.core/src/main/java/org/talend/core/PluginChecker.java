@@ -36,6 +36,8 @@ public class PluginChecker {
 
     private static final String EBCDIC_PLUGIN_ID = "org.talend.repository.ebcdic";
 
+    private static final String REF_PROJECT_PLUGIN_ID = "org.talend.repository.refproject";
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -56,6 +58,10 @@ public class PluginChecker {
 
     public static Plugin getWSDLPlugin() {
         return Platform.getPlugin(WSDL_PLUGIN_ID);
+    }
+
+    public static boolean isRefProjectLoaded() {
+        return isPluginLoaded(REF_PROJECT_PLUGIN_ID);
     }
 
     public static boolean isWSDLPluginLoaded() {

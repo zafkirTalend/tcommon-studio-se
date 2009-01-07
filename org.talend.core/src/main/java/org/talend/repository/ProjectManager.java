@@ -24,12 +24,16 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -183,14 +187,42 @@ public final class ProjectManager {
      */
     public boolean isInCurrentMainProject(RepositoryNode node) {
         if (node != null) {
-            IProjectRepositoryNode root = node.getRoot();
-            if (root != null) {
-                Project project = root.getProject();
-                if (project != null) {
-                    return project.getTechnicalLabel().equals(getCurrentProject().getTechnicalLabel());
+            if (PluginChecker.isRefProjectLoaded()) {
+                IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
+                        IReferencedProjectService.class);
+                if (service != null && service.isMergeRefProject()) {
+                    IRepositoryObject object = node.getObject();
+                    if (object == null) {
+                        return true;
+                    }
+                    org.talend.core.model.properties.Project emfProject = getProject(object.getProperty().getItem());
+                    org.talend.core.model.properties.Project curProject = getCurrentProject().getEmfProject();
+                    return emfProject.equals(curProject);
+
                 } else {
-                    return true;
+                    IProjectRepositoryNode root = node.getRoot();
+                    if (root != null) {
+                        Project project = root.getProject();
+                        if (project != null) {
+                            return project.equals(getCurrentProject());
+                        } else {
+                            return true;
+                        }
+                    }
                 }
+                // refplugin is not loaded
+            } else {
+
+                IProjectRepositoryNode root = node.getRoot();
+                if (root != null) {
+                    Project project = root.getProject();
+                    if (project != null) {
+                        return project.getTechnicalLabel().equals(getCurrentProject().getTechnicalLabel());
+                    } else {
+                        return true;
+                    }
+                }
+
             }
         }
         return false;
