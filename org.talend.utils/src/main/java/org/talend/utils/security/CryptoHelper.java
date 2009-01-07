@@ -38,6 +38,12 @@ public class CryptoHelper {
     private Cipher ecipher;
 
     private Cipher dcipher;
+    
+    private static CryptoHelper cryptoHelper = new CryptoHelper("");
+
+    public static CryptoHelper getCryptoHelper() {
+        return cryptoHelper;
+    }
 
     // 8-byte Salt
     private byte[] salt = { (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x35, (byte) 0xE3,
@@ -45,7 +51,6 @@ public class CryptoHelper {
 
     // Iteration count
     private int iterationCount = 29;
-
 
     /**
      * CryptoHelper constructor.
@@ -55,8 +60,7 @@ public class CryptoHelper {
     public CryptoHelper(String passPhrase) {
         try {
             // Create the key
-            KeySpec keySpec = new PBEKeySpec(passPhrase.toCharArray(),
-                    salt, iterationCount);
+            KeySpec keySpec = new PBEKeySpec(passPhrase.toCharArray(), salt, iterationCount);
             SecretKey key = SecretKeyFactory.getInstance("PBEWithMD5AndDES").generateSecret(keySpec);
             ecipher = Cipher.getInstance(key.getAlgorithm());
             dcipher = Cipher.getInstance(key.getAlgorithm());
@@ -98,7 +102,6 @@ public class CryptoHelper {
         }
     }
 
-    
     /**
      * Method "encode64".
      * 
