@@ -275,13 +275,31 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__URL = 22;
 
     /**
+     * The feature id for the '<em><b>Stat And Logs Settings</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__STAT_AND_LOGS_SETTINGS = 23;
+
+    /**
+     * The feature id for the '<em><b>Implicit Context Settings</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__IMPLICIT_CONTEXT_SETTINGS = 24;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 23;
+    int PROJECT_FEATURE_COUNT = 25;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -4570,13 +4588,69 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT_SETTING_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.StatAndLogsSettingsImpl <em>Stat And Logs Settings</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.StatAndLogsSettingsImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getStatAndLogsSettings()
+     * @generated
+     */
+    int STAT_AND_LOGS_SETTINGS = 60;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STAT_AND_LOGS_SETTINGS__PARAMETERS = 0;
+
+    /**
+     * The number of structural features of the '<em>Stat And Logs Settings</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STAT_AND_LOGS_SETTINGS_FEATURE_COUNT = 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ImplicitContextSettingsImpl <em>Implicit Context Settings</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ImplicitContextSettingsImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getImplicitContextSettings()
+     * @generated
+     */
+    int IMPLICIT_CONTEXT_SETTINGS = 61;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPLICIT_CONTEXT_SETTINGS__PARAMETERS = 0;
+
+    /**
+     * The number of structural features of the '<em>Implicit Context Settings</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPLICIT_CONTEXT_SETTINGS_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 60;
+    int FOLDER_TYPE = 62;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -4586,7 +4660,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 61;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 63;
 
 
     /**
@@ -4597,7 +4671,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 62;
+    int USER_MODULE_AUTHORIZATION_TYPE = 64;
 
 
     /**
@@ -4608,7 +4682,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 63;
+    int INFORMATION_LEVEL = 65;
 
 
     /**
@@ -4831,6 +4905,28 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_Url();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.properties.Project#getStatAndLogsSettings <em>Stat And Logs Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Stat And Logs Settings</em>'.
+     * @see org.talend.core.model.properties.Project#getStatAndLogsSettings()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_StatAndLogsSettings();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.properties.Project#getImplicitContextSettings <em>Implicit Context Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Implicit Context Settings</em>'.
+     * @see org.talend.core.model.properties.Project#getImplicitContextSettings()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_ImplicitContextSettings();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
@@ -7505,6 +7601,48 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getComponentSetting_Family();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.StatAndLogsSettings <em>Stat And Logs Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Stat And Logs Settings</em>'.
+     * @see org.talend.core.model.properties.StatAndLogsSettings
+     * @generated
+     */
+    EClass getStatAndLogsSettings();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.properties.StatAndLogsSettings#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Parameters</em>'.
+     * @see org.talend.core.model.properties.StatAndLogsSettings#getParameters()
+     * @see #getStatAndLogsSettings()
+     * @generated
+     */
+    EReference getStatAndLogsSettings_Parameters();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ImplicitContextSettings <em>Implicit Context Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Implicit Context Settings</em>'.
+     * @see org.talend.core.model.properties.ImplicitContextSettings
+     * @generated
+     */
+    EClass getImplicitContextSettings();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.properties.ImplicitContextSettings#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Parameters</em>'.
+     * @see org.talend.core.model.properties.ImplicitContextSettings#getParameters()
+     * @see #getImplicitContextSettings()
+     * @generated
+     */
+    EReference getImplicitContextSettings_Parameters();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8156,6 +8294,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__URL = eINSTANCE.getProject_Url();
+
+        /**
+         * The meta object literal for the '<em><b>Stat And Logs Settings</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__STAT_AND_LOGS_SETTINGS = eINSTANCE.getProject_StatAndLogsSettings();
+
+        /**
+         * The meta object literal for the '<em><b>Implicit Context Settings</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__IMPLICIT_CONTEXT_SETTINGS = eINSTANCE.getProject_ImplicitContextSettings();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
@@ -10280,6 +10434,42 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT_SETTING__FAMILY = eINSTANCE.getComponentSetting_Family();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.StatAndLogsSettingsImpl <em>Stat And Logs Settings</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.StatAndLogsSettingsImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getStatAndLogsSettings()
+         * @generated
+         */
+        EClass STAT_AND_LOGS_SETTINGS = eINSTANCE.getStatAndLogsSettings();
+
+        /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference STAT_AND_LOGS_SETTINGS__PARAMETERS = eINSTANCE.getStatAndLogsSettings_Parameters();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ImplicitContextSettingsImpl <em>Implicit Context Settings</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ImplicitContextSettingsImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getImplicitContextSettings()
+         * @generated
+         */
+        EClass IMPLICIT_CONTEXT_SETTINGS = eINSTANCE.getImplicitContextSettings();
+
+        /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference IMPLICIT_CONTEXT_SETTINGS__PARAMETERS = eINSTANCE.getImplicitContextSettings_Parameters();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.

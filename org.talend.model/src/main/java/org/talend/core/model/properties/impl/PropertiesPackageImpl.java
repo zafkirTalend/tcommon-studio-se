@@ -39,6 +39,7 @@ import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
@@ -70,6 +71,7 @@ import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
 import org.talend.core.model.properties.SpagoBiServer;
+import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
@@ -458,6 +460,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass statAndLogsSettingsEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass implicitContextSettingsEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass taskExecutionHistoryEClass = null;
 
     /**
@@ -733,6 +749,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getProject_Url() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(22);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_StatAndLogsSettings() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_ImplicitContextSettings() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(24);
     }
 
     /**
@@ -2817,6 +2851,42 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getStatAndLogsSettings() {
+        return statAndLogsSettingsEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getStatAndLogsSettings_Parameters() {
+        return (EReference)statAndLogsSettingsEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getImplicitContextSettings() {
+        return implicitContextSettingsEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getImplicitContextSettings_Parameters() {
+        return (EReference)implicitContextSettingsEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getTaskExecutionHistory() {
         return taskExecutionHistoryEClass;
     }
@@ -3241,6 +3311,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(projectEClass, PROJECT__PRODUCT_VERSION);
         createEReference(projectEClass, PROJECT__COMPONENTS_SETTINGS);
         createEAttribute(projectEClass, PROJECT__URL);
+        createEReference(projectEClass, PROJECT__STAT_AND_LOGS_SETTINGS);
+        createEReference(projectEClass, PROJECT__IMPLICIT_CONTEXT_SETTINGS);
 
         projectComponentAuthorisationEClass = createEClass(PROJECT_COMPONENT_AUTHORISATION);
         createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__PROJECT);
@@ -3591,6 +3663,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentSettingEClass, COMPONENT_SETTING__HIDDEN);
         createEAttribute(componentSettingEClass, COMPONENT_SETTING__FAMILY);
 
+        statAndLogsSettingsEClass = createEClass(STAT_AND_LOGS_SETTINGS);
+        createEReference(statAndLogsSettingsEClass, STAT_AND_LOGS_SETTINGS__PARAMETERS);
+
+        implicitContextSettingsEClass = createEClass(IMPLICIT_CONTEXT_SETTINGS);
+        createEReference(implicitContextSettingsEClass, IMPLICIT_CONTEXT_SETTINGS__PARAMETERS);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -3688,6 +3766,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProject_ProductVersion(), theEcorePackage.getEString(), "productVersion", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_ComponentsSettings(), this.getComponentSetting(), null, "componentsSettings", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getProject_Url(), theEcorePackage.getEString(), "url", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_StatAndLogsSettings(), this.getStatAndLogsSettings(), null, "statAndLogsSettings", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_ImplicitContextSettings(), this.getImplicitContextSettings(), null, "implicitContextSettings", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(projectComponentAuthorisationEClass, ProjectComponentAuthorisation.class, "ProjectComponentAuthorisation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProjectComponentAuthorisation_Project(), this.getProject(), this.getProject_AllowedComponents(), "project", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4038,6 +4118,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getComponentSetting_Hidden(), theEcorePackage.getEBoolean(), "hidden", null, 0, 1, ComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponentSetting_Family(), theEcorePackage.getEString(), "family", null, 0, 1, ComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(statAndLogsSettingsEClass, StatAndLogsSettings.class, "StatAndLogsSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getStatAndLogsSettings_Parameters(), theTalendFilePackage.getParametersType(), null, "parameters", null, 0, 1, StatAndLogsSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(implicitContextSettingsEClass, ImplicitContextSettings.class, "ImplicitContextSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getImplicitContextSettings_Parameters(), theTalendFilePackage.getParametersType(), null, "parameters", null, 0, 1, ImplicitContextSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
         addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
@@ -4060,6 +4146,36 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         // Create resource
         createResource(eNS_URI);
+
+        // Create annotations
+        // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+        createExtendedMetaDataAnnotations();
+    }
+
+    /**
+     * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createExtendedMetaDataAnnotations() {
+        String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";		
+        addAnnotation
+          (getStatAndLogsSettings_Parameters(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Parameters",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getImplicitContextSettings_Parameters(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Parameters",
+             "namespace", "##targetNamespace"
+           });
     }
 
 } // PropertiesPackageImpl

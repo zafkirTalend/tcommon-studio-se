@@ -500,6 +500,18 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.STAT_AND_LOGS_SETTINGS: {
+                StatAndLogsSettings statAndLogsSettings = (StatAndLogsSettings)theEObject;
+                Object result = caseStatAndLogsSettings(statAndLogsSettings);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.IMPLICIT_CONTEXT_SETTINGS: {
+                ImplicitContextSettings implicitContextSettings = (ImplicitContextSettings)theEObject;
+                Object result = caseImplicitContextSettings(implicitContextSettings);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1386,6 +1398,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseComponentSetting(ComponentSetting object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Stat And Logs Settings</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Stat And Logs Settings</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseStatAndLogsSettings(StatAndLogsSettings object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Implicit Context Settings</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Implicit Context Settings</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseImplicitContextSettings(ImplicitContextSettings object) {
         return null;
     }
 

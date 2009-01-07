@@ -147,6 +147,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.INFORMATION: return createInformation();
             case PropertiesPackage.SQL_PATTERN_ITEM: return createSQLPatternItem();
             case PropertiesPackage.COMPONENT_SETTING: return createComponentSetting();
+            case PropertiesPackage.STAT_AND_LOGS_SETTINGS: return createStatAndLogsSettings();
+            case PropertiesPackage.IMPLICIT_CONTEXT_SETTINGS: return createImplicitContextSettings();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -719,6 +721,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ComponentSetting createComponentSetting() {
         ComponentSettingImpl componentSetting = new ComponentSettingImpl();
         return componentSetting;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public StatAndLogsSettings createStatAndLogsSettings() {
+        StatAndLogsSettingsImpl statAndLogsSettings = new StatAndLogsSettingsImpl();
+        return statAndLogsSettings;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ImplicitContextSettings createImplicitContextSettings() {
+        ImplicitContextSettingsImpl implicitContextSettings = new ImplicitContextSettingsImpl();
+        return implicitContextSettings;
     }
 
     /**

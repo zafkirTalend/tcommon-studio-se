@@ -41,6 +41,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getProductVersion <em>Product Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getComponentsSettings <em>Components Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getUrl <em>Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getStatAndLogsSettings <em>Stat And Logs Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
  * </ul>
  * </p>
  *
@@ -405,6 +407,58 @@ public interface Project extends EObject {
      * @generated
      */
     void setUrl(String value);
+
+    /**
+     * Returns the value of the '<em><b>Stat And Logs Settings</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Stat And Logs Settings</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Stat And Logs Settings</em>' containment reference.
+     * @see #setStatAndLogsSettings(StatAndLogsSettings)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_StatAndLogsSettings()
+     * @model containment="true"
+     * @generated
+     */
+    StatAndLogsSettings getStatAndLogsSettings();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getStatAndLogsSettings <em>Stat And Logs Settings</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Stat And Logs Settings</em>' containment reference.
+     * @see #getStatAndLogsSettings()
+     * @generated
+     */
+    void setStatAndLogsSettings(StatAndLogsSettings value);
+
+    /**
+     * Returns the value of the '<em><b>Implicit Context Settings</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Implicit Context Settings</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Implicit Context Settings</em>' containment reference.
+     * @see #setImplicitContextSettings(ImplicitContextSettings)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ImplicitContextSettings()
+     * @model containment="true"
+     * @generated
+     */
+    ImplicitContextSettings getImplicitContextSettings();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getImplicitContextSettings <em>Implicit Context Settings</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Implicit Context Settings</em>' containment reference.
+     * @see #getImplicitContextSettings()
+     * @generated
+     */
+    void setImplicitContextSettings(ImplicitContextSettings value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

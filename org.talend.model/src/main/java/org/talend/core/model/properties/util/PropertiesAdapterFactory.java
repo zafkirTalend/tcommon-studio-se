@@ -250,6 +250,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseComponentSetting(ComponentSetting object) {
                 return createComponentSettingAdapter();
             }
+            public Object caseStatAndLogsSettings(StatAndLogsSettings object) {
+                return createStatAndLogsSettingsAdapter();
+            }
+            public Object caseImplicitContextSettings(ImplicitContextSettings object) {
+                return createImplicitContextSettingsAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1091,6 +1097,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createComponentSettingAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.StatAndLogsSettings <em>Stat And Logs Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.StatAndLogsSettings
+     * @generated
+     */
+    public Adapter createStatAndLogsSettingsAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ImplicitContextSettings <em>Implicit Context Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ImplicitContextSettings
+     * @generated
+     */
+    public Adapter createImplicitContextSettingsAdapter() {
         return null;
     }
 

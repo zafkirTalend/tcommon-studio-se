@@ -21,11 +21,13 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ComponentSetting;
 import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectComponentAuthorisation;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.SpagoBiServer;
+import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserProjectAuthorization;
@@ -58,6 +60,8 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getProductVersion <em>Product Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getComponentsSettings <em>Components Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUrl <em>Url</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getStatAndLogsSettings <em>Stat And Logs Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
  * </ul>
  * </p>
  *
@@ -413,6 +417,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String url = URL_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getStatAndLogsSettings() <em>Stat And Logs Settings</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStatAndLogsSettings()
+     * @generated
+     * @ordered
+     */
+    protected StatAndLogsSettings statAndLogsSettings;
+
+    /**
+     * The cached value of the '{@link #getImplicitContextSettings() <em>Implicit Context Settings</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getImplicitContextSettings()
+     * @generated
+     * @ordered
+     */
+    protected ImplicitContextSettings implicitContextSettings;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -701,6 +725,92 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public StatAndLogsSettings getStatAndLogsSettings() {
+        return statAndLogsSettings;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetStatAndLogsSettings(StatAndLogsSettings newStatAndLogsSettings, NotificationChain msgs) {
+        StatAndLogsSettings oldStatAndLogsSettings = statAndLogsSettings;
+        statAndLogsSettings = newStatAndLogsSettings;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS, oldStatAndLogsSettings, newStatAndLogsSettings);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStatAndLogsSettings(StatAndLogsSettings newStatAndLogsSettings) {
+        if (newStatAndLogsSettings != statAndLogsSettings) {
+            NotificationChain msgs = null;
+            if (statAndLogsSettings != null)
+                msgs = ((InternalEObject)statAndLogsSettings).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS, null, msgs);
+            if (newStatAndLogsSettings != null)
+                msgs = ((InternalEObject)newStatAndLogsSettings).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS, null, msgs);
+            msgs = basicSetStatAndLogsSettings(newStatAndLogsSettings, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS, newStatAndLogsSettings, newStatAndLogsSettings));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ImplicitContextSettings getImplicitContextSettings() {
+        return implicitContextSettings;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetImplicitContextSettings(ImplicitContextSettings newImplicitContextSettings, NotificationChain msgs) {
+        ImplicitContextSettings oldImplicitContextSettings = implicitContextSettings;
+        implicitContextSettings = newImplicitContextSettings;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS, oldImplicitContextSettings, newImplicitContextSettings);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setImplicitContextSettings(ImplicitContextSettings newImplicitContextSettings) {
+        if (newImplicitContextSettings != implicitContextSettings) {
+            NotificationChain msgs = null;
+            if (implicitContextSettings != null)
+                msgs = ((InternalEObject)implicitContextSettings).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS, null, msgs);
+            if (newImplicitContextSettings != null)
+                msgs = ((InternalEObject)newImplicitContextSettings).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS, null, msgs);
+            msgs = basicSetImplicitContextSettings(newImplicitContextSettings, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS, newImplicitContextSettings, newImplicitContextSettings));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -848,6 +958,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getSpagoBiServer()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
                 return ((InternalEList)getComponentsSettings()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS:
+                return basicSetStatAndLogsSettings(null, msgs);
+            case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
+                return basicSetImplicitContextSettings(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -905,6 +1019,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getComponentsSettings();
             case PropertiesPackage.PROJECT__URL:
                 return getUrl();
+            case PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS:
+                return getStatAndLogsSettings();
+            case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
+                return getImplicitContextSettings();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -994,6 +1112,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__URL:
                 setUrl((String)newValue);
                 return;
+            case PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS:
+                setStatAndLogsSettings((StatAndLogsSettings)newValue);
+                return;
+            case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
+                setImplicitContextSettings((ImplicitContextSettings)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1073,6 +1197,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__URL:
                 setUrl(URL_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS:
+                setStatAndLogsSettings((StatAndLogsSettings)null);
+                return;
+            case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
+                setImplicitContextSettings((ImplicitContextSettings)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1129,6 +1259,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return componentsSettings != null && !componentsSettings.isEmpty();
             case PropertiesPackage.PROJECT__URL:
                 return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
+            case PropertiesPackage.PROJECT__STAT_AND_LOGS_SETTINGS:
+                return statAndLogsSettings != null;
+            case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
+                return implicitContextSettings != null;
         }
         return super.eIsSet(featureID);
     }

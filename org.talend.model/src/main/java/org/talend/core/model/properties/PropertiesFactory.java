@@ -508,6 +508,24 @@ public interface PropertiesFactory extends EFactory {
     ComponentSetting createComponentSetting();
 
     /**
+     * Returns a new object of class '<em>Stat And Logs Settings</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Stat And Logs Settings</em>'.
+     * @generated
+     */
+    StatAndLogsSettings createStatAndLogsSettings();
+
+    /**
+     * Returns a new object of class '<em>Implicit Context Settings</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Implicit Context Settings</em>'.
+     * @generated
+     */
+    ImplicitContextSettings createImplicitContextSettings();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
