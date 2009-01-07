@@ -73,7 +73,12 @@ public class TreeBuilder {
     }
 
     public static int compare(TypeNode o1, TypeNode o2) {
-        return typeOrders.get(o1.type) - typeOrders.get(o2.type);
+        Integer to1 = typeOrders.get(o1.type);
+		Integer to2 = typeOrders.get(o2.type);
+		if (to1 ==null || to2 == null) {
+			return 0;
+		}
+		return to1 - to2;
     }
 
     public static int compare(ItemRecord o1, ItemRecord o2) {
