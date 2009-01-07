@@ -50,6 +50,7 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileMask <em>File Trigger File Mask</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFolderPath <em>File Trigger Folder Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerTriggeredFilePath <em>File Trigger Triggered File Path</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskStartDate <em>Task Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskEndDate <em>Task End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobStartDate <em>Admin Job Start Date</em>}</li>
@@ -564,6 +565,26 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * @ordered
      */
     protected String fileTriggerTriggeredFilePath = FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getExpectedTriggeringDate() <em>Expected Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExpectedTriggeringDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date EXPECTED_TRIGGERING_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getExpectedTriggeringDate() <em>Expected Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExpectedTriggeringDate()
+     * @generated
+     * @ordered
+     */
+    protected Date expectedTriggeringDate = EXPECTED_TRIGGERING_DATE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getTaskStartDate() <em>Task Start Date</em>}' attribute.
@@ -1293,6 +1314,27 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
+    public Date getExpectedTriggeringDate() {
+        return expectedTriggeringDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExpectedTriggeringDate(Date newExpectedTriggeringDate) {
+        Date oldExpectedTriggeringDate = expectedTriggeringDate;
+        expectedTriggeringDate = newExpectedTriggeringDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE, oldExpectedTriggeringDate, expectedTriggeringDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Date getTaskStartDate() {
         return taskStartDate;
     }
@@ -1534,6 +1576,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getFileTriggerFolderPath();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
                 return getFileTriggerTriggeredFilePath();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                return getExpectedTriggeringDate();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
                 return getTaskStartDate();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
@@ -1637,6 +1681,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
                 setFileTriggerTriggeredFilePath((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                setExpectedTriggeringDate((Date)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
                 setTaskStartDate((Date)newValue);
@@ -1751,6 +1798,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
                 setFileTriggerTriggeredFilePath(FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT);
                 return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                setExpectedTriggeringDate(EXPECTED_TRIGGERING_DATE_EDEFAULT);
+                return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
                 setTaskStartDate(TASK_START_DATE_EDEFAULT);
                 return;
@@ -1839,6 +1889,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return FILE_TRIGGER_FOLDER_PATH_EDEFAULT == null ? fileTriggerFolderPath != null : !FILE_TRIGGER_FOLDER_PATH_EDEFAULT.equals(fileTriggerFolderPath);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
                 return FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT == null ? fileTriggerTriggeredFilePath != null : !FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT.equals(fileTriggerTriggeredFilePath);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                return EXPECTED_TRIGGERING_DATE_EDEFAULT == null ? expectedTriggeringDate != null : !EXPECTED_TRIGGERING_DATE_EDEFAULT.equals(expectedTriggeringDate);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
                 return TASK_START_DATE_EDEFAULT == null ? taskStartDate != null : !TASK_START_DATE_EDEFAULT.equals(taskStartDate);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
@@ -1920,6 +1972,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(fileTriggerFolderPath);
         result.append(", fileTriggerTriggeredFilePath: ");
         result.append(fileTriggerTriggeredFilePath);
+        result.append(", expectedTriggeringDate: ");
+        result.append(expectedTriggeringDate);
         result.append(", taskStartDate: ");
         result.append(taskStartDate);
         result.append(", taskEndDate: ");

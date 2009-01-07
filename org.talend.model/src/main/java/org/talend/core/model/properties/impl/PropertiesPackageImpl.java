@@ -3121,7 +3121,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskStartDate() {
+    public EAttribute getTaskExecutionHistory_ExpectedTriggeringDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(25);
     }
 
@@ -3130,7 +3130,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskEndDate() {
+    public EAttribute getTaskExecutionHistory_TaskStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(26);
     }
 
@@ -3139,7 +3139,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_AdminJobStartDate() {
+    public EAttribute getTaskExecutionHistory_TaskEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(27);
     }
 
@@ -3148,7 +3148,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_AdminJobEndDate() {
+    public EAttribute getTaskExecutionHistory_AdminJobStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(28);
     }
 
@@ -3157,7 +3157,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobStartDate() {
+    public EAttribute getTaskExecutionHistory_AdminJobEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(29);
     }
 
@@ -3166,7 +3166,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobEndDate() {
+    public EAttribute getTaskExecutionHistory_ServerJobStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(30);
     }
 
@@ -3175,7 +3175,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobDuration() {
+    public EAttribute getTaskExecutionHistory_ServerJobEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(31);
     }
 
@@ -3184,7 +3184,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
+    public EAttribute getTaskExecutionHistory_ServerJobDuration() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(32);
     }
 
@@ -3193,8 +3193,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
+    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(33);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(34);
     }
 
     /**
@@ -3576,6 +3585,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_START_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_END_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE);
@@ -4031,6 +4041,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTaskExecutionHistory_FileTriggerFileMask(), theEcorePackage.getEString(), "fileTriggerFileMask", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_FileTriggerFolderPath(), theEcorePackage.getEString(), "fileTriggerFolderPath", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_FileTriggerTriggeredFilePath(), theEcorePackage.getEString(), "fileTriggerTriggeredFilePath", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_ExpectedTriggeringDate(), theEcorePackage.getEDate(), "expectedTriggeringDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskStartDate(), theEcorePackage.getEDate(), "taskStartDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskEndDate(), theEcorePackage.getEDate(), "taskEndDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_AdminJobStartDate(), theEcorePackage.getEDate(), "adminJobStartDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

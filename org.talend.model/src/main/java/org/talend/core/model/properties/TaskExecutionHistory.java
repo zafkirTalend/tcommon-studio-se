@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFileMask <em>File Trigger File Mask</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFolderPath <em>File Trigger Folder Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerTriggeredFilePath <em>File Trigger Triggered File Path</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskStartDate <em>Task Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskEndDate <em>Task End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobStartDate <em>Admin Job Start Date</em>}</li>
@@ -709,6 +710,32 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setFileTriggerTriggeredFilePath(String value);
+
+    /**
+     * Returns the value of the '<em><b>Expected Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Expected Triggering Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Expected Triggering Date</em>' attribute.
+     * @see #setExpectedTriggeringDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ExpectedTriggeringDate()
+     * @model
+     * @generated
+     */
+    Date getExpectedTriggeringDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExpectedTriggeringDate <em>Expected Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Expected Triggering Date</em>' attribute.
+     * @see #getExpectedTriggeringDate()
+     * @generated
+     */
+    void setExpectedTriggeringDate(Date value);
 
     /**
      * Returns the value of the '<em><b>Task Start Date</b></em>' attribute.

@@ -3337,13 +3337,22 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = 24;
 
     /**
+     * The feature id for the '<em><b>Expected Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = 25;
+
+    /**
      * The feature id for the '<em><b>Task Start Date</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 25;
+    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 26;
 
     /**
      * The feature id for the '<em><b>Task End Date</b></em>' attribute.
@@ -3352,7 +3361,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 26;
+    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 27;
 
     /**
      * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
@@ -3361,7 +3370,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 27;
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 28;
 
     /**
      * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute.
@@ -3370,7 +3379,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 28;
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 29;
 
     /**
      * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
@@ -3379,7 +3388,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 29;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 30;
 
     /**
      * The feature id for the '<em><b>Server Job End Date</b></em>' attribute.
@@ -3388,7 +3397,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 30;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 31;
 
     /**
      * The feature id for the '<em><b>Server Job Duration</b></em>' attribute.
@@ -3397,7 +3406,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION = 31;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION = 32;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -3406,7 +3415,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 32;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 33;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -3415,7 +3424,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 33;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 34;
 
     /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
@@ -3424,7 +3433,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 34;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 35;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -7928,6 +7937,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTaskExecutionHistory_FileTriggerTriggeredFilePath();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getExpectedTriggeringDate <em>Expected Triggering Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Expected Triggering Date</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getExpectedTriggeringDate()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ExpectedTriggeringDate();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskStartDate <em>Task Start Date</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10680,6 +10700,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = eINSTANCE.getTaskExecutionHistory_FileTriggerTriggeredFilePath();
+
+        /**
+         * The meta object literal for the '<em><b>Expected Triggering Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = eINSTANCE.getTaskExecutionHistory_ExpectedTriggeringDate();
 
         /**
          * The meta object literal for the '<em><b>Task Start Date</b></em>' attribute feature.
