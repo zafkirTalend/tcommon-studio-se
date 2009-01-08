@@ -58,7 +58,9 @@ public enum EImage implements IImage {
     UP_ICON("/icons/up.gif"),
     DOWN_ICON("/icons/down.gif"),
     LEFT_ICON("/icons/left.gif"),
+    LEFTX_ICON("/icons/leftx.png"),
     RIGHT_ICON("/icons/right.gif"),
+    RIGHTX_ICON("/icons/rightx.png"),
 
     KEY_ICON("/icons/key.gif"),
     HIERARCHY_ICON("/icons/hierarchicalLayout.gif"),
