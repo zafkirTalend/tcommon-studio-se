@@ -41,6 +41,11 @@ public class CryptoHelper {
     
     private static CryptoHelper cryptoHelper = new CryptoHelper("");
 
+    /**
+     * TODO hcheng remove this method
+     * 
+     * @deprecated use constructor instead.
+     */
     public static CryptoHelper getCryptoHelper() {
         return cryptoHelper;
     }
