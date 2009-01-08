@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.dialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
@@ -104,6 +106,12 @@ public class MetadataDialog extends Dialog {
     private INode outputNode;
 
     private ThreeCompositesSashForm compositesSachForm;
+
+    private TableItem[] tableItem;
+
+    private List<IMetadataColumn> list;
+
+    private IMetadataColumn column;
 
     public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
             INode outputNode, CommandStack commandStack) {
@@ -303,11 +311,38 @@ public class MetadataDialog extends Dialog {
             gridData.verticalAlignment = GridData.CENTER;
             buttonComposite2.setLayoutData(gridData);
 
+            // qli comment
+            // Input => Output(the selection)
+            Button copySelectionToOutput = new Button(buttonComposite2, SWT.NONE);
+            copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
+            copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput"));
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copySelectionToOutput);
+
+            copySelectionToOutput.addListener(SWT.Selection, new Listener() {
+
+                public void handleEvent(Event event) {
+                    // qli comment
+                    // Input => Output(the selection)
+                    // if the selectionline above zero.just run the method "copyTable(list, getOutputMetaData())".
+                    tableItem = inputMetaView.getTable().getSelection();
+                    list = new ArrayList<IMetadataColumn>();
+                    for (int i = 0; i < tableItem.length; i++) {
+                        column = (IMetadataColumn) tableItem[i].getData();
+                        list.add(column);
+                    }
+                    if (tableItem.length > 0) {
+                        MetadataTool.copyTable(list, getOutputMetaData());
+                        outputMetaView.getTableViewerCreator().refresh();
+                    }
+                }
+            });
+
             // Input => Output
             Button copyToOutput = new Button(buttonComposite2, SWT.NONE);
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
-            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput.ToolTopText")); //$NON-NLS-1$
+            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput"));
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
+
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
@@ -321,11 +356,43 @@ public class MetadataDialog extends Dialog {
                 }
             });
 
+            Label lable1 = new Label(buttonComposite2, SWT.NONE);
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(lable1);
+            Label lable2 = new Label(buttonComposite2, SWT.NONE);
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(lable2);
+            Label lable3 = new Label(buttonComposite2, SWT.NONE);
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(lable3);
+
+            // qli comment
+            // Output => Input(the selection)
+            Button copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
+            copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
+            copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText"));
+            gridData.verticalAlignment = GridData.CENTER;
+            copySelectionToInput.setLayoutData(gridData);
+            copySelectionToInput.addListener(SWT.Selection, new Listener() {
+
+                public void handleEvent(Event event) {
+                    // qli comment
+                    // Output => Input(selection)
+                    // if the selectionline above zero.just run the method "copyTable(list, getInputMetaData())".
+                    tableItem = outputMetaView.getTable().getSelection();
+                    list = new ArrayList<IMetadataColumn>();
+                    for (int i = 0; i < tableItem.length; i++) {
+                        column = (IMetadataColumn) tableItem[i].getData();
+                        list.add(column);
+                    }
+                    if (tableItem.length > 0) {
+                        MetadataTool.copyTable(list, getInputMetaData());
+                        inputMetaView.getTableViewerCreator().refresh();
+                    }
+                }
+            });
+
             // Output => Input
             Button copyToInput = new Button(buttonComposite2, SWT.NONE);
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
-            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput")); //$NON-NLS-1$
-            gridData = new GridData();
+            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput.toolTipText"));
             gridData.verticalAlignment = GridData.CENTER;
             copyToInput.setLayoutData(gridData);
             copyToInput.addListener(SWT.Selection, new Listener() {

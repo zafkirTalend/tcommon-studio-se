@@ -92,6 +92,17 @@ public class MetadataTool {
         copyTable(source, target, null);
     }
 
+    /**
+     * 
+     * DOC qli Comment method "copyTable".
+     * 
+     * @param sourceColumns,target
+     * @return
+     */
+    public static void copyTable(List<IMetadataColumn> sourceColumns, IMetadataTable target) {
+        copyTable(sourceColumns, target, null);
+    }
+
     public static void copyTable(IMetadataTable source, IMetadataTable target, String targetDbms) {
         List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
         List<String> readOnlycolumns = new ArrayList<String>();
@@ -107,6 +118,41 @@ public class MetadataTool {
 
         List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
         for (IMetadataColumn column : source.getListColumns()) {
+            IMetadataColumn targetColumn = target.getColumn(column.getLabel());
+            IMetadataColumn newTargetColumn = column.clone();
+            if (targetColumn == null) {
+                columnsTAdd.add(newTargetColumn);
+                newTargetColumn.setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
+            } else {
+                if (!targetColumn.isReadOnly()) {
+                    target.getListColumns().remove(targetColumn);
+                    newTargetColumn.setCustom(targetColumn.isCustom());
+                    newTargetColumn.setCustomId(targetColumn.getCustomId());
+                    columnsTAdd.add(newTargetColumn);
+                }
+            }
+        }
+        target.getListColumns().addAll(columnsTAdd);
+        target.sortCustomColumns();
+    }
+
+    /**
+     * 
+     * DOC qli Comment method "copyTable".
+     * 
+     * @param sourceColumns,target,targetDbms
+     * @return
+     */
+    public static void copyTable(List<IMetadataColumn> sourceColumns, IMetadataTable target, String targetDbms) {
+        List<String> readOnlycolumns = new ArrayList<String>();
+        for (IMetadataColumn column : target.getListColumns()) {
+            if (column.isReadOnly()) {
+                readOnlycolumns.add(column.getLabel());
+            }
+        }
+
+        List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
+        for (IMetadataColumn column : sourceColumns) {
             IMetadataColumn targetColumn = target.getColumn(column.getLabel());
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {

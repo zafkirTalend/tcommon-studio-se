@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.metadata.dialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,6 +39,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
@@ -112,6 +115,12 @@ public class MetadataDialogForMerge extends Dialog {
 
     private Map<INode, Map<IMetadataTable, Boolean>> inputInfos;
 
+    private TableItem[] tableItem;
+
+    private List<IMetadataColumn> list;
+
+    private IMetadataColumn column;
+
     MetadataTableEditor metadataTableEditor;
 
     Button copyToInput;
@@ -140,8 +149,8 @@ public class MetadataDialogForMerge extends Dialog {
         }
     }
 
-    public MetadataDialogForMerge(Shell parent, IMetadataTable inputMetaTable, INode inputNode,
-            IMetadataTable outputMetaTable, INode outputNode, CommandStack commandStack) {
+    public MetadataDialogForMerge(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
+            INode outputNode, CommandStack commandStack) {
         super(parent);
         init(parent, inputMetaTable, inputNode, outputMetaTable, outputNode, commandStack);
     }
@@ -162,8 +171,7 @@ public class MetadataDialogForMerge extends Dialog {
         init(parent, inputMetaTable, inputNode, outputMetaTable, outputNode, commandStack);
     }
 
-    public MetadataDialogForMerge(Shell parent, IMetadataTable outputMetaTable, INode outputNode,
-            CommandStack commandStack) {
+    public MetadataDialogForMerge(Shell parent, IMetadataTable outputMetaTable, INode outputNode, CommandStack commandStack) {
         this(parent, null, null, outputMetaTable, outputNode, commandStack);
     }
 
@@ -196,8 +204,8 @@ public class MetadataDialogForMerge extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
-                    true, true, false);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
+                    false);
 
             MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
@@ -241,8 +249,8 @@ public class MetadataDialogForMerge extends Dialog {
                 compositeleft.setLayout(new GridLayout());
 
                 metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-                inputMetaView = new MetadataTableEditorView(compositeleft, SWT.NONE, metadataTableEditor,
-                        inputReadOnly, true, false, false);
+                inputMetaView = new MetadataTableEditorView(compositeleft, SWT.NONE, metadataTableEditor, inputReadOnly, true,
+                        false, false);
                 MetadataDialog.initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
                 inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
                 inputMetaView.initGraphicComponents();
@@ -251,8 +259,8 @@ public class MetadataDialogForMerge extends Dialog {
                 inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
 
                 CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
-                CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly,
-                        outputMetaView, outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
+                CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly, outputMetaView,
+                        outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
 
                 item.setControl(compositeleft);
                 item.setData(INPUTNODE_KEY, inputNode);
@@ -313,16 +321,41 @@ public class MetadataDialogForMerge extends Dialog {
             gridData.verticalAlignment = GridData.CENTER;
             buttonComposite2.setLayoutData(gridData);
 
+            // qli comment
+            // Input => Output(the selection)
+            Button copySelectionToOutput = new Button(buttonComposite2, SWT.NONE);
+            copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
+            copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput"));
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copySelectionToOutput);
+
+            copySelectionToOutput.addListener(SWT.Selection, new Listener() {
+
+                public void handleEvent(Event event) {
+                    // qli comment
+                    // Input => Output(the selection)
+                    // if the selectionline above zero.just run the method "copyTable(list, getOutputMetaData())".
+                    tableItem = inputMetaView.getTable().getSelection();
+                    list = new ArrayList<IMetadataColumn>();
+                    for (int i = 0; i < tableItem.length; i++) {
+                        column = (IMetadataColumn) tableItem[i].getData();
+                        list.add(column);
+                    }
+                    if (tableItem.length > 0) {
+                        MetadataTool.copyTable(list, getOutputMetaData());
+                        outputMetaView.getTableViewerCreator().refresh();
+                    }
+                }
+            });
+
             // Input => Output
             Button copyToOutput = new Button(buttonComposite2, SWT.NONE);
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
-            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput.ToolTopText")); //$NON-NLS-1$
+            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
@@ -332,18 +365,50 @@ public class MetadataDialogForMerge extends Dialog {
                 }
             });
 
+            Label lable1 = new Label(buttonComposite2, SWT.NONE);
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(lable1);
+            Label lable2 = new Label(buttonComposite2, SWT.NONE);
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(lable2);
+            Label lable3 = new Label(buttonComposite2, SWT.NONE);
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(lable3);
+
+            // qli comment
+            // Output => Input(the selection)
+            Button copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
+            copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
+            copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText"));
+            gridData.verticalAlignment = GridData.CENTER;
+            copySelectionToInput.setLayoutData(gridData);
+            copySelectionToInput.addListener(SWT.Selection, new Listener() {
+
+                public void handleEvent(Event event) {
+                    // qli comment
+                    // Output => Input(selection)
+                    // if the selectionline above zero.just run the method "copyTable(list, getInputMetaData())".
+                    tableItem = outputMetaView.getTable().getSelection();
+                    list = new ArrayList<IMetadataColumn>();
+                    for (int i = 0; i < tableItem.length; i++) {
+                        column = (IMetadataColumn) tableItem[i].getData();
+                        list.add(column);
+                    }
+                    if (tableItem.length > 0) {
+                        MetadataTool.copyTable(list, getInputMetaData());
+                        inputMetaView.getTableViewerCreator().refresh();
+                    }
+                }
+            });
+
             // Output => Input
             copyToInput = new Button(buttonComposite2, SWT.NONE);
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
-            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput")); //$NON-NLS-1$
+            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput.toolTipText")); //$NON-NLS-1$
             gridData = new GridData();
             gridData.verticalAlignment = GridData.CENTER;
             copyToInput.setLayoutData(gridData);
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
@@ -371,8 +436,8 @@ public class MetadataDialogForMerge extends Dialog {
             compositeRight.setLayoutData(new GridData(GridData.FILL_BOTH));
             compositeRight.setLayout(new GridLayout());
 
-            outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, new MetadataTableEditor(
-                    outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, false, //$NON-NLS-1$
+            outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, new MetadataTableEditor(outputMetaTable,
+                    titleOutput + " (Output)"), outputReadOnly, true, false, //$NON-NLS-1$
                     false);
             MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
@@ -390,8 +455,7 @@ public class MetadataDialogForMerge extends Dialog {
 
         }
         CustomTableManager.addCustomManagementToTable(outputMetaView, outputReadOnly);
-        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, null, null,
-                false);
+        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, null, null, false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
