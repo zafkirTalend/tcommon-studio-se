@@ -176,18 +176,18 @@
     <elementParameter field="CHECK" name="SHOW_HINT" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tLogRow_2">
-      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="Day"/>
-      <column comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="20" name="father_pid" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="20" name="root_pid" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="50" name="context" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="datetime"/>
+      <column comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="20" name="father_pid" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="20" name="root_pid" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="50" name="context" nullable="true" precision="0" sourceType="" type="string"/>
       <column comment="" defaultValue="" key="false" length="3" name="priority" nullable="true" precision="0" sourceType="" type="int"/>
-      <column comment="" defaultValue="" key="false" length="255" name="type" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="origin" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="code" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="type" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="origin" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="code" nullable="true" precision="0" sourceType="" type="string"/>
     </metadata>
   </node>
   <node componentName="tLogCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="32">
@@ -204,18 +204,18 @@
     <elementParameter field="CHECK" name="SHOW_HINT" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tLogCatcher_1">
-      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="Day"/>
-      <column comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="20" name="father_pid" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="20" name="root_pid" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="50" name="context" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="datetime"/>
+      <column comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="20" name="father_pid" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="20" name="root_pid" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="50" name="context" nullable="true" precision="0" sourceType="" type="string"/>
       <column comment="" defaultValue="" key="false" length="3" name="priority" nullable="true" precision="0" sourceType="" type="int"/>
-      <column comment="" defaultValue="" key="false" length="255" name="type" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="origin" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="code" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="type" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="origin" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="code" nullable="true" precision="0" sourceType="" type="string"/>
     </metadata>
   </node>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tFileOutputDelimited_1"/>

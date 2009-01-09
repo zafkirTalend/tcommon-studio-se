@@ -20,13 +20,13 @@
     <elementParameter field="CHECK" name="SHOW_HINT" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tFileCompare_1">
-      <column comment="" defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="Day"/>
-      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="datetime"/>
+      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="string"/>
       <column comment="" defaultValue="" key="false" length="1" name="differ" nullable="true" precision="0" sourceType="" type="int"/>
-      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="string"/>
     </metadata>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="64">
@@ -41,13 +41,13 @@
     <elementParameter field="CHECK" name="SHOW_HINT" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tLogRow_1">
-      <column comment="" defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="Day"/>
-      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="String"/>
-      <column comment="" defaultValue="" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" precision="0" sourceType="" type="datetime"/>
+      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="string"/>
+      <column comment="" defaultValue="" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="string"/>
       <column comment="" defaultValue="" key="false" length="1" name="differ" nullable="true" precision="0" sourceType="" type="int"/>
-      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="string"/>
     </metadata>
   </node>
   <connection label="row1" lineStyle="0" metaname="tFileCompare_1" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_1" target="tLogRow_1"/>
