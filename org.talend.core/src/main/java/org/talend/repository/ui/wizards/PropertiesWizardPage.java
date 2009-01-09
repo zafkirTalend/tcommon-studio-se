@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -788,6 +789,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 version = VersionUtils.upMajor(version);
                 versionText.setText(version);
                 property.setVersion(version);
+                property.setCreationDate(new Date());
                 updatePageStatus();
             }
         });
@@ -800,6 +802,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 version = VersionUtils.upMinor(version);
                 versionText.setText(version);
                 property.setVersion(version);
+                property.setCreationDate(new Date());
                 updatePageStatus();
             }
         });
