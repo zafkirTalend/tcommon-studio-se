@@ -53,12 +53,6 @@ public class RepositoryEditorInput extends FileEditorInput {
         this.item = item;
     }
 
-    public RepositoryEditorInput(IFile file, Item item, boolean readonly) {
-        super(file);
-        this.item = item;
-        this.setReadOnly(readonly);
-    }
-
     @Override
     public String getName() {
         // PTODO mhelleboid use RepositoryLabelProvider when ready
