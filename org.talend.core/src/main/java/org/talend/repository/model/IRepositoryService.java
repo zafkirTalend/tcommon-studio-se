@@ -26,6 +26,8 @@ import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -89,6 +91,8 @@ public interface IRepositoryService extends IService {
 
     public void openMetadataConnection(IRepositoryObject o);
 
+    public ConnectionItem openMetadataConnection(boolean creation, RepositoryNode realNode, INode node);
+
     public void openEditSchemaWizard(String value);
 
     public DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn);
@@ -106,4 +110,8 @@ public interface IRepositoryService extends IService {
     public RepositoryNode getRepositoryNode(String id, boolean expanded);
 
     public void openRepositoryReviewDialog(ERepositoryObjectType type, String repositoryType, List<IContextParameter> params);
+
+    public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
+
+    public String getDatabaseStringURL(DatabaseConnection conn);
 }

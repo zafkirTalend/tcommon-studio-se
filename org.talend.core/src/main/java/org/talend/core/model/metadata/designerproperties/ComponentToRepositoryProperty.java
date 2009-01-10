@@ -1,0 +1,1280 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.model.metadata.designerproperties;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.talend.core.CorePlugin;
+import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
+import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
+import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
+import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
+import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
+import org.talend.core.model.utils.TalendTextUtils;
+
+/**
+ * DOC wzhang class global comment. Detailled comment
+ */
+public class ComponentToRepositoryProperty {
+
+    /**
+     * DOC wzhang Comment method "setValue".
+     * 
+     * @param connection
+     * @param node
+     */
+    public static boolean setValue(Connection connection, INode node) {
+
+        if (connection == null || node == null) {
+            return false;
+        }
+        if (connection instanceof DatabaseConnection) {
+            setDatabaseType((DatabaseConnection) connection, node);
+        }
+        // impossible to use OCI in oracle
+        IElementParameter elementParameter = node.getElementParameter("CONNECTION_TYPE");
+        if (elementParameter != null) {
+            if ("ORACLE_OCI".equals(elementParameter.getValue())) {
+                Shell shell = Display.getCurrent().getActiveShell();
+                String title = "Error";
+                String message = "Impossible to use OCI type in the repository!";
+                MessageDialog.openError(shell, title, message);
+                return false;
+            }
+        }
+        for (IElementParameter param : node.getElementParameters()) {
+            param.getName();
+            String repositoryValue = param.getRepositoryValue();
+            setValue(connection, node, repositoryValue);
+        }
+        if (connection instanceof DatabaseConnection) {
+            // add url instance ------DataStringConnection
+            DatabaseConnection conn = (DatabaseConnection) connection;
+            String url = CorePlugin.getDefault().getRepositoryService().getDatabaseStringURL(conn);
+            conn.setURL(url);
+        }
+        return true;
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    public static void setValue(Connection connection, INode node, String repositoryValue) {
+        if (connection == null || node == null || repositoryValue == null) {
+            return;
+        } else if (connection instanceof XmlFileConnection) {
+            setXmlFileValue((XmlFileConnection) connection, node, repositoryValue);
+        } else if (connection instanceof DatabaseConnection) {
+            setDatabaseValue((DatabaseConnection) connection, node, repositoryValue);
+        } else if (connection instanceof EbcdicConnection) {
+            setEbcdicValue((EbcdicConnection) connection, node, repositoryValue);
+        } else if (connection instanceof DelimitedFileConnection) {
+            setDelimitedFileValue((DelimitedFileConnection) connection, node, repositoryValue);
+        } else if (connection instanceof LDAPSchemaConnection) {
+            setLDAPSchemaValue((LDAPSchemaConnection) connection, node, repositoryValue);
+        } else if (connection instanceof WSDLSchemaConnection) {
+            setWSDLSchemaValue((WSDLSchemaConnection) connection, node, repositoryValue);
+        } else if (connection instanceof LdifFileConnection) {
+            setLdifFileValue((LdifFileConnection) connection, node, repositoryValue);
+        } else if (connection instanceof RegexpFileConnection) {
+            setRegexpFileValue((RegexpFileConnection) connection, node, repositoryValue);
+        } else if (connection instanceof PositionalFileConnection) {
+            setPositionalFileValue((PositionalFileConnection) connection, node, repositoryValue);
+        } else if (connection instanceof FileExcelConnection) {
+            setFileExcelValue((FileExcelConnection) connection, node, repositoryValue);
+        } else if (connection instanceof SAPConnection) {
+            setSAPValue((SAPConnection) connection, node, repositoryValue);
+        } else if (connection instanceof SalesforceSchemaConnection) {
+            setSalesforceSchema((SalesforceSchemaConnection) connection, node, repositoryValue);
+        }
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "getParameterValue".
+     * 
+     * @param node
+     * @param paramName
+     * @return
+     */
+    private static String getParameterValue(INode node, String paramName) {
+        if (node != null || paramName != null) {
+            IElementParameter param = node.getElementParameter(paramName);
+            if (param != null) {
+                Object o = param.getValue();
+                if (o instanceof String || o instanceof Boolean || o instanceof Integer || o instanceof Long
+                        || o instanceof Character) {
+                    String value = String.valueOf(o);
+                    if (value != null) {
+                        return TalendTextUtils.removeQuotes(value);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private static Object getParameterObjectValue(INode node, String paramName) {
+        if (node != null || paramName != null) {
+            IElementParameter param = node.getElementParameter(paramName);
+            if (param != null) {
+                Object o = param.getValue();
+                return o;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setDatabaseType".
+     * 
+     * @param connection
+     * @param node
+     */
+    private static void setDatabaseType(DatabaseConnection connection, INode node) {
+        IElementParameter parameter = node.getElementParameter("TYPE");
+        if (parameter == null) {
+            // GreePlum
+            IElementParameter para = node.getElementParameter("PROPERTY");
+            if (para.getRepositoryValue().endsWith(EDatabaseTypeName.GREENPLUM.getProduct())) {
+                connection.setDatabaseType(EDatabaseTypeName.GREENPLUM.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.GREENPLUM.getProduct());
+            }
+            // PostgresPlus
+            if (para.getRepositoryValue().endsWith(EDatabaseTypeName.PLUSPSQL.getProduct())) {
+                connection.setDatabaseType(EDatabaseTypeName.PLUSPSQL.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.PLUSPSQL.getProduct());
+            }
+            // jdbc
+            if (para.getRepositoryValue().endsWith(EDatabaseTypeName.GENERAL_JDBC.getProduct())) {
+                connection.setDatabaseType(EDatabaseTypeName.GENERAL_JDBC.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.GENERAL_JDBC.getProduct());
+            }
+            return;
+        }
+        // mysql
+        else if (EDatabaseTypeName.MYSQL.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.MYSQL.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.MYSQL.getProduct());
+        }
+        // mssql
+        else if (EDatabaseTypeName.MSSQL.getXmlName().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.MSSQL.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.MSSQL.getProduct());
+        }
+        // Psql
+        else if (EDatabaseTypeName.PSQL.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.PSQL.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.PSQL.getProduct());
+        }
+        // PlusSql
+        else if (EDatabaseTypeName.PLUSPSQL.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.PLUSPSQL.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.PLUSPSQL.getProduct());
+        }
+        // DB2
+        else if (EDatabaseTypeName.IBMDB2.getProduct().equalsIgnoreCase(((String) parameter.getValue()).replace(' ', '_'))) {
+            connection.setDatabaseType(EDatabaseTypeName.IBMDB2.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.IBMDB2.getProduct());
+        }
+        // Ingres
+        else if (EDatabaseTypeName.INGRES.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.INGRES.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.INGRES.getProduct());
+        }
+        // Interbase
+        else if (EDatabaseTypeName.INTERBASE.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.INTERBASE.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.INTERBASE.getProduct());
+        }
+        // Sqlite
+        else if (EDatabaseTypeName.SQLITE.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.SQLITE.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.SQLITE.getProduct());
+        }
+        // Firebird
+        else if (EDatabaseTypeName.FIREBIRD.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.FIREBIRD.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.FIREBIRD.getProduct());
+        }
+        // Informix
+        else if (EDatabaseTypeName.INFORMIX.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.INFORMIX.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.INFORMIX.getProduct());
+        }
+        // Access
+        else if (EDatabaseTypeName.ACCESS.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.ACCESS.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.ACCESS.getProduct());
+        }
+        // Teradata
+        else if (EDatabaseTypeName.TERADATA.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.TERADATA.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.TERADATA.getProduct());
+        }
+        // AS400
+        else if (EDatabaseTypeName.AS400.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.AS400.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.AS400.getProduct());
+        }
+        // Vertica
+        // not exist in "DB Type" in Database Connection page.
+        // else if (EDatabaseTypeName.VERTICA.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+        // connection.setDatabaseType(EDatabaseTypeName.VERTICA.getDisplayName());
+        // connection.setProductId(EDatabaseTypeName.VERTICA.getProduct());
+        // }
+
+        // MaxDB
+        else if (EDatabaseTypeName.MAXDB.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.MAXDB.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.MAXDB.getProduct());
+        }
+        // Paraccel
+        else if (EDatabaseTypeName.PARACCEL.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.PARACCEL.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.PARACCEL.getProduct());
+        }
+        // NeTezza
+        else if (EDatabaseTypeName.NETEZZA.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.NETEZZA.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.NETEZZA.getProduct());
+        }
+        // Sybase
+        else if (((String) parameter.getValue()).toLowerCase().startsWith(EDatabaseTypeName.SYBASEASE.getProduct().toLowerCase())) {
+            parameter = node.getElementParameter("TYPE");
+            if ("SybaseASE".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.SYBASEASE.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.SYBASEASE.getProduct());
+            }
+            // not exist in "DB Type" in Database Connection page.
+            // else if ("SybaseIQ".equals(parameter.getValue())) {
+            // connection.setDatabaseType(EDatabaseTypeName.SYBASEIQ.getDisplayName());
+            // }
+            return;
+        }
+
+        // oracle
+        else if (EDatabaseTypeName.ORACLEFORSID.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            parameter = node.getElementParameter("CONNECTION_TYPE");
+            // if ("ORACLE_OCI".equals(parameter.getValue())) {
+            // }
+            if ("ORACLE_SERVICE_NAME".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.ORACLESN.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
+            } else if ("ORACLE_SID".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.ORACLEFORSID.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
+            }
+            return;
+        }
+        // HSql
+        else if (EDatabaseTypeName.HSQLDB_SERVER.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            parameter = node.getElementParameter("RUNNING_MODE");
+            if ("HSQLDB_SERVER".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.HSQLDB_SERVER.getProduct());
+            } else if ("HSQLDB_WEBSERVER".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.HSQLDB_WEBSERVER.getProduct());
+            } else if ("HSQLDB_INPROGRESS_PERSISTENT".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getProduct());
+            }
+            return;
+        }
+
+        // JavaDB
+        else if (EDatabaseTypeName.JAVADB_EMBEDED.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            parameter = node.getElementParameter("FRAMEWORK_TYPE");
+            if ("EMBEDED".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.JAVADB_EMBEDED.getProduct());
+            } else if ("JCCJDBC".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.JAVADB_JCCJDBC.getProduct());
+            } else if ("DERBYCLIENT".equals(parameter.getValue())) {
+                connection.setDatabaseType(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.JAVADB_DERBYCLIENT.getProduct());
+            }
+            return;
+        }
+
+        // DB
+        else if (node.getComponent().getName().startsWith("tDBInput") || node.getComponent().getName().startsWith("tDBOutput")) {
+            parameter = node.getElementParameter("PROPERTY");
+            if (parameter.getRepositoryValue().endsWith(EDatabaseTypeName.GODBC.getProduct())) {
+                connection.setDatabaseType(EDatabaseTypeName.GODBC.getDisplayName());
+                connection.setProductId(EDatabaseTypeName.GODBC.getProduct());
+            }
+        }
+
+        // SAX
+        // can not find corresponding component. also not exist in EDatabaseType.java.
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setDatabaseValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setDatabaseValue(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("USERNAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "USER");
+            if (value != null) {
+                connection.setUsername(value);
+            }
+        }
+        if ("PASSWORD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PASS");
+            if (value != null) {
+                connection.setPassword(value);
+            }
+        }
+        if ("SERVER_NAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HOST");
+            if (value != null) {
+                connection.setServerName(value);
+            }
+        }
+        if ("PORT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PORT");
+            if (value != null) {
+                connection.setPort(value);
+            }
+        }
+        if ("SID".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBNAME");
+            if (value != null) {
+                connection.setSID(value);
+            }
+        }
+        if ("SCHEMA".equals(repositoryValue)) {
+            String value = getParameterValue(node, "SCHEMA_DB");
+            if (value != null) {
+                connection.setSchema(value.toUpperCase());
+            }
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
+            setDatabaseValueForOracleSid(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
+            setDatabaseValueForOracleSeverName(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.MYSQL.getDisplayName())) {
+            setDatabaseValueForMysql(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.SYBASEASE.getDisplayName())
+                || connection.getDatabaseType().equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
+            setDatabaseValueForSysbase(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.ACCESS.getDisplayName())) {
+            setDatabaseValueForAccess(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
+            setDatabaseValueForSqlite(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.FIREBIRD.getDisplayName())) {
+            setDatabaseValueForFileBird(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.AS400.getDisplayName())) {
+            setDatabaseValueForAs400(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+            setDatabaseValueForMSSql(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.GODBC.getDisplayName())) {
+            setDatabaseValueForDB(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.INGRES.getDisplayName())) {
+            setDatabaseValueForIngres(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.INFORMIX.getDisplayName())) {
+            setDatabaseValueForInformix(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.JAVADB.getDisplayName())
+                || connection.getDatabaseType().equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
+                || connection.getDatabaseType().equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())
+                || connection.getDatabaseType().equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())) {
+            setDatabaseValueForjavadb(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.NETEZZA.getDisplayName())) {
+            setDatabaseValueForNetezza(connection, node, repositoryValue);
+        }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.GENERAL_JDBC.getDisplayName())) {
+            setDatabaseValueForJdbc(connection, node, repositoryValue);
+        }
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setDatabaseValueForOracleSid".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setDatabaseValueForOracleSid(DatabaseConnection connection, INode node, String repositoryValue) {
+
+        if ("DB_VERSION".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DB_VERSION");
+            if (value != null) {
+                connection.setDbVersionString(value);
+            }
+        }
+        if ("SID".equals(repositoryValue)) {
+            IElementParameter param = node.getElementParameter("CONNECTION_TYPE");
+            if (param != null && "ORACLE_OCI".equals(param.getValue())) {
+                String value = getParameterValue(node, "LOCAL_SERVICE_NAME");
+                if (value != null) {
+                    connection.setSID(value);
+                }
+            } else {
+                String value = getParameterValue(node, "DBNAME");
+                if (value != null) {
+                    connection.setSID(value);
+                }
+            }
+        }
+    }
+
+    private static void setDatabaseValueForOracleSeverName(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("DB_VERSION".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DB_VERSION");
+            if (value != null) {
+                connection.setDbVersionString(value);
+            }
+        }
+        if ("SID".equals(repositoryValue)) {
+            IElementParameter param = node.getElementParameter("CONNECTION_TYPE");
+            if (param != null && "ORACLE_OCI".equals(param.getValue())) {
+                String value = getParameterValue(node, "LOCAL_SERVICE_NAME");
+                if (value != null) {
+                    connection.setServerName(value);
+                }
+            } else {
+                String value = getParameterValue(node, "DBNAME");
+                if (value != null) {
+                    connection.setServerName(value);
+                }
+            }
+        }
+    }
+
+    private static void setDatabaseValueForAs400(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("PROPERTIES_STRING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROPERTIES");
+            if (value != null) {
+                connection.setAdditionalParams(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForMysql(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("PROPERTIES_STRING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROPERTIES");
+            if (value != null) {
+                connection.setAdditionalParams(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForMSSql(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("PROPERTIES_STRING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROPERTIES");
+            if (value != null) {
+                connection.setAdditionalParams(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForDB(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("DATASOURCE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBNAME");
+            if (value != null) {
+                connection.setDatasourceName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForSysbase(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("SERVER_NAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "SERVER");
+            if (value != null) {
+                connection.setServerName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForAccess(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("FILE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBNAME");
+            if (value != null) {
+                connection.setFileFieldName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForFileBird(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("FILE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DB");
+            if (value != null) {
+                connection.setFileFieldName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForSqlite(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("FILE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBNAME");
+            if (value != null) {
+                connection.setFileFieldName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForIngres(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("SERVER_NAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "SERVER");
+            if (value != null) {
+                connection.setServerName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForInformix(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("PROPERTIES_STRING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROPERTIES");
+            if (value != null) {
+                connection.setAdditionalParams(value);
+            }
+        }
+        if ("DATASOURCE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBSERVER");
+            if (value != null) {
+                connection.setDatasourceName(value);
+            }
+        }
+
+    }
+
+    private static void setDatabaseValueForjavadb(DatabaseConnection connection, INode node, String repositoryValue) {
+
+        if ("SID".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DB");
+            if (value != null) {
+                connection.setSID(value);
+            }
+        }
+        if ("DIRECTORY".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBPATH");
+            if (value != null) {
+                connection.setDBRootPath(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForNetezza(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("DBNAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DBNAME");
+            if (value != null) {
+                connection.setDatasourceName(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForJdbc(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("URL".equals(repositoryValue)) {
+            String value = getParameterValue(node, "URL");
+            if (value != null) {
+                connection.setURL(value);
+            }
+        }
+        if ("DRIVER_JAR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DRIVER_JAR");
+            if (value != null) {
+                connection.setDriverJarPath(value);
+            }
+        }
+        if ("DRIVER_CLASS".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DRIVER_CLASS");
+            if (value != null) {
+                connection.setDriverClass(value);
+            }
+        }
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setXmlFileValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setXmlFileValue(XmlFileConnection connection, INode node, String repositoryValue) {
+
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setXmlFilePath(value);
+            }
+        }
+        if ("ENCODING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENCODING");
+            if (value != null) {
+                connection.setEncoding(value);
+            }
+        }
+        EList emfSchemaList = connection.getSchema();
+        if (emfSchemaList.size() < 1) {
+            emfSchemaList.add(ConnectionFactory.eINSTANCE.createXmlXPathLoopDescriptor());
+        }
+
+        XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) emfSchemaList.get(0);
+        if ("XPATH_QUERY".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LOOP_QUERY");
+            if (value != null) {
+                xmlDesc.setAbsoluteXPathQuery(value);
+            }
+        }
+        if ("LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LIMIT");
+            if (value != null && value.trim().length() > 0) {
+                xmlDesc.setLimitBoucle(Integer.valueOf(value));
+            }
+        }
+        if ("XML_MAPPING".equals(repositoryValue)) {
+            IElementParameter param = node.getElementParameter("MAPPING");
+            if (param != null) {
+                EList schemaTargets = xmlDesc.getSchemaTargets();
+                List<Map<String, Object>> tableInfo = (List<Map<String, Object>>) param.getValue();
+                for (Map<String, Object> mapObject : tableInfo) {
+                    String schema = (String) mapObject.get("SCHEMA_COLUMN");
+                    if (schema != null) {
+                        String query = (String) mapObject.get("QUERY");
+                        SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
+                        schemaTargets.add(schemaTarget);
+                        schemaTarget.setTagName(schema);
+                        schemaTarget.setRelativeXPathQuery(query);
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setLDAPSchemaValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setLDAPSchemaValue(LDAPSchemaConnection connection, INode node, String repositoryValue) {
+        if ("HOST".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HOST");
+            if (value != null) {
+                connection.setHost(value);
+            }
+        }
+        if ("PORT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PORT");
+            if (value != null) {
+                connection.setPort(value);
+            }
+        }
+        if ("BASEDN".equals(repositoryValue)) {
+            String value = getParameterValue(node, "BASEDN");
+            if (value != null) {
+                connection.setSelectedDN(value);
+            }
+        }
+        if ("PROTOCOL".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROTOCOL");
+            if (value != null) {
+                connection.setEncryptionMethodName(value);
+            }
+        }
+
+        if ("AUTHENTIFICATION".equals(repositoryValue)) {
+            IElementParameter param = node.getElementParameter("");
+            if (param != null) {
+                Object o = param.getValue();
+                if (o != null && o instanceof Boolean) {
+                    connection.setUseAuthen((Boolean) o);
+                }
+            }
+        }
+
+        if ("USER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "USER");
+            if (value != null) {
+                connection.setBindPrincipal(value);
+            }
+        }
+        if ("PASSWD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PASSWD");
+            if (value != null) {
+                connection.setBindPassword(value);
+            }
+        }
+        if ("FILTER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILTER");
+            if (value != null) {
+                connection.setFilter(value);
+            }
+        }
+        if ("ALIASES".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ALIASES");
+            if (value != null) {
+                connection.setAliases(value);
+            }
+        }
+        if ("REFERRALS".equals(repositoryValue)) {
+            String value = getParameterValue(node, "REFERRALS");
+            if (value != null) {
+                connection.setReferrals(value);
+            }
+        }
+        if ("COLUMN_COUNT_LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LIMIT");
+            if (value != null) {
+                connection.setCountLimit(value);
+            }
+        }
+        if ("TIME_OUT_LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "TIMEOUT");
+            if (value != null) {
+                connection.setTimeOutLimit(value);
+            }
+        }
+    }
+
+    private static void setWSDLSchemaValue(WSDLSchemaConnection connection, INode node, String repositoryValue) {
+        if ("ENDPOINT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENDPOINT");
+            if (value != null) {
+                connection.setWSDL(value);
+            }
+        }
+        if ("NEED_AUTH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "NEED_AUTH");
+            if (value != null) {
+                connection.setNeedAuth(Boolean.valueOf(value));
+            }
+        }
+        if ("AUTH_USERNAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "AUTH_USERNAME");
+            if (value != null) {
+                connection.setUserName(value);
+            }
+        }
+        if ("AUTH_PASSWORD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "AUTH_PASSWORD");
+            if (value != null) {
+                connection.setPassword(value);
+            }
+        }
+        if ("UES_PROXY".equals(repositoryValue)) {
+            String value = getParameterValue(node, "UES_PROXY");
+            if (value != null) {
+                connection.setUseProxy(Boolean.valueOf(value));
+            }
+        }
+        if ("PROXY_HOST".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROXY_HOST");
+            if (value != null) {
+                connection.setProxyHost(value);
+            }
+        }
+        if ("PROXY_PORT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROXY_PORT");
+            if (value != null) {
+                connection.setProxyPort(value);
+            }
+        }
+        if ("PROXY_USERNAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROXY_USERNAME");
+            if (value != null) {
+                connection.setProxyUser(value);
+            }
+        }
+        if ("PROXY_PASSWORD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PROXY_PASSWORD");
+            if (value != null) {
+                connection.setProxyPassword(value);
+            }
+        }
+        if ("METHOD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "METHOD");
+            if (value != null) {
+                connection.setMethodName(value);
+            }
+        }
+        if ("WSDL_PARAMS".equals(repositoryValue)) {
+            Object value = getParameterObjectValue(node, "PARAMS");
+            if (value != null && value instanceof ArrayList) {
+                ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) value;
+                ArrayList<String> result = new ArrayList<String>();
+                for (HashMap<String, String> m : list) {
+                    Iterator<Map.Entry<String, String>> it = m.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry<String, String> entry = it.next();
+                        result.add(entry.getValue());
+                    }
+                }
+                connection.setParameters((ArrayList) result);
+            }
+        }
+    }
+
+    private static void setEbcdicValue(EbcdicConnection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+        if ("XC2J_FILE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "COPYBOOK");
+            if (value != null) {
+                connection.setMidFile(value);
+            }
+        }
+        if ("ENCODING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENCODING");
+            if (value != null) {
+                connection.setEncoding(value);
+            }
+        }
+    }
+
+    private static void setLdifFileValue(LdifFileConnection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+    }
+
+    private static void setFileExcelValue(FileExcelConnection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+        if ("SELECT_ALL_SHEETS".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ALL_SHEETS");
+            if (value != null) {
+                connection.setSelectAllSheets(Boolean.valueOf(value).booleanValue());
+            }
+        }
+
+        // if ("SHEET_LIST".equals(repositoryValue)) {
+        // Object value = getParameterObjectValue(node, "SHEETLIST");
+        // if (value != null && value instanceof ArrayList) {
+        // ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) value;
+        // ArrayList<String> result = new ArrayList<String>();
+        // for (HashMap<String, String> m : list) {
+        // Iterator<Map.Entry<String, String>> it = m.entrySet().iterator();
+        // while (it.hasNext()) {
+        // Map.Entry<String, String> entry = it.next();
+        // result.add(entry.getValue());
+        // }
+        // }
+        // connection.setSheetList((ArrayList) result);
+        // }
+        // }
+
+        if ("ADVANCED_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ADVANCED_SEPARATOR");
+            if (value != null) {
+                connection.setAdvancedSpearator(Boolean.valueOf(value).booleanValue());
+            }
+        }
+        if ("HEADER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HEADER");
+            if (value != null) {
+                connection.setHeaderValue(value);
+            }
+        }
+        if ("FOOTER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FOOTER");
+            if (value != null) {
+                connection.setFooterValue(value);
+            }
+        }
+        if ("LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LIMIT");
+            if (value != null) {
+                connection.setLimitValue(value);
+            }
+        }
+        if ("FIRST_COLUMN".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FIRST_COLUMN");
+            if (value != null) {
+                connection.setFirstColumn(value);
+            }
+        }
+        if ("LAST_COLUMN".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LAST_COLUMN");
+            if (value != null) {
+                connection.setLastColumn(value);
+            }
+        }
+
+        if ("THOUSANDS_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "THOUSANDS_SEPARATOR");
+            if (value != null) {
+                connection.setThousandSeparator(value);
+            }
+        }
+        if ("DECIMAL_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "DECIMAL_SEPARATOR");
+            if (value != null) {
+                connection.setDecimalSeparator(value);
+            }
+        }
+        if ("ENCODING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENCODING");
+            if (value != null) {
+                connection.setEncoding(value);
+            }
+        }
+
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setDelimitedFileValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setDelimitedFileValue(DelimitedFileConnection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+        if ("ROW_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ROWSEPARATOR");
+            if (value != null) {
+                connection.setRowSeparatorValue(value);
+            }
+        }
+        if ("FIELD_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FIELDSEPARATOR");
+            if (value != null) {
+                connection.setFieldSeparatorValue(value);
+            }
+        }
+        if ("CSV_OPTION".equals(repositoryValue)) {
+            String value = getParameterValue(node, "CSV_OPTION");
+            if (value != null) {
+                connection.setCsvOption(Boolean.valueOf(value).booleanValue());
+            }
+        }
+        if ("ESCAPE_CHAR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ESCAPE_CHAR");
+            if (value != null) {
+                connection.setEscapeChar(value);
+            }
+        }
+        if ("ESCAPE_CHAR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ESCAPE_CHAR");
+            if (value != null) {
+                connection.setEscapeChar(value);
+            }
+        }
+        if ("TEXT_ENCLOSURE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "TEXT_ENCLOSURE");
+            if (value != null) {
+                connection.setTextEnclosure(value);
+            }
+        }
+        if ("HEADER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HEADER");
+            if (value != null) {
+                connection.setHeaderValue(value);
+            }
+        }
+
+        if ("FOOTER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FOOTER");
+            if (value != null) {
+                connection.setFooterValue(value);
+            }
+        }
+        if ("LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LIMIT");
+            if (value != null) {
+                connection.setLimitValue(value);
+            }
+        }
+        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) {
+            String value = getParameterValue(node, "REMOVE_EMPTY_ROW");
+            if (value != null) {
+                connection.setRemoveEmptyRow(Boolean.valueOf(value).booleanValue());
+            }
+        }
+        if ("ENCODING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENCODING");
+            if (value != null) {
+                connection.setEncoding(value);
+            }
+        }
+        if ("SPLITRECORD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "SPLITRECORD");
+            if (value != null) {
+                connection.setSplitRecord(Boolean.valueOf(value).booleanValue());
+            }
+        }
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setPositionalFileValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+
+    private static void setPositionalFileValue(PositionalFileConnection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+        if ("ROW_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ROWSEPARATOR");
+            if (value != null) {
+                connection.setRowSeparatorValue(value);
+            }
+        }
+        if ("PATTERN".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PATTERN");
+            if (value != null) {
+                connection.setFieldSeparatorValue(value);
+            }
+        }
+        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) {
+            String value = getParameterValue(node, "REMOVE_EMPTY_ROW");
+            if (value != null) {
+                connection.setRemoveEmptyRow(Boolean.valueOf(value).booleanValue());
+            }
+        }
+        if ("HEADER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HEADER");
+            if (value != null) {
+                connection.setHeaderValue(value);
+            }
+        }
+        if ("FOOTER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FOOTER");
+            if (value != null) {
+                connection.setFooterValue(value);
+            }
+        }
+        if ("LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LIMIT");
+            if (value != null) {
+                connection.setLimitValue(value);
+            }
+        }
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setRegexpFileValue".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setRegexpFileValue(RegexpFileConnection connection, INode node, String repositoryValue) {
+        if ("FILE_PATH".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FILENAME");
+            if (value != null) {
+                connection.setFilePath(value);
+            }
+        }
+        if ("ROW_SEPARATOR".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ROWSEPARATOR");
+            if (value != null) {
+                connection.setRowSeparatorValue(value);
+            }
+        }
+        if ("REGEXP".equals(repositoryValue)) {
+            IElementParameter param = node.getElementParameter("REGEX");
+            if (param != null) {
+                String value = (String) param.getValue();
+                if (value != null) {
+                    connection.setFieldSeparatorValue(value);
+                }
+            }
+        }
+        if ("HEADER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HEADER");
+            if (value != null) {
+                connection.setHeaderValue(value);
+            }
+        }
+        if ("FOOTER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "FOOTER");
+            if (value != null) {
+                connection.setFooterValue(value);
+            }
+        }
+        if ("LIMIT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LIMIT");
+            if (value != null) {
+                connection.setLimitValue(value);
+            }
+        }
+        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) {
+            String value = getParameterValue(node, "REMOVE_EMPTY_ROW");
+            if (value != null) {
+                connection.setRemoveEmptyRow(Boolean.valueOf(value).booleanValue());
+            }
+        }
+        if ("ENCODING".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENCODING");
+            if (value != null) {
+                connection.setEncoding(value);
+            }
+        }
+    }
+
+    /*
+     * SAP
+     */
+    private static void setSAPValue(SAPConnection connection, INode node, String repositoryValue) {
+        if ("CLIENT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "CLIENT");
+            if (value != null) {
+                connection.setClient(value);
+            }
+        }
+        if ("PASSWORD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PASSWORD");
+            if (value != null) {
+                connection.setPassword(value);
+            }
+        }
+        if ("LANGUAGE".equals(repositoryValue)) {
+            String value = getParameterValue(node, "LANGUAGE");
+            if (value != null) {
+                connection.setLanguage(value);
+            }
+        }
+        if ("HOSTNAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "HOSTNAME");
+            if (value != null) {
+                connection.setHost(value);
+            }
+        }
+        if ("USERID".equals(repositoryValue)) {
+            String value = getParameterValue(node, "USERID");
+            if (value != null) {
+                connection.setUsername(value);
+            }
+        }
+        if ("SYSTEMNUMBER".equals(repositoryValue)) {
+            String value = getParameterValue(node, "SYSTEMNUMBER");
+            if (value != null) {
+                connection.setSystemNumber(value);
+            }
+        }
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setSalesforceSchema".
+     * 
+     * @param connection
+     * @param node
+     * @param repositoryValue
+     */
+    private static void setSalesforceSchema(SalesforceSchemaConnection connection, INode node, String repositoryValue) {
+
+        if ("ENDPOINT".equals(repositoryValue)) {
+            String value = getParameterValue(node, "ENDPOINT");
+            if (value != null) {
+                connection.setWebServiceUrl(value);
+            }
+        }
+        if ("USER_NAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "USER");
+            if (value != null) {
+                connection.setUserName(value);
+            }
+        }
+        if ("PASSWORD".equals(repositoryValue)) {
+            String value = getParameterValue(node, "PASS");
+            if (value != null) {
+                connection.setPassword(value);
+            }
+        }
+        if ("MODULENAME".equals(repositoryValue)) {
+            String value = getParameterValue(node, "MODULENAME");
+            if (value != null) {
+                connection.setModuleName(value);
+            }
+        }
+        if ("QUERY_CONDITION".equals(repositoryValue)) {
+            String value = getParameterValue(node, "CONDITION");
+            if (value != null) {
+                connection.setQueryCondition(value);
+            }
+        }
+    }
+}
