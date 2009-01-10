@@ -111,6 +111,33 @@ public class ComponentUtilities {
 
     }
 
+    public static void updatePalette(boolean isFavorite) {
+        if (skipUpdatePalette) {
+            return;
+        }
+        IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+        if (paletteRoot != null) {
+            List oldRoots = new ArrayList(paletteRoot.getChildren());
+
+            for (Object obj : oldRoots) {
+                if (obj instanceof PaletteGroup) {
+                    continue;
+                }
+                paletteRoot.remove((PaletteEntry) obj);
+            }
+
+            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot, isFavorite);
+
+        } else {
+            paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, isFavorite);
+        }
+
+        if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
+            extraPaletteEntry = CorePlugin.getDefault().getDesignerCoreService().createJobletEtnry();
+        }
+
+    }
+
     /**
      * yzhang Comment method "filterPalette".
      * 

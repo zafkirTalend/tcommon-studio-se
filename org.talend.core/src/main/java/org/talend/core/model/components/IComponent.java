@@ -43,6 +43,8 @@ public interface IComponent {
 
     String PROP_HELP = "HELP"; //$NON-NLS-1$
 
+    String FAVORITY_FLAG = "FAVORITYFLAG";
+
     public String getName();
 
     public String getTranslatedName();
@@ -50,6 +52,8 @@ public interface IComponent {
     public String getLongName();
 
     public String getFamily();
+
+    public boolean getFavoriteFlag();
 
     public ImageDescriptor getIcon32();
 

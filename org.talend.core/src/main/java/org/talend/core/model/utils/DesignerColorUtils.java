@@ -28,6 +28,8 @@ public final class DesignerColorUtils {
 
     public static final RGB SUBJOB_COLOR = new RGB(220, 220, 250);
 
+    // public static final RGB SUBJOB_COLOR = new RGB(255, 255, 255);
+
     public static final String SUBJOB_TITLE_COLOR_NAME = "subjobTitleColor"; //$NON-NLS-1$
 
     public static final String SUBJOB_COLOR_NAME = "subjobColor"; //$NON-NLS-1$

@@ -45,9 +45,9 @@ public interface IDesignerCoreService extends IService {
     // ¨Process will be loaded from XML File with this method, so it can be slow
     // This won't load the graphics of the job, only the datas
     public IProcess getProcessFromProcessItem(ProcessItem processItem);
-    
+
     // item will be ProcessItem of JobletProcessItem
-	public IProcess getProcessFromItem(Item item);
+    public IProcess getProcessFromItem(Item item);
 
     public List<IProcess> getOpenedProcess(IEditorReference[] reference);
 
@@ -80,11 +80,15 @@ public interface IDesignerCoreService extends IService {
 
     public PaletteRoot createPalette(IComponentsFactory factory);
 
+    public PaletteRoot createPalette(IComponentsFactory factory, boolean isFavorite);
+
     public PaletteRoot getAllNodeStructure(IComponentsFactory factory);
 
     public void setPaletteFilter(String filter);
 
     public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root);
+
+    public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root, boolean isFavorite);
 
     public IAction getCreateProcessAction(boolean isToolbar);
 
