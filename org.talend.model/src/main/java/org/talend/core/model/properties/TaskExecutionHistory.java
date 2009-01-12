@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFineStatus <em>Fine Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskLabel <em>Task Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskDescription <em>Task Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getProjectName <em>Project Name</em>}</li>
@@ -50,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getAdminJobEndDate <em>Admin Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobStartDate <em>Server Job Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobEndDate <em>Server Job End Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobDuration <em>Server Job Duration</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  * </ul>
@@ -88,30 +87,30 @@ public interface TaskExecutionHistory extends EObject {
     void setId(int value);
 
     /**
-     * Returns the value of the '<em><b>Fine Status</b></em>' attribute.
+     * Returns the value of the '<em><b>Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Fine Status</em>' attribute isn't clear,
+     * If the meaning of the '<em>Status</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Fine Status</em>' attribute.
-     * @see #setFineStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_FineStatus()
+     * @return the value of the '<em>Status</em>' attribute.
+     * @see #setStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_Status()
      * @model
      * @generated
      */
-    String getFineStatus();
+    String getStatus();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getFineStatus <em>Fine Status</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getStatus <em>Status</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Fine Status</em>' attribute.
-     * @see #getFineStatus()
+     * @param value the new value of the '<em>Status</em>' attribute.
+     * @see #getStatus()
      * @generated
      */
-    void setFineStatus(String value);
+    void setStatus(String value);
 
     /**
      * Returns the value of the '<em><b>Task Label</b></em>' attribute.
@@ -892,32 +891,6 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setServerJobEndDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Server Job Duration</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Server Job Duration</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Server Job Duration</em>' attribute.
-     * @see #setServerJobDuration(long)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ServerJobDuration()
-     * @model
-     * @generated
-     */
-    long getServerJobDuration();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobDuration <em>Server Job Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Server Job Duration</em>' attribute.
-     * @see #getServerJobDuration()
-     * @generated
-     */
-    void setServerJobDuration(long value);
 
     /**
      * Returns the value of the '<em><b>Id Remote Job</b></em>' attribute.

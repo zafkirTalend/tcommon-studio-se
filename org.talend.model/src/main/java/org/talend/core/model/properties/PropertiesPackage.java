@@ -3121,13 +3121,13 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__ID = 0;
 
     /**
-     * The feature id for the '<em><b>Fine Status</b></em>' attribute.
+     * The feature id for the '<em><b>Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FINE_STATUS = 1;
+    int TASK_EXECUTION_HISTORY__STATUS = 1;
 
     /**
      * The feature id for the '<em><b>Task Label</b></em>' attribute.
@@ -3400,22 +3400,13 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 31;
 
     /**
-     * The feature id for the '<em><b>Server Job Duration</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION = 32;
-
-    /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 33;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 32;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -3424,7 +3415,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 34;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 33;
 
     /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
@@ -3433,7 +3424,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 35;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 34;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -7673,15 +7664,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTaskExecutionHistory_Id();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getFineStatus <em>Fine Status</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getStatus <em>Status</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Fine Status</em>'.
-     * @see org.talend.core.model.properties.TaskExecutionHistory#getFineStatus()
+     * @return the meta object for the attribute '<em>Status</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getStatus()
      * @see #getTaskExecutionHistory()
      * @generated
      */
-    EAttribute getTaskExecutionHistory_FineStatus();
+    EAttribute getTaskExecutionHistory_Status();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskLabel <em>Task Label</em>}'.
@@ -8012,17 +8003,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getTaskExecutionHistory_ServerJobEndDate();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobDuration <em>Server Job Duration</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Server Job Duration</em>'.
-     * @see org.talend.core.model.properties.TaskExecutionHistory#getServerJobDuration()
-     * @see #getTaskExecutionHistory()
-     * @generated
-     */
-    EAttribute getTaskExecutionHistory_ServerJobDuration();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJob <em>Id Remote Job</em>}'.
@@ -10510,12 +10490,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute TASK_EXECUTION_HISTORY__ID = eINSTANCE.getTaskExecutionHistory_Id();
 
         /**
-         * The meta object literal for the '<em><b>Fine Status</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute TASK_EXECUTION_HISTORY__FINE_STATUS = eINSTANCE.getTaskExecutionHistory_FineStatus();
+        EAttribute TASK_EXECUTION_HISTORY__STATUS = eINSTANCE.getTaskExecutionHistory_Status();
 
         /**
          * The meta object literal for the '<em><b>Task Label</b></em>' attribute feature.
@@ -10756,14 +10736,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = eINSTANCE.getTaskExecutionHistory_ServerJobEndDate();
-
-        /**
-         * The meta object literal for the '<em><b>Server Job Duration</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION = eINSTANCE.getTaskExecutionHistory_ServerJobDuration();
 
         /**
          * The meta object literal for the '<em><b>Id Remote Job</b></em>' attribute feature.

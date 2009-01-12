@@ -2905,7 +2905,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_FineStatus() {
+    public EAttribute getTaskExecutionHistory_Status() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(1);
     }
 
@@ -3184,7 +3184,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobDuration() {
+    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(32);
     }
 
@@ -3193,17 +3193,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
-        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(33);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
-        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(34);
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(33);
     }
 
     /**
@@ -3561,7 +3552,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         taskExecutionHistoryEClass = createEClass(TASK_EXECUTION_HISTORY);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ID);
-        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__FINE_STATUS);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__STATUS);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_LABEL);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_DESCRIPTION);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__PROJECT_NAME);
@@ -3592,7 +3583,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE);
-        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ID_REMOTE_JOB);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION);
 
@@ -4017,7 +4007,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(taskExecutionHistoryEClass, TaskExecutionHistory.class, "TaskExecutionHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTaskExecutionHistory_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTaskExecutionHistory_FineStatus(), theEcorePackage.getEString(), "fineStatus", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_Status(), theEcorePackage.getEString(), "status", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskLabel(), theEcorePackage.getEString(), "taskLabel", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskDescription(), theEcorePackage.getEString(), "taskDescription", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ProjectName(), theEcorePackage.getEString(), "projectName", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4048,7 +4038,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTaskExecutionHistory_AdminJobEndDate(), theEcorePackage.getEDate(), "adminJobEndDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ServerJobStartDate(), theEcorePackage.getEDate(), "serverJobStartDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ServerJobEndDate(), theEcorePackage.getEDate(), "serverJobEndDate", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTaskExecutionHistory_ServerJobDuration(), ecorePackage.getELong(), "serverJobDuration", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_IdRemoteJob(), theEcorePackage.getEString(), "idRemoteJob", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_IdRemoteJobExecution(), theEcorePackage.getEString(), "idRemoteJobExecution", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

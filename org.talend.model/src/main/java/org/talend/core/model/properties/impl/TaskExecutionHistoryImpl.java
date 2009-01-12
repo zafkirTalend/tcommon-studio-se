@@ -26,7 +26,7 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFineStatus <em>Fine Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskLabel <em>Task Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskDescription <em>Task Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getProjectName <em>Project Name</em>}</li>
@@ -57,7 +57,6 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobEndDate <em>Admin Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobStartDate <em>Server Job Start Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobEndDate <em>Server Job End Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobDuration <em>Server Job Duration</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  * </ul>
@@ -87,24 +86,24 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFineStatus() <em>Fine Status</em>}' attribute.
+     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFineStatus()
+     * @see #getStatus()
      * @generated
      * @ordered
      */
-    protected static final String FINE_STATUS_EDEFAULT = null;
+    protected static final String STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFineStatus() <em>Fine Status</em>}' attribute.
+     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFineStatus()
+     * @see #getStatus()
      * @generated
      * @ordered
      */
-    protected String fineStatus = FINE_STATUS_EDEFAULT;
+    protected String status = STATUS_EDEFAULT;
 
     /**
      * The default value of the '{@link #getTaskLabel() <em>Task Label</em>}' attribute.
@@ -707,26 +706,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected Date serverJobEndDate = SERVER_JOB_END_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getServerJobDuration() <em>Server Job Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getServerJobDuration()
-     * @generated
-     * @ordered
-     */
-    protected static final long SERVER_JOB_DURATION_EDEFAULT = 0L;
-
-    /**
-     * The cached value of the '{@link #getServerJobDuration() <em>Server Job Duration</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getServerJobDuration()
-     * @generated
-     * @ordered
-     */
-    protected long serverJobDuration = SERVER_JOB_DURATION_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -810,8 +789,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getFineStatus() {
-        return fineStatus;
+    public String getStatus() {
+        return status;
     }
 
     /**
@@ -819,11 +798,11 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setFineStatus(String newFineStatus) {
-        String oldFineStatus = fineStatus;
-        fineStatus = newFineStatus;
+    public void setStatus(String newStatus) {
+        String oldStatus = status;
+        status = newStatus;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__FINE_STATUS, oldFineStatus, fineStatus));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS, oldStatus, status));
     }
 
     /**
@@ -1461,27 +1440,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
-    public long getServerJobDuration() {
-        return serverJobDuration;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setServerJobDuration(long newServerJobDuration) {
-        long oldServerJobDuration = serverJobDuration;
-        serverJobDuration = newServerJobDuration;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION, oldServerJobDuration, serverJobDuration));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String getIdRemoteJob() {
         return idRemoteJob;
     }
@@ -1528,8 +1486,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         switch (featureID) {
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 return new Integer(getId());
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__FINE_STATUS:
-                return getFineStatus();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
+                return getStatus();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 return getTaskLabel();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
@@ -1590,8 +1548,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getServerJobStartDate();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
                 return getServerJobEndDate();
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION:
-                return new Long(getServerJobDuration());
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
                 return getIdRemoteJob();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
@@ -1610,8 +1566,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 setId(((Integer)newValue).intValue());
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__FINE_STATUS:
-                setFineStatus((String)newValue);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
+                setStatus((String)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 setTaskLabel((String)newValue);
@@ -1703,9 +1659,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
                 setServerJobEndDate((Date)newValue);
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION:
-                setServerJobDuration(((Long)newValue).longValue());
-                return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
                 setIdRemoteJob((String)newValue);
                 return;
@@ -1726,8 +1679,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 setId(ID_EDEFAULT);
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__FINE_STATUS:
-                setFineStatus(FINE_STATUS_EDEFAULT);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
+                setStatus(STATUS_EDEFAULT);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 setTaskLabel(TASK_LABEL_EDEFAULT);
@@ -1819,9 +1772,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
                 setServerJobEndDate(SERVER_JOB_END_DATE_EDEFAULT);
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION:
-                setServerJobDuration(SERVER_JOB_DURATION_EDEFAULT);
-                return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
                 setIdRemoteJob(ID_REMOTE_JOB_EDEFAULT);
                 return;
@@ -1841,8 +1791,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         switch (featureID) {
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 return id != ID_EDEFAULT;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__FINE_STATUS:
-                return FINE_STATUS_EDEFAULT == null ? fineStatus != null : !FINE_STATUS_EDEFAULT.equals(fineStatus);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
+                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 return TASK_LABEL_EDEFAULT == null ? taskLabel != null : !TASK_LABEL_EDEFAULT.equals(taskLabel);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
@@ -1903,8 +1853,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return SERVER_JOB_START_DATE_EDEFAULT == null ? serverJobStartDate != null : !SERVER_JOB_START_DATE_EDEFAULT.equals(serverJobStartDate);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
                 return SERVER_JOB_END_DATE_EDEFAULT == null ? serverJobEndDate != null : !SERVER_JOB_END_DATE_EDEFAULT.equals(serverJobEndDate);
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_DURATION:
-                return serverJobDuration != SERVER_JOB_DURATION_EDEFAULT;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
                 return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
@@ -1924,8 +1872,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
-        result.append(", fineStatus: ");
-        result.append(fineStatus);
+        result.append(", status: ");
+        result.append(status);
         result.append(", taskLabel: ");
         result.append(taskLabel);
         result.append(", taskDescription: ");
@@ -1986,8 +1934,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(serverJobStartDate);
         result.append(", serverJobEndDate: ");
         result.append(serverJobEndDate);
-        result.append(", serverJobDuration: ");
-        result.append(serverJobDuration);
         result.append(", idRemoteJob: ");
         result.append(idRemoteJob);
         result.append(", idRemoteJobExecution: ");
