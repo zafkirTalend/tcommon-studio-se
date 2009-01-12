@@ -26,6 +26,7 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.CorePlugin;
 
 /***/
 public abstract class AbstractComponentsProvider {
@@ -49,8 +50,8 @@ public abstract class AbstractComponentsProvider {
     }
 
     public String getComponentsLocation() {
-        return new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER).append(
-                IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER).append(folderName).toString();
+        return new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER).append(IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER)
+                .append(folderName).toString();
     }
 
     public void preComponentsLoad() throws IOException {
@@ -67,6 +68,8 @@ public abstract class AbstractComponentsProvider {
             if (externalComponentsLocation.exists()) {
                 try {
                     FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
+
+                    CorePlugin.getDefault().getLibrariesService().syncLibraries();
                 } catch (IOException e) {
                     ExceptionHandler.process(e);
                 }
@@ -87,9 +90,9 @@ public abstract class AbstractComponentsProvider {
         URL fileUrl = FileLocator.toFileURL(url);
         File bundleFolder = new File(fileUrl.getPath());
 
-        IPath path = new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER).append(
-                IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER);
-        
+        IPath path = new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER)
+                .append(IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER);
+
         // bug fix : several headless instance should not use the same folder
         if (CommonsPlugin.isHeadless()) {
             String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
@@ -97,7 +100,7 @@ public abstract class AbstractComponentsProvider {
         } else {
             path = path.append(folderName);
         }
-        
+
         installationFolder = new File(bundleFolder, path.toOSString());
 
         return installationFolder;
