@@ -19,10 +19,24 @@ package org.talend.core.model.metadata.builder.database;
 public enum EDatabaseDriver4Version {
     // see feature 4720
     // just now , for oracle
-    ORACLE_11("Oracle_11", "ojdbc5-11g.jar"),
-    ORACLE_10("Oracle_10", "ojdbc14-10g.jar"),
-    ORACLE_9("Oracle_9", "ojdbc14-9i.jar"),
-    ORACLE_8("Oracle_8", "ojdbc12-8i.jar");
+
+    // qli comment
+    // see feature 6046,and now,for Oracle and AS400.
+    ORACLE_11("Oracle", "Oracle_11", "ojdbc5-11g.jar"),
+    ORACLE_10("Oracle", "Oracle_10", "ojdbc14-10g.jar"),
+    ORACLE_9("Oracle", "Oracle_9", "ojdbc14-9i.jar"),
+    ORACLE_8("Oracle", "Oracle_8", "ojdbc12-8i.jar"),
+    V5R3_V6R1("AS400", "V5R3 to V6R1", "jt400_V5R3.jar"), // AS400
+    V5R2_V5R4("AS400", "V5R2 to V5R4", "jt400_V5R2.jar"); // AS400
+
+    /**
+     * Getter for dbType.
+     * 
+     * @return the dbType
+     */
+    public String getDbType() {
+        return this.dbType;
+    }
 
     private String dbVersionName;
 
@@ -51,9 +65,14 @@ public enum EDatabaseDriver4Version {
 
     private String driverName;
 
-    EDatabaseDriver4Version(String versionName, String driverName) {
+    private String dbType;
+
+    // qli comment the method 'EDatabaseDriver4Version'.
+    // just add a parameter 'dbType'.
+    EDatabaseDriver4Version(String dbType, String versionName, String driverName) {
         this.dbVersionName = versionName;
         this.driverName = driverName;
+        this.dbType = dbType;
     }
 
     public static String getDriverByVersion(final String versionName) {
