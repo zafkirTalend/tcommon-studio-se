@@ -68,8 +68,9 @@ public abstract class AbstractComponentsProvider {
             if (externalComponentsLocation.exists()) {
                 try {
                     FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
-
-                    CorePlugin.getDefault().getLibrariesService().syncLibraries();
+                    if (installationFolder.getPath().endsWith("components\\ext\\user")) {
+                        CorePlugin.getDefault().getLibrariesService().syncLibraries();
+                    }
                 } catch (IOException e) {
                     ExceptionHandler.process(e);
                 }
