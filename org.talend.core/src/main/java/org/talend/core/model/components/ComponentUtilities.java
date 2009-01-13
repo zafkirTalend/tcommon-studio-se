@@ -65,6 +65,8 @@ public class ComponentUtilities {
 
     private static boolean skipUpdatePalette;
 
+    private static boolean faState = true;
+
     public static PaletteRoot getPaletteRoot() {
         if (paletteRoot == null) {
             updatePalette();
@@ -112,6 +114,7 @@ public class ComponentUtilities {
     }
 
     public static void updatePalette(boolean isFavorite) {
+        faState = isFavorite;
         if (skipUpdatePalette) {
             return;
         }
@@ -145,7 +148,11 @@ public class ComponentUtilities {
      */
     public static void filterPalette(String filer) {
         CorePlugin.getDefault().getDesignerCoreService().setPaletteFilter(filer);
-        ComponentUtilities.updatePalette();
+        if (faState) {
+            ComponentUtilities.updatePalette(true);
+        } else
+            ComponentUtilities.updatePalette(false);
+
         markEmptyDrawer(paletteRoot);
         emptyEntry.clear();
         recordEmptyDrawer(paletteRoot);
