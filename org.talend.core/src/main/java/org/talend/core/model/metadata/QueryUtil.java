@@ -353,7 +353,10 @@ public class QueryUtil {
             query = "";
         }
         query = query.trim();
-        if (!query.startsWith(TalendTextUtils.getQuoteChar())) { // perhaps, need improve
+        // modified by hyWang
+        if (!query.startsWith(TalendTextUtils.getQuoteChar()) || !TalendTextUtils.isCommonString(query)) { // perhaps,
+            // need
+            // improve
             return TalendTextUtils.addSQLQuotes(query);
         }
         return query; // keep it
@@ -376,4 +379,15 @@ public class QueryUtil {
         return query; // keep it
     }
 
+    /**
+     * Wanghaoyu Comment method "checkIfIsNoQuotesAtAll"
+     * 
+     * to check a query if has any quote
+     */
+    public static boolean checkIfIsNoQuotesAtAll(String query) {
+        if (!query.contains("\"")) {
+            return true;
+        }
+        return false;
+    }
 }

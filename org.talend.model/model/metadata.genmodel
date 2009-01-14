@@ -205,6 +205,7 @@
     <genClasses ecoreClass="metadata.ecore#//Query">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Query/value"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//Query/queries"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Query/contextMode"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//LdifFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/value"/>

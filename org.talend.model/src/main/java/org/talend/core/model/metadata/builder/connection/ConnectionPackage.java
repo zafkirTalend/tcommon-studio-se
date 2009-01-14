@@ -3617,13 +3617,22 @@ public interface ConnectionPackage extends EPackage {
     int QUERY__QUERIES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int QUERY__CONTEXT_MODE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Query</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int QUERY_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+    int QUERY_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.
@@ -6934,6 +6943,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getQuery_Queries();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Query#isContextMode <em>Context Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Mode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Query#isContextMode()
+     * @see #getQuery()
+     * @generated
+     */
+    EAttribute getQuery_ContextMode();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection <em>Ldif File Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9013,6 +9033,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference QUERY__QUERIES = eINSTANCE.getQuery_Queries();
+
+        /**
+         * The meta object literal for the '<em><b>Context Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute QUERY__CONTEXT_MODE = eINSTANCE.getQuery_ContextMode();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.

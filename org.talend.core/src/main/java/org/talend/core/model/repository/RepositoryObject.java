@@ -362,6 +362,8 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
                         // newQuery.setReadOnly(query2.isReadOnly());
                         newQuery.setSynchronised(query2.isSynchronised());
                         newQuery.setValue(query2.getValue());
+                        // 这句是NICO加的
+                        newQuery.setContextMode(query2.isContextMode());
                         queries2.add(newQuery);
                     }
                     newQ.getQuery().addAll(queries2);

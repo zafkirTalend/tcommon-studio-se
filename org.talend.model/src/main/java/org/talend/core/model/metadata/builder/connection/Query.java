@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Query#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Query#getQueries <em>Queries</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Query#isContextMode <em>Context Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,5 +80,31 @@ public interface Query extends AbstractMetadataObject {
      * @generated
      */
     void setQueries(QueriesConnection value);
+
+    /**
+     * Returns the value of the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Context Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Context Mode</em>' attribute.
+     * @see #setContextMode(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getQuery_ContextMode()
+     * @model
+     * @generated
+     */
+    boolean isContextMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Query#isContextMode <em>Context Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Context Mode</em>' attribute.
+     * @see #isContextMode()
+     * @generated
+     */
+    void setContextMode(boolean value);
 
 } // Query
