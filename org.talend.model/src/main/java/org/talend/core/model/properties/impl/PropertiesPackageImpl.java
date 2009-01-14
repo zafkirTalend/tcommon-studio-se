@@ -2905,7 +2905,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_Status() {
+    public EAttribute getTaskExecutionHistory_BasicStatus() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(1);
     }
 
@@ -2914,7 +2914,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskLabel() {
+    public EAttribute getTaskExecutionHistory_DetailedStatus() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(2);
     }
 
@@ -2923,7 +2923,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskDescription() {
+    public EAttribute getTaskExecutionHistory_TaskLabel() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(3);
     }
 
@@ -2932,7 +2932,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ProjectName() {
+    public EAttribute getTaskExecutionHistory_TaskDescription() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(4);
     }
 
@@ -2941,7 +2941,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TalendJobName() {
+    public EAttribute getTaskExecutionHistory_ProjectName() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(5);
     }
 
@@ -2950,7 +2950,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TalendJobId() {
+    public EAttribute getTaskExecutionHistory_TalendJobName() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(6);
     }
 
@@ -2959,7 +2959,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TalendJobVersion() {
+    public EAttribute getTaskExecutionHistory_TalendJobId() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(7);
     }
 
@@ -2968,7 +2968,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ContextName() {
+    public EAttribute getTaskExecutionHistory_TalendJobVersion() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(8);
     }
 
@@ -2977,7 +2977,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ContextValues() {
+    public EAttribute getTaskExecutionHistory_ContextName() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(9);
     }
 
@@ -2986,7 +2986,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_VirtualServerName() {
+    public EAttribute getTaskExecutionHistory_ContextValues() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(10);
     }
 
@@ -2995,7 +2995,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ExecutionServerName() {
+    public EAttribute getTaskExecutionHistory_VirtualServerName() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(11);
     }
 
@@ -3004,7 +3004,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ApplyContextToChildren() {
+    public EAttribute getTaskExecutionHistory_ExecutionServerName() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(12);
     }
 
@@ -3013,7 +3013,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TriggeredBy() {
+    public EAttribute getTaskExecutionHistory_ApplyContextToChildren() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(13);
     }
 
@@ -3022,7 +3022,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TriggerType() {
+    public EAttribute getTaskExecutionHistory_TriggeredBy() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(14);
     }
 
@@ -3031,7 +3031,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TriggerName() {
+    public EAttribute getTaskExecutionHistory_TriggerType() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(15);
     }
 
@@ -3040,7 +3040,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TriggerDescription() {
+    public EAttribute getTaskExecutionHistory_TriggerName() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(16);
     }
 
@@ -3049,7 +3049,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskErrorStackTrace() {
+    public EAttribute getTaskExecutionHistory_TriggerDescription() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(17);
     }
 
@@ -3058,7 +3058,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdQuartzJob() {
+    public EAttribute getTaskExecutionHistory_TaskErrorStackTrace() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(18);
     }
 
@@ -3067,7 +3067,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdQuartzTrigger() {
+    public EAttribute getTaskExecutionHistory_IdQuartzJob() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(19);
     }
 
@@ -3076,7 +3076,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_LastJobGenerationDate() {
+    public EAttribute getTaskExecutionHistory_IdQuartzTrigger() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(20);
     }
 
@@ -3085,7 +3085,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_JobArchiveFilename() {
+    public EAttribute getTaskExecutionHistory_LastJobGenerationDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(21);
     }
 
@@ -3094,7 +3094,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_FileTriggerFileMask() {
+    public EAttribute getTaskExecutionHistory_JobArchiveFilename() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(22);
     }
 
@@ -3103,7 +3103,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_FileTriggerFolderPath() {
+    public EAttribute getTaskExecutionHistory_FileTriggerFileMask() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(23);
     }
 
@@ -3112,7 +3112,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_FileTriggerTriggeredFilePath() {
+    public EAttribute getTaskExecutionHistory_FileTriggerFolderPath() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(24);
     }
 
@@ -3121,7 +3121,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ExpectedTriggeringDate() {
+    public EAttribute getTaskExecutionHistory_FileTriggerTriggeredFilePath() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(25);
     }
 
@@ -3130,7 +3130,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskStartDate() {
+    public EAttribute getTaskExecutionHistory_ExpectedTriggeringDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(26);
     }
 
@@ -3139,7 +3139,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_TaskEndDate() {
+    public EAttribute getTaskExecutionHistory_TaskStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(27);
     }
 
@@ -3148,7 +3148,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_AdminJobStartDate() {
+    public EAttribute getTaskExecutionHistory_TaskEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(28);
     }
 
@@ -3157,7 +3157,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_AdminJobEndDate() {
+    public EAttribute getTaskExecutionHistory_AdminJobStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(29);
     }
 
@@ -3166,7 +3166,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobStartDate() {
+    public EAttribute getTaskExecutionHistory_AdminJobEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(30);
     }
 
@@ -3175,7 +3175,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_ServerJobEndDate() {
+    public EAttribute getTaskExecutionHistory_ServerJobStartDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(31);
     }
 
@@ -3184,7 +3184,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
+    public EAttribute getTaskExecutionHistory_ServerJobEndDate() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(32);
     }
 
@@ -3193,8 +3193,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
+    public EAttribute getTaskExecutionHistory_IdRemoteJob() {
         return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(33);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTaskExecutionHistory_IdRemoteJobExecution() {
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(34);
     }
 
     /**
@@ -3552,7 +3561,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         taskExecutionHistoryEClass = createEClass(TASK_EXECUTION_HISTORY);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ID);
-        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__STATUS);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__BASIC_STATUS);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__DETAILED_STATUS);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_LABEL);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__TASK_DESCRIPTION);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__PROJECT_NAME);
@@ -4007,7 +4017,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(taskExecutionHistoryEClass, TaskExecutionHistory.class, "TaskExecutionHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTaskExecutionHistory_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTaskExecutionHistory_Status(), theEcorePackage.getEString(), "status", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_BasicStatus(), theEcorePackage.getEString(), "basicStatus", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_DetailedStatus(), theEcorePackage.getEString(), "detailedStatus", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskLabel(), theEcorePackage.getEString(), "taskLabel", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_TaskDescription(), theEcorePackage.getEString(), "taskDescription", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ProjectName(), theEcorePackage.getEString(), "projectName", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

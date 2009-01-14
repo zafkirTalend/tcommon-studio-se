@@ -3121,13 +3121,22 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__ID = 0;
 
     /**
-     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * The feature id for the '<em><b>Basic Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__STATUS = 1;
+    int TASK_EXECUTION_HISTORY__BASIC_STATUS = 1;
+
+    /**
+     * The feature id for the '<em><b>Detailed Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__DETAILED_STATUS = 2;
 
     /**
      * The feature id for the '<em><b>Task Label</b></em>' attribute.
@@ -3136,7 +3145,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_LABEL = 2;
+    int TASK_EXECUTION_HISTORY__TASK_LABEL = 3;
 
     /**
      * The feature id for the '<em><b>Task Description</b></em>' attribute.
@@ -3145,7 +3154,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_DESCRIPTION = 3;
+    int TASK_EXECUTION_HISTORY__TASK_DESCRIPTION = 4;
 
     /**
      * The feature id for the '<em><b>Project Name</b></em>' attribute.
@@ -3154,7 +3163,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__PROJECT_NAME = 4;
+    int TASK_EXECUTION_HISTORY__PROJECT_NAME = 5;
 
     /**
      * The feature id for the '<em><b>Talend Job Name</b></em>' attribute.
@@ -3163,7 +3172,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TALEND_JOB_NAME = 5;
+    int TASK_EXECUTION_HISTORY__TALEND_JOB_NAME = 6;
 
     /**
      * The feature id for the '<em><b>Talend Job Id</b></em>' attribute.
@@ -3172,7 +3181,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TALEND_JOB_ID = 6;
+    int TASK_EXECUTION_HISTORY__TALEND_JOB_ID = 7;
 
     /**
      * The feature id for the '<em><b>Talend Job Version</b></em>' attribute.
@@ -3181,7 +3190,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION = 7;
+    int TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION = 8;
 
     /**
      * The feature id for the '<em><b>Context Name</b></em>' attribute.
@@ -3190,7 +3199,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__CONTEXT_NAME = 8;
+    int TASK_EXECUTION_HISTORY__CONTEXT_NAME = 9;
 
     /**
      * The feature id for the '<em><b>Context Values</b></em>' attribute.
@@ -3199,7 +3208,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__CONTEXT_VALUES = 9;
+    int TASK_EXECUTION_HISTORY__CONTEXT_VALUES = 10;
 
     /**
      * The feature id for the '<em><b>Virtual Server Name</b></em>' attribute.
@@ -3208,7 +3217,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME = 10;
+    int TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME = 11;
 
     /**
      * The feature id for the '<em><b>Execution Server Name</b></em>' attribute.
@@ -3217,7 +3226,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = 11;
+    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = 12;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -3226,7 +3235,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = 12;
+    int TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = 13;
 
     /**
      * The feature id for the '<em><b>Triggered By</b></em>' attribute.
@@ -3235,7 +3244,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGERED_BY = 13;
+    int TASK_EXECUTION_HISTORY__TRIGGERED_BY = 14;
 
     /**
      * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
@@ -3244,7 +3253,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGER_TYPE = 14;
+    int TASK_EXECUTION_HISTORY__TRIGGER_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>Trigger Name</b></em>' attribute.
@@ -3253,7 +3262,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGER_NAME = 15;
+    int TASK_EXECUTION_HISTORY__TRIGGER_NAME = 16;
 
     /**
      * The feature id for the '<em><b>Trigger Description</b></em>' attribute.
@@ -3262,7 +3271,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = 16;
+    int TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = 17;
 
     /**
      * The feature id for the '<em><b>Task Error Stack Trace</b></em>' attribute.
@@ -3271,7 +3280,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = 17;
+    int TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = 18;
 
     /**
      * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
@@ -3280,7 +3289,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB = 18;
+    int TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB = 19;
 
     /**
      * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
@@ -3289,7 +3298,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = 19;
+    int TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = 20;
 
     /**
      * The feature id for the '<em><b>Last Job Generation Date</b></em>' attribute.
@@ -3298,7 +3307,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = 20;
+    int TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = 21;
 
     /**
      * The feature id for the '<em><b>Job Archive Filename</b></em>' attribute.
@@ -3307,7 +3316,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = 21;
+    int TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = 22;
 
     /**
      * The feature id for the '<em><b>File Trigger File Mask</b></em>' attribute.
@@ -3316,7 +3325,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = 22;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = 23;
 
     /**
      * The feature id for the '<em><b>File Trigger Folder Path</b></em>' attribute.
@@ -3325,7 +3334,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = 23;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = 24;
 
     /**
      * The feature id for the '<em><b>File Trigger Triggered File Path</b></em>' attribute.
@@ -3334,7 +3343,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = 24;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = 25;
 
     /**
      * The feature id for the '<em><b>Expected Triggering Date</b></em>' attribute.
@@ -3343,7 +3352,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = 25;
+    int TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = 26;
 
     /**
      * The feature id for the '<em><b>Task Start Date</b></em>' attribute.
@@ -3352,7 +3361,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 26;
+    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 27;
 
     /**
      * The feature id for the '<em><b>Task End Date</b></em>' attribute.
@@ -3361,7 +3370,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 27;
+    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 28;
 
     /**
      * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
@@ -3370,7 +3379,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 28;
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 29;
 
     /**
      * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute.
@@ -3379,7 +3388,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 29;
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 30;
 
     /**
      * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
@@ -3388,7 +3397,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 30;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 31;
 
     /**
      * The feature id for the '<em><b>Server Job End Date</b></em>' attribute.
@@ -3397,7 +3406,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 31;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 32;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -3406,7 +3415,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 32;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 33;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -3415,7 +3424,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 33;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 34;
 
     /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
@@ -3424,7 +3433,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 34;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 35;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -7664,15 +7673,26 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTaskExecutionHistory_Id();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getStatus <em>Status</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getBasicStatus <em>Basic Status</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Status</em>'.
-     * @see org.talend.core.model.properties.TaskExecutionHistory#getStatus()
+     * @return the meta object for the attribute '<em>Basic Status</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getBasicStatus()
      * @see #getTaskExecutionHistory()
      * @generated
      */
-    EAttribute getTaskExecutionHistory_Status();
+    EAttribute getTaskExecutionHistory_BasicStatus();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getDetailedStatus <em>Detailed Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Detailed Status</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getDetailedStatus()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_DetailedStatus();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskLabel <em>Task Label</em>}'.
@@ -10490,12 +10510,20 @@ public interface PropertiesPackage extends EPackage {
         EAttribute TASK_EXECUTION_HISTORY__ID = eINSTANCE.getTaskExecutionHistory_Id();
 
         /**
-         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Basic Status</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute TASK_EXECUTION_HISTORY__STATUS = eINSTANCE.getTaskExecutionHistory_Status();
+        EAttribute TASK_EXECUTION_HISTORY__BASIC_STATUS = eINSTANCE.getTaskExecutionHistory_BasicStatus();
+
+        /**
+         * The meta object literal for the '<em><b>Detailed Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__DETAILED_STATUS = eINSTANCE.getTaskExecutionHistory_DetailedStatus();
 
         /**
          * The meta object literal for the '<em><b>Task Label</b></em>' attribute feature.

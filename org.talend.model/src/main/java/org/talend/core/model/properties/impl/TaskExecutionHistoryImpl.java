@@ -26,7 +26,8 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getBasicStatus <em>Basic Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getDetailedStatus <em>Detailed Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskLabel <em>Task Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskDescription <em>Task Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getProjectName <em>Project Name</em>}</li>
@@ -86,24 +87,44 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * The default value of the '{@link #getBasicStatus() <em>Basic Status</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getStatus()
+     * @see #getBasicStatus()
      * @generated
      * @ordered
      */
-    protected static final String STATUS_EDEFAULT = null;
+    protected static final String BASIC_STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * The cached value of the '{@link #getBasicStatus() <em>Basic Status</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getStatus()
+     * @see #getBasicStatus()
      * @generated
      * @ordered
      */
-    protected String status = STATUS_EDEFAULT;
+    protected String basicStatus = BASIC_STATUS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDetailedStatus() <em>Detailed Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDetailedStatus()
+     * @generated
+     * @ordered
+     */
+    protected static final String DETAILED_STATUS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDetailedStatus() <em>Detailed Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDetailedStatus()
+     * @generated
+     * @ordered
+     */
+    protected String detailedStatus = DETAILED_STATUS_EDEFAULT;
 
     /**
      * The default value of the '{@link #getTaskLabel() <em>Task Label</em>}' attribute.
@@ -789,8 +810,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getStatus() {
-        return status;
+    public String getBasicStatus() {
+        return basicStatus;
     }
 
     /**
@@ -798,11 +819,32 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setStatus(String newStatus) {
-        String oldStatus = status;
-        status = newStatus;
+    public void setBasicStatus(String newBasicStatus) {
+        String oldBasicStatus = basicStatus;
+        basicStatus = newBasicStatus;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS, oldStatus, status));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS, oldBasicStatus, basicStatus));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDetailedStatus() {
+        return detailedStatus;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDetailedStatus(String newDetailedStatus) {
+        String oldDetailedStatus = detailedStatus;
+        detailedStatus = newDetailedStatus;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS, oldDetailedStatus, detailedStatus));
     }
 
     /**
@@ -1486,8 +1528,10 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         switch (featureID) {
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 return new Integer(getId());
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
-                return getStatus();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                return getBasicStatus();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                return getDetailedStatus();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 return getTaskLabel();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
@@ -1566,8 +1610,11 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 setId(((Integer)newValue).intValue());
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
-                setStatus((String)newValue);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                setBasicStatus((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                setDetailedStatus((String)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 setTaskLabel((String)newValue);
@@ -1679,8 +1726,11 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 setId(ID_EDEFAULT);
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
-                setStatus(STATUS_EDEFAULT);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                setBasicStatus(BASIC_STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                setDetailedStatus(DETAILED_STATUS_EDEFAULT);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 setTaskLabel(TASK_LABEL_EDEFAULT);
@@ -1791,8 +1841,10 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         switch (featureID) {
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
                 return id != ID_EDEFAULT;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__STATUS:
-                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                return BASIC_STATUS_EDEFAULT == null ? basicStatus != null : !BASIC_STATUS_EDEFAULT.equals(basicStatus);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                return DETAILED_STATUS_EDEFAULT == null ? detailedStatus != null : !DETAILED_STATUS_EDEFAULT.equals(detailedStatus);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
                 return TASK_LABEL_EDEFAULT == null ? taskLabel != null : !TASK_LABEL_EDEFAULT.equals(taskLabel);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
@@ -1872,8 +1924,10 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
-        result.append(", status: ");
-        result.append(status);
+        result.append(", basicStatus: ");
+        result.append(basicStatus);
+        result.append(", detailedStatus: ");
+        result.append(detailedStatus);
         result.append(", taskLabel: ");
         result.append(taskLabel);
         result.append(", taskDescription: ");

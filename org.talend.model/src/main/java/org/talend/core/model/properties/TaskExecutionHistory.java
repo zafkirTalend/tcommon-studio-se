@@ -19,7 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getBasicStatus <em>Basic Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getDetailedStatus <em>Detailed Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskLabel <em>Task Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTaskDescription <em>Task Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getProjectName <em>Project Name</em>}</li>
@@ -87,30 +88,56 @@ public interface TaskExecutionHistory extends EObject {
     void setId(int value);
 
     /**
-     * Returns the value of the '<em><b>Status</b></em>' attribute.
+     * Returns the value of the '<em><b>Basic Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Basic Status</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Basic Status</em>' attribute.
+     * @see #setBasicStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_BasicStatus()
+     * @model
+     * @generated
+     */
+    String getBasicStatus();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getBasicStatus <em>Basic Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Basic Status</em>' attribute.
+     * @see #getBasicStatus()
+     * @generated
+     */
+    void setBasicStatus(String value);
+
+    /**
+     * Returns the value of the '<em><b>Detailed Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Status</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Status</em>' attribute.
-     * @see #setStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_Status()
+     * @return the value of the '<em>Detailed Status</em>' attribute.
+     * @see #setDetailedStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_DetailedStatus()
      * @model
      * @generated
      */
-    String getStatus();
+    String getDetailedStatus();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getStatus <em>Status</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getDetailedStatus <em>Detailed Status</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Status</em>' attribute.
-     * @see #getStatus()
+     * @param value the new value of the '<em>Detailed Status</em>' attribute.
+     * @see #getDetailedStatus()
      * @generated
      */
-    void setStatus(String value);
+    void setDetailedStatus(String value);
 
     /**
      * Returns the value of the '<em><b>Task Label</b></em>' attribute.
