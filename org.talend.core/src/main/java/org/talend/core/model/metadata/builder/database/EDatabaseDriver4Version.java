@@ -21,13 +21,18 @@ public enum EDatabaseDriver4Version {
     // just now , for oracle
 
     // qli comment
-    // see feature 6046,and now,for Oracle and AS400.
+    // see feature 6046,and now,for Oracle and AS400(version).
     ORACLE_11("Oracle", "Oracle_11", "ojdbc5-11g.jar"),
     ORACLE_10("Oracle", "Oracle_10", "ojdbc14-10g.jar"),
     ORACLE_9("Oracle", "Oracle_9", "ojdbc14-9i.jar"),
     ORACLE_8("Oracle", "Oracle_8", "ojdbc12-8i.jar"),
     V5R3_V6R1("AS400", "V5R3 to V6R1", "jt400_V5R3.jar"), // AS400
-    V5R2_V5R4("AS400", "V5R2 to V5R4", "jt400_V5R2.jar"); // AS400
+    V5R2_V5R4("AS400", "V5R2 to V5R4", "jt400_V5R2.jar"), // AS400
+    INTERBASE("Interbase", null, "interclient.jar"),
+    SQLITE("SQLite", null, "sqlitejdbc_v037_nested.jar"),
+    FIREBIRD("FireBird", null, "jaybird-full-2.1.1.jar"),
+    TERADATA("Teradata", null, "terajdbc4.jar"),
+    JAVADB_DERBYCLIENT("JavaDB DerbyClient", null, "derbyclient.jar");
 
     /**
      * Getter for dbType.
@@ -55,7 +60,7 @@ public enum EDatabaseDriver4Version {
      * @return the driverName
      */
     public String getDriverName() {
-        if (this.getDbVersionName().equals(ORACLE_11.dbVersionName)) {
+        if (this.getDbVersionName() != null && this.getDbVersionName().equals(ORACLE_11.dbVersionName)) {
             if (System.getProperty("java.version").startsWith("1.6")) {
                 return "ojdbc6-11g.jar";
             }
@@ -75,9 +80,16 @@ public enum EDatabaseDriver4Version {
         this.dbType = dbType;
     }
 
-    public static String getDriverByVersion(final String versionName) {
+    public static String getDriver(final String dbType, final String versionName) {
+        if (versionName != null) {
+            for (EDatabaseDriver4Version driverVersion : values()) {
+                if (driverVersion.getDbVersionName().equals(versionName)) {
+                    return driverVersion.getDriverName();
+                }
+            }
+        }
         for (EDatabaseDriver4Version driverVersion : values()) {
-            if (driverVersion.getDbVersionName().equals(versionName)) {
+            if (driverVersion.getDbType().equals(dbType)) {
                 return driverVersion.getDriverName();
             }
         }

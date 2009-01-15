@@ -421,11 +421,13 @@ public class ExtractMetaDataUtils {
 
         String driverClassName = driverClassNameArg;
         String driverJarPath = driverJarPathArg;
-
         // see feature 4720&4722
-        if ((driverJarPath == null || driverJarPath.equals("")) && dbVersion != null) {
-            driverJarPath = getJavaLibPath() + EDatabaseDriver4Version.getDriverByVersion(dbVersion);
-            driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+        if ((driverJarPath == null || driverJarPath.equals(""))) {
+            String driverName = EDatabaseDriver4Version.getDriver(dbType, dbVersion);
+            if (driverName != null) {
+                driverJarPath = getJavaLibPath() + driverName;
+                driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
+            }
         }
         /*
          * For general jdbc, driver class is specific by user.
@@ -446,10 +448,6 @@ public class ExtractMetaDataUtils {
             // Load jdbc driver class dynamicly
             JDBCDriverLoader loader = new JDBCDriverLoader();
             connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
-        } else if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.NETEZZA.getXmlName())) {
-            // Netezza work worse with default Eclipse ClassLoader.
-            JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnectionBySpecialWays(dbType, url, username, pwd, driverClassName);
         } else {
             // Don't use DriverManager
             Class<?> klazz = Class.forName(driverClassName);

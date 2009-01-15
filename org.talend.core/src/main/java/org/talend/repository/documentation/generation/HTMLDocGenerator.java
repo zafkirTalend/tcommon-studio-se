@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.derby.iapi.services.io.FileUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -49,6 +48,7 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.context.ContextUtils;
@@ -235,7 +235,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
         // Delete if folde is existing.
         if (file.exists()) {
-            FileUtil.removeDirectory(file);
+            FilesUtils.removeFolder(file, true);
         }
 
         file.mkdirs();
