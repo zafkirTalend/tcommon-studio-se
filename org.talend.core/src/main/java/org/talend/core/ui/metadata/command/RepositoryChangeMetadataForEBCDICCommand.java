@@ -22,6 +22,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 
@@ -137,7 +138,8 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
             node.getMetadataList().remove(oldOutputMetadata);
         }
 
-        String uinqueTableName = node.getProcess().generateUniqueConnectionName("row_" + (String) newPropValue + "_");
+        String uinqueTableName = node.getProcess().generateUniqueConnectionName(
+                MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
         newOutputMetadata.setLabel((String) newPropValue);
         newOutputMetadata.setTableName(uinqueTableName);
 

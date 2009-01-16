@@ -121,8 +121,8 @@ public class LabelledFileField {
      * @param styleField
      * @param isFill
      */
-    public LabelledFileField(Composite composite, String string, String[] extensions, int horizontalSpan,
-            int styleField, boolean isFill) {
+    public LabelledFileField(Composite composite, String string, String[] extensions, int horizontalSpan, int styleField,
+            boolean isFill) {
         createFileField(composite, string, extensions, horizontalSpan, styleField, isFill);
     }
 
@@ -136,8 +136,8 @@ public class LabelledFileField {
      * @param styleField
      * @param isFill
      */
-    private void createFileField(final Composite composite, String string, final String[] extensions,
-            int horizontalSpan, int styleField, boolean isFill) {
+    private void createFileField(final Composite composite, String string, final String[] extensions, int horizontalSpan,
+            int styleField, boolean isFill) {
         label = new Label(composite, SWT.LEFT);
         label.setText(string);
         label.addListener(SWT.MouseEnter, new Listener() {
@@ -212,6 +212,10 @@ public class LabelledFileField {
         }
         // fileDialog.setFilterNames(filterNames);
         String result = fileDialog.open();
+        setFileFieldValue(result);
+    }
+
+    protected void setFileFieldValue(String result) {
         if (result != null) {
             text.setText(PathUtils.getPortablePath(result));
         }
@@ -378,4 +382,7 @@ public class LabelledFileField {
         button.setEnabled(!visible);
     }
 
+    public Text getTextControl() {
+        return this.text;
+    }
 }

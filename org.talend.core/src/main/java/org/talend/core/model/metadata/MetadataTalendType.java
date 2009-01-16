@@ -45,6 +45,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -69,7 +70,8 @@ public final class MetadataTalendType {
 
     private static ECodeLanguage codeLanguage;
 
-    private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "int", "decimal", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+    private static final String[] PERL_TYPES = new String[] { PerlTypesManager.BOOLEAN, PerlTypesManager.DATE,
+            PerlTypesManager.DATETIME, PerlTypesManager.INT, PerlTypesManager.DECIMAL, PerlTypesManager.STRING };
 
     private static Set<Dbms> dbmsSet = new HashSet<Dbms>();
 

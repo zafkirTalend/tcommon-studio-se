@@ -173,25 +173,46 @@ public final class JavaDataTypeHelper {
      * @return
      */
     public static String getCommonType(final String type1, final String type2) {
-        if ((type1 == "String") || (type2 == "String")) {
-            return JavaTypesManager.STRING.getId();
+        JavaType idType = null;
+        // String
+        idType = getCommonType(type1, type2, JavaTypesManager.STRING);
+        if (idType != null) {
+            return idType.getId();
         }
-        if ((type1 == "Integer") || (type2 == "Integer")) {
-            return JavaTypesManager.INTEGER.getId();
+        // Integer
+        idType = getCommonType(type1, type2, JavaTypesManager.INTEGER);
+        if (idType != null) {
+            return idType.getId();
         }
-        if ((type1 == "Double") || (type2 == "Double")) {
-            return JavaTypesManager.DOUBLE.getId();
+        // Double
+        idType = getCommonType(type1, type2, JavaTypesManager.DOUBLE);
+        if (idType != null) {
+            return idType.getId();
         }
-        if ((type1 == "Float") || (type2 == "Float")) {
-            return JavaTypesManager.FLOAT.getId();
+        // float
+        idType = getCommonType(type1, type2, JavaTypesManager.FLOAT);
+        if (idType != null) {
+            return idType.getId();
         }
-        if ((type1 == "Long") || (type2 == "Long")) {
-            return JavaTypesManager.LONG.getId();
+        // Long
+        idType = getCommonType(type1, type2, JavaTypesManager.LONG);
+        if (idType != null) {
+            return idType.getId();
         }
-        if ((type1 == "Character") || (type2 == "Character")) {
-            return JavaTypesManager.CHARACTER.getId();
+        // Character
+        idType = getCommonType(type1, type2, JavaTypesManager.CHARACTER);
+        if (idType != null) {
+            return idType.getId();
         }
         return JavaTypesManager.STRING.getId();
+    }
+
+    private static JavaType getCommonType(final String type1, final String type2, JavaType testType) {
+        if ((type1 == testType.getLabel()) || (type2 == testType.getLabel()) || (type1 == testType.getId())
+                || (type2 == testType.getId())) {
+            return testType;
+        }
+        return null;
     }
 
     // Function to test whether the string is valid number or not

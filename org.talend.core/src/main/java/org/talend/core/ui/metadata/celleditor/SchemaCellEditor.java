@@ -165,8 +165,10 @@ public class SchemaCellEditor extends DialogCellEditor {
                                 Object code = valueMap.get(IEbcdicConstant.FIELD_CODE);
                                 if (code == null || "".equals(code)) {
                                     valueMap.put(IEbcdicConstant.FIELD_CODE, table.getTableName());
+                                    valueMap.put(IEbcdicConstant.FIELD_SCHEMA, table.getTableName());
                                 }
                             }
+                            getTableViewer().refresh();
                         }
                     }
                 });
@@ -174,7 +176,7 @@ public class SchemaCellEditor extends DialogCellEditor {
         } else {
             tableToEdit = MetadataTool.getMetadataTableFromNode(node, schemaToEdit);
 
-            if (getTableViewer() != null && tableToEdit != null) {
+            if (getTableViewer() != null && tableToEdit != null && isEBCDICNode(node)) {
                 Table tTable = getTableViewer().getTable();
                 Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
                 if (data instanceof Map) {
@@ -265,6 +267,17 @@ public class SchemaCellEditor extends DialogCellEditor {
         } else {
             return ""; //$NON-NLS-1$
         }
+    }
+
+    private boolean isEBCDICNode(INode node) {
+        if (PluginChecker.isEBCDICPluginLoaded()) {
+            IEBCDICProviderService service = (IEBCDICProviderService) GlobalServiceRegister.getDefault().getService(
+                    IEBCDICProviderService.class);
+            if (service != null) {
+                return service.isEbcdicNode(node);
+            }
+        }
+        return false;
     }
 
     private EbcdicConnectionItem getRepositoryItem() {

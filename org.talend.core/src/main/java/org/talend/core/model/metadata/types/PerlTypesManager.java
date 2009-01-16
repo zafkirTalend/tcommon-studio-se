@@ -28,6 +28,18 @@ import org.talend.core.model.metadata.MetadataTalendType;
  */
 public class PerlTypesManager {
 
+    public static final String BOOLEAN = "boolean"; //$NON-NLS-1$
+
+    public static final String DATE = "date"; //$NON-NLS-1$
+
+    public static final String DATETIME = "datetime"; //$NON-NLS-1$
+
+    public static final String INT = "int"; //$NON-NLS-1$
+
+    public static final String DECIMAL = "decimal"; //$NON-NLS-1$
+
+    public static final String STRING = "string"; //$NON-NLS-1$
+
     private static Map<String, String> perlOldmappingnew;
 
     private static final String[] PERL_TYPES = MetadataTalendType.getPerlTypes();
@@ -54,21 +66,21 @@ public class PerlTypesManager {
             perlOldmappingnew = new HashMap<String, String>();
 
             // old types
-            perlOldmappingnew.put(OLD_PERL_TYPES[0], PERL_TYPES[5]);// char to string
-            perlOldmappingnew.put(OLD_PERL_TYPES[1], PERL_TYPES[1]);// Day to date
-            perlOldmappingnew.put(OLD_PERL_TYPES[2], PERL_TYPES[4]);// double to decimal
-            perlOldmappingnew.put(OLD_PERL_TYPES[3], PERL_TYPES[4]);// float to decimal
-            perlOldmappingnew.put(OLD_PERL_TYPES[5], PERL_TYPES[3]);// long to int
-            perlOldmappingnew.put(OLD_PERL_TYPES[6], PERL_TYPES[5]);// String to string
+            perlOldmappingnew.put(OLD_PERL_TYPES[0], PERL_TYPES[5]); // char to string
+            perlOldmappingnew.put(OLD_PERL_TYPES[1], PERL_TYPES[1]); // Day to date
+            perlOldmappingnew.put(OLD_PERL_TYPES[2], PERL_TYPES[4]); // double to decimal
+            perlOldmappingnew.put(OLD_PERL_TYPES[3], PERL_TYPES[4]); // float to decimal
+            perlOldmappingnew.put(OLD_PERL_TYPES[5], PERL_TYPES[3]); // long to int
+            perlOldmappingnew.put(OLD_PERL_TYPES[6], PERL_TYPES[5]); // String to string
 
-            perlOldmappingnew.put(OLD_PERL_TYPES[4], PERL_TYPES[3]);// int to int
+            perlOldmappingnew.put(OLD_PERL_TYPES[4], PERL_TYPES[3]); // int to int
 
             // new types
-            perlOldmappingnew.put(PERL_TYPES[0], PERL_TYPES[0]);// boolean
-            perlOldmappingnew.put(PERL_TYPES[1], PERL_TYPES[1]);// date
-            perlOldmappingnew.put(PERL_TYPES[2], PERL_TYPES[2]);// datetime
-            perlOldmappingnew.put(PERL_TYPES[4], PERL_TYPES[4]);// decimal
-            perlOldmappingnew.put(PERL_TYPES[5], PERL_TYPES[5]);// string
+            perlOldmappingnew.put(PERL_TYPES[0], PERL_TYPES[0]); // boolean
+            perlOldmappingnew.put(PERL_TYPES[1], PERL_TYPES[1]); // date
+            perlOldmappingnew.put(PERL_TYPES[2], PERL_TYPES[2]); // datetime
+            perlOldmappingnew.put(PERL_TYPES[4], PERL_TYPES[4]); // decimal
+            perlOldmappingnew.put(PERL_TYPES[5], PERL_TYPES[5]); // string
 
             initDone = true;
         }
@@ -86,4 +98,7 @@ public class PerlTypesManager {
         return perlOldmappingnew.get(oldType);
     }
 
+    public static String[] getPerlTypes() {
+        return PERL_TYPES.clone();
+    }
 }

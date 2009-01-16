@@ -48,10 +48,22 @@ public final class PerlDataTypeHelper {
     private static final double DOUBLE_MAX = 1.7E308d;
 
     /**
+     * 
+     * cLi Comment method "getNewTalendTypeOfValue".
+     * 
+     * @return return new Perl Type, such as string, decimal, int
+     */
+    public static String getNewTalendTypeOfValue(final String value) {
+        String oldTalendType = getTalendTypeOfValue(value);
+        return PerlTypesManager.getNewTypeName(oldTalendType);
+    }
+
+    /**
      * getTypeOfValue return STRING, CHAR, NUMBER, LONG, FLOAT, DOUBLE.
      * 
      * @param value
      * @return string or null if the value.equals("")
+     * @deprecated
      */
     public static String getTalendTypeOfValue(final String value) {
         String perlType = getPerlTypeOfValue(value);
@@ -72,6 +84,7 @@ public final class PerlDataTypeHelper {
      * 
      * @param value
      * @return string or null if the value.equals("")
+     * @deprecated
      */
     public static String getPerlTypeOfValue(final String value) {
 
@@ -171,6 +184,7 @@ public final class PerlDataTypeHelper {
      * @param type1
      * @param type2
      * @return
+     * @deprecated not use the old type.
      */
     public static String getCommonType(final String type1, final String type2) {
         if ((type1 == "String") || (type2 == "String")) {
@@ -186,6 +200,18 @@ public final class PerlDataTypeHelper {
             return "Long";
         }
         return "String";
+    }
+
+    public static String getNewCommonType(final String type1, final String type2) {
+        String newType1 = PerlTypesManager.getNewTypeName(type1);
+        String newType2 = PerlTypesManager.getNewTypeName(type2);
+        if (PerlTypesManager.STRING.equals(newType1) || PerlTypesManager.STRING.equals(newType2)) {
+            return PerlTypesManager.STRING;
+        }
+        if (PerlTypesManager.DECIMAL.equals(newType1) || PerlTypesManager.DECIMAL.equals(newType2)) {
+            return PerlTypesManager.DECIMAL;
+        }
+        return PerlTypesManager.STRING;
     }
 
     // Function to test whether the string is valid number or not
