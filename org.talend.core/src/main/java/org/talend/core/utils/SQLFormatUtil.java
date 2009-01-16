@@ -110,7 +110,8 @@ public class SQLFormatUtil {
             p = current;
 
         }
-        return afterFormat(builder.toString());
+        // bug 6103
+        return afterFormat(builder.toString()).trim();
     }
 
     private String beforeFormat(final String sql) {
