@@ -395,7 +395,32 @@ public class ExtractMetaDataFromDataBase {
                     boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
                     metadataColumn.setNullable(isNullable);
 
-                    metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+                    // gcui:if it is oracle database, use this SQL select comments.
+
+                    if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
+                            || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
+                        try {
+                            PreparedStatement statement = ExtractMetaDataUtils.conn
+                                    .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='"
+                                            + medataTable.getLabel() + "' AND COLUMN_NAME='" + metadataColumn.getLabel() + "'");
+                            ResultSet keys = null;
+                            ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                            if (statement.execute()) {
+                                keys = statement.getResultSet();
+                                while (keys.next()) {
+                                    metadataColumn.setComment(keys.getString("COMMENTS"));
+                                }
+                            }
+                            keys.close();
+
+                        } catch (Exception e) {
+                            System.out.print(e);
+                            log.error(e.toString());
+                        }
+                    } else {
+                        // gcui:if not oracle database use "REMARKS" select comments
+                        metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+                    }
                     metadataColumns.add(metadataColumn);
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
