@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
-import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
@@ -67,6 +66,10 @@ public class ComponentUtilities {
 
     private static boolean faState = true;
 
+    // public static int histate = 0;
+
+    public static int histate = 0;
+
     public static PaletteRoot getPaletteRoot() {
         if (paletteRoot == null) {
             updatePalette();
@@ -91,13 +94,15 @@ public class ComponentUtilities {
             return;
         }
         IComponentsFactory components = ComponentsFactoryProvider.getInstance();
+
         if (paletteRoot != null) {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
 
             for (Object obj : oldRoots) {
-                if (obj instanceof PaletteGroup) {
-                    continue;
-                }
+                // if (obj instanceof PaletteGroup) {
+                // continue;
+                // // paletteRoot.remove((PaletteGroup) obj);
+                // }
                 paletteRoot.remove((PaletteEntry) obj);
             }
 
@@ -123,12 +128,15 @@ public class ComponentUtilities {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
 
             for (Object obj : oldRoots) {
-                if (obj instanceof PaletteGroup) {
-                    continue;
-                }
+                // if (obj instanceof PaletteGroup) {
+                // // continue;
+                // paletteRoot.remove((PaletteGroup) obj);
+                // }
                 paletteRoot.remove((PaletteEntry) obj);
             }
-
+            // if (histate == 1) {
+            // paletteRoot.getChildren().clear();
+            // }
             paletteRoot = CorePlugin.getDefault().getDesignerCoreService().createPalette(components, paletteRoot, isFavorite);
 
         } else {
