@@ -144,7 +144,7 @@ class OrderableWrapper<B> implements Comparable<OrderableWrapper> {
 
     @Override
     public String toString() {
-        return "bean=" + bean.hashCode() + ", order=" + order;
+        return "bean=" + bean.hashCode() + ", order=" + order; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
 }

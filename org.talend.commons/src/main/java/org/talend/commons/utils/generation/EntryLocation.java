@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.commons.utils.generation;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
@@ -51,7 +53,7 @@ public class EntryLocation {
     }
 
     public String toString() {
-        return "{tableName=" + this.tableName + ", columnName=" + this.columnName + "}";
+        return Messages.getString("EntryLocation.returnTableName") + this.tableName + this.columnName; //$NON-NLS-1$
     }
 
     @Override

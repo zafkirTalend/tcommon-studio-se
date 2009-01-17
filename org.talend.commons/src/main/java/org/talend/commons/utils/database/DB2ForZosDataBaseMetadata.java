@@ -26,10 +26,10 @@ import org.talend.fakejdbc.FakeDatabaseMetaData;
  */
 public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
 
-    private static final String[] TABLE_META = { "ID", "TABLE_SCHEM", "TABLE_NAME", "TABLE_TYPE", "REMARKS" };
+    private static final String[] TABLE_META = { "ID", "TABLE_SCHEM", "TABLE_NAME", "TABLE_TYPE", "REMARKS" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-    private static final String[] COLUMN_META = { "TABLE_NAME", "COLUMN_NAME", "TYPE_NAME", "COLUMN_SIZE", "DECIMAL_DIGITS",
-            "IS_NULLABLE", "REMARKS", "COLUMN_DEF" };
+    private static final String[] COLUMN_META = { "TABLE_NAME", "COLUMN_NAME", "TYPE_NAME", "COLUMN_SIZE", "DECIMAL_DIGITS", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+            "IS_NULLABLE", "REMARKS", "COLUMN_DEF" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     private Connection connection;
 
@@ -80,9 +80,9 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTableTypes() throws SQLException {
-        String[] s1 = new String[] { "TABLE" };
-        String[] s2 = new String[] { "VIEW" };
-        String[] s3 = new String[] { "SYNONYM" };
+        String[] s1 = new String[] { "TABLE" }; //$NON-NLS-1$
+        String[] s2 = new String[] { "VIEW" }; //$NON-NLS-1$
+        String[] s3 = new String[] { "SYNONYM" }; //$NON-NLS-1$
 
         List<String[]> list = new ArrayList<String[]>();
 
@@ -91,7 +91,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         list.add(s3);
 
         DB2ForZosResultSet tableResultSet = new DB2ForZosResultSet();
-        tableResultSet.setMetadata(new String[] { "TABLE_TYPE" });
+        tableResultSet.setMetadata(new String[] { "TABLE_TYPE" }); //$NON-NLS-1$
         tableResultSet.setData(list);
 
         return tableResultSet;
@@ -116,7 +116,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
-        String sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'";
+        String sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -125,12 +125,12 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("NAME");
-                String creator = rs.getString("CREATOR");
-                String type = rs.getString("TYPE");
+                String name = rs.getString("NAME"); //$NON-NLS-1$
+                String creator = rs.getString("CREATOR"); //$NON-NLS-1$
+                String type = rs.getString("TYPE"); //$NON-NLS-1$
                 // String dbname = rs.getString("DBNAME");
 
-                String[] r = new String[] { "", creator, name, type, "" };
+                String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
             }
 
@@ -180,8 +180,8 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)
             throws SQLException {
         // for real
-        String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS where TBNAME='" + tableNamePattern + "' AND  TBCREATOR = '"
-                + tableNamePattern + "' ORDER BY TBCREATOR, TBNAME, COLNO";
+        String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS where TBNAME='" + tableNamePattern + "' AND  TBCREATOR = '" //$NON-NLS-1$ //$NON-NLS-2$
+                + tableNamePattern + "' ORDER BY TBCREATOR, TBNAME, COLNO"; //$NON-NLS-1$
 
         // for test
         // String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS where NAME='NAME'";
@@ -195,14 +195,14 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             while (rs.next()) {
 
                 // For real db2 for zos, should use these code.
-                String tableName = rs.getString("TBNAME");
-                String columnName = rs.getString("NAME");
-                String typeName = rs.getString("COLTYPES");
-                String columnSize = rs.getString("LENGTH");
-                String decimalDigits = rs.getString("SCALE");
-                String isNullable = rs.getString("NULLS");
-                String remarks = "";
-                String columnDef = "";
+                String tableName = rs.getString("TBNAME"); //$NON-NLS-1$
+                String columnName = rs.getString("NAME"); //$NON-NLS-1$
+                String typeName = rs.getString("COLTYPES"); //$NON-NLS-1$
+                String columnSize = rs.getString("LENGTH"); //$NON-NLS-1$
+                String decimalDigits = rs.getString("SCALE"); //$NON-NLS-1$
+                String isNullable = rs.getString("NULLS"); //$NON-NLS-1$
+                String remarks = ""; //$NON-NLS-1$
+                String columnDef = ""; //$NON-NLS-1$
 
                 // this is for testing with DB2 on windows
                 // String tableName = tableNamePattern;

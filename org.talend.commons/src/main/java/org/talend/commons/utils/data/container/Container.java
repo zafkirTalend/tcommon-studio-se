@@ -125,7 +125,7 @@ public class Container<K, V> {
 
     public IPath getPath() {
         if (!hasParent()) {
-            return new Path("");
+            return new Path(""); //$NON-NLS-1$
         }
         IPath toReturn = getParent().getPath();
         return toReturn.append(getLabel());
@@ -205,7 +205,7 @@ public class Container<K, V> {
         if (objectInThisContainer == null) {
             V objectInAllTree = getRoot().getAbsoluteMember(key);
             if (objectInAllTree != null) {
-                String msg = Messages.getString("utils.data.container", key);
+                String msg = Messages.getString("utils.data.container", key); //$NON-NLS-1$
                 throw new BusinessException(msg);
             }
             members.add(key);

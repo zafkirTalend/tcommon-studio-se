@@ -63,7 +63,7 @@ public class IndiceHelper {
                 String indiceString = string.substring(indicePosition, string.length());
                 string = string.substring(0, indicePosition) + (Integer.parseInt(indiceString) + 1);
             } catch (Exception e) {
-                string = string + "1";
+                string = string + "1"; //$NON-NLS-1$
             }
         }
         return string;

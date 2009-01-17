@@ -15,6 +15,7 @@ package org.talend.commons.utils.database;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.fakejdbc.FakeResultSet;
 
 /**
@@ -61,7 +62,7 @@ public class DB2ForZosResultSet extends FakeResultSet {
         int columnIndex = indexOf(columnLabel, tableMeta);
 
         if (columnIndex == -1) {
-            throw new SQLException("Invalid argument: unknown column name " + columnLabel);
+            throw new SQLException(Messages.getString("DB2ForZosResultSet.unknowCloumn") + columnLabel); //$NON-NLS-1$
         }
 
         return getString(columnIndex + 1);
@@ -100,7 +101,7 @@ public class DB2ForZosResultSet extends FakeResultSet {
         columnIndex--;
 
         if (columnIndex < 0 || columnIndex > row.length) {
-            throw new SQLException("Invalid argument: parameter index " + columnIndex + " is out of range.");
+            throw new SQLException(Messages.getString("DB2ForZosResultSet.parameterIndex") + columnIndex + Messages.getString("DB2ForZosResultSet.outofRange")); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return row[columnIndex];
     }

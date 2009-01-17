@@ -103,13 +103,13 @@ public class CharsetToolkit {
         // if the file has a Byte Order Marker, we can assume the file is in UTF-xx
         // otherwise, the file would not be human readable
         if (hasUTF8Buffer(buffer)) {
-            return Charset.forName("UTF-8");
+            return Charset.forName("UTF-8"); //$NON-NLS-1$
         }
         if (hasUTF16LEBuffer(buffer)) {
-            return Charset.forName("UTF-16LE");
+            return Charset.forName("UTF-16LE"); //$NON-NLS-1$
         }
         if (hasUTF16BEBuffer(buffer)) {
-            return Charset.forName("UTF-16BE");
+            return Charset.forName("UTF-16BE"); //$NON-NLS-1$
         }
 
         // if a byte has its most significant bit set, the file is in UTF-8 or in the default encoding
@@ -190,13 +190,13 @@ public class CharsetToolkit {
             if (this.enforce8Bit) {
                 return this.defaultCharset;
             } else {
-                return Charset.forName("US-ASCII");
+                return Charset.forName("US-ASCII"); //$NON-NLS-1$
             }
         }
         // if no invalid UTF-8 were encountered, we can assume the encoding is UTF-8,
         // otherwise the file would not be human readable
         if (validU8Char) {
-            return Charset.forName("UTF-8");
+            return Charset.forName("UTF-8"); //$NON-NLS-1$
         }
         // finally, if it's not UTF-8 nor US-ASCII, let's assume the encoding is the default encoding
         return this.defaultCharset;
@@ -296,7 +296,7 @@ public class CharsetToolkit {
      * @return the default <code>Charset</code>.
      */
     public static Charset getDefaultSystemCharset() {
-        return Charset.forName(System.getProperty("file.encoding"));
+        return Charset.forName(System.getProperty("file.encoding")); //$NON-NLS-1$
     }
 
     /**

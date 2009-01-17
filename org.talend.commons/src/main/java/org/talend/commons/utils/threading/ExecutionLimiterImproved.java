@@ -43,7 +43,7 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
 
         public Thread newThread(Runnable r) {
             Thread newThread = Executors.defaultThreadFactory().newThread(r);
-            newThread.setName(newThread.getName() + "_" + ExecutionLimiterImproved.class.getSimpleName());
+            newThread.setName(newThread.getName() + "_" + ExecutionLimiterImproved.class.getSimpleName()); //$NON-NLS-1$
             return newThread;
         }
 

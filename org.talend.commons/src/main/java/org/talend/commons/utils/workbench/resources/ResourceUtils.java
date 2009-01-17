@@ -61,7 +61,7 @@ public final class ResourceUtils {
         IProject fsProject = workspace.getRoot().getProject(projectName);
 
         if (!fsProject.exists()) {
-            String msg = Messages.getString("resources.project.notGet", fsProject.getName());
+            String msg = Messages.getString("resources.project.notGet", fsProject.getName()); //$NON-NLS-1$
             throw new ResourceNotFoundException(msg);
         }
         return fsProject;
@@ -107,7 +107,7 @@ public final class ResourceUtils {
         IFolder processFolder = source.getFolder(folderName);
 
         if (forceExists && !processFolder.getLocation().toFile().exists()) {
-            String msg = Messages.getString("resources.folder.notGet", folderName, source.getName());
+            String msg = Messages.getString("resources.folder.notGet", folderName, source.getName()); //$NON-NLS-1$
             throw new ResourceNotFoundException(msg);
         }
         return processFolder;
@@ -122,7 +122,7 @@ public final class ResourceUtils {
             }
             folder.create(true, true, null);
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.folder.notCreated", folder.getName());
+            String msg = Messages.getString("resources.folder.notCreated", folder.getName()); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
         }
     }
@@ -131,7 +131,7 @@ public final class ResourceUtils {
         try {
             resource.delete(true, null);
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.folder.notDeleted", resource.getName());
+            String msg = Messages.getString("resources.folder.notDeleted", resource.getName()); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
         }
     }
@@ -149,7 +149,7 @@ public final class ResourceUtils {
             }
             return nbResourcesDeleted;
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.folder.notEmptied", folder.getName());
+            String msg = Messages.getString("resources.folder.notEmptied", folder.getName()); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
         }
     }
@@ -158,7 +158,7 @@ public final class ResourceUtils {
         try {
             res.move(path, false, null);
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.resource.notMoved", res.getName(), path);
+            String msg = Messages.getString("resources.resource.notMoved", res.getName(), path); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
         }
     }
@@ -175,7 +175,7 @@ public final class ResourceUtils {
     public static IFile getFile(IFolder source, String fileName, boolean forceExists) throws PersistenceException {
         IFile file = source.getFile(fileName);
         if (forceExists && !file.exists()) {
-            String msg = Messages.getString("resources.file.notGet", fileName, source.getName());
+            String msg = Messages.getString("resources.file.notGet", fileName, source.getName()); //$NON-NLS-1$
             throw new ResourceNotFoundException(msg);
         }
         return file;
@@ -186,7 +186,7 @@ public final class ResourceUtils {
             IResource[] members = container.members();
             return members;
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.members.notGet", container.getName());
+            String msg = Messages.getString("resources.members.notGet", container.getName()); //$NON-NLS-1$
             PersistenceException ex = new PersistenceException(msg, e);
             throw ex;
         }
@@ -214,12 +214,12 @@ public final class ResourceUtils {
     public static void createFile(InputStream stream, IFile file) throws PersistenceException {
         try {
             if (stream == null) {
-                String msg = Messages.getString("resources.file.notCreated", file.getName(), "stream is null");
+                String msg = Messages.getString("resources.file.notCreated", file.getName(), Messages.getString("ResourceUtils.streamNull")); //$NON-NLS-1$ //$NON-NLS-2$ 
                 throw new PersistenceException(msg);
             }
             file.create(stream, true, null);
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.file.notCreated", file.getName(), e.getMessage());
+            String msg = Messages.getString("resources.file.notCreated", file.getName(), e.getMessage()); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
         } finally {
             try {
@@ -242,7 +242,7 @@ public final class ResourceUtils {
         try {
             file.delete(true, false, null);
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.file.notDeleted", file.getName());
+            String msg = Messages.getString("resources.file.notDeleted", file.getName()); //$NON-NLS-1$
             throw new PersistenceException(msg, e);
         }
     }
@@ -251,7 +251,7 @@ public final class ResourceUtils {
         try {
             return file.getContents();
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.fileContent.notGet", file.getName());
+            String msg = Messages.getString("resources.fileContent.notGet", file.getName()); //$NON-NLS-1$
             PersistenceException ex = new PersistenceException(msg, e);
             throw ex;
         }
@@ -267,20 +267,20 @@ public final class ResourceUtils {
      * 
      * @param source - the source path
      * @param target - the target path
-     * @param forFolder - <code>true</code> if the test is for a folder move or <code>false</code> if it's for a
-     * file move.
+     * @param forFolder - <code>true</code> if the test is for a folder move or <code>false</code> if it's for a file
+     * move.
      * @return
      */
     public static boolean isCorrectDestination(IPath source, IPath target, boolean forFolder) {
         // Rule 1 : Test if source & target are differents
         if (source.equals(target)) {
-            log.trace("Cannot move " + source + " -> " + target + " (Rule 1-Test if source & target are differents)");
+            log.trace(Messages.getString("ResourceUtils.cnanotMoveRule1") + source + target); //$NON-NLS-1$
             return false;
         }
 
         // Rule 2 : target is the root
         if (target.segmentCount() == 0) {
-            log.trace("Can move " + source + " -> " + target);
+            log.trace(Messages.getString("ResourceUtils.canMove1") + source + Messages.getString("ResourceUtils.go") + target); //$NON-NLS-1$ //$NON-NLS-2$
             return true;
         }
 
@@ -289,7 +289,7 @@ public final class ResourceUtils {
             int common = source.matchingFirstSegments(target);
             // Rule 3 : Descendant
             if (common == source.segmentCount()) {
-                log.trace("Cannot move " + source + " -> " + target + " (Rule 3-Descendant)");
+                log.trace(Messages.getString("ResourceUtils.cannotMoveRule3") + source + target); //$NON-NLS-1$
                 return false;
             }
 
@@ -300,7 +300,7 @@ public final class ResourceUtils {
             // }
         }
 
-        log.trace("Can move " + source + " -> " + target);
+        log.trace(Messages.getString("ResourceUtils.canMove2") + source + target); //$NON-NLS-1$
         return true;
     }
 

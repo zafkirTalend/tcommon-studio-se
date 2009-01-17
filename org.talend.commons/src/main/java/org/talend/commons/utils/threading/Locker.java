@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.list.SynchronizedList;
 import org.apache.log4j.Logger;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.data.bean.IGetterPropertyAccessor;
 import org.talend.commons.utils.data.map.MultiLazyValuesMap;
 
@@ -33,7 +34,7 @@ import org.talend.commons.utils.data.map.MultiLazyValuesMap;
  */
 public class Locker<B, KP> {
 
-    private static final String UNDEFINED_CONTEXT_INFO = "UNDEFINED";
+    private static final String UNDEFINED_CONTEXT_INFO = "UNDEFINED"; //$NON-NLS-1$
 
     private static Logger log = Logger.getLogger(Locker.class);
 
@@ -121,7 +122,7 @@ public class Locker<B, KP> {
         }
 
         public String toString() {
-            return "key=" + String.valueOf(key) + ", contextInfo=" + contextInfo;
+            return Messages.getString("Locker.keyContext") + String.valueOf(key) + contextInfo; //$NON-NLS-1$
         }
 
     }
@@ -155,7 +156,7 @@ public class Locker<B, KP> {
         this();
         this.getterId = getterId;
         if (getterId == null) {
-            throw new IllegalArgumentException("getterId can't be null");
+            throw new IllegalArgumentException(Messages.getString("Locker.getterIdNull")); //$NON-NLS-1$
         }
     }
 
@@ -225,7 +226,7 @@ public class Locker<B, KP> {
     public boolean lock(KP key, String contextInfo) {
         check(key);
         if (Locker.verbose) {
-            log.info("Locking (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo=" + contextInfo + "...");
+            log.info(Messages.getString("Locker.lockKeyContext") + Thread.currentThread().toString() + key + contextInfo); //$NON-NLS-1$
         }
         Thread thread = lockKeyToThreadsMap.put(new InternalKeyLock<KP>(key, contextInfo), Thread.currentThread());
         if (thread == null) {
@@ -312,7 +313,7 @@ public class Locker<B, KP> {
      */
     private void checkBean(B bean) {
         if (bean == null) {
-            throw new IllegalArgumentException("bean can't be null");
+            throw new IllegalArgumentException(Messages.getString("Locker.beanNull")); //$NON-NLS-1$
         }
     }
 
@@ -323,7 +324,7 @@ public class Locker<B, KP> {
      */
     private void check(KP key) {
         if (key == null) {
-            throw new IllegalArgumentException("key can't be null");
+            throw new IllegalArgumentException(Messages.getString("Locker.keyNull")); //$NON-NLS-1$
         }
     }
 
@@ -373,7 +374,7 @@ public class Locker<B, KP> {
     public synchronized boolean unlock(KP key, String contextInfo) {
         check(key);
         if (Locker.verbose) {
-            log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo=" + contextInfo + "...");
+            log.info(Messages.getString("Locker.unlockeyContext") + Thread.currentThread().toString() + key + contextInfo); //$NON-NLS-1$
         }
         matchingKey.key = key;
         Thread thread = lockKeyToThreadsMap.remove(matchingKey);
@@ -416,13 +417,13 @@ public class Locker<B, KP> {
                 waitingThreadsByKey.put(getterId.get(bean), Thread.currentThread());
                 try {
                     if (Locker.verbose) {
-                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key=" + getterId.get(bean)
-                                + ", contextInfo=" + contextInfo + "...");
+                        log.info(Messages.getString("Locker.waitForUnlock1") + Thread.currentThread().toString() //$NON-NLS-1$
+                                + getterId.get(bean) + contextInfo);
                     }
                     Thread.currentThread().wait();
                     if (Locker.verbose) {
-                        log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + getterId.get(bean)
-                                + ", contextInfo=" + contextInfo + "...");
+                        log.info(Messages.getString("Locker.waitEndForUnlock1") + Thread.currentThread().toString() //$NON-NLS-1$
+                                + getterId.get(bean) + contextInfo);
                     }
                     waitForLockBean(bean);
                 } catch (InterruptedException e) {
@@ -464,13 +465,13 @@ public class Locker<B, KP> {
                 waitingThreadsByKey.put(key, Thread.currentThread());
                 try {
                     if (Locker.verbose) {
-                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo="
-                                + contextInfo + "...");
+                        log.info(Messages.getString("Locker.waitForUnlock2") + Thread.currentThread().toString() //$NON-NLS-1$
+                                + key + contextInfo);
                     }
                     Thread.currentThread().wait();
                     if (Locker.verbose) {
-                        log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + key + ", contextInfo="
-                                + contextInfo + "...");
+                        log.info(Messages.getString("Locker.waitEndForUnlock2") + Thread.currentThread().toString() + key //$NON-NLS-1$
+                                + contextInfo);
                     }
                     waitForLock(key, contextInfo);
                 } catch (InterruptedException e) {
@@ -511,7 +512,7 @@ public class Locker<B, KP> {
     }
 
     public String toString() {
-        return "lockKeyToThreadsMap=" + String.valueOf(lockKeyToThreadsMap) + ", waitingThreadsByKey="
+        return Messages.getString("Locker.lockKeyThreadMap") + String.valueOf(lockKeyToThreadsMap) //$NON-NLS-1$
                 + String.valueOf(waitingThreadsByKey);
     }
 
@@ -593,7 +594,7 @@ public class Locker<B, KP> {
 
         final Locker<LabelValue, Integer> locker = new Locker<LabelValue, Integer>(getterPropertyAccessor);
 
-        final LabelValue lb1 = new LabelValue(1, "LableValue1");
+        final LabelValue lb1 = new LabelValue(1, "LableValue1"); //$NON-NLS-1$
 
         new Thread() {
 

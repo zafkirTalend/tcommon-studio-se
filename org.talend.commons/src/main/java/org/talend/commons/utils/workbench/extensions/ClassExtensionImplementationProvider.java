@@ -45,7 +45,7 @@ public class ClassExtensionImplementationProvider<T> extends ExtensionImplementa
     protected T createImplementation(IExtension extension, IExtensionPointLimiter extensionPointLimiter,
             IConfigurationElement configurationElement) {
         try {
-            return (T) configurationElement.createExecutableExtension("class");
+            return (T) configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
         } catch (CoreException e) {
             throw new IllegalPluginConfigurationException(e);
         }

@@ -205,24 +205,24 @@ public class TimeMeasure {
     public static String indent(final int i) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int j = 0; j < i; j++) {
-            stringBuilder.append("  ");
+            stringBuilder.append("  "); //$NON-NLS-1$
         }
         return stringBuilder.toString();
     }
 
     public static void main(String[] args) {
         try {
-            TimeMeasure.begin("a");
+            TimeMeasure.begin("a"); //$NON-NLS-1$
             // TimeMeasure.end("b");
             Thread.sleep(500);
-            TimeMeasure.step("a", "1");
+            TimeMeasure.step("a", "1"); //$NON-NLS-1$ //$NON-NLS-2$
             Thread.sleep(800);
-            TimeMeasure.pause("a");
+            TimeMeasure.pause("a"); //$NON-NLS-1$
             Thread.sleep(600);
-            TimeMeasure.step("a", "2");
-            TimeMeasure.resume("a");
+            TimeMeasure.step("a", "2"); //$NON-NLS-1$ //$NON-NLS-2$
+            TimeMeasure.resume("a"); //$NON-NLS-1$
             Thread.sleep(2000);
-            TimeMeasure.end("a");
+            TimeMeasure.end("a"); //$NON-NLS-1$
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -23,7 +23,7 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public class Version implements Comparable<Version> {
 
-    private static final String LEVEL_SEPARATOR = ".";
+    private static final String LEVEL_SEPARATOR = "."; //$NON-NLS-1$
 
     private int major = 0;
 

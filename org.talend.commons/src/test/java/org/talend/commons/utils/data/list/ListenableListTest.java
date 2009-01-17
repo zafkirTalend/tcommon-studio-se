@@ -81,19 +81,19 @@ public class ListenableListTest {
     @Test
     public void testAddT() {
         assertFalse(added);
-        listenedList.add("A");
+        listenedList.add("A"); //$NON-NLS-1$
         assertFalse(added);
-        assertEquals("A", listenedList.get(0));
+        assertEquals("A", listenedList.get(0)); //$NON-NLS-1$
         initListener();
         assertFalse(added);
-        listenedList.add("B");
+        listenedList.add("B"); //$NON-NLS-1$
         assertEquals(currentEvent.index, 1);
-        assertTrue(currentEvent.addedObjects.contains("B"));
-        assertEquals("B", listenedList.get(1));
+        assertTrue(currentEvent.addedObjects.contains("B")); //$NON-NLS-1$
+        assertEquals("B", listenedList.get(1)); //$NON-NLS-1$
         assertTrue(added);
         added = false;
-        listenedList.add("C");
-        assertEquals("C", listenedList.get(2));
+        listenedList.add("C"); //$NON-NLS-1$
+        assertEquals("C", listenedList.get(2)); //$NON-NLS-1$
         assertTrue(added);
     }
 
@@ -103,17 +103,17 @@ public class ListenableListTest {
     @Test
     public void testAddIntT() {
         assertFalse(added);
-        listenedList.add(0, "A");
+        listenedList.add(0, "A"); //$NON-NLS-1$
         assertFalse(added);
-        assertEquals("A", listenedList.get(0));
+        assertEquals("A", listenedList.get(0)); //$NON-NLS-1$
         initListener();
         assertFalse(added);
-        listenedList.add(1, "B");
-        assertEquals("B", listenedList.get(1));
+        listenedList.add(1, "B"); //$NON-NLS-1$
+        assertEquals("B", listenedList.get(1)); //$NON-NLS-1$
         assertTrue(added);
         added = false;
-        listenedList.add(2, "C");
-        assertEquals("C", listenedList.get(2));
+        listenedList.add(2, "C"); //$NON-NLS-1$
+        assertEquals("C", listenedList.get(2)); //$NON-NLS-1$
         assertTrue(added);
     }
 
@@ -122,20 +122,20 @@ public class ListenableListTest {
      */
     @Test
     public void testAddAllCollectionOfQextendsT() {
-        listenedList.add(0, "A");
+        listenedList.add(0, "A"); //$NON-NLS-1$
         assertFalse(added);
         ArrayList<String> listToAdd = new ArrayList<String>();
-        listToAdd.add("B");
-        listToAdd.add("C");
+        listToAdd.add("B"); //$NON-NLS-1$
+        listToAdd.add("C"); //$NON-NLS-1$
 
         initListener();
         assertFalse(added);
         listenedList.addAll(listToAdd);
-        assertEquals("B", listenedList.get(1));
+        assertEquals("B", listenedList.get(1)); //$NON-NLS-1$
         assertTrue(added);
         added = false;
         listenedList.addAll(listToAdd);
-        assertEquals("B", listenedList.get(A_3));
+        assertEquals("B", listenedList.get(A_3)); //$NON-NLS-1$
         assertTrue(added);
     }
 
@@ -144,20 +144,20 @@ public class ListenableListTest {
      */
     @Test
     public void testAddAllIntCollectionOfQextendsT() {
-        listenedList.add(0, "A");
+        listenedList.add(0, "A"); //$NON-NLS-1$
         assertFalse(added);
         ArrayList<String> listToAdd = new ArrayList<String>();
-        listToAdd.add("B");
-        listToAdd.add("C");
+        listToAdd.add("B"); //$NON-NLS-1$
+        listToAdd.add("C"); //$NON-NLS-1$
 
         initListener();
         assertFalse(added);
         listenedList.addAll(0, listToAdd);
-        assertEquals("A", listenedList.get(2));
+        assertEquals("A", listenedList.get(2)); //$NON-NLS-1$
         assertTrue(added);
         added = false;
         listenedList.addAll(1, listToAdd);
-        assertEquals("B", listenedList.get(1));
+        assertEquals("B", listenedList.get(1)); //$NON-NLS-1$
         assertTrue(added);
     }
 
@@ -166,11 +166,11 @@ public class ListenableListTest {
      */
     @Test
     public void testClear() {
-        listenedList.add(0, "A");
+        listenedList.add(0, "A"); //$NON-NLS-1$
         assertFalse(added);
         ArrayList<String> listToAdd = new ArrayList<String>();
-        listToAdd.add("B");
-        listToAdd.add("C");
+        listToAdd.add("B"); //$NON-NLS-1$
+        listToAdd.add("C"); //$NON-NLS-1$
         listenedList.clear();
         assertFalse(cleared);
 
@@ -191,9 +191,9 @@ public class ListenableListTest {
      */
     @Test
     public void testContains() {
-        listenedList.add("A");
-        listenedList.add("B");
-        assertTrue(listenedList.contains("B"));
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        assertTrue(listenedList.contains("B")); //$NON-NLS-1$
     }
 
     /**
@@ -201,12 +201,12 @@ public class ListenableListTest {
      */
     @Test
     public void testContainsAll() {
-        listenedList.add("A");
+        listenedList.add("A"); //$NON-NLS-1$
         ArrayList<String> listToAdd = new ArrayList<String>();
-        listToAdd.add("B");
-        listToAdd.add("C");
+        listToAdd.add("B"); //$NON-NLS-1$
+        listToAdd.add("C"); //$NON-NLS-1$
         listenedList.addAll(listToAdd);
-        listenedList.add("D");
+        listenedList.add("D"); //$NON-NLS-1$
         assertTrue(listenedList.containsAll(listToAdd));
     }
 
@@ -215,9 +215,9 @@ public class ListenableListTest {
      */
     @Test
     public void testGet() {
-        listenedList.add("A");
-        listenedList.add("B");
-        assertTrue("B".equals(listenedList.get(1)));
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        assertTrue("B".equals(listenedList.get(1))); //$NON-NLS-1$
     }
 
     /**
@@ -225,9 +225,9 @@ public class ListenableListTest {
      */
     @Test
     public void testIndexOf() {
-        listenedList.add("A");
-        listenedList.add("B");
-        assertTrue(listenedList.indexOf("B") == 1);
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        assertTrue(listenedList.indexOf("B") == 1); //$NON-NLS-1$
     }
 
     /**
@@ -243,9 +243,9 @@ public class ListenableListTest {
      */
     @Test
     public void testIterator() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
         Iterator<String> iterator = listenedList.iterator();
         assertFalse(removed);
         for (int i = 0; iterator.hasNext(); i++) {
@@ -271,10 +271,10 @@ public class ListenableListTest {
      */
     @Test
     public void testLastIndexOf() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
-        assertEquals(1, listenedList.indexOf("B"));
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
+        assertEquals(1, listenedList.indexOf("B")); //$NON-NLS-1$
     }
 
     /**
@@ -282,9 +282,9 @@ public class ListenableListTest {
      */
     @Test
     public void testListIterator() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
         ListIterator<String> listIterator = listenedList.listIterator();
         assertFalse(removed);
         assertTrue(listIterator.hasNext());
@@ -297,34 +297,34 @@ public class ListenableListTest {
 
         assertTrue(listIterator.hasPrevious());
 
-        assertEquals(listIterator.next(), "C");
+        assertEquals(listIterator.next(), "C"); //$NON-NLS-1$
 
         assertFalse(added);
-        listIterator.add("D");
+        listIterator.add("D"); //$NON-NLS-1$
         assertEquals(listIterator.previousIndex(), 2);
         assertEquals(listIterator.nextIndex(), A_3);
-        assertTrue(currentEvent.addedObjects.contains("D"));
+        assertTrue(currentEvent.addedObjects.contains("D")); //$NON-NLS-1$
         assertEquals(currentEvent.index, 2);
         assertTrue(added);
 
         assertFalse(listIterator.hasNext());
         assertTrue(listIterator.hasPrevious());
-        assertEquals(listIterator.previous(), "D");
+        assertEquals(listIterator.previous(), "D"); //$NON-NLS-1$
 
         assertFalse(removed);
         listIterator.remove();
-        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
         assertEquals(currentEvent.index, 2);
         assertTrue(removed);
 
         assertFalse(listIterator.hasNext());
         assertTrue(listIterator.hasPrevious());
-        assertEquals(listIterator.previous(), "C");
+        assertEquals(listIterator.previous(), "C"); //$NON-NLS-1$
 
         assertFalse(replaced);
-        listIterator.set("E");
-        assertTrue(currentEvent.removedObjects.contains("C"));
-        assertTrue(currentEvent.addedObjects.contains("E"));
+        listIterator.set("E"); //$NON-NLS-1$
+        assertTrue(currentEvent.removedObjects.contains("C")); //$NON-NLS-1$
+        assertTrue(currentEvent.addedObjects.contains("E")); //$NON-NLS-1$
         assertEquals(currentEvent.index, 1);
         assertTrue(replaced);
     }
@@ -334,9 +334,9 @@ public class ListenableListTest {
      */
     @Test
     public void testListIteratorInt() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
         ListIterator<String> listIterator = listenedList.listIterator(1);
         assertEquals(listIterator.previousIndex(), 0);
         assertEquals(listIterator.nextIndex(), 1);
@@ -347,22 +347,22 @@ public class ListenableListTest {
      */
     @Test
     public void testRemoveObject() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
 
         assertFalse(removed);
-        listenedList.remove("B");
+        listenedList.remove("B"); //$NON-NLS-1$
         assertFalse(removed);
-        listenedList.add("D");
+        listenedList.add("D"); //$NON-NLS-1$
 
         initListener();
 
         assertFalse(removed);
-        listenedList.remove("D");
+        listenedList.remove("D"); //$NON-NLS-1$
         assertTrue(removed);
 
-        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
         assertEquals(currentEvent.index, 2);
 
     }
@@ -372,14 +372,14 @@ public class ListenableListTest {
      */
     @Test
     public void testRemoveInt() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
 
         assertFalse(removed);
         listenedList.remove(1);
         assertFalse(removed);
-        listenedList.add("D");
+        listenedList.add("D"); //$NON-NLS-1$
 
         initListener();
 
@@ -387,7 +387,7 @@ public class ListenableListTest {
         listenedList.remove(2);
         assertTrue(removed);
 
-        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
         assertEquals(currentEvent.index, 2);
 
     }
@@ -398,20 +398,20 @@ public class ListenableListTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testRemoveAll() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
-        listenedList.add("D");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
+        listenedList.add("D"); //$NON-NLS-1$
 
         assertFalse(removed);
         List<String> objectsToRemove = new ArrayList<String>();
-        objectsToRemove.add("B");
-        objectsToRemove.add("D");
+        objectsToRemove.add("B"); //$NON-NLS-1$
+        objectsToRemove.add("D"); //$NON-NLS-1$
 
         listenedList.removeAll(objectsToRemove);
         assertFalse(removed);
-        listenedList.add(1, "B");
-        listenedList.add("D");
+        listenedList.add(1, "B"); //$NON-NLS-1$
+        listenedList.add("D"); //$NON-NLS-1$
 
         initListener();
 
@@ -420,8 +420,8 @@ public class ListenableListTest {
         assertTrue(removed);
 
         Iterator<String> iterator = currentEvent.removedObjects.iterator();
-        assertEquals(iterator.next(), "B");
-        assertEquals(iterator.next(), "D");
+        assertEquals(iterator.next(), "B"); //$NON-NLS-1$
+        assertEquals(iterator.next(), "D"); //$NON-NLS-1$
     }
 
     /**
@@ -430,20 +430,20 @@ public class ListenableListTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testRetainAll() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
-        listenedList.add("D");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
+        listenedList.add("D"); //$NON-NLS-1$
 
         assertFalse(removed);
         List<String> objectsToKeep = new ArrayList<String>();
-        objectsToKeep.add("B");
-        objectsToKeep.add("D");
+        objectsToKeep.add("B"); //$NON-NLS-1$
+        objectsToKeep.add("D"); //$NON-NLS-1$
 
         listenedList.retainAll(objectsToKeep);
         assertFalse(removed);
-        listenedList.add(0, "A");
-        listenedList.add(2, "C");
+        listenedList.add(0, "A"); //$NON-NLS-1$
+        listenedList.add(2, "C"); //$NON-NLS-1$
 
         initListener();
 
@@ -452,8 +452,8 @@ public class ListenableListTest {
         assertTrue(removed);
 
         Iterator<String> iterator = currentEvent.removedObjects.iterator();
-        assertEquals(iterator.next(), "A");
-        assertEquals(iterator.next(), "C");
+        assertEquals(iterator.next(), "A"); //$NON-NLS-1$
+        assertEquals(iterator.next(), "C"); //$NON-NLS-1$
     }
 
     /**
@@ -461,21 +461,21 @@ public class ListenableListTest {
      */
     @Test
     public void testSet() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
 
         assertFalse(replaced);
-        listenedList.set(1, "D");
+        listenedList.set(1, "D"); //$NON-NLS-1$
         assertFalse(replaced);
 
         initListener();
 
         assertFalse(replaced);
-        listenedList.set(1, "E");
+        listenedList.set(1, "E"); //$NON-NLS-1$
         assertTrue(replaced);
-        assertTrue(currentEvent.removedObjects.contains("D"));
-        assertTrue(currentEvent.addedObjects.contains("E"));
+        assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
+        assertTrue(currentEvent.addedObjects.contains("E")); //$NON-NLS-1$
         assertEquals(currentEvent.index, 1);
 
     }
@@ -485,9 +485,9 @@ public class ListenableListTest {
      */
     @Test
     public void testSize() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
         assertEquals(listenedList.size(), A_3);
     }
 
@@ -496,15 +496,15 @@ public class ListenableListTest {
      */
     @Test
     public void testSubList() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
-        listenedList.add("D");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
+        listenedList.add("D"); //$NON-NLS-1$
 
         List<String> list = listenedList.subList(1, A_3);
 
-        assertEquals(list.get(0), "B");
-        assertEquals(list.get(1), "C");
+        assertEquals(list.get(0), "B"); //$NON-NLS-1$
+        assertEquals(list.get(1), "C"); //$NON-NLS-1$
 
     }
 
@@ -513,11 +513,11 @@ public class ListenableListTest {
      */
     @Test
     public void testToArray() {
-        listenedList.add("A");
-        listenedList.add("B");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
         Object[] array = (Object[]) listenedList.toArray();
-        assertEquals(array[0], "A");
-        assertEquals(array[1], "B");
+        assertEquals(array[0], "A"); //$NON-NLS-1$
+        assertEquals(array[1], "B"); //$NON-NLS-1$
 
     }
 
@@ -526,11 +526,11 @@ public class ListenableListTest {
      */
     @Test
     public void testToArrayTArray() {
-        listenedList.add("A");
-        listenedList.add("B");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
         String[] array = (String[]) listenedList.toArray(new String[0]);
-        assertEquals(array[0], "A");
-        assertEquals(array[1], "B");
+        assertEquals(array[0], "A"); //$NON-NLS-1$
+        assertEquals(array[1], "B"); //$NON-NLS-1$
     }
 
     /**
@@ -538,22 +538,22 @@ public class ListenableListTest {
      */
     @Test
     public void testSwapIntInt() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
         assertFalse(swaped);
         listenedList.swap(0, 2);
         assertFalse(swaped);
-        assertEquals(listenedList.get(0), "C");
-        assertEquals(listenedList.get(2), "A");
+        assertEquals(listenedList.get(0), "C"); //$NON-NLS-1$
+        assertEquals(listenedList.get(2), "A"); //$NON-NLS-1$
 
         initListener();
 
         assertFalse(swaped);
         listenedList.swap(0, 2);
         assertTrue(swaped);
-        assertEquals(listenedList.get(0), "A");
-        assertEquals(listenedList.get(2), "C");
+        assertEquals(listenedList.get(0), "A"); //$NON-NLS-1$
+        assertEquals(listenedList.get(2), "C"); //$NON-NLS-1$
 
     }
 
@@ -563,22 +563,22 @@ public class ListenableListTest {
      */
     @Test
     public void testSwapObjectObject() {
-        listenedList.add("A");
-        listenedList.add("B");
-        listenedList.add("C");
+        listenedList.add("A"); //$NON-NLS-1$
+        listenedList.add("B"); //$NON-NLS-1$
+        listenedList.add("C"); //$NON-NLS-1$
         assertFalse(swaped);
-        listenedList.swapElement("A", "C");
+        listenedList.swapElement("A", "C"); //$NON-NLS-1$ //$NON-NLS-2$
         assertFalse(swaped);
-        assertEquals(listenedList.get(0), "C");
-        assertEquals(listenedList.get(2), "A");
+        assertEquals(listenedList.get(0), "C"); //$NON-NLS-1$
+        assertEquals(listenedList.get(2), "A"); //$NON-NLS-1$
 
         initListener();
 
         assertFalse(swaped);
-        listenedList.swapElement("A", "C");
+        listenedList.swapElement("A", "C"); //$NON-NLS-1$ //$NON-NLS-2$
         assertTrue(swaped);
-        assertEquals(listenedList.get(0), "A");
-        assertEquals(listenedList.get(2), "C");
+        assertEquals(listenedList.get(0), "A"); //$NON-NLS-1$
+        assertEquals(listenedList.get(2), "C"); //$NON-NLS-1$
     }
 
     /**
@@ -591,7 +591,7 @@ public class ListenableListTest {
         count = 0;
 
         assertFalse(added);
-        listenedList.add("A");
+        listenedList.add("A"); //$NON-NLS-1$
         assertFalse(added);
 
         assertEquals(count, 0);
@@ -599,21 +599,21 @@ public class ListenableListTest {
         initListener();
 
         assertFalse(added);
-        listenedList.add("C");
+        listenedList.add("C"); //$NON-NLS-1$
         assertTrue(added);
         added = false;
 
         assertEquals(count, 1);
 
         assertFalse(added);
-        listenedList.add("B");
+        listenedList.add("B"); //$NON-NLS-1$
         assertTrue(added);
         added = false;
 
         assertEquals(count, 2);
 
         assertFalse(added);
-        listenedList.add("C");
+        listenedList.add("C"); //$NON-NLS-1$
         assertTrue(added);
         added = false;
 
@@ -622,7 +622,7 @@ public class ListenableListTest {
         listenedList.addPostOperationListener(listener);
 
         assertFalse(added);
-        listenedList.add("B");
+        listenedList.add("B"); //$NON-NLS-1$
         assertTrue(added);
         added = false;
 
@@ -631,7 +631,7 @@ public class ListenableListTest {
         listenedList.removeListener(listener);
 
         assertFalse(added);
-        listenedList.add("C");
+        listenedList.add("C"); //$NON-NLS-1$
         assertFalse(added);
 
         assertEquals(count, 4);
@@ -647,7 +647,7 @@ public class ListenableListTest {
         // 2 listeners registered
 
         assertFalse(added);
-        listenedList.add("B");
+        listenedList.add("B"); //$NON-NLS-1$
         assertTrue(added);
         added = false;
 
@@ -662,20 +662,20 @@ public class ListenableListTest {
     @Test
     public void testRemoveListener() {
         assertFalse(added);
-        listenedList.add("A");
+        listenedList.add("A"); //$NON-NLS-1$
         assertFalse(added);
 
         initListener();
 
         assertFalse(added);
-        listenedList.add("B");
+        listenedList.add("B"); //$NON-NLS-1$
         assertTrue(added);
         added = false;
 
         listenedList.removeListener(listener);
 
         assertFalse(added);
-        listenedList.add("C");
+        listenedList.add("C"); //$NON-NLS-1$
         assertFalse(added);
     }
 
@@ -702,7 +702,7 @@ public class ListenableListTest {
                     swaped = true;
                     break;
                 default:
-                    fail("event type unknown");
+                    fail("event type unknown"); //$NON-NLS-1$
                 }
                 currentEvent = event;
 

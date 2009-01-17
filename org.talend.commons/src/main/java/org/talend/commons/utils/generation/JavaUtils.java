@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.Platform;
  */
 public final class JavaUtils {
 
-    public static final String JAVAMODULE_PLUGIN_ID = "org.talend.designer.codegen.javamodule";
+    public static final String JAVAMODULE_PLUGIN_ID = "org.talend.designer.codegen.javamodule"; //$NON-NLS-1$
 
     public static final String JAVA_LAUNCHCONFIGURATION = "org.talend.designer.runprocess.launchConfigurationJava"; //$NON-NLS-1$
 
@@ -36,38 +36,38 @@ public final class JavaUtils {
     public static final String JAVA_PROJECT_NAME = ".Java"; //$NON-NLS-1$
 
     /** Java File Extension. */
-    public static final String JAVA_EXTENSION = ".java";
+    public static final String JAVA_EXTENSION = ".java"; //$NON-NLS-1$
 
     /** Java sqlpattern Extension. */
-    public static final String JAVA_SQLPATTERN_EXTENSION = ".sqlpattern";
+    public static final String JAVA_SQLPATTERN_EXTENSION = ".sqlpattern"; //$NON-NLS-1$
 
     /** Java Context Extension. */
-    public static final String JAVA_CONTEXT_EXTENSION = ".properties";
+    public static final String JAVA_CONTEXT_EXTENSION = ".properties"; //$NON-NLS-1$
 
     /** Java Directory. */
-    public static final String JAVA_DIRECTORY = "java";
+    public static final String JAVA_DIRECTORY = "java"; //$NON-NLS-1$
 
     /** Java Routines Directory. */
-    public static final String JAVA_ROUTINES_DIRECTORY = "routines";
+    public static final String JAVA_ROUTINES_DIRECTORY = "routines"; //$NON-NLS-1$
 
     /** Java SQLPattern Directory. */
-    public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqlpatterns";
+    public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqlpatterns"; //$NON-NLS-1$
 
     /** Java Routines Directory. */
-    public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system";
+    public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system"; //$NON-NLS-1$
 
     /** Java UserDefined Directory */
-    public static final String JAVA_USER_DEFINED = "user defined";
+    public static final String JAVA_USER_DEFINED = "user defined"; //$NON-NLS-1$
 
     /** Java Classes Directory. */
-    public static final String JAVA_CLASSES_DIRECTORY = "classes";
+    public static final String JAVA_CLASSES_DIRECTORY = "classes"; //$NON-NLS-1$
 
     /** Java Lib Directory. */
-    public static final String JAVA_LIB_DIRECTORY = "lib";
+    public static final String JAVA_LIB_DIRECTORY = "lib"; //$NON-NLS-1$
 
     /** Java Source Directory. */
-    public static final String JAVA_SRC_DIRECTORY = "src";
+    public static final String JAVA_SRC_DIRECTORY = "src"; //$NON-NLS-1$
 
     /** Java ClassPath Separator. */
-    public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":";
+    public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":"; //$NON-NLS-1$ //$NON-NLS-2$
 }

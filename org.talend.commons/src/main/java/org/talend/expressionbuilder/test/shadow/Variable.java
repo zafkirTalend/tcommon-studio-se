@@ -40,8 +40,8 @@ public class Variable {
      * yzhang Variable constructor comment.
      */
     public Variable(int n) {
-        name = "name" + String.valueOf(n);
-        value = "value" + String.valueOf(n);
+        name = "name" + String.valueOf(n); //$NON-NLS-1$
+        value = "value" + String.valueOf(n); //$NON-NLS-1$
     }
 
     /**

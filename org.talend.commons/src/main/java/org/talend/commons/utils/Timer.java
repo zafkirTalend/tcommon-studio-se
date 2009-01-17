@@ -54,7 +54,7 @@ public class Timer {
 
     public void start(PrintWriter printWriter) {
         start();
-        printWriter.println("Start " + name);
+        printWriter.println("Start " + name); //$NON-NLS-1$
     }
 
     public void stop() {
@@ -65,7 +65,7 @@ public class Timer {
 
     public void stop(PrintWriter printWriter) {
         stop();
-        printWriter.println("Stop  " + name);
+        printWriter.println("Stop  " + name); //$NON-NLS-1$
     }
 
     public void print() {
@@ -78,12 +78,12 @@ public class Timer {
 
     public String toString() {
         if (times.size() == 1) {
-            return "Print " + name + " : " + timeDelta;
+            return "Print " + name + " : " + timeDelta; //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             long totalTime = computeTotalTime();
             long averageTime = totalTime / times.size();
-            return "Print " + name + " : " + timeDelta + " (" + times.size() + " executions avg : " + averageTime + " tot : "
-                    + totalTime + ")";
+            return "Print " + name + " : " + timeDelta + " (" + times.size() + " executions avg : " + averageTime + " tot : " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                    + totalTime + ")"; //$NON-NLS-1$
         }
     }
 

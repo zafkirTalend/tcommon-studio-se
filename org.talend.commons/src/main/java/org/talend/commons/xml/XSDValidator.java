@@ -35,15 +35,15 @@ import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException
  */
 public class XSDValidator {
 
-    private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+    private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage"; //$NON-NLS-1$
 
-    private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource";
+    private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource"; //$NON-NLS-1$
 
     public static Document checkXSD(File fileToCheck, File fileXSD) throws IOException, ParserConfigurationException,
             SAXException {
         final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
-        fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+        fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
         fabrique.setAttribute(SCHEMA_VALIDATOR, fileXSD);
         fabrique.setValidating(true);
 
@@ -72,7 +72,7 @@ public class XSDValidator {
             InputSource fileSource = new InputSource(fileToCheck.toURI().toASCIIString());
             try {
                 if (retry) {
-                    fileSource.setEncoding(System.getProperty("file.encoding"));
+                    fileSource.setEncoding(System.getProperty("file.encoding")); //$NON-NLS-1$
                 }
                 document = analyseur.parse(fileSource);
                 break;

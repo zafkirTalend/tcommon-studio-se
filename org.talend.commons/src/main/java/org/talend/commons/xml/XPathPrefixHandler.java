@@ -46,7 +46,7 @@ public class XPathPrefixHandler {
         nameNodesMap = new HashMap<String, List<NodeInfo>>();
         pathNodesMap = new HashMap<String, NodeInfo>();
         namespaceContext = new CustomNamespaceContext();
-        collectNodes(root, "", 0);
+        collectNodes(root, "", 0); //$NON-NLS-1$
         sortByLevel(nameNodesMap);
     }
 
@@ -73,12 +73,12 @@ public class XPathPrefixHandler {
 
     private String getQualifiedName(String prefix, String name) {
         StringBuilder buf = new StringBuilder();
-        if (name.indexOf("@") < 0) {
+        if (name.indexOf("@") < 0) { //$NON-NLS-1$
             if (StringUtils.isEmpty(prefix)) {
                 // no namespace
                 buf.append(name);
             } else {
-                buf.append(prefix).append(":").append(name);
+                buf.append(prefix).append(":").append(name); //$NON-NLS-1$
             }
         } else {
             // buf.append("@").append(prefix).append(":").append(name.substring(1));
@@ -99,7 +99,7 @@ public class XPathPrefixHandler {
         if (namespaceContext.getNamespaceCount() == 0) {
             return relativeXPathExpression;
         }
-        if (relativeXPathExpression.startsWith("/")) {
+        if (relativeXPathExpression.startsWith("/")) { //$NON-NLS-1$
             // absolute path
             return addXPathPrefix(relativeXPathExpression);
         }
@@ -107,7 +107,7 @@ public class XPathPrefixHandler {
         List<NodeInfo> list = nameNodesMap.get(node.getNodeName());
         NodeInfo info = getNodeInfo(node, list);
         String path = getQualifiedXPath(info.path);
-        String expr = info.path + "/" + relativeXPathExpression;
+        String expr = info.path + "/" + relativeXPathExpression; //$NON-NLS-1$
         String result = addXPathPrefix(expr);
         return extractRelativePath(result, relativeXPathExpression);
         // return result.substring(path.length() + 1);
@@ -121,14 +121,14 @@ public class XPathPrefixHandler {
      * @return
      */
     private String extractRelativePath(String absolutePath, String relativePath) {
-        String[] aPath = absolutePath.split("/");
-        String[] rPath = relativePath.split("/");
+        String[] aPath = absolutePath.split("/"); //$NON-NLS-1$
+        String[] rPath = relativePath.split("/"); //$NON-NLS-1$
         String[] path = new String[rPath.length];
         int i = aPath.length - rPath.length;
         for (int j = 0; j < rPath.length; j++, i++) {
             path[j] = aPath[i];
         }
-        return StringUtils.join(path, "/");
+        return StringUtils.join(path, "/"); //$NON-NLS-1$
     }
 
     /**
@@ -154,13 +154,13 @@ public class XPathPrefixHandler {
     }
 
     private String getQualifiedXPath(String path) {
-        if (path.equals("/") || path.equals("")) {
-            return "";
+        if (path.equals("/") || path.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return ""; //$NON-NLS-1$
         }
-        int pos = path.lastIndexOf("/");
+        int pos = path.lastIndexOf("/"); //$NON-NLS-1$
         String pre = getQualifiedXPath(path.substring(0, pos));
         String namespace = pathNodesMap.get(path).namespace;
-        return pre + "/" + getQualifiedName(namespaceContext.getPrefix(namespace), path.substring(pos + 1));
+        return pre + "/" + getQualifiedName(namespaceContext.getPrefix(namespace), path.substring(pos + 1)); //$NON-NLS-1$
     }
 
     public String addXPathPrefix(String xPathExpression) {
@@ -168,7 +168,7 @@ public class XPathPrefixHandler {
             return xPathExpression;
         }
 
-        String[] names = xPathExpression.split("/");
+        String[] names = xPathExpression.split("/"); //$NON-NLS-1$
         PathSegment[] paths = createPathSegments(names);
 
         int totalFixed = resolvePath(paths);
@@ -205,7 +205,7 @@ public class XPathPrefixHandler {
         // convert to xpath string
         StringBuilder expr = new StringBuilder();
         for (PathSegment p : paths) {
-            expr.append(p.transformPath + "/");
+            expr.append(p.transformPath + "/"); //$NON-NLS-1$
         }
         if (names.length > 0) {
             expr.deleteCharAt(expr.length() - 1);
@@ -225,7 +225,7 @@ public class XPathPrefixHandler {
                 continue;
             }
             List<NodeInfo> nodes = nameNodesMap.get(paths[i].originalPath);
-            paths[i].transformPath = namespaceContext.getPrefix(nodes.get(0).namespace) + ":" + paths[i].originalPath;
+            paths[i].transformPath = namespaceContext.getPrefix(nodes.get(0).namespace) + ":" + paths[i].originalPath; //$NON-NLS-1$
             paths[i].resolved = true;
         }
 
@@ -243,10 +243,10 @@ public class XPathPrefixHandler {
         int level = 0;
         for (int i = pos + 1; i < paths.length; i++) {
             PathSegment seg = paths[i];
-            if (seg.originalPath.equals("..")) {
+            if (seg.originalPath.equals("..")) { //$NON-NLS-1$
                 // get to parent node
                 level--;
-            } else if (!seg.originalPath.equals(".")) {
+            } else if (!seg.originalPath.equals(".")) { //$NON-NLS-1$
                 // get to child node
                 level++;
             }
@@ -263,10 +263,10 @@ public class XPathPrefixHandler {
         level = 0;
         for (int i = pos - 1; i >= 0; i--) {
             PathSegment seg = paths[i];
-            if (seg.originalPath.equals("..")) {
+            if (seg.originalPath.equals("..")) { //$NON-NLS-1$
                 // get to parent node
                 level--;
-            } else if (!seg.originalPath.equals(".")) {
+            } else if (!seg.originalPath.equals(".")) { //$NON-NLS-1$
                 // get to child node
                 if (level < 0) {
                     level++;
@@ -294,12 +294,12 @@ public class XPathPrefixHandler {
     private int resolvePath(PathSegment[] path) {
         int fixed = 0;
         for (PathSegment p : path) {
-            if (p.originalPath.indexOf(":") > -1) {
+            if (p.originalPath.indexOf(":") > -1) { //$NON-NLS-1$
                 p.resolved = true;
                 p.transformPath = p.originalPath;
                 p.info = nameNodesMap.get(p.originalPath).get(0);
                 fixed++;
-            } else if (p.originalPath.indexOf(".") > -1 || p.originalPath.equals("")) {
+            } else if (p.originalPath.indexOf(".") > -1 || p.originalPath.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
                 p.resolved = true;
                 p.transformPath = p.originalPath;
                 p.info = null;
@@ -377,7 +377,7 @@ public class XPathPrefixHandler {
 
         int type = node.getNodeType();
         if (type == Node.ELEMENT_NODE) {
-            String currentPath = new StringBuilder(path).append("/").append(node.getNodeName()).toString();
+            String currentPath = new StringBuilder(path).append("/").append(node.getNodeName()).toString(); //$NON-NLS-1$
             if (pathNodesMap.get(currentPath) != null) {
                 return;
             }
@@ -448,15 +448,15 @@ public class XPathPrefixHandler {
             info.defaultNamespace = defaultNamespace;
         } else {
             // same as parent
-            if (parentPath.equals("")) {
+            if (parentPath.equals("")) { //$NON-NLS-1$
                 // no namespace
-                info.defaultNamespace = "";
+                info.defaultNamespace = ""; //$NON-NLS-1$
             } else {
                 info.defaultNamespace = pathNodesMap.get(parentPath).defaultNamespace;
             }
         }
 
-        String part[] = node.getNodeName().split(":");
+        String part[] = node.getNodeName().split(":"); //$NON-NLS-1$
         if (part.length > 1) {
             info.namespace = namespaceContext.getNamespaceURI(part[0]);
         } else {
@@ -474,7 +474,7 @@ public class XPathPrefixHandler {
      */
     private void collectAttributes(NodeInfo info, List<Node> attributes) {
         for (Node attr : attributes) {
-            String currentPath = new StringBuilder(info.path).append("/@").append(attr.getNodeName()).toString();
+            String currentPath = new StringBuilder(info.path).append("/@").append(attr.getNodeName()).toString(); //$NON-NLS-1$
             if (pathNodesMap.get(currentPath) != null) {
                 continue;
             }
@@ -489,7 +489,7 @@ public class XPathPrefixHandler {
                 attrInfo.namespace = info.defaultNamespace;
             }
             pathNodesMap.put(currentPath, attrInfo);
-            addNodeInfoToMap("@" + attr.getNodeName(), attrInfo);
+            addNodeInfoToMap("@" + attr.getNodeName(), attrInfo); //$NON-NLS-1$
         }
     }
 
@@ -525,7 +525,7 @@ public class XPathPrefixHandler {
 
         private BidiMap prefixToNamespace = new DualHashBidiMap();
 
-        private static final String DEFAULT_PREFIX = "default_ns_";
+        private static final String DEFAULT_PREFIX = "default_ns_"; //$NON-NLS-1$
 
         private int defaultNamespaceCount = 0;
 
@@ -540,7 +540,7 @@ public class XPathPrefixHandler {
                 return;
             }
             namespaceCount++;
-            if (prefix.equals("")) {
+            if (prefix.equals("")) { //$NON-NLS-1$
                 // default namespace
                 defaultNamespaceCount++;
                 prefixToNamespace.put(DEFAULT_PREFIX + defaultNamespaceCount, namespace);
@@ -565,7 +565,7 @@ public class XPathPrefixHandler {
          */
         public String getPrefix(String namespaceURI) {
             if (namespaceURI == null) {
-                return "";
+                return ""; //$NON-NLS-1$
             }
             return (String) prefixToNamespace.getKey(namespaceURI);
         }

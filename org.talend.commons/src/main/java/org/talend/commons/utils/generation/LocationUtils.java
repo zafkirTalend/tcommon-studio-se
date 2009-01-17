@@ -41,15 +41,15 @@ public class LocationUtils {
 
     // private String locationPattern;
 
-    private static final String DOUBLE_ESCAPE = "\\";
+    private static final String DOUBLE_ESCAPE = "\\"; //$NON-NLS-1$
 
-    private static final String PREFIX_VARIABLE_NAME = "$";
+    private static final String PREFIX_VARIABLE_NAME = "$"; //$NON-NLS-1$
 
     // private static final String AND_CONDITION = " && ";
 
-    private static final String PREFIX_FIELD_NAME = "[";
+    private static final String PREFIX_FIELD_NAME = "["; //$NON-NLS-1$
 
-    private static final String SUFFIX_FIELD_NAME = "]";
+    private static final String SUFFIX_FIELD_NAME = "]"; //$NON-NLS-1$
 
     private static final String PREFIX_TABLE_NAME = PREFIX_VARIABLE_NAME;
 
@@ -66,8 +66,8 @@ public class LocationUtils {
     /**
      * {0} and {1} must be replaced respectively by the table name and the column name.
      */
-    private static final String SUBST_PATTERN_FOR_PREFIX_COLUMN_NAME = PREFIX_TABLE_NAME_REGEXP + "\\s*({0})\\s*"
-            + PREFIX_FIELD_NAME_REGEXP + "\\s*({1})\\s*" + SUFFIX_FIELD_NAME_REGEXP;
+    private static final String SUBST_PATTERN_FOR_PREFIX_COLUMN_NAME = PREFIX_TABLE_NAME_REGEXP + "\\s*({0})\\s*" //$NON-NLS-1$
+            + PREFIX_FIELD_NAME_REGEXP + "\\s*({1})\\s*" + SUFFIX_FIELD_NAME_REGEXP; //$NON-NLS-1$
 
     private void recompilePatternIfNecessary(String regexpPattern) {
         if (pattern == null || !regexpPattern.equals(pattern.getPattern())) {
@@ -87,8 +87,8 @@ public class LocationUtils {
                     location.tableName, location.columnName }));
             if (returnedExpression != null) {
                 matcher.setMultiline(true);
-                Perl5Substitution substitution = new Perl5Substitution(PREFIX_TABLE_NAME_REGEXP + "$1"
-                        + PREFIX_FIELD_NAME_REGEXP + "$1__$2" + SUFFIX_FIELD_NAME_REGEXP,
+                Perl5Substitution substitution = new Perl5Substitution(PREFIX_TABLE_NAME_REGEXP + "$1" //$NON-NLS-1$
+                        + PREFIX_FIELD_NAME_REGEXP + "$1__$2" + SUFFIX_FIELD_NAME_REGEXP, //$NON-NLS-1$
                         Perl5Substitution.INTERPOLATE_ALL);
                 returnedExpression = Util.substitute(matcher, pattern, substitution, returnedExpression,
                         Util.SUBSTITUTE_ALL);

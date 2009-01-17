@@ -88,7 +88,7 @@ public class MultiplePropertiesBeanComparator implements Comparator {
             InvocationTargetException, NoSuchMethodException {
         Object value1 = null;
         Object value2 = null;
-        if (property != null && !property.equals("")) {
+        if (property != null && !property.equals("")) { //$NON-NLS-1$
             if (object1 != null) {
                 value1 = PropertyUtils.getSimpleProperty(object1, property);
             }

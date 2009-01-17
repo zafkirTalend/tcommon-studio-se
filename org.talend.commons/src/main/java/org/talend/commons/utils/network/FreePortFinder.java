@@ -17,6 +17,8 @@ import java.net.ServerSocket;
 import java.net.SocketException;
 import java.util.Random;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
@@ -120,7 +122,7 @@ public class FreePortFinder {
 
     public static void main(String[] args) {
         FreePortFinder freePortFinder = new FreePortFinder();
-        System.out.println("Free port : " + freePortFinder.searchFreePort(10, 20));
+        System.out.println(Messages.getString("FreePortFinder.treePort") + freePortFinder.searchFreePort(10, 20)); //$NON-NLS-1$
         ;
     }
 

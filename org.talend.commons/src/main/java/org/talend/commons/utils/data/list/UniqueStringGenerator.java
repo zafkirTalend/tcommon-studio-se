@@ -50,7 +50,7 @@ public abstract class UniqueStringGenerator<B> {
         String newColumnName = null;
         boolean firstTime = true;
         while (!found) {
-            newColumnName = baseValue + (firstTime ? "" : (++indexNewColumn));
+            newColumnName = baseValue + (firstTime ? "" : (++indexNewColumn)); //$NON-NLS-1$
             firstTime = false;
             boolean allAreDifferent = true;
             for (int j = 0; j < labels.length; j++) {

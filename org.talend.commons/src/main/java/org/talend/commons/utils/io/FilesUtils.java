@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -76,7 +77,7 @@ public class FilesUtils {
 
         for (File current : source.listFiles(folderFilter)) {
             if (monitor != null && monitor.isCanceled()) {
-                throw new OperationCanceledException("Operation is canceled during copying folders or files.");
+                throw new OperationCanceledException(Messages.getString("FilesUtils.operationCanceled")); //$NON-NLS-1$
             }
             if (copyFolder) {
                 File newFolder = new File(target, current.getName());
@@ -89,7 +90,7 @@ public class FilesUtils {
 
         for (File current : source.listFiles(fileFilter)) {
             if (monitor != null && monitor.isCanceled()) {
-                throw new OperationCanceledException("");
+                throw new OperationCanceledException(""); //$NON-NLS-1$
             }
             File out = new File(target, current.getName());
             copyFile(current, out);
@@ -157,7 +158,7 @@ public class FilesUtils {
             BufferedReader buf = new BufferedReader(inR);
             String line;
             while ((line = buf.readLine()) != null) {
-                buffer.append(line.replaceAll(regex, replacement)).append("\n");
+                buffer.append(line.replaceAll(regex, replacement)).append("\n"); //$NON-NLS-1$
             }
         } finally {
             in.close();
@@ -222,7 +223,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return !pathname.toString().endsWith(".svn") && !pathname.toString().endsWith(".dummy");
+                return !pathname.toString().endsWith(".svn") && !pathname.toString().endsWith(".dummy"); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
         };
@@ -233,7 +234,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip");//$NON-NLS-1$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip");//$NON-NLS-1$ //$NON-NLS-2$
             }
 
         };
@@ -244,7 +245,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
 
         };
@@ -259,7 +260,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.toString().endsWith(".pm");
+                return pathname.toString().endsWith(".pm"); //$NON-NLS-1$
             }
 
         };
@@ -318,7 +319,7 @@ public class FilesUtils {
         try {
             // createFoldersIfNotExists("c:\\test\\test1/test2", false);
             // createFoldersIfNotExists("c:\\test10\\test11/test20/test.pl", true);
-            unzip("d:/tFileOutputPDF.zip", "d:/temp");
+            unzip("d:/tFileOutputPDF.zip", "d:/temp"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

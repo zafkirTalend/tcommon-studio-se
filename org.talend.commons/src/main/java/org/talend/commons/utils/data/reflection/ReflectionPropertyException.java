@@ -29,7 +29,7 @@ public class ReflectionPropertyException extends RuntimeException {
 
     public ReflectionPropertyException(Class reflectedClass, String reflectedProperty, boolean isGetter, Throwable cause) {
 
-        super(Messages.getString("ReflectionPropertyException.Access.ErrorMsg3", (isGetter ? "getter" : "setter"),
-                reflectedProperty, (reflectedClass != null ? reflectedClass.getName() : "class null")), cause);
+        super(Messages.getString("ReflectionPropertyException.Access.ErrorMsg3", (isGetter ? "getter" : "setter"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                reflectedProperty, (reflectedClass != null ? reflectedClass.getName() : "class null")), cause); //$NON-NLS-1$
     }
 }

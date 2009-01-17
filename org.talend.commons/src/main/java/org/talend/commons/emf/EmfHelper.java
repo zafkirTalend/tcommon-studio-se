@@ -84,11 +84,11 @@ public class EmfHelper {
 
 		Resource.Factory.Registry registry = resourceSet
 				.getResourceFactoryRegistry();
-		registry.getExtensionToFactoryMap().put("ecore",
+		registry.getExtensionToFactoryMap().put("ecore", //$NON-NLS-1$
 				new EcoreResourceFactoryImpl());
-		registry.getExtensionToFactoryMap().put("xml",
+		registry.getExtensionToFactoryMap().put("xml", //$NON-NLS-1$
 				new XMLResourceFactoryImpl());
-		registry.getExtensionToFactoryMap().put("xmi",
+		registry.getExtensionToFactoryMap().put("xmi", //$NON-NLS-1$
 				new XMIResourceFactoryImpl());
 
 		EPackage.Registry reg = resourceSet.getPackageRegistry();
@@ -123,11 +123,11 @@ public class EmfHelper {
 
 		Resource.Factory.Registry registry = resourceSet
 				.getResourceFactoryRegistry();
-		registry.getExtensionToFactoryMap().put("ecore",
+		registry.getExtensionToFactoryMap().put("ecore", //$NON-NLS-1$
 				new EcoreResourceFactoryImpl());
-		registry.getExtensionToFactoryMap().put("xml",
+		registry.getExtensionToFactoryMap().put("xml", //$NON-NLS-1$
 				new XMLResourceFactoryImpl());
-		registry.getExtensionToFactoryMap().put("xmi",
+		registry.getExtensionToFactoryMap().put("xmi", //$NON-NLS-1$
 				new XMIResourceFactoryImpl());
 
 		EPackage.Registry reg = resourceSet.getPackageRegistry();
@@ -161,7 +161,7 @@ public class EmfHelper {
 			// if use the xml version 1.0 to store failed, try to use the xml
 			// version 1.1 to store again
 			if (e.getMessage() != null
-					&& e.getMessage().contains("An invalid XML character")) {
+					&& e.getMessage().contains("An invalid XML character")) { //$NON-NLS-1$
 				HashMap options = new HashMap(2);
 				options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 				options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$

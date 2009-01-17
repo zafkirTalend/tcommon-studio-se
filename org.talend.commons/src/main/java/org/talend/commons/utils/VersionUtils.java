@@ -21,7 +21,7 @@ package org.talend.commons.utils;
  */
 public class VersionUtils {
 
-    public static final String DEFAULT_VERSION = "0.1";
+    public static final String DEFAULT_VERSION = "0.1"; //$NON-NLS-1$
 
     public static int compareTo(String arg0, String arg1) {
         return new Version(arg0).compareTo(new Version(arg1));

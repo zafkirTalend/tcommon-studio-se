@@ -38,6 +38,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
 import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.i18n.internal.Messages;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -53,11 +54,11 @@ import org.xml.sax.SAXException;
  */
 public class XmlNodeRetriever {
 
-    public static final String STRING_EMPTY = "";
+    public static final String STRING_EMPTY = ""; //$NON-NLS-1$
 
-    public static final String STRING_AT = "@";
+    public static final String STRING_AT = "@"; //$NON-NLS-1$
 
-    public static final String DEFAULT_PRE = "pre" + Math.random();
+    public static final String DEFAULT_PRE = "pre" + Math.random(); //$NON-NLS-1$
 
     private Document document;
 
@@ -203,7 +204,7 @@ public class XmlNodeRetriever {
         for (int i = 0; i < nnm.getLength(); i++) {
             Node attr = nnm.item(i);
             String aname = attr.getNodeName();
-            boolean isPrefix = aname.startsWith(XMLConstants.XMLNS_ATTRIBUTE + ":");
+            boolean isPrefix = aname.startsWith(XMLConstants.XMLNS_ATTRIBUTE + ":"); //$NON-NLS-1$
             if (isPrefix || aname.equals(XMLConstants.XMLNS_ATTRIBUTE)) {
                 int index = aname.indexOf(':');
                 String p = isPrefix ? aname.substring(index + 1) : XMLConstants.NULL_NS_URI;
@@ -217,12 +218,12 @@ public class XmlNodeRetriever {
             return xPathExpression;
         } else {
             StringBuilder expr = new StringBuilder();
-            String[] split = xPathExpression.split("/");
+            String[] split = xPathExpression.split("/"); //$NON-NLS-1$
             for (String string : split) {
-                if (!string.equals("") && string.indexOf(':') == -1 && string.indexOf('.') == -1) {
-                    expr.append(DEFAULT_PRE + ":");
+                if (!string.equals("") && string.indexOf(':') == -1 && string.indexOf('.') == -1) { //$NON-NLS-1$
+                    expr.append(DEFAULT_PRE + ":"); //$NON-NLS-1$
                 }
-                expr.append(string + "/");
+                expr.append(string + "/"); //$NON-NLS-1$
             }
             if (split.length > 0) {
                 expr.deleteCharAt(expr.length() - 1);
@@ -289,12 +290,12 @@ public class XmlNodeRetriever {
 
         Pattern pattern = null;
         try {
-            pattern = compiler.compile("(.*)/\\s*\\w+\\s*(/(\\.\\.|parent))(.*)");
+            pattern = compiler.compile("(.*)/\\s*\\w+\\s*(/(\\.\\.|parent))(.*)"); //$NON-NLS-1$
         } catch (MalformedPatternException e) {
             CommonExceptionHandler.process(e);
         }
 
-        Perl5Substitution substitution = new Perl5Substitution("$1$4", Perl5Substitution.INTERPOLATE_ALL);
+        Perl5Substitution substitution = new Perl5Substitution("$1$4", Perl5Substitution.INTERPOLATE_ALL); //$NON-NLS-1$
 
         int lengthOfPreviousXPath = 0;
 
@@ -371,7 +372,7 @@ public class XmlNodeRetriever {
 
     public static void main(String[] args) throws XPathExpressionException {
 
-        String string = simplifyXPathExpression("/doc/members/member/..");
+        String string = simplifyXPathExpression("/doc/members/member/.."); //$NON-NLS-1$
 
         System.out.println(string);
 
@@ -379,62 +380,62 @@ public class XmlNodeRetriever {
             return;
         }
 
-        String filePath = "C:/test_xml/test.xml";
+        String filePath = "C:/test_xml/test.xml"; //$NON-NLS-1$
 
-        XmlNodeRetriever pathRetriever = new XmlNodeRetriever(filePath, "");
+        XmlNodeRetriever pathRetriever = new XmlNodeRetriever(filePath, ""); //$NON-NLS-1$
 
-        String currentExpr = "child::node()";
+        String currentExpr = "child::node()"; //$NON-NLS-1$
         // String currentExpr = "/doc/members";
 
         String xPathExpression;
-        String slash = "/";
-        if (currentExpr.endsWith("/")) {
-            slash = "";
+        String slash = "/"; //$NON-NLS-1$
+        if (currentExpr.endsWith("/")) { //$NON-NLS-1$
+            slash = ""; //$NON-NLS-1$
         }
 
-        xPathExpression = currentExpr + slash + "";
+        xPathExpression = currentExpr + slash + ""; //$NON-NLS-1$
         // xPathExpression = currentExpr + slash + "*" + " | " + currentExpr + slash + "@*";
 
         // 7689 nodes
-        xPathExpression = "/doc/members/../members/member/child::*";
-        xPathExpression = "/doc/members/../members/member/*";
+        xPathExpression = "/doc/members/../members/member/child::*"; //$NON-NLS-1$
+        xPathExpression = "/doc/members/../members/member/*"; //$NON-NLS-1$
 
         // 17925 nodes + text
-        xPathExpression = "/doc/members/../members/member/child::node()";
+        xPathExpression = "/doc/members/../members/member/child::node()"; //$NON-NLS-1$
 
         // 2547 attributes
-        xPathExpression = "/doc/members/../members/member/@*";
+        xPathExpression = "/doc/members/../members/member/@*"; //$NON-NLS-1$
 
-        xPathExpression = "/doc/members/../members/member/*";
-        xPathExpression = "/doc/members/member/../";
+        xPathExpression = "/doc/members/../members/member/*"; //$NON-NLS-1$
+        xPathExpression = "/doc/members/member/../"; //$NON-NLS-1$
 
-        String mainXPathNode = "/doc/members/member";
-        String field1 = "..";
-        String field2 = "summary/";
+        String mainXPathNode = "/doc/members/member"; //$NON-NLS-1$
+        String field1 = ".."; //$NON-NLS-1$
+        String field2 = "summary/"; //$NON-NLS-1$
 
-        System.out.println("main expression =" + mainXPathNode);
+        System.out.println(Messages.getString("XmlNodeRetriever.mainExpression") + mainXPathNode); //$NON-NLS-1$
         Node mainNode = pathRetriever.retrieveNode(mainXPathNode);
         if (mainNode != null) {
-            System.out.println("mainNode=" + mainNode.getNodeName());
+            System.out.println(Messages.getString("XmlNodeRetriever.mainNode") + mainNode.getNodeName()); //$NON-NLS-1$
         }
 
         Node field1Node = pathRetriever.retrieveNodeFromNode(field1, mainNode);
         if (field1Node != null) {
-            System.out.println("field1Node=" + field1Node.getNodeName());
+            System.out.println(Messages.getString("XmlNodeRetriever.filed1Node") + field1Node.getNodeName()); //$NON-NLS-1$
         }
 
         Node field2Node = pathRetriever.retrieveNodeFromNode(field2, mainNode);
         if (field2Node != null) {
-            System.out.println("field2Node=" + field2Node.getNodeName());
+            System.out.println(Messages.getString("XmlNodeRetriever.field2Node") + field2Node.getNodeName()); //$NON-NLS-1$
         }
 
-        String proposal1 = "../*";
-        String proposal2 = "./member/see/*";
-        proposal2 = "member/* | member/@*";
+        String proposal1 = "../*"; //$NON-NLS-1$
+        String proposal2 = "./member/see/*"; //$NON-NLS-1$
+        proposal2 = "member/* | member/@*"; //$NON-NLS-1$
         NodeList proposal1Nodes = pathRetriever.retrieveNodeListFromNode(proposal1, mainNode);
         if (field1Node != null) {
             int length = proposal1Nodes.getLength();
-            System.out.println("proposal1Nodes : " + length);
+            System.out.println(Messages.getString("XmlNodeRetriever.prposal1Node") + length); //$NON-NLS-1$
             // int lstSize = length;
             // for (int i = 0; i < lstSize; i++) {
             // System.out.println(proposal1Nodes.item(i));
@@ -444,7 +445,7 @@ public class XmlNodeRetriever {
         NodeList proposal2Nodes = pathRetriever.retrieveNodeListFromNode(proposal2, mainNode);
         if (proposal2Nodes != null) {
             int length = proposal2Nodes.getLength();
-            System.out.println("proposal2Nodes : " + length);
+            System.out.println(Messages.getString("XmlNodeRetriever.proposal2Node") + length); //$NON-NLS-1$
             // int lstSize = length;
             // for (int i = 0; i < lstSize; i++) {
             // System.out.println(proposal2Nodes.item(i));
@@ -475,10 +476,10 @@ public class XmlNodeRetriever {
             return;
         }
 
-        System.out.println("xPathExpression = '" + xPathExpression + "'");
+        System.out.println(Messages.getString("XmlNodeRetriever.xPathExpression") + xPathExpression + Messages.getString("XmlNodeRetriever.singleQuotes")); //$NON-NLS-1$ //$NON-NLS-2$
         List<Node> nodeList = pathRetriever.retrieveListOfNodes(xPathExpression);
 
-        System.out.println("Count result : " + nodeList.size());
+        System.out.println(Messages.getString("XmlNodeRetriever.countResult") + nodeList.size()); //$NON-NLS-1$
 
         int lstSize = nodeList.size();
         int limit = 100;
@@ -504,7 +505,7 @@ public class XmlNodeRetriever {
      * @param node
      */
     public static String getAbsoluteXPathFromNode(Node node) {
-        return getAbsoluteXPathFromNode(node, "");
+        return getAbsoluteXPathFromNode(node, ""); //$NON-NLS-1$
     }
 
     /**
@@ -516,7 +517,7 @@ public class XmlNodeRetriever {
      */
     private static String getAbsoluteXPathFromNode(Node node, String currentXPath) {
         Node parentNode = null;
-        String at = "";
+        String at = ""; //$NON-NLS-1$
         if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
             parentNode = ((Attr) node).getOwnerElement();
             at = STRING_AT;
@@ -524,7 +525,7 @@ public class XmlNodeRetriever {
             parentNode = node.getParentNode();
             at = STRING_EMPTY;
         }
-        currentXPath = "/" + at + node.getNodeName() + currentXPath;
+        currentXPath = "/" + at + node.getNodeName() + currentXPath; //$NON-NLS-1$
         if (parentNode == node.getOwnerDocument()) {
             return currentXPath;
         } else {

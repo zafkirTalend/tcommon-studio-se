@@ -23,9 +23,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringHelper {
 
-    private static final String OPEN_BRACE = "{";
+    private static final String OPEN_BRACE = "{"; //$NON-NLS-1$
 
-    private static final String CLOSE_BRACE = "}";
+    private static final String CLOSE_BRACE = "}"; //$NON-NLS-1$
 
     /**
      * Replace MessageFormat.format(..) because MessageFormat does'nt support single quote correctly This method replace

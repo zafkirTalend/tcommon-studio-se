@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.IPath;
  */
 public class RootContainer<K, V> extends Container<K, V> {
 
-    private static final String DEFAULT_NAME = "Root";
+    private static final String DEFAULT_NAME = "Root"; //$NON-NLS-1$
 
     private ContentList<K, V> rootMembers = new ContentList<K, V>();
 

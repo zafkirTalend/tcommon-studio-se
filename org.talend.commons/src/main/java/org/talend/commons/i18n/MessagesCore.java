@@ -56,7 +56,7 @@ public abstract class MessagesCore {
         if (resourceBundle == null) {
             return KEY_NOT_FOUND_PREFIX + key + KEY_NOT_FOUND_SUFFIX;
         }
-        log.trace("Getting key " + key + "in" + resourceBundle.toString());
+        log.trace("Getting key " + key + "in" + resourceBundle.toString()); //$NON-NLS-1$ //$NON-NLS-2$
         try {
             return resourceBundle.getString(key);
         } catch (MissingResourceException e) {

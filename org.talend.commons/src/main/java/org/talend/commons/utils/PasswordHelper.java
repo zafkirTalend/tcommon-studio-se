@@ -19,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class PasswordHelper {
 
-    private static final String ALGORITHM = "MD5";
+    private static final String ALGORITHM = "MD5"; //$NON-NLS-1$
 
     public static synchronized boolean verifyPassword(byte[] encryptedPassword, byte[] encryptedPassword2) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);

@@ -160,7 +160,7 @@ public abstract class ExtensionImplementationProvider<I> {
 
         IExtensionPoint pt = reg.getExtensionPoint(extensionPointLimiter.getExtPointId());
         if (pt == null) {
-            String msg = Messages.getString("utils.workbench.extensions.noExtension", extensionPointLimiter
+            String msg = Messages.getString("utils.workbench.extensions.noExtension", extensionPointLimiter //$NON-NLS-1$
                     .getExtPointId());
             throw new IllegalPluginConfigurationException(msg);
         }
@@ -187,7 +187,7 @@ public abstract class ExtensionImplementationProvider<I> {
 
         if (extensionPointLimiter.getMinOcc() >= 0 && toReturn.size() < extensionPointLimiter.getMinOcc()
                 || extensionPointLimiter.getMaxOcc() >= 0 && toReturn.size() > extensionPointLimiter.getMaxOcc()) {
-            String msg = Messages.getString("utils.workbench.extensions.badNumberOfExtension", extensionPointLimiter
+            String msg = Messages.getString("utils.workbench.extensions.badNumberOfExtension", extensionPointLimiter //$NON-NLS-1$
                     .getExtPointId(), extensionPointLimiter.getMinOcc(), extensionPointLimiter.getMaxOcc(), toReturn
                     .size());
             throw new IllegalPluginConfigurationException(msg);

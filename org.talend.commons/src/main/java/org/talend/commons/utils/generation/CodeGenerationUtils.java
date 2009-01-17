@@ -25,11 +25,11 @@ import org.apache.oro.text.regex.Perl5Matcher;
  */
 public class CodeGenerationUtils {
 
-    public static final String PROBLEM_KEY_FIELD_SEPARATOR = ":";
+    public static final String PROBLEM_KEY_FIELD_SEPARATOR = ":"; //$NON-NLS-1$
 
-    public static final String START_FIELD = "Start field";
+    public static final String START_FIELD = "Start field"; //$NON-NLS-1$
 
-    public static final String END_FIELD = "End field";
+    public static final String END_FIELD = "End field"; //$NON-NLS-1$
 
     private static Perl5Matcher matcher = new Perl5Matcher();
 
@@ -46,7 +46,7 @@ public class CodeGenerationUtils {
      * @param entryName
      */
     public static String buildProblemKey(String... valuesOfKey) {
-        String key = "";
+        String key = ""; //$NON-NLS-1$
         for (int i = 0; i < valuesOfKey.length; i++) {
             String value = valuesOfKey[i];
             if (value != null) {
@@ -67,7 +67,7 @@ public class CodeGenerationUtils {
      * @return
      */
     public static String buildJavaStartFieldKey(String key) {
-        return "/** " + START_FIELD + " " + key + " */";
+        return "/** " + START_FIELD + " " + key + " */"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     /**
@@ -77,7 +77,7 @@ public class CodeGenerationUtils {
      * @return
      */
     public static String buildJavaEndFieldKey(String key) {
-        return "/** " + END_FIELD + " " + key + " */";
+        return "/** " + END_FIELD + " " + key + " */"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     public static boolean hasAlphaNumericCharacter(String text) {
@@ -86,7 +86,7 @@ public class CodeGenerationUtils {
         }
         if (patternAlphaNumChar == null) {
             try {
-                patternAlphaNumChar = compiler.compile("\\w");
+                patternAlphaNumChar = compiler.compile("\\w"); //$NON-NLS-1$
             } catch (MalformedPatternException e) {
                 throw new RuntimeException(e);
             }
@@ -95,7 +95,7 @@ public class CodeGenerationUtils {
     }
 
     public static String replaceAllCrBySpace(String text) {
-        return text.replaceAll("\n", " ");
+        return text.replaceAll("\n", " "); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
 }

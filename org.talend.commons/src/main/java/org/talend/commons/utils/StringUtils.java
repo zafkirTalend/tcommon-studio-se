@@ -15,6 +15,8 @@ package org.talend.commons.utils;
 import java.util.Arrays;
 import java.util.List;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * 
  * Utility class for strings. <br/>
@@ -50,11 +52,11 @@ public class StringUtils {
     }
 
     public static String getMysqlProtectedColumnName(String colname) {
-        return "`" + colname + "`";
+        return "`" + colname + "`"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static String getPostgresqlProtectedColumnName(String colname) {
-        return "\\\"" + colname + "\\\"";
+        return "\\\"" + colname + "\\\""; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -66,7 +68,7 @@ public class StringUtils {
      */
     public static String extractFirstDelimitedString(String text, String delimiter) {
 
-        String returned = "";
+        String returned = ""; //$NON-NLS-1$
 
         int start = text.indexOf(delimiter, 0);
 
@@ -84,27 +86,27 @@ public class StringUtils {
 
     public static String protectMetachar(String input) {
 
-        input = replace(input, "\\", "\\\\\\\\");
-        input = replace(input, "+", "\\\\+");
-        input = replace(input, ".", "\\\\.");
-        input = replace(input, "[", "\\\\[");
-        input = replace(input, "]", "\\]");
-        input = replace(input, "(", "\\\\(");
-        input = replace(input, ")", "\\\\)");
-        input = replace(input, "^", "\\\\^");
-        input = replace(input, "$", "\\\\$");
+        input = replace(input, "\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, "+", "\\\\+"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, ".", "\\\\."); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, "[", "\\\\["); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, "]", "\\]"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, "(", "\\\\("); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, ")", "\\\\)"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, "^", "\\\\^"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = replace(input, "$", "\\\\$"); //$NON-NLS-1$ //$NON-NLS-2$
 
         return input;
     }
 
     public static String removeSpecialCharsForPackage(String input) {
-        input = input.replaceAll(" ", "");
-        input = input.replaceAll("/", ".");
-        input = input.replaceAll("&", "and");
-        input = input.replaceAll("<", "lt");
-        input = input.replaceAll(">", "gt");
-        input = input.replaceAll("'", "apos");
-        input = input.replaceAll("\"", "quot");
+        input = input.replaceAll(" ", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("/", "."); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("&", "and"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("<", "lt"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll(">", "gt"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("'", "apos"); //$NON-NLS-1$ //$NON-NLS-2$
+        input = input.replaceAll("\"", "quot"); //$NON-NLS-1$ //$NON-NLS-2$
         return input;
     }
 
@@ -115,7 +117,7 @@ public class StringUtils {
         char[] inputChars = new char[inputStr.length()];
         inputStr.getChars(0, inputStr.length(), inputChars, 0);
         String loadConvert = null;
-        if (language.equalsIgnoreCase("perl")) {
+        if (language.equalsIgnoreCase("perl")) { //$NON-NLS-1$
             loadConvert = loadConvert(inputChars, 0, inputStr.length(), new char[inputStr.length()], 'x');
         } else {
             loadConvert = loadConvert(inputChars, 0, inputStr.length(), new char[inputStr.length()], 'u');
@@ -144,7 +146,7 @@ public class StringUtils {
             limitLength = 2;
 
         } else {
-            throw new IllegalArgumentException("only support the \\uxxxx or \\xhh encoding.");
+            throw new IllegalArgumentException(Messages.getString("StringUtils.IllegalArgument0")); //$NON-NLS-1$
         }
 
         if (convtBuf.length < len) {
@@ -174,7 +176,7 @@ public class StringUtils {
 
                         if (off == len) {
                             if (limitLengthForHex) {
-                                throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                                throw new IllegalArgumentException(Messages.getString("StringUtils.IllegalArgument1")); //$NON-NLS-1$
                             } else {
                                 break;
                             }
@@ -218,7 +220,7 @@ public class StringUtils {
                             value = (value << 4) + 10 + aChar - 'A';
                             break;
                         default:
-                            throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                            throw new IllegalArgumentException(Messages.getString("StringUtils.IllegalArgument2")); //$NON-NLS-1$
                         }
                     }
                     out[outLen++] = (char) value;
@@ -248,7 +250,7 @@ public class StringUtils {
                                 value = (value << 3) + aChar - '0';
                                 break;
                             default:
-                                throw new IllegalArgumentException("Malformed \\0xxx encoding.");
+                                throw new IllegalArgumentException(Messages.getString("StringUtils.IllegalArgument3")); //$NON-NLS-1$
                             }
 
                             if (off < len && Character.isDigit(in[off])) {
