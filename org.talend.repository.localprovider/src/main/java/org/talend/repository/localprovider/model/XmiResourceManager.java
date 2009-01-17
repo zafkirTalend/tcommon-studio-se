@@ -172,7 +172,7 @@ public class XmiResourceManager {
                 path = path.append(folder);
                 path = path.append(item.getState().getPath());
                 Property property = item.getProperty();
-                String itemStr = property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION;
+                String itemStr = property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION; //$NON-NLS-1$ //$NON-NLS-2$
                 path = path.append(itemStr);
                 return URIHelper.convert(path);
             }

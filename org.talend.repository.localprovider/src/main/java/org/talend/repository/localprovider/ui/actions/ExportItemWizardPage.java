@@ -63,6 +63,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.local.ExportItemUtil;
+import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.FilteredCheckboxTree;
 import org.talend.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
@@ -114,7 +115,7 @@ class ExportItemWizardPage extends WizardPage {
         super(pageName);
         repositoryView = RepositoryView.show();
         this.selection = selection;
-        setDescription("Export items to an archive file or directory.");
+        setDescription(Messages.getString("ExportItemWizardPage.description")); //$NON-NLS-1$
         setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_EXPORT_WIZ));
     }
 
@@ -140,7 +141,7 @@ class ExportItemWizardPage extends WizardPage {
         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(500, 300).applyTo(itemComposite);
 
         Label label = new Label(itemComposite, SWT.NONE);
-        label.setText("Select the items to export:");
+        label.setText(Messages.getString("ExportItemWizardPage.labelText")); //$NON-NLS-1$
         GridDataFactory.swtDefaults().span(2, 1).applyTo(label);
 
         createTreeViewer(itemComposite);
@@ -245,7 +246,7 @@ class ExportItemWizardPage extends WizardPage {
         setButtonLayoutData(deselectAll);
 
         Button expandBtn = new Button(buttonComposite, SWT.PUSH);
-        expandBtn.setText("Expand All");
+        expandBtn.setText(Messages.getString("ExportItemWizardPage.expandBtnText")); //$NON-NLS-1$
         expandBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -256,7 +257,7 @@ class ExportItemWizardPage extends WizardPage {
         setButtonLayoutData(expandBtn);
 
         Button collapseBtn = new Button(buttonComposite, SWT.PUSH);
-        collapseBtn.setText("Collapse All");
+        collapseBtn.setText(Messages.getString("ExportItemWizardPage.collapseBtnText")); //$NON-NLS-1$
         collapseBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -376,7 +377,7 @@ class ExportItemWizardPage extends WizardPage {
         });
 
         exportDependencies = new Button(workArea, SWT.CHECK);
-        exportDependencies.setText("Export Dependencies");
+        exportDependencies.setText(Messages.getString("ExportItemWizardPage.exportDependenciesText")); //$NON-NLS-1$
         exportDependencies.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -395,7 +396,7 @@ class ExportItemWizardPage extends WizardPage {
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                monitor.beginTask("Dependencies", 100);
+                monitor.beginTask("Dependencies", 100);//$NON-NLS-1$
                 monitor.setCanceled(false);
                 //
                 final List<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
@@ -582,8 +583,8 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     private boolean checkExportFile() {
-        if (lastPath == null || "".equals(lastPath.trim())) {
-            MessageDialog.openError(getShell(), "Error", "Must input the export path or archive file.");
+        if (lastPath == null || "".equals(lastPath.trim())) {//$NON-NLS-1$
+            MessageDialog.openError(getShell(), "Error", "Must input the export path or archive file.");//$NON-NLS-1$//$NON-NLS-2$
             return false;
         }
         return true;

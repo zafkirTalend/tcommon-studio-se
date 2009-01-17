@@ -43,7 +43,7 @@ public class RemoveRoutineFolderTask extends AbstractProjectMigrationTask {
 
         try {
             IProject iproject = ResourceModelUtils.getProject(project);
-            String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
+            String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2 //$NON-NLS-1$
             // //$NON-NLS-1$
             IFolder f2 = ResourceUtils.getFolder(iproject, oldRoutinesPath, false);
             ResourceUtils.deleteResource(f2);

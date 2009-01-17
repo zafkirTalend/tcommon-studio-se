@@ -162,7 +162,7 @@ public class ItemRecord {
 
     public String getLabel() {
         if (label == null) {
-            label = property.getLabel() + " " + property.getVersion();
+            label = property.getLabel() + " " + property.getVersion(); //$NON-NLS-1$
         }
         return label;
     }

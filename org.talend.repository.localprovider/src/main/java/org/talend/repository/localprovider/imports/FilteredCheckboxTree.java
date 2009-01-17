@@ -73,8 +73,8 @@ import org.eclipse.ui.progress.WorkbenchJob;
 public class FilteredCheckboxTree extends Composite {
 
     /**
-     * The filter text widget to be used by this tree. This value may be <code>null</code> if there is no filter
-     * widget, or if the controls have not yet been created.
+     * The filter text widget to be used by this tree. This value may be <code>null</code> if there is no filter widget,
+     * or if the controls have not yet been created.
      */
     protected Text filterText;
 
@@ -85,8 +85,8 @@ public class FilteredCheckboxTree extends Composite {
     protected ToolBarManager filterToolBar;
 
     /**
-     * The viewer for the filtered tree. This value should never be <code>null</code> after the widget creation
-     * methods are complete.
+     * The viewer for the filtered tree. This value should never be <code>null</code> after the widget creation methods
+     * are complete.
      */
     protected CheckboxTreeViewer treeViewer;
 
@@ -467,7 +467,8 @@ public class FilteredCheckboxTree extends Composite {
             /*
              * (non-Javadoc)
              * 
-             * @see org.eclipse.swt.accessibility.AccessibleListener#getName(org.eclipse.swt.accessibility.AccessibleEvent)
+             * @see
+             * org.eclipse.swt.accessibility.AccessibleListener#getName(org.eclipse.swt.accessibility.AccessibleEvent)
              */
             @Override
             public void getName(AccessibleEvent e) {
@@ -1207,7 +1208,7 @@ public class FilteredCheckboxTree extends Composite {
             }
 
             // Otherwise check if any of the words of the text matches
-            String[] words = text.split("\\W");
+            String[] words = text.split("\\W");//$NON-NLS-1$
             for (int i = 0; i < words.length; i++) {
                 String word = words[i];
                 if (match(word)) {

@@ -118,7 +118,7 @@ public class ImportItemUtil {
     private static IPath getPath(RepositoryNode node) {
 
         if (node.getType() == ENodeType.STABLE_SYSTEM_FOLDER || node.getType() == ENodeType.SYSTEM_FOLDER) {
-            String prefix = "";
+            String prefix = ""; //$NON-NLS-1$
             ERepositoryObjectType type = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
             switch (type) {
             case METADATA_FILE_DELIMITED:
@@ -187,8 +187,8 @@ public class ImportItemUtil {
                         // id is already in use
                         RepositoryNode nodeWithSameId = RepositoryNodeUtilities.getRepositoryNode(itemWithSameId);
                         IPath path = getPath(nodeWithSameId);
-                        itemRecord
-                                .addError(Messages.getString("RepositoryUtil.idUsed") + " by item '" + itemWithSameId.getLabel() + "' in '" + path.toOSString() + "'"); //$NON-NLS-1$
+                        itemRecord.addError(Messages.getString(
+                                "RepositoryUtil.idUsed", itemWithSameId.getLabel(), path.toOSString())); //$NON-NLS-1$
                     }
                 }
             } else {
@@ -255,7 +255,7 @@ public class ImportItemUtil {
             final IProgressMonitor monitor, final boolean overwrite) {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
 
-        RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") {
+        RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") { //$NON-NLS-1$
 
             @Override
             public void run() throws PersistenceException {
@@ -359,8 +359,8 @@ public class ImportItemUtil {
                     changeRoutinesPackage(tmpItem);
                     itemRecord.setImported(true);
                 } else {
-                    PersistenceException e = new PersistenceException("A newer version of " + tmpItem.getProperty()
-                            + " already exist.");
+                    PersistenceException e = new PersistenceException(Messages.getString(
+                            "ImportItemUtil.persistenceException", tmpItem.getProperty())); //$NON-NLS-1$
                     itemRecord.addError(e.getMessage());
                     logError(e);
                 }
@@ -386,12 +386,12 @@ public class ImportItemUtil {
                 //
                 // String curProjectName =
                 // currentProject.getTechnicalLabel().toLowerCase();
-                String oldPackage = "package(\\s)+" + JavaUtils.JAVA_ROUTINES_DIRECTORY + "\\.((\\w)+)(\\s)*;";
+                String oldPackage = "package(\\s)+" + JavaUtils.JAVA_ROUTINES_DIRECTORY + "\\.((\\w)+)(\\s)*;"; //$NON-NLS-1$ //$NON-NLS-2$
                 // String newPackage = "package " +
                 // JavaUtils.JAVA_ROUTINES_DIRECTORY + "." + curProjectName +
                 // ";";
 
-                String newPackage = "package " + JavaUtils.JAVA_ROUTINES_DIRECTORY + ";";
+                String newPackage = "package " + JavaUtils.JAVA_ROUTINES_DIRECTORY + ";"; //$NON-NLS-1$ //$NON-NLS-2$
                 try {
                     PatternCompiler compiler = new Perl5Compiler();
                     Perl5Matcher matcher = new Perl5Matcher();
@@ -434,23 +434,22 @@ public class ImportItemUtil {
         for (String taskId : itemRecord.getMigrationTasksToApply()) {
             IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
             if (task == null) {
-                log.warn("Task " + taskId + " found in project doesn't exist anymore !");
+                log.warn(Messages.getString("ImportItemUtil.taskLogWarn", taskId)); //$NON-NLS-1$
             } else {
-                monitor.subTask("apply migration task " + task.getName() + " on item " + itemRecord.getItemName());
+                monitor.subTask(Messages.getString("ImportItemUtil.taskMonitor", task.getName(), itemRecord.getItemName())); //$NON-NLS-1$
 
                 try {
                     if (item != null) {
                         ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
                         if (executionResult == ExecutionResult.FAILURE) {
-                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
-                                    + " failed)");
+                            log.warn(Messages.getString("ImportItemUtil.itemLogWarn", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
                             // TODO smallet add a warning/error to the job using
                             // model
                         }
                     }
                 } catch (Exception e) {
-                    log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
-                            + " failed)");
+                    log.warn(Messages.getString("ImportItemUtil.itemLogException", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
+
                 }
             }
         }
@@ -484,7 +483,7 @@ public class ImportItemUtil {
             routineSynchronizer = service.createPerlRoutineSynchronizer();
             break;
         default:
-            throw new UnsupportedOperationException("Unknow language: " + lang);
+            throw new UnsupportedOperationException(Messages.getString("ImportItemUtil.unknowException", lang)); //$NON-NLS-1$
         }
 
         return routineSynchronizer;
@@ -518,7 +517,7 @@ public class ImportItemUtil {
             }
         }
 
-        progressMonitor.beginTask("Populate items to import", nbItems);
+        progressMonitor.beginTask("Populate items to import", nbItems); //$NON-NLS-1$
 
         for (IPath path : collector.getPaths()) {
             if (isPropertyPath(path)) {
@@ -594,9 +593,9 @@ public class ImportItemUtil {
     private List<String> getOptionnalMigrationTasks() {
         List<String> toReturn = new ArrayList<String>();
 
-        toReturn.add("org.talend.repository.documentation.migrationtask.generatejobdocmigrationtask");
+        toReturn.add("org.talend.repository.documentation.migrationtask.generatejobdocmigrationtask"); //$NON-NLS-1$
         // old task, added for an old version of TOS, not used anymore.
-        toReturn.add("org.talend.repository.migration.ReplaceOldContextScriptCodeMigrationTask");
+        toReturn.add("org.talend.repository.migration.ReplaceOldContextScriptCodeMigrationTask"); //$NON-NLS-1$
 
         return toReturn;
     }
@@ -615,7 +614,7 @@ public class ImportItemUtil {
         if (!projectMigrationTasks.containsAll(itemMigrationTasks)) {
             itemMigrationTasks.removeAll(projectMigrationTasks);
 
-            String message = "Cannot import item " + itemRecord.getItemName() + " -> unknown task(s) " + itemMigrationTasks;
+            String message = Messages.getString("ImportItemUtil.message", itemRecord.getItemName(), itemMigrationTasks); //$NON-NLS-1$
             itemRecord.addError(message);
             log.info(message);
 

@@ -128,7 +128,7 @@ class ImportItemWizardPage extends WizardPage {
 
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
-        setDescription("Import items from an archive file or directory.");
+        setDescription(Messages.getString("ImportItemWizardPage.ImportDescription")); //$NON-NLS-1$
         setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
     }
 
@@ -146,7 +146,7 @@ class ImportItemWizardPage extends WizardPage {
 
         // see feature 3949
         overwriteButton = new Button(workArea, SWT.CHECK);
-        overwriteButton.setText("overwrite existing items");
+        overwriteButton.setText(Messages.getString("ImportItemWizardPage.overwriteButtonText")); //$NON-NLS-1$
         overwriteButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -166,7 +166,7 @@ class ImportItemWizardPage extends WizardPage {
      * @return
      */
     private String[] getAvailableItems() {
-        boolean jobTemplateEnabled = (Platform.getBundle("org.talend.designer.jobtemplate") == null ? false : true);
+        boolean jobTemplateEnabled = (Platform.getBundle("org.talend.designer.jobtemplate") == null ? false : true); //$NON-NLS-1$
         ERepositoryObjectType types[] = { ERepositoryObjectType.BUSINESS_PROCESS, ERepositoryObjectType.PROCESS,
                 ERepositoryObjectType.JOBLET, ERepositoryObjectType.CONTEXT, ERepositoryObjectType.METADATA_CONNECTIONS,
                 ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
@@ -176,7 +176,7 @@ class ImportItemWizardPage extends WizardPage {
                 ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, ERepositoryObjectType.METADATA_WSDL_SCHEMA,
                 ERepositoryObjectType.ROUTINES, ERepositoryObjectType.SQLPATTERNS };
         List<String> list = new ArrayList<String>(types.length + 1);
-        list.add("All");
+        list.add("All"); //$NON-NLS-1$
         for (ERepositoryObjectType type : types) {
             list.add(type.toString());
         }
@@ -662,7 +662,7 @@ class ImportItemWizardPage extends WizardPage {
         errors.clear();
         for (ItemRecord itemRecord : items) {
             for (String error : itemRecord.getErrors()) {
-                errors.add("'" + itemRecord.getItemName() + "' " + error);
+                errors.add("'" + itemRecord.getItemName() + "' " + error); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         if (errorsList != null) {

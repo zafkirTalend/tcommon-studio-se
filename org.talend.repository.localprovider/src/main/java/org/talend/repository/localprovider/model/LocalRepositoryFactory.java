@@ -559,7 +559,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         }
         if (readSuccess == 0 && prjs.length > 0) {
-            throw new PersistenceException("Read projects error.", ex);
+            throw new PersistenceException("Read projects error.", ex); //$NON-NLS-1$
         } else {
             return toReturn.toArray(new Project[toReturn.size()]);
         }
@@ -603,7 +603,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         IPath path = resource.getProjectRelativePath();
 
                         // ignore folders with . (e.g. : .settings) see bug 364
-                        if (path.lastSegment().equals(".settings")) {
+                        if (path.lastSegment().equals(".settings")) { //$NON-NLS-1$
                             return false;
                         }
 
