@@ -64,7 +64,7 @@ public class ComponentUtilities {
 
     private static boolean skipUpdatePalette;
 
-    private static boolean faState = true;
+    private static boolean faState = false;
 
     // public static int histate = 0;
 
