@@ -239,9 +239,9 @@ public class LabelledDirectoryField {
      */
     public String getText() {
         if (text.getText() == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
-        return text.getText().replace("\\", "\\\\");
+        return text.getText().replace("\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -253,7 +253,7 @@ public class LabelledDirectoryField {
         if (string != null) {
             text.setText(string);
         } else {
-            text.setText("");
+            text.setText(""); //$NON-NLS-1$
         }
     }
 
@@ -266,7 +266,7 @@ public class LabelledDirectoryField {
         if (string != null) {
             label.setText(string);
         } else {
-            label.setText("");
+            label.setText(""); //$NON-NLS-1$
         }
     }
 

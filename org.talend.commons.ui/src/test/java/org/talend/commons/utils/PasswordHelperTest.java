@@ -28,8 +28,8 @@ public class PasswordHelperTest {
 
     @Test
     public void testVerifyPassword() {
-        String passwd = "good passwd";
-        String passwd2 = "false passwd";
+        String passwd = "good passwd"; //$NON-NLS-1$
+        String passwd2 = "false passwd"; //$NON-NLS-1$
         try {
             byte[] bs1 = PasswordHelper.encryptPasswd(passwd);
             byte[] bs2 = PasswordHelper.encryptPasswd(passwd2);

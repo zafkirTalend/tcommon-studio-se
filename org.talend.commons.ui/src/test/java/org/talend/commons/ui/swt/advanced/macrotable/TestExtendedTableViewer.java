@@ -86,7 +86,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
             DataObject listObject2 = new DataObject();
             // listObject2.setPrimaryIntegerValue(random.nextBoolean() ? i : null);
             listObject2.setIntegerValue1(random.nextInt(ONE_HUNDRED));
-            listObject2.setLibelle("libelle " + random.nextInt(ONE_HUNDRED));
+            listObject2.setLibelle("libelle " + random.nextInt(ONE_HUNDRED)); //$NON-NLS-1$
             listObject2.setIntegerValue2(random.nextInt(ONE_HUNDRED));
             list.add(listObject2);
         }
@@ -138,7 +138,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
         column.setModifiable(true);
         column.setWidth(0);
         column.setWeight(0);
-        column.setId("uid1");
+        column.setId("uid1"); //$NON-NLS-1$
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
@@ -155,7 +155,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
         column.setWidth(TEN);
         column.setWeight(TWENTY);
         column.setDefaultDisplayedValue(String.valueOf(Integer.MAX_VALUE));
-        column.setId("uid2");
+        column.setId("uid2"); //$NON-NLS-1$
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
@@ -171,7 +171,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
         });
         column.setWidth(TEN);
         column.setWeight(TWENTY);
-        column.setId("uid3");
+        column.setId("uid3"); //$NON-NLS-1$
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
@@ -187,10 +187,10 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
         });
         column.setWidth(TEN);
         column.setWeight(TWENTY);
-        column.setId("uid");
+        column.setId("uid"); //$NON-NLS-1$
         column.setCellEditor(new TextCellEditor(table));
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Integer Null Value");
+        column.setTitle("Integer Null Value"); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
 
             public Integer get(DataObject bean) {
@@ -203,7 +203,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
         });
         column.setModifiable(true);
         column.setWidth(ONE_HUNDRED);
-        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
+        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
 
             public String getColumnText(CellEditor cellEditor, Object bean, Object cellEditorValue) {
@@ -212,12 +212,12 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
                 if (index >= 0 && index < items.length) {
                     return items[index];
                 } else {
-                    return "";
+                    return ""; //$NON-NLS-1$
                 }
             }
         });
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Id");
+        column.setTitle("Id"); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
 
             public Integer get(DataObject bean) {
@@ -244,7 +244,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
             }
         });
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Id2");
+        column.setTitle("Id2"); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
 
             public Integer get(DataObject bean) {
@@ -283,7 +283,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
                 if (index >= 0 && index < items.length) {
                     return items[index];
                 } else {
-                    return "";
+                    return ""; //$NON-NLS-1$
                 }
             }
         });

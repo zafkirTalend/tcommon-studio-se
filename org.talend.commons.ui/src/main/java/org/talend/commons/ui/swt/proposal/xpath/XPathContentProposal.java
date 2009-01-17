@@ -61,7 +61,7 @@ public class XPathContentProposal implements IContentProposal {
      */
     public String getContent() {
         if (comment != null) {
-            content = "";
+            content = ""; //$NON-NLS-1$
         } else {
             content = getLabel();
         }
@@ -89,7 +89,7 @@ public class XPathContentProposal implements IContentProposal {
 
     public String format(Object object) {
         if (object == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         return String.valueOf(object);
     }
@@ -104,15 +104,15 @@ public class XPathContentProposal implements IContentProposal {
             return comment;
         }
 
-        String label = "";
+        String label = ""; //$NON-NLS-1$
         if (relative && firstRelativeNode) {
             // nothing
         } else {
-            label = "/";
+            label = "/"; //$NON-NLS-1$
         }
 
         if (this.node instanceof Attr) {
-            label = label + "@" + this.node.getNodeName();
+            label = label + "@" + this.node.getNodeName(); //$NON-NLS-1$
         } else {
             label = label + this.node.getNodeName();
         }

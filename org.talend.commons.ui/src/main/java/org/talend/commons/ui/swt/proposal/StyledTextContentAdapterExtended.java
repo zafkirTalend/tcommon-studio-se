@@ -36,8 +36,8 @@ public class StyledTextContentAdapterExtended extends StyledTextContentAdapter i
         String controlContents = getControlContents(control);
         int cursorPosition = getCursorPosition(control);
         String text = controlContents.substring(0, cursorPosition);
-        int lastCRIndex = text.lastIndexOf("\n");
-        int lastSpaceIndex = text.lastIndexOf(" ");
+        int lastCRIndex = text.lastIndexOf("\n"); //$NON-NLS-1$
+        int lastSpaceIndex = text.lastIndexOf(" "); //$NON-NLS-1$
         if (lastSpaceIndex != -1 && (lastCRIndex != -1 && lastSpaceIndex > lastCRIndex || lastCRIndex == -1)) {
             return text.substring(lastSpaceIndex + 1, text.length());
         }

@@ -51,7 +51,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
  */
 public class ArchiveDirectoryChooser {
 
-    private String[] fileFilterString = { "*.*" };
+    private String[] fileFilterString = { "*.*" }; //$NON-NLS-1$
 
     private Button itemFromDirectoryRadio;
 
@@ -69,7 +69,7 @@ public class ArchiveDirectoryChooser {
 
     private String previouslyBrowsedArchive = ""; //$NON-NLS-1$
 
-    private String lastPath = "";
+    private String lastPath = ""; //$NON-NLS-1$
 
     private Composite workArea;
 

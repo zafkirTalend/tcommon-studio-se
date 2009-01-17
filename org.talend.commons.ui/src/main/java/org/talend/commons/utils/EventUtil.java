@@ -30,77 +30,77 @@ public final class EventUtil {
 
         switch (eventType) {
         case SWT.None:
-            return "null";
+            return Messages.getString("EventUtil.typeNull"); //$NON-NLS-1$
         case SWT.Activate:
-            return "activate";
+            return Messages.getString("EventUtil.activate"); //$NON-NLS-1$
         case SWT.Arm:
-            return "arm";
+            return Messages.getString("EventUtil.arm"); //$NON-NLS-1$
         case SWT.Close:
-            return "close";
+            return Messages.getString("EventUtil.close"); //$NON-NLS-1$
         case SWT.Collapse:
-            return "collapse";
+            return Messages.getString("EventUtil.collapse"); //$NON-NLS-1$
         case SWT.Deactivate:
-            return "deactivate";
+            return Messages.getString("EventUtil.deactivate"); //$NON-NLS-1$
         case SWT.Deiconify:
-            return "deiconify";
+            return Messages.getString("EventUtil.deiconify"); //$NON-NLS-1$
         case SWT.DefaultSelection:
-            return "default selection";
+            return Messages.getString("EventUtil.defaultSelection"); //$NON-NLS-1$
         case SWT.Dispose:
-            return "dispose";
+            return Messages.getString("EventUtil.dispose"); //$NON-NLS-1$
         case SWT.DragDetect:
-            return "drag detect";
+            return Messages.getString("EventUtil.dragDetect"); //$NON-NLS-1$
         case SWT.Expand:
-            return "expand";
+            return Messages.getString("EventUtil.expand"); //$NON-NLS-1$
         case SWT.FocusIn:
-            return "focus in";
+            return Messages.getString("EventUtil.focusIn"); //$NON-NLS-1$
         case SWT.FocusOut:
-            return "focus out";
+            return Messages.getString("EventUtil.focusOut"); //$NON-NLS-1$
         case SWT.HardKeyDown:
-            return "hard key down";
+            return Messages.getString("EventUtil.hardKeyDown"); //$NON-NLS-1$
         case SWT.HardKeyUp:
-            return "hard key up";
+            return Messages.getString("EventUtil.hardKeyUp"); //$NON-NLS-1$
         case SWT.Help:
-            return "help";
+            return Messages.getString("EventUtil.help"); //$NON-NLS-1$
         case SWT.Hide:
-            return "hide";
+            return Messages.getString("EventUtil.hide"); //$NON-NLS-1$
         case SWT.Iconify:
-            return "iconify";
+            return Messages.getString("EventUtil.iconify"); //$NON-NLS-1$
         case SWT.KeyDown:
-            return "key down";
+            return Messages.getString("EventUtil.keyDown"); //$NON-NLS-1$
         case SWT.KeyUp:
-            return "key up";
+            return Messages.getString("EventUtil.keyUp"); //$NON-NLS-1$
         case SWT.Modify:
-            return "modify";
+            return Messages.getString("EventUtil.modify"); //$NON-NLS-1$
         case SWT.MenuDetect:
-            return "menu detect";
+            return Messages.getString("EventUtil.menuDetect"); //$NON-NLS-1$
         case SWT.MouseDoubleClick:
-            return "mouse double click";
+            return Messages.getString("EventUtil.mouseDoubleClick"); //$NON-NLS-1$
         case SWT.MouseDown:
-            return "mouse down";
+            return Messages.getString("EventUtil.mouseDown"); //$NON-NLS-1$
         case SWT.MouseEnter:
-            return "mouse enter";
+            return Messages.getString("EventUtil.mouseEnter"); //$NON-NLS-1$
         case SWT.MouseExit:
-            return "mouse exit";
+            return Messages.getString("EventUtil.mouseExit"); //$NON-NLS-1$
         case SWT.MouseHover:
-            return "mouse hover";
+            return Messages.getString("EventUtil.mouseHover"); //$NON-NLS-1$
         case SWT.MouseMove:
-            return "mouse move";
+            return Messages.getString("EventUtil.mouseMove"); //$NON-NLS-1$
         case SWT.MouseUp:
-            return "mouse up";
+            return Messages.getString("EventUtil.mouseUp"); //$NON-NLS-1$
         case SWT.Move:
-            return "move";
+            return Messages.getString("EventUtil.move"); //$NON-NLS-1$
         case SWT.Paint:
-            return "paint";
+            return Messages.getString("EventUtil.paint"); //$NON-NLS-1$
         case SWT.Resize:
-            return "resize";
+            return Messages.getString("EventUtil.resize"); //$NON-NLS-1$
         case SWT.Selection:
-            return "selection";
+            return Messages.getString("EventUtil.selection"); //$NON-NLS-1$
         case SWT.Show:
-            return "show";
+            return Messages.getString("EventUtil.show"); //$NON-NLS-1$
         case SWT.Traverse:
-            return "traverse";
+            return Messages.getString("EventUtil.traverse"); //$NON-NLS-1$
         case SWT.Verify:
-            return "verify";
+            return Messages.getString("EventUtil.verify"); //$NON-NLS-1$
         default:
             return Messages.getString("EventUtil.UnknowType") + eventType; //$NON-NLS-1$
         }
@@ -109,9 +109,9 @@ public final class EventUtil {
     public static String getEventNameFromDetail(int eventDetail) {
         switch (eventDetail) {
         case SWT.None:
-            return "null";
+            return Messages.getString("EventUtil.detailNull"); //$NON-NLS-1$
         case SWT.SELECTED:
-            return "SELECTED=" + SWT.SELECTED;
+            return Messages.getString("EventUtil.selectedEqual") + SWT.SELECTED; //$NON-NLS-1$
         default:
             return Messages.getString("EventUtil.UnknowDetail") + eventDetail; //$NON-NLS-1$
         }

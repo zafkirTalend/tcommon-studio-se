@@ -81,7 +81,7 @@ public class SWTCalendarDialog extends Dialog {
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
         super.createButtonsForButtonBar(parent);
-        this.createButton(parent, RESET_ID, "Reset", false);
+        this.createButton(parent, RESET_ID, "Reset", false); //$NON-NLS-1$
     }
 
     public Calendar getCalendar() {

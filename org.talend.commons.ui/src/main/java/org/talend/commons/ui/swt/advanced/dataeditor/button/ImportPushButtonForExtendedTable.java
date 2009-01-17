@@ -52,7 +52,7 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
     @Override
     protected void beforeCommandExecution() {
         FileDialog dial = new FileDialog(getButton().getShell(), SWT.OPEN);
-        dial.setFilterExtensions(new String[] { "*.xml" });
+        dial.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
         String fileName = dial.open();
         if ((fileName != null) && (!fileName.equals(""))) { //$NON-NLS-1$
             file = new File(fileName);

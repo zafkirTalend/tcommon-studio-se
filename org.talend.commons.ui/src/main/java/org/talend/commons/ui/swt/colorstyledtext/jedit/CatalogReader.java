@@ -56,7 +56,7 @@ public class CatalogReader {
         Document doc = null;
         doc = reader.read(file);
         Element root = doc.getRootElement();
-        List modeE = root.elements("MODE");
+        List modeE = root.elements("MODE"); //$NON-NLS-1$
         List<Mode> modes = new ArrayList<Mode>(A_50);
         for (Iterator iter = modeE.iterator(); iter.hasNext();) {
             Element modeElement = (Element) iter.next();
@@ -66,8 +66,8 @@ public class CatalogReader {
     }
 
     private Mode newMode(Element modeElement) {
-        return Mode.newMode(modeElement.attributeValue("NAME"), modeElement.attributeValue("FILE"), modeElement
-                .attributeValue("FILE_NAME_GLOB"), modeElement.attributeValue("FIRST_LINE_GLOB"));
+        return Mode.newMode(modeElement.attributeValue("NAME"), modeElement.attributeValue("FILE"), modeElement //$NON-NLS-1$ //$NON-NLS-2$
+                .attributeValue("FILE_NAME_GLOB"), modeElement.attributeValue("FIRST_LINE_GLOB")); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

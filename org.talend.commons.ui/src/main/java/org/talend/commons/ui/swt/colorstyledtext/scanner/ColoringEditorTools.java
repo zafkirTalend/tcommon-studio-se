@@ -114,7 +114,7 @@ public class ColoringEditorTools {
         if (property == null) {
             return false;
         }
-        if (property.endsWith("Bold")) {
+        if (property.endsWith("Bold")) { //$NON-NLS-1$
             property = property.substring(0, property.length() - ColorManager.BOLD_SUFFIX.length());
         }
         boolean affects = property.equals(ColorManager.COMMENT1_COLOR) || property.equals(ColorManager.COMMENT2_COLOR)
@@ -139,7 +139,7 @@ public class ColoringEditorTools {
         URL url; // = FileLocator.toFileURL(FileLocator.find(Platform.getBundle("org.talend.commons"), new
         // Path(filename), null));
 
-        url = Platform.getBundle("org.talend.commons").getEntry(filename);
+        url = Platform.getBundle("org.talend.commons").getEntry(filename); //$NON-NLS-1$
         return url != null ? url.openStream() : null;
         // URL mode = FileLocator.resolve(url);
         // if (mode != null) {

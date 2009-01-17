@@ -44,7 +44,7 @@ public abstract class AbstractTreeTooltip {
      */
     private void init() {
         // Disable native tooltip
-        table.setToolTipText("");
+        table.setToolTipText(""); //$NON-NLS-1$
         iniLabelListener();
         initTableListener();
         table.addListener(SWT.Dispose, tableListener);
@@ -91,7 +91,7 @@ public abstract class AbstractTreeTooltip {
                         label = new Label(tip, SWT.NONE);
                         label.setForeground(table.getShell().getDisplay().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
                         label.setBackground(table.getShell().getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-                        label.setData("_TABLEITEM", item);
+                        label.setData("_TABLEITEM", item); //$NON-NLS-1$
                         label.setText(content);
                         label.addListener(SWT.MouseExit, labelListener);
                         label.addListener(SWT.MouseDown, labelListener);

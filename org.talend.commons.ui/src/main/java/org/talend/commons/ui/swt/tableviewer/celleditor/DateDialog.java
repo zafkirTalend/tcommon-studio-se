@@ -23,6 +23,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.calendar.SWTCalendarWithTime;
 
 /**
@@ -49,7 +50,7 @@ public class DateDialog extends Dialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText("Select Date & Time");
+        newShell.setText(Messages.getString("DateDialog.textContent")); //$NON-NLS-1$
     }
 
     private SWTCalendarWithTime time;
@@ -88,7 +89,7 @@ public class DateDialog extends Dialog {
 
         StringBuffer result = new StringBuffer();
 
-        String pattern = "yyyy-MM-dd HH:mm:ss";
+        String pattern = "yyyy-MM-dd HH:mm:ss"; //$NON-NLS-1$
 
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         sdf.format(getDate(), result, new FieldPosition(0));

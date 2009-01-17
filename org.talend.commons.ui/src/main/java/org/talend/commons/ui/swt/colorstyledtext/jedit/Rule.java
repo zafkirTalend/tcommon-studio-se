@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
 
 /**
@@ -48,12 +49,12 @@ public class Rule {
 
     protected String defaultTokenType = ColoringScanner.NULL;
 
-    public static final String DEFAULT_NAME = "MAIN";
+    public static final String DEFAULT_NAME = "MAIN"; //$NON-NLS-1$
 
     private static final KeywordMap EMPTY_MAP = new KeywordMap(false);
 
-    public static Rule newRule(Mode mode, String name, boolean highlightDigits, boolean ignoreCase, String digitRE,
-            char escape, String defaultTokenType) {
+    public static Rule newRule(Mode mode, String name, boolean highlightDigits, boolean ignoreCase, String digitRE, char escape,
+            String defaultTokenType) {
 
         Rule newRule = new Rule(name);
         newRule.mode = mode;
@@ -96,7 +97,7 @@ public class Rule {
     }
 
     public String toString() {
-        return "Rule [" + name + "]";
+        return Messages.getString("Rule.rule") + name; //$NON-NLS-1$
     }
 
     public KeywordMap getKeywords() {

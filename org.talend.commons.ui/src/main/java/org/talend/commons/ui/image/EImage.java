@@ -24,69 +24,69 @@ import org.talend.commons.ui.CommonUIPlugin;
 public enum EImage implements IImage {
 
     DEFAULT_IMAGE,
-    EMPTY("/icons/empty.gif"),
+    EMPTY("/icons/empty.gif"), //$NON-NLS-1$
 
-    SAVE_ICON("/icons/save.png"),
-    COPY_ICON("/icons/copy.gif"),
-    PASTE_ICON("/icons/paste.gif"),
-    CUT_ICON("/icons/cut.png"),
-    DELETE_ICON("/icons/delete.gif"),
-    RESTORE_ICON("/icons/add.gif"),
-    ADD_ICON("/icons/add.gif"),
-    ADD_ALL_ICON("/icons/addall.gif"),
-    MINUS_ICON("/icons/delete.gif"),
-    REFRESH_ICON("/icons/refresh.gif"),
-    EDIT_ICON("/icons/write_obj.gif"),
-    READ_ICON("/icons/read_obj.gif"),
+    SAVE_ICON("/icons/save.png"), //$NON-NLS-1$
+    COPY_ICON("/icons/copy.gif"), //$NON-NLS-1$
+    PASTE_ICON("/icons/paste.gif"), //$NON-NLS-1$
+    CUT_ICON("/icons/cut.png"), //$NON-NLS-1$
+    DELETE_ICON("/icons/delete.gif"), //$NON-NLS-1$
+    RESTORE_ICON("/icons/add.gif"), //$NON-NLS-1$
+    ADD_ICON("/icons/add.gif"), //$NON-NLS-1$
+    ADD_ALL_ICON("/icons/addall.gif"), //$NON-NLS-1$
+    MINUS_ICON("/icons/delete.gif"), //$NON-NLS-1$
+    REFRESH_ICON("/icons/refresh.gif"), //$NON-NLS-1$
+    EDIT_ICON("/icons/write_obj.gif"), //$NON-NLS-1$
+    READ_ICON("/icons/read_obj.gif"), //$NON-NLS-1$
 
-    RESET_DBTYPES_ICON("/icons/reset_dbtypes.jpg"),
+    RESET_DBTYPES_ICON("/icons/reset_dbtypes.jpg"), //$NON-NLS-1$
 
-    IMPORT_ICON("/icons/import.gif"),
-    EXPORT_ICON("/icons/export.gif"),
+    IMPORT_ICON("/icons/import.gif"), //$NON-NLS-1$
+    EXPORT_ICON("/icons/export.gif"), //$NON-NLS-1$
 
-    CHECKED_ICON("/icons/checked.gif"),
-    UNCHECKED_ICON("/icons/unchecked.gif"),
+    CHECKED_ICON("/icons/checked.gif"), //$NON-NLS-1$
+    UNCHECKED_ICON("/icons/unchecked.gif"), //$NON-NLS-1$
 
-    ERROR_ICON("/icons/error.gif"),
-    WARNING_ICON("/icons/warning.gif"),
-    ERROR_SMALL("/icons/error_small.gif"),
-    WARNING_SMALL("/icons/warning_small.gif"),
-    OK("/icons/ok.png"),
+    ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
+    WARNING_ICON("/icons/warning.gif"), //$NON-NLS-1$
+    ERROR_SMALL("/icons/error_small.gif"), //$NON-NLS-1$
+    WARNING_SMALL("/icons/warning_small.gif"), //$NON-NLS-1$
+    OK("/icons/ok.png"), //$NON-NLS-1$
 
-    PARALLEL_EXECUTION("/icons/parallelize.png"),
+    PARALLEL_EXECUTION("/icons/parallelize.png"), //$NON-NLS-1$
 
-    UP_ICON("/icons/up.gif"),
-    DOWN_ICON("/icons/down.gif"),
-    LEFT_ICON("/icons/left.gif"),
-    LEFTX_ICON("/icons/leftx.png"),
-    RIGHT_ICON("/icons/right.gif"),
-    RIGHTX_ICON("/icons/rightx.png"),
+    UP_ICON("/icons/up.gif"), //$NON-NLS-1$
+    DOWN_ICON("/icons/down.gif"), //$NON-NLS-1$
+    LEFT_ICON("/icons/left.gif"), //$NON-NLS-1$
+    LEFTX_ICON("/icons/leftx.png"), //$NON-NLS-1$
+    RIGHT_ICON("/icons/right.gif"), //$NON-NLS-1$
+    RIGHTX_ICON("/icons/rightx.png"), //$NON-NLS-1$
 
-    KEY_ICON("/icons/key.gif"),
-    HIERARCHY_ICON("/icons/hierarchicalLayout.gif"),
+    KEY_ICON("/icons/key.gif"), //$NON-NLS-1$
+    HIERARCHY_ICON("/icons/hierarchicalLayout.gif"), //$NON-NLS-1$
 
-    THREE_DOTS_ICON("/icons/dots_button.gif"),
+    THREE_DOTS_ICON("/icons/dots_button.gif"), //$NON-NLS-1$
 
-    PROPERTIES_WIZ("/icons/editpref_wiz.gif"),
+    PROPERTIES_WIZ("/icons/editpref_wiz.gif"), //$NON-NLS-1$
 
-    TRACES_EXPAND("/icons/traces_expand.png"),
-    TRACES_COLLAPSE("/icons/traces_collapse.png"),
+    TRACES_EXPAND("/icons/traces_expand.png"), //$NON-NLS-1$
+    TRACES_COLLAPSE("/icons/traces_collapse.png"), //$NON-NLS-1$
 
-    SUBJOB_EXPAND("/icons/subjob_expand.png"),
-    SUBJOB_COLLAPSE("/icons/subjob_collapse.png"),
+    SUBJOB_EXPAND("/icons/subjob_expand.png"), //$NON-NLS-1$
+    SUBJOB_COLLAPSE("/icons/subjob_collapse.png"), //$NON-NLS-1$
 
-    COMPACT_VIEW("/icons/compact.png"),
-    NO_COMPACT_VIEW("/icons/noCompact.png"),
-    TABLE_VIEW("/icons/array_hot.png"),
-    NO_TABLE_VIEW("/icons/array.png"),
-    COMPOSITE_BACKGROUND("/icons/compositeBackground.jpg"),
+    COMPACT_VIEW("/icons/compact.png"), //$NON-NLS-1$
+    NO_COMPACT_VIEW("/icons/noCompact.png"), //$NON-NLS-1$
+    TABLE_VIEW("/icons/array_hot.png"), //$NON-NLS-1$
+    NO_TABLE_VIEW("/icons/array.png"), //$NON-NLS-1$
+    COMPOSITE_BACKGROUND("/icons/compositeBackground.jpg"), //$NON-NLS-1$
 
     ;
 
     private String path;
 
     EImage() {
-        this.path = "/icons/unknown.gif";
+        this.path = "/icons/unknown.gif"; //$NON-NLS-1$
     }
 
     EImage(String path) {

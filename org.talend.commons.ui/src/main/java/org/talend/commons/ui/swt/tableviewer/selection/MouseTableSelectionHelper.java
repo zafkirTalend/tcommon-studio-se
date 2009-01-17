@@ -226,7 +226,7 @@ public class MouseTableSelectionHelper {
         if (cursorSelection) {
             if (imageDescriptor == null) {
                 imageDescriptor = ImageDescriptor.createFromFile(MouseTableSelectionHelper.class,
-                        "/icons/right_arrow.ico");
+                        "/icons/right_arrow.ico"); //$NON-NLS-1$
                 imageDataCursor = imageDescriptor.getImageData();
             }
             if (imageDataCursor != null) {

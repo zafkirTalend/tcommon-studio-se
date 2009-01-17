@@ -59,10 +59,10 @@ public final class AccessorUtils {
 
                 String message = Messages.getString("AccessorUtils.Assert1", column.getTitle(), column.getId()); //$NON-NLS-1$
                 if (bean != null) {
-                    message += "\n " + bean.getClass() + Messages.getString("AccessorUtils.isReq"); //$NON-NLS-2$
+                    message += "\n " + bean.getClass() + Messages.getString("AccessorUtils.isReq");  //$NON-NLS-1$//$NON-NLS-2$
                 }
                 if (value != null) {
-                    message += "\n " + value.getClass() + Messages.getString("AccessorUtils.isReqValue"); //$NON-NLS-1$
+                    message += "\n " + value.getClass() + Messages.getString("AccessorUtils.isReqValue"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 throw new RuntimeException(message, cce);
             }

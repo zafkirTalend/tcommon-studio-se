@@ -53,7 +53,7 @@ public class ModeReader {
         Element root = doc.getRootElement();
         // List properties = root.elements("PROPS");
         // todo parse the properties
-        for (Iterator iter = root.elementIterator("RULES"); iter.hasNext();) {
+        for (Iterator iter = root.elementIterator("RULES"); iter.hasNext();) { //$NON-NLS-1$
             Element rulesElement = (Element) iter.next();
             createRule(rulesElement);
             /*
@@ -69,19 +69,19 @@ public class ModeReader {
     }
 
     private void createType(Element element) {
-        if (element.getName().equals("SPAN")) {
+        if (element.getName().equals("SPAN")) { //$NON-NLS-1$
             createSpan(element);
-        } else if (element.getName().equals("EOL_SPAN")) {
+        } else if (element.getName().equals("EOL_SPAN")) { //$NON-NLS-1$
             createEOL(element);
-        } else if (element.getName().equals("SEQ")) {
+        } else if (element.getName().equals("SEQ")) { //$NON-NLS-1$
             createTextSequence(element);
-        } else if (element.getName().equals("KEYWORDS")) {
+        } else if (element.getName().equals("KEYWORDS")) { //$NON-NLS-1$
             createKeywords(element);
-        } else if (element.getName().equals("MARK_PREVIOUS")) {
+        } else if (element.getName().equals("MARK_PREVIOUS")) { //$NON-NLS-1$
             createMark(element, true);
-        } else if (element.getName().equals("MARK_FOLLOWING")) {
+        } else if (element.getName().equals("MARK_FOLLOWING")) { //$NON-NLS-1$
             createMark(element, false);
-        } else if (element.getName().equals("WHITESPACE")) {
+        } else if (element.getName().equals("WHITESPACE")) { //$NON-NLS-1$
             // ignore for now
         } else {
             System.out.println(Messages.getString("ModeReader.IgnoreElement") + element.getName()); //$NON-NLS-1$
@@ -89,20 +89,20 @@ public class ModeReader {
     }
 
     private void createKeywords(Element keywordsE) {
-        KeywordMap keywords = new KeywordMap(bool(keywordsE, "IGNORE_CASE", true));
-        keywords.put(ColoringScanner.KEYWORD1, toStringArray(keywordsE.elements("KEYWORD1")));
-        keywords.put(ColoringScanner.KEYWORD2, toStringArray(keywordsE.elements("KEYWORD2")));
-        keywords.put(ColoringScanner.KEYWORD3, toStringArray(keywordsE.elements("KEYWORD3")));
-        keywords.put(ColoringScanner.COMMENT1, toStringArray(keywordsE.elements("COMMENT1")));
-        keywords.put(ColoringScanner.COMMENT2, toStringArray(keywordsE.elements("COMMENT2")));
-        keywords.put(ColoringScanner.LITERAL1, toStringArray(keywordsE.elements("LITERAL1")));
-        keywords.put(ColoringScanner.LITERAL2, toStringArray(keywordsE.elements("LITERAL2")));
-        keywords.put(ColoringScanner.LABEL, toStringArray(keywordsE.elements("LABEL")));
-        keywords.put(ColoringScanner.FUNCTION, toStringArray(keywordsE.elements("FUNCTION")));
-        keywords.put(ColoringScanner.MARKUP, toStringArray(keywordsE.elements("MARKUP")));
-        keywords.put(ColoringScanner.OPERATOR, toStringArray(keywordsE.elements("OPERATOR")));
-        keywords.put(ColoringScanner.DIGIT, toStringArray(keywordsE.elements("DIGIT")));
-        keywords.put(ColoringScanner.INVALID, toStringArray(keywordsE.elements("INVALID")));
+        KeywordMap keywords = new KeywordMap(bool(keywordsE, "IGNORE_CASE", true)); //$NON-NLS-1$
+        keywords.put(ColoringScanner.KEYWORD1, toStringArray(keywordsE.elements("KEYWORD1"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.KEYWORD2, toStringArray(keywordsE.elements("KEYWORD2"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.KEYWORD3, toStringArray(keywordsE.elements("KEYWORD3"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.COMMENT1, toStringArray(keywordsE.elements("COMMENT1"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.COMMENT2, toStringArray(keywordsE.elements("COMMENT2"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.LITERAL1, toStringArray(keywordsE.elements("LITERAL1"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.LITERAL2, toStringArray(keywordsE.elements("LITERAL2"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.LABEL, toStringArray(keywordsE.elements("LABEL"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.FUNCTION, toStringArray(keywordsE.elements("FUNCTION"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.MARKUP, toStringArray(keywordsE.elements("MARKUP"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.OPERATOR, toStringArray(keywordsE.elements("OPERATOR"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.DIGIT, toStringArray(keywordsE.elements("DIGIT"))); //$NON-NLS-1$
+        keywords.put(ColoringScanner.INVALID, toStringArray(keywordsE.elements("INVALID"))); //$NON-NLS-1$
         listener.newKeywords(keywords);
     }
 
@@ -120,48 +120,48 @@ public class ModeReader {
     }
 
     private void createTextSequence(Element seqElement) {
-        boolean atLineStart = bool(seqElement, "AT_LINE_START", false);
-        boolean atWhitespaceEnd = bool(seqElement, "AT_WHITESPACE_END", false);
-        boolean atWordStart = bool(seqElement, "AT_WORD_START", false);
-        String type = seqElement.attributeValue("TYPE");
-        String delegate = seqElement.attributeValue("DELEGATE");
+        boolean atLineStart = bool(seqElement, "AT_LINE_START", false); //$NON-NLS-1$
+        boolean atWhitespaceEnd = bool(seqElement, "AT_WHITESPACE_END", false); //$NON-NLS-1$
+        boolean atWordStart = bool(seqElement, "AT_WORD_START", false); //$NON-NLS-1$
+        String type = seqElement.attributeValue("TYPE"); //$NON-NLS-1$
+        String delegate = seqElement.attributeValue("DELEGATE"); //$NON-NLS-1$
         listener.newTextSequence(type, seqElement.getText(), atLineStart, atWhitespaceEnd, atWordStart, delegate);
     }
 
     private void createEOL(Element eolElement) {
-        listener.newEOLSpan(eolElement.attributeValue("TYPE"), eolElement.getText());
+        listener.newEOLSpan(eolElement.attributeValue("TYPE"), eolElement.getText()); //$NON-NLS-1$
     }
 
     private void createSpan(Element spanElement) {
-        String type = spanElement.attributeValue("TYPE");
-        boolean atLineStart = bool(spanElement, "AT_LINE_START", false);
-        boolean excludeMatch = bool(spanElement, "EXCLUDE_MATCH", false);
-        boolean noLineBreak = bool(spanElement, "NO_LINE_BREAK", false);
-        boolean noWordBreak = bool(spanElement, "NO_WORD_BREAK", false);
-        String delegate = spanElement.attributeValue("DELEGATE");
-        String begin = spanElement.element("BEGIN").getText();
-        String end = spanElement.element("END").getText();
+        String type = spanElement.attributeValue("TYPE"); //$NON-NLS-1$
+        boolean atLineStart = bool(spanElement, "AT_LINE_START", false); //$NON-NLS-1$
+        boolean excludeMatch = bool(spanElement, "EXCLUDE_MATCH", false); //$NON-NLS-1$
+        boolean noLineBreak = bool(spanElement, "NO_LINE_BREAK", false); //$NON-NLS-1$
+        boolean noWordBreak = bool(spanElement, "NO_WORD_BREAK", false); //$NON-NLS-1$
+        String delegate = spanElement.attributeValue("DELEGATE"); //$NON-NLS-1$
+        String begin = spanElement.element("BEGIN").getText(); //$NON-NLS-1$
+        String end = spanElement.element("END").getText(); //$NON-NLS-1$
         listener.newSpan(type, begin, end, atLineStart, excludeMatch, noLineBreak, noWordBreak, delegate);
     }
 
     private void createMark(Element markElement, boolean isPrevious) {
-        boolean atLineStart = bool(markElement, "AT_LINE_START", false);
-        boolean atWhitespaceEnd = bool(markElement, "AT_WHITESPACE_END", false);
-        boolean excludeMatch = bool(markElement, "EXCLUDE_MATCH", false);
-        boolean atWordStart = bool(markElement, "AT_WORD_START", false);
-        String type = markElement.attributeValue("TYPE");
-        String delegate = markElement.attributeValue("DELEGATE");
+        boolean atLineStart = bool(markElement, "AT_LINE_START", false); //$NON-NLS-1$
+        boolean atWhitespaceEnd = bool(markElement, "AT_WHITESPACE_END", false); //$NON-NLS-1$
+        boolean excludeMatch = bool(markElement, "EXCLUDE_MATCH", false); //$NON-NLS-1$
+        boolean atWordStart = bool(markElement, "AT_WORD_START", false); //$NON-NLS-1$
+        String type = markElement.attributeValue("TYPE"); //$NON-NLS-1$
+        String delegate = markElement.attributeValue("DELEGATE"); //$NON-NLS-1$
         listener.newMark(type, markElement.getText(), atLineStart, atWhitespaceEnd, atWordStart, delegate, isPrevious,
                 excludeMatch);
     }
 
     protected void createRule(Element rulesElement) {
-        String name = rulesElement.attributeValue("SET", Rule.DEFAULT_NAME);
-        boolean highlightDigits = bool(rulesElement, "HIGHLIGHT_DIGITS", false);
-        boolean ignoreCase = bool(rulesElement, "IGNORE_CASE", true);
-        String digitRE = rulesElement.attributeValue("DIGIT_RE");
-        char escape = rulesElement.attributeValue("ESCAPE", "" + (char) 0).charAt(0);
-        String defaultTokenType = rulesElement.attributeValue("DEFAULT", ColoringScanner.NULL);
+        String name = rulesElement.attributeValue("SET", Rule.DEFAULT_NAME); //$NON-NLS-1$
+        boolean highlightDigits = bool(rulesElement, "HIGHLIGHT_DIGITS", false); //$NON-NLS-1$
+        boolean ignoreCase = bool(rulesElement, "IGNORE_CASE", true); //$NON-NLS-1$
+        String digitRE = rulesElement.attributeValue("DIGIT_RE"); //$NON-NLS-1$
+        char escape = rulesElement.attributeValue("ESCAPE", "" + (char) 0).charAt(0); //$NON-NLS-1$ //$NON-NLS-2$
+        String defaultTokenType = rulesElement.attributeValue("DEFAULT", ColoringScanner.NULL); //$NON-NLS-1$
         listener.newRules(name, highlightDigits, ignoreCase, digitRE, escape, defaultTokenType);
     }
 

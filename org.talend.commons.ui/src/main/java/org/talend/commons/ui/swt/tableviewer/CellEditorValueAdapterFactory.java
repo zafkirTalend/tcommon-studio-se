@@ -14,6 +14,7 @@ package org.talend.commons.ui.swt.tableviewer;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.celleditor.ComboxCellEditorImproved;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.ComboEditorValueAdapter;
@@ -47,7 +48,7 @@ public class CellEditorValueAdapterFactory {
                         && ((Integer) value).intValue() != 0) {
                     return String.valueOf(value);
                 }
-                return "";
+                return ""; //$NON-NLS-1$
             }
 
             /*
@@ -127,12 +128,12 @@ public class CellEditorValueAdapterFactory {
             public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
                 if (value != null) {
                     if (!(value instanceof String)) {
-                        throw new IllegalArgumentException("Bean value should be a class of String type !");
+                        throw new IllegalArgumentException(Messages.getString("CellEditorValueAdapterFactory.valueNotStringType")); //$NON-NLS-1$
                     }
                     return value;
                 }
 
-                return "";
+                return ""; //$NON-NLS-1$
             }
 
         };

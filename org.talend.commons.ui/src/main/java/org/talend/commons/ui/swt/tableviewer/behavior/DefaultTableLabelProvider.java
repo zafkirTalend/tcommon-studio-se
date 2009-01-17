@@ -64,7 +64,7 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
                 if (imposedDisplayedValue != null) {
                     returnValue = imposedDisplayedValue;
                 } else if (defaultValue == null) {
-                    returnValue = "";
+                    returnValue = ""; //$NON-NLS-1$
                 } else {
                     returnValue = defaultValue;
                 }
@@ -77,7 +77,7 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
                 } else if (value != null) {
                     returnValue = String.valueOf(value);
                 } else {
-                    returnValue = "";
+                    returnValue = ""; //$NON-NLS-1$
                 }
             }
         }

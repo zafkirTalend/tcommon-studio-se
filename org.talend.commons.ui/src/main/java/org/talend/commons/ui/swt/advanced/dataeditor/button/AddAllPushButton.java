@@ -39,7 +39,7 @@ public abstract class AddAllPushButton extends ExtendedPushButton {
 	public AddAllPushButton(Composite parent,
 			AbstractExtendedControlViewer extendedViewer) {
 		super(parent, extendedViewer, Messages
-				.getString("AddAllPushButton.AddAllButton.Tip"), ImageProvider
+				.getString("AddAllPushButton.AddAllButton.Tip"), ImageProvider //$NON-NLS-1$
 				.getImage(EImage.ADD_ALL_ICON));
 	}
 

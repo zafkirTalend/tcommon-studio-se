@@ -433,7 +433,7 @@ public class LabelledCombo {
 		if (string != null) {
 			combo.setText(string);
 		} else {
-			combo.setText("");
+			combo.setText(""); //$NON-NLS-1$
 		}
 	}
 

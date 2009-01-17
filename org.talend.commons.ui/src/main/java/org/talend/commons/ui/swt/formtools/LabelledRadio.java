@@ -155,7 +155,7 @@ public class LabelledRadio {
         if (string != null) {
             label.setText(string);
         } else {
-            label.setText("");
+            label.setText(""); //$NON-NLS-1$
         }
 
     }

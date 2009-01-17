@@ -36,10 +36,10 @@ public class ErrorDialogWithDetailAreaAndContinueButton {
     public ErrorDialogWithDetailAreaAndContinueButton(Shell shell, String pid, String mainMessage, String detailMessage) {
         MultiStatus info = new MultiStatus(pid, 1, mainMessage, null);
         if (detailMessage != null) {
-            String[] lines = detailMessage.split("\n");
+            String[] lines = detailMessage.split("\n"); //$NON-NLS-1$
             for (int i = 0; i < lines.length; i++) {
                 info
-                        .add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""),
+                        .add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
                                 null));
             }
         }

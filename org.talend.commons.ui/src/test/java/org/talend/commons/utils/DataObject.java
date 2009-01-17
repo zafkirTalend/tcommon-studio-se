@@ -114,7 +114,7 @@ public class DataObject {
     /**
      * emptyString.
      */
-    private String emptyString = "";
+    private String emptyString = ""; //$NON-NLS-1$
 
     /**
      * name.
@@ -162,11 +162,11 @@ public class DataObject {
     /**
      * 
      */
-    private String[] libelles = new String[] { "abc", "abcd", "abcde", "ABC", "ABCD", "ABCDE", };
+    private String[] libelles = new String[] { "abc", "abcd", "abcde", "ABC", "ABCD", "ABCDE", }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
-    private String[] units = new String[] { "kvarh", "kWh", "m3", };
+    private String[] units = new String[] { "kvarh", "kWh", "m3", }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    private String[] monnaies = new String[] { "Yen", "Euros", };
+    private String[] monnaies = new String[] { "Yen", "Euros", }; //$NON-NLS-1$ //$NON-NLS-2$
 
     private Object arrayField;
 

@@ -178,7 +178,7 @@ public class LabelledCheckboxCombo {
 
         checkbox.addSelectionListener(new SelectionAdapter() {
 
-            private String oldValue = "";
+            private String oldValue = ""; //$NON-NLS-1$
 
             public void widgetSelected(final SelectionEvent e) {
                 if (checkbox.getSelection()) {
@@ -190,7 +190,7 @@ public class LabelledCheckboxCombo {
                     // isn't checked
                     oldValue = combo.getText();
                     combo.setEnabled(false);
-                    combo.setText("");
+                    combo.setText(""); //$NON-NLS-1$
                 }
             }
         });
@@ -336,7 +336,7 @@ public class LabelledCheckboxCombo {
      */
     public Boolean isInteger() {
         String s = combo.getText();
-        if ("".equals(s)) {
+        if ("".equals(s)) { //$NON-NLS-1$
             return false;
         } else {
             for (int f = 0; f < s.length(); f++) {
@@ -355,7 +355,7 @@ public class LabelledCheckboxCombo {
      * @return boolean
      */
     public Boolean isEmpty() {
-        return combo.getText().equals("");
+        return combo.getText().equals(""); //$NON-NLS-1$
     }
 
     /**

@@ -30,7 +30,7 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 public abstract class SaveAsGenericSchemaPushButton extends ExtendedPushButton {
 
     public SaveAsGenericSchemaPushButton(Composite parent, AbstractExtendedTableViewer extendedViewer) {
-        super(parent, extendedViewer, "Save as generic schema", // Messages.getString("ExportPushButton.ExportButton.Tip"),
+        super(parent, extendedViewer, Messages.getString("SaveAsGenericSchemaPushButton.saveAsSchema"), // Messages.getString("ExportPushButton.ExportButton.Tip"), //$NON-NLS-1$
                 ImageProvider.getImage(EImage.SAVE_ICON)); //$NON-NLS-1$
     }
 

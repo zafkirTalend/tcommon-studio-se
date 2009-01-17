@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
+import org.talend.commons.ui.i18n.Messages;
 import org.vafada.swtcalendar.SWTCalendar;
 
 /**
@@ -66,7 +67,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         timeSetting.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
         Label hourLabel = new Label(timeSetting, SWT.NONE);
-        hourLabel.setText("Hr: ");
+        hourLabel.setText(Messages.getString("SWTCalendarWithTime.contentHr")); //$NON-NLS-1$
         hourLabel.setBackground(hourLabel.getParent().getBackground());
 
         hourChooser = new Spinner(timeSetting, SWT.BORDER);
@@ -84,7 +85,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         });
 
         Label minuteLabel = new Label(timeSetting, SWT.NONE);
-        minuteLabel.setText("Min: ");
+        minuteLabel.setText(Messages.getString("SWTCalendarWithTime.contentMin")); //$NON-NLS-1$
         minuteLabel.setBackground(hourLabel.getParent().getBackground());
 
         minuteChooser = new Spinner(timeSetting, SWT.BORDER);
@@ -102,7 +103,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         });
 
         Label secondsLabel = new Label(timeSetting, SWT.NONE);
-        secondsLabel.setText("Sec: ");
+        secondsLabel.setText(Messages.getString("SWTCalendarWithTime.contnetSec")); //$NON-NLS-1$
         secondsLabel.setBackground(hourLabel.getParent().getBackground());
 
         secondsChooser = new Spinner(timeSetting, SWT.BORDER);
@@ -126,7 +127,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         buttonPalette.setLayout(new FillLayout());
 
         Button morningButton = new Button(buttonPalette, SWT.PUSH);
-        morningButton.setText("Morning");
+        morningButton.setText(Messages.getString("SWTCalendarWithTime.contentMorning")); //$NON-NLS-1$
         morningButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -139,7 +140,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         });
 
         Button noonButton = new Button(buttonPalette, SWT.PUSH);
-        noonButton.setText("Noon");
+        noonButton.setText(Messages.getString("SWTCalendarWithTime.contentNoon")); //$NON-NLS-1$
         noonButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -152,7 +153,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         });
 
         Button eveningButton = new Button(buttonPalette, SWT.PUSH);
-        eveningButton.setText("Evening");
+        eveningButton.setText(Messages.getString("SWTCalendarWithTime.contentEvening")); //$NON-NLS-1$
         eveningButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -165,7 +166,7 @@ public class SWTCalendarWithTime extends SWTCalendar {
         });
 
         Button nowButton = new Button(buttonPalette, SWT.PUSH);
-        nowButton.setText("Now");
+        nowButton.setText(Messages.getString("SWTCalendarWithTime.contentNow")); //$NON-NLS-1$
         nowButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {

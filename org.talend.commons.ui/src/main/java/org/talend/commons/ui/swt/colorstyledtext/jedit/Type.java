@@ -29,29 +29,29 @@ public abstract class Type {
     protected String type;
 
     /** This represents a single line span. */
-    public static final String SINGLE_S = "SINGLE_S";
+    public static final String SINGLE_S = "SINGLE_S"; //$NON-NLS-1$
 
     /** This represents a multiple line span. */
-    public static final String MULTI_S = "MULTI_S";
+    public static final String MULTI_S = "MULTI_S"; //$NON-NLS-1$
 
     /** This represents a single line span. */
-    public static final String EOL_SPAN = "EOL_SPAN";
+    public static final String EOL_SPAN = "EOL_SPAN"; //$NON-NLS-1$
 
     /** This represents a sequence of text. */
-    public static final String SEQ = "SEQ";
+    public static final String SEQ = "SEQ"; //$NON-NLS-1$
 
     /** This represents a delegated span. */
-    public static final String DELEGATE_S = "DELEGATE_S";
+    public static final String DELEGATE_S = "DELEGATE_S"; //$NON-NLS-1$
 
     /**
      * This represents a sequence of text. It differs from SEQ because the text that matched may not be highlighted.
      */
-    public static final String MARK_PREVIOUS = "MARK_PREVIOUS";
+    public static final String MARK_PREVIOUS = "MARK_PREVIOUS"; //$NON-NLS-1$
 
     /**
      * This represents a sequence of text. It differs from SEQ because the text that matched may not be highlighted.
      */
-    public static final String MARK_FOLLOWING = "MARK_FOLLOWING";
+    public static final String MARK_FOLLOWING = "MARK_FOLLOWING"; //$NON-NLS-1$
 
     public static EOLSpan newEOLSpan(String color, String text) {
         EOLSpan eol = new EOLSpan();
@@ -134,7 +134,7 @@ public abstract class Type {
     }
 
     public String getContentType() {
-        return getType() + "." + getColor();
+        return getType() + "." + getColor(); //$NON-NLS-1$
     }
 
 }

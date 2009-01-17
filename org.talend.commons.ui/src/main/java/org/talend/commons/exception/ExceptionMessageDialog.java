@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.talend.commons.ui.i18n.Messages;
 
 /***/
 public class ExceptionMessageDialog extends MessageDialog {
@@ -48,7 +49,7 @@ public class ExceptionMessageDialog extends MessageDialog {
 
         ExpandableComposite errorComposite = new ExpandableComposite(parent, ExpandableComposite.COMPACT);
         errorComposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL, false, true, 1, 1));
-        errorComposite.setText("log");
+        errorComposite.setText(Messages.getString("ExceptionMessageDialog.log")); //$NON-NLS-1$
         errorComposite.addExpansionListener(new IExpansionListener() {
 
             public void expansionStateChanged(ExpansionEvent e) {

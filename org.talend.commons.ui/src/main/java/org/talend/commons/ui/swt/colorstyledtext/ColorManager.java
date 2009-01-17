@@ -61,35 +61,35 @@ public class ColorManager {
 
     public static final RGB DEFAULT_INVALID_COLOR = new RGB(178, 0, 34);
 
-    public static final String NULL_COLOR = "nullColor";
+    public static final String NULL_COLOR = "nullColor"; //$NON-NLS-1$
 
-    public static final String COMMENT1_COLOR = "comment1Color";
+    public static final String COMMENT1_COLOR = "comment1Color"; //$NON-NLS-1$
 
-    public static final String COMMENT2_COLOR = "comment2Color";
+    public static final String COMMENT2_COLOR = "comment2Color"; //$NON-NLS-1$
 
-    public static final String LITERAL1_COLOR = "literal1Color";
+    public static final String LITERAL1_COLOR = "literal1Color"; //$NON-NLS-1$
 
-    public static final String LITERAL2_COLOR = "literal2Color";
+    public static final String LITERAL2_COLOR = "literal2Color"; //$NON-NLS-1$
 
-    public static final String LABEL_COLOR = "labelColor";
+    public static final String LABEL_COLOR = "labelColor"; //$NON-NLS-1$
 
-    public static final String KEYWORD1_COLOR = "keyword1Color";
+    public static final String KEYWORD1_COLOR = "keyword1Color"; //$NON-NLS-1$
 
-    public static final String KEYWORD2_COLOR = "keyword2Color";
+    public static final String KEYWORD2_COLOR = "keyword2Color"; //$NON-NLS-1$
 
-    public static final String KEYWORD3_COLOR = "keyword3Color";
+    public static final String KEYWORD3_COLOR = "keyword3Color"; //$NON-NLS-1$
 
-    public static final String FUNCTION_COLOR = "functionColor";
+    public static final String FUNCTION_COLOR = "functionColor"; //$NON-NLS-1$
 
-    public static final String MARKUP_COLOR = "markupColor";
+    public static final String MARKUP_COLOR = "markupColor"; //$NON-NLS-1$
 
-    public static final String OPERATOR_COLOR = "operatorColor";
+    public static final String OPERATOR_COLOR = "operatorColor"; //$NON-NLS-1$
 
-    public static final String DIGIT_COLOR = "digitColor";
+    public static final String DIGIT_COLOR = "digitColor"; //$NON-NLS-1$
 
-    public static final String INVALID_COLOR = "invalidColor";
+    public static final String INVALID_COLOR = "invalidColor"; //$NON-NLS-1$
 
-    public static final String BOLD_SUFFIX = "Bold";
+    public static final String BOLD_SUFFIX = "Bold"; //$NON-NLS-1$
 
     private Map<String, Color> colorMap;
 

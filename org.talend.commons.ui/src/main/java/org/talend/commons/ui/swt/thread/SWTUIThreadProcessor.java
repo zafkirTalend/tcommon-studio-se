@@ -152,11 +152,11 @@ public abstract class SWTUIThreadProcessor {
             exception = e[0];
         }
 
-        String errorInfo = exception.getMessage() + "\n";
-        errorInfo = errorInfo + Messages.getString("FileStep2.previewFailure") + "\n";
+        String errorInfo = exception.getMessage() + "\n"; //$NON-NLS-1$
+        errorInfo = errorInfo + Messages.getString("FileStep2.previewFailure") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
         StackTraceElement[] stackTrace = exception.getStackTrace();
         for (StackTraceElement stackTraceElement : stackTrace) {
-            errorInfo = errorInfo + stackTraceElement.toString() + "\n";
+            errorInfo = errorInfo + stackTraceElement.toString() + "\n"; //$NON-NLS-1$
 
         }
         text.setText(errorInfo);

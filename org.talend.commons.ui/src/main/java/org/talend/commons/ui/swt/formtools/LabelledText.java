@@ -214,7 +214,7 @@ public class LabelledText {
         if (string != null) {
             text.setText(string);
         } else {
-            text.setText("");
+            text.setText(""); //$NON-NLS-1$
         }
     }
 
@@ -227,7 +227,7 @@ public class LabelledText {
         if (string != null) {
             label.setText(string);
         } else {
-            label.setText("");
+            label.setText(""); //$NON-NLS-1$
         }
     }
 
@@ -243,7 +243,7 @@ public class LabelledText {
     public void forceFocus() {
         setEditable(true);
         text.forceFocus();
-        if (!text.getText().equals("")) {
+        if (!text.getText().equals("")) { //$NON-NLS-1$
             text.setSelection(0, text.getText().length());
         }
     }

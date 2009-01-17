@@ -50,12 +50,12 @@ public class Modes {
 
     private Mode getModeForFilename(String filename) {
         if (filename == null) {
-            return getModeNamed("text.xml");
+            return getModeNamed("text.xml"); //$NON-NLS-1$
         }
         // check to see if it's already loaded
         String modeName = filenameToModeName(filename);
         if (modeName == null) {
-            return getModeNamed("text.xml");
+            return getModeNamed("text.xml"); //$NON-NLS-1$
         }
         return getModeNamed(modeName);
     }
@@ -92,7 +92,7 @@ public class Modes {
 
     protected void loadCatalog() {
         CatalogReader reader = new CatalogReader();
-        modeList = reader.read("modes/catalog");
+        modeList = reader.read("modes/catalog"); //$NON-NLS-1$
         for (int i = 0; i < modeList.length; i++) {
             Mode mode = modeList[i];
             modes.put(mode.getFilename(), mode);
@@ -125,12 +125,12 @@ public class Modes {
      * Answer the Rule set this delegate/rule resolves to. This may require loading more modes.
      */
     public static Rule resolveDelegate(Mode mode, String delegateName) {
-        int index = delegateName.indexOf("::");
+        int index = delegateName.indexOf("::"); //$NON-NLS-1$
         if (index == -1) {
             // Local delegate/rule set
             return mode.getRule(delegateName);
         }
-        Mode loadedMode = getMode(delegateName.substring(0, index) + ".xml");
+        Mode loadedMode = getMode(delegateName.substring(0, index) + ".xml"); //$NON-NLS-1$
         return loadedMode.getRule(delegateName.substring(index + 2));
     }
 

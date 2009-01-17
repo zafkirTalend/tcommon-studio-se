@@ -126,7 +126,7 @@ public class Mode {
      * @return Rule
      */
     public Rule getRule(String theName) {
-        int colonIndex = theName.indexOf("::");
+        int colonIndex = theName.indexOf("::"); //$NON-NLS-1$
         Rule localRule;
         if (colonIndex == -1) {
             localRule = (Rule) rules.get(theName);
@@ -174,7 +174,7 @@ public class Mode {
                 re = new RE(filename);
             }
             if (filenameGlob == null) {
-                re = new RE(filename + "$");
+                re = new RE(filename + "$"); //$NON-NLS-1$
                 return;
             }
             StringBuffer buf = new StringBuffer();
@@ -182,7 +182,7 @@ public class Mode {
                 char c = filenameGlob.charAt(i);
                 switch (c) {
                 case '*':
-                    buf.append(".*");
+                    buf.append(".*"); //$NON-NLS-1$
                     break;
                 case '{':
                     buf.append('(');
@@ -228,7 +228,7 @@ public class Mode {
     public void load() {
         isLoaded = true;
         ModeReader reader = new ModeReader(new ModeSyntaxListener());
-        reader.read("modes/" + filename);
+        reader.read("modes/" + filename); //$NON-NLS-1$
     }
 
     public boolean notLoaded() {

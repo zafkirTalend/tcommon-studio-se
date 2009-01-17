@@ -37,7 +37,7 @@ public final class TestFormtools {
     private TestFormtools() {
     }
 
-    private static final String WINDOWTITLE = "Test org.talend.commons.ui.swt.formtools";
+    private static final String WINDOWTITLE = "Test org.talend.commons.ui.swt.formtools"; //$NON-NLS-1$
 
     // private static Label statusLabel;
 
@@ -77,21 +77,21 @@ public final class TestFormtools {
 
         Composite composite1 = Form.startNewGridLayout(composite, 1);
 
-        Group group = Form.createGroup(composite1, 2, "Group Sample");
+        Group group = Form.createGroup(composite1, 2, "Group Sample"); //$NON-NLS-1$
         Composite compositeGroup = Form.startNewGridLayout(group, 2);
 
-        LabelledText nameText = new LabelledText(compositeGroup, "Name");
+        LabelledText nameText = new LabelledText(compositeGroup, "Name"); //$NON-NLS-1$
         nameText.setEditable(false);
 
-        String[] itemTable = { "option1", "option2" };
-        LabelledCombo tableCombo = new LabelledCombo(compositeGroup, "Table", "Aide � la saisie", itemTable);
+        String[] itemTable = { "option1", "option2" }; //$NON-NLS-1$ //$NON-NLS-2$
+        LabelledCombo tableCombo = new LabelledCombo(compositeGroup, "Table", "Aide � la saisie", itemTable); //$NON-NLS-1$ //$NON-NLS-2$
 
-        String[] extensions = { "*.mdb" };
-        LabelledFileField file = new LabelledFileField(compositeGroup, "Mdb File", extensions);
+        String[] extensions = { "*.mdb" }; //$NON-NLS-1$
+        LabelledFileField file = new LabelledFileField(compositeGroup, "Mdb File", extensions); //$NON-NLS-1$
 
         // Button Check
         Composite compositeCheckButton = Form.startNewGridLayout(composite1, 1, false, SWT.CENTER, SWT.CENTER);
-        UtilsButton checkButton = new UtilsButton(compositeCheckButton, "C&heck", false);
+        UtilsButton checkButton = new UtilsButton(compositeCheckButton, "C&heck", false); //$NON-NLS-1$
 
         shell.pack();
         shell.open();

@@ -171,7 +171,7 @@ public class UndoRedoManager {
         protected String replacedText = null;
 
         public UndoableOperation(IUndoContext context) {
-            super("Undo-Redo");
+            super("Undo-Redo"); //$NON-NLS-1$
 
             addContext(context);
         }

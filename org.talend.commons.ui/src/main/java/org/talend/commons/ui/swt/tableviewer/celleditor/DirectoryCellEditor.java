@@ -52,7 +52,7 @@ public class DirectoryCellEditor extends DialogCellEditor {
         DirectoryDialog dialog = new DirectoryDialog(cellEditorWindow.getShell());
         String path = dialog.open();
         if (path != null) {
-            path = path.replaceAll("\\\\", "/");
+            path = path.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return path;
     }

@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.talend.commons.ui.i18n.Messages;
 import org.talend.expressionbuilder.ICellEditorDialog;
 import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
 
@@ -91,7 +92,7 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
         buttonGD.heightHint = panel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
         Button button = new Button(panel, SWT.NONE);
         button.setLayoutData(buttonGD);
-        button.setText("...");
+        button.setText(Messages.getString("CellEditorDialogBehavior.textContent")); //$NON-NLS-1$
 
         button.addMouseListener(new MouseAdapter() {
 

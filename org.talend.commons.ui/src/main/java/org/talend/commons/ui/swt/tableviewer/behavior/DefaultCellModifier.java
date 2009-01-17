@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
@@ -101,7 +102,7 @@ public class DefaultCellModifier implements ICellModifier {
     @SuppressWarnings("unchecked")
     public void modify(Object tableItem, String idColumn, Object value) {
         if(((TableItem) tableItem).isDisposed()) {
-            log.warn("TableItem disposed", new Exception());
+            log.warn(Messages.getString("DefaultCellModifier.tableItemDispose"), new Exception()); //$NON-NLS-1$
             return;
         }
         Object bean = ((TableItem) tableItem).getData();

@@ -35,7 +35,7 @@ public class Mark extends Span {
     }
 
     public String getType() {
-        return super.getType() + "@" + text.length();
+        return super.getType() + "@" + text.length(); //$NON-NLS-1$
     }
 
 }

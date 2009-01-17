@@ -94,7 +94,7 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
     protected void beforeCommandExecution() {
 
         FileDialog dial = new FileDialog(getButton().getShell(), SWT.SAVE);
-        dial.setFilterExtensions(new String[] { "*.xml" });
+        dial.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
         String fileName = dial.open();
         if ((fileName != null) && (!fileName.equals(""))) { //$NON-NLS-1$
             this.file = new File(fileName);

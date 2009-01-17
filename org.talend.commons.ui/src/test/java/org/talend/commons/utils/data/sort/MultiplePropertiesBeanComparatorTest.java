@@ -49,32 +49,32 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
                     bean.setString2(String.valueOf(j));
                     bean.setString3(String.valueOf(k));
                     list.add(bean);
-                    listValidTest.add("" + i + j + k);
+                    listValidTest.add("" + i + j + k); //$NON-NLS-1$
 
                     bean = new Bean();
                     bean.setString1(String.valueOf(i));
                     bean.setString2(String.valueOf(k));
                     bean.setString3(String.valueOf(j));
                     list.add(bean);
-                    listValidTest.add("" + i + k + j);
+                    listValidTest.add("" + i + k + j); //$NON-NLS-1$
 
                     bean = new Bean();
                     bean.setString1(String.valueOf(k));
                     bean.setString2(String.valueOf(i));
                     bean.setString3(String.valueOf(j));
                     list.add(bean);
-                    listValidTest.add("" + k + i + j);
+                    listValidTest.add("" + k + i + j); //$NON-NLS-1$
 
                 }
             }
         }
         MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] {
-                "string1", "string2", "string3" });
+                "string1", "string2", "string3" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
         long time1 = System.currentTimeMillis();
         Collections.sort(list, comparator);
         long time2 = System.currentTimeMillis();
-        System.out.println("Time of execution:" + (time2 - time1));
+        System.out.println("Time of execution:" + (time2 - time1)); //$NON-NLS-1$
 
         Collections.sort(listValidTest);
 
@@ -98,7 +98,7 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
         //      
         // System.out.println(string +"|||||" + string2);
         // }
-        System.out.println(listValidTest.size() + " objects sorted by three properties");
+        System.out.println(listValidTest.size() + " objects sorted by three properties"); //$NON-NLS-1$
         assertTrue(CollectionUtils.isEqualCollection(listValidTest, listValidTest2));
 
     }
@@ -116,32 +116,32 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
                     bean.setString2(String.valueOf(j));
                     bean.setString3(String.valueOf(k));
                     list.add(bean);
-                    listValidTest.add("" + i + j + k);
+                    listValidTest.add("" + i + j + k); //$NON-NLS-1$
 
                     bean = new Bean();
                     bean.setString1(String.valueOf(i));
                     bean.setString2(String.valueOf(k));
                     bean.setString3(String.valueOf(j));
                     list.add(bean);
-                    listValidTest.add("" + i + k + j);
+                    listValidTest.add("" + i + k + j); //$NON-NLS-1$
 
                     bean = new Bean();
                     bean.setString1(String.valueOf(k));
                     bean.setString2(String.valueOf(i));
                     bean.setString3(String.valueOf(j));
                     list.add(bean);
-                    listValidTest.add("" + k + i + j);
+                    listValidTest.add("" + k + i + j); //$NON-NLS-1$
 
                 }
             }
         }
         MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true,
-                new String[] { "string1" });
+                new String[] { "string1" }); //$NON-NLS-1$
 
         long time1 = System.currentTimeMillis();
         Collections.sort(list, comparator);
         long time2 = System.currentTimeMillis();
-        System.out.println("Time of execution:" + (time2 - time1));
+        System.out.println("Time of execution:" + (time2 - time1)); //$NON-NLS-1$
 
         Collections.sort(listValidTest);
 
@@ -165,7 +165,7 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
         //      
         // System.out.println(string +"|||||" + string2);
         // }
-        System.out.println(listValidTest.size() + " objects sorted with by one property");
+        System.out.println(listValidTest.size() + " objects sorted with by one property"); //$NON-NLS-1$
         assertTrue(CollectionUtils.isEqualCollection(listValidTest, listValidTest2));
 
     }

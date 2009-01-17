@@ -46,7 +46,7 @@ public class TypedTextCommandExecutor {
 
     private static final int KEY_CODE_PROPOSAL = 27; // ' '
 
-    public static final String PARAMETER_NAME = "PARAMETER_NAME";
+    public static final String PARAMETER_NAME = "PARAMETER_NAME"; //$NON-NLS-1$
 
     private Key previousKey;
 
@@ -152,7 +152,7 @@ public class TypedTextCommandExecutor {
         matcher = new Perl5Matcher();
         patternAlphaNum = null;
         try {
-            patternAlphaNum = compiler.compile("\\w");
+            patternAlphaNum = compiler.compile("\\w"); //$NON-NLS-1$
         } catch (MalformedPatternException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -309,7 +309,7 @@ public class TypedTextCommandExecutor {
         }
     }
 
-    private static String previousText2 = "";
+    private static String previousText2 = ""; //$NON-NLS-1$
 
     public String getPreviousText2() {
         return previousText2;

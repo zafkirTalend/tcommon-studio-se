@@ -34,7 +34,7 @@ public class SelectContextVariablesPushButton extends ExtendedPushButton {
     }
 
     public SelectContextVariablesPushButton(Composite parent, AbstractExtendedTableViewer extendedViewer, Image image) {
-        super(parent, extendedViewer, Messages.getString("SelectContextVariablesPushButton.Label"), image);
+        super(parent, extendedViewer, Messages.getString("SelectContextVariablesPushButton.Label"), image); //$NON-NLS-1$
     }
 
     @Override

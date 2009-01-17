@@ -58,6 +58,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
@@ -214,7 +215,7 @@ public class ContentProposalAdapterExtended {
                                 if (activeShell == getShell() || (infoPopup != null && infoPopup.getShell() == activeShell)) {
                                     return;
                                 }
-                                System.out.println("close focusout");
+                                System.out.println(Messages.getString("ContentProposalAdapterExtended.closeFocusout")); //$NON-NLS-1$
                                 /*
                                  * System.out.println(e); System.out.println(e.display.getFocusControl());
                                  * System.out.println(e.display.getActiveShell());
@@ -233,7 +234,7 @@ public class ContentProposalAdapterExtended {
                     return;
                 }
 
-                System.out.println("close");
+                System.out.println(Messages.getString("ContentProposalAdapterExtended.close")); //$NON-NLS-1$
 
                 // For all other events, merely getting them dictates closure.
                 authorizedClose();
@@ -1189,7 +1190,7 @@ public class ContentProposalAdapterExtended {
 
                             Pattern pattern = null;
                             try {
-                                pattern = compiler.compile(".*\\W" + Perl5Compiler.quotemeta(currentFilter) + ".*",
+                                pattern = compiler.compile(".*\\W" + Perl5Compiler.quotemeta(currentFilter) + ".*", //$NON-NLS-1$ //$NON-NLS-2$
                                         Perl5Compiler.CASE_INSENSITIVE_MASK | Perl5Compiler.MULTILINE_MASK);
                             } catch (MalformedPatternException e) {
                                 ExceptionHandler.process(e);

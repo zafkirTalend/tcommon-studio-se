@@ -93,7 +93,7 @@ public final class ProposalUtils {
             IControlContentAdapter controlContentAdapter, IContentProposalProvider proposalProvider) {
         ContentProposalAdapterExtended contentProposalAdapter = null;
         try {
-            KeyStroke keyStroke = KeyStroke.getInstance("Ctrl+Space");
+            KeyStroke keyStroke = KeyStroke.getInstance("Ctrl+Space"); //$NON-NLS-1$
 
             contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter,
                     proposalProvider, keyStroke, null);
@@ -133,7 +133,7 @@ public final class ProposalUtils {
         IEvaluationContext evaluationContext = javaProject.newEvaluationContext();
 
         IClassFileEvaluationEngine classFileEvaluationEngine = EvaluationManager.newClassFileEvaluationEngine(
-                javaProject, null, new File(""));
+                javaProject, null, new File("")); //$NON-NLS-1$
 
         LocalEvaluationEngine localEvaluationEngine = (LocalEvaluationEngine) classFileEvaluationEngine;
 

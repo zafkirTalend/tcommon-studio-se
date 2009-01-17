@@ -98,8 +98,8 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * Filtering is not currently implemented, but you can add manually yours.
  * 
  * <p>
- * You can add CellEditor using <code>TableViewerCreatorColumn</code> and <code>setCellEditor()</code> method.
- * According case you will have to override certain methods of <code>CellEditorValueAdapter</code>.
+ * You can add CellEditor using <code>TableViewerCreatorColumn</code> and <code>setCellEditor()</code> method. According
+ * case you will have to override certain methods of <code>CellEditorValueAdapter</code>.
  * </p>
  * 
  * <p>
@@ -115,20 +115,20 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * 2) configure, the methods below are used to configure internally style of <code>Table</code> object, so if you want
  * use these methods call them before <code>createTable</code> : <br/>- <code>setLineSelection</code> <br/>-
  * <code>setShowSelection</code> <br/>- <code>setCheckboxInFirstColumn</code> <br/>- <code>setBorderVisible</code>
- * <br/>- <code>setHorizontalScroll</code> <br/>- <code>setVerticalScroll</code> <br/>-
- * <code>setHeaderVisible</code> <br/>- <code>setLinesVisible</code>
+ * <br/>- <code>setHorizontalScroll</code> <br/>- <code>setVerticalScroll</code> <br/>- <code>setHeaderVisible</code>
+ * <br/>- <code>setLinesVisible</code>
  * </p>
  * 
  * <p>
- * 3) optionally call <code>createTable</code> if you need initialize <code>Table</code>'s children components
- * before <code>init</code> call.
+ * 3) optionally call <code>createTable</code> if you need initialize <code>Table</code>'s children components before
+ * <code>init</code> call.
  * </p>
  * <p>
  * 4) create <code>TableViewerCreatorColumn</code> columns and configure them. <BR/>Description of the main parameters :
- * <BR/> - <code>beanPropertyName</code> represents the property of each object of your addedObjects which will be
- * read (and write). <BR/> - <code>idProperty</code> (optional) represents the <b>unique id</b> of the column, it is
- * by default the value of <code>beanPropertyName</code>. If the unicity is not respected, a assertion is thrown.
- * <BR/> - set a <code>width</code> or a <code>weight</code> value. <BR/> - see others parameters in
+ * <BR/> - <code>beanPropertyName</code> represents the property of each object of your addedObjects which will be read
+ * (and write). <BR/> - <code>idProperty</code> (optional) represents the <b>unique id</b> of the column, it is by
+ * default the value of <code>beanPropertyName</code>. If the unicity is not respected, a assertion is thrown. <BR/> -
+ * set a <code>width</code> or a <code>weight</code> value. <BR/> - see others parameters in
  * <code>TableViewerCreatorColumn</code>
  * </p>
  * <p>
@@ -154,7 +154,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private static Logger log = Logger.getLogger(TableViewerCreator.class);
 
-    private static final String ID_MASKED_COLUMN = "__MASKED_COLUMN__";
+    private static final String ID_MASKED_COLUMN = "__MASKED_COLUMN__"; //$NON-NLS-1$
 
     private final Composite compositeParent;
 
@@ -306,13 +306,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * 
      * <p>
-     * Create a new instance of <code>Table</code> with its <code>TableColumn</code> and create also a new instance
-     * of <code>TableViewer</code> if these objects doesn't exist already.
+     * Create a new instance of <code>Table</code> with its <code>TableColumn</code> and create also a new instance of
+     * <code>TableViewer</code> if these objects doesn't exist already.
      * </p>
      * 
      * <p>
-     * Initialize the <code>TableViewer</code> with by default the <code>DefaultStructuredContentProvider</code>,
-     * the <code>DefaultTableLabelProvider</code> and the <code>DefaultTableViewerSorter</code>.
+     * Initialize the <code>TableViewer</code> with by default the <code>DefaultStructuredContentProvider</code>, the
+     * <code>DefaultTableLabelProvider</code> and the <code>DefaultTableViewerSorter</code>.
      * </p>
      * 
      */
@@ -323,13 +323,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * 
      * <p>
-     * Create a new instance of <code>Table</code> with its <code>TableColumn</code>s and create also a new
-     * instance of <code>TableViewer</code> if these objects doesn't exist already.
+     * Create a new instance of <code>Table</code> with its <code>TableColumn</code>s and create also a new instance of
+     * <code>TableViewer</code> if these objects doesn't exist already.
      * </p>
      * 
      * <p>
-     * Initialize the <code>TableViewer</code> with by default the <code>DefaultStructuredContentProvider</code>,
-     * the <code>DefaultTableLabelProvider</code> and the <code>DefaultTableViewerSorter</code>.
+     * Initialize the <code>TableViewer</code> with by default the <code>DefaultStructuredContentProvider</code>, the
+     * <code>DefaultTableLabelProvider</code> and the <code>DefaultTableViewerSorter</code>.
      * </p>
      * 
      * <p>
@@ -398,8 +398,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     /**
      * 
-     * Instantiate the <code>Table</code> with the <code>compositeParent</code> as parent, with pre-configured
-     * styles and options.
+     * Instantiate the <code>Table</code> with the <code>compositeParent</code> as parent, with pre-configured styles
+     * and options.
      * 
      * @return
      */
@@ -1224,8 +1224,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             cellEditors[i] = column.getCellEditor();
 
             if (column.getCellEditor() != null && column.getBeanPropertyAccessors() == null) {
-                log.warn("The column '" + column.getId() + "' ('" + column.getTitle()
-                        + "') has a CellEditor set but does'nt have a IBeanPropertyAccessors !");
+                log.warn(Messages.getString("TableViewerCreator.columnNoIBeanProperty") //$NON-NLS-1$
+                        + column.getId() + column.getTitle());
             }
 
         }
@@ -1271,7 +1271,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     public void addColumn(TableViewerCreatorColumn tableEditorColumn) {
         String id = tableEditorColumn.getId();
         if (id == null) {
-            throw new IllegalArgumentException("Column '" + tableEditorColumn.getTitle() + "' has null id !");
+            throw new IllegalArgumentException(Messages.getString("TableViewerCreator.columnNullId") + tableEditorColumn.getTitle()); //$NON-NLS-1$
         }
         int columnsListSize = columns.size();
         boolean columnWithSameId = false;
@@ -1356,31 +1356,39 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     public enum LAYOUT_MODE {
         /**
          * Layout mode. Default layout based on <code>TableLayout</code> behavior :
-         * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
+         * <p>
+         * - Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
          */
         DEFAULT(),
 
         /**
          * Layout mode.
-         * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
+         * <p>
+         * - Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
-         * <p>- Fill all empty space at initialization
+         * <p>
+         * - Fill all empty space at initialization
          * </p>
-         * <p>- Change columns size dynamically when table is resized (only if weight is set in column)
+         * <p>
+         * - Change columns size dynamically when table is resized (only if weight is set in column)
          * </p>
          */
         CONTINUOUS,
 
         /**
          * Layout mode.
-         * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
+         * <p>
+         * - Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
-         * <p>- Fill all empty space at initialization
+         * <p>
+         * - Fill all empty space at initialization
          * </p>
-         * <p>- Change columns size dynamically when table is resized (only if weight is set in column)
+         * <p>
+         * - Change columns size dynamically when table is resized (only if weight is set in column)
          * </p>
-         * <p>- Fill empty space with last column when columns are resized
+         * <p>
+         * - Fill empty space with last column when columns are resized
          * </p>
          */
         FILL_HORIZONTAL,
@@ -1808,9 +1816,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * </p>
      * Warnings :
      * <ul>
-     * <li> automatic tooltip which appears when a cell is too small to display its content won't work. </li>
-     * <li> automatic tooltip behavior can't be found again if you unactive custom coloring due to Table._addListener()
-     * and Table.removeListener(). </li>
+     * <li>automatic tooltip which appears when a cell is too small to display its content won't work.</li>
+     * <li>automatic tooltip behavior can't be found again if you unactive custom coloring due to Table._addListener()
+     * and Table.removeListener().</li>
      * </ul>
      * 
      * @param useCustomColoring

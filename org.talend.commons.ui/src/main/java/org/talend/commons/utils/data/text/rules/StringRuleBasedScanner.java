@@ -200,7 +200,7 @@ public class StringRuleBasedScanner implements ICharacterScanner, IStringTokenSc
         fOffset = offset;
         fColumn = UNDEFINED;
         fRangeEnd = Math.min(text.length(), offset + length);
-        String[] delimiters = new String[] { "\n" };
+        String[] delimiters = new String[] { "\n" }; //$NON-NLS-1$
         fDelimiters = new char[delimiters.length][];
         for (int i = 0; i < delimiters.length; i++) {
             fDelimiters[i] = delimiters[i].toCharArray();

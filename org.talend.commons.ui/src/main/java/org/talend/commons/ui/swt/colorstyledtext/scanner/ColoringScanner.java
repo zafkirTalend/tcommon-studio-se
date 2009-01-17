@@ -41,33 +41,33 @@ import org.talend.commons.utils.data.text.rules.StringRuleBasedScanner;
  */
 public class ColoringScanner extends StringRuleBasedScanner {
 
-    public static final String NULL = "NULL";
+    public static final String NULL = "NULL"; //$NON-NLS-1$
 
-    public static final String COMMENT1 = "COMMENT1";
+    public static final String COMMENT1 = "COMMENT1"; //$NON-NLS-1$
 
-    public static final String COMMENT2 = "COMMENT2";
+    public static final String COMMENT2 = "COMMENT2"; //$NON-NLS-1$
 
-    public static final String LITERAL1 = "LITERAL1";
+    public static final String LITERAL1 = "LITERAL1"; //$NON-NLS-1$
 
-    public static final String LITERAL2 = "LITERAL2";
+    public static final String LITERAL2 = "LITERAL2"; //$NON-NLS-1$
 
-    public static final String LABEL = "LABEL";
+    public static final String LABEL = "LABEL"; //$NON-NLS-1$
 
-    public static final String KEYWORD1 = "KEYWORD1";
+    public static final String KEYWORD1 = "KEYWORD1"; //$NON-NLS-1$
 
-    public static final String KEYWORD2 = "KEYWORD2";
+    public static final String KEYWORD2 = "KEYWORD2"; //$NON-NLS-1$
 
-    public static final String KEYWORD3 = "KEYWORD3";
+    public static final String KEYWORD3 = "KEYWORD3"; //$NON-NLS-1$
 
-    public static final String FUNCTION = "FUNCTION";
+    public static final String FUNCTION = "FUNCTION"; //$NON-NLS-1$
 
-    public static final String MARKUP = "MARKUP";
+    public static final String MARKUP = "MARKUP"; //$NON-NLS-1$
 
-    public static final String OPERATOR = "OPERATOR";
+    public static final String OPERATOR = "OPERATOR"; //$NON-NLS-1$
 
-    public static final String DIGIT = "DIGIT";
+    public static final String DIGIT = "DIGIT"; //$NON-NLS-1$
 
-    public static final String INVALID = "INVALID";
+    public static final String INVALID = "INVALID"; //$NON-NLS-1$
 
     protected Mode mode;
 
@@ -136,19 +136,19 @@ public class ColoringScanner extends StringRuleBasedScanner {
         }
         CasedWordRule wordRule = new CasedWordRule(wordDetector, defaultToken, ruleSet.getKeywords().ignoreCase());
 
-        addKeywordRule(ruleSet, "COMMENT1", ColorManager.COMMENT1_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "COMMENT2", ColorManager.COMMENT2_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "LITERAL1", ColorManager.LITERAL1_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "LITERAL2", ColorManager.LITERAL2_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "LABEL", ColorManager.LABEL_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "KEYWORD1", ColorManager.KEYWORD1_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "KEYWORD2", ColorManager.KEYWORD2_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "KEYWORD3", ColorManager.KEYWORD3_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "FUNCTION", ColorManager.FUNCTION_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "MARKUP", ColorManager.MARKUP_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "OPERATOR", ColorManager.OPERATOR_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "DIGIT", ColorManager.DIGIT_COLOR, wordRule, wordDetector);
-        addKeywordRule(ruleSet, "INVALID", ColorManager.INVALID_COLOR, wordRule, wordDetector);
+        addKeywordRule(ruleSet, "COMMENT1", ColorManager.COMMENT1_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "COMMENT2", ColorManager.COMMENT2_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "LITERAL1", ColorManager.LITERAL1_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "LITERAL2", ColorManager.LITERAL2_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "LABEL", ColorManager.LABEL_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "KEYWORD1", ColorManager.KEYWORD1_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "KEYWORD2", ColorManager.KEYWORD2_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "KEYWORD3", ColorManager.KEYWORD3_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "FUNCTION", ColorManager.FUNCTION_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "MARKUP", ColorManager.MARKUP_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "OPERATOR", ColorManager.OPERATOR_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "DIGIT", ColorManager.DIGIT_COLOR, wordRule, wordDetector); //$NON-NLS-1$
+        addKeywordRule(ruleSet, "INVALID", ColorManager.INVALID_COLOR, wordRule, wordDetector); //$NON-NLS-1$
         rules.add(wordRule);
     }
 

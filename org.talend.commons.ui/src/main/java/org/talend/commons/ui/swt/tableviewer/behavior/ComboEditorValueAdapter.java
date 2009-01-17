@@ -40,7 +40,7 @@ public abstract class ComboEditorValueAdapter extends CellEditorValueAdapter {
         if (i >= 0) {
             return items[i];
         } else {
-            return "";
+            return ""; //$NON-NLS-1$
         }
     }
 

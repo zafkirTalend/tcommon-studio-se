@@ -46,27 +46,27 @@ public class SimpleHtmlFigure extends Figure {
 
     private static final int A_16 = 16;
 
-    private static final String TAG_BOLD_BEG = "<b>";
+    private static final String TAG_BOLD_BEG = "<b>"; //$NON-NLS-1$
 
-    private static final String TAG_BOLD_END = "</b>";
+    private static final String TAG_BOLD_END = "</b>"; //$NON-NLS-1$
 
-    private static final String TAG_ITALIC_BEG = "<i>";
+    private static final String TAG_ITALIC_BEG = "<i>"; //$NON-NLS-1$
 
-    private static final String TAG_ITALIC_END = "</i>";
+    private static final String TAG_ITALIC_END = "</i>"; //$NON-NLS-1$
 
-    private static final String TAG_COLOR_BEG_1 = "<font color='";
+    private static final String TAG_COLOR_BEG_1 = "<font color='"; //$NON-NLS-1$
 
-    private static final String TAG_COLOR_BEG_2 = "'>";
+    private static final String TAG_COLOR_BEG_2 = "'>"; //$NON-NLS-1$
 
-    private static final String TAG_COLOR_END = "</font>";
+    private static final String TAG_COLOR_END = "</font>"; //$NON-NLS-1$
 
-    private static final String TAG_BR = "<br>";
+    private static final String TAG_BR = "<br>"; //$NON-NLS-1$
 
     private int alpha = -1;
 
     private IFigure horizContainer;
 
-    private String text = "";
+    private String text = ""; //$NON-NLS-1$
 
     private static Font normalFont = null;
 
@@ -271,7 +271,7 @@ public class SimpleHtmlFigure extends Figure {
     }
 
     private Color getColor(final String colorCode) {
-        if (colorCode.startsWith("#") && (colorCode.length() == 7)) { // hexa code.
+        if (colorCode.startsWith("#") && (colorCode.length() == 7)) { // hexa code. //$NON-NLS-1$
             Color color;
             try {
                 int r = Integer.parseInt(colorCode.substring(1, 3), A_16);
@@ -284,8 +284,8 @@ public class SimpleHtmlFigure extends Figure {
             }
             return color;
         } else { // color name
-            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow",
-                    "blue", "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" };
+            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+                    "blue", "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
             int choosedColor = 0;
             for (int i = 0; i < colors.length; i++) {
                 if (colors[i].equalsIgnoreCase(colorCode)) {

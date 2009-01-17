@@ -17,6 +17,7 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.ui.i18n.Messages;
 
 /**
  * DOC yexiaowei class global comment. Detailled comment
@@ -33,7 +34,7 @@ public class ErrorDialogWithContinue extends ErrorDialog {
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
         // create OK and Details buttons
-        createButton(parent, IDialogConstants.OK_ID, "Set parameters and continue", true);// IDialogConstants.OK_LABEL
+        createButton(parent, IDialogConstants.OK_ID, Messages.getString("ErrorDialogWithContinue.setParameter"), true);// IDialogConstants.OK_LABEL //$NON-NLS-1$
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
         createDetailsButton(parent);
     }

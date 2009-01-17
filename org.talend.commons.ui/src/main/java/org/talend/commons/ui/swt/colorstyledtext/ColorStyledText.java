@@ -82,7 +82,7 @@ public class ColorStyledText extends StyledText {
         Menu popupMenu = new Menu(this);
 
         MenuItem redoItem = new MenuItem(popupMenu, SWT.PUSH);
-        redoItem.setText(Messages.getString("ColorStyledText.RedoItem.Text"));
+        redoItem.setText(Messages.getString("ColorStyledText.RedoItem.Text")); //$NON-NLS-1$
         redoItem.addListener(SWT.Selection, new Listener() {
 
             public void handleEvent(Event event) {
@@ -91,7 +91,7 @@ public class ColorStyledText extends StyledText {
         });
 
         MenuItem undoItem = new MenuItem(popupMenu, SWT.PUSH);
-        undoItem.setText(Messages.getString("ColorStyledText.UndoItem.Text"));
+        undoItem.setText(Messages.getString("ColorStyledText.UndoItem.Text")); //$NON-NLS-1$
         undoItem.addListener(SWT.Selection, new Listener() {
 
             public void handleEvent(Event event) {
@@ -145,7 +145,7 @@ public class ColorStyledText extends StyledText {
 
         addListener(SWT.KeyDown, selectAllListener);
 
-        Mode mode = Modes.getMode(languageMode + ".xml");
+        Mode mode = Modes.getMode(languageMode + ".xml"); //$NON-NLS-1$
         scanner = new ColoringScanner(mode, colorManager);
 
         addExtendedModifyListener(modifyListener);

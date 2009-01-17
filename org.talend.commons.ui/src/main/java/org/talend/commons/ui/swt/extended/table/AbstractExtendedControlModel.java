@@ -33,7 +33,7 @@ public abstract class AbstractExtendedControlModel {
         NAME_CHANGED,
     };
 
-    public static final String NAME_CHANGED = "NAME_CHANGED";
+    public static final String NAME_CHANGED = "NAME_CHANGED"; //$NON-NLS-1$
 
     /*
      * The list of listeners who wish to be notified when something significant happens.

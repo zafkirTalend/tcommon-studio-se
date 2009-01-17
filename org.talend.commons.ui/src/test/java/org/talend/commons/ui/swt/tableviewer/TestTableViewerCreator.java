@@ -62,7 +62,7 @@ public final class TestTableViewerCreator {
         final Shell shell1 = new Shell(display);
         shell1.setLayout(new GridLayout());
 
-        ImageDescriptor imageDescriptor = ImageDescriptor.createFromFile(TestTableViewerCreator.class, "error_tsk.gif");
+        ImageDescriptor imageDescriptor = ImageDescriptor.createFromFile(TestTableViewerCreator.class, "error_tsk.gif"); //$NON-NLS-1$
         final Image image = imageDescriptor.createImage();
 
         final TableViewerCreator<DataObject> tableViewerCreator = new TableViewerCreator<DataObject>(shell1);
@@ -115,7 +115,7 @@ public final class TestTableViewerCreator {
         table.setLayoutData(gridData);
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn<DataObject, String>(tableViewerCreator);
-        column.setTitle("Selection");
+        column.setTitle("Selection"); //$NON-NLS-1$
         column.setResizable(true);
         column.setModifiable(true);
         // column.setInitWeight(1);
@@ -141,7 +141,7 @@ public final class TestTableViewerCreator {
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         // TableViewerCreatorColumn nameColumn = column;
-        column.setTitle("Name");
+        column.setTitle("Name"); //$NON-NLS-1$
         column.setResizable(true);
         column.setModifiable(true);
         // column.setSortable(true);
@@ -168,7 +168,7 @@ public final class TestTableViewerCreator {
         });
 
         column = new TableViewerCreatorColumn<DataObject, Integer>(tableViewerCreator);
-        column.setTitle("Integer Null Value");
+        column.setTitle("Integer Null Value"); //$NON-NLS-1$
         column.setModifiable(true);
         column.setSortable(true);
         column.setResizable(true);
@@ -184,7 +184,7 @@ public final class TestTableViewerCreator {
 
         });
         column.setWidth(150);
-        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
+        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
 
             public String getColumnText(CellEditor cellEditor, Object bean, Object value) {
@@ -193,13 +193,13 @@ public final class TestTableViewerCreator {
                 if (index >= 0 && index < items.length) {
                     return items[index];
                 } else {
-                    return "";
+                    return ""; //$NON-NLS-1$
                 }
             }
         });
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Boolean");
+        column.setTitle("Boolean"); //$NON-NLS-1$
         column.setModifiable(false);
         column.setSortable(true);
         column.setResizable(true);
@@ -218,7 +218,7 @@ public final class TestTableViewerCreator {
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
         column = new TableViewerCreatorColumn<DataObject, Integer>(tableViewerCreator);
-        column.setTitle("Id");
+        column.setTitle("Id"); //$NON-NLS-1$
         column.setModifiable(false);
         column.setResizable(true);
         column.setSortable(true);
@@ -259,7 +259,7 @@ public final class TestTableViewerCreator {
         });
 
         column = new TableViewerCreatorColumn<DataObject, Integer>(tableViewerCreator);
-        column.setTitle("Id2");
+        column.setTitle("Id2"); //$NON-NLS-1$
         column.setModifiable(false);
         column.setResizable(true);
         column.setSortable(true);
@@ -268,8 +268,8 @@ public final class TestTableViewerCreator {
 
             public int compare(DataObject o1, DataObject o2) {
                 System.out.println();
-                System.out.println("o1" + o1);
-                System.out.println("o2" + o2);
+                System.out.println("o1" + o1); //$NON-NLS-1$
+                System.out.println("o2" + o2); //$NON-NLS-1$
                 return 0;
             }
 
@@ -295,7 +295,7 @@ public final class TestTableViewerCreator {
         });
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Boolean2");
+        column.setTitle("Boolean2"); //$NON-NLS-1$
         column.setModifiable(false);
         column.setSortable(true);
         column.setResizable(true);
@@ -372,7 +372,7 @@ public final class TestTableViewerCreator {
         // table.addListener(SWT.EraseItem, eraseItemListener);
 
         Button buttonSelection = new Button(shell1, SWT.PUSH);
-        buttonSelection.setText("buttonSelection");
+        buttonSelection.setText("buttonSelection"); //$NON-NLS-1$
         buttonSelection.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -387,7 +387,7 @@ public final class TestTableViewerCreator {
         });
 
         Button buttonHighlightRow = new Button(shell1, SWT.PUSH);
-        buttonHighlightRow.setText("buttonHighlightRow");
+        buttonHighlightRow.setText("buttonHighlightRow"); //$NON-NLS-1$
         buttonHighlightRow.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -405,7 +405,7 @@ public final class TestTableViewerCreator {
         });
 
         Button buttonHighlightCell = new Button(shell1, SWT.PUSH);
-        buttonHighlightCell.setText("buttonHighlightCell");
+        buttonHighlightCell.setText("buttonHighlightCell"); //$NON-NLS-1$
         buttonHighlightCell.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -424,7 +424,7 @@ public final class TestTableViewerCreator {
         });
 
         Button buttonHighlightMultipleCell = new Button(shell1, SWT.PUSH);
-        buttonHighlightMultipleCell.setText("buttonHighlightMultipleCell");
+        buttonHighlightMultipleCell.setText("buttonHighlightMultipleCell"); //$NON-NLS-1$
         buttonHighlightMultipleCell.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -445,7 +445,7 @@ public final class TestTableViewerCreator {
         });
 
         Button buttonBGTable = new Button(shell1, SWT.PUSH);
-        buttonBGTable.setText("buttonBGTable");
+        buttonBGTable.setText("buttonBGTable"); //$NON-NLS-1$
         buttonBGTable.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -461,7 +461,7 @@ public final class TestTableViewerCreator {
         });
 
         Button buttonClearTable = new Button(shell1, SWT.PUSH);
-        buttonClearTable.setText("buttonClearTable");
+        buttonClearTable.setText("buttonClearTable"); //$NON-NLS-1$
         buttonClearTable.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -477,7 +477,7 @@ public final class TestTableViewerCreator {
         });
 
         Button buttonWhiteTable = new Button(shell1, SWT.PUSH);
-        buttonWhiteTable.setText("buttonWhiteTable");
+        buttonWhiteTable.setText("buttonWhiteTable"); //$NON-NLS-1$
         buttonWhiteTable.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
