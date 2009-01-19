@@ -122,7 +122,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
 
     private String toValid(String newText) {
         if (newText.equals("") || !newText.matches(RepositoryConstants.CODE_ITEM_PATTERN)) {
-            return "the name should not empty!";
+            return "the name is not valid";
         }
         for (IContext context : getAllContexts()) {
             if (context.getName().equalsIgnoreCase(newText)) {
@@ -134,16 +134,12 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
 
     @Override
     public void createElement() {
+
         IInputValidator validator = new IInputValidator() {
 
             public String isValid(String newText) {
-                String str = null;
-                str = newText;
-
-                return toValid(str);
-
+                return toValid(newText);
             }
-
         };
 
         InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.6"), //$NON-NLS-1$
@@ -207,10 +203,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         IInputValidator validator = new IInputValidator() {
 
             public String isValid(String newText) {
-                String str = null;
-                str = newText;
-
-                return toValid(str);
+                return toValid(newText);
             }
         };
 
