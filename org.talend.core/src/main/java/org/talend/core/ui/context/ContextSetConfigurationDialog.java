@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -119,17 +120,38 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         return new ContextLabelProvider();
     }
 
+    private String toValid(String newText) {
+        if (newText.equals("") || !newText.matches(RepositoryConstants.CODE_ITEM_PATTERN)) {
+            return "the name should not empty!";
+        }
+        for (IContext context : getAllContexts()) {
+            if (context.getName().equalsIgnoreCase(newText)) {
+                return Messages.getString("ContextProcessSection.30");
+            }
+        }
+        return null;
+    }
+
     @Override
     public void createElement() {
+        IInputValidator validator = new IInputValidator() {
+
+            public String isValid(String newText) {
+                String str = null;
+                str = newText;
+
+                return toValid(str);
+
+            }
+
+        };
+
         InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.6"), //$NON-NLS-1$
-                Messages.getString("ContextProcessSection.7"), "", null); //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("ContextProcessSection.7"), "", validator); //$NON-NLS-1$ //$NON-NLS-2$
 
         inputDial.open();
         String returnValue = inputDial.getValue();
         if (returnValue == null) {
-            return;
-        }
-        if (!validateContextName(returnValue)) {
             return;
         }
         createContext(returnValue);
@@ -181,16 +203,24 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
 
     @Override
     protected void editSelectedElement() {
+
+        IInputValidator validator = new IInputValidator() {
+
+            public String isValid(String newText) {
+                String str = null;
+                str = newText;
+
+                return toValid(str);
+            }
+        };
+
         IContext selectedContext = (IContext) (getSelection()).getFirstElement();
         String contextName = selectedContext.getName();
         InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.12"), //$NON-NLS-1$
-                Messages.getString("ContextProcessSection.13", contextName), "", null); //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("ContextProcessSection.13", contextName), "", validator); //$NON-NLS-1$ //$NON-NLS-2$
         inputDial.open();
         String returnValue = inputDial.getValue();
         if (returnValue == null) {
-            return;
-        }
-        if (!validateContextName(returnValue)) {
             return;
         }
         if (manager.getProcess() != null && manager.getProcess().getLastRunContext() != null
