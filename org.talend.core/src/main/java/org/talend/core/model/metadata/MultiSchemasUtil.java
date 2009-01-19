@@ -12,6 +12,15 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.types.JavaType;
+import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.PerlTypesManager;
+
 /**
  * cLi class global comment. Detailled comment
  */
@@ -26,5 +35,58 @@ public final class MultiSchemasUtil {
         }
 
         return "row" + space + base; //$NON-NLS-1$
+    }
+
+    public static String validateValue(String value) {
+        if (value == null) {
+            value = "";
+        }
+        return value;
+    }
+
+    public static int getTalendTypeIndex(String talendType) {
+        if (talendType == null || "".equals(talendType)) {
+            return 0;
+        } else {
+            List<String> types = null;
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                talendType = JavaTypesManager.getJavaTypeFromId(talendType).getLabel();
+                types = Arrays.asList(JavaTypesManager.getJavaTypesLabels());
+            } else { // perl
+                types = Arrays.asList(PerlTypesManager.getPerlTypes());
+            }
+            return types.indexOf(talendType);
+        }
+    }
+
+    public static String getAndCheckIntgerValue(Integer value) {
+        if (value != null) {
+            return value.toString();
+        } else {
+            return "";
+        }
+    }
+
+    public static String getTalendTypeByIndex(Integer index) {
+        if (index > -1) {
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                final JavaType javaType = JavaTypesManager.getJavaTypes()[index];
+                return javaType.getId();
+            } else {
+                final String perlType = PerlTypesManager.getPerlTypes()[index];
+                return perlType; // perl
+            }
+        }
+        return null;
+    }
+
+    public static String[] getTalendTypeLabel() {
+        String[] typeLabels = null;
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            typeLabels = JavaTypesManager.getJavaTypesLabels();
+        } else {
+            typeLabels = PerlTypesManager.getPerlTypes();
+        }
+        return typeLabels;
     }
 }
