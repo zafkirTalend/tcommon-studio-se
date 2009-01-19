@@ -18,6 +18,10 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
+import org.talend.designer.runprocess.JobInfo;
 
 /**
  * Management of deletion and protection on resource of jobs.
@@ -143,5 +147,20 @@ public class JobResourceManager {
         for (String id : ids) {
             protectedJobs.remove(id);
         }
+    }
+
+    /**
+     * 
+     * DOC achen Comment method "getJobResource".
+     * 
+     * @param jobInfo
+     * @return
+     */
+    public JobResource getJobResource(JobInfo jobInfo) {
+        String projectName = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLabel();
+        String currentJobId = "talend_editor_" + projectName + "_" + jobInfo.getJobName() //$NON-NLS-1$ //$NON-NLS-2$
+                + "_" + jobInfo.getJobVersion(); //$NON-NLS-1$
+        return protectedJobs.get(currentJobId);
     }
 }
